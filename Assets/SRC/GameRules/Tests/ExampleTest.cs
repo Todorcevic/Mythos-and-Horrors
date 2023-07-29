@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class Example
+public class ExampleTest
 {
     // A Test behaves as an ordinary method
     [Test]
