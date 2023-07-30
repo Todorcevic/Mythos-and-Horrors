@@ -1,6 +1,6 @@
 {
     "name": "Tests-GameView",
-    "rootNamespace": "",
+    "rootNamespace": "GameView.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

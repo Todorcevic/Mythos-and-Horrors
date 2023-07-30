@@ -1,6 +1,6 @@
 {
     "name": "Tests-GameRules",
-    "rootNamespace": "",
+    "rootNamespace": "GameRules.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

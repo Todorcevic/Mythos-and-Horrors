@@ -2,7 +2,7 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-namespace GameRules.Tests
+namespace GameView.Tests
 {
     public class ExampleTest
     {
@@ -10,7 +10,6 @@ namespace GameRules.Tests
         [Test]
         public void ExampleSimplePasses()
         {
-            new GameRulesVoid();
             // Use the Assert class to test conditions
         }
 

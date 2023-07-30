@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameView
 {
-    public class VoidTest : MonoBehaviour
+    public class GameViewVoid : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
