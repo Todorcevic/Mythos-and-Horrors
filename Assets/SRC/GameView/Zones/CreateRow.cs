@@ -1,15 +1,15 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace GameView
 {
-    public class CreateDeck : MonoBehaviour
+    public class CreateRow : MonoBehaviour
     {
         [OnValueChanged("PosicionateCards")]
-        [SerializeField] float cardThickness = 0.002f;
+        [SerializeField] float cardSeparator = 0.002f;
 
         List<CardView> allCards;
 
@@ -17,11 +17,13 @@ namespace GameView
         {
             allCards = GetComponentsInChildren<CardView>().ToList();
             ResetPosition();
+            float xOffset = 0f;
             float yOffset = 0f;
             foreach (CardView card in allCards)
-            {          
-                card.transform.position += new Vector3(0, yOffset, 0);
-                yOffset += cardThickness;
+            {    
+                card.transform.position += new Vector3(xOffset, yOffset, 0);
+                xOffset += cardSeparator;
+                yOffset += ViewValues.CARD_THICKNESS;
             }
         }
 
