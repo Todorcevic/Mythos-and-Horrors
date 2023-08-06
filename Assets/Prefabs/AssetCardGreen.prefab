@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5377548819005049730}
   - component: {fileID: 5453716948963857331}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AssetCardGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2343666111043170682}
   - {fileID: 3171300268942186069}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -61, y: 0, z: 0}
 --- !u!114 &5453716948963857331
 MonoBehaviour:
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7001659638210076226}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Holders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5694898947919150447}
   - component: {fileID: 7143942130687357127}
   - component: {fileID: 882146211817772951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 8331280581162063784}
   - component: {fileID: 3108190360761407125}
   - component: {fileID: 8904888430563915261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2343666111043170682}
   - component: {fileID: 8635364246388888114}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5726464841445595296}
   - component: {fileID: 3767571990747217671}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CARD-FRONT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 2785159579330774975}
   - component: {fileID: 6512422977733545717}
   - component: {fileID: 7557056400142785022}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3171300268942186069}
   - component: {fileID: 3219989064158270662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CARD-BACK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,7 +862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3304126105263199710}
   - component: {fileID: 3795382553671724879}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -948,7 +948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7763043177052558782}
   - component: {fileID: 4593724698599881890}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8560638090505694440}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 839299357034075717}
   - component: {fileID: 8791504217336918008}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1150,7 +1150,7 @@ GameObject:
   - component: {fileID: 2471297912931590187}
   - component: {fileID: 8556685529826916656}
   - component: {fileID: 5719660120610395263}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6907487986824598680}
   - component: {fileID: 6246346640527901514}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1404,7 +1404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2582316817396195461}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
