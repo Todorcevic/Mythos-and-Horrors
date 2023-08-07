@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9042d37ecb4194c4b81211299f09e953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: 
 --- !u!114 &8811774599659767288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +59,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: -2864699116272290008}
-  _identifier: 
+  _identifier: Zone
+  _identifierWithName: 1
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0

@@ -1,21 +1,21 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameView
 {
     public class ZoneView : MonoBehaviour
     {
-        private readonly List<CardView> _allCards = new();
+        private List<CardView> AllCards => GetComponentsInChildren<CardView>().ToList();
 
         /*******************************************************************/
         public void MoveCard(CardView card)
         {
-            card.transform.DOMove(transform.position, 0.5f);
-            card.transform.DORotate(transform.eulerAngles, 0.5f);
-            card.transform.DOScale(transform.localScale, 0.5f);
-
-            _allCards.Add(card);
+            card.transform.SetParent(transform);
+            card.transform.DOMove(transform.position, ViewValues.SLOW_TIME_ANIMATION);
+            card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION);
+            card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION);
         }
     }
 }

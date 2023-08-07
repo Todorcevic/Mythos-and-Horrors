@@ -6,7 +6,7 @@ using Zenject;
 
 namespace GameView
 {
-    public class CardFactory : MonoBehaviour
+    public class CardsFactory : MonoBehaviour
     {
         [SerializeField, Required, AssetsOnly] private CardView _assetPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _encounterPrefab;
@@ -18,7 +18,7 @@ namespace GameView
         /*******************************************************************/
         public void CreateCard()
         {
-            CardView cardInstantiated = Instantiate(_assetPrefab);
+            CardView cardInstantiated = Instantiate(_assetPrefab, transform);
 
             _cardsManager.AddCard(cardInstantiated);
         }
