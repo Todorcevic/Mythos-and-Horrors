@@ -13,6 +13,7 @@ namespace GameView
 
         List<CardView> allCards;
 
+        /*******************************************************************/
         private void PosicionateCards()
         {
             allCards = GetComponentsInChildren<CardView>().ToList();
