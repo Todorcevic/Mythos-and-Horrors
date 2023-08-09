@@ -1,6 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -16,11 +14,11 @@ namespace GameView
         [Inject] private readonly CardsManager _cardsManager;
 
         /*******************************************************************/
-        public void CreateCard()
+        public CardView CreateCard()
         {
             CardView cardInstantiated = Instantiate(_assetPrefab, transform);
-
             _cardsManager.AddCard(cardInstantiated);
+            return cardInstantiated;
         }
 
     }

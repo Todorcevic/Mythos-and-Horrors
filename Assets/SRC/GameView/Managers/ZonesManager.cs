@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 namespace GameView
@@ -17,6 +16,7 @@ namespace GameView
         [Inject(Id = "PayRow")] public ZoneView PayRow { get; private set; }
         [Inject(Id = "AssetsDeck")] public ZoneView AssetsDeck { get; private set; }
         [Inject(Id = "AssetsDiscard")] public ZoneView AssetsDiscard { get; private set; }
+        [Inject(Id = "FrontCamera")] public ZoneView FrontCamera { get; private set; }
 
         /*******************************************************************/
     }

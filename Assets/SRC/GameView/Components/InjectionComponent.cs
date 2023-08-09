@@ -2,7 +2,7 @@ using Zenject;
 
 namespace GameView
 {
-    public class InjectionContainer : MonoInstaller
+    public class InjectionComponent : MonoInstaller
     {
         private string AssamblyName => GetType().Namespace;
 

@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -10,11 +12,22 @@ namespace GameView
         [Inject] private readonly ZonesManager _zonesManager;
 
         /*******************************************************************/
-        private void Start()
+        private async void Start()
         {
-            _cardFactory.CreateCard();
-            CardView card = _cardsManager.GetCard(0);
-            _zonesManager.Investigator.MoveCard(card);
+            for (int i = 0; i < 30; i++)
+            {
+                CardView card = _cardFactory.CreateCard();
+
+                await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();
+                _zonesManager.AssetsDeck.MoveCard(card);
+            }
+
+            for (int i = 0; i < 30; i++)
+            {
+                CardView card = _cardFactory.CreateCard();
+
+                await _zonesManager.AssetsDiscard.MoveCard(card).AsyncWaitForCompletion();
+            }
         }
     }
 }
