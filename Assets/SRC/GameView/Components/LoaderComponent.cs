@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +7,6 @@ namespace GameView
     public class LoaderComponent : MonoBehaviour
     {
         [Inject] private readonly CardsFactory _cardFactory;
-        [Inject] private readonly CardsManager _cardsManager;
         [Inject] private readonly ZonesManager _zonesManager;
 
         /*******************************************************************/

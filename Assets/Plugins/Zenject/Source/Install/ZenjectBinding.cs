@@ -8,6 +8,14 @@ namespace Zenject
 {
     public class ZenjectBinding : MonoBehaviour
     {
+        public enum BindTypes
+        {
+            Self,
+            AllInterfaces,
+            AllInterfacesAndSelf,
+            BaseType
+        }
+
         private string _tempIdentifier;
 
         [Tooltip("The component to add to the Zenject container")]
@@ -61,19 +69,14 @@ namespace Zenject
             get { return _bindType; }
         }
 
+        /*******************************************************************/
         public void Start()
         {
             // Define this method so we expose the enabled check box
         }
 
-        public enum BindTypes
-        {
-            Self,
-            AllInterfaces,
-            AllInterfacesAndSelf,
-            BaseType
-        }
 
+        /*******************************************************************/
         private void IdentifiedChange()
         {
             if (_identifierWithName)
