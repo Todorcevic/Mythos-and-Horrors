@@ -1,10 +1,9 @@
 using DG.Tweening;
 using System.Linq;
-using UnityEngine;
 
 namespace GameView
 {
-    public class ZoneBasicView : ZoneBase
+    public class ZoneBasicView : ZoneView
     {
         public override Tween MoveCard(CardView card)
         {
