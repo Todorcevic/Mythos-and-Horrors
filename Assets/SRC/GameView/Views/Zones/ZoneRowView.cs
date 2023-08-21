@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameView
 {
-    public class ZoneRowView : ZoneBase
+    public class ZoneRowView : ZoneView
     {
         /*******************************************************************/
         public override Tween MoveCard(CardView card)

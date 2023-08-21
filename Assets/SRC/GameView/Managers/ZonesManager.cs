@@ -1,3 +1,4 @@
+using GameRules;
 using System.Collections.Generic;
 using Zenject;
 
@@ -5,8 +6,6 @@ namespace GameView
 {
     public class ZonesManager
     {
-        [Inject] private readonly List<ZoneBase> _allZones;
-
         [Inject(Id = "Investigator")] public ZoneBasicView Investigator { get; private set; }
         [Inject(Id = "LocationsDeck")] public ZoneDeckView LocationsDeck { get; private set; }
         [Inject(Id = "LocationsDiscard")] public ZoneDeckView LocationsDiscard { get; private set; }
@@ -17,7 +16,22 @@ namespace GameView
         [Inject(Id = "AssetsDeck")] public ZoneDeckView AssetsDeck { get; private set; }
         [Inject(Id = "AssetsDiscard")] public ZoneDeckView AssetsDiscard { get; private set; }
         [Inject(Id = "FrontCamera")] public ZoneBasicView FrontCamera { get; private set; }
+        [Inject(Id = "OutGame")] public ZoneDeckView OutGame { get; private set; }
 
         /*******************************************************************/
+        public ZoneView Get(ZoneType zone) => zone switch
+        {
+            ZoneType.Location => Location,
+            ZoneType.LocationDeck => LocationsDeck,
+            ZoneType.LocationDiscard => LocationsDiscard,
+            ZoneType.AssetsDeck => AssetsDeck,
+            ZoneType.AssetsDiscard => AssetsDiscard,
+            ZoneType.Investigator => Investigator,
+            ZoneType.Rewards => Rewards,
+            ZoneType.FreeRow => FreeRow,
+            ZoneType.PayRow => PayRow,
+            ZoneType.OutGame => OutGame,
+            _ => null,
+        };
     }
 }

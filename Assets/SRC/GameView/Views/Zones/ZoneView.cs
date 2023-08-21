@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameView
 {
-    public abstract class ZoneBase : MonoBehaviour
+    public abstract class ZoneView : MonoBehaviour
     {
         protected List<CardView> AllCards => GetComponentsInChildren<CardView>().ToList();
         protected float YOffSet => AllCards.Count * ViewValues.CARD_THICKNESS;

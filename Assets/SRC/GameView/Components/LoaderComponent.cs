@@ -1,4 +1,4 @@
-using DG.Tweening;
+using GameRules;
 using UnityEngine;
 using Zenject;
 
@@ -6,26 +6,18 @@ namespace GameView
 {
     public class LoaderComponent : MonoBehaviour
     {
-        [Inject] private readonly CardsFactory _cardFactory;
-        [Inject] private readonly ZonesManager _zonesManager;
+        [Inject] private readonly InitializeGameUseCase _initializeGameUseCase;
+        [Inject] private readonly MoveCardAction _moveCardAction;
+        [Inject] private readonly CardRepository _cardRepository;
+        [Inject] private readonly ZoneRepository _zoneRepository;
 
         /*******************************************************************/
-        private async void Start()
+        private void Start()
         {
-            for (int i = 0; i < 30; i++)
-            {
-                CardView card = _cardFactory.CreateCard();
+            _initializeGameUseCase.Execute();
 
-                await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();
-                _zonesManager.AssetsDeck.MoveCard(card);
-            }
-
-            for (int i = 0; i < 30; i++)
-            {
-                CardView card = _cardFactory.CreateCard();
-
-                await _zonesManager.AssetsDiscard.MoveCard(card).AsyncWaitForCompletion();
-            }
+            _moveCardAction.Set(_cardRepository.GetCard("1"), _zoneRepository.GetZone(ZoneType.AssetsDeck));
+            _moveCardAction.Execute();
         }
     }
 }
