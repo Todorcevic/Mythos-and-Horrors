@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GameView
 {
-    public class CardMovePresenter : ICardMovePresenter
+    public class CardMovePresenter : ICardMover
     {
         [Inject] private readonly ZonesManager _zonesManager;
         [Inject] private readonly CardsManager _cardsManager;

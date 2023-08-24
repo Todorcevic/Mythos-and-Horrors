@@ -2,7 +2,7 @@
 
 namespace GameRules
 {
-    public interface ICardMovePresenter
+    public interface ICardMover
     {
         void FastMoveCardToZone(string cardId, ZoneType gameZone);
         Task MoveCardToZone(string cardId, ZoneType gameZone);

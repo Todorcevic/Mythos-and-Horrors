@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -5,26 +6,33 @@ namespace GameRules
 {
     public abstract class GameAction
     {
-        [Inject] protected readonly GameActionRepository _gameActionRepository;
+        [Inject] private readonly List<IStartReactionable> _startReactionables;
+        [Inject] private readonly List<IEndReactionable> _endReactionables;
 
         /*******************************************************************/
         public async Task Run()
         {
-            AtStart();
-            await Execute();
-            AtEnd();
+            await AtTheBeginning();
+            await ExecuteThisLogic();
+            await AtTheEnd();
         }
 
-        private void AtStart()
+        private async Task AtTheBeginning()
         {
-
+            foreach (IStartReactionable reaction in _startReactionables)
+            {
+                await reaction.WhenBegin(this);
+            }
         }
 
-        private void AtEnd()
+        private async Task AtTheEnd()
         {
-
+            foreach (IEndReactionable reaction in _endReactionables)
+            {
+                await reaction.WhenFinish(this);
+            }
         }
 
-        protected abstract Task Execute();
+        protected abstract Task ExecuteThisLogic();
     }
 }
