@@ -6,7 +6,7 @@ using Zenject;
 
 namespace GameView
 {
-    public class CardFactoryComponent : MonoBehaviour, ICardFactory
+    public class CardGeneratorComponent : MonoBehaviour, ICardGenerator
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardsManager _cardsManager;

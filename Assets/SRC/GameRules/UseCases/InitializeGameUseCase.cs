@@ -4,14 +4,14 @@ namespace GameRules
 {
     public class InitializeGameUseCase
     {
-        [Inject] private readonly ZoneRepository _zoneRepository;
-        [Inject] private readonly CardRepository _cardRepository;
-        [Inject] private readonly ICardFactory _cardFactory;
+        [Inject] private readonly ZoneFactory _zoneFactory;
+        [Inject] private readonly CardFactory _cardFactory2;
+        [Inject] private readonly ICardGenerator _cardFactory;
 
         public void Execute()
         {
-            _zoneRepository.CreateZones();
-            _cardRepository.CreateCards();
+            _zoneFactory.CreateZones();
+            _cardFactory2.CreateCards();
             _cardFactory.BuildCards();
         }
     }

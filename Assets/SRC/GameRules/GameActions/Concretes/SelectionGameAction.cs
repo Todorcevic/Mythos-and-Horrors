@@ -6,7 +6,7 @@ namespace GameRules
     public class SelectionGameAction : GameAction
     {
         [Inject] private readonly IGameActionSelecter _gameActionSelecter;
-        [Inject] private readonly GameActionRepository _gameActionRepository;
+        [Inject] private readonly GameActionFactory _gameActionRepository;
         private GameAction[] _gameActions;
 
         /*******************************************************************/

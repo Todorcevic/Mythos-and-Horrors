@@ -5,7 +5,7 @@ namespace GameRules
 {
     public class Card00001 : Card, IStartReactionable, IEndReactionable
     {
-        [Inject] private readonly GameActionRepository _gameActionRepository;
+        [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardRepository _cardRepository;
         [Inject] private readonly ZoneRepository _zoneRepository;
 

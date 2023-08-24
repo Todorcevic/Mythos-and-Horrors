@@ -3,10 +3,10 @@ using Zenject;
 
 namespace GameRules
 {
-    public class GameActionRepository
+    public class GameActionFactory
     {
         [Inject] private readonly DiContainer _container;
-        private List<GameAction> _actions = new();
+        private readonly List<GameAction> _actions = new();
 
         /*******************************************************************/
         public T Create<T>() where T : GameAction

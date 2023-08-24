@@ -1,6 +1,6 @@
 ﻿namespace GameRules
 {
-    public interface ICardFactory
+    public interface ICardGenerator
     {
         void BuildCards();
     }

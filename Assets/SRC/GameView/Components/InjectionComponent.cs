@@ -30,6 +30,10 @@ namespace GameView
             /*** Repositories ***/
             Container.Bind(x => x.AllNonAbstractClasses()
            .InNamespace(GameRulesAssamblyName).WithSuffix("Repository")).AsSingle();
+
+            /*** Factories ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+           .InNamespace(GameRulesAssamblyName).WithSuffix("Factory")).AsSingle();
         }
     }
 }

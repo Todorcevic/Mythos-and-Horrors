@@ -7,7 +7,7 @@ namespace GameView
     public class LoaderComponent : MonoBehaviour
     {
         [Inject] private readonly InitializeGameUseCase _initializeGameUseCase;
-        [Inject] private readonly GameActionRepository _gameActionRepository;
+        [Inject] private readonly GameActionFactory _gameActionRepository;
 
         /*******************************************************************/
         private async void Start()
