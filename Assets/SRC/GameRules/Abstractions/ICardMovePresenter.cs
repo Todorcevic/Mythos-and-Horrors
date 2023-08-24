@@ -1,8 +1,12 @@
-﻿namespace GameRules
+﻿using System.Threading.Tasks;
+
+namespace GameRules
 {
     public interface ICardMovePresenter
     {
-        void MoveCardToZone(string cardId, ZoneType gameZone);
-        void MoveCardToZoneWithPreview(string cardId, ZoneType gameZone);
+        void FastMoveCardToZone(string cardId, ZoneType gameZone);
+        Task MoveCardToZone(string cardId, ZoneType gameZone);
+        Task MoveCardToZoneWithPreview(string cardId, ZoneType gameZone);
+        Task FastMoveCardToZoneWithPreview(string cardId, ZoneType gameZone);
     }
 }

@@ -1,6 +1,7 @@
 using GameRules;
 using Zenject;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace GameView
 {
@@ -10,13 +11,26 @@ namespace GameView
         [Inject] private readonly CardsManager _cardsManager;
 
         /*******************************************************************/
-        public void MoveCardToZone(string cardId, ZoneType gameZone)
+        public void FastMoveCardToZone(string cardId, ZoneType gameZone)
         {
             (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
             zone.MoveCard(card);
         }
 
-        public async void MoveCardToZoneWithPreview(string cardId, ZoneType gameZone)
+        public async Task MoveCardToZone(string cardId, ZoneType gameZone)
+        {
+            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
+            await zone.MoveCard(card).AsyncWaitForCompletion();
+        }
+
+        public async Task MoveCardToZoneWithPreview(string cardId, ZoneType gameZone)
+        {
+            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
+            await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();
+            await zone.MoveCard(card).AsyncWaitForCompletion();
+        }
+
+        public async Task FastMoveCardToZoneWithPreview(string cardId, ZoneType gameZone)
         {
             (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
             await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();

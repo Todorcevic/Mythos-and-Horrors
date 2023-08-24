@@ -1,15 +1,30 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace GameRules
 {
     public abstract class GameAction
     {
-        //[Inject] private static readonly DiContainer diContainer;
-        protected readonly Queue<GameAction> gameActions = new();
+        [Inject] protected readonly GameActionRepository _gameActionRepository;
 
         /*******************************************************************/
-        //public static GameAction GiveMe<T>() where T : GameAction => diContainer.Instantiate<T>();
+        public async Task Run()
+        {
+            AtStart();
+            await Execute();
+            AtEnd();
+        }
 
+        private void AtStart()
+        {
+
+        }
+
+        private void AtEnd()
+        {
+
+        }
+
+        protected abstract Task Execute();
     }
 }

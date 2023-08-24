@@ -7,17 +7,13 @@ namespace GameView
     public class LoaderComponent : MonoBehaviour
     {
         [Inject] private readonly InitializeGameUseCase _initializeGameUseCase;
-        [Inject] private readonly MoveCardAction _moveCardAction;
-        [Inject] private readonly CardRepository _cardRepository;
-        [Inject] private readonly ZoneRepository _zoneRepository;
+        [Inject] private readonly GameActionRepository _gameActionRepository;
 
         /*******************************************************************/
-        private void Start()
+        private async void Start()
         {
             _initializeGameUseCase.Execute();
-
-            _moveCardAction.Set(_cardRepository.GetCard("1"), _zoneRepository.GetZone(ZoneType.AssetsDeck));
-            _moveCardAction.Execute();
+            await _gameActionRepository.GiveMe<StartGameAction>().Run();
         }
     }
 }
