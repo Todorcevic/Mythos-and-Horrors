@@ -13,7 +13,7 @@ namespace GameView
         private async void Start()
         {
             _initializeGameUseCase.Execute();
-            await _gameActionRepository.Create<StartGameAction>().Run();
+            await _gameActionRepository.Create<StartGameAction>().Start();
         }
     }
 }

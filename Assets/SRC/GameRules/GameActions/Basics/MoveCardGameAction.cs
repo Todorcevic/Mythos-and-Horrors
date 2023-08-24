@@ -12,12 +12,12 @@ namespace GameRules
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
-        public MoveCardGameAction Set(Card card, Zone zone, CardMovementType cardMovementType = CardMovementType.Basic)
+        public async Task Start(MoveCardDTO moveCardDTO)
         {
-            Card = card;
-            Zone = zone;
-            _cardMovementType = cardMovementType;
-            return this;
+            Card = moveCardDTO.Card;
+            Zone = moveCardDTO.Zone;
+            _cardMovementType = moveCardDTO.MovementType;
+            await Run();
         }
 
         /*******************************************************************/

@@ -10,17 +10,17 @@ namespace GameRules
         private GameAction[] _gameActions;
 
         /*******************************************************************/
-        public SelectionGameAction Set(params GameAction[] gameActions)
+        public async Task Start(params GameAction[] gameActions)
         {
             _gameActions = gameActions;
-            return this;
+            await Run();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionSelecter.ShowThisActions(_gameActions);
-            await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
+            await _gameActionRepository.Create<WaitingForSelectionGameAction>().Start();
         }
     }
 }

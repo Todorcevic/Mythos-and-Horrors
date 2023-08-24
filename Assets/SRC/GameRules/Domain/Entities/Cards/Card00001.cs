@@ -12,18 +12,22 @@ namespace GameRules
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
         {
-            await _gameActionRepository.Create<MoveCardGameAction>()
-                   .Set(_cardRepository.GetCard("3"), _zoneRepository.GetZone(ZoneType.FreeRow), CardMovementType.BasicWithPreview)
-                   .Run();
+            MoveCardDTO moveCardDTO = new(
+                _cardRepository.GetCard("3"),
+                _zoneRepository.GetZone(ZoneType.FreeRow),
+                CardMovementType.BasicWithPreview);
+            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
         }
 
         public async Task WhenFinish(GameAction gameAction)
         {
             if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Id == "6")
             {
-                await _gameActionRepository.Create<MoveCardGameAction>()
-                      .Set(_cardRepository.GetCard("8"), _zoneRepository.GetZone(ZoneType.Rewards), CardMovementType.BasicWithPreview)
-                      .Run();
+                MoveCardDTO moveCardDTO = new(
+                    _cardRepository.GetCard("8"),
+                    _zoneRepository.GetZone(ZoneType.Rewards),
+                    CardMovementType.BasicWithPreview);
+                await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
             }
         }
     }
