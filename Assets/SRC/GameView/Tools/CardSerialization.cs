@@ -108,14 +108,14 @@ namespace Tools
             void ShowAllCardInfoLoaded()
             {
                 cardsHead = new List<Header>();
-                allCardInfo.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
+               // allCardInfo.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
             }
         }
 
         private void Search()
         {
             cardsHead = new List<Header>();
-            allCardInfo.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
+            //allCardInfo.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
         }
 
         private async void SelecCard(CardDataModel card)

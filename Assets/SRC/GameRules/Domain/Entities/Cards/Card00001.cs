@@ -16,7 +16,7 @@ namespace GameRules
                 _cardRepository.GetCard("3"),
                 _zoneRepository.GetZone(ZoneType.FreeRow),
                 CardMovementType.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
         }
 
         public async Task WhenFinish(GameAction gameAction)
@@ -27,7 +27,7 @@ namespace GameRules
                     _cardRepository.GetCard("8"),
                     _zoneRepository.GetZone(ZoneType.Rewards),
                     CardMovementType.BasicWithPreview);
-                await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+                await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             }
         }
     }

@@ -10,6 +10,7 @@ namespace GameRules
         [SerializeField] public string Id { get; init; }
         [SerializeField] public string Name { get; init; }
         [SerializeField] public CardType Type { get; init; }
+        public CardInfo CardInfo { get; init; }
         public Zone CurrentZone { get; private set; }
 
         [BoxGroup("Split/right")]

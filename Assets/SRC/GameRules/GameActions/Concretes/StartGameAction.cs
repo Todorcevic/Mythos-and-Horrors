@@ -10,7 +10,7 @@ namespace GameRules
         [Inject] private readonly ZoneRepository _zoneRepository;
 
         /*******************************************************************/
-        public async Task Start() => await Run();
+        public async Task Run() => await Start();
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
@@ -19,31 +19,31 @@ namespace GameRules
                _cardRepository.GetCard("1"),
                _zoneRepository.GetZone(ZoneType.AssetsDeck),
                CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("3"),
               _zoneRepository.GetZone(ZoneType.LocationDiscard),
               CardMovementType.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("5"),
               _zoneRepository.GetZone(ZoneType.AssetsDeck),
               CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("6"),
               _zoneRepository.GetZone(ZoneType.AssetsDeck),
               CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("7"),
               _zoneRepository.GetZone(ZoneType.AssetsDeck),
               CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Start(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
         }
     }
 }

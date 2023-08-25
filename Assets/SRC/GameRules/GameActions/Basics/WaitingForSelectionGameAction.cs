@@ -7,7 +7,7 @@ namespace GameRules
         private static TaskCompletionSource<bool> waitForSelection;
 
         /*******************************************************************/
-        public async Task Start() => await Run();
+        public async Task Run() => await Start();
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

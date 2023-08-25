@@ -1,9 +1,0 @@
-[
-{
-    "Id": "1234",
-    "Name": "SampleCard",
-    "Type": "Magic",
-    "Image": "sample_image_url.jpg",
-    "IsComplete": false
-  }
-]

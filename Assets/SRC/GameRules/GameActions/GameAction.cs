@@ -10,7 +10,7 @@ namespace GameRules
         [Inject] private readonly List<IEndReactionable> _endReactionables;
 
         /*******************************************************************/
-        protected async Task Run()
+        protected async Task Start()
         {
             await AtTheBeginning();
             await ExecuteThisLogic();
@@ -33,6 +33,6 @@ namespace GameRules
             {
                 await reaction.WhenFinish(this);
             }
-        }    
+        }
     }
 }

@@ -1,47 +1,38 @@
-#pragma warning disable IDE0051, IDE0052 // Remove unread private members
+#pragma warning disable IDE0051, IDE0052// Remove unused private members
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
-using GameRules;
 
 namespace Tools
 {
     [Serializable]
     public class Header
     {
-        private readonly CardDataModel cardInfo;
-        private readonly Action<CardDataModel> selection;
+        private readonly DataCreatorBase cardInfo;
+        private readonly Action<DataCreatorBase> selection;
 
-        public Header(CardDataModel cardInfo, Action<CardDataModel> selection)
+        public Header(DataCreatorBase cardInfo, Action<DataCreatorBase> selection)
         {
             this.cardInfo = cardInfo;
             this.selection = selection;
-            Id = cardInfo.Id;
+            Code = cardInfo.Code;
             Name = cardInfo.Name;
-            CardType = cardInfo.Type.ToString();
         }
 
         [ReadOnly]
-        [TableColumnWidth(15)]
         [GUIColor("GetColor")]
-        [SerializeField] private string Id;
+        [SerializeField] private string Code;
 
         [ReadOnly]
-        [TableColumnWidth(100)]
         [GUIColor("GetColor")]
         [SerializeField] private string Name;
 
-        [ReadOnly]
-        [TableColumnWidth(40)]
-        [GUIColor("GetColor")]
-        [SerializeField] public string CardType;
-
         [Button]
         [GUIColor("GetColor")]
-        [TableColumnWidth(100)]
+        [TableColumnWidth(100, false)]
         private void Show() => selection.Invoke(cardInfo);
 
         private Color GetColor() => cardInfo.IsComplete ? Color.green : Color.yellow;
     }
 }
-#pragma warning restore IDE0051, IDE0052 // Remove unused private members
+#pragma warning restore IDE0051, IDE0052// Remove unused private members
