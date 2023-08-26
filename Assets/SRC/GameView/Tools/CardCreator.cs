@@ -27,12 +27,32 @@ namespace Tools
         private string newFileNameinfoBoxMessage;
         private List<DataCreatorBase> allCardData;
 
+        private string FullPathLoaded => DATA_PATH + JSONFileLoaded;
+        private bool IsStructDataLoaded => structDataLoaded != null;
+        private bool IsJSONLoaded => !string.IsNullOrEmpty(JSONFileLoaded);
+        private bool IsCardSelected => cardSelected != null;
+
         /*******************************************************************/
-        [BoxGroup("Struct Data")]
+        [MenuItem("Tools/Cards/Card Editor")]
+        private static void Open()
+        {
+            CardCreator window = GetWindow<CardCreator>();
+            window.position = GUIHelper.GetEditorWindowRect().AlignCenter(400, 500);
+        }
+
+        protected override void Initialize()
+        {
+            WindowPadding = new Vector4(16, 16, 16, 16);
+        }
+
+        /*******************************************************************/
+        [HideIf("IsStructDataLoaded")]
+        [BoxGroup("Struct Data", ShowLabel = false)]
         [TypeFilter("GetCreatorDataTypes")]
+        [OnValueChanged("@structDataType = structDataLoaded.GetType().ToString()")]
+        //[DisplayAsString]
         [SerializeField, LabelText("Load Struct Data")]
         private DataCreatorBase structDataLoaded;
-
         private IEnumerable<Type> GetCreatorDataTypes()
         {
             return Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract
@@ -40,9 +60,14 @@ namespace Tools
                     && typeof(DataCreatorBase).IsAssignableFrom(type));
         }
 
+        [ShowIfGroup("IsStructDataLoaded")]
+        [BoxGroup("IsStructDataLoaded/Struct Data", ShowLabel = false)]
+        [ReadOnly, SerializeField, LabelText("Struct Loaded")]
+        private string structDataType;
+
         /*******************************************************************/
         [ShowIfGroup("IsStructDataLoaded")]
-        [BoxGroup("IsStructDataLoaded/JSON File")]
+        [BoxGroup("IsStructDataLoaded/JSON File", ShowLabel = false)]
         [HorizontalGroup("IsStructDataLoaded/JSON File/FileGroup", LabelWidth = 100)]
         [InfoBox("$newFileNameinfoBoxMessage", InfoMessageType.Warning, "@ !string.IsNullOrEmpty(newFileNameinfoBoxMessage)")]
         [SerializeField, LabelText("New JSON file")]
@@ -71,14 +96,12 @@ namespace Tools
             newFileNameinfoBoxMessage = string.Empty;
         }
 
-        /*******************************************************************/
         [BoxGroup("IsStructDataLoaded/JSON File")]
         [OnValueChanged("LoadData")]
         [HorizontalGroup("IsStructDataLoaded/JSON File/Other", LabelWidth = 100)]
         [FilePath(Extensions = ".json", ParentFolder = DATA_PATH)]
         [SerializeField, LabelText("Load JSON file")]
         private string JSONFileLoaded;
-
         private void LoadData()
         {
             if (string.IsNullOrEmpty(FullPathLoaded) || !File.Exists(FullPathLoaded)) return;
@@ -93,81 +116,92 @@ namespace Tools
                 string jsonData = reader.ReadToEnd();
                 reader.Close();
                 Type listOfType = typeof(List<>).MakeGenericType(structDataLoaded.GetType());
-                IEnumerable<object> allDataAsStructData = JsonConvert.DeserializeObject(jsonData, listOfType) as IEnumerable<object>;
-                return allDataAsStructData.Cast<DataCreatorBase>().ToList();
+                IEnumerable<DataCreatorBase> allDataAsStructData = JsonConvert.DeserializeObject(jsonData, listOfType) as IEnumerable<DataCreatorBase>;
+                return allDataAsStructData.ToList();
             }
-
-            void ShowAllCardInfoLoaded()
-            {
-                cardsHead = new List<Header>();
-                allCardData.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
-            }
-        }
-
-        private void SelecCard(DataCreatorBase card)
-        {
-            cardSelected = card;
-            //imageCard = await LoadTexture();
-
-            //async Task<Texture2D> LoadTexture()
-            //{
-            //    UnityWebRequest request = UnityWebRequestTexture.GetTexture(IMAGE_URL + card.Image);
-            //    request.SendWebRequest();
-
-            //    while (!request.isDone) await Task.Yield();
-
-            //    if (request.result != UnityWebRequest.Result.Success)
-            //    {
-            //        Debug.Log(request.error);
-            //        return null;
-            //    }
-
-            //    return DownloadHandlerTexture.GetContent(request);
-            //}
         }
 
         /*******************************************************************/
-        [BoxGroup("List")]
+        [ShowIfGroup("IsJSONLoaded")]
+        [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
+        [HorizontalGroup("IsJSONLoaded/List/FileList", LabelWidth = 50, MarginRight = 0.1f)]
         [OnValueChanged("Search")]
         [InlineProperty(LabelWidth = 130)]
         [SerializeField] private string find = string.Empty;
-
         private void Search()
         {
-            cardsHead = new List<Header>();
-            allCardData.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard)));
+            cardsHead.Clear();
+            allCardData.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
-        [TableList(DrawScrollView = true, MaxScrollViewHeight = 200, MinScrollViewHeight = 100, IsReadOnly = true, HideToolbar = true)]
+        [BoxGroup("IsJSONLoaded/List")]
+        [HorizontalGroup("IsJSONLoaded/List/FileList", Width = 50)]
+        [Button(SdfIconType.ExclamationOctagon, Name = "")]
+        private void CreateRow()
+        {
+            DataCreatorBase newCard = Activator.CreateInstance(structDataLoaded.GetType()) as DataCreatorBase;
+            allCardData.Add(newCard);
+            ShowAllCardInfoLoaded();
+            cardSelected = newCard;
+        }
+
+        [BoxGroup("IsJSONLoaded/List")]
+        [TableList(DrawScrollView = true, MaxScrollViewHeight = 200, MinScrollViewHeight = 100, IsReadOnly = true, HideToolbar = true, AlwaysExpanded = true)]
         [SerializeField] private List<Header> cardsHead;
 
         /*******************************************************************/
-        [Space(10)]
+        [ShowIfGroup("IsCardSelected")]
+        [BoxGroup("IsCardSelected/Editor", ShowLabel = false)]
         [HideLabel]
+        [HideReferenceObjectPicker]
         [SerializeField] private DataCreatorBase cardSelected;
 
         /*******************************************************************/
-        private string FullPathLoaded => DATA_PATH + JSONFileLoaded;
-        private bool IsStructDataLoaded => structDataLoaded != null;
-        private bool IsFileNameEmpty => string.IsNullOrEmpty(newJSONFileName);
-
-        /*******************************************************************/
-        [MenuItem("Tools/Cards/Card Editor")]
-        private static void Open()
+        [BoxGroup("IsCardSelected/Save", ShowLabel = false)]
+        [HorizontalGroup("IsCardSelected/Save/Buttons", MarginLeft = 50)]
+        [Button(Name = "Save")]
+        private void Save()
         {
-            CardCreator window = GetWindow<CardCreator>();
-            window.position = GUIHelper.GetEditorWindowRect().AlignCenter(400, 500);
+            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
+            StreamWriter writer = new(FullPathLoaded);
+            writer.WriteLine(serializeInfo);
+            writer.Close();
+            AssetDatabase.Refresh();
+            cardSelected = null;
+            ShowAllCardInfoLoaded();
         }
 
-        protected override void Initialize()
+        [BoxGroup("IsCardSelected/Save")]
+        [HorizontalGroup("IsCardSelected/Save/Buttons", MarginRight = 50)]
+        [Button(Name = "Save as")]
+        private void SaveAs()
         {
-            WindowPadding = new Vector4(16, 16, 16, 16);
+            string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
+            if (string.IsNullOrEmpty(newPath)) return;
+
+            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
+            StreamWriter writer = new(newPath);
+            writer.WriteLine(serializeInfo);
+            writer.Close();
+            AssetDatabase.Refresh();
+            cardSelected = null;
+            ShowAllCardInfoLoaded();
         }
 
         /*******************************************************************/
+        private void SelecCard(DataCreatorBase card) => cardSelected = card;
 
+        private void DeleteCard(DataCreatorBase card)
+        {
+            allCardData.Remove(card);
+            ShowAllCardInfoLoaded();
+        }
 
-
+        private void ShowAllCardInfoLoaded()
+        {
+            cardsHead.Clear();
+            allCardData.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
+        }
     }
 }
 #pragma warning restore IDE0051, IDE0052 // Remove unused private members

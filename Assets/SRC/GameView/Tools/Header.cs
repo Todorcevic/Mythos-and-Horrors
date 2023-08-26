@@ -9,14 +9,17 @@ namespace Tools
     public class Header
     {
         private readonly DataCreatorBase cardInfo;
-        private readonly Action<DataCreatorBase> selection;
+        private readonly Action<DataCreatorBase> edit;
+        private readonly Action<DataCreatorBase> delete;
 
-        public Header(DataCreatorBase cardInfo, Action<DataCreatorBase> selection)
+        public Header(DataCreatorBase cardInfo, Action<DataCreatorBase> edit, Action<DataCreatorBase> delete)
         {
             this.cardInfo = cardInfo;
-            this.selection = selection;
+            this.edit = edit;
+            this.delete = delete;
             Code = cardInfo.Code;
             Name = cardInfo.Name;
+            Type = cardInfo.Type;
         }
 
         [ReadOnly]
@@ -27,10 +30,19 @@ namespace Tools
         [GUIColor("GetColor")]
         [SerializeField] private string Name;
 
-        [Button]
+        [ReadOnly]
         [GUIColor("GetColor")]
-        [TableColumnWidth(100, false)]
-        private void Show() => selection.Invoke(cardInfo);
+        [SerializeField] private string Type;
+
+        [Button(SdfIconType.Pencil, Name = "")]
+        [GUIColor("GetColor")]
+        [TableColumnWidth(50, false)]
+        private void Edit() => edit.Invoke(cardInfo);
+
+        [Button(SdfIconType.ExclamationOctagon, Name = "")]
+        [GUIColor("GetColor")]
+        [TableColumnWidth(50, false)]
+        private void Delete() => delete.Invoke(cardInfo);
 
         private Color GetColor() => cardInfo.IsComplete ? Color.green : Color.yellow;
     }

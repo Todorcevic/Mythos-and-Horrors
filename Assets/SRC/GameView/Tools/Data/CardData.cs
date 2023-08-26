@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Tools
 {
-    public record CardData : DataCreatorBase
+    public class CardData : DataCreatorBase
     {
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public string Type { get; init; }
+        public int Cost { get; set; }
     }
 
 }
