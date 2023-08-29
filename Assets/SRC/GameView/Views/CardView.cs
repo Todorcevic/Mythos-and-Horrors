@@ -22,5 +22,9 @@ namespace GameView
         }
 
         /*******************************************************************/
+        public void ActivateToSelect()
+        {
+
+        }
     }
 }

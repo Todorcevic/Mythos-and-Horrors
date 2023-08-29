@@ -1,6 +1,4 @@
-using Sirenix.OdinInspector;
 using System;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace GameRules
@@ -12,11 +10,6 @@ namespace GameRules
         [SerializeField] public CardType Type { get; init; }
         public CardInfo CardInfo { get; init; }
         public Zone CurrentZone { get; private set; }
-
-        [BoxGroup("Split/right")]
-        [SerializeField]
-        [JsonProperty("is_complete")]
-        public bool IsComplete { get; set; }
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)

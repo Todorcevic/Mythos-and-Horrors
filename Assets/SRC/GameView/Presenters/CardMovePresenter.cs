@@ -2,6 +2,7 @@ using GameRules;
 using Zenject;
 using DG.Tweening;
 using System.Threading.Tasks;
+using Sirenix.Utilities;
 
 namespace GameView
 {
@@ -11,6 +12,19 @@ namespace GameView
         [Inject] private readonly CardsManager _cardsManager;
 
         /*******************************************************************/
+        public async Task MoveCardsInFront(params string[] cardIds)
+        {
+            Sequence sequence = DOTween.Sequence();
+            cardIds.ForEach(cardId => sequence.Append(MoveCardInFront(cardId)));
+            await sequence.Play().AsyncWaitForCompletion();
+        }
+
+        private Tween MoveCardInFront(string cardId)
+        {
+            CardView card = _cardsManager.Get(cardId);
+            return _zonesManager.FrontCamera.MoveCard(card);
+        }
+
         public void FastMoveCardToZone(string cardId, ZoneType gameZone)
         {
             (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
