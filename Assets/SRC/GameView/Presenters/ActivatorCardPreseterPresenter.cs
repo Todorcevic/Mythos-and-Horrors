@@ -1,5 +1,5 @@
 ﻿using GameRules;
-using System.Threading.Tasks;
+using Sirenix.Utilities;
 using Zenject;
 
 namespace GameView
@@ -9,13 +9,9 @@ namespace GameView
         [Inject] private readonly CardsManager _cardsManager;
 
         /*******************************************************************/
-        public void ActivateThisCards(params string[] gameActions)
+        public void ActivateThisCards(params Card[] cards)
         {
-            foreach (string gameAction in gameActions)
-            {
-                CardView card = _cardsManager.Get(gameAction);
-                card.ActivateToSelect();
-            }
+            cards.ForEach(card => _cardsManager.Get(card).ActivateToSelect());
         }
     }
 }

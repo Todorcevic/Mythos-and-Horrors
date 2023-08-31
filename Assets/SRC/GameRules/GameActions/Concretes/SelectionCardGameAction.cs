@@ -23,8 +23,8 @@ namespace GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _cardMovePresenter.MoveCardsInFront(_cards.Select(card => card.Id).ToArray());
-            _cardActivatorPresenter.ActivateThisCards(_cards.Select(card => card.Id).ToArray());
+            await _cardMovePresenter.MoveCardsInFront(_cards);
+            _cardActivatorPresenter.ActivateThisCards(_cards);
 
             cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
         }

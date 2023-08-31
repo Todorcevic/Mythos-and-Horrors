@@ -12,46 +12,46 @@ namespace GameView
         [Inject] private readonly CardsManager _cardsManager;
 
         /*******************************************************************/
-        public async Task MoveCardsInFront(params string[] cardIds)
+        public async Task MoveCardsInFront(params Card[] cards)
         {
             Sequence sequence = DOTween.Sequence();
-            cardIds.ForEach(cardId => sequence.Append(MoveCardInFront(cardId)));
+            cards.ForEach(card => sequence.Append(MoveCardInFront(card)));
             await sequence.Play().AsyncWaitForCompletion();
         }
 
-        private Tween MoveCardInFront(string cardId)
+        private Tween MoveCardInFront(Card card)
         {
-            CardView card = _cardsManager.Get(cardId);
-            return _zonesManager.FrontCamera.MoveCard(card);
+            CardView cardView = _cardsManager.Get(card);
+            return _zonesManager.FrontCamera.MoveCard(cardView);
         }
 
-        public void FastMoveCardToZone(string cardId, ZoneType gameZone)
+        public void FastMoveCardToZone(Card card, ZoneType gameZone)
         {
-            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
-            zone.MoveCard(card);
+            (CardView cardView, ZoneView zone) = GetCardAndZone(card, gameZone);
+            zone.MoveCard(cardView);
         }
 
-        public async Task MoveCardToZone(string cardId, ZoneType gameZone)
+        public async Task MoveCardToZone(Card card, ZoneType gameZone)
         {
-            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
-            await zone.MoveCard(card).AsyncWaitForCompletion();
+            (CardView cardView, ZoneView zone) = GetCardAndZone(card, gameZone);
+            await zone.MoveCard(cardView).AsyncWaitForCompletion();
         }
 
-        public async Task MoveCardToZoneWithPreview(string cardId, ZoneType gameZone)
+        public async Task MoveCardToZoneWithPreview(Card card, ZoneType gameZone)
         {
-            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
-            await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();
-            await zone.MoveCard(card).AsyncWaitForCompletion();
+            (CardView cardView, ZoneView zone) = GetCardAndZone(card, gameZone);
+            await _zonesManager.FrontCamera.MoveCard(cardView).AsyncWaitForCompletion();
+            await zone.MoveCard(cardView).AsyncWaitForCompletion();
         }
 
-        public async Task FastMoveCardToZoneWithPreview(string cardId, ZoneType gameZone)
+        public async Task FastMoveCardToZoneWithPreview(Card card, ZoneType gameZone)
         {
-            (CardView card, ZoneView zone) = GetCardAndZone(cardId, gameZone);
-            await _zonesManager.FrontCamera.MoveCard(card).AsyncWaitForCompletion();
-            zone.MoveCard(card);
+            (CardView cardView, ZoneView zone) = GetCardAndZone(card, gameZone);
+            await _zonesManager.FrontCamera.MoveCard(cardView).AsyncWaitForCompletion();
+            zone.MoveCard(cardView);
         }
 
-        private (CardView, ZoneView) GetCardAndZone(string cardId, ZoneType gameZone) =>
-            (_cardsManager.Get(cardId), _zonesManager.Get(gameZone));
+        private (CardView, ZoneView) GetCardAndZone(Card card, ZoneType gameZone) =>
+            (_cardsManager.Get(card), _zonesManager.Get(gameZone));
     }
 }

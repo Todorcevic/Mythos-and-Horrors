@@ -30,16 +30,16 @@ namespace GameRules
             switch (_cardMovementType)
             {
                 case CardMovementType.Basic:
-                    await _cardMovePresenter.MoveCardToZone(Card.Id, Zone.ZoneType);
+                    await _cardMovePresenter.MoveCardToZone(Card, Zone.ZoneType);
                     break;
                 case CardMovementType.BasicWithPreview:
-                    await _cardMovePresenter.MoveCardToZoneWithPreview(Card.Id, Zone.ZoneType);
+                    await _cardMovePresenter.MoveCardToZoneWithPreview(Card, Zone.ZoneType);
                     break;
                 case CardMovementType.Fast:
-                    _cardMovePresenter.FastMoveCardToZone(Card.Id, Zone.ZoneType);
+                    _cardMovePresenter.FastMoveCardToZone(Card, Zone.ZoneType);
                     break;
                 case CardMovementType.FastWithPreview:
-                    await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card.Id, Zone.ZoneType);
+                    await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card, Zone.ZoneType);
                     break;
             }
         }

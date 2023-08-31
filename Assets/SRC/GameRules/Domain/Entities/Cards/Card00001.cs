@@ -21,7 +21,7 @@ namespace GameRules
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Id == "6")
+            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Info.Code == "6")
             {
                 MoveCardDTO moveCardDTO = new(
                     _cardRepository.GetCard("8"),

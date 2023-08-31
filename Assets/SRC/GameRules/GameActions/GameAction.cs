@@ -6,8 +6,8 @@ namespace GameRules
 {
     public abstract class GameAction
     {
-        [Inject] private readonly List<IStartReactionable> _startReactionables;
-        [Inject] private readonly List<IEndReactionable> _endReactionables;
+        [Inject] private readonly IEnumerable<IStartReactionable> _startReactionables;
+        [Inject] private readonly IEnumerable<IEndReactionable> _endReactionables;
 
         /*******************************************************************/
         protected async Task Start()

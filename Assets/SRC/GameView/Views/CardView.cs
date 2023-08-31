@@ -1,3 +1,4 @@
+using GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
@@ -10,15 +11,15 @@ namespace GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
 
-        public string Id { get; private set; }
+        public Card Card { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(string id, string name)
+        private void Init(Card card)
         {
-            Id = id;
-            _title.text = name;
+            Card = card;
+            _title.text = card.Info.Name;
         }
 
         /*******************************************************************/

@@ -8,7 +8,7 @@ namespace Tools
     public abstract class DataCreatorBase
     {
         [HorizontalGroup("Split", 0.5f)]
-        [BoxGroup("Split/left")]
+        [BoxGroup("Split/left", ShowLabel = false)]
         [SerializeField]
         public string Code { get; set; }
 
@@ -16,7 +16,7 @@ namespace Tools
         [SerializeField]
         public string Name { get; set; }
 
-        [BoxGroup("Split/Right")]
+        [BoxGroup("Split/Right", ShowLabel = false)]
         [SerializeField]
         public string Type { get; set; }
 

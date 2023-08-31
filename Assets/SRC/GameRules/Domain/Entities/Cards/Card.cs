@@ -5,10 +5,8 @@ namespace GameRules
 {
     public class Card
     {
-        [SerializeField] public string Id { get; init; }
-        [SerializeField] public string Name { get; init; }
         [SerializeField] public CardType Type { get; init; }
-        public CardInfo CardInfo { get; init; }
+        public CardInfo Info { get; init; }
         public Zone CurrentZone { get; private set; }
 
         /*******************************************************************/

@@ -9,7 +9,7 @@ namespace GameRules
 
         /*******************************************************************/
         public void AddCard(Card card) => _cards.Add(card);
-        public Card GetCard(string id) => _cards.Find(card => card.Id == id);
+        public Card GetCard(string code) => _cards.Find(card => card.Info.Code == code);
         public IReadOnlyList<Card> GetAllCards() => _cards;
     }
 }

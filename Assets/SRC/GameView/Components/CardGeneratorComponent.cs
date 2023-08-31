@@ -23,7 +23,7 @@ namespace GameView
             {
                 CardView prefab = GetPrefab(card.Type);
                 CardView cardInstantiated = _diContainer.InstantiatePrefabForComponent<CardView>(prefab, transform,
-                    new object[] { card.Id, card.Name });
+                    new object[] { card });
                 _cardsManager.Add(cardInstantiated);
             }
         }

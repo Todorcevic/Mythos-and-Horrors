@@ -4,6 +4,6 @@ namespace GameRules
 {
     public interface ICardActivator
     {
-        void ActivateThisCards(params string[] gameActions);
+        void ActivateThisCards(params Card[] gameActions);
     }
 }

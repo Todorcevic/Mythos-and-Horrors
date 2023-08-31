@@ -12,12 +12,12 @@ namespace GameRules
         {
             for (int i = 0; i < 10; i++)
             {
-                Card newCard = new() { Id = i.ToString(), Name = i.ToString(), Type = CardType.Asset };
+                Card newCard = new() { Info = new() { Code = i.ToString(), Name = i.ToString() }, Type = CardType.Asset };
                 _container.Inject(newCard);
                 _cardRepository.AddCard(newCard);
             }
 
-            Card00001 otherCard = new() { Id = "00001", Name = "00001", Type = CardType.Encounter };
+            Card00001 otherCard = new() { Info = new() { Code = "00001", Name = "First" }, Type = CardType.Encounter };
             _container.Inject(otherCard);
             _container.Bind<IEndReactionable>().FromInstance(otherCard).NonLazy();
             _cardRepository.AddCard(otherCard);

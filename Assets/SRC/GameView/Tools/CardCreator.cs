@@ -33,7 +33,7 @@ namespace Tools
         private bool IsCardSelected => cardSelected != null;
 
         /*******************************************************************/
-        [MenuItem("Tools/Cards/Card Editor")]
+        [MenuItem("Tools/Cards/Card Creator")]
         private static void Open()
         {
             CardCreator window = GetWindow<CardCreator>();
@@ -50,7 +50,6 @@ namespace Tools
         [BoxGroup("Struct Data", ShowLabel = false)]
         [TypeFilter("GetCreatorDataTypes")]
         [OnValueChanged("@structDataType = structDataLoaded.GetType().ToString()")]
-        //[DisplayAsString]
         [SerializeField, LabelText("Load Struct Data")]
         private DataCreatorBase structDataLoaded;
         private IEnumerable<Type> GetCreatorDataTypes()
@@ -78,22 +77,25 @@ namespace Tools
         [Button("+")]
         private void CreateFile()
         {
+            newFileNameinfoBoxMessage = string.Empty;
             if (string.IsNullOrEmpty(newJSONFileName))
             {
                 newFileNameinfoBoxMessage = "File name cant be empty!";
                 return;
             }
 
-            JSONFileLoaded = Path.Combine(DATA_PATH, newJSONFileName + ".json");
-            if (File.Exists(JSONFileLoaded))
+            JSONFileLoaded = newJSONFileName + ".json";
+            if (File.Exists(FullPathLoaded))
             {
                 newFileNameinfoBoxMessage = "File exist!";
                 return;
             }
 
-            File.WriteAllText(JSONFileLoaded, "Contenido del archivo.");
+            File.WriteAllText(FullPathLoaded, string.Empty);
             structDataLoaded.IsEditable = true;
-            newFileNameinfoBoxMessage = string.Empty;
+            allCardData = new();
+            ShowAllCardInfoLoaded();
+            AssetDatabase.Refresh();
         }
 
         [BoxGroup("IsStructDataLoaded/JSON File")]
@@ -147,11 +149,11 @@ namespace Tools
 
         [BoxGroup("IsJSONLoaded/List")]
         [TableList(DrawScrollView = true, MaxScrollViewHeight = 200, MinScrollViewHeight = 100, IsReadOnly = true, HideToolbar = true, AlwaysExpanded = true)]
-        [SerializeField] private List<Header> cardsHead;
+        [SerializeField] private List<Header> cardsHead = new();
 
         /*******************************************************************/
         [ShowIfGroup("IsCardSelected")]
-        [BoxGroup("IsCardSelected/Editor", ShowLabel = false)]
+        [BoxGroup("IsCardSelected/Editor", LabelText = "Card", CenterLabel = true)]
         [HideLabel]
         [HideReferenceObjectPicker]
         [SerializeField] private DataCreatorBase cardSelected;
@@ -163,6 +165,7 @@ namespace Tools
         private void Save()
         {
             string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
+
             StreamWriter writer = new(FullPathLoaded);
             writer.WriteLine(serializeInfo);
             writer.Close();

@@ -7,14 +7,14 @@ namespace GameRules
     {
         [Inject] private readonly CardRepository _cardRepository;
 
-        private static string cardSelected;
+        private static Card cardSelected;
         private static TaskCompletionSource<bool> waitForSelection;
 
         /*******************************************************************/
         public async Task<Card> Run()
         {
             await Start();
-            return _cardRepository.GetCard(cardSelected);
+            return cardSelected;
         }
 
         /*******************************************************************/
@@ -24,9 +24,9 @@ namespace GameRules
             await waitForSelection.Task;
         }
 
-        public static void Clicked(string cardId)
+        public static void Clicked(Card card)
         {
-            cardSelected = cardId;
+            cardSelected = card;
             waitForSelection.SetResult(true);
         }
     }
