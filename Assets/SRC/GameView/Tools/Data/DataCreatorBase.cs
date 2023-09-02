@@ -20,14 +20,11 @@ namespace Tools
         [SerializeField]
         public string Type { get; set; }
 
-        [JsonIgnore] public bool IsEditable { get; set; }
-        [JsonIgnore] public bool IsComplete { get; set; }
+        [JsonIgnore]
+        public bool IsIncomplete => string.IsNullOrEmpty(Code) || string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Type);
 
-        public bool Contains(string word)
-        {
-            return Code.Contains(word, StringComparison.OrdinalIgnoreCase)
+        public bool Contains(string word) => Code.Contains(word, StringComparison.OrdinalIgnoreCase)
                 || Name.Contains(word, StringComparison.OrdinalIgnoreCase)
                 || Type.Contains(word, StringComparison.OrdinalIgnoreCase);
-        }
     }
 }

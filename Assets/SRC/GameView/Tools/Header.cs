@@ -35,16 +35,16 @@ namespace Tools
         [SerializeField] private string Type;
 
         [Button(SdfIconType.Pencil, Name = "")]
-        [GUIColor("GetColor")]
+        [GUIColor("@Color.yellow")]
         [TableColumnWidth(50, false)]
         private void Edit() => edit.Invoke(cardInfo);
 
-        [Button(SdfIconType.ExclamationOctagon, Name = "")]
-        [GUIColor("GetColor")]
+        [Button(SdfIconType.Dash, Name = "")]
+        [GUIColor("@Color.red")]
         [TableColumnWidth(50, false)]
         private void Delete() => delete.Invoke(cardInfo);
 
-        private Color GetColor() => cardInfo.IsComplete ? Color.green : Color.yellow;
+        private Color GetColor() => cardInfo.IsIncomplete ? Color.cyan : Color.white;
     }
 }
 #pragma warning restore IDE0051, IDE0052// Remove unused private members

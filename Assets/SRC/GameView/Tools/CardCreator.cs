@@ -1,22 +1,15 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 using FilePathAttribute = Sirenix.OdinInspector.FilePathAttribute;
-using ObjectFieldAlignment = Sirenix.OdinInspector.ObjectFieldAlignment;
 
 namespace Tools
 {
@@ -24,6 +17,7 @@ namespace Tools
     {
         private const string DATA_PATH = "Assets/Data/";
         private const string ASSEMBLY_DATA = "GameRules";
+        private const string FILE_EXTENSION = ".json";
         private string newFileNameinfoBoxMessage;
         private List<DataCreatorBase> allCardData;
 
@@ -37,7 +31,10 @@ namespace Tools
         private static void Open()
         {
             CardCreator window = GetWindow<CardCreator>();
-            window.position = GUIHelper.GetEditorWindowRect().AlignCenter(400, 500);
+            window.minSize = new Vector2(600, 600);
+            window.position = new Rect((Screen.currentResolution.width - window.minSize.x) / 2,
+                                         (Screen.currentResolution.height - window.minSize.y) / 2,
+                                          window.minSize.x, window.minSize.y); ;
         }
 
         protected override void Initialize()
@@ -52,12 +49,11 @@ namespace Tools
         [OnValueChanged("@structDataType = structDataLoaded.GetType().ToString()")]
         [SerializeField, LabelText("Load Struct Data")]
         private DataCreatorBase structDataLoaded;
-        private IEnumerable<Type> GetCreatorDataTypes()
-        {
-            return Assembly.GetExecutingAssembly().GetTypes().Where(type => !type.IsAbstract
-                    && !type.IsGenericTypeDefinition
-                    && typeof(DataCreatorBase).IsAssignableFrom(type));
-        }
+        private IEnumerable<Type> GetCreatorDataTypes() => Assembly.GetExecutingAssembly()
+            .GetTypes().Where(type => !type.IsAbstract
+                && !type.IsGenericTypeDefinition
+                && typeof(DataCreatorBase).IsAssignableFrom(type));
+
 
         [ShowIfGroup("IsStructDataLoaded")]
         [BoxGroup("IsStructDataLoaded/Struct Data", ShowLabel = false)]
@@ -69,8 +65,22 @@ namespace Tools
         [BoxGroup("IsStructDataLoaded/JSON File", ShowLabel = false)]
         [HorizontalGroup("IsStructDataLoaded/JSON File/FileGroup", LabelWidth = 100)]
         [InfoBox("$newFileNameinfoBoxMessage", InfoMessageType.Warning, "@ !string.IsNullOrEmpty(newFileNameinfoBoxMessage)")]
+        [OnInspectorInit("InitializeNewFileName")]
         [SerializeField, LabelText("New JSON file")]
         private string newJSONFileName;
+
+        private void InitializeNewFileName()
+        {
+            int suffix = 0;
+            string fileName = structDataLoaded.GetType().Name;
+            while (File.Exists(DATA_PATH + fileName + FILE_EXTENSION))
+            {
+                suffix++;
+                fileName = structDataLoaded.GetType().Name + suffix;
+            }
+
+            newJSONFileName = fileName;
+        }
 
         [BoxGroup("IsStructDataLoaded/JSON File")]
         [HorizontalGroup("IsStructDataLoaded/JSON File/FileGroup", Width = 16, LabelWidth = 100)]
@@ -84,7 +94,7 @@ namespace Tools
                 return;
             }
 
-            JSONFileLoaded = newJSONFileName + ".json";
+            JSONFileLoaded = newJSONFileName + FILE_EXTENSION;
             if (File.Exists(FullPathLoaded))
             {
                 newFileNameinfoBoxMessage = "File exist!";
@@ -92,7 +102,6 @@ namespace Tools
             }
 
             File.WriteAllText(FullPathLoaded, string.Empty);
-            structDataLoaded.IsEditable = true;
             allCardData = new();
             ShowAllCardInfoLoaded();
             AssetDatabase.Refresh();
@@ -138,7 +147,8 @@ namespace Tools
 
         [BoxGroup("IsJSONLoaded/List")]
         [HorizontalGroup("IsJSONLoaded/List/FileList", Width = 50)]
-        [Button(SdfIconType.ExclamationOctagon, Name = "")]
+        [GUIColor("@Color.green")]
+        [Button(SdfIconType.Plus, Name = "")]
         private void CreateRow()
         {
             DataCreatorBase newCard = Activator.CreateInstance(structDataLoaded.GetType()) as DataCreatorBase;
@@ -161,11 +171,11 @@ namespace Tools
         /*******************************************************************/
         [BoxGroup("IsCardSelected/Save", ShowLabel = false)]
         [HorizontalGroup("IsCardSelected/Save/Buttons", MarginLeft = 50)]
-        [Button(Name = "Save")]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Medium, Name = "Save")]
         private void Save()
         {
             string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
-
             StreamWriter writer = new(FullPathLoaded);
             writer.WriteLine(serializeInfo);
             writer.Close();
@@ -176,7 +186,8 @@ namespace Tools
 
         [BoxGroup("IsCardSelected/Save")]
         [HorizontalGroup("IsCardSelected/Save/Buttons", MarginRight = 50)]
-        [Button(Name = "Save as")]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Medium, Name = "Save as")]
         private void SaveAs()
         {
             string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
