@@ -11,14 +11,19 @@ namespace GameView
         /*******************************************************************/
         public override void InstallBindings()
         {
+            /********************************* VIEW **********************************/
             /*** Managers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
            .InNamespace(GameViewAssamblyName).WithSuffix("Manager")).AsSingle();
 
             /*** Presenters ***/
-            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(GameViewAssamblyName).WithSuffix("Presenter")).AsSingle();
 
+            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            .InNamespace(GameViewAssamblyName).WithSuffix("Presenter")).FromResolve();
+
+            /****************************** APPLICATION ******************************/
             /*** Actions ***/
             Container.Bind(x => x.AllNonAbstractClasses()
            .InNamespace(GameRulesAssamblyName).WithSuffix("Action")).AsTransient();
@@ -26,6 +31,13 @@ namespace GameView
             /*** UseCases ***/
             Container.Bind(x => x.AllNonAbstractClasses()
            .InNamespace(GameRulesAssamblyName).WithSuffix("UseCase")).AsSingle();
+
+            /*** Services ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Service")).AsSingle();
+
+            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Service")).FromResolve();
 
             /*** Repositories ***/
             Container.Bind(x => x.AllNonAbstractClasses()

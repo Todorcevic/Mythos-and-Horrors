@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 1953149553561237983}
   - component: {fileID: 4552918545939574828}
   m_Layer: 3
-  m_Name: InvestigatorCard
+  m_Name: BossCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

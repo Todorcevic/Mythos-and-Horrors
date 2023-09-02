@@ -4,7 +4,7 @@
     {
         Asset,
         Encounter,
-        Investigator,
-        Location
+        Location,
+        Boss
     }
 }

@@ -13,7 +13,7 @@ namespace GameView
         [Inject] private readonly CardRepository _cardRepository;
         [SerializeField, Required, AssetsOnly] private CardView _assetPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _encounterPrefab;
-        [SerializeField, Required, AssetsOnly] private CardView _investigatorPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _bossPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _locationPrefab;
 
         /*******************************************************************/
@@ -32,7 +32,7 @@ namespace GameView
         {
             CardType.Asset => _assetPrefab,
             CardType.Encounter => _encounterPrefab,
-            CardType.Investigator => _investigatorPrefab,
+            CardType.Boss => _bossPrefab,
             CardType.Location => _locationPrefab,
             _ => throw new ArgumentNullException("Card type {cardType} not supported"),
         };
