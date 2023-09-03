@@ -602,7 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _assetPrefab: {fileID: 5453716948963857331, guid: 3789eb8fff6d9274f856823ffe1536c8, type: 3}
   _encounterPrefab: {fileID: 4237786614703298575, guid: e573fe3f1e8710d42851273226c49ff8, type: 3}
-  _investigatorPrefab: {fileID: 4552918545939574828, guid: f6dbba5d3ebddfa47b77c37212f0a8e7, type: 3}
+  _bossPrefab: {fileID: 4552918545939574828, guid: f6dbba5d3ebddfa47b77c37212f0a8e7, type: 3}
   _locationPrefab: {fileID: 8158812757468622782, guid: 477b4093fafc0b8438069872592fe0dc, type: 3}
 --- !u!4 &582586615
 Transform:
