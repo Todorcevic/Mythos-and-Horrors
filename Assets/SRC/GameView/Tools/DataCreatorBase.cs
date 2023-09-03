@@ -7,7 +7,6 @@ namespace Tools
 {
     public class DataCreatorBase
     {
-
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Left", ShowLabel = false)]
         [ReadOnly, ShowInInspector]
