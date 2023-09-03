@@ -1,0 +1,26 @@
+[
+  {
+    "$type": "Tools.Boss, GameView",
+    "Health": 0,
+    "Damage": 0,
+    "CardType": "Boss",
+    "Code": "898",
+    "Name": "88"
+  },
+  {
+    "$type": "Tools.Boss, GameView",
+    "Health": 0,
+    "Damage": 0,
+    "CardType": "Boss",
+    "Code": null,
+    "Name": null
+  },
+  {
+    "$type": "Tools.Boss, GameView",
+    "Health": 0,
+    "Damage": 0,
+    "CardType": "Boss",
+    "Code": null,
+    "Name": null
+  }
+]

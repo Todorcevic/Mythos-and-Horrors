@@ -33,8 +33,8 @@ namespace Tools
             CardCreator window = GetWindow<CardCreator>();
             window.minSize = new Vector2(600, 600);
             window.position = new Rect((Screen.currentResolution.width - window.minSize.x) / 2,
-                                         (Screen.currentResolution.height - window.minSize.y) / 2,
-                                          window.minSize.x, window.minSize.y); ;
+                                       (Screen.currentResolution.height - window.minSize.y) / 2,
+                                       window.minSize.x, window.minSize.y);
         }
 
         protected override void Initialize()
@@ -46,14 +46,23 @@ namespace Tools
         [HideIf("IsStructDataLoaded")]
         [BoxGroup("Struct Data", ShowLabel = false)]
         [TypeFilter("GetCreatorDataTypes")]
-        [OnValueChanged("@structDataType = structDataLoaded.GetType().ToString()")]
+        [OnValueChanged("OnStructDataLoadedChanged")]
         [SerializeField, LabelText("Load Struct Data")]
         private DataCreatorBase structDataLoaded;
-        private IEnumerable<Type> GetCreatorDataTypes() => Assembly.GetExecutingAssembly()
-            .GetTypes().Where(type => !type.IsAbstract
-                && !type.IsGenericTypeDefinition
-                && typeof(DataCreatorBase).IsAssignableFrom(type));
 
+        private IEnumerable<Type> GetCreatorDataTypes() => Assembly.GetExecutingAssembly()
+            .GetTypes().Where(type => type.BaseType == typeof(DataCreatorBase));
+
+        private void OnStructDataLoadedChanged()
+        {
+            if (structDataLoaded == null) return;
+
+            structDataType = structDataLoaded.GetType().ToString();
+            JSONFileLoaded = string.Empty;
+            cardSelected = null;
+            newFileNameinfoBoxMessage = string.Empty;
+            typeSelected = GetCardTypes().FirstOrDefault();
+        }
 
         [ShowIfGroup("IsStructDataLoaded")]
         [BoxGroup("IsStructDataLoaded/Struct Data", ShowLabel = false)]
@@ -113,6 +122,7 @@ namespace Tools
         [FilePath(Extensions = ".json", ParentFolder = DATA_PATH)]
         [SerializeField, LabelText("Load JSON file")]
         private string JSONFileLoaded;
+
         private void LoadData()
         {
             if (string.IsNullOrEmpty(FullPathLoaded) || !File.Exists(FullPathLoaded)) return;
@@ -127,7 +137,9 @@ namespace Tools
                 string jsonData = reader.ReadToEnd();
                 reader.Close();
                 Type listOfType = typeof(List<>).MakeGenericType(structDataLoaded.GetType());
-                IEnumerable<DataCreatorBase> allDataAsStructData = JsonConvert.DeserializeObject(jsonData, listOfType) as IEnumerable<DataCreatorBase>;
+                IEnumerable<DataCreatorBase> allDataAsStructData = JsonConvert.DeserializeObject(jsonData, listOfType,
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto }) as IEnumerable<DataCreatorBase>;
+
                 return allDataAsStructData.ToList();
             }
         }
@@ -145,18 +157,29 @@ namespace Tools
             allCardData.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
+        [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
+        [HorizontalGroup("IsJSONLoaded/List/FileList")]
+        [ValueDropdown("GetCardTypes"), LabelText("Type")]
+        public Type typeSelected;
+
+        private IEnumerable<Type> GetCardTypes() => Assembly.GetExecutingAssembly()
+             .GetTypes().Where(type => type.BaseType != typeof(DataCreatorBase)
+                 && type != typeof(DataCreatorBase)
+                 && typeof(DataCreatorBase).IsAssignableFrom(type));
+
         [BoxGroup("IsJSONLoaded/List")]
         [HorizontalGroup("IsJSONLoaded/List/FileList", Width = 50)]
         [GUIColor("@Color.green")]
         [Button(SdfIconType.Plus, Name = "")]
         private void CreateRow()
         {
-            DataCreatorBase newCard = Activator.CreateInstance(structDataLoaded.GetType()) as DataCreatorBase;
+            DataCreatorBase newCard = Activator.CreateInstance(typeSelected) as DataCreatorBase;
             allCardData.Add(newCard);
             ShowAllCardInfoLoaded();
             cardSelected = newCard;
         }
 
+        /*******************************************************************/
         [BoxGroup("IsJSONLoaded/List")]
         [TableList(DrawScrollView = true, MaxScrollViewHeight = 200, MinScrollViewHeight = 100, IsReadOnly = true, HideToolbar = true, AlwaysExpanded = true)]
         [SerializeField] private List<Header> cardsHead = new();
@@ -170,12 +193,15 @@ namespace Tools
 
         /*******************************************************************/
         [BoxGroup("IsCardSelected/Save", ShowLabel = false)]
-        [HorizontalGroup("IsCardSelected/Save/Buttons", MarginLeft = 50)]
+        [HorizontalGroup("IsCardSelected/Save/Buttons")]
         [GUIColor("@Color.green")]
-        [Button(ButtonSizes.Medium, Name = "Save")]
+        [Button(ButtonSizes.Large, Name = "Save")]
         private void Save()
         {
-            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
+            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             StreamWriter writer = new(FullPathLoaded);
             writer.WriteLine(serializeInfo);
             writer.Close();
@@ -184,16 +210,19 @@ namespace Tools
             ShowAllCardInfoLoaded();
         }
 
-        [BoxGroup("IsCardSelected/Save")]
-        [HorizontalGroup("IsCardSelected/Save/Buttons", MarginRight = 50)]
+        [ShowIf("IsJSONLoaded")]
+        [BoxGroup("SaveAs", showLabel: false)]
         [GUIColor("@Color.green")]
-        [Button(ButtonSizes.Medium, Name = "Save as")]
+        [Button(ButtonSizes.Large, Name = "Save as")]
         private void SaveAs()
         {
             string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
             if (string.IsNullOrEmpty(newPath)) return;
 
-            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented);
+            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             StreamWriter writer = new(newPath);
             writer.WriteLine(serializeInfo);
             writer.Close();

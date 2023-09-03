@@ -1,0 +1,10 @@
+[
+  {
+    "$type": "Tools.Boss, GameView",
+    "Health": 26,
+    "Damage": 12,
+    "Code": "00001",
+    "Name": "First Boss",
+    "CardType": "Boss"
+  }
+]

@@ -19,7 +19,7 @@ namespace Tools
             this.delete = delete;
             Code = cardInfo.Code;
             Name = cardInfo.Name;
-            Type = cardInfo.Type;
+            Type = cardInfo.CardType;
         }
 
         [ReadOnly]
@@ -44,7 +44,7 @@ namespace Tools
         [TableColumnWidth(50, false)]
         private void Delete() => delete.Invoke(cardInfo);
 
-        private Color GetColor() => cardInfo.IsIncomplete ? Color.cyan : Color.white;
+        private Color GetColor() => cardInfo.IsIncomplete ? Color.red : Color.white;
     }
 }
 #pragma warning restore IDE0051, IDE0052// Remove unused private members
