@@ -1,4 +1,5 @@
 using GameRules;
+using System.ComponentModel;
 using Zenject;
 
 namespace GameView
@@ -14,7 +15,14 @@ namespace GameView
             /********************************* VIEW **********************************/
             /*** Managers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-           .InNamespace(GameViewAssamblyName).WithSuffix("Manager")).AsSingle();
+            .InNamespace(GameViewAssamblyName).WithSuffix("Manager")).AsSingle();
+
+            /*** Services ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+            .InNamespace(GameViewAssamblyName).WithSuffix("Service")).AsSingle();
+
+            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            .InNamespace(GameViewAssamblyName).WithSuffix("Service")).FromResolve();
 
             /*** Presenters ***/
             Container.Bind(x => x.AllNonAbstractClasses()
@@ -26,11 +34,11 @@ namespace GameView
             /****************************** APPLICATION ******************************/
             /*** Actions ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-           .InNamespace(GameRulesAssamblyName).WithSuffix("Action")).AsTransient();
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Action")).AsTransient();
 
             /*** UseCases ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-           .InNamespace(GameRulesAssamblyName).WithSuffix("UseCase")).AsSingle();
+            .InNamespace(GameRulesAssamblyName).WithSuffix("UseCase")).AsSingle();
 
             /*** Services ***/
             Container.Bind(x => x.AllNonAbstractClasses()
@@ -41,11 +49,14 @@ namespace GameView
 
             /*** Repositories ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-           .InNamespace(GameRulesAssamblyName).WithSuffix("Repository")).AsSingle();
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Repository")).AsSingle();
+
+            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Repository")).FromResolve();
 
             /*** Factories ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-           .InNamespace(GameRulesAssamblyName).WithSuffix("Factory")).AsSingle();
+            .InNamespace(GameRulesAssamblyName).WithSuffix("Factory")).AsSingle();
         }
     }
 }

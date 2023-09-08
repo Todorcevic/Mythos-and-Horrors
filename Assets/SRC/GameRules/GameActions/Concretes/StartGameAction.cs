@@ -16,34 +16,34 @@ namespace GameRules
         protected override async Task ExecuteThisLogic()
         {
             MoveCardDTO moveCardDTO = new(
-               _cardRepository.GetCard("1"),
+               _cardRepository.GetCard("00001"),
                _zoneRepository.GetZone(ZoneType.AssetsDeck),
-               CardMovementType.Fast);
+               CardMovementType.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
-              _cardRepository.GetCard("3"),
+              _cardRepository.GetCard("00002"),
               _zoneRepository.GetZone(ZoneType.LocationDiscard),
               CardMovementType.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
-            moveCardDTO = new(
-              _cardRepository.GetCard("5"),
-              _zoneRepository.GetZone(ZoneType.AssetsDeck),
-              CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            //moveCardDTO = new(
+            //  _cardRepository.GetCard("5"),
+            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
+            //  CardMovementType.Fast);
+            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
-            moveCardDTO = new(
-              _cardRepository.GetCard("6"),
-              _zoneRepository.GetZone(ZoneType.AssetsDeck),
-              CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            //moveCardDTO = new(
+            //  _cardRepository.GetCard("6"),
+            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
+            //  CardMovementType.Fast);
+            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
-            moveCardDTO = new(
-              _cardRepository.GetCard("7"),
-              _zoneRepository.GetZone(ZoneType.AssetsDeck),
-              CardMovementType.Fast);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            //moveCardDTO = new(
+            //  _cardRepository.GetCard("7"),
+            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
+            //  CardMovementType.Fast);
+            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
         }
     }
 }

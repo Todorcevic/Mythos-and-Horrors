@@ -19,6 +19,7 @@ namespace GameView
         private void Init(Card card)
         {
             Card = card;
+            name = card.Info.Code;
             _title.text = card.Info.Name;
         }
 

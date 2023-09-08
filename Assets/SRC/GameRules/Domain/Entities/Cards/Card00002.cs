@@ -3,7 +3,7 @@ using Zenject;
 
 namespace GameRules
 {
-    public class Card00001 : Card, IStartReactionable, IEndReactionable
+    public class Card00002 : Card, IStartReactionable, IEndReactionable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardRepository _cardRepository;
@@ -24,10 +24,10 @@ namespace GameRules
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Info.Code == "00002")
+            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Info.Code == "6")
             {
                 MoveCardDTO moveCardDTO = new(
-                    this,
+                    _cardRepository.GetCard("8"),
                     _zoneRepository.GetZone(ZoneType.Rewards),
                     CardMovementType.BasicWithPreview);
                 await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);

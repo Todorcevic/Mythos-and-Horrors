@@ -1,12 +1,12 @@
 using System;
-using UnityEngine;
+using Zenject;
 
 namespace GameRules
 {
     public class Card
     {
-        [SerializeField] public CardType Type { get; init; }
-        public CardInfo Info { get; init; }
+        [Inject] public CardInfo Info { get; }
+        public CardType Type => Enum.Parse<CardType>(Info.CardType);
         public Zone CurrentZone { get; private set; }
 
         /*******************************************************************/

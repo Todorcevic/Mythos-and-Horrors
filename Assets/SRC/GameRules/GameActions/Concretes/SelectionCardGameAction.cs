@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace GameRules
@@ -10,14 +9,14 @@ namespace GameRules
         [Inject] private readonly ICardActivator _cardActivatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionRepository;
         private Card[] _cards;
-        private Card cardSelected;
+        private Card _cardSelected;
 
         /*******************************************************************/
         public async Task<Card> Run(params Card[] cards)
         {
             _cards = cards;
             await Start();
-            return cardSelected;
+            return _cardSelected;
         }
 
         /*******************************************************************/
@@ -26,7 +25,7 @@ namespace GameRules
             await _cardMovePresenter.MoveCardsInFront(_cards);
             _cardActivatorPresenter.ActivateThisCards(_cards);
 
-            cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
+            _cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
         }
     }
 }
