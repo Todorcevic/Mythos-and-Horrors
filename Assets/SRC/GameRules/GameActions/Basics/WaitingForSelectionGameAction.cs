@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace GameRules
 {
     public class WaitingForSelectionGameAction : GameAction
     {
-        [Inject] private readonly CardRepository _cardRepository;
-
         private static Card cardSelected;
         private static TaskCompletionSource<bool> waitForSelection;
 
