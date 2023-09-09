@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Lora-MediumItalic SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 587050315
   material: {fileID: 8199015364154570487}
-  materialHashCode: 0
+  materialHashCode: -2035237493
   m_Version: 1.1.0
   m_SourceFontFileGUID: 3a1a75eeff8f86d488db0359a89c66ea
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 3a1a75eeff8f86d488db0359a89c66ea, type: 3}
@@ -5742,9 +5742,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
