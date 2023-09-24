@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2920728945906512179, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_Name
-      value: Act Variant
+      value: Act
       objectReference: {fileID: 0}
     - target: {fileID: 5226966266286965769, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099556367888031530, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 986f73e361b960f469e7ce9cd16086ec, type: 3}
     - target: {fileID: 6708412462071596127, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
