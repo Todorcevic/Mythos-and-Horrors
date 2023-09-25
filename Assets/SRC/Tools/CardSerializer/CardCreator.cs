@@ -16,8 +16,13 @@ namespace Tools
     public class CardCreator : OdinEditorWindow
     {
         private const string DATA_PATH = "Assets/Data/";
-        private const string ASSEMBLY_DATA = "GameRules";
         private const string FILE_EXTENSION = ".json";
+        private readonly JsonSerializerSettings jsonSettings = new()
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         private string newFileNameinfoBoxMessage;
         private List<DataCreatorBase> allCardData;
 
@@ -137,10 +142,7 @@ namespace Tools
                 string jsonData = reader.ReadToEnd();
                 reader.Close();
                 Type listOfType = typeof(List<>).MakeGenericType(structDataLoaded.GetType());
-                IEnumerable<DataCreatorBase> allDataAsStructData = JsonConvert.DeserializeObject(jsonData, listOfType,
-                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto }) as IEnumerable<DataCreatorBase>;
-
-                return allDataAsStructData.ToList();
+                return (JsonConvert.DeserializeObject(jsonData, listOfType, jsonSettings) as IEnumerable<DataCreatorBase>).ToList();
             }
         }
 
@@ -196,19 +198,7 @@ namespace Tools
         [HorizontalGroup("IsCardSelected/Save/Buttons")]
         [GUIColor("@Color.green")]
         [Button(ButtonSizes.Large, Name = "Save")]
-        private void Save()
-        {
-            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            StreamWriter writer = new(FullPathLoaded);
-            writer.WriteLine(serializeInfo);
-            writer.Close();
-            AssetDatabase.Refresh();
-            cardSelected = null;
-            ShowAllCardInfoLoaded();
-        }
+        private void Save() => Save(FullPathLoaded);
 
         [ShowIf("IsJSONLoaded")]
         [BoxGroup("SaveAs", showLabel: false)]
@@ -218,12 +208,13 @@ namespace Tools
         {
             string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
             if (string.IsNullOrEmpty(newPath)) return;
+            Save(newPath);
+        }
 
-            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-            StreamWriter writer = new(newPath);
+        private void Save(string path)
+        {
+            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, jsonSettings);
+            StreamWriter writer = new(path);
             writer.WriteLine(serializeInfo);
             writer.Close();
             AssetDatabase.Refresh();

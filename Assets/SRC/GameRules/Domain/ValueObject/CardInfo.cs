@@ -1,13 +1,19 @@
-﻿namespace GameRules
+﻿using System.Collections.Generic;
+
+namespace GameRules
 {
     public record CardInfo
     {
         public string Code { get; init; }
         public string Name { get; init; }
+        public string Description { get; init; }
         public string CardType { get; init; }
+        public string[] Tags { get; init; } //Subtypes
+        //public IReadOnlyList<string> Tags { get; init; } //Subtypes
         public int? Health { get; init; }
-        public int? Damage { get; init; }
-        public int? FreeDraw { get; init; }
-        public int? CostDiscard { get; init; }
+        public int? Sanity { get; init; }
+        public int? Cost { get; init; }
+        public int? Quantity { get; init; }
+
     }
 }

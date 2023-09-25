@@ -17,7 +17,7 @@ namespace Tools
         [SerializeField]
         public string Code { get; set; }
 
-        [BoxGroup("Split/Right", ShowLabel = false)]
+        [BoxGroup("Split/Left", ShowLabel = false)]
         [SerializeField]
         public string Name { get; set; }
 
