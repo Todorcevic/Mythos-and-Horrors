@@ -7,48 +7,27 @@ using Zenject;
 
 namespace GameView.Tests
 {
-    //public class FakeSerializer : ISerializer
-    //{
-    //    public T CreateDataFromFile<T>(string pathAndNameJsonFile)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-
-    //    public T CreateDataFromResources<T>(string pathAndNameJsonFile)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-    //}
-
     [TestFixture]
-    public class DeserializeCardsUseCaseTests
+    public class DeserializeCardsUseCaseTests : OneTimeAutoInject
     {
         private readonly string path = Path.Combine(Application.persistentDataPath, "test.json");
         [Inject] private readonly DeserializeCardsUseCase sut;
 
-        [SetUp]
-        public void SetUp()
-        {
-            //StaticContext.Container.Unbind<ISerializer>();
-            //StaticContext.Container.Bind<ISerializer>().To<FakeSerializer>().AsSingle();
-            StaticContext.Container.Inject(this);
-
-        }
-
         [Test]
         public void CardInfoJson_File_Exist()
         {
-            Assert.IsTrue(File.Exists(FilesPath.JSON_DATA_PATH));
+            Assert.That(File.Exists(FilesPath.JSON_DATA_PATH), Is.True);
         }
 
         [Test]
-        public void DeserializeCardsUseCase_With_Safe_String()
+        public void DeserializeCardsUseCase_With_Safe_Data()
         {
             File.WriteAllText(path, "[\r\n  {\r\n    \"$type\": \"Tools.CardInfo, Tools\",\r\n    \"Description\": \"Hola Mondo\",\r\n    \"PackCode\": \"3123\",\r\n    \"Faction\": 3,\r\n    \"Cost\": 4,\r\n    \"CardType\": 0,\r\n    \"Code\": \"00001\",\r\n    \"Name\": \"First Investigator\"\r\n  },\r\n  {\r\n    \"$type\": \"Tools.CardInfo, Tools\",\r\n    \"Description\": \"AJJAJA\",\r\n    \"PackCode\": \"3\",\r\n    \"Faction\": 0,\r\n    \"Quantity\": 2,\r\n    \"CardType\": 4,\r\n    \"Code\": \"00002\",\r\n    \"Name\": \"Montro2\"\r\n  }\r\n]");
 
             List<Card> result = sut.Load(path);
 
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result[0].Info.Name, Is.EqualTo("First Investigator"));
+            Assert.That(result[1].Info.CardType, Is.EqualTo(CardType.Creature));
         }
 
         [Test]
@@ -56,11 +35,11 @@ namespace GameView.Tests
         {
             List<Card> result = sut.Load(FilesPath.JSON_DATA_PATH);
 
-            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count, Is.GreaterThan(0));
         }
 
         [TearDown]
-        public void CleanUp()
+        public void TearDown()
         {
             if (File.Exists(path)) File.Delete(path);
         }

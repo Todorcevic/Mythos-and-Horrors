@@ -1,19 +1,13 @@
 using NUnit.Framework;
 using Zenject;
 
-public abstract class OneTimeAutoInjected
+public abstract class OneTimeAutoInject
 {
-    public DiContainer Container => StaticContext.Container;
+    public DiContainer Container => TestsInstaller.Container;
 
     [OneTimeSetUp]
-    public virtual void Setup()
+    public virtual void SetUp()
     {
         Container.Inject(this);
-    }
-
-    [OneTimeTearDown]
-    public virtual void Teardown()
-    {
-
     }
 }
