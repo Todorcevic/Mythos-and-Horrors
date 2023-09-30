@@ -19,7 +19,7 @@ namespace Tools
             this.delete = delete;
             Code = cardInfo.Code;
             Name = cardInfo.Name;
-            Type = cardInfo.CardType;
+            Type = cardInfo.CardType.ToString();
         }
 
         [ReadOnly]

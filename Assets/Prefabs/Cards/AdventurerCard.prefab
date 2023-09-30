@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3762236406814514275}
   - component: {fileID: 5178286417302773998}
   m_Layer: 3
-  m_Name: InvestigatorCard
+  m_Name: AdventurerCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

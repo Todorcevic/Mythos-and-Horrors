@@ -1,9 +1,10 @@
+using GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Tools
 {
-    public class CardInfo : Tuesday
+    public class CardInfo : DataCreatorBase
     {
         [BoxGroup("Split/Left")]
         [SerializeField]
@@ -15,7 +16,7 @@ namespace Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
-        public string Faction { get; set; } // Versatil, Intrepid, etc.
+        public Faction Faction { get; set; } // Versatil, Intrepid, etc.
 
         [BoxGroup("Split/Left")]
         [SerializeField]

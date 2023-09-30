@@ -2,9 +2,14 @@
 {
     public enum CardType
     {
-        Asset,
-        Encounter,
-        Location,
-        Boss
+        Adventurer,
+        Aid,
+        Talent,
+        Condition,
+        Creature,
+        Adversity,
+        Place,
+        Goal,
+        Plot
     }
 }

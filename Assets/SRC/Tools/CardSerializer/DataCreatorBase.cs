@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using GameRules;
+using Sirenix.OdinInspector;
 using System;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
@@ -9,9 +10,8 @@ namespace Tools
     {
         [HorizontalGroup("Split", 0.5f)]
         [BoxGroup("Split/Left", ShowLabel = false)]
-        [ReadOnly, ShowInInspector]
-        public string CardType => GetType().Name;
-
+        [ShowInInspector]
+        public CardType CardType { get; set; }
 
         [BoxGroup("Split/Left", ShowLabel = false)]
         [SerializeField]
@@ -26,6 +26,6 @@ namespace Tools
 
         public bool Contains(string word) => Code.Contains(word, StringComparison.OrdinalIgnoreCase)
                 || Name.Contains(word, StringComparison.OrdinalIgnoreCase)
-                || CardType.Contains(word, StringComparison.OrdinalIgnoreCase);
+                || CardType.ToString().Contains(word, StringComparison.OrdinalIgnoreCase);
     }
 }

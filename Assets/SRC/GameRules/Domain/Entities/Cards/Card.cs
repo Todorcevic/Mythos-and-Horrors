@@ -6,7 +6,6 @@ namespace GameRules
     public class Card
     {
         [Inject] public CardInfo Info { get; }
-        public CardType Type => Enum.Parse<CardType>(Info.CardType);
         public Zone CurrentZone { get; private set; }
 
         /*******************************************************************/

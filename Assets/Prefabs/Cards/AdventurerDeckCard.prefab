@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5377548819005049730}
   - component: {fileID: 5453716948963857331}
   m_Layer: 3
-  m_Name: AssetCard
+  m_Name: AdventurerDeckCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,7 +17,7 @@ namespace GameRules
                 MoveCardDTO moveCardDTO = new(
                 _cardRepository.GetCard("3"),
                 _zoneRepository.GetZone(ZoneType.FreeRow),
-                CardMovementType.BasicWithPreview);
+                CardMovementAnimation.BasicWithPreview);
                 await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             }
         }
@@ -29,7 +29,7 @@ namespace GameRules
                 MoveCardDTO moveCardDTO = new(
                     _cardRepository.GetCard("8"),
                     _zoneRepository.GetZone(ZoneType.Rewards),
-                    CardMovementType.BasicWithPreview);
+                    CardMovementAnimation.BasicWithPreview);
                 await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             }
         }

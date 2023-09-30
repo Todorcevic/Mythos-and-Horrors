@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7366095968266893132}
   - component: {fileID: 3103479505797999903}
   m_Layer: 3
-  m_Name: Location
+  m_Name: PlaceCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

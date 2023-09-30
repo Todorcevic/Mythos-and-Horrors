@@ -6,7 +6,7 @@ namespace GameRules
     public class MoveCardGameAction : GameAction
     {
         [Inject] private readonly ICardMover _cardMovePresenter;
-        private CardMovementType _cardMovementType;
+        private CardMovementAnimation _cardMovementType;
 
         public Card Card { get; private set; }
         public Zone Zone { get; private set; }
@@ -29,16 +29,16 @@ namespace GameRules
 
             switch (_cardMovementType)
             {
-                case CardMovementType.Basic:
+                case CardMovementAnimation.Basic:
                     await _cardMovePresenter.MoveCardToZone(Card, Zone.ZoneType);
                     break;
-                case CardMovementType.BasicWithPreview:
+                case CardMovementAnimation.BasicWithPreview:
                     await _cardMovePresenter.MoveCardToZoneWithPreview(Card, Zone.ZoneType);
                     break;
-                case CardMovementType.Fast:
+                case CardMovementAnimation.Fast:
                     _cardMovePresenter.FastMoveCardToZone(Card, Zone.ZoneType);
                     break;
-                case CardMovementType.FastWithPreview:
+                case CardMovementAnimation.FastWithPreview:
                     await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card, Zone.ZoneType);
                     break;
             }

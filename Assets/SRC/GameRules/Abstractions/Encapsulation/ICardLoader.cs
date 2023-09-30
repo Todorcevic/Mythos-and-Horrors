@@ -1,7 +1,8 @@
-﻿namespace GameRules
+﻿using System.Collections.Generic;
+namespace GameRules
 {
-    internal interface ICardLoader
+    public interface ICardLoader
     {
-        void LoadCards();
+        void LoadCards(List<Card> cards);
     }
 }

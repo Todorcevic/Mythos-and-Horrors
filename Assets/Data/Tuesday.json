@@ -1,0 +1,22 @@
+[
+  {
+    "$type": "Tools.CardInfo, Tools",
+    "Description": "Hola Mondo",
+    "PackCode": "3123",
+    "Faction": 3,
+    "Cost": 4,
+    "CardType": 0,
+    "Code": "00001",
+    "Name": "First Investigator"
+  },
+  {
+    "$type": "Tools.CardInfo, Tools",
+    "Description": "AJJAJA",
+    "PackCode": "3",
+    "Faction": 0,
+    "Quantity": 2,
+    "CardType": 4,
+    "Code": "00002",
+    "Name": "Montro2"
+  }
+]

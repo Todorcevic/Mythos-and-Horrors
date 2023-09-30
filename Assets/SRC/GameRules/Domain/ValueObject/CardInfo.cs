@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace GameRules
+﻿namespace GameRules
 {
     public record CardInfo
     {
         public string Code { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
-        public string CardType { get; init; }
+        public CardType CardType { get; init; }
         public string[] Tags { get; init; } //Subtypes
         //public IReadOnlyList<string> Tags { get; init; } //Subtypes
         public int? Health { get; init; }

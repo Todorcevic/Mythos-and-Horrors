@@ -62,17 +62,17 @@ namespace Tools
         {
             if (structDataLoaded == null) return;
 
-            structDataType = structDataLoaded.GetType().ToString();
+            structDataType = structDataLoaded.GetType();
             JSONFileLoaded = string.Empty;
             cardSelected = null;
             newFileNameinfoBoxMessage = string.Empty;
-            typeSelected = GetCardTypes().FirstOrDefault();
+            //typeSelected = GetCardTypes().FirstOrDefault();
         }
 
         [ShowIfGroup("IsStructDataLoaded")]
         [BoxGroup("IsStructDataLoaded/Struct Data", ShowLabel = false)]
         [ReadOnly, SerializeField, LabelText("Struct Loaded")]
-        private string structDataType;
+        private Type structDataType;
 
         /*******************************************************************/
         [ShowIfGroup("IsStructDataLoaded")]
@@ -159,15 +159,15 @@ namespace Tools
             allCardData.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
-        [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
-        [HorizontalGroup("IsJSONLoaded/List/FileList")]
-        [ValueDropdown("GetCardTypes"), LabelText("Type")]
-        public Type typeSelected;
+        //[BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
+        //[HorizontalGroup("IsJSONLoaded/List/FileList")]
+        //[ValueDropdown("GetCardTypes"), LabelText("Type")]
+        //public Type typeSelected;
 
-        private IEnumerable<Type> GetCardTypes() => Assembly.GetExecutingAssembly()
-             .GetTypes().Where(type => type.BaseType != typeof(DataCreatorBase)
-                 && type != typeof(DataCreatorBase)
-                 && typeof(DataCreatorBase).IsAssignableFrom(type));
+        //private IEnumerable<Type> GetCardTypes() => Assembly.GetExecutingAssembly()
+        //     .GetTypes().Where(type => type.BaseType != typeof(DataCreatorBase)
+        //         && type != typeof(DataCreatorBase)
+        //         && typeof(DataCreatorBase).IsAssignableFrom(type));
 
         [BoxGroup("IsJSONLoaded/List")]
         [HorizontalGroup("IsJSONLoaded/List/FileList", Width = 50)]
@@ -175,7 +175,7 @@ namespace Tools
         [Button(SdfIconType.Plus, Name = "")]
         private void CreateRow()
         {
-            DataCreatorBase newCard = Activator.CreateInstance(typeSelected) as DataCreatorBase;
+            DataCreatorBase newCard = Activator.CreateInstance(structDataType) as DataCreatorBase;
             allCardData.Add(newCard);
             ShowAllCardInfoLoaded();
             cardSelected = newCard;

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2461451438957513620}
   - component: {fileID: 8158812757468622782}
   m_Layer: 3
-  m_Name: InvestigatorShort
+  m_Name: AdventurerShort
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

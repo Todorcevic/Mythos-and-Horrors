@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 5226966266286965769}
   - component: {fileID: 5621643891065916239}
   m_Layer: 3
-  m_Name: Plan
+  m_Name: GoalCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

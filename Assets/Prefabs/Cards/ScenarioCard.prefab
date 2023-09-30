@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 8528957966831882190}
   - component: {fileID: 2601103872813379581}
   m_Layer: 3
-  m_Name: EncounterCard
+  m_Name: ScenarioCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

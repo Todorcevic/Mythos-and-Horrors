@@ -18,13 +18,13 @@ namespace GameRules
             MoveCardDTO moveCardDTO = new(
                _cardRepository.GetCard("00001"),
                _zoneRepository.GetZone(ZoneType.AssetsDeck),
-               CardMovementType.BasicWithPreview);
+               CardMovementAnimation.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("00002"),
               _zoneRepository.GetZone(ZoneType.LocationDiscard),
-              CardMovementType.BasicWithPreview);
+              CardMovementAnimation.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             //moveCardDTO = new(

@@ -1,6 +1,6 @@
 ﻿namespace GameRules
 {
-    public enum CardMovementType
+    public enum CardMovementAnimation
     {
         Basic,
         BasicWithPreview,
