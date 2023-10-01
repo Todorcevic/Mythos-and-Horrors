@@ -1,57 +1,38 @@
-﻿//using System.Collections;
-//using NUnit.Framework;
-//using UnityEngine.TestTools;
-//using Zenject;
-//using UnityEngine;
-//using UnityEngine.SceneManagement;
+﻿using System.Collections;
+using NUnit.Framework;
+using UnityEngine.TestTools;
+using Zenject;
+using GameRules;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.SceneManagement;
+using UnityEngine;
 
-//namespace GameView.Tests
-//{
-//    [TestFixture]
-//    public class CardGeneratorComponentTests : SceneTestFixture
-//    {
-//        //[Inject] private readonly CardGeneratorComponent sut;
+namespace GameView.Tests
+{
+    [TestFixture]
+    public class CardGeneratorComponentTests : SceneTestFixture
+    {
+        [Inject] private readonly CardGeneratorComponent sut;
 
-//        //[SetUp]
-//        //public override void SetUp()
-//        //{
-//        //    base.SetUp();
-//        //}
+        [UnityTest]
+        public IEnumerator CardGeneratorComponent_BuildCards()
+        {
+            yield return LoadScenes("GamePlay");
 
-//        //[TearDown]
-//        //public override void Teardown()
-//        //{
+            List<Card> cards = new()
+            {
+                (Card)SceneContainer.Instantiate(typeof(Card00001), new object[] { new CardInfo() { Description = "Hola Mondo", Cost = 4, CardType = CardType.Adventurer, Code = "00001", Name = "First Adventurer" } }),
+                (Card)SceneContainer.Instantiate(typeof(Card00002), new object[] { new CardInfo() { Description = "AJJAJA", Cost = 0, CardType = CardType.Creature, Code = "00002", Name = "Montro2" } })
+            };
 
-//        //    base.SetUp();
-//        //}
+            sut.BuildCards(cards);
 
-//        [UnityTest]
-//        public IEnumerator CardGeneratorComponent_BuildCards()
-//        {
-//            //List<Card> cards = new()
-//            //{
-//            //    (Card)SceneContainer.Instantiate(typeof(Card00001), new object[] { new CardInfo() { Description = "Hola Mondo", Cost = 4, CardType = CardType.Adventurer, Code = "00001", Name = "First Adventurer" } }),
-//            //    (Card)SceneContainer.Instantiate(typeof(Card00002), new object[] { new CardInfo() { Description = "AJJAJA", Cost = 0, CardType = CardType.Creature, Code = "00002", Name = "Montro2" } })
-//            //};
+            Assert.That(sut.transform.GetComponentsInChildren<CardView>().Length, Is.EqualTo(2));
+            Assert.That(sut.transform.GetComponentsInChildren<CardView>().Any(cardView => cardView.Card.Info.Name == "First Adventurer"), Is.True);
+            Assert.That(sut.transform.GetComponentsInChildren<CardView>().Any(cardView => cardView.Card.Info.CardType == CardType.Creature), Is.True);
 
-
-//            yield return LoadScene("GamePlay");
-
-//            yield return new WaitForSeconds(10);
-
-//            //sut.BuildCards(cards);
-
-//            //Assert.That(sut.transform.childCount, Is.EqualTo(2));
-
-//            //CardView cardView = sut.transform.GetChild(0).GetComponent<CardView>();
-//            //Assert.That(cardView.Card.Info.Name, Is.EqualTo("First Adventurer"));
-
-//            //cardView = sut.transform.GetChild(1).GetComponent<CardView>();
-//            //Assert.That(cardView.Card.Info.CardType, Is.EqualTo(CardType.Creature));
-
-//            //CardGeneratorComponent component = Object.FindAnyObjectByType<CardGeneratorComponent>();
-//            //component.BuildCards(cards);
-//            yield return null;
-//        }
-//    }
-//}
+            yield return null;
+        }
+    }
+}
