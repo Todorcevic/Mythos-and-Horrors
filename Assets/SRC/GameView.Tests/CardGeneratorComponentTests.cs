@@ -2,9 +2,10 @@
 using NUnit.Framework;
 using UnityEngine.TestTools;
 using Zenject;
-using GameRules;
 using System.Collections.Generic;
 using System.Linq;
+using Tuesday.GameRules;
+using Tuesday.GameView;
 
 namespace Tuesday.Tests
 {

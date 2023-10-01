@@ -1,11 +1,11 @@
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
+#pragma warning disable IDE0051 // Remove unused private members
     public class CreateRow : MonoBehaviour
     {
         [OnValueChanged("PosicionateCards")]
@@ -15,13 +15,14 @@ namespace Tuesday
 
         /*******************************************************************/
         private void PosicionateCards()
+
         {
             allCards = GetComponentsInChildren<CardView>().ToList();
             ResetPosition();
             float xOffset = 0f;
             float yOffset = 0f;
             foreach (CardView card in allCards)
-            {    
+            {
                 card.transform.position += new Vector3(xOffset, yOffset, 0);
                 xOffset += cardSeparator;
                 yOffset += ViewValues.CARD_THICKNESS;
@@ -33,4 +34,5 @@ namespace Tuesday
             allCards.ForEach(card => card.transform.position = transform.position);
         }
     }
+#pragma warning restore IDE0051 // Remove unused private members
 }

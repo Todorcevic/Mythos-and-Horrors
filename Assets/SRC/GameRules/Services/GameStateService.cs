@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public class GameStateService : IGameStateEditable
     {

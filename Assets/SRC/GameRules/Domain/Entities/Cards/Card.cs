@@ -1,7 +1,7 @@
 using System;
 using Zenject;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public class Card
     {

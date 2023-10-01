@@ -1,4 +1,3 @@
-#pragma warning disable IDE0051, IDE0052// Remove unused private members
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
@@ -47,4 +46,3 @@ namespace Tuesday.Tools
         private Color GetColor() => cardInfo.IsIncomplete ? Color.red : Color.white;
     }
 }
-#pragma warning restore IDE0051, IDE0052// Remove unused private members

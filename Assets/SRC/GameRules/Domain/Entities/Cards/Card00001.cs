@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zenject;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public class Card00001 : Card, IStartReactionable, IEndReactionable
     {

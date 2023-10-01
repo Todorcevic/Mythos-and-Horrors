@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public class Zone
     {

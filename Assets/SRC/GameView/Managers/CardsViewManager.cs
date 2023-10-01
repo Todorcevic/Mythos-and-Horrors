@@ -1,8 +1,8 @@
-using GameRules;
+using Tuesday.GameRules;
 using System;
 using System.Collections.Generic;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class CardsViewManager
     {

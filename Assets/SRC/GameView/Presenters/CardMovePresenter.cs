@@ -1,10 +1,10 @@
-using GameRules;
 using Zenject;
 using DG.Tweening;
 using System.Threading.Tasks;
 using Sirenix.Utilities;
+using Tuesday.GameRules;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class CardMovePresenter : ICardMover
     {

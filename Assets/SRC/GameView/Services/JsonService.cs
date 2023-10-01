@@ -2,7 +2,7 @@
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class JsonService
     {

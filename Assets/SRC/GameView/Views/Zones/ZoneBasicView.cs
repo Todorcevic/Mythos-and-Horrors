@@ -1,7 +1,7 @@
 using DG.Tweening;
 using System.Linq;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class ZoneBasicView : ZoneView
     {

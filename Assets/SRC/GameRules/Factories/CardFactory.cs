@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Zenject;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public class CardFactory
     {

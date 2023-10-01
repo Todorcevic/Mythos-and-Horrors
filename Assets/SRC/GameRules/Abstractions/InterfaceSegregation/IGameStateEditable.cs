@@ -1,4 +1,4 @@
-﻿namespace GameRules
+﻿namespace Tuesday.GameRules
 {
     internal interface IGameStateEditable
     {

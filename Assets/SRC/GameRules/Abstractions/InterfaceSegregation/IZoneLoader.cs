@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public interface IZoneLoader
     {

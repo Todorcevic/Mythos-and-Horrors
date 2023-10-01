@@ -1,4 +1,4 @@
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class ViewValues
     {

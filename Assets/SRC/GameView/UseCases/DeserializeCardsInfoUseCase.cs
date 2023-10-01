@@ -1,8 +1,8 @@
-﻿using GameRules;
+﻿using Tuesday.GameRules;
 using System.Collections.Generic;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class DeserializeCardsInfoUseCase
     {

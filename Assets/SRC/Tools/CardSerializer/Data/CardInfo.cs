@@ -1,5 +1,5 @@
-using GameRules;
 using Sirenix.OdinInspector;
+using Tuesday.GameRules;
 using UnityEngine;
 
 namespace Tuesday.Tools

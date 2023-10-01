@@ -1,8 +1,8 @@
-using GameRules;
 using System.Threading.Tasks;
+using Tuesday.GameRules;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class InitializeGameUseCase
     {

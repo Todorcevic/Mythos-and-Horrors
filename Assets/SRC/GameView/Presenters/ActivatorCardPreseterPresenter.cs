@@ -1,8 +1,8 @@
-﻿using GameRules;
+﻿using Tuesday.GameRules;
 using Sirenix.Utilities;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class ActivatorCardPreseterPresenter : ICardActivator
     {

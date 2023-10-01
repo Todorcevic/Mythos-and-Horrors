@@ -1,11 +1,11 @@
-using GameRules;
+using Tuesday.GameRules;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class CardGeneratorComponent : MonoBehaviour
     {
@@ -23,7 +23,6 @@ namespace Tuesday
             List<CardView> cardsView = new();
             foreach (Card card in allCards)
             {
-                CardView prefab = GetPrefab(card.Info.CardType);
                 CardView cardInstantiated = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
                 cardsView.Add(cardInstantiated);
             }

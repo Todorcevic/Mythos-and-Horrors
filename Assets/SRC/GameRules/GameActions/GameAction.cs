@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public abstract class GameAction
     {

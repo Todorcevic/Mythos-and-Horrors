@@ -1,4 +1,4 @@
-﻿namespace GameRules
+﻿namespace Tuesday.GameRules
 {
     public record CardInfo
     {

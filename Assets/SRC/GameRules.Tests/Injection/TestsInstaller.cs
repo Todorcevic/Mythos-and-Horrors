@@ -1,6 +1,6 @@
-﻿using Tuesday;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Zenject;
+using Tuesday.GameView;
 
 namespace Tuesday.Tests
 {

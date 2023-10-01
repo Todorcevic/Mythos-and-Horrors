@@ -1,8 +1,8 @@
-﻿using GameRules;
-using Tuesday;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using Tuesday.GameRules;
+using Tuesday.GameView;
 using UnityEngine;
 using Zenject;
 

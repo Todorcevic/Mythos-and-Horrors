@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace GameRules
+namespace Tuesday.GameRules
 {
     public interface IEndReactionable
     {

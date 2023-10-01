@@ -1,11 +1,11 @@
-using GameRules;
+using Tuesday.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class CardView : MonoBehaviour
     {

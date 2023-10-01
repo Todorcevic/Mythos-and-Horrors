@@ -1,6 +1,6 @@
-﻿using GameRules;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
+using Tuesday.GameRules;
 using Zenject;
 
 namespace Tuesday.Tests

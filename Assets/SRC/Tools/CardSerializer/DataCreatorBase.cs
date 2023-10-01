@@ -1,6 +1,6 @@
-﻿using GameRules;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
+using Tuesday.GameRules;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 

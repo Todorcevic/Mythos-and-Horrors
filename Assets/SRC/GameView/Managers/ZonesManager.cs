@@ -1,7 +1,7 @@
-using GameRules;
+using Tuesday.GameRules;
 using Zenject;
 
-namespace Tuesday
+namespace Tuesday.GameView
 {
     public class ZonesManager
     {
