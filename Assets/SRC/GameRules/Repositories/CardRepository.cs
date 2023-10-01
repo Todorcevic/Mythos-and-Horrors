@@ -7,13 +7,16 @@ namespace GameRules
     public class CardRepository : ICardLoader
     {
         private List<Card> _cards;
-        private List<Card> Cards => _cards ?? throw new InvalidOperationException("_cards is NULL");
 
         /*******************************************************************/
-        public Card GetCard(string code) => Cards.First(card => card.Info.Code == code);
+        public Card GetCard(string code) => _cards.First(card => card.Info.Code == code);
 
-        public IReadOnlyList<Card> GetAllCards() => Cards;
+        public IReadOnlyList<Card> GetAllCards() => _cards;
 
-        void ICardLoader.LoadCards(List<Card> cards) => _cards = cards;
+        void ICardLoader.LoadCards(List<Card> cards)
+        {
+            if (_cards != null) throw new InvalidOperationException("Cards already loaded");
+            _cards = cards ?? throw new ArgumentNullException(nameof(cards) + " cards cant be null");
+        }
     }
 }

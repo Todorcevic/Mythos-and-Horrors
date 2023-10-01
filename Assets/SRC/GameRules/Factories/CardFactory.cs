@@ -1,24 +1,20 @@
-﻿using GameRules;
-using Sirenix.Utilities;
+﻿using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Zenject;
 
-namespace GameView
+namespace GameRules
 {
-    public class DeserializeCardsUseCase
+    public class CardFactory
     {
-        [Inject] private readonly ISerializer _serializer;
         [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
-        public List<Card> Load(string filePath)
+        public List<Card> CreateCards(List<CardInfo> cardsInfo)
         {
-            List<CardInfo> allCardInfo = _serializer.CreateDataFromFile<List<CardInfo>>(filePath);
             List<Card> allCards = new();
-
-            foreach (CardInfo cardInfo in allCardInfo)
+            foreach (CardInfo cardInfo in cardsInfo)
             {
                 Type type = Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code);
                 object objectCard = _diContainer.Instantiate(type, new object[] { cardInfo });
@@ -27,5 +23,6 @@ namespace GameView
             }
             return allCards;
         }
+
     }
 }

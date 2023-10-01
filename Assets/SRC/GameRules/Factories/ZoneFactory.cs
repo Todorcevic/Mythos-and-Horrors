@@ -1,19 +1,18 @@
 ﻿using System;
-using Zenject;
+using System.Collections.Generic;
 
 namespace GameRules
 {
     public class ZoneFactory
     {
-        [Inject] private readonly ZoneRepository _zoneRepository;
-
-        /*******************************************************************/
-        public void CreateZones()
+        public List<Zone> CreateZones()
         {
+            List<Zone> zones = new();
             foreach (ZoneType zoneType in Enum.GetValues(typeof(ZoneType)))
             {
-                _zoneRepository.AddZone(new Zone(zoneType));
+                zones.Add(new Zone(zoneType));
             }
+            return zones;
         }
     }
 }

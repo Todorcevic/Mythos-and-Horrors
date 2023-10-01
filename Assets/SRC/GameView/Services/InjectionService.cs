@@ -23,9 +23,6 @@ namespace GameView
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("Service")).AsSingle();
 
-            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Service")).FromResolve();
-
             /*** Presenters ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).AsSingle();

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 
 namespace GameRules
 {
-    public class ZoneRepository
+    public class ZoneRepository : IZoneLoader
     {
-        private readonly List<Zone> _zones = new();
+        private List<Zone> _zones;
 
         /*******************************************************************/
-        public void AddZone(Zone zone) => _zones.Add(zone);
-
         public Zone GetZone(ZoneType zoneType) => _zones.Find(zone => zone.ZoneType == zoneType);
 
+        void IZoneLoader.LoadZones(List<Zone> zones)
+        {
+            if (_zones != null) throw new ArgumentException(nameof(zones) + " zones already loaded");
+            _zones = zones ?? throw new ArgumentNullException(nameof(zones) + " zones cant be null");
+        }
     }
 }

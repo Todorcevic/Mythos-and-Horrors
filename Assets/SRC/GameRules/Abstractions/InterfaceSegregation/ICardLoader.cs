@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 namespace GameRules
 {
     public interface ICardLoader

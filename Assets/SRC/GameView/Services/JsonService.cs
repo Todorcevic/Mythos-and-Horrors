@@ -1,11 +1,10 @@
-﻿using GameRules;
-using System.IO;
+﻿using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace GameView
 {
-    public class JsonService : ISerializer
+    public class JsonService
     {
         private readonly JsonSerializerSettings serializerSettings = new()
         {
