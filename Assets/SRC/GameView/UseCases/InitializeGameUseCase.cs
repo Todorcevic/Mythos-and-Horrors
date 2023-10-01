@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tuesday.GameRules;
 using Zenject;
@@ -9,26 +10,24 @@ namespace Tuesday.GameView
         [Inject] private readonly ZoneFactory _zoneFactory;
         [Inject] private readonly IZoneLoader _zoneRepository;
 
-        [Inject] private readonly DeserializeCardsInfoUseCase _deserializeCardsUseCase;
+        [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly ICardLoader _cardLoader;
 
-        [Inject] private readonly CardRepository _cardRepository; 
+        [Inject] private readonly CardRepository _cardRepository;
         [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
         [Inject] private readonly CardsViewManager _cardsViewManager;
 
-        [Inject] private readonly GameActionFactory _gameActionFactory;
-
         /*******************************************************************/
-        public async Task Execute()
+        public void Execute()
         {
-            _zoneRepository.LoadZones(_zoneFactory.CreateZones());
-
-            _cardLoader.LoadCards(_cardFactory.CreateCards(_deserializeCardsUseCase.CreateFrom(FilesPath.JSON_DATA_PATH)));
-          
-            _cardsViewManager.LoadCardsView(_cardGeneratorComponent.BuildCards(_cardRepository.GetAllCards()));
-
-            await _gameActionFactory.Create<StartGameAction>().Run();
+            LoadZones();
+            LoadCards();
+            LoadCardsView();
         }
+
+        private void LoadZones() => _zoneRepository.LoadZones(_zoneFactory.CreateZones());
+        private void LoadCards() => _cardLoader.LoadCards(_cardFactory.CreateCards(_jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH)));
+        private void LoadCardsView() => _cardsViewManager.LoadCardsView(_cardGeneratorComponent.BuildCards(_cardRepository.GetAllCards()));
     }
 }

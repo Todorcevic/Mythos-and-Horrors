@@ -8,7 +8,7 @@ namespace Tuesday.Tests
     [TestFixture]
     public class CardRepositoryTests : OneTimeAutoInject
     {
-        [Inject] private readonly CardRepository sut;
+        [Inject] private readonly CardRepository _sut;
 
         [OneTimeSetUp]
         public override void OneTimeSetUp()
@@ -21,13 +21,13 @@ namespace Tuesday.Tests
                 (Card)Container.Instantiate(typeof(Card00002), new object[] { new CardInfo() { Description = "AJJAJA", Cost = 0, CardType = CardType.Creature, Code = "00002", Name = "Montro2" } })
             };
 
-            ((ICardLoader)sut).LoadCards(cards);
+            ((ICardLoader)_sut).LoadCards(cards);
         }
 
         [Test]
         public void CardRepository_GetCard()
         {
-            Card result = sut.GetCard("00001");
+            Card result = _sut.GetCard("00001");
 
             Assert.That(result.Info.Name, Is.EqualTo("First Adventurer"));
         }
@@ -35,7 +35,7 @@ namespace Tuesday.Tests
         [Test]
         public void CardRepository_GetAllCards()
         {
-            IReadOnlyList<Card> result = sut.GetAllCards();
+            IReadOnlyList<Card> result = _sut.GetAllCards();
 
             Assert.That(result.Count, Is.EqualTo(2));
         }

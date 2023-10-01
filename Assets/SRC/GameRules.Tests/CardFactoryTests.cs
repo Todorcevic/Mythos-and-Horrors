@@ -8,7 +8,7 @@ namespace Tuesday.Tests
     [TestFixture]
     public class CardFactoryTests : OneTimeAutoInject
     {
-        [Inject] private readonly CardFactory sut;
+        [Inject] private readonly CardFactory _sut;
 
         [Test]
         public void CardFactory_With_CardInfo()
@@ -33,7 +33,7 @@ namespace Tuesday.Tests
                 }
             };
 
-            List<Card> result = sut.CreateCards(cardInfo);
+            List<Card> result = _sut.CreateCards(cardInfo);
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Info.Name, Is.EqualTo("First Adventurer"));
