@@ -6,7 +6,7 @@ namespace GameView
 {
     public class ActivatorCardPreseterPresenter : ICardActivator
     {
-        [Inject] private readonly CardsManager _cardsManager;
+        [Inject] private readonly CardsViewManager _cardsManager;
 
         /*******************************************************************/
         public void ActivateThisCards(params Card[] cards)

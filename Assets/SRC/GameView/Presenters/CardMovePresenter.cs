@@ -9,7 +9,7 @@ namespace GameView
     public class CardMovePresenter : ICardMover
     {
         [Inject] private readonly ZonesManager _zonesManager;
-        [Inject] private readonly CardsManager _cardsManager;
+        [Inject] private readonly CardsViewManager _cardsManager;
 
         /*******************************************************************/
         public async Task MoveCardsInFront(params Card[] cards)
