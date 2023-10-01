@@ -1,7 +1,7 @@
 ﻿using GameRules;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class InjectionService : Installer
     {

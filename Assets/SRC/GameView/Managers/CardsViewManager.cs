@@ -2,7 +2,7 @@ using GameRules;
 using System;
 using System.Collections.Generic;
 
-namespace GameView
+namespace Tuesday
 {
     public class CardsViewManager
     {

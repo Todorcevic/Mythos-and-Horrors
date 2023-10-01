@@ -2,7 +2,7 @@ using GameRules;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class InitializeGameUseCase
     {

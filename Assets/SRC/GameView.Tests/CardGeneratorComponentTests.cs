@@ -5,10 +5,8 @@ using Zenject;
 using GameRules;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.SceneManagement;
-using UnityEngine;
 
-namespace GameView.Tests
+namespace Tuesday.Tests
 {
     [TestFixture]
     public class CardGeneratorComponentTests : SceneTestFixture

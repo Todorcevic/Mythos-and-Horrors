@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace GameView
+namespace Tuesday.Tools
 {
     public class SpriteExporter : AssetPostprocessor
     {

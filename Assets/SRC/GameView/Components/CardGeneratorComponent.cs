@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class CardGeneratorComponent : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Tools
+namespace Tuesday.Tools
 {
     public class CardInfo : DataCreatorBase
     {

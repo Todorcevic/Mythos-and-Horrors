@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class LoaderComponent : MonoBehaviour
     {

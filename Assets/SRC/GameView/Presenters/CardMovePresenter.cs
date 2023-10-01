@@ -4,7 +4,7 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using Sirenix.Utilities;
 
-namespace GameView
+namespace Tuesday
 {
     public class CardMovePresenter : ICardMover
     {

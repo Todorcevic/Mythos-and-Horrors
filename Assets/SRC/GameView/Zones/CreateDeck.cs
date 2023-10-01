@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Sirenix.OdinInspector;
 
-namespace GameView
+namespace Tuesday
 {
     public class CreateDeck : MonoBehaviour
     {

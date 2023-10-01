@@ -2,7 +2,7 @@
 using Sirenix.Utilities;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class ActivatorCardPreseterPresenter : ICardActivator
     {

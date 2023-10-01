@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using Zenject;
 
-namespace GameView.Tests
+namespace Tuesday.Tests
 {
     [TestFixture]
     public class CardFactoryTests : OneTimeAutoInject

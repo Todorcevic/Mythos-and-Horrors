@@ -3,7 +3,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
-namespace Tools
+namespace Tuesday.Tools
 {
     [Serializable]
     public class Header

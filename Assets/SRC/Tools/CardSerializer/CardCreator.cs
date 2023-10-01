@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using FilePathAttribute = Sirenix.OdinInspector.FilePathAttribute;
 
-namespace Tools
+namespace Tuesday.Tools
 {
     public class CardCreator : OdinEditorWindow
     {

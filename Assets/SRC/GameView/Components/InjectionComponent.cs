@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class InjectionComponent : MonoInstaller
     {

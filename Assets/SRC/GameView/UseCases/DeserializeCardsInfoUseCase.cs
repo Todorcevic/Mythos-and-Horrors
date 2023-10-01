@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Zenject;
 
-namespace GameView
+namespace Tuesday
 {
     public class DeserializeCardsInfoUseCase
     {
