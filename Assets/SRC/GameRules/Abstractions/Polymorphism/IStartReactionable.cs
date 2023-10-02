@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public interface IStartReactionable
     {

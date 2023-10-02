@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using Sirenix.OdinInspector;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
 #pragma warning disable IDE0051 // Remove unused private members
     public class CreateDeck : MonoBehaviour

@@ -1,11 +1,11 @@
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class CardGeneratorComponent : MonoBehaviour
     {

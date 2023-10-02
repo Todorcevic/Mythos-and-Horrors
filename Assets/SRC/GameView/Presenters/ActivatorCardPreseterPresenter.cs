@@ -1,8 +1,8 @@
-﻿using Tuesday.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using Sirenix.Utilities;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class ActivatorCardPreseterPresenter : ICardActivator
     {

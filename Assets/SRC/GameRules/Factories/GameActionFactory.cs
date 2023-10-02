@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zenject;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public class GameActionFactory
     {

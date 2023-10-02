@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class ZoneRowView : ZoneView
     {

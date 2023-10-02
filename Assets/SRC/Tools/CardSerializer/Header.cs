@@ -2,7 +2,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
-namespace Tuesday.Tools
+namespace MythsAndHorrors.Tools
 {
     [Serializable]
     public class Header

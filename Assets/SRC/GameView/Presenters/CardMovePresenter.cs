@@ -2,9 +2,9 @@ using Zenject;
 using DG.Tweening;
 using System.Threading.Tasks;
 using Sirenix.Utilities;
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class CardMovePresenter : ICardMover
     {

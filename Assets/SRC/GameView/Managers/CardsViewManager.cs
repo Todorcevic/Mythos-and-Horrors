@@ -1,8 +1,8 @@
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 using System;
 using System.Collections.Generic;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class CardsViewManager
     {

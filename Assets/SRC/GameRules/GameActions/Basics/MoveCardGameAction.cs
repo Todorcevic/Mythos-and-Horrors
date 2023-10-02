@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Zenject;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public class MoveCardGameAction : GameAction
     {

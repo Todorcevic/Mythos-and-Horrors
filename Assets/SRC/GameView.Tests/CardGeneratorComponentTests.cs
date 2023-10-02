@@ -4,14 +4,11 @@ using UnityEngine.TestTools;
 using Zenject;
 using System.Collections.Generic;
 using System.Linq;
-using Tuesday.GameRules;
-using Tuesday.GameView;
-using UnityEngine.SceneManagement;
+using MythsAndHorrors.GameRules;
+using MythsAndHorrors.GameView;
 
-namespace Tuesday.Tests
+namespace MythsAndHorrors.Gameview.Tests
 {
-
-
     [TestFixture]
     public class CardGeneratorComponentTests : SceneTestFixture
     {

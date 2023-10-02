@@ -2,7 +2,7 @@
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class JsonService
     {

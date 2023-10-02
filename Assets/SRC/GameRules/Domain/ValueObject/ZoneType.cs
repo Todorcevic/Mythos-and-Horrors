@@ -1,4 +1,4 @@
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public enum ZoneType
     {

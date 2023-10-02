@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace Tuesday.Tools
+namespace MythsAndHorrors.Tools
 {
     public class SpriteExporter : AssetPostprocessor
     {

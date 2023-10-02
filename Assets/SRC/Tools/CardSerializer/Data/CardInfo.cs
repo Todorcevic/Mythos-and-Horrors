@@ -1,8 +1,8 @@
 using Sirenix.OdinInspector;
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 using UnityEngine;
 
-namespace Tuesday.Tools
+namespace MythsAndHorrors.Tools
 {
     public class CardInfo : DataCreatorBase
     {

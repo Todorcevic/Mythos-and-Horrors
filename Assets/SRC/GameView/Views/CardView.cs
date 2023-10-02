@@ -1,11 +1,11 @@
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class CardView : MonoBehaviour
     {

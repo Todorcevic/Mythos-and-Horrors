@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public class CardRepository : ICardLoader
     {

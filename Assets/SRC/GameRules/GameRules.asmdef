@@ -1,6 +1,6 @@
 {
     "name": "GameRules",
-    "rootNamespace": "Tuesday.GameRules",
+    "rootNamespace": "MythsAndHorrors.GameRules",
     "references": [
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
     ],

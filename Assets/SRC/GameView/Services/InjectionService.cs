@@ -1,7 +1,7 @@
-﻿using Tuesday.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class InjectionService : Installer
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tuesday.GameRules;
+using MythsAndHorrors.GameRules;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class InitializeGameUseCase
     {
@@ -18,16 +18,20 @@ namespace Tuesday.GameView
         [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
         [Inject] private readonly CardsViewManager _cardsViewManager;
 
+        [Inject] private readonly GameActionFactory _gameActionFactory;
+
         /*******************************************************************/
-        public void Execute()
+        public Task Execute()
         {
             LoadZones();
             LoadCards();
             LoadCardsView();
+            return StartGame();
         }
 
         private void LoadZones() => _zoneRepository.LoadZones(_zoneFactory.CreateZones());
         private void LoadCards() => _cardLoader.LoadCards(_cardFactory.CreateCards(_jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH)));
         private void LoadCardsView() => _cardsViewManager.LoadCardsView(_cardGeneratorComponent.BuildCards(_cardRepository.GetAllCards()));
+        private Task StartGame() => _gameActionFactory.Create<StartGameAction>().Run();
     }
 }

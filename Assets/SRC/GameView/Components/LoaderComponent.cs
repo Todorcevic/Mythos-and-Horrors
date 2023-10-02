@@ -1,19 +1,18 @@
-using Tuesday.GameRules;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public class LoaderComponent : MonoBehaviour
     {
+        [InjectOptional] private readonly bool _mustBeLoaded;
         [Inject] private readonly InitializeGameUseCase _initializeGameUseCase;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
 
         /*******************************************************************/
         private async void Start()
         {
-            _initializeGameUseCase.Execute();
-            await _gameActionFactory.Create<StartGameAction>().Run();
+            if (!_mustBeLoaded) return;
+            await _initializeGameUseCase.Execute();
         }
     }
 }

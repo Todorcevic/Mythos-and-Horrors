@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Zenject;
 
-namespace Tuesday.Tests
+namespace MythsAndHorrors.GameRules.Tests
 {
     public abstract class OneTimeAutoInject
     {

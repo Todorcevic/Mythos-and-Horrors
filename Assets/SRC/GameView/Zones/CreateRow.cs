@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
 #pragma warning disable IDE0051 // Remove unused private members
     public class CreateRow : MonoBehaviour

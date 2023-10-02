@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using Zenject;
-using Tuesday.GameView;
+using MythsAndHorrors.GameView;
 
-namespace Tuesday.Tests
+namespace MythsAndHorrors.GameRules.Tests
 {
     [SetUpFixture]
     public class TestsInstaller

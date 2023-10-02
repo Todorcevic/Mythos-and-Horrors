@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
-using Tuesday.GameRules;
 using Zenject;
 
-namespace Tuesday.Tests
+namespace MythsAndHorrors.GameRules.Tests
 {
     [TestFixture]
     public class CardRepositoryTests : OneTimeAutoInject

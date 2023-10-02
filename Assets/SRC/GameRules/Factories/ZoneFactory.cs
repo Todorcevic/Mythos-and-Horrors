@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public class ZoneFactory
     {

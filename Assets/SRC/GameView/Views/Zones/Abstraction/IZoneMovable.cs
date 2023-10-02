@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tuesday.GameView
+namespace MythsAndHorrors.GameView
 {
     public interface IZoneMovable
     {

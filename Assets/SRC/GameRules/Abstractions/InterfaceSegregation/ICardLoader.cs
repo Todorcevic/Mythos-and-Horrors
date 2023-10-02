@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Tuesday.GameRules
+namespace MythsAndHorrors.GameRules
 {
     public interface ICardLoader
     {

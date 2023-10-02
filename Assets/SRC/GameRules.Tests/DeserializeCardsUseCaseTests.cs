@@ -1,12 +1,11 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using Tuesday.GameRules;
-using Tuesday.GameView;
+using MythsAndHorrors.GameView;
 using UnityEngine;
 using Zenject;
 
-namespace Tuesday.Tests
+namespace MythsAndHorrors.GameRules.Tests
 {
     [TestFixture]
     public class DeserializeCardsUseCaseTests : OneTimeAutoInject
