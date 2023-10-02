@@ -1,1 +1,1 @@
-# Myths and Horror
+# Myths and Horrors
