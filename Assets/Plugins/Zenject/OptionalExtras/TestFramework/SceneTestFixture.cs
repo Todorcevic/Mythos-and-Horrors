@@ -35,6 +35,7 @@ namespace Zenject
             return LoadScenes(sceneName);
         }
 
+
         public IEnumerator LoadScenes(params string[] sceneNames)
         {
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");

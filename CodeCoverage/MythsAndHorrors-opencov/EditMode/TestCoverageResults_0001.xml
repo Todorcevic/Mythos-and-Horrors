@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.0.0.0">
+  <Summary numSequencePoints="44" visitedSequencePoints="40" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="90.91" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="5" numClasses="5" visitedMethods="19" numMethods="20" />
+  <Modules>
+    <Module>
+      <Summary numSequencePoints="44" visitedSequencePoints="40" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="90.91" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="5" numClasses="5" visitedMethods="19" numMethods="20" />
+      <ModuleTime>0001-01-01T00:00:00</ModuleTime>
+      <ModuleName>GameView</ModuleName>
+      <Files>
+        <File uid="1" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Components/CardGeneratorComponent.cs" />
+        <File uid="2" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Components/InjectionComponent.cs" />
+        <File uid="3" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Components/InjectionGlobalComponent.cs" />
+        <File uid="4" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Components/SceneComponent.cs" />
+        <File uid="5" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Managers/CardsViewManager.cs" />
+        <File uid="6" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Managers/ZonesManager.cs" />
+        <File uid="7" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Presenters/ActivatorCardPreseterPresenter.cs" />
+        <File uid="8" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Presenters/CardMovePresenter.cs" />
+        <File uid="9" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Services/InjectionService.cs" />
+        <File uid="10" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Services/JsonService.cs" />
+        <File uid="11" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/UseCases/InitializeGameUseCase.cs" />
+        <File uid="12" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Views/CardView.cs" />
+        <File uid="13" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Views/Zones/ZoneBasicView.cs" />
+        <File uid="14" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Views/Zones/ZoneDeckView.cs" />
+        <File uid="15" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Views/Zones/ZoneRowView.cs" />
+        <File uid="16" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Views/Zones/ZoneView.cs" />
+        <File uid="17" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Zones/CreateDeck.cs" />
+        <File uid="18" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Zones/CreateRow.cs" />
+        <File uid="19" fullPath="D:/REPOS/UNITY/MythsAndHorrors/Assets/SRC/GameView/Components/LoaderComponent.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="21" visitedSequencePoints="21" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="3" />
+          <FullName>MythsAndHorrors.GameView.InjectionService</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663353</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService::InstallBindings()</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="338" ordinal="0" offset="0" sl="9" sc="9" el="9" ec="9" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="339" ordinal="0" offset="1" sl="10" sc="13" el="10" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="340" ordinal="0" offset="8" sl="11" sc="13" el="11" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="341" ordinal="0" offset="15" sl="12" sc="9" el="12" ec="9" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="8" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663354</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService::InstallView()</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="342" ordinal="0" offset="6" sl="15" sc="9" el="15" ec="9" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="343" ordinal="0" offset="7" sl="16" sc="13" el="16" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="344" ordinal="0" offset="28" sl="19" sc="13" el="19" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="345" ordinal="0" offset="57" sl="23" sc="13" el="23" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="346" ordinal="0" offset="86" sl="27" sc="13" el="27" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="347" ordinal="0" offset="115" sl="30" sc="13" el="30" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="348" ordinal="0" offset="180" sl="34" sc="13" el="34" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="349" ordinal="0" offset="209" sl="36" sc="9" el="36" ec="9" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="9" visitedSequencePoints="9" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663355</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService::InstallRules()</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="350" ordinal="0" offset="6" sl="39" sc="9" el="39" ec="9" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="351" ordinal="0" offset="7" sl="40" sc="13" el="40" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="352" ordinal="0" offset="28" sl="43" sc="13" el="43" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="353" ordinal="0" offset="57" sl="47" sc="13" el="47" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="354" ordinal="0" offset="86" sl="50" sc="13" el="50" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="355" ordinal="0" offset="151" sl="54" sc="13" el="54" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="356" ordinal="0" offset="180" sl="57" sc="13" el="57" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="357" ordinal="0" offset="245" sl="61" sc="13" el="61" ec="13" bec="0" bev="0" fileid="9" />
+                <SequencePoint vc="1" uspid="358" ordinal="0" offset="274" sl="63" sc="9" el="63" ec="9" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="9" visitedSequencePoints="5" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="55.56" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="1" numClasses="1" visitedMethods="2" numMethods="3" />
+          <FullName>MythsAndHorrors.GameView.JsonService</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="0.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663357</MetadataToken>
+              <Name>T MythsAndHorrors.GameView.JsonService::CreateDataFromResources[T](System.String)</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="359" ordinal="0" offset="0" sl="16" sc="0" el="16" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="360" ordinal="0" offset="1" sl="17" sc="0" el="17" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="361" ordinal="0" offset="8" sl="18" sc="0" el="18" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="0" uspid="362" ordinal="0" offset="22" sl="19" sc="0" el="19" ec="0" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663358</MetadataToken>
+              <Name>T MythsAndHorrors.GameView.JsonService::CreateDataFromFile[T](System.String)</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="2" uspid="363" ordinal="0" offset="0" sl="22" sc="0" el="22" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="2" uspid="364" ordinal="0" offset="1" sl="23" sc="0" el="23" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="2" uspid="365" ordinal="0" offset="8" sl="24" sc="0" el="24" ec="0" bec="0" bev="0" fileid="10" />
+                <SequencePoint vc="2" uspid="366" ordinal="0" offset="17" sl="25" sc="0" el="25" ec="0" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663362</MetadataToken>
+              <Name>MythsAndHorrors.GameView.JsonService::JsonService()</Name>
+              <FileRef uid="10" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="379" ordinal="0" offset="0" sl="9" sc="9" el="9" ec="9" bec="0" bev="0" fileid="10" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="3" />
+          <FullName>MythsAndHorrors.GameView.InjectionService/&lt;&gt;c</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663423</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c::&lt;InstallView&gt;b__1_3(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="484" ordinal="0" offset="0" sl="30" sc="33" el="30" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663424</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c::&lt;InstallRules&gt;b__2_2(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="485" ordinal="0" offset="0" sl="50" sc="33" el="50" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663425</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c::&lt;InstallRules&gt;b__2_5(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="486" ordinal="0" offset="0" sl="57" sc="33" el="57" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="5" visitedSequencePoints="5" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="1" numClasses="1" visitedMethods="5" numMethods="5" />
+          <FullName>MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663427</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0::&lt;InstallView&gt;b__0(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="487" ordinal="0" offset="0" sl="19" sc="33" el="19" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663428</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0::&lt;InstallView&gt;b__1(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="488" ordinal="0" offset="0" sl="23" sc="33" el="23" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663429</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0::&lt;InstallView&gt;b__2(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="489" ordinal="0" offset="0" sl="27" sc="33" el="27" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663430</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0::&lt;InstallView&gt;b__4(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="490" ordinal="0" offset="0" sl="30" sc="60" el="30" ec="60" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663431</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass1_0::&lt;InstallView&gt;b__5(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="491" ordinal="0" offset="0" sl="34" sc="33" el="34" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="6" visitedSequencePoints="6" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0.0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="1" numClasses="1" visitedMethods="6" numMethods="6" />
+          <FullName>MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663433</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__0(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="492" ordinal="0" offset="0" sl="43" sc="33" el="43" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663434</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__1(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="493" ordinal="0" offset="0" sl="47" sc="33" el="47" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663435</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__3(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="494" ordinal="0" offset="0" sl="50" sc="60" el="50" ec="60" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663436</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__4(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="495" ordinal="0" offset="0" sl="54" sc="33" el="54" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663437</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__6(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="496" ordinal="0" offset="0" sl="57" sc="60" el="57" ec="60" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="0" nPathComplexity="0" sequenceCoverage="100.0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="100.0" branchCoverage="0" maxCyclomaticComplexity="0" minCyclomaticComplexity="0" maxCrapScore="0" minCrapScore="0" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663438</MetadataToken>
+              <Name>System.Void MythsAndHorrors.GameView.InjectionService/&lt;&gt;c__DisplayClass2_0::&lt;InstallRules&gt;b__7(Zenject.ConventionSelectTypesBinder)</Name>
+              <FileRef uid="9" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="497" ordinal="0" offset="0" sl="61" sc="33" el="61" ec="33" bec="0" bev="0" fileid="9" />
+              </SequencePoints>
+              <BranchPoints />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+  </Modules>
+</CoverageSession>
