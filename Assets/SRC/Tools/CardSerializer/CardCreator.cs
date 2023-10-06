@@ -1,4 +1,5 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
@@ -19,7 +20,6 @@ namespace MythsAndHorrors.Tools
         private const string FILE_EXTENSION = ".json";
         private readonly JsonSerializerSettings jsonSettings = new()
         {
-            //TypeNameHandling = TypeNameHandling.Auto,
             NullValueHandling = NullValueHandling.Ignore
         };
 
@@ -66,7 +66,6 @@ namespace MythsAndHorrors.Tools
             JSONFileLoaded = string.Empty;
             cardSelected = null;
             newFileNameinfoBoxMessage = string.Empty;
-            //typeSelected = GetCardTypes().FirstOrDefault();
         }
 
         [ShowIfGroup("IsStructDataLoaded")]
@@ -159,16 +158,6 @@ namespace MythsAndHorrors.Tools
             allCardData.FindAll(cardInfo => cardInfo.Contains(find)).ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
-        //[BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
-        //[HorizontalGroup("IsJSONLoaded/List/FileList")]
-        //[ValueDropdown("GetCardTypes"), LabelText("Type")]
-        //public Type typeSelected;
-
-        //private IEnumerable<Type> GetCardTypes() => Assembly.GetExecutingAssembly()
-        //     .GetTypes().Where(type => type.BaseType != typeof(DataCreatorBase)
-        //         && type != typeof(DataCreatorBase)
-        //         && typeof(DataCreatorBase).IsAssignableFrom(type));
-
         [BoxGroup("IsJSONLoaded/List")]
         [HorizontalGroup("IsJSONLoaded/List/FileList", Width = 50)]
         [GUIColor("@Color.green")]
@@ -180,6 +169,27 @@ namespace MythsAndHorrors.Tools
             ShowAllCardInfoLoaded();
             cardSelected = newCard;
         }
+
+        /*******************************************************************/
+        [ShowIfGroup("IsJSONLoaded")]
+        [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
+        [OnValueChanged("Filter")]
+        [HorizontalGroup("IsJSONLoaded/List/Filters", LabelWidth = 50, MarginRight = 0.1f)]
+        [SerializeField] private string set = string.Empty;
+
+        [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
+        [OnValueChanged("Filter")]
+        [HorizontalGroup("IsJSONLoaded/List/Filters")]
+        [SerializeField] private CardType type;
+
+        private void Filter()
+        {
+            cardsHead.Clear();
+            toSave = allCardData.FindAll(cardInfo => cardInfo.ContainsFilters(set, type));
+            toSave.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
+        }
+
+        private List<DataCreatorBase> toSave;
 
         /*******************************************************************/
         [BoxGroup("IsJSONLoaded/List")]
@@ -213,7 +223,7 @@ namespace MythsAndHorrors.Tools
 
         private void Save(string path)
         {
-            string serializeInfo = JsonConvert.SerializeObject(allCardData, Formatting.Indented, jsonSettings);
+            string serializeInfo = JsonConvert.SerializeObject(toSave.Count > 0 ? toSave : allCardData, Formatting.Indented, jsonSettings);
             StreamWriter writer = new(path);
             writer.WriteLine(serializeInfo);
             writer.Close();

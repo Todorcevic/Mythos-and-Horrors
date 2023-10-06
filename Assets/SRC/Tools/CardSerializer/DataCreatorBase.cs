@@ -13,11 +13,11 @@ namespace MythsAndHorrors.Tools
         [ShowInInspector]
         public CardType CardType { get; set; }
 
-        [BoxGroup("Split/Left", ShowLabel = false)]
+        [BoxGroup("Split/Left")]
         [SerializeField]
         public string Code { get; set; }
 
-        [BoxGroup("Split/Left", ShowLabel = false)]
+        [BoxGroup("Split/Left")]
         [SerializeField]
         public string Name { get; set; }
 
@@ -26,6 +26,14 @@ namespace MythsAndHorrors.Tools
 
         public bool Contains(string word) => Code.Contains(word, StringComparison.OrdinalIgnoreCase)
                 || Name.Contains(word, StringComparison.OrdinalIgnoreCase)
-                || CardType.ToString().Contains(word, StringComparison.OrdinalIgnoreCase);
+                || CardType.ToString().Contains(word, StringComparison.OrdinalIgnoreCase)
+                || (this is CardInfo cardInfo && cardInfo.PackCode.Contains(word, StringComparison.OrdinalIgnoreCase));
+
+        public bool ContainsFilters(string filter, CardType type = CardType.None)
+        {
+            return (this is CardInfo cardInfo
+              && cardInfo.PackCode == filter
+              && (type == CardType.None || cardInfo.CardType == type));
+        }
     }
 }

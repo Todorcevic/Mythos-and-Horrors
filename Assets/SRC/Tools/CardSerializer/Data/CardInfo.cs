@@ -57,7 +57,7 @@ namespace MythsAndHorrors.Tools
         [SerializeField]
         public int? Wild { get; set; } // Wildcard for Challenges
 
-        [BoxGroup("Split/Right")]
+        [BoxGroup("Split/Right", ShowLabel = false)]
         [SerializeField]
         public int? Health { get; set; }
 
@@ -117,7 +117,7 @@ namespace MythsAndHorrors.Tools
                 "location" => CardType.Place,
                 "treachery" => CardType.Adversity,
                 "act" => CardType.Goal,
-                "plan" => CardType.Plot,
+                "agenda" => CardType.Plot,
                 _ => CardType.None,
             };
 
