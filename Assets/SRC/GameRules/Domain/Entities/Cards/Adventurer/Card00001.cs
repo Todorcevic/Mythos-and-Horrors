@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Card00002 : Card, IStartReactionable, IEndReactionable
+    public class Card00001 : CardAdventurer, IStartReactionable, IEndReactionable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardRepository _cardRepository;
@@ -24,10 +24,10 @@ namespace MythsAndHorrors.GameRules
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Info.Code == "6")
+            if (gameAction is MoveCardGameAction moveCardGameAction && moveCardGameAction.Card.Info.Code == "00002")
             {
                 MoveCardDTO moveCardDTO = new(
-                    _cardRepository.GetCard("8"),
+                    this,
                     _zoneRepository.GetZone(ZoneType.Rewards),
                     CardMovementAnimation.BasicWithPreview);
                 await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);

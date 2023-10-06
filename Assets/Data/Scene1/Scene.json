@@ -1,0 +1,1230 @@
+[
+  {
+    "Description": "Easy / Standard\n[skull] -X. X is the number of [[Ghoul]] enemies at your location.\n[cultist] -1. If you fail, take 1 horror.\n[tablet] -2. If there is a [[Ghoul]] enemy at your location, take 1 damage.\n",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01104",
+    "Name": "The Gathering"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01105",
+    "Name": "What's Going On?!"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 7,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01106",
+    "Name": "Rise of the Ghouls"
+  },
+  {
+    "Description": "<b>Forced</b> - At the end of the enemy phase: Each unengaged [[Ghoul]] enemy moves 1 location towards the Parlor.\n<b>Forced</b> - At the end of the round: Place 1 doom on this agenda for each [[Ghoul]] enemy in the Hallway or Parlor.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 10,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01107",
+    "Name": "They're Getting Out!"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01108",
+    "Name": "Trapped"
+  },
+  {
+    "Description": "<b>Objective</b> - When the round ends, investigators in the hallway may, as a group, spend the requisite number of clues to advance.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Hints": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01109",
+    "Name": "The Barrier"
+  },
+  {
+    "Description": "<b>Objective</b> - If the Ghoul Priest is Defeated, advance.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01110",
+    "Name": "What Have You Done?"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01111",
+    "Name": "Study"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Enigma": 1,
+    "Hints": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01112",
+    "Name": "Hallway"
+  },
+  {
+    "Description": "<b>Forced</b> - After you enter the Attic: Take 1 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 1,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01113",
+    "Name": "Attic"
+  },
+  {
+    "Description": "<b>Forced</b> - After you enter the Cellar: Take 1 damage.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 4,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01114",
+    "Name": "Cellar"
+  },
+  {
+    "Description": "[action] <b>Resign.</b> \"This is too much for me!\" You run out the front door, fleeing in panic.\nWhile Lita Chantler is not controlled by a player, she gains: \"[action]: <b>Parley.</b> Test [intellect] (4). If you succeed, take control of Lita Chantler.\"",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01115",
+    "Name": "Parlor"
+  },
+  {
+    "Description": "<b>Prey</b> - Highest [combat].\nHunter. Retaliate.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Ghoul",
+      "Elite"
+    ],
+    "Quantity": 1,
+    "Health": 5,
+    "EnemyDamage": 2,
+    "EnemyTerror": 2,
+    "EnemyStrength": 4,
+    "EnemyAgility": 4,
+    "Victory": 2,
+    "HealthPerAdventurer": true,
+    "CardType": 5,
+    "Code": "01116",
+    "Name": "Ghoul Priest"
+  },
+  {
+    "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n[reaction] When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 3,
+    "Tags": [
+      "Ally"
+    ],
+    "Cost": 0,
+    "Quantity": 1,
+    "Health": 3,
+    "Sanity": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01117",
+    "Name": "Lita Chantler"
+  },
+  {
+    "Description": "<b>Spawn</b> - Attic.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Ghoul"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 2,
+    "EnemyStrength": 4,
+    "EnemyAgility": 1,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01118",
+    "Name": "Flesh-Eater"
+  },
+  {
+    "Description": "<b>Spawn</b> - Cellar.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Ghoul"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "EnemyDamage": 2,
+    "EnemyTerror": 1,
+    "EnemyStrength": 3,
+    "EnemyAgility": 4,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01119",
+    "Name": "Icy Ghoul"
+  },
+  {
+    "Description": "Easy / Standard\n[skull]: -X. X is the highest number of doom on a [[Cultist]] enemy in play.\n[cultist]: -2. Place 1 doom on the nearest [[Cultist]] enemy.\n[tablet]: -3. If you fail, place 1 of your clues on your location.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01120",
+    "Name": "The Midnight Masks"
+  },
+  {
+    "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 6,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01121a",
+    "Name": "Predator or Prey?"
+  },
+  {
+    "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 8,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01122",
+    "Name": "Time Is Running Short"
+  },
+  {
+    "Description": "[action] The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01123",
+    "Name": "Uncovering the Conspiracy"
+  },
+  {
+    "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n[action]: Draw 1 card and gain 1 resource. (Limit once per turn.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01124",
+    "Name": "Your House"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham",
+      "Central"
+    ],
+    "Quantity": 1,
+    "Enigma": 1,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01125",
+    "Name": "Rivertown"
+  },
+  {
+    "Description": "[action]: Draw 3 cards. (Limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 3,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01126",
+    "Name": "Southside"
+  },
+  {
+    "Description": "[action]: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01127",
+    "Name": "Southside"
+  },
+  {
+    "Description": "[action]: Heal 3 damage. (Limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01128",
+    "Name": "St. Mary's Hospital"
+  },
+  {
+    "Description": "[action]: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 4,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01129",
+    "Name": "Miskatonic University"
+  },
+  {
+    "Description": "[action]: Gain 3 resources. (Limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 3,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01130",
+    "Name": "Downtown"
+  },
+  {
+    "Description": "[action]: Heal 3 horror. (Limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 4,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01131",
+    "Name": "Downtown"
+  },
+  {
+    "Description": "While you are in Easttown, reduce the cost of each [[Ally]] asset you play by 2.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01132",
+    "Name": "Easttown"
+  },
+  {
+    "Description": "<b>Forced</b> - After you enter the Graveyard: Test [willpower] (3). If you fail, you must either take 2 horror or move to Rivertown.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 1,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01133",
+    "Name": "Graveyard"
+  },
+  {
+    "Description": "[action] Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Arkham"
+    ],
+    "Quantity": 1,
+    "Victory": 1,
+    "Enigma": 3,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01134",
+    "Name": "Northside"
+  },
+  {
+    "Description": "Peril.\n<b>Revelation</b> - You must choose either (choose one): Spend 1 clue or take 2 damage.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Curse"
+    ],
+    "Quantity": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01135",
+    "Name": "Hunting Shadow"
+  },
+  {
+    "Description": "<b>Revelation</b> - If you have no clues, False Lead gains surge. If you have 1 or more clues, test [intellect] (4). For each point you fail by, place 1 of your clues on your location.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01136",
+    "Name": "False Lead"
+  },
+  {
+    "Description": "<b>Spawn</b> - Downtown.\n<b>Forced</b> - When \"Wolf-Man\" Drew attacks: Heal 1 damage from him.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "EnemyDamage": 2,
+    "EnemyTerror": 0,
+    "EnemyStrength": 4,
+    "EnemyAgility": 2,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01137",
+    "Name": "\"Wolf-Man\" Drew"
+  },
+  {
+    "Description": "<b>Spawn</b> - Graveyard.\n[action] Choose and discard 4 cards from your hand: <b>Parley.</b> Add Herman Collins to the victory display.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 3,
+    "EnemyAgility": 4,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01138",
+    "Name": "Herman Collins"
+  },
+  {
+    "Description": "<b>Spawn</b> - Miskatonic University.\n[action] Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 2,
+    "EnemyAgility": 3,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01139",
+    "Name": "Peter Warren"
+  },
+  {
+    "Description": "<b>Spawn</b> - Northside.\n[action] Spend 5 resources: <b>Parley.</b> Add Victoria Devereux to the victory display.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 3,
+    "EnemyAgility": 2,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01140",
+    "Name": "Victoria Devereux"
+  },
+  {
+    "Description": "<b>Spawn</b> - St. Mary's Hospital.\n<b>Forced</b> - After Ruth Turner is evaded: Add her to the victory display.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 2,
+    "EnemyAgility": 5,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01141",
+    "Name": "Ruth Turner"
+  },
+  {
+    "Description": "Easy / Standard\n[skull]: -X. X is the number of [[Monster]] enemies in play.\n[cultist]: -2. Place 1 doom on the nearest enemy.\n[tablet]: -3. If there is a [[Monster]] enemy at your location, take 1 damage.\n[elder_thing]: -5. If there is an [[Ancient One]] enemy in play, reveal another token.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01142",
+    "Name": "The Devourer Below"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01143",
+    "Name": "The Arkham Woods"
+  },
+  {
+    "Description": "Each enemy gets +1 fight and +1 evade.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 5,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01144",
+    "Name": "The Ritual Begins"
+  },
+  {
+    "Description": "<b>Forced</b> - When this agenda advances:\n- If the investigators are at Act 1, put the set-aside Ritual Site into play and spawn the set-aside Umôrdhoth there.\n- If the investigators are at Act 2 or 3, discard all enemies at the Ritual Site and spawn the set-aside Umôrdhoth there.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Eldritch": 5,
+    "HealthPerAdventurer": false,
+    "CardType": 0,
+    "Code": "01145",
+    "Name": "Vengeance Awaits"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "Hints": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01146",
+    "Name": "Investigating the Trail"
+  },
+  {
+    "Description": "<b>Objective</b> - If an investigator enters the Ritual Site, advance.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01147",
+    "Name": "Into the Darkness"
+  },
+  {
+    "Description": "[action] Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 8,
+    "Code": "01148",
+    "Name": "Disrupting the Ritual"
+  },
+  {
+    "Description": "The Main Path is connected to each other [[Woods]] location.\n[action]: <b>Resign.</b> \"There's nothing we can do to stop them!\" You flee from the woods, leaving Arkham to its grisly fate.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01149",
+    "Name": "Main Path"
+  },
+  {
+    "Description": "<b>Forced</b> - After you enter this location: Test [willpower] (4). If you fail, take 1 horror and 1 damage.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 4,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01150",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "<b>Forced</b> - When you move out of this location: Test [intellect] (3). If you fail, cancel the effects of the move.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 3,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01151",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "This location is investigated using [willpower] instead of the skill indicated by the investigation attempt.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01152",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "This location is investigated using [agility] instead of the skill indicated by the investigation attempt.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01153",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 2,
+    "Hints": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01154",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "[action]: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Woods"
+    ],
+    "Quantity": 1,
+    "Enigma": 1,
+    "Hints": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01155",
+    "Name": "Arkham Woods"
+  },
+  {
+    "Description": "<b>Forced</b> - At the end of the round, if there are fewer than 2 clues per investigator on Ritual Site: Add clues to it until it has 2 clues per investigator on it.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Cave"
+    ],
+    "Quantity": 1,
+    "Enigma": 3,
+    "Hints": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 7,
+    "Code": "01156",
+    "Name": "Ritual Site"
+  },
+  {
+    "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n[action] If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Ancient One",
+      "Elite"
+    ],
+    "Quantity": 1,
+    "Health": 6,
+    "EnemyDamage": 3,
+    "EnemyTerror": 3,
+    "EnemyStrength": 5,
+    "EnemyAgility": 6,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01157",
+    "Name": "Umôrdhoth"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [willpower] (5). For each point you fail by, you must either (choose one): Choose and discard a card from your hand, or take 1 damage and 1 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Curse"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01158",
+    "Name": "Umôrdhoth's Wrath"
+  },
+  {
+    "Description": "Hunter.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Creature"
+    ],
+    "Quantity": 3,
+    "Health": 1,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 1,
+    "EnemyAgility": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01159",
+    "Name": "Swarm of Rats"
+  },
+  {
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Ghoul"
+    ],
+    "Quantity": 3,
+    "Health": 2,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 2,
+    "EnemyAgility": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01160",
+    "Name": "Ghoul Minion"
+  },
+  {
+    "Description": "<b>Prey</b> - Lowest remaining health.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Ghoul"
+    ],
+    "Quantity": 1,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 3,
+    "EnemyAgility": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01161",
+    "Name": "Ravenous Ghoul"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [agility] (3). For each point you fail by, take 1 damage.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Hazard"
+    ],
+    "Quantity": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01162",
+    "Name": "Grasping Hands"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [willpower] (3). For each point you fail by, take 1 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Terror"
+    ],
+    "Quantity": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01163",
+    "Name": "Rotting Remains"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put Frozen in Fear into play in your threat area.\nThe first time you perform one of the following actions (move, fight, or evade) each round, it costs 1 additional action.\n<b>Forced</b> - At the end of your turn: Test [willpower] (3). If you succeed, discard Frozen in Fear.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Terror"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01164",
+    "Name": "Frozen in Fear"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put Dissonant Voices into play in your threat area.\nYou cannot play assets or events.\n<b>Forced</b> - At the end of the round: Discard Dissonant Voices.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Terror"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01165",
+    "Name": "Dissonant Voices"
+  },
+  {
+    "Description": "<b>Revelation</b> - Place 1 doom on the current agenda. This effect may cause the current agenda to advance.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Omen"
+    ],
+    "Quantity": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01166",
+    "Name": "Ancient Evils"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [willpower] (4). If you fail, choose and discard 1 asset you control (if you cannot, take 2 damage instead).",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Hazard"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01167",
+    "Name": "Crypt Chill"
+  },
+  {
+    "Description": "<b>Revelation</b> - Attach to your location. Limit 1 per location.\nAttached location gets +2 shroud.\n<b>Forced</b> - After attached location is successfully investigated: Discard Obscuring Fog.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Hazard"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01168",
+    "Name": "Obscuring Fog"
+  },
+  {
+    "Description": "<b>Spawn</b> - Any empty location.\n<b>Forced</b> - After Acolyte enters play: Place 1 doom on it.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 3,
+    "Health": 1,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 3,
+    "EnemyAgility": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01169",
+    "Name": "Acolyte"
+  },
+  {
+    "Description": "<b>Spawn</b> - Any empty location.\nRetaliate.\n<b>Forced</b> - At the end of the mythos phase: Place 1 doom on Wizard of the Order.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist"
+    ],
+    "Quantity": 1,
+    "Health": 2,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 4,
+    "EnemyAgility": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01170",
+    "Name": "Wizard of the Order"
+  },
+  {
+    "Description": "<b>Revelation</b> - Place 2 doom on the nearest [[Cultist]] enemy. If there are no [[Cultist]] enemies in play, search the encounter deck and discard pile for a [[Cultist]] enemy and draw it. Shuffle the encounter deck.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Hex"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01171",
+    "Name": "Mysterious Chanting"
+  },
+  {
+    "Description": "Hunter.\nWhile attempting to evade Hunting Nightgaunt, double the negative modifier of each revealed chaos token.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Monster",
+      "Nightgaunt"
+    ],
+    "Quantity": 2,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 3,
+    "EnemyAgility": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01172",
+    "Name": "Hunting Nightgaunt"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [agility] (4). If you fail, take 1 horror and 1 damage. Then, disengage with each non-[[Nightgaunt]] enemy engaged with you and move to a [[Central]] location.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01173",
+    "Name": "On Wings of Darkness"
+  },
+  {
+    "Description": "<b>Revelation</b> - Attach to the location in play with the most clues, and without a Locked Door attached.\nThe attached location cannot be investigated.\n[action]: Test [combat] (4) to break down the door or [agility] (4) to pick the lock. If you succeed, discard Locked Door.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Obstacle"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01174",
+    "Name": "Locked Door"
+  },
+  {
+    "Description": "<b>Prey</b> - Lowest remaining sanity.\nHunter.\nWhile engaged with an investigator with remaining sanity 4 or fewer, Screeching Byakhee gets +1 fight and +1 evade.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Monster",
+      "Byakhee"
+    ],
+    "Quantity": 2,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 2,
+    "EnemyStrength": 3,
+    "EnemyAgility": 3,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01175",
+    "Name": "Screeching Byakhee"
+  },
+  {
+    "Description": "<b>Revelation</b> - Test [willpower] (4). If you fail, take 2 horror and search your deck for a [[Madness]] weakness. Draw that card and shuffle your deck.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Omen"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01176",
+    "Name": "The Yellow Sign"
+  },
+  {
+    "Description": "<b>Prey</b> - Fewest cards in hand.\n<b>Forced</b> - When Yithian Observer attacks you: Discard 1 card at random from your hand. If you cannot, Yithian Observer deals +1 damage and +1 horror for this attack.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Monster",
+      "Yithian"
+    ],
+    "Quantity": 2,
+    "Health": 4,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 4,
+    "EnemyAgility": 3,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01177",
+    "Name": "Yithian Observer"
+  },
+  {
+    "Description": "Peril.\n<b>Revelation</b> - You must either (choose one): draw 2 cards and place 2 doom on the current agenda (this effect can cause the current agenda to advance), or take 2 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Pact"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01178",
+    "Name": "Offer of Power"
+  },
+  {
+    "Description": "<b>Prey</b> - Lowest [agility].\n<b>Forced</b> - At the end of the round: Heal 2 damage from Relentless Dark Young.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Monster",
+      "Dark Young"
+    ],
+    "Quantity": 1,
+    "Health": 5,
+    "EnemyDamage": 2,
+    "EnemyTerror": 1,
+    "EnemyStrength": 4,
+    "EnemyAgility": 2,
+    "Victory": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01179",
+    "Name": "Relentless Dark Young"
+  },
+  {
+    "Description": "Hunter. Retaliate.\n<b>Forced</b> - After Goat Spawn is defeated: Each investigator at this location takes 1 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster"
+    ],
+    "Quantity": 3,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 3,
+    "EnemyAgility": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01180",
+    "Name": "Goat Spawn"
+  },
+  {
+    "Description": "<b>Prey</b> - Lowest [combat].\nHunter.\n<b>Forced</b> - After Young Deep One engages you: Take 1 horror.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Monster",
+      "Deep One"
+    ],
+    "Quantity": 2,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 1,
+    "EnemyStrength": 3,
+    "EnemyAgility": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01181",
+    "Name": "Young Deep One"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put Dreams of R'lyeh into play in your threat area.\nYou get -1 [willpower] and -1 sanity.\n[action]: Test [willpower] (3). If you succeed, Discard Dreams of R'lyeh.",
+    "PackCode": "core",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Omen"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01182",
+    "Name": "Dreams of R'lyeh"
+  }
+]

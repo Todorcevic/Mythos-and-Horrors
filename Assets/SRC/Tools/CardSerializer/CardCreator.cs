@@ -19,7 +19,7 @@ namespace MythsAndHorrors.Tools
         private const string FILE_EXTENSION = ".json";
         private readonly JsonSerializerSettings jsonSettings = new()
         {
-            TypeNameHandling = TypeNameHandling.Auto,
+            //TypeNameHandling = TypeNameHandling.Auto,
             NullValueHandling = NullValueHandling.Ignore
         };
 
@@ -28,11 +28,11 @@ namespace MythsAndHorrors.Tools
 
         private string FullPathLoaded => DATA_PATH + JSONFileLoaded;
         private bool IsStructDataLoaded => structDataLoaded != null;
-        private bool IsJSONLoaded => !string.IsNullOrEmpty(JSONFileLoaded);
+        private bool IsJSONLoaded => File.Exists(FullPathLoaded);
         private bool IsCardSelected => cardSelected != null;
 
         /*******************************************************************/
-        [MenuItem("Tools/Cards/Card Creator")]
+        [MenuItem("Tools/Cards/CardCreator")]
         private static void Open()
         {
             CardCreator window = GetWindow<CardCreator>();
@@ -115,7 +115,7 @@ namespace MythsAndHorrors.Tools
                 return;
             }
 
-            File.WriteAllText(FullPathLoaded, string.Empty);
+            File.WriteAllText(FullPathLoaded, "[]");
             allCardData = new();
             ShowAllCardInfoLoaded();
             AssetDatabase.Refresh();

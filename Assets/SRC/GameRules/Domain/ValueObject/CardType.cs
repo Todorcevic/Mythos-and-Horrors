@@ -2,6 +2,7 @@
 {
     public enum CardType
     {
+        None,
         Adventurer,
         Aid,
         Talent,

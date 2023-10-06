@@ -1,0 +1,2069 @@
+[
+  {
+    "Description": "[reaction] After you defeat an enemy: Discover 1 clue at your location. (Limit once per round.)\n[elder_sign] effect: +1 for each clue on your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Agency",
+      "Detective"
+    ],
+    "Quantity": 1,
+    "Strength": 4,
+    "Agility": 2,
+    "Intelligence": 3,
+    "Power": 3,
+    "Health": 9,
+    "Sanity": 5,
+    "HealthPerAdventurer": false,
+    "CardType": 1,
+    "Code": "01501",
+    "Name": "Roland Banks"
+  },
+  {
+    "Description": "You may take an additional action during your turn, which can only be used on [[Tome]] [action] abilities.\n[elder_sign] effect: +0. If you succeed, draw 1 card for each [[Tome]] you control.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Miskatonic"
+    ],
+    "Quantity": 1,
+    "Strength": 2,
+    "Agility": 2,
+    "Intelligence": 5,
+    "Power": 3,
+    "Health": 5,
+    "Sanity": 9,
+    "HealthPerAdventurer": false,
+    "CardType": 1,
+    "Code": "01502",
+    "Name": "Daisy Walker"
+  },
+  {
+    "Description": "[free] During your turn, spend 2 resources: You may take an additional action this turn. (Limit once per turn.)\n[elder_sign] effect: +2. If you succeed, gain 2 resources.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Criminal"
+    ],
+    "Quantity": 1,
+    "Strength": 3,
+    "Agility": 4,
+    "Intelligence": 3,
+    "Power": 2,
+    "Health": 8,
+    "Sanity": 6,
+    "HealthPerAdventurer": false,
+    "CardType": 1,
+    "Code": "01503",
+    "Name": "\"Skids\" O'Toole"
+  },
+  {
+    "Description": "[reaction] After 1 or more horror is placed on Agnes Baker: Deal 1 damage to an enemy at your location. (Limit once per phase.)\n[elder_sign] effect: +1 for each horror on Agnes Baker.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Sorcerer"
+    ],
+    "Quantity": 1,
+    "Strength": 2,
+    "Agility": 3,
+    "Intelligence": 2,
+    "Power": 5,
+    "Health": 6,
+    "Sanity": 8,
+    "HealthPerAdventurer": false,
+    "CardType": 1,
+    "Code": "01504",
+    "Name": "Agnes Baker"
+  },
+  {
+    "Description": "[reaction] When you reveal a chaos token, choose and discard 1 card from your hand: Cancel that chaos token and return it to the bag. Reveal a new chaos token. (Limit once per test/ability.)\n[elder_sign] effect: +0. If Wendy's Amulet is in play, you automatically succeed instead.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Drifter"
+    ],
+    "Quantity": 1,
+    "Strength": 1,
+    "Agility": 4,
+    "Intelligence": 3,
+    "Power": 4,
+    "Health": 7,
+    "Sanity": 7,
+    "HealthPerAdventurer": false,
+    "CardType": 1,
+    "Code": "01505",
+    "Name": "Wendy Adams"
+  },
+  {
+    "Description": "Roland Banks deck only.\nUses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack (if there are 1 or more clues on your location, you get +3 [combat], instead). This attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Firearm"
+    ],
+    "Cost": 3,
+    "Quantity": 1,
+    "Strength": 1,
+    "Agility": 1,
+    "Wild": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01506",
+    "Name": "Roland's .38 Special"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put Cover Up into play in your threat area, with 3 clues on it.\n[reaction] When you would discover 1 or more clues at your location: Discard that many clues from Cover Up instead.\n<b>Forced</b> - When the game ends, if there are any clues on Cover Up: You suffer 1 mental trauma.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Task"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01507",
+    "Name": "Cover Up"
+  },
+  {
+    "Description": "Daisy Walker deck only.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Item"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Intelligence": 1,
+    "Power": 1,
+    "Wild": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01508",
+    "Name": "Daisy's Tote Bag"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put The Necronomicon into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nTreat each [elder_sign] you reveal on a chaos token as a [auto_fail].\n[action]: Move 1 horror from The Necronomicon to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01509",
+    "Name": "The Necronomicon"
+  },
+  {
+    "Description": "\"Skids\" O'Toole deck only.\nFast. Play after your turn begins.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 1,
+    "Quantity": 1,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Wild": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01510",
+    "Name": "On the Lam"
+  },
+  {
+    "Description": "<b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[free]: Move 1 resource from your resource pool to Hospital Debts. (Limit twice per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 6 resources on it: You earn 2 fewer experience for this scenario.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Task"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01511",
+    "Name": "Hospital Debts"
+  },
+  {
+    "Description": "Agnes Baker deck only.\n[reaction] After you play a [[Spell]] card: Draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Relic"
+    ],
+    "Cost": 3,
+    "Quantity": 1,
+    "Strength": 1,
+    "Power": 1,
+    "Wild": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01512",
+    "Name": "Heirloom of Hyperborea"
+  },
+  {
+    "Description": "Place 1 doom on the current agenda. This effect may cause the current agenda to advance.\n<b>Forced</b> - If Dark Memory is in your hand at the end of your turn, reveal it and take 2 horror.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01513",
+    "Name": "Dark Memory"
+  },
+  {
+    "Description": "Wendy Adams deck only.\nYou may play the topmost event in your discard pile as if it were in your hand.\n<b>Forced</b> - After you play an event or discard an event from play: Place it on the bottom of your deck instead of in your discard pile.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Relic"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Wild": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01514",
+    "Name": "Wendy's Amulet"
+  },
+  {
+    "Description": "<b>Revelation</b> - Take 2 direct horror and remove all cards in your discard pile from the game.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Madness"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01515",
+    "Name": "Abandoned and Alone"
+  },
+  {
+    "Description": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack. This attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Firearm"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01516",
+    "Name": ".45 Automatic"
+  },
+  {
+    "Description": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [combat] for this skill test.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01517",
+    "Name": "Physical Training"
+  },
+  {
+    "Description": "You get +1 [combat].\n[free] Discard Beat Cop: Deal 1 damage to an enemy at your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Police"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Strength": 1,
+    "Health": 2,
+    "Sanity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01518",
+    "Name": "Beat Cop"
+  },
+  {
+    "Description": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage or horror from an investigator at your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Talent",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01519",
+    "Name": "First Aid"
+  },
+  {
+    "Description": "[action]: <b>Fight.</b> You get +1 [combat] for this attack. If the attacked enemy is the only enemy engaged with you, this attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Melee"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01520",
+    "Name": "Machete"
+  },
+  {
+    "Description": "[reaction] When an enemy attack deals damage to Guard Dog: Deal 1 damage to the attacking enemy.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Creature"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Health": 3,
+    "Sanity": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01521",
+    "Name": "Guard Dog"
+  },
+  {
+    "Description": "Fast. Play after you defeat an enemy.\nDiscover 1 clue at your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01522",
+    "Name": "Evidence!"
+  },
+  {
+    "Description": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01523",
+    "Name": "Dodge"
+  },
+  {
+    "Description": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 5,
+    "Quantity": 2,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01524",
+    "Name": "Dynamite Blast"
+  },
+  {
+    "Description": "If this skill test is successful during an attack, that attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Practiced"
+    ],
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01525",
+    "Name": "Vicious Blow"
+  },
+  {
+    "Description": "Place 3 ammo tokens on a [[Firearm]] asset controlled by an investigator at your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Supply"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01526",
+    "Name": "Extra Ammunition"
+  },
+  {
+    "Description": "You get +1 [willpower].\n[free] While an investigator at your location is taking his or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Item"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01527",
+    "Name": "Police Badge"
+  },
+  {
+    "Description": "You get +1 [combat].\n[free] Exhaust Beat Cop and deal 1 damage to it: Deal 1 damage to an enemy at your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Police"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Health": 3,
+    "Sanity": 2,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01528",
+    "Name": "Beat Cop"
+  },
+  {
+    "Description": "Uses (2 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +3 [combat] for this attack. Instead of its standard damage, this attack deals 1 damage for each point you succeed by (to a minimum of 1, to a maximum of 5). If you fail and would damage another investigator, this attack deals 1 damage for each point you fail by (to a minimum of 1, to a maximum of 5).",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 5,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Firearm"
+    ],
+    "Cost": 5,
+    "Quantity": 2,
+    "Strength": 2,
+    "Xp": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01529",
+    "Name": "Shotgun"
+  },
+  {
+    "Description": "Fast.\nYou get +1 [intellect] while investigating.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tool"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01530",
+    "Name": "Magnifying Glass"
+  },
+  {
+    "Description": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of his or her deck for a card, draws it, and shuffles the remaining cards into his or her deck.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01531",
+    "Name": "Old Book of Lore"
+  },
+  {
+    "Description": "[reaction] After Research Librarian enters play: Search your deck for a [[Tome]] asset and add it to your hand. Shuffle your deck.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Miskatonic"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Health": 1,
+    "Sanity": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01532",
+    "Name": "Research Librarian"
+  },
+  {
+    "Description": "You get +1 [intellect].\n[reaction] After you successfully investigate: Gain 1 resource.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Miskatonic"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Health": 1,
+    "Sanity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01533",
+    "Name": "Dr. Milan Christopher"
+  },
+  {
+    "Description": "[free] Spend 1 resource: You get +1 [intellect] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01534",
+    "Name": "Hyperawareness"
+  },
+  {
+    "Description": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 damage from that investigator. If you fail, deal 1 damage to that investigator.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01535",
+    "Name": "Medical Texts"
+  },
+  {
+    "Description": "Fast. Play only during your turn.\nUntil the end of the round, you may use your [intellect] in place of your [combat] and [agility].",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01536",
+    "Name": "Mind over Matter"
+  },
+  {
+    "Description": "Fast. Play only during your turn.\nDiscover 1 clue at your location.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01537",
+    "Name": "Working a Hunch"
+  },
+  {
+    "Description": "Attach to your location.\nNon-[[Elite]] enemies cannot move into attached location.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Insight",
+      "Tactic"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01538",
+    "Name": "Barricade"
+  },
+  {
+    "Description": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Practiced"
+    ],
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01539",
+    "Name": "Deduction"
+  },
+  {
+    "Description": "Fast.\nYou get +1 [intellect] while investigating.\n[free] If there are no clues on your location: Return Magnifying Glass to your hand.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tool"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01540",
+    "Name": "Magnifying Glass"
+  },
+  {
+    "Description": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Discard that enemy.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Relic"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01541",
+    "Name": "Disc of Itzamna"
+  },
+  {
+    "Description": "[action] Exhaust Encyclopedia: Choose an investigator at your location. That investigator gets +2 to a skill of your choice until the end of the phase.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01542",
+    "Name": "Encyclopedia"
+  },
+  {
+    "Description": "Fast. Play only during your turn.\nChoose an investigator at your location. That investigator draws 3 cards.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Xp": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01543",
+    "Name": "Cryptic Research"
+  },
+  {
+    "Description": "Fast.\n[action]: <b>Fight.</b> If you succeed by 2 or more, this attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Melee",
+      "Illicit"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01544",
+    "Name": "Switchblade"
+  },
+  {
+    "Description": "[action] Exhaust Burglary: <b>Investigate.</b> If you succeed, instead of discovering clues, gain 3 resources.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Talent",
+      "Illicit"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01545",
+    "Name": "Burglary"
+  },
+  {
+    "Description": "[reaction] After you evade an enemy, exhaust Pickpocketing: Draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Talent",
+      "Illicit"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01546",
+    "Name": "Pickpocketing"
+  },
+  {
+    "Description": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed by 2 or more, this attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Firearm",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01547",
+    "Name": ".41 Derringer"
+  },
+  {
+    "Description": "You may take an additional action during your turn.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Criminal"
+    ],
+    "Cost": 6,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Health": 2,
+    "Sanity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01548",
+    "Name": "Leo De Luca"
+  },
+  {
+    "Description": "[free] Spend 1 resource: You get +1 [combat] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01549",
+    "Name": "Hard Knocks"
+  },
+  {
+    "Description": "Fast. Play only during your turn.\nDisengage from each enemy engaged with you and move to a revealed location with no enemies.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01550",
+    "Name": "Elusive"
+  },
+  {
+    "Description": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 damage.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01551",
+    "Name": "Backstab"
+  },
+  {
+    "Description": "Deal 2 damage to an exhausted enemy at your location.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01552",
+    "Name": "Sneak Attack"
+  },
+  {
+    "Description": "Commit only to a skill test you are performing.\nIf you succeed by 3 or more, return Opportunist to your hand after this test instead of discarding it.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01553",
+    "Name": "Opportunist"
+  },
+  {
+    "Description": "You may take an additional action during your turn.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Criminal"
+    ],
+    "Cost": 5,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Health": 2,
+    "Sanity": 2,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01554",
+    "Name": "Leo De Luca"
+  },
+  {
+    "Description": "You get +1 [agility].\n[action] Exhaust Cat Burglar: Disengage from each enemy engaged with you and move to a connecting location. This action does not provoke attacks of opportunity.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Criminal"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Health": 2,
+    "Sanity": 2,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01555",
+    "Name": "Cat Burglar"
+  },
+  {
+    "Description": "Fast. Play after you reveal a chaos token with a negative modifier.\nSwitch that token's \"-\" to a \"+\".",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Fortune",
+      "Insight"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01556",
+    "Name": "Sure Gamble"
+  },
+  {
+    "Description": "Gain 10 resources.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 0,
+    "Tags": [
+      "Fortune"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01557",
+    "Name": "Hot Streak"
+  },
+  {
+    "Description": "Uses (4 secrets). If Forbidden Knowledge has no secrets, discard it.\n[free] Exhaust Forbidden Knowledge and take 1 horror: Move 1 secret from Forbidden Knowledge to your resource pool, as a resource.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01558",
+    "Name": "Forbidden Knowledge"
+  },
+  {
+    "Description": "You get +1 [willpower].",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Charm"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Power": 1,
+    "Sanity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01559",
+    "Name": "Holy Rosary"
+  },
+  {
+    "Description": "Uses (4 charges).\n[action] Spend 1 charge: <b>Fight.</b> This attack uses [willpower] instead of [combat] and deals +1 damage. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this check, take 1 horror.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 6,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01560",
+    "Name": "Shrivelling"
+  },
+  {
+    "Description": "Uses (3 charges).\n[action] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck or the encounter deck. Return them to the top of that deck in any order.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 6,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01561",
+    "Name": "Scrying"
+  },
+  {
+    "Description": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [intellect] for this skill test.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01562",
+    "Name": "Arcane Studies"
+  },
+  {
+    "Description": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[free] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Sorcerer"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Power": 1,
+    "Health": 1,
+    "Sanity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01563",
+    "Name": "Arcane Initiate"
+  },
+  {
+    "Description": "Draw the top card of the encounter deck. Then, discover 2 clues at your location.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01564",
+    "Name": "Drawn to the Flame"
+  },
+  {
+    "Description": "Fast. Play when you draw a non-weakness treachery card.\nCancel that card's revelation effect. Then, take 1 horror.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Spell",
+      "Spirit"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01565",
+    "Name": "Ward of Protection"
+  },
+  {
+    "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01566",
+    "Name": "Blinding Light"
+  },
+  {
+    "Description": "If this skill test is successful, heal 1 horror.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 2,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01567",
+    "Name": "Fearless"
+  },
+  {
+    "Description": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy at your location. Treat the chosen enemy's printed text box as if it were blank (except for [[Traits]]) until the end of the phase.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01568",
+    "Name": "Mind Wipe"
+  },
+  {
+    "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 0,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01569",
+    "Name": "Blinding Light"
+  },
+  {
+    "Description": "You have 1 additional arcane slot.\n[action] Exhaust Book of Shadows: Add 1 charge to a [[Spell]] asset you control.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01570",
+    "Name": "Book of Shadows"
+  },
+  {
+    "Description": "Uses (4 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose 1 of those tokens to resolve, and ignore the other.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Relic"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01571",
+    "Name": "Grotesque Statue"
+  },
+  {
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 2,
+    "Tags": [
+      "Item",
+      "Armor"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Strength": 1,
+    "Health": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01572",
+    "Name": "Leather Coat"
+  },
+  {
+    "Description": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01573",
+    "Name": "Scavenging"
+  },
+  {
+    "Description": "[action]: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage. If a [skull] or [auto_fail] symbol is revealed during this attack, discard Baseball Bat after the attack resolves.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 5,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Melee"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01574",
+    "Name": "Baseball Bat"
+  },
+  {
+    "Description": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Charm"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01575",
+    "Name": "Rabbit's Foot"
+  },
+  {
+    "Description": "[free] Discard Stray Cat: Automatically evade a non-[[Elite]] enemy at your location.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 3,
+    "Tags": [
+      "Ally",
+      "Creature"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Health": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01576",
+    "Name": "Stray Cat"
+  },
+  {
+    "Description": "[free] Spend 1 resource: You get +1 [willpower] for this skill test.\n[free] Spend 1 resource: You get +1 [agility] for this skill test.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01577",
+    "Name": "Dig Deep"
+  },
+  {
+    "Description": "<b>Evade.</b> Automatically evade all enemies at your location.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Tactic"
+    ],
+    "Cost": 5,
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01578",
+    "Name": "Cunning Distraction"
+  },
+  {
+    "Description": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Fortune"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01579",
+    "Name": "\"Look what I found!\""
+  },
+  {
+    "Description": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Fortune"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01580",
+    "Name": "Lucky!"
+  },
+  {
+    "Description": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 2,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01581",
+    "Name": "Survival Instinct"
+  },
+  {
+    "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to another enemy at your location, instead. (You still take horror dealt by the attack.)",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 3,
+    "Tags": [
+      "Ally"
+    ],
+    "Cost": 5,
+    "Quantity": 2,
+    "Power": 1,
+    "Health": 1,
+    "Sanity": 4,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01582",
+    "Name": "Aquinnah"
+  },
+  {
+    "Description": "Fast. Play after a non-weakness, non-[[Elite]] enemy at your location is evaded.\nShuffle that enemy into the encounter deck.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Fortune"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01583",
+    "Name": "Close Call"
+  },
+  {
+    "Description": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test. Draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Fortune"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01584",
+    "Name": "Lucky!"
+  },
+  {
+    "Description": "Fast. Play only during your turn.\nUntil the end of your turn, do not reveal chaos tokens for any skill tests you perform.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Spirit"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Strength": 1,
+    "Wild": 1,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01585",
+    "Name": "Will to Survive"
+  },
+  {
+    "Description": "[action]: <b>Fight.</b> You get +1 [combat] for this attack.\n[action] Discard Knife: <b>Fight.</b> You get +2 [combat] for this attack. This attack deals +1 damage.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Melee"
+    ],
+    "Cost": 1,
+    "Quantity": 10,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01586",
+    "Name": "Knife"
+  },
+  {
+    "Description": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> Your location gets -2 shroud for this investigation.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tool"
+    ],
+    "Cost": 2,
+    "Quantity": 10,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01587",
+    "Name": "Flashlight"
+  },
+  {
+    "Description": "Gain 3 resources.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Supply"
+    ],
+    "Cost": 0,
+    "Quantity": 10,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01588",
+    "Name": "Emergency Cache"
+  },
+  {
+    "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 4,
+    "Power": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01589",
+    "Name": "Guts"
+  },
+  {
+    "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Practiced"
+    ],
+    "Quantity": 4,
+    "Intelligence": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01590",
+    "Name": "Perception"
+  },
+  {
+    "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Practiced"
+    ],
+    "Quantity": 4,
+    "Strength": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01591",
+    "Name": "Overpower"
+  },
+  {
+    "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 4,
+    "Agility": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01592",
+    "Name": "Manual Dexterity"
+  },
+  {
+    "Description": "Max 1 committed per skill test.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Innate"
+    ],
+    "Quantity": 4,
+    "Wild": 2,
+    "Xp": 0,
+    "HealthPerAdventurer": false,
+    "CardType": 3,
+    "Code": "01593",
+    "Name": "Unexpected Courage"
+  },
+  {
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 2,
+    "Tags": [
+      "Item",
+      "Armor"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Wild": 1,
+    "Health": 4,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01594",
+    "Name": "Bulletproof Vest"
+  },
+  {
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Item",
+      "Relic"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Sanity": 4,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01595",
+    "Name": "Elder Sign Amulet"
+  },
+  {
+    "Description": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Madness"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01596",
+    "Name": "Amnesia"
+  },
+  {
+    "Description": "<b>Revelation</b> - Discard all your resources.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Madness"
+    ],
+    "Quantity": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01597",
+    "Name": "Paranoia"
+  },
+  {
+    "Description": "<b>Revelation</b> - Add Haunted to your threat area.\nYou get -1 to each of your skills.\n[action] [action]: Discard Haunted.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Curse"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01598",
+    "Name": "Haunted"
+  },
+  {
+    "Description": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct damage.\n[action] [action]: Discard Psychosis.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Madness"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01599",
+    "Name": "Psychosis"
+  },
+  {
+    "Description": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more damage: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Madness"
+    ],
+    "Quantity": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 6,
+    "Code": "01600",
+    "Name": "Hypochondria"
+  },
+  {
+    "Description": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley</b>. Discard Mob Enforcer.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Criminal"
+    ],
+    "Quantity": 1,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 4,
+    "EnemyAgility": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01601",
+    "Name": "Mob Enforcer"
+  },
+  {
+    "Description": "<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - After Silver Twilight Acolyte attacks: Place 1 doom on the current agenda.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Cultist",
+      "Silver Twilight"
+    ],
+    "Quantity": 1,
+    "Health": 3,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 2,
+    "EnemyAgility": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01602",
+    "Name": "Silver Twilight Acolyte"
+  },
+  {
+    "Description": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if his or her printed text box were blank (except for [[Traits]]).",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Humanoid",
+      "Detective"
+    ],
+    "Quantity": 1,
+    "Health": 2,
+    "EnemyDamage": 1,
+    "EnemyTerror": 0,
+    "EnemyStrength": 3,
+    "EnemyAgility": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 5,
+    "Code": "01603",
+    "Name": "Stubborn Detective"
+  },
+  {
+    "Description": "Uses (4 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage and 1 horror from an investigator or [[Ally]] asset in your location.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Talent",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Power": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01683",
+    "Name": "First Aid"
+  },
+  {
+    "Description": "Fast. Play when you are dealt damage and/or horror.\nCancel up to 5 damage and/or horror just dealt to you. Then, gain that many resources.",
+    "PackCode": "rcore",
+    "Faction": 3,
+    "Slot": 0,
+    "Tags": [
+      "Spirit"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 2,
+    "Xp": 4,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01684",
+    "Name": "\"I've had worse…\""
+  },
+  {
+    "Description": "<b>Investigate.</b> If you succeed, instead of discovering a clue at your location, discover 2 total clues from among your location and connecting locations.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 0,
+    "Tags": [
+      "Insight"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 2,
+    "Intelligence": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01685",
+    "Name": "Seeking Answers"
+  },
+  {
+    "Description": "Uses (2 secrets).\n[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of their deck for a card, draws it, and shuffles their deck. Then, you may spend 1 secret to have that investigator immediately play that card, reducing its cost by 2.",
+    "PackCode": "rcore",
+    "Faction": 5,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tome"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01686",
+    "Name": "Old Book of Lore"
+  },
+  {
+    "Description": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Tool",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 1,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01687",
+    "Name": "Lockpicks"
+  },
+  {
+    "Description": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If you succeed by 1 or more, this attack deals +1 damage. Once per turn, if you succeed by 3 or more, you may take an additional action this turn.",
+    "PackCode": "rcore",
+    "Faction": 2,
+    "Slot": 4,
+    "Tags": [
+      "Item",
+      "Weapon",
+      "Firearm",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01688",
+    "Name": ".41 Derringer"
+  },
+  {
+    "Description": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 6,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01689",
+    "Name": "Rite of Seeking"
+  },
+  {
+    "Description": "Uses (3 charges).\n[free] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck, or the encounter deck. Return them to the top of that deck, in any order. If a [[Terror]] or [[Omen]] card is among the looked-at cards, take 1 horror.",
+    "PackCode": "rcore",
+    "Faction": 4,
+    "Slot": 6,
+    "Tags": [
+      "Spell"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01690",
+    "Name": "Scrying"
+  },
+  {
+    "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to any enemy at your location, instead. (You still take horror dealt by the attack.)",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 3,
+    "Tags": [
+      "Ally"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Health": 1,
+    "Sanity": 4,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01691",
+    "Name": "Aquinnah"
+  },
+  {
+    "Description": "Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [auto_fail] token).\nCancel that token and treat it as an [elder_sign] token, instead.",
+    "PackCode": "rcore",
+    "Faction": 1,
+    "Slot": 0,
+    "Tags": [
+      "Fortune",
+      "Blessed"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Wild": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01692",
+    "Name": "Eucatastrophe"
+  },
+  {
+    "Description": "Gain 3 resources and draw 1 card.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Supply"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Xp": 2,
+    "HealthPerAdventurer": false,
+    "CardType": 4,
+    "Code": "01693",
+    "Name": "Emergency Cache"
+  },
+  {
+    "Description": "Permanent.\nYou have 1 additional ally slot.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Quantity": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01694",
+    "Name": "Charisma"
+  },
+  {
+    "Description": "Permanent.\nYou have 1 additional accessory slot.",
+    "PackCode": "rcore",
+    "Faction": 0,
+    "Slot": 0,
+    "Tags": [
+      "Talent"
+    ],
+    "Quantity": 2,
+    "Xp": 3,
+    "HealthPerAdventurer": false,
+    "CardType": 2,
+    "Code": "01695",
+    "Name": "Relic Hunter"
+  }
+]
