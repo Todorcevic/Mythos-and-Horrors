@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {
-        [Inject] private readonly IGameStateEditable _gameStateService;
+        [Inject] private readonly GameStateService _gameStateService;
         [Inject] private readonly IEnumerable<IStartReactionable> _startReactionables;
         [Inject] private readonly IEnumerable<IEndReactionable> _endReactionables;
 

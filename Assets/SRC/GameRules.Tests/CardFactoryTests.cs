@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameRules.Tests
             {
                 new()
                 {
-                    Code = "00001",
+                    Code = "01603",
                     Name = "First Adventurer",
                     CardType = CardType.Adventurer,
                     Cost = 4,
@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules.Tests
                 },
                 new()
                 {
-                    Code = "00002",
+                    Code = "01501",
                     Name = "Montro2",
                     CardType = CardType.Creature,
                     Cost = 3,
@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameRules.Tests
                 }
             };
 
-            List<Card> result = _sut.CreateCards(cardInfo);
+            List<Card> result = _sut.CreateCards(cardInfo, new List<string>() { "01501", "01603" });
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Info.Name, Is.EqualTo("First Adventurer"));

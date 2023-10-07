@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class LoaderComponent : MonoBehaviour
     {
-        [InjectOptional] private readonly bool _mustBeLoaded; //From SceneComponent in MasterScene
+        [InjectOptional][SerializeField] private bool _mustBeLoaded; //From SceneComponent in MasterScene
         [Inject] private readonly InitializeGameUseCase _initializeGameUseCase;
 
         /*******************************************************************/

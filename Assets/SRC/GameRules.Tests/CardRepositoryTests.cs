@@ -16,19 +16,19 @@ namespace MythsAndHorrors.GameRules.Tests
 
             List<Card> cards = new()
             {
-                (Card)Container.Instantiate(typeof(Card01501), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "00001", Name = "Adventurer1" } }),
-                (Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "00002", Name = "Monster1" } })
+                (Card)Container.Instantiate(typeof(Card01501), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "01501", Name = "Adventurer1" } }),
+                (Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "01603", Name = "Monster1" } })
             };
 
-            ((ICardLoader)_sut).LoadCards(cards);
+            _sut.LoadCards(cards);
         }
 
         [Test]
         public void CardRepository_GetCard()
         {
-            Card result = _sut.GetCard("00001");
+            Card result = _sut.GetCard("01501");
 
-            Assert.That(result.Info.Name, Is.EqualTo("First Adventurer"));
+            Assert.That(result.Info.Name, Is.EqualTo("Adventurer1"));
         }
 
         [Test]

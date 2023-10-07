@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardRepository : ICardLoader
+    public class CardRepository
     {
         private List<Card> _cards;
 
@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameRules
 
         public IReadOnlyList<Card> GetAllCards() => _cards;
 
-        void ICardLoader.LoadCards(List<Card> cards)
+        public void LoadCards(List<Card> cards)
         {
             if (_cards != null) throw new InvalidOperationException("Cards already loaded");
             _cards = cards ?? throw new ArgumentNullException(nameof(cards) + " cards cant be null");

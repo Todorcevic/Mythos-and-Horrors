@@ -1,6 +1,7 @@
 ﻿using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Zenject;
 
@@ -11,10 +12,10 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
-        public List<Card> CreateCards(List<CardInfo> cardsInfo)
+        public List<Card> CreateCards(List<CardInfo> cardsInfo, List<string> cardCodes)
         {
             List<Card> allCards = new();
-            foreach (CardInfo cardInfo in cardsInfo)
+            foreach (CardInfo cardInfo in cardsInfo.Where(cardInfo => cardCodes.Contains(cardInfo.Code)))
             {
                 Type type = Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code);
                 if (type == null) continue;

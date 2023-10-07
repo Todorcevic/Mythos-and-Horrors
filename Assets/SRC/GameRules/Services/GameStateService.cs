@@ -2,12 +2,14 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public class GameStateService : IGameStateEditable
+    public class GameStateService
     {
+        public Chapter CurrentChapter { get; set; }
+        public Scenary CurrentScenary { get; set; }
         public GameAction CurrentAction { get; private set; }
 
         /*******************************************************************/
-        void IGameStateEditable.SetCurrentAction(GameAction gameAction)
+        public void SetCurrentAction(GameAction gameAction)
         {
             CurrentAction = gameAction ?? throw new ArgumentNullException(nameof(gameAction) + " gameAction cant be null");
         }
