@@ -12,6 +12,7 @@
         public int? Sanity { get; init; }
         public int? Cost { get; init; }
         public int? Quantity { get; init; }
+        public string PackCode { get; init; }
 
     }
 }

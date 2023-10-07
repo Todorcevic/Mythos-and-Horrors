@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
 
         public IEnumerator AdvanceScene()
         {
-            AsyncOperation asyncOperation = _sceneLoader.LoadSceneAsync(FIRST_SCENE, LoadSceneMode.Additive, (container) =>
+            AsyncOperation asyncOperation = _sceneLoader.LoadSceneAsync(FIRST_SCENE, LoadSceneMode.Single, (container) =>
             {
                 container.BindInstance(true).WhenInjectedInto<LoaderComponent>();
             });

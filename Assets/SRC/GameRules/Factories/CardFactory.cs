@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameRules
             foreach (CardInfo cardInfo in cardsInfo)
             {
                 Type type = Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code);
+                if (type == null) continue;
                 object objectCard = _diContainer.Instantiate(type, new object[] { cardInfo });
                 type.GetInterfaces().ForEach(@interface => _diContainer.Bind(@interface).FromInstance(objectCard).NonLazy());
                 allCards.Add((Card)objectCard);

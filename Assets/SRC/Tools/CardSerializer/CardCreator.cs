@@ -189,7 +189,7 @@ namespace MythsAndHorrors.Tools
             toSave.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
-        private List<DataCreatorBase> toSave;
+        private List<DataCreatorBase> toSave = new();
 
         /*******************************************************************/
         [BoxGroup("IsJSONLoaded/List")]

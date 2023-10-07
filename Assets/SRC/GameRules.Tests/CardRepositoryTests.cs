@@ -16,8 +16,8 @@ namespace MythsAndHorrors.GameRules.Tests
 
             List<Card> cards = new()
             {
-                (Card)Container.Instantiate(typeof(Card00001), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "00001", Name = "Adventurer1" } }),
-                (Card)Container.Instantiate(typeof(Card00002), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "00002", Name = "Monster1" } })
+                (Card)Container.Instantiate(typeof(Card01501), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "00001", Name = "Adventurer1" } }),
+                (Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "00002", Name = "Monster1" } })
             };
 
             ((ICardLoader)_sut).LoadCards(cards);

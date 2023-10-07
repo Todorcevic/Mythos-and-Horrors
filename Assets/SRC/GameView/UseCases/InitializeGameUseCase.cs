@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using Zenject;
@@ -30,8 +31,21 @@ namespace MythsAndHorrors.GameView
         }
 
         private void LoadZones() => _zoneRepository.LoadZones(_zoneFactory.CreateZones());
-        private void LoadCards() => _cardLoader.LoadCards(_cardFactory.CreateCards(_jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH)));
-        private void LoadCardsView() => _cardsViewManager.LoadCardsView(_cardGeneratorComponent.BuildCards(_cardRepository.GetAllCards()));
+        private void LoadCards()
+        {
+            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH);
+
+            List<CardInfo> rcoreCards = allCardInfo.Where(cardInfo => cardInfo.PackCode == "rcore").ToList();
+
+            var dasdasda = _cardFactory.CreateCards(rcoreCards);
+
+            _cardLoader.LoadCards(dasdasda);
+        }
+        private void LoadCardsView()
+        {
+            var asda = _cardRepository.GetAllCards();
+            _cardsViewManager.LoadCardsView(_cardGeneratorComponent.BuildCards(asda));
+        }
         private Task StartGame() => _gameActionFactory.Create<StartGameAction>().Run();
     }
 }
