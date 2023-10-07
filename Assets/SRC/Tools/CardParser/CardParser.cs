@@ -1,12 +1,11 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using MythsAndHorrors.GameRules;
+using DG.Tweening.Plugins.Core.PathCore;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
@@ -26,9 +25,9 @@ namespace MythsAndHorrors.Tools
         };
 
         private List<OldCardInfo> allCardData;
+        private List<Pack> allPacks;
 
-        private string FullPathLoaded => DATA_PATH + JSONFileLoaded;
-        private bool IsJSONLoaded => File.Exists(FullPathLoaded);
+        private bool IsAllPacksLoaded => allPacks != null && allPacks.Count > 0;
 
         /*******************************************************************/
         [MenuItem("Tools/Cards/CardParser")]
@@ -50,43 +49,142 @@ namespace MythsAndHorrors.Tools
 
         [FilePath(Extensions = ".json", ParentFolder = DATA_PATH)]
         [OnValueChanged("BuildCardInfo")]
-        [SerializeField, LabelText("Load JSON file")]
+        [SerializeField, LabelText("Create CardInfo json from oldCardInfo json file")]
         private string JSONFileLoaded;
 
         private void BuildCardInfo()
         {
-            StreamReader reader = new(FullPathLoaded);
-            string jsonData = reader.ReadToEnd();
-            reader.Close();
+            allCardData = JsonConvert.DeserializeObject<List<OldCardInfo>>(GetJsonData());
+            SelectPathAndSave("cardInfo");
 
-            allCardData = JsonConvert.DeserializeObject<List<OldCardInfo>>(jsonData);
-        }
-
-        [ShowIf("IsJSONLoaded")]
-        [LabelText("SaveAs")]
-        [GUIColor("@Color.green")]
-        [Button(ButtonSizes.Large, Name = "Save as")]
-        private void SaveAs()
-        {
-            string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
-            if (string.IsNullOrEmpty(newPath)) return;
-            Save(newPath);
-        }
-
-        private void Save(string path)
-        {
-            List<CardInfo> allNewCards = new();
-
-            foreach (OldCardInfo oldCardInfo in allCardData)
+            /*******************************************************************/
+            string GetJsonData()
             {
-                allNewCards.Add(new CardInfo().CreateWith(oldCardInfo));
+                StreamReader reader = new(DATA_PATH + JSONFileLoaded);
+                string jsonData = reader.ReadToEnd();
+                reader.Close();
+                return jsonData;
+            }
+        }
+
+        [PropertySpace(8)]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Large, Name = "Load allPacks from Online")]
+        private async void LoadAllPacks()
+        {
+            string url = "https://arkhamdb.com/api/public/packs/";
+            try
+            {
+                using HttpClient client = new();
+                var dataLoaded = await client.GetStringAsync(url);
+                allPacks = JsonConvert.DeserializeObject<List<Pack>>(dataLoaded);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Cant load packs: {ex.Message}");
+            }
+        }
+
+        [PropertySpace(8)]
+        [ShowIf("IsAllPacksLoaded")]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Large, Name = "Save json packs in json file")]
+        private void SelectDetinationAndSave()
+        {
+            string path = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "packs", "json");
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("No path selected");
+                return;
             }
 
-            string serializeInfo = JsonConvert.SerializeObject(allNewCards, Formatting.Indented, jsonSettings);
-            StreamWriter writer = new(path);
-            writer.WriteLine(serializeInfo);
-            writer.Close();
-            AssetDatabase.Refresh();
+            string jsonData = JsonConvert.SerializeObject(allPacks, Formatting.Indented, jsonSettings);
+            SaveToFile(path, jsonData);
+        }
+
+        [ShowIf("IsAllPacksLoaded")]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Large, Name = "Save individual packs in json files")]
+        private async void SaveIndividualPacks()
+        {
+            string URL = "https://arkhamdb.com/api/public/cards/";
+            string path = "Assets/Data/ArkhamDBOriginal/Packs/";
+            try
+            {
+                using HttpClient client = new();
+                foreach (Pack pack in allPacks)
+                {
+                    string jsonData = await client.GetStringAsync(URL + pack.code);
+                    SaveToFile($"{path}{pack.code}.json", jsonData);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error: {ex.Message}");
+            }
+        }
+
+        [ShowIf("IsAllPacksLoaded")]
+        [GUIColor("@Color.green")]
+        [Button(ButtonSizes.Large, Name = "Create CardInfo json packs loaded")]
+        private async void Create()
+        {
+            string URL = "https://arkhamdb.com/api/public/cards/";
+            try
+            {
+                allCardData = new();
+                using HttpClient client = new();
+                foreach (Pack pack in allPacks)
+                {
+                    string jsonResponse = await client.GetStringAsync(URL + pack.code);
+                    allCardData.AddRange(JsonConvert.DeserializeObject<List<OldCardInfo>>(jsonResponse));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error: {ex.Message}");
+            }
+
+            SelectPathAndSave("cardInfo");
+        }
+
+        private void SelectPathAndSave(string fileName)
+        {
+            string path = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, fileName, "json");
+            if (string.IsNullOrEmpty(path))
+            {
+                Debug.LogError("No path selected");
+                return;
+            }
+            string jsonData = Convert();
+            SaveToFile(path, jsonData);
+
+            string Convert()
+            {
+                List<CardInfo> allNewCards = new();
+                allCardData.ForEach(oldCardInfo => allNewCards.Add(new CardInfo().CreateWith(oldCardInfo)));
+                return JsonConvert.SerializeObject(allNewCards, Formatting.Indented, jsonSettings);
+            }
+        }
+
+        private void SaveToFile(string path, string jsonData)
+        {
+            try
+            {
+                string directory = System.IO.Path.GetDirectoryName(path);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                File.WriteAllText(path, jsonData);
+                Debug.Log($"Datos guardados en: {path}");
+                AssetDatabase.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error al guardar el archivo: {ex.Message}");
+            }
         }
     }
 }

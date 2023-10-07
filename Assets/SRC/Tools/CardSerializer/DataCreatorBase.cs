@@ -32,7 +32,7 @@ namespace MythsAndHorrors.Tools
         public bool ContainsFilters(string filter, CardType type = CardType.None)
         {
             return (this is CardInfo cardInfo
-              && cardInfo.PackCode == filter
+              && (filter == string.Empty || cardInfo.PackCode == filter)
               && (type == CardType.None || cardInfo.CardType == type));
         }
     }

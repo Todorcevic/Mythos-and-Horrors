@@ -189,15 +189,15 @@ namespace MythsAndHorrors.Tools
         [JsonProperty("traits")]
         public string Traits { get; set; }
 
-        [BoxGroup("Split/center")]
-        [SerializeField]
-        [JsonProperty("deck_requirements")]
-        public DeckRequirements DeckRequirements { get; set; }
+        //[BoxGroup("Split/center")]
+        //[SerializeField]
+        //[JsonProperty("deck_requirements")]
+        //public DeckRequirements DeckRequirements { get; set; }
 
-        [BoxGroup("Split/center")]
-        [SerializeField]
-        [JsonProperty("deck_options")]
-        public List<DeckOption> DeckOptions { get; set; }
+        //[BoxGroup("Split/center")]
+        //[SerializeField]
+        //[JsonProperty("deck_options")]
+        //public List<DeckOption> DeckOptions { get; set; }
 
         [BoxGroup("Split/center")]
         [SerializeField]
@@ -294,10 +294,10 @@ namespace MythsAndHorrors.Tools
         [JsonProperty("victory")]
         public int? Victory { get; set; }
 
-        [BoxGroup("Split/right")]
-        [SerializeField]
-        [JsonProperty("linked_card")]
-        public OldCardInfo LinkedCard { get; set; }
+        //[BoxGroup("Split/right")]
+        //[SerializeField]
+        //[JsonProperty("linked_card")]
+        //public OldCardInfo LinkedCard { get; set; }
 
         [BoxGroup("Split/right")]
         [SerializeField]
