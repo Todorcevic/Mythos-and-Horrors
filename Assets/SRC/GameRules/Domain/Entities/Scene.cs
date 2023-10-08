@@ -2,7 +2,7 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Scenary
+    public class Scene
     {
         public int Position { get; }
         public string Name { get; }

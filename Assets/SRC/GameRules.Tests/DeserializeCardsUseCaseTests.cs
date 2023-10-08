@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameRules.Tests
         [Test]
         public void CardInfoJson_File_Exist()
         {
-            Assert.That(File.Exists(FilesPath.JSON_DATA_PATH), Is.True);
+            Assert.That(File.Exists(FilesPath.JSON_CARD_PATH), Is.True);
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameRules.Tests
         [Test]
         public void DeserializeCardsUseCase_With_Real_Data()
         {
-            List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH);
+            List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARD_PATH);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }

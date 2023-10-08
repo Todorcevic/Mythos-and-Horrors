@@ -1,36 +1,34 @@
 using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZonesManager
+    public class ZonesManager : IZonesContainer
     {
-        [Inject(Id = "Investigator")] public ZoneBasicView Investigator { get; private set; }
-        [Inject(Id = "LocationsDeck")] public ZoneDeckView LocationsDeck { get; private set; }
-        [Inject(Id = "LocationsDiscard")] public ZoneDeckView LocationsDiscard { get; private set; }
-        [Inject(Id = "Location")] public ZoneBasicView Location { get; private set; }
-        [Inject(Id = "Rewards")] public ZoneRowView Rewards { get; private set; }
-        [Inject(Id = "FreeRow")] public ZoneRowView FreeRow { get; private set; }
-        [Inject(Id = "PayRow")] public ZoneRowView PayRow { get; private set; }
-        [Inject(Id = "AssetsDeck")] public ZoneDeckView AssetsDeck { get; private set; }
-        [Inject(Id = "AssetsDiscard")] public ZoneDeckView AssetsDiscard { get; private set; }
-        [Inject(Id = "FrontCamera")] public ZoneBasicView FrontCamera { get; private set; }
-        [Inject(Id = "OutGame")] public ZoneDeckView OutGame { get; private set; }
+        [Inject] private readonly List<ZoneView> _allZones;
+
+        //[Inject(Id = "AdventurerZone")] public ZoneBasicView AdventurerZone { get; private set; }
+        //[Inject(Id = "AdventurerDeckZone")] public ZoneDeckView AdventurerDeckZone { get; private set; }
+        //[Inject(Id = "AdventurerDiscardZone")] public ZoneDeckView AdventurerDiscardZone { get; private set; }
+        //[Inject(Id = "AidZone")] public ZoneBasicView AidZone { get; private set; }
+        //[Inject(Id = "SceneZone")] public ZoneBasicView SceneZone { get; private set; }
+        //[Inject(Id = "SceneDeckZone")] public ZoneDeckView LocationsDeck { get; private set; }
+        //[Inject(Id = "SceneDiscardZone")] public ZoneDeckView LocationsDiscard { get; private set; }
+        //[Inject(Id = "PlaceZone")] public ZoneBasicView PlaceZone { get; private set; }
+        //[Inject(Id = "GoalZone")] public ZoneBasicView GoalZone { get; private set; }
+        //[Inject(Id = "PlotZone")] public ZoneBasicView PlotZone { get; private set; }
+        //[Inject(Id = "FrontCameraZone")] public ZoneBasicView FrontCameraZone { get; private set; }
+        //[Inject(Id = "OutGameZone")] public ZoneBasicView OutGameZone { get; private set; }
 
         /*******************************************************************/
-        public ZoneView Get(ZoneType zone) => zone switch
-        {
-            ZoneType.Location => Location,
-            ZoneType.LocationDeck => LocationsDeck,
-            ZoneType.LocationDiscard => LocationsDiscard,
-            ZoneType.AssetsDeck => AssetsDeck,
-            ZoneType.AssetsDiscard => AssetsDiscard,
-            ZoneType.Investigator => Investigator,
-            ZoneType.Rewards => Rewards,
-            ZoneType.FreeRow => FreeRow,
-            ZoneType.PayRow => PayRow,
-            ZoneType.OutGame => OutGame,
-            _ => null,
-        };
+        public ZoneView Get(Zone zone) => _allZones.Find(zoneView => zoneView.Zone == zone)
+                                          ?? throw new KeyNotFoundException($"Zone {zone} not found");
+
+        public ZoneView Get(string zoneName) => _allZones.Find(zoneView => zoneView.Zone.CodeName == zoneName)
+                                                 ?? throw new KeyNotFoundException($"Zone {zoneName} not found");
+
+        List<Zone> IZonesContainer.GetZones() => _allZones.Select(zoneView => zoneView.Zone).ToList();
     }
 }

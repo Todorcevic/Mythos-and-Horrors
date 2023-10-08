@@ -17,13 +17,13 @@ namespace MythsAndHorrors.GameRules
         {
             MoveCardDTO moveCardDTO = new(
                _cardRepository.GetCard("01501"),
-               _zoneRepository.GetZone(ZoneType.AssetsDeck),
+               _zoneRepository.GetZone("AdventurerDeckZone"),
                CardMovementAnimation.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
               _cardRepository.GetCard("01603"),
-              _zoneRepository.GetZone(ZoneType.LocationDiscard),
+              _zoneRepository.GetZone("SceneDiscardZone"),
               CardMovementAnimation.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 

@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using MythsAndHorrors.GameRules;
+using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class JsonService
+    public class JsonService : IPersistenceService
     {
         private readonly JsonSerializerSettings serializerSettings = new()
         {
@@ -41,6 +42,5 @@ namespace MythsAndHorrors.GameView
             string jsonData = File.ReadAllText(pathAndNameJsonFile);
             JsonConvert.PopulateObject(jsonData, objectToUpdate, serializerSettings);
         }
-
     }
 }

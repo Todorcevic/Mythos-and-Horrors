@@ -1,19 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class ZoneRepository
     {
+        [Inject] private readonly IZonesContainer _zonesContainer;
+
         private List<Zone> _zones;
 
-        /*******************************************************************/
-        public Zone GetZone(ZoneType zoneType) => _zones.Find(zone => zone.ZoneType == zoneType);
+        //public List<Zone> PlaceZones { get; set; }
+        //public Zone AdventurerZone { get; set; }
+        //public Zone AidZone { get; set; }
+        //public Zone AdventurerDeckZone { get; set; }
+        //public Zone AdventurerDiscardZone { get; set; }
+        //public Zone SceneZone { get; set; }
+        //public Zone SceneDeckZone { get; set; }
+        //public Zone SceneDiscardZone { get; set; }
+        //public Zone GoalZone { get; set; }
+        //public Zone PlotZone { get; set; }
+        //public Zone OutGame { get; set; }
+        //public Zone Limbo { get; set; }
 
-        public void LoadZones(List<Zone> zones)
+        /*******************************************************************/
+        public void LoadZones()
         {
-            if (_zones != null) throw new ArgumentException(nameof(zones) + " zones already loaded");
-            _zones = zones ?? throw new ArgumentNullException(nameof(zones) + " zones cant be null");
+            _zones = _zonesContainer.GetZones();
+        }
+
+        public Zone GetZone(string zoneName)
+        {
+            return _zones.Find(zone => zone.CodeName == zoneName)
+                   ?? throw new KeyNotFoundException($"Zone {zoneName} not found");
         }
     }
 }

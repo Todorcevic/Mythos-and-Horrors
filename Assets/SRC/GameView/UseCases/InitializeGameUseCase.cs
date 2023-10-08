@@ -7,8 +7,8 @@ namespace MythsAndHorrors.GameView
 {
     public class InitializeGameUseCase
     {
-        [Inject] private readonly ZoneFactory _zoneFactory;
         [Inject] private readonly ZoneRepository _zoneRepository;
+        [Inject] private readonly AdventurerRepository _adventurerRepository;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly CardRepository _cardRepository;
@@ -16,10 +16,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardsViewManager _cardsViewManager;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
+        List<string> cardsToCreate = new() { "01501", "01603" };
+
         /*******************************************************************/
         public async Task Execute()
         {
             LoadZones();
+            //LoadAdventurers();
+            //LoadScene();
             LoadCards();
             LoadCardsView();
             await StartGame();
@@ -27,15 +31,27 @@ namespace MythsAndHorrors.GameView
 
         private void LoadZones()
         {
-            List<Zone> allZones = _zoneFactory.CreateZones();
-            _zoneRepository.LoadZones(allZones);
+            _zoneRepository.LoadZones();
         }
+
+        private void LoadAdventurers()
+        {
+            List<Adventurer> allAdventurers = _jsonService.CreateDataFromFile<List<Adventurer>>(FilesPath.JSON_ADVENTURERS_PATH);
+            _adventurerRepository.LoadAdventurers(allAdventurers);
+        }
+
+        private void LoadScene()
+        {
+
+        }
+
         private void LoadCards()
         {
-            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_DATA_PATH);
-            List<Card> allCards = _cardFactory.CreateCards(allCardInfo, new List<string>() { "01501", "01603" });
+            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARD_PATH);
+            List<Card> allCards = _cardFactory.CreateCards(allCardInfo, cardsToCreate);
             _cardRepository.LoadCards(allCards);
         }
+
         private void LoadCardsView()
         {
             IReadOnlyList<Card> allCards = _cardRepository.GetAllCards();

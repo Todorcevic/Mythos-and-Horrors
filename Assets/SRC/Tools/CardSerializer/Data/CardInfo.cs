@@ -19,6 +19,10 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
+        public string SceneCode { get; set; }
+
+        [BoxGroup("Split/Left")]
+        [SerializeField]
         public Faction Faction { get; set; } // Versatil, Intrepid, etc.
 
         [BoxGroup("Split/Left")]
@@ -125,6 +129,7 @@ namespace MythsAndHorrors.Tools
             Name = oldCardinfo.Name;
             Description = oldCardinfo.Text;
             PackCode = oldCardinfo.PackCode;
+            SceneCode = oldCardinfo.EncounterCode;
             Faction = oldCardinfo.FactionCode switch
             {
                 "survivor" => Faction.Versatil,
@@ -132,6 +137,8 @@ namespace MythsAndHorrors.Tools
                 "guardian" => Faction.Valiant,
                 "mystic" => Faction.Esoteric,
                 "seeker" => Faction.Scholarly,
+                "neutral" => Faction.Neutral,
+                "mythos" => Faction.Myths,
                 _ => Faction.None,
             };
 

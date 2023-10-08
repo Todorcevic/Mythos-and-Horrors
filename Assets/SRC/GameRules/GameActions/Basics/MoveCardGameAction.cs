@@ -30,16 +30,16 @@ namespace MythsAndHorrors.GameRules
             switch (_cardMovementType)
             {
                 case CardMovementAnimation.Basic:
-                    await _cardMovePresenter.MoveCardToZone(Card, Zone.ZoneType);
+                    await _cardMovePresenter.MoveCardToZone(Card, Zone);
                     break;
                 case CardMovementAnimation.BasicWithPreview:
-                    await _cardMovePresenter.MoveCardToZoneWithPreview(Card, Zone.ZoneType);
+                    await _cardMovePresenter.MoveCardToZoneWithPreview(Card, Zone);
                     break;
                 case CardMovementAnimation.Fast:
-                    _cardMovePresenter.FastMoveCardToZone(Card, Zone.ZoneType);
+                    _cardMovePresenter.FastMoveCardToZone(Card, Zone);
                     break;
                 case CardMovementAnimation.FastWithPreview:
-                    await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card, Zone.ZoneType);
+                    await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card, Zone);
                     break;
             }
         }

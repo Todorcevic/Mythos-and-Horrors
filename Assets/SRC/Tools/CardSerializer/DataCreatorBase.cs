@@ -33,7 +33,7 @@ namespace MythsAndHorrors.Tools
         {
             return (this is CardInfo cardInfo
               && (filter == string.Empty || cardInfo.PackCode == filter)
-              && (type == CardType.None || cardInfo.CardType == type));
+              && (type == CardType.None || type.HasFlag(cardInfo.CardType)));
         }
     }
 }

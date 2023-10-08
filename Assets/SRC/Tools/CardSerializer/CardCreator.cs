@@ -25,6 +25,7 @@ namespace MythsAndHorrors.Tools
 
         private string newFileNameinfoBoxMessage;
         private List<DataCreatorBase> allCardData;
+        private List<DataCreatorBase> toSave = new();
 
         private string FullPathLoaded => DATA_PATH + JSONFileLoaded;
         private bool IsStructDataLoaded => structDataLoaded != null;
@@ -97,6 +98,7 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("IsStructDataLoaded/JSON File")]
         [HorizontalGroup("IsStructDataLoaded/JSON File/FileGroup", Width = 16, LabelWidth = 100)]
+        [GUIColor("@Color.green")]
         [Button("+")]
         private void CreateFile()
         {
@@ -173,15 +175,19 @@ namespace MythsAndHorrors.Tools
         /*******************************************************************/
         [ShowIfGroup("IsJSONLoaded")]
         [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
-        [OnValueChanged("Filter")]
         [HorizontalGroup("IsJSONLoaded/List/Filters", LabelWidth = 50, MarginRight = 0.1f)]
-        [SerializeField] private string set = string.Empty;
+        [ValueDropdown("GetDistinctOrderedPackCodes")]
+        [OnValueChanged("Filter")]
+        [SerializeField, LabelText("Set")]
+        private string set = string.Empty;
+        private IEnumerable<string> GetDistinctOrderedPackCodes() =>
+            allCardData?.Select(dataCreatorBase => ((CardInfo)dataCreatorBase).PackCode)
+            .Distinct().OrderBy(packCode => packCode).Append(string.Empty);
 
         [BoxGroup("IsJSONLoaded/List", ShowLabel = false)]
         [OnValueChanged("Filter")]
         [HorizontalGroup("IsJSONLoaded/List/Filters")]
         [SerializeField] private CardType type;
-
         private void Filter()
         {
             cardsHead.Clear();
@@ -189,7 +195,6 @@ namespace MythsAndHorrors.Tools
             toSave.ForEach(cardInfo => cardsHead.Add(new Header(cardInfo, SelecCard, DeleteCard)));
         }
 
-        private List<DataCreatorBase> toSave = new();
 
         /*******************************************************************/
         [BoxGroup("IsJSONLoaded/List")]
@@ -204,26 +209,30 @@ namespace MythsAndHorrors.Tools
         [SerializeField] private DataCreatorBase cardSelected;
 
         /*******************************************************************/
-        [BoxGroup("IsCardSelected/Save", ShowLabel = false)]
-        [HorizontalGroup("IsCardSelected/Save/Buttons")]
+        [ShowIf("IsJSONLoaded")]
         [GUIColor("@Color.green")]
-        [Button(ButtonSizes.Large, Name = "Save")]
-        private void Save() => Save(FullPathLoaded);
+        [Button(ButtonSizes.Large, Name = "Save as (only Code)")]
+        private void Save()
+        {
+            string newPath = EditorUtility.SaveFilePanel("Save JSON (only Code)", DATA_PATH, "New JSON", "json");
+            if (string.IsNullOrEmpty(newPath)) return;
+            string serializeInfo = JsonConvert.SerializeObject(toSave.Select(dataCreatorBase => dataCreatorBase.Code), Formatting.Indented, jsonSettings);
+            Save(newPath, serializeInfo);
+        }
 
         [ShowIf("IsJSONLoaded")]
-        [BoxGroup("SaveAs", showLabel: false)]
         [GUIColor("@Color.green")]
         [Button(ButtonSizes.Large, Name = "Save as")]
         private void SaveAs()
         {
             string newPath = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "New JSON", "json");
             if (string.IsNullOrEmpty(newPath)) return;
-            Save(newPath);
+            string serializeInfo = JsonConvert.SerializeObject(toSave.Count > 0 ? toSave : allCardData, Formatting.Indented, jsonSettings);
+            Save(newPath, serializeInfo);
         }
 
-        private void Save(string path)
+        private void Save(string path, string serializeInfo)
         {
-            string serializeInfo = JsonConvert.SerializeObject(toSave.Count > 0 ? toSave : allCardData, Formatting.Indented, jsonSettings);
             StreamWriter writer = new(path);
             writer.WriteLine(serializeInfo);
             writer.Close();

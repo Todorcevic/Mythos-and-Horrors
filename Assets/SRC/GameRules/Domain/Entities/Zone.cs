@@ -7,15 +7,14 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<Card> cards = new();
 
-        public ZoneType ZoneType { get; private set; }
+        public string CodeName { get; }
 
         /*******************************************************************/
-        public Zone(ZoneType typeZone)
+        public Zone(string name)
         {
-            ZoneType = typeZone;
+            CodeName = name ?? throw new ArgumentNullException(nameof(name));
         }
 
-        /*******************************************************************/
         public void AddCard(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
