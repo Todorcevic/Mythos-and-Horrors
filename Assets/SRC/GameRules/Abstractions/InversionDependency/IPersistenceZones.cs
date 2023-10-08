@@ -2,7 +2,7 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IZonesContainer
+    public interface IPersistenceZones
     {
         List<Zone> GetZones();
     }
