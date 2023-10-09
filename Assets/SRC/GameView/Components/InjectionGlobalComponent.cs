@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView
     {
         public override void InstallBindings()
         {
-            Container.Bind<InitializeGameUseCase>().AsSingle();
+            Container.Bind<LoadGameUseCase>().AsSingle();
         }
     }
 }

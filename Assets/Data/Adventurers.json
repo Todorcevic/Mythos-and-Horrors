@@ -1,0 +1,102 @@
+[
+  {
+    "AdventurerCardCode": "01001",
+    "CardsCode": [
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "RequerimentCardCodes": [
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "DeckBuildingConditions": {
+      "Esoteric": 5,
+      "Valiant": 2,
+      "Neutral": 5
+    },
+    "DeckSize": 30,
+    "Xp": 0,
+    "Injury": 0,
+    "Shock": 0
+  },
+  {
+    "AdventurerCardCode": "01002",
+    "CardsCode": [
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "RequerimentCardCodes": [
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "DeckBuildingConditions": {
+      "Esoteric": 5,
+      "Valiant": 2,
+      "Neutral": 5
+    },
+    "DeckSize": 30,
+    "Xp": 0,
+    "Injury": 0,
+    "Shock": 0
+  },
+  {
+    "AdventurerCardCode": "01003",
+    "CardsCode": [
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "RequerimentCardCodes": [
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "DeckBuildingConditions": {
+      "Esoteric": 5,
+      "Valiant": 2,
+      "Neutral": 5
+    },
+    "DeckSize": 30,
+    "Xp": 0,
+    "Injury": 0,
+    "Shock": 0
+  },
+  {
+    "AdventurerCardCode": "01004",
+    "CardsCode": [
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "RequerimentCardCodes": [
+      "01001",
+      "01001",
+      "01001"
+    ],
+    "DeckBuildingConditions": {
+      "Esoteric": 5,
+      "Valiant": 2,
+      "Neutral": 5
+    },
+    "DeckSize": 30,
+    "Xp": 0,
+    "Injury": 0,
+    "Shock": 0
+  }
+]

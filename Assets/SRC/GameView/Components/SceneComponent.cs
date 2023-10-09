@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         {
             AsyncOperation asyncOperation = _sceneLoader.LoadSceneAsync(FIRST_SCENE, LoadSceneMode.Single, (container) =>
             {
-                container.BindInstance(true).WhenInjectedInto<LoaderComponent>();
+                container.BindInstance(true).WhenInjectedInto<InitializerComponent>();
             });
 
             while (!asyncOperation.isDone)

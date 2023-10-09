@@ -1,16 +1,20 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using System.Collections.Generic;
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class JsonService : IPersistenceService
+    public class JsonService
     {
-        private readonly JsonSerializerSettings serializerSettings = new()
+        public JsonService(AdventurerConverter _converters)
         {
-            ObjectCreationHandling = ObjectCreationHandling.Replace
-        };
+            JsonConvert.DefaultSettings = () => new()
+            {
+                ObjectCreationHandling = ObjectCreationHandling.Replace,
+                Converters = new List<JsonConverter>() { _converters }
+            };
+        }
 
         /*******************************************************************/
         public T CreateDataFromResources<T>(string pathAndNameJsonFile)
@@ -34,13 +38,13 @@ namespace MythsAndHorrors.GameView
         public void UpdateDataFromResources(string pathAndNameJsonFile, object objectToUpdate)
         {
             TextAsset jsonData = Resources.Load<TextAsset>(pathAndNameJsonFile);
-            JsonConvert.PopulateObject(jsonData.text, objectToUpdate, serializerSettings);
+            JsonConvert.PopulateObject(jsonData.text, objectToUpdate);
         }
 
         public void UpdateDataFromFile(string pathAndNameJsonFile, object objectToUpdate)
         {
             string jsonData = File.ReadAllText(pathAndNameJsonFile);
-            JsonConvert.PopulateObject(jsonData, objectToUpdate, serializerSettings);
+            JsonConvert.PopulateObject(jsonData, objectToUpdate);
         }
     }
 }

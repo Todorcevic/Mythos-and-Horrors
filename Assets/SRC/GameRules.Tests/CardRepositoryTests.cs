@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules.Tests
                 (Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "01603", Name = "Monster1" } })
             };
 
-            _sut.LoadCards(cards);
+            //_sut.SetCards(cards);
         }
 
         [Test]

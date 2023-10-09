@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json.Linq;
-using Unity.Plastic.Newtonsoft.Json;
-
 
 namespace MythsAndHorrors.GameRules
 {
     public class Adventurer
     {
-        public string AdventurerCard { get; set; }
-        public List<string> Cards { get; set; }
-        public List<string> CardsRequeriment { get; set; }
-        public List<(Faction, int)> DeckBuildingCondtions { get; set; }
+        public Card AdventurerCardCode { get; set; }
+        public List<Card> CardsCode { get; set; }
+        public List<Card> CardsRequerimentCode { get; set; }
+        public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
         public int DeckSize { get; set; }
         public int Xp { get; set; }
         public int Injury { get; set; }

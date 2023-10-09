@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class ZoneRepository
     {
-        [Inject] private readonly IPersistenceZones _zonesContainer;
-
         private List<Zone> _zones;
 
         /*******************************************************************/
-        public void LoadZones()
+        public void SetZones(List<Zone> zones)
         {
-            _zones = _zonesContainer.GetZones();
+            if (_zones != null) throw new InvalidOperationException("Zones already loaded");
+            _zones = zones ?? throw new ArgumentNullException(nameof(zones) + " zones cant be null");
         }
 
         public Zone GetZone(string zoneName) =>
             _zones.Find(zone => zone.CodeName == zoneName) ?? throw new KeyNotFoundException($"Zone {zoneName} not found");
-
     }
 }

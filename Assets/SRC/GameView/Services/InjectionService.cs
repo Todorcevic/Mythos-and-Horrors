@@ -39,6 +39,10 @@ namespace MythsAndHorrors.GameView
             /*** UseCases ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("UseCase")).AsSingle();
+
+            /*** Converters ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+            .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
         }
 
         private void InstallRules()

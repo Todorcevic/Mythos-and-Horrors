@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameRules.Tests
                 }
             };
 
-            List<Card> result = _sut.CreateCards(cardInfo, new List<string>() { "01501", "01603" });
+            List<Card> result = _sut.CreateCards(new List<string>() { "01501", "01603" });
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Info.Name, Is.EqualTo("First Adventurer"));
