@@ -2,12 +2,15 @@
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class JsonService
     {
-        public JsonService(AdventurerConverter _converters)
+        [Inject] private readonly CardConverter _converters;
+
+        public JsonService()
         {
             JsonConvert.DefaultSettings = () => new()
             {

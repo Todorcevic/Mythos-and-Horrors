@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules.Assets.SRC.GameRules.Domain.Entities.Cards.Aid
+namespace MythsAndHorrors.GameRules
 {
-    internal class CardAid
+    internal class CardAid : Card
     {
     }
 }

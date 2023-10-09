@@ -4,9 +4,9 @@ namespace MythsAndHorrors.GameRules
 {
     public class Scene
     {
-        public int Position { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public List<string> CardsCode { get; }
+        public int Position { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<Card> CardsCode { get; set; }
     }
 }

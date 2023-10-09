@@ -16,6 +16,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardRepository _cardRepository;
         [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
         [Inject] private readonly CardsViewManager _cardsViewManager;
+        [Inject] private readonly GameStateService _gameStateService;
 
         [Inject] private readonly SaveGameUseCase _saveGameUseCase;
 
@@ -51,7 +52,8 @@ namespace MythsAndHorrors.GameView
 
         private void LoadScene()
         {
-            _cardFactory.CreateCards(cardsToCreate);
+            string fullSceneDataPath = FilesPath.JSON_SCENE_FOLDER + "CORE/Scene1.json";
+            _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 
         private void LoadCardsView()

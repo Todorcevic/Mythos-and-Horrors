@@ -1,4 +1,8 @@
-[
+{
+  "Position": 1,
+  "Name": "Scene1",
+  "Description": "This is a test scene1",
+  "CardsCode": [
     "01105",
     "01106",
     "01107",
@@ -24,4 +28,5 @@
     "01166",
     "01167",
     "01168"  
-]
+  ]
+}

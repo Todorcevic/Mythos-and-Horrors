@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules.Assets.SRC.GameRules.Domain.Entities.Cards
+namespace MythsAndHorrors.GameRules
 {
-    internal class CardTalent
+    public class CardTalent : Card
     {
     }
 }
