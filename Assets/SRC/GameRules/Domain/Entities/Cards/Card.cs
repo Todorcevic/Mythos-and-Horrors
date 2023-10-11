@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] public CardInfo Info { get; }
         public Zone CurrentZone { get; private set; }
+        public bool IsScenaryCard => Info.Faction == Faction.Myths;
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)

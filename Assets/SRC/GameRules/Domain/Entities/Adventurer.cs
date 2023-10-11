@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameRules
 {
@@ -7,7 +6,7 @@ namespace MythsAndHorrors.GameRules
     {
         public Card AdventurerCardCode { get; set; }
         public List<Card> CardsCode { get; set; }
-        public List<Card> CardsRequerimentCode { get; set; }
+        public List<Card> RequerimentCardCodes { get; set; }
         public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
         public int DeckSize { get; set; }
         public int Xp { get; set; }

@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameRules
     public class CardFactory
     {
         [Inject] private readonly DiContainer _diContainer;
-        [Inject] private readonly CardRepository _cardRepository;
         private List<CardInfo> _allCardInfo;
 
         /*******************************************************************/
@@ -31,16 +30,7 @@ namespace MythsAndHorrors.GameRules
             object objectCard = _diContainer.Instantiate(type, new object[] { cardInfo });
             type.GetInterfaces().ForEach(@interface => _diContainer.Bind(@interface).FromInstance(objectCard).NonLazy());
 
-            Card newCard = (Card)objectCard;
-            _cardRepository.AddCard(newCard);
-            return newCard;
-        }
-
-        public List<Card> CreateCards(List<string> cardCodes)
-        {
-            List<Card> allCards = new();
-            cardCodes.ForEach(cardCodes => allCards.Add(CreateCard(cardCodes)));
-            return allCards;
+            return (Card)objectCard;
         }
     }
 }

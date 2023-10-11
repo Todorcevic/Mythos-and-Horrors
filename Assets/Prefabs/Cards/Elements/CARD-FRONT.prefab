@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2448148989147093810}
+  - component: {fileID: 187402461799965105}
   - component: {fileID: 8164550520174842369}
   m_Layer: 3
   m_Name: CARD-FRONT
@@ -33,6 +34,26 @@ Transform:
   - {fileID: 7523406544835516928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &187402461799965105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199786173855726160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61be1e3832c3ca849a752319e4825b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _intrepidTemplate: {fileID: 0}
+  _versatileTemplate: {fileID: 0}
+  _valiantTemplate: {fileID: 0}
+  _esotericTemplate: {fileID: 0}
+  _scholarlyTemplate: {fileID: 0}
+  _neutralTemplate: {fileID: 0}
+  _template: {fileID: 8164550520174842369}
+  _picture: {fileID: 407976229603780530}
 --- !u!212 &8164550520174842369
 SpriteRenderer:
   m_ObjectHideFlags: 0

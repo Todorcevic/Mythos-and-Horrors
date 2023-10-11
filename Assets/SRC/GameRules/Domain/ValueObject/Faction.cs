@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
     public enum Faction
     {
         None = 0,
-        Versatil = 1 << 0,
+        Versatile = 1 << 0,
         Intrepid = 1 << 1,
         Valiant = 1 << 2,
         Esoteric = 1 << 3,

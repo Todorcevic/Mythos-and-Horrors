@@ -81,6 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _title: {fileID: 2286753138838188432}
+  _cardFrontView: {fileID: 6633179739337462800}
+  _cardBackView: {fileID: 8201969603893010426}
+  _glowView: {fileID: 7026777819309738103}
 --- !u!1001 &955737631555052019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,6 +287,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1317567095099914944, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
   m_PrefabInstance: {fileID: 1512937519085253347}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7026777819309738103 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8465405666442541716, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
+  m_PrefabInstance: {fileID: 1512937519085253347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100ee3b730b41f64fa420e5a1167c22a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2199885587041737413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,6 +364,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6640444108520513155, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
   m_PrefabInstance: {fileID: 2199885587041737413}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8201969603893010426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1201142033766955713, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
+  m_PrefabInstance: {fileID: 2199885587041737413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762dc2291163f2c418d07e535306bf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6815072547950425505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -358,6 +383,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2461451438957513620}
     m_Modifications:
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _neutralTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: 659785bf7e8e52540ad05dc813ad0929, type: 3}
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _valiantTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: a7b5cc569cb3bd744a86e840e4a1cdaf, type: 3}
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _esotericTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: 234457347f85d3a4fb94d5661519d8ef, type: 3}
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _intrepidTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: 123cecc7cb4a77247b378bc27a7f6eca, type: 3}
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _scholarlyTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: d97702afc43df694394b01a32e2bccde, type: 3}
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _versatileTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: b6c5f866ddc722b479281bf39684a867, type: 3}
     - target: {fileID: 199786173855726160, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Name
       value: CARD-FRONT
@@ -415,6 +464,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+--- !u!114 &6633179739337462800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+  m_PrefabInstance: {fileID: 6815072547950425505}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61be1e3832c3ca849a752319e4825b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9182156667465363091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2448148989147093810, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}

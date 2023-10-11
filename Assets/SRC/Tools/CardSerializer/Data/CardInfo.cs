@@ -132,7 +132,7 @@ namespace MythsAndHorrors.Tools
             SceneCode = oldCardinfo.EncounterCode;
             Faction = oldCardinfo.FactionCode switch
             {
-                "survivor" => Faction.Versatil,
+                "survivor" => Faction.Versatile,
                 "rogue" => Faction.Intrepid,
                 "guardian" => Faction.Valiant,
                 "mystic" => Faction.Esoteric,

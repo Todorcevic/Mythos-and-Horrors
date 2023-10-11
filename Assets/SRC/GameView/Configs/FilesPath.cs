@@ -1,9 +1,11 @@
 ﻿namespace MythsAndHorrors.GameView
 {
-    public class FilesPath
+    public static class FilesPath
     {
-        public const string JSON_CARD_PATH = "Assets/Data/MythsAndHorrors.json";
-        public const string JSON_ADVENTURERS_PATH = "Assets/Data/Save/Adventurers.json";
-        public const string JSON_SCENE_FOLDER = "Assets/Data/Chapters/";
+        public const string JSON_CARDINFO_PATH = "Assets/Data/Base/CardsInfo.json";
+        public const string JSON_ADVENTURERS_PATH = "Assets/Data/Base/Adventurers.json";
+        public static string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/Scenes/{sceneName}/Scene.json";
+        public static string JSON_HISTORY_PATH(string sceneName) => $"Assets/Data/Base/Scenes/{sceneName}/Histories.json";
+        public static string JSON_ADVENTURER_PATH(string adventurerCode) => $"Assets/Data/Base/Adventurers/{adventurerCode}.json";
     }
 }

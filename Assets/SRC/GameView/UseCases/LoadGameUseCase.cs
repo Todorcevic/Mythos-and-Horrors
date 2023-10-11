@@ -1,26 +1,20 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
-using Unity.Plastic.Newtonsoft.Json;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class LoadGameUseCase
     {
-        [Inject] private readonly ZoneRepository _zoneRepository;
+        [Inject] private readonly ZoneProvider _zoneProvider;
         [Inject] private readonly ZonesManager _zonesManager;
-        [Inject] private readonly AdventurerRepository _adventurerRepository;
+        [Inject] private readonly AdventurerProvider _adventurerProvider;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
-        [Inject] private readonly CardRepository _cardRepository;
+        [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly CardProvider _cardProvider;
         [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
         [Inject] private readonly CardsViewManager _cardsViewManager;
-        [Inject] private readonly GameStateService _gameStateService;
-
-        [Inject] private readonly SaveGameUseCase _saveGameUseCase;
-
-        List<string> cardsToCreate = new() { "01501", "01603" };
 
         /*******************************************************************/
         public void Execute()
@@ -29,38 +23,41 @@ namespace MythsAndHorrors.GameView
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
-            LoadCardsView();
+            BuildCardViews();
         }
 
         private void LoadZones()
         {
             List<Zone> allZones = _zonesManager.GetZones();
-            _zoneRepository.SetZones(allZones);
+            _zoneProvider.SetZones(allZones);
         }
 
         private void LoadCardInfo()
         {
-            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARD_PATH);
+            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARDINFO_PATH);
             _cardFactory.SetCardInfo(allCardInfo);
         }
 
         private void LoadAdventurers()
         {
-            List<Adventurer> allAdventurers = _jsonService.CreateDataFromFile<List<Adventurer>>(FilesPath.JSON_ADVENTURERS_PATH);
-            _adventurerRepository.SetAdventurers(allAdventurers);
+            foreach (string adventurerCode in _gameStateService.AdventurersSelected)
+            {
+                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(adventurerCode));
+                _adventurerProvider.AddAdventurer(adventurer);
+            }
         }
 
         private void LoadScene()
         {
-            string fullSceneDataPath = FilesPath.JSON_SCENE_FOLDER + "CORE/Scene1.json";
+            string fullSceneDataPath = FilesPath.JSON_SCENE_PATH(_gameStateService.SceneSelected);
             _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 
-        private void LoadCardsView()
+        private void BuildCardViews()
         {
-            IReadOnlyList<Card> allCards = _cardRepository.GetAllCards();
-            List<CardView> allCardView = _cardGeneratorComponent.BuildCards(allCards);
-            _cardsViewManager.LoadCardsView(allCardView);
+            IReadOnlyList<Card> allCards = _cardProvider.GetAllCards();
+            List<CardView> allCardViews = _cardGeneratorComponent.BuildCards(allCards);
+            _cardsViewManager.SetCardsView(allCardViews);
         }
     }
 }

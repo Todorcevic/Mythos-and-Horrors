@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly CardConverter _converters;
 
+        /*******************************************************************/
         public JsonService()
         {
             JsonConvert.DefaultSettings = () => new()

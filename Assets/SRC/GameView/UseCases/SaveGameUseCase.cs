@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
     public class SaveGameUseCase
     {
         [Inject] private readonly JsonService _jsonService;
-        [Inject] private readonly AdventurerRepository _adventurerRepository;
+        [Inject] private readonly AdventurerProvider _adventurerRepository;
 
         public void Execute()
         {

@@ -18,6 +18,12 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
 
         /*******************************************************************/
+        public CardView BuildCard(Card card)
+        {
+            CardView cardViewPrefab = GetPrefab(card.Info.CardType);
+            return _diContainer.InstantiatePrefabForComponent<CardView>(cardViewPrefab, transform, new object[] { card });
+        }
+
         public List<CardView> BuildCards(IReadOnlyList<Card> allCards)
         {
             List<CardView> cardsView = new();

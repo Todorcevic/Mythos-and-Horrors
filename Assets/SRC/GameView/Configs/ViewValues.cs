@@ -1,6 +1,6 @@
 namespace MythsAndHorrors.GameView
 {
-    public class ViewValues
+    public static class ViewValues
     {
         public const float CARD_THICKNESS = 0.05f;
         public const float FAST_TIME_ANIMATION = 0.25f;

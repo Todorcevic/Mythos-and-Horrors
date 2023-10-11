@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameRules
         public string Code { get; }
         public string Title { get; }
         public string Description { get; }
+        public List<Adventurer> Adventurers { get; }
         public List<Scene> Scenaries { get; }
     }
 }

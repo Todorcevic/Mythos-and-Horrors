@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules.Tests
     [TestFixture]
     public class CardRepositoryTests : OneTimeAutoInject
     {
-        [Inject] private readonly CardRepository _sut;
+        [Inject] private readonly CardProvider _sut;
 
         [OneTimeSetUp]
         public override void OneTimeSetUp()

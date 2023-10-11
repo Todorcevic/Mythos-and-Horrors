@@ -18,6 +18,7 @@ namespace MythsAndHorrors.GameView
             Zone = new Zone(name);
         }
 
+        /*******************************************************************/
         public abstract Tween MoveCard(CardView card);
     }
 }

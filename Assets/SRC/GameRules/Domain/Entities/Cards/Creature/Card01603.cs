@@ -6,8 +6,8 @@ namespace MythsAndHorrors.GameRules
     public class Card01603 : CardCreature, IStartReactionable, IEndReactionable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly CardRepository _cardRepository;
-        [Inject] private readonly ZoneRepository _zoneRepository;
+        [Inject] private readonly CardProvider _cardRepository;
+        [Inject] private readonly ZoneProvider _zoneRepository;
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)

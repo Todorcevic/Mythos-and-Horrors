@@ -5,25 +5,19 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardConverter : JsonConverter
+    public class CardConverter : JsonConverter<Card>
     {
-        [Inject] private readonly CardFactory _cardFactory;
+        [Inject] private readonly CreateCardUseCase _createCardUseCase;
 
-        public override bool CanConvert(Type objectType)
+        /*******************************************************************/
+        public override Card ReadJson(JsonReader reader, Type objectType, Card existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            return typeof(Card).IsAssignableFrom(objectType);
+            return _createCardUseCase.CreateCard(reader.Value as string);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Card value, JsonSerializer serializer)
         {
-            return _cardFactory.CreateCard(reader.Value as string);
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            if (value is not Card card) throw new ArgumentException("Invalid type");
-
-            writer.WriteValue(card.Info.Code);
+            writer.WriteValue(value.Info.Code);
         }
     }
 }

@@ -6,17 +6,15 @@ namespace MythsAndHorrors.GameView
 {
     public class CardsViewManager
     {
-        private List<CardView> _allCards;
+        private List<CardView> _allCardsView;
 
         /*******************************************************************/
-        public void Add(CardView cardView) => _allCards.Add(cardView);
-
-        public CardView Get(Card card) => _allCards.Find(cardView => cardView.Card == card);
-
-        public void LoadCardsView(List<CardView> cardsView)
+        public void SetCardsView(List<CardView> allCardsView)
         {
-            if (_allCards != null) throw new InvalidOperationException("Cards already loaded");
-            _allCards = cardsView ?? throw new ArgumentNullException(nameof(cardsView), "cardsView cant be null");
+            if (_allCardsView != null) throw new InvalidOperationException("Cards already loaded");
+            _allCardsView = allCardsView ?? throw new ArgumentNullException(nameof(allCardsView) + " cards cant be null");
         }
+
+        public CardView Get(Card card) => _allCardsView.Find(cardView => cardView.Card == card);
     }
 }
