@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3a11572d6e84246b9d118796743cc6, type: 3}
+  m_Name: FactionEsoteric
+  m_EditorClassIdentifier: 
+  _templateFront: {fileID: 21300000, guid: 176be3a56ab782e4dbe05adce1a4af53, type: 3}
+  _badget: {fileID: 21300000, guid: 8109d2ec41d14224b837462e2f971c3e, type: 3}
+  _health: {fileID: 21300000, guid: 1397299cfe1c7eb48a53ccd1074f1f10, type: 3}
+  _sanity: {fileID: 21300000, guid: 14895b09c83e20d468d319821aa71c42, type: 3}
+  _stats: {fileID: 21300000, guid: 5b24941793dc77b4781ee1887dc576ef, type: 3}
+  _templateDeckFront: {fileID: 21300000, guid: 056a258a1b385224aa6ddf62297f9514, type: 3}
+  _cost: {fileID: 21300000, guid: 219d4fab91b97ce4cb85ee992cabd5ab, type: 3}
+  _assistant: {fileID: 21300000, guid: c7a743095ea89b84c9f24ec59ada9313, type: 3}

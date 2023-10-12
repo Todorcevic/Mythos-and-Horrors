@@ -38,7 +38,7 @@
         "00000"
     ],
     "DeckBuildingConditions": {
-        "Valiant": 5,
+        "Brave": 5,
         "Scholarly": 2,
         "Neutral": 5
     },

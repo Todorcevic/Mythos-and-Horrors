@@ -75,7 +75,7 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public int? EnemyTerror { get; set; }
+        public int? EnemyFear { get; set; }
 
         [BoxGroup("Split/Right")]
         [SerializeField]
@@ -133,8 +133,8 @@ namespace MythsAndHorrors.Tools
             Faction = oldCardinfo.FactionCode switch
             {
                 "survivor" => Faction.Versatile,
-                "rogue" => Faction.Intrepid,
-                "guardian" => Faction.Valiant,
+                "rogue" => Faction.Cunning,
+                "guardian" => Faction.Brave,
                 "mystic" => Faction.Esoteric,
                 "seeker" => Faction.Scholarly,
                 "neutral" => Faction.Neutral,
@@ -157,15 +157,15 @@ namespace MythsAndHorrors.Tools
             Tags = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToArray();
             Cost = oldCardinfo.Cost;
             Quantity = oldCardinfo.Quantity;
-            Strength = oldCardinfo.SkillCombat;
-            Agility = oldCardinfo.SkillAgility;
+            Strength = oldCardinfo.SkillCombat ?? oldCardinfo.EnemyFight;
+            Agility = oldCardinfo.SkillAgility ?? oldCardinfo.EnemyEvade;
             Intelligence = oldCardinfo.SkillIntellect;
             Power = oldCardinfo.SkillWillpower;
             Wild = oldCardinfo.SkillWild;
             Health = oldCardinfo.Health;
             Sanity = oldCardinfo.Sanity;
             EnemyDamage = oldCardinfo.EnemyDamage;
-            EnemyTerror = oldCardinfo.EnemyHorror;
+            EnemyFear = oldCardinfo.EnemyHorror;
             EnemyStrength = oldCardinfo.EnemyFight;
             EnemyAgility = oldCardinfo.EnemyEvade;
             Xp = oldCardinfo.Xp;

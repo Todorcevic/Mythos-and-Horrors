@@ -1,28 +1,46 @@
+using Codice.Client.Common;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardFrontView : MonoBehaviour
     {
-        [SerializeField, AssetsOnly] private Sprite _intrepidTemplate;
-        [SerializeField, AssetsOnly] private Sprite _versatileTemplate;
-        [SerializeField, AssetsOnly] private Sprite _valiantTemplate;
-        [SerializeField, AssetsOnly] private Sprite _esotericTemplate;
-        [SerializeField, AssetsOnly] private Sprite _scholarlyTemplate;
-        [SerializeField, AssetsOnly] private Sprite _neutralTemplate;
+        [SerializeField, AssetsOnly] private FactionElementsView _versatile;
+        [SerializeField, AssetsOnly] private FactionElementsView _neutral;
+        [SerializeField, AssetsOnly] private FactionElementsView _cunning;
+        [SerializeField, AssetsOnly] private FactionElementsView _brave;
+        [SerializeField, AssetsOnly] private FactionElementsView _scholarly;
+        [SerializeField, AssetsOnly] private FactionElementsView _esoteric;
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
+        [SerializeField] private SpriteRenderer _picture;
+        [SerializeField] private SpriteRenderer _badge;
+        [SerializeField] private SpriteRenderer _health;
+        [SerializeField] private SpriteRenderer _sanity;
+        [SerializeField] private List<SpriteRenderer> _stats;
+        [SerializeField] private SpriteRenderer _templateDeckFront;
+        [SerializeField] private SpriteRenderer _cost;
+        [SerializeField] private List<SpriteRenderer> _skillPlacer;
 
         /*******************************************************************/
 
-        public void SetPicture(Card thisCard)
+        public void SetFront(Card thisCard)
         {
-            _picture.sprite = GetPicture(thisCard);
-            _template.sprite = SetTemplate(thisCard);
+            FactionElementsView currentFaction = SetCurrent(thisCard.Info.Faction);
+            if (currentFaction == null) return;
+
+            _template.sprite = thisCard.IsScenaryCard ? _template.sprite : currentFaction._templateFront;
+
+            if (_badge != null) _badge.sprite = currentFaction._badget;
+            if (_health != null) _health.sprite = currentFaction._health;
+            if (_sanity != null) _sanity.sprite = currentFaction._sanity;
+            if (_stats.Count > 0) _stats.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
+            if (_cost != null) _cost.sprite = currentFaction._cost;
+            if (_skillPlacer.Count > 0) _skillPlacer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._assistant);
         }
 
         private Sprite GetPicture(Card thisCard)
@@ -30,17 +48,16 @@ namespace MythsAndHorrors.GameView
             throw new NotImplementedException();
         }
 
-        private Sprite SetTemplate(Card thisCard)
+        private FactionElementsView SetCurrent(Faction faction)
         {
-            return thisCard.Info.Faction switch
+            return faction switch
             {
-                Faction.Intrepid => _intrepidTemplate,
-                Faction.Versatile => _versatileTemplate,
-                Faction.Valiant => _valiantTemplate,
-                Faction.Esoteric => _esotericTemplate,
-                Faction.Scholarly => _scholarlyTemplate,
-                Faction.Neutral => _neutralTemplate,
-                _ => throw new Exception("Faction not found"),
+                Faction.Cunning => _cunning,
+                Faction.Versatile => _versatile,
+                Faction.Brave => _brave,
+                Faction.Esoteric => _esoteric,
+                Faction.Scholarly => _scholarly,
+                _ => null,
             };
         }
     }

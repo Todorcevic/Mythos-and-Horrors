@@ -9,10 +9,11 @@ namespace MythsAndHorrors.GameView
 {
     public class CardView : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private CardFrontView _cardFrontView;
         [SerializeField, Required, ChildGameObjectsOnly] private CardBackView _cardBackView;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
+        [SerializeField, Required, ChildGameObjectsOnly] private CardHolderView _cardHolderView;
+        [SerializeField, ChildGameObjectsOnly] private SkillPlacerView _skillPlacerView;
 
         public Card Card { get; private set; }
 
@@ -22,20 +23,23 @@ namespace MythsAndHorrors.GameView
         private void Init(Card card)
         {
             Card = card;
+            Debug.Log("Doing...: " + Card.Info.Code);
             SetAll();
         }
 
         /*******************************************************************/
         public void ActivateToSelect()
         {
-
+            _glowView.SetGreenGlow();
         }
 
         private void SetAll()
         {
             name = Card.Info.Code;
-            _title.text = Card.Info.Name;
             _cardBackView.SetReverse(Card);
+            _cardFrontView.SetFront(Card);
+            _cardHolderView.SetInfo(Card);
+            if (_skillPlacerView != null) _skillPlacerView.SetSkillPlacer(Card);
         }
     }
 }

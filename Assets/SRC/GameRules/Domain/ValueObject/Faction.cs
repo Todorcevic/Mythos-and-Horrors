@@ -7,8 +7,8 @@ namespace MythsAndHorrors.GameRules
     {
         None = 0,
         Versatile = 1 << 0,
-        Intrepid = 1 << 1,
-        Valiant = 1 << 2,
+        Cunning = 1 << 1,
+        Brave = 1 << 2,
         Esoteric = 1 << 3,
         Scholarly = 1 << 4,
         Neutral = 1 << 5,

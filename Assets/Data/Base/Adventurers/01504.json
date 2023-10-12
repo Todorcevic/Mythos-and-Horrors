@@ -39,7 +39,7 @@
     ],
     "DeckBuildingConditions": {
         "Esoteric": 5,
-        "Versatil": 2,
+        "Versatile": 2,
         "Neutral": 5
     },
     "DeckSize": 30,

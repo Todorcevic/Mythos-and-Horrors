@@ -38,8 +38,8 @@
         "00000"
     ],
     "DeckBuildingConditions": {
-        "Intrepid": 5,
-        "Valiant": 2,
+        "Cunning": 5,
+        "Brave": 2,
         "Neutral": 5
     },
     "DeckSize": 30,

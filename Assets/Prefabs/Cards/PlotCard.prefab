@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2838949119554152806, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+      propertyPath: _hints
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838949119554152806, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+      propertyPath: _eldritch
+      value: 
+      objectReference: {fileID: 885133766992784078}
+    - target: {fileID: 2842471514051079322, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+      propertyPath: _neutralTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: 986f73e361b960f469e7ce9cd16086ec, type: 3}
     - target: {fileID: 2920728945906512179, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_Name
-      value: Act
+      value: PlotCard
       objectReference: {fileID: 0}
     - target: {fileID: 5226966266286965769, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 986f73e361b960f469e7ce9cd16086ec, type: 3}
+    - target: {fileID: 6632487666386631040, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+      propertyPath: m_Name
+      value: Eldritch
+      objectReference: {fileID: 0}
     - target: {fileID: 6708412462071596127, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -73,3 +89,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+--- !u!114 &885133766992784078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6945487962098668515, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+  m_PrefabInstance: {fileID: 7794592926166317357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

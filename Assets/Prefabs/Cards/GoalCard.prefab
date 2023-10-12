@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2858415765434087095}
+  - component: {fileID: 2838949119554152806}
   m_Layer: 3
   m_Name: Holders
   m_TagString: Untagged
@@ -34,6 +35,30 @@ Transform:
   - {fileID: 6708412462071596127}
   m_Father: {fileID: 5226966266286965769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2838949119554152806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821247303560669499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746c5a9a396b47448ad2569261b22714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: {fileID: 8081740777542446654}
+  _description: {fileID: 310641893215944689}
+  _health: {fileID: 0}
+  _sanity: {fileID: 0}
+  _strength: {fileID: 0}
+  _agility: {fileID: 0}
+  _intelligence: {fileID: 0}
+  _power: {fileID: 0}
+  _cost: {fileID: 0}
+  _hints: {fileID: 6945487962098668515}
+  _enigma: {fileID: 0}
+  _eldritch: {fileID: 0}
 --- !u!1 &2920728945906512179
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,10 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019b77959d55ebe4d8040077c9e86206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: {fileID: 8081740777542446654}
   _cardFrontView: {fileID: 2842471514051079322}
   _cardBackView: {fileID: 4849603277487324687}
   _glowView: {fileID: 3852452701943135907}
+  _cardHolderView: {fileID: 2838949119554152806}
+  _skillPlacerView: {fileID: 0}
 --- !u!1001 &946912993110739895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -167,6 +193,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5226966266286965769}
     m_Modifications:
+    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: _neutralTemplate
+      value: 
+      objectReference: {fileID: 21300000, guid: 6fc4a4d1f73a43b49bb39a500f71c2bb, type: 3}
     - target: {fileID: 199786173855726160, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Name
       value: CARD-FRONT
@@ -209,6 +239,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2448148989147093810, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793760377933556320, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8164550520174842369, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
@@ -298,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 853a2203a48cc2b4896551a10fb1effd, type: 2}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
-      value: StatHolder
+      value: Hints
       objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x
@@ -358,6 +392,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
   m_PrefabInstance: {fileID: 2918882536225879772}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6945487962098668515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+  m_PrefabInstance: {fileID: 2918882536225879772}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3177834704702569264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -640,6 +685,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
+--- !u!114 &310641893215944689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
+  m_PrefabInstance: {fileID: 8902433341018418591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5334881028784677296 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3567561135170341935, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
