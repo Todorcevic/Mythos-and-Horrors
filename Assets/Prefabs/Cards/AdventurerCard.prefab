@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6630050868628926429}
-  - component: {fileID: 6960119757195876410}
   m_Layer: 3
   m_Name: Holders
   m_TagString: Untagged
@@ -37,30 +36,6 @@ Transform:
   - {fileID: 2828780065282913987}
   m_Father: {fileID: 3762236406814514275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6960119757195876410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552741786105823035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 746c5a9a396b47448ad2569261b22714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _title: {fileID: 7959041922574278342}
-  _description: {fileID: 2541272115549055856}
-  _health: {fileID: 8038412568200581390}
-  _sanity: {fileID: 5330911237377248341}
-  _strength: {fileID: 4528068525391624210}
-  _agility: {fileID: 4960670304719174224}
-  _intelligence: {fileID: 7257746949020371987}
-  _power: {fileID: 691214084181100879}
-  _cost: {fileID: 0}
-  _hints: {fileID: 0}
-  _enigma: {fileID: 0}
-  _eldritch: {fileID: 0}
 --- !u!1 &6122589975459456142
 GameObject:
   m_ObjectHideFlags: 0
