@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7366095968266893132}
-  - component: {fileID: 3103479505797999903}
+  - component: {fileID: 8154357446181133524}
   m_Layer: 3
   m_Name: PlaceCard
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 8074886397840344678}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3103479505797999903
+--- !u!114 &8154357446181133524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,14 +45,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 879572467161291134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019b77959d55ebe4d8040077c9e86206, type: 3}
+  m_Script: {fileID: 11500000, guid: 8681f23257a02a24ba9e09e605563b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardFrontView: {fileID: 4429264652809345513}
-  _cardBackView: {fileID: 4863031566409719258}
+  _title: {fileID: 8613495934410587171}
+  _description: {fileID: 5066798672188456260}
   _glowView: {fileID: 2130807407372807609}
-  _cardHolderView: {fileID: 4311758812756783754}
-  _skillPlacerView: {fileID: 0}
+  _picture: {fileID: 4199409908278222826}
+  _hints: {fileID: 5500146020274688220}
+  _enigma: {fileID: 734912746532884668}
 --- !u!1 &5608084546725995407
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,17 +300,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
---- !u!114 &4863031566409719258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1201142033766955713, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
-  m_PrefabInstance: {fileID: 3181893048948431077}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 762dc2291163f2c418d07e535306bf7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8074886397840344678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6640444108520513155, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
@@ -518,17 +508,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2448148989147093810, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
   m_PrefabInstance: {fileID: 4606655992367413336}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4429264652809345513 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+--- !u!212 &4199409908278222826 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
   m_PrefabInstance: {fileID: 4606655992367413336}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61be1e3832c3ca849a752319e4825b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4814435467888883075
 PrefabInstance:
   m_ObjectHideFlags: 0

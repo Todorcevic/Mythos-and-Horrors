@@ -7,13 +7,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardView : MonoBehaviour
+    public abstract class CardView : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private CardFrontView _cardFrontView;
-        [SerializeField, Required, ChildGameObjectsOnly] private CardBackView _cardBackView;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
-        [SerializeField, Required, ChildGameObjectsOnly] private CardHolderView _cardHolderView;
-        [SerializeField, ChildGameObjectsOnly] private SkillPlacerView _skillPlacerView;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
 
         public Card Card { get; private set; }
 
@@ -24,7 +23,9 @@ namespace MythsAndHorrors.GameView
         {
             Card = card;
             Debug.Log("Doing...: " + Card.Info.Code);
+
             SetAll();
+            SetInfo();
         }
 
         /*******************************************************************/
@@ -33,13 +34,12 @@ namespace MythsAndHorrors.GameView
             _glowView.SetGreenGlow();
         }
 
-        private void SetAll()
+        protected abstract void SetAll();
+
+        private void SetInfo()
         {
-            name = Card.Info.Code;
-            _cardBackView.SetReverse(Card);
-            _cardFrontView.SetFront(Card);
-            _cardHolderView.SetInfo(Card);
-            if (_skillPlacerView != null) _skillPlacerView.SetSkillPlacer(Card);
+            _title.text = Card.Info.Name;
+            _description.text = Card.Info.Description;
         }
     }
 }

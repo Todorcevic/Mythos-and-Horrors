@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b3a11572d6e84246b9d118796743cc6, type: 3}
+  m_Script: {fileID: 11500000, guid: fdc677691ad2e0b4e97a1668a34e6980, type: 3}
   m_Name: FactionScholarly
   m_EditorClassIdentifier: 
   _templateFront: {fileID: 21300000, guid: 0f2217a999ab3c848ad124bde1108861, type: 3}
@@ -17,6 +17,3 @@ MonoBehaviour:
   _health: {fileID: 21300000, guid: a2a5c1324d2449a40924f990c1b2d98d, type: 3}
   _sanity: {fileID: 21300000, guid: bcf6e00a6bc8c25418ec03671aeae8ec, type: 3}
   _stats: {fileID: 21300000, guid: a6228eee2d76e304b86a695aeeaca13e, type: 3}
-  _templateDeckFront: {fileID: 21300000, guid: 8b9e629f7e9c4e846ab8c957369aec09, type: 3}
-  _cost: {fileID: 21300000, guid: 3e737bc91b682ba449b6d156c2a593a2, type: 3}
-  _assistant: {fileID: 21300000, guid: 3ce08e0cc17810741ac84fa49de6a243, type: 3}

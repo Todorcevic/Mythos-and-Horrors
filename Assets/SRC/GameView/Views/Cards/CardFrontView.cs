@@ -9,12 +9,12 @@ namespace MythsAndHorrors.GameView
 {
     public class CardFrontView : MonoBehaviour
     {
-        [SerializeField, AssetsOnly] private FactionElementsView _versatile;
-        [SerializeField, AssetsOnly] private FactionElementsView _neutral;
-        [SerializeField, AssetsOnly] private FactionElementsView _cunning;
-        [SerializeField, AssetsOnly] private FactionElementsView _brave;
-        [SerializeField, AssetsOnly] private FactionElementsView _scholarly;
-        [SerializeField, AssetsOnly] private FactionElementsView _esoteric;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _versatile;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _neutral;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _cunning;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _brave;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _scholarly;
+        [SerializeField, AssetsOnly] private FactionAdventurerSO _esoteric;
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField] private SpriteRenderer _picture;
@@ -30,7 +30,7 @@ namespace MythsAndHorrors.GameView
 
         public void SetFront(Card thisCard)
         {
-            FactionElementsView currentFaction = SetCurrent(thisCard.Info.Faction);
+            FactionAdventurerSO currentFaction = SetCurrent(thisCard.Info.Faction);
             if (currentFaction == null) return;
 
             _template.sprite = thisCard.IsScenaryCard ? _template.sprite : currentFaction._templateFront;
@@ -39,8 +39,8 @@ namespace MythsAndHorrors.GameView
             if (_health != null) _health.sprite = currentFaction._health;
             if (_sanity != null) _sanity.sprite = currentFaction._sanity;
             if (_stats.Count > 0) _stats.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
-            if (_cost != null) _cost.sprite = currentFaction._cost;
-            if (_skillPlacer.Count > 0) _skillPlacer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._assistant);
+            //if (_cost != null) _cost.sprite = currentFaction._cost;
+            //if (_skillPlacer.Count > 0) _skillPlacer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._assistant);
         }
 
         private Sprite GetPicture(Card thisCard)
@@ -48,7 +48,7 @@ namespace MythsAndHorrors.GameView
             throw new NotImplementedException();
         }
 
-        private FactionElementsView SetCurrent(Faction faction)
+        private FactionAdventurerSO SetCurrent(Faction faction)
         {
             return faction switch
             {

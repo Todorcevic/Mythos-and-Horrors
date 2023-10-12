@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b3a11572d6e84246b9d118796743cc6, type: 3}
+  m_Script: {fileID: 11500000, guid: fdc677691ad2e0b4e97a1668a34e6980, type: 3}
   m_Name: FactionBrave
   m_EditorClassIdentifier: 
   _templateFront: {fileID: 21300000, guid: fb9c29a311eab9347921a6b645a072fc, type: 3}
@@ -17,6 +17,3 @@ MonoBehaviour:
   _health: {fileID: 21300000, guid: eab793892edfa5b42ae3c35103eb3d5d, type: 3}
   _sanity: {fileID: 21300000, guid: 5c941507e14384542aeaec39a27a2107, type: 3}
   _stats: {fileID: 21300000, guid: 845010252aacfab40aa0156a262bb4bd, type: 3}
-  _templateDeckFront: {fileID: 21300000, guid: 27577199e61104c4eb70d30c0f88d7ef, type: 3}
-  _cost: {fileID: 21300000, guid: aa615b49a5560694c9675cf747b270c2, type: 3}
-  _assistant: {fileID: 21300000, guid: a1e1ea973177e1e40b97aa933dfdcc7e, type: 3}
