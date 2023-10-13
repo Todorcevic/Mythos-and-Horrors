@@ -12,6 +12,10 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private List<SkillIconView> _skillPlacer;
 
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _strengthRenderer;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _agilityRenderer;
+
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _strength;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _agility;
@@ -19,6 +23,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         protected override void SetAll()
         {
+            if (Card.Info.CardType != CardType.Creature) return;
             SetInfo();
             SetSkillPlacer();
         }
@@ -26,25 +31,20 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         private void SetInfo()
         {
+            _healthRenderer.gameObject.SetActive(true);
+            _strengthRenderer.gameObject.SetActive(true);
+            _agilityRenderer.gameObject.SetActive(true);
             _health.text = Card.Info.Health.ToString();
-            _strength.text = Card.Info.EnemyStrength.ToString();
-            _agility.text = Card.Info.EnemyAgility.ToString();
+            _strength.text = Card.Info.Strength.ToString();
+            _agility.text = Card.Info.Agility.ToString();
         }
 
         private void SetSkillPlacer()
         {
-            if (Card.Info.CardType == CardType.Creature)
-            {
-                for (int i = 0; i < Card.Info.EnemyDamage; i++)
-                {
-                    GetNexPlacertInactive().SetSkillIcon(_skillDamageIcon);
-                }
 
-                for (int i = 0; i < Card.Info.EnemyFear; i++)
-                {
-                    GetNexPlacertInactive().SetSkillIcon(_skillFearIcon);
-                }
-            }
+            for (int i = 0; i < Card.Info.EnemyDamage; i++) GetNexPlacertInactive().SetSkillIcon(_skillDamageIcon);
+            for (int i = 0; i < Card.Info.EnemyFear; i++) GetNexPlacertInactive().SetSkillIcon(_skillFearIcon);
+
         }
 
         private SkillIconView GetNexPlacertInactive() => _skillPlacer.Find(x => x.IsInactive);

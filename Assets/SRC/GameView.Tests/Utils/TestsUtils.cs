@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using TMPro;
-using System.Linq;
 using System.Reflection;
 using System;
 
@@ -10,24 +9,14 @@ namespace MythsAndHorrors.Gameview.Tests
     {
         public static string GetTextFromThis(this Transform parentTransform, string gameObjectName)
         {
-            Transform targetTransform = parentTransform.FindDeepChild(gameObjectName); // is more efficient
+            if (parentTransform == null) throw new ArgumentNullException("parentTransform cant be null");
+            if (string.IsNullOrEmpty(gameObjectName)) throw new ArgumentNullException("gameObjectName cant be null or empty");
 
-            if (targetTransform != null)
-            {
-                TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>();
-
-                if (textMeshPro != null) return textMeshPro.text;
-                else
-                {
-                    Debug.LogWarning($"A TextMeshPro component was not found in the GameObject {parentTransform.name}.");
-                    return null;
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"A GameObject with the name {gameObjectName} was not found among the children of the given Transform.");
-                return null;
-            }
+            Transform targetTransform = parentTransform.FindDeepChild(gameObjectName)
+                ?? throw new InvalidOperationException($"A GameObject with the name {gameObjectName} was not found among the children of the given Transform.");
+            TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>()
+                ?? throw new InvalidOperationException($"A TextMeshPro component was not found in the GameObject {targetTransform.name}.");
+            return textMeshPro.text;
         }
 
         public static Transform FindDeepChild(this Transform parent, string name)
@@ -43,8 +32,8 @@ namespace MythsAndHorrors.Gameview.Tests
 
         public static T GetPrivateMember<T>(this object objectTarget, string memberName)
         {
-            if (objectTarget == null) throw new ArgumentNullException(nameof(objectTarget));
-            if (string.IsNullOrEmpty(memberName)) throw new ArgumentNullException(nameof(memberName));
+            if (objectTarget == null) throw new ArgumentNullException("objectTarget cant be null");
+            if (string.IsNullOrEmpty(memberName)) throw new ArgumentNullException("memberName cant be null or empty");
 
             FieldInfo field = null;
             foreach (FieldInfo fieldInfo in objectTarget.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
@@ -58,7 +47,6 @@ namespace MythsAndHorrors.Gameview.Tests
 
             if (field == null) throw new ArgumentException($"No private field named {memberName} found in {objectTarget.GetType().Name}.");
             if (field.FieldType != typeof(T)) throw new InvalidOperationException($"Field {memberName} is not of type {typeof(T).Name}.");
-
             return (T)field.GetValue(objectTarget);
         }
     }

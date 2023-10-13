@@ -71,19 +71,11 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public int? EnemyDamage { get; set; }
+        public int? CreatureDamage { get; set; }
 
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public int? EnemyFear { get; set; }
-
-        [BoxGroup("Split/Right")]
-        [SerializeField]
-        public int? EnemyStrength { get; set; }
-
-        [BoxGroup("Split/Right")]
-        [SerializeField]
-        public int? EnemyAgility { get; set; }
+        public int? CreatureFear { get; set; }
 
         [BoxGroup("Split/Right")]
         [SerializeField]
@@ -164,10 +156,8 @@ namespace MythsAndHorrors.Tools
             Wild = oldCardinfo.SkillWild;
             Health = oldCardinfo.Health;
             Sanity = oldCardinfo.Sanity;
-            EnemyDamage = oldCardinfo.EnemyDamage;
-            EnemyFear = oldCardinfo.EnemyHorror;
-            EnemyStrength = oldCardinfo.EnemyFight;
-            EnemyAgility = oldCardinfo.EnemyEvade;
+            CreatureDamage = oldCardinfo.EnemyDamage;
+            CreatureFear = oldCardinfo.EnemyHorror;
             Xp = oldCardinfo.Xp;
             Victory = oldCardinfo.Victory;
             Enigma = oldCardinfo.Shroud;

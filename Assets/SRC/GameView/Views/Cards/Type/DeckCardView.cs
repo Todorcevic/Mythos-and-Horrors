@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private List<SkillIconView> _skillPlacer;
 
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _templateDeckFront;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
@@ -40,36 +40,17 @@ namespace MythsAndHorrors.GameView
             if (currentFaction == null) return;
             SetRenderers(currentFaction);
             SetBadget(currentFaction);
-            SetCreatureInfo(currentFaction);
+            SetSupporterInfo(currentFaction);
         }
 
         /*******************************************************************/
         private void SetSkillPlacer()
         {
-            for (int i = 0; i < Card.Info.Strength; i++)
-            {
-                GetNexPlacertInactive().SetSkillIcon(_skillStrengthIcon);
-            }
-
-            for (int i = 0; i < Card.Info.Agility; i++)
-            {
-                GetNexPlacertInactive().SetSkillIcon(_skillAgilityIcon);
-            }
-
-            for (int i = 0; i < Card.Info.Intelligence; i++)
-            {
-                GetNexPlacertInactive().SetSkillIcon(_skillIntelligenceIcon);
-            }
-
-            for (int i = 0; i < Card.Info.Power; i++)
-            {
-                GetNexPlacertInactive().SetSkillIcon(_skillPowerIcon);
-            }
-
-            for (int i = 0; i < Card.Info.Wild; i++)
-            {
-                GetNexPlacertInactive().SetSkillIcon(_skillWildIcon);
-            }
+            for (int i = 0; i < Card.Info.Wild; i++) GetNextPlacerInactive().SetSkillIcon(_skillWildIcon);
+            for (int i = 0; i < Card.Info.Strength; i++) GetNextPlacerInactive().SetSkillIcon(_skillStrengthIcon);
+            for (int i = 0; i < Card.Info.Agility; i++) GetNextPlacerInactive().SetSkillIcon(_skillAgilityIcon);
+            for (int i = 0; i < Card.Info.Intelligence; i++) GetNextPlacerInactive().SetSkillIcon(_skillIntelligenceIcon);
+            for (int i = 0; i < Card.Info.Power; i++) GetNextPlacerInactive().SetSkillIcon(_skillPowerIcon);
         }
 
         private void SetInfo()
@@ -81,16 +62,16 @@ namespace MythsAndHorrors.GameView
 
         private void SetRenderers(FactionDeckSO currentFaction)
         {
-            _templateDeckFront.sprite = currentFaction._templateDeckFront;
+            _template.sprite = currentFaction._templateDeckFront;
             _costRenderer.sprite = currentFaction._cost;
-            _skillPlacer.ForEach(spriteRenderer => spriteRenderer.SetHolder(currentFaction._assistant));
+            _skillPlacer.ForEach(spriteRenderer => spriteRenderer.SetHolder(currentFaction._skillHolder));
         }
 
-        private void SetCreatureInfo(FactionDeckSO currentFaction)
+        private void SetSupporterInfo(FactionDeckSO currentFaction)
         {
-            _healthRenderer.gameObject.SetActive(true);
-            _sanityRenderer.gameObject.SetActive(true);
-            _healthRenderer.sprite = _sanityRenderer.sprite = currentFaction._assistant;
+            _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
+            _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
+            _healthRenderer.sprite = _sanityRenderer.sprite = currentFaction._supporter;
         }
 
         private void SetBadget(FactionDeckSO currentFaction)
@@ -112,6 +93,6 @@ namespace MythsAndHorrors.GameView
             };
         }
 
-        private SkillIconView GetNexPlacertInactive() => _skillPlacer.Find(x => x.IsInactive);
+        private SkillIconView GetNextPlacerInactive() => _skillPlacer.Find(x => x.IsInactive);
     }
 }

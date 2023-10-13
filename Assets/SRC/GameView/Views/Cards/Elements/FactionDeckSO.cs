@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _templateDeckFront;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _badget;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _cost;
-        [SerializeField, Required, ChildGameObjectsOnly] public Sprite _assistant;
+        [SerializeField, Required, ChildGameObjectsOnly] public Sprite _supporter;
+        [SerializeField, Required, ChildGameObjectsOnly] public Sprite _skillHolder;
     }
 }

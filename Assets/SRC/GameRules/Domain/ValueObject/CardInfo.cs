@@ -22,8 +22,6 @@
         public int? Wild { get; init; }
         public int? EnemyDamage { get; init; }
         public int? EnemyFear { get; init; }
-        public int? EnemyStrength { get; init; }
-        public int? EnemyAgility { get; init; }
         public int? Xp { get; init; }
         public int? Victory { get; init; }
         public int? Enigma { get; init; }
