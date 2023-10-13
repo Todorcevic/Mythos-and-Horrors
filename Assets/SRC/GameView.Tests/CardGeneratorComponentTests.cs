@@ -7,6 +7,8 @@ using System.Linq;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
+using System.Reflection;
+using System;
 
 namespace MythsAndHorrors.Gameview.Tests
 {
@@ -27,32 +29,32 @@ namespace MythsAndHorrors.Gameview.Tests
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
-                        Cost = 4,
                         CardType = CardType.Adventurer,
-                        Code = "00001",
+                        Code = "01501",
                         Name = "Adventurer1",
-                        Faction=Faction.Cunning
+                        Faction = Faction.Cunning,
+                        Health= 10,
+                        Sanity=6,
+                        Strength=2,
+                        Agility=3,
+                        Intelligence=4,
+                        Power=5
                     }
                 }),
-                //(Card)SceneContainer.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "00002", Name = "Monster1" } })
             };
 
             _sut.BuildCards(cards);
 
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
+            SpriteRenderer temaplate = result.GetPrivateMember<SpriteRenderer>("_template");
+            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<FactionAdventurerSO>("_cunning");
 
-
-            //Assert.That(_sut.transform.GetComponentsInChildren<CardView>().Length, Is.EqualTo(1));
-            //Assert.That(_sut.transform.GetComponentsInChildren<CardView>().Any(cardView => cardView.Card.Info.Name == "Adventurer1"), Is.True);
-            //Assert.That(_sut.transform.GetComponentsInChildren<CardView>().Any(cardView => cardView.Card.Info.CardType == CardType.Adventurer), Is.True);
-            Assert.That(result.Card.Info.Name, Is.EqualTo("Adventurer1"));
-            Assert.That(result.Card.Info.CardType, Is.EqualTo(CardType.Adventurer));
-            Assert.That(result.Card.Info.Description, Is.EqualTo("DescriptionTest1"));
-            Assert.That(result.Card.Info.Cost, Is.EqualTo(4));
-            Assert.That(result.Card.Info.Code, Is.EqualTo("00001"));
-            Assert.That(result.Card.Info.Faction, Is.EqualTo(Faction.Cunning));
-
-            yield return new WaitForSeconds(25);
+            Assert.That(temaplate.sprite == factionElementsExpected._templateFront, Is.True, $"was: {temaplate.sprite.name}");
+            Assert.That(result is AdventurerCardView, Is.True);
+            Assert.That(result.Card, Is.EqualTo(cards.First()));
+            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo("Adventurer1"));
+            Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo("10"));
+            Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo("3"));
         }
     }
 }

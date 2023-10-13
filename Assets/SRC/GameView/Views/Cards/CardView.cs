@@ -21,11 +21,11 @@ namespace MythsAndHorrors.GameView
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init(Card card)
         {
+            Debug.Log("Doing...: " + card.Info.Code);
             Card = card;
-            Debug.Log("Doing...: " + Card.Info.Code);
-
+            SetCommonInfo();
             SetAll();
-            SetInfo();
+            SetPicture();
         }
 
         /*******************************************************************/
@@ -36,10 +36,15 @@ namespace MythsAndHorrors.GameView
 
         protected abstract void SetAll();
 
-        private void SetInfo()
+        private void SetCommonInfo()
         {
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description;
+        }
+
+        private void SetPicture()
+        {
+            _picture.sprite = _picture.sprite; //TODO
         }
     }
 }

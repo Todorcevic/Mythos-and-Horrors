@@ -13,14 +13,8 @@ namespace MythsAndHorrors.GameRules.Tests
         public override void OneTimeSetUp()
         {
             base.OneTimeSetUp();
-
-            List<Card> cards = new()
-            {
-                (Card)Container.Instantiate(typeof(Card01501), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "01501", Name = "Adventurer1" } }),
-                (Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "01603", Name = "Monster1" } })
-            };
-
-            //_sut.SetCards(cards);
+            _sut.AddCard((Card)Container.Instantiate(typeof(Card01501), new object[] { new CardInfo() { Description = "DescriptionTest1", Cost = 4, CardType = CardType.Adventurer, Code = "01501", Name = "Adventurer1" } }));
+            _sut.AddCard((Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "01603", Name = "Monster1" } }));
         }
 
         [Test]
