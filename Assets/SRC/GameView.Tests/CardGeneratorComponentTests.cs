@@ -227,7 +227,7 @@ namespace MythsAndHorrors.Gameview.Tests
             List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
 
             Assert.That(result.Card, Is.EqualTo(cards.First()));
-            Assert.That(result is SceneCardViewcs, Is.True);
+            Assert.That(result is SceneCardView, Is.True);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo("Creature1"));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo("6"));
@@ -265,7 +265,7 @@ namespace MythsAndHorrors.Gameview.Tests
             List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
 
             Assert.That(result.Card, Is.EqualTo(cards.First()));
-            Assert.That(result is SceneCardViewcs, Is.True);
+            Assert.That(result is SceneCardView, Is.True);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo("Adversity1"));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
