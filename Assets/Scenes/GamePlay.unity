@@ -696,7 +696,7 @@ MonoBehaviour:
   _adventurerDeckPrefab: {fileID: 6302480944714940018, guid: 3789eb8fff6d9274f856823ffe1536c8, type: 3}
   _scenarioPrefab: {fileID: 2319104691519923953, guid: 9f275c026a8fc074aa220ae921dd588a, type: 3}
   _placePrefab: {fileID: 8154357446181133524, guid: d0e561d204908fb4f852cd2bcfa3ffa8, type: 3}
-  _plotPrefab: {fileID: 1324849473411354193, guid: 0cc8b81cc81d8bd4785de973fc8e83a4, type: 3}
+  _plotPrefab: {fileID: 4441213523134213632, guid: 446d9dfce7dbe7d4791790906a3c7d2c, type: 3}
   _goalPrefab: {fileID: 8066619439405503389, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
 --- !u!4 &582586615
 Transform:
@@ -1587,7 +1587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ceaab89c336f4c49b96800f7a9d7661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mustBeLoaded: 1
 --- !u!4 &884426001
 Transform:
   m_ObjectHideFlags: 0

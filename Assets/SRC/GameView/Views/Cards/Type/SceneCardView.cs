@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class SceneCardView : CardView
+    public class SceneCardViewcs : CardView
     {
         [SerializeField, Required, AssetsOnly] private Sprite _skillDamageIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;
@@ -35,8 +35,8 @@ namespace MythsAndHorrors.GameView
             _strengthRenderer.gameObject.SetActive(true);
             _agilityRenderer.gameObject.SetActive(true);
             _health.text = Card.Info.Health.ToString();
-            _strength.text = Card.Info.Strength.ToString();
-            _agility.text = Card.Info.Agility.ToString();
+            _strength.text = Card.Info.Strength.ToString() ?? ViewValues.EMPTY_STAT;
+            _agility.text = Card.Info.Agility.ToString() ?? ViewValues.EMPTY_STAT;
         }
 
         private void SetSkillPlacer()

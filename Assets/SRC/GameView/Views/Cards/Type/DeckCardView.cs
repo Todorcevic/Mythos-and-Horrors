@@ -56,8 +56,8 @@ namespace MythsAndHorrors.GameView
         private void SetInfo()
         {
             _cost.text = Card.Info.Cost.ToString();
-            _health.text = Card.Info.Health.ToString();
-            _sanity.text = Card.Info.Sanity.ToString();
+            _health.text = Card.Info.Health.ToString() ?? ViewValues.EMPTY_STAT;
+            _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
         }
 
         private void SetRenderers(FactionDeckSO currentFaction)
