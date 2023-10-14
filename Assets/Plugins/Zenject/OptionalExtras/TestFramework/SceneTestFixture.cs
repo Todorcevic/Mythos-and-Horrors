@@ -14,15 +14,11 @@ namespace Zenject
     public abstract class SceneTestFixture
     {
         private bool _hasLoadedScene;
-        private string _sceneNameLoaded;
 
         protected DiContainer SceneContainer { get; private set; }
-        protected bool IsLoaded => !string.IsNullOrEmpty(_sceneNameLoaded);
 
         public IEnumerator LoadScene(string sceneName)
         {
-            if (_sceneNameLoaded == sceneName) yield break;
-
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
 
             _hasLoadedScene = true;
@@ -41,7 +37,6 @@ namespace Zenject
             SceneContainer = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
                 .TryGetSceneContextForScene(scene).Container;
             SceneContainer?.Inject(this);
-            _sceneNameLoaded = sceneName;
         }
 
         private IEnumerator RealLoadScene(string sceneName)

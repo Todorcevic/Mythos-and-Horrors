@@ -7,7 +7,6 @@ using System.Linq;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
-using System.Threading.Tasks;
 
 namespace MythsAndHorrors.Gameview.Tests
 {
@@ -16,27 +15,12 @@ namespace MythsAndHorrors.Gameview.Tests
     {
         [Inject] private readonly CardGeneratorComponent _sut;
 
-        [OneTimeSetUp]
-        public async void OneTimeSetUp()
-        {
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-            LoadScene("GamePlay");
-            while (!IsLoaded) await Task.Yield();
-        }
-
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            //yield return base.SetUp();
-            //StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-            //yield return LoadScene("GamePlay");
-            yield return null;
-        }
-
-        [UnityTearDown]
-        public override IEnumerator TearDown()
-        {
-            yield return null;
+            yield return base.SetUp();
+            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+            yield return LoadScene("GamePlay");
         }
 
         [UnityTest]
