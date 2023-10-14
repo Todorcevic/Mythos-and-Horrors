@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using ModestTree;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 using Zenject.Internal;
 using Assert = ModestTree.Assert;
 
@@ -15,96 +13,63 @@ namespace Zenject
 {
     public abstract class SceneTestFixture
     {
-        readonly List<DiContainer> _sceneContainers = new List<DiContainer>();
+        private bool _hasLoadedScene;
+        private string _sceneNameLoaded;
 
-        bool _hasLoadedScene;
-        DiContainer _sceneContainer;
-
-        protected DiContainer SceneContainer
-        {
-            get { return _sceneContainer; }
-        }
-
-        protected IEnumerable<DiContainer> SceneContainers
-        {
-            get { return _sceneContainers; }
-        }
+        protected DiContainer SceneContainer { get; private set; }
+        protected bool IsLoaded => !string.IsNullOrEmpty(_sceneNameLoaded);
 
         public IEnumerator LoadScene(string sceneName)
         {
-            return LoadScenes(sceneName);
-        }
+            if (_sceneNameLoaded == sceneName) yield break;
 
-
-        public IEnumerator LoadScenes(params string[] sceneNames)
-        {
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
-            _hasLoadedScene = true;
 
-            // Clean up any leftovers from previous test
+            _hasLoadedScene = true;
             ZenjectTestUtil.DestroyEverythingExceptTestRunner(false);
 
-            Assert.That(SceneContainers.IsEmpty());
+            Assert.That(Application.CanStreamedLevelBeLoaded(sceneName),
+                $"Cannot load scene {sceneName} for test {GetType()}. The scenes used by SceneTestFixture derived classes must be added to the build settings for the test to work");
 
-            for (int i = 0; i < sceneNames.Length; i++)
-            {
-                var sceneName = sceneNames[i];
+            Log.Info($"Loading scene {sceneName} for testing");
 
-                Assert.That(Application.CanStreamedLevelBeLoaded(sceneName),
-                    "Cannot load scene '{0}' for test '{1}'.  The scenes used by SceneTestFixture derived classes must be added to the build settings for the test to work",
-                    sceneName, GetType());
+            yield return RealLoadScene(sceneName);
 
-                Log.Info("Loading scene '{0}' for testing", sceneName);
+            Assert.That(ProjectContext.HasInstance, $"{sceneName} has not ProjectContext");
 
-                var loader = SceneManager.LoadSceneAsync(sceneName, i == 0 ? LoadSceneMode.Single : LoadSceneMode.Additive);
-
-                while (!loader.isDone)
-                {
-                    yield return null;
-                }
-
-                SceneContext sceneContext = null;
-
-                if (ProjectContext.HasInstance)
-                // ProjectContext might be null if scene does not have a scene context
-                {
-                    var scene = SceneManager.GetSceneByName(sceneName);
-
-                    sceneContext = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
-                        .TryGetSceneContextForScene(scene);
-                }
-
-                _sceneContainers.Add(sceneContext == null ? null : sceneContext.Container);
-            }
-
-            _sceneContainer = _sceneContainers.Where(x => x != null).LastOrDefault();
-
-            if (_sceneContainer != null)
-            {
-                _sceneContainer.Inject(this);
-            }
+            Scene scene = SceneManager.GetSceneByName(sceneName);
+            SceneContainer = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
+                .TryGetSceneContextForScene(scene).Container;
+            SceneContainer?.Inject(this);
+            _sceneNameLoaded = sceneName;
         }
 
-        [SetUp]
-        public virtual void SetUp()
+        private IEnumerator RealLoadScene(string sceneName)
         {
-            StaticContext.Clear();
+            AsyncOperation loader = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+            while (!loader.isDone) yield return null;
+        }
+
+        [UnitySetUp]
+        public virtual IEnumerator SetUp()
+        {
             SetMemberDefaults();
+            yield return null;
         }
 
         void SetMemberDefaults()
         {
+            StaticContext.Clear();
             _hasLoadedScene = false;
-            _sceneContainer = null;
-            _sceneContainers.Clear();
+            SceneContainer = null;
         }
 
-        [TearDown]
-        public virtual void Teardown()
+        [UnityTearDown]
+        public virtual IEnumerator TearDown()
         {
             ZenjectTestUtil.DestroyEverythingExceptTestRunner(true);
-            StaticContext.Clear();
             SetMemberDefaults();
+            yield return null;
         }
     }
 }
