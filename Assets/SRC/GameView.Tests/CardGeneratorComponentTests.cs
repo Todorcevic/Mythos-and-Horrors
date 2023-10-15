@@ -3,7 +3,6 @@ using NUnit.Framework;
 using UnityEngine.TestTools;
 using Zenject;
 using System.Collections.Generic;
-using System.Linq;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
@@ -80,6 +79,7 @@ namespace MythsAndHorrors.Gameview.Tests
                         Strength=2,
                         Wild=2
                     }
+
               });
 
             _sut.BuildCard(card);
