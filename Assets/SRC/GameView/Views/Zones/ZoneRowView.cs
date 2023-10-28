@@ -1,5 +1,5 @@
 using DG.Tweening;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
 
@@ -7,11 +7,14 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneRowView : ZoneView
     {
+        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
+
         /*******************************************************************/
         public override Tween MoveCard(CardView card)
         {
             return DOTween.Sequence()
-                .Join(card.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.SLOW_TIME_ANIMATION))
+                .Join(_invisibleHolderView.AddCardView(card))
+                //.Join(card.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.SLOW_TIME_ANIMATION))
                 .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
                 .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
                 .OnComplete(() => card.transform.SetParent(transform));

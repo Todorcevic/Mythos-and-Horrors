@@ -10,17 +10,9 @@ using UnityEngine;
 namespace MythsAndHorrors.Gameview.Tests
 {
     [TestFixture]
-    public class CardGeneratorComponentTests : SceneTestFixture
+    public class CardGeneratorComponentTests : TestBase
     {
         [Inject] private readonly CardGeneratorComponent _sut;
-
-        [UnitySetUp]
-        public override IEnumerator SetUp()
-        {
-            yield return base.SetUp();
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-            yield return LoadScene("GamePlay");
-        }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdventurerCard()
@@ -59,7 +51,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(template.sprite == factionElementsExpected._templateFront, $"was of: {factionElementsExpected._templateFront}");
             Assert.That(badge.sprite == factionElementsExpected._badget, $"was of: {factionElementsExpected._badget}");
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -101,7 +92,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(template.sprite == factionElementsExpected._templateDeckFront, $"was of: {factionElementsExpected._templateDeckFront}");
             Assert.That(badge.sprite == factionElementsExpected._badget, $"was of: {factionElementsExpected._badget}");
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -146,7 +136,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(template.sprite == factionElementsExpected._templateDeckFront, $"was of: {factionElementsExpected._templateDeckFront}");
             Assert.That(badge.sprite == factionElementsExpected._badget, $"was of: {factionElementsExpected._badget}");
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -178,7 +167,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(result.transform.GetTextFromThis("Enigma"), Is.EqualTo("6"));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo("10"));
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -217,7 +205,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(healthRenderer.gameObject.activeInHierarchy);
             Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(3));
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -248,7 +235,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
             Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(0));
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -278,7 +264,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(result.transform.GetTextFromThis("Eldritch"), Is.EqualTo("10"));
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
 
@@ -307,7 +292,6 @@ namespace MythsAndHorrors.Gameview.Tests
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo("8"));
 
-            //yield return new WaitUntil(() => Input.anyKeyDown);
             yield return null;
         }
     }
