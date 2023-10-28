@@ -1190,8 +1190,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582586613}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 58.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 58.100006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3544,6 +3544,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: AidZone
       objectReference: {fileID: 0}
+    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975263429173802103, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4555,9 +4579,9 @@ SceneRoots:
   - {fileID: 884426001}
   - {fileID: 962170785}
   - {fileID: 1836102653}
+  - {fileID: 582586615}
   - {fileID: 963194228}
   - {fileID: 791170912}
-  - {fileID: 582586615}
   - {fileID: 1663656871}
   - {fileID: 664506471}
   - {fileID: 2099084357}

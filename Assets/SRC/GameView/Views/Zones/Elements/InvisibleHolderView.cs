@@ -14,13 +14,13 @@ namespace MythsAndHorrors.GameView
         private readonly Dictionary<CardView, Transform> _allCardView = new();
 
         /*******************************************************************/
-        public Tween AddCardView(CardView cardView)
+        public IEnumerator AddCardView(CardView cardView)
         {
             _allCardView.Add(cardView, GetFreeHolder());
             return Reposicionate();
         }
 
-        public Tween RemoveCardView(CardView cardView)
+        public IEnumerator RemoveCardView(CardView cardView)
         {
             _allCardView[cardView].gameObject.SetActive(false);
             _allCardView.Remove(cardView);
@@ -34,12 +34,13 @@ namespace MythsAndHorrors.GameView
             return holder;
         }
 
-        private Tween Reposicionate()
+        private IEnumerator Reposicionate()
         {
-            Sequence repositionSequence = DOTween.Sequence().AppendInterval(ViewValues.FAST_TIME_ANIMATION);
+            yield return null;
+            Sequence repositionSequence = DOTween.Sequence();
             _allCardView.ForEach(cardViewHolders => repositionSequence
                 .Join(cardViewHolders.Key.transform.DOMove(cardViewHolders.Value.position, ViewValues.FAST_TIME_ANIMATION)));
-            return repositionSequence;
+
         }
 
         private Transform CreateNewHolder()

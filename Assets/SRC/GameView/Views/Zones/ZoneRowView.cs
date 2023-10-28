@@ -13,10 +13,10 @@ namespace MythsAndHorrors.GameView
         public override Tween MoveCard(CardView card)
         {
             return DOTween.Sequence()
-                .Join(_invisibleHolderView.AddCardView(card))
+                .PrependCallback(() => StartCoroutine(_invisibleHolderView.AddCardView(card)))
                 //.Join(card.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
+                .Append(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
+                .Append(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
                 .OnComplete(() => card.transform.SetParent(transform));
         }
     }
