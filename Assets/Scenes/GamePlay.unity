@@ -3544,30 +3544,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AidZone
       objectReference: {fileID: 0}
-    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137695680651854433, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4975263429173802103, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

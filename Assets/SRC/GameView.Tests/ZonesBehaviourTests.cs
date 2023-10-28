@@ -45,7 +45,20 @@ namespace MythsAndHorrors.Gameview.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return PressAnyKey();
+            Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Row_Creating_Holders()
+        {
+            ZoneView sut = _zonesManager.Get("AidZone");
+            CardView[] _doc = _cardBuilder.BuildManySame(13);
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
 
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
             yield return null;
