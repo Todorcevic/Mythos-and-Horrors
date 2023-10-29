@@ -155,22 +155,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6630050868628926429}
     m_Modifications:
-    - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4174958607158802831, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: abba85acaf006af4687948f2c36367f0, type: 3}
-    - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-      propertyPath: m_text
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 14895b09c83e20d468d319821aa71c42, type: 3}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Sanity
@@ -293,10 +277,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strengh
       objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -375,14 +355,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power
       objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6f74e936782f46b4f8f7c7c4106b999b, type: 3}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -417,10 +389,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6630050868628926429}
     m_Modifications:
-    - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Health
@@ -609,14 +577,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Intelligence
       objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1c2b47b2b2c03a644ac02df74ec52154, type: 3}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -819,54 +779,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agility
       objectReference: {fileID: 0}
-    - target: {fileID: 2957801028337786823, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957801028337786823, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957801028337786823, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022552154023565019, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022552154023565019, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4500074219244042789, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Size.x
-      value: 1.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 4500074219244042789, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Size.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1669a1cfd77a8d74b8fee7ca849dfd51, type: 3}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Color.b
-      value: 0.9811321
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Color.g
-      value: 0.9811321
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9811321
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404273855215651435, guid: e3cc71ee2b206034394e9e32d0169c59, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

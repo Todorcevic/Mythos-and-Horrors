@@ -1,5 +1,4 @@
 ﻿using MythsAndHorrors.GameView;
-using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -7,7 +6,6 @@ using Zenject;
 
 namespace MythsAndHorrors.Gameview.Tests
 {
-    [TestFixture]
     public class TestBase : SceneTestFixture
     {
         [UnitySetUp]
