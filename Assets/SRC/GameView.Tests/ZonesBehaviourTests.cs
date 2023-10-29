@@ -4,6 +4,7 @@ using MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
@@ -57,6 +58,38 @@ namespace MythsAndHorrors.Gameview.Tests
             {
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
+
+            Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
+        }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Hand()
+        {
+            ZoneView sut = _zonesManager.Get("HandZone");
+            ZoneView _doc2 = _zonesManager.Get("OutGameZone");
+            CardView[] _doc = _cardBuilder.BuildManySame(5);
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
+
+            Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
+        }
+
+        [UnityTest]
+        public IEnumerator ReMove_Card_In_Zone_Hand()
+        {
+            ZoneView sut = _zonesManager.Get("HandZone");
+            ZoneView _doc2 = _zonesManager.Get("OutGameZone");
+            CardView[] _doc = _cardBuilder.BuildManySame(5);
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
+            yield return _doc2.MoveCard(_doc[0]);
+            yield return sut.RemoveCard(_doc[0]);
 
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
