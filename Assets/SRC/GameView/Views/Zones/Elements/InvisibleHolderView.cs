@@ -48,8 +48,6 @@ namespace MythsAndHorrors.GameView
             {
                 Vector3 targetPosition = entries[i].Value.position + new Vector3(0, i * yOffSet, 0);
                 repositionSequence.Join(entries[i].Key.transform.DOMove(targetPosition, ViewValues.FAST_TIME_ANIMATION));
-                //.Join(entries[i].Key.transform.DORotate(entries[i].Value.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
-                //.Join(entries[i].Key.transform.DOScale(entries[i].Value.localScale, ViewValues.FAST_TIME_ANIMATION));
             }
             return repositionSequence;
         }

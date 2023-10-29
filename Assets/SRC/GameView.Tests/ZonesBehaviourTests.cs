@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils;
 using NUnit.Framework;
@@ -45,10 +44,7 @@ namespace MythsAndHorrors.Gameview.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return PressAnyKey();
-
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
-            yield return null;
         }
 
         [UnityTest]
@@ -62,8 +58,9 @@ namespace MythsAndHorrors.Gameview.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
+            yield return PressAnyKey();
+
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
-            yield return null;
         }
     }
 }
