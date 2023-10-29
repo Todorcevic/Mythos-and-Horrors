@@ -36,6 +36,73 @@ Transform:
   - {fileID: 2828780065282913987}
   m_Father: {fileID: 3762236406814514275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3928585274414071773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7768476892399593335}
+  - component: {fileID: 8151010682676239882}
+  - component: {fileID: 4541579130041722609}
+  m_Layer: 3
+  m_Name: Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7768476892399593335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928585274414071773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3762236406814514275}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8151010682676239882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928585274414071773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ca9daae601de04f91ae250ecb9244d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardView: {fileID: 2863734919224615659}
+--- !u!65 &4541579130041722609
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3928585274414071773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.5, y: 10.500003, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6122589975459456142
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +137,7 @@ Transform:
   - {fileID: 6574687530609869690}
   - {fileID: 7555158154572084888}
   - {fileID: 1449471484957331697}
+  - {fileID: 7768476892399593335}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2863734919224615659
@@ -88,6 +156,7 @@ MonoBehaviour:
   _description: {fileID: 2541272115549055856}
   _glowView: {fileID: 1146880241690785484}
   _picture: {fileID: 9182001577571860474}
+  _interactableCardView: {fileID: 8151010682676239882}
   _versatile: {fileID: 11400000, guid: ecf1fef8ff3270145b063738d00cce88, type: 2}
   _cunning: {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}
   _brave: {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
@@ -523,7 +592,8 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: cfc0e65d1e7d99c44b3a3fd42c6a17e3, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7958818449649677881, guid: d846e9581404c48489159ab211d2b9fe, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

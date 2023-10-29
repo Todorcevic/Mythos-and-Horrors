@@ -2,10 +2,12 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
@@ -57,6 +59,24 @@ namespace MythsAndHorrors.GameView
             Transform holder = Instantiate(_holders.First(), transform);
             _holders.Add(holder);
             return holder;
+        }
+
+        public void ShowCard(CardView cardView)
+        {
+            Transform invisibleHolder = _allCardView[cardView];
+            cardView.transform.DOLocalMoveZ(invisibleHolder.localPosition.z + 6, ViewValues.FAST_TIME_ANIMATION);
+            //cardView.transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
+            //invisibleHolder.GetComponent<LayoutElement>().preferredWidth = 30;
+            //RemoveCardView(cardView);
+        }
+
+        public void HideCard(CardView cardView)
+        {
+            Transform invisibleHolder = _allCardView[cardView];
+            cardView.transform.DOLocalMoveZ(invisibleHolder.localPosition.z, ViewValues.FAST_TIME_ANIMATION);
+            //cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION);
+            //invisibleHolder.GetComponent<LayoutElement>().preferredWidth = 24;
+            //AddCardView(cardView);
         }
     }
 }

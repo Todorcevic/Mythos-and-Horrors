@@ -74,6 +74,10 @@ namespace MythsAndHorrors.Gameview.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
+            yield return new WaitForSeconds(150);
+
+            // yield return PressAnyKey();
+
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 

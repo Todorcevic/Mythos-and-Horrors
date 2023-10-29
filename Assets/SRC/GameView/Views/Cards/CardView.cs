@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
+        [SerializeField, Required, ChildGameObjectsOnly] private InteractableCardView _interactableCardView;
 
         public Card Card { get; private set; }
 
@@ -32,6 +33,12 @@ namespace MythsAndHorrors.GameView
         public void ActivateToSelect()
         {
             _glowView.SetGreenGlow();
+        }
+
+        public void SetCurrentZoneView(ZoneView zoneView)
+        {
+            transform.SetParent(zoneView.transform);
+            _interactableCardView.SetZoneBahaviour(zoneView as IZoneBahaviour);
         }
 
         protected abstract void SetAll();
