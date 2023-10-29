@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System.Collections;
@@ -43,12 +44,12 @@ namespace MythsAndHorrors.GameView
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             Sequence repositionSequence = DOTween.Sequence();
             List<KeyValuePair<CardView, Transform>> entries = _allCardView.ToList();
-            for (int i = 0; i < _allCardView.Count; i++)
+            for (int i = 0; i < entries.Count; i++)
             {
-                CardView cardView = entries[i].Key;
-                Transform targetTransform = entries[i].Value;
-                Vector3 targetPosition = targetTransform.position + new Vector3(0, i * yOffSet, 0);
-                repositionSequence.Join(cardView.transform.DOMove(targetPosition, ViewValues.FAST_TIME_ANIMATION));
+                Vector3 targetPosition = entries[i].Value.position + new Vector3(0, i * yOffSet, 0);
+                repositionSequence.Join(entries[i].Key.transform.DOMove(targetPosition, ViewValues.FAST_TIME_ANIMATION));
+                //.Join(entries[i].Key.transform.DORotate(entries[i].Value.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
+                //.Join(entries[i].Key.transform.DOScale(entries[i].Value.localScale, ViewValues.FAST_TIME_ANIMATION));
             }
             return repositionSequence;
         }

@@ -14,9 +14,11 @@ namespace MythsAndHorrors.GameView
         {
             return DOTween.Sequence()
                 .Join(_invisibleHolderView.AddCardView(card))
-                .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
-                .Join(card.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
-                .OnComplete(() => card.transform.SetParent(transform));
+            .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
+            .Join(card.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
+            .OnComplete(() => card.transform.SetParent(transform));
         }
+
+        public override Tween RemoveCard(CardView card) => _invisibleHolderView.RemoveCardView(card);
     }
 }

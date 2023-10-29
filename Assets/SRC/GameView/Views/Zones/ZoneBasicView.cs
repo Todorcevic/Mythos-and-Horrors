@@ -13,5 +13,10 @@ namespace MythsAndHorrors.GameView
                 .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
                 .OnComplete(() => card.transform.SetParent(transform));
         }
+
+        public override Tween RemoveCard(CardView card)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
