@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
             return Repositionate(cardView);
         }
 
-        public Tween Repositionate(CardView _selectedCardView)
+        public Tween Repositionate(CardView _selectedCardView, float layout = 24)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
 
@@ -37,15 +37,11 @@ namespace MythsAndHorrors.GameView
             Sequence repositionSequence = DOTween.Sequence();
             for (int i = 0; i < AmountOfCards; i++)
             {
-                repositionSequence.Join(_allInvisibleHolders[i].Repositionate(Ypositionate(i)));
+                if (i == SelectedCardPosition) _allInvisibleHolders[i].SetLayoutWidth(layout);
+                float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * yOffSet;
+                repositionSequence.Join(_allInvisibleHolders[i].Repositionate(realYOffSet));
             }
             return repositionSequence;
-
-            float Ypositionate(int i)
-            {
-                if (i <= SelectedCardPosition) return (AmountOfCards + i) * yOffSet;
-                else return (AmountOfCards + SelectedCardPosition - i - SelectedCardPosition) * yOffSet;
-            }
         }
 
         private InvisibleHolder GetFreeHolder()
