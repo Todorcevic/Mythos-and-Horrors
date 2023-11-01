@@ -9,84 +9,62 @@ namespace MythsAndHorrors.GameView
 {
     public class InvisibleHolderView : MonoBehaviour
     {
-        float yOffSet = ViewValues.CARD_THICKNESS * 0.1f;
+        readonly float yOffSet = ViewValues.CARD_THICKNESS * 0.1f;
 
-        [SerializeField, Required, ChildGameObjectsOnly] private List<Transform> _holders;
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
-        private readonly Dictionary<CardView, Transform> _allCardView = new();
-        private CardView _selectedCardView;
-        private Sequence repositionSequence;
+        [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders = new();
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
         {
-            _allCardView.Add(cardView, GetFreeHolder());
-            return RepositionateWithThisCard(cardView);
+            GetFreeHolder().SetCardView(cardView);
+            return Repositionate(cardView);
         }
 
-        public Tween RemoveCardView(CardView cardView)
+        public Tween RemoveCardView(CardView cardView) //Check if launch exception
         {
-            _allCardView[cardView].gameObject.SetActive(false);
-            _allCardView.Remove(cardView);
-            return Repositionate();
+            GetInvisibleHolder(cardView).Clear();
+            return Repositionate(cardView);
         }
 
-        public Transform GetTransform(CardView cardView)
-        {
-            return _allCardView[cardView];
-        }
-
-        public Tween RepositionateWithThisCard(CardView cardView)
-        {
-            _selectedCardView = cardView;
-            _allCardView[_selectedCardView].GetComponent<LayoutElement>().preferredWidth = 48;
-            return Repositionate();
-        }
-
-        public Tween RepositionateExiting()
-        {
-            _allCardView[_selectedCardView].GetComponent<LayoutElement>().preferredWidth = 24;
-            return Repositionate(0.15f);
-        }
-
-        private Tween Repositionate(float animationTime = ViewValues.FAST_TIME_ANIMATION)
+        public Tween Repositionate(CardView _selectedCardView)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
-            //repositionSequence?.Kill();
-            repositionSequence = DOTween.Sequence();
-            List<CardView> entries = _allCardView.Keys.ToList();
-            int selectedCardPosition = entries.IndexOf(_selectedCardView);
-            int amountOfCards = entries.Count;
 
-            for (int i = 0; i < entries.Count; i++)
+            int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
+            int AmountOfCards = _allInvisibleHolders.Count(invisibleHolder => !invisibleHolder.IsFree);
+
+            Sequence repositionSequence = DOTween.Sequence();
+            for (int i = 0; i < AmountOfCards; i++)
             {
-                Vector3 targetPosition = _allCardView[entries[i]].position;
-                repositionSequence.Join(entries[i].transform.DOMoveX(targetPosition.x, animationTime))
-                    .Join(entries[i].transform.DOMoveY(targetPosition.y + Ypositionate(i), animationTime))
-                    .Join(entries[i].transform.DOMoveZ(targetPosition.z, animationTime));
+                repositionSequence.Join(_allInvisibleHolders[i].Repositionate(Ypositionate(i)));
             }
-
             return repositionSequence;
 
             float Ypositionate(int i)
             {
-                if (i <= selectedCardPosition) return (amountOfCards + i) * yOffSet;
-                else return (amountOfCards + selectedCardPosition - i - selectedCardPosition) * yOffSet;
+                if (i <= SelectedCardPosition) return (AmountOfCards + i) * yOffSet;
+                else return (AmountOfCards + SelectedCardPosition - i - SelectedCardPosition) * yOffSet;
             }
         }
 
-        private Transform GetFreeHolder()
+        private InvisibleHolder GetFreeHolder()
         {
-            Transform holder = _holders.FirstOrDefault(holder => !holder.gameObject.activeSelf) ?? CreateNewHolder();
+            InvisibleHolder holder = _allInvisibleHolders.FirstOrDefault(invisiblerHolder => invisiblerHolder.IsFree) ?? CreateNewHolder();
             holder.gameObject.SetActive(true);
             return holder;
         }
 
-        private Transform CreateNewHolder()
+        private InvisibleHolder CreateNewHolder()
         {
-            Transform holder = Instantiate(_holders.First(), transform);
-            _holders.Add(holder);
-            return holder;
+            InvisibleHolder invisibleHolder = Instantiate(_allInvisibleHolders.First(), transform);
+            _allInvisibleHolders.Add(invisibleHolder);
+            return invisibleHolder;
+        }
+
+        public InvisibleHolder GetInvisibleHolder(CardView cardView)
+        {
+            return _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
         }
     }
 }

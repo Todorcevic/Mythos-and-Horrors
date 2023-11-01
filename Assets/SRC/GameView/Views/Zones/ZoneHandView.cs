@@ -31,16 +31,16 @@ namespace MythsAndHorrors.GameView
 
         void IZoneBehaviour.OnMouseEnter(CardView cardView)
         {
-            if (_invisibleHolderView.RepositionateWithThisCard(cardView) is Sequence sequence)
+            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
             {
-                sequence.Join(cardView.transform.DOLocalMoveZ(_invisibleHolderView.GetTransform(cardView).localPosition.z + Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalMoveY(_invisibleHolderView.GetTransform(cardView).localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION));
+                sequence.Join(cardView.transform.DOLocalMoveZ(_invisibleHolderView.GetInvisibleHolder(cardView).transform.localPosition.z + Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOLocalMoveY(_invisibleHolderView.GetInvisibleHolder(cardView).transform.localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION));
             }
         }
 
         void IZoneBehaviour.OnMouseExit(CardView cardView)
         {
-            _invisibleHolderView.RepositionateExiting();
+            _invisibleHolderView.Repositionate(cardView);
         }
     }
 }

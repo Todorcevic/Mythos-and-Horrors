@@ -28,12 +28,12 @@ namespace MythsAndHorrors.GameView
 
         void IZoneBehaviour.OnMouseEnter(CardView cardView)
         {
-            _invisibleHolderView.RepositionateWithThisCard(cardView);
+            _invisibleHolderView.Repositionate(cardView);
         }
 
         void IZoneBehaviour.OnMouseExit(CardView cardView)
         {
-            _invisibleHolderView.RepositionateExiting();
+            _invisibleHolderView.Repositionate(cardView);
         }
     }
 }
