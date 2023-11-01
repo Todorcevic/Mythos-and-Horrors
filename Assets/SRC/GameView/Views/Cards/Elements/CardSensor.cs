@@ -22,13 +22,11 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            Debug.Log("OnMuseEnter");
             _currentZoneBahaviour.OnMouseEnter(_cardView);
         }
 
         public void OnMouseExit()
         {
-            Debug.Log("OnMuseExit");
             _currentZoneBahaviour.OnMouseExit(_cardView);
         }
 

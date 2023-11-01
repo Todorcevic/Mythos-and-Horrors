@@ -33,8 +33,8 @@ namespace MythsAndHorrors.GameView
         {
             if (_invisibleHolderView.RepositionateWithThisCard(cardView) is Sequence sequence)
             {
-                sequence.Join(cardView.transform.DOLocalMoveZ(cardView.transform.localPosition.z + Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalMoveY(cardView.transform.localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION));
+                sequence.Join(cardView.transform.DOLocalMoveZ(_invisibleHolderView.GetTransform(cardView).localPosition.z + Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOLocalMoveY(_invisibleHolderView.GetTransform(cardView).localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION));
             }
         }
 

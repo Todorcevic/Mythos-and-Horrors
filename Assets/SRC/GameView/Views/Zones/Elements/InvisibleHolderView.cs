@@ -31,6 +31,11 @@ namespace MythsAndHorrors.GameView
             return Repositionate();
         }
 
+        public Transform GetTransform(CardView cardView)
+        {
+            return _allCardView[cardView];
+        }
+
         public Tween RepositionateWithThisCard(CardView cardView)
         {
             _selectedCardView = cardView;
@@ -47,7 +52,7 @@ namespace MythsAndHorrors.GameView
         private Tween Repositionate(float animationTime = ViewValues.FAST_TIME_ANIMATION)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
-            repositionSequence?.Kill();
+            //repositionSequence?.Kill();
             repositionSequence = DOTween.Sequence();
             List<CardView> entries = _allCardView.Keys.ToList();
             int selectedCardPosition = entries.IndexOf(_selectedCardView);
