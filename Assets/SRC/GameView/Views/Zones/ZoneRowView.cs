@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneRowView : ZoneView
+    public class ZoneRowView : ZoneView, IZoneBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
@@ -16,9 +16,24 @@ namespace MythsAndHorrors.GameView
                 .Join(_invisibleHolderView.AddCardView(card))
                 .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
                 .Join(card.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
-                .OnComplete(() => card.transform.SetParent(transform));
+                .OnComplete(() => card.SetCurrentZoneView(this));
         }
 
         public override Tween RemoveCard(CardView card) => _invisibleHolderView.RemoveCardView(card);
+
+        void IZoneBehaviour.OnMouseDrag(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        {
+            _invisibleHolderView.RepositionateWith(cardView);
+        }
+
+        void IZoneBehaviour.OnMouseExit(CardView cardView)
+        {
+            _invisibleHolderView.Repositionate();
+        }
     }
 }

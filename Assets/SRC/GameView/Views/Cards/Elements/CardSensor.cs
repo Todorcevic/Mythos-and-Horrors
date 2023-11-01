@@ -8,13 +8,13 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractableCardView : MonoBehaviour
+    public class CardSensor : MonoBehaviour
     {
         [SerializeField, Required] private CardView _cardView;
-        private IZoneBahaviour _currentZoneBahaviour;
+        private IZoneBehaviour _currentZoneBahaviour;
 
         /*******************************************************************/
-        public void SetZoneBahaviour(IZoneBahaviour zoneBahaviour)
+        public void SetZoneBahaviour(IZoneBehaviour zoneBahaviour)
         {
             _currentZoneBahaviour = zoneBahaviour;
         }
@@ -35,11 +35,6 @@ namespace MythsAndHorrors.GameView
         public void OnMouseDrag()
         {
             _currentZoneBahaviour.OnMouseDrag(_cardView);
-        }
-
-        public void OnMouseUpAsButton()
-        {
-            _currentZoneBahaviour.OnClicked(_cardView);
         }
     }
 }

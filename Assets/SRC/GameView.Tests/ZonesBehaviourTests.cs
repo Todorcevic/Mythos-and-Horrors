@@ -38,13 +38,14 @@ namespace MythsAndHorrors.Gameview.Tests
         public IEnumerator Move_Card_In_Zone_Row()
         {
             ZoneView sut = _zonesManager.Get("AidZone");
-            CardView[] _doc = _cardBuilder.BuildManySame(3);
+            CardView[] _doc = _cardBuilder.BuildManySame(5);
 
             foreach (CardView card in _doc)
             {
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
+            yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 
