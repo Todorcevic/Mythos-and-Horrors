@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders = new();
+        List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.FindAll(invisibleHolder => !invisibleHolder.IsFree);
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
@@ -29,27 +30,24 @@ namespace MythsAndHorrors.GameView
 
         public Tween Repositionate(CardView _selectedCardView, float layout = 24)
         {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
-
             int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
             int AmountOfCards = _allInvisibleHolders.Count(invisibleHolder => !invisibleHolder.IsFree);
+            AllActivesInvisibleHolders[SelectedCardPosition].SetLayoutWidth(layout);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
 
             Sequence repositionSequence = DOTween.Sequence();
             for (int i = 0; i < AmountOfCards; i++)
             {
-                if (i == SelectedCardPosition) _allInvisibleHolders[i].SetLayoutWidth(layout);
                 float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * yOffSet;
-                repositionSequence.Join(_allInvisibleHolders[i].Repositionate(realYOffSet));
+                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
             }
             return repositionSequence;
         }
 
-        private InvisibleHolder GetFreeHolder()
-        {
-            InvisibleHolder holder = _allInvisibleHolders.FirstOrDefault(invisiblerHolder => invisiblerHolder.IsFree) ?? CreateNewHolder();
-            holder.gameObject.SetActive(true);
-            return holder;
-        }
+        private InvisibleHolder GetFreeHolder() =>
+            _allInvisibleHolders.FirstOrDefault(invisiblerHolder => invisiblerHolder.IsFree) ?? CreateNewHolder();
+
 
         private InvisibleHolder CreateNewHolder()
         {
@@ -58,9 +56,8 @@ namespace MythsAndHorrors.GameView
             return invisibleHolder;
         }
 
-        public InvisibleHolder GetInvisibleHolder(CardView cardView)
-        {
-            return _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
-        }
+        public InvisibleHolder GetInvisibleHolder(CardView cardView) =>
+            _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
+
     }
 }

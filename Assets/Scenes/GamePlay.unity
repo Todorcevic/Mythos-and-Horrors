@@ -3234,6 +3234,10 @@ PrefabInstance:
       value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 6778814088119446196, guid: 59d980c240864b941ae1151c7e7100c2, type: 3}
+      propertyPath: scaleCard
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6778814088119446196, guid: 59d980c240864b941ae1151c7e7100c2, type: 3}
       propertyPath: separation
       value: 16
       objectReference: {fileID: 0}

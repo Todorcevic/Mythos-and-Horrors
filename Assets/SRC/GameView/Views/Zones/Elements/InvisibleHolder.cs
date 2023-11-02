@@ -31,6 +31,10 @@ namespace MythsAndHorrors.GameView
 
         public Tween Repositionate(float yOffSet = 0)
         {
+            //return DOTween.Sequence().Join(_cardView.transform.DOMoveX(transform.position.x, ViewValues.FAST_TIME_ANIMATION))
+            //     .Join(_cardView.transform.DOMoveY(transform.position.y + yOffSet, ViewValues.FAST_TIME_ANIMATION))
+            //     .Join(_cardView.transform.DOMoveZ(transform.position.z, ViewValues.FAST_TIME_ANIMATION));
+
             return _cardView.transform.DOMove(transform.position + new Vector3(0, yOffSet, 0), ViewValues.FAST_TIME_ANIMATION);
         }
 

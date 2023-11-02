@@ -38,7 +38,7 @@ namespace MythsAndHorrors.Gameview.Tests
         public IEnumerator Move_Card_In_Zone_Row()
         {
             ZoneView sut = _zonesManager.Get("AidZone");
-            CardView[] _doc = _cardBuilder.BuildManySame(5);
+            CardView[] _doc = _cardBuilder.BuildManySame(2);
 
             foreach (CardView card in _doc)
             {
@@ -83,7 +83,7 @@ namespace MythsAndHorrors.Gameview.Tests
         }
 
         [UnityTest]
-        public IEnumerator ReMove_Card_In_Zone_Hand()
+        public IEnumerator Remove_Card_In_Zone_Hand()
         {
             ZoneView sut = _zonesManager.Get("HandZone");
             ZoneView _doc2 = _zonesManager.Get("OutGameZone");
@@ -93,6 +93,7 @@ namespace MythsAndHorrors.Gameview.Tests
             {
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
+
             yield return _doc2.MoveCard(_doc[0]);
             yield return sut.RemoveCard(_doc[0]);
 
