@@ -99,5 +99,28 @@ namespace MythsAndHorrors.Gameview.Tests
 
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Deck()
+        {
+            ZoneView sut = _zonesManager.Get("AdventurerDeckZone");
+            CardView[] _doc = _cardBuilder.BuildManySame(33);
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
+
+             sut = _zonesManager.Get("AdventurerDiscardZone");
+            _doc = _cardBuilder.BuildManySame(33);
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
+
+            yield return new WaitForSeconds(150);
+            Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
+        }
     }
 }

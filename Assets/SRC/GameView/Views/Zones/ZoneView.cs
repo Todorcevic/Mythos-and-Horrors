@@ -1,17 +1,12 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public abstract class ZoneView : MonoBehaviour
     {
         public Zone Zone { get; private set; }
-        protected List<CardView> AllCards => GetComponentsInChildren<CardView>().ToList();
-        protected float YOffSet => AllCards.Count * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
         private void Awake()

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneBasicView : ZoneView
+    public class ZoneBasicView : ZoneView, IZoneBehaviour
     {
         public override Tween MoveCard(CardView card)
         {
@@ -15,6 +15,21 @@ namespace MythsAndHorrors.GameView
         }
 
         public override Tween RemoveCard(CardView card)
+        {
+            return DOTween.Sequence();
+        }
+
+        void IZoneBehaviour.OnMouseDrag(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseExit(CardView cardView)
         {
             throw new System.NotImplementedException();
         }

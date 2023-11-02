@@ -1,22 +1,49 @@
 using DG.Tweening;
+using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneDeckView : ZoneView
+    public class ZoneDeckView : ZoneView, IZoneBehaviour
     {
+        private readonly List<CardView> _allCards = new();
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
+
         /*******************************************************************/
-        public override Tween MoveCard(CardView card)
+        public override Tween MoveCard(CardView cardView)
         {
             return DOTween.Sequence()
-                .Join(card.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
-                .OnComplete(() => card.transform.SetParent(transform));
+                .Join(cardView.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
+                .OnComplete(() => Set(cardView));
         }
 
-        public override Tween RemoveCard(CardView card)
+        private void Set(CardView cardView)
+        {
+            cardView.transform.SetParent(transform);
+            _allCards.Add(cardView);
+        }
+
+        public override Tween RemoveCard(CardView cardView)
+        {
+            _allCards.Remove(cardView);
+            return DOTween.Sequence();
+        }
+
+        void IZoneBehaviour.OnMouseDrag(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseExit(CardView cardView)
         {
             throw new System.NotImplementedException();
         }
