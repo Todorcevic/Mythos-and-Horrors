@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class SceneCardViewcs : CardView
+    public class SceneCardView : CardView
     {
         [SerializeField, Required, AssetsOnly] private Sprite _skillDamageIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;

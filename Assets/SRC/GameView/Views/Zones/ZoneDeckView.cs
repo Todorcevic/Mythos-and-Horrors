@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,6 +14,11 @@ namespace MythsAndHorrors.GameView
                 .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
                 .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
                 .OnComplete(() => card.transform.SetParent(transform));
+        }
+
+        public override Tween RemoveCard(CardView card)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

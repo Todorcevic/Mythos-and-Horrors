@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameRules
             //    CardMovementAnimation.BasicWithPreview);
             //    await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             //}
+            await Task.CompletedTask;
         }
 
         public async Task WhenFinish(GameAction gameAction)
@@ -32,6 +33,7 @@ namespace MythsAndHorrors.GameRules
             //        CardMovementAnimation.BasicWithPreview);
             //    await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             //}
+            await Task.CompletedTask;
         }
     }
 }

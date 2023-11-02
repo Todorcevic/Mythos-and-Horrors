@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameRules.Tests
             List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(_path);
 
             Assert.That(result[0].Name, Is.EqualTo("First Adventurer"));
-            Assert.That(result[1].CardType, Is.EqualTo(CardType.Talent));
+            Assert.That(result[1].CardType, Is.EqualTo(CardType.Adventurer));
         }
 
         [Test]

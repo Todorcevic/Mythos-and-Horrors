@@ -3,6 +3,7 @@ using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -20,5 +21,7 @@ namespace MythsAndHorrors.GameView
 
         /*******************************************************************/
         public abstract Tween MoveCard(CardView card);
+
+        public abstract Tween RemoveCard(CardView card);
     }
 }

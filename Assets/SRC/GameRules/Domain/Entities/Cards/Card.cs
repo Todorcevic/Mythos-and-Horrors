@@ -1,18 +1,29 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class Card
     {
-        [Inject] public CardInfo Info { get; }
+        public CardInfo Info { get; private set; }
+        public Zone OwnZone { get; private set; }
         public Zone CurrentZone { get; private set; }
         public bool IsScenaryCard => Info.Faction == Faction.Myths;
 
         /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
+        private void Init(CardInfo cardInfo)
+        {
+            Info = cardInfo ?? throw new ArgumentNullException("CardInfo cant be null");
+            OwnZone = new Zone(cardInfo.Code);
+        }
+
+        /*******************************************************************/
         public void MoveToZone(Zone zone)
         {
-            CurrentZone = zone ?? throw new ArgumentNullException(nameof(zone));
+            CurrentZone = zone ?? throw new ArgumentNullException("Zone cant be null");
         }
     }
 }

@@ -1,20 +1,39 @@
 using DG.Tweening;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneRowView : ZoneView
+    public class ZoneRowView : ZoneView, IZoneBehaviour
     {
+        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
+
         /*******************************************************************/
-        public override Tween MoveCard(CardView card)
+        public override Tween MoveCard(CardView cardView)
         {
             return DOTween.Sequence()
-                .Join(card.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DORotate(transform.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(card.transform.DOScale(transform.localScale, ViewValues.SLOW_TIME_ANIMATION))
-                .OnComplete(() => card.transform.SetParent(transform));
+                .Join(_invisibleHolderView.AddCardView(cardView))
+                .Join(cardView.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
+                .OnComplete(() => cardView.SetCurrentZoneView(this));
+        }
+
+        public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
+
+        void IZoneBehaviour.OnMouseDrag(CardView cardView)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        {
+            _invisibleHolderView.Repositionate(cardView);
+        }
+
+        void IZoneBehaviour.OnMouseExit(CardView cardView)
+        {
+            _invisibleHolderView.Repositionate(cardView);
         }
     }
 }
