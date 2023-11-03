@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneRowView : ZoneView, IZoneBehaviour
     {
+        private const float Y_OFF_SET = 4.4f;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
         /*******************************************************************/
@@ -28,12 +29,20 @@ namespace MythsAndHorrors.GameView
 
         void IZoneBehaviour.OnMouseEnter(CardView cardView)
         {
-            _invisibleHolderView.Repositionate(cardView);
+            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
+            {
+                InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
+                sequence.Join(cardView.transform.DOLocalMoveY(invisibleHolder.transform.localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOLocalRotate(new Vector3(-45, 0, 0), ViewValues.FAST_TIME_ANIMATION));
+            }
         }
 
         void IZoneBehaviour.OnMouseExit(CardView cardView)
         {
-            _invisibleHolderView.Repositionate(cardView);
+            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
+            {
+                sequence.Join(cardView.transform.DOLocalRotate(Vector3.zero, ViewValues.FAST_TIME_ANIMATION));
+            }
         }
     }
 }

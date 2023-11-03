@@ -15,8 +15,8 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public abstract Tween MoveCard(CardView card);
+        public abstract Tween MoveCard(CardView cardView);
 
-        public abstract Tween RemoveCard(CardView card);
+        public abstract Tween RemoveCard(CardView cardView);
     }
 }

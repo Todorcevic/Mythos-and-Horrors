@@ -31,6 +31,7 @@ namespace MythsAndHorrors.Gameview.Tests
 
             yield return sut.MoveCard(_doc).WaitForCompletion();
 
+            yield return new WaitForSeconds(150);
             Assert.That(_doc.transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -38,7 +39,7 @@ namespace MythsAndHorrors.Gameview.Tests
         public IEnumerator Move_Card_In_Zone_Row()
         {
             ZoneView sut = _zonesManager.Get("AidZone");
-            CardView[] _doc = _cardBuilder.BuildManySame(2);
+            CardView[] _doc = _cardBuilder.BuildManySame(5);
 
             foreach (CardView card in _doc)
             {
@@ -111,7 +112,7 @@ namespace MythsAndHorrors.Gameview.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-             sut = _zonesManager.Get("AdventurerDiscardZone");
+            sut = _zonesManager.Get("AdventurerDiscardZone");
             _doc = _cardBuilder.BuildManySame(33);
 
             foreach (CardView card in _doc)

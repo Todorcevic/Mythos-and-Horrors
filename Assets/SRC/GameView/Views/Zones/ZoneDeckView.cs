@@ -14,17 +14,12 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)
         {
+            _allCards.Add(cardView);
             return DOTween.Sequence()
                 .Join(cardView.transform.DOMove(transform.position + new Vector3(0, YOffSet, 0), ViewValues.FAST_TIME_ANIMATION))
                 .Join(cardView.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
                 .Join(cardView.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
-                .OnComplete(() => Set(cardView));
-        }
-
-        private void Set(CardView cardView)
-        {
-            cardView.transform.SetParent(transform);
-            _allCards.Add(cardView);
+                .OnComplete(() => cardView.SetCurrentZoneView(this));
         }
 
         public override Tween RemoveCard(CardView cardView)
