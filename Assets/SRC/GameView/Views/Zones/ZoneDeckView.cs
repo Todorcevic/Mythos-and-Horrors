@@ -1,13 +1,15 @@
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class ZoneDeckView : ZoneView
     {
+        [SerializeField, Required] protected Transform _movePosition;
+        [SerializeField, Required] protected Transform _hoverPosition;
         private readonly List<CardView> _allCards = new();
         private float YOffSet => -(_allCards.Count * ViewValues.CARD_THICKNESS);
 
@@ -16,7 +18,8 @@ namespace MythsAndHorrors.GameView
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            return base.MoveCard(cardView);
+            return cardView.transform.DOFullMove(_movePosition)
+               .OnComplete(() => cardView.SetCurrentZoneView(this));
         }
 
         public override Tween RemoveCard(CardView cardView)
@@ -30,14 +33,14 @@ namespace MythsAndHorrors.GameView
         public override void MouseEnter(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
-            base.MouseEnter(_allCards.First());
+            _allCards.First().transform.DOFullMove(_hoverPosition);
         }
 
         public override void MouseExit(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            base.MouseExit(_allCards.First());
+            _allCards.First().transform.DOFullMove(_movePosition);
         }
     }
 }

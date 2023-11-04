@@ -9,6 +9,8 @@ namespace MythsAndHorrors.GameView
     public class ZoneDiscardView : ZoneView
     {
         private const float OFF_SET_EXPAND_Y = -1.5f;
+        [SerializeField, Required] protected Transform _movePosition;
+        [SerializeField, Required] protected Transform _hoverPosition;
         private Sequence current;
         private readonly List<CardView> _allCards = new();
 

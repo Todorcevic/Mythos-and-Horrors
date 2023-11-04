@@ -13,21 +13,5 @@ namespace MythsAndHorrors.GameView
                 .Join(transform.DORotate(toMove.eulerAngles, velocity))
                 .Join(transform.DOScale(toMove.localScale, velocity));
         }
-
-        public static Sequence DOFullLocalMove(this Transform transform, Transform toMove, float velocity = ViewValues.FAST_TIME_ANIMATION)
-        {
-            return DOTween.Sequence()
-                .Join(transform.DOLocalMove(toMove.localPosition, velocity))
-                .Join(transform.DORotate(toMove.eulerAngles, velocity))
-                .Join(transform.DOScale(toMove.localScale, velocity));
-        }
-
-        public static Sequence DOFullMoveWithSpeed(this Transform transform, Transform toMove, float velocity = ViewValues.FAST_TIME_ANIMATION)
-        {
-            return DOTween.Sequence()
-                .Join(transform.DOMove(toMove.position, velocity).SetSpeedBased(true))
-                .Join(transform.DORotate(toMove.eulerAngles, velocity).SetSpeedBased(true))
-                .Join(transform.DOScale(toMove.localScale, velocity).SetSpeedBased(true));
-        }
     }
 }

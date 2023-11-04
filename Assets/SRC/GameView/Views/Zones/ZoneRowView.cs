@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneRowView : ZoneView
     {
-        private const float Y_OFF_SET = 4.4f;
+        [SerializeField, Required] protected Transform _hoverPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
         /*******************************************************************/
@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
             if (_invisibleHolderView.AllActivesInvisibleHolders.Count() > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 1.5f);
             _invisibleHolderView.Repositionate(cardView);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, invisibleHolder.transform.localPosition.z);
-            base.MouseEnter(cardView);
+            cardView.transform.DOFullMove(_hoverPosition);
         }
 
         public override void MouseExit(CardView cardView)
