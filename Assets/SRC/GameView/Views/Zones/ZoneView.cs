@@ -7,9 +7,9 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneView : MonoBehaviour, IZoneBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _showPosition;
+        [SerializeField, Required] protected Transform _movePosition;
+        [SerializeField, Required] protected Transform _hoverPosition;
+        [SerializeField, Required] protected Transform _showPosition;
 
         public Zone Zone { get; private set; }
 

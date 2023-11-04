@@ -2943,37 +2943,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+    - target: {fileID: 2562295812863637371, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+    - target: {fileID: 2562295812863637371, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2856229720312330849, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 3203913180404372367, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3038,6 +3014,10 @@ PrefabInstance:
     - target: {fileID: 4986108195718657229, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_Name
       value: PlayArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199940836538642309, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_Name
+      value: AdventurerDiscardZone
       objectReference: {fileID: 0}
     - target: {fileID: 5767713684238569470, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_AnchorMax.y
