@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneRowView : ZoneView, IZoneBehaviour
+    public class ZoneRowView : ZoneView
     {
         private const float Y_OFF_SET = 4.4f;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
@@ -13,36 +13,28 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)
         {
-            return DOTween.Sequence()
-                .Join(_invisibleHolderView.AddCardView(cardView))
-                .Join(cardView.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
-                .OnComplete(() => cardView.SetCurrentZoneView(this));
+            return _invisibleHolderView.AddCardView(cardView)
+              .OnComplete(() => cardView.SetCurrentZoneView(this));
         }
 
         public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
 
-        void IZoneBehaviour.OnMouseDrag(CardView cardView)
+        public override void MouseDrag(CardView cardView) { }
+
+        public override void MouseEnter(CardView cardView)
         {
-            throw new System.NotImplementedException();
+            InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
+            if (_invisibleHolderView.AllActivesInvisibleHolders.Count() > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 1.5f);
+            _invisibleHolderView.Repositionate(cardView);
+            _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, invisibleHolder.transform.localPosition.z);
+            base.MouseEnter(cardView);
         }
 
-        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        public override void MouseExit(CardView cardView)
         {
-            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
-            {
-                InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
-                sequence.Join(cardView.transform.DOLocalMoveY(invisibleHolder.transform.localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalRotate(new Vector3(-45, 0, 0), ViewValues.FAST_TIME_ANIMATION));
-            }
-        }
-
-        void IZoneBehaviour.OnMouseExit(CardView cardView)
-        {
-            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
-            {
-                sequence.Join(cardView.transform.DOLocalRotate(Vector3.zero, ViewValues.FAST_TIME_ANIMATION));
-            }
+            InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
+            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
+            _invisibleHolderView.Repositionate(cardView);
         }
     }
 }

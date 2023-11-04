@@ -1,15 +1,14 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneDeckView : ZoneView
+    public class ZoneDiscardView : ZoneView
     {
         private readonly List<CardView> _allCards = new();
-        private float YOffSet => -(_allCards.Count * ViewValues.CARD_THICKNESS);
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)

@@ -1,11 +1,16 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public abstract class ZoneView : MonoBehaviour
+    public class ZoneView : MonoBehaviour, IZoneBehaviour
     {
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _showPosition;
+
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
@@ -15,8 +20,27 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public abstract Tween MoveCard(CardView cardView);
+        public virtual Tween MoveCard(CardView cardView)
+        {
+            return cardView.transform.DOFullMove(_movePosition)
+                .OnComplete(() => cardView.SetCurrentZoneView(this));
+        }
 
-        public abstract Tween RemoveCard(CardView cardView);
+        public virtual Tween RemoveCard(CardView cardView)
+        {
+            return DOTween.Sequence();
+        }
+
+        public virtual void MouseEnter(CardView cardView)
+        {
+            cardView.transform.DOFullMove(_hoverPosition);
+        }
+
+        public virtual void MouseExit(CardView cardView)
+        {
+            cardView.transform.DOFullMove(_movePosition);
+        }
+
+        public virtual void MouseDrag(CardView cardView) { }
     }
 }

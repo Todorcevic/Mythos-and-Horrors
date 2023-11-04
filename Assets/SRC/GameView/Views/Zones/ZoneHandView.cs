@@ -6,46 +6,35 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZoneHandView : ZoneView, IZoneBehaviour
+    public class ZoneHandView : ZoneView
     {
-        private const float Z_OFF_SET = 8.5f;
-        private const float Y_OFF_SET = 6f;
-        public float scaleCard;
-        public float z;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)
         {
-            return DOTween.Sequence()
-            .Join(_invisibleHolderView.AddCardView(cardView))
-            .Join(cardView.transform.DORotate(transform.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
-            .Join(cardView.transform.DOScale(transform.localScale, ViewValues.FAST_TIME_ANIMATION))
-            .OnComplete(() => cardView.SetCurrentZoneView(this));
+            return _invisibleHolderView.AddCardView(cardView)
+                 .OnComplete(() => cardView.SetCurrentZoneView(this));
         }
 
         public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
 
-        void IZoneBehaviour.OnMouseDrag(CardView cardView)
-        {
-            throw new NotImplementedException();
-        }
+        public override void MouseDrag(CardView cardView) { }
 
-        void IZoneBehaviour.OnMouseEnter(CardView cardView)
+        public override void MouseEnter(CardView cardView)
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
-            invisibleHolder.SetLayoutWidth(48);
-            if (_invisibleHolderView.Repositionate(cardView) is Sequence sequence)
-            {
-                sequence.Join(cardView.transform.DOLocalMoveZ(invisibleHolder.transform.localPosition.z + Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalMoveY(invisibleHolder.transform.localPosition.y + Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION));
-            }
+            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 2);
+
+            _invisibleHolderView.Repositionate(cardView);
+            _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
+            base.MouseEnter(cardView);
         }
 
-        void IZoneBehaviour.OnMouseExit(CardView cardView)
+        public override void MouseExit(CardView cardView)
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
-            invisibleHolder.SetLayoutWidth(24);
+            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
             _invisibleHolderView.Repositionate(cardView);
         }
     }

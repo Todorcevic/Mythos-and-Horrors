@@ -22,7 +22,6 @@ namespace MythsAndHorrors.GameView
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init(Card card)
         {
-            Debug.Log("Building...: " + card.Info.Code);
             Card = card;
             SetCommonInfo();
             SetAll();

@@ -2,8 +2,8 @@
 {
     public interface IZoneBehaviour
     {
-        public void OnMouseEnter(CardView cardView);
-        public void OnMouseExit(CardView cardView);
-        public void OnMouseDrag(CardView cardView);
+        public void MouseEnter(CardView cardView);
+        public void MouseExit(CardView cardView);
+        public void MouseDrag(CardView cardView);
     }
 }

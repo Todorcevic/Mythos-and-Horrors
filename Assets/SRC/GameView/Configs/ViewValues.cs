@@ -8,5 +8,6 @@ namespace MythsAndHorrors.GameView
         public const float MID_TIME_ANIMATION = 0.5f;
         public const float SLOW_TIME_ANIMATION = 1f;
         public const string EMPTY_STAT = "0";
+        public const float INITIAL_LAYOUT_WIDTH = 24f;
     }
 }

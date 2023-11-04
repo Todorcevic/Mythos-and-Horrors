@@ -1,9 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -22,17 +17,17 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            _currentZoneBahaviour.OnMouseEnter(_cardView);
+            _currentZoneBahaviour.MouseEnter(_cardView);
         }
 
         public void OnMouseExit()
         {
-            _currentZoneBahaviour.OnMouseExit(_cardView);
+            _currentZoneBahaviour.MouseExit(_cardView);
         }
 
         public void OnMouseDrag()
         {
-            _currentZoneBahaviour.OnMouseDrag(_cardView);
+            _currentZoneBahaviour.MouseDrag(_cardView);
         }
     }
 }
