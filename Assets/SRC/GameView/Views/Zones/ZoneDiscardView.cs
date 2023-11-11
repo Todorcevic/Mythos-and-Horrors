@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameView
         private const float OFF_SET_EXPAND_Y = -1.5f;
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
+        private bool isStandUp;
         private Sequence currentSequence;
         private readonly List<CardView> _allCards = new();
 
@@ -36,8 +37,8 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            currentSequence?.Kill(); //Avoid jittering
-            currentSequence = transform.DOFullMove(_hoverPosition).AppendInterval(0);
+            currentSequence?.Kill();
+            currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true);
 
             for (int j = 0; j <= LastIndex; j++)
             {
@@ -49,8 +50,8 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseExit(CardView cardView)
         {
-            currentSequence?.Kill(); //Avoid jittering
-            currentSequence = transform.DOFullMove(transform.parent);
+            currentSequence?.Kill();
+            currentSequence = transform.DOFullMove(transform.parent).PrependCallback(() => isStandUp = false);
 
             for (int j = 0; j <= LastIndex; j++)
             {
