@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
             return DOTween.Sequence()
                 .Join(transform.DOMove(toMove.position, velocity))
                 .Join(transform.DORotate(toMove.eulerAngles, velocity))
-                .Join(transform.DOScale(toMove.localScale, velocity));
+                .Join(transform.DOScale(toMove.lossyScale, velocity));
         }
     }
 }

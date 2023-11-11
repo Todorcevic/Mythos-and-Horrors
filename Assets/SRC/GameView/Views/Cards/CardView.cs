@@ -14,8 +14,11 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
+        [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
 
         public Card Card { get; private set; }
+        public ZoneCardView OwnZone => _zoneCardView;
+        public CardSensor CardSensor => _cardSensor;
 
         /*******************************************************************/
         [Inject]

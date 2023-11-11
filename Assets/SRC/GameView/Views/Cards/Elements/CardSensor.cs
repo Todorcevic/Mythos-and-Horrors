@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -7,6 +8,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] private CardView _cardView;
         private IZoneBehaviour _currentZoneBahaviour;
+        private Tween _currentAnimation;
 
         /*******************************************************************/
         public void SetZoneBahaviour(IZoneBehaviour zoneBahaviour)
@@ -17,12 +19,14 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            _currentZoneBahaviour.MouseEnter(_cardView);
+            _currentAnimation?.Kill();
+            _currentAnimation = _currentZoneBahaviour.MouseEnter(_cardView);
         }
 
         public void OnMouseExit()
         {
-            _currentZoneBahaviour.MouseExit(_cardView);
+            _currentAnimation?.Kill();
+            _currentAnimation = _currentZoneBahaviour.MouseExit(_cardView);
         }
 
         public void OnMouseDrag()

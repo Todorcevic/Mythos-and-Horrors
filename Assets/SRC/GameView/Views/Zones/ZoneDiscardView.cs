@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
         private const float OFF_SET_EXPAND_Y = -1.5f;
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
-        private Sequence current;
+        private Sequence currentSequence;
         private readonly List<CardView> _allCards = new();
 
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
@@ -32,31 +32,32 @@ namespace MythsAndHorrors.GameView
             return DOTween.Sequence();
         }
 
-        public override void MouseDrag(CardView cardView) { }
+        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
-        public override void MouseEnter(CardView cardView)
+        public override Tween MouseEnter(CardView cardView)
         {
-            current?.Kill(); //Avoid jittering
-            current = transform.DOFullMove(_hoverPosition);
-            current.AppendInterval(0);
+            currentSequence?.Kill(); //Avoid jittering
+            currentSequence = transform.DOFullMove(_hoverPosition).AppendInterval(0);
 
             for (int j = 0; j <= LastIndex; j++)
             {
                 CardView cardV = _allCards[LastIndex - j];
-                current.Join(cardV.transform.DOLocalMoveX(OFF_SET_EXPAND_Y * j, ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(cardV.transform.DOLocalMoveX(OFF_SET_EXPAND_Y * j, ViewValues.FAST_TIME_ANIMATION));
             }
+            return currentSequence;
         }
 
-        public override void MouseExit(CardView cardView)
+        public override Tween MouseExit(CardView cardView)
         {
-            current?.Kill(); //Avoid jittering
-            current = transform.DOFullMove(transform.parent);
+            currentSequence?.Kill(); //Avoid jittering
+            currentSequence = transform.DOFullMove(transform.parent);
 
             for (int j = 0; j <= LastIndex; j++)
             {
                 CardView cardV = _allCards[LastIndex - j];
-                current.Join(cardV.transform.DOLocalMoveX(0, ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(cardV.transform.DOLocalMoveX(0, ViewValues.FAST_TIME_ANIMATION));
             }
+            return currentSequence;
         }
     }
 }

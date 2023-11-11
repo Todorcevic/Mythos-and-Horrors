@@ -28,19 +28,19 @@ namespace MythsAndHorrors.GameView
             return DOTween.Sequence();
         }
 
-        public override void MouseDrag(CardView cardView) { }
+        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
-        public override void MouseEnter(CardView cardView)
+        public override Tween MouseEnter(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
-            _allCards.First().transform.DOFullMove(_hoverPosition);
+            return _allCards.First().transform.DOFullMove(_hoverPosition);
         }
 
-        public override void MouseExit(CardView cardView)
+        public override Tween MouseExit(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            _allCards.First().transform.DOFullMove(_movePosition);
+            return _allCards.First().transform.DOFullMove(_movePosition);
         }
     }
 }

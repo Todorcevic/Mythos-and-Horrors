@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils;
 using NUnit.Framework;
@@ -131,6 +132,26 @@ namespace MythsAndHorrors.Gameview.Tests
 
             yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
+        }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Card()
+        {
+            ZoneView docZone = _zonesManager.Get("PlaceZone");
+            CardView oneCard = _cardBuilder.BuildOne();
+            ZoneCardView sut = oneCard.OwnZone;
+            CardView[] _doc = _cardBuilder.BuildManySame(2);
+
+            yield return docZone.MoveCard(oneCard).WaitForCompletion();
+
+
+            foreach (CardView card in _doc)
+            {
+                yield return sut.MoveCard(card).WaitForCompletion();
+            }
+
+            yield return new WaitForSeconds(150);
+            Assert.That(_doc[0].transform.parent, Is.EqualTo(sut.transform));
         }
     }
 }

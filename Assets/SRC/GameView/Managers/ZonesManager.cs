@@ -10,11 +10,9 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly List<ZoneView> _allZones;
 
         /*******************************************************************/
-        public ZoneView Get(Zone zone) => _allZones.Find(zoneView => zoneView.Zone == zone)
-            ?? throw new KeyNotFoundException($"Zone {zone} not found");
+        public ZoneView Get(Zone zone) => _allZones.Find(zoneView => zoneView.Zone == zone);
 
-        public ZoneView Get(string zoneName) => _allZones.Find(zoneView => zoneView.Zone.CodeName == zoneName)
-            ?? throw new KeyNotFoundException($"Zone {zoneName} not found");
+        public ZoneView Get(string zoneName) => _allZones.Find(zoneView => zoneView.Zone.CodeName == zoneName);
 
         public List<Zone> GetZones() => _allZones.Select(zoneView => zoneView.Zone).ToList();
     }

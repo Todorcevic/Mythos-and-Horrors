@@ -19,10 +19,10 @@ namespace MythsAndHorrors.GameView
 
         public abstract Tween RemoveCard(CardView cardView);
 
-        public abstract void MouseEnter(CardView cardView);
+        public abstract Tween MouseEnter(CardView cardView);
 
-        public abstract void MouseExit(CardView cardView);
+        public abstract Tween MouseExit(CardView cardView);
 
-        public abstract void MouseDrag(CardView cardView);
+        public abstract Tween MouseDrag(CardView cardView);
     }
 }

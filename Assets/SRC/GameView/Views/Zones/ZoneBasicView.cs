@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -12,27 +11,15 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required] protected Transform _showPosition;
 
         /*******************************************************************/
-        public override Tween MoveCard(CardView cardView)
-        {
-            return cardView.transform.DOFullMove(_movePosition)
+        public override Tween MoveCard(CardView cardView) => cardView.transform.DOFullMove(_movePosition)
                 .OnComplete(() => cardView.SetCurrentZoneView(this));
-        }
 
-        public override Tween RemoveCard(CardView cardView)
-        {
-            return DOTween.Sequence();
-        }
+        public override Tween RemoveCard(CardView cardView) => DOTween.Sequence();
 
-        public override void MouseEnter(CardView cardView)
-        {
-            cardView.transform.DOFullMove(_hoverPosition);
-        }
+        public override Tween MouseEnter(CardView cardView) => cardView.transform.DOFullMove(_hoverPosition);
 
-        public override void MouseExit(CardView cardView)
-        {
-            cardView.transform.DOFullMove(_movePosition);
-        }
+        public override Tween MouseExit(CardView cardView) => cardView.transform.DOFullMove(_movePosition);
 
-        public override void MouseDrag(CardView cardView) { }
+        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
     }
 }

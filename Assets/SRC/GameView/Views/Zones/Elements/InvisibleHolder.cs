@@ -24,10 +24,7 @@ namespace MythsAndHorrors.GameView
             _cardView = null;
         }
 
-        public bool HasThisCardView(CardView cardView)
-        {
-            return _cardView == cardView;
-        }
+        public bool HasThisCardView(CardView cardView) => _cardView == cardView;
 
         public Tween Repositionate(float yOffSet = 0)
         {
@@ -35,9 +32,6 @@ namespace MythsAndHorrors.GameView
             return _cardView.transform.DOFullMove(transform);
         }
 
-        public void SetLayoutWidth(float width)
-        {
-            layout.preferredWidth = width;
-        }
+        public void SetLayoutWidth(float width) => layout.preferredWidth = width;
     }
 }

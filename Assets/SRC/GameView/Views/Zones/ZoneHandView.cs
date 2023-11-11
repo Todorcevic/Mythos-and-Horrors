@@ -20,23 +20,23 @@ namespace MythsAndHorrors.GameView
 
         public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
 
-        public override void MouseDrag(CardView cardView) { }
+        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
-        public override void MouseEnter(CardView cardView)
+        public override Tween MouseEnter(CardView cardView)
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
             invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 2);
 
             _invisibleHolderView.Repositionate(cardView);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
-            cardView.transform.DOFullMove(_hoverPosition);
+            return cardView.transform.DOFullMove(_hoverPosition);
         }
 
-        public override void MouseExit(CardView cardView)
+        public override Tween MouseExit(CardView cardView)
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
             invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
-            _invisibleHolderView.Repositionate(cardView);
+            return _invisibleHolderView.Repositionate(cardView);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders;
 
         public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.FindAll(invisibleHolder => !invisibleHolder.IsFree);
+        public int AmountOfCards => AllActivesInvisibleHolders.Count();
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
@@ -31,7 +32,6 @@ namespace MythsAndHorrors.GameView
         public Tween Repositionate(CardView _selectedCardView)
         {
             int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
-            int AmountOfCards = AllActivesInvisibleHolders.Count();
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             Sequence repositionSequence = DOTween.Sequence();
             for (int i = 0; i < AmountOfCards; i++)
@@ -55,6 +55,9 @@ namespace MythsAndHorrors.GameView
 
         public InvisibleHolder GetInvisibleHolder(CardView cardView) =>
             _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
+
+        public bool HasThisCardView(CardView cardView) => 
+            _allInvisibleHolders.Any(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
 
     }
 }

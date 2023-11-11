@@ -1,9 +1,11 @@
-﻿namespace MythsAndHorrors.GameView
+﻿using DG.Tweening;
+
+namespace MythsAndHorrors.GameView
 {
     public interface IZoneBehaviour
     {
-        public void MouseEnter(CardView cardView);
-        public void MouseExit(CardView cardView);
-        public void MouseDrag(CardView cardView);
+        public Tween MouseEnter(CardView cardView);
+        public Tween MouseExit(CardView cardView);
+        public Tween MouseDrag(CardView cardView);
     }
 }
