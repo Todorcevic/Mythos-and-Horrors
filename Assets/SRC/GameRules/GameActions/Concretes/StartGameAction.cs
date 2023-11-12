@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameRules
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
             moveCardDTO = new(
-              _cardProvider.GetCard("01502"),
+              _cardProvider.GetCard("01560"),
               _zoneProvider.GetZone("SceneDiscardZone"),
               CardMovementAnimation.BasicWithPreview);
             await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);

@@ -3059,6 +3059,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7255031856088335904, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_Name
+      value: SceneDiscardZone
+      objectReference: {fileID: 0}
     - target: {fileID: 8275630791384509021, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

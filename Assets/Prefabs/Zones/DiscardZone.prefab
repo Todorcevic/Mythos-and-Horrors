@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2714779417993467425}
   - component: {fileID: 6858086429491808664}
   m_Layer: 0
-  m_Name: DiscardZone
+  m_Name: SceneDiscardZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movePosition: {fileID: 5003825069430163924}
   _hoverPosition: {fileID: 4710043762133320910}
-  _showPosition: {fileID: 7593830779440872202}
 --- !u!114 &6858086429491808664
 MonoBehaviour:
   m_ObjectHideFlags: 0
