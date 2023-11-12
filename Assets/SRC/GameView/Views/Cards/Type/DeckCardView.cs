@@ -1,6 +1,8 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -93,6 +95,7 @@ namespace MythsAndHorrors.GameView
             };
         }
 
-        private SkillIconView GetNextPlacerInactive() => _skillPlacer.Find(x => x.IsInactive);
+        private SkillIconView GetNextPlacerInactive() => _skillPlacer.FirstOrDefault(x => x.IsInactive)
+            ?? throw new NullReferenceException($"No more skill icons available for {Card.Info.Code}");
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-namespace MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils
+namespace MythsAndHorrors.GameView.Tests
 {
     public class CardBuilder
     {
@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
-                        CardType = CardType.Adventurer,
+                        CardType = CardType.Supply,
                         Code = "00001",
                         Name = "Adventurer1",
                         Faction = Faction.Cunning,
@@ -24,8 +24,8 @@ namespace MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils
                         Sanity=6,
                         Strength=2,
                         Agility=3,
-                        Intelligence=4,
-                        Power=5
+                        Intelligence=0,
+                        Power=0
                     }
                });
 
@@ -88,8 +88,8 @@ namespace MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils
                 case CardType.Adventurer:
                     cardType = typeof(CardAdventurer);
                     break;
-                case CardType.Aid:
-                    cardType = typeof(CardAid);
+                case CardType.Supply:
+                    cardType = typeof(CardSupply);
                     break;
                 case CardType.Talent:
                     cardType = typeof(CardTalent);

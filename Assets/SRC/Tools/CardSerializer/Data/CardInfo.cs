@@ -106,7 +106,7 @@ namespace MythsAndHorrors.Tools
             CardType = oldCardinfo.TypeCode switch
             {
                 "investigator" => CardType.Adventurer,
-                "asset" => CardType.Aid,
+                "asset" => CardType.Supply,
                 "skill" => CardType.Talent,
                 "event" => CardType.Condition,
                 "enemy" => CardType.Creature,

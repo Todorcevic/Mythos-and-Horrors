@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
-namespace MythsAndHorrors.Gameview.Tests
+namespace MythsAndHorrors.GameView.Tests
 {
     public class TestBase : SceneTestFixture
     {

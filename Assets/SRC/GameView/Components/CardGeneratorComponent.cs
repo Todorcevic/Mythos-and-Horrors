@@ -38,7 +38,7 @@ namespace MythsAndHorrors.GameView
         private CardView GetPrefab(CardType cardType) => cardType switch
         {
             CardType.Adventurer => _adventurerPrefab,
-            CardType.Aid or CardType.Talent or CardType.Condition => _adventurerDeckPrefab,
+            CardType.Supply or CardType.Talent or CardType.Condition => _adventurerDeckPrefab,
             CardType.Creature or CardType.Adversity => _scenarioPrefab,
             CardType.Place => _placePrefab,
             CardType.Plot => _plotPrefab,

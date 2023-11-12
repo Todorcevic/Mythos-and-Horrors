@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardAid : Card
+    public class CardSupply : Card
     {
     }
 }

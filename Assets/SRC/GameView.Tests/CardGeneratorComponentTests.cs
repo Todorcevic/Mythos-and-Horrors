@@ -7,7 +7,7 @@ using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
 
-namespace MythsAndHorrors.Gameview.Tests
+namespace MythsAndHorrors.GameView.Tests
 {
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
@@ -98,12 +98,12 @@ namespace MythsAndHorrors.Gameview.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
-            Card card = (Card)SceneContainer.Instantiate(typeof(CardAid), new object[]
+            Card card = (Card)SceneContainer.Instantiate(typeof(CardSupply), new object[]
             {
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
-                        CardType = CardType.Aid,
+                        CardType = CardType.Supply,
                         Code = "00001",
                         Name = "Aid1",
                         Faction = Faction.Esoteric,

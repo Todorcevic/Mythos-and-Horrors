@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         None = 0,
         Adventurer = 1 << 0,
-        Aid = 1 << 1,
+        Supply = 1 << 1,
         Talent = 1 << 2,
         Condition = 1 << 3,
         Creature = 1 << 4,

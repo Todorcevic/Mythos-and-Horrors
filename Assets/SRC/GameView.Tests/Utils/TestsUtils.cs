@@ -3,7 +3,7 @@ using TMPro;
 using System.Reflection;
 using System;
 
-namespace MythsAndHorrors.Gameview.Tests
+namespace MythsAndHorrors.GameView.Tests
 {
     public static class TestsUtils
     {

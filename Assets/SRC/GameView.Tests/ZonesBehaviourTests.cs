@@ -1,7 +1,4 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
-using MythsAndHorrors.GameView.Tests.Assets.SRC.GameView.Tests.Utils;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -9,7 +6,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
-namespace MythsAndHorrors.Gameview.Tests
+namespace MythsAndHorrors.GameView.Tests
 {
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
