@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a6e785c09cac40ae3ff07d43d89ff, type: 3}
   m_Name: DeckFactionCunning
   m_EditorClassIdentifier: 
-  _templateDeckFront: {fileID: 21300000, guid: 0e39db41f402f79498630bd3b0596212, type: 3}
+  _templateDeckFront: {fileID: 21300000, guid: 0c2d1e2071a2fd84092fecc13216b0de, type: 3}
   _badget: {fileID: 21300000, guid: cf37abba149cf444881842231fc1528c, type: 3}
-  _cost: {fileID: 21300000, guid: 7ce771bb32b73c14389e04b5058a1309, type: 3}
-  _supporter: {fileID: 21300000, guid: 3b65c0938cd64b14886e2e1b62a86f3d, type: 3}
-  _skillHolder: {fileID: 21300000, guid: e432327057aa5ec45a09930c18598a08, type: 3}
+  _cost: {fileID: 21300000, guid: 856bb400b88fd5d4bae42869cceb915c, type: 3}
+  _supporter: {fileID: 21300000, guid: 2da13d043231b5e409edaf25d5cb715e, type: 3}
+  _skillHolder: {fileID: 21300000, guid: 856bb400b88fd5d4bae42869cceb915c, type: 3}

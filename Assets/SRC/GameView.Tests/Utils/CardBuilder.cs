@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView.Tests
                         CardType = CardType.Condition,
                         Code = "00001",
                         Name = "Adventurer1",
-                        Faction = Faction.Neutral,
+                        Faction = Faction.Esoteric,
                         Health= 10,
                         Sanity=6,
                         Strength=2,
