@@ -29,7 +29,6 @@ namespace MythsAndHorrors.GameView.Tests
 
             yield return sut.MoveCard(_doc).WaitForCompletion();
 
-            yield return new WaitForSeconds(150);
             Assert.That(_doc.transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -44,7 +43,6 @@ namespace MythsAndHorrors.GameView.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -59,8 +57,6 @@ namespace MythsAndHorrors.GameView.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-
-            yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -75,10 +71,6 @@ namespace MythsAndHorrors.GameView.Tests
             {
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
-
-            yield return new WaitForSeconds(150);
-
-            // yield return PressAnyKey();
 
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
@@ -112,7 +104,6 @@ namespace MythsAndHorrors.GameView.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -127,7 +118,6 @@ namespace MythsAndHorrors.GameView.Tests
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(150);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
 
@@ -141,13 +131,11 @@ namespace MythsAndHorrors.GameView.Tests
 
             yield return docZone.MoveCard(oneCard).WaitForCompletion();
 
-
             foreach (CardView card in _doc)
             {
                 yield return sut.MoveCard(card).WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(150);
             Assert.That(_doc[0].transform.parent, Is.EqualTo(sut.transform));
         }
     }

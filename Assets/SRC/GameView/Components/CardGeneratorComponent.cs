@@ -12,7 +12,8 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly DiContainer _diContainer;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerDeckPrefab;
-        [SerializeField, Required, AssetsOnly] private CardView _scenarioPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _adversityPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _creaturePrefab;
         [SerializeField, Required, AssetsOnly] private CardView _placePrefab;
         [SerializeField, Required, AssetsOnly] private CardView _plotPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
@@ -39,7 +40,8 @@ namespace MythsAndHorrors.GameView
         {
             CardType.Adventurer => _adventurerPrefab,
             CardType.Supply or CardType.Talent or CardType.Condition => _adventurerDeckPrefab,
-            CardType.Creature or CardType.Adversity => _scenarioPrefab,
+            CardType.Adversity => _adversityPrefab,
+            CardType.Creature => _creaturePrefab,
             CardType.Place => _placePrefab,
             CardType.Plot => _plotPrefab,
             CardType.Goal => _goalPrefab,

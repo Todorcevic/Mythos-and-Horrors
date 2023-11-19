@@ -487,7 +487,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _adventurerPrefab: {fileID: 2863734919224615659, guid: 81d22e8b9e4512340a503049ed135732, type: 3}
   _adventurerDeckPrefab: {fileID: 6302480944714940018, guid: 3789eb8fff6d9274f856823ffe1536c8, type: 3}
-  _scenarioPrefab: {fileID: 2319104691519923953, guid: 9f275c026a8fc074aa220ae921dd588a, type: 3}
+  _adversityPrefab: {fileID: 2319104691519923953, guid: 9f275c026a8fc074aa220ae921dd588a, type: 3}
+  _creaturePrefab: {fileID: 4144840173979616397, guid: 97abd6418887ed24697cce8a71f150e2, type: 3}
   _placePrefab: {fileID: 8154357446181133524, guid: d0e561d204908fb4f852cd2bcfa3ffa8, type: 3}
   _plotPrefab: {fileID: 4441213523134213632, guid: 446d9dfce7dbe7d4791790906a3c7d2c, type: 3}
   _goalPrefab: {fileID: 8066619439405503389, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}

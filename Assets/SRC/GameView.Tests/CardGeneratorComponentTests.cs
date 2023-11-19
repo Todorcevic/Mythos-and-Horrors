@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
+using TMPro;
 
 namespace MythsAndHorrors.GameView.Tests
 {
@@ -192,17 +193,15 @@ namespace MythsAndHorrors.GameView.Tests
             _sut.BuildCard(card);
 
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
             List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
 
             Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is SceneCardView);
+            Assert.That(result is CreatureCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo("Creature1"));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo("6"));
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo("2"));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo("3"));
-            Assert.That(healthRenderer.gameObject.activeInHierarchy);
             Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(3));
 
             yield return null;
@@ -225,18 +224,15 @@ namespace MythsAndHorrors.GameView.Tests
             _sut.BuildCard(card);
 
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
-            List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
 
             Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is SceneCardView);
+            Assert.That(result is AdversityCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo("Adversity1"));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
-            Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
-            Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(0));
 
             yield return null;
         }
+
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_PlotCard()
