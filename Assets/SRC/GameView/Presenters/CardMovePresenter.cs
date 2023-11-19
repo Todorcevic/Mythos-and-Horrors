@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
     public class CardMovePresenter : ICardMover
     {
         [Inject] private readonly ZonesManager _zonesManager;
-        [Inject] private readonly CardsViewManager _cardsManager;
+        [Inject] private readonly CardsViewsManager _cardsManager;
 
         private ZoneView FrontCameraZone => _zonesManager.Get("FrontCameraZone");
 

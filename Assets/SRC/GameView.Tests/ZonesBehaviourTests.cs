@@ -29,6 +29,8 @@ namespace MythsAndHorrors.GameView.Tests
 
             yield return sut.MoveCard(_doc).WaitForCompletion();
 
+            yield return PressAnyKey();
+
             Assert.That(_doc.transform.parent, Is.EqualTo(sut.transform));
         }
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797a6e785c09cac40ae3ff07d43d89ff, type: 3}
+  m_Name: DeckFactionNeutral
+  m_EditorClassIdentifier: 
+  _templateDeckFront: {fileID: 21300000, guid: 30680335343b1774f8596e6545e95396, type: 3}
+  _badget: {fileID: 0}
+  _cost: {fileID: 21300000, guid: 092f0a1f67f2ef54aa75fa8f9fc07660, type: 3}
+  _supporter: {fileID: 21300000, guid: 9fca4a2450bbc5a40a4c4e23a5d7623f, type: 3}
+  _skillHolder: {fileID: 21300000, guid: f5f6b314861eb2244a36caad856d2f37, type: 3}

@@ -61,17 +61,13 @@ MonoBehaviour:
   _brave: {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   _scholarly: {fileID: 11400000, guid: 50e86929d1d80d24eba8e002d01b3d2c, type: 2}
   _esoteric: {fileID: 11400000, guid: e3ad4e9f455f66b46bf57303c9bf1fa3, type: 2}
+  _neutral: {fileID: 11400000, guid: 5c71eb0737ff2094b8f62aed6cbfb744, type: 2}
   _skillStrengthIcon: {fileID: 21300000, guid: db99d1c0bc4b3064aaabf8f54ebfdbeb, type: 3}
   _skillAgilityIcon: {fileID: 21300000, guid: 1669a1cfd77a8d74b8fee7ca849dfd51, type: 3}
   _skillIntelligenceIcon: {fileID: 21300000, guid: 1c2b47b2b2c03a644ac02df74ec52154, type: 3}
   _skillPowerIcon: {fileID: 21300000, guid: 6f74e936782f46b4f8f7c7c4106b999b, type: 3}
   _skillWildIcon: {fileID: 21300000, guid: e22de76725773f245b75efe9bd525bed, type: 3}
-  _skillPlacer:
-  - {fileID: 342705914413123916}
-  - {fileID: 6755968363528608979}
-  - {fileID: 3570880782697894347}
-  - {fileID: 7653342998673066817}
-  - {fileID: 1408857905587948487}
+  _skillIconsController: {fileID: 7159659372188828227}
   _template: {fileID: 3817046105590373433}
   _badge: {fileID: 3258109136597727593}
   _costRenderer: {fileID: 7630037929763172543}
@@ -791,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3039760799121645299, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_Name
-      value: SkillPlacer
+      value: SkillIconsController
       objectReference: {fileID: 0}
     - target: {fileID: 3330904999099745325, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_AnchorMax.y
@@ -950,86 +946,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
---- !u!114 &342705914413123916 stripped
+--- !u!114 &7159659372188828227 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3647529948448300973, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6125757909768180898, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
   m_PrefabInstance: {fileID: 3917894314576385761}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
+  m_Script: {fileID: 11500000, guid: 987988d49e611c642b681e4323ddb3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &517977527107081642 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3562085406986158923, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1408857905587948487 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2725360382272806182, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!212 &3513966972043625016 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 476033872354907353, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3570880782697894347 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 563364710026774314, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!212 &5296084123816690366 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 9160410068527027295, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6755968363528608979 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7754404099210037810, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!212 &6787968664436539445 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7524562345970898644, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7653342998673066817 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6658865582097079712, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!212 &7745185961302431922 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6711284318269804115, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
-  m_PrefabInstance: {fileID: 3917894314576385761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8036374215277379603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6474425679116932850, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
@@ -1213,26 +1140,6 @@ PrefabInstance:
       propertyPath: _skillPlacer.Array.size
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
-      propertyPath: _skillPlacer.Array.data[0]
-      value: 
-      objectReference: {fileID: 6787968664436539445}
-    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
-      propertyPath: _skillPlacer.Array.data[1]
-      value: 
-      objectReference: {fileID: 517977527107081642}
-    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
-      propertyPath: _skillPlacer.Array.data[2]
-      value: 
-      objectReference: {fileID: 7745185961302431922}
-    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
-      propertyPath: _skillPlacer.Array.data[3]
-      value: 
-      objectReference: {fileID: 3513966972043625016}
-    - target: {fileID: 187402461799965105, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
-      propertyPath: _skillPlacer.Array.data[4]
-      value: 
-      objectReference: {fileID: 5296084123816690366}
     - target: {fileID: 199786173855726160, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Name
       value: CARD-FRONT

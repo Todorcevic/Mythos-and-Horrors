@@ -1,8 +1,5 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -15,13 +12,14 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private FactionDeckSO _brave;
         [SerializeField, Required, AssetsOnly] private FactionDeckSO _scholarly;
         [SerializeField, Required, AssetsOnly] private FactionDeckSO _esoteric;
+        [SerializeField, Required, AssetsOnly] private FactionDeckSO _neutral;
 
         [SerializeField, Required, AssetsOnly] private Sprite _skillStrengthIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillAgilityIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillIntelligenceIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillPowerIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<SkillIconView> _skillPlacer;
+        [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
@@ -37,24 +35,14 @@ namespace MythsAndHorrors.GameView
         protected override void SetAll()
         {
             FactionDeckSO currentFaction = SetCurrent(Card.Info.Faction);
-            SetSkillPlacer();
             SetInfo();
-            if (currentFaction == null) return;
+            SetSkillPlacer(currentFaction);
             SetRenderers(currentFaction);
             SetBadget(currentFaction);
             SetSupporterInfo(currentFaction);
         }
 
         /*******************************************************************/
-        private void SetSkillPlacer()
-        {
-            for (int i = 0; i < Card.Info.Wild; i++) GetNextPlacerInactive().SetSkillIcon(_skillWildIcon);
-            for (int i = 0; i < Card.Info.Strength; i++) GetNextPlacerInactive().SetSkillIcon(_skillStrengthIcon);
-            for (int i = 0; i < Card.Info.Agility; i++) GetNextPlacerInactive().SetSkillIcon(_skillAgilityIcon);
-            for (int i = 0; i < Card.Info.Intelligence; i++) GetNextPlacerInactive().SetSkillIcon(_skillIntelligenceIcon);
-            for (int i = 0; i < Card.Info.Power; i++) GetNextPlacerInactive().SetSkillIcon(_skillPowerIcon);
-        }
-
         private void SetInfo()
         {
             _cost.text = Card.Info.Cost.ToString();
@@ -62,11 +50,20 @@ namespace MythsAndHorrors.GameView
             _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
         }
 
+        private void SetSkillPlacer(FactionDeckSO currentFaction)
+        {
+            _skillIconsController.SetSkillIconView(Card.Info.Wild ?? 0, _skillWildIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Strength ?? 0, _skillStrengthIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Agility ?? 0, _skillAgilityIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Intelligence ?? 0, _skillIntelligenceIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Power ?? 0, _skillPowerIcon, currentFaction._skillHolder);
+        }
+
+
         private void SetRenderers(FactionDeckSO currentFaction)
         {
             _template.sprite = currentFaction._templateDeckFront;
             _costRenderer.sprite = currentFaction._cost;
-            _skillPlacer.ForEach(spriteRenderer => spriteRenderer.SetHolder(currentFaction._skillHolder));
         }
 
         private void SetSupporterInfo(FactionDeckSO currentFaction)
@@ -91,11 +88,8 @@ namespace MythsAndHorrors.GameView
                 Faction.Brave => _brave,
                 Faction.Esoteric => _esoteric,
                 Faction.Scholarly => _scholarly,
-                _ => null,
+                _ => _neutral,
             };
         }
-
-        private SkillIconView GetNextPlacerInactive() => _skillPlacer.FirstOrDefault(x => x.IsInactive)
-            ?? throw new NullReferenceException($"No more skill icons available for {Card.Info.Code}");
     }
 }

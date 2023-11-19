@@ -16,16 +16,19 @@ namespace MythsAndHorrors.GameView.Tests
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
-                        CardType = CardType.Supply,
+                        CardType = CardType.Condition,
                         Code = "00001",
                         Name = "Adventurer1",
-                        Faction = Faction.Cunning,
+                        Faction = Faction.Neutral,
                         Health= 10,
                         Sanity=6,
                         Strength=2,
                         Agility=3,
                         Intelligence=0,
-                        Power=0
+                        Power=0,
+                        EnemyDamage=1,
+                        EnemyFear=2,
+                        Cost=5
                     }
                });
 

@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly GameStateService _gameStateService;
         [Inject] private readonly CardProvider _cardProvider;
         [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
-        [Inject] private readonly CardsViewManager _cardsViewManager;
+        [Inject] private readonly CardsViewsManager _cardsViewManager;
 
         /*******************************************************************/
         public void Execute()

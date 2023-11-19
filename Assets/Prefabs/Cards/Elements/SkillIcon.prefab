@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f74e936782f46b4f8f7c7c4106b999b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8885386548299814570}
   - component: {fileID: 1424811839935199263}
   m_Layer: 3
-  m_Name: Skill
+  m_Name: SkillIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48d9221ebd05a54dbf0187b34d8d02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillPlacer: {fileID: 8885386548299814570}
+  _skillHolder: {fileID: 8885386548299814570}
   _skillIcon: {fileID: 7187347796181567157}
 --- !u!212 &8885386548299814570
 SpriteRenderer:

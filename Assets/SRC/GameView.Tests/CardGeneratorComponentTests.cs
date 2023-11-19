@@ -80,7 +80,7 @@ namespace MythsAndHorrors.GameView.Tests
             SpriteRenderer template = result.GetPrivateMember<SpriteRenderer>("_template");
             SpriteRenderer badge = result.GetPrivateMember<SpriteRenderer>("_badge");
             SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
-            List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
+            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             FactionDeckSO factionElementsExpected = result.GetPrivateMember<FactionDeckSO>("_brave");
 
             Assert.That(result.Card, Is.EqualTo(card));
@@ -89,7 +89,7 @@ namespace MythsAndHorrors.GameView.Tests
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo("DescriptionTest1"));
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo("4"));
             Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
-            Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(4));
+            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(4));
             Assert.That(template.sprite == factionElementsExpected._templateDeckFront, $"was of: {factionElementsExpected._templateDeckFront}");
             Assert.That(badge.sprite == factionElementsExpected._badget, $"was of: {factionElementsExpected._badget}");
 
@@ -122,7 +122,7 @@ namespace MythsAndHorrors.GameView.Tests
             SpriteRenderer template = result.GetPrivateMember<SpriteRenderer>("_template");
             SpriteRenderer badge = result.GetPrivateMember<SpriteRenderer>("_badge");
             SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
-            List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
+            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             FactionDeckSO factionElementsExpected = result.GetPrivateMember<FactionDeckSO>("_esoteric");
 
             Assert.That(result.Card, Is.EqualTo(card));
@@ -133,7 +133,7 @@ namespace MythsAndHorrors.GameView.Tests
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo("10"));
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo("6"));
             Assert.That(healthRenderer.gameObject.activeInHierarchy);
-            Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(4));
+            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(4));
             Assert.That(template.sprite == factionElementsExpected._templateDeckFront, $"was of: {factionElementsExpected._templateDeckFront}");
             Assert.That(badge.sprite == factionElementsExpected._badget, $"was of: {factionElementsExpected._badget}");
 
@@ -193,7 +193,7 @@ namespace MythsAndHorrors.GameView.Tests
             _sut.BuildCard(card);
 
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
-            List<SkillIconView> skillPlacer = result.GetPrivateMember<List<SkillIconView>>("_skillPlacer");
+            SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is CreatureCardView);
@@ -202,7 +202,7 @@ namespace MythsAndHorrors.GameView.Tests
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo("6"));
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo("2"));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo("3"));
-            Assert.That(skillPlacer.FindAll(skillIconView => !skillIconView.IsInactive).Count, Is.EqualTo(3));
+            Assert.That(skillPlacer.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(3));
 
             yield return null;
         }

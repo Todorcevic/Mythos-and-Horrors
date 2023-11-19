@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardsViewManager
+    public class CardsViewsManager
     {
         private List<CardView> _allCardsView;
 
