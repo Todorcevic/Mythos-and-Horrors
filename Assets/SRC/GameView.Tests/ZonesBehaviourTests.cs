@@ -24,12 +24,12 @@ namespace MythsAndHorrors.GameView.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Basic()
         {
-            ZoneView sut = _zonesManager.Get("AdventurerZone");
+            ZoneView sut = _zonesManager.Get("HandZone");
             CardView _doc = _cardBuilder.BuildOne();
 
             yield return sut.MoveCard(_doc).WaitForCompletion();
 
-            yield return PressAnyKey();
+            yield return new WaitForSeconds(250);
 
             Assert.That(_doc.transform.parent, Is.EqualTo(sut.transform));
         }
