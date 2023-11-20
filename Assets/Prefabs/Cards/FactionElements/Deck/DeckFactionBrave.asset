@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a6e785c09cac40ae3ff07d43d89ff, type: 3}
   m_Name: DeckFactionBrave
   m_EditorClassIdentifier: 
-  _templateDeckFront: {fileID: 21300000, guid: 900c48b213577ba4ab0da99f96d4bb17, type: 3}
+  _templateDeckFront: {fileID: 21300000, guid: 16de59c0d3ac88147a9fd8944246b0cc, type: 3}
   _badget: {fileID: 21300000, guid: a8d37f88de984d54d9a8771f37cf0bf4, type: 3}
-  _cost: {fileID: 21300000, guid: 67f6d12cff31e434385b1194e6e7e1ba, type: 3}
-  _supporter: {fileID: 21300000, guid: f6f551f7da7ab8e4292692d2ff9ba7dc, type: 3}
-  _skillHolder: {fileID: 21300000, guid: 67f6d12cff31e434385b1194e6e7e1ba, type: 3}
+  _titleHolder: {fileID: 21300000, guid: 347d5b1c9b8b4dd4fa07be4d5396bf4f, type: 3}
+  _skillHolder: {fileID: 21300000, guid: f6f551f7da7ab8e4292692d2ff9ba7dc, type: 3}

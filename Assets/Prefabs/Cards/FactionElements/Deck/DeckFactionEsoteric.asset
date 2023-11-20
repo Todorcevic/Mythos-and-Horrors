@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a6e785c09cac40ae3ff07d43d89ff, type: 3}
   m_Name: DeckFactionEsoteric
   m_EditorClassIdentifier: 
-  _templateDeckFront: {fileID: 21300000, guid: 4b309efd3b611f44f87b65feeacb1059, type: 3}
+  _templateDeckFront: {fileID: 21300000, guid: 0d485d34b188eaa4ea21987e511df899, type: 3}
   _badget: {fileID: 21300000, guid: 8109d2ec41d14224b837462e2f971c3e, type: 3}
-  _cost: {fileID: 21300000, guid: 35941352a95d53149b6d76c33ab84cca, type: 3}
-  _supporter: {fileID: 21300000, guid: 0163bdb7e29050b4b9b49ddc1f2c85e4, type: 3}
-  _skillHolder: {fileID: 21300000, guid: 35941352a95d53149b6d76c33ab84cca, type: 3}
+  _titleHolder: {fileID: 21300000, guid: f7b32dea5b5f0b74495d31c2693c4081, type: 3}
+  _skillHolder: {fileID: 21300000, guid: 0163bdb7e29050b4b9b49ddc1f2c85e4, type: 3}

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797a6e785c09cac40ae3ff07d43d89ff, type: 3}
   m_Name: DeckFactionNeutral
   m_EditorClassIdentifier: 
-  _templateDeckFront: {fileID: 21300000, guid: 7818ec8680106e04b8a3b4232b75ab2b, type: 3}
+  _templateDeckFront: {fileID: 21300000, guid: 3d8d26ab4bd60d842a36a68654bb8584, type: 3}
   _badget: {fileID: 0}
-  _cost: {fileID: 21300000, guid: f905f559390eb384896eff8145c48c17, type: 3}
-  _supporter: {fileID: 21300000, guid: 7190fd6fe0e48bb46a471d0d89c8a70c, type: 3}
-  _skillHolder: {fileID: 21300000, guid: f905f559390eb384896eff8145c48c17, type: 3}
+  _titleHolder: {fileID: 21300000, guid: db35fcd9b579d884f8c41e5b8090372a, type: 3}
+  _skillHolder: {fileID: 21300000, guid: 7190fd6fe0e48bb46a471d0d89c8a70c, type: 3}

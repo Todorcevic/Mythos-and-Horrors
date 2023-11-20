@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
 
@@ -63,14 +63,13 @@ namespace MythsAndHorrors.GameView
         private void SetRenderers(FactionDeckSO currentFaction)
         {
             _template.sprite = currentFaction._templateDeckFront;
-            _costRenderer.sprite = currentFaction._cost;
+            _titleHolder.sprite = currentFaction._titleHolder;
         }
 
         private void SetSupporterInfo(FactionDeckSO currentFaction)
         {
             _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
             _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
-            _healthRenderer.sprite = _sanityRenderer.sprite = currentFaction._supporter;
         }
 
         private void SetBadget(FactionDeckSO currentFaction)
