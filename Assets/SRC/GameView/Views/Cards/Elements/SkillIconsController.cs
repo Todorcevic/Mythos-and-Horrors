@@ -5,6 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class SkillIconsController : MonoBehaviour
     {
+        private int totalIcons;
         [SerializeField, Required, AssetsOnly] private SkillIconView _skillIconPrefab;
 
         /*******************************************************************/
@@ -13,7 +14,8 @@ namespace MythsAndHorrors.GameView
             for (int i = 0; i < amount; i++)
             {
                 _skillIconPrefab.SetSkillIcon(icon, holder);
-                Instantiate(_skillIconPrefab, transform);
+                SkillIconView skillIconInstantiate = Instantiate(_skillIconPrefab, transform);
+                skillIconInstantiate.transform.localPosition += new Vector3(0, 0, totalIcons++ * -0.001f);
             }
         }
     }

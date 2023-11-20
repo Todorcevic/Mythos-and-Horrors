@@ -15,4 +15,4 @@ MonoBehaviour:
   _templateDeckFront: {fileID: 21300000, guid: 16de59c0d3ac88147a9fd8944246b0cc, type: 3}
   _badget: {fileID: 21300000, guid: a8d37f88de984d54d9a8771f37cf0bf4, type: 3}
   _titleHolder: {fileID: 21300000, guid: 347d5b1c9b8b4dd4fa07be4d5396bf4f, type: 3}
-  _skillHolder: {fileID: 21300000, guid: f6f551f7da7ab8e4292692d2ff9ba7dc, type: 3}
+  _skillHolder: {fileID: 21300000, guid: 845010252aacfab40aa0156a262bb4bd, type: 3}
