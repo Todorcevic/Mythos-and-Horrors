@@ -1,5 +1,4 @@
 using System.Collections;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -20,19 +19,12 @@ namespace Zenject
         public IEnumerator LoadScene(string sceneName)
         {
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
-
             _hasLoadedScene = true;
             ZenjectTestUtil.DestroyEverythingExceptTestRunner(false);
-
             Assert.That(Application.CanStreamedLevelBeLoaded(sceneName),
                 $"Cannot load scene {sceneName} for test {GetType()}. The scenes used by SceneTestFixture derived classes must be added to the build settings for the test to work");
-
-            Log.Info($"Loading scene {sceneName} for testing");
-
             yield return RealLoadScene(sceneName);
-
             Assert.That(ProjectContext.HasInstance, $"{sceneName} has not ProjectContext");
-
             Scene scene = SceneManager.GetSceneByName(sceneName);
             SceneContainer = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
                 .TryGetSceneContextForScene(scene).Container;
