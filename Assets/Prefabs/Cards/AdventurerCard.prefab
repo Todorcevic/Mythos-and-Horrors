@@ -170,12 +170,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5386744458594796054, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2cd9ff147be2ab04aa3176eb82d99593, type: 3}
+      objectReference: {fileID: 21300000, guid: dae06262f66da4946bae4b5204cf0917, type: 3}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Sanity
@@ -416,16 +416,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_text
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5386744458594796054, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7ae6a87eebff3654cb25d910c9e82c64, type: 3}
+      objectReference: {fileID: 21300000, guid: 0ec0f8b4d088178438ce3c8db4d3f6a9, type: 3}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Health

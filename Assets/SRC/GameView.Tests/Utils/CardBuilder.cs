@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView.Tests
                         CardType = CardType.Talent,
                         Code = "00001",
                         Name = "Adventurer1",
-                        Faction = Faction.Neutral,
+                        Faction = Faction.Brave,
                         Health= 10,
                         Sanity=6,
                         Strength=2,

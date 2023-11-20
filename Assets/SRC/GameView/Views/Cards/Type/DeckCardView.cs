@@ -38,11 +38,20 @@ namespace MythsAndHorrors.GameView
             SetInfo();
             SetSkillPlacer(currentFaction);
             SetRenderers(currentFaction);
-            SetBadget(currentFaction);
             SetSupporterInfo(currentFaction);
         }
 
         /*******************************************************************/
+        private FactionDeckSO SetCurrent(Faction faction) => faction switch
+        {
+            Faction.Cunning => _cunning,
+            Faction.Versatile => _versatile,
+            Faction.Brave => _brave,
+            Faction.Esoteric => _esoteric,
+            Faction.Scholarly => _scholarly,
+            _ => _neutral,
+        };
+
         private void SetInfo()
         {
             _cost.text = Card.Info.Cost.ToString();
@@ -64,31 +73,13 @@ namespace MythsAndHorrors.GameView
         {
             _template.sprite = currentFaction._templateDeckFront;
             _titleHolder.sprite = currentFaction._titleHolder;
+            _badge.sprite = currentFaction._badget;
         }
 
         private void SetSupporterInfo(FactionDeckSO currentFaction)
         {
             _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
             _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
-        }
-
-        private void SetBadget(FactionDeckSO currentFaction)
-        {
-            _badge.gameObject.SetActive(true);
-            _badge.sprite = currentFaction._badget;
-        }
-
-        private FactionDeckSO SetCurrent(Faction faction)
-        {
-            return faction switch
-            {
-                Faction.Cunning => _cunning,
-                Faction.Versatile => _versatile,
-                Faction.Brave => _brave,
-                Faction.Esoteric => _esoteric,
-                Faction.Scholarly => _scholarly,
-                _ => _neutral,
-            };
         }
     }
 }
