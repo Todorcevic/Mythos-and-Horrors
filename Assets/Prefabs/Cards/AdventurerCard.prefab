@@ -97,6 +97,7 @@ MonoBehaviour:
   _brave: {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
   _scholarly: {fileID: 11400000, guid: e1497b2ce29724e48a7970cd1f218b9d, type: 2}
   _esoteric: {fileID: 11400000, guid: ee47a825142a3494bb0bd325c20ba818, type: 2}
+  _neutral: {fileID: 11400000, guid: 433219325718ddc478a3822ea578456c, type: 2}
   _template: {fileID: 831519419743701577}
   _badge: {fileID: 1316697384183770905}
   _healthRenderer: {fileID: 8651158868675804656}

@@ -9,11 +9,14 @@ namespace MythsAndHorrors.GameView
 {
     public class AdventurerCardView : CardView
     {
+        private const bool WITH_FACTION_HEALTH_RENDERER = false;
+
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _versatile;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _cunning;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _brave;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _scholarly;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _esoteric;
+        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _neutral;
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
@@ -41,9 +44,14 @@ namespace MythsAndHorrors.GameView
             FactionAdventurerSO currentFaction = SetCurrent(Card.Info.Faction);
             _template.sprite = currentFaction._templateFront;
             _badge.sprite = currentFaction._badget;
-            _healthRenderer.sprite = currentFaction._health;
-            _sanityRenderer.sprite = currentFaction._sanity;
             _statsRenderer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
+            if (WITH_FACTION_HEALTH_RENDERER)
+            {
+#pragma warning disable CS0162 // Used to see the health and sanity in the faction color
+                _healthRenderer.sprite = currentFaction._health;
+                _sanityRenderer.sprite = currentFaction._sanity;
+#pragma warning restore CS0162 // Unreachable code detected
+            }
         }
 
         private FactionAdventurerSO SetCurrent(Faction faction)
@@ -55,7 +63,7 @@ namespace MythsAndHorrors.GameView
                 Faction.Brave => _brave,
                 Faction.Esoteric => _esoteric,
                 Faction.Scholarly => _scholarly,
-                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, Card.Info.Code)
+                _ => _neutral
             };
         }
 

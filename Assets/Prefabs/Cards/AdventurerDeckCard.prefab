@@ -458,12 +458,14 @@ PrefabInstance:
       objectReference: {fileID: -9153979637037764407, guid: 98444adc1b906ac499e033b3f0442f4b, type: 2}
     - target: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
       propertyPath: m_text
-      value: 'Hola amiguito como estas, Yo estoy bien y tu, yo estoy bien y tu, dasd
-        asd asd ad asd as das '
+      value: " Despu\xE9s de que se coloquen 1 o m\xE1s puntos de horror sobre Agnes
+        Baker: Inflige 1 punto de da\xF1o a un Enemigo que est\xE9 en tu Lugar. L\xEDmite
+        de una vez por fase.\r\n\rEfecto : +1 por cada punto de horror que haya sobre
+        Agnes Baker."
       objectReference: {fileID: 0}
     - target: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
       propertyPath: m_fontSize
-      value: 5.05
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
       propertyPath: m_fontAsset
