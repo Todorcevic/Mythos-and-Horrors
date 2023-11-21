@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneCardView : ZoneView
     {
-        [SerializeField, Required] protected CardView _ownerCardView;
+        [SerializeField, Required] private CardView _ownerCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
         /*******************************************************************/

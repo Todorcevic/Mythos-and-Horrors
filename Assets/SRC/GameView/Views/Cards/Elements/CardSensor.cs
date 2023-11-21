@@ -8,7 +8,6 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] private CardView _cardView;
         private IZoneBehaviour _currentZoneBahaviour;
-        private Tween _currentAnimation;
 
         /*******************************************************************/
         public void SetZoneBahaviour(IZoneBehaviour zoneBahaviour)
@@ -19,14 +18,13 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            _currentAnimation?.Kill();
-            _currentAnimation = _currentZoneBahaviour.MouseEnter(_cardView);
+            DOTween.KillAll();
+            _currentZoneBahaviour.MouseEnter(_cardView);
         }
 
         public void OnMouseExit()
         {
-            _currentAnimation?.Kill();
-            _currentAnimation = _currentZoneBahaviour.MouseExit(_cardView);
+            _currentZoneBahaviour.MouseExit(_cardView);
         }
 
         public void OnMouseDrag()

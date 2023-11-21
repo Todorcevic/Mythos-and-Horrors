@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -67,7 +68,6 @@ namespace MythsAndHorrors.GameView
             _skillIconsController.SetSkillIconView(Card.Info.Intelligence ?? 0, _skillIntelligenceIcon, currentFaction._skillHolder);
             _skillIconsController.SetSkillIconView(Card.Info.Power ?? 0, _skillPowerIcon, currentFaction._skillHolder);
         }
-
 
         private void SetRenderers(FactionDeckSO currentFaction)
         {

@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
     public class FactionDeckSO : ScriptableObject
     {
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _templateDeckFront;
-        [SerializeField, ChildGameObjectsOnly] public Sprite _badget;
+        [SerializeField, Required, ChildGameObjectsOnly] public Sprite _badget;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _titleHolder;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _skillHolder;
     }

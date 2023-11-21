@@ -1,6 +1,5 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,8 +8,6 @@ namespace MythsAndHorrors.GameView
 {
     public class AdventurerCardView : CardView
     {
-        private const bool WITH_FACTION_HEALTH_RENDERER = false;
-
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _versatile;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _cunning;
         [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _brave;
@@ -20,8 +17,6 @@ namespace MythsAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _statsRenderer;
 
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
@@ -45,13 +40,6 @@ namespace MythsAndHorrors.GameView
             _template.sprite = currentFaction._templateFront;
             _badge.sprite = currentFaction._badget;
             _statsRenderer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
-            if (WITH_FACTION_HEALTH_RENDERER)
-            {
-#pragma warning disable CS0162 // Used to see the health and sanity in the faction color
-                _healthRenderer.sprite = currentFaction._health;
-                _sanityRenderer.sprite = currentFaction._sanity;
-#pragma warning restore CS0162 // Unreachable code detected
-            }
         }
 
         private FactionAdventurerSO SetCurrent(Faction faction)
