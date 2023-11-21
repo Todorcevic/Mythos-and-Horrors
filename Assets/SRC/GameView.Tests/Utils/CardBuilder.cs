@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView.Tests
         [Inject] private readonly CardGeneratorComponent _cardGenerator;
         [Inject] private readonly DiContainer SceneContainer;
 
-        public CardView BuildOne()
+        public CardView BuildOne(Faction faction = Faction.Brave)
         {
             Card card = SceneContainer.Instantiate<CardAdventurer>(new object[]
                {
@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView.Tests
                         CardType = CardType.Talent,
                         Code = "00001",
                         Name = "Adventurer1",
-                        Faction = Faction.Brave,
+                        Faction = faction,
                         Health= 10,
                         Sanity=6,
                         Strength=2,

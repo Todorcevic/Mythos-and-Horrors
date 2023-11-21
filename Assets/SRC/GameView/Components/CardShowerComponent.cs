@@ -12,17 +12,21 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void ShowCard(CardView cardView)
         {
+            if (cardView.Card.IsFaceDown) return;
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = Instantiate(cardView, transform);
             _currentShowCard.DisableToShow();
-            _currentShowCard.transform.localScale = Vector3.zero;
+            _currentShowCard.transform.localScale
+                = _currentShowCard.transform.localPosition
+                = _currentShowCard.transform.localEulerAngles
+                = Vector3.zero;
             _currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo).SetId(_currentShowCard.transform);
         }
 
         public void HideCard()
         {
             DOTween.Kill(_currentShowCard.transform);
-            Destroy(_currentShowCard.gameObject);
+            Destroy(_currentShowCard != null ? _currentShowCard.gameObject : null);
         }
 
         private Vector3 GetPosition(Transform cardView) =>

@@ -16,6 +16,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
 
+        public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
         public ZoneCardView OwnZone => _zoneCardView;
         public CardSensor CardSensor => _cardSensor;

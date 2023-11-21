@@ -37,8 +37,9 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
+            _cardShowerComponent.ShowCard(cardView);
             currentSequence?.Kill();
-            currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true);
+            currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true).SetEase(Ease.OutCubic);
 
             for (int j = 0; j <= LastIndex; j++)
             {
@@ -50,6 +51,7 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseExit(CardView cardView)
         {
+            _cardShowerComponent.HideCard();
             currentSequence?.Kill();
             currentSequence = transform.DOFullMove(transform.parent).PrependCallback(() => isStandUp = false);
 

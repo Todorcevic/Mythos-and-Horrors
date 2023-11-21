@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace MythsAndHorrors.GameView.Tests
         public IEnumerator Move_Card_In_Zone_Row()
         {
             ZoneView sut = _zonesManager.Get("AidZone");
-            CardView[] _doc = _cardBuilder.BuildManySame(1);
+            CardView[] _doc = _cardBuilder.BuildManySame(5);
 
             foreach (CardView card in _doc)
             {
@@ -130,7 +131,7 @@ namespace MythsAndHorrors.GameView.Tests
         public IEnumerator Move_Card_In_Zone_Card()
         {
             ZoneView docZone = _zonesManager.Get("PlaceZone");
-            CardView oneCard = _cardBuilder.BuildOne();
+            CardView oneCard = _cardBuilder.BuildOne(Faction.Cunning);
             ZoneCardView sut = oneCard.OwnZone;
             CardView[] _doc = _cardBuilder.BuildManySame(4);
 

@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameRules
         public Zone OwnZone { get; private set; }
         public Zone CurrentZone { get; private set; }
         public bool IsScenaryCard => Info.Faction == Faction.Myths;
+        public bool IsFaceDown { get; set; }
 
         /*******************************************************************/
         [Inject]

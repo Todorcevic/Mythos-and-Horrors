@@ -2616,7 +2616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81ce4dbe8371384baf8a3719a6e3415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 963194227}
 --- !u!1 &1836102650
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3129,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneDiscardZone
       objectReference: {fileID: 0}
+    - target: {fileID: 8226431221054468883, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8226431221054468883, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8226431221054468883, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8275630791384509021, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3153,6 +3164,18 @@ PrefabInstance:
     - target: {fileID: 8557288857751452461, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: _cardShowerPosition
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589420696737374686, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589420696737374686, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589420696737374686, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9213200452396287193, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_AnchorMax.y
