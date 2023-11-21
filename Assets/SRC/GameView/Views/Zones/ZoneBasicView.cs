@@ -18,13 +18,11 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            _cardShowerComponent.ShowCard(cardView);
             return cardView.transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
 
         public override Tween MouseExit(CardView cardView)
         {
-            _cardShowerComponent.HideCard();
             return cardView.transform.DOFullMove(_movePosition);
         }
 

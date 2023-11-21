@@ -1,35 +1,32 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardSensor : MonoBehaviour
     {
         [SerializeField, Required] private CardView _cardView;
-        private IZoneBehaviour _currentZoneBahaviour;
-
-        /*******************************************************************/
-        public void SetZoneBahaviour(IZoneBehaviour zoneBahaviour)
-        {
-            _currentZoneBahaviour = zoneBahaviour;
-        }
+        [Inject] private readonly CardShowerComponent _cardShowerComponent;
 
         /*******************************************************************/
         public void OnMouseEnter()
         {
             DOTween.KillAll();
-            _currentZoneBahaviour.MouseEnter(_cardView);
+            _cardShowerComponent.ShowCard(_cardView);
+            _cardView.CurrentZoneView.MouseEnter(_cardView);
         }
 
         public void OnMouseExit()
         {
-            _currentZoneBahaviour.MouseExit(_cardView);
+            _cardShowerComponent.HideCard(_cardView);
+            _cardView.CurrentZoneView.MouseExit(_cardView);
         }
 
         public void OnMouseDrag()
         {
-            _currentZoneBahaviour.MouseDrag(_cardView);
+
         }
     }
 }

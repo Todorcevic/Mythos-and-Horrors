@@ -1,14 +1,11 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public abstract class ZoneView : MonoBehaviour, IZoneBehaviour
+    public abstract class ZoneView : MonoBehaviour
     {
-        [Inject] protected readonly CardShowerComponent _cardShowerComponent;
-
         public Zone Zone { get; private set; }
 
         /*******************************************************************/

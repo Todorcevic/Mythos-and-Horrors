@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
         public ZoneCardView OwnZone => _zoneCardView;
-        public CardSensor CardSensor => _cardSensor;
+        public ZoneView CurrentZoneView { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -40,8 +40,8 @@ namespace MythsAndHorrors.GameView
 
         public void SetCurrentZoneView(ZoneView zoneView)
         {
+            CurrentZoneView = zoneView;
             transform.SetParent(zoneView.transform);
-            if (zoneView is IZoneBehaviour zoneBahaviour) _cardSensor.SetZoneBahaviour(zoneBahaviour);
         }
 
         public void DisableToShow()

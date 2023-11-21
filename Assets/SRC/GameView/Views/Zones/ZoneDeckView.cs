@@ -32,14 +32,12 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            _cardShowerComponent.ShowCard(cardView);
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
             return _allCards.First().transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
 
         public override Tween MouseExit(CardView cardView)
         {
-            _cardShowerComponent.HideCard();
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             return _allCards.First().transform.DOFullMove(_movePosition);

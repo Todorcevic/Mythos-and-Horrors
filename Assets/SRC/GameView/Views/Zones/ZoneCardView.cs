@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -19,15 +20,13 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            _cardShowerComponent.ShowCard(cardView);
-            _ownerCardView.CardSensor.OnMouseEnter();
+            _ownerCardView.CurrentZoneView.MouseEnter(_ownerCardView);
             return DOTween.Sequence();
         }
 
         public override Tween MouseExit(CardView cardView)
         {
-            _cardShowerComponent.HideCard();
-            _ownerCardView.CardSensor.OnMouseExit();
+            _ownerCardView.CurrentZoneView.MouseExit(_ownerCardView);
             return DOTween.Sequence();
         }
     }
