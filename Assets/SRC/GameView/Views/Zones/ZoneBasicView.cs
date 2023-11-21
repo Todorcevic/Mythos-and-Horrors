@@ -6,9 +6,9 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneBasicView : ZoneView
     {
-        [SerializeField, Required] protected Transform _movePosition;
-        [SerializeField, Required] protected Transform _hoverPosition;
-        [SerializeField, Required] protected Transform _showPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _showPosition;
 
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView) => cardView.transform.DOFullMove(_movePosition)
@@ -16,9 +16,17 @@ namespace MythsAndHorrors.GameView
 
         public override Tween RemoveCard(CardView cardView) => DOTween.Sequence();
 
-        public override Tween MouseEnter(CardView cardView) => cardView.transform.DOFullMove(_hoverPosition);
+        public override Tween MouseEnter(CardView cardView)
+        {
+            _cardShowerComponent.ShowCard(cardView);
+            return cardView.transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
+        }
 
-        public override Tween MouseExit(CardView cardView) => cardView.transform.DOFullMove(_movePosition);
+        public override Tween MouseExit(CardView cardView)
+        {
+            _cardShowerComponent.HideCard();
+            return cardView.transform.DOFullMove(_movePosition);
+        }
 
         public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
     }

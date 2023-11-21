@@ -43,6 +43,13 @@ namespace MythsAndHorrors.GameView
             if (zoneView is IZoneBehaviour zoneBahaviour) _cardSensor.SetZoneBahaviour(zoneBahaviour);
         }
 
+        public void DisableToShow()
+        {
+            _cardSensor.gameObject.SetActive(false);
+            _zoneCardView.gameObject.SetActive(false);
+            _glowView.gameObject.SetActive(false);
+        }
+
         protected abstract void SetAll();
 
         private void SetCommonInfo()
