@@ -52,8 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: {fileID: 882146211817772951}
   _description: {fileID: 7557056400142785022}
-  _glowView: {fileID: 548567735121253675}
   _picture: {fileID: 4620689358596745610}
+  _glowView: {fileID: 548567735121253675}
   _cardSensor: {fileID: 4527117688045163353}
   _zoneCardView: {fileID: 4752774323768519537}
   _versatile: {fileID: 11400000, guid: 68639119b24255d4e8d915727eccb133, type: 2}
@@ -1152,7 +1152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6474425679116932850, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6474425679116932850, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1176,7 +1176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6474425679116932850, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.02
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 6474425679116932850, guid: 250c34c1b2c9c2446b9e535ca3a9cc43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

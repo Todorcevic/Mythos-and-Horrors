@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class SkillIconsController : MonoBehaviour
     {
-        private const float Z_OFFSET = -0.001f;
+        private const float Z_OFFSET = -0.0001f;
         [SerializeField, Required, AssetsOnly] private SkillIconView _skillIconPrefab;
         private int totalIcons;
 

@@ -56,7 +56,7 @@ namespace MythsAndHorrors.GameView
         public InvisibleHolder GetInvisibleHolder(CardView cardView) =>
             _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
 
-        public bool HasThisCardView(CardView cardView) => 
+        public bool HasThisCardView(CardView cardView) =>
             _allInvisibleHolders.Any(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
 
     }

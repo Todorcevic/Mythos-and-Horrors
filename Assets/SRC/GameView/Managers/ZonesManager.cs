@@ -14,6 +14,6 @@ namespace MythsAndHorrors.GameView
 
         public ZoneView Get(string zoneName) => _allZones.Find(zoneView => zoneView.Zone.CodeName == zoneName);
 
-        public List<Zone> GetZones() => _allZones.Select(zoneView => zoneView.Zone).ToList();
+        public List<Zone> GetSceneZones() => _allZones.Select(zoneView => zoneView.Zone).ToList();
     }
 }

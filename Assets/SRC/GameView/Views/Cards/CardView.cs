@@ -11,8 +11,8 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
-        [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
+        [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
 

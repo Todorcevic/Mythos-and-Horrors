@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         private Sequence currentSequence;
         private readonly List<CardView> _allCards = new();
 
-        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS * 0.1f;
         private int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/

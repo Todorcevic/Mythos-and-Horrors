@@ -17,10 +17,7 @@ namespace MythsAndHorrors.GameView
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = Instantiate(cardView, transform);
             _currentShowCard.DisableToShow();
-            _currentShowCard.transform.localScale
-                = _currentShowCard.transform.localPosition
-                = _currentShowCard.transform.localEulerAngles
-                = Vector3.zero;
+            _currentShowCard.transform.ResetToZero();
             _currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo).SetId(_currentShowCard.transform);
         }
 

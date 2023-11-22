@@ -28,7 +28,7 @@ namespace MythsAndHorrors.GameView
 
         private void LoadZones()
         {
-            List<Zone> allZones = _zonesManager.GetZones();
+            List<Zone> allZones = _zonesManager.GetSceneZones();
             _zoneProvider.SetZones(allZones);
         }
 
