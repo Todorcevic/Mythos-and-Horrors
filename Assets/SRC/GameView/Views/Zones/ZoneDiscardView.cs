@@ -23,8 +23,8 @@ namespace MythsAndHorrors.GameView
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            return cardView.transform.DOFullMove(_movePosition)
-                .OnComplete(() => cardView.SetCurrentZoneView(this));
+            cardView.SetCurrentZoneView(this);
+            return cardView.transform.DOFullMove(_movePosition);
         }
 
         public override Tween RemoveCard(CardView cardView)

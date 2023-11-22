@@ -20,16 +20,29 @@ namespace MythsAndHorrors.GameView
         public Tween AddCardView(CardView cardView)
         {
             GetFreeHolder().SetCardView(cardView);
-            return Repositionate(cardView);
+            return LocalRepositionate(cardView);
         }
 
         public Tween RemoveCardView(CardView cardView) //Check if launch exception
         {
             GetInvisibleHolder(cardView).Clear();
-            return Repositionate(cardView);
+            return LocalRepositionate(cardView);
         }
 
-        public Tween Repositionate(CardView _selectedCardView)
+        //public Tween Repositionate(CardView _selectedCardView)
+        //{
+        //    int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
+        //    LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
+        //    Sequence repositionSequence = DOTween.Sequence();
+        //    for (int i = 0; i < AmountOfCards; i++)
+        //    {
+        //        float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * Y_OFF_SET;
+        //        repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
+        //    }
+        //    return repositionSequence;
+        //}
+
+        public Tween LocalRepositionate(CardView _selectedCardView)
         {
             int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
@@ -37,7 +50,7 @@ namespace MythsAndHorrors.GameView
             for (int i = 0; i < AmountOfCards; i++)
             {
                 float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * Y_OFF_SET;
-                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
+                repositionSequence.Join(AllActivesInvisibleHolders[i].LocalRepositionate(realYOffSet));
             }
             return repositionSequence;
         }

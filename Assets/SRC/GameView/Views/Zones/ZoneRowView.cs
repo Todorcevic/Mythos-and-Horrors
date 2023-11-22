@@ -10,8 +10,11 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
 
         /*******************************************************************/
-        public override Tween MoveCard(CardView cardView) => _invisibleHolderView.AddCardView(cardView)
-              .OnComplete(() => cardView.SetCurrentZoneView(this));
+        public override Tween MoveCard(CardView cardView)
+        {
+            cardView.SetCurrentZoneView(this);
+            return _invisibleHolderView.AddCardView(cardView);
+        }
 
         public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
 
@@ -21,7 +24,7 @@ namespace MythsAndHorrors.GameView
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
             if (_invisibleHolderView.AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 1.5f);
-            _invisibleHolderView.Repositionate(cardView);
+            _invisibleHolderView.LocalRepositionate(cardView);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, invisibleHolder.transform.localPosition.z);
             return cardView.transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
@@ -30,7 +33,7 @@ namespace MythsAndHorrors.GameView
         {
             InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
             invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
-            return _invisibleHolderView.Repositionate(cardView);
+            return _invisibleHolderView.LocalRepositionate(cardView);
         }
     }
 }
