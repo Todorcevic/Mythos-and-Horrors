@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InvisibleHolderView : MonoBehaviour
+    public class InvisibleHolderController : MonoBehaviour
     {
         private const float Y_OFF_SET = ViewValues.CARD_THICKNESS * 0.1f;
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
@@ -20,29 +20,31 @@ namespace MythsAndHorrors.GameView
         public Tween AddCardView(CardView cardView)
         {
             GetFreeHolder().SetCardView(cardView);
-            return LocalRepositionate(cardView);
+            return Repositionate(cardView);
         }
 
         public Tween RemoveCardView(CardView cardView) //Check if launch exception
         {
             GetInvisibleHolder(cardView).Clear();
-            return LocalRepositionate(cardView);
+            return Repositionate(cardView);
         }
 
-        //public Tween Repositionate(CardView _selectedCardView)
-        //{
-        //    int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
-        //    LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
-        //    Sequence repositionSequence = DOTween.Sequence();
-        //    for (int i = 0; i < AmountOfCards; i++)
-        //    {
-        //        float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * Y_OFF_SET;
-        //        repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
-        //    }
-        //    return repositionSequence;
-        //}
+        public Transform SetLayout(CardView cardView, float layoutAmount)
+        {
+            InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
+            if (AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * layoutAmount);
+            Repositionate(cardView);
+            return invisibleHolder.transform;
+        }
 
-        public Tween LocalRepositionate(CardView _selectedCardView)
+        public Tween ResetLayout(CardView cardView)
+        {
+            InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
+            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
+            return Repositionate(cardView);
+        }
+
+        private Tween Repositionate(CardView _selectedCardView)
         {
             int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
@@ -50,7 +52,7 @@ namespace MythsAndHorrors.GameView
             for (int i = 0; i < AmountOfCards; i++)
             {
                 float realYOffSet = (AmountOfCards + (i <= SelectedCardPosition ? i : -i)) * Y_OFF_SET;
-                repositionSequence.Join(AllActivesInvisibleHolders[i].LocalRepositionate(realYOffSet));
+                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
             }
             return repositionSequence;
         }
@@ -66,11 +68,7 @@ namespace MythsAndHorrors.GameView
             return invisibleHolder;
         }
 
-        public InvisibleHolder GetInvisibleHolder(CardView cardView) =>
+        private InvisibleHolder GetInvisibleHolder(CardView cardView) =>
             _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
-
-        public bool HasThisCardView(CardView cardView) =>
-            _allInvisibleHolders.Any(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
-
     }
 }

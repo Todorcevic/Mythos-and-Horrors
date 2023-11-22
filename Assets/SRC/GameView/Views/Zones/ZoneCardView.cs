@@ -6,30 +6,33 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneCardView : ZoneView
     {
-        [SerializeField, Required] private CardView _ownerCardView;
-        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
+        [SerializeField] private CardView _ownerCardView;
+        [SerializeField, Required] protected Transform _hoverPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderController _invisibleHolderController;
 
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)
         {
             cardView.SetCurrentZoneView(this);
-            return _invisibleHolderView.AddCardView(cardView);
+            return _invisibleHolderController.AddCardView(cardView);
         }
 
-        public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
+        public override Tween RemoveCard(CardView cardView) => _invisibleHolderController.RemoveCardView(cardView);
 
         public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
 
         public override Tween MouseEnter(CardView cardView)
         {
-            _invisibleHolderView.LocalRepositionate(cardView);
+            Transform invisibleHolder = _invisibleHolderController.SetLayout(cardView, layoutAmount: 1.5f);
+            _hoverPosition.localPosition = new Vector3(invisibleHolder.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
+            cardView.transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
             return _ownerCardView.CurrentZoneView.MouseEnter(_ownerCardView);
         }
 
         public override Tween MouseExit(CardView cardView)
         {
-            _invisibleHolderView.LocalRepositionate(cardView);
+            _invisibleHolderController.ResetLayout(cardView);
             return _ownerCardView.CurrentZoneView.MouseExit(_ownerCardView);
         }
     }

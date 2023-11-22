@@ -6,34 +6,27 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneHandView : ZoneView
     {
-        [SerializeField, Required] protected Transform _hoverPosition;
-        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderView _invisibleHolderView;
+        [SerializeField, Required, ChildGameObjectsOnly] private Transform _hoverPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderController _invisibleHolderController;
 
         /*******************************************************************/
         public override Tween MoveCard(CardView cardView)
         {
             cardView.SetCurrentZoneView(this);
-            return _invisibleHolderView.AddCardView(cardView);
+            return _invisibleHolderController.AddCardView(cardView);
         }
 
-        public override Tween RemoveCard(CardView cardView) => _invisibleHolderView.RemoveCardView(cardView);
+        public override Tween RemoveCard(CardView cardView) => _invisibleHolderController.RemoveCardView(cardView);
 
         public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
         public override Tween MouseEnter(CardView cardView)
         {
-            InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
-            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * 2);
-            _invisibleHolderView.LocalRepositionate(cardView);
-            _hoverPosition.localPosition = new Vector3(invisibleHolder.transform.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
+            Transform invisibleHolder = _invisibleHolderController.SetLayout(cardView, layoutAmount: 2f);
+            _hoverPosition.localPosition = new Vector3(invisibleHolder.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
             return cardView.transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
 
-        public override Tween MouseExit(CardView cardView)
-        {
-            InvisibleHolder invisibleHolder = _invisibleHolderView.GetInvisibleHolder(cardView);
-            invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
-            return _invisibleHolderView.LocalRepositionate(cardView);
-        }
+        public override Tween MouseExit(CardView cardView) => _invisibleHolderController.ResetLayout(cardView);
     }
 }
