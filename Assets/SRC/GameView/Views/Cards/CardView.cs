@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
@@ -15,6 +16,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
+        [SerializeField, Required, ChildGameObjectsOnly] private Transform _rotator;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
@@ -49,6 +51,11 @@ namespace MythsAndHorrors.GameView
             _cardSensor.gameObject.SetActive(false);
             _zoneCardView.gameObject.SetActive(false);
             _glowView.gameObject.SetActive(false);
+        }
+
+        public Tween TurnDown(float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
+        {
+            return _rotator.DORotate(new Vector3(0, 180, 0), timeAnimation).SetEase(Ease.InOutExpo);
         }
 
         protected abstract void SetAll();

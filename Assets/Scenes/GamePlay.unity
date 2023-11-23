@@ -485,13 +485,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e95f5592f703245b399d1c8877e571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _adventurerPrefab: {fileID: 2863734919224615659, guid: 81d22e8b9e4512340a503049ed135732, type: 3}
-  _adventurerDeckPrefab: {fileID: 6302480944714940018, guid: 3789eb8fff6d9274f856823ffe1536c8, type: 3}
-  _adversityPrefab: {fileID: 2319104691519923953, guid: 9f275c026a8fc074aa220ae921dd588a, type: 3}
-  _creaturePrefab: {fileID: 4144840173979616397, guid: 97abd6418887ed24697cce8a71f150e2, type: 3}
-  _placePrefab: {fileID: 8154357446181133524, guid: d0e561d204908fb4f852cd2bcfa3ffa8, type: 3}
-  _plotPrefab: {fileID: 4441213523134213632, guid: 446d9dfce7dbe7d4791790906a3c7d2c, type: 3}
-  _goalPrefab: {fileID: 8066619439405503389, guid: 8b2dc59a450024345b7c77dfd592ab31, type: 3}
+  _adventurerPrefab: {fileID: 6955359369586135600, guid: d0eba7806a1c0584d9e57f29956828f2, type: 3}
+  _adventurerDeckPrefab: {fileID: 1562043755092353539, guid: 45579ea747957444cad110e1ef594634, type: 3}
+  _adversityPrefab: {fileID: 495137673480264443, guid: 20460839615457542a1ab1dea1c99242, type: 3}
+  _creaturePrefab: {fileID: 8811269189814881902, guid: 3b6a1f370d29fff43a461b090742e99c, type: 3}
+  _placePrefab: {fileID: 3389488844118557959, guid: 752fd52db2c20464bbb397778fac086c, type: 3}
+  _plotPrefab: {fileID: 6152357295490081171, guid: 56917f8d4144eab40b707d70c4fa71d3, type: 3}
+  _goalPrefab: {fileID: 1814247740993376737, guid: 42fc4388623fe654394161e52a1db726, type: 3}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0

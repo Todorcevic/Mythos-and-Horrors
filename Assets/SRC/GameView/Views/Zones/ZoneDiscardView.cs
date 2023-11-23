@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameView
         public override Tween MouseEnter(CardView cardView)
         {
             currentSequence?.Kill();
-            currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true).SetEase(Ease.OutCubic);
+            currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true);
 
             int selectedIndex = _allCards.IndexOf(cardView);
             for (int j = 0; j <= LastIndex; j++)
@@ -48,7 +48,7 @@ namespace MythsAndHorrors.GameView
             }
 
             currentSequence.Join(cardView.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalMoveZ(1, ViewValues.FAST_TIME_ANIMATION));
+                .Join(cardView.transform.DOLocalMoveZ(1, ViewValues.FAST_TIME_ANIMATION)).SetEase(Ease.OutCubic);
             return currentSequence;
         }
 

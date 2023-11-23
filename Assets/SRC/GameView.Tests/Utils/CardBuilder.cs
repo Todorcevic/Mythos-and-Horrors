@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameView.Tests
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
-                        CardType = CardType.Talent,
+                        CardType = CardType.Adventurer,
                         Code = "00001",
                         Name = "Adventurer1",
                         Faction = faction,

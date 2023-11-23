@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6406183940968188120}
   - component: {fileID: 8366751281457376537}
   m_Layer: 0
-  m_Name: InvisibleHolder
+  m_Name: InvisibleHolderController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

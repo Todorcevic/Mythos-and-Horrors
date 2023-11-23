@@ -117,7 +117,7 @@ namespace MythsAndHorrors.GameView.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Discard()
         {
-            ZoneView sut = _zonesManager.Get("SceneDiscardZone");
+            ZoneView sut = _zonesManager.Get("AdventurerDiscardZone");
             CardView[] _doc = _cardBuilder.BuildManySame(33);
 
             foreach (CardView card in _doc)

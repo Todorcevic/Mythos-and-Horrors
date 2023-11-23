@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6807995130014047703, guid: a602466e264630349b6ba020bad8e81a, type: 3}
       propertyPath: m_Name
-      value: InvisibleHolderBottom
+      value: InvisibleHolderController
       objectReference: {fileID: 0}
     - target: {fileID: 7089212460248889528, guid: a602466e264630349b6ba020bad8e81a, type: 3}
       propertyPath: m_Pivot.x

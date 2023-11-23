@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void ShowCard(CardView cardView)
         {
-            if (MustNotShow(cardView)) return;
+            if (MustNotShowFilter(cardView)) return;
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = Instantiate(cardView, transform);
@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
 
         public void HideCard(CardView cardView)
         {
-            if (MustNotShow(cardView)) return;
+            if (MustNotShowFilter(cardView)) return;
 
             DOTween.Kill(_currentShowCard.transform);
             foreach (Transform child in gameObject.transform) Destroy(child.gameObject);
@@ -33,6 +33,11 @@ namespace MythsAndHorrors.GameView
             * (transform.position - Camera.main.transform.position).magnitude
             + Vector3.right * (Camera.main.WorldToViewportPoint(cardTransform.position).x < 0.5f ? X_OFFSET : -X_OFFSET);
 
-        private bool MustNotShow(CardView cardView) => cardView.Card.IsFaceDown || cardView.CurrentZoneView is ZoneHandView;
+        private bool MustNotShowFilter(CardView cardView)
+        {
+            if (cardView.Card.IsFaceDown) return true;
+            if (cardView.CurrentZoneView is ZoneHandView) return true;
+            return false;
+        }
     }
 }
