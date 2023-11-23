@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameView.Tests
                         Sanity=6,
                         Strength=2,
                         Agility=3,
-                        Intelligence=0,
+                        Intelligence=1,
                         Power=0,
                         EnemyDamage=4,
                         EnemyFear=2,

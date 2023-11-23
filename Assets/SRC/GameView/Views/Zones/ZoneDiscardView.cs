@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Codice.Client.BaseCommands;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MythsAndHorrors.GameView
         private Sequence currentSequence;
         private readonly List<CardView> _allCards = new();
 
-        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS * 0.1f;
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
         private int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/
@@ -24,7 +25,7 @@ namespace MythsAndHorrors.GameView
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             cardView.SetCurrentZoneView(this);
-            return cardView.transform.DOFullMove(_movePosition);
+            return cardView.transform.DOFullMove(_movePosition, 0);
         }
 
         public override Tween RemoveCard(CardView cardView)
@@ -40,11 +41,14 @@ namespace MythsAndHorrors.GameView
             currentSequence?.Kill();
             currentSequence = isStandUp ? DOTween.Sequence() : transform.DOFullMove(_hoverPosition).AppendCallback(() => isStandUp = true).SetEase(Ease.OutCubic);
 
+            int selectedIndex = _allCards.IndexOf(cardView);
             for (int j = 0; j <= LastIndex; j++)
             {
-                CardView cardV = _allCards[LastIndex - j];
-                currentSequence.Join(cardV.transform.DOLocalMoveX(OFF_SET_EXPAND_Y * j, ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(_allCards[j].transform.DOLocalMoveX((j <= selectedIndex && LastIndex != selectedIndex) ? OFF_SET_EXPAND_Y * (LastIndex - j) - 2 : OFF_SET_EXPAND_Y * (LastIndex - j), ViewValues.FAST_TIME_ANIMATION));
             }
+
+            currentSequence.Join(cardView.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION))
+                .Join(cardView.transform.DOLocalMoveZ(1, ViewValues.FAST_TIME_ANIMATION));
             return currentSequence;
         }
 
@@ -55,9 +59,10 @@ namespace MythsAndHorrors.GameView
 
             for (int j = 0; j <= LastIndex; j++)
             {
-                CardView cardV = _allCards[LastIndex - j];
-                currentSequence.Join(cardV.transform.DOLocalMoveX(0, ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(_allCards[j].transform.DOLocalMoveX(0, ViewValues.FAST_TIME_ANIMATION));
             }
+            cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION);
+            cardView.transform.DOLocalMoveZ(0, ViewValues.FAST_TIME_ANIMATION);
             return currentSequence;
         }
     }

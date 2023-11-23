@@ -15,14 +15,15 @@ namespace MythsAndHorrors.GameView
         public void OnMouseEnter()
         {
             DOTween.Kill(MOUSE_EXIT);
-            _cardShowerComponent.ShowCard(_cardView);
+
             _cardView.CurrentZoneView.MouseEnter(_cardView);
+            _cardShowerComponent.ShowCard(_cardView);
         }
 
         public void OnMouseExit()
         {
-            _cardShowerComponent.HideCard(_cardView);
             _cardView.CurrentZoneView.MouseExit(_cardView).SetId(MOUSE_EXIT);
+            _cardShowerComponent.HideCard(_cardView);
         }
 
         public void OnMouseDrag()

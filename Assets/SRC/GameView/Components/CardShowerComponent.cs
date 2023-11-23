@@ -5,8 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class CardShowerComponent : MonoBehaviour
     {
-        private const float X_OFFSET = 7f;
-        private const float DISTANCE_FACTOR = 30f;
+        private const float X_OFFSET = 6f;
         private CardView _currentShowCard;
 
         /*******************************************************************/
@@ -29,11 +28,10 @@ namespace MythsAndHorrors.GameView
             foreach (Transform child in gameObject.transform) Destroy(child.gameObject);
         }
 
-        private Vector3 GetPosition(Transform cardView) =>
-            (Camera.main.transform.position + (cardView.position - Camera.main.transform.position).normalized
-            * DISTANCE_FACTOR
-            + Camera.main.transform.right *
-            (Camera.main.WorldToViewportPoint(cardView.position).x < 0.5f ? X_OFFSET : -X_OFFSET));
+        private Vector3 GetPosition(Transform cardTransform) =>
+            (cardTransform.position - Camera.main.transform.position).normalized
+            * (transform.position - Camera.main.transform.position).magnitude
+            + Vector3.right * (Camera.main.WorldToViewportPoint(cardTransform.position).x < 0.5f ? X_OFFSET : -X_OFFSET);
 
         private bool MustNotShow(CardView cardView) => cardView.Card.IsFaceDown || cardView.CurrentZoneView is ZoneHandView;
     }

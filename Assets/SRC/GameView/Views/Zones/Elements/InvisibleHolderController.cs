@@ -44,9 +44,9 @@ namespace MythsAndHorrors.GameView
             return Repositionate(cardView);
         }
 
-        private Tween Repositionate(CardView _selectedCardView)
+        private Tween Repositionate(CardView cardView)
         {
-            int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(_selectedCardView));
+            int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(cardView));
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             Sequence repositionSequence = DOTween.Sequence();
             for (int i = 0; i < AmountOfCards; i++)
