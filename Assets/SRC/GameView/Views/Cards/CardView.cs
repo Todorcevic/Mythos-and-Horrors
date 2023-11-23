@@ -53,10 +53,8 @@ namespace MythsAndHorrors.GameView
             _glowView.gameObject.SetActive(false);
         }
 
-        public Tween TurnDown(float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
-        {
-            return _rotator.DORotate(new Vector3(0, 180, 0), timeAnimation).SetEase(Ease.InOutExpo);
-        }
+        public Tween Rotate(float timeAnimation = ViewValues.FAST_TIME_ANIMATION) =>
+            _rotator.DOLocalRotate(new Vector3(0, Card.IsFaceDown ? 180 : 0, 0), timeAnimation).SetEase(Ease.InOutExpo);
 
         protected abstract void SetAll();
 

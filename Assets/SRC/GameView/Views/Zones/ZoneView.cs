@@ -15,9 +15,9 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public abstract Tween MoveCard(CardView cardView);
+        public abstract Tween EnterCard(CardView cardView, float timeAnimation = ViewValues.FAST_TIME_ANIMATION);
 
-        public abstract Tween RemoveCard(CardView cardView);
+        public abstract Tween ExitCard(CardView cardView, float timeAnimation = ViewValues.FAST_TIME_ANIMATION);
 
         public abstract Tween MouseEnter(CardView cardView);
 

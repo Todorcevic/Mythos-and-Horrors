@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ActivatorCardPresenter : ICardActivator
+    public class CardActivatorPresenter : ICardActivator
     {
         [Inject] private readonly CardsViewsManager _cardsManager;
 

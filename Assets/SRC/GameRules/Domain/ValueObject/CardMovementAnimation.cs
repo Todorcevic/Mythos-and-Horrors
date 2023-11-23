@@ -4,7 +4,7 @@
     {
         Basic,
         BasicWithPreview,
-        Fast,
+        Instant,
         FastWithPreview
     }
 }

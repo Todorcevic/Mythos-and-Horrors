@@ -1,5 +1,4 @@
-﻿using Codice.Client.BaseCommands;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +19,15 @@ namespace MythsAndHorrors.GameView
         private int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/
-        public override Tween MoveCard(CardView cardView)
+        public override Tween EnterCard(CardView cardView, float timeAnimation)
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             cardView.SetCurrentZoneView(this);
-            return cardView.transform.DOFullMove(_movePosition, 0);
+            return cardView.transform.DOFullMove(_movePosition, timeAnimation);
         }
 
-        public override Tween RemoveCard(CardView cardView)
+        public override Tween ExitCard(CardView cardView, float timeAnimation)
         {
             _allCards.Remove(cardView);
             return DOTween.Sequence();

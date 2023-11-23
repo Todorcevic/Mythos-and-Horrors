@@ -380,7 +380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 860334125506983460, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: m_Name
-      value: FrontCameraZone
+      value: SelectorZone
       objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: m_RootOrder

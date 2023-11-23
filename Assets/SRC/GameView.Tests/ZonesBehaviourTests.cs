@@ -28,7 +28,7 @@ namespace MythsAndHorrors.GameView.Tests
             ZoneView sut = _zonesManager.Get("AdventurerZone");
             CardView _doc = _cardBuilder.BuildOne();
 
-            yield return sut.MoveCard(_doc).WaitForCompletion();
+            yield return sut.EnterCard(_doc).WaitForCompletion();
             yield return new WaitForSeconds(230);
 
             Assert.That(_doc.transform.parent, Is.EqualTo(sut.transform));
@@ -42,7 +42,7 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
 
             yield return new WaitForSeconds(230);
@@ -57,7 +57,7 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
 
             yield return new WaitForSeconds(830);
@@ -74,7 +74,7 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
             yield return new WaitForSeconds(230);
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
@@ -89,11 +89,11 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
 
-            yield return _doc2.MoveCard(_doc[0]);
-            yield return sut.RemoveCard(_doc[0]);
+            yield return _doc2.EnterCard(_doc[0]);
+            yield return sut.ExitCard(_doc[0]);
 
             Assert.That(_doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
@@ -106,7 +106,7 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
 
 
@@ -122,7 +122,7 @@ namespace MythsAndHorrors.GameView.Tests
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card).WaitForCompletion();
             }
 
             yield return new WaitForSeconds(230);
@@ -137,11 +137,11 @@ namespace MythsAndHorrors.GameView.Tests
             ZoneCardView sut = oneCard.OwnZone;
             CardView[] _doc = _cardBuilder.BuildManySame(4);
 
-            yield return docZone.MoveCard(oneCard).WaitForCompletion();
+            yield return docZone.EnterCard(oneCard).WaitForCompletion();
 
             foreach (CardView card in _doc)
             {
-                yield return sut.MoveCard(card).WaitForCompletion();
+                yield return sut.EnterCard(card, ViewValues.FAST_TIME_ANIMATION).WaitForCompletion();
             }
 
             yield return new WaitForSeconds(230);
