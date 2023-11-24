@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView.Tests
 {
     public class CardBuilder
     {
-        [Inject] private readonly CardGeneratorComponent _cardGenerator;
+        [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
         [Inject] private readonly DiContainer SceneContainer;
 
         public CardView BuildOne(Faction faction = Faction.Brave)

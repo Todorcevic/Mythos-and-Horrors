@@ -1,13 +1,12 @@
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardGeneratorComponent : MonoBehaviour
+    public class CardViewGeneratorComponent : MonoBehaviour
     {
         [Inject] private readonly DiContainer _diContainer;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerPrefab;
@@ -19,22 +18,8 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
 
         /*******************************************************************/
-        public CardView BuildCard(Card card)
-        {
-            CardView cardViewPrefab = GetPrefab(card.Info.CardType);
-            return _diContainer.InstantiatePrefabForComponent<CardView>(cardViewPrefab, transform, new object[] { card });
-        }
-
-        public List<CardView> BuildCards(IReadOnlyList<Card> allCards)
-        {
-            List<CardView> cardsView = new();
-            foreach (Card card in allCards)
-            {
-                CardView cardInstantiated = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
-                cardsView.Add(cardInstantiated);
-            }
-            return cardsView;
-        }
+        public CardView BuildCard(Card card) =>
+            _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
 
         private CardView GetPrefab(CardType cardType) => cardType switch
         {

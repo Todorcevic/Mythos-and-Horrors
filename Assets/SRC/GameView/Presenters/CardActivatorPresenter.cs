@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class CardActivatorPresenter : ICardActivator
     {
-        [Inject] private readonly CardsViewsManager _cardsManager;
+        [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
         public void ActivateThisCards(params Card[] cards)

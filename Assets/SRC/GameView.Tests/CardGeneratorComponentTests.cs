@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
-        [Inject] private readonly CardGeneratorComponent _sut;
+        [Inject] private readonly CardViewGeneratorComponent _sut;
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdventurerCard()

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -5,18 +6,18 @@ namespace MythsAndHorrors.GameRules
 {
     public class MoveCardGameAction : GameAction
     {
-        [Inject] private readonly ICardMover _cardMovePresenter;
-        private CardMovementAnimation _cardMovementType;
+        [Inject] private readonly ICardMover _cardMover;
+        private bool isAsync;
 
         public Card Card { get; private set; }
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(MoveCardDTO moveCardDTO)
+        public async Task Run(Card card, Zone zone, bool isAsync = true)
         {
-            Card = moveCardDTO.Card;
-            Zone = moveCardDTO.Zone;
-            _cardMovementType = moveCardDTO.MovementType;
+            Card = card;
+            Zone = zone;
+            this.isAsync = isAsync;
             await Start();
         }
 
@@ -27,21 +28,8 @@ namespace MythsAndHorrors.GameRules
             Card.MoveToZone(Zone);
             Zone.AddCard(Card);
 
-            switch (_cardMovementType)
-            {
-                case CardMovementAnimation.Basic:
-                    await _cardMovePresenter.MoveCardToZone(Zone, Card);
-                    break;
-                //case CardMovementAnimation.BasicWithPreview:
-                //    await _cardMovePresenter.MoveCardToZoneWithPreview(Card, Zone);
-                //    break;
-                case CardMovementAnimation.Instant:
-                    await _cardMovePresenter.InstantMoveCardToZone(Zone, Card);
-                    break;
-                    //case CardMovementAnimation.FastWithPreview:
-                    //    await _cardMovePresenter.FastMoveCardToZoneWithPreview(Card, Zone);
-                    //    break;
-            }
+            await _cardMover.MoveCardToZoneAsync(Card, Zone);
         }
     }
 }
+

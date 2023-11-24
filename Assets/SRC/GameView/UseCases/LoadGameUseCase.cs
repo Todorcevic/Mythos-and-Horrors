@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MythsAndHorrors.GameRules;
+using Sirenix.Utilities;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -7,14 +8,14 @@ namespace MythsAndHorrors.GameView
     public class LoadGameUseCase
     {
         [Inject] private readonly ZoneProvider _zoneProvider;
-        [Inject] private readonly ZonesManager _zonesManager;
+        [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly AdventurerProvider _adventurerProvider;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly GameStateService _gameStateService;
         [Inject] private readonly CardProvider _cardProvider;
-        [Inject] private readonly CardGeneratorComponent _cardGeneratorComponent;
-        [Inject] private readonly CardsViewsManager _cardsViewManager;
+        [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
+        [Inject] private readonly AdventurerAreaComponent _adventurerGeneratorComponent;
 
         /*******************************************************************/
         public void Execute()
@@ -24,12 +25,6 @@ namespace MythsAndHorrors.GameView
             LoadAdventurers();
             LoadScene();
             BuildCardViews();
-        }
-
-        private void LoadZones()
-        {
-            List<Zone> allZones = _zonesManager.GetSceneZones();
-            _zoneProvider.SetZones(allZones);
         }
 
         private void LoadCardInfo()
@@ -44,6 +39,7 @@ namespace MythsAndHorrors.GameView
             {
                 Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(adventurerCode));
                 _adventurerProvider.AddAdventurer(adventurer);
+                _adventurerGeneratorComponent.BuildAdventurerArea(adventurer);
             }
         }
 
@@ -53,11 +49,8 @@ namespace MythsAndHorrors.GameView
             _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 
-        private void BuildCardViews()
-        {
-            IReadOnlyList<Card> allCards = _cardProvider.GetAllCards();
-            List<CardView> allCardViews = _cardGeneratorComponent.BuildCards(allCards);
-            _cardsViewManager.SetCardsView(allCardViews);
-        }
+        private void LoadZones() => _zoneProvider.SetZones(_zonesManager.GetSceneZones());
+
+        private void BuildCardViews() => _cardProvider.GetAllCards().ForEach(card => _cardGeneratorComponent.BuildCard(card));
     }
 }

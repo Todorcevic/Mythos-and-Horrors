@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ZonesManager
+    public class ZoneViewsManager
     {
         [Inject] private readonly List<ZoneView> _allZones;
 

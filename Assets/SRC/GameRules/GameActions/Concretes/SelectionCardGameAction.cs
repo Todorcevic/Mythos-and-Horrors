@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Sirenix.Utilities;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -23,8 +24,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Zone selectorZone = _zoneProvider.GetZone("SelectorZone");
-            await _cardMovePresenter.MoveCardToZone(selectorZone, _cards);
+            _cards.ForEach(card => _cardMovePresenter.MoveCardToZone(card, _zoneProvider.SelectorZone));
             _cardActivatorPresenter.ActivateThisCards(_cards);
             _cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
         }

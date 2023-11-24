@@ -15,17 +15,10 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            MoveCardDTO moveCardDTO = new(
-               _cardProvider.GetCard("01501"),
-               _zoneProvider.GetZone("AdventurerDeckZone"),
-               CardMovementAnimation.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
 
-            moveCardDTO = new(
-              _cardProvider.GetCard("01560"),
-              _zoneProvider.GetZone("SceneDiscardZone"),
-              CardMovementAnimation.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01501"), _zoneProvider.GetZone("AdventurerDeckZone"));
+
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01560"), _zoneProvider.GetZone("SceneDiscardZone"));
 
             //moveCardDTO = new(
             //  _cardRepository.GetCard("5"),

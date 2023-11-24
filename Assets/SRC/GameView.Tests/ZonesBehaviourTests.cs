@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        [Inject] private readonly ZonesManager _zonesManager;
+        [Inject] private readonly ZoneViewsManager _zonesManager;
         private CardBuilder _cardBuilder;
 
         [UnitySetUp]

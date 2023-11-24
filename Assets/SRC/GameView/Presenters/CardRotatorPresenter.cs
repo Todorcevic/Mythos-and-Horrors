@@ -1,29 +1,23 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using Sirenix.Utilities;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardRotatorPresenter
+    public class CardRotatorPresenter : ICardRotator
     {
-        [Inject] private readonly CardsViewsManager _cardsManager;
+        [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
-        public async Task TurnCards(float timeAnimation = ViewValues.FAST_TIME_ANIMATION, params Card[] cards)
+        public void Rotate(Card card)
         {
-            Sequence sequence = DOTween.Sequence();
-            cards.ForEach(card => sequence.Append(_cardsManager.Get(card).Rotate(timeAnimation)));
-            await sequence.Play().AsyncWaitForCompletion();
+            _cardsManager.Get(card).Rotate();
         }
 
-        public async Task TurnTogetherCards(float timeAnimation = ViewValues.FAST_TIME_ANIMATION, params Card[] cards)
+        public async Task RotateAsync(Card card)
         {
-            Sequence sequence = DOTween.Sequence();
-            cards.ForEach(card => sequence.Join(_cardsManager.Get(card).Rotate(timeAnimation)));
-            await sequence.Play().AsyncWaitForCompletion();
+            await _cardsManager.Get(card).Rotate().AsyncWaitForCompletion();
         }
     }
 }
