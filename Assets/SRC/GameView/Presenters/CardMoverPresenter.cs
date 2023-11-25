@@ -20,7 +20,8 @@ namespace MythsAndHorrors.GameView
         public async Task MoveCardToZoneAsync(Card card, Zone gameZone)
         {
             ZoneView zoneView = _zonesManager.Get(gameZone);
-            await zoneView.EnterCard(_cardsManager.Get(card)).AsyncWaitForCompletion();
+            CardView cardView = _cardsManager.Get(card);
+            await zoneView.EnterCard(cardView).AsyncWaitForCompletion();
         }
     }
 }

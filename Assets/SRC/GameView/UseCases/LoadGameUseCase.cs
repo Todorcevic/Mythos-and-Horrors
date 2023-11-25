@@ -11,9 +11,9 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly LoadAreaUseCase _loadAreaUseCase;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
-        [Inject] private readonly AreaGeneratorComponent _areaGeneratorComponent;
 
         /*******************************************************************/
         public void Execute()
@@ -48,9 +48,9 @@ namespace MythsAndHorrors.GameView
 
         private void LoadPlaces()
         {
-            _areaGeneratorComponent.BuildAdventurerAreas();
-            _areaGeneratorComponent.BuildSceneArea();
-            _areaGeneratorComponent.BuildPlacesArea();
+            _loadAreaUseCase.BuildAdventurerAreas();
+            _loadAreaUseCase.BuildSceneArea();
+            _loadAreaUseCase.BuildPlacesArea();
         }
 
         private void BuildCardViews() => _cardProvider.GetAllCards().ForEach(card => _cardGeneratorComponent.BuildCard(card));

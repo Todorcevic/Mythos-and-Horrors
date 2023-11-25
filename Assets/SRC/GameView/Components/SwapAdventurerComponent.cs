@@ -10,22 +10,14 @@ namespace MythsAndHorrors.GameView
 {
     public class SwapAdventurerComponent : MonoBehaviour
     {
-        private AreaAdventurerView _currentAreaAdventurer;
-        private List<AreaAdventurerView> _allAreas;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly List<AreaAdventurerView> _allAreas;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _playPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rightPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _leftPosition;
+        private AreaAdventurerView _currentAreaAdventurer;
 
         /*******************************************************************/
-        public void Init(List<AreaAdventurerView> allAreas)
-        {
-            _allAreas = allAreas;
-            _allAreas.ForEach(area => area.transform.SetParent(_rightPosition, worldPositionStays: false));
-            _currentAreaAdventurer = Get(_adventurersProvider.Leader);
-            _currentAreaAdventurer.transform.SetParent(_playPosition, worldPositionStays: false);
-        }
-
         public Tween Select(Adventurer adventurer)
         {
             AreaAdventurerView areaAdventurerView = Get(adventurer);

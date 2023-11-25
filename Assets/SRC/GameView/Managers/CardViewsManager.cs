@@ -1,5 +1,6 @@
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -10,6 +11,6 @@ namespace MythsAndHorrors.GameView
 
         /*******************************************************************/
 
-        public CardView Get(Card card) => _allCardsView.Find(cardView => cardView.Card == card);
+        public CardView Get(Card card) => _allCardsView.First(cardView => cardView.Card == card);
     }
 }

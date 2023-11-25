@@ -1,6 +1,6 @@
 {
-    "AdventurerCardCode": "01502",
-    "CardsCode": [
+    "AdventurerCard": "01502",
+    "Cards": [
         "01587",
         "01587",
         "01586",
@@ -32,7 +32,7 @@
         "01593",
         "01593"
     ],
-    "RequerimentCardCodes": [
+    "RequerimentCard": [
         "01508",
         "01509",
         "00000"

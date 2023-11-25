@@ -1,8 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -15,13 +13,13 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _aidZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _dangerZone;
 
+        public bool IsFree => Adventurer == null;
         public Adventurer Adventurer { get; private set; }
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(Adventurer adventurer)
+        public void Init(Adventurer adventurer)
         {
+            name = "AdventurerZones" + adventurer.AdventurerCard.Info.Code;
             Adventurer = adventurer;
             _adventurerZone.Init(adventurer.AdventurerZone);
             _handZone.Init(adventurer.HandZone);

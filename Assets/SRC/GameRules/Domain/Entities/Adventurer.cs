@@ -4,9 +4,9 @@ namespace MythsAndHorrors.GameRules
 {
     public class Adventurer
     {
-        public Card AdventurerCardCode { get; set; }
-        public List<Card> CardsCode { get; set; }
-        public List<Card> RequerimentCardCodes { get; set; }
+        public Card AdventurerCard { get; set; }
+        public List<Card> Cards { get; set; }
+        public List<Card> RequerimentCard { get; set; }
         public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
         public int DeckSize { get; set; }
         public int Xp { get; set; }

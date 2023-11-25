@@ -15,8 +15,8 @@ namespace MythsAndHorrors.GameView
         public void Init(ZonesProvider zonesProvider)
         {
             _rowPlaces0.ForEach(zone => zone.Init(zonesProvider.PlaceZone[0, _rowPlaces0.IndexOf(zone)]));
-            _rowPlaces1.ForEach(zone => zone.Init(zonesProvider.PlaceZone[1, _rowPlaces0.IndexOf(zone)]));
-            _rowPlaces2.ForEach(zone => zone.Init(zonesProvider.PlaceZone[2, _rowPlaces0.IndexOf(zone)]));
+            _rowPlaces1.ForEach(zone => zone.Init(zonesProvider.PlaceZone[1, _rowPlaces1.IndexOf(zone)]));
+            _rowPlaces2.ForEach(zone => zone.Init(zonesProvider.PlaceZone[2, _rowPlaces2.IndexOf(zone)]));
         }
     }
 }
