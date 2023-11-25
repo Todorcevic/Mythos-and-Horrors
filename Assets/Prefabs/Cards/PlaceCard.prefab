@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Name
-      value: PlaceCard Variant
+      value: PlaceCard
       objectReference: {fileID: 0}
     - target: {fileID: 7855043723497567537, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
@@ -312,7 +312,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 75cf58d9490186446af03782eddc04e8, type: 2}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
-      value: StatHolder
+      value: Hints
       objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x
@@ -441,7 +441,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 75cf58d9490186446af03782eddc04e8, type: 2}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
-      value: StatHolder (1)
+      value: Enigma
       objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x
