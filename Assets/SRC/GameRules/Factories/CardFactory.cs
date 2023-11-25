@@ -27,10 +27,9 @@ namespace MythsAndHorrors.GameRules
             Type type = (Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code)
                 ?? Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.CardType.ToString()))
                 ?? throw new InvalidOperationException("Card not found" + cardInfo.Code + " Type: " + cardInfo.CardType.ToString());
-            object objectCard = _diContainer.Instantiate(type, new object[] { cardInfo });
+            Card objectCard = _diContainer.Instantiate(type, new object[] { cardInfo }) as Card;
             type.GetInterfaces().ForEach(@interface => _diContainer.Bind(@interface).FromInstance(objectCard).NonLazy());
-
-            return (Card)objectCard;
+            return objectCard;
         }
     }
 }

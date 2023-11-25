@@ -63,6 +63,7 @@ namespace MythsAndHorrors.GameView
             name = Card.Info.Code;
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description;
+            _zoneCardView.Init(Card.OwnZone);
         }
 
         private void SetPicture()

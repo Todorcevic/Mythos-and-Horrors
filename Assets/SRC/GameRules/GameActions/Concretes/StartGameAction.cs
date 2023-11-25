@@ -6,8 +6,8 @@ namespace MythsAndHorrors.GameRules
     public class StartGameAction : GameAction
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly CardProvider _cardProvider;
-        [Inject] private readonly ZoneProvider _zoneProvider;
+        [Inject] private readonly CardsProvider _cardProvider;
+        [Inject] private readonly ZonesProvider _zoneProvider;
 
         /*******************************************************************/
         public async Task Run() => await Start();
@@ -16,9 +16,9 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
 
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01501"), _zoneProvider.GetZone("AdventurerDeckZone"));
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01501"), _zoneProvider.DangerDeckZone);
 
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01560"), _zoneProvider.GetZone("SceneDiscardZone"));
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01560"), _zoneProvider.DangerDiscardZone);
 
             //moveCardDTO = new(
             //  _cardRepository.GetCard("5"),

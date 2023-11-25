@@ -7,23 +7,21 @@ namespace MythsAndHorrors.GameView
 {
     public class LoadGameUseCase
     {
-        [Inject] private readonly ZoneProvider _zoneProvider;
-        [Inject] private readonly ZoneViewsManager _zonesManager;
-        [Inject] private readonly AdventurerProvider _adventurerProvider;
+        [Inject] private readonly AdventurersProvider _adventurerProvider;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly GameStateService _gameStateService;
-        [Inject] private readonly CardProvider _cardProvider;
+        [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
-        [Inject] private readonly AdventurerAreaComponent _adventurerGeneratorComponent;
+        [Inject] private readonly AreaGeneratorComponent _areaGeneratorComponent;
 
         /*******************************************************************/
         public void Execute()
         {
-            LoadZones();
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
+            LoadPlaces();
             BuildCardViews();
         }
 
@@ -35,11 +33,10 @@ namespace MythsAndHorrors.GameView
 
         private void LoadAdventurers()
         {
-            foreach (string adventurerCode in _gameStateService.AdventurersSelected)
+            for (int i = 0; i < _gameStateService.AdventurersSelected.Count; i++)
             {
-                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(adventurerCode));
+                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(_gameStateService.AdventurersSelected[i]));
                 _adventurerProvider.AddAdventurer(adventurer);
-                _adventurerGeneratorComponent.BuildAdventurerArea(adventurer);
             }
         }
 
@@ -49,7 +46,12 @@ namespace MythsAndHorrors.GameView
             _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 
-        private void LoadZones() => _zoneProvider.SetZones(_zonesManager.GetSceneZones());
+        private void LoadPlaces()
+        {
+            _areaGeneratorComponent.BuildAdventurerAreas();
+            _areaGeneratorComponent.BuildSceneArea();
+            _areaGeneratorComponent.BuildPlacesArea();
+        }
 
         private void BuildCardViews() => _cardProvider.GetAllCards().ForEach(card => _cardGeneratorComponent.BuildCard(card));
     }

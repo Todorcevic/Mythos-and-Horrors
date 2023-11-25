@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ICardMover _cardMovePresenter;
         [Inject] private readonly ICardActivator _cardActivatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly ZoneProvider _zoneProvider;
+        [Inject] private readonly ZonesProvider _zoneProvider;
         private Card[] _cards;
         private Card _cardSelected;
 

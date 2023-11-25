@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardProvider
+    public class CardsProvider
     {
         private readonly List<Card> _cards = new();
 

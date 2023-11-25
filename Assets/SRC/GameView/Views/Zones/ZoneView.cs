@@ -9,9 +9,9 @@ namespace MythsAndHorrors.GameView
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
-        private void Awake()
+        public void Init(Zone zone)
         {
-            Zone = new Zone(name);
+            Zone = zone;
         }
 
         /*******************************************************************/
