@@ -30,7 +30,7 @@ namespace MythsAndHorrors.GameView
                 .OnComplete(() => _currentAreaAdventurer = areaAdventurerView);
         }
 
-        private AreaAdventurerView Get(Adventurer adventurer) => _allAreas.Find(areaView => areaView.Adventurer == adventurer);
+        private AreaAdventurerView Get(Adventurer adventurer) => _allAreas.First(areaView => areaView.Adventurer == adventurer);
 
         private Transform GetSidePosition(Adventurer adventurer) =>
             _adventurersProvider.GetAdventurerPosition(adventurer) >

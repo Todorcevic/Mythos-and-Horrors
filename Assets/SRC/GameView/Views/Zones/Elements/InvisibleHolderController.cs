@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders;
 
-        public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.FindAll(invisibleHolder => !invisibleHolder.IsFree);
+        public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.Where(invisibleHolder => !invisibleHolder.IsFree).ToList();
         public int AmountOfCards => AllActivesInvisibleHolders.Count();
 
         /*******************************************************************/
