@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView.Tests
     public class ZonesBehaviourTests : TestBase
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
+        [Inject] private readonly ZonesProvider _zonesProvider;
         private CardBuilder _cardBuilder;
 
         [UnitySetUp]
@@ -132,7 +133,8 @@ namespace MythsAndHorrors.GameView.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Card()
         {
-            ZoneView docZone = _zonesManager.Get("PlaceZone");
+            ZoneView docZone = _zonesManager.Get(_zonesProvider.PlaceZone[1, 3]);
+            //ZoneView docZone = _zonesManager.Get("PlaceZone0");
             CardView oneCard = _cardBuilder.BuildOne(Faction.Cunning);
             ZoneCardView sut = oneCard.OwnZone;
             CardView[] _doc = _cardBuilder.BuildManySame(4);
