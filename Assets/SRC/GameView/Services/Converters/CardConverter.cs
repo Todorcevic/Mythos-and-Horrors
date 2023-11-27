@@ -7,7 +7,7 @@ namespace MythsAndHorrors.PlayMode
 {
     public class CardConverter : JsonConverter<Card>
     {
-        [Inject] private readonly CardFactory _cardFactory;
+        [Inject] private readonly CardLoaderUseCase _cardFactory;
 
         /*******************************************************************/
         public override Card ReadJson(JsonReader reader, Type objectType, Card existingValue, bool hasExistingValue, JsonSerializer serializer) =>

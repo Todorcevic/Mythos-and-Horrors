@@ -43,10 +43,6 @@ namespace MythsAndHorrors.PlayMode
             /*** Converters ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
-
-            /*** Factories ***/
-            Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Factory")).AsSingle();
         }
 
         private void InstallRules()

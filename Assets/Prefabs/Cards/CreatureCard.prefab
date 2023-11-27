@@ -376,7 +376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Name
-      value: CreatureCard Variant
+      value: CreatureCard
       objectReference: {fileID: 0}
     - target: {fileID: 7855043723497567537, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
@@ -394,6 +394,10 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 5.85
       objectReference: {fileID: 0}
+    - target: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: _cardView
+      value: 
+      objectReference: {fileID: 8811269189814881902}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

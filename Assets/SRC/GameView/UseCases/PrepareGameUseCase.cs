@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MythsAndHorrors.EditMode;
 using Sirenix.Utilities;
 using Zenject;
@@ -7,19 +6,19 @@ namespace MythsAndHorrors.PlayMode
 {
     public class PrepareGameUseCase
     {
-        [Inject] private readonly AdventurersProvider _adventurerProvider;
-        [Inject] private readonly JsonService _jsonService;
-        [Inject] private readonly CardFactory _cardFactory;
-        [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly CardInfoLoaderUseCase _cardInfoLoader;
+        [Inject] private readonly SceneLoaderUseCase _sceneLoader;
+        [Inject] private readonly AdventurerLoaderUseCase _adventurerLoader;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
+
         private SaveData _saveData;
 
         /*******************************************************************/
-        public void Execute()
+        public void Execute(SaveData saveData)
         {
-            LoadSaveData();
+            _saveData = saveData;
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
@@ -27,28 +26,13 @@ namespace MythsAndHorrors.PlayMode
             BuildCardViews();
         }
 
-        private void LoadSaveData() => _saveData = _jsonService.CreateDataFromFile<SaveData>(FilesPath.JSON_SAVE_DATA_PATH);
+        private void LoadCardInfo() => _cardInfoLoader.Execute(FilesPath.JSON_CARDINFO_PATH);
 
-        private void LoadCardInfo()
-        {
-            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARDINFO_PATH);
-            _cardFactory.SetCardInfo(allCardInfo);
-        }
+        private void LoadAdventurers() =>
+            _saveData.AdventurersSelected.ForEach(adventurerCode =>
+            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH(adventurerCode)));
 
-        private void LoadAdventurers()
-        {
-            for (int i = 0; i < _saveData.AdventurersSelected.Count; i++)
-            {
-                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(_saveData.AdventurersSelected[i]));
-                _adventurerProvider.AddAdventurer(adventurer);
-            }
-        }
-
-        private void LoadScene()
-        {
-            string fullSceneDataPath = FilesPath.JSON_SCENE_PATH(_saveData.SceneSelected);
-            _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
-        }
+        private void LoadScene() => _sceneLoader.Execute(FilesPath.JSON_SCENE_PATH(_saveData.SceneSelected));
 
         private void InitializeZones() => _zoneViewsManager.Init();
 

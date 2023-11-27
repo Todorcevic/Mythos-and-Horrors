@@ -9,13 +9,15 @@ namespace MythsAndHorrors.PlayMode
         [InjectOptional] private readonly bool _mustBeLoaded = true;
         [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly JsonService _jsonService;
 
         /*******************************************************************/
         private async void Start()
         {
             if (!_mustBeLoaded) return;
 
-            _loadGameUseCase.Execute();
+            SaveData saveData = _jsonService.CreateDataFromFile<SaveData>(FilesPath.JSON_SAVE_DATA_PATH);
+            _loadGameUseCase.Execute(saveData);
             await _gameActionFactory.Create<StartGameAction>().Run();
         }
     }

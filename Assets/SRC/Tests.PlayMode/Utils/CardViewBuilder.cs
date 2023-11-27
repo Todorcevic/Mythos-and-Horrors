@@ -8,7 +8,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
 
         /*******************************************************************/
-        public CardView BuildOne() => _cardGenerator.BuildCard(_cardBuilder.BraveCard);
+        public CardView BuildOne() => _cardGenerator.BuildCard(_cardBuilder.SingleCard);
 
         public CardView[] BuildManySame(int count)
         {
@@ -20,6 +20,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             return cards;
         }
 
+        public CardView BuildRand() => _cardGenerator.BuildCard(_cardBuilder.BuildRand());
+
         public CardView[] BuildManyRandom(int count)
         {
             CardView[] cards = new CardView[count];
@@ -29,7 +31,5 @@ namespace MythsAndHorrors.PlayMode.Tests
             }
             return cards;
         }
-
-        public CardView BuildRand() => _cardGenerator.BuildCard(_cardBuilder.BuildRand());
     }
 }

@@ -8,7 +8,7 @@ namespace MythsAndHorrors.EditMode.Tests
     [TestFixture]
     public class CardFactoryTests : OneTimeAutoInject
     {
-        [Inject] private readonly CardFactory _sut;
+        [Inject] private readonly CardLoaderUseCase _sut;
 
         [Test]
         public void CardFactory_With_CardInfo()

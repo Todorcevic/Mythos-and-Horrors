@@ -15,6 +15,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly CardViewGeneratorComponent _sut;
 
+        /*******************************************************************/
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdventurerCard()
         {

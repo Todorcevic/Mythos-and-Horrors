@@ -27,7 +27,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             ViewValues.FAST_TIME_ANIMATION = DEBUG_MODE ? ViewValues.FAST_TIME_ANIMATION : 0f;
 
             yield return base.SetUp();
-            _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.BraveCard });
+            _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.SingleCard });
             _zonesManager.Init();
         }
 
@@ -64,7 +64,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Row_Creating_Holders()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.AidZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(13);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(13);
 
             foreach (CardView card in doc)
             {

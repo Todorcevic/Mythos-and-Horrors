@@ -18,6 +18,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
 
+        [Inject] private readonly AdventurerLoaderUseCase _adventurerLoader;
+
+
         /*******************************************************************/
         [UnitySetUp]
         public override IEnumerator SetUp()
@@ -30,10 +33,14 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Prepare_Full_Adventurer()
         {
-            Adventurer adventurer1 = new Adventurer() { AdventurerCard = _cardBuilder.BraveCard };
-            Adventurer adventurer2 = new Adventurer() { AdventurerCard = _cardBuilder.CunningCard };
-            _adventurersProvider.AddAdventurer(adventurer1);
-            _adventurersProvider.AddAdventurer(adventurer2);
+            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH("01501"));
+            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH("01502"));
+
+
+            Adventurer adventurer1 = _adventurersProvider.GetAllAdventurers()[0];
+            Adventurer adventurer2 = _adventurersProvider.GetAllAdventurers()[1];
+            //_adventurersProvider.AddAdventurer(adventurer1);
+            //_adventurersProvider.AddAdventurer(adventurer2);
             _zonesManager.Init();
 
 

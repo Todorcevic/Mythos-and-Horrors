@@ -9,7 +9,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly DiContainer SceneContainer;
 
         /*******************************************************************/
-        public Card BraveCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
+        public Card SingleCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
               {
                     new CardInfo()
                     {
@@ -30,7 +30,7 @@ namespace MythsAndHorrors.PlayMode.Tests
                     }
               });
 
-        public Card CunningCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
+        public Card SingleCard2 => SceneContainer.Instantiate<CardAdventurer>(new object[]
               {
                     new CardInfo()
                     {
@@ -78,7 +78,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         private (CardType cardType, Type type) GetRandomCardType()
         {
             Array values = Enum.GetValues(typeof(CardType));
-            CardType randomCardType = (CardType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            CardType randomCardType = (CardType)values.GetValue(UnityEngine.Random.Range(1, values.Length));
             Type cardType = null;
             switch (randomCardType)
             {

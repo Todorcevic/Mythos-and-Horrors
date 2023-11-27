@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode
 {
-    public class CardFactory
+    public class CardLoaderUseCase
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardsProvider _cardProvider;
