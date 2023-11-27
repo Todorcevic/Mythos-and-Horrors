@@ -14,16 +14,20 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly LoadAreaUseCase _loadAreaUseCase;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
+        private SaveData _saveData;
 
         /*******************************************************************/
         public void Execute()
         {
+            LoadSaveData();
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
             LoadPlaces();
             BuildCardViews();
         }
+
+        private void LoadSaveData() => _saveData = _jsonService.CreateDataFromFile<SaveData>(FilesPath.JSON_SAVE_DATA_PATH);
 
         private void LoadCardInfo()
         {
@@ -33,16 +37,16 @@ namespace MythsAndHorrors.GameView
 
         private void LoadAdventurers()
         {
-            for (int i = 0; i < _gameStateService.AdventurersSelected.Count; i++)
+            for (int i = 0; i < _saveData.AdventurersSelected.Count; i++)
             {
-                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(_gameStateService.AdventurersSelected[i]));
+                Adventurer adventurer = _jsonService.CreateDataFromFile<Adventurer>(FilesPath.JSON_ADVENTURER_PATH(_saveData.AdventurersSelected[i]));
                 _adventurerProvider.AddAdventurer(adventurer);
             }
         }
 
         private void LoadScene()
         {
-            string fullSceneDataPath = FilesPath.JSON_SCENE_PATH(_gameStateService.SceneSelected);
+            string fullSceneDataPath = FilesPath.JSON_SCENE_PATH(_saveData.SceneSelected);
             _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 

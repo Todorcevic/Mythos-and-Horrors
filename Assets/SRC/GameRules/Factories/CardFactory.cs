@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameRules
     public class CardFactory
     {
         [Inject] private readonly DiContainer _diContainer;
+        [Inject] private readonly CardsProvider _cardProvider;
         private List<CardInfo> _allCardInfo;
 
         /*******************************************************************/
@@ -29,6 +30,7 @@ namespace MythsAndHorrors.GameRules
                 ?? throw new InvalidOperationException("Card not found" + cardInfo.Code + " Type: " + cardInfo.CardType.ToString());
             Card newCard = _diContainer.Instantiate(type, new object[] { cardInfo }) as Card;
             type.GetInterfaces().ForEach(@interface => _diContainer.Bind(@interface).FromInstance(newCard));
+            _cardProvider.AddCard(newCard);
             return newCard;
         }
     }
