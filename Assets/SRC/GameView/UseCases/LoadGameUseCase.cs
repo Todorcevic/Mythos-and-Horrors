@@ -18,7 +18,6 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Execute()
         {
-            var asd = 0;
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
