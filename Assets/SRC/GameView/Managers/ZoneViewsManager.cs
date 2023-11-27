@@ -1,6 +1,5 @@
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Zenject;
 
@@ -9,14 +8,16 @@ namespace MythsAndHorrors.GameView
     public class ZoneViewsManager
     {
         [Inject] private readonly List<ZoneView> _allZones;
-        [Inject] private readonly InitializeAreaUseCase _loadAreaUseCase;
+        [Inject] private readonly SwapAdventurerComponent _swapAdventurerComponent;
+        [Inject] private readonly AreaSceneView _sceneArea;
+        [Inject] private readonly AreaPlacesView _placesArea;
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init()
+        public void Init()
         {
-            _loadAreaUseCase.Execute();
+            _swapAdventurerComponent.Init();
+            _sceneArea.Init();
+            _placesArea.Init();
         }
 
         /*******************************************************************/

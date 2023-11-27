@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
     public class SwapAdventurerComponent : MonoBehaviour
     {
         [Inject] private readonly AdventurersProvider _adventurersProvider;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<AreaAdventurerView> _allAventurerAreas;
+        [SerializeField, Required, ChildGameObjectsOnly] private List<AreaAdventurerView> _allAdventurerAreas;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _playPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rightPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _leftPosition;
@@ -21,7 +21,8 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Init()
         {
-            _adventurersProvider.GetAllAdventurers().ForEach(adventurer => _allAventurerAreas.Find(area => area.IsFree).Init(adventurer));
+            _adventurersProvider.GetAllAdventurers().ForEach(adventurer => _allAdventurerAreas.Find(area => area.IsFree).Init(adventurer));
+            _currentAreaAdventurer = _allAdventurerAreas.First();
         }
 
         /*******************************************************************/
@@ -30,14 +31,14 @@ namespace MythsAndHorrors.GameView
             AreaAdventurerView areaAdventurerView = Get(adventurer);
             Transform positionToMove = GetSidePosition(adventurer);
 
-            return DOTween.Sequence().Join(_currentAreaAdventurer.transform.DOFullMove(_playPosition, ViewValues.FAST_TIME_ANIMATION)
-                .OnComplete(() => _currentAreaAdventurer.transform.SetParent(_playPosition)))
-                .Join(areaAdventurerView.transform.DOFullMove(_playPosition, ViewValues.FAST_TIME_ANIMATION))
+            return DOTween.Sequence().Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove)
+                .OnComplete(() => _currentAreaAdventurer.transform.SetParent(positionToMove)))
+                .Join(areaAdventurerView.transform.DOFullMove(_playPosition))
                 .OnComplete(() => areaAdventurerView.transform.SetParent(_playPosition))
                 .OnComplete(() => _currentAreaAdventurer = areaAdventurerView);
         }
 
-        private AreaAdventurerView Get(Adventurer adventurer) => _allAventurerAreas.First(areaView => areaView.Adventurer == adventurer);
+        private AreaAdventurerView Get(Adventurer adventurer) => _allAdventurerAreas.First(areaView => areaView.Adventurer == adventurer);
 
         private Transform GetSidePosition(Adventurer adventurer) =>
             _adventurersProvider.GetAdventurerPosition(adventurer) >

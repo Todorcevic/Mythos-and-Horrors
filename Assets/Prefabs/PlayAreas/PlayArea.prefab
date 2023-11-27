@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759698e48ad150345bbbe307e10cd0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allAventurerAreas:
+  _allAdventurerAreas:
   - {fileID: 4014043822048287912}
   - {fileID: 8404612555532955658}
   - {fileID: 339529527205307068}

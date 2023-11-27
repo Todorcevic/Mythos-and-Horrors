@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class LoadGameUseCase
+    public class PrepareGameUseCase
     {
         [Inject] private readonly AdventurersProvider _adventurerProvider;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly CardFactory _cardFactory;
         [Inject] private readonly GameStateService _gameStateService;
-        //[Inject] private readonly InitializeAreaUseCase _loadAreaUseCase;
+        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
         private SaveData _saveData;
@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
             LoadCardInfo();
             LoadAdventurers();
             LoadScene();
-            //InitializeZones();
+            InitializeZones();
             BuildCardViews();
         }
 
@@ -50,7 +50,7 @@ namespace MythsAndHorrors.GameView
             _gameStateService.CurrentScene = _jsonService.CreateDataFromFile<Scene>(fullSceneDataPath);
         }
 
-        // private void InitializeZones() => _loadAreaUseCase.Execute();
+        private void InitializeZones() => _zoneViewsManager.Init();
 
         private void BuildCardViews() => _cardProvider.GetAllCards().ForEach(card => _cardGeneratorComponent.BuildCard(card));
     }

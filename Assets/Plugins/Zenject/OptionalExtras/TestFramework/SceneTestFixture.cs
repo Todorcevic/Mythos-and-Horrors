@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,7 @@ namespace Zenject
 
         protected DiContainer SceneContainer { get; private set; }
 
-        public IEnumerator LoadScene(string sceneName)
+        public IEnumerator LoadScene(string sceneName, Action actionInstaller = null)
         {
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
             _hasLoadedScene = true;
@@ -28,6 +29,7 @@ namespace Zenject
             Scene scene = SceneManager.GetSceneByName(sceneName);
             SceneContainer = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
                 .TryGetSceneContextForScene(scene).Container;
+            actionInstaller?.Invoke();
             SceneContainer?.Inject(this);
         }
 

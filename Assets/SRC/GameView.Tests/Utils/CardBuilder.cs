@@ -6,20 +6,18 @@ namespace MythsAndHorrors.GameView.Tests
 {
     public class CardBuilder
     {
-        [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
         [Inject] private readonly DiContainer SceneContainer;
 
-        public CardView BuildOne(Faction faction = Faction.Brave)
-        {
-            Card card = SceneContainer.Instantiate<CardAdventurer>(new object[]
-               {
+        /*******************************************************************/
+        public Card BraveCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
+              {
                     new CardInfo()
                     {
                         Description = "DescriptionTest1",
                         CardType = CardType.Adventurer,
                         Code = "00001",
                         Name = "Adventurer1",
-                        Faction = faction,
+                        Faction = Faction.Brave,
                         Health= 10,
                         Sanity=6,
                         Strength=2,
@@ -30,37 +28,35 @@ namespace MythsAndHorrors.GameView.Tests
                         EnemyFear=2,
                         Cost=5
                     }
-               });
+              });
 
-            return _cardGenerator.BuildCard(card);
-        }
+        public Card CunningCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
+              {
+                    new CardInfo()
+                    {
+                        Description = "DescriptionTest2",
+                        CardType = CardType.Condition,
+                        Code = "00002",
+                        Name = "Condition2",
+                        Faction = Faction.Cunning,
+                        Health= 5,
+                        Sanity=3,
+                        Strength=6,
+                        Agility=5,
+                        Intelligence=3,
+                        Power=2,
+                        EnemyDamage=7,
+                        EnemyFear=5,
+                        Cost=1
+                    }
+              });
 
-        public CardView[] BuildManySame(int count)
-        {
-            CardView[] cards = new CardView[count];
-            for (int i = 0; i < count; i++)
-            {
-                cards[i] = BuildOne();
-            }
-            return cards;
-        }
-
-        public CardView[] BuildManyRandom(int count)
-        {
-            CardView[] cards = new CardView[count];
-            for (int i = 0; i < count; i++)
-            {
-                cards[i] = BuildRand();
-            }
-            return cards;
-        }
-
-        public CardView BuildRand()
+        public Card BuildRand()
         {
             (CardType cardType, Type type) = GetRandomCardType();
             Random rand = new();
 
-            Card card = (Card)SceneContainer.Instantiate(type, new object[]
+            return (Card)SceneContainer.Instantiate(type, new object[]
                {
                     new CardInfo()
                     {
@@ -77,8 +73,6 @@ namespace MythsAndHorrors.GameView.Tests
                         Power = rand.Next(1,2)
                     }
                });
-
-            return _cardGenerator.BuildCard(card);
         }
 
         private (CardType cardType, Type type) GetRandomCardType()

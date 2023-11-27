@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
     public class InitializerComponent : MonoBehaviour
     {
         [InjectOptional] private readonly bool _mustBeLoaded = true;
-        [Inject] private readonly LoadGameUseCase _loadGameUseCase;
+        [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         /*******************************************************************/
