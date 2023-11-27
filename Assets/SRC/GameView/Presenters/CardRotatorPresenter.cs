@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class CardRotatorPresenter : ICardRotator
     {

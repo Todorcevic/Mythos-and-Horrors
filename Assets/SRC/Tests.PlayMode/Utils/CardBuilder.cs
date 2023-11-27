@@ -1,4 +1,4 @@
-﻿using MythsAndHorrors.EditMode;
+﻿using MythsAndHorrors.GameRules;
 using System;
 using Zenject;
 

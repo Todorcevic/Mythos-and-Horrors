@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class GlowView : MonoBehaviour
     {

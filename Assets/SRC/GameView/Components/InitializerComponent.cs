@@ -1,8 +1,8 @@
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class InitializerComponent : MonoBehaviour
     {

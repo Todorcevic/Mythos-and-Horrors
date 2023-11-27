@@ -1,4 +1,4 @@
-using MythsAndHorrors.PlayMode;
+using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using Zenject;
 

@@ -1,10 +1,10 @@
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class CardViewGeneratorComponent : MonoBehaviour
     {

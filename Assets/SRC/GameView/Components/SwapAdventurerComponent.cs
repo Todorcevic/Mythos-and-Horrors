@@ -1,5 +1,5 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class SwapAdventurerComponent : MonoBehaviour
     {

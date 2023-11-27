@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MythsAndHorrors.EditMode
+namespace MythsAndHorrors.GameRules
 {
     [Flags]
     public enum Faction

@@ -1,5 +1,5 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;

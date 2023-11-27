@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.EditMode
+namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {

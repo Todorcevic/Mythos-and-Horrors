@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.PlayMode;
+﻿using MythsAndHorrors.GameRules;
+using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Zenject;

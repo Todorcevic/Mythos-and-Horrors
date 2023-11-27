@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public static class TransformExtension
     {

@@ -4,7 +4,7 @@ using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class JsonService
     {

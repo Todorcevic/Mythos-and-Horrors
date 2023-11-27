@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using MythsAndHorrors.PlayMode;
+using MythsAndHorrors.GameView;
 using UnityEngine;
 using Zenject;
+using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.EditMode.Tests
 {

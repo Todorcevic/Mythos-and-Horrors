@@ -1,12 +1,12 @@
 using DG.Tweening;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour
     {

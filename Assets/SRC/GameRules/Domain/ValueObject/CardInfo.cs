@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.EditMode
+﻿namespace MythsAndHorrors.GameRules
 {
     public record CardInfo
     {

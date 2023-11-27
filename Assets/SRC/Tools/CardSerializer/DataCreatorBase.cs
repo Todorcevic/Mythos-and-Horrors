@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 

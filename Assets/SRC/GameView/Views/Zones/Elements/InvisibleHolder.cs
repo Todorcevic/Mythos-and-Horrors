@@ -3,7 +3,7 @@ using log4net.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class InvisibleHolder : MonoBehaviour
     {

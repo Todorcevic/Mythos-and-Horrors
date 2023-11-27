@@ -1,9 +1,9 @@
-﻿using MythsAndHorrors.EditMode;
+﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class AreaSceneView : MonoBehaviour
     {

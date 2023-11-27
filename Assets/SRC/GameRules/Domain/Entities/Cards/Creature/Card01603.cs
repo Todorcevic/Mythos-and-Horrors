@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.EditMode
+namespace MythsAndHorrors.GameRules
 {
     public class Card01603 : CardCreature, IStartReactionable, IEndReactionable
     {

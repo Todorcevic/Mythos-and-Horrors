@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MythsAndHorrors.GameRules;
+using NUnit.Framework;
 using System.Collections.Generic;
 using Zenject;
 

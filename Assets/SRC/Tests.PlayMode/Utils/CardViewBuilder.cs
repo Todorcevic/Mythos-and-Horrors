@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using MythsAndHorrors.GameView;
+using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {

@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
+using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;

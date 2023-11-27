@@ -1,9 +1,9 @@
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode
+namespace MythsAndHorrors.GameView
 {
     public class ZoneViewsManager
     {

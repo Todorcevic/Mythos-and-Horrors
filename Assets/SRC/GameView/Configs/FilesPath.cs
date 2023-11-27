@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.PlayMode
+﻿namespace MythsAndHorrors.GameView
 {
     public static class FilesPath
     {

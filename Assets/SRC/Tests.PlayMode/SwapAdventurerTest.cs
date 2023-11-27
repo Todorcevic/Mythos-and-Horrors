@@ -1,7 +1,9 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.EditMode;
+using MythsAndHorrors.GameRules;
+using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -15,11 +17,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly SwapAdventurerComponent _swapAdventurerComponent;
-        [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
-
-        [Inject] private readonly AdventurerLoaderUseCase _adventurerLoader;
-
+        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -33,16 +32,15 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Prepare_Full_Adventurer()
         {
-            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH("01501"));
-            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH("01502"));
+            SaveData saveData = new()
+            {
+                AdventurersSelected = new List<string>() { "01501", "01502" },
+                SceneSelected = "COREScene1"
+            };
 
-
+            _prepareGameUseCase.Execute(saveData);
             Adventurer adventurer1 = _adventurersProvider.GetAllAdventurers()[0];
             Adventurer adventurer2 = _adventurersProvider.GetAllAdventurers()[1];
-            //_adventurersProvider.AddAdventurer(adventurer1);
-            //_adventurersProvider.AddAdventurer(adventurer2);
-            _zonesManager.Init();
-
 
             ZoneView adventurer1Zone = _zonesManager.Get(adventurer1.HandZone);
             CardView oneCard = _cardGenerator.BuildCard(adventurer1.AdventurerCard);
