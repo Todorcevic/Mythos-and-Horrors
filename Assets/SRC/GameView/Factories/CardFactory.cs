@@ -1,11 +1,12 @@
-﻿using Sirenix.Utilities;
+﻿using MythsAndHorrors.EditMode;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.PlayMode
 {
     public class CardFactory
     {

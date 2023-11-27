@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class ZoneHandView : ZoneView
     {

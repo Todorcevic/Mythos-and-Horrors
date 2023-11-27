@@ -1,5 +1,5 @@
 using Sirenix.OdinInspector;
-using MythsAndHorrors.GameRules;
+using MythsAndHorrors.EditMode;
 using UnityEngine;
 using System.Linq;
 using System;

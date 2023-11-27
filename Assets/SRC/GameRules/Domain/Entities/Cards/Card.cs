@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class Card
     {

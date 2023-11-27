@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class MoveCardGameAction : GameAction
     {

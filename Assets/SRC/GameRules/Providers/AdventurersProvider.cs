@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class AdventurersProvider
     {

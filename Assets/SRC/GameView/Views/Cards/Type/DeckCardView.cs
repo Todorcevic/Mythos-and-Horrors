@@ -1,10 +1,10 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythsAndHorrors.EditMode;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class DeckCardView : CardView
     {

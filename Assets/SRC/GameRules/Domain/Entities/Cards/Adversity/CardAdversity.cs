@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class CardAdversity : Card
     {

@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using MythsAndHorrors.GameView;
+using MythsAndHorrors.PlayMode;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules.Tests
+namespace MythsAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class DeserializeCardsUseCaseTests : OneTimeAutoInject

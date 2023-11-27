@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class GoalCardView : CardView
     {

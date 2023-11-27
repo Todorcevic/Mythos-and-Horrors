@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class GameStateService
     {

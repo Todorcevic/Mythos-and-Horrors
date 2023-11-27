@@ -3,12 +3,12 @@ using NUnit.Framework;
 using UnityEngine.TestTools;
 using Zenject;
 using System.Collections.Generic;
-using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
+using MythsAndHorrors.EditMode;
+using MythsAndHorrors.PlayMode;
 using UnityEngine;
 using TMPro;
 
-namespace MythsAndHorrors.GameView.Tests
+namespace MythsAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase

@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     [CreateAssetMenu(fileName = "Faction", menuName = "ScriptableObjects/AdventurerElements")]
     public class FactionAdventurerSO : ScriptableObject

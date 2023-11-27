@@ -1,8 +1,8 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.EditMode;
 using System;
 using Zenject;
 
-namespace MythsAndHorrors.GameView.Tests
+namespace MythsAndHorrors.PlayMode.Tests
 {
     public class CardBuilder
     {

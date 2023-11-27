@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     public class WaitingForSelectionGameAction : GameAction
     {

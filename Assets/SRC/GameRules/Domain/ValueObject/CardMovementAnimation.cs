@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿namespace MythsAndHorrors.EditMode
 {
     public enum CardMovementAnimation
     {

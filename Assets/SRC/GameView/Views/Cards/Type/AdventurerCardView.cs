@@ -1,10 +1,10 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.EditMode;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class AdventurerCardView : CardView
     {

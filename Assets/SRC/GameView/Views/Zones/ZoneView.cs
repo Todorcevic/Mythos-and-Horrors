@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythsAndHorrors.EditMode;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public abstract class ZoneView : MonoBehaviour
     {

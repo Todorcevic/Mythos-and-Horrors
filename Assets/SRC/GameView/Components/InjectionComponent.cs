@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class InjectionComponent : MonoInstaller
     {

@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace MythsAndHorrors.GameView.Tests
+namespace MythsAndHorrors.PlayMode.Tests
 {
     public class CardViewBuilder
     {

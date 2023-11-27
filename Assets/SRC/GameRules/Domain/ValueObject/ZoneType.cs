@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MythsAndHorrors.GameRules
+namespace MythsAndHorrors.EditMode
 {
     [Flags]
     public enum ZoneType

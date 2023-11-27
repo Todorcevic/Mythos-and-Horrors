@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class SaveData
     {

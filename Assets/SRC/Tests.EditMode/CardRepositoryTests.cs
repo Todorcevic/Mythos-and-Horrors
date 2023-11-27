@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules.Tests
+namespace MythsAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class CardRepositoryTests : OneTimeAutoInject

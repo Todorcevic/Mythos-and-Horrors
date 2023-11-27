@@ -1,8 +1,8 @@
-using MythsAndHorrors.GameView;
+using MythsAndHorrors.PlayMode;
 using NUnit.Framework;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules.Tests
+namespace MythsAndHorrors.EditMode.Tests
 {
     public abstract class OneTimeAutoInject
     {

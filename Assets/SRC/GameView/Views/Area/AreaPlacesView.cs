@@ -1,10 +1,10 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.EditMode;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class AreaPlacesView : MonoBehaviour
     {

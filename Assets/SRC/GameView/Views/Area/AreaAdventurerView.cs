@@ -1,8 +1,8 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.EditMode;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class AreaAdventurerView : MonoBehaviour
     {

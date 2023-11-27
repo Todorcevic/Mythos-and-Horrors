@@ -1,9 +1,9 @@
 using Zenject;
 using DG.Tweening;
 using System.Threading.Tasks;
-using MythsAndHorrors.GameRules;
+using MythsAndHorrors.EditMode;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class CardMoverPresenter : ICardMover
     {

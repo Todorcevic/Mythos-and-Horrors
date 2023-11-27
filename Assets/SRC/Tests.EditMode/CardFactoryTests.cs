@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
+﻿using MythsAndHorrors.PlayMode;
+using NUnit.Framework;
 using System.Collections.Generic;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules.Tests
+namespace MythsAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class CardFactoryTests : OneTimeAutoInject

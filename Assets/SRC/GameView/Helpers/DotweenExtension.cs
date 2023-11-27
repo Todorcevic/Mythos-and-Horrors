@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public static class DotweenExtension
     {

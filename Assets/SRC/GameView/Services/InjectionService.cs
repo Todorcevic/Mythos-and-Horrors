@@ -1,7 +1,7 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.EditMode;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class InjectionService : Installer
     {
@@ -43,6 +43,10 @@ namespace MythsAndHorrors.GameView
             /*** Converters ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
+
+            /*** Factories ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+            .InNamespace(gameViewNameSpace).WithSuffix("Factory")).AsSingle();
         }
 
         private void InstallRules()

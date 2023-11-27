@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using MythsAndHorrors.GameRules;
+using MythsAndHorrors.EditMode;
 using Sirenix.Utilities;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public class PrepareGameUseCase
     {

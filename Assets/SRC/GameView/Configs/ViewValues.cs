@@ -1,4 +1,4 @@
-namespace MythsAndHorrors.GameView
+namespace MythsAndHorrors.PlayMode
 {
     public static class ViewValues
     {
