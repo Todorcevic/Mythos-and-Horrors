@@ -33,6 +33,6 @@ namespace MythsAndHorrors.GameView
 
         private void InitializeZones() => _zoneViewsManager.Init();
 
-        private void BuildCardViews() => _cardProvider.GetAllCards().ForEach(card => _cardGeneratorComponent.BuildCard(card));
+        private void BuildCardViews() => _cardProvider.AllCards.ForEach(card => _cardGeneratorComponent.BuildCard(card));
     }
 }

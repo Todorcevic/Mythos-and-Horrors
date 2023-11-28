@@ -2,6 +2,7 @@
 using TMPro;
 using System.Reflection;
 using System;
+using System.Linq;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
@@ -35,18 +36,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (objectTarget == null) throw new ArgumentNullException("objectTarget cant be null");
             if (string.IsNullOrEmpty(memberName)) throw new ArgumentNullException("memberName cant be null or empty");
 
-            FieldInfo field = null;
-            foreach (FieldInfo fieldInfo in objectTarget.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
-            {
-                if (fieldInfo.Name == memberName)
-                {
-                    field = fieldInfo;
-                    break;
-                }
-            }
+            FieldInfo field = (objectTarget.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .FirstOrDefault(fieldInfo => fieldInfo.Name == memberName && fieldInfo.FieldType == typeof(T))
+                ?? throw new ArgumentException($"No private field named {memberName} of type {typeof(T).Name} found in {objectTarget.GetType().Name}."));
 
-            if (field == null) throw new ArgumentException($"No private field named {memberName} found in {objectTarget.GetType().Name}.");
-            if (field.FieldType != typeof(T)) throw new InvalidOperationException($"Field {memberName} is not of type {typeof(T).Name}.");
             return (T)field.GetValue(objectTarget);
         }
     }

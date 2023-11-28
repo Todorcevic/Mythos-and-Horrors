@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public Card CreateCard(string cardCode)
+        public Card Execute(string cardCode)
         {
             if (_allCardInfo == null) throw new InvalidOperationException("CardInfo not loaded");
 

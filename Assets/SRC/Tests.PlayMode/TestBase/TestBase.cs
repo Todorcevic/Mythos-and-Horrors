@@ -13,6 +13,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             yield return base.SetUp();
             StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+            StaticContext.Container.Bind<FilesPath>().To<TestFilePath>().AsSingle();
             yield return LoadScene("GamePlay", TestInstaller);
         }
 

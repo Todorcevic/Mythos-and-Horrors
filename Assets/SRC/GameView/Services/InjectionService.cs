@@ -69,7 +69,7 @@ namespace MythsAndHorrors.GameView
 
         private void InstallSingle()
         {
-            Container.Bind<FilesPath>().AsSingle();
+            Container.Bind<FilesPath>().AsSingle().IfNotBound();
         }
     }
 }

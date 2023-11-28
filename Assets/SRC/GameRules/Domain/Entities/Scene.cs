@@ -7,6 +7,6 @@ namespace MythsAndHorrors.GameRules
         public int Position { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Card> CardsCode { get; set; }
+        public List<Card> Cards { get; set; }
     }
 }

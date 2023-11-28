@@ -4,19 +4,20 @@ using Zenject;
 
 namespace MythsAndHorrors.EditMode.Tests
 {
-    public abstract class OneTimeAutoInject
+    public abstract class SetupAutoInject
     {
-        public DiContainer Container = new();
+        public DiContainer Container;
 
-        [OneTimeSetUp]
-        public virtual void OneTimeSetUp()
+        [SetUp]
+        public virtual void RunBeforeAnyTest()
         {
+            Container = new();
             Container.Install<InjectionService>();
             Container.Inject(this);
         }
 
-        [OneTimeTearDown]
-        public void RunAfterAnyTests()
+        [TearDown]
+        public virtual void RunAfterAnyTest()
         {
             Container = null;
         }

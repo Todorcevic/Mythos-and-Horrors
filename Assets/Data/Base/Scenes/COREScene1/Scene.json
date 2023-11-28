@@ -2,7 +2,7 @@
     "Position": 1,
     "Name": "Scene1",
     "Description": "This is a test scene1",
-    "CardsCode": [
+    "Cards": [
         "01108",
         "01109",
         "01110",

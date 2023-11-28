@@ -7,10 +7,10 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<Card> _cards = new();
 
+        public IReadOnlyList<Card> AllCards => _cards;
+
         /*******************************************************************/
         public Card GetCard(string code) => _cards.First(card => card.Info.Code == code);
-
-        public IReadOnlyList<Card> GetAllCards() => _cards;
 
         public void AddCard(Card objectCard)
         {

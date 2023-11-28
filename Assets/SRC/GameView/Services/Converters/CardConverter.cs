@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
 
         /*******************************************************************/
         public override Card ReadJson(JsonReader reader, Type objectType, Card existingValue, bool hasExistingValue, JsonSerializer serializer) =>
-            _cardFactory.CreateCard(reader.Value as string);
+            _cardFactory.Execute(reader.Value as string);
 
         public override void WriteJson(JsonWriter writer, Card value, JsonSerializer serializer)
         {
