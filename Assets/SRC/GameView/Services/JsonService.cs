@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
@@ -15,8 +14,7 @@ namespace MythsAndHorrors.GameView
         {
             JsonConvert.DefaultSettings = () => new()
             {
-                ObjectCreationHandling = ObjectCreationHandling.Replace,
-                Converters = new List<JsonConverter>() { _converters }
+                ObjectCreationHandling = ObjectCreationHandling.Replace
             };
         }
 
@@ -24,18 +22,18 @@ namespace MythsAndHorrors.GameView
         public T CreateDataFromResources<T>(string pathAndNameJsonFile)
         {
             TextAsset jsonData = Resources.Load<TextAsset>(pathAndNameJsonFile);
-            return JsonConvert.DeserializeObject<T>(jsonData.text);
+            return JsonConvert.DeserializeObject<T>(jsonData.text, _converters);
         }
 
         public T CreateDataFromFile<T>(string pathAndNameJsonFile)
         {
             string jsonData = File.ReadAllText(pathAndNameJsonFile);
-            return JsonConvert.DeserializeObject<T>(jsonData);
+            return JsonConvert.DeserializeObject<T>(jsonData, _converters);
         }
 
         public void SaveFileFromData(object data, string pathAndNameJsonFile)
         {
-            string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented, _converters);
             File.WriteAllText(pathAndNameJsonFile, jsonData);
         }
 

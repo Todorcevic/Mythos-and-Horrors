@@ -10,13 +10,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly JsonService _jsonService;
+        [Inject] private readonly FilesPath _filesPath;
 
         /*******************************************************************/
         private async void Start()
         {
             if (!_mustBeLoaded) return;
 
-            SaveData saveData = _jsonService.CreateDataFromFile<SaveData>(FilesPath.JSON_SAVE_DATA_PATH);
+            SaveData saveData = _jsonService.CreateDataFromFile<SaveData>(_filesPath.JSON_SAVE_DATA_PATH);
             _loadGameUseCase.Execute(saveData);
             await _gameActionFactory.Create<StartGameAction>().Run();
         }

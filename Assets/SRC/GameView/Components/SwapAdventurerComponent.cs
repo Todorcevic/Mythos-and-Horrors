@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Init()
         {
-            _adventurersProvider.GetAllAdventurers().ForEach(adventurer => _allAdventurerAreas.Find(area => area.IsFree).Init(adventurer));
+            _adventurersProvider.AllAdventurers.ForEach(adventurer => _allAdventurerAreas.Find(area => area.IsFree).Init(adventurer));
             _currentAreaAdventurer = _allAdventurerAreas.First();
         }
 

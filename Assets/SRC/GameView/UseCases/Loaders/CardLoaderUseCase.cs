@@ -10,17 +10,19 @@ namespace MythsAndHorrors.GameView
 {
     public class CardLoaderUseCase
     {
-        [Inject] private readonly DiContainer _diContainer;
-        [Inject] private readonly CardsProvider _cardProvider;
-        private List<CardInfo> _allCardInfo;
+        private readonly DiContainer _diContainer;
+        private readonly CardsProvider _cardProvider;
+        private readonly List<CardInfo> _allCardInfo;
 
         /*******************************************************************/
-        public void SetCardInfo(List<CardInfo> allCardInfo)
+        public CardLoaderUseCase(DiContainer diContainer, CardsProvider cardProvider, CardInfoLoaderUseCase cardInfoLoader)
         {
-            if (_allCardInfo != null) throw new InvalidOperationException("CardInfo already loaded");
-            _allCardInfo = allCardInfo ?? throw new ArgumentNullException(nameof(allCardInfo) + " allCardInfo cant be null");
+            _diContainer = diContainer;
+            _cardProvider = cardProvider;
+            _allCardInfo = cardInfoLoader.Execute();
         }
 
+        /*******************************************************************/
         public Card CreateCard(string cardCode)
         {
             if (_allCardInfo == null) throw new InvalidOperationException("CardInfo not loaded");

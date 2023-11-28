@@ -39,8 +39,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             };
 
             _prepareGameUseCase.Execute(saveData);
-            Adventurer adventurer1 = _adventurersProvider.GetAllAdventurers()[0];
-            Adventurer adventurer2 = _adventurersProvider.GetAllAdventurers()[1];
+            Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
+            Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
 
             ZoneView adventurer1Zone = _zonesManager.Get(adventurer1.HandZone);
             CardView oneCard = _cardGenerator.BuildCard(adventurer1.AdventurerCard);

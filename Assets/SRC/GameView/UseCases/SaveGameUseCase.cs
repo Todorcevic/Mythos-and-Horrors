@@ -1,5 +1,4 @@
 ﻿using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -8,11 +7,11 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly AdventurersProvider _adventurerRepository;
+        [Inject] private readonly FilesPath _filesPath;
 
-        public void Execute()
-        {
-            IReadOnlyList<Adventurer> allAdventurers = _adventurerRepository.GetAllAdventurers();
-            _jsonService.SaveFileFromData(allAdventurers, FilesPath.JSON_ADVENTURERS_PATH);
-        }
+        /*******************************************************************/
+        public void Execute() =>
+            _jsonService.SaveFileFromData(_adventurerRepository.AllAdventurers, _filesPath.JSON_ADVENTURERS_PATH);
+
     }
 }

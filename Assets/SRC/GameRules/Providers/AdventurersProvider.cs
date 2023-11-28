@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<Adventurer> _adventurers = new();
 
+        public IReadOnlyList<Adventurer> AllAdventurers => _adventurers;
         public Adventurer Leader => _adventurers.First();
 
         /*******************************************************************/
@@ -16,8 +17,6 @@ namespace MythsAndHorrors.GameRules
             if (_adventurers.Contains(adventurer)) throw new InvalidOperationException("Adventurer already added");
             _adventurers.Add(adventurer);
         }
-
-        public IReadOnlyList<Adventurer> GetAllAdventurers() => _adventurers;
 
         public int GetAdventurerPosition(Adventurer adventurer) => _adventurers.IndexOf(adventurer) + 1;
     }

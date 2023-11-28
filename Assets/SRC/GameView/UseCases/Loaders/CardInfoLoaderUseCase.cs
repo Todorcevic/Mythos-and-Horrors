@@ -1,19 +1,20 @@
 ﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.IO;
+using Unity.Plastic.Newtonsoft.Json;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardInfoLoaderUseCase
     {
-        [Inject] private readonly JsonService _jsonService;
-        [Inject] private readonly CardLoaderUseCase _cardFactory;
+        [Inject] private readonly FilesPath _filesPath;
 
         /*******************************************************************/
-        public void Execute(string cardInfoFilePath)
+        public List<CardInfo> Execute()
         {
-            List<CardInfo> allCardInfo = _jsonService.CreateDataFromFile<List<CardInfo>>(cardInfoFilePath);
-            _cardFactory.SetCardInfo(allCardInfo);
+            string jsonData = File.ReadAllText(_filesPath.JSON_CARDINFO_PATH);
+            return JsonConvert.DeserializeObject<List<CardInfo>>(jsonData);
         }
     }
 }

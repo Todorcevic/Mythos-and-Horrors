@@ -6,12 +6,12 @@ namespace MythsAndHorrors.GameView
 {
     public class PrepareGameUseCase
     {
-        [Inject] private readonly CardInfoLoaderUseCase _cardInfoLoader;
         [Inject] private readonly SceneLoaderUseCase _sceneLoader;
         [Inject] private readonly AdventurerLoaderUseCase _adventurerLoader;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
+        [Inject] private readonly FilesPath _filesPath;
 
         private SaveData _saveData;
 
@@ -19,20 +19,17 @@ namespace MythsAndHorrors.GameView
         public void Execute(SaveData saveData)
         {
             _saveData = saveData;
-            LoadCardInfo();
             LoadAdventurers();
             LoadScene();
             InitializeZones();
             BuildCardViews();
         }
 
-        private void LoadCardInfo() => _cardInfoLoader.Execute(FilesPath.JSON_CARDINFO_PATH);
-
         private void LoadAdventurers() =>
             _saveData.AdventurersSelected.ForEach(adventurerCode =>
-            _adventurerLoader.Execute(FilesPath.JSON_ADVENTURER_PATH(adventurerCode)));
+            _adventurerLoader.Execute(_filesPath.JSON_ADVENTURER_PATH(adventurerCode)));
 
-        private void LoadScene() => _sceneLoader.Execute(FilesPath.JSON_SCENE_PATH(_saveData.SceneSelected));
+        private void LoadScene() => _sceneLoader.Execute(_filesPath.JSON_SCENE_PATH(_saveData.SceneSelected));
 
         private void InitializeZones() => _zoneViewsManager.Init();
 

@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
         {
             InstallView();
             InstallRules();
+            InstallSingle();
         }
 
         private void InstallView()
@@ -64,6 +65,11 @@ namespace MythsAndHorrors.GameView
             /*** Factories ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameRulesNameSpace).WithSuffix("Factory")).AsSingle();
+        }
+
+        private void InstallSingle()
+        {
+            Container.Bind<FilesPath>().AsSingle();
         }
     }
 }

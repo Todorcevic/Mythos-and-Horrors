@@ -13,11 +13,13 @@ namespace MythsAndHorrors.EditMode.Tests
     {
         private readonly string _path = Path.Combine(Application.persistentDataPath, "test.json");
         [Inject] private readonly JsonService _sut;
+        [Inject] private readonly FilesPath _filesPath;
 
+        /*******************************************************************/
         [Test]
         public void CardInfoJson_File_Exist()
         {
-            Assert.That(File.Exists(FilesPath.JSON_CARDINFO_PATH), Is.True);
+            Assert.That(File.Exists(_filesPath.JSON_CARDINFO_PATH), Is.True);
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace MythsAndHorrors.EditMode.Tests
         [Test]
         public void DeserializeCardsUseCase_With_Real_Data()
         {
-            List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(FilesPath.JSON_CARDINFO_PATH);
+            List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDINFO_PATH);
 
             Assert.That(result.Count, Is.GreaterThan(0));
         }
