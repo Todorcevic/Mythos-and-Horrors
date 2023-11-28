@@ -5,7 +5,7 @@ using Zenject;
 namespace MythsAndHorrors.EditMode.Tests
 {
     [TestFixture]
-    public class AdventurerProvideTests : SetupAutoInject
+    public class AdventurersProvideTests : SetupAutoInject
     {
         [Inject] private readonly AdventurersProvider _sut;
 

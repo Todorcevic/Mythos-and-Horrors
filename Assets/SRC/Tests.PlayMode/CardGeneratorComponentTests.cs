@@ -12,6 +12,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     public class CardGeneratorComponentTests : TestBase
     {
         [Inject] private readonly CardViewGeneratorComponent _sut;
+        [Inject] private readonly CardBuilder _cardBuilder;
 
         /*******************************************************************/
         [UnityTest]
@@ -40,7 +41,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
             SpriteRenderer template = result.GetPrivateMember<SpriteRenderer>("_template");
             SpriteRenderer badge = result.GetPrivateMember<SpriteRenderer>("_badge");
-            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<FactionAdventurerSO>("_cunning");
+            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<FactionAdventurerSO>("_brave");
 
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is AdventurerCardView);

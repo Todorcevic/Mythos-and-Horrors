@@ -12,12 +12,17 @@ namespace MythsAndHorrors.PlayMode.Tests
         public override IEnumerator SetUp()
         {
             yield return base.SetUp();
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-            StaticContext.Container.Bind<FilesPath>().To<TestFilePath>().AsSingle();
-            yield return LoadScene("GamePlay", TestInstaller);
+            InstallerToScene();
+            yield return LoadScene("GamePlay", InstallerToTests);
         }
 
-        private void TestInstaller()
+        private void InstallerToScene()
+        {
+            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+            StaticContext.Container.Bind<FilesPath>().To<TestFilePath>().AsSingle();
+        }
+
+        private void InstallerToTests()
         {
             SceneContainer.Bind<CardBuilder>().AsSingle();
             SceneContainer.Bind<CardViewBuilder>().AsSingle();
