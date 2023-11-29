@@ -56,6 +56,16 @@ namespace MythsAndHorrors.GameView
         public Tween Rotate() => _rotator.DOLocalRotate(new Vector3(0, Card.IsFaceDown ? 180 : 0, 0), ViewValues.FAST_TIME_ANIMATION)
             .SetEase(Ease.InOutExpo);
 
+        public void On()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Off()
+        {
+            gameObject.SetActive(false);
+        }
+
         protected abstract void SetAll();
 
         private void SetCommonInfo()

@@ -13,15 +13,22 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void MoveCardToZone(Card card, Zone gameZone)
         {
-            ZoneView zoneView = _zonesManager.Get(gameZone);
-            zoneView.EnterCard(_cardsManager.Get(card));
+            CardView cardView = _cardsManager.Get(card);
+            ZoneView newZoneView = _zonesManager.Get(gameZone);
+            ZoneView oldZoneView = _zonesManager.Get(card.CurrentZone);
+
+            DOTween.Sequence().Join(oldZoneView.ExitCard(cardView))
+                 .Join(newZoneView.EnterCard(cardView));
         }
 
         public async Task MoveCardToZoneAsync(Card card, Zone gameZone)
         {
-            ZoneView zoneView = _zonesManager.Get(gameZone);
             CardView cardView = _cardsManager.Get(card);
-            await zoneView.EnterCard(cardView).AsyncWaitForCompletion();
+            ZoneView newZoneView = _zonesManager.Get(gameZone);
+            ZoneView oldZoneView = _zonesManager.Get(card.CurrentZone);
+
+            await DOTween.Sequence().Join(oldZoneView.ExitCard(cardView))
+                 .Join(newZoneView.EnterCard(cardView)).AsyncWaitForCompletion();
         }
     }
 }

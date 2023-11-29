@@ -11,6 +11,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
+        private readonly bool DEBUG_MODE = false;
         [Inject] private readonly CardInfoBuilder _cardInfoBuilder;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewGeneratorComponent _sut;
@@ -24,13 +25,13 @@ namespace MythsAndHorrors.PlayMode.Tests
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is AdventurerCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
-
             yield return null;
         }
 
@@ -43,11 +44,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
             FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<FactionAdventurerSO>("_esoteric");
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_template").sprite == factionElementsExpected._templateFront,
                 $"was of: {factionElementsExpected._templateFront}");
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_badge").sprite == factionElementsExpected._badget,
                 $"was of: {factionElementsExpected._badget}");
-
             yield return null;
         }
 
@@ -61,6 +62,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
@@ -68,7 +70,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.Info.TotalChallengePoints));
-
             yield return null;
         }
 
@@ -83,6 +84,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
@@ -92,7 +94,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo(card.Info.Sanity.ToString()));
             Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.True);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.Info.TotalChallengePoints));
-
             yield return null;
         }
 
@@ -104,13 +105,13 @@ namespace MythsAndHorrors.PlayMode.Tests
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is PlaceCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Enigma"), Is.EqualTo(card.Info.Enigma.ToString()));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
-
             yield return null;
         }
 
@@ -124,6 +125,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
             SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is CreatureCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
@@ -132,7 +134,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo(card.Info.Strength.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
             Assert.That(skillPlacer.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.Info.TotalEnemyHits));
-
             yield return null;
         }
 
@@ -144,11 +145,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is AdversityCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
-
             yield return null;
         }
 
@@ -161,12 +162,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is PlotCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Eldritch"), Is.EqualTo(card.Info.Eldritch.ToString()));
-
             yield return null;
         }
 
@@ -178,12 +179,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>();
 
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is GoalCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
-
             yield return null;
         }
     }

@@ -13,7 +13,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        private readonly bool DEBUG_MODE = true;
+        private readonly bool DEBUG_MODE = false;
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;

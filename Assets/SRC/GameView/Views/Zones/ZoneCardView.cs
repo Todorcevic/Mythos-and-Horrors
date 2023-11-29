@@ -21,7 +21,6 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
-
         public override Tween MouseEnter(CardView cardView)
         {
             Transform invisibleHolder = _invisibleHolderController.SetLayout(cardView, layoutAmount: 1.5f);
