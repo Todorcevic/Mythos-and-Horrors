@@ -1,4 +1,6 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿using Unity.Plastic.Newtonsoft.Json;
+
+namespace MythsAndHorrors.GameRules
 {
     public record CardInfo
     {
@@ -20,8 +22,10 @@
         public int? Intelligence { get; init; }
         public int? Power { get; init; }
         public int? Wild { get; init; }
+        [JsonIgnore] public int TotalChallengePoints => (Strength ?? 0) + (Agility ?? 0) + (Intelligence ?? 0) + (Power ?? 0) + (Wild ?? 0);
         public int? EnemyDamage { get; init; }
         public int? EnemyFear { get; init; }
+        [JsonIgnore] public int TotalEnemyHits => (EnemyDamage ?? 0) + (EnemyFear ?? 0);
         public int? Xp { get; init; }
         public int? Victory { get; init; }
         public int? Enigma { get; init; }

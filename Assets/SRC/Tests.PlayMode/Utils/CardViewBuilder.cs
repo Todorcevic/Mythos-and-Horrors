@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameView;
+﻿using MythsAndHorrors.GameRules;
+using MythsAndHorrors.GameView;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
@@ -9,19 +10,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
 
         /*******************************************************************/
-        public CardView BuildOne() => _cardGenerator.BuildCard(_cardBuilder.SingleCard);
-
-        public CardView[] BuildManySame(int count)
-        {
-            CardView[] cards = new CardView[count];
-            for (int i = 0; i < count; i++)
-            {
-                cards[i] = BuildOne();
-            }
-            return cards;
-        }
-
         public CardView BuildRand() => _cardGenerator.BuildCard(_cardBuilder.BuildRand());
+
+        public CardView BuildWith(CardInfo cardInfo) => _cardGenerator.BuildCard(_cardBuilder.BuildWith(cardInfo));
 
         public CardView[] BuildManyRandom(int count)
         {

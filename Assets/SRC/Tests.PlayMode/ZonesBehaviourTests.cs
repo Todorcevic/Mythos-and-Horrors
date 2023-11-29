@@ -10,7 +10,6 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
-
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
@@ -28,7 +27,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             ViewValues.FAST_TIME_ANIMATION = DEBUG_MODE ? ViewValues.FAST_TIME_ANIMATION : 0f;
 
             yield return base.SetUp();
-            _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.SingleCard });
+            _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() });
             _zonesManager.Init();
         }
 
@@ -37,7 +36,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Basic()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.AdventurerZone);
-            CardView doc = _cardViewBuilder.BuildOne();
+            CardView doc = _cardViewBuilder.BuildRand();
 
             yield return sut.EnterCard(doc).WaitForCompletion();
 
@@ -49,13 +48,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Row()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.AidZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(5);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(5);
 
             foreach (CardView card in doc)
             {
                 yield return sut.EnterCard(card).WaitForCompletion();
             }
-
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(doc.First().transform.parent, Is.EqualTo(sut.transform));
@@ -72,7 +70,6 @@ namespace MythsAndHorrors.PlayMode.Tests
                 yield return sut.EnterCard(card).WaitForCompletion();
             }
 
-
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(doc.First().transform.parent, Is.EqualTo(sut.transform));
         }
@@ -81,7 +78,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Hand()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.HandZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(12);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(12);
 
             foreach (CardView card in doc)
             {
@@ -97,7 +94,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.HandZone);
             ZoneView doc2 = _zonesManager.Get(_zonesProvider.OutZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(5);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(5);
 
             foreach (CardView card in doc)
             {
@@ -116,7 +113,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Deck()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.DeckZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(33);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(33);
 
             foreach (CardView card in doc)
             {
@@ -131,7 +128,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Discard()
         {
             ZoneView sut = _zonesManager.Get(_adventurersProvider.Leader.DiscardZone);
-            CardView[] doc = _cardViewBuilder.BuildManySame(33);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(33);
 
             foreach (CardView card in doc)
             {
@@ -146,9 +143,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Card_In_Zone_Card()
         {
             ZoneView docZone = _zonesManager.Get(_zonesProvider.PlaceZone[1, 3]);
-            CardView oneCard = _cardViewBuilder.BuildOne();
+            CardView oneCard = _cardViewBuilder.BuildRand();
             ZoneCardView sut = oneCard.OwnZone;
-            CardView[] doc = _cardViewBuilder.BuildManySame(4);
+            CardView[] doc = _cardViewBuilder.BuildManyRandom(4);
 
             yield return docZone.EnterCard(oneCard).WaitForCompletion();
 

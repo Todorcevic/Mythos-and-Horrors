@@ -1,133 +1,42 @@
 ﻿using MythsAndHorrors.GameRules;
 using System;
+using System.Reflection;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
     public class CardBuilder
     {
-        [Inject] private readonly DiContainer SceneContainer;
+        [Inject] private readonly DiContainer _sceneContainer;
+        [Inject] private readonly CardInfoBuilder _cardInfoBuilder;
 
         /*******************************************************************/
-        public Card SingleCard => SceneContainer.Instantiate<CardAdventurer>(new object[]
-              {
-                    new CardInfo()
-                    {
-                        Description = "DescriptionTest1",
-                        CardType = CardType.Adventurer,
-                        Code = "00001",
-                        Name = "Adventurer1",
-                        Faction = Faction.Brave,
-                        Health= 10,
-                        Sanity=6,
-                        Strength=2,
-                        Agility=3,
-                        Intelligence=4,
-                        Power=0,
-                        EnemyDamage=4,
-                        EnemyFear=2,
-                        Cost=5
-                    }
-              });
+        public Card BuildWith(CardInfo cardInfo) =>
+            _sceneContainer.Instantiate(GetType(cardInfo.CardType), new object[] { cardInfo }) as Card;
 
-        public Card SingleCard2 => SceneContainer.Instantiate<CardAdventurer>(new object[]
-              {
-                    new CardInfo()
-                    {
-                        Description = "DescriptionTest2",
-                        CardType = CardType.Condition,
-                        Code = "00002",
-                        Name = "Condition2",
-                        Faction = Faction.Cunning,
-                        Health= 5,
-                        Sanity=3,
-                        Strength=6,
-                        Agility=5,
-                        Intelligence=3,
-                        Power=2,
-                        EnemyDamage=7,
-                        EnemyFear=5,
-                        Cost=1
-                    }
-              });
-
-        public Card BuildRand()
-        {
-            (CardType cardType, Type type) = GetRandomCardType();
-            Random rand = new();
-
-            return (Card)SceneContainer.Instantiate(type, new object[]
-               {
-                    new CardInfo()
-                    {
-                        Description = GetRandomName(),
-                        CardType = cardType,
-                        Code = rand.Next(10000, 99999).ToString(),
-                        Name = GetRandomName(),
-                        Faction = (Faction)rand.Next(1,7),
-                        Health = rand.Next(1,4),
-                        Sanity = rand.Next(1,4),
-                        Strength = rand.Next(1,2),
-                        Agility = rand.Next(1,2),
-                        Intelligence = rand.Next(1,2),
-                        Power = rand.Next(1,2)
-                    }
-               });
-        }
-
-        private (CardType cardType, Type type) GetRandomCardType()
-        {
-            Array values = Enum.GetValues(typeof(CardType));
-            CardType randomCardType = (CardType)values.GetValue(UnityEngine.Random.Range(1, values.Length));
-            Type cardType = null;
-            switch (randomCardType)
+        public Card BuildOfType<T>() where T : Card => _sceneContainer.Instantiate<T>(new object[]
             {
-                case CardType.Adventurer:
-                    cardType = typeof(CardAdventurer);
-                    break;
-                case CardType.Supply:
-                    cardType = typeof(CardSupply);
-                    break;
-                case CardType.Talent:
-                    cardType = typeof(CardTalent);
-                    break;
-                case CardType.Creature:
-                    cardType = typeof(CardCreature);
-                    break;
-                case CardType.Adversity:
-                    cardType = typeof(CardAdversity);
-                    break;
-                case CardType.Condition:
-                    cardType = typeof(CardCondition);
-                    break;
-                case CardType.Goal:
-                    cardType = typeof(CardGoal);
-                    break;
-                case CardType.Plot:
-                    cardType = typeof(CardPlot);
-                    break;
-                case CardType.Place:
-                    cardType = typeof(CardPlace);
-                    break;
-                default:
-                    break;
-            }
-            return (randomCardType, cardType);
-        }
+                _cardInfoBuilder.CreateRandom().WithCardType(GetCardType<T>()).GiveMe()
+            });
 
-        private string GetRandomName()
+        public Card BuildRand() => BuildWith(_cardInfoBuilder.CreateRandom().GiveMe());
+
+        private Type GetType(CardType cardType) =>
+            Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardType.ToString())
+                ?? throw new InvalidOperationException("Card not found Type: " + cardType.ToString());
+
+        private CardType GetCardType<T>() where T : Card => typeof(T) switch
         {
-            const string words = "abcdefghijklmnopqrstuvwxyz";
-            Random random = new();
-            char[] nameArray = new char[6];
-
-            for (int i = 0; i < 6; i++)
-            {
-                int randomIndex = random.Next(words.Length);
-                nameArray[i] = words[randomIndex];
-            }
-
-            return new string(nameArray);
-        }
+            Type type when type == typeof(CardAdventurer) => CardType.Adventurer,
+            Type type when type == typeof(CardSupply) => CardType.Supply,
+            Type type when type == typeof(CardTalent) => CardType.Talent,
+            Type type when type == typeof(CardCreature) => CardType.Creature,
+            Type type when type == typeof(CardAdversity) => CardType.Adversity,
+            Type type when type == typeof(CardCondition) => CardType.Condition,
+            Type type when type == typeof(CardGoal) => CardType.Goal,
+            Type type when type == typeof(CardPlot) => CardType.Plot,
+            Type type when type == typeof(CardPlace) => CardType.Place,
+            _ => throw new Exception(typeof(T) + " wrong CardType"),
+        };
     }
 }

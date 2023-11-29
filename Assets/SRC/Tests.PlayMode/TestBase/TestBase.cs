@@ -24,6 +24,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         private void InstallerToTests()
         {
+            SceneContainer.Bind<CardInfoBuilder>().AsTransient();
             SceneContainer.Bind<CardBuilder>().AsSingle();
             SceneContainer.Bind<CardViewBuilder>().AsSingle();
         }

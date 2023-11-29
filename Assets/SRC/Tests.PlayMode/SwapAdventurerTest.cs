@@ -3,7 +3,6 @@ using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -24,12 +23,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Swap()
         {
-            SaveData saveData = new()
-            {
-                AdventurersSelected = new List<string>() { "01501", "01502" },
-                SceneSelected = "COREScene1"
-            };
-            _prepareGameUseCase.Execute(saveData);
+            _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
             CardView oneCard = _cardGenerator.BuildCard(adventurer1.AdventurerCard);
@@ -40,7 +34,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _sut.Select(adventurer2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_sut.GetPrivateMember<Transform>("_leftPosition").GetComponentInChildren<CardView>(), Is.EqualTo(oneCard));
             Assert.That(_sut.GetPrivateMember<Transform>("_playPosition").GetComponentInChildren<CardView>(), Is.EqualTo(twoCard));
         }

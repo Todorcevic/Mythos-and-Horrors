@@ -2,7 +2,6 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.TestTools;
 using Zenject;
 
@@ -20,13 +19,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator PrepareGame()
         {
-            SaveData saveData = new()
-            {
-                AdventurersSelected = new List<string>() { "01501", "01502" },
-                SceneSelected = "COREScene1"
-            };
-
-            _sut.Execute(saveData);
+            _sut.Execute();
 
             Assert.That(_adventurersProvider.AllAdventurers.Count, Is.EqualTo(2));
             Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));
