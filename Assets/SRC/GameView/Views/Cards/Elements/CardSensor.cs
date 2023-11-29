@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            DOTween.Kill(MOUSE_EXIT);
+            DOTween.Kill(_cardView.CurrentZoneView);
 
             _cardView.CurrentZoneView.MouseEnter(_cardView);
             _cardShowerComponent.ShowCard(_cardView);
@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseExit()
         {
-            _cardView.CurrentZoneView.MouseExit(_cardView).SetId(MOUSE_EXIT);
+            _cardView.CurrentZoneView.MouseExit(_cardView).SetId(_cardView.CurrentZoneView);
             _cardShowerComponent.HideCard(_cardView);
         }
 

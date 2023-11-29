@@ -131,10 +131,17 @@ namespace MythsAndHorrors.PlayMode.Tests
                 Faction = (Faction)rand.Next(1, 7),
                 Health = rand.Next(1, 4),
                 Sanity = rand.Next(1, 4),
-                Strength = rand.Next(1, 2),
-                Agility = rand.Next(1, 2),
-                Intelligence = rand.Next(1, 2),
-                Power = rand.Next(1, 2)
+                Strength = rand.Next(1, 4),
+                Agility = rand.Next(1, 4),
+                Intelligence = rand.Next(1, 4),
+                Power = rand.Next(1, 4),
+                Cost = rand.Next(1, 4),
+                Enigma = rand.Next(1, 4),
+                Hints = rand.Next(1, 4),
+                EnemyDamage = rand.Next(1, 4),
+                EnemyFear = rand.Next(1, 4),
+                Wild = rand.Next(1, 4),
+                Eldritch = rand.Next(1, 4),
             };
             return this;
         }

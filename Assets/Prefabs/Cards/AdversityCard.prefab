@@ -44,6 +44,22 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 5.25
       objectReference: {fileID: 0}
+    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.77254903
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292920755
+      objectReference: {fileID: 0}
     - target: {fileID: 3261284874339152958, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
       value: 10
@@ -110,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Name
-      value: AdversityCard Variant
+      value: AdversityCard
       objectReference: {fileID: 0}
     - target: {fileID: 7855043723497567537, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
@@ -137,8 +153,24 @@ PrefabInstance:
       value: 11.7
       objectReference: {fileID: 0}
     - target: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.87843144
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.7725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_lineSpacing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292920755
       objectReference: {fileID: 0}
     - target: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: _cardView

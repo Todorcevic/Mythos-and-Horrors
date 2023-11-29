@@ -13,7 +13,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        private readonly bool DEBUG_MODE = false;
+        private readonly bool DEBUG_MODE = true;
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
@@ -32,6 +32,22 @@ namespace MythsAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
+        [UnityTest]
+        public IEnumerator Move_Card_In_Two_Zones()
+        {
+            ZoneView sut = _zonesManager.Get(_zonesProvider.PlaceZone[0, 2]);
+            CardView doc = _cardViewBuilder.BuildRand();
+
+            ZoneView sut2 = _zonesManager.Get(_zonesProvider.PlaceZone[0, 3]);
+            CardView doc2 = _cardViewBuilder.BuildRand();
+
+            yield return sut.EnterCard(doc).WaitForCompletion();
+            yield return sut2.EnterCard(doc2).WaitForCompletion();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(doc.transform.parent, Is.EqualTo(sut.transform));
+        }
+
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Basic()
         {
@@ -142,7 +158,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Card()
         {
-            ZoneView docZone = _zonesManager.Get(_zonesProvider.PlaceZone[1, 3]);
+            ZoneView docZone = _zonesManager.Get(_adventurersProvider.Leader.AidZone);
             CardView oneCard = _cardViewBuilder.BuildRand();
             ZoneCardView sut = oneCard.OwnZone;
             CardView[] doc = _cardViewBuilder.BuildManyRandom(4);
