@@ -40,7 +40,14 @@ namespace MythsAndHorrors.GameView
             _glowView.SetGreenGlow();
         }
 
-        public void SetCurrentZoneView(ZoneView zoneView)
+        public Tween MovoToZone(ZoneView zoneView)
+        {
+            Sequence sequence = DOTween.Sequence();
+            if (CurrentZoneView != null) sequence.Join(CurrentZoneView.ExitCard(this));
+            return sequence.Join(zoneView.EnterCard(this)).OnStart(() => SetCurrentZoneView(zoneView));
+        }
+
+        private void SetCurrentZoneView(ZoneView zoneView)
         {
             CurrentZoneView = zoneView;
             transform.SetParent(zoneView.transform, worldPositionStays: true);

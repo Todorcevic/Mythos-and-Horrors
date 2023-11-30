@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -7,8 +6,7 @@ namespace MythsAndHorrors.GameRules
     public abstract class GameAction
     {
         [Inject] private readonly GameStateService _gameStateService;
-        [Inject] private readonly IEnumerable<IStartReactionable> _startReactionables;
-        [Inject] private readonly IEnumerable<IEndReactionable> _endReactionables;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         /*******************************************************************/
         protected async Task Start()
@@ -21,20 +19,14 @@ namespace MythsAndHorrors.GameRules
 
         private async Task AtTheBeginning()
         {
-            foreach (IStartReactionable reaction in _startReactionables)
-            {
-                await reaction.WhenBegin(this);
-            }
+            await _reactionablesProvider.WhenBegin(this);
         }
 
         protected abstract Task ExecuteThisLogic();
 
         private async Task AtTheEnd()
         {
-            foreach (IEndReactionable reaction in _endReactionables)
-            {
-                await reaction.WhenFinish(this);
-            }
+            await _reactionablesProvider.WhenFinish(this);
         }
     }
 }

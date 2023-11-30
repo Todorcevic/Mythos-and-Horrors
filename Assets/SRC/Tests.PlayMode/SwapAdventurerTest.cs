@@ -14,10 +14,9 @@ namespace MythsAndHorrors.PlayMode.Tests
     {
         private readonly bool DEBUG_MODE = false;
         [Inject] private readonly SwapAdventurerComponent _sut;
-        [Inject] private readonly AdventurersProvider _adventurersProvider;
-        [Inject] private readonly ZoneViewsManager _zonesManager;
-        [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
+        [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
 
         /*******************************************************************/
         [UnityTest]
@@ -26,18 +25,16 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
-            CardView oneCard = _cardGenerator.BuildCard(adventurer1.AdventurerCard);
-            yield return _zonesManager.Get(adventurer1.HandZone).EnterCard(oneCard).WaitForCompletion();
-            CardView twoCard = _cardGenerator.BuildCard(adventurer2.AdventurerCard);
-            yield return _zonesManager.Get(adventurer2.HandZone).EnterCard(twoCard).WaitForCompletion();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.AdventurerCard, adventurer1.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.AdventurerCard, adventurer2.HandZone).AsCoroutine();
 
             yield return _sut.Select(adventurer2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_sut.GetPrivateMember<Transform>("_leftPosition").GetComponentInChildren<CardView>(), Is.EqualTo(oneCard));
-            Assert.That(_sut.GetPrivateMember<Transform>("_playPosition").GetComponentInChildren<CardView>(), Is.EqualTo(twoCard));
+            Assert.That(_sut.GetPrivateMember<Transform>("_leftPosition").GetComponentInChildren<CardView>().Card,
+                Is.EqualTo(adventurer1.AdventurerCard));
+            Assert.That(_sut.GetPrivateMember<Transform>("_playPosition").GetComponentInChildren<CardView>().Card,
+                Is.EqualTo(adventurer2.AdventurerCard));
         }
-
-
     }
 }

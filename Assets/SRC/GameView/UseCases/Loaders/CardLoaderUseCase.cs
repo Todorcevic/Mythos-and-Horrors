@@ -13,12 +13,14 @@ namespace MythsAndHorrors.GameView
         private readonly DiContainer _diContainer;
         private readonly CardsProvider _cardProvider;
         private readonly List<CardInfo> _allCardInfo;
+        private readonly ReactionablesProvider _reactionablesProvider;
 
         /*******************************************************************/
-        public CardLoaderUseCase(DiContainer diContainer, CardsProvider cardProvider, CardInfoLoaderUseCase cardInfoLoader)
+        public CardLoaderUseCase(DiContainer diContainer, CardsProvider cardProvider, ReactionablesProvider reactionablesProvider, CardInfoLoaderUseCase cardInfoLoader)
         {
             _diContainer = diContainer;
             _cardProvider = cardProvider;
+            _reactionablesProvider = reactionablesProvider;
             _allCardInfo = cardInfoLoader.Execute();
         }
 
@@ -32,7 +34,8 @@ namespace MythsAndHorrors.GameView
                 ?? Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.CardType.ToString()))
                 ?? throw new InvalidOperationException("Card not found" + cardInfo.Code + " Type: " + cardInfo.CardType.ToString());
             Card newCard = _diContainer.Instantiate(type, new object[] { cardInfo }) as Card;
-            type.GetInterfaces().ForEach(@interface => _diContainer.Bind(@interface).FromInstance(newCard));
+            type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => _reactionablesProvider.AddReactionable(startReactionable));
+            type.GetInterfaces().OfType<IEndReactionable>().ForEach(endReactionable => _reactionablesProvider.AddReactionable(endReactionable));
             _cardProvider.AddCard(newCard);
             return newCard;
         }

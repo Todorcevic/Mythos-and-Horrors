@@ -4,6 +4,7 @@ using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -13,12 +14,13 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        private readonly bool DEBUG_MODE = false;
+        private readonly bool DEBUG_MODE = true;
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewBuilder _cardViewBuilder;
+        [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -37,12 +39,16 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             ZoneView sut = _zonesManager.Get(_zonesProvider.PlaceZone[0, 2]);
             CardView doc = _cardViewBuilder.BuildRand();
-
             ZoneView sut2 = _zonesManager.Get(_zonesProvider.PlaceZone[0, 3]);
             CardView doc2 = _cardViewBuilder.BuildRand();
 
-            yield return sut.EnterCard(doc).WaitForCompletion();
-            yield return sut2.EnterCard(doc2).WaitForCompletion();
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc.Card, sut.Zone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc2.Card, sut2.Zone).AsCoroutine();
+
+
+            //yield return doc.MovoToZone(sut).WaitForCompletion();
+            //yield return doc2.MovoToZone(sut2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(doc.transform.parent, Is.EqualTo(sut.transform));
@@ -59,6 +65,20 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(doc.transform.parent, Is.EqualTo(sut.transform));
         }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Out()
+        {
+            ZoneView sut = _zonesManager.Get(_zonesProvider.OutZone);
+            CardView doc = _cardViewBuilder.BuildRand();
+
+            yield return sut.EnterCard(doc).WaitForCompletion();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(doc.transform.parent, Is.EqualTo(sut.transform));
+            Assert.That(doc.gameObject.activeSelf, Is.EqualTo(false));
+        }
+
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Row()

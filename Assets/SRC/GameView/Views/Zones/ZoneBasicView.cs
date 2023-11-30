@@ -12,7 +12,6 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override Tween EnterCard(CardView cardView)
         {
-            cardView.SetCurrentZoneView(this);
             return cardView.transform.DOFullMove(_movePosition);
         }
 

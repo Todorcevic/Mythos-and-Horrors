@@ -16,28 +16,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-
             await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01501"), _zoneProvider.DangerDeckZone);
-
             await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01560"), _zoneProvider.DangerDiscardZone);
-
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("5"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
-
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("6"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
-
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("7"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
         }
     }
 }

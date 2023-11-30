@@ -3,6 +3,8 @@ using TMPro;
 using System.Reflection;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Collections;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
@@ -41,6 +43,12 @@ namespace MythsAndHorrors.PlayMode.Tests
                 ?? throw new ArgumentException($"No private field named {memberName} of type {typeof(T).Name} found in {objectTarget.GetType().Name}."));
 
             return (T)field.GetValue(objectTarget);
+        }
+
+        public static IEnumerator AsCoroutine(this Task task)
+        {
+            while (!task.IsCompleted) yield return null;
+            task.GetAwaiter().GetResult();
         }
     }
 }

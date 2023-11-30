@@ -6,17 +6,15 @@ namespace MythsAndHorrors.GameRules
     public class MoveCardGameAction : GameAction
     {
         [Inject] private readonly ICardMover _cardMover;
-        private bool isAsync;
 
         public Card Card { get; private set; }
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(Card card, Zone zone, bool isAsync = true)
+        public async Task Run(Card card, Zone zone)
         {
             Card = card;
             Zone = zone;
-            this.isAsync = isAsync;
             await Start();
         }
 
