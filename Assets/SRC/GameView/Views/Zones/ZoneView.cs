@@ -1,17 +1,21 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public abstract class ZoneView : MonoBehaviour
     {
+        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
         public void Init(Zone zone)
         {
             Zone = zone;
+            _zoneViewsManager.Add(this);
         }
 
         /*******************************************************************/

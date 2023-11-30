@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneViewsManager
     {
-        [Inject] private readonly List<ZoneView> _allZones;
+        private readonly List<ZoneView> _allZones = new();
         [Inject] private readonly SwapAdventurerComponent _swapAdventurerComponent;
         [Inject] private readonly AreaSceneView _sceneArea;
         [Inject] private readonly AreaPlacesView _placesArea;
@@ -21,6 +21,8 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
+        public void Add(ZoneView zoneView) => _allZones.Add(zoneView);
+
         public ZoneView Get(Zone zone) => _allZones.First(zoneView => zoneView.Zone == zone);
 
         public ZoneView Get(string zoneName) => _allZones.First(zoneView => zoneView.name == zoneName);
