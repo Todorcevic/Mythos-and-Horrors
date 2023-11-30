@@ -14,8 +14,8 @@ namespace MythsAndHorrors.GameView
         {
             for (int i = 0; i < amount; i++)
             {
-                _skillIconPrefab.SetSkillIcon(icon, holder);
                 SkillIconView skillIconInstantiate = Instantiate(_skillIconPrefab, transform);
+                skillIconInstantiate.SetSkillIcon(icon, holder);
                 skillIconInstantiate.transform.localPosition += new Vector3(0, 0, totalIcons++ * Z_OFFSET);
             }
         }
