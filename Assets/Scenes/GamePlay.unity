@@ -2954,10 +2954,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4291518672261546166, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
-      propertyPath: m_Name
-      value: AdventurerSwaper
-      objectReference: {fileID: 0}
     - target: {fileID: 4986108195718657229, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_Name
       value: PlayArea

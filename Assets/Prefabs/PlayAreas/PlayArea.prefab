@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 1014939231607792433}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90, y: 40, z: 0}
+  m_LocalPosition: {x: 100, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 3152554235794047567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -90, y: 40, z: 0}
+  m_LocalPosition: {x: -100, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -359,7 +359,7 @@ MonoBehaviour:
   - {fileID: 8404612555532955658}
   - {fileID: 339529527205307068}
   - {fileID: 6329257292209665721}
-  _playPosition: {fileID: 2948046419865852909}
+  _playPosition: {fileID: 5082270299819053621}
   _rightPosition: {fileID: 4424005101658731555}
   _leftPosition: {fileID: 9152649852086551557}
 --- !u!114 &3444804013019639267
@@ -723,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_Name
       value: AdventurerArea1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1715,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventurerArea3
       objectReference: {fileID: 0}
+    - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2427,6 +2435,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventurerArea2
       objectReference: {fileID: 0}
+    - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3045,6 +3057,10 @@ PrefabInstance:
     - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_Name
       value: AdventurerArea4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919892740792034922, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_LocalPosition.x

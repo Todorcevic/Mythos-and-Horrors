@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Init()
         {
-            _adventurersProvider.AllAdventurers.ForEach(adventurer => _allAdventurerAreas.Find(area => area.IsFree).Init(adventurer));
+            _adventurersProvider.AllAdventurers.ForEach(adventurer => _allAdventurerAreas.First(area => area.IsFree).Init(adventurer));
             _currentAreaAdventurer = _allAdventurerAreas.First();
         }
 
@@ -31,11 +31,23 @@ namespace MythsAndHorrors.GameView
             AreaAdventurerView areaAdventurerView = Get(adventurer);
             Transform positionToMove = GetSidePosition(adventurer);
 
-            return DOTween.Sequence().Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove)
-                .OnComplete(() => _currentAreaAdventurer.transform.SetParent(positionToMove)))
+            return DOTween.Sequence().PrependCallback(Initialize)
+                .Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove)
                 .Join(areaAdventurerView.transform.DOFullMove(_playPosition))
-                .OnComplete(() => areaAdventurerView.transform.SetParent(_playPosition))
-                .OnComplete(() => _currentAreaAdventurer = areaAdventurerView);
+                .AppendCallback(Finish));
+
+            void Finish()
+            {
+                _currentAreaAdventurer.gameObject.SetActive(false);
+                _currentAreaAdventurer.transform.SetParent(positionToMove);
+                _currentAreaAdventurer = areaAdventurerView;
+            }
+
+            void Initialize()
+            {
+                areaAdventurerView.gameObject.SetActive(true);
+                areaAdventurerView.transform.SetParent(_playPosition, worldPositionStays: true);
+            }
         }
 
         private AreaAdventurerView Get(Adventurer adventurer) => _allAdventurerAreas.First(areaView => areaView.Adventurer == adventurer);

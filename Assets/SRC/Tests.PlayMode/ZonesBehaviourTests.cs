@@ -1,10 +1,8 @@
-﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -136,6 +134,51 @@ namespace MythsAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
+        public IEnumerator Remove_Card_In_Zone_Row()
+        {
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(5);
+
+            foreach (CardView card in sut)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
+            }
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+        }
+
+        [UnityTest]
+        public IEnumerator Remove_Card_In_Zone_Deck()
+        {
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(33);
+
+            foreach (CardView card in sut)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DeckZone).AsCoroutine();
+            }
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _zonesProvider.OutZone).AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+        }
+
+        [UnityTest]
+        public IEnumerator Remove_Card_In_Zone_Discard()
+        {
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(33);
+
+            foreach (CardView card in sut)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DiscardZone).AsCoroutine();
+            }
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _zonesProvider.OutZone).AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+        }
+
+        [UnityTest]
         public IEnumerator Move_Card_In_Zone_Deck()
         {
             CardView[] sut = _cardViewBuilder.BuildManyRandom(33);
@@ -181,6 +224,27 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(sut2.Card.OwnZone));
             Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
+        }
+
+        [UnityTest]
+        public IEnumerator Remove_Card_In_Zone_Card()
+        {
+            CardView sut2 = _cardViewBuilder.BuildRand();
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(4);
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _zonesProvider.PlaceZone[0, 2]).AsCoroutine();
+
+            foreach (CardView card in sut)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, sut2.Card.OwnZone).AsCoroutine();
+            }
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
+
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>().Contains(sut.First()), Is.False);
         }
 
         [UnityTest]

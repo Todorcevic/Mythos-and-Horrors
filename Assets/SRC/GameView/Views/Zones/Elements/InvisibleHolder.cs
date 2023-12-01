@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
 
         public bool HasThisCardView(CardView cardView) => _cardView == cardView;
 
-        public Tween Repositionate(float yOffSet = 0)
+        public Tween Repositionate(float yOffSet)
         {
             transform.localPosition = new Vector3(transform.localPosition.x, yOffSet, transform.localPosition.z);
             return _cardView.transform.DOFullLocalMove(transform);
