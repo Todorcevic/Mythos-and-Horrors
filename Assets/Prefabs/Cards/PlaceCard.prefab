@@ -191,6 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3293663316906718488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6276778819570781543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6276778819570781543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -215,6 +226,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 8282791756316178403}
   _zoneCardView: {fileID: 1100189038249415795}
   _rotator: {fileID: 6279900392877123520}
+  _nullZoneView: {fileID: 3293663316906718488}
   _hints: {fileID: 7806430170651661640}
   _enigma: {fileID: 4192828586796185438}
 --- !u!4 &6279900392877123520 stripped

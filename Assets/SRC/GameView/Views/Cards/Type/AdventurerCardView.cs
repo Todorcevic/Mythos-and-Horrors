@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _power;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
             SetRenderer();
             SetInfo();

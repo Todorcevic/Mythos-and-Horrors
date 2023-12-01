@@ -26,7 +26,7 @@ namespace MythsAndHorrors.GameView
         public Tween RemoveCardView(CardView cardView) //Check if launch exception
         {
             GetInvisibleHolder(cardView).Clear();
-            return Repositionate(cardView);
+            return Repositionate();
         }
 
         public Transform SetLayout(CardView cardView, float layoutAmount)
@@ -44,9 +44,9 @@ namespace MythsAndHorrors.GameView
             return Repositionate(cardView);
         }
 
-        private Tween Repositionate(CardView cardView)
+        private Tween Repositionate(CardView cardView = null)
         {
-            int SelectedCardPosition = _allInvisibleHolders.IndexOf(GetInvisibleHolder(cardView));
+            int SelectedCardPosition = cardView == null ? 0 : _allInvisibleHolders.IndexOf(GetInvisibleHolder(cardView));
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             Sequence repositionSequence = DOTween.Sequence();
             for (int i = 0; i < AmountOfCards; i++)
@@ -69,6 +69,6 @@ namespace MythsAndHorrors.GameView
         }
 
         private InvisibleHolder GetInvisibleHolder(CardView cardView) =>
-            _allInvisibleHolders.Find(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
+            _allInvisibleHolders.First(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
     }
 }

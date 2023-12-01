@@ -538,12 +538,24 @@ MonoBehaviour:
   _cardSensor: {fileID: 2190802374549720134}
   _zoneCardView: {fileID: 7192670855116009430}
   _rotator: {fileID: 4301949416792317029}
+  _nullZoneView: {fileID: 4692848973972082365}
   _eldritch: {fileID: 1883856862801814923}
 --- !u!4 &4301949416792317029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 8032590091954852428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4692848973972082365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 8032590091954852428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4291562132143240898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5493573126717618492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

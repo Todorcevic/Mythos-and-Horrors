@@ -1,3 +1,4 @@
+using Codice.CM.SEIDInfo;
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
@@ -17,6 +18,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rotator;
+        [Inject(Id = "OutZone")] private readonly ZoneView _outZoneView;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
@@ -29,8 +31,8 @@ namespace MythsAndHorrors.GameView
         private void Init(Card card)
         {
             Card = card;
-            SetCommonInfo();
-            SetAll();
+            SetCommon();
+            SetSpecific();
             SetPicture();
         }
 
@@ -66,14 +68,15 @@ namespace MythsAndHorrors.GameView
             gameObject.SetActive(false);
         }
 
-        protected abstract void SetAll();
+        protected abstract void SetSpecific();
 
-        private void SetCommonInfo()
+        private void SetCommon()
         {
             name = Card.Info.Code;
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description;
             _zoneCardView.Init(Card.OwnZone);
+            SetCurrentZoneView(_outZoneView);
         }
 
         private void SetPicture()

@@ -493,6 +493,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &760380366992175011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2653832444634788690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8080444718938068956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2917400884095274696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -571,6 +582,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 6181889277975604568}
   _zoneCardView: {fileID: 2917400884095274696}
   _rotator: {fileID: 8079080181447048571}
+  _nullZoneView: {fileID: 760380366992175011}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
   _skillFearIcon: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}
   _skillHolder: {fileID: 21300000, guid: f5f6b314861eb2244a36caad856d2f37, type: 3}

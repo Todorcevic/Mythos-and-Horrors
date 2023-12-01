@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _enigma;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
             _hints.text = Card.Info.Hints.ToString();
             _enigma.text = Card.Info.Enigma.ToString();

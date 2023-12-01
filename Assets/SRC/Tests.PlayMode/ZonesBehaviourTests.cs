@@ -14,13 +14,13 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        private readonly bool DEBUG_MODE = false;
-        [Inject] private readonly ZoneViewsManager _zonesManager;
+        private bool DEBUG_MODE = false;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewBuilder _cardViewBuilder;
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
+        [Inject] private readonly ZoneLoaderUseCase _zoneLoaderUseCase;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -30,157 +30,177 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return base.SetUp();
             _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() });
-            _zonesManager.Init();
+            _zoneLoaderUseCase.Execute();
         }
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Move_Card_In_Two_Zones()
         {
-            CardView doc = _cardViewBuilder.BuildRand();
-            CardView doc2 = _cardViewBuilder.BuildRand();
+            CardView sut = _cardViewBuilder.BuildRand();
+            CardView sut2 = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc.Card, _zonesProvider.PlaceZone[0, 2]).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc2.Card, _zonesProvider.PlaceZone[0, 3]).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.PlaceZone[0, 2]).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _zonesProvider.PlaceZone[0, 3]).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 2]));
-            Assert.That(doc.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc));
-            Assert.That(doc2.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 3]));
-            Assert.That(doc2.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc2));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 2]));
+            Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut));
+            Assert.That(sut2.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 3]));
+            Assert.That(sut2.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut2));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Basic()
         {
-            CardView doc = _cardViewBuilder.BuildRand();
+            CardView sut = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc.Card, _adventurersProvider.Leader.AdventurerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _adventurersProvider.Leader.AdventurerZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AdventurerZone));
-            Assert.That(doc.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AdventurerZone));
+            Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Out()
         {
-            CardView doc = _cardViewBuilder.BuildRand();
+            CardView sut = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc.Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
-            Assert.That(doc.CurrentZoneView.GetComponentsInChildren<CardView>(includeInactive: true), Contains.Item(doc));
-            Assert.That(doc.gameObject.activeSelf, Is.EqualTo(false));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(includeInactive: true), Contains.Item(sut));
+            Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Row()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(5);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(5);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AidZone));
-            Assert.That(doc.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AidZone));
+            Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Row_Creating_Holders()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(13);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(13);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AidZone));
-            Assert.That(doc.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.AidZone));
+            Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Hand()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(12);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(12);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.HandZone));
-            Assert.That(doc.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.HandZone));
+            Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Hand()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(5);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(5);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(doc.First().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Deck()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(33);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(33);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DeckZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.DeckZone));
-            Assert.That(doc.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.DeckZone));
+            Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Discard()
         {
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(33);
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(33);
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DiscardZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.DiscardZone));
-            Assert.That(doc.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.DiscardZone));
+            Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Card()
         {
-            CardView oneCard = _cardViewBuilder.BuildRand();
-            CardView[] doc = _cardViewBuilder.BuildManyRandom(4);
+            CardView sut2 = _cardViewBuilder.BuildRand();
+            CardView[] sut = _cardViewBuilder.BuildManyRandom(4);
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(oneCard.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
 
-            foreach (CardView card in doc)
+            foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, oneCard.Card.OwnZone).AsCoroutine();
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, sut2.Card.OwnZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(doc.First().CurrentZoneView.Zone, Is.EqualTo(oneCard.Card.OwnZone));
-            Assert.That(oneCard.OwnZone.GetComponentsInChildren<CardView>(), Contains.Item(doc.First()));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(sut2.Card.OwnZone));
+            Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
+        }
+
+        [UnityTest]
+        public IEnumerator Move_Card_In_Zone_Out_And_Back()
+        {
+            CardView sut = _cardViewBuilder.BuildRand();
+            Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
+            Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.OutZone).AsCoroutine();
+            Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
+
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
+            Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_adventurersProvider.Leader.HandZone));
+            Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(includeInactive: true), Contains.Item(sut));
         }
     }
 }

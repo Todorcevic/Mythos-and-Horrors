@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _sanity;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
             FactionDeckSO currentFaction = SetCurrent(Card.Info.Faction);
             SetInfo();

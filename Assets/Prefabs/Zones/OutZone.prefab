@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: -3793163400148800551}
-  _identifier: 
+  _identifier: OutZone
   _identifierWithName: 0
   _useSceneContext: 0
   _context: {fileID: 0}

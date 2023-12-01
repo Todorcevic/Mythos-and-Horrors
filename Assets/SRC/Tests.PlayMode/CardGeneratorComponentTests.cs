@@ -28,6 +28,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is AdventurerCardView);
+            Assert.That(result.CurrentZoneView, Is.InstanceOf<OutZoneView>());
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));

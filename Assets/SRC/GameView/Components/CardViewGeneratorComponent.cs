@@ -22,6 +22,7 @@ namespace MythsAndHorrors.GameView
         public CardView BuildCard(Card card)
         {
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
+            newCardview.Off();
             _cardViewsManager.Add(newCardview);
             return newCardview;
         }

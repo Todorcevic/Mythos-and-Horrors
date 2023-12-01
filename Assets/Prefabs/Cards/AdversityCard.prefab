@@ -199,6 +199,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1978492367009076877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3831476094482434684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051489203257224946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4144680672120993766 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -272,6 +283,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 4914014549907215478}
   _zoneCardView: {fileID: 4144680672120993766}
   _rotator: {fileID: 7054542640936027221}
+  _nullZoneView: {fileID: 1978492367009076877}
 --- !u!4 &7054542640936027221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

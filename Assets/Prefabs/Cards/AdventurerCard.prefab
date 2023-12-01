@@ -1049,6 +1049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdventurerCard
       objectReference: {fileID: 0}
+    - target: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: _cardView
       value: 

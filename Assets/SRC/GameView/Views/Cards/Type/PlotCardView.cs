@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _eldritch;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
             _eldritch.text = Card.Info.Eldritch.ToString();
         }
