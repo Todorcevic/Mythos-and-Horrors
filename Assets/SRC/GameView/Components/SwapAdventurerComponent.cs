@@ -31,22 +31,16 @@ namespace MythsAndHorrors.GameView
             AreaAdventurerView areaAdventurerView = Get(adventurer);
             Transform positionToMove = GetSidePosition(adventurer);
 
-            return DOTween.Sequence().PrependCallback(Initialize)
-                .Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove)
-                .Join(areaAdventurerView.transform.DOFullMove(_playPosition))
-                .AppendCallback(Finish));
+            return DOTween.Sequence()
+                .Join(areaAdventurerView.transform.DOFullMove(_playPosition).OnStart(() => _currentAreaAdventurer.transform.position *= 0.25f))
+                .Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove).OnComplete(() => _currentAreaAdventurer.transform.position *= 4f))
+                .AppendCallback(Finish);
 
             void Finish()
             {
-                _currentAreaAdventurer.gameObject.SetActive(false);
+                areaAdventurerView.transform.SetParent(_playPosition);
                 _currentAreaAdventurer.transform.SetParent(positionToMove);
                 _currentAreaAdventurer = areaAdventurerView;
-            }
-
-            void Initialize()
-            {
-                areaAdventurerView.gameObject.SetActive(true);
-                areaAdventurerView.transform.SetParent(_playPosition, worldPositionStays: true);
             }
         }
 

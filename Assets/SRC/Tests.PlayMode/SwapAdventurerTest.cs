@@ -25,6 +25,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
+
+            if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0;
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.AdventurerCard, adventurer1.HandZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.AdventurerCard, adventurer2.HandZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[2], adventurer1.AidZone).AsCoroutine();
@@ -42,13 +44,15 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[6], adventurer1.DangerZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[6], adventurer2.DangerZone).AsCoroutine();
 
-            while (true)
+            if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0.25f;
+            while (DEBUG_MODE)
             {
                 yield return PressAnyKey();
                 yield return _sut.Select(adventurer2).WaitForCompletion();
                 yield return PressAnyKey();
                 yield return _sut.Select(adventurer1).WaitForCompletion();
             }
+
             yield return PressAnyKey();
             yield return _sut.Select(adventurer2).WaitForCompletion();
 
