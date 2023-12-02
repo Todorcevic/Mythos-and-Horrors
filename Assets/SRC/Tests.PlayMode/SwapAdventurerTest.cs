@@ -12,7 +12,6 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class SwapAdventurerTest : TestBase
     {
-        private readonly bool DEBUG_MODE = true;
         [Inject] private readonly SwapAdventurerComponent _sut;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly AdventurersProvider _adventurersProvider;

@@ -12,7 +12,6 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        private bool DEBUG_MODE = false;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardBuilder _cardBuilder;

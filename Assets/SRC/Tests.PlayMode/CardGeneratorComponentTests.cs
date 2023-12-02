@@ -11,7 +11,6 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
-        private readonly bool DEBUG_MODE = false;
         [Inject] private readonly CardInfoBuilder _cardInfoBuilder;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewGeneratorComponent _sut;

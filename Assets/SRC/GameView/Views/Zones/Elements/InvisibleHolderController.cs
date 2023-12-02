@@ -60,7 +60,6 @@ namespace MythsAndHorrors.GameView
         private InvisibleHolder GetFreeHolder() =>
             _allInvisibleHolders.FirstOrDefault(invisiblerHolder => invisiblerHolder.IsFree) ?? CreateNewHolder();
 
-
         private InvisibleHolder CreateNewHolder()
         {
             InvisibleHolder invisibleHolder = Instantiate(_allInvisibleHolders.First(), transform);

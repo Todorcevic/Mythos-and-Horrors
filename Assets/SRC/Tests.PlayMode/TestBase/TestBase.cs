@@ -8,6 +8,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {
+        protected bool DEBUG_MODE = false;
+
+        /*******************************************************************/
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
