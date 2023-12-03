@@ -55,7 +55,5 @@ namespace MythsAndHorrors.GameView
             _adventurersProvider.GetAdventurerPosition(_currentAreaAdventurer.Adventurer) ?
             _leftPosition :
             _rightPosition;
-
-
     }
 }
