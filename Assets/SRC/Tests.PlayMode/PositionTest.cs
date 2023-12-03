@@ -18,12 +18,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly GameStateService _gameStateService;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator All_Zones_With_Cards()
         {
+            DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];

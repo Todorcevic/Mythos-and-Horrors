@@ -19,9 +19,9 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public abstract Tween EnterCard(CardView cardView);
+        public abstract Tween IntoZone(CardView cardView);
 
-        public abstract Tween ExitCard(CardView cardView);
+        public abstract Tween OutZone(CardView cardView);
 
         public abstract Tween MouseEnter(CardView cardView);
 

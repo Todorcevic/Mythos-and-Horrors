@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace MythsAndHorrors.GameView
     public class SwapAdventurerComponent : MonoBehaviour
     {
         [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly IOActivatorComponent _iOActivatorComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private List<AreaAdventurerView> _allAdventurerAreas;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _playPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rightPosition;
@@ -32,6 +34,7 @@ namespace MythsAndHorrors.GameView
             Transform positionToMove = GetSidePosition(adventurer);
 
             return DOTween.Sequence()
+                .PrependCallback(_iOActivatorComponent.DesactivateSensor)
                 .Join(areaAdventurerView.transform.DOFullMove(_playPosition).OnStart(() => _currentAreaAdventurer.transform.position *= 0.25f))
                 .Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove).OnComplete(() => _currentAreaAdventurer.transform.position *= 4f))
                 .AppendCallback(Finish);
@@ -41,6 +44,7 @@ namespace MythsAndHorrors.GameView
                 areaAdventurerView.transform.SetParent(_playPosition);
                 _currentAreaAdventurer.transform.SetParent(positionToMove);
                 _currentAreaAdventurer = areaAdventurerView;
+                _iOActivatorComponent.ActivateSensor();
             }
         }
 

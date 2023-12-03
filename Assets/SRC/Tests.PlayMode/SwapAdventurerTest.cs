@@ -21,6 +21,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Swap()
         {
+            DEBUG_MODE = false;
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
@@ -52,7 +53,6 @@ namespace MythsAndHorrors.PlayMode.Tests
                 yield return _sut.Select(adventurer1).WaitForCompletion();
             }
 
-            yield return PressAnyKey();
             yield return _sut.Select(adventurer2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

@@ -14,14 +14,14 @@ namespace MythsAndHorrors.GameView
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
-        public override Tween EnterCard(CardView cardView)
+        public override Tween IntoZone(CardView cardView)
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             return cardView.transform.DOFullMove(_movePosition);
         }
 
-        public override Tween ExitCard(CardView cardView)
+        public override Tween OutZone(CardView cardView)
         {
             _allCards.Remove(cardView);
             return DOTween.Sequence();
@@ -32,14 +32,14 @@ namespace MythsAndHorrors.GameView
         public override Tween MouseEnter(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
-            return _allCards.Last().transform.DOFullMove(_hoverPosition).SetEase(Ease.OutCubic);
+            return _allCards.Last().transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
 
         public override Tween MouseExit(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            return _allCards.Last().transform.DOFullMove(_movePosition);
+            return _allCards.Last().transform.DOFullLocalMove(_movePosition);
         }
     }
 }

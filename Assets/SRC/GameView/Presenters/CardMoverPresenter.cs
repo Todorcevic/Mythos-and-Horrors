@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
+        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 
         /*******************************************************************/
         public void MoveCardToZone(Card card, Zone gameZone)
@@ -16,8 +17,12 @@ namespace MythsAndHorrors.GameView
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(gameZone);
 
-            DOTween.Sequence().Join(cardView.CurrentZoneView.ExitCard(cardView))
-           .Join(newZoneView.EnterCard(cardView)).OnStart(() => cardView.SetCurrentZoneView(newZoneView));
+            DOTween.Sequence()
+                .PrependCallback(() => _ioActivatorComponent.DesactivateSensor())
+                .OnStart(() => cardView.SetCurrentZoneView(newZoneView))
+                .Join(cardView.CurrentZoneView.OutZone(cardView))
+                .Join(newZoneView.IntoZone(cardView))
+                .AppendCallback(() => _ioActivatorComponent.ActivateSensor());
         }
 
         public async Task MoveCardToZoneAsync(Card card, Zone gameZone)
@@ -25,9 +30,13 @@ namespace MythsAndHorrors.GameView
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(gameZone);
 
-            await DOTween.Sequence().Join(cardView.CurrentZoneView.ExitCard(cardView))
-            .Join(newZoneView.EnterCard(cardView)).OnStart(() => cardView.SetCurrentZoneView(newZoneView))
-            .AsyncWaitForCompletion();
+            await DOTween.Sequence()
+                 .PrependCallback(() => _ioActivatorComponent.DesactivateSensor())
+                .OnStart(() => cardView.SetCurrentZoneView(newZoneView))
+                .Join(cardView.CurrentZoneView.OutZone(cardView))
+                .Join(newZoneView.IntoZone(cardView))
+                .AppendCallback(() => _ioActivatorComponent.ActivateSensor())
+                .AsyncWaitForCompletion();
         }
     }
 }

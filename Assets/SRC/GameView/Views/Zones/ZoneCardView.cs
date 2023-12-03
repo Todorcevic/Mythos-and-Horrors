@@ -11,12 +11,12 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderController _invisibleHolderController;
 
         /*******************************************************************/
-        public override Tween EnterCard(CardView cardView)
+        public override Tween IntoZone(CardView cardView)
         {
             return _invisibleHolderController.AddCardView(cardView);
         }
 
-        public override Tween ExitCard(CardView cardView) => _invisibleHolderController.RemoveCardView(cardView);
+        public override Tween OutZone(CardView cardView) => _invisibleHolderController.RemoveCardView(cardView);
 
         public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
 
