@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
+
     public class AreaAdventurerView : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _adventurerZone;
