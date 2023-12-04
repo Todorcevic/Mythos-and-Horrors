@@ -355,6 +355,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 179595855581785810, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 37c3944afa662e54dabb5676ca5a8aee, type: 3}
     - target: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Size.x
       value: 7.5
@@ -372,8 +376,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6152357295490081171}
     - target: {fileID: 1345709414827164232, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345709414827164232, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345709414827164232, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_text
@@ -405,6 +417,14 @@ PrefabInstance:
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4279177025
+      objectReference: {fileID: 0}
+    - target: {fileID: 3134816836201340344, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3134816836201340344, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3708395883836329976, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Sprite
@@ -538,24 +558,12 @@ MonoBehaviour:
   _cardSensor: {fileID: 2190802374549720134}
   _zoneCardView: {fileID: 7192670855116009430}
   _rotator: {fileID: 4301949416792317029}
-  _nullZoneView: {fileID: 4692848973972082365}
   _eldritch: {fileID: 1883856862801814923}
 --- !u!4 &4301949416792317029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 8032590091954852428}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4692848973972082365 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 8032590091954852428}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4291562132143240898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5493573126717618492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

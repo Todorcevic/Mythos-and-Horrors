@@ -2,8 +2,6 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -29,7 +27,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
 
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.AdventurerCard, adventurer1.AdventurerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[0], adventurer1.HandZone).AsCoroutine();
+            for (int i = 0; i < 5; i++)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 15], adventurer1.HandZone).AsCoroutine();
+            }
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[1], adventurer1.DiscardZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[2], adventurer1.DeckZone).AsCoroutine();
             for (int i = 0; i < 5; i++)
