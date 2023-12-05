@@ -27,20 +27,19 @@ namespace MythsAndHorrors.PlayMode.Tests
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
 
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.AdventurerCard, adventurer1.AdventurerZone).AsCoroutine();
-            for (int i = 0; i < 5; i++)
-            {
-                yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 15], adventurer1.HandZone).AsCoroutine();
-            }
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[1], adventurer1.DiscardZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[2], adventurer1.DeckZone).AsCoroutine();
             for (int i = 0; i < 5; i++)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 3], adventurer1.AidZone).AsCoroutine();
             }
-
             for (int i = 0; i < 5; i++)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 9], adventurer1.DangerZone).AsCoroutine();
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 15], adventurer1.HandZone).AsCoroutine();
             }
 
             yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Cards[0], _zonesProvider.PlotZone).AsCoroutine();
