@@ -1,6 +1,4 @@
 ﻿using MythsAndHorrors.GameRules;
-using System.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView

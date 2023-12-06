@@ -21,7 +21,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Load_Avatar()
         {
-            DEBUG_MODE = true;
+            //DEBUG_MODE = true;
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01501"));
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01502"));
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01503"));
