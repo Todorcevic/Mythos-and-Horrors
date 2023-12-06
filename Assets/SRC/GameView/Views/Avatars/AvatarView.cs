@@ -1,9 +1,9 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -19,10 +19,10 @@ namespace MythsAndHorrors.GameView
         public Adventurer Adventurer { get; private set; }
 
         /*******************************************************************/
-        public void Init(Adventurer adventurer, Task<Sprite> picture)
+        public void Init(Adventurer adventurer)
         {
             Adventurer = adventurer;
-            SetPicture(picture);
+            SetPicture();
             SetHealth(adventurer.AdventurerCard.Info.Health ?? 0);
             SetSanity(adventurer.AdventurerCard.Info.Sanity ?? 0);
             SetHints(adventurer.AdventurerCard.Info.Hints ?? 0);
@@ -37,6 +37,6 @@ namespace MythsAndHorrors.GameView
 
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
-        private async void SetPicture(Task<Sprite> picture) => _picture.sprite = await picture; //TODO probar con picture.Result
+        private void SetPicture() => _picture.LoadCardSprite(Adventurer.AdventurerCard.Info.Code);
     }
 }

@@ -1,9 +1,7 @@
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -28,10 +26,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(Card card, Task<Sprite> picture)
+        private void Init(Card card)
         {
             Card = card;
-            SetPicture(picture);
+            SetPicture();
             SetCommon();
             SetSpecific();
         }
@@ -78,9 +76,9 @@ namespace MythsAndHorrors.GameView
             _zoneCardView.Init(Card.OwnZone);
         }
 
-        private async void SetPicture(Task<Sprite> picture)
+        private void SetPicture()
         {
-            _picture.sprite = await picture;
+            _picture.LoadCardSprite(Card.Info.Code);
         }
     }
 }

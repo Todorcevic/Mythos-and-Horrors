@@ -11,7 +11,6 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly ImageLoaderUseCase _imageLoaderUseCase;
         [Inject(Id = "OutZone")] private readonly ZoneView _outZoneView;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerDeckPrefab;
@@ -24,8 +23,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public CardView BuildCard(Card card)
         {
-            Task<Sprite> picture = _imageLoaderUseCase.LoadSpriteAsync("Cards/" + card.Info.Code + ".png");
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card, picture });
+            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
             newCardview.Off();
             newCardview.SetCurrentZoneView(_outZoneView);
             _cardViewsManager.Add(newCardview);

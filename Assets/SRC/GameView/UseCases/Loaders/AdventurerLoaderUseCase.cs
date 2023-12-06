@@ -10,15 +10,13 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-        [Inject] private readonly ImageLoaderUseCase _imageLoaderUseCase;
 
         /*******************************************************************/
         public void Execute(string adventurerFilePath)
         {
             Adventurer newAdvewnture = _jsonService.CreateDataFromFile<Adventurer>(adventurerFilePath);
-            Task<Sprite> picture = _imageLoaderUseCase.LoadSpriteAsync("Cards/" + newAdvewnture.AdventurerCard.Info.Code + ".png");
             _adventurersProvider.AddAdventurer(newAdvewnture);
-            _avatarViewsManager.GetVoid().Init(newAdvewnture, picture);
+            _avatarViewsManager.GetVoid().Init(newAdvewnture);
         }
     }
 }
