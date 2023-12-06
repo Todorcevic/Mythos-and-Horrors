@@ -9,12 +9,11 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly List<AvatarView> _allAvatars;
 
+        public List<AvatarView> AllAvatars => _allAvatars.Where(av => !av.IsVoid).ToList();
+
         /*******************************************************************/
         public AvatarView Get(Adventurer adventurer) => _allAvatars.First(avatarView => avatarView.Adventurer == adventurer);
 
-        public List<AvatarView> AllAvatars => _allAvatars.Where(av => av.IsVoid).ToList();
-
         public void Init(Adventurer newAdvewnture) => _allAvatars.First(avatarView => avatarView.IsVoid).Init(newAdvewnture);
-
     }
 }

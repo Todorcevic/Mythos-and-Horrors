@@ -33,12 +33,28 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01501"));
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01502"));
-            //_adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01503"));
-            //_adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01504"));
+            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01503"));
+            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01504"));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_avatarViewsManager.AllAvatars.Count, Is.EqualTo(2));
+            Assert.That(_avatarViewsManager.AllAvatars.Count, Is.EqualTo(4));
+        }
+
+        [UnityTest]
+        public IEnumerator Show_Turns()
+        {
+            //DEBUG_MODE = true;
+
+            Adventurer doc = new() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() };
+            _avatarViewsManager.Init(doc);
+            AvatarView avatarView = _avatarViewsManager.Get(doc);
+
+            avatarView.ShowTurns(3);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+
+            Assert.That(avatarView.GetComponentsInChildren<TurnView>().Count(), Is.EqualTo(3));
         }
     }
 }

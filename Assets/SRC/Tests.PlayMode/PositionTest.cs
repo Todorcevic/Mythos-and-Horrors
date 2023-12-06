@@ -21,7 +21,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator All_Zones_With_Cards()
         {
-            DEBUG_MODE = true;
+            //DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];

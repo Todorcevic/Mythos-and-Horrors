@@ -17,7 +17,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             Transform targetTransform = parentTransform.FindDeepChild(gameObjectName)
                 ?? throw new InvalidOperationException($"A GameObject with the name {gameObjectName} was not found among the children of the given Transform.");
-            TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>()
+            TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>(includeInactive: true)
                 ?? throw new InvalidOperationException($"A TextMeshPro component was not found in the GameObject {targetTransform.name}.");
             return textMeshPro.text;
         }

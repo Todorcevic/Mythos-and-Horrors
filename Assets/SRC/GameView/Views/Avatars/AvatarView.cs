@@ -33,5 +33,7 @@ namespace MythsAndHorrors.GameView
         public void SetSanity(int amount) => _sanity.text = amount.ToString();
 
         public void SetHints(int amount) => _hints.text = amount.ToString();
+
+        public void ShowTurns(int amount) => _turnController.TurnOn(amount);
     }
 }

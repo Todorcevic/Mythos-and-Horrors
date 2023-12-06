@@ -3661,6 +3661,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -12.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5641547707055704515, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
+      propertyPath: _turnPrefab
+      value: 
+      objectReference: {fileID: 7778012298981075808, guid: 87f7cb2e02d9c7146a12c44ff2aa6d28, type: 3}
     - target: {fileID: 6925087712734690510, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
       propertyPath: m_Name
       value: Avatar1

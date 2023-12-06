@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 
     public class TurnController : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TurnView _turnPrefab;
+        [SerializeField, Required, AssetsOnly] private TurnView _turnPrefab;
         private readonly List<TurnView> _turns = new();
 
         /*******************************************************************/

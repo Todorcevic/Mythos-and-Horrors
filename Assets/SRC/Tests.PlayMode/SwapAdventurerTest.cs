@@ -21,7 +21,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Swap()
         {
-            DEBUG_MODE = true;
+            //DEBUG_MODE = true;
             _prepareGameUseCase.Execute();
             Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
