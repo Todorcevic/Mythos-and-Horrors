@@ -1,7 +1,9 @@
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -17,7 +19,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensor _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rotator;
-        [Inject(Id = "OutZone")] private readonly ZoneView _outZoneView;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
@@ -27,12 +28,12 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(Card card)
+        private void Init(Card card, Task<Sprite> picture)
         {
             Card = card;
+            SetPicture(picture);
             SetCommon();
             SetSpecific();
-            SetPicture();
         }
 
         /*******************************************************************/
@@ -75,12 +76,11 @@ namespace MythsAndHorrors.GameView
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description;
             _zoneCardView.Init(Card.OwnZone);
-            SetCurrentZoneView(_outZoneView);
         }
 
-        private void SetPicture()
+        private async void SetPicture(Task<Sprite> picture)
         {
-            _picture.sprite = _picture.sprite; //TODO
+            _picture.sprite = await picture;
         }
     }
 }

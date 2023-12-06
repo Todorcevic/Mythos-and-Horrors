@@ -3,6 +3,7 @@ using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -19,18 +20,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator Initialize_Avatar()
-        {
-            Adventurer doc = new() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() };
-            _avatarViewsManager.Init(doc);
-
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_avatarViewsManager.Get(doc).Adventurer, Is.EqualTo(doc));
-        }
-
-        [UnityTest]
         public IEnumerator Load_Avatar()
         {
+            DEBUG_MODE = true;
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01501"));
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01502"));
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01503"));
@@ -45,10 +37,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Show_Turns()
         {
             //DEBUG_MODE = true;
-
             Adventurer doc = new() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() };
-            _avatarViewsManager.Init(doc);
-            AvatarView avatarView = _avatarViewsManager.Get(doc);
+            AvatarView avatarView = _avatarViewsManager.GetVoid();
+            avatarView.Init(doc, Task.FromResult<Sprite>(null));
 
             avatarView.ShowTurns(3);
 

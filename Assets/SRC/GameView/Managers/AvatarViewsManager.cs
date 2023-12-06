@@ -12,8 +12,8 @@ namespace MythsAndHorrors.GameView
         public List<AvatarView> AllAvatars => _allAvatars.Where(av => !av.IsVoid).ToList();
 
         /*******************************************************************/
-        public AvatarView Get(Adventurer adventurer) => _allAvatars.First(avatarView => avatarView.Adventurer == adventurer);
+        public AvatarView GetVoid() => _allAvatars.First(avatarView => avatarView.IsVoid);
 
-        public void Init(Adventurer newAdvewnture) => _allAvatars.First(avatarView => avatarView.IsVoid).Init(newAdvewnture);
+        public AvatarView Get(Adventurer adventurer) => _allAvatars.First(avatarView => avatarView.Adventurer == adventurer);
     }
 }

@@ -1,6 +1,7 @@
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,8 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly ImageLoaderUseCase _imageLoaderUseCase;
+        [Inject(Id = "OutZone")] private readonly ZoneView _outZoneView;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adventurerDeckPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adversityPrefab;
@@ -21,8 +24,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public CardView BuildCard(Card card)
         {
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
+            Task<Sprite> picture = _imageLoaderUseCase.LoadSpriteAsync("Cards/" + card.Info.Code + ".png");
+            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card, picture });
             newCardview.Off();
+            newCardview.SetCurrentZoneView(_outZoneView);
             _cardViewsManager.Add(newCardview);
             return newCardview;
         }
