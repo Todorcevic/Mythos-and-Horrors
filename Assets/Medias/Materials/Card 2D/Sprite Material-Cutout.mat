@@ -147,7 +147,7 @@ Material:
     - _ColorSwapRedLuminosity: 0.5
     - _Contrast: 1
     - _CullingOption: 0
-    - _Cutoff: 0.05
+    - _Cutoff: 0.9
     - _DetailNormalMapScale: 1
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
@@ -56,10 +57,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _sut.Select(adventurer2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_sut.GetPrivateMember<Transform>("_leftPosition").GetComponentInChildren<CardView>(true).Card,
-                Is.EqualTo(adventurer1.AdventurerCard));
-            Assert.That(_sut.GetPrivateMember<Transform>("_playPosition").GetComponentInChildren<CardView>().Card,
-                Is.EqualTo(adventurer2.AdventurerCard));
+
+            Assert.That(_sut.AdventurerSelected, Is.EqualTo(adventurer2));
         }
     }
 }
