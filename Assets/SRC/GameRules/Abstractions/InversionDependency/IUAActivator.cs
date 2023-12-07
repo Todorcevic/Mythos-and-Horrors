@@ -2,7 +2,9 @@
 {
     public interface IUAActivator
     {
+        void HardActivate();
+        void HardDeactivate();
         void ActivateSensor();
-        void DesactivateSensor();
+        void DeactivateSensor();
     }
 }

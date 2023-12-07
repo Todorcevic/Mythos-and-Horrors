@@ -43,7 +43,7 @@ namespace MythsAndHorrors.GameView
         public void SetCurrentZoneView(ZoneView zoneView)
         {
             CurrentZoneView = zoneView;
-            transform.SetParent(zoneView.transform, worldPositionStays: true);
+            transform.SetParent(zoneView.transform);
         }
 
         public void DisableToShow()

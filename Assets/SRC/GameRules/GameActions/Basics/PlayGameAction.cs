@@ -17,9 +17,9 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _uAActivator.ActivateSensor();
+            _uAActivator.HardActivate();
             await _waitForSelection.Task;
-            _uAActivator.DesactivateSensor();
+            _uAActivator.HardDeactivate();
         }
     }
 }

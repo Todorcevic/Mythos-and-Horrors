@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _uAActivator.DesactivateSensor();
+            _uAActivator.HardDeactivate();
             await _gameActionRepository.Create<MoveCardGameAction>().Run(_adventurer.AdventurerCard, _adventurer.AdventurerZone);
             await _gameActionRepository.Create<MoveCardsGameAction>().Run(_adventurer.Cards.ToArray(), _adventurer.DeckZone);
 
@@ -28,7 +28,7 @@ namespace MythsAndHorrors.GameRules
             await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
             await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
             await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
-            _uAActivator.ActivateSensor();
+            _uAActivator.HardActivate();
         }
     }
 }
