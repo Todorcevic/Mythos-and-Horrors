@@ -1,19 +1,24 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class AvatarView : MonoBehaviour
+    public class AvatarView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField, Required, ChildGameObjectsOnly] private Image _picture;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _glow;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _selection;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _health;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
+        [Inject] private readonly SwapAdventurerPresenter _swapAdventurerPresenter;
 
         public bool IsVoid => Adventurer == null;
         public Adventurer Adventurer { get; private set; }
@@ -29,6 +34,26 @@ namespace MythsAndHorrors.GameView
             gameObject.SetActive(true);
         }
 
+        public Tween Select()
+        {
+            return _selection.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(() => _selection.gameObject.SetActive(true));
+        }
+
+        public Tween Deselect()
+        {
+            return _selection.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _selection.gameObject.SetActive(false));
+        }
+
+        public Tween ActivateGlow()
+        {
+            return _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(() => _glow.gameObject.SetActive(true));
+        }
+
+        public Tween DeactivateGlow()
+        {
+            return _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _glow.gameObject.SetActive(false));
+        }
+
         public void SetHealth(int amount) => _health.text = amount.ToString();
 
         public void SetSanity(int amount) => _sanity.text = amount.ToString();
@@ -38,5 +63,21 @@ namespace MythsAndHorrors.GameView
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
         private void SetPicture() => _picture.LoadCardSprite(Adventurer.AdventurerCard.Info.Code);
+
+        /*******************************************************************/
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+        {
+            transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        {
+            transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+        }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        {
+            _ = _swapAdventurerPresenter.Select(Adventurer);
+        }
     }
 }

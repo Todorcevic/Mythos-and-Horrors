@@ -1,19 +1,19 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class MoveCardGameAction : GameAction
+    public class MoveCardsGameAction : GameAction
     {
-        private Card _card;
+        private Card[] _cards;
         private Zone _zone;
         [Inject] private readonly ICardMover _cardMover;
         [Inject] private readonly IAdventurerSelector _adventurerSelector;
 
         /*******************************************************************/
-        public async Task Run(Card card, Zone zone)
+        public async Task Run(Card[] cards, Zone zone)
         {
-            _card = card;
+            _cards = cards;
             _zone = zone;
             await Start();
         }
@@ -21,12 +21,15 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _card.CurrentZone?.RemoveCard(_card);
-            _card.MoveToZone(_zone);
-            _zone.AddCard(_card);
+            foreach (Card card in _cards)
+            {
+                card.CurrentZone?.RemoveCard(card);
+                card.MoveToZone(_zone);
+                _zone.AddCard(card);
+            }
 
             await _adventurerSelector.Select(_zone);
-            await _cardMover.MoveCardToZoneAsync(_card, _zone);
+            await _cardMover.MoveCardsToZoneAsync(_cards, _zone);
         }
     }
 }

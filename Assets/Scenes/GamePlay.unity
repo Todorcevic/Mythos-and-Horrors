@@ -1873,7 +1873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 659319280015357169, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 687382625686284995, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
       propertyPath: m_Pivot.x
@@ -3062,7 +3062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 16, y: 16}
+  m_AnchoredPosition: {x: 5, y: 15}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1794477604
@@ -3751,6 +3751,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2654638127787215169, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4986108195718657229, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
       propertyPath: m_Name
       value: PlayArea
@@ -3767,6 +3771,10 @@ PrefabInstance:
       propertyPath: _away
       value: 
       objectReference: {fileID: 149675763}
+    - target: {fileID: 7476180233065424355, guid: 1ad14db3dd96efe4298ea8ad1af62767, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -7,6 +7,8 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<Card> cards = new();
 
+        public List<Card> Cards => cards;
+
         /*******************************************************************/
         public void AddCard(Card card)
         {

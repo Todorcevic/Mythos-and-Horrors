@@ -19,14 +19,14 @@ namespace MythsAndHorrors.GameView
         private int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/
-        public override Tween IntoZone(CardView cardView)
+        public override Tween EnterZone(CardView cardView)
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             return cardView.transform.DOFullMove(_movePosition);
         }
 
-        public override Tween OutZone(CardView cardView)
+        public override Tween ExitZone(CardView cardView)
         {
             _allCards.Remove(cardView);
             return DOTween.Sequence();

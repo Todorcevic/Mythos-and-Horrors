@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MythsAndHorrors.GameRules
+﻿namespace MythsAndHorrors.GameRules
 {
     public interface ICardActivator
     {

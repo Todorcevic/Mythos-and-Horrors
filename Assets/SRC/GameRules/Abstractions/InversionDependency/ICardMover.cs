@@ -4,7 +4,8 @@ namespace MythsAndHorrors.GameRules
 {
     public interface ICardMover
     {
-        void MoveCardToZone(Card card, Zone gameZone);
+        Task MoveCardsToZoneAsync(Card[] cards, Zone zone);
+
         Task MoveCardToZoneAsync(Card card, Zone gameZone);
     }
 }

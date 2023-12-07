@@ -20,12 +20,7 @@ namespace MythsAndHorrors.GameView
         private async static Task<Sprite> LoadSpriteAsync(string key)
         {
             _resourceLocator ??= await Addressables.InitializeAsync().Task;
-
-            if (!_resourceLocator.Keys.Contains(key))
-            {
-                key = FAIL_IMAGE;
-                Debug.LogWarning($"Sprite {key} not found");
-            }
+            if (!_resourceLocator.Keys.Contains(key)) key = FAIL_IMAGE;
             return await Addressables.LoadAssetAsync<Sprite>(key).Task;
         }
     }

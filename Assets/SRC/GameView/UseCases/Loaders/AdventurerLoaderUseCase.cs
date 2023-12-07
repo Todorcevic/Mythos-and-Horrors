@@ -12,9 +12,9 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Execute(string adventurerFilePath)
         {
-            Adventurer newAdvewnture = _jsonService.CreateDataFromFile<Adventurer>(adventurerFilePath);
-            _adventurersProvider.AddAdventurer(newAdvewnture);
-            _avatarViewsManager.GetVoid().Init(newAdvewnture);
+            Adventurer newAdventurer = _jsonService.CreateDataFromFile<Adventurer>(adventurerFilePath);
+            _adventurersProvider.AddAdventurer(newAdventurer);
+            _avatarViewsManager.GetVoid().Init(newAdventurer);
         }
     }
 }

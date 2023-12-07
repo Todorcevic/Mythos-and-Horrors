@@ -29,5 +29,14 @@ namespace MythsAndHorrors.GameView
             _aidZone.Init(adventurer.AidZone);
             _dangerZone.Init(adventurer.DangerZone);
         }
+
+        /*******************************************************************/
+        public bool HasThisZone(ZoneView zoneView) =>
+            zoneView == _adventurerZone
+            || zoneView == _handZone
+            || zoneView == _deckZone
+            || zoneView == _discardZone
+            || zoneView == _aidZone
+            || zoneView == _dangerZone;
     }
 }

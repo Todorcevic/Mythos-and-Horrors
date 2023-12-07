@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,9 +5,10 @@ namespace MythsAndHorrors.GameRules
 {
     public class StartGameAction : GameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly CardsProvider _cardProvider;
-        [Inject] private readonly ZonesProvider _zoneProvider;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly AdventurersProvider _adventurersProvider;
 
         /*******************************************************************/
         public async Task Run() => await Start();
@@ -16,8 +16,11 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01501"), _zoneProvider.DangerDeckZone);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardProvider.GetCard("01560"), _zoneProvider.DangerDiscardZone);
+            await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[0]);
+            //await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[1]);
+            //await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[2]);
+
+ 
         }
     }
 }

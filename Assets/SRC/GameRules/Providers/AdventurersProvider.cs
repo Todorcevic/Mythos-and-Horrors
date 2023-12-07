@@ -19,5 +19,8 @@ namespace MythsAndHorrors.GameRules
         }
 
         public int GetAdventurerPosition(Adventurer adventurer) => _adventurers.IndexOf(adventurer) + 1;
+
+        public Adventurer GetAdventurerWithThisZone(Zone zone)
+            => _adventurers.FirstOrDefault(adventurer => adventurer.HasThisZone(zone));
     }
 }

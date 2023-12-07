@@ -9,34 +9,36 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 
         /*******************************************************************/
-        public void MoveCardToZone(Card card, Zone gameZone)
-        {
-            CardView cardView = _cardsManager.Get(card);
-            ZoneView newZoneView = _zonesManager.Get(gameZone);
-
-            DOTween.Sequence()
-                .PrependCallback(() => _ioActivatorComponent.DesactivateSensor())
-                .OnStart(() => cardView.SetCurrentZoneView(newZoneView))
-                .Join(cardView.CurrentZoneView.OutZone(cardView))
-                .Join(newZoneView.IntoZone(cardView))
-                .AppendCallback(() => _ioActivatorComponent.ActivateSensor());
-        }
-
         public async Task MoveCardToZoneAsync(Card card, Zone gameZone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(gameZone);
 
-            await DOTween.Sequence()
-                 .PrependCallback(() => _ioActivatorComponent.DesactivateSensor())
-                .OnStart(() => cardView.SetCurrentZoneView(newZoneView))
-                .Join(cardView.CurrentZoneView.OutZone(cardView))
-                .Join(newZoneView.IntoZone(cardView))
-                .AppendCallback(() => _ioActivatorComponent.ActivateSensor())
-                .AsyncWaitForCompletion();
+            var asd = DOTween.Sequence()
+                .Join(cardView.CurrentZoneView.ExitZone(cardView))
+                .Join(newZoneView.EnterZone(cardView));
+
+            cardView.SetCurrentZoneView(newZoneView);
+
+            await asd.AsyncWaitForCompletion();
+
+            //void Start()
+            //{
+            //    cardView.SetCurrentZoneView(newZoneView);
+            //}
+        }
+
+        public async Task MoveCardsToZoneAsync(Card[] cards, Zone zone)
+        {
+            int delay = 100;
+
+            foreach (Card card in cards)
+            {
+                await Task.Delay(delay);
+                _ = MoveCardToZoneAsync(card, zone);
+            }
         }
     }
 }

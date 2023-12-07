@@ -18,5 +18,13 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; } = new Zone();
         public Zone DangerZone { get; } = new Zone();
         public Zone AdventurerZone { get; } = new Zone();
+
+        public bool HasThisZone(Zone zone) =>
+            zone == HandZone ||
+            zone == DeckZone ||
+            zone == DiscardZone ||
+            zone == AidZone ||
+            zone == DangerZone ||
+            zone == AdventurerZone;
     }
 }

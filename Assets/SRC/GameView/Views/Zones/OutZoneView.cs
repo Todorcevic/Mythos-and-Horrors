@@ -10,10 +10,10 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
 
         /*******************************************************************/
-        public override Tween IntoZone(CardView cardView) =>
+        public override Tween EnterZone(CardView cardView) =>
             cardView.transform.DOFullMove(_movePosition).OnComplete(() => cardView.Off());
 
-        public override Tween OutZone(CardView cardView) => DOTween.Sequence().OnStart(() => cardView.On());
+        public override Tween ExitZone(CardView cardView) => DOTween.Sequence().OnStart(() => cardView.On());
 
         public override Tween MouseEnter(CardView cardView) => DOTween.Sequence();
 
