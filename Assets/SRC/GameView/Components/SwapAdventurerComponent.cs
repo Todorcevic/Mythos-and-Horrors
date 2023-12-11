@@ -34,8 +34,10 @@ namespace MythsAndHorrors.GameView
             Transform positionToMove = GetSidePosition(adventurer);
 
             return DOTween.Sequence()
-                .Join(areaAdventurerView.transform.DOFullMove(_playPosition).OnStart(() => areaAdventurerView.transform.position *= 0.25f))
-                .Join(_currentAreaAdventurer.transform.DOFullMove(positionToMove).OnComplete(() => _currentAreaAdventurer.transform.position *= 4f))
+                .Join(areaAdventurerView.transform.DOFullMoveSlow(_playPosition).SetEase(Ease.InOutCubic)
+                .OnStart(() => areaAdventurerView.transform.position *= 0.25f))
+                .Join(_currentAreaAdventurer.transform.DOFullMoveSlow(positionToMove).SetEase(Ease.InOutCubic)
+                .OnComplete(() => _currentAreaAdventurer.transform.position *= 4f))
                 .OnComplete(Finish);
 
             void Finish()

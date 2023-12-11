@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameRules
             await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[0]);
             await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[1]);
             await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[2]);
+            await _gameActionFactory.Create<PlayGameAction>().Run();
         }
     }
 }

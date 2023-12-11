@@ -5,7 +5,8 @@ namespace MythsAndHorrors.GameRules
 {
     public class PlayGameAction : GameAction
     {
-        [Inject] private readonly IUAActivator _uAActivator;
+        [Inject] private readonly IUAActivator _uIActivator;
+        [Inject] private readonly CardsProvider _cardsProvider;
         private readonly TaskCompletionSource<bool> _waitForSelection = new();
 
         /*******************************************************************/
@@ -17,9 +18,9 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _uAActivator.HardActivate();
+            Card[] playabledCards = _cardsProvider.PlayabledCards();
+            _uIActivator.HardActivate(playabledCards);
             await _waitForSelection.Task;
-            _uAActivator.HardDeactivate();
         }
     }
 }

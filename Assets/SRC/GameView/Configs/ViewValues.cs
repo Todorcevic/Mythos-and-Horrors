@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameView
         public static float INSTANT_TIME_ANIMATION = 0f;
         public static float FAST_TIME_ANIMATION = 0.25f;
         public static float MID_TIME_ANIMATION = 0.5f;
-        public static float SLOW_TIME_ANIMATION = 1f;
+        public static float SLOW_TIME_ANIMATION = 0.75f;
 
         public const float CARD_ORIGINAL_SCALE = 1f;
         public const float CARD_THICKNESS = 0.05f;

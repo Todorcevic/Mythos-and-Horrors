@@ -22,6 +22,7 @@ namespace MythsAndHorrors.GameView
         public Card Card { get; private set; }
         public ZoneCardView OwnZone => _zoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
+        public GlowView GlowView => _glowView;
 
         /*******************************************************************/
         [Inject]
@@ -35,11 +36,6 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public void ActivateToSelect()
-        {
-            _glowView.SetGreenGlow();
-        }
-
         public void SetCurrentZoneView(ZoneView zoneView)
         {
             CurrentZoneView = zoneView;

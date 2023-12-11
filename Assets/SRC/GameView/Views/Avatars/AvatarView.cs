@@ -19,6 +19,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly SwapAdventurerPresenter _swapAdventurerPresenter;
+        [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
 
         public bool IsVoid => Adventurer == null;
         public Adventurer Adventurer { get; private set; }
@@ -75,9 +76,11 @@ namespace MythsAndHorrors.GameView
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            _ = _swapAdventurerPresenter.Select(Adventurer);
+            _activatorUIPresenter.HardDeactivate();
+            await _swapAdventurerPresenter.Select(Adventurer);
+            _activatorUIPresenter.HardActivate();
         }
     }
 }

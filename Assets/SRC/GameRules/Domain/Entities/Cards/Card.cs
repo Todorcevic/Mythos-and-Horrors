@@ -16,5 +16,10 @@ namespace MythsAndHorrors.GameRules
         {
             CurrentZone = zone ?? throw new ArgumentNullException("Zone cant be null");
         }
+
+        public bool CanPlay()
+        {
+            return true;
+        }
     }
 }

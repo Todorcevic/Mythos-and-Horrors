@@ -1,36 +1,33 @@
 ﻿using MythsAndHorrors.GameRules;
+using Sirenix.Utilities;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class ActivatorUIPresenter : IUAActivator
     {
-        private bool isHardDeactivator = false;
+        private Card[] _cards;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
+        public void HardActivate(Card[] cards)
+        {
+            _cards = cards;
+            _ioActivatorComponent.ActivateSensor();
+
+            cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.SetGreenGlow());
+        }
+
         public void HardActivate()
         {
-            isHardDeactivator = false;
-            _ioActivatorComponent.ActivateSensor();
+            HardActivate(_cards);
         }
 
         public void HardDeactivate()
         {
-            isHardDeactivator = true;
             _ioActivatorComponent.DeactivateSensor();
-        }
-
-        public void ActivateSensor()
-        {
-            if (isHardDeactivator) return;
-            _ioActivatorComponent.ActivateSensor();
-        }
-
-        public void DeactivateSensor()
-        {
-            if (isHardDeactivator) return;
-            _ioActivatorComponent.DeactivateSensor();
+            _cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.Off());
         }
     }
 }
