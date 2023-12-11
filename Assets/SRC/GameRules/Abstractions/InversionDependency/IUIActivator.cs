@@ -1,6 +1,6 @@
 ﻿namespace MythsAndHorrors.GameRules
 {
-    public interface IUAActivator
+    public interface IUIActivator
     {
         void HardActivate(Card[] cards);
         void HardDeactivate();

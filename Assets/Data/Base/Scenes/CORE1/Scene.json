@@ -1,7 +1,10 @@
 {
+    "$type": "MythsAndHorrors.GameRules.SceneCORE1, GameRules",
+    "Code": "CORE1",
     "Position": 1,
     "Name": "Scene1",
     "Description": "This is a test scene1",
+    "NextScene": "COREScene2",
     "Cards": [
         "01108",
         "01109",

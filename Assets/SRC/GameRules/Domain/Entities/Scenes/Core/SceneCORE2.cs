@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class SceneCore1
+    public class SceneCORE2
     {
     }
 }

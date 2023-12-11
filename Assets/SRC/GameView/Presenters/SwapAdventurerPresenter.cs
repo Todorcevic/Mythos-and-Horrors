@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task Select(Zone zone)
         {
-            Adventurer adventurer = _adventurersProvider.GetAdventurerWithThisZone(zone);
+            Adventurer adventurer = _adventurersProvider.GetAdventurerWithThisZone(zone) ?? _swapAdventurerComponent.AdventurerSelected;
             await Select(adventurer);
         }
     }

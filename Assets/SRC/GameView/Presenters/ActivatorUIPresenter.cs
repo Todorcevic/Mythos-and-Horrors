@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ActivatorUIPresenter : IUAActivator
+    public class ActivatorUIPresenter : IUIActivator
     {
         private Card[] _cards;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;

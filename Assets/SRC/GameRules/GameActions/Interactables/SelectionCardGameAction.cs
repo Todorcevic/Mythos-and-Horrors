@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     public class SelectionCardGameAction : GameAction
     {
         [Inject] private readonly ICardMover _cardMovePresenter;
-        [Inject] private readonly IUAActivator _iUActivator;
+        [Inject] private readonly IUIActivator _iUActivator;
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly ZonesProvider _zoneProvider;
         private Card[] _cards;

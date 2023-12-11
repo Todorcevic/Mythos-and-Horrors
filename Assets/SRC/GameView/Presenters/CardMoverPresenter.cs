@@ -2,6 +2,7 @@ using Zenject;
 using DG.Tweening;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
@@ -25,7 +26,7 @@ namespace MythsAndHorrors.GameView
             await moveSequence.AsyncWaitForCompletion();
         }
 
-        public async Task MoveCardsToZoneAsync(Card[] cards, Zone zone)
+        public async Task MoveCardsToZoneAsync(List<Card> cards, Zone zone)
         {
             int delay = 100;
 

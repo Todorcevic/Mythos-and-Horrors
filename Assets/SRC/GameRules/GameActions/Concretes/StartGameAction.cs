@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly GameStateService _gameStateService;
 
         /*******************************************************************/
         public async Task Run() => await Start();
@@ -14,9 +15,12 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[0]);
-            await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[1]);
-            await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(_adventurersProvider.AllAdventurers[2]);
+            foreach (Adventurer adventurer in _adventurersProvider.AllAdventurers)
+            {
+                await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(adventurer);
+            }
+
+            await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_gameStateService.CurrentScene);
             await _gameActionFactory.Create<PlayGameAction>().Run();
         }
     }
