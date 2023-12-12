@@ -1,6 +1,7 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -8,17 +9,10 @@ namespace MythsAndHorrors.GameView
 {
     public class AdventurerCardView : CardView
     {
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _versatile;
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _cunning;
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _brave;
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _scholarly;
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _esoteric;
-        [SerializeField, Required, AssetsOnly] private FactionAdventurerSO _neutral;
-
+        [SerializeField, Required, AssetsOnly] private List<FactionAdventurerSO> _factions;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _statsRenderer;
-
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _strength;
@@ -42,18 +36,7 @@ namespace MythsAndHorrors.GameView
             _statsRenderer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
         }
 
-        private FactionAdventurerSO SetCurrent(Faction faction)
-        {
-            return faction switch
-            {
-                Faction.Cunning => _cunning,
-                Faction.Versatile => _versatile,
-                Faction.Brave => _brave,
-                Faction.Esoteric => _esoteric,
-                Faction.Scholarly => _scholarly,
-                _ => _neutral
-            };
-        }
+        private FactionAdventurerSO SetCurrent(Faction faction) => _factions.First(factionAdventurer => factionAdventurer._faction == faction);
 
         private void SetInfo()
         {

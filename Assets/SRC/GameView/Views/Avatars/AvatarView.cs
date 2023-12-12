@@ -78,9 +78,9 @@ namespace MythsAndHorrors.GameView
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            _activatorUIPresenter.HardDeactivate();
+            _activatorUIPresenter.Deactivate();
             await _swapAdventurerPresenter.Select(Adventurer);
-            _activatorUIPresenter.HardActivate();
+            _activatorUIPresenter.Activate();
         }
     }
 }

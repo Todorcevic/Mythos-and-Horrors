@@ -1,8 +1,10 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿using System.Collections.Generic;
+
+namespace MythsAndHorrors.GameRules
 {
     public interface IUIActivator
     {
-        void HardActivate(Card[] cards);
-        void HardDeactivate();
+        void Activate(List<Card> cards);
+        void Deactivate();
     }
 }

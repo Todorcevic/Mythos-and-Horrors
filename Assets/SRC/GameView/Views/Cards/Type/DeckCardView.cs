@@ -1,6 +1,7 @@
-﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -8,26 +9,19 @@ namespace MythsAndHorrors.GameView
 {
     public class DeckCardView : CardView
     {
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _versatile;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _cunning;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _brave;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _scholarly;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _esoteric;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _neutral;
-
+        [SerializeField, Required, AssetsOnly] private List<FactionDeckSO> _factions;
         [SerializeField, Required, AssetsOnly] private Sprite _skillStrengthIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillAgilityIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillIntelligenceIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillPowerIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
-
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
-
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _cost;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _sanity;
@@ -43,19 +37,11 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private FactionDeckSO SetCurrent(Faction faction) => faction switch
-        {
-            Faction.Cunning => _cunning,
-            Faction.Versatile => _versatile,
-            Faction.Brave => _brave,
-            Faction.Esoteric => _esoteric,
-            Faction.Scholarly => _scholarly,
-            _ => _neutral,
-        };
+        private FactionDeckSO SetCurrent(Faction faction) => _factions.First(factionDeckSO => factionDeckSO._faction == faction);
 
         private void SetInfo()
         {
-            _cost.text = Card.Info.Cost.ToString();
+            _cost.text = Card.Info.Cost.ToString() ?? ViewValues.EMPTY_STAT;
             _health.text = Card.Info.Health.ToString() ?? ViewValues.EMPTY_STAT;
             _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
         }
@@ -78,6 +64,7 @@ namespace MythsAndHorrors.GameView
 
         private void SetSupporterInfo(FactionDeckSO currentFaction)
         {
+            _costRenderer.gameObject.SetActive(Card.Info.Cost != null);
             _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
             _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
         }

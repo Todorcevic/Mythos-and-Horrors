@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected async Task Start()
         {
-            _activatorUIPresenter.HardDeactivate();
+            _activatorUIPresenter.Deactivate();
             _gameStateService.SetCurrentAction(this);
             await AtTheBeginning();
             await ExecuteThisLogic();

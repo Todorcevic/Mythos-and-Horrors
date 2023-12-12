@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using MythsAndHorrors.GameRules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -6,6 +7,7 @@ namespace MythsAndHorrors.GameView
     [CreateAssetMenu(fileName = "Faction", menuName = "ScriptableObjects/AdventurerElements")]
     public class FactionAdventurerSO : ScriptableObject
     {
+        [SerializeField, Required] public Faction _faction;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _templateFront;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _badget;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _stats;

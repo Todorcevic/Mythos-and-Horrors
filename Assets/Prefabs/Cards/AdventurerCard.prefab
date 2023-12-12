@@ -1144,12 +1144,13 @@ MonoBehaviour:
   _cardSensor: {fileID: 45939617387398327}
   _zoneCardView: {fileID: 9013390572942960423}
   _rotator: {fileID: 2699880231102764180}
-  _versatile: {fileID: 11400000, guid: ecf1fef8ff3270145b063738d00cce88, type: 2}
-  _cunning: {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}
-  _brave: {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
-  _scholarly: {fileID: 11400000, guid: e1497b2ce29724e48a7970cd1f218b9d, type: 2}
-  _esoteric: {fileID: 11400000, guid: ee47a825142a3494bb0bd325c20ba818, type: 2}
-  _neutral: {fileID: 11400000, guid: 433219325718ddc478a3822ea578456c, type: 2}
+  _factions:
+  - {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
+  - {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}
+  - {fileID: 11400000, guid: ee47a825142a3494bb0bd325c20ba818, type: 2}
+  - {fileID: 11400000, guid: 433219325718ddc478a3822ea578456c, type: 2}
+  - {fileID: 11400000, guid: e1497b2ce29724e48a7970cd1f218b9d, type: 2}
+  - {fileID: 11400000, guid: ecf1fef8ff3270145b063738d00cce88, type: 2}
   _template: {fileID: 8806549724464353524}
   _badge: {fileID: 6160282767468502978}
   _statsRenderer:

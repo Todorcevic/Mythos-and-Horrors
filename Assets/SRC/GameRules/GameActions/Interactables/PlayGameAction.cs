@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -18,8 +19,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card[] playabledCards = _cardsProvider.PlayabledCards();
-            _uIActivator.HardActivate(playabledCards);
+            List<Card> playabledCards = _cardsProvider.PlayabledCards();
+            _uIActivator.Activate(playabledCards);
             await _waitForSelection.Task;
         }
     }

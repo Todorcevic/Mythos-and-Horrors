@@ -15,5 +15,8 @@ namespace MythsAndHorrors.GameView
         public AvatarView GetVoid() => _allAvatars.OrderBy(avatarView => avatarView.name).First(avatarView => avatarView.IsVoid);
 
         public AvatarView Get(Adventurer adventurer) => _allAvatars.First(avatarView => avatarView.Adventurer == adventurer);
+
+        public List<AvatarView> AvatarsPlayabled(List<Card> cardsPlayabled) =>
+            AllAvatars.FindAll(avatar => avatar.Adventurer.Cards.Any(card => cardsPlayabled.Contains(card)));
     }
 }

@@ -17,6 +17,6 @@ namespace MythsAndHorrors.GameRules
             _cards.Add(objectCard);
         }
 
-        public Card[] PlayabledCards() => _cards.Where(card => card.CanPlay()).ToArray();
+        public List<Card> PlayabledCards() => _cards.FindAll(card => card.CanPlay());
     }
 }
