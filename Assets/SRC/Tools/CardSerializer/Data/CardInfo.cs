@@ -15,6 +15,10 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
+        public string Flavor { get; set; }
+
+        [BoxGroup("Split/Left")]
+        [SerializeField]
         public string PackCode { get; set; }
 
         [BoxGroup("Split/Left")]
@@ -120,6 +124,7 @@ namespace MythsAndHorrors.Tools
             Code = oldCardinfo.Code;
             Name = oldCardinfo.Name;
             Description = oldCardinfo.Text;
+            Flavor = oldCardinfo.Flavor;
             PackCode = oldCardinfo.PackCode;
             SceneCode = oldCardinfo.EncounterCode;
             Faction = oldCardinfo.FactionCode switch

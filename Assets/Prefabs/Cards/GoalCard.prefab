@@ -111,7 +111,7 @@ PrefabInstance:
       objectReference: {fileID: 1814247740993376737}
     - target: {fileID: 1345709414827164232, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_text
@@ -246,17 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2263808153735164031 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3339743919849282801, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 3545334441379851406}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7333058416837363712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d15607f8cb44a4a4b89588841e7111d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4439265872406860052 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -319,7 +308,6 @@ MonoBehaviour:
   _cardSensor: {fileID: 4624558981802865284}
   _zoneCardView: {fileID: 4439265872406860052}
   _rotator: {fileID: 7348019651474301607}
-  _nullZoneView: {fileID: 2263808153735164031}
   _hints: {fileID: 9027442390943995446}
 --- !u!4 &7348019651474301607 stripped
 Transform:

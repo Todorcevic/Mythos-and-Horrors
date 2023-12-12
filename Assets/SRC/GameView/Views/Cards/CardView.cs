@@ -68,7 +68,7 @@ namespace MythsAndHorrors.GameView
         {
             name = Card.Info.Code;
             _title.text = Card.Info.Name;
-            _description.text = Card.Info.Description;
+            _description.text = Card.Info.Description ?? Card.Info.Flavor;
             _zoneCardView.Init(Card.OwnZone);
         }
 
