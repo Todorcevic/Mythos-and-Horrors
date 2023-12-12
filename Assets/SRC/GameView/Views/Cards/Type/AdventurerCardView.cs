@@ -36,7 +36,7 @@ namespace MythsAndHorrors.GameView
             _statsRenderer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
         }
 
-        private FactionAdventurerSO SetCurrent(Faction faction) => _factions.First(factionAdventurer => factionAdventurer._faction == faction);
+        private FactionAdventurerSO SetCurrent(Faction faction) => _factions.First(factionDeckSO => faction.HasFlag(factionDeckSO._faction));
 
         private void SetInfo()
         {

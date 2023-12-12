@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc677691ad2e0b4e97a1668a34e6980, type: 3}
   m_Name: FactionVersatile
   m_EditorClassIdentifier: 
+  _faction: 1
   _templateFront: {fileID: 21300000, guid: b85591d1728b5f04b8aadc9c06d5e44d, type: 3}
   _badget: {fileID: 21300000, guid: a7d9bb0e6cfbe784c921fee72ed83f42, type: 3}
-  _health: {fileID: 21300000, guid: 359d0a1183df8e746ac72e8ab372e06b, type: 3}
-  _sanity: {fileID: 21300000, guid: 76afe37e13782b448b0afd985dda3a88, type: 3}
   _stats: {fileID: 21300000, guid: 8cc5f92a8f2b5404d908821e5c1326d4, type: 3}

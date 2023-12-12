@@ -37,7 +37,7 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private FactionDeckSO SetCurrent(Faction faction) => _factions.First(factionDeckSO => factionDeckSO._faction == faction);
+        private FactionDeckSO SetCurrent(Faction faction) => _factions.First(factionDeckSO => faction.HasFlag(factionDeckSO._faction));
 
         private void SetInfo()
         {
