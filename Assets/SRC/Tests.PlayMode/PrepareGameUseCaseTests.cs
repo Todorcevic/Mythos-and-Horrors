@@ -26,7 +26,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_adventurersProvider.AllAdventurers.Count, Is.EqualTo(2));
             Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));
-            Assert.That(_gameStateService.CurrentScene.Name, Is.EqualTo("Scene1"));
+            Assert.That(_gameStateService.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
             yield return null;
         }
     }

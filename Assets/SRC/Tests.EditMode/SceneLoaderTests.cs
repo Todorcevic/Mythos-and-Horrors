@@ -19,8 +19,8 @@ namespace MythsAndHorrors.EditMode.Tests
         {
             _sut.Execute(JSON_TEST_DATA_PATH);
 
-            Assert.That(_gameState.CurrentScene.Name, Is.EqualTo("Scene1"));
-            Assert.That(_gameState.CurrentScene.Cards.First().Info.Code, Is.EqualTo("01108"));
+            Assert.That(_gameState.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
+            Assert.That(_gameState.CurrentScene.Info.Cards.First().Info.Code, Is.EqualTo("01108"));
         }
     }
 }

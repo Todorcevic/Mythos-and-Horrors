@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameRules
         private Card FirstGoal => _cardsProvider.GetCard("01108");
         private Card Lita => _cardsProvider.GetCard("01117");
         private Card GhoulPriest => _cardsProvider.GetCard("01116");
-        private List<Card> RealDangerCards => DangerCards.Except(new Card[] { Lita, GhoulPriest }).ToList();
+        private List<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest }).ToList();
 
         /*******************************************************************/
         public async override Task PrepareScene()

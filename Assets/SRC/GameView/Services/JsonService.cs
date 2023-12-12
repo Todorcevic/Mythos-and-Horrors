@@ -14,8 +14,7 @@ namespace MythsAndHorrors.GameView
         {
             JsonConvert.DefaultSettings = () => new()
             {
-                ObjectCreationHandling = ObjectCreationHandling.Replace,
-                TypeNameHandling = TypeNameHandling.All
+                ObjectCreationHandling = ObjectCreationHandling.Replace
             };
         }
 

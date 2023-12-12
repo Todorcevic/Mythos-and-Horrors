@@ -1,6 +1,5 @@
 [
   {
-    "$type": "Tools.CardInfo, Tools",
     "Description": "Hola Mondo",
     "PackCode": "3123",
     "Faction": 3,
@@ -10,7 +9,6 @@
     "Name": "First Adventurer"
   },
   {
-    "$type": "Tools.CardInfo, Tools",
     "Description": "AJJAJA",
     "PackCode": "3",
     "Faction": 0,
