@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameRules
         public string Code { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
+        public string Flavor { get; init; }
         public CardType CardType { get; init; }
         public Faction Faction { get; init; }
         public Slot Slot { get; init; }

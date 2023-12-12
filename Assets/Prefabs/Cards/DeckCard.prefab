@@ -112,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0, z: 4.42}
-  m_LocalScale: {x: 0.8, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5237456957700389734}
@@ -388,11 +388,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1368913498028527715, guid: 5ee2d6339d1fb13439d9cc72393c84d7, type: 3}
       propertyPath: m_text
-      value: "Marc\xF3 Aurelio y los hermano"
+      value: "Textos m\xE9dicos"
       objectReference: {fileID: 0}
     - target: {fileID: 1368913498028527715, guid: 5ee2d6339d1fb13439d9cc72393c84d7, type: 3}
       propertyPath: m_fontSize
-      value: 4
+      value: 4.7
       objectReference: {fileID: 0}
     - target: {fileID: 1368913498028527715, guid: 5ee2d6339d1fb13439d9cc72393c84d7, type: 3}
       propertyPath: m_lineSpacing
@@ -428,7 +428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5893242373489031835, guid: 5ee2d6339d1fb13439d9cc72393c84d7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3.7
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5893242373489031835, guid: 5ee2d6339d1fb13439d9cc72393c84d7, type: 3}
       propertyPath: m_SizeDelta.y
@@ -521,11 +521,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4174958607158802831, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 05d3b64d439ec6f41a22df53836e5287, type: 3}
+      objectReference: {fileID: 21300000, guid: 816912fd316cbef4d9e51492c708857a, type: 3}
     - target: {fileID: 7438853197473925716, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -691,11 +691,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5196269710735338531, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x
@@ -756,7 +756,7 @@ PrefabInstance:
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e9f0ff5b55a7ebd4a8e584c5d3f25009, type: 3}
+      objectReference: {fileID: 21300000, guid: 974090f5f090b4840b0117f5ba3910ab, type: 3}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Health
@@ -849,11 +849,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1111346627165883165, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_text
@@ -882,7 +882,7 @@ PrefabInstance:
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 92ef33ff2581a9c4f98e337f46788af3, type: 3}
+      objectReference: {fileID: 21300000, guid: bedd2dd834abf2447b49f0b1ef499aae, type: 3}
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Cost
