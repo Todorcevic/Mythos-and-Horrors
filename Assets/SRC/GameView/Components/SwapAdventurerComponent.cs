@@ -31,27 +31,24 @@ namespace MythsAndHorrors.GameView
         public Tween Select(Adventurer adventurer)
         {
             AreaAdventurerView areaAdventurerView = Get(adventurer);
-            Transform positionToMove = GetSidePosition(adventurer);
+            (Transform positionToExit, Transform positionToEnter) = GetSidePosition(adventurer);
 
             return DOTween.Sequence()
                 .Join(areaAdventurerView.transform.DOFullMoveSlow(_playPosition).SetEase(Ease.InOutCubic)
-                .OnStart(() => areaAdventurerView.transform.position *= 0.25f))
-                .Join(_currentAreaAdventurer.transform.DOFullMoveSlow(positionToMove).SetEase(Ease.InOutCubic)
+                .OnStart(() => areaAdventurerView.transform.position = positionToEnter.position))
+                .Join(_currentAreaAdventurer.transform.DOFullMoveSlow(positionToExit).SetEase(Ease.InOutCubic)
                 .OnComplete(() => _currentAreaAdventurer.transform.position *= 4f))
                 .OnComplete(Finish);
 
-            void Finish()
-            {
-                _currentAreaAdventurer = areaAdventurerView;
-            }
+            void Finish() => _currentAreaAdventurer = areaAdventurerView;
+
         }
 
         private AreaAdventurerView Get(Adventurer adventurer) => _allAdventurerAreas.First(areaView => areaView.Adventurer == adventurer);
 
-        private Transform GetSidePosition(Adventurer adventurer) =>
+        private (Transform, Transform) GetSidePosition(Adventurer adventurer) =>
             _adventurersProvider.GetAdventurerPosition(adventurer) >
             _adventurersProvider.GetAdventurerPosition(_currentAreaAdventurer.Adventurer) ?
-            _leftPosition :
-            _rightPosition;
+            (_leftPosition, _rightPosition) : (_rightPosition, _leftPosition);
     }
 }
