@@ -7,7 +7,6 @@ namespace MythsAndHorrors.GameView
 {
     public class CardSensor : MonoBehaviour
     {
-        private const string MOUSE_EXIT = "mouse_exit";
         [SerializeField, Required] private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
 

@@ -1,7 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -37,7 +36,9 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private FactionDeckSO SetCurrent(Faction faction) => _factions.First(factionDeckSO => faction.HasFlag(factionDeckSO._faction));
+        private FactionDeckSO SetCurrent(Faction faction) =>
+            _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
+            _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
 
         private void SetInfo()
         {

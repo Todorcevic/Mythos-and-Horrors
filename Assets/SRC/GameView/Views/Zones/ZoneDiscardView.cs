@@ -8,7 +8,8 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneDiscardView : ZoneView
     {
-        private const float OFF_SET_EXPAND_Y = -1.5f;
+        private const float OFF_SET_EXPAND_X = -1.5f;
+        private const float OFF_SET_EXPAND_SELECTED = 6f;
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
         private bool isStandUp;
@@ -42,7 +43,7 @@ namespace MythsAndHorrors.GameView
             int selectedIndex = _allCards.IndexOf(cardView);
             for (int j = 0; j <= LastIndex; j++)
             {
-                currentSequence.Join(_allCards[j].transform.DOLocalMoveX((j <= selectedIndex && LastIndex != selectedIndex) ? OFF_SET_EXPAND_Y * (LastIndex - j) - 2 : OFF_SET_EXPAND_Y * (LastIndex - j), ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(_allCards[j].transform.DOLocalMoveX((j <= selectedIndex && LastIndex != selectedIndex) ? OFF_SET_EXPAND_X * (LastIndex - j) - OFF_SET_EXPAND_SELECTED : OFF_SET_EXPAND_X * (LastIndex - j), ViewValues.FAST_TIME_ANIMATION));
             }
 
             currentSequence.Join(cardView.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION))
@@ -52,6 +53,9 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseExit(CardView cardView)
         {
+            cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION);
+            cardView.transform.DOLocalMoveZ(0, ViewValues.FAST_TIME_ANIMATION);
+
             currentSequence?.Kill();
             _movePosition.position = transform.parent.position;
             currentSequence = transform.DOFullLocalMove(_movePosition).PrependCallback(() => isStandUp = false);
@@ -60,8 +64,7 @@ namespace MythsAndHorrors.GameView
             {
                 currentSequence.Join(_allCards[j].transform.DOLocalMoveX(0, ViewValues.FAST_TIME_ANIMATION));
             }
-            currentSequence.Join(cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION))
-                .Join(cardView.transform.DOLocalMoveZ(0, ViewValues.FAST_TIME_ANIMATION));
+
             return currentSequence;
         }
     }

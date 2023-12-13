@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class CardShowerComponent : MonoBehaviour
     {
-        private const float X_OFFSET = 6f;
+        private const float X_OFFSET = 6.5f;
         private CardView _currentShowCard;
 
         /*******************************************************************/
