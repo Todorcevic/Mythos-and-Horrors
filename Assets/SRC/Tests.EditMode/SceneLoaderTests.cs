@@ -11,7 +11,7 @@ namespace MythsAndHorrors.EditMode.Tests
     {
         private const string JSON_TEST_DATA_PATH = "Assets/Data/Tests/Scenes/COREScene1/Scene.json";
         [Inject] private readonly SceneLoaderUseCase _sut;
-        [Inject] private readonly GameStateService _gameState;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
         [Test]
@@ -19,8 +19,8 @@ namespace MythsAndHorrors.EditMode.Tests
         {
             _sut.Execute(JSON_TEST_DATA_PATH);
 
-            Assert.That(_gameState.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
-            Assert.That(_gameState.CurrentScene.Info.Cards.First().Info.Code, Is.EqualTo("01108"));
+            Assert.That(_chaptersProvider.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
+            Assert.That(_chaptersProvider.CurrentScene.Info.Cards.First().Info.Code, Is.EqualTo("01108"));
         }
     }
 }

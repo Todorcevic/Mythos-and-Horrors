@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
     public class GameStateService
     {
-        public Chapter CurrentChapter { get; set; }
-        public Scene CurrentScene { get; set; }
         public GameAction CurrentAction { get; private set; }
 
         /*******************************************************************/

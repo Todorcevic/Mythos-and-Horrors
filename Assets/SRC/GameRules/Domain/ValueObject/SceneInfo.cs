@@ -7,7 +7,8 @@ namespace MythsAndHorrors.GameRules
         public string Code { get; init; }
         public int Position { get; init; }
         public string Name { get; init; }
-        public string Description { get; init; }
+        public History Description { get; init; }
+        public List<History> Resolutions { get; init; }
         public List<Card> Cards { get; init; }
         public string NextScene { get; init; }
 

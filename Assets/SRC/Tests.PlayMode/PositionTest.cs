@@ -14,7 +14,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
-        [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
 
         /*******************************************************************/
@@ -42,17 +42,17 @@ namespace MythsAndHorrors.PlayMode.Tests
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[i + 15], adventurer1.HandZone).AsCoroutine();
             }
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Info.Cards[0], _zonesProvider.PlotZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Info.Cards[1], _zonesProvider.GoalZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Info.Cards[3], _zonesProvider.DangerDeckZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Info.Cards[4], _zonesProvider.DangerDiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(_chaptersProvider.CurrentScene.Info.Cards[0], _zonesProvider.PlotZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(_chaptersProvider.CurrentScene.Info.Cards[1], _zonesProvider.GoalZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(_chaptersProvider.CurrentScene.Info.Cards[3], _zonesProvider.DangerDeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(_chaptersProvider.CurrentScene.Info.Cards[4], _zonesProvider.DangerDiscardZone).AsCoroutine();
 
             int k = 0;
             for (int i = 0; i < _zonesProvider.PlaceZone.GetLength(0); i++)
             {
                 for (int j = 0; j < _zonesProvider.PlaceZone.GetLength(1); j++)
                 {
-                    yield return _cardMoverPresenter.MoveCardToZoneAsync(_gameStateService.CurrentScene.Info.Cards[5 + k++], _zonesProvider.PlaceZone[i, j]).AsCoroutine();
+                    yield return _cardMoverPresenter.MoveCardToZoneAsync(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _zonesProvider.PlaceZone[i, j]).AsCoroutine();
                 }
             }
 

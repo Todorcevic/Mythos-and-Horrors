@@ -2,7 +2,12 @@
     "Code": "CORE1",
     "Position": 1,
     "Name": "Scene1",
-    "Description": "This is a test scene1",
+    "Description": {
+        "Code": "CORE1_INTRO",
+        "Title": "Parte I: El encuentro",
+        "Description": "Tus compañeros y tú habéis estado investigando los extraños sucesos que están teniendo lugar en vuestra ciudad natal de Arkham, en Massachusetts. Durante las últimas semanas, varios habitantes de la ciudad han desaparecido misteriosamente. Y hace poco aparecieron sus cadáveres en el bosque, medio devorados y salvajemente mutilados. La policía y los periódicos han dicho que ha sido obra de animales, pero creéis que hay algo más en marcha. Os habéis reunido en casa del investigador jefe para deliberar sobre estos misteriosos acontecimientos.",
+        "Image": "CORE1_INTRO"
+    },
     "NextScene": "COREScene2",
     "Cards": [
         "01108",

@@ -14,7 +14,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _sut;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly ChaptersProvider _chaptersProvide;
 
         /*******************************************************************/
         [UnityTest]
@@ -26,7 +26,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_adventurersProvider.AllAdventurers.Count, Is.EqualTo(2));
             Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));
-            Assert.That(_gameStateService.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
+            Assert.That(_chaptersProvide.CurrentScene.Info.Name, Is.EqualTo("Scene1"));
             yield return null;
         }
     }

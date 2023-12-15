@@ -5,6 +5,7 @@ using Zenject;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
@@ -42,7 +43,8 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
-            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<FactionAdventurerSO>("_esoteric");
+            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<List<FactionAdventurerSO>>("_factions")
+                .Find(factionAdventurerSO => factionAdventurerSO._faction == Faction.Esoteric);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_template").sprite == factionElementsExpected._templateFront,

@@ -1,9 +1,40 @@
 {
     "Code": "CORE1",
     "Position": 1,
-    "Name": "Scene1",
-    "Description": "This is a test scene1",
-    "NextScene": "COREScene2",
+    "Name": "El encuentro",
+    "Description": {
+        "Code": "CORE1_INTRO",
+        "Title": "Parte I: El encuentro",
+        "Description": "Tus compañeros y tú habéis estado investigando los extraños sucesos que están teniendo lugar en vuestra ciudad natal de Arkham, en Massachusetts. Durante las últimas semanas, varios habitantes de la ciudad han desaparecido misteriosamente. Y hace poco aparecieron sus cadáveres en el bosque, medio devorados y salvajemente mutilados. La policía y los periódicos han dicho que ha sido obra de animales, pero creéis que hay algo más en marcha. Os habéis reunido en casa del investigador jefe para deliberar sobre estos misteriosos acontecimientos.",
+        "Image": "CORE1_INTRO"
+    },
+    "Resolutions":[
+        {
+            "Code": "no_resolution",
+            "Title": "Ninguna resolución",
+            "Description": "Apenas lográis escapar con vida de tu casa. La mujer de la salita os sigue por la puerta delantera y la cierra de un portazo.\n–¡Necios! ¿Veis lo que habéis hecho? –dice mientras apoya una silla contra la puerta y la mete bajo el picaporte–. Debemos salir de aquí. Venid conmigo y os diré lo que sé. Somos los únicos que podemos evitar que desaten contra la ciudad la amenaza que acecha bajo ella.\nNo estáis en condiciones de replicar, así que asentís y seguís a la mujer mientras sale corriendo del porche delantero en dirección al Barrio Fluvial, bajo la lluvia.",
+            "Image": "core3"
+        },
+        {
+            "Code": "resolution1",
+            "Title": "Resolución 1",
+            "Description": " Asientes y permites que la mujer pelirroja prenda fuego a las paredes y suelos de tu casa. Las llamas se extienden rápidamente, y salís corriendo por la puerta delantera para evitar quedar atrapados en ese infierno. Desde la acera, observáis cómo el fuego consume todo lo que posees.\n–Venid conmigo –dice la mujer–. Debéis conocer la amenaza que acecha debajo. Si no colaboramos, estamos perdidos sin remedio... pero juntos podremos detenerla.",
+            "Image": "core4"
+        },
+        {
+            "Code": "resolution2",
+            "Title": "Resolución 2",
+            "Description": " Te niegas a seguir la orden de la fanática y la echas de tu casa por miedo a que le prenda fuego sin tu permiso.\n–¡Necios! ¡Estáis cometiendo un funesto error! –os advierte–. No entendéis la amenaza que acecha debajo... ¡ni el grave peligro quecorremos todos!\nAún conmocionados por los acontecimientos de la noche, decidís escuchar a la mujer. Quizás pueda arrojar algo de luz sobre estos extraños sucesos... pero no parece confiar demasiado en vosotros.",
+            "Image": "core4"
+        },
+        {
+            "Code": "resolution3",
+            "Title": "Resolución 3",
+            "Description": "Corréis al pasillo para tratar de encontrar una forma de huir de la casa, pero la ardiente barrera sigue bloqueando vuestro camino. Estáis atrapados, y la horda de salvajes criaturas que han invadido tu casa se acerca, sin que tengáis posibilidad de huir.",
+            "Image": "core5"
+        }
+    ],
+    "NextScene": "CORE2",
     "Cards": [
         "01108",
         "01109",

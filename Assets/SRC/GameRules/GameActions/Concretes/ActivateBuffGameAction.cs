@@ -2,7 +2,7 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public class AddBuffGameAction : GameAction
+    public class ActivateBuffGameAction : GameAction
     {
         private Buff _buff;
 

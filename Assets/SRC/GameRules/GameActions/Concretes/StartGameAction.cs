@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
-        [Inject] private readonly GameStateService _gameStateService;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
         public async Task Run() => await Start();
@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
                 await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(adventurer);
             }
 
-            await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_gameStateService.CurrentScene);
+            await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_chaptersProvider.CurrentScene);
             await _gameActionFactory.Create<PlayGameAction>().Run();
         }
     }

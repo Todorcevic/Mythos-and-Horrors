@@ -6,6 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
+
     public class CardInfoLoaderUseCase
     {
         [Inject] private readonly FilesPath _filesPath;
