@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-
     public class PrepareAdventurerGameAction : GameAction
     {
         private Adventurer _adventurer;

@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameView
             _ioActivatorComponent.ActivateSensor();
 
             cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.SetGreenGlow());
-            _avatarViewsManager.AvatarsPlayabled(cards).ForEach(avatar => avatar.ActivateGlow());
+            _avatarViewsManager.AvatarsPlayabled(cards)?.ForEach(avatar => avatar.ActivateGlow());
         }
 
         public void Deactivate()

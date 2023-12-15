@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         public void Execute(string path)
         {
             string jsonData = File.ReadAllText(path);
-            chaptersProvider.AddChapters(JsonConvert.DeserializeObject<List<Chapter>>(jsonData));
+            chaptersProvider.AddChapters(JsonConvert.DeserializeObject<List<ChapterInfo>>(jsonData));
         }
     }
 }

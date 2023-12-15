@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
 {
     public static class ImageExtension
     {
-        private const string FAIL_IMAGE = "Fails/00000.png";
+        private const string FAIL_IMAGE = "Fails/Fail.png";
         private static IResourceLocator _resourceLocator;
 
         /*******************************************************************/
@@ -19,6 +19,9 @@ namespace MythsAndHorrors.GameView
 
         public static async void LoadCardSprite(this Image imagen, string address) =>
             imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? await LoadFailImage();
+
+        public static async void LoadHistorySprite(this Image imagen, string address) =>
+         imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".jpg") ?? await LoadFailImage();
 
         private async static Task<Sprite> LoadSpriteAsync(string key)
         {

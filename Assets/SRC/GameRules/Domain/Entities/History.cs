@@ -1,10 +1,10 @@
 ﻿namespace MythsAndHorrors.GameRules
 {
-    public class History
+    public record History
     {
-        public string Code { get; }
-        public string Title { get; }
-        public string Description { get; }
-        public string Image { get; }
+        public string Code { get; init; }
+        public string Title { get; init; }
+        public string Description { get; init; }
+        public string Image { get; init; }
     }
 }
