@@ -15,8 +15,6 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<ShowHistoryGameAction>().Run(_chaptersProvider.CurrentChapter.Description);
-
             foreach (Adventurer adventurer in _adventurersProvider.AllAdventurers)
             {
                 await _gameActionFactory.Create<PrepareAdventurerGameAction>().Run(adventurer);

@@ -22,5 +22,8 @@ namespace MythsAndHorrors.GameRules
 
         public Adventurer GetAdventurerWithThisZone(Zone zone)
             => _adventurers.FirstOrDefault(adventurer => adventurer.HasThisZone(zone));
+
+        public Adventurer GetAdventurerWithThisCard(Card card)
+            => _adventurers.FirstOrDefault(adventurer => adventurer.HasThisCard(card));
     }
 }

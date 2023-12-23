@@ -4,23 +4,26 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
+
     public class DrawGameAction : GameAction
     {
         private Adventurer _adventurer;
+        private Card _cardDrawed;
         [Inject] private readonly GameActionFactory _gameActionRepository;
 
         /*******************************************************************/
-        public async Task Run(Adventurer adventurer)
+        public async Task<Card> Run(Adventurer adventurer)
         {
             _adventurer = adventurer;
             await Start();
+            return _cardDrawed;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card card = _adventurer.DeckZone.Cards.Last();
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(card, _adventurer.HandZone);
+            _cardDrawed = _adventurer.DeckZone.Cards.Last();
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardDrawed, _adventurer.HandZone);
         }
     }
 }

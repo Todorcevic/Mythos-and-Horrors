@@ -19,7 +19,7 @@
         }
 
         /*******************************************************************/
-        public void InitializePlaceZones()
+        private void InitializePlaceZones()
         {
             for (int i = 0; i < PlaceZone.GetLength(0); i++)
             {

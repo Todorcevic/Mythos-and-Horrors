@@ -33,7 +33,8 @@ namespace MythsAndHorrors.GameView
             _saveData.AdventurersSelected.ForEach(adventurerCode =>
             _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH(adventurerCode)));
 
-        private void LoadChapters() => _chapterInfoLoaderUseCase.Execute(_filesPath.JSON_CHAPTERINFO_PATH);
+        private void LoadChapters() =>
+            _chapterInfoLoaderUseCase.Execute(_filesPath.JSON_CHAPTERINFO_PATH, _saveData.DificultySelected);
 
         private void LoadScene() => _sceneLoaderUseCase.Execute(_filesPath.JSON_SCENE_PATH(_saveData.SceneSelected));
 

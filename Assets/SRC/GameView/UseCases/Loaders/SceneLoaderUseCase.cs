@@ -17,7 +17,8 @@ namespace MythsAndHorrors.GameView
             SceneInfo sceneInfo = _jsonService.CreateDataFromFile<SceneInfo>(fullSceneDataPath);
             Type type = (Assembly.GetAssembly(typeof(Scene)).GetType(typeof(Scene) + sceneInfo.Code)
                ?? throw new InvalidOperationException("Scene not found" + sceneInfo.Code));
-            _chaptersProvider.CurrentScene = _diContainer.Instantiate(type, new object[] { sceneInfo }) as Scene;
+            Scene currentScene = _diContainer.Instantiate(type, new object[] { sceneInfo }) as Scene;
+            _chaptersProvider.SetCurrentScene(currentScene);
         }
     }
 }

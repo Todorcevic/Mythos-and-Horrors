@@ -9,7 +9,8 @@ namespace MythsAndHorrors.GameRules
         private List<ChapterInfo> _chapters = new();
 
         public ChapterInfo CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Info.Code));
-        public Scene CurrentScene { get; set; }
+        public Scene CurrentScene { get; private set; }
+        public Dificulty CurrentDificulty { get; private set; }
 
         /*******************************************************************/
         public void AddChapters(List<ChapterInfo> chapters)
@@ -22,5 +23,16 @@ namespace MythsAndHorrors.GameRules
             ChapterInfo chapter = _chapters.FirstOrDefault(chapter => chapter.Code == chapterCode);
             return chapter ?? throw new ArgumentException(nameof(chapterCode) + " chapter not found");
         }
+
+        public void SetCurrentDificulty(Dificulty dificulty)
+        {
+            CurrentDificulty = dificulty;
+        }
+
+        public void SetCurrentScene(Scene scene)
+        {
+            CurrentScene = scene ?? throw new ArgumentNullException(nameof(scene) + " scene cant be null");
+        }
+
     }
 }

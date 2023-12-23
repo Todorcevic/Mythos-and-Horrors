@@ -11,10 +11,11 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ChaptersProvider chaptersProvider;
 
         /*******************************************************************/
-        public void Execute(string path)
+        public void Execute(string path, Dificulty dificulty)
         {
             string jsonData = File.ReadAllText(path);
             chaptersProvider.AddChapters(JsonConvert.DeserializeObject<List<ChapterInfo>>(jsonData));
+            chaptersProvider.SetCurrentDificulty(dificulty);
         }
     }
 }

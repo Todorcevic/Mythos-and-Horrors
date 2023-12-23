@@ -5,7 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {
-        [Inject] private readonly GameStateService _gameStateService;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly IUIActivator _activatorUIPresenter;
 
@@ -13,7 +12,6 @@ namespace MythsAndHorrors.GameRules
         protected async Task Start()
         {
             _activatorUIPresenter.Deactivate();
-            _gameStateService.SetCurrentAction(this);
             await AtTheBeginning();
             await ExecuteThisLogic();
             await AtTheEnd();

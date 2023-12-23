@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
@@ -6,5 +7,6 @@ namespace MythsAndHorrors.GameView
     {
         public List<string> AdventurersSelected { get; set; }
         public string SceneSelected { get; set; }
+        public Dificulty DificultySelected { get; set; }
     }
 }

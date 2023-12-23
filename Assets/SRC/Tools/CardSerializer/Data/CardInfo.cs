@@ -151,7 +151,9 @@ namespace MythsAndHorrors.Tools
                 _ => Slot.None,
             };
 
-            Tags = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToArray();
+            var traits = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()) ?? Enumerable.Empty<string>();
+            var subtypeName = oldCardinfo.SubtypeName != null ? new[] { oldCardinfo.SubtypeName } : Enumerable.Empty<string>();
+            Tags = traits.Concat(subtypeName).ToArray();
             Cost = oldCardinfo.Cost;
             Quantity = oldCardinfo.Quantity;
             Strength = oldCardinfo.SkillCombat ?? oldCardinfo.EnemyFight;
