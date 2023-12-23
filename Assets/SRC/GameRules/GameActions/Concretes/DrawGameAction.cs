@@ -8,22 +8,23 @@ namespace MythsAndHorrors.GameRules
     public class DrawGameAction : GameAction
     {
         private Adventurer _adventurer;
-        private Card _cardDrawed;
         [Inject] private readonly GameActionFactory _gameActionRepository;
+
+        public Card CardDrawed { get; private set; }
 
         /*******************************************************************/
         public async Task<Card> Run(Adventurer adventurer)
         {
             _adventurer = adventurer;
             await Start();
-            return _cardDrawed;
+            return CardDrawed;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _cardDrawed = _adventurer.DeckZone.Cards.Last();
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_cardDrawed, _adventurer.HandZone);
+            CardDrawed = _adventurer.DeckZone.Cards.Last();
+            await _gameActionRepository.Create<MoveCardGameAction>().Run(CardDrawed, _adventurer.HandZone);
         }
     }
 }

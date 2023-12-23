@@ -2,6 +2,7 @@
 
 namespace MythsAndHorrors.GameRules
 {
+
     public interface IAdventurerSelector
     {
         Task Select(Adventurer adventurer);

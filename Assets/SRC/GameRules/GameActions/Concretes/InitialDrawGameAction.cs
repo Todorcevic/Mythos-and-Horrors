@@ -3,9 +3,8 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class PrepareAdventurerGameAction : GameAction
+    public class InitialDrawGameAction : GameAction
     {
-        private const int INITIAL_HAND_SIZE = 5;
         private Adventurer _adventurer;
         [Inject] private readonly GameActionFactory _gameActionRepository;
 
@@ -19,11 +18,10 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_adventurer.AdventurerCard, _adventurer.AdventurerZone);
-            await _gameActionRepository.Create<MoveCardsGameAction>().Run(_adventurer.Cards, _adventurer.DeckZone);
-
-            for (int i = 0; i < INITIAL_HAND_SIZE; i++)
+            Card cardDrawed = await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
+            if (cardDrawed is IWeakness)
             {
+                await _gameActionRepository.Create<DiscardGameAction>().Run(cardDrawed);
                 await _gameActionRepository.Create<InitialDrawGameAction>().Run(_adventurer);
             }
         }

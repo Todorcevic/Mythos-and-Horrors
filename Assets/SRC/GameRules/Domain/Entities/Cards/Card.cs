@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameRules
         public Zone OwnZone { get; } = new Zone();
         public Zone CurrentZone { get; private set; }
         public bool IsScenaryCard => Info.Faction == Faction.Myths;
-        public bool IsWeakenessCard => Info.Tags.Contains("Weakness") || Info.Tags.Contains("Basic Weakness"); //TODO hacerlo con interface vacia
         public bool IsFaceDown { get; set; }
 
         /*******************************************************************/
