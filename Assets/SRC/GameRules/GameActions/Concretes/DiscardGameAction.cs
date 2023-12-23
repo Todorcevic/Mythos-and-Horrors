@@ -7,7 +7,6 @@ namespace MythsAndHorrors.GameRules
     {
         private Card _card;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
-        [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionRepository;
 
@@ -27,9 +26,10 @@ namespace MythsAndHorrors.GameRules
         private Zone GetDiscardZone()
         {
             if (_chaptersProvider.CurrentScene.Info.DangerCards.Contains(_card))
-                return _zonesProvider.DangerDiscardZone;
+                return _chaptersProvider.CurrentScene.DangerDiscardZone;
 
-            return _adventurersProvider.GetAdventurerWithThisCard(_card)?.DiscardZone ?? _zonesProvider.OutZone;
+            return _adventurersProvider.GetAdventurerWithThisCard(_card)?.DiscardZone
+                ?? _chaptersProvider.CurrentScene.OutZone;
         }
     }
 }

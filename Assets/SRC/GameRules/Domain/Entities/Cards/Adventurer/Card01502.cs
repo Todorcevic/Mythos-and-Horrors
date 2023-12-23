@@ -7,7 +7,6 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardsProvider _cardRepository;
-        [Inject] private readonly ZonesProvider _zoneRepository;
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)

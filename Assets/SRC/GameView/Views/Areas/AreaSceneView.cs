@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class AreaSceneView : MonoBehaviour
     {
-        [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _dangerDeckZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _dangerDiscardZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _goalZone;
@@ -20,14 +20,14 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Init()
         {
-            _dangerDeckZone.Init(_zonesProvider.DangerDeckZone);
-            _dangerDiscardZone.Init(_zonesProvider.DangerDiscardZone);
-            _goalZone.Init(_zonesProvider.GoalZone);
-            _plotZone.Init(_zonesProvider.PlotZone);
-            _victoryZone.Init(_zonesProvider.VictoryZone);
-            _limboZone.Init(_zonesProvider.LimboZone);
-            _outZone.Init(_zonesProvider.OutZone);
-            _selector.Init(_zonesProvider.SelectorZone);
+            _dangerDeckZone.Init(_chaptersProvider.CurrentScene.DangerDeckZone);
+            _dangerDiscardZone.Init(_chaptersProvider.CurrentScene.DangerDiscardZone);
+            _goalZone.Init(_chaptersProvider.CurrentScene.GoalZone);
+            _plotZone.Init(_chaptersProvider.CurrentScene.PlotZone);
+            _victoryZone.Init(_chaptersProvider.CurrentScene.VictoryZone);
+            _limboZone.Init(_chaptersProvider.CurrentScene.LimboZone);
+            _outZone.Init(_chaptersProvider.CurrentScene.OutZone);
+            _selector.Init(_chaptersProvider.CurrentScene.SelectorZone);
         }
     }
 }

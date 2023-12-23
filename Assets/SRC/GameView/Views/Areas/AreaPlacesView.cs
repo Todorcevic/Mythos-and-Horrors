@@ -8,7 +8,7 @@ namespace MythsAndHorrors.GameView
 {
     public class AreaPlacesView : MonoBehaviour
     {
-        [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private List<ZoneView> _rowPlaces0;
         [SerializeField, Required, ChildGameObjectsOnly] private List<ZoneView> _rowPlaces1;
         [SerializeField, Required, ChildGameObjectsOnly] private List<ZoneView> _rowPlaces2;
@@ -16,9 +16,9 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Init()
         {
-            _rowPlaces0.ForEach(zone => zone.Init(_zonesProvider.PlaceZone[0, _rowPlaces0.IndexOf(zone)]));
-            _rowPlaces1.ForEach(zone => zone.Init(_zonesProvider.PlaceZone[1, _rowPlaces1.IndexOf(zone)]));
-            _rowPlaces2.ForEach(zone => zone.Init(_zonesProvider.PlaceZone[2, _rowPlaces2.IndexOf(zone)]));
+            _rowPlaces0.ForEach(zone => zone.Init(_chaptersProvider.CurrentScene.PlaceZone[0, _rowPlaces0.IndexOf(zone)]));
+            _rowPlaces1.ForEach(zone => zone.Init(_chaptersProvider.CurrentScene.PlaceZone[1, _rowPlaces1.IndexOf(zone)]));
+            _rowPlaces2.ForEach(zone => zone.Init(_chaptersProvider.CurrentScene.PlaceZone[2, _rowPlaces2.IndexOf(zone)]));
         }
     }
 }

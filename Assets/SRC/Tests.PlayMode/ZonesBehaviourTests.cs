@@ -12,7 +12,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly CardViewBuilder _cardViewBuilder;
@@ -28,6 +28,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return base.SetUp();
             _adventurersProvider.AddAdventurer(new Adventurer() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() });
+            _chaptersProvider.SetCurrentScene(new SceneCORE1());
             _zoneLoaderUseCase.Execute();
         }
 
@@ -38,13 +39,13 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut = _cardViewBuilder.BuildRand();
             CardView sut2 = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.PlaceZone[0, 2]).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _zonesProvider.PlaceZone[0, 3]).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3]).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 2]));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 2]));
             Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut));
-            Assert.That(sut2.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.PlaceZone[0, 3]));
+            Assert.That(sut2.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 3]));
             Assert.That(sut2.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut2));
         }
 
@@ -65,10 +66,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView sut = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
             Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(includeInactive: true), Contains.Item(sut));
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
         }
@@ -127,10 +128,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
         }
 
         [UnityTest]
@@ -142,10 +143,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.AidZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
         }
 
         [UnityTest]
@@ -157,10 +158,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DeckZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
         }
 
         [UnityTest]
@@ -172,10 +173,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, _adventurersProvider.Leader.DiscardZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene  .OutZone));
         }
 
         [UnityTest]
@@ -232,18 +233,18 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut2 = _cardViewBuilder.BuildRand();
             CardView[] sut = _cardViewBuilder.BuildManyRandom(4);
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _zonesProvider.PlaceZone[0, 2]).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
 
             foreach (CardView card in sut)
             {
                 yield return _cardMoverPresenter.MoveCardToZoneAsync(card.Card, sut2.Card.OwnZone).AsCoroutine();
             }
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_zonesProvider.OutZone));
+            Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
             Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>().Contains(sut.First()), Is.False);
         }
 
@@ -256,7 +257,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _zonesProvider.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
 
             yield return _cardMoverPresenter.MoveCardToZoneAsync(sut.Card, _adventurersProvider.Leader.HandZone).AsCoroutine();

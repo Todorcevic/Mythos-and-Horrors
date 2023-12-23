@@ -9,7 +9,6 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ZonesProvider _zonesProvider;
 
         private Card Studio => _cardsProvider.GetCard("01111");
         private Card FirstPlot => _cardsProvider.GetCard("01105");
@@ -21,10 +20,10 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionFactory.Create<MoveCardGameAction>().Run(FirstPlot, _zonesProvider.PlotZone);
-            await _gameActionFactory.Create<MoveCardGameAction>().Run(FirstGoal, _zonesProvider.GoalZone);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(RealDangerCards, _zonesProvider.DangerDeckZone);
-            await _gameActionFactory.Create<MoveCardGameAction>().Run(Studio, _zonesProvider.PlaceZone[0, 3]);
+            await _gameActionFactory.Create<MoveCardGameAction>().Run(FirstPlot, PlotZone);
+            await _gameActionFactory.Create<MoveCardGameAction>().Run(FirstGoal, GoalZone);
+            await _gameActionFactory.Create<MoveCardsGameAction>().Run(RealDangerCards, DangerDeckZone);
+            await _gameActionFactory.Create<MoveCardGameAction>().Run(Studio, PlaceZone[0, 3]);
         }
     }
 }

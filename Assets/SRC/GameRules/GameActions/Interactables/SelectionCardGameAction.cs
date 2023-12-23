@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ICardMover _cardMovePresenter;
         [Inject] private readonly IUIActivator _iUActivator;
         [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly ZonesProvider _zoneProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         private List<Card> _cards;
         private Card _cardSelected;
 
@@ -26,7 +26,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _cards.ForEach(card => _cardMovePresenter.MoveCardToZoneAsync(card, _zoneProvider.SelectorZone)); //TODO: make with MoveCardsToZoneAsync
+            _cards.ForEach(card => _cardMovePresenter.MoveCardToZoneAsync(card, _chaptersProvider.CurrentScene.SelectorZone)); //TODO: make with MoveCardsToZoneAsync
             _iUActivator.Activate(_cards);
             _cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
         }
