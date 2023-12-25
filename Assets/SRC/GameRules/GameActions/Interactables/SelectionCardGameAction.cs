@@ -26,7 +26,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _cards.ForEach(card => _cardMovePresenter.MoveCardToZoneAsync(card, _chaptersProvider.CurrentScene.SelectorZone)); //TODO: make with MoveCardsToZoneAsync
+            _cards.ForEach(card => _cardMovePresenter.MoveCardToZone(card, _chaptersProvider.CurrentScene.SelectorZone)); //TODO: make with MoveCardsToZoneAsync
             _iUActivator.Activate(_cards);
             _cardSelected = await _gameActionRepository.Create<WaitingForSelectionGameAction>().Run();
         }

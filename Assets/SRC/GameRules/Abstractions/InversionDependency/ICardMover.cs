@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
+
     public interface ICardMover
     {
-        Task MoveCardsToZoneAsync(List<Card> cards, Zone zone);
+        Task MoveCardsToZone(List<Card> cards, Zone zone);
 
-        Task MoveCardToZoneAsync(Card card, Zone gameZone);
+        Task MoveCardToZone(Card card, Zone gameZone);
     }
 }

@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_card, GetDiscardZone());
+            await _gameActionRepository.Create<MoveCardsGameAction>().Run(_card, GetDiscardZone());
         }
 
         private Zone GetDiscardZone()

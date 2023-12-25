@@ -10,12 +10,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
-        public void Rotate(Card card)
-        {
-            _cardsManager.Get(card).Rotate();
-        }
-
-        public async Task RotateAsync(Card card)
+        public async Task Rotate(Card card)
         {
             await _cardsManager.Get(card).Rotate().AsyncWaitForCompletion();
         }

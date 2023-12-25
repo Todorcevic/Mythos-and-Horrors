@@ -28,22 +28,22 @@ namespace MythsAndHorrors.PlayMode.Tests
             Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0;
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.AdventurerCard, adventurer1.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.AdventurerCard, adventurer2.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[2], adventurer1.AidZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[2], adventurer2.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.AdventurerCard, adventurer1.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.AdventurerCard, adventurer2.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[2], adventurer1.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[2], adventurer2.AidZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[3], adventurer1.DiscardZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[3], adventurer2.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[3], adventurer1.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[3], adventurer2.DiscardZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[4], adventurer1.DeckZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[4], adventurer2.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[4], adventurer1.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[4], adventurer2.DeckZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[5], adventurer1.AdventurerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[5], adventurer2.AdventurerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[5], adventurer1.AdventurerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[5], adventurer2.AdventurerZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer1.Cards[6], adventurer1.DangerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZoneAsync(adventurer2.Cards[6], adventurer2.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[6], adventurer1.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[6], adventurer2.DangerZone).AsCoroutine();
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0.25f;
             while (DEBUG_MODE)

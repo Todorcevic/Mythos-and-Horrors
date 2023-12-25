@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _historyShower.ShowHistoryAsync(_history);
+            await _historyShower.ShowHistory(_history);
         }
     }
 }

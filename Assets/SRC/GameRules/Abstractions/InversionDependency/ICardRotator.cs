@@ -4,7 +4,6 @@ namespace MythsAndHorrors.GameRules
 {
     public interface ICardRotator
     {
-        void Rotate(Card card);
-        Task RotateAsync(Card card);
+        Task Rotate(Card card);
     }
 }

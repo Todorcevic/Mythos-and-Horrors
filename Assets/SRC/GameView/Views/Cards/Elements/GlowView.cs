@@ -11,15 +11,15 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Material _greenMaterial;
 
         /*******************************************************************/
-        public void Off()
+        public Tween Off()
         {
-            _spriteRenderer.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => gameObject.SetActive(false));
+            return _spriteRenderer.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => gameObject.SetActive(false));
             //_spriteRenderer.enabled = false;
         }
 
-        public void SetRedGlow()
+        public Tween SetRedGlow()
         {
-            _spriteRenderer.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(Stariting);
+            return _spriteRenderer.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(Stariting);
 
             void Stariting()
             {
@@ -27,9 +27,9 @@ namespace MythsAndHorrors.GameView
                 gameObject.SetActive(true);
             }
         }
-        public void SetGreenGlow()
+        public Tween SetGreenGlow()
         {
-            _spriteRenderer.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(Stariting);
+            return _spriteRenderer.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(Stariting);
 
             void Stariting()
             {

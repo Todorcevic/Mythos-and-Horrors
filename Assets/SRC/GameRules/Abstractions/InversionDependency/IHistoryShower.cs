@@ -4,6 +4,6 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IHistoryShower
     {
-        Task ShowHistoryAsync(History history);
+        Task ShowHistory(History history);
     }
 }

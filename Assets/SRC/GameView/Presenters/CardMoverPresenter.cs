@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
-        public async Task MoveCardToZoneAsync(Card card, Zone gameZone)
+        public async Task MoveCardToZone(Card card, Zone gameZone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(gameZone);
@@ -26,14 +26,14 @@ namespace MythsAndHorrors.GameView
             await moveSequence.AsyncWaitForCompletion();
         }
 
-        public async Task MoveCardsToZoneAsync(List<Card> cards, Zone zone)
+        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
             int delay = 100;
 
             foreach (Card card in cards)
             {
                 await Task.Delay(delay);
-                _ = MoveCardToZoneAsync(card, zone);
+                _ = MoveCardToZone(card, zone);
             }
         }
     }

@@ -18,10 +18,12 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card cardDrawed = await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
-            if (cardDrawed is IWeakness)
+            DrawGameAction drawGameAction = _gameActionRepository.Create<DrawGameAction>();
+            await drawGameAction.Run(_adventurer);
+
+            if (drawGameAction.CardDrawed is IWeakness)
             {
-                await _gameActionRepository.Create<DiscardGameAction>().Run(cardDrawed);
+                await _gameActionRepository.Create<DiscardGameAction>().Run(drawGameAction.CardDrawed);
                 await _gameActionRepository.Create<InitialDrawGameAction>().Run(_adventurer);
             }
         }

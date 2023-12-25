@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,31 +7,43 @@ namespace MythsAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
-        private List<Card> _cards;
-        private Zone _zone;
         [Inject] private readonly ICardMover _cardMover;
         [Inject] private readonly IAdventurerSelector _adventurerSelector;
 
+        public List<Card> Cards { get; private set; }
+        public Zone Zone { get; private set; }
+        public bool IsSingleMove => Cards.Count == 1;
+
         /*******************************************************************/
-        public async Task Run(List<Card> cards, Zone zone)
+        private async Task Run(Zone zone, params Card[] cards)
         {
-            _cards = cards;
-            _zone = zone;
+            Cards = cards.ToList();
+            Zone = zone;
             await Start();
         }
+
+        public async Task Run(List<Card> cards, Zone zone) => await Run(zone, cards.ToArray());
+        public async Task Run(Card card, Zone zone) => await Run(zone, card);
+
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            foreach (Card card in _cards)
+            foreach (Card card in Cards)
             {
                 card.CurrentZone?.RemoveCard(card);
-                card.MoveToZone(_zone);
-                _zone.AddCard(card);
+                card.MoveToZone(Zone);
+                Zone.AddCard(card);
             }
 
-            await _adventurerSelector.Select(_zone);
-            await _cardMover.MoveCardsToZoneAsync(_cards, _zone);
+            await Animation();
+        }
+
+        private async Task Animation()
+        {
+            await _adventurerSelector.Select(Zone);
+            if (IsSingleMove) await _cardMover.MoveCardToZone(Cards[0], Zone);
+            else await _cardMover.MoveCardsToZone(Cards, Zone);
         }
     }
 }

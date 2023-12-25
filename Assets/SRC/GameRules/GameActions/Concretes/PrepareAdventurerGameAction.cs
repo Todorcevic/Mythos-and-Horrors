@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(_adventurer.AdventurerCard, _adventurer.AdventurerZone);
+            await _gameActionRepository.Create<MoveCardsGameAction>().Run(_adventurer.AdventurerCard, _adventurer.AdventurerZone);
             await _gameActionRepository.Create<MoveCardsGameAction>().Run(_adventurer.Cards, _adventurer.DeckZone);
 
             for (int i = 0; i < INITIAL_HAND_SIZE; i++)
