@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
+
     public class DiscardGameAction : GameAction
     {
         private Card _card;

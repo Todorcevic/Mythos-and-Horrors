@@ -4,11 +4,11 @@
     "Name": "El encuentro",
     "Description": {
         "Code": "CORE1_INTRO",
-        "Title": "Parte I: El encuentro",
-        "Description": "Tus compañeros y tú habéis estado investigando los extraños sucesos que están teniendo lugar en vuestra ciudad natal de Arkham, en Massachusetts. Durante las últimas semanas, varios habitantes de la ciudad han desaparecido misteriosamente. Y hace poco aparecieron sus cadáveres en el bosque, medio devorados y salvajemente mutilados. La policía y los periódicos han dicho que ha sido obra de animales, pero creéis que hay algo más en marcha. Os habéis reunido en casa del investigador jefe para deliberar sobre estos misteriosos acontecimientos.",
+        "Title": "Ecos en la oscuridad",
+        "Description": "Un equipo de geólogos de la Universidad Miskatonic, liderado por el eminente Dr. William Harrow, había partido hacia las colinas cercanas para investigar una recién descubierta y enigmática cueva. Su interés estaba en su punto máximo debido a los informes de extrañas formaciones rocosas y fósiles en la cueva, los cuales parecían desafiar toda explicación lógica.\n Sin embargo, tras ingresar en la caverna, el equipo no regresó. Una búsqueda inicial reveló solo sus herramientas abandonadas en la entrada de la cueva y marcas extrañas en las paredes del túnel, como si algo o alguien los hubiera arrastrado hacia las profundidades subterráneas.\n La policía local ha sido reticente a profundizar en la cueva, citando peligros geológicos y la falta de pruebas de un crimen. Pero los rumores entre los lugareños cuentan una historia diferente: hablan de antiguas leyendas, de criaturas olvidadas por el tiempo que moran en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
         "Image": "CORE1_INTRO"
     },
-    "Resolutions":[
+    "Resolutions": [
         {
             "Code": "no_resolution",
             "Title": "Ninguna resolución",

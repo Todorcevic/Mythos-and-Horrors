@@ -33,5 +33,6 @@ namespace MythsAndHorrors.GameRules
         public int? Hints { get; init; }
         public int? Eldritch { get; init; }
         public bool? HealthPerAdventurer { get; init; }
+        public History[] Histories { get; init; }
     }
 }

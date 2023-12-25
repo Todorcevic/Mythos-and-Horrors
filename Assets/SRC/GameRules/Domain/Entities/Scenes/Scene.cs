@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -15,6 +16,7 @@ namespace MythsAndHorrors.GameRules
         public Zone OutZone { get; } = new Zone();
         public Zone SelectorZone { get; } = new Zone();
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
+        public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
 
         /*******************************************************************/
         protected Scene()
