@@ -15,6 +15,7 @@ namespace MythsAndHorrors.GameRules
         public int Xp { get; set; }
         public int Injury { get; set; }
         public int Shock { get; set; }
+        public int Resources { get; private set; }
         public int Hints { get; set; }
         public Zone HandZone { get; } = new Zone();
         public Zone DeckZone { get; } = new Zone();
@@ -32,5 +33,11 @@ namespace MythsAndHorrors.GameRules
             zone == AdventurerZone;
 
         public bool HasThisCard(Card card) => AllCards.Contains(card);
+
+        public void RemoveResources(int amount)
+        {
+            if (amount > Resources) throw new InvalidOperationException("Not enough resources");
+            Resources -= amount;
+        }
     }
 }

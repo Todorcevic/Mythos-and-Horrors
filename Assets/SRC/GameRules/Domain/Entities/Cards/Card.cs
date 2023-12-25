@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameRules
         public Zone CurrentZone { get; private set; }
         public bool IsScenaryCard => Info.Faction == Faction.Myths;
         public bool IsFaceDown { get; set; }
-        public int Resources { get; private set; }
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)
@@ -21,12 +20,6 @@ namespace MythsAndHorrors.GameRules
         public bool CanPlay()
         {
             return true;
-        }
-
-        public void RemoveResources(int amount)
-        {
-            if (amount < 0) throw new ArgumentException("Amount cant be negative");
-            Resources -= amount;
         }
     }
 }

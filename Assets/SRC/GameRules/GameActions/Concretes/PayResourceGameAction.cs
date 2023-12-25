@@ -8,12 +8,12 @@ namespace MythsAndHorrors.GameRules
         private int _amount;
         [Inject] private readonly IResourceMover _resourceMover;
 
-        public Card Card { get; private set; }
+        public Adventurer Adventurer { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(Card card, int amount)
+        public async Task Run(Adventurer adventurer, int amount)
         {
-            Card = card;
+            Adventurer = adventurer;
             _amount = amount;
             await Start();
         }
@@ -21,8 +21,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card.RemoveResources(_amount);
-            await _resourceMover.RemoveResource(Card, _amount);
+            Adventurer.RemoveResources(_amount);
+            await _resourceMover.RemoveResource(Adventurer, _amount);
         }
     }
 }
