@@ -120,8 +120,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_CreatureCard()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Creature)
-                .WithHealth(3).WithStrength(1).WithAgility(5).WithEnemyDamage(2).WithEnemyFear(1).GiveMe());
+            CardCreature card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Creature)
+                .WithHealth(3).WithStrength(1).WithAgility(5).WithEnemyDamage(2).WithEnemyFear(1).GiveMe()) as CardCreature;
 
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);

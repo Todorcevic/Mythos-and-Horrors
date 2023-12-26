@@ -8,5 +8,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class CardCreature : Card
     {
+        public int TotalEnemyHits => (Info.EnemyDamage ?? 0) + (Info.EnemyFear ?? 0);
     }
 }
