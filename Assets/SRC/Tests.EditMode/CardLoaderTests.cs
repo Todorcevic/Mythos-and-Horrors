@@ -23,5 +23,13 @@ namespace MythsAndHorrors.EditMode.Tests
             Assert.That(result, Is.EqualTo(_cardsProvider.GetCard("01501")));
             Assert.That(_cardsProvider.AllCards.Count, Is.EqualTo(2));
         }
+
+        [Test]
+        public void LoadCardWithHistory()
+        {
+            Card result = _sut.Execute("01105");
+
+            Assert.That(result.Histories.Count, Is.EqualTo(2));
+        }
     }
 }

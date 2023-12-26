@@ -6,15 +6,15 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardInfoLoaderUseCase
+    public class CardHistoriesLoaderUseCase
     {
         [Inject] private readonly FilesPath _filesPath;
 
         /*******************************************************************/
-        public List<CardInfo> Execute()
+        public List<History> Execute()
         {
-            string jsonData = File.ReadAllText(_filesPath.JSON_CARDINFO_PATH);
-            return JsonConvert.DeserializeObject<List<CardInfo>>(jsonData);
+            string jsonData = File.ReadAllText(_filesPath.JSON_CARD_HISTORIES_PATH);
+            return JsonConvert.DeserializeObject<List<History>>(jsonData);
         }
     }
 }

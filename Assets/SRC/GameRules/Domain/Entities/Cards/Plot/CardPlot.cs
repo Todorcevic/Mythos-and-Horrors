@@ -16,10 +16,10 @@ namespace MythsAndHorrors.GameRules
         public async virtual Task WhenFinish(GameAction gameAction)
         {
             if (CanShowInitialHistory(gameAction))
-                await _gameActionRepository.Create<ShowHistoryGameAction>().Run(Info.Histories[0]);
+                await _gameActionRepository.Create<ShowHistoryGameAction>().Run(Histories[0]);
 
             if (CanShowFinalHistory(gameAction))
-                await _gameActionRepository.Create<ShowHistoryGameAction>().Run(Info.Histories[1]);
+                await _gameActionRepository.Create<ShowHistoryGameAction>().Run(Histories[1]);
 
         }
 

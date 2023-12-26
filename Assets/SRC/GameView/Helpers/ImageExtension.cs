@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
             imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? await LoadFailImage();
 
         public static async void LoadHistorySprite(this Image imagen, string address) =>
-         imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".jpg") ?? await LoadFailImage();
+         imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".png") ?? await LoadFailImage();
 
         private async static Task<Sprite> LoadSpriteAsync(string key)
         {

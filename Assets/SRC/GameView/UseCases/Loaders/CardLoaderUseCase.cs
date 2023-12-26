@@ -10,30 +10,30 @@ namespace MythsAndHorrors.GameView
 {
     public class CardLoaderUseCase
     {
-        private readonly DiContainer _diContainer;
-        private readonly CardsProvider _cardProvider;
-        private readonly List<CardInfo> _allCardInfo;
-        private readonly ReactionablesProvider _reactionablesProvider;
-
-        /*******************************************************************/
-        public CardLoaderUseCase(DiContainer diContainer, CardsProvider cardProvider, ReactionablesProvider reactionablesProvider, CardInfoLoaderUseCase cardInfoLoader)
-        {
-            _diContainer = diContainer;
-            _cardProvider = cardProvider;
-            _reactionablesProvider = reactionablesProvider;
-            _allCardInfo = cardInfoLoader.Execute();
-        }
+        [Inject] private readonly DiContainer _diContainer;
+        [Inject] private readonly CardsProvider _cardProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly CardInfoLoaderUseCase cardInfoLoaderUseCase;
+        [Inject] private readonly CardHistoriesLoaderUseCase cardHistoriesLoaderUseCase;
+        private List<CardInfo> _allCardInfo;
+        private List<History> _allHistories;
 
         /*******************************************************************/
         public Card Execute(string cardCode)
         {
-            if (_allCardInfo == null) throw new InvalidOperationException("CardInfo not loaded");
+            _allCardInfo ??= cardInfoLoaderUseCase.Execute();
+            _allHistories ??= cardHistoriesLoaderUseCase.Execute();
 
             CardInfo cardInfo = _allCardInfo.First(cardInfo => cardInfo.Code == cardCode);
+
             Type type = (Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code)
                 ?? Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.CardType.ToString()))
                 ?? throw new InvalidOperationException("Card not found" + cardInfo.Code + " Type: " + cardInfo.CardType.ToString());
-            Card newCard = _diContainer.Instantiate(type, new object[] { cardInfo }) as Card;
+
+            List<History> cardHistories = _allHistories.FindAll(history => history.Code.Contains(cardCode))
+                .OrderBy(history => history.Code).ToList();
+
+            Card newCard = _diContainer.Instantiate(type, new object[] { cardInfo, cardHistories }) as Card;
             type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => _reactionablesProvider.AddReactionable(startReactionable));
             type.GetInterfaces().OfType<IEndReactionable>().ForEach(endReactionable => _reactionablesProvider.AddReactionable(endReactionable));
             _cardProvider.AddCard(newCard);
