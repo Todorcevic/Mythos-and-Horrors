@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -18,14 +19,15 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            DrawGameAction drawGameAction = _gameActionRepository.Create<DrawGameAction>();
-            await drawGameAction.Run(_adventurer);
-
-            if (drawGameAction.CardDrawed is IWeakness)
+            Card nextDraw = _adventurer.DeckZone.Cards.Last();
+            if (nextDraw is IWeakness)
             {
-                await _gameActionRepository.Create<DiscardGameAction>().Run(drawGameAction.CardDrawed);
+                await _gameActionRepository.Create<DiscardGameAction>().Run(nextDraw);
                 await _gameActionRepository.Create<InitialDrawGameAction>().Run(_adventurer);
+                return;
             }
+
+            await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
         }
     }
 }

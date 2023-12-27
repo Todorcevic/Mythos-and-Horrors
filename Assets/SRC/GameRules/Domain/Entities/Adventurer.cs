@@ -9,7 +9,8 @@ namespace MythsAndHorrors.GameRules
         public Card AdventurerCard { get; set; }
         public List<Card> Cards { get; set; }
         public List<Card> RequerimentCard { get; set; }
-        public List<Card> AllCards => Cards.Concat(RequerimentCard).Concat(new[] { AdventurerCard }).ToList();
+        public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
+        public List<Card> AllCards => FullDeck.Concat(new[] { AdventurerCard }).ToList();
         public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
         public int DeckSize { get; set; }
         public int Xp { get; set; }

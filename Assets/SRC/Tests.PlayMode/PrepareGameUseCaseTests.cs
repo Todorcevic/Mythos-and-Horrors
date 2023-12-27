@@ -8,6 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
+
     [TestFixture]
     public class PrepareGameUseCaseTests : TestBase
     {

@@ -3,8 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-
-    public class Card01097 : CardAdversity, IEndReactionable, IWeakness
+    public class Card01507 : CardAdversity, IEndReactionable, IWeakness
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly AdventurersProvider _adventurersProvider;
@@ -14,7 +13,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (CanActivate(gameAction))
             {
-                await _gameActionRepository.Create<MoveCardsGameAction>().Run(this, null); //TODO Remove Resource
+                await _gameActionRepository.Create<MoveCardsGameAction>().Run(this, _adventurersProvider.GetAdventurerWithThisCard(this).DangerZone); //TODO Remove Resource
             }
         }
 
