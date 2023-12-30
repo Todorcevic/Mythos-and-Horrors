@@ -18,8 +18,8 @@ namespace MythsAndHorrors.GameRules
         Hand = 1 << 9,
         Aid = 1 << 10,
         Danger = 1 << 11,
-        Adventurer = 1 << 12,
-        AdventurerDiscard = 1 << 13,
-        AdventurerDeck = 1 << 14,
+        Investigator = 1 << 12,
+        InvestigatorDiscard = 1 << 13,
+        InvestigatorDeck = 1 << 14,
     }
 }

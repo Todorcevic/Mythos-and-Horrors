@@ -9,12 +9,12 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
-        public async Task AddResource(Adventurer card, int amount)
+        public async Task AddResource(Investigator card, int amount)
         {
             await Task.CompletedTask;
         }
 
-        public async Task RemoveResource(Adventurer card, int amount)
+        public async Task RemoveResource(Investigator card, int amount)
         {
             await Task.CompletedTask;
         }

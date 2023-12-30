@@ -6,12 +6,12 @@ namespace MythsAndHorrors.GameView
     public class SaveGameUseCase
     {
         [Inject] private readonly JsonService _jsonService;
-        [Inject] private readonly AdventurersProvider _adventurerRepository;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly FilesPath _filesPath;
 
         /*******************************************************************/
         public void Execute() =>
-            _jsonService.SaveFileFromData(_adventurerRepository.AllAdventurers, _filesPath.JSON_ADVENTURERS_PATH);
+            _jsonService.SaveFileFromData(_investigatorProvider.AllInvestigators, _filesPath.JSON_INVESTIGATORS_PATH);
 
     }
 }

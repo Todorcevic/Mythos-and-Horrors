@@ -28,6 +28,6 @@
         public int? Enigma { get; init; }
         public int? Hints { get; init; }
         public int? Eldritch { get; init; }
-        public bool? HealthPerAdventurer { get; init; }
+        public bool? HealthPerInvestigator { get; init; }
     }
 }

@@ -1,12 +1,10 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using DG.Tweening.Plugins.Core.PathCore;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;

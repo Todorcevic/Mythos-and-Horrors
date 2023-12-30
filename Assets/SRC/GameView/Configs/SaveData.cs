@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameView
 {
     public class SaveData
     {
-        public List<string> AdventurersSelected { get; set; }
+        public List<string> InvestigatorsSelected { get; set; }
         public string SceneSelected { get; set; }
         public Dificulty DificultySelected { get; set; }
     }

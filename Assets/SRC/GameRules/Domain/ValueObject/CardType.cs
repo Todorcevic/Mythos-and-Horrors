@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
     public enum CardType
     {
         None = 0,
-        Adventurer = 1 << 0,
+        Investigator = 1 << 0,
         Supply = 1 << 1,
         Talent = 1 << 2,
         Condition = 1 << 3,

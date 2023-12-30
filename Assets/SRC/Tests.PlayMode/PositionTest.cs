@@ -12,7 +12,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     public class PositionTest : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
@@ -23,22 +23,22 @@ namespace MythsAndHorrors.PlayMode.Tests
             //DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
-            Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
+            Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
 
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.AdventurerCard, adventurer1.AdventurerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[1], adventurer1.DiscardZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[2], adventurer1.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.InvestigatorCard, investigator1.InvestigatorZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[1], investigator1.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[2], investigator1.DeckZone).AsCoroutine();
             for (int i = 0; i < 5; i++)
             {
-                yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[i + 3], adventurer1.AidZone).AsCoroutine();
+                yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[i + 3], investigator1.AidZone).AsCoroutine();
             }
             for (int i = 0; i < 5; i++)
             {
-                yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[i + 9], adventurer1.DangerZone).AsCoroutine();
+                yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[i + 9], investigator1.DangerZone).AsCoroutine();
             }
             for (int i = 0; i < 8; i++)
             {
-                yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[i + 15], adventurer1.HandZone).AsCoroutine();
+                yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[i + 15], investigator1.HandZone).AsCoroutine();
             }
 
             yield return _cardMoverPresenter.MoveCardToZone(_chaptersProvider.CurrentScene.Info.Cards[0], _chaptersProvider.CurrentScene.PlotZone).AsCoroutine();

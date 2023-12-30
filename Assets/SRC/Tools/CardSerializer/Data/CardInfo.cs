@@ -103,13 +103,13 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public bool? HealthPerAdventurer { get; set; }
+        public bool? HealthPerInvestigator { get; set; }
 
         public CardInfo CreateWith(OldCardInfo oldCardinfo)
         {
             CardType = oldCardinfo.TypeCode switch
             {
-                "investigator" => CardType.Adventurer,
+                "investigator" => CardType.Investigator,
                 "asset" => CardType.Supply,
                 "skill" => CardType.Talent,
                 "event" => CardType.Condition,
@@ -170,7 +170,7 @@ namespace MythsAndHorrors.Tools
             Enigma = oldCardinfo.Shroud;
             Hints = oldCardinfo.Clues;
             Eldritch = oldCardinfo.Doom;
-            HealthPerAdventurer = oldCardinfo.HealthPerInvestigator;
+            HealthPerInvestigator = oldCardinfo.HealthPerInvestigator;
             return this;
         }
     }

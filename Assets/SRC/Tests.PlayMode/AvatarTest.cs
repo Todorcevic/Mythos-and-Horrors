@@ -13,7 +13,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     public class AvatarTest : TestBase
     {
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-        [Inject] private readonly AdventurerLoaderUseCase _adventurerLoaderUseCase;
+        [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly FilesPath _filesPath;
 
@@ -22,10 +22,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Load_Avatar()
         {
             //DEBUG_MODE = true;
-            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01501"));
-            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01502"));
-            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01503"));
-            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH("01504"));
+            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01501"));
+            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01502"));
+            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01503"));
+            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01504"));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -36,7 +36,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Show_Turns()
         {
             //DEBUG_MODE = true;
-            Adventurer doc = new() { AdventurerCard = _cardBuilder.BuildOfType<CardAdventurer>() };
+            Investigator doc = new() { InvestigatorCard = _cardBuilder.BuildOfType<CardInvestigator>() };
             AvatarView avatarView = _avatarViewsManager.GetVoid();
             avatarView.Init(doc);
 

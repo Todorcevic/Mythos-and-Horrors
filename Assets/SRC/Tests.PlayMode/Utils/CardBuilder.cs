@@ -27,7 +27,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         private CardType GetCardType<T>() where T : Card => typeof(T) switch
         {
-            Type type when type == typeof(CardAdventurer) => CardType.Adventurer,
+            Type type when type == typeof(CardInvestigator) => CardType.Investigator,
             Type type when type == typeof(CardSupply) => CardType.Supply,
             Type type when type == typeof(CardTalent) => CardType.Talent,
             Type type when type == typeof(CardCreature) => CardType.Creature,

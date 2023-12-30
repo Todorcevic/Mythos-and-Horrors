@@ -8,7 +8,7 @@ namespace MythsAndHorrors.GameRules
     public class MoveCardsGameAction : GameAction
     {
         [Inject] private readonly ICardMover _cardMover;
-        [Inject] private readonly IAdventurerSelector _adventurerSelector;
+        [Inject] private readonly IInvestigatorSelector _investigatorSelector;
 
         public List<Card> Cards { get; private set; }
         public Zone Zone { get; private set; }
@@ -41,7 +41,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task Animation()
         {
-            await _adventurerSelector.Select(Zone);
+            await _investigatorSelector.Select(Zone);
             if (IsSingleMove) await _cardMover.MoveCardToZone(Cards[0], Zone);
             else await _cardMover.MoveCardsToZone(Cards, Zone);
         }

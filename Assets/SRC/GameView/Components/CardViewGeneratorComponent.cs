@@ -11,8 +11,8 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject(Id = "OutZone")] private readonly ZoneView _outZoneView;
-        [SerializeField, Required, AssetsOnly] private CardView _adventurerPrefab;
-        [SerializeField, Required, AssetsOnly] private CardView _adventurerDeckPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _investigatorPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _investigatorDeckPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adversityPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _creaturePrefab;
         [SerializeField, Required, AssetsOnly] private CardView _placePrefab;
@@ -31,8 +31,8 @@ namespace MythsAndHorrors.GameView
 
         private CardView GetPrefab(CardType cardType) => cardType switch
         {
-            CardType.Adventurer => _adventurerPrefab,
-            CardType.Supply or CardType.Talent or CardType.Condition => _adventurerDeckPrefab,
+            CardType.Investigator => _investigatorPrefab,
+            CardType.Supply or CardType.Talent or CardType.Condition => _investigatorDeckPrefab,
             CardType.Adversity => _adversityPrefab,
             CardType.Creature => _creaturePrefab,
             CardType.Place => _placePrefab,

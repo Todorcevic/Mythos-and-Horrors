@@ -4,8 +4,8 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IResourceMover
     {
-        Task RemoveResource(Adventurer card, int amount);
+        Task RemoveResource(Investigator card, int amount);
 
-        Task AddResource(Adventurer card, int amount);
+        Task AddResource(Investigator card, int amount);
     }
 }

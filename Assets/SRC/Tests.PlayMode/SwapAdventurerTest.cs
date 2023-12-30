@@ -11,11 +11,11 @@ using Zenject;
 namespace MythsAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class SwapAdventurerTest : TestBase
+    public class SwapInvestigatorTest : TestBase
     {
-        [Inject] private readonly SwapAdventurerComponent _sut;
+        [Inject] private readonly SwapInvestigatorComponent _sut;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly AdventurersProvider _adventurersProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
 
         /*******************************************************************/
@@ -24,41 +24,41 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             //DEBUG_MODE = true;
             _prepareGameUseCase.Execute();
-            Adventurer adventurer1 = _adventurersProvider.AllAdventurers[0];
-            Adventurer adventurer2 = _adventurersProvider.AllAdventurers[1];
+            Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
+            Investigator investigator2 = _investigatorsProvider.AllInvestigators[1];
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0;
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.AdventurerCard, adventurer1.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.AdventurerCard, adventurer2.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[2], adventurer1.AidZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[2], adventurer2.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.InvestigatorCard, investigator1.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.InvestigatorCard, investigator2.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[2], investigator1.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[2], investigator2.AidZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[3], adventurer1.DiscardZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[3], adventurer2.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[3], investigator1.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[3], investigator2.DiscardZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[4], adventurer1.DeckZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[4], adventurer2.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[4], investigator1.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[4], investigator2.DeckZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[5], adventurer1.AdventurerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[5], adventurer2.AdventurerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[5], investigator1.InvestigatorZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[5], investigator2.InvestigatorZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer1.Cards[6], adventurer1.DangerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(adventurer2.Cards[6], adventurer2.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[6], investigator1.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[6], investigator2.DangerZone).AsCoroutine();
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0.25f;
             while (DEBUG_MODE)
             {
                 yield return PressAnyKey();
-                yield return _sut.Select(adventurer2).WaitForCompletion();
+                yield return _sut.Select(investigator2).WaitForCompletion();
                 yield return PressAnyKey();
-                yield return _sut.Select(adventurer1).WaitForCompletion();
+                yield return _sut.Select(investigator1).WaitForCompletion();
             }
 
-            yield return _sut.Select(adventurer2).WaitForCompletion();
+            yield return _sut.Select(investigator2).WaitForCompletion();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_sut.AdventurerSelected, Is.EqualTo(adventurer2));
+            Assert.That(_sut.InvestigatorSelected, Is.EqualTo(investigator2));
         }
     }
 }

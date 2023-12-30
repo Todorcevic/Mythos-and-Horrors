@@ -6,28 +6,28 @@ namespace MythsAndHorrors.GameRules
 {
     public class InitialDrawGameAction : GameAction
     {
-        private Adventurer _adventurer;
-        [Inject] private readonly GameActionFactory _gameActionRepository;
+        private Investigator _investigator;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
 
         /*******************************************************************/
-        public async Task Run(Adventurer adventurer)
+        public async Task Run(Investigator investigator)
         {
-            _adventurer = adventurer;
+            _investigator = investigator;
             await Start();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card nextDraw = _adventurer.DeckZone.Cards.Last();
+            Card nextDraw = _investigator.DeckZone.Cards.Last();
             if (nextDraw is IWeakness)
             {
-                await _gameActionRepository.Create<DiscardGameAction>().Run(nextDraw);
-                await _gameActionRepository.Create<InitialDrawGameAction>().Run(_adventurer);
+                await _gameActionFactory.Create<DiscardGameAction>().Run(nextDraw);
+                await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
                 return;
             }
 
-            await _gameActionRepository.Create<DrawGameAction>().Run(_adventurer);
+            await _gameActionFactory.Create<DrawGameAction>().Run(_investigator);
         }
     }
 }

@@ -31,8 +31,68 @@
     },
     {
         "Code": "01107b",
-        "Title": "La Huida Caótica",
-        "Description": "En un giro inesperado y aterrador, los investigadores se encuentran en medio de un cataclismo subterráneo. El suelo de la cueva comienza a vibrar y temblar violentamente bajo sus pies, un presagio de una amenaza inminente. Antes de que puedan reaccionar, garras afiladas y temibles emergen de la tierra, rompiendo el suelo con una fuerza descomunal.\n Las criaturas, pertenecientes a un mundo que desafía toda lógica y comprensión humana, se abren paso a través de la tierra con un fervor desesperado. Son los gules, seres de pesadilla que hasta ahora habían permanecido ocultos en las profundidades. Ahora, se liberan en un frenesí de actividad, emergiendo de la tierra que rodea a los investigadores por todos lados.\n En medio del caos y el terror, los investigadores se ven rodeados por estos monstruos que salen de la tierra. La escena es de pura pesadilla: por cada lugar que miran, más de estas abominaciones se revelan, rompiendo la barrera que los separaba del mundo de la superficie.\n Aterrorizados y superados en número, los investigadores no tienen otra opción que huir tan rápido como sus piernas se lo permitan. Cada segundo cuenta mientras se abren camino a través del laberinto de túneles, esquivando las criaturas emergentes y los escombros que caen a su alrededor.",
+        "Title": "Emergencia Subterránea",
+        "Description": "En un giro inesperado y aterrador, los investigadores se encuentran en medio de un cataclismo subterráneo. El suelo de la cueva comienza a vibrar y temblar violentamente bajo sus pies, un presagio de una amenaza inminente. Antes de que puedan reaccionar, garras afiladas y temibles emergen de la tierra, rompiendo el suelo con una fuerza descomunal.\n Las criaturas, pertenecientes a un mundo que desafía toda lógica y comprensión humana, se abren paso a través de la tierra con un fervor desesperado. Seres de pesadilla que hasta ahora habían permanecido ocultos en las profundidades, ahora se liberan en un frenesí de actividad, emergiendo de la tierra que rodea a los investigadores por todos lados.\n La escena es de pura pesadilla: por cada lugar que miran, más de estas abominaciones se revelan, rompiendo la barrera que los separaba del mundo de la superficie.\n Aterrorizados y superados en número, los investigadores no tienen otra opción que huir tan rápido como sus piernas se lo permitan. Cada segundo cuenta mientras se abren camino a través del laberinto de túneles, esquivando las criaturas emergentes y los escombros que caen a su alrededor.",
         "Image": "01107b"
+    },
+    {
+        "Code": "01108",
+        "Title": "Cautivos del Derrumbe",
+        "Description": "Los investigadores, sumidos en la penumbra de un túnel subterráneo, se ven sorprendidos por un estruendo ensordecedor. Rocas y tierra caen como una cascada implacable, bloqueando la única ruta de regreso a la superficie. La nube de polvo y el retumbar de la tierra en convulsión se mezclan con sus gritos de alarma. Están atrapados.\n El aire, denso y polvoriento, se calma lentamente, revelando la magnitud del desastre. Ante ellos, lo que una vez fue un camino conocido, ahora es un amasijo caótico de rocas y escombros. Cada intento de mover las piedras parece solo empeorar el bloqueo, como si la propia cueva se resistiera a ser abierta nuevamente.",
+        "Image": "01108"
+    },
+    {
+        "Code": "01108b",
+        "Title": "La Puerta Oculta en la Cueva",
+        "Description": "En lo profundo de la cueva, los investigadores descubren una puerta desgastada y manchada de barro bajo una capa de tierra. Intrigados, la despejan y la abren, revelando una escalera que desciende hacia una oscuridad desconocida. Con cautela, descienden, pero detrás de ellos, la puerta se cierra de golpe, atrapándolos en un estrecho pasillo subterráneo.\n El aire está cargado de un olor a madera quemada y putrefacción. Con sus linternas apenas iluminando el camino, se aventuran por el pasillo, donde las sombras parecen cobrar vida propia. Ahora, su única opción es seguir adelante, adentrándose en los secretos ocultos en esta extensión subterránea de la cueva.",
+        "Image": "01108b"
+    },
+    {
+        "Code": "01109",
+        "Title": "La Barrera Viviente",
+        "Description": "Frente a los investigadores se alza una barrera de luz deslumbrante que emana un calor abrasador. Al lanzar tierra contra ella, esta se incinera al instante, demostrando el peligro que representa. Deciden buscar algo que les ayude a superar este obstáculo en el sótano y el ático de la estructura subterránea, con la esperanza de encontrar un artefacto o conocimiento que pueda disipar la barrera y permitirles continuar su exploración.\n Ante ellos se extiende una barrera formada por enredaderas y plantas, entrelazadas con cristales brillantes y pulsantes. Esta barrera emite una luz tenue y parece vibrar con una energía desconocida.\n Al intentar tocar las enredaderas o los cristales, los investigadores sienten una repulsión energética, como si una fuerza invisible les impidiera el paso.",
+        "Image": "01109"
+    },
+    {
+        "Code": "01109b",
+        "Title": "Rompiendo la Barrera",
+        "Description": "Recordando el barril que habían descubierto en una cámara oculta más arriba, idean un plan. Rellenan el barril con fragmentos de cristales y rocas afiladas encontrados en la cueva, buscando crear una herramienta capaz de cortar las enredaderas.\n Con precaución, comienzan a golpear la barrera con su improvisada herramienta. Las enredaderas resisten al principio, pero poco a poco, los cristales del barril comienzan a cortar a través de ellas. Con cada golpe, las enredaderas se retiran, reacias a soltar su agarre, hasta que finalmente, con un crujido y un susurro de hojas, la barrera cede, abriendo un camino que antes estaba celosamente guardado.",
+        "Image": "01109b"
+    },
+    {
+        "Code": "01110",
+        "Title": "El Guardián de la Cueva",
+        "Description": "Dentro de la cavernosa salita, más allá de la barrera ahora destruida, los investigadores se encuentran con una figura imponente. Un hombre de mirada severa y ojos que arden con un brillo de odio se enfrenta a ellos, sosteniendo una antorcha que ilumina su rostro marcado por la vida en las profundidades. “¿Qué le habéis hecho a mi barrera?” interroga con voz temblorosa de furia.\n Antes de que los investigadores puedan formular una respuesta, un alarido escalofriante resuena detrás de ellos. Girándose, ven una aparición espectacular: una criatura envuelta en una túnica, con una máscara hecha del cráneo de un ciervo, emerge de la pared de la cueva como si fuera un fantasma, moviéndose con una gracia inquietante hacia ellos.",
+        "Image": "01110"
+    },
+    {
+        "Code": "01110b",
+        "Title": "",
+        "Description": "",
+        "Image": "01110b"
+    },
+    {
+        "Code": "01109b",
+        "Title": "",
+        "Description": "",
+        "Image": "01109b"
+    },
+    {
+        "Code": "01109b",
+        "Title": "",
+        "Description": "",
+        "Image": "01109b"
+    },
+    {
+        "Code": "01109b",
+        "Title": "",
+        "Description": "",
+        "Image": "01109b"
+    },
+    {
+        "Code": "01109b",
+        "Title": "",
+        "Description": "",
+        "Image": "01109b"
     }
 ]

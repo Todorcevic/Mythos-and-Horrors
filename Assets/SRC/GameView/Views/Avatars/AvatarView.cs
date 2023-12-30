@@ -18,20 +18,20 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
-        [Inject] private readonly SwapAdventurerPresenter _swapAdventurerPresenter;
+        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
         [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
 
-        public bool IsVoid => Adventurer == null;
-        public Adventurer Adventurer { get; private set; }
+        public bool IsVoid => Investigator == null;
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public void Init(Adventurer adventurer)
+        public void Init(Investigator investigator)
         {
-            Adventurer = adventurer;
+            Investigator = investigator;
             SetPicture();
-            SetHealth(adventurer.AdventurerCard.Info.Health ?? 0);
-            SetSanity(adventurer.AdventurerCard.Info.Sanity ?? 0);
-            SetHints(adventurer.AdventurerCard.Info.Hints ?? 0);
+            SetHealth(investigator.InvestigatorCard.Info.Health ?? 0);
+            SetSanity(investigator.InvestigatorCard.Info.Sanity ?? 0);
+            SetHints(investigator.InvestigatorCard.Info.Hints ?? 0);
             gameObject.SetActive(true);
         }
 
@@ -63,7 +63,7 @@ namespace MythsAndHorrors.GameView
 
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
-        private void SetPicture() => _picture.LoadCardSprite(Adventurer.AdventurerCard.Info.Code);
+        private void SetPicture() => _picture.LoadCardSprite(Investigator.InvestigatorCard.Info.Code);
 
         /*******************************************************************/
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -79,7 +79,7 @@ namespace MythsAndHorrors.GameView
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             _activatorUIPresenter.Deactivate();
-            await _swapAdventurerPresenter.Select(Adventurer);
+            await _swapInvestigatorPresenter.Select(Investigator);
             _activatorUIPresenter.Activate();
         }
     }

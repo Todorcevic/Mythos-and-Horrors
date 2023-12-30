@@ -8,7 +8,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly ChapterInfoLoaderUseCase _chapterInfoLoaderUseCase;
         [Inject] private readonly SceneLoaderUseCase _sceneLoaderUseCase;
-        [Inject] private readonly AdventurerLoaderUseCase _adventurerLoaderUseCase;
+        [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
         [Inject] private readonly SaveDataLoaderUseCase saveDataLoaderUseCase;
         [Inject] private readonly ZoneLoaderUseCase _zoneLoaderUseCase;
         [Inject] private readonly CardsProvider _cardProvider;
@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameView
         public void Execute()
         {
             LoadSaveData();
-            LoadAdventurers();
+            LoadInvestigators();
             LoadChapters();
             LoadScene();
             LoadZones();
@@ -29,9 +29,9 @@ namespace MythsAndHorrors.GameView
 
         private void LoadSaveData() => _saveData = saveDataLoaderUseCase.Execute();
 
-        private void LoadAdventurers() =>
-            _saveData.AdventurersSelected.ForEach(adventurerCode =>
-            _adventurerLoaderUseCase.Execute(_filesPath.JSON_ADVENTURER_PATH(adventurerCode)));
+        private void LoadInvestigators() =>
+            _saveData.InvestigatorsSelected.ForEach(investigatorCode =>
+            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH(investigatorCode)));
 
         private void LoadChapters() =>
             _chapterInfoLoaderUseCase.Execute(_filesPath.JSON_CHAPTERINFO_PATH, _saveData.DificultySelected);

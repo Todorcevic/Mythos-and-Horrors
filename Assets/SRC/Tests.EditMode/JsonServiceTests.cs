@@ -27,7 +27,7 @@ namespace MythsAndHorrors.EditMode.Tests
             List<CardInfo> result = _sut.CreateDataFromFile<List<CardInfo>>(JSON_TEST_DATA_PATH);
 
             Assert.That(result[0].Name, Is.EqualTo("First Adventurer"));
-            Assert.That(result[1].CardType, Is.EqualTo(CardType.Adventurer));
+            Assert.That(result[1].CardType, Is.EqualTo(CardType.Investigator));
         }
 
         [Test]

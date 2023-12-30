@@ -18,16 +18,16 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator CardGeneratorComponent_Generate_AdventurerCard()
+        public IEnumerator CardGeneratorComponent_Generate_InvestigatorCard()
         {
-            Card card = _cardBuilder.BuildOfType<CardAdventurer>();
+            Card card = _cardBuilder.BuildOfType<CardInvestigator>();
 
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is AdventurerCardView);
+            Assert.That(result is InvestigatorCardView);
             Assert.That(result.CurrentZoneView, Is.InstanceOf<OutZoneView>());
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
@@ -39,12 +39,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Faction()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Adventurer).WithFaction(Faction.Esoteric).GiveMe());
+            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Investigator).WithFaction(Faction.Esoteric).GiveMe());
 
             _sut.BuildCard(card);
             CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
-            FactionAdventurerSO factionElementsExpected = result.GetPrivateMember<List<FactionAdventurerSO>>("_factions")
-                .Find(factionAdventurerSO => factionAdventurerSO._faction == Faction.Esoteric);
+            FactionInvestigatorSO factionElementsExpected = result.GetPrivateMember<List<FactionInvestigatorSO>>("_factions")
+                .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Esoteric);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_template").sprite == factionElementsExpected._templateFront,
