@@ -1386,10 +1386,6 @@ PrefabInstance:
       propertyPath: _cardView
       value: 
       objectReference: {fileID: 1562043755092353539}
-    - target: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f370790d326f59142bbe409c0e26f01d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8329475486560576591, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

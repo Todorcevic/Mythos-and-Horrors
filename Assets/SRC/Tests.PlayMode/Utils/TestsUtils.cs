@@ -51,5 +51,10 @@ namespace MythsAndHorrors.PlayMode.Tests
             while (!task.IsCompleted) yield return null;
             task.GetAwaiter().GetResult();
         }
+
+        public static IEnumerator WaitLoad(this CardView cardView)
+        {
+            while (!cardView.IsPictureLoaded) yield return null;
+        }
     }
 }

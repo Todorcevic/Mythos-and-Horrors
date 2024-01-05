@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         private static IResourceLocator _resourceLocator;
 
         private static Sprite _failImage;
-        private static Sprite FailImage => _failImage = _failImage != null ? _failImage : Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).WaitForCompletion();
+        private static Sprite FailImage => _failImage ??= Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).WaitForCompletion();
 
         /*******************************************************************/
         public static async void LoadCardSprite(this SpriteRenderer imagen, string address) =>
@@ -32,7 +32,5 @@ namespace MythsAndHorrors.GameView
             if (!_resourceLocator.Keys.Contains(key)) return null;
             return await Addressables.LoadAssetAsync<Sprite>(key).Task;
         }
-
-        // private static async Task<Sprite> LoadFailImage() => await Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).Task;
     }
 }
