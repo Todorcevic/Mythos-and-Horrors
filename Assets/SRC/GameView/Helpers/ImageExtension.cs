@@ -13,15 +13,18 @@ namespace MythsAndHorrors.GameView
         private const string FAIL_IMAGE = "Fails/Fail.png";
         private static IResourceLocator _resourceLocator;
 
+        private static Sprite _failImage;
+        private static Sprite FailImage => _failImage = _failImage != null ? _failImage : Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).WaitForCompletion();
+
         /*******************************************************************/
         public static async void LoadCardSprite(this SpriteRenderer imagen, string address) =>
-            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? await LoadFailImage();
+            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
 
         public static async void LoadCardSprite(this Image imagen, string address) =>
-            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? await LoadFailImage();
+            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
 
         public static async void LoadHistorySprite(this Image imagen, string address) =>
-         imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".png") ?? await LoadFailImage();
+            imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".png") ?? FailImage;
 
         private async static Task<Sprite> LoadSpriteAsync(string key)
         {
@@ -30,6 +33,6 @@ namespace MythsAndHorrors.GameView
             return await Addressables.LoadAssetAsync<Sprite>(key).Task;
         }
 
-        private static async Task<Sprite> LoadFailImage() => await Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).Task;
+        // private static async Task<Sprite> LoadFailImage() => await Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).Task;
     }
 }

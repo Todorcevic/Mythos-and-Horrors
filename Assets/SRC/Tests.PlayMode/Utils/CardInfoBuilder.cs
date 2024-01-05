@@ -118,6 +118,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             return this;
         }
 
+        public CardInfoBuilder WithSlot(Slot slot)
+        {
+            currentCardInfo = currentCardInfo with { Slot = slot };
+            return this;
+        }
+
         public CardInfoBuilder CreateRandom()
         {
             Random rand = new();

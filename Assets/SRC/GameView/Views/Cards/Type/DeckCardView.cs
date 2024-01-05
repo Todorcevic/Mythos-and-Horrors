@@ -14,7 +14,11 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _skillIntelligenceIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillPowerIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceBulletIcon;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceChargeIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
+        [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _resourceIconsController;
+        [SerializeField, Required, ChildGameObjectsOnly] private SlotController _slotController;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
@@ -36,6 +40,16 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
+        public void SetBulletsIcons(int amount)
+        {
+            _resourceIconsController.SetSkillIconView(amount, _resourceBulletIcon, null);
+        }
+
+        public void SetChargesIcons(int amount)
+        {
+            _resourceIconsController.SetSkillIconView(amount, _resourceChargeIcon, null);
+        }
+
         private FactionDeckSO SetCurrent(Faction faction) =>
             _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
             _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
@@ -45,6 +59,7 @@ namespace MythsAndHorrors.GameView
             _cost.text = Card.Info.Cost.ToString() ?? ViewValues.EMPTY_STAT;
             _health.text = Card.Info.Health.ToString() ?? ViewValues.EMPTY_STAT;
             _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
+            _slotController.SetSlot(Card.Info.Slot);
         }
 
         private void SetSkillPlacer(FactionDeckSO currentFaction)

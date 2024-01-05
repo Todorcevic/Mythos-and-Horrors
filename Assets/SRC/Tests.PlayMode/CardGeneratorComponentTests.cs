@@ -14,7 +14,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly CardInfoBuilder _cardInfoBuilder;
         [Inject] private readonly CardBuilder _cardBuilder;
-        [Inject] private readonly CardViewGeneratorComponent _sut;
+        [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
 
         /*******************************************************************/
         [UnityTest]
@@ -22,8 +22,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardInvestigator>();
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
@@ -41,8 +41,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Investigator).WithFaction(Faction.Esoteric).GiveMe());
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
             FactionInvestigatorSO factionElementsExpected = result.GetPrivateMember<List<FactionInvestigatorSO>>("_factions")
                 .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Esoteric);
 
@@ -59,12 +59,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithHealth(null).GiveMe());
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
-            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
+            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
@@ -76,17 +76,61 @@ namespace MythsAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
+        public IEnumerator CardGeneratorComponent_Generate_DeckCard_with_SkillIcons()
+        {
+            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithStrength(2).WithIntelligence(4)
+                .WithWild(3).WithAgility(3).GiveMe());
+
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
+            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
+        {
+            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithHealth(null).GiveMe());
+            _cardGenerator.BuildCard(card);
+            DeckCardView result = _cardGenerator.transform.GetComponentInChildren<DeckCardView>(includeInactive: true);
+
+            result.SetBulletsIcons(3);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            SkillIconsController resourceIconsController = result.GetPrivateMember<SkillIconsController>("_resourceIconsController");
+            Assert.That(resourceIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(3));
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
+        {
+            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithSlot(Slot.Trinket).GiveMe());
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            SlotController slotController = result.GetPrivateMember<SlotController>("_slotController");
+            Assert.That(slotController.GetPrivateMember<SpriteRenderer>("_slot1").sprite,
+                Is.EqualTo(slotController.GetPrivateMember<Sprite>("_trinket")));
+            yield return null;
+        }
+
+        [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply)
                 .WithHealth(3).WithSanity(1).WithCost(5).GiveMe());
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
-            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
+            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
@@ -104,8 +148,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardPlace>();
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
@@ -123,8 +167,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardCreature card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Creature)
                 .WithHealth(3).WithStrength(1).WithAgility(5).WithEnemyDamage(2).WithEnemyFear(1).GiveMe()) as CardCreature;
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
             SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -144,8 +188,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardAdversity>();
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
@@ -161,8 +205,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Plot).WithEldritch(3).GiveMe());
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
@@ -178,8 +222,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Goal).WithHints(3).GiveMe());
 
-            _sut.BuildCard(card);
-            CardView result = _sut.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _cardGenerator.BuildCard(card);
+            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
