@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
@@ -11,6 +12,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject(Id = "CenterShow")] private Transform _centerShowPosition;
 
         /*******************************************************************/
         public async Task MoveCardToZone(Card card, Zone gameZone)

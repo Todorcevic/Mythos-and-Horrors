@@ -35,6 +35,8 @@ namespace MythsAndHorrors.GameRules
 
         public bool HasThisCard(Card card) => AllCards.Contains(card);
 
+        public void AddResources(int amount) => Resources += amount;
+
         public void RemoveResources(int amount)
         {
             if (amount > Resources) throw new InvalidOperationException("Not enough resources");

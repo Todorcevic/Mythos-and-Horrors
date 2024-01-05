@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4261389962085309066}
+  - component: {fileID: 4459005829154464357}
   - component: {fileID: 5029242189798312517}
   - component: {fileID: 335824522245605962}
   m_Layer: 0
-  m_Name: ResourceToken
+  m_Name: Token
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,12 +28,27 @@ Transform:
   m_GameObject: {fileID: 364623438765237191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.74, y: 0.1, z: -30.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4459005829154464357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364623438765237191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d278ca3191eae8d43b6ae58edd91e5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceMaterial: {fileID: 2100000, guid: 86602fd3c698bb2499bf74d41e8f3886, type: 2}
+  _hintMaterial: {fileID: 2100000, guid: 6d51945ab04cf3f439a3e8e95c683b1f, type: 2}
+  _meshRenderer: {fileID: 335824522245605962}
 --- !u!33 &5029242189798312517
 MeshFilter:
   m_ObjectHideFlags: 0
