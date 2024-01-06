@@ -19,13 +19,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _agility;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _intelligence;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _power;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _resourcesToken;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _hintsToken;
-
-        public TokenView ResourceTokenOff => _resourcesToken.First(tokenView => !tokenView.isActiveAndEnabled);
-        public TokenView HintTokenOff => _hintsToken.First(tokenView => !tokenView.isActiveAndEnabled);
-        public TokenView ResourceTokenOn => _resourcesToken.First(tokenView => tokenView.isActiveAndEnabled);
-        public TokenView HintTokenOn => _hintsToken.First(tokenView => tokenView.isActiveAndEnabled);
 
         /*******************************************************************/
         protected override void SetSpecific()
@@ -35,7 +28,6 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-
         private void SetRenderer()
         {
             FactionInvestigatorSO currentFaction = SetCurrent(Card.Info.Faction);

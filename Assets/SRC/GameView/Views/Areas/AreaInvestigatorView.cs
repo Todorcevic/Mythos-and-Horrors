@@ -13,9 +13,13 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _discardZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _aidZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _dangerZone;
+        [SerializeField, Required, ChildGameObjectsOnly] private TokenController _resourcesTokenController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TokenController _hintsTokenController;
 
         public bool IsFree => Investigator == null;
         public Investigator Investigator { get; private set; }
+        public TokenController ResourcesTokenController => _resourcesTokenController;
+        public TokenController HintsTokenController => _hintsTokenController;
 
         /*******************************************************************/
         public void Init(Investigator investigator)

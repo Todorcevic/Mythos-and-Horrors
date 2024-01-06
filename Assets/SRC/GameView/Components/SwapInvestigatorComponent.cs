@@ -44,7 +44,7 @@ namespace MythsAndHorrors.GameView
 
         }
 
-        private AreaInvestigatorView Get(Investigator investigator) => _allInvestigatorAreas.First(areaView => areaView.Investigator == investigator);
+        public AreaInvestigatorView Get(Investigator investigator) => _allInvestigatorAreas.First(areaView => areaView.Investigator == investigator);
 
         private (Transform, Transform) GetSidePosition(Investigator investigator) =>
             _investigatorsProvider.GetInvestigatorPosition(investigator) >

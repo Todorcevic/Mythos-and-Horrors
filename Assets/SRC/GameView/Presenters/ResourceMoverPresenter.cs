@@ -9,21 +9,21 @@ namespace MythsAndHorrors.GameView
 {
     public class ResourceMoverPresenter : IResourceMover
     {
-        [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private Transform _centerShowPosition;
-        [Inject] private readonly CardViewsManager _cardsManager;
+        [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private readonly Transform _centerShowPosition;
+        [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
 
         /*******************************************************************/
         public async Task AddResource(Investigator investigator, int amount)
         {
-            InvestigatorCardView investigatorCardView = _cardsManager.Get(investigator.InvestigatorCard) as InvestigatorCardView;
+            TokenController resourceTokenController = _swapInvestigatorComponent.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
 
             Sequence sequence = DOTween.Sequence();
             sequence.OnStart(Prepare);
             allTokens.ForEach(token => sequence.Join(token.transform.DOFullMove(_centerShowPosition)));
             sequence.AppendInterval(0f);
-            allTokens.ForEach(token => sequence.Join(token.transform.DOFullMove(investigatorCardView.ResourceTokenOff.transform)));
+            allTokens.ForEach(token => sequence.Join(token.transform.DOFullMove(resourceTokenController.TokenOff.transform)));
             sequence.OnComplete(Finish);
             await sequence.AsyncWaitForCompletion();
 
@@ -32,20 +32,20 @@ namespace MythsAndHorrors.GameView
                 foreach (TokenView tokenView in allTokens)
                 {
                     tokenView.transform.position = _tokensGeneratorComponent.transform.position;
-                    tokenView.Activate();
+                    tokenView.SetAmount(1);
                 }
             }
 
             void Finish()
             {
-                allTokens.ForEach(token => token.Deactivate());
-                investigatorCardView.ResourceTokenOff.Activate();
+                allTokens.ForEach(token => token.SetAmount(0));
+                resourceTokenController.AddToken(amount);
             }
         }
 
         public async Task RemoveResource(Investigator investigator, int amount)
         {
-            InvestigatorCardView investigatorCardView = _cardsManager.Get(investigator.InvestigatorCard) as InvestigatorCardView;
+            TokenController resourceTokenController = _swapInvestigatorComponent.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
 
             Sequence sequence = DOTween.Sequence();
@@ -60,13 +60,13 @@ namespace MythsAndHorrors.GameView
             {
                 foreach (TokenView tokenView in allTokens)
                 {
-                    tokenView.transform.position = investigatorCardView.ResourceTokenOn.transform.position;
-                    tokenView.Activate();
-                    investigatorCardView.ResourceTokenOn.Deactivate();
+                    tokenView.transform.position = resourceTokenController.TokenOn.transform.position;
+                    tokenView.SetAmount(1);
+                    resourceTokenController.TokenOn.SetAmount(0);
                 }
             }
 
-            void Finish() => allTokens.ForEach(token => token.Deactivate());
+            void Finish() => allTokens.ForEach(token => token.SetAmount(0));
         }
     }
 }
