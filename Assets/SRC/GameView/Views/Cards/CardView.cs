@@ -23,7 +23,6 @@ namespace MythsAndHorrors.GameView
         public ZoneCardView OwnZone => _zoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
         public GlowView GlowView => _glowView;
-        public bool IsPictureLoaded => _picture.sprite != null;
 
         /*******************************************************************/
         [Inject]

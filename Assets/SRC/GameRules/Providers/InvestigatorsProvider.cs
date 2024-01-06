@@ -8,7 +8,7 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<Investigator> _investigator = new();
 
-        public IReadOnlyList<Investigator> AllInvestigators => _investigator;
+        public List<Investigator> AllInvestigators => _investigator;
         public Investigator Leader => _investigator.First();
 
         /*******************************************************************/

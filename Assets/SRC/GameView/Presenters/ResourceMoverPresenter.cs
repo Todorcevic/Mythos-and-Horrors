@@ -10,13 +10,13 @@ namespace MythsAndHorrors.GameView
     public class ResourceMoverPresenter : IResourceMover
     {
         [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private readonly Transform _centerShowPosition;
-        [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
+        [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
 
         /*******************************************************************/
         public async Task AddResource(Investigator investigator, int amount)
         {
-            TokenController resourceTokenController = _swapInvestigatorComponent.Get(investigator).ResourcesTokenController;
+            TokenController resourceTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
 
             Sequence sequence = DOTween.Sequence();
@@ -45,7 +45,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task RemoveResource(Investigator investigator, int amount)
         {
-            TokenController resourceTokenController = _swapInvestigatorComponent.Get(investigator).ResourcesTokenController;
+            TokenController resourceTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
 
             Sequence sequence = DOTween.Sequence();

@@ -559,16 +559,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Size.x
-      value: 6.28
+      value: 7.31
       objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Size.y
-      value: 8.78
+      value: 10.24
       objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 571cea45449d8d5439c3fea3d865773c, type: 3}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -579,7 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Materials.Array.data[0]
