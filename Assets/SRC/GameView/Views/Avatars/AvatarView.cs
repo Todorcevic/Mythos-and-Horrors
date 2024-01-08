@@ -63,7 +63,7 @@ namespace MythsAndHorrors.GameView
 
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
-        private void SetPicture() => _picture.LoadCardSprite(Investigator.InvestigatorCard.Info.Code);
+        private void SetPicture() => _picture.LoadAvatarSprite(Investigator.InvestigatorCard.Info.Code);
 
         /*******************************************************************/
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

@@ -12,19 +12,20 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject(Id = "CenterShow")] private Transform _centerShowPosition;
+        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        public async Task MoveCardToZone(Card card, Zone gameZone)
+        public async Task MoveCardToZone(Card card, Zone zone)
         {
             await RealMove(card, _chaptersProvider.CurrentScene.SelectorZone);
-            await RealMove(card, gameZone);
+            await _swapInvestigatorPresenter.Select(zone);
+            await RealMove(card, zone);
         }
 
-        private async Task RealMove(Card card, Zone gameZone)
+        private async Task RealMove(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
-            ZoneView newZoneView = _zonesManager.Get(gameZone);
+            ZoneView newZoneView = _zonesManager.Get(zone);
 
             Sequence moveSequence = DOTween.Sequence()
                 .Join(cardView.CurrentZoneView.ExitZone(cardView))
@@ -37,11 +38,11 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
-            int delay = 100;
+            await _swapInvestigatorPresenter.Select(zone);
 
             foreach (Card card in cards)
             {
-                await Task.Delay(delay);
+                await Task.Delay(100);
                 _ = RealMove(card, zone);
             }
         }

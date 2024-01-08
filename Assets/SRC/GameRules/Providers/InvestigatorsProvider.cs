@@ -10,6 +10,9 @@ namespace MythsAndHorrors.GameRules
 
         public List<Investigator> AllInvestigators => _investigator;
         public Investigator Leader => _investigator.First();
+        public Investigator Second => _investigator[1];
+        public Investigator Third => _investigator[2];
+        public Investigator Fourth => _investigator[3];
 
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)

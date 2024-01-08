@@ -17,14 +17,23 @@ namespace MythsAndHorrors.GameView
         private static Sprite FailImage => _failImage ??= Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).WaitForCompletion();
 
         /*******************************************************************/
-        public static async void LoadCardSprite(this SpriteRenderer imagen, string address) =>
-            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
+        public static async void LoadCardSprite(this SpriteRenderer imagen, string address)
+        {
+            Sprite cardSprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
+            if (imagen != null) imagen.sprite = cardSprite;
+        }
 
-        public static async void LoadCardSprite(this Image imagen, string address) =>
-            imagen.sprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
+        public static async void LoadAvatarSprite(this Image imagen, string address)
+        {
+            Sprite avatarSprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
+            if (imagen != null) imagen.sprite = avatarSprite;
+        }
 
-        public static async void LoadHistorySprite(this Image imagen, string address) =>
-            imagen.sprite = await LoadSpriteAsync("Screens/" + address + ".png") ?? FailImage;
+        public static async void LoadHistorySprite(this Image imagen, string address)
+        {
+            Sprite historySprite = await LoadSpriteAsync("Screens/" + address + ".png") ?? FailImage;
+            if (imagen != null) imagen.sprite = historySprite;
+        }
 
         private async static Task<Sprite> LoadSpriteAsync(string key)
         {

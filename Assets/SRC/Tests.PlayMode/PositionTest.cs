@@ -23,7 +23,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             //DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
-            Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
+            Investigator investigator1 = _investigatorsProvider.Leader;
 
             yield return _cardMoverPresenter.MoveCardToZone(investigator1.InvestigatorCard, investigator1.InvestigatorZone).AsCoroutine();
             yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[1], investigator1.DiscardZone).AsCoroutine();
