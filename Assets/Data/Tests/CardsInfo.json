@@ -72916,5 +72916,8 @@
         "CardType": 32,
         "Code": "00000",
         "Name": "Random Basic Weakness"
+    },
+    {
+        "Code": "Resource"
     }
 ]

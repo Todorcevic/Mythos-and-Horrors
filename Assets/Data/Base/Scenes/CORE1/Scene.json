@@ -35,6 +35,7 @@
         }
     ],
     "NextScene": "CORE2",
+    "Resource": "Resource",
     "Cards": [
         "01108",
         "01109",

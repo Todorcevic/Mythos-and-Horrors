@@ -21,8 +21,8 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             _chaptersProvider.CurrentScene.CurrentPlot.EldritchTotal += _amount;
-
-            await _resourceMover.AddResource(null, _amount); //TODO updateStatPresenter
+            await Task.CompletedTask;
+            //await _resourceMover.GainResource(null, _amount); //TODO updateStatPresenter
         }
     }
 }

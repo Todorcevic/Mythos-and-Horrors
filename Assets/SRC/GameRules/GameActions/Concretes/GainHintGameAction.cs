@@ -3,20 +3,19 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class PayResourceGameAction : GameAction
+    public class GainHintGameAction : GameAction
     {
-
-        [Inject] private readonly IResourceMover _resourceMover;
+        [Inject] private readonly IHintMover _hintMover;
 
         public Investigator Investigator { get; private set; }
-        public Card ToCard { get; private set; }
+        public Card FromCard { get; private set; }
         public int Amount { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(Investigator investigator, Card toCard, int amount)
+        public async Task Run(Investigator investigator, Card fromCard, int amount)
         {
             Investigator = investigator;
-            ToCard = toCard;
+            FromCard = fromCard;
             Amount = amount;
             await Start();
         }
@@ -24,9 +23,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Investigator.Resources.Decrease(Amount);
-            //await _resourceMover.PayResource(Investigator, Amount, ToCard);
-            await Task.CompletedTask;
+            Investigator.Hints.Increase(Amount);
+            await _hintMover.GainHints(Investigator, FromCard, Amount);
         }
     }
 }

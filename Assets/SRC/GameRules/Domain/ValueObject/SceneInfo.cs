@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameRules
         public History Description { get; init; }
         public List<History> Resolutions { get; init; }
         public List<Card> Cards { get; init; }
+        public Card Resource { get; init; }
         public string NextScene { get; init; }
 
         public List<Card> PlaceCards => Cards.FindAll(card => card is CardPlace);

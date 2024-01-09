@@ -24,7 +24,6 @@ namespace MythsAndHorrors.GameRules
         public async Task Run(List<Card> cards, Zone zone) => await Run(zone, cards.ToArray());
         public async Task Run(Card card, Zone zone) => await Run(zone, card);
 
-
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
@@ -39,7 +38,7 @@ namespace MythsAndHorrors.GameRules
         }
 
         private async Task Animation()
-        {          
+        {
             if (IsSingleMove) await _cardMover.MoveCardToZone(Cards[0], Zone);
             else await _cardMover.MoveCardsToZone(Cards, Zone);
         }

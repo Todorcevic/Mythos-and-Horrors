@@ -9,6 +9,7 @@
         "Image": "CORE1_INTRO"
     },
     "NextScene": "COREScene2",
+    "Resource": "Resource",
     "Cards": [
         "01108",
         "01109",

@@ -12,12 +12,12 @@ namespace MythsAndHorrors.GameRules
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).ToList();
         public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
-        public int DeckSize { get; set; }
-        public int Xp { get; set; }
-        public int Injury { get; set; }
-        public int Shock { get; set; }
-        public int Resources { get; private set; }
-        public int Hints { get; set; }
+        public Stat DeckSize { get; } = new Stat(30);
+        public Stat Xp { get; } = new Stat(0);
+        public Stat Injury { get; } = new Stat(0);
+        public Stat Shock { get; } = new Stat(0);
+        public Stat Resources { get; } = new Stat(0);
+        public Stat Hints { get; } = new Stat(0);
         public Zone HandZone { get; } = new Zone();
         public Zone DeckZone { get; } = new Zone();
         public Zone DiscardZone { get; } = new Zone();
@@ -25,6 +25,7 @@ namespace MythsAndHorrors.GameRules
         public Zone DangerZone { get; } = new Zone();
         public Zone InvestigatorZone { get; } = new Zone();
 
+        /*******************************************************************/
         public bool HasThisZone(Zone zone) =>
             zone == HandZone ||
             zone == DeckZone ||
@@ -34,13 +35,5 @@ namespace MythsAndHorrors.GameRules
             zone == InvestigatorZone;
 
         public bool HasThisCard(Card card) => AllCards.Contains(card);
-
-        public void AddResources(int amount) => Resources += amount;
-
-        public void RemoveResources(int amount)
-        {
-            if (amount > Resources) throw new InvalidOperationException("Not enough resources");
-            Resources -= amount;
-        }
     }
 }
