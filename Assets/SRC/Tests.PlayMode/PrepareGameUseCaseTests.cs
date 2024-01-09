@@ -20,7 +20,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator PrepareGame()
         {
-            DEBUG_MODE = true;
+            //DEBUG_MODE = true;
             _sut.Execute();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

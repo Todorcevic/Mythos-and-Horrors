@@ -38,7 +38,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(_cardViewsManager.Get(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
             Assert.That(_zoneViewsManager.Get(investigator2.DangerZone).GetComponentsInChildren<CardView>().Contains(_cardViewsManager.Get(card)));
             Assert.That(_swapInvestigatorComponent.InvestigatorSelected, Is.EqualTo(investigator2));
-            yield return null;
         }
     }
 }

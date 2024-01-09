@@ -29,5 +29,13 @@ namespace MythsAndHorrors.GameView
                 .Join(transform.DORotate(toMove.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
                 .Join(transform.DOScale(toMove.lossyScale, ViewValues.SLOW_TIME_ANIMATION));
         }
+
+        public static Sequence DOFullMoveMid(this Transform transform, Transform toMove)
+        {
+            return DOTween.Sequence()
+                .Join(transform.DOMove(toMove.position, ViewValues.MID_TIME_ANIMATION))
+                .Join(transform.DORotate(toMove.eulerAngles, ViewValues.MID_TIME_ANIMATION))
+                .Join(transform.DOScale(toMove.lossyScale, ViewValues.MID_TIME_ANIMATION));
+        }
     }
 }

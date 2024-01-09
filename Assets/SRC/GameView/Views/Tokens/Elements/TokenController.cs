@@ -9,9 +9,9 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
 
-        private int Amount => _allTokens.Count(tokenView => tokenView.isActiveAndEnabled);
+        public int Amount => _allTokens.Count(tokenView => tokenView.isActiveAndEnabled);
         public TokenView TokenOn => _allTokens.Last(tokenView => tokenView.isActiveAndEnabled);
-        public TokenView TokenOff => _allTokens.First(tokenView => !tokenView.isActiveAndEnabled);
+        public TokenView TokenOff => _allTokens.Find(tokenView => !tokenView.isActiveAndEnabled) ?? CreateNewToken();
 
         /*******************************************************************/
         public void AddToken(int amoun)
@@ -33,6 +33,13 @@ namespace MythsAndHorrors.GameView
         {
             TokenOn.SetAmount(0);
             TokenOn.SetAmount(Amount);
+        }
+
+        private TokenView CreateNewToken()
+        {
+            TokenView newToken = _allTokens.Last().Clone();
+            _allTokens.Add(newToken);
+            return newToken;
         }
     }
 }
