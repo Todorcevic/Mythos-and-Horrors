@@ -4,23 +4,21 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class PlayGameAction : GameAction
+    public class PlayGameAction : InteractableGameAction
     {
-        [Inject] private readonly IUIActivator _uIActivator;
         [Inject] private readonly CardsProvider _cardsProvider;
         private readonly TaskCompletionSource<bool> _waitForSelection = new();
 
         /*******************************************************************/
         public async Task Run()
         {
+            ActivableCards = _cardsProvider.PlayabledCards();
             await Start();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            List<Card> playabledCards = _cardsProvider.PlayabledCards();
-            _uIActivator.Activate(playabledCards);
             await _waitForSelection.Task;
         }
     }

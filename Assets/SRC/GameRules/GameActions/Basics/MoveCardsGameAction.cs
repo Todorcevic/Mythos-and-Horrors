@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
-        [Inject] private readonly ICardMover _cardMover;
-
         public List<Card> Cards { get; private set; }
+        public Card Card => Cards[0];
         public Zone Zone { get; private set; }
         public bool IsSingleMove => Cards.Count == 1;
 
@@ -34,13 +32,7 @@ namespace MythsAndHorrors.GameRules
                 Zone.AddCard(card);
             }
 
-            await Animation();
-        }
-
-        private async Task Animation()
-        {
-            if (IsSingleMove) await _cardMover.MoveCardToZone(Cards[0], Zone);
-            else await _cardMover.MoveCardsToZone(Cards, Zone);
+            await Task.CompletedTask;
         }
     }
 }

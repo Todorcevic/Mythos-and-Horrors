@@ -7,7 +7,6 @@ namespace MythsAndHorrors.GameRules
     {
         private int _amount;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly IResourceMover _resourceMover;
 
         /*******************************************************************/
         public async Task Run(int amount)
@@ -22,7 +21,6 @@ namespace MythsAndHorrors.GameRules
         {
             _chaptersProvider.CurrentScene.CurrentPlot.EldritchTotal += _amount;
             await Task.CompletedTask;
-            //await _resourceMover.GainResource(null, _amount); //TODO updateStatPresenter
         }
     }
 }

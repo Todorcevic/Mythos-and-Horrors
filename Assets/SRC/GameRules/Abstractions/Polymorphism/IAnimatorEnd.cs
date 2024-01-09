@@ -2,8 +2,8 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IHistoryShower
+    public interface IAnimatorEnd
     {
-        Task ShowHistory(History history);
+        Task CheckingAtEnd(GameAction gameAction);
     }
 }

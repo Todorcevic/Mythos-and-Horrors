@@ -1,24 +1,28 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
-        private History _history;
-        [Inject] private readonly IHistoryShower _historyShower;
+        private readonly TaskCompletionSource<bool> waitForContinue = new();
+        public History History { get; private set; }
 
         /*******************************************************************/
         public async Task Run(History history)
         {
-            _history = history;
+            History = history;
             await Start();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _historyShower.ShowHistory(_history);
+            await waitForContinue.Task;
+        }
+
+        public void Continue()
+        {
+            waitForContinue.SetResult(true);
         }
     }
 }

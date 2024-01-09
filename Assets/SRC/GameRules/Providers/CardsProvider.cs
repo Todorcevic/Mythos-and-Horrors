@@ -17,6 +17,6 @@ namespace MythsAndHorrors.GameRules
             AllCards.Add(objectCard);
         }
 
-        public List<Card> PlayabledCards() => AllCards.FindAll(card => card.CanPlay());
+        public List<Card> PlayabledCards() => BuildableCards.FindAll(card => card.CanPlay());
     }
 }

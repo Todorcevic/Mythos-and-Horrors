@@ -14,10 +14,10 @@ namespace MythsAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
 
         /*******************************************************************/
         [UnityTest]
@@ -30,8 +30,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
             Card card = investigator1.Cards[1];
 
-            yield return _cardMoverPresenter.MoveCardToZone(card, investigator1.AidZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(card, investigator2.DangerZone).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator1.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator2.DangerZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

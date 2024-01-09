@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class GainResourceGameAction : GameAction
     {
-        [Inject] private readonly IResourceMover _resourceMover;
-
         public Investigator Investigator { get; private set; }
         public Card FromCard { get; private set; }
         public int Amount { get; private set; }
@@ -24,7 +21,6 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Investigator.Resources.Increase(Amount);
-            //await _resourceMover.GainResource(Investigator, Amount, FromCard);
             await Task.CompletedTask;
         }
     }

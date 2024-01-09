@@ -3,11 +3,10 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardMoverPresenter : ICardMover
+    public class CardMoverPresenter : IAnimatorEnd
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
@@ -15,11 +14,32 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
+        public async Task CheckingAtEnd(GameAction gameAction)
+        {
+            if (gameAction is MoveCardsGameAction moveCardAction)
+            {
+                if (moveCardAction.IsSingleMove) await MoveCardToZone(moveCardAction.Card, moveCardAction.Zone);
+                else await MoveCardsToZone(moveCardAction.Cards, moveCardAction.Zone);
+            }
+        }
+
+        /*******************************************************************/
         public async Task MoveCardToZone(Card card, Zone zone)
         {
             await RealMove(card, _chaptersProvider.CurrentScene.SelectorZone);
             await _swapInvestigatorPresenter.Select(zone);
             await RealMove(card, zone);
+        }
+
+        private async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        {
+            await _swapInvestigatorPresenter.Select(zone);
+
+            foreach (Card card in cards)
+            {
+                await Task.Delay(100);
+                _ = RealMove(card, zone);
+            }
         }
 
         private async Task RealMove(Card card, Zone zone)
@@ -34,17 +54,6 @@ namespace MythsAndHorrors.GameView
             cardView.SetCurrentZoneView(newZoneView);
 
             await moveSequence.AsyncWaitForCompletion();
-        }
-
-        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
-        {
-            await _swapInvestigatorPresenter.Select(zone);
-
-            foreach (Card card in cards)
-            {
-                await Task.Delay(100);
-                _ = RealMove(card, zone);
-            }
         }
     }
 }
