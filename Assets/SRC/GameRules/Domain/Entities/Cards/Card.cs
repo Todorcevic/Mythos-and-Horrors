@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -24,6 +25,12 @@ namespace MythsAndHorrors.GameRules
         public bool CanPlay()
         {
             return true;
+        }
+
+        public void Play()
+        {
+            if (!CanPlay()) throw new InvalidOperationException("Card cant be played");
+
         }
     }
 }

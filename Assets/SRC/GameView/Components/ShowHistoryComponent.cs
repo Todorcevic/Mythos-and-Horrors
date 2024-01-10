@@ -13,10 +13,17 @@ namespace MythsAndHorrors.GameView
         private TaskCompletionSource<bool> waitForClicked;
         [SerializeField, Required, SceneObjectsOnly] Transform _outPosition;
         [SerializeField, Required, SceneObjectsOnly] Transform _showPosition;
+        [SerializeField, Required, SceneObjectsOnly] Image _blockBackground;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _content;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _screen;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _button;
+
+        /*******************************************************************/
+        private void Start()
+        {
+            _button.onClick.AddListener(Clicked);
+        }
 
         /*******************************************************************/
         public async Task Show(History history)
@@ -25,12 +32,17 @@ namespace MythsAndHorrors.GameView
             _title.text = history.Title;
             _content.text = history.Description;
             _screen.LoadHistorySprite(history.Image);
-            await transform.DOMove(_showPosition.position, ViewValues.SLOW_TIME_ANIMATION).AsyncWaitForCompletion();
+            _blockBackground.enabled = _button.interactable = true;
+            await DOTween.Sequence().Join(_blockBackground.DOFade(0.5f, ViewValues.MID_TIME_ANIMATION))
+                 .Join(transform.DOMove(_showPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.OutBack, 1.5f).AsyncWaitForCompletion();
             await waitForClicked.Task;
-            await transform.DOMove(_outPosition.position, ViewValues.SLOW_TIME_ANIMATION).AsyncWaitForCompletion();
+            _button.interactable = false;
+            await DOTween.Sequence().Join(_blockBackground.DOFade(0f, ViewValues.MID_TIME_ANIMATION))
+              .Join(transform.DOMove(_outPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.InOutCubic).AsyncWaitForCompletion();
+            _blockBackground.enabled = false;
         }
 
-        public void Clicked()
+        private void Clicked()
         {
             waitForClicked.SetResult(true);
         }

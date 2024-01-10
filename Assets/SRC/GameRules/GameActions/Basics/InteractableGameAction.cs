@@ -1,11 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class WaitingForSelectionGameAction : GameAction
+    public abstract class InteractableGameAction : GameAction
     {
-        private static Card cardSelected;
-        private static TaskCompletionSource<bool> waitForSelection;
+        private readonly TaskCompletionSource<bool> waitForSelection = new();
+        private Card cardSelected;
+
+        public abstract List<Card> ActivableCards { get; }
 
         /*******************************************************************/
         public async Task<Card> Run()
@@ -17,11 +20,10 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            waitForSelection = new();
             await waitForSelection.Task;
         }
 
-        public static void Clicked(Card card)
+        public void Continue(Card card = null)
         {
             cardSelected = card;
             waitForSelection.SetResult(true);

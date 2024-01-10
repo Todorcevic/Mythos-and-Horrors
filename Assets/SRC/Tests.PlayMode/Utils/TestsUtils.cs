@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
-using MythsAndHorrors.GameView;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
@@ -51,5 +50,20 @@ namespace MythsAndHorrors.PlayMode.Tests
             while (!task.IsCompleted) yield return null;
             task.GetAwaiter().GetResult();
         }
+
+        public static Task AsTask(this IEnumerator coroutine)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            new GameObject().AddComponent<JustForCoroutine>().StartCoroutine(RunCoroutine(coroutine, tcs));
+            return tcs.Task;
+
+            static IEnumerator RunCoroutine(IEnumerator coroutine, TaskCompletionSource<bool> tcs)
+            {
+                while (coroutine.MoveNext()) yield return coroutine.Current;
+                tcs.SetResult(true);
+            }
+        }
+
+        private class JustForCoroutine : MonoBehaviour { }
     }
 }

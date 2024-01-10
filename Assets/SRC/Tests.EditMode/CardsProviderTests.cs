@@ -17,7 +17,7 @@ namespace MythsAndHorrors.EditMode.Tests
             _sut.AddCard((Card)Container.Instantiate(typeof(Card01603), new object[] { new CardInfo() { Description = "DescriptionTest2", Cost = 5, CardType = CardType.Creature, Code = "01603", Name = "Monster1" } }));
 
             Assert.That(_sut.GetCard("01501").Info.Name, Is.EqualTo("Investigator1"));
-            Assert.That(_sut.AllCards.Count, Is.EqualTo(2));
+            Assert.That(_sut.BuildableCards.Count, Is.EqualTo(2));
         }
     }
 }

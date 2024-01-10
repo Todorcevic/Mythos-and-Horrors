@@ -4,7 +4,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
-        private readonly TaskCompletionSource<bool> waitForContinue = new();
+        private readonly TaskCompletionSource<bool> waitForSelection = new();
         public History History { get; private set; }
 
         /*******************************************************************/
@@ -17,12 +17,12 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await waitForContinue.Task;
+            await waitForSelection.Task;
         }
 
         public void Continue()
         {
-            waitForContinue.SetResult(true);
+            waitForSelection.SetResult(true);
         }
     }
 }

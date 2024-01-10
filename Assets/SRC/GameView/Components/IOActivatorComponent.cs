@@ -13,12 +13,20 @@ namespace MythsAndHorrors.GameView
         public void ActivateSensor()
         {
             _boxCollider.enabled = false;
-            _eventSystem.enabled = true;
         }
 
         public void DeactivateSensor()
         {
             _boxCollider.enabled = true;
+        }
+
+        public void ActivateUI()
+        {
+            _eventSystem.enabled = true;
+        }
+
+        public void DeactivateUI()
+        {
             _eventSystem.enabled = false;
         }
     }

@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task ShowHistory(ShowHistoryGameAction showHistoryGameAction)
         {
-            _activatorUIPresenter.Activate();
+            _activatorUIPresenter.ActivateUI();
             await _historyComponent.Show(showHistoryGameAction.History);
             _activatorUIPresenter.Deactivate();
             showHistoryGameAction.Continue();
