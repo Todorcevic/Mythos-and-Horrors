@@ -1,5 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using System;
+using System.Reflection;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -14,7 +13,7 @@ namespace MythsAndHorrors.GameRules
         public bool IsSpecial => Info.CardType == CardType.None;
         public bool IsScenaryCard => Info.Faction == Faction.Myths;
         public bool IsFaceDown { get; set; }
-        public int TotalChallengePoints => (Info.Strength ?? 0) + (Info.Agility ?? 0) + (Info.Intelligence ?? 0) + (Info.Power ?? 0) + (Info.Wild ?? 0);
+        //public int TotalChallengePoints => (Info.Strength ?? 0) + (Info.Agility ?? 0) + (Info.Intelligence ?? 0) + (Info.Power ?? 0) + (Info.Wild ?? 0);
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)

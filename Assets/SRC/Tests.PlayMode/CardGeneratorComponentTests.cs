@@ -32,7 +32,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
-            Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));      
+            Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
             yield return null;
         }
 
@@ -57,7 +57,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithHealth(null).GiveMe());
+            CardCondition card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithHealth(null).GiveMe()) as CardCondition;
 
             _cardGenerator.BuildCard(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
@@ -78,8 +78,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_with_SkillIcons()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithStrength(2).WithIntelligence(4)
-                .WithWild(3).WithAgility(3).GiveMe());
+            CardCondition card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithStrength(2).WithIntelligence(4)
+                .WithWild(3).WithAgility(3).GiveMe()) as CardCondition;
 
             _cardGenerator.BuildCard(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
@@ -122,8 +122,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply)
-                .WithHealth(3).WithSanity(1).WithCost(5).GiveMe());
+            CardSupply card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply)
+                .WithHealth(3).WithSanity(1).WithCost(5).GiveMe()) as CardSupply;
 
             _cardGenerator.BuildCard(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
