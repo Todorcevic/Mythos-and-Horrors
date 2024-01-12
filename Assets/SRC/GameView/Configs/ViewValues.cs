@@ -4,6 +4,7 @@ namespace MythsAndHorrors.GameView
     {
         public static float INSTANT_TIME_ANIMATION = 0f;
         public static float FAST_TIME_ANIMATION = 0.25f;
+        public static float DEFAULT_TIME_ANIMATION = 0.4f;
         public static float MID_TIME_ANIMATION = 0.5f;
         public static float SLOW_TIME_ANIMATION = 0.75f;
 

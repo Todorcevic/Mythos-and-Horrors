@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.InvestigatorCard, _investigator.InvestigatorZone);
+            _investigator.Cards.ForEach(card => card.IsFaceDown = true);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.Cards, _investigator.DeckZone);
 
             for (int i = 0; i < INITIAL_HAND_SIZE; i++)

@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameView
         {
             _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            return cardView.transform.DOFullMove(_movePosition);
+            return cardView.transform.DOFullMoveDefault(_movePosition);
         }
 
         public override Tween ExitZone(CardView cardView)

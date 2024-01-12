@@ -49,8 +49,8 @@ namespace MythsAndHorrors.GameView
             _glowView.gameObject.SetActive(false);
         }
 
-        public Tween Rotate() => _rotator.DOLocalRotate(new Vector3(0, Card.IsFaceDown ? 180 : 0, 0), ViewValues.FAST_TIME_ANIMATION)
-            .SetEase(Ease.InOutExpo);
+        public Tween Rotate() => _rotator.DOLocalRotate(new Vector3(0, 0, Card.IsFaceDown ? 180 : 0), ViewValues.DEFAULT_TIME_ANIMATION)
+            .SetDelay(ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).SetEase(Ease.InOutCubic);
 
         public void On()
         {

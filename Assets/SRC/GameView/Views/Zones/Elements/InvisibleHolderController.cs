@@ -49,6 +49,7 @@ namespace MythsAndHorrors.GameView
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             Sequence repositionSequence = DOTween.Sequence();
+
             for (int i = 0; i < AmountOfCards; i++)
             {
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;

@@ -49,6 +49,7 @@ namespace MythsAndHorrors.GameView
 
             Sequence moveSequence = DOTween.Sequence()
                 .Join(cardView.CurrentZoneView.ExitZone(cardView))
+                .Join(cardView.Rotate())
                 .Join(newZoneView.EnterZone(cardView));
 
             cardView.SetCurrentZoneView(newZoneView);

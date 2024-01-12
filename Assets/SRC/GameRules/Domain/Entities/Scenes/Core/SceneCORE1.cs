@@ -23,6 +23,7 @@ namespace MythsAndHorrors.GameRules
             await _gameActionFactory.Create<ShowHistoryGameAction>().Run(Info.Description);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(FirstPlot, PlotZone);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(FirstGoal, GoalZone);
+            RealDangerCards.ForEach(card => card.IsFaceDown = true);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(RealDangerCards, DangerDeckZone);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(Studio, PlaceZone[0, 3]);
         }
