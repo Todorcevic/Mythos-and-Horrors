@@ -156,7 +156,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         private CardType GetRandomCardType()
         {
             Array values = Enum.GetValues(typeof(CardType));
-            return (CardType)values.GetValue(UnityEngine.Random.Range(1, values.Length));
+            return (CardType)values.GetValue(UnityEngine.Random.Range(1, values.Length - 1));
         }
 
         private string GetRandomName()

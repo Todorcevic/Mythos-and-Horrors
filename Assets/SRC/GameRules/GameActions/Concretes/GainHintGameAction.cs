@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Investigator.Hints.Increase(Amount);
-            await Task.CompletedTask;
+            await _animatorsProvider.LaunchAnimation(this);
         }
     }
 }

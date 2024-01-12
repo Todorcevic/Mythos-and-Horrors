@@ -58,7 +58,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_sut.InvestigatorSelected, Is.EqualTo(investigator2));
+            Assert.That(_sut.GetPrivateMember<AreaInvestigatorView>("_currentAreaInvestigator").Investigator, Is.EqualTo(investigator2));
         }
     }
 }

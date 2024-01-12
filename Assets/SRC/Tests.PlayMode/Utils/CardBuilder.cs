@@ -36,6 +36,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Type type when type == typeof(CardGoal) => CardType.Goal,
             Type type when type == typeof(CardPlot) => CardType.Plot,
             Type type when type == typeof(CardPlace) => CardType.Place,
+            Type type when type == typeof(CardSpecial) => CardType.Special,
             _ => throw new Exception(typeof(T) + " wrong CardType"),
         };
     }

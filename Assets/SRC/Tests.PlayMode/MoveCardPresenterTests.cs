@@ -16,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
+        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         /*******************************************************************/
@@ -37,7 +37,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             Assert.That(_cardViewsManager.Get(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
             Assert.That(_zoneViewsManager.Get(investigator2.DangerZone).GetComponentsInChildren<CardView>().Contains(_cardViewsManager.Get(card)));
-            Assert.That(_swapInvestigatorComponent.InvestigatorSelected, Is.EqualTo(investigator2));
+            Assert.That(_swapInvestigatorPresenter.GetPrivateMember<Investigator>("_investigatorSelected"), Is.EqualTo(investigator2));
         }
     }
 }

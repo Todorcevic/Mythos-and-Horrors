@@ -42,7 +42,7 @@ namespace MythsAndHorrors.GameView
             }
         }
 
-        private async Task RealMove(Card card, Zone zone)
+        public async Task RealMove(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(zone);

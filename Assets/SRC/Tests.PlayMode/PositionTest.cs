@@ -22,6 +22,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             //DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = 0f;
+            ViewValues.DEFAULT_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
 

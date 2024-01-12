@@ -1,6 +1,6 @@
 ﻿namespace MythsAndHorrors.GameRules
 {
-    public class CardResource : CardSpecial
+    public class CardSpecial : Card
     {
     }
 }

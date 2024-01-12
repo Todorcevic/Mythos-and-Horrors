@@ -16,8 +16,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _leftPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private AreaInvestigatorView _currentAreaInvestigator;
 
-        public Investigator InvestigatorSelected => _currentAreaInvestigator.Investigator;
-
         /*******************************************************************/
         public Tween Select(Investigator investigator)
         {
