@@ -18,17 +18,17 @@ namespace MythsAndHorrors.GameView
         {
             if (gameAction is MoveCardsGameAction moveCardAction)
             {
-                if (moveCardAction.IsSingleMove) await MoveCardToZone(moveCardAction.Card, moveCardAction.Zone);
+                if (moveCardAction.IsSingleMove) await MoveCardWithPreviewToZone(moveCardAction.Card, moveCardAction.Zone);
                 else await MoveCardsToZone(moveCardAction.Cards, moveCardAction.Zone);
             }
         }
 
         /*******************************************************************/
-        public async Task MoveCardToZone(Card card, Zone zone)
+        public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
-            await RealMove(card, _chaptersProvider.CurrentScene.SelectorZone);
+            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone);
             await _swapInvestigatorPresenter.Select(zone);
-            await RealMove(card, zone);
+            await DirectMove(card, zone);
         }
 
         private async Task MoveCardsToZone(List<Card> cards, Zone zone)
@@ -38,11 +38,11 @@ namespace MythsAndHorrors.GameView
             foreach (Card card in cards)
             {
                 await Task.Delay(16);
-                _ = RealMove(card, zone);
+                _ = DirectMove(card, zone);
             }
         }
 
-        public async Task RealMove(Card card, Zone zone)
+        public async Task DirectMove(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(zone);

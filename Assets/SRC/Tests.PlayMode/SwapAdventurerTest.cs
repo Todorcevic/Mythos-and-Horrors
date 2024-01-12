@@ -28,22 +28,22 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator2 = _investigatorsProvider.AllInvestigators[1];
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0;
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.InvestigatorCard, investigator1.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.InvestigatorCard, investigator2.HandZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[2], investigator1.AidZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[2], investigator2.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.InvestigatorCard, investigator1.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.InvestigatorCard, investigator2.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.Cards[2], investigator1.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.Cards[2], investigator2.AidZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[3], investigator1.DiscardZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[3], investigator2.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.Cards[3], investigator1.DiscardZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.Cards[3], investigator2.DiscardZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[4], investigator1.DeckZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[4], investigator2.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.Cards[4], investigator1.DeckZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.Cards[4], investigator2.DeckZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[5], investigator1.InvestigatorZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[5], investigator2.InvestigatorZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.Cards[5], investigator1.InvestigatorZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.Cards[5], investigator2.InvestigatorZone).AsCoroutine();
 
-            yield return _cardMoverPresenter.MoveCardToZone(investigator1.Cards[6], investigator1.DangerZone).AsCoroutine();
-            yield return _cardMoverPresenter.MoveCardToZone(investigator2.Cards[6], investigator2.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator1.Cards[6], investigator1.DangerZone).AsCoroutine();
+            yield return _cardMoverPresenter.MoveCardWithPreviewToZone(investigator2.Cards[6], investigator2.DangerZone).AsCoroutine();
 
             if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0.25f;
             while (DEBUG_MODE)

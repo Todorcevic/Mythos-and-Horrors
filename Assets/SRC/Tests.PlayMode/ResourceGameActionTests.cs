@@ -19,6 +19,37 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
         /*******************************************************************/
+
+        [UnityTest]
+        public IEnumerator Move_Resource_From_Card()
+        {
+            // DEBUG_MODE = true;
+            _prepareGameUse.Execute();
+
+            Card card = _investigatorsProvider.Leader.AllCards[3];
+
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
+
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(5));
+
+        }
+
+        [UnityTest]
+        public IEnumerator Move_Resource_To_Card()
+        {
+            // DEBUG_MODE = true;
+            _prepareGameUse.Execute();
+
+            Card card = _investigatorsProvider.Leader.AllCards[3];
+
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
+            yield return _gameActionFactory.Create<PayResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
+
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(0));
+        }
+
         [UnityTest]
         public IEnumerator Move_Resource_To_Investigator()
         {

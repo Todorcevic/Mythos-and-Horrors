@@ -1164,8 +1164,6 @@ MonoBehaviour:
   _agility: {fileID: 5763061372859238141}
   _intelligence: {fileID: 515917870288753944}
   _power: {fileID: 6741924248095242097}
-  _resourcesTokenController: {fileID: 0}
-  _hintsTokenController: {fileID: 0}
 --- !u!4 &2699880231102764180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

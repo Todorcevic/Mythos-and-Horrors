@@ -41,8 +41,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut = _cardViewBuilder.BuildRand();
             CardView sut2 = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
-            yield return _cardMoverPresenter.RealMove(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3]).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3]).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 2]));
@@ -56,7 +56,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView sut = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _investigatorsProvider.Leader.InvestigatorZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _investigatorsProvider.Leader.InvestigatorZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorZone));
@@ -68,7 +68,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView sut = _cardViewBuilder.BuildRand();
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -83,7 +83,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -98,7 +98,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -113,7 +113,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -128,9 +128,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.RealMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -143,9 +143,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.RealMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -158,9 +158,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.DeckZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.DeckZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.RealMove(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -173,9 +173,9 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
             }
-            yield return _cardMoverPresenter.RealMove(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -188,7 +188,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.DeckZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.DeckZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -203,7 +203,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -217,11 +217,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut2 = _cardViewBuilder.BuildRand();
             CardView[] sut = _cardViewBuilder.BuildManyRandom(4);
 
-            yield return _cardMoverPresenter.RealMove(sut2.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut2.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, sut2.Card.OwnZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, sut2.Card.OwnZone).AsCoroutine();
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -235,14 +235,14 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut2 = _cardViewBuilder.BuildRand();
             CardView[] sut = _cardViewBuilder.BuildManyRandom(4);
 
-            yield return _cardMoverPresenter.RealMove(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
 
             foreach (CardView card in sut)
             {
-                yield return _cardMoverPresenter.RealMove(card.Card, sut2.Card.OwnZone).AsCoroutine();
+                yield return _cardMoverPresenter.DirectMove(card.Card, sut2.Card.OwnZone).AsCoroutine();
             }
 
-            yield return _cardMoverPresenter.RealMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -256,13 +256,13 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut = _cardViewBuilder.BuildRand();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
 
-            yield return _cardMoverPresenter.RealMove(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+            yield return _cardMoverPresenter.DirectMove(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
