@@ -13,13 +13,11 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private Image _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _glow;
-        [SerializeField, Required, ChildGameObjectsOnly] private Image _selection;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _health;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
-        [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
 
         public bool IsVoid => Investigator == null;
         public Investigator Investigator { get; private set; }
@@ -37,22 +35,22 @@ namespace MythsAndHorrors.GameView
 
         public Tween Select()
         {
-            return _selection.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(() => _selection.gameObject.SetActive(true));
+            return transform.DOScale(1.25f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public Tween Deselect()
         {
-            return _selection.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _selection.gameObject.SetActive(false));
+            return transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public Tween ActivateGlow()
         {
-            return _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).OnStart(() => _glow.gameObject.SetActive(true));
+            return _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public Tween DeactivateGlow()
         {
-            return _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _glow.gameObject.SetActive(false));
+            return _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public void SetHealth(int amount) => _health.text = amount.ToString();
@@ -68,19 +66,17 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
+            _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+            _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION);
         }
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            _activatorUIPresenter.Deactivate();
             await _swapInvestigatorPresenter.Select(Investigator);
-            _activatorUIPresenter.Activate();
         }
     }
 }

@@ -1,13 +1,18 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
 {
     public class IOActivatorComponent : MonoBehaviour
     {
-        [SerializeField, Required, SceneObjectsOnly] private EventSystem _eventSystem;
+        [SerializeField, Required, SceneObjectsOnly] private Image _blockBackground;
         [SerializeField, Required, SceneObjectsOnly] private BoxCollider _boxCollider;
+
+        public bool IsSensorActivated => !_boxCollider.enabled;
+        public bool IsUIActivated => !_blockBackground.enabled;
+        public bool IsFullyActivated => IsSensorActivated && IsUIActivated;
 
         /*******************************************************************/
         public void ActivateSensor()
@@ -22,12 +27,12 @@ namespace MythsAndHorrors.GameView
 
         public void ActivateUI()
         {
-            _eventSystem.enabled = true;
+            _blockBackground.enabled = false;
         }
 
         public void DeactivateUI()
         {
-            _eventSystem.enabled = false;
+            _blockBackground.enabled = true;
         }
     }
 }

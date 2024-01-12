@@ -8,7 +8,6 @@ namespace MythsAndHorrors.GameView
 {
     public class ActivatorUIPresenter : IAnimator
     {
-        private bool isDeactivated = false;
         private List<Card> _cards = new();
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -18,42 +17,54 @@ namespace MythsAndHorrors.GameView
         public async Task Checking(GameAction gameAction)
         {
             if (gameAction is InteractableGameAction waitingForSelectionGameAction)
-                ActivateCards(waitingForSelectionGameAction.ActivableCards);
-            else Deactivate();
+                ActivateAll(waitingForSelectionGameAction.ActivableCards);
+            else DeactivateAll();
 
             await Task.CompletedTask;
         }
 
         /*******************************************************************/
-        public void Activate() => ActivateCards(_cards);
-
-        public void ActivateUI()
+        public void Activate()
         {
-            isDeactivated = false;
+            _ioActivatorComponent.ActivateSensor();
             _ioActivatorComponent.ActivateUI();
         }
 
         public void Deactivate()
         {
-            if (isDeactivated) return;
-            isDeactivated = true;
             _ioActivatorComponent.DeactivateSensor();
             _ioActivatorComponent.DeactivateUI();
-            _cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.Off());
-            _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.DeactivateGlow());
         }
 
-        private void ActivateCards(List<Card> cards)
+        public void ActivateUI()
         {
-            isDeactivated = false;
-            _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
-            _ioActivatorComponent.ActivateSensor();
             _ioActivatorComponent.ActivateUI();
+        }
 
+        public void DeactivateAll()
+        {
+            if (!_ioActivatorComponent.IsFullyActivated) return;
+            Deactivate();
+            HideCardsPlayables();
+        }
+
+        private void ActivateAll(List<Card> cards)
+        {
+            _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
+            Activate();
+            ShowCardsPlayables();
+        }
+
+        private void ShowCardsPlayables()
+        {
             _cards.ForEach(card => _cardViewsManager.Get(card).GlowView.SetGreenGlow());
             _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.ActivateGlow());
         }
 
-
+        private void HideCardsPlayables()
+        {
+            _cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.Off());
+            _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.DeactivateGlow());
+        }
     }
 }
