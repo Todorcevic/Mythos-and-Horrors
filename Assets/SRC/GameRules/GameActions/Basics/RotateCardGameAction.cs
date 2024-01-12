@@ -13,10 +13,11 @@ namespace MythsAndHorrors.GameRules
             await Start();
         }
 
+        /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             Card.IsFaceDown = !Card.IsFaceDown;
-            await Task.CompletedTask;
+            await _animatorsProvider.LaunchAnimation(this);
         }
     }
 }

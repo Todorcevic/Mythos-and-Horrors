@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardMoverPresenter : IAnimatorEnd
+    public class CardMoverPresenter : IAnimator
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        public async Task CheckingAtEnd(GameAction gameAction)
+        public async Task Checking(GameAction gameAction)
         {
             if (gameAction is MoveCardsGameAction moveCardAction)
             {
@@ -37,7 +37,7 @@ namespace MythsAndHorrors.GameView
 
             foreach (Card card in cards)
             {
-                await Task.Delay(100);
+                await Task.Delay(16);
                 _ = RealMove(card, zone);
             }
         }

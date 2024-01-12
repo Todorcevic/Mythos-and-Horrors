@@ -6,23 +6,14 @@ namespace MythsAndHorrors.GameRules
 {
     public class AnimatorsProvider
     {
-        [Inject] private readonly List<IAnimatorStart> _startAnimators;
-        [Inject] private readonly List<IAnimatorEnd> _endAnimators;
+        [Inject] private readonly List<IAnimator> _animators;
 
         /*******************************************************************/
-        public async Task LaunchStartAnimation(GameAction gameAction)
+        public async Task LaunchAnimation(GameAction gameAction)
         {
-            foreach (IAnimatorStart animator in _startAnimators)
+            foreach (IAnimator animator in _animators)
             {
-                await animator.CheckingAtStart(gameAction);
-            }
-        }
-
-        public async Task LaunchEndAnimation(GameAction gameAction)
-        {
-            foreach (IAnimatorEnd animator in _endAnimators)
-            {
-                await animator.CheckingAtEnd(gameAction);
+                await animator.Checking(gameAction);
             }
         }
     }

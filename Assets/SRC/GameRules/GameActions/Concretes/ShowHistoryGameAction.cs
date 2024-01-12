@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await _animatorsProvider.LaunchAnimation(this);
             await waitForSelection.Task;
         }
 

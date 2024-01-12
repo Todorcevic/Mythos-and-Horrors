@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardRotatorPresenter : IAnimatorEnd
+    public class CardRotatorPresenter : IAnimator
     {
         [Inject] private readonly CardViewsManager _cardsManager;
 
         /*******************************************************************/
-        public async Task CheckingAtEnd(GameAction gameAction)
+        public async Task Checking(GameAction gameAction)
         {
             if (gameAction is RotateCardGameAction rotateCardGameAction)
                 await Rotate(rotateCardGameAction.Card);

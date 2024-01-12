@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokenMoverPresenter : IAnimatorEnd
+    public class TokenMoverPresenter : IAnimator
     {
         [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private readonly Transform _centerShowPosition;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
-        public async Task CheckingAtEnd(GameAction gameAction)
+        public async Task Checking(GameAction gameAction)
         {
             if (gameAction is PayResourceGameAction payResourceGameAction)
             {

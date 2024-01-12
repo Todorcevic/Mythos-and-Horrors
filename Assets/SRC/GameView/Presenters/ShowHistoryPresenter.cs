@@ -4,13 +4,13 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryPresenter : IAnimatorStart
+    public class ShowHistoryPresenter : IAnimator
     {
         [Inject] private readonly ShowHistoryComponent _historyComponent;
         [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
 
         /*******************************************************************/
-        public async Task CheckingAtStart(GameAction gameAction)
+        public async Task Checking(GameAction gameAction)
         {
             if (gameAction is ShowHistoryGameAction showHistoryGameAction)
                 await ShowHistory(showHistoryGameAction);

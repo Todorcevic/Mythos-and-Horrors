@@ -2,8 +2,8 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IAnimatorEnd
+    public interface IAnimator
     {
-        Task CheckingAtEnd(GameAction gameAction);
+        Task Checking(GameAction gameAction);
     }
 }

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ActivatorUIPresenter : IAnimatorStart
+    public class ActivatorUIPresenter : IAnimator
     {
         private bool isDeactivated = false;
         private List<Card> _cards = new();
@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        public async Task CheckingAtStart(GameAction gameAction)
+        public async Task Checking(GameAction gameAction)
         {
             if (gameAction is InteractableGameAction waitingForSelectionGameAction)
                 ActivateCards(waitingForSelectionGameAction.ActivableCards);

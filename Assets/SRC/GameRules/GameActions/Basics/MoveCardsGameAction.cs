@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameRules
                 Zone.AddCard(card);
             }
 
-            await Task.CompletedTask;
+            await _animatorsProvider.LaunchAnimation(this); ;
         }
     }
 }
