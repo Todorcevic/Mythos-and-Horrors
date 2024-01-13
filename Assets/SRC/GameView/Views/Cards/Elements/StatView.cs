@@ -14,11 +14,12 @@ namespace MythsAndHorrors.GameView
         public Stat Stat { get; private set; }
 
         /*******************************************************************/
-        public void SetStat(Stat stat)
+        public void SetStat(Stat stat, Sprite holderImage = null)
         {
             gameObject.SetActive(true);
             Stat = stat;
             _value.text = stat.Value.ToString();
+            _holder.sprite = holderImage ?? _holder.sprite;
         }
 
         /*******************************************************************/

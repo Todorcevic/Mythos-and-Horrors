@@ -16,13 +16,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator All_Zones_With_Cards()
         {
-            //DEBUG_MODE = true;
-            ViewValues.FAST_TIME_ANIMATION = 0f;
-            ViewValues.DEFAULT_TIME_ANIMATION = 0f;
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
 

@@ -16,11 +16,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvide;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator PrepareGame()
         {
-            //DEBUG_MODE = true;
             _sut.Execute();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

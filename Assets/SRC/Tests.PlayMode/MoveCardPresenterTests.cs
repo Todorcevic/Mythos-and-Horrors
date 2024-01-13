@@ -19,12 +19,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Move_Card_To_Other_Investigator()
         {
-            //DEBUG_MODE = true;
-
             _prepareGameUse.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
             Investigator investigator2 = _investigatorsProvider.Second;

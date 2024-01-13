@@ -72,9 +72,9 @@ namespace MythsAndHorrors.GameView
             _zoneCardView.Init(Card.OwnZone);
         }
 
-        private void SetPicture()
+        private async void SetPicture()
         {
-            _picture.LoadCardSprite(Card.Info.Code);
+            await _picture.LoadCardSprite(Card.Info.Code);
         }
     }
 }

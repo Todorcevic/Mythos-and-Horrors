@@ -15,11 +15,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator InitialDrawGameAction()
         {
-            //DEBUG_MODE = true;
             _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.AllInvestigators[0];
             Card card = _cardsProvider.GetCard("01517");
@@ -34,7 +35,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InitialDrawWeaknessGameAction()
         {
-            //DEBUG_MODE = true;
             _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.AllInvestigators[0];
             Card weaknessCard = _cardsProvider.GetCard("01507");

@@ -17,11 +17,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Show_History()
         {
-            //DEBUG_MODE = true;
             _prepareGameUse.Execute();
             History sutHistory = new()
             {

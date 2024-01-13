@@ -57,20 +57,20 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
-            CardCondition card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithHealth(null).GiveMe()) as CardCondition;
+            CardTalent card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Talent).WithHealth(null).GiveMe()) as CardTalent;
 
             _cardGenerator.BuildCard(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
+            StatView healthStat = result.GetPrivateMember<StatView>("_health");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
-            Assert.That(healthRenderer.gameObject.activeInHierarchy, Is.False);
+            Assert.That(healthStat.gameObject.activeInHierarchy, Is.False);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
             yield return null;
         }
@@ -129,7 +129,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            SpriteRenderer healthRenderer = result.GetPrivateMember<SpriteRenderer>("_healthRenderer");
+            StatView healthStat = result.GetPrivateMember<StatView>("_health");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
@@ -138,7 +138,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo(card.Info.Sanity.ToString()));
-            Assert.That(healthRenderer.gameObject.activeSelf, Is.True);
+            Assert.That(healthStat.gameObject.activeSelf, Is.True);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
             yield return null;
         }

@@ -17,11 +17,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardBuilder _cardBuilder;
         [Inject] private readonly FilesPath _filesPath;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Load_Avatar()
         {
-            //DEBUG_MODE = true;
             _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01501"));
             _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01502"));
             _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01503"));
@@ -35,7 +36,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Show_Turns()
         {
-            //DEBUG_MODE = true;
             Investigator doc = new() { InvestigatorCard = _cardBuilder.BuildOfType<CardInvestigator>() };
             AvatarView avatarView = _avatarViewsManager.GetVoid();
             avatarView.Init(doc);

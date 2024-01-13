@@ -20,11 +20,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ZoneLoaderUseCase _zoneLoaderUseCase;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            //DEBUG_MODE = true;
             ViewValues.FAST_TIME_ANIMATION = DEBUG_MODE ? ViewValues.FAST_TIME_ANIMATION : 0f;
             ViewValues.DEFAULT_TIME_ANIMATION = DEBUG_MODE ? ViewValues.DEFAULT_TIME_ANIMATION : 0f;
 

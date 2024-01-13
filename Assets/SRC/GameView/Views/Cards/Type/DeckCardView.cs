@@ -21,9 +21,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
@@ -36,7 +33,6 @@ namespace MythsAndHorrors.GameView
             SetStat();
             SetSkillPlacer(currentFaction);
             SetRenderers(currentFaction);
-            SetSupporterInfo(currentFaction);
         }
 
         /*******************************************************************/
@@ -64,8 +60,8 @@ namespace MythsAndHorrors.GameView
             if (Card is CardSupply cardSupply)
             {
                 _cost.SetStat(cardSupply.Cost);
-                _health.SetStat(cardSupply.Health);
-                _sanity.SetStat(cardSupply.Sanity);
+                if (Card.Info.Health != null) _health.SetStat(cardSupply.Health);
+                if (Card.Info.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
             }
             else if (Card is CardTalent cardTalent)
             {
@@ -87,13 +83,6 @@ namespace MythsAndHorrors.GameView
             _template.sprite = currentFaction._templateDeckFront;
             _titleHolder.sprite = currentFaction._titleHolder;
             _badge.sprite = currentFaction._badget;
-        }
-
-        private void SetSupporterInfo(FactionDeckSO currentFaction)
-        {
-            _costRenderer.gameObject.SetActive(Card.Info.Cost != null);
-            _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
-            _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
         }
     }
 }

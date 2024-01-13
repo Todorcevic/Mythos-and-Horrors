@@ -5,7 +5,6 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
@@ -18,11 +17,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
 
+        //protected override bool DEBUG_MODE => true;
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Swap()
         {
-            //DEBUG_MODE = true;
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
             Investigator investigator2 = _investigatorsProvider.AllInvestigators[1];

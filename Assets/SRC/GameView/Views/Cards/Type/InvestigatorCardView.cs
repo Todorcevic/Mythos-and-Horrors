@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private List<FactionInvestigatorSO> _factions;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _statsRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _strength;
@@ -21,33 +20,27 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         protected override void SetSpecific()
         {
-            SetRenderer();
-            SetStats();
-        }
-
-        /*******************************************************************/
-        private void SetRenderer()
-        {
             FactionInvestigatorSO currentFaction = SetCurrent(Card.Info.Faction);
             _template.sprite = currentFaction._templateFront;
             _badge.sprite = currentFaction._badget;
-            _statsRenderer.ForEach(spriteRenderer => spriteRenderer.sprite = currentFaction._stats);
+            SetStats(currentFaction._stats);
 
             FactionInvestigatorSO SetCurrent(Faction faction) =>
-           _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
-           _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
+               _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
+               _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
         }
 
-        private void SetStats()
+        /*******************************************************************/
+        private void SetStats(Sprite holderImage)
         {
             if (Card is CardInvestigator _investigator)
             {
                 _health.SetStat(_investigator.Health);
                 _sanity.SetStat(_investigator.Sanity);
-                _strength.SetStat(_investigator.Strength);
-                _agility.SetStat(_investigator.Agility);
-                _intelligence.SetStat(_investigator.Intelligence);
-                _power.SetStat(_investigator.Power);
+                _strength.SetStat(_investigator.Strength, holderImage);
+                _agility.SetStat(_investigator.Agility, holderImage);
+                _intelligence.SetStat(_investigator.Intelligence, holderImage);
+                _power.SetStat(_investigator.Power, holderImage);
             }
         }
     }
