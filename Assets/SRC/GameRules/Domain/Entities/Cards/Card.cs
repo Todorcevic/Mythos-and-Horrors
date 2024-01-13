@@ -28,7 +28,6 @@ namespace MythsAndHorrors.GameRules
         public void Play()
         {
             if (!CanPlay()) throw new InvalidOperationException("Card cant be played");
-
         }
     }
 }

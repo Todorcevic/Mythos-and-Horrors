@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -8,11 +9,17 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
-
-        public int EldritchTotal { get; set; }
+        public Stat Eldritch { get; private set; }
 
         /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
+        private void Init()
+        {
+            Eldritch = new Stat(Info.Eldritch ?? 0, Info.Eldritch ?? 0);
+        }
 
+        /*******************************************************************/
         public async virtual Task WhenFinish(GameAction gameAction)
         {
             if (CanShowInitialHistory(gameAction))
@@ -35,7 +42,7 @@ namespace MythsAndHorrors.GameRules
         protected virtual bool CanShowFinalHistory(GameAction gameAction)
         {
             if (gameAction is not AddEldritchGameAction addEldritchGameAction) return false;
-            if (EldritchTotal < Info.Eldritch) return false;
+            if (Eldritch.Value < Info.Eldritch) return false;
 
             return true;
         }

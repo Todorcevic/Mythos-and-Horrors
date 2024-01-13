@@ -1,19 +1,22 @@
-﻿using Sirenix.OdinInspector;
-using TMPro;
+﻿using MythsAndHorrors.GameRules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
     public class PlaceCardView : CardView
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _hints;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _enigma;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _hints;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _enigma;
 
         /*******************************************************************/
         protected override void SetSpecific()
         {
-            _hints.text = Card.Info.Hints.ToString();
-            _enigma.text = Card.Info.Enigma.ToString();
+            if (Card is CardPlace _place)
+            {
+                _hints.SetStat(_place.Hints);
+                _enigma.SetStat(_place.Enigma);
+            }
         }
     }
 }

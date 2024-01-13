@@ -1,7 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -25,15 +24,16 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _cost;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _sanity;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
         /*******************************************************************/
         protected override void SetSpecific()
         {
             FactionDeckSO currentFaction = SetCurrent(Card.Info.Faction);
             SetInfo();
+            SetStat();
             SetSkillPlacer(currentFaction);
             SetRenderers(currentFaction);
             SetSupporterInfo(currentFaction);
@@ -56,10 +56,21 @@ namespace MythsAndHorrors.GameView
 
         private void SetInfo()
         {
-            _cost.text = Card.Info.Cost.ToString() ?? ViewValues.EMPTY_STAT;
-            _health.text = Card.Info.Health.ToString() ?? ViewValues.EMPTY_STAT;
-            _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
             _slotController.SetSlot(Card.Info.Slot);
+        }
+
+        private void SetStat()
+        {
+            if (Card is CardSupply cardSupply)
+            {
+                _cost.SetStat(cardSupply.Cost);
+                _health.SetStat(cardSupply.Health);
+                _sanity.SetStat(cardSupply.Sanity);
+            }
+            else if (Card is CardTalent cardTalent)
+            {
+                _cost.SetStat(cardTalent.Cost);
+            }
         }
 
         private void SetSkillPlacer(FactionDeckSO currentFaction)

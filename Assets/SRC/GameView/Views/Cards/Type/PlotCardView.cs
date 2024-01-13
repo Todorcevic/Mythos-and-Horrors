@@ -1,18 +1,20 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
     public class PlotCardView : CardView
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _eldritch;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritch;
 
         /*******************************************************************/
         protected override void SetSpecific()
         {
-            _eldritch.text = Card.Info.Eldritch.ToString();
+            if (Card is CardPlot _plot)
+            {
+                _eldritch.SetStat(_plot.Eldritch);
+            }
         }
     }
 }
