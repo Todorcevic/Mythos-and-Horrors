@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
@@ -23,13 +24,16 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
+            List<Task> tasks = new();
             await _swapInvestigatorPresenter.Select(zone);
 
             foreach (Card card in cards)
             {
                 await Task.Delay(16);
-                _ = DirectMove(card, zone);
+                tasks.Add(DirectMove(card, zone));
             }
+
+            await Task.WhenAll(tasks);
         }
 
         public async Task DirectMove(Card card, Zone zone)
