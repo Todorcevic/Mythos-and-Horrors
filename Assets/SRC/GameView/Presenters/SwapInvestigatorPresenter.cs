@@ -22,9 +22,9 @@ namespace MythsAndHorrors.GameView
             _sequence = DOTween.Sequence()
             .Join(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
-            .Join(_avatarViewsManager.Get(investigator).Select()).SetId("aa");
-            await _sequence.AsyncWaitForCompletion();
+            .Join(_avatarViewsManager.Get(investigator).Select());
             _investigatorSelected = investigator;
+            await _sequence.AsyncWaitForCompletion();
         }
 
         public async Task Select(Zone zone)
