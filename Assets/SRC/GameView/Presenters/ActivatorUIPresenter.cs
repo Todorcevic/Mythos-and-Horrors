@@ -1,12 +1,11 @@
 ﻿using MythsAndHorrors.GameRules;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ActivatorUIPresenter : IAnimator
+    public class ActivatorUIPresenter : IUIActivable
     {
         private List<Card> _cards = new();
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
@@ -14,26 +13,30 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        public async Task Checking(GameAction gameAction)
+        void IUIActivable.DeactivateAll()
         {
-            if (gameAction is InteractableGameAction waitingForSelectionGameAction)
-                ActivateAll(waitingForSelectionGameAction.ActivableCards);
-            else DeactivateAll();
-
-            await Task.CompletedTask;
-        }
-
-        /*******************************************************************/
-        public void Activate()
-        {
-            _ioActivatorComponent.ActivateSensor();
-            _ioActivatorComponent.ActivateUI();
-        }
-
-        public void Deactivate()
-        {
+            if (_ioActivatorComponent.IsSensorActivated)
+                HideCardsPlayables();
             _ioActivatorComponent.DeactivateSensor();
             _ioActivatorComponent.DeactivateUI();
+        }
+
+        void IUIActivable.ActivateAll(List<Card> cards)
+        {
+            _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
+            _ioActivatorComponent.ActivateSensor();
+            _ioActivatorComponent.ActivateUI();
+            ShowCardsPlayables();
+        }
+
+        public void ActivateSensor()
+        {
+            _ioActivatorComponent.ActivateSensor();
+        }
+
+        public void DeactivateSensor()
+        {
+            _ioActivatorComponent.DeactivateSensor();
         }
 
         public void ActivateUI()
@@ -41,18 +44,9 @@ namespace MythsAndHorrors.GameView
             _ioActivatorComponent.ActivateUI();
         }
 
-        public void DeactivateAll()
+        public void DeactivateUI()
         {
-            if (!_ioActivatorComponent.IsFullyActivated) return;
-            Deactivate();
-            HideCardsPlayables();
-        }
-
-        private void ActivateAll(List<Card> cards)
-        {
-            _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
-            Activate();
-            ShowCardsPlayables();
+            _ioActivatorComponent.DeactivateUI();
         }
 
         private void ShowCardsPlayables()

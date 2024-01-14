@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public abstract class InteractableGameAction : GameAction
     {
+        [Inject] private readonly IUIActivable _UIActivable;
         private readonly TaskCompletionSource<bool> waitForSelection = new();
         private Card cardSelected;
 
@@ -20,7 +22,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _animatorsProvider.LaunchAnimation(this);
+            _UIActivable.ActivateAll(ActivableCards);
             await waitForSelection.Task;
         }
 

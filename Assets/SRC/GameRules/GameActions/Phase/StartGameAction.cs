@@ -15,12 +15,12 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<PrepareInvestigatorGameAction>().Run(_investigatorsProvider.Leader);
+            //await _gameActionFactory.Create<PrepareInvestigatorGameAction>().Run(_investigatorsProvider.Leader);
 
-            //foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
-            //{
-            //    await _gameActionFactory.Create<PrepareInvestigatorGameAction>().Run(investigator);
-            //}
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            {
+                await _gameActionFactory.Create<PrepareInvestigatorGameAction>().Run(investigator);
+            }
 
             await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_chaptersProvider.CurrentScene);
             await _gameActionFactory.Create<PlayGameAction>().Run();

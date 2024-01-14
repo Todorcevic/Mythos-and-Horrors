@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
+        [Inject] private readonly ICardMoveAnimator _cardMover;
+
         public List<Card> Cards { get; private set; }
         public Card Card => Cards[0];
         public Zone Zone { get; private set; }
@@ -32,7 +35,8 @@ namespace MythsAndHorrors.GameRules
                 Zone.AddCard(card);
             }
 
-            await _animatorsProvider.LaunchAnimation(this); ;
+            if (IsSingleMove) await _cardMover.MoveCardWithPreviewToZone(Card, Zone);
+            else await _cardMover.MoveCardsToZone(Cards, Zone);
         }
     }
 }

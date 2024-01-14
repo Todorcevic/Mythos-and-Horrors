@@ -6,22 +6,12 @@ using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardMoverPresenter : IAnimator
+    public class CardMoverPresenter : ICardMoveAnimator
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
-
-        /*******************************************************************/
-        public async Task Checking(GameAction gameAction)
-        {
-            if (gameAction is MoveCardsGameAction moveCardAction)
-            {
-                if (moveCardAction.IsSingleMove) await MoveCardWithPreviewToZone(moveCardAction.Card, moveCardAction.Zone);
-                else await MoveCardsToZone(moveCardAction.Cards, moveCardAction.Zone);
-            }
-        }
 
         /*******************************************************************/
         public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
@@ -31,7 +21,7 @@ namespace MythsAndHorrors.GameView
             await DirectMove(card, zone);
         }
 
-        private async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
             await _swapInvestigatorPresenter.Select(zone);
 

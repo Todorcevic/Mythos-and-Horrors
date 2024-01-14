@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
+        [Inject] private readonly IShowHistoryAnimator _showHistory;
         private readonly TaskCompletionSource<bool> waitForSelection = new();
         public History History { get; private set; }
 
@@ -17,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _animatorsProvider.LaunchAnimation(this);
+            await _showHistory.ShowHistory(this);
             await waitForSelection.Task;
         }
 

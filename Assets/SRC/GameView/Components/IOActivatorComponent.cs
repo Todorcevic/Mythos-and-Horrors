@@ -1,6 +1,5 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
@@ -12,7 +11,6 @@ namespace MythsAndHorrors.GameView
 
         public bool IsSensorActivated => !_boxCollider.enabled;
         public bool IsUIActivated => !_blockBackground.enabled;
-        public bool IsFullyActivated => IsSensorActivated && IsUIActivated;
 
         /*******************************************************************/
         public void ActivateSensor()

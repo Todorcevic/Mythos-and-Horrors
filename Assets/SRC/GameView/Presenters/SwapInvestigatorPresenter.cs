@@ -10,22 +10,21 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
-        [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
 
         private Investigator _investigatorSelected;
+        private Sequence _sequence = DOTween.Sequence();
 
         /*******************************************************************/
         public async Task Select(Investigator investigator)
         {
             if (_investigatorSelected == investigator) return;
+            await _sequence.AsyncWaitForCompletion();
+            _sequence = DOTween.Sequence()
+            .Join(_swapInvestigatorComponent.Select(investigator))
+            .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
+            .Join(_avatarViewsManager.Get(investigator).Select()).SetId("aa");
+            await _sequence.AsyncWaitForCompletion();
             _investigatorSelected = investigator;
-            _activatorUIPresenter.Deactivate();
-            Sequence dfasd = DOTween.Sequence();
-            dfasd.Join(_swapInvestigatorComponent.Select(investigator));
-            dfasd.Join(_avatarViewsManager.Get(investigator).Select());
-            dfasd.Join(_avatarViewsManager.Get(_investigatorSelected)?.Deselect());
-            await dfasd.AsyncWaitForCompletion();
-            _activatorUIPresenter.Activate();
         }
 
         public async Task Select(Zone zone)

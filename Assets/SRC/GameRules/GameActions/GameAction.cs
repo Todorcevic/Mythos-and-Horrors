@@ -5,12 +5,13 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {
+        [Inject] private readonly IUIActivable _UIActivable;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] protected readonly AnimatorsProvider _animatorsProvider;
 
         /*******************************************************************/
         protected async Task Start()
         {
+            _UIActivable.DeactivateAll();
             await AtTheBeginning();
             await ExecuteThisLogic();
             await AtTheEnd();

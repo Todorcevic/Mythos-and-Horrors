@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokenMoverPresenter : IAnimator
+    public class TokenMoverPresenter : IResourceAnimator, IHintAnimator
     {
         [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private readonly Transform _centerShowPosition;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
@@ -17,27 +17,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
-        public async Task Checking(GameAction gameAction)
-        {
-            if (gameAction is PayResourceGameAction payResourceGameAction)
-            {
-                await PayResource(payResourceGameAction.Investigator, payResourceGameAction.Amount, payResourceGameAction.ToCard);
-            }
-            else if (gameAction is GainResourceGameAction gainResourceGameAction)
-            {
-                await GainResource(gainResourceGameAction.Investigator, gainResourceGameAction.Amount, gainResourceGameAction.FromCard);
-            }
-            else if (gameAction is GainHintGameAction gainHintGameAction)
-            {
-                await GainHints(gainHintGameAction.Investigator, gainHintGameAction.Amount, gainHintGameAction.FromCard);
-            }
-            else if (gameAction is PayHintGameAction payHintGameAction)
-            {
-                await PayHints(payHintGameAction.Investigator, payHintGameAction.Amount, payHintGameAction.ToCard);
-            }
-        }
-        /*******************************************************************/
-        private async Task GainHints(Investigator investigator, int amount, Card fromCard)
+        public async Task GainHints(Investigator investigator, int amount, Card fromCard)
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(amount);
@@ -46,7 +26,7 @@ namespace MythsAndHorrors.GameView
             await Gain(allTokens, origin, hintsTokenController);
         }
 
-        private async Task PayHints(Investigator investigator, int amount, Card toCard)
+        public async Task PayHints(Investigator investigator, int amount, Card toCard)
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(amount);
@@ -55,7 +35,7 @@ namespace MythsAndHorrors.GameView
             await Pay(allTokens, destiny, hintsTokenController);
         }
 
-        private async Task GainResource(Investigator investigator, int amount, Card fromCard)
+        public async Task GainResource(Investigator investigator, int amount, Card fromCard)
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
@@ -64,7 +44,7 @@ namespace MythsAndHorrors.GameView
             await Gain(allTokens, origin, resourcesTokenController);
         }
 
-        private async Task PayResource(Investigator investigator, int amount, Card toCard)
+        public async Task PayResource(Investigator investigator, int amount, Card toCard)
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
