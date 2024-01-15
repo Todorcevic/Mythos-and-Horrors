@@ -6,12 +6,12 @@ namespace MythsAndHorrors.GameRules
 {
     public class Investigator
     {
-        public Card InvestigatorCard { get; set; }
-        public List<Card> Cards { get; set; }
-        public List<Card> RequerimentCard { get; set; }
+        public CardInvestigator InvestigatorCard { get; init; }
+        public List<Card> Cards { get; init; }
+        public List<Card> RequerimentCard { get; init; }
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).ToList();
-        public Dictionary<Faction, int> DeckBuildingConditions { get; set; }
+        public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public Stat DeckSize { get; } = new Stat(30);
         public Stat Xp { get; } = new Stat(0);
         public Stat Injury { get; } = new Stat(0);

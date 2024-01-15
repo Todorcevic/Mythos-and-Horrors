@@ -10,6 +10,18 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly StatableManager _statsViewsManager;
 
         /*******************************************************************/
+        public async Task IncreaseStat(Stat stat)
+        {
+            IStatable statable = _statsViewsManager.Get(stat);
+            if (statable != null) await statable.IncreaseValue(stat.Value).AsyncWaitForCompletion();
+        }
+
+        public async Task DecreaseStat(Stat stat)
+        {
+            IStatable statable = _statsViewsManager.Get(stat);
+            if (statable != null) await statable.DecreaseValue(stat.Value).AsyncWaitForCompletion();
+        }
+
         public async Task UpdateStat(Stat stat)
         {
             IStatable statable = _statsViewsManager.Get(stat);

@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
         Stat Stat { get; }
         Transform StatTransform { get; }
         Tween UpdateValue(int value);
-
+        Tween IncreaseValue(int value);
+        Tween DecreaseValue(int value);
     }
 }

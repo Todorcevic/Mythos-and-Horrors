@@ -32,5 +32,15 @@ namespace MythsAndHorrors.GameView
         {
             return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
         }
+
+        public Tween DecreaseValue(int value)
+        {
+            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
+        }
+
+        public Tween IncreaseValue(int value)
+        {
+            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
+        }
     }
 }

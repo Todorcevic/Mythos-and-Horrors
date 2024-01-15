@@ -14,7 +14,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public Card BuildWith(CardInfo cardInfo) =>
             _sceneContainer.Instantiate(GetType(cardInfo.CardType), new object[] { cardInfo }) as Card;
 
-        public Card BuildOfType<T>() where T : Card => _sceneContainer.Instantiate<T>(new object[]
+        public T BuildOfType<T>() where T : Card => _sceneContainer.Instantiate<T>(new object[]
             {
                 _cardInfoBuilder.CreateRandom().WithCardType(GetCardType<T>()).GiveMe()
             });

@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class UpdateStatGameAction : GameAction
+    public class DecrementStatGameAction : GameAction
     {
         [Inject] private readonly IStatAnimator _statAnimator;
 
@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public async Task Run(Stat stat, int value)
         {
-            if (value == stat.Value) return;
+            if (value == 0) return;
             Stat = stat;
             Value = value;
             await Start();
@@ -22,8 +22,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Stat.UpdateValue(Value);
-            await _statAnimator.UpdateStat(Stat);
+            Stat.Decrease(Value);
+            await _statAnimator.DecreaseStat(Stat);
         }
     }
 }

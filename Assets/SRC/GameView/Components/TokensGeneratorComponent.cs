@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _hintsTokensView;
 
         public Transform StatTransform => _showToken;
-        public Stat Stat => (_chaptersProvider.CurrentScene.Info.Resource as CardResource).Amount;
+        public Stat Stat => (_chaptersProvider.CurrentScene.Info.Resource).Amount;
 
         /*******************************************************************/
         private void Start()
@@ -47,5 +47,15 @@ namespace MythsAndHorrors.GameView
         }
 
         public Tween UpdateValue(int value) => DOTween.Sequence(); //TODO : Animation tokens??
+
+        public Tween IncreaseValue(int value)
+        {
+            return DOTween.Sequence();
+        }
+
+        public Tween DecreaseValue(int value)
+        {
+            return DOTween.Sequence();
+        }
     }
 }
