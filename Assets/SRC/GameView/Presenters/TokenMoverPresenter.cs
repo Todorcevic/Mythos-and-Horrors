@@ -56,7 +56,7 @@ namespace MythsAndHorrors.GameView
         private async Task Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
         {
             await MoveUp(allTokens, origin, null);
-            await MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.AddToken(1));
+            await MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.SetAmount(1));
         }
 
         private async Task Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
