@@ -20,10 +20,9 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.InvestigatorCard, _investigator.InvestigatorZone);
-            await _gameActionFactory.Create<DecrementStatGameAction>()
-                .Run(_investigator.InvestigatorCard.Health, _investigator.Injury.Value);
-            await _gameActionFactory.Create<DecrementStatGameAction>()
-                .Run(_investigator.InvestigatorCard.Sanity, _investigator.Shock.Value);
+
+            await ApplyInjuty();
+            await ApplyShock();
 
             _investigator.Cards.ForEach(card => card.IsFaceDown = true);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.Cards, _investigator.DeckZone);
@@ -32,6 +31,18 @@ namespace MythsAndHorrors.GameRules
             {
                 await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
             }
+        }
+
+        private async Task ApplyInjuty()
+        {
+            await _gameActionFactory.Create<DecrementStatGameAction>()
+                .Run(_investigator.InvestigatorCard.Health, _investigator.Injury.Value);
+        }
+
+        private async Task ApplyShock()
+        {
+            await _gameActionFactory.Create<DecrementStatGameAction>()
+                .Run(_investigator.InvestigatorCard.Sanity, _investigator.Shock.Value);
         }
     }
 }

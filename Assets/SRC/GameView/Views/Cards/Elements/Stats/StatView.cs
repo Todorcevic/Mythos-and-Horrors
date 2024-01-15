@@ -30,17 +30,23 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween UpdateValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
+            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
         }
 
         public Tween DecreaseValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
+            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
         }
 
         public Tween IncreaseValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
+            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
+        }
+
+        private void ChangeValue(int value)
+        {
+            _value.text = value.ToString();
+            //_value.color = value < Stat.MaxValue ? Color.red : Color.white;
         }
     }
 }

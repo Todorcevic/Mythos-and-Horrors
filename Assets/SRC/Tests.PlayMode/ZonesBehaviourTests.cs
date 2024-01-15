@@ -20,7 +20,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ZoneLoaderUseCase _zoneLoaderUseCase;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnitySetUp]

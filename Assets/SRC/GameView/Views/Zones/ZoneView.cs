@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -28,5 +29,7 @@ namespace MythsAndHorrors.GameView
         public abstract Tween MouseExit(CardView cardView);
 
         public abstract Tween MouseDrag(CardView cardView);
+
+        public virtual Tween Shuffle(List<Card> cards) => DOTween.Sequence();
     }
 }

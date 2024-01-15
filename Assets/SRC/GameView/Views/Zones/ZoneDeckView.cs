@@ -1,8 +1,10 @@
 using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace MythsAndHorrors.GameView
 {
@@ -10,7 +12,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
-        private readonly List<CardView> _allCards = new();
+        private List<CardView> _allCards = new();
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
@@ -40,6 +42,25 @@ namespace MythsAndHorrors.GameView
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
             return _allCards.Last().transform.DOFullLocalMove(_movePosition);
+        }
+
+        public override Tween Shuffle(List<Card> cards)
+        {
+            _allCards = _allCards.OrderBy(card => cards.IndexOf(card.Card)).ToList();
+
+            Sequence ShuffleSequence = DOTween.Sequence();
+            for (int i = 0; i < _allCards.Count; i++)
+            {
+                _allCards[i].transform.SetSiblingIndex(i);
+                ShuffleSequence.Insert(ViewValues.FAST_TIME_ANIMATION * 0.1f * i,
+                DOTween.Sequence().Join(_allCards[i].transform.DOShakeRotation(ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX((Random.value - 0.25f), ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
+                .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f)))
+                .Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION))
+                );
+            }
+
+            return ShuffleSequence;
         }
     }
 }

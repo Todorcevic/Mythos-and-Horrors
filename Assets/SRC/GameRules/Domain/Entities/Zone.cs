@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
     public class Zone
     {
         public List<Card> Cards { get; } = new();
+        public Card TopCard => Cards.Last();
+        public Card BottomCard => Cards.First();
 
         /*******************************************************************/
         public void AddCard(Card card)
