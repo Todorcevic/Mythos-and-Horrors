@@ -14,47 +14,44 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly StatableManager _statsViewsManager;
 
         /*******************************************************************/
-        public async Task GainHints(Investigator investigator, int amount, Card fromCard)
+        public async Task GainHints(Investigator investigator, int amount, Stat fromCard)
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(amount);
-            Transform origin = GetTransformFor(fromCard);
+            Transform origin = _statsViewsManager.Get(fromCard).StatTransform;
             await _swapInvestigatorPresenter.Select(investigator);
             await Gain(allTokens, origin, hintsTokenController);
         }
 
-        public async Task PayHints(Investigator investigator, int amount, Card toCard)
+        public async Task PayHints(Investigator investigator, int amount, Stat toCard)
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(amount);
-            Transform destiny = GetTransformFor(toCard);
+            Transform destiny = _statsViewsManager.Get(toCard).StatTransform;
             await _swapInvestigatorPresenter.Select(investigator);
             await Pay(allTokens, destiny, hintsTokenController);
         }
 
-        public async Task GainResource(Investigator investigator, int amount, Card fromCard)
+        public async Task GainResource(Investigator investigator, int amount, Stat fromCard)
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
-            Transform origin = GetTransformFor(fromCard);
+            Transform origin = _statsViewsManager.Get(fromCard).StatTransform;
             await _swapInvestigatorPresenter.Select(investigator);
             await Gain(allTokens, origin, resourcesTokenController);
         }
 
-        public async Task PayResource(Investigator investigator, int amount, Card toCard)
+        public async Task PayResource(Investigator investigator, int amount, Stat toCard)
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(amount);
-            Transform destiny = GetTransformFor(toCard);
+            Transform destiny = _statsViewsManager.Get(toCard).StatTransform;
             await _swapInvestigatorPresenter.Select(investigator);
             await Pay(allTokens, destiny, resourcesTokenController);
         }
-
-        private Transform GetTransformFor(Card card) =>
-            card.IsSpecial ? _tokensGeneratorComponent.ShowToken : _cardViewsManager.Get(card).transform;
 
         private async Task Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
         {

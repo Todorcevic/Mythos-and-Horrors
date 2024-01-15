@@ -493,6 +493,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1868412697410466301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2653832444634788690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2917400884095274696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -542,11 +553,6 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 2653832444634788690}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8079080181447048571 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 2653832444634788690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8080444718938068956 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -567,10 +573,10 @@ MonoBehaviour:
   _title: {fileID: 5377435366261763476}
   _description: {fileID: 544978480546502690}
   _picture: {fileID: 6609396689711385768}
-  _glowView: {fileID: 3116146850402944414}
+  _glowComponent: {fileID: 3116146850402944414}
   _cardSensor: {fileID: 6181889277975604568}
   _zoneCardView: {fileID: 2917400884095274696}
-  _rotator: {fileID: 8079080181447048571}
+  _rotator: {fileID: 1868412697410466301}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
   _skillFearIcon: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}
   _skillHolder: {fileID: 21300000, guid: f5f6b314861eb2244a36caad856d2f37, type: 3}

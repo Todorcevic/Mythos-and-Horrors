@@ -554,16 +554,11 @@ MonoBehaviour:
   _title: {fileID: 366323836387763690}
   _description: {fileID: 5493573126717618492}
   _picture: {fileID: 1158687240628841910}
-  _glowView: {fileID: 6959178122439566464}
+  _glowComponent: {fileID: 6959178122439566464}
   _cardSensor: {fileID: 2190802374549720134}
   _zoneCardView: {fileID: 7192670855116009430}
-  _rotator: {fileID: 4301949416792317029}
+  _rotator: {fileID: 5926983261047525603}
   _eldritch: {fileID: 8432757924129616535}
---- !u!4 &4301949416792317029 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 8032590091954852428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5493573126717618492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -573,6 +568,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5926983261047525603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 8032590091954852428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6959178122439566464 stripped

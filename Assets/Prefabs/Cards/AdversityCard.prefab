@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -196,6 +196,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 495137673480264443}
   m_SourcePrefab: {fileID: 100100000, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+--- !u!114 &582515539232999635 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3831476094482434684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1614622600782078220 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -276,12 +287,7 @@ MonoBehaviour:
   _title: {fileID: 6582029824301044922}
   _description: {fileID: 1614622600782078220}
   _picture: {fileID: 5350600697932543366}
-  _glowView: {fileID: 4235260197794380976}
+  _glowComponent: {fileID: 4235260197794380976}
   _cardSensor: {fileID: 4914014549907215478}
   _zoneCardView: {fileID: 4144680672120993766}
-  _rotator: {fileID: 7054542640936027221}
---- !u!4 &7054542640936027221 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 3831476094482434684}
-  m_PrefabAsset: {fileID: 0}
+  _rotator: {fileID: 582515539232999635}

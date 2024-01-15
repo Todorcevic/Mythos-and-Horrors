@@ -19,7 +19,8 @@ namespace MythsAndHorrors.GameRules
 
         protected override async Task ExecuteThisLogic()
         {
-            _chaptersProvider.CurrentScene.CurrentPlot.Eldritch.Increase(_amount);
+            _chaptersProvider.CurrentScene.CurrentPlot.Eldritch
+                .UpdateValue(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch.Value + _amount);
             await Task.CompletedTask;
         }
     }

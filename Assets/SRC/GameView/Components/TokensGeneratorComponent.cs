@@ -1,20 +1,31 @@
 ﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokensGeneratorComponent : MonoBehaviour
+    public class TokensGeneratorComponent : MonoBehaviour, IStatable
     {
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
+        [Inject] private readonly StatableManager _statsViewsManager;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _resourceTokensView;
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _hintsTokensView;
 
-        public Transform ShowToken => _showToken;
+        public Transform StatTransform => _showToken;
+        public Stat Stat => (_chaptersProvider.CurrentScene.Info.Resource as CardResource).Amount;
+
+        /*******************************************************************/
+        private void Start()
+        {
+            _statsViewsManager.Add(this);
+        }
 
         /*******************************************************************/
         public List<TokenView> GetResourceTokens(int amount = 1) => _resourceTokensView.Take(amount).ToList();
@@ -34,5 +45,7 @@ namespace MythsAndHorrors.GameView
         {
             _showToken.DOFullMove(_showToken.parent);
         }
+
+        public Tween UpdateValue(int value) => DOTween.Sequence(); //TODO : Animation tokens??
     }
 }

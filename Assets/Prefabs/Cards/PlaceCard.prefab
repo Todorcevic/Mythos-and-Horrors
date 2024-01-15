@@ -191,6 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4527797467675142982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6276778819570781543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -211,17 +222,12 @@ MonoBehaviour:
   _title: {fileID: 7897172197363283759}
   _description: {fileID: 2353200856997724825}
   _picture: {fileID: 8971544262225794579}
-  _glowView: {fileID: 866625928266129189}
+  _glowComponent: {fileID: 866625928266129189}
   _cardSensor: {fileID: 8282791756316178403}
   _zoneCardView: {fileID: 1100189038249415795}
-  _rotator: {fileID: 6279900392877123520}
+  _rotator: {fileID: 4527797467675142982}
   _hints: {fileID: 249355578914456148}
   _enigma: {fileID: 6128284257626759234}
---- !u!4 &6279900392877123520 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 282695642698394089}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6912737438678058548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

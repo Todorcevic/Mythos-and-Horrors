@@ -19,28 +19,27 @@ namespace MythsAndHorrors.PlayMode.Tests
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
-
         [UnityTest]
         public IEnumerator Move_Resource_From_Card()
         {
             _prepareGameUse.Execute();
-            Card card = _investigatorsProvider.Leader.AllCards[3];
+            CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardSupply, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, cardSupply.Cost, 2).AsCoroutine();
 
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(5));
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(2));
         }
 
         [UnityTest]
         public IEnumerator Move_Resource_To_Card()
         {
             _prepareGameUse.Execute();
-            Card card = _investigatorsProvider.Leader.AllCards[3];
+            CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
-            yield return _gameActionFactory.Create<PayResourceGameAction>().Run(_investigatorsProvider.Leader, card, 5).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardSupply, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<GainResourceGameAction>().Run(_investigatorsProvider.Leader, cardSupply.Cost, 5).AsCoroutine();
+            yield return _gameActionFactory.Create<PayResourceGameAction>().Run(_investigatorsProvider.Leader, cardSupply.Cost, 5).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(0));
         }
@@ -53,7 +52,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             do
             {
                 yield return _gameActionFactory.Create<GainResourceGameAction>()
-                    .Run(_investigatorsProvider.Leader, _cardsProvider.Resource, 5).AsCoroutine();
+                    .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -65,12 +64,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
 
             do
             {
                 yield return _gameActionFactory.Create<PayResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
 
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
@@ -83,10 +82,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
 
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Second, _cardsProvider.Resource, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Second, _cardsProvider.Resource.Amount, 5).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));
         }

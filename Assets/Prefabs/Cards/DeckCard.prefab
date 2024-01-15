@@ -858,11 +858,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
   m_PrefabInstance: {fileID: 3044370310206252492}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &8456736018125712397 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-  m_PrefabInstance: {fileID: 3044370310206252492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4258102604920664158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1171,11 +1166,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
   m_PrefabInstance: {fileID: 4392652186983622758}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &7176010830833836455 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-  m_PrefabInstance: {fileID: 4392652186983622758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6184836651049921591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1281,11 +1271,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
---- !u!212 &772206922497598966 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
-  m_PrefabInstance: {fileID: 6184836651049921591}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2327254411239546548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
@@ -1439,11 +1424,6 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 7177322550284085519}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3985719514108340006 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 7177322550284085519}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3993909956141485441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -1464,10 +1444,10 @@ MonoBehaviour:
   _title: {fileID: 835827295989830046}
   _description: {fileID: 7860018948205341242}
   _picture: {fileID: 2087415250321823477}
-  _glowView: {fileID: 7813869966694932419}
+  _glowComponent: {fileID: 7813869966694932419}
   _cardSensor: {fileID: 1334417694476318469}
   _zoneCardView: {fileID: 8012474368596726933}
-  _rotator: {fileID: 3985719514108340006}
+  _rotator: {fileID: 6819392305497336736}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   - {fileID: 11400000, guid: 718b229d1d745154490881fb66fb844b, type: 2}
@@ -1488,9 +1468,6 @@ MonoBehaviour:
   _template: {fileID: 7498737834845332294}
   _badge: {fileID: 8065022781535806744}
   _titleHolder: {fileID: 7367991715353721439}
-  _costRenderer: {fileID: 772206922497598966}
-  _healthRenderer: {fileID: 7176010830833836455}
-  _sanityRenderer: {fileID: 8456736018125712397}
   _cost: {fileID: 8220676719744671252}
   _health: {fileID: 1960354627619756613}
   _sanity: {fileID: 1008392262063167471}
@@ -1504,6 +1481,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 7177322550284085519}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6819392305497336736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &7498737834845332294 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

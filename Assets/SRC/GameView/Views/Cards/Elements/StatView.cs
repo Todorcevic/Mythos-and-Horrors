@@ -3,15 +3,19 @@ using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class StatView : MonoBehaviour
+    public class StatView : MonoBehaviour, IStatable
     {
+        [Inject] private readonly StatableManager _statsViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder;
 
         public Stat Stat { get; private set; }
+        public CardView CardView => GetComponentInParent<CardView>();
+        public Transform StatTransform => transform;
 
         /*******************************************************************/
         public void SetStat(Stat stat, Sprite holderImage = null)
@@ -20,19 +24,13 @@ namespace MythsAndHorrors.GameView
             Stat = stat;
             _value.text = stat.Value.ToString();
             _holder.sprite = holderImage ?? _holder.sprite;
+            _statsViewsManager.Add(this);
         }
 
         /*******************************************************************/
-        public void UpdateValue(int value)
+        public Tween UpdateValue(int value)
         {
-            _holder.transform.DOMoveY(1, ViewValues.FAST_TIME_ANIMATION);
-            _value.transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
-            _value.text = value.ToString();
-
-
-            //DOTweenTMPAnimator animator = new DOTweenTMPAnimator(_value);
-            //animator.DOPunchCharScale(0, 0.2f, 1.2f);
-
+            return DOTween.Sequence().AppendCallback(() => _value.text = value.ToString());
         }
     }
 }

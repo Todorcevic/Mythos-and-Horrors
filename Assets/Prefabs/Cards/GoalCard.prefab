@@ -235,6 +235,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1814247740993376737}
   m_SourcePrefab: {fileID: 100100000, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+--- !u!114 &867557680850497057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3545334441379851406}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1330786638716946430 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -304,16 +315,11 @@ MonoBehaviour:
   _title: {fileID: 6506351518398362010}
   _description: {fileID: 1330786638716946430}
   _picture: {fileID: 5647103997997765492}
-  _glowView: {fileID: 4528659022777408066}
+  _glowComponent: {fileID: 4528659022777408066}
   _cardSensor: {fileID: 4624558981802865284}
   _zoneCardView: {fileID: 4439265872406860052}
-  _rotator: {fileID: 7348019651474301607}
+  _rotator: {fileID: 867557680850497057}
   _hints: {fileID: 1325195686989644074}
---- !u!4 &7348019651474301607 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6109948813706808873, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 3545334441379851406}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7868108235360879443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

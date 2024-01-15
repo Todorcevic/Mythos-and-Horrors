@@ -4,7 +4,7 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IResourceAnimator
     {
-        Task GainResource(Investigator investigator, int amount, Card fromCard);
-        Task PayResource(Investigator investigator, int amount, Card toCard);
+        Task GainResource(Investigator investigator, int amount, Stat fromCard);
+        Task PayResource(Investigator investigator, int amount, Stat toCard);
     }
 }
