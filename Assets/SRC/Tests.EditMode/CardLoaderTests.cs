@@ -21,7 +21,7 @@ namespace MythsAndHorrors.EditMode.Tests
             Assert.That(result, Is.TypeOf<Card01501>());
             Assert.That(result.Info.Code, Is.EqualTo("01501"));
             Assert.That(result, Is.EqualTo(_cardsProvider.GetCard("01501")));
-            Assert.That(_cardsProvider.BuildableCards.Count, Is.EqualTo(2));
+            Assert.That(_cardsProvider.AllCards.Count, Is.EqualTo(2));
         }
 
         [Test]

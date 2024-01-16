@@ -13,6 +13,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
@@ -52,7 +53,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             do
             {
                 yield return _gameActionFactory.Create<GainResourceGameAction>()
-                    .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
+                    .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -64,12 +65,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
             do
             {
                 yield return _gameActionFactory.Create<PayResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
@@ -82,10 +83,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Second, _cardsProvider.Resource.Stat, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Second, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));
         }
