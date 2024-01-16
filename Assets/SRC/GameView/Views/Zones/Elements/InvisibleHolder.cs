@@ -29,6 +29,12 @@ namespace MythsAndHorrors.GameView
         public Tween Repositionate(float yOffSet)
         {
             transform.localPosition = new Vector3(transform.localPosition.x, yOffSet, transform.localPosition.z);
+            return _cardView.transform.DOFullLocalDefaultMove(transform);
+        }
+
+        public Tween RepositionateFast(float yOffSet)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, yOffSet, transform.localPosition.z);
             return _cardView.transform.DOFullLocalMove(transform);
         }
 

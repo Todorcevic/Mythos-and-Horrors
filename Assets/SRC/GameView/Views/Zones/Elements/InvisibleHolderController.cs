@@ -10,17 +10,19 @@ namespace MythsAndHorrors.GameView
     public class InvisibleHolderController : MonoBehaviour
     {
         private const float Y_OFF_SET = ViewValues.CARD_THICKNESS * 0.1f;
+        private Sequence repositionSequence;
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders;
 
-        public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.Where(invisibleHolder => !invisibleHolder.IsFree).ToList();
+        public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.Where(invisibleHolder => !invisibleHolder.IsFree)
+            .OrderBy(invisibleHolder => invisibleHolder.name).ToList();
         public int AmountOfCards => AllActivesInvisibleHolders.Count();
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
         {
             GetFreeHolder().SetCardView(cardView);
-            return Repositionate(GetInvisibleHolderIndex(cardView));
+            return Repositionate(GetInvisibleHolderIndex(cardView), withFast: false);
         }
 
         public Tween RemoveCardView(CardView cardView)
@@ -45,16 +47,19 @@ namespace MythsAndHorrors.GameView
             return Repositionate(GetInvisibleHolderIndex(cardView));
         }
 
-        private Tween Repositionate(int selectedCardPosition)
+        private Tween Repositionate(int selectedCardPosition, bool withFast = true)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
-            Sequence repositionSequence = DOTween.Sequence();
+            repositionSequence?.Kill();
+            repositionSequence = DOTween.Sequence();
 
             for (int i = 0; i < AmountOfCards; i++)
             {
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;
-                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
+                if (i == selectedCardPosition && withFast) repositionSequence.Join(AllActivesInvisibleHolders[i].RepositionateFast(realYOffSet));
+                else repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
             }
+
             return repositionSequence;
         }
 
@@ -72,6 +77,6 @@ namespace MythsAndHorrors.GameView
             _allInvisibleHolders.First(invisibleHolder => invisibleHolder.HasThisCardView(cardView));
 
         private int GetInvisibleHolderIndex(CardView cardView) =>
-            _allInvisibleHolders.IndexOf(GetInvisibleHolder(cardView));
+            AllActivesInvisibleHolders.IndexOf(GetInvisibleHolder(cardView));
     }
 }

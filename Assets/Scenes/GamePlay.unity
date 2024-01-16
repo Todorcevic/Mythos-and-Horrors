@@ -1298,11 +1298,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4849262
+      value: 1.484924
       objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.627777
+      value: 29.62778
       objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3658,8 +3658,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.23581047
+  m_Value: 1.0000002
+  m_Size: 0.23581044
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

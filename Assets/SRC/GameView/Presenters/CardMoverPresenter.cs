@@ -17,9 +17,9 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
-            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone);
+            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
             await _swapInvestigatorPresenter.Select(zone);
-            await DirectMove(card, zone);
+            await DirectMove(card, zone, Ease.InCubic);
         }
 
         public async Task MoveCardsToZone(List<Card> cards, Zone zone)
@@ -36,7 +36,7 @@ namespace MythsAndHorrors.GameView
             await Task.WhenAll(tasks);
         }
 
-        public async Task DirectMove(Card card, Zone zone)
+        public async Task DirectMove(Card card, Zone zone, Ease ease = Ease.InOutCubic)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(zone);
@@ -44,7 +44,7 @@ namespace MythsAndHorrors.GameView
             Sequence moveSequence = DOTween.Sequence()
                 .Join(cardView.CurrentZoneView.ExitZone(cardView))
                 .Join(cardView.Rotate())
-                .Join(newZoneView.EnterZone(cardView));
+                .Join(newZoneView.EnterZone(cardView).SetEase(ease));
 
             cardView.SetCurrentZoneView(newZoneView);
 
