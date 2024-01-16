@@ -19,6 +19,7 @@ namespace MythsAndHorrors.GameView
             _activatorUIPresenter.ActivateAll(activablesCards);
             await waitForSelection.Task;
             _activatorUIPresenter.DeactivateAll();
+            await Task.Delay(250);
             return cardSelected;
         }
 
