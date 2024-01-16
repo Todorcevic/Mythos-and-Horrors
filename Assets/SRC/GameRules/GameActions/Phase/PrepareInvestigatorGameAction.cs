@@ -5,10 +5,8 @@ namespace MythsAndHorrors.GameRules
 {
     public class PrepareInvestigatorGameAction : GameAction
     {
-        private const int INITIAL_HAND_SIZE = 5;
         private Investigator _investigator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
         public async Task Run(Investigator investigator)
@@ -25,11 +23,9 @@ namespace MythsAndHorrors.GameRules
             await ApplyShock();
             await PositionateDeck();
             await CollectResources();
-
-            for (int i = 0; i < INITIAL_HAND_SIZE; i++)
-            {
-                await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
-            }
+            await DrawInitialHand();
+            await Mulligan();
+            await DrawInitialHand();
         }
 
         private async Task PositionateInvestigatorCard()
@@ -59,6 +55,17 @@ namespace MythsAndHorrors.GameRules
         private async Task CollectResources()
         {
             await _gameActionFactory.Create<GainResourceGameAction>().Run(_investigator, 5);
+        }
+
+        private async Task DrawInitialHand()
+        {
+            while (_investigator.HandZone.Cards.Count < _investigator.InitialHandSize.Value)
+                await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
+        }
+
+        private async Task Mulligan()
+        {
+            await _gameActionFactory.Create<MulliganGameAction>().Run(_investigator);
         }
     }
 }

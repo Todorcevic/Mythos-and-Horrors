@@ -16,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]

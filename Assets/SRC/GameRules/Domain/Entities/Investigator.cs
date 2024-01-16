@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameRules
         public Stat Shock { get; } = new Stat(0);
         public Stat Resources { get; } = new Stat(0);
         public Stat Hints { get; } = new Stat(0);
+        public Stat InitialHandSize { get; } = new Stat(5);
         public Zone HandZone { get; } = new Zone();
         public Zone DeckZone { get; } = new Zone();
         public Zone DiscardZone { get; } = new Zone();

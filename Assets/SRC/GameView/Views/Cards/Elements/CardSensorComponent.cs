@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
+        [Inject] private readonly InteractablePresenter _interactablePresenter;
 
         /*******************************************************************/
         public void OnMouseEnter()
@@ -25,9 +26,14 @@ namespace MythsAndHorrors.GameView
             _cardShowerComponent.HideCard(_cardView);
         }
 
-        public void OnMouseDrag()
+        public void OnMouseUpAsButton()
         {
-
+            _interactablePresenter.Clicked(_cardView.Card);
         }
+
+        //public void OnMouseDown()
+        //{
+
+        //}
     }
 }

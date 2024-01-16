@@ -38,5 +38,15 @@ namespace MythsAndHorrors.GameRules
                 }
             }
         }
+
+        public Task WhenFinish(GameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task WhenBegin(GameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

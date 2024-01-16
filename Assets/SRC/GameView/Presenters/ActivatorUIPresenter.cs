@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        void IUIActivable.DeactivateAll()
+        public void DeactivateAll()
         {
             if (_ioActivatorComponent.IsSensorActivated)
                 HideCardsPlayables();
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
             _ioActivatorComponent.DeactivateUI();
         }
 
-        void IUIActivable.ActivateAll(List<Card> cards)
+        public void ActivateAll(List<Card> cards)
         {
             _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
             _ioActivatorComponent.ActivateSensor();

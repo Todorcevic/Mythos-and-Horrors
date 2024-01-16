@@ -6,30 +6,15 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class InteractableGameAction : GameAction
     {
-        [Inject] private readonly IUIActivable _UIActivable;
-        private readonly TaskCompletionSource<bool> waitForSelection = new();
-        private Card cardSelected;
+        [Inject] private readonly IInteractableAnimator _interactableAnimator;
 
         public abstract List<Card> ActivableCards { get; }
-
-        /*******************************************************************/
-        public async Task<Card> Run()
-        {
-            await Start();
-            return cardSelected;
-        }
+        public Card CardSelected { get; private set; }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _UIActivable.ActivateAll(ActivableCards);
-            await waitForSelection.Task;
-        }
-
-        public void Continue(Card card = null)
-        {
-            cardSelected = card;
-            waitForSelection.SetResult(true);
+            CardSelected = await _interactableAnimator.Interact(ActivableCards);
         }
     }
 }

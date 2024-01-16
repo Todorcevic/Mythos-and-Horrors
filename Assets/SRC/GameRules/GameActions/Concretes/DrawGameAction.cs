@@ -12,10 +12,11 @@ namespace MythsAndHorrors.GameRules
         public Card CardDrawed { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(Investigator investigator)
+        public async Task<Card> Run(Investigator investigator)
         {
             Investigator = investigator;
             await Start();
+            return CardDrawed;
         }
 
         /*******************************************************************/
