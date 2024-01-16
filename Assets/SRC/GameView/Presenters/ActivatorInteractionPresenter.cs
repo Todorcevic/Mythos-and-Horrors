@@ -16,9 +16,12 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task DeactivateAll()
         {
-            if (_ioActivatorComponent.IsSensorActivated) HideCardsPlayables();
-            await DeactivateSensor();
-            DeactivateUI();
+            if (_ioActivatorComponent.IsSensorActivated)
+            {
+                HideCardsPlayables();
+                await DeactivateSensor();
+            }
+            if (_ioActivatorComponent.IsUIActivated) DeactivateUI();
         }
 
         public void ActivateAll(List<Card> cards)
