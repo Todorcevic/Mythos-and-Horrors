@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameRules
         private const int INITIAL_HAND_SIZE = 5;
         private Investigator _investigator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
         public async Task Run(Investigator investigator)
@@ -19,18 +20,21 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.InvestigatorCard, _investigator.InvestigatorZone);
-
+            await PositionateInvestigatorCard();
             await ApplyInjuty();
             await ApplyShock();
-
-            _investigator.Cards.ForEach(card => card.IsFaceDown = true);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.Cards, _investigator.DeckZone);
+            await PositionateDeck();
+            await CollectResources();
 
             for (int i = 0; i < INITIAL_HAND_SIZE; i++)
             {
                 await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
             }
+        }
+
+        private async Task PositionateInvestigatorCard()
+        {
+            await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.InvestigatorCard, _investigator.InvestigatorZone);
         }
 
         private async Task ApplyInjuty()
@@ -43,6 +47,18 @@ namespace MythsAndHorrors.GameRules
         {
             await _gameActionFactory.Create<DecrementStatGameAction>()
                 .Run(_investigator.InvestigatorCard.Sanity, _investigator.Shock.Value);
+        }
+
+        private async Task PositionateDeck()
+        {
+            _investigator.FullDeck.ForEach(card => card.IsFaceDown = true);
+            await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.FullDeck, _investigator.DeckZone);
+            await _gameActionFactory.Create<ShuffleGameAction>().Run(_investigator.DeckZone);
+        }
+
+        private async Task CollectResources()
+        {
+            await _gameActionFactory.Create<GainResourceGameAction>().Run(_investigator, 5);
         }
     }
 }

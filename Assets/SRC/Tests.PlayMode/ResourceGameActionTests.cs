@@ -52,7 +52,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             do
             {
                 yield return _gameActionFactory.Create<GainResourceGameAction>()
-                    .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
+                    .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -64,12 +64,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
 
             do
             {
                 yield return _gameActionFactory.Create<PayResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
 
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
@@ -82,10 +82,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Amount, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Leader, _cardsProvider.Resource.Stat, 5).AsCoroutine();
 
             yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Second, _cardsProvider.Resource.Amount, 5).AsCoroutine();
+                .Run(_investigatorsProvider.Second, _cardsProvider.Resource.Stat, 5).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));
         }

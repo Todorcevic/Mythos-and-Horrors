@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameRules
         public Zone SelectorZone { get; } = new Zone();
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
+        public Stat ResourcesPile => Info.Resource.Stat;
 
         /*******************************************************************/
         protected Scene()

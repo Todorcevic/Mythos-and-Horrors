@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _hintsTokensView;
 
         public Transform StatTransform => _showToken;
-        public Stat Stat => (_chaptersProvider.CurrentScene.Info.Resource).Amount;
+        public Stat Stat => _chaptersProvider.CurrentScene.ResourcesPile;
 
         /*******************************************************************/
         private void Start()
