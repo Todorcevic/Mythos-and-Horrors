@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +19,10 @@ namespace MythsAndHorrors.GameView
             _boxCollider.enabled = false;
         }
 
-        public void DeactivateSensor()
+        public async Task DeactivateSensor()
         {
             _boxCollider.enabled = true;
+            await DotweenExtension.WaitForAllTweensToComplete();
         }
 
         public void ActivateUI()

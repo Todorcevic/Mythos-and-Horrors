@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IUIActivable
+    public interface IInteractable
     {
         void ActivateAll(List<Card> cards);
-        void DeactivateAll();
+        Task DeactivateAll();
     }
 }

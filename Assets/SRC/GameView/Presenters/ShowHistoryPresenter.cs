@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
     public class ShowHistoryPresenter : IShowHistoryAnimator
     {
         [Inject] private readonly ShowHistoryComponent _historyComponent;
-        [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
+        [Inject] private readonly ActivatorInteractionPresenter _activatorUIPresenter;
 
         /*******************************************************************/
         public async Task ShowHistory(ShowHistoryGameAction showHistoryGameAction)

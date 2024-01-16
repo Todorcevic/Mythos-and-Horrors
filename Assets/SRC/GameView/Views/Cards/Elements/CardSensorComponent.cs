@@ -30,10 +30,5 @@ namespace MythsAndHorrors.GameView
         {
             _interactablePresenter.Clicked(_cardView.Card);
         }
-
-        //public void OnMouseDown()
-        //{
-
-        //}
     }
 }

@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class InteractablePresenter : IInteractableAnimator
     {
-        [Inject] private readonly ActivatorUIPresenter _activatorUIPresenter;
+        [Inject] private readonly ActivatorInteractionPresenter _activatorUIPresenter;
 
         private TaskCompletionSource<bool> waitForSelection;
         private Card cardSelected;
@@ -18,8 +18,6 @@ namespace MythsAndHorrors.GameView
             waitForSelection = new();
             _activatorUIPresenter.ActivateAll(activablesCards);
             await waitForSelection.Task;
-            _activatorUIPresenter.DeactivateAll();
-            await Task.Delay(250);
             return cardSelected;
         }
 

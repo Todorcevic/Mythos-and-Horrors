@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -38,12 +39,9 @@ namespace MythsAndHorrors.GameView
                 .Join(transform.DOScale(toMove.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION));
         }
 
-        public static Sequence DOFullLocalMoveDefault(this Transform transform, Transform toMove)
+        public static async Task WaitForAllTweensToComplete()
         {
-            return DOTween.Sequence()
-                .Join(transform.DOLocalMove(toMove.localPosition, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DOLocalRotate(toMove.localEulerAngles, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION));
+            while (DOTween.TotalPlayingTweens() > 0) await Task.Yield();
         }
     }
 }

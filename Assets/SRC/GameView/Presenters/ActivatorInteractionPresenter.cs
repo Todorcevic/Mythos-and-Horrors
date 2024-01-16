@@ -1,11 +1,12 @@
 ﻿using MythsAndHorrors.GameRules;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ActivatorUIPresenter : IUIActivable
+    public class ActivatorInteractionPresenter : IInteractable
     {
         private List<Card> _cards = new();
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
@@ -13,19 +14,18 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        public void DeactivateAll()
+        public async Task DeactivateAll()
         {
-            if (_ioActivatorComponent.IsSensorActivated)
-                HideCardsPlayables();
-            _ioActivatorComponent.DeactivateSensor();
-            _ioActivatorComponent.DeactivateUI();
+            if (_ioActivatorComponent.IsSensorActivated) HideCardsPlayables();
+            await DeactivateSensor();
+            DeactivateUI();
         }
 
         public void ActivateAll(List<Card> cards)
         {
             _cards = cards ?? throw new ArgumentNullException(null, "Cards is null");
-            _ioActivatorComponent.ActivateSensor();
-            _ioActivatorComponent.ActivateUI();
+            ActivateSensor();
+            ActivateUI();
             ShowCardsPlayables();
         }
 
@@ -34,9 +34,9 @@ namespace MythsAndHorrors.GameView
             _ioActivatorComponent.ActivateSensor();
         }
 
-        public void DeactivateSensor()
+        public async Task DeactivateSensor()
         {
-            _ioActivatorComponent.DeactivateSensor();
+            await _ioActivatorComponent.DeactivateSensor();
         }
 
         public void ActivateUI()

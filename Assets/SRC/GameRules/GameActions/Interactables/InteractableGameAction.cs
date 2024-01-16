@@ -1,7 +1,5 @@
-﻿using DG.Tweening;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEditor;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules

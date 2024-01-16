@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,13 +5,13 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {
-        [Inject] private readonly IUIActivable _UIActivable;
+        [Inject] private readonly IInteractable _UIActivable;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         /*******************************************************************/
         protected async Task Start()
         {
-            _UIActivable.DeactivateAll();
+            await _UIActivable.DeactivateAll();
             await AtTheBeginning();
             await ExecuteThisLogic();
             await AtTheEnd();
