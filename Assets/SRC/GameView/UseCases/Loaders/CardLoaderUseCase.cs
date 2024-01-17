@@ -33,9 +33,7 @@ namespace MythsAndHorrors.GameView
             List<History> cardHistories = _allHistories.FindAll(history => history.Code.Contains(cardCode))
                 .OrderBy(history => history.Code).ToList();
 
-            Card newCard = _diContainer.Instantiate(type, new object[] { cardInfo, cardHistories }) as Card;
-            type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => _reactionablesProvider.AddReactionable(startReactionable));
-            type.GetInterfaces().OfType<IEndReactionable>().ForEach(endReactionable => _reactionablesProvider.AddReactionable(endReactionable));
+            Card newCard = _reactionablesProvider.CreateReactionable(type, new object[] { cardInfo, cardHistories }) as Card;
             _cardProvider.AddCard(newCard);
             return newCard;
         }

@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly DiContainer _diContainer;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         /*******************************************************************/
         public void Execute(string fullSceneDataPath)
@@ -17,7 +17,8 @@ namespace MythsAndHorrors.GameView
             SceneInfo sceneInfo = _jsonService.CreateDataFromFile<SceneInfo>(fullSceneDataPath);
             Type type = (Assembly.GetAssembly(typeof(Scene)).GetType(typeof(Scene) + sceneInfo.Code)
                ?? throw new InvalidOperationException("Scene not found" + sceneInfo.Code));
-            Scene currentScene = _diContainer.Instantiate(type, new object[] { sceneInfo }) as Scene;
+
+            Scene currentScene = _reactionablesProvider.CreateReactionable(type, new object[] { sceneInfo }) as Scene;
             _chaptersProvider.SetCurrentScene(currentScene);
         }
     }

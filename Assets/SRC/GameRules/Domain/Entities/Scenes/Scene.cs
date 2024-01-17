@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public abstract class Scene
+    public abstract class Scene : IStartReactionable, IEndReactionable
     {
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; } = new Zone();
@@ -39,14 +39,15 @@ namespace MythsAndHorrors.GameRules
             }
         }
 
-        public Task WhenFinish(GameAction gameAction)
+        /*********************** Resources Logic ****************************/
+        public virtual async Task WhenBegin(GameAction gameAction)
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
 
-        public Task WhenBegin(GameAction gameAction)
+        public virtual async Task WhenFinish(GameAction gameAction)
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

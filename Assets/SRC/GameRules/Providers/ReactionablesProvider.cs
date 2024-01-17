@@ -1,25 +1,28 @@
-﻿using System;
+﻿using Sirenix.Utilities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class ReactionablesProvider
     {
+        [Inject] private readonly DiContainer _diContainer;
+
         private readonly List<IStartReactionable> _startReactionables = new();
         private readonly List<IEndReactionable> _endReactionables = new();
 
         /*******************************************************************/
-        public void AddReactionable(IStartReactionable reactionable)
-        {
-            if (_startReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
-            _startReactionables.Add(reactionable);
-        }
+        public T CreateReactionable<T>(object[] args) => (T)CreateReactionable(typeof(T), args);
 
-        public void AddReactionable(IEndReactionable reactionable)
+        public object CreateReactionable(Type type, object[] args)
         {
-            if (_endReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
-            _endReactionables.Add(reactionable);
+            var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
+            type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => AddReactionable(startReactionable));
+            type.GetInterfaces().OfType<IEndReactionable>().ForEach(endReactionable => AddReactionable(endReactionable));
+            return newReactionable;
         }
 
         /*******************************************************************/
@@ -37,6 +40,18 @@ namespace MythsAndHorrors.GameRules
             {
                 await reaction.WhenFinish(gameAction);
             }
+        }
+
+        private void AddReactionable(IStartReactionable reactionable)
+        {
+            if (_startReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
+            _startReactionables.Add(reactionable);
+        }
+
+        private void AddReactionable(IEndReactionable reactionable)
+        {
+            if (_endReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
+            _endReactionables.Add(reactionable);
         }
     }
 }
