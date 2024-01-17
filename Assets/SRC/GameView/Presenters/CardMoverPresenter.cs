@@ -15,24 +15,21 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        public async Task MoveCardWith(GameAction gameAction)
+        public async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)
         {
-            if (gameAction is MoveCardsGameAction moveCardsGameAction)
+            if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
             {
-                if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
-                {
-                    await MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
-                    return;
-                }
-
-                if (!moveCardsGameAction.IsSingleMove)
-                {
-                    await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
-                    return;
-                }
-
-                await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                await MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                return;
             }
+
+            if (!moveCardsGameAction.IsSingleMove)
+            {
+                await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
+                return;
+            }
+
+            await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
         }
 
         private async Task MoveCardWithPreviewToZone(Card card, Zone zone)

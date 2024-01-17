@@ -61,6 +61,7 @@ namespace MythsAndHorrors.GameRules
         {
             while (_investigator.HandZone.Cards.Count < _investigator.InitialHandSize.Value)
                 await _gameActionFactory.Create<InitialDrawGameAction>().Run(_investigator);
+            await Task.Delay(250);
         }
 
         private async Task Mulligan()

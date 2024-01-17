@@ -14,7 +14,6 @@ namespace MythsAndHorrors.GameView
         {
             _ioActivatorComponent.ActivateUI();
             await _historyComponent.Show(showHistoryGameAction.History);
-            showHistoryGameAction.Continue();
             _ioActivatorComponent.DeactivateUI();
         }
     }
