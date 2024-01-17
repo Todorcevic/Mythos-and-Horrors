@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameView
             Type type = (Assembly.GetAssembly(typeof(Scene)).GetType(typeof(Scene) + sceneInfo.Code)
                ?? throw new InvalidOperationException("Scene not found" + sceneInfo.Code));
 
-            Scene currentScene = _reactionablesProvider.CreateReactionable(type, new object[] { sceneInfo }) as Scene;
+            Scene currentScene = _reactionablesProvider.Create(type, new object[] { sceneInfo }) as Scene;
             _chaptersProvider.SetCurrentScene(currentScene);
         }
     }

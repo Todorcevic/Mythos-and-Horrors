@@ -15,9 +15,7 @@ namespace MythsAndHorrors.GameRules
         private readonly List<IEndReactionable> _endReactionables = new();
 
         /*******************************************************************/
-        public T CreateReactionable<T>(object[] args) => (T)CreateReactionable(typeof(T), args);
-
-        public object CreateReactionable(Type type, object[] args)
+        public object Create(Type type, object[] args)
         {
             var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
             type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => AddReactionable(startReactionable));

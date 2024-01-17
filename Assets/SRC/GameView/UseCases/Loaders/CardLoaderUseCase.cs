@@ -1,5 +1,4 @@
 ﻿using MythsAndHorrors.GameRules;
-using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace MythsAndHorrors.GameView
 {
     public class CardLoaderUseCase
     {
-        [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly CardInfoLoaderUseCase cardInfoLoaderUseCase;
@@ -33,7 +31,7 @@ namespace MythsAndHorrors.GameView
             List<History> cardHistories = _allHistories.FindAll(history => history.Code.Contains(cardCode))
                 .OrderBy(history => history.Code).ToList();
 
-            Card newCard = _reactionablesProvider.CreateReactionable(type, new object[] { cardInfo, cardHistories }) as Card;
+            Card newCard = _reactionablesProvider.Create(type, new object[] { cardInfo, cardHistories }) as Card;
             _cardProvider.AddCard(newCard);
             return newCard;
         }
