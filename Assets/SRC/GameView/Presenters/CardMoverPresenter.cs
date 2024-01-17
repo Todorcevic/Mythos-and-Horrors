@@ -21,19 +21,18 @@ namespace MythsAndHorrors.GameView
             {
                 if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
                 {
-                    await MoveCardWithPreviewToZone2(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                    await MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
                     return;
                 }
 
-                if (moveCardsGameAction.IsSingleMove)
+                if (!moveCardsGameAction.IsSingleMove)
                 {
-                    await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                    await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
                     return;
                 }
 
-                await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
+                await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
             }
-
         }
 
         private async Task MoveCardWithPreviewToZone(Card card, Zone zone)
@@ -43,7 +42,7 @@ namespace MythsAndHorrors.GameView
             await DirectMove(card, zone, Ease.InCubic);
         }
 
-        private async Task MoveCardWithPreviewToZone2(Card card, Zone zone)
+        private async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)
         {
             await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
             await _swapInvestigatorPresenter.Select(zone);

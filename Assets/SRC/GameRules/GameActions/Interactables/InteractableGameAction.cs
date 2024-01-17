@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CardSelected = await _interactableAnimator.Interact(ActivableCards);
+            CardSelected = await _interactableAnimator.Interact(this);
         }
     }
 }

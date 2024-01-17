@@ -6,8 +6,6 @@ namespace MythsAndHorrors.GameRules
     public abstract class GameAction
     {
         private static GameAction _current;
-
-        [Inject] private readonly IInteractable _UIActivable;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public GameAction Parent { get; private set; }
@@ -17,7 +15,6 @@ namespace MythsAndHorrors.GameRules
         {
             Parent = _current ?? this;
             _current = this;
-            await _UIActivable.DeactivateAll();
             await AtTheBeginning();
             await ExecuteThisLogic();
             await AtTheEnd();

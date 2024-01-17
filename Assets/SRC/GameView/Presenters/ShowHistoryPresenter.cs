@@ -7,15 +7,15 @@ namespace MythsAndHorrors.GameView
     public class ShowHistoryPresenter : IShowHistoryAnimator
     {
         [Inject] private readonly ShowHistoryComponent _historyComponent;
-        [Inject] private readonly ActivatorInteractionPresenter _activatorUIPresenter;
+        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 
         /*******************************************************************/
         public async Task ShowHistory(ShowHistoryGameAction showHistoryGameAction)
         {
-            _activatorUIPresenter.ActivateUI();
+            _ioActivatorComponent.ActivateUI();
             await _historyComponent.Show(showHistoryGameAction.History);
             showHistoryGameAction.Continue();
-            _activatorUIPresenter.DeactivateUI();
+            _ioActivatorComponent.DeactivateUI();
         }
     }
 }

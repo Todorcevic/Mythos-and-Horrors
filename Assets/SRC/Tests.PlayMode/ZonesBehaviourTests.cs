@@ -15,15 +15,11 @@ namespace MythsAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardViewBuilder _cardViewBuilder;
-        [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
-
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
-
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -97,9 +93,6 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             foreach (CardView cardView in sut)
                 yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardView.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
-
-
-            //yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.AidZone));

@@ -5,6 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IInteractableAnimator
     {
-        Task<Card> Interact(List<Card> interactableGameAction);
+        Task<Card> Interact(InteractableGameAction interactableGameAction);
     }
 }
