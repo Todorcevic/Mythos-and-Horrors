@@ -571,6 +571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CARD-FRONT
       objectReference: {fileID: 0}
+    - target: {fileID: 199786173855726160, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 407976229603780530, guid: c642edc9364d8d84190f1527bfe7c7f5, type: 3}
       propertyPath: m_Size.x
       value: 7.31

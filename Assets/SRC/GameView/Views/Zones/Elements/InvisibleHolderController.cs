@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders;
 
         public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.Where(invisibleHolder => !invisibleHolder.IsFree)
-            .OrderBy(invisibleHolder => invisibleHolder.name).ToList();
+            .OrderBy(invisibleHolder => invisibleHolder.transform.GetSiblingIndex()).ToList();
         public int AmountOfCards => AllActivesInvisibleHolders.Count();
 
         /*******************************************************************/
@@ -70,6 +70,7 @@ namespace MythsAndHorrors.GameView
         {
             InvisibleHolder invisibleHolder = Instantiate(_allInvisibleHolders.First(), transform);
             _allInvisibleHolders.Add(invisibleHolder);
+            invisibleHolder.name = $"Holder{_allInvisibleHolders.Count}";
             return invisibleHolder;
         }
 

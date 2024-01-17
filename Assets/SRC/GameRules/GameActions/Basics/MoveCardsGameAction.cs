@@ -35,8 +35,7 @@ namespace MythsAndHorrors.GameRules
                 Zone.AddCard(card);
             }
 
-            if (IsSingleMove) await _cardMover.MoveCardWithPreviewToZone(Card, Zone);
-            else await _cardMover.MoveCardsToZone(Cards, Zone);
+            await _cardMover.MoveCardWith(this);
         }
     }
 }

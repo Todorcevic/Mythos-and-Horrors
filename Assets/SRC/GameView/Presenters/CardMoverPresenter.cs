@@ -15,14 +15,42 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
+        public async Task MoveCardWith(GameAction gameAction)
+        {
+            if (gameAction is MoveCardsGameAction moveCardsGameAction)
+            {
+                if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
+                {
+                    await MoveCardWithPreviewToZone2(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                    return;
+                }
+
+                if (moveCardsGameAction.IsSingleMove)
+                {
+                    await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                    return;
+                }
+
+                await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
+            }
+
+        }
+
+        private async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
             await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
             await _swapInvestigatorPresenter.Select(zone);
             await DirectMove(card, zone, Ease.InCubic);
         }
 
-        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        private async Task MoveCardWithPreviewToZone2(Card card, Zone zone)
+        {
+            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
+            await _swapInvestigatorPresenter.Select(zone);
+            _ = DirectMove(card, zone, Ease.InCubic);
+        }
+
+        private async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
             List<Task> tasks = new();
             await _swapInvestigatorPresenter.Select(zone);
@@ -36,7 +64,7 @@ namespace MythsAndHorrors.GameView
             await Task.WhenAll(tasks);
         }
 
-        public async Task DirectMove(Card card, Zone zone, Ease ease = Ease.InOutCubic)
+        private async Task DirectMove(Card card, Zone zone, Ease ease = Ease.InOutCubic)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView newZoneView = _zonesManager.Get(zone);
