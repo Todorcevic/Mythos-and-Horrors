@@ -10,21 +10,20 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
-
+        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         private Investigator _investigatorSelected;
-        private Sequence _sequence = DOTween.Sequence();
 
         /*******************************************************************/
-        public async Task Select(Investigator investigator)
+        public async Task Select(Investigator investigator, bool withActivation = false)
         {
             if (_investigatorSelected == investigator) return;
-            await _sequence.AsyncWaitForCompletion();
-            _sequence = DOTween.Sequence()
+            await _ioActivatorComponent.DeactivateSensor();
+            await DOTween.Sequence()
             .Join(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
-            .Join(_avatarViewsManager.Get(investigator).Select());
+            .Join(_avatarViewsManager.Get(investigator).Select()).AsyncWaitForCompletion();
             _investigatorSelected = investigator;
-            await _sequence.AsyncWaitForCompletion();
+            if (withActivation) _ioActivatorComponent.ActivateSensor();
         }
 
         public async Task Select(Zone zone)

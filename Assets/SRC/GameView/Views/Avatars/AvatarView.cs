@@ -18,7 +18,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 
         public bool IsVoid => Investigator == null;
         public Investigator Investigator { get; private set; }
@@ -77,9 +76,7 @@ namespace MythsAndHorrors.GameView
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            await _ioActivatorComponent.DeactivateSensor();
-            await _swapInvestigatorPresenter.Select(Investigator);
-            _ioActivatorComponent.ActivateSensor();
+            await _swapInvestigatorPresenter.Select(Investigator, withActivation: true);
         }
     }
 }
