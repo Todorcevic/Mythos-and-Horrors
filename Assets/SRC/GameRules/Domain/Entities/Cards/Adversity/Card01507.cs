@@ -5,7 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class Card01507 : CardAdversity, IEndReactionable, IWeakness
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/

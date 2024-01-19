@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
             }
 
             await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_chaptersProvider.CurrentScene);
-            await _gameActionFactory.Create<PlayGameAction>().Run();
+            await _gameActionFactory.Create<BasicPlayGameAction>().Run();
         }
     }
 }

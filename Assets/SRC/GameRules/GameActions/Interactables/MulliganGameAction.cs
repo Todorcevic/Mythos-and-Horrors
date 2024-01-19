@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -9,9 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public override List<Card> ActivableCards => Investigator.HandZone.Cards.Concat(Investigator.DiscardZone.Cards).ToList();
         public Investigator Investigator { get; private set; }
-        public override bool IsManadatary => false;
 
         /*******************************************************************/
         public async Task Run(Investigator investigator)
@@ -21,18 +17,20 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        protected sealed override async Task ExecuteThisLogic()
         {
+            Investigator.HandZone.Cards.ForEach(card => card.AddEffect("Discard", MulliganDiscardEffect));
+            Investigator.DiscardZone.Cards.ForEach(card => card.AddEffect("Restore", MulliganRestoreEffect));
+
             await base.ExecuteThisLogic();
-
-            if (CardSelected == null) return;
-            if (CardSelected.CurrentZone == Investigator.HandZone)
-                await _gameActionFactory.Create<DiscardGameAction>().Run(CardSelected);
-            else if (CardSelected.CurrentZone == Investigator.DiscardZone)
-                await _gameActionFactory.Create<MoveCardsGameAction>().Run(CardSelected, Investigator.HandZone);
-
+            if (ButtonIsPressed) return;
             await _gameActionFactory.Create<MulliganGameAction>().Run(Investigator);
         }
+
+        private Task MulliganDiscardEffect() => _gameActionFactory.Create<DiscardGameAction>().Run(CardSelected);
+
+        private Task MulliganRestoreEffect() => _gameActionFactory.Create<MoveCardsGameAction>().Run(CardSelected, Investigator.HandZone);
+
     }
 }
 

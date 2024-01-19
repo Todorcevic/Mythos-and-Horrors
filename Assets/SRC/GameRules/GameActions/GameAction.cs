@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         public GameAction Parent { get; private set; }
 
         /*******************************************************************/
-        protected async Task Start()
+        protected async virtual Task Start()
         {
             Parent = _current ?? this;
             _current = this;
