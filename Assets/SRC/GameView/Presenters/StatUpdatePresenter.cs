@@ -5,27 +5,16 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class StatUpdatePresenter : IStatAnimator
+    public class StatUpdatePresenter : IPresenter
     {
         [Inject] private readonly StatableManager _statsViewsManager;
 
         /*******************************************************************/
-        public async Task IncreaseStat(Stat stat)
+        public async Task UpdateStat(StatGameAction updateStatGameAction)
         {
-            IStatableView statable = _statsViewsManager.Get(stat);
-            if (statable != null) await statable.IncreaseValue(stat.Value).AsyncWaitForCompletion();
-        }
+            IStatableView statable = _statsViewsManager.Get(updateStatGameAction.Stat);
 
-        public async Task DecreaseStat(Stat stat)
-        {
-            IStatableView statable = _statsViewsManager.Get(stat);
-            if (statable != null) await statable.DecreaseValue(stat.Value).AsyncWaitForCompletion();
-        }
-
-        public async Task UpdateStat(Stat stat)
-        {
-            IStatableView statable = _statsViewsManager.Get(stat);
-            if (statable != null) await statable.UpdateValue(stat.Value).AsyncWaitForCompletion();
+            if (statable != null) await statable.UpdateValue().AsyncWaitForCompletion();
         }
     }
 }

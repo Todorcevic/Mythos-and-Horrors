@@ -51,14 +51,7 @@ namespace MythsAndHorrors.GameView
             Debug.Log("Resource Clicked");
         }
 
-        public Tween UpdateValue(int value) => DOTween.Sequence(); //TODO : Animation tokens??
-
-        public Tween IncreaseValue(int value)
-        {
-            return DOTween.Sequence();
-        }
-
-        public Tween DecreaseValue(int value)
+        public Tween UpdateValue()
         {
             return DOTween.Sequence();
         }

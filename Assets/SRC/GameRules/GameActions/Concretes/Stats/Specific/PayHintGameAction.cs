@@ -3,9 +3,9 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class PayResourceGameAction : GameAction
+    public class PayHintGameAction : GameAction
     {
-        [Inject] private readonly IResourceAnimator _resourceAnimator;
+        [Inject] private readonly IAnimator _animator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; private set; }
@@ -17,15 +17,15 @@ namespace MythsAndHorrors.GameRules
         {
             Investigator = investigator;
             ToStat = toStat;
-            Amount = investigator.Resources.Value < amount ? Investigator.Resources.Value : amount;
+            Amount = investigator.Hints.Value < amount ? Investigator.Hints.Value : amount;
             await Start();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<DecrementStatGameAction>().Run(Investigator.Resources, Amount);
-            await _resourceAnimator.PayResource(Investigator, Amount, ToStat);
+            await _gameActionFactory.Create<DecrementStatGameAction>().Run(Investigator.Hints, Amount);
+            await _animator.PlayAnimationWith(this);
             await _gameActionFactory.Create<IncrementStatGameAction>().Run(ToStat, Amount);
         }
     }

@@ -28,26 +28,11 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public Tween UpdateValue(int value)
-        {
-            return ChangeValue(value);
-        }
-
-        public Tween DecreaseValue(int value)
-        {
-            return ChangeValue(value);
-        }
-
-        public Tween IncreaseValue(int value)
-        {
-            return ChangeValue(value);
-        }
-
-        private Tween ChangeValue(int value)
+        public Tween UpdateValue()
         {
             return DOTween.Sequence()
                  .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))
-                 .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = value.ToString())
+                 .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = Stat.Value.ToString())
                  .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));
         }
     }

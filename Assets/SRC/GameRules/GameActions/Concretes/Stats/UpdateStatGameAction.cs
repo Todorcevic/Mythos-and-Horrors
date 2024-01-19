@@ -1,29 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class UpdateStatGameAction : GameAction
+    public class UpdateStatGameAction : StatGameAction
     {
-        [Inject] private readonly IStatAnimator _statAnimator;
-
-        public Stat Stat { get; private set; }
-        public int Value { get; private set; }
-
-        /*******************************************************************/
-        public async Task Run(Stat stat, int value)
+        public override async Task Run(Stat stat, int value)
         {
             if (value == stat.Value) return;
-            Stat = stat;
-            Value = value;
-            await Start();
+            await base.Run(stat, value);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             Stat.UpdateValue(Value);
-            await _statAnimator.UpdateStat(Stat);
+            await base.ExecuteThisLogic();
         }
     }
 }

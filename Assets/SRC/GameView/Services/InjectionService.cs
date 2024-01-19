@@ -37,6 +37,13 @@ namespace MythsAndHorrors.GameView
             Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).FromResolve();
 
+            /*** Handlers ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+            .InNamespace(gameViewNameSpace).WithSuffix("Handler")).AsSingle();
+
+            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
+            .InNamespace(gameViewNameSpace).WithSuffix("Handler")).FromResolve();
+
             /*** UseCases ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameViewNameSpace).WithSuffix("UseCase")).AsSingle();

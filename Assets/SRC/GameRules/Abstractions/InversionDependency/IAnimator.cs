@@ -2,8 +2,8 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IShuffleAnimator
+    public interface IAnimator
     {
-        Task Shuffle(Zone zone);
+        Task PlayAnimationWith(GameAction gameAction);
     }
 }

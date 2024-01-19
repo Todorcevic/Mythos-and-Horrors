@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractablePresenter : IInteractableAnimator
+    public class InteractableHandler : IInteractableHandler
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
-        [Inject] private readonly ButtonController _buttonController;
+        [Inject] private readonly MainButtonController _buttonController;
 
         private TaskCompletionSource<bool> waitForSelection;
         private Card cardSelected;

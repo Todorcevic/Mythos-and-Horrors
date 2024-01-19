@@ -30,6 +30,6 @@ namespace MythsAndHorrors.GameView
 
         public abstract Tween MouseDrag(CardView cardView);
 
-        public virtual Tween Shuffle(List<Card> cards) => DOTween.Sequence();
+        public virtual Tween Shuffle() => DOTween.Sequence();
     }
 }

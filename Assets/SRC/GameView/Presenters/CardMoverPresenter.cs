@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardMoverPresenter : ICardMoveAnimator
+    public class CardMoverPresenter : IPresenter
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;

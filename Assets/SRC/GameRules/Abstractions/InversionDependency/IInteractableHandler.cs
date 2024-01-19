@@ -2,7 +2,7 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IInteractableAnimator
+    public interface IInteractableHandler
     {
         Task<Card> Interact(InteractableGameAction interactableGameAction);
     }

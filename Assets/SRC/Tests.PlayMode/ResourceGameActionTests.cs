@@ -7,7 +7,6 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
-
     [TestFixture]
     public class ResourceGameActionTests : TestBase
     {
@@ -17,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -64,13 +63,13 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Resource_To_Pile()
         {
             _prepareGameUse.Execute();
-            yield return _gameActionFactory.Create<GainResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
             do
             {
+                yield return _gameActionFactory.Create<GainResourceGameAction>()
+                    .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
                 yield return _gameActionFactory.Create<PayResourceGameAction>()
-                .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
+                    .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);

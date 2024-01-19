@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class InteractableGameAction : GameAction
     {
-        [Inject] private readonly IInteractableAnimator _interactableAnimator;
+        [Inject] private readonly IInteractableHandler _interactableAnimator;
 
         public abstract List<Card> ActivableCards { get; }
         public abstract bool IsManadatary { get; }

@@ -3,19 +3,21 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class ShowHistoryGameAction : GameAction
+    public class StatGameAction : GameAction
     {
         [Inject] private readonly IAnimator _animator;
-        public History History { get; private set; }
+
+        public Stat Stat { get; private set; }
+        public int Value { get; private set; }
 
         /*******************************************************************/
-        public async Task Run(History history)
+        public virtual async Task Run(Stat stat, int value)
         {
-            History = history;
+            Stat = stat;
+            Value = value;
             await Start();
         }
 
-        /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _animator.PlayAnimationWith(this);

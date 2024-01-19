@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ButtonController : MonoBehaviour
+    public class MainButtonController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly InteractablePresenter _interactablePresenter;
+        [Inject] private readonly InteractableHandler _interactablePresenter;
 
         private bool IsActivated => _collider.enabled;
 

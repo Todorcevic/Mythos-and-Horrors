@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryPresenter : IShowHistoryAnimator
+    public class ShowHistoryPresenter : IPresenter
     {
         [Inject] private readonly ShowHistoryComponent _historyComponent;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;

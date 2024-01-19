@@ -43,9 +43,9 @@ namespace MythsAndHorrors.GameView
             return _allCards.Last().transform.DOFullLocalMove(_movePosition);
         }
 
-        public override Tween Shuffle(List<Card> cards)
+        public override Tween Shuffle()
         {
-            _allCards = _allCards.OrderBy(card => cards.IndexOf(card.Card)).ToList();
+            _allCards = _allCards.OrderBy(card => Zone.Cards.IndexOf(card.Card)).ToList();
 
             Sequence ShuffleSequence = DOTween.Sequence();
             for (int i = 0; i < _allCards.Count; i++)
