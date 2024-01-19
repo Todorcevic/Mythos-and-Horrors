@@ -53,6 +53,7 @@ MonoBehaviour:
   _buttonRenderer: {fileID: 2347726}
   _light: {fileID: 8094905761275408187}
   _message: {fileID: 3912260284232278279}
+  _collider: {fileID: 525185629992463191}
   _activateColor: {r: 0.27092868, g: 0.735849, b: 0.20478818, a: 1}
   _deactivateColor: {r: 0.4528302, g: 0.07903168, b: 0.07903168, a: 1}
 --- !u!114 &3829268498843703466
@@ -328,7 +329,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ready
+  m_text: Done
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82957d229b28fb740b8c7ac3bfa8ad9b, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 6de86ef17fd89294081a4e2243e9ae35, type: 2}
