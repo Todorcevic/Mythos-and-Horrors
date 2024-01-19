@@ -23,7 +23,6 @@ namespace MythsAndHorrors.GameView
         public Card Card { get; private set; }
         public ZoneCardView OwnZone => _zoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
-        public GlowComponent GlowView => _glowComponent;
 
         /*******************************************************************/
         [Inject]
@@ -55,6 +54,18 @@ namespace MythsAndHorrors.GameView
         public void On() => gameObject.SetActive(true);
 
         public void Off() => gameObject.SetActive(false);
+
+        public void ActivateToClick()
+        {
+            _glowComponent.SetGreenGlow();
+            _cardSensor.IsClickable = true;
+        }
+
+        public void DeactivateToClick()
+        {
+            _glowComponent.Off();
+            _cardSensor.IsClickable = false;
+        }
 
         protected abstract void SetSpecific();
 

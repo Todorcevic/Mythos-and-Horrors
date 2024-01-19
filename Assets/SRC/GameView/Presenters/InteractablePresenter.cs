@@ -46,13 +46,13 @@ namespace MythsAndHorrors.GameView
 
         private void ShowCardsPlayables(List<Card> _cards)
         {
-            _cards.ForEach(card => _cardViewsManager.Get(card).GlowView.SetGreenGlow());
+            _cards.ForEach(card => _cardViewsManager.Get(card).ActivateToClick());
             _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.ActivateGlow());
         }
 
         private void HideCardsPlayables(List<Card> _cards)
         {
-            _cards?.ForEach(card => _cardViewsManager.Get(card).GlowView.Off());
+            _cards?.ForEach(card => _cardViewsManager.Get(card).DeactivateToClick());
             _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.DeactivateGlow());
         }
     }

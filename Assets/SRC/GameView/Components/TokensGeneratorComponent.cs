@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokensGeneratorComponent : MonoBehaviour, IStatable
+    public class TokensGeneratorComponent : MonoBehaviour, IStatableView
     {
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
@@ -44,6 +44,11 @@ namespace MythsAndHorrors.GameView
         public void OnMouseExit()
         {
             _showToken.DOFullMove(_showToken.parent);
+        }
+
+        public void OnMouseUpAsButton()
+        {
+            Debug.Log("Resource Clicked");
         }
 
         public Tween UpdateValue(int value) => DOTween.Sequence(); //TODO : Animation tokens??

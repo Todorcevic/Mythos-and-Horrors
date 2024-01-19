@@ -7,12 +7,12 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
+
     [TestFixture]
     public class ResourceGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;

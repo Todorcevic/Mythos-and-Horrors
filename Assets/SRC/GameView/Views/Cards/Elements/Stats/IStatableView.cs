@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public interface IStatable
+    public interface IStatableView
     {
         Stat Stat { get; }
         Transform StatTransform { get; }

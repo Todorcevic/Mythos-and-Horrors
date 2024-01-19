@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class StatView : MonoBehaviour, IStatable
+    public class StatView : MonoBehaviour, IStatableView
     {
         [Inject] private readonly StatableManager _statsViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
@@ -30,23 +30,25 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween UpdateValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
+            return ChangeValue(value);
         }
 
         public Tween DecreaseValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
+            return ChangeValue(value);
         }
 
         public Tween IncreaseValue(int value)
         {
-            return DOTween.Sequence().AppendCallback(() => ChangeValue(value));
+            return ChangeValue(value);
         }
 
-        private void ChangeValue(int value)
+        private Tween ChangeValue(int value)
         {
-            _value.text = value.ToString();
-            //_value.color = value < Stat.MaxValue ? Color.red : Color.white;
+            return DOTween.Sequence()
+                 .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))
+                 .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = value.ToString())
+                 .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));
         }
     }
 }

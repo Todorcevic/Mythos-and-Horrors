@@ -11,6 +11,8 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
         [Inject] private readonly InteractablePresenter _interactablePresenter;
 
+        public bool IsClickable { get; set; }
+
         /*******************************************************************/
         public void OnMouseEnter()
         {
@@ -28,6 +30,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
+            if (!IsClickable) return;
             _interactablePresenter.Clicked(_cardView.Card);
         }
     }
