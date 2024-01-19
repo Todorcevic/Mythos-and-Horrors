@@ -8,7 +8,6 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-
     public abstract class CardView : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;

@@ -3728,7 +3728,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.23581047
+  m_Size: 0.23581046
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13139,7 +13139,7 @@ MonoBehaviour:
   _identifierWithName: 0
   _useSceneContext: 0
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 2
 --- !u!1 &7982002064386128445
 GameObject:
   m_ObjectHideFlags: 0

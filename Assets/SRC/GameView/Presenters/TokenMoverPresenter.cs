@@ -14,14 +14,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
-        [Inject] private readonly StatableManager _statsViewsManager;
+        [Inject] private readonly StatableManager _statableManager;
 
         /*******************************************************************/
         public async Task GainHints(GainHintGameAction gainHintGameAction)
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
-            Transform origin = _statsViewsManager.Get(gainHintGameAction.FromStat).StatTransform;
+            Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator);
             await Gain(allTokens, origin, hintsTokenController);
         }
@@ -30,7 +30,7 @@ namespace MythsAndHorrors.GameView
         {
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
-            Transform destiny = _statsViewsManager.Get(payHintGameAction.ToStat).StatTransform;
+            Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator);
             await Pay(allTokens, destiny, hintsTokenController);
         }
@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameView
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
-            Transform origin = _statsViewsManager.Get(gainResourceGameAction.FromStat).StatTransform;
+            Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator);
             await Gain(allTokens, origin, resourcesTokenController);
         }
@@ -48,7 +48,7 @@ namespace MythsAndHorrors.GameView
         {
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
-            Transform destiny = _statsViewsManager.Get(payResourceGameAction.ToStat).StatTransform;
+            Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payResourceGameAction.Investigator);
             await Pay(allTokens, destiny, resourcesTokenController);
         }
@@ -56,12 +56,12 @@ namespace MythsAndHorrors.GameView
         private async Task Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
         {
             await MoveUp(allTokens, origin, null);
-            await MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.SetAmount(1));
+            await MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate());
         }
 
         private async Task Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
         {
-            await MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.SetAmount(0));
+            await MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.Deactivate());
             await MoveDown(allTokens, destiny, null);
         }
 
@@ -73,7 +73,7 @@ namespace MythsAndHorrors.GameView
                 Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
                 sequence.Join(DOTween.Sequence()
                 .PrependCallback(() => tokenView.transform.position = startPosition.position)
-                .PrependCallback(() => tokenView.SetAmount(1))
+                .PrependCallback(() => tokenView.Activate())
                 .PrependCallback(starting)
                 .Append(tokenView.transform.DOMove(_centerShowPosition.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
                 .Join(tokenView.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
@@ -92,7 +92,7 @@ namespace MythsAndHorrors.GameView
                 .Append(tokenView.transform.DOMove(target.position, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.InCubic))
                 .Join(tokenView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION))
                 .Join(tokenView.transform.DORotate(target.rotation.eulerAngles + new Vector3(0, 0, 180), ViewValues.FAST_TIME_ANIMATION))
-                .AppendCallback(() => tokenView.SetAmount(0))
+                .AppendCallback(() => tokenView.Deactivate())
                 .AppendCallback(finish));
             }
 

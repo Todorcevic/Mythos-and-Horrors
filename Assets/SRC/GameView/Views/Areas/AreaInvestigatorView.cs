@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-
     public class AreaInvestigatorView : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _investigatorZone;
@@ -32,6 +31,8 @@ namespace MythsAndHorrors.GameView
             _discardZone.Init(investigator.DiscardZone);
             _aidZone.Init(investigator.AidZone);
             _dangerZone.Init(investigator.DangerZone);
+            ResourcesTokenController.SetStat(investigator.Resources);
+            HintsTokenController.SetStat(investigator.Hints);
         }
 
         /*******************************************************************/

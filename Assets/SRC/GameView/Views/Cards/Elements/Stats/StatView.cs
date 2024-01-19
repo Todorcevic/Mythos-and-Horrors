@@ -22,9 +22,9 @@ namespace MythsAndHorrors.GameView
         {
             gameObject.SetActive(true);
             Stat = stat;
+            _statsViewsManager.Add(this);
             _value.text = stat.Value.ToString();
             _holder.sprite = holderImage ?? _holder.sprite;
-            _statsViewsManager.Add(this);
         }
 
         /*******************************************************************/

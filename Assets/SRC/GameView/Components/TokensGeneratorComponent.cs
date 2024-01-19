@@ -12,7 +12,6 @@ namespace MythsAndHorrors.GameView
     {
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
-        [Inject] private readonly StatableManager _statsViewsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _resourceTokensView;
@@ -20,12 +19,6 @@ namespace MythsAndHorrors.GameView
 
         public Transform StatTransform => _showToken;
         public Stat Stat => _chaptersProvider.CurrentScene.ResourcesPile;
-
-        /*******************************************************************/
-        private void Start()
-        {
-            _statsViewsManager.Add(this);
-        }
 
         /*******************************************************************/
         public List<TokenView> GetResourceTokens(int amount = 1) => _resourceTokensView.Take(amount).ToList();
