@@ -15,8 +15,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -36,7 +37,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             }
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(cardSupply.Health.Value, Is.EqualTo(2));
+            Assert.That(cardSupply.Cost.Value, Is.EqualTo(8));
+            Assert.That((_cardViewsManager.Get(cardSupply) as DeckCardView).GetPrivateMember<StatView>("_cost").Stat.Value, Is.EqualTo(8));
         }
     }
 }

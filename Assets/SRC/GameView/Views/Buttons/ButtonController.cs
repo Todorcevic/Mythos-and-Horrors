@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
-using System;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -15,6 +15,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
+        [Inject] private readonly InteractablePresenter _interactablePresenter;
 
         /*******************************************************************/
         public void ShowText(string text)
@@ -24,6 +25,7 @@ namespace MythsAndHorrors.GameView
 
         public void Activate()
         {
+            if (_isActivated) return;
             _isActivated = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION);
@@ -34,6 +36,7 @@ namespace MythsAndHorrors.GameView
 
         public void Deactivate()
         {
+            if (!_isActivated) return;
             _isActivated = false;
             _buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);
@@ -55,8 +58,8 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
-            if (_isActivated) Deactivate();
-            else Activate();
+            if (!_isActivated) return;
+            _interactablePresenter.Clicked();
         }
     }
 }

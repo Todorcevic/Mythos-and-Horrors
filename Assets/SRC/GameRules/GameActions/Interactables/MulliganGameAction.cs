@@ -12,6 +12,7 @@ namespace MythsAndHorrors.GameRules
 
         public override List<Card> ActivableCards => Investigator.HandZone.Cards.Concat(Investigator.DiscardZone.Cards).ToList();
         public Investigator Investigator { get; private set; }
+        public override bool IsManadatary => false;
 
         /*******************************************************************/
         public async Task Run(Investigator investigator)

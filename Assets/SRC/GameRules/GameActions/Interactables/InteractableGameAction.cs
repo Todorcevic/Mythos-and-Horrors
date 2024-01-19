@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly IInteractableAnimator _interactableAnimator;
 
         public abstract List<Card> ActivableCards { get; }
+        public abstract bool IsManadatary { get; }
         public Card CardSelected { get; private set; }
 
         /*******************************************************************/

@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
-            //await Mulligan();
+            await Mulligan();
             await DrawInitialHand();
         }
 

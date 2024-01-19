@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public override List<Card> ActivableCards => _cardsProvider.GetPlayableCards();
+        public override bool IsManadatary => false;
 
         /*******************************************************************/
         public async Task Run()
