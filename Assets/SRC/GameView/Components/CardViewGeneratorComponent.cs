@@ -20,11 +20,17 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
 
         /*******************************************************************/
-        public CardView BuildCard(Card card)
+        public CardView Create(Card card)
         {
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
             newCardview.Off();
             newCardview.SetCurrentZoneView(_outZoneView);
+            return newCardview;
+        }
+
+        public CardView BuildCard(Card card)
+        {
+            CardView newCardview = Create(card);
             _cardViewsManager.Add(newCardview);
             return newCardview;
         }

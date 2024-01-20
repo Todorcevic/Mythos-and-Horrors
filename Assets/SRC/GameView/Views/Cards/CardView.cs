@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour
     {
+        [Inject] private readonly DiContainer _diContainer;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;

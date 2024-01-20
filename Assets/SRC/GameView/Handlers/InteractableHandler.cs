@@ -5,16 +5,6 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class MultiEffectSelectionHandler : IInteractableEffectSelectionHandler
-    {
-
-        /*******************************************************************/
-        public Task<Effect> Interact(MultiEffectSelectionGameAction multiEffectSelectionGameAction)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
     public class InteractableHandler : IInteractableHandler
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -35,10 +25,12 @@ namespace MythsAndHorrors.GameView
             return cardSelected;
         }
 
-        public void Clicked(Card card = null)
+        public void Clicked(CardView cardView = null)
         {
-            cardSelected = card;
-            waitForSelection.SetResult(true);
+            cardSelected = cardView?.Card;
+            if (waitForSelection != null)
+                waitForSelection.SetResult(true);
+            waitForSelection = null;
         }
 
         private void Activate(InteractableGameAction interactableGameAction)
