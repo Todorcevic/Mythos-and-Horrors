@@ -1,10 +1,12 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardShowerComponent : MonoBehaviour
     {
+        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         private const float X_OFFSET = 6.5f;
         private CardView _currentShowCard;
 
@@ -36,7 +38,7 @@ namespace MythsAndHorrors.GameView
         private bool MustNotShowFilter(CardView cardView)
         {
             if (cardView.Card.IsFaceDown) return true;
-            if (cardView.CurrentZoneView is ZoneHandView) return true;
+            if (cardView.CurrentZoneView == _zoneViewsManager.SelectorZone) return true;
             return false;
         }
     }

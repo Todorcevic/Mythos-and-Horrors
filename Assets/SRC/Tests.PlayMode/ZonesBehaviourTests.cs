@@ -18,6 +18,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -81,6 +82,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone).AsCoroutine();
 
+            _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.AidZone));
             Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
@@ -102,10 +104,11 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Hand()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 12).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
 
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone).AsCoroutine();
 
+            _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.HandZone));
             Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
@@ -119,6 +122,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone).AsCoroutine();
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
 
+            _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
         }

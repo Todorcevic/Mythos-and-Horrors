@@ -1,6 +1,5 @@
 #if !NOT_UNITY3D
 
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +7,14 @@ namespace Zenject
 {
     public class ZenjectBinding : MonoBehaviour
     {
+        public enum BindId
+        {
+            None,
+            SelectorZone,
+            OutZone,
+            CenterShow,
+        }
+
         public enum BindTypes
         {
             Self,
@@ -16,19 +23,13 @@ namespace Zenject
             BaseType
         }
 
-        private string _tempIdentifier;
-
         [Tooltip("The component to add to the Zenject container")]
         [SerializeField]
         Component[] _components = null;
 
-        [Tooltip("Note: This value is optional and can be ignored in most cases.  This can be useful to differentiate multiple bindings of the same type.  For example, if you have multiple cameras in your scene, you can 'name' them by giving each one a different identifier.  For your main camera you might call it 'Main' then any class can refer to it by using an attribute like [Inject(Id = 'Main')]")]
-        [SerializeField, DisableIf("_identifierWithName", true)]
-        string _identifier = string.Empty;
-
-        [Tooltip("Note: Autocomplete identifier with the GameObject name")]
-        [SerializeField, OnValueChanged("IdentifiedChange")]
-        bool _identifierWithName = false;
+        [Tooltip("Note: Autocomplete identifier with BindId enum (BindId is in this class)")]
+        [SerializeField]
+        BindId _bindId = BindId.None;
 
         [Tooltip("When set, this will bind the given components to the SceneContext.  It can be used as a shortcut to explicitly dragging the SceneContext into the Context field.  This is useful when using ZenjectBinding inside GameObjectContext.  If your ZenjectBinding is for a component that is not underneath GameObjectContext then it is not necessary to check this")]
         [SerializeField]
@@ -59,9 +60,9 @@ namespace Zenject
             get { return _components; }
         }
 
-        public string Identifier
+        public object Identifier
         {
-            get { return _identifier; }
+            get { return _bindId == BindId.None ? null : _bindId; }
         }
 
         public BindTypes BindType
@@ -73,21 +74,6 @@ namespace Zenject
         public void Start()
         {
             // Define this method so we expose the enabled check box
-        }
-
-
-        /*******************************************************************/
-        private void IdentifiedChange()
-        {
-            if (_identifierWithName)
-            {
-                _tempIdentifier = _identifier;
-                _identifier = gameObject.name;
-            }
-            else
-            {
-                _identifier = _tempIdentifier;
-            }
         }
     }
 }

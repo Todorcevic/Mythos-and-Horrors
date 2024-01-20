@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
         public Zone Zone { get; private set; }
 
         /*******************************************************************/
-        public void Init(Zone zone)
+        public void Init(Zone zone = null)
         {
             Zone = zone;
             _zoneViewsManager.Add(this);
@@ -26,8 +26,6 @@ namespace MythsAndHorrors.GameView
         public abstract Tween MouseEnter(CardView cardView);
 
         public abstract Tween MouseExit(CardView cardView);
-
-        public abstract Tween MouseDrag(CardView cardView);
 
         public virtual Tween Shuffle() => DOTween.Sequence();
     }

@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _victoryZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _limboZone;
         [SerializeField, Required, SceneObjectsOnly] private ZoneView _outZone;
-        [SerializeField] private ZoneView _selector;
+        [SerializeField, Required, SceneObjectsOnly] private ZoneView _selector;
 
         /*******************************************************************/
         public void Init()

@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef3b00df1cbaa54a93c33958242afdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layoutAmount: 2
   _hoverPosition: {fileID: 7875156255846677308}
   _invisibleHolderController: {fileID: 5202721899801648449}
 --- !u!114 &8811774599659767288

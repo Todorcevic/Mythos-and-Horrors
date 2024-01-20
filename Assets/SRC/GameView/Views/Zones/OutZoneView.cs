@@ -18,7 +18,5 @@ namespace MythsAndHorrors.GameView
         public override Tween MouseEnter(CardView cardView) => DOTween.Sequence();
 
         public override Tween MouseExit(CardView cardView) => DOTween.Sequence();
-
-        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
     }
 }

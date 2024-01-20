@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
 {
     public class TokenMoverPresenter : IPresenter
     {
-        [Inject(Id = ViewValues.CENTER_SHOW_POSITION)] private readonly Transform _centerShowPosition;
+        [Inject(Id = ZenjectBinding.BindId.CenterShow)] private readonly Transform _centerShowPosition;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;

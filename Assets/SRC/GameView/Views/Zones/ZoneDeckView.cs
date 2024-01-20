@@ -28,8 +28,6 @@ namespace MythsAndHorrors.GameView
             return DOTween.Sequence();
         }
 
-        public override Tween MouseDrag(CardView cardView) => DOTween.Sequence();
-
         public override Tween MouseEnter(CardView cardView)
         {
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
