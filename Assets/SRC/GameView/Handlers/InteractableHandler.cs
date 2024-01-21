@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,8 +44,7 @@ namespace MythsAndHorrors.GameView
             waitForSelection = new();
             clonesCardView = new();
             effects.ForEach(effect => clonesCardView.Add(_cardViewGeneratorComponent.Create(effect.Card), effect));
-            _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList());
-
+            await _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
             Activate(withButton: true);
             ShowCardsPlayables(clonesCardView.Keys.ToList());
             await waitForSelection.Task;

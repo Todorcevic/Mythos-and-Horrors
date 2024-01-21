@@ -48,16 +48,11 @@ namespace MythsAndHorrors.GameView
 
         private async Task MoveCardsToZone(List<CardView> cards, ZoneView zone)
         {
-            List<Task> tasks = new();
             await _swapInvestigatorPresenter.Select(zone.Zone);
-
-            foreach (CardView card in cards)
-            {
-                await Task.Delay(16);
-                tasks.Add(card.MoveToZone(zone).AsyncWaitForCompletion());
-            }
-
-            await Task.WhenAll(tasks);
+            float delay = 0;
+            Sequence sequence = DOTween.Sequence();
+            cards.ForEach(card => sequence.Insert(delay += 0.016f, card.MoveToZone(zone)));
+            await sequence.AsyncWaitForCompletion();
         }
     }
 }
