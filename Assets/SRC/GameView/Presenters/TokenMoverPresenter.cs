@@ -10,11 +10,11 @@ namespace MythsAndHorrors.GameView
 {
     public class TokenMoverPresenter : IPresenter
     {
-        [Inject(Id = ZenjectBinding.BindId.CenterShow)] private readonly Transform _centerShowPosition;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
         [Inject] private readonly StatableManager _statableManager;
+        [Inject] private readonly ZoneViewsManager _zonesManager;
 
         /*******************************************************************/
         public async Task GainHints(GainHintGameAction gainHintGameAction)
@@ -75,9 +75,9 @@ namespace MythsAndHorrors.GameView
                 .PrependCallback(() => tokenView.transform.position = startPosition.position)
                 .PrependCallback(() => tokenView.Activate())
                 .PrependCallback(starting)
-                .Append(tokenView.transform.DOMove(_centerShowPosition.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
+                .Append(tokenView.transform.DOMove(_zonesManager.CenterShowZone.transform.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
                 .Join(tokenView.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
-                .Join(tokenView.transform.DORotate(_centerShowPosition.rotation.eulerAngles + new Vector3(180, 0, 0), ViewValues.FAST_TIME_ANIMATION)));
+                .Join(tokenView.transform.DORotate(_zonesManager.CenterShowZone.transform.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear)));
             }
 
             await sequence.AsyncWaitForCompletion();
@@ -91,7 +91,7 @@ namespace MythsAndHorrors.GameView
                 sequence.Join(DOTween.Sequence()
                 .Append(tokenView.transform.DOMove(target.position, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.InCubic))
                 .Join(tokenView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION))
-                .Join(tokenView.transform.DORotate(target.rotation.eulerAngles + new Vector3(0, 0, 180), ViewValues.FAST_TIME_ANIMATION))
+                .Join(tokenView.transform.DORotate(target.rotation.eulerAngles + new Vector3(0, 0, 180), ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear))
                 .AppendCallback(() => tokenView.Deactivate())
                 .AppendCallback(finish));
             }

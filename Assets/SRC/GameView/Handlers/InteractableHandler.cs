@@ -1,6 +1,8 @@
 ﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -11,54 +13,93 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonController _buttonController;
-
+        [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
+        [Inject] private readonly ShowCenterPresenter _showCenterPresenter;
         private TaskCompletionSource<bool> waitForSelection;
-        private Card cardSelected;
+        public CardView _cardSelected;
 
         /*******************************************************************/
         public async Task<Card> Interact(InteractableGameAction interactableGameAction)
         {
             waitForSelection = new();
-            Activate(interactableGameAction);
+            List<CardView> allCardViews = _cardViewsManager.Get(interactableGameAction.ActivableCards);
+            Activate(!interactableGameAction.IsManadatary);
+            ShowCardsPlayables(allCardViews);
             await waitForSelection.Task;
-            await Deactivate(interactableGameAction.ActivableCards);
+            await Deactivate();
+            HideCardsPlayables(allCardViews);
+
+            if (_cardSelected == null) return null;
+
+            Card choose = _cardSelected.Card.HasMultiEffect ? await ShowMultiEffects(_cardSelected.Card.PlayableEffects.ToList()) : _cardSelected.Card;
+
+            if (choose == null) return await Interact(interactableGameAction);
+            return choose;
+        }
+
+        Dictionary<CardView, Effect> clonesCardView = new();
+        private async Task<Card> ShowMultiEffects(List<Effect> effects)
+        {
+            waitForSelection = new();
+            clonesCardView = new();
+            effects.ForEach(effect => clonesCardView.Add(_cardViewGeneratorComponent.Create(effect.Card), effect));
+            _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList());
+
+            Activate(withButton: true);
+            ShowCardsPlayables(clonesCardView.Keys.ToList());
+            await waitForSelection.Task;
+            await Deactivate();
+            Card cardSelected = SelecteEffect();
+            DestroyClones();
             return cardSelected;
+
+            Card SelecteEffect()
+            {
+                if (_cardSelected == null) return null;
+                Effect effectSelected = clonesCardView[_cardSelected];
+                effectSelected.Card.ClearEffects();
+                effectSelected.Card.AddEffect(effectSelected);
+                return effectSelected.Card;
+            }
+
+            void DestroyClones()
+            {
+                clonesCardView?.Keys.ToList().ForEach(card => Object.Destroy(card.gameObject));
+                clonesCardView.Clear();
+            }
         }
 
         public void Clicked(CardView cardView = null)
         {
-            cardSelected = cardView?.Card;
-            if (waitForSelection != null)
-                waitForSelection.SetResult(true);
-            waitForSelection = null;
+            _cardSelected = cardView;
+            waitForSelection.SetResult(true);
         }
 
-        private void Activate(InteractableGameAction interactableGameAction)
+        private void Activate(bool withButton)
         {
-            if (!interactableGameAction.IsManadatary) _buttonController.Activate();
+            if (withButton) _buttonController.Activate();
             _ioActivatorComponent.ActivateSensor();
             _ioActivatorComponent.ActivateUI();
-            ShowCardsPlayables(interactableGameAction.ActivableCards);
+
         }
 
-        private async Task Deactivate(List<Card> _cards)
+        private async Task Deactivate()
         {
-            HideCardsPlayables(_cards);
             _buttonController.Deactivate();
             if (_ioActivatorComponent.IsSensorActivated) await _ioActivatorComponent.DeactivateSensor();
             if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.DeactivateUI();
         }
 
-        private void ShowCardsPlayables(List<Card> _cards)
+        private void ShowCardsPlayables(List<CardView> _cards)
         {
-            _cards.ForEach(card => _cardViewsManager.Get(card).ActivateToClick());
-            _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.ActivateGlow());
+            _cards.ForEach(card => card.ActivateToClick());
+            _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
         }
 
-        private void HideCardsPlayables(List<Card> _cards)
+        private void HideCardsPlayables(List<CardView> _cards)
         {
-            _cards?.ForEach(card => _cardViewsManager.Get(card).DeactivateToClick());
-            _avatarViewsManager.AvatarsPlayabled(_cards).ForEach(avatar => avatar.DeactivateGlow());
+            _cards?.ForEach(card => card.DeactivateToClick());
+            _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.DeactivateGlow());
         }
     }
 }

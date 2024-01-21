@@ -12,7 +12,7 @@ namespace Zenject
             None,
             SelectorZone,
             OutZone,
-            CenterShow,
+            CenterShowZone,
         }
 
         public enum BindTypes

@@ -15,7 +15,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
         [Inject] private readonly InteractableHandler _interactablePresenter;
-        [Inject] private readonly MultiEffectSelectionHandler _multiEffectSelectionHandler;
 
         private bool IsActivated => _collider.enabled;
 
@@ -60,7 +59,6 @@ namespace MythsAndHorrors.GameView
         public void OnMouseUpAsButton()
         {
             _interactablePresenter.Clicked();
-            _multiEffectSelectionHandler.Clicked();
         }
     }
 }

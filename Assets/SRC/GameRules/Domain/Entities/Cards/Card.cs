@@ -19,6 +19,7 @@ namespace MythsAndHorrors.GameRules
         public bool IsFaceDown { get; set; }
         public IReadOnlyList<Effect> PlayableEffects => _playableEffects;
         public bool CanPlay => PlayableEffects.Count > 0;
+        public bool HasMultiEffect => PlayableEffects.Count > 1;
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)
@@ -29,6 +30,11 @@ namespace MythsAndHorrors.GameRules
         public void AddEffect(string description, Func<Task> effect)
         {
             _playableEffects.Add(new Effect(this, description, effect));
+        }
+
+        public void AddEffect(Effect newEffect)
+        {
+            _playableEffects.Add(newEffect);
         }
 
         public void ClearEffects()

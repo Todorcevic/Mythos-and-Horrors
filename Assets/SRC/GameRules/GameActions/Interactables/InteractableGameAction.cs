@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -26,8 +27,7 @@ namespace MythsAndHorrors.GameRules
         {
             CardSelected = await _interactableAnimator.Interact(this);
             if (ButtonIsPressed) return;
-            bool isPlayed = await _gameActionFactory.Create<PlayCardGameAction>().Run(CardSelected);
-            if (!isPlayed) await Start();
+            await _gameActionFactory.Create<PlayEffectGameAction>().Run(CardSelected.PlayableEffects.Single());
         }
     }
 }

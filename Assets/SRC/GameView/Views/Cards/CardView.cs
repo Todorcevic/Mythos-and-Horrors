@@ -2,6 +2,7 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -77,5 +78,16 @@ namespace MythsAndHorrors.GameView
         }
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
+
+        public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
+        {
+            Sequence moveSequence = DOTween.Sequence()
+                .Join(CurrentZoneView.ExitZone(this))
+                .Join(Rotate())
+                .Join(newZoneView.EnterZone(this).SetEase(ease));
+
+            SetCurrentZoneView(newZoneView);
+            return moveSequence;
+        }
     }
 }

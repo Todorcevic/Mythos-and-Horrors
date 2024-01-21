@@ -3,7 +3,6 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MythsAndHorrors.GameView
 {
@@ -11,68 +10,54 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
 
         /*******************************************************************/
         public async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)
         {
-            if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
-            {
-                await MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
-                return;
-            }
-
+            ZoneView zoneView = _zonesManager.Get(moveCardsGameAction.Zone);
             if (!moveCardsGameAction.IsSingleMove)
             {
-                await MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
+                List<CardView> cardViews = _cardsManager.Get(moveCardsGameAction.Cards);
+                await MoveCardsToZone(cardViews, zoneView);
                 return;
             }
 
-            await MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+            CardView cardView = _cardsManager.Get(moveCardsGameAction.Card);
+            if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
+            {
+                await MoveCardWithPreviewWithoutWait(cardView, zoneView);
+                return;
+            }
+            await MoveCardWithPreviewToZone(cardView, zoneView);
         }
 
-        private async Task MoveCardWithPreviewToZone(Card card, Zone zone)
+        private async Task MoveCardWithPreviewToZone(CardView card, ZoneView zone)
         {
-            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
-            await _swapInvestigatorPresenter.Select(zone);
-            await DirectMove(card, zone, Ease.InCubic);
+            await card.MoveToZone(_zonesManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await _swapInvestigatorPresenter.Select(zone.Zone);
+            await card.MoveToZone(zone, Ease.InCubic).AsyncWaitForCompletion();
         }
 
-        private async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)
+        private async Task MoveCardWithPreviewWithoutWait(CardView card, ZoneView zone)
         {
-            await DirectMove(card, _chaptersProvider.CurrentScene.SelectorZone, Ease.OutSine);
-            await _swapInvestigatorPresenter.Select(zone);
-            _ = DirectMove(card, zone, Ease.InCubic);
+            await card.MoveToZone(_zonesManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await _swapInvestigatorPresenter.Select(zone.Zone);
+            card.MoveToZone(zone, Ease.InCubic);
         }
 
-        private async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        private async Task MoveCardsToZone(List<CardView> cards, ZoneView zone)
         {
             List<Task> tasks = new();
-            await _swapInvestigatorPresenter.Select(zone);
+            await _swapInvestigatorPresenter.Select(zone.Zone);
 
-            foreach (Card card in cards)
+            foreach (CardView card in cards)
             {
                 await Task.Delay(16);
-                tasks.Add(DirectMove(card, zone));
+                tasks.Add(card.MoveToZone(zone).AsyncWaitForCompletion());
             }
 
             await Task.WhenAll(tasks);
-        }
-
-        private async Task DirectMove(Card card, Zone zone, Ease ease = Ease.InOutCubic)
-        {
-            CardView cardView = _cardsManager.Get(card);
-            ZoneView newZoneView = _zonesManager.Get(zone);
-
-            Sequence moveSequence = DOTween.Sequence()
-                .Join(cardView.CurrentZoneView.ExitZone(cardView))
-                .Join(cardView.Rotate())
-                .Join(newZoneView.EnterZone(cardView).SetEase(ease));
-
-            cardView.SetCurrentZoneView(newZoneView);
-
-            await moveSequence.AsyncWaitForCompletion();
         }
     }
 }
