@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-
     public class TurnController : MonoBehaviour
     {
         [SerializeField, Required, AssetsOnly] private TurnView _turnPrefab;
@@ -30,6 +29,5 @@ namespace MythsAndHorrors.GameView
                 _turns.Add(newTurnView);
             }
         }
-
     }
 }

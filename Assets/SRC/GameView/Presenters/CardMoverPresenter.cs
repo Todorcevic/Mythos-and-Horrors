@@ -46,7 +46,7 @@ namespace MythsAndHorrors.GameView
             _ = DirectMove(card, zone, Ease.InCubic);
         }
 
-        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        private async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
             List<Task> tasks = new();
             await _swapInvestigatorPresenter.Select(zone);
