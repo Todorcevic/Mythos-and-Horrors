@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
             Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator);
-            await Gain(allTokens, origin, hintsTokenController);
+            await Gain(allTokens, origin, hintsTokenController).AsyncWaitForCompletion();
         }
 
         public async Task PayHints(PayHintGameAction payHintGameAction)
@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameView
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
             Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator);
-            await Pay(allTokens, destiny, hintsTokenController);
+            await Pay(allTokens, destiny, hintsTokenController).AsyncWaitForCompletion();
         }
 
         public async Task GainResource(GainResourceGameAction gainResourceGameAction)
@@ -41,7 +41,7 @@ namespace MythsAndHorrors.GameView
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
             Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator);
-            await Gain(allTokens, origin, resourcesTokenController);
+            await Gain(allTokens, origin, resourcesTokenController).AsyncWaitForCompletion();
         }
 
         public async Task PayResource(PayResourceGameAction payResourceGameAction)
@@ -50,22 +50,24 @@ namespace MythsAndHorrors.GameView
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
             Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payResourceGameAction.Investigator);
-            await Pay(allTokens, destiny, resourcesTokenController);
+            await Pay(allTokens, destiny, resourcesTokenController).AsyncWaitForCompletion();
         }
 
-        private async Task Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
+        private Tween Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
         {
-            await MoveUp(allTokens, origin, null);
-            await MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate());
+            return DOTween.Sequence()
+                .Join(MoveUp(allTokens, origin, null))
+                .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
         }
 
-        private async Task Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
+        private Tween Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
         {
-            await MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.Deactivate());
-            await MoveDown(allTokens, destiny, null);
+            return DOTween.Sequence()
+                .Join(MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.Deactivate()))
+                .Append(MoveDown(allTokens, destiny, null));
         }
 
-        private async Task MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)
+        private Tween MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)
         {
             Sequence sequence = DOTween.Sequence();
             foreach (TokenView tokenView in allTokens)
@@ -80,10 +82,10 @@ namespace MythsAndHorrors.GameView
                 .Join(tokenView.transform.DORotate(_zonesManager.CenterShowZone.transform.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear)));
             }
 
-            await sequence.AsyncWaitForCompletion();
+            return sequence;
         }
 
-        private async Task MoveDown(List<TokenView> allTokens, Transform target, TweenCallback finish)
+        private Tween MoveDown(List<TokenView> allTokens, Transform target, TweenCallback finish)
         {
             Sequence sequence = DOTween.Sequence();
             foreach (TokenView tokenView in allTokens)
@@ -96,7 +98,7 @@ namespace MythsAndHorrors.GameView
                 .AppendCallback(finish));
             }
 
-            await sequence.AsyncWaitForCompletion();
+            return sequence;
         }
     }
 }

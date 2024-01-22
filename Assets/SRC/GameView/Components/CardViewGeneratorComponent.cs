@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [SerializeField, Required, AssetsOnly] private CardView _investigatorPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _investigatorDeckPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _adversityPrefab;
@@ -18,19 +17,20 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _placePrefab;
         [SerializeField, Required, AssetsOnly] private CardView _plotPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
+        [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _outZoneView;
 
         /*******************************************************************/
-        public CardView Create(Card card)
+        public CardView Clone(Card card)
         {
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
             newCardview.Off();
-            newCardview.SetCurrentZoneView(_zoneViewsManager.OutZone);
+            newCardview.SetCurrentZoneView(_outZoneView);
             return newCardview;
         }
 
         public CardView BuildCard(Card card)
         {
-            CardView newCardview = Create(card);
+            CardView newCardview = Clone(card);
             _cardViewsManager.Add(newCardview);
             return newCardview;
         }

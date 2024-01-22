@@ -15,7 +15,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _victoryZone;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneView _limboZone;
         [SerializeField, Required, SceneObjectsOnly] private ZoneView _outZone;
-        [SerializeField, Required, SceneObjectsOnly] private ZoneView _selector;
 
         /*******************************************************************/
         public void Init()
@@ -27,7 +26,6 @@ namespace MythsAndHorrors.GameView
             _victoryZone.Init(_chaptersProvider.CurrentScene.VictoryZone);
             _limboZone.Init(_chaptersProvider.CurrentScene.LimboZone);
             _outZone.Init(_chaptersProvider.CurrentScene.OutZone);
-            _selector.Init(_chaptersProvider.CurrentScene.SelectorZone);
         }
     }
 }

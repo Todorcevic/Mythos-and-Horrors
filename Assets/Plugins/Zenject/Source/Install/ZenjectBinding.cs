@@ -11,7 +11,6 @@ namespace Zenject
         {
             None,
             SelectorZone,
-            OutZone,
             CenterShowZone,
         }
 

@@ -54,7 +54,6 @@ namespace MythsAndHorrors.GameView
                 .Join(transform.DORotate(toMove.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(toMove.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION));
         }
-
         public static async Task WaitForAllTweensToComplete()
         {
             while (DOTween.TotalPlayingTweens() > 0) await Task.Yield();

@@ -358,6 +358,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
+      propertyPath: _bindId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: _identifier
       value: OutZone
       objectReference: {fileID: 0}
@@ -1352,6 +1356,7 @@ MonoBehaviour:
   _placePrefab: {fileID: 3389488844118557959, guid: 752fd52db2c20464bbb397778fac086c, type: 3}
   _plotPrefab: {fileID: 6152357295490081171, guid: 56917f8d4144eab40b707d70c4fa71d3, type: 3}
   _goalPrefab: {fileID: 1814247740993376737, guid: 42fc4388623fe654394161e52a1db726, type: 3}
+  _outZoneView: {fileID: 149675762}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0
@@ -2926,6 +2931,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 963194228}
     m_Modifications:
+    - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: _avoidCardShower
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 860334125506983460, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_Name
       value: SelectorZone
@@ -3019,17 +3028,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
---- !u!114 &1013833491 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
-  m_PrefabInstance: {fileID: 1013833490}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef3b00df1cbaa54a93c33958242afdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1013833492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5705089823220367788, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
@@ -5505,7 +5503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: _bindId
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
       propertyPath: _bindType
@@ -9232,7 +9230,6 @@ MonoBehaviour:
   _victoryZone: {fileID: 1531190699}
   _limboZone: {fileID: 1205018184}
   _outZone: {fileID: 149675762}
-  _selector: {fileID: 1013833491}
 --- !u!1001 &3134251647538235502
 PrefabInstance:
   m_ObjectHideFlags: 0

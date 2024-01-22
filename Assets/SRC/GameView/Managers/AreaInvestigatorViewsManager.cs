@@ -17,7 +17,6 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-
         public AreaInvestigatorView Get(Investigator investigator) =>
             _allAreaInvestigatorViews.First(areaInvestigatorView => areaInvestigatorView.Investigator == investigator);
     }

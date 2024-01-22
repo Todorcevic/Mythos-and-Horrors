@@ -43,7 +43,7 @@ namespace MythsAndHorrors.GameView
         {
             waitForSelection = new();
             clonesCardView = new();
-            effects.ForEach(effect => clonesCardView.Add(_cardViewGeneratorComponent.Create(effect.Card), effect));
+            effects.ForEach(effect => clonesCardView.Add(_cardViewGeneratorComponent.Clone(effect.Card), effect));
             await _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
             Activate(withButton: true);
             ShowCardsPlayables(clonesCardView.Keys.ToList());

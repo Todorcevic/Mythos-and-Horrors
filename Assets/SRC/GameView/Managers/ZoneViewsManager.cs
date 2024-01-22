@@ -10,7 +10,6 @@ namespace MythsAndHorrors.GameView
         private readonly List<ZoneView> _allZones = new();
 
         [Inject(Id = ZenjectBinding.BindId.SelectorZone)] public ZoneView SelectorZone { get; }
-        [Inject(Id = ZenjectBinding.BindId.OutZone)] public ZoneView OutZone { get; }
         [Inject(Id = ZenjectBinding.BindId.CenterShowZone)] public ZoneView CenterShowZone { get; }
 
         /*******************************************************************/

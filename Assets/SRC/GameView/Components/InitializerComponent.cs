@@ -21,7 +21,6 @@ namespace MythsAndHorrors.GameView
 
             _ioActivatorComponent.DeactivateUI();
             await _ioActivatorComponent.DeactivateSensor();
-
             await _gameActionFactory.Create<StartChapterGameAction>().Run(_chaptersProvider.CurrentChapter);
             await _gameActionFactory.Create<StartGameAction>().Run();
         }

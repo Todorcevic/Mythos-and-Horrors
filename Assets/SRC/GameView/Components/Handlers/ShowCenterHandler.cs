@@ -7,8 +7,8 @@ namespace MythsAndHorrors.GameView
     public class ShowCenterHandler
     {
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
-
         private List<CardView> _cardViews = new();
+
         /*******************************************************************/
         public Tween ShowCenter(List<CardView> cardViews)
         {

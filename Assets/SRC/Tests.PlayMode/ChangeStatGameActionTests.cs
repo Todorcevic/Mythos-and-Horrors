@@ -26,7 +26,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUse.Execute();
             CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardSupply, _chaptersProvider.CurrentScene.SelectorZone).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardSupply, _chaptersProvider.CurrentScene.PlotZone).AsCoroutine();
             yield return _gameActionFactory.Create<UpdateStatGameAction>().Run(cardSupply.Cost, 8).AsCoroutine();
             while (DEBUG_MODE)
             {

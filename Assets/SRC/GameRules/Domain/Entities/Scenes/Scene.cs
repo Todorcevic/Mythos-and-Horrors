@@ -14,7 +14,6 @@ namespace MythsAndHorrors.GameRules
         public Zone VictoryZone { get; } = new Zone();
         public Zone LimboZone { get; } = new Zone();
         public Zone OutZone { get; } = new Zone();
-        public Zone SelectorZone { get; } = new Zone();
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
         public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
