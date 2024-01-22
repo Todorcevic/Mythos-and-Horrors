@@ -16,6 +16,9 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _buttonController;
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         [Inject] private readonly ShowCenterHandler _showCenterPresenter;
+        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         private Dictionary<CardView, Effect> clonesCardView;
         private TaskCompletionSource<bool> waitForSelection;
@@ -43,14 +46,22 @@ namespace MythsAndHorrors.GameView
         {
             waitForSelection = new();
             clonesCardView = new();
-            effects.ForEach(effect => clonesCardView.Add(_cardViewGeneratorComponent.Clone(effect.Card), effect));
+            CardView cardView = _cardViewsManager.Get(effects[0].Card);
+            clonesCardView.Add(cardView, effects.First());
+
+            foreach (Effect effect in effects.Skip(1))
+            {
+                CardView cloneCardView = _cardViewGeneratorComponent.Clone(cardView);
+                clonesCardView.Add(cloneCardView, effect);
+            }
+
             await _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
             Activate(withButton: true);
             ShowCardsPlayables(clonesCardView.Keys.ToList());
             await waitForSelection.Task;
             await Deactivate();
             Card cardSelected = SelecteEffect();
-            DestroyClones();
+            await DestroyClones();
             return cardSelected;
 
             Card SelecteEffect()
@@ -62,9 +73,12 @@ namespace MythsAndHorrors.GameView
                 return effectSelected.Card;
             }
 
-            void DestroyClones()
+            async Task DestroyClones()
             {
-                clonesCardView?.Keys.ToList().ForEach(card => Object.Destroy(card.gameObject));
+                (cardView.transform.position, _cardSelected.transform.position) = (_cardSelected.transform.position, cardView.transform.position);
+                List<CardView> cardViewsToDestroy = clonesCardView.Keys.Except(new List<CardView> { cardView }).ToList();
+                await _moveCardHandler.MoveCardsToZone(cardViewsToDestroy, _zoneViewsManager.OutZone);
+                cardViewsToDestroy.ForEach(cardView => Object.Destroy(cardView.gameObject));
                 clonesCardView.Clear();
             }
         }

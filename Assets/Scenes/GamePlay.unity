@@ -359,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: _bindId
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: _identifier
@@ -1356,7 +1356,6 @@ MonoBehaviour:
   _placePrefab: {fileID: 3389488844118557959, guid: 752fd52db2c20464bbb397778fac086c, type: 3}
   _plotPrefab: {fileID: 6152357295490081171, guid: 56917f8d4144eab40b707d70c4fa71d3, type: 3}
   _goalPrefab: {fileID: 1814247740993376737, guid: 42fc4388623fe654394161e52a1db726, type: 3}
-  _outZoneView: {fileID: 149675762}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0
@@ -3009,7 +3008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8265635247589322017, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 16
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8811774599659767288, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: _bindId
@@ -3670,8 +3669,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.23581046
+  m_Value: 1.0000004
+  m_Size: 0.23581047
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

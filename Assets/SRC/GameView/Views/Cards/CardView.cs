@@ -81,7 +81,7 @@ namespace MythsAndHorrors.GameView
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             Sequence moveSequence = DOTween.Sequence()
-                .Join(CurrentZoneView.ExitZone(this))
+                .Join(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
                 .Join(Rotate())
                 .Join(newZoneView.EnterZone(this).SetEase(ease));
 

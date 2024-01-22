@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameView
 
         [Inject(Id = ZenjectBinding.BindId.SelectorZone)] public ZoneView SelectorZone { get; }
         [Inject(Id = ZenjectBinding.BindId.CenterShowZone)] public ZoneView CenterShowZone { get; }
+        [Inject(Id = ZenjectBinding.BindId.OutZone)] public ZoneView OutZone { get; }
 
         /*******************************************************************/
         public void Add(ZoneView zoneView) => _allZones.Add(zoneView);

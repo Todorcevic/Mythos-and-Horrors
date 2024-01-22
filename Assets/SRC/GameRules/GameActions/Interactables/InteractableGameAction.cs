@@ -19,8 +19,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task Start()
         {
-            _cardsProvider.AllCards.ForEach(card => card.ClearEffects());
             await base.Start();
+            _cardsProvider.AllCards.ForEach(card => card.ClearEffects());
         }
 
         protected override async Task ExecuteThisLogic()
