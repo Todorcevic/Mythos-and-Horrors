@@ -8,16 +8,18 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractableHandler : IInteractableHandler
+    public class InteractablePresenter : IPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonController _buttonController;
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
-        [Inject] private readonly ShowCenterPresenter _showCenterPresenter;
+        [Inject] private readonly ShowCenterHandler _showCenterPresenter;
+
+        private Dictionary<CardView, Effect> clonesCardView;
         private TaskCompletionSource<bool> waitForSelection;
-        public CardView _cardSelected;
+        private CardView _cardSelected;
 
         /*******************************************************************/
         public async Task<Card> Interact(InteractableGameAction interactableGameAction)
@@ -29,16 +31,14 @@ namespace MythsAndHorrors.GameView
             await waitForSelection.Task;
             await Deactivate();
             HideCardsPlayables(allCardViews);
-
             if (_cardSelected == null) return null;
-
-            Card choose = _cardSelected.Card.HasMultiEffect ? await ShowMultiEffects(_cardSelected.Card.PlayableEffects.ToList()) : _cardSelected.Card;
-
+            Card choose = _cardSelected.Card.HasMultiEffect ?
+                await ShowMultiEffects(_cardSelected.Card.PlayableEffects.ToList()) :
+                _cardSelected.Card;
             if (choose == null) return await Interact(interactableGameAction);
             return choose;
         }
 
-        Dictionary<CardView, Effect> clonesCardView = new();
         private async Task<Card> ShowMultiEffects(List<Effect> effects)
         {
             waitForSelection = new();

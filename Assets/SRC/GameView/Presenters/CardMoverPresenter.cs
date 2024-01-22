@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject] private readonly CardViewsManager _cardsManager;
-        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         /*******************************************************************/
         public async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)

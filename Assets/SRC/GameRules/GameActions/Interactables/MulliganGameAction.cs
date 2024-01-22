@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
             Investigator.DiscardZone.Cards.ForEach(card => card.AddEffect("Restore", MulliganRestoreEffect));
 
             await base.ExecuteThisLogic();
-            if (ButtonIsPressed) return;
+            if (NothingIsSelected) return;
             await _gameActionFactory.Create<MulliganGameAction>().Run(Investigator);
         }
 

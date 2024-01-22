@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowCenterPresenter
+    public class ShowCenterHandler
     {
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 

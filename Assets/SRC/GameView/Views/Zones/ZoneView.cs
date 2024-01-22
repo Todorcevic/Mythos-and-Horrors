@@ -7,9 +7,11 @@ namespace MythsAndHorrors.GameView
 {
     public abstract class ZoneView : MonoBehaviour
     {
+        [SerializeField] private bool _avoidCardShower;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 
         public Zone Zone { get; private set; }
+        public bool AvoidCardShower => _avoidCardShower;
 
         /*******************************************************************/
         public void Init(Zone zone = null)

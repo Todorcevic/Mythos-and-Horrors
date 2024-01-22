@@ -16,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         //protected override bool DEBUG_MODE => true;

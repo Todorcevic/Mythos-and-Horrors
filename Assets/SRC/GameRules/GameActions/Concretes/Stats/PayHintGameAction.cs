@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class PayHintGameAction : GameAction
     {
-        [Inject] private readonly IAnimator _animator;
+        [Inject] private readonly IViewLayer _animator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; private set; }

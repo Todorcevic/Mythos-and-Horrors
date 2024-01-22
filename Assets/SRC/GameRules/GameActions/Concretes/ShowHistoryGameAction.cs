@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
-        [Inject] private readonly IAnimator _animator;
+        [Inject] private readonly IViewLayer _animator;
         public History History { get; private set; }
 
         /*******************************************************************/

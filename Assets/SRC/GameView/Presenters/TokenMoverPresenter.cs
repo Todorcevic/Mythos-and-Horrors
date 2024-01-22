@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly TokensGeneratorComponent _tokensGeneratorComponent;
-        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly StatableManager _statableManager;
         [Inject] private readonly ZoneViewsManager _zonesManager;
 

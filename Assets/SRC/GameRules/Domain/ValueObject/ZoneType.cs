@@ -13,13 +13,13 @@ namespace MythsAndHorrors.GameRules
         Victory = 1 << 4,
         Limbo = 1 << 5,
         Out = 1 << 6,
-        Selector = 1 << 7,
-        Place = 1 << 8,
-        Hand = 1 << 9,
-        Aid = 1 << 10,
-        Danger = 1 << 11,
-        Investigator = 1 << 12,
-        InvestigatorDiscard = 1 << 13,
-        InvestigatorDeck = 1 << 14,
+        Place = 1 << 7,
+        Hand = 1 << 8,
+        Aid = 1 << 9,
+        Danger = 1 << 10,
+        Investigator = 1 << 11,
+        InvestigatorDiscard = 1 << 12,
+        InvestigatorDeck = 1 << 13,
+        Own = 1 << 14
     }
 }

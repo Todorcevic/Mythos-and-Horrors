@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class StatGameAction : GameAction
     {
-        [Inject] private readonly IAnimator _animator;
+        [Inject] private readonly IViewLayer _animator;
 
         public Stat Stat { get; private set; }
         public int Value { get; private set; }

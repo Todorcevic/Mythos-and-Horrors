@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class PresenterManager : IAnimator
+    public class PresenterManager : IViewLayer
     {
         [Inject] private readonly List<IPresenter> _allPresenters;
 
@@ -27,6 +27,9 @@ namespace MythsAndHorrors.GameView
             };
             await animation;
         }
+
+        public async Task<Card> StartSelectionWith(InteractableGameAction interactableGameAction) =>
+            await Get<InteractablePresenter>().Interact(interactableGameAction);
 
         private T Get<T>() where T : IPresenter => (T)_allPresenters.First(presenter => presenter is T);
     }

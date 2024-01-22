@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class GainResourceGameAction : GameAction
     {
-        [Inject] private readonly IAnimator _animator;
+        [Inject] private readonly IViewLayer _animator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 

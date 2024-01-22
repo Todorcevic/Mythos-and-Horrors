@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
-        [Inject] private readonly InteractableHandler _interactablePresenter;
+        [Inject] private readonly InteractablePresenter _interactablePresenter;
 
         public bool IsClickable { get; set; }
 

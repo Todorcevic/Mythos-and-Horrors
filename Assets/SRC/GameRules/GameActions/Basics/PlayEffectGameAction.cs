@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class PlayEffectGameAction : GameAction
     {
-        [Inject] private readonly IAnimator _animator;
+        [Inject] private readonly IViewLayer _animator;
 
         public Effect Effect { get; private set; }
 

@@ -2,7 +2,6 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;

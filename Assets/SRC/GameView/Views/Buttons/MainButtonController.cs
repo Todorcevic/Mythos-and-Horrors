@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly InteractableHandler _interactablePresenter;
+        [Inject] private readonly InteractablePresenter _interactablePresenter;
 
         private bool IsActivated => _collider.enabled;
 

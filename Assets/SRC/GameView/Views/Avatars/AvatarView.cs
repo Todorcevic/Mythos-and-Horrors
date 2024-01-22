@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
-        [Inject] private readonly SwapInvestigatorPresenter _swapInvestigatorPresenter;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         public bool IsVoid => Investigator == null;
         public Investigator Investigator { get; private set; }

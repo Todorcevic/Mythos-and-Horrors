@@ -74,8 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: -5647784175929910095}
-  _identifier: 
-  _identifierWithName: 0
+  _bindId: 0
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
@@ -370,6 +369,10 @@ PrefabInstance:
     - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: _zoneType
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: _avoidCardShower
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 860334125506983460, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_Name

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class SwapInvestigatorPresenter
+    public class SwapInvestigatorHandler
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;

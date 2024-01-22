@@ -2,8 +2,9 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IAnimator
+    public interface IViewLayer
     {
         Task PlayAnimationWith(GameAction gameAction);
+        Task<Card> StartSelectionWith(InteractableGameAction interactableGameAction);
     }
 }
