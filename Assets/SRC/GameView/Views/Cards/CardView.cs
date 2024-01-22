@@ -13,10 +13,10 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
-        [SerializeField, Required, ChildGameObjectsOnly] private GlowComponent _glowComponent;
-        [SerializeField, Required, ChildGameObjectsOnly] private CardSensorComponent _cardSensor;
+        [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
+        [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
-        [SerializeField, Required, ChildGameObjectsOnly] private RotatorComponent _rotator;
+        [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class GlowComponent : MonoBehaviour
+    public class GlowController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _spriteRenderer;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class RotatorComponent : MonoBehaviour
+    public class RotatorController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rotator;
 

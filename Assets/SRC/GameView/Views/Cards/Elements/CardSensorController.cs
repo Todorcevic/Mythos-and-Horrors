@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardSensorComponent : MonoBehaviour
+    public class CardSensorController : MonoBehaviour
     {
         [SerializeField, Required] private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;

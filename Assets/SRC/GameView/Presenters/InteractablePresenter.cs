@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
-        [Inject] private readonly MainButtonController _buttonController;
+        [Inject] private readonly MainButtonComponent _buttonController;
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         [Inject] private readonly ShowCenterHandler _showCenterPresenter;
 

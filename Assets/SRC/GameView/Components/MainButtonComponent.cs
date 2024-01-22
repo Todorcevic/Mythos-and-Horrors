@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class MainButtonController : MonoBehaviour
+    public class MainButtonComponent : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
