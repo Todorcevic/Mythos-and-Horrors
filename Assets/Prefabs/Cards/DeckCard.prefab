@@ -1408,6 +1408,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1562043755092353539}
   m_SourcePrefab: {fileID: 100100000, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+--- !u!114 &878241973791065302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8046486371691589081, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1334417694476318469 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -1448,6 +1459,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 1334417694476318469}
   _zoneCardView: {fileID: 8012474368596726933}
   _rotator: {fileID: 6819392305497336736}
+  _effectController: {fileID: 878241973791065302}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   - {fileID: 11400000, guid: 718b229d1d745154490881fb66fb844b, type: 2}

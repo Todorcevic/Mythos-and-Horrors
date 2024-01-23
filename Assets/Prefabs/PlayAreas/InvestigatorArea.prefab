@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: _zoneType
       value: 2048
       objectReference: {fileID: 0}
+    - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: _layoutAmount
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 860334125506983460, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_Name
       value: DangerZone
@@ -1684,6 +1688,10 @@ PrefabInstance:
     - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: _zoneType
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: _layoutAmount
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 860334125506983460, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: m_Name

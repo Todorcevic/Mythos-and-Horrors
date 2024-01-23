@@ -226,6 +226,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 8282791756316178403}
   _zoneCardView: {fileID: 1100189038249415795}
   _rotator: {fileID: 4527797467675142982}
+  _effectController: {fileID: 7802075727094105136}
   _hints: {fileID: 249355578914456148}
   _enigma: {fileID: 6128284257626759234}
 --- !u!4 &6912737438678058548 stripped
@@ -233,6 +234,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 282695642698394089}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7802075727094105136 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8046486371691589081, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7897172197363283759 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -252,7 +264,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ca9daae601de04f91ae250ecb9244d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1da366caf849aa0449f61d08cdf31849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &8971544262225794579 stripped

@@ -21,6 +21,7 @@ namespace MythsAndHorrors.GameView
 
         public bool IsVoid => Investigator == null;
         public Investigator Investigator { get; private set; }
+        public Sprite Image => _picture.sprite;
 
         /*******************************************************************/
         public void Init(Investigator investigator)

@@ -47,7 +47,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task PositionateDeck()
         {
-            _investigator.FullDeck.ForEach(card => card.IsFaceDown = true);
+            _investigator.FullDeck.ForEach(card => card.TurnDown(true));
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigator.FullDeck, _investigator.DeckZone);
             await _gameActionFactory.Create<ShuffleGameAction>().Run(_investigator.DeckZone);
         }

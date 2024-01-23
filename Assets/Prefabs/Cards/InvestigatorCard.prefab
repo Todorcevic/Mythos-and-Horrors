@@ -1041,6 +1041,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 8195707794568682173}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2168444085115320164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8046486371691589081, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 8195707794568682173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2290417568425559163 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7959041922574278342, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -1076,6 +1087,7 @@ MonoBehaviour:
   _cardSensor: {fileID: 45939617387398327}
   _zoneCardView: {fileID: 9013390572942960423}
   _rotator: {fileID: 5513709070450464786}
+  _effectController: {fileID: 2168444085115320164}
   _factions:
   - {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
   - {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}

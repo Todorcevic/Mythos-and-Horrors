@@ -5,6 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class Investigator
     {
+        public string Code => InvestigatorCard.Info.Code;
         public CardInvestigator InvestigatorCard { get; init; }
         public List<Card> Cards { get; init; }
         public List<Card> RequerimentCard { get; init; }
@@ -18,6 +19,7 @@ namespace MythsAndHorrors.GameRules
         public Stat Resources { get; } = new Stat(0);
         public Stat Hints { get; } = new Stat(0);
         public Stat InitialHandSize { get; } = new Stat(5);
+        public Stat Turns { get; } = new Stat(0, 3);
         public Zone HandZone { get; } = new Zone();
         public Zone DeckZone { get; } = new Zone();
         public Zone DiscardZone { get; } = new Zone();

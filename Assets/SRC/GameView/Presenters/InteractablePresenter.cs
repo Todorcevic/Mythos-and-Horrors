@@ -15,9 +15,8 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _buttonController;
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
-        [Inject] private readonly ShowCenterHandler _showCenterPresenter;
+        [Inject] private readonly ShowCenterHandler _showCenterHandler;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         private Dictionary<CardView, Effect> clonesCardView;
@@ -51,11 +50,11 @@ namespace MythsAndHorrors.GameView
 
             foreach (Effect effect in effects.Skip(1))
             {
-                CardView cloneCardView = _cardViewGeneratorComponent.Clone(cardView);
+                CardView cloneCardView = _cardViewGeneratorComponent.Clone(cardView, cardView.CurrentZoneView.transform);
                 clonesCardView.Add(cloneCardView, effect);
             }
 
-            await _showCenterPresenter.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
+            await _showCenterHandler.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
             Activate(withButton: true);
             ShowCardsPlayables(clonesCardView.Keys.ToList());
             await waitForSelection.Task;

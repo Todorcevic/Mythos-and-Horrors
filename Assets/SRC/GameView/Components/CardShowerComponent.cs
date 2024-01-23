@@ -1,10 +1,12 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardShowerComponent : MonoBehaviour
     {
+        [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         private const float X_OFFSET = 6.5f;
         private CardView _currentShowCard;
 
@@ -14,8 +16,9 @@ namespace MythsAndHorrors.GameView
             if (MustNotShowFilter(cardView)) return;
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
-            _currentShowCard = Instantiate(cardView, transform);
+            _currentShowCard = _cardViewGeneratorComponent.Clone(cardView, transform);
             _currentShowCard.DisableToShow();
+            _currentShowCard.ShowEffects();
             _currentShowCard.transform.ResetToZero();
             _currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo).SetId(_currentShowCard.transform);
         }
@@ -23,7 +26,6 @@ namespace MythsAndHorrors.GameView
         public void HideCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
-
             DOTween.Kill(_currentShowCard.transform);
             foreach (Transform child in gameObject.transform) Destroy(child.gameObject);
         }

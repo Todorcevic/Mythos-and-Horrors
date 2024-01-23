@@ -3,8 +3,6 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-
-
     public class SkillIconView : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _skillHolder;

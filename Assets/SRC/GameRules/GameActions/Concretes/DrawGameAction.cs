@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardDrawed = Investigator.DeckZone.Cards.Last();
-            CardDrawed.IsFaceDown = false;
+            CardDrawed.TurnDown(false);
             await _gameActionRepository.Create<MoveCardsGameAction>().Run(CardDrawed, Investigator.HandZone);
         }
     }

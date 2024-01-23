@@ -2,6 +2,7 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
@@ -87,6 +89,12 @@ namespace MythsAndHorrors.GameView
 
             SetCurrentZoneView(newZoneView);
             return moveSequence;
+        }
+
+        public void ShowEffects()
+        {
+            if (!Card.CanPlay) return;
+            _effectController.AddEffects(Card.PlayableEffects.ToList());
         }
     }
 }

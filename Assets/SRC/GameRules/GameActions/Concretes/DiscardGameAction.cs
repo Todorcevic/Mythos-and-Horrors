@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card.IsFaceDown = false;
+            Card.TurnDown(false);
             await _gameActionFactory.Create<MoveCardsGameAction>().Run(Card, GetDiscardZone());
         }
 
