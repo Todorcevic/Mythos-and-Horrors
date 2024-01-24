@@ -19,8 +19,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
-        private TaskCompletionSource<bool> waitForSelection;
-        private CardView _cardViewSelected;
+        private TaskCompletionSource<CardView> waitForSelection;
 
         /*******************************************************************/
         public async Task<Card> Interact(InteractableGameAction interactableGameAction)
@@ -30,18 +29,17 @@ namespace MythsAndHorrors.GameView
             Activate(!interactableGameAction.IsManadatary);
             ShowCardsPlayables(allCardViews);
 
-            await waitForSelection.Task;
+            Card choose = await ResolveCardSelected(await waitForSelection.Task);
 
-            await Deactivate();
-            Card choose = await SelectCard();
             HideCardsPlayables(allCardViews);
             return choose;
 
-            async Task<Card> SelectCard()
+            async Task<Card> ResolveCardSelected(CardView cardViewSelected)
             {
-                if (_cardViewSelected == null) return null;
-                else if (_cardViewSelected.Card.HasMultiEffect) return await ShowMultiEffects(_cardViewSelected.Card.PlayableEffects.ToList(), interactableGameAction);
-                else return _cardViewSelected.Card;
+                await Deactivate();
+                if (cardViewSelected == null) return null;
+                else if (cardViewSelected.Card.HasMultiEffect) return await ShowMultiEffects(cardViewSelected.Card.PlayableEffects.ToList(), interactableGameAction);
+                else return cardViewSelected.Card;
             }
         }
 
@@ -52,10 +50,10 @@ namespace MythsAndHorrors.GameView
             Dictionary<CardView, Effect> clonesCardView = CreateCardViewDictionary();
             await PreResolve();
 
-            await waitForSelection.Task;
+            CardView cardViewSelected = await waitForSelection.Task;
 
-            Card cardSelected = SelectEffect();
-            await PostResolve();
+            Card cardSelected = ResolveCardSelected(cardViewSelected);
+            await PostResolve(cardViewSelected);
             return cardSelected ?? await Interact(interactableGameAction);
 
             /*******************************************************************/
@@ -70,6 +68,15 @@ namespace MythsAndHorrors.GameView
                 return newClonesCardView;
             }
 
+            Card ResolveCardSelected(CardView cardViewSelected)
+            {
+                if (cardViewSelected == null) return null;
+                Effect effectSelected = clonesCardView[cardViewSelected];
+                effectSelected.Card.ClearEffects();
+                effectSelected.Card.AddEffect(effectSelected);
+                return effectSelected.Card;
+            }
+
             async Task PreResolve()
             {
                 await _showCenterComponent.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
@@ -77,22 +84,13 @@ namespace MythsAndHorrors.GameView
                 ShowCardsPlayables(clonesCardView.Keys.ToList());
             }
 
-            Card SelectEffect()
-            {
-                if (_cardViewSelected == null) return null;
-                Effect effectSelected = clonesCardView[_cardViewSelected];
-                effectSelected.Card.ClearEffects();
-                effectSelected.Card.AddEffect(effectSelected);
-                return effectSelected.Card;
-            }
-
-            async Task PostResolve()
+            async Task PostResolve(CardView cardViewSelected)
             {
                 await Deactivate();
                 _showCenterComponent.Shutdown();
                 List<CardView> clones = clonesCardView.Keys.Except(new List<CardView> { originalCardView }).ToList();
-                if (_cardViewSelected == null) await ReturnClones(clones);
-                else await DestroyClones(clones);
+                if (cardViewSelected == null) await ReturnClones(clones);
+                else await DestroyClones(clones, cardViewSelected);
             }
 
             async Task ReturnClones(List<CardView> clones)
@@ -102,27 +100,22 @@ namespace MythsAndHorrors.GameView
                 await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
             }
 
-            async Task DestroyClones(List<CardView> clones)
+            async Task DestroyClones(List<CardView> clones, CardView cardViewSelected)
             {
-                (originalCardView.transform.position, _cardViewSelected.transform.position) = (_cardViewSelected.transform.position, originalCardView.transform.position);
+                (originalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, originalCardView.transform.position);
 
                 await _moveCardHandler.MoveCardsToZone(clones, _zoneViewsManager.OutZone);
                 clones.ForEach(cardView => Object.Destroy(cardView.gameObject));
             }
         }
 
-        public void Clicked(CardView cardView = null)
-        {
-            _cardViewSelected = cardView;
-            waitForSelection.SetResult(true);
-        }
+        public void Clicked(CardView cardView = null) => waitForSelection.SetResult(cardView);
 
         private void Activate(bool withButton)
         {
             if (withButton) _buttonController.Activate();
             _ioActivatorComponent.ActivateSensor();
             _ioActivatorComponent.ActivateUI();
-
         }
 
         private async Task Deactivate()
