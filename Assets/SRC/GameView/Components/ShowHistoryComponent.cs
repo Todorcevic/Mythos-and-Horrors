@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameView
             _content.text = history.Description;
             await _screen.LoadHistorySprite(history.Image);
             _blockBackground.enabled = _button.interactable = true;
-            await DOTween.Sequence().Join(_blockBackground.DOFade(0.5f, ViewValues.MID_TIME_ANIMATION))
+            await DOTween.Sequence().Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.MID_TIME_ANIMATION))
                  .Join(transform.DOMove(_showPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.OutBack, 1.5f).AsyncWaitForCompletion();
             await waitForClicked.Task;
             _button.interactable = false;

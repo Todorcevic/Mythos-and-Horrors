@@ -12,5 +12,6 @@ namespace MythsAndHorrors.GameView
         public const float CARD_THICKNESS = 0.05f;
         public const string EMPTY_STAT = "0";
         public const float INITIAL_LAYOUT_WIDTH = 24f;
+        public const float DEFAULT_FADE = 0.5f;
     }
 }

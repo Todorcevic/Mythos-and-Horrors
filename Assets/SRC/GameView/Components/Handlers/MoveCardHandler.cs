@@ -1,9 +1,7 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -11,22 +9,21 @@ namespace MythsAndHorrors.GameView
     public class MoveCardHandler
     {
         [Inject] private readonly CardViewsManager _cardsManager;
-        [Inject] private readonly ZoneViewsManager _zonesManager;
+        [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
-        [Inject] private readonly CardShowerComponent _cardShowerComponent;
 
         /*******************************************************************/
         public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
-            ZoneView zoneView = _zonesManager.Get(zone);
+            ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardWithPreviewToZone(cardView, zoneView);
         }
 
         public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            await cardView.MoveToZone(_zonesManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
             await _swapInvestigatorPresenter.Select(zoneView.Zone);
             await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
@@ -34,9 +31,9 @@ namespace MythsAndHorrors.GameView
         public async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
-            ZoneView zoneView = _zonesManager.Get(zone);
+            ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await cardView.MoveToZone(_zonesManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
             await _swapInvestigatorPresenter.Select(zone);
             cardView.MoveToZone(zoneView, Ease.InCubic);
         }
@@ -44,7 +41,7 @@ namespace MythsAndHorrors.GameView
         public async Task MoveCardsToZone(List<Card> cards, Zone zone)
         {
             List<CardView> cardViews = _cardsManager.Get(cards);
-            ZoneView zoneView = _zonesManager.Get(zone);
+            ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardsToZone(cardViews, zoneView);
         }

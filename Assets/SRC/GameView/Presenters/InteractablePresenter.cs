@@ -19,9 +19,8 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
-        private Dictionary<CardView, Effect> clonesCardView;
         private TaskCompletionSource<bool> waitForSelection;
-        private CardView _cardSelected;
+        private CardView _cardViewSelected;
 
         /*******************************************************************/
         public async Task<Card> Interact(InteractableGameAction interactableGameAction)
@@ -35,10 +34,10 @@ namespace MythsAndHorrors.GameView
 
             await Deactivate();
             HideCardsPlayables(allCardViews);
-            if (_cardSelected == null) return null;
-            Card choose = _cardSelected.Card.HasMultiEffect ?
-                await ShowMultiEffects(_cardSelected.Card.PlayableEffects.ToList()) :
-                _cardSelected.Card;
+            if (_cardViewSelected == null) return null;
+            Card choose = _cardViewSelected.Card.HasMultiEffect ?
+                await ShowMultiEffects(_cardViewSelected.Card.PlayableEffects.ToList()) :
+                _cardViewSelected.Card;
             if (choose == null) return await Interact(interactableGameAction);
             return choose;
         }
@@ -46,62 +45,72 @@ namespace MythsAndHorrors.GameView
         private async Task<Card> ShowMultiEffects(List<Effect> effects)
         {
             waitForSelection = new();
-            clonesCardView = new();
-            CardView cardView = _cardViewsManager.Get(effects[0].Card);
-            clonesCardView.Add(cardView, effects.First());
-
-            foreach (Effect effect in effects.Skip(1))
-            {
-                CardView cloneCardView = _cardViewGeneratorComponent.Clone(cardView, cardView.CurrentZoneView.transform);
-                clonesCardView.Add(cloneCardView, effect);
-            }
-
-            await _showCenterComponent.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
-            Activate(withButton: true);
-            ShowCardsPlayables(clonesCardView.Keys.ToList());
+            CardView originalCardView = _cardViewsManager.Get(effects[0].Card);
+            Dictionary<CardView, Effect> clonesCardView = CreateCardViewDictionary();
+            await PreResolve();
 
             await waitForSelection.Task;
 
-            await Deactivate();
-            _showCenterComponent.Shutdown();
             Card cardSelected = SelecteEffect();
-
-            if (_cardSelected == null)
-            {
-                List<CardView> cardViewsToDestroy = clonesCardView.Keys.Except(new List<CardView> { cardView }).ToList();
-                Sequence returnSequence = DOTween.Sequence();
-                cardViewsToDestroy.ForEach(cardView2 => returnSequence.Join(cardView2.MoveToZone(cardView.OwnZone)));
-                returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone)));
-                await returnSequence.AsyncWaitForCompletion();
-
-                cardViewsToDestroy.ForEach(cardView => Object.Destroy(cardView.gameObject));
-            }
-            else await DestroyClones();
-
+            await PostResolve();
             return cardSelected;
+
+            /*******************************************************************/
+            Dictionary<CardView, Effect> CreateCardViewDictionary()
+            {
+                Dictionary<CardView, Effect> newClonesCardView = new() { { originalCardView, effects.First() } };
+                foreach (Effect effect in effects.Skip(1))
+                {
+                    CardView cloneCardView = _cardViewGeneratorComponent.Clone(originalCardView, originalCardView.CurrentZoneView.transform);
+                    newClonesCardView.Add(cloneCardView, effect);
+                }
+                return newClonesCardView;
+            }
+
+            async Task PreResolve()
+            {
+                await _showCenterComponent.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
+                Activate(withButton: true);
+                ShowCardsPlayables(clonesCardView.Keys.ToList());
+            }
 
             Card SelecteEffect()
             {
-                if (_cardSelected == null) return null;
-                Effect effectSelected = clonesCardView[_cardSelected];
+                if (_cardViewSelected == null) return null;
+                Effect effectSelected = clonesCardView[_cardViewSelected];
                 effectSelected.Card.ClearEffects();
                 effectSelected.Card.AddEffect(effectSelected);
                 return effectSelected.Card;
             }
 
-            async Task DestroyClones()
+            async Task PostResolve()
             {
-                (cardView.transform.position, _cardSelected.transform.position) = (_cardSelected.transform.position, cardView.transform.position);
-                List<CardView> cardViewsToDestroy = clonesCardView.Keys.Except(new List<CardView> { cardView }).ToList();
-                await _moveCardHandler.MoveCardsToZone(cardViewsToDestroy, _zoneViewsManager.OutZone);
-                cardViewsToDestroy.ForEach(cardView => Object.Destroy(cardView.gameObject));
-                clonesCardView.Clear();
+                await Deactivate();
+                _showCenterComponent.Shutdown();
+                List<CardView> clones = clonesCardView.Keys.Except(new List<CardView> { originalCardView }).ToList();
+                if (_cardViewSelected == null) await ReturnClones(clones);
+                else await DestroyClones(clones);
+            }
+
+            async Task ReturnClones(List<CardView> clones)
+            {
+                clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
+                    .OnComplete(() => Object.Destroy(clone.gameObject)));
+                await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
+            }
+
+            async Task DestroyClones(List<CardView> clones)
+            {
+                (originalCardView.transform.position, _cardViewSelected.transform.position) = (_cardViewSelected.transform.position, originalCardView.transform.position);
+
+                await _moveCardHandler.MoveCardsToZone(clones, _zoneViewsManager.OutZone);
+                clones.ForEach(cardView => Object.Destroy(cardView.gameObject));
             }
         }
 
         public void Clicked(CardView cardView = null)
         {
-            _cardSelected = cardView;
+            _cardViewSelected = cardView;
             waitForSelection.SetResult(true);
         }
 

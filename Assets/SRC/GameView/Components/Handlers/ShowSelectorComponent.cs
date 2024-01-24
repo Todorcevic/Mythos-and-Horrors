@@ -13,6 +13,8 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _buttonPosition;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        private const float OFFSET = 120f;
+        private const float SCALE = 0.05f;
         private List<CardView> _cardViews = new();
 
         /*******************************************************************/
@@ -25,7 +27,7 @@ namespace MythsAndHorrors.GameView
             Sequence Animation()
             {
                 Sequence showCenterSequence = DOTween.Sequence().OnStart(() => _mainButtonComponent.transform.ChangeAllLayers(3))
-               .Join(_background.DOFade(0.5f, ViewValues.DEFAULT_TIME_ANIMATION))
+               .Join(_background.DOFade(ViewValues.DEFAULT_FADE, ViewValues.DEFAULT_TIME_ANIMATION))
                .Join(_mainButtonComponent.transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                .Join(_mainButtonComponent.transform.DOScale(_buttonPosition.localScale, ViewValues.DEFAULT_TIME_ANIMATION));
                 _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone)));
@@ -34,7 +36,7 @@ namespace MythsAndHorrors.GameView
 
             Vector3 ButtonPositionInUI()
             {
-                float distanceBorderRight = (120 - (Screen.width - Camera.main.WorldToScreenPoint(_buttonPosition.position).x)) * 0.05f;
+                float distanceBorderRight = (OFFSET - (Screen.width - Camera.main.WorldToScreenPoint(_buttonPosition.position).x)) * SCALE;
                 return new Vector3(_buttonPosition.position.x - distanceBorderRight, _buttonPosition.position.y, _buttonPosition.position.z);
             }
         }
@@ -49,7 +51,6 @@ namespace MythsAndHorrors.GameView
         public Tween Shutdown()
         {
             _blocker.enabled = false;
-            //_mainButtonComponent.transform.ChangeAllLayers(0);
             return DOTween.Sequence()
            .Join(_background.DOFade(0f, ViewValues.DEFAULT_TIME_ANIMATION))
            .Join(_mainButtonComponent.transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
