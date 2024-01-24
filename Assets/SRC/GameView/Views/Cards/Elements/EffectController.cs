@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        public void AddEffects(List<Effect> effects)
+        public void AddEffects(params Effect[] effects)
         {
             foreach (Effect effect in effects)
             {
@@ -23,6 +23,9 @@ namespace MythsAndHorrors.GameView
                 effectView.SetAvatarRight(_avatarViewsManager.Get(effect.InvestigatorAffected)?.Image);
             }
         }
+
+        public void Clear() => _effectViews.FindAll(effectView => !effectView.IsEmpty)
+            .ForEach(effectView => effectView.Clear());
 
         private EffectView GetEffectView() => _effectViews.Find(effectView => effectView.IsEmpty) ?? CreateNew();
 

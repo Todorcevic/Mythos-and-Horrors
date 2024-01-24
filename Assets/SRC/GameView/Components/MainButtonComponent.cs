@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -14,7 +15,9 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly InteractablePresenter _interactablePresenter;
+        [Inject] private readonly IInteractable _interactable;
+        private const float OFFSET = 120f;
+        private const float SCALE = 0.05f;
 
         private bool IsActivated => _collider.enabled;
 
@@ -46,6 +49,24 @@ namespace MythsAndHorrors.GameView
             _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
         }
 
+        public Tween MoveToThis(Transform scenePoint)
+        {
+            return DOTween.Sequence().OnStart(() => transform.ChangeAllLayers(3))
+                     .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
+                     .Join(transform.DOScale(scenePoint.localScale, ViewValues.DEFAULT_TIME_ANIMATION));
+
+            Vector3 ButtonPositionInUI()
+            {
+                float distanceBorderRight = (OFFSET - (Screen.width - Camera.main.WorldToScreenPoint(scenePoint.position).x)) * SCALE;
+                return new Vector3(scenePoint.position.x - distanceBorderRight, scenePoint.position.y, scenePoint.position.z);
+            }
+        }
+
+        public Tween RestorePosition() => DOTween.Sequence()
+            .Join(transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
+            .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION));
+
+        /*******************************************************************/
         public void OnMouseEnter()
         {
             _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
@@ -58,7 +79,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
-            _interactablePresenter.Clicked();
+            _interactable.Clicked(null);
         }
     }
 }

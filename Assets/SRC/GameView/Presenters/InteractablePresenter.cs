@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractablePresenter : IPresenter
+    public class InteractablePresenter : IPresenter, IInteractable
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
@@ -43,6 +43,8 @@ namespace MythsAndHorrors.GameView
             }
         }
 
+        void IInteractable.Clicked(CardView cardView) => waitForSelection.SetResult(cardView);
+
         private async Task<Card> ShowMultiEffects(List<Effect> effects, InteractableGameAction interactableGameAction)
         {
             waitForSelection = new();
@@ -68,6 +70,13 @@ namespace MythsAndHorrors.GameView
                 return newClonesCardView;
             }
 
+            async Task PreResolve()
+            {
+                await _showCenterComponent.ShowCenter(clonesCardView).AsyncWaitForCompletion();
+                Activate(withButton: true);
+                ShowCardsPlayables(clonesCardView.Keys.ToList());
+            }
+
             Card ResolveCardSelected(CardView cardViewSelected)
             {
                 if (cardViewSelected == null) return null;
@@ -75,13 +84,6 @@ namespace MythsAndHorrors.GameView
                 effectSelected.Card.ClearEffects();
                 effectSelected.Card.AddEffect(effectSelected);
                 return effectSelected.Card;
-            }
-
-            async Task PreResolve()
-            {
-                await _showCenterComponent.ShowCenter(clonesCardView.Keys.ToList()).AsyncWaitForCompletion();
-                Activate(withButton: true);
-                ShowCardsPlayables(clonesCardView.Keys.ToList());
             }
 
             async Task PostResolve(CardView cardViewSelected)
@@ -108,8 +110,6 @@ namespace MythsAndHorrors.GameView
                 clones.ForEach(cardView => Object.Destroy(cardView.gameObject));
             }
         }
-
-        public void Clicked(CardView cardView = null) => waitForSelection.SetResult(cardView);
 
         private void Activate(bool withButton)
         {

@@ -94,7 +94,15 @@ namespace MythsAndHorrors.GameView
         public void ShowEffects()
         {
             if (!Card.CanPlay) return;
-            _effectController.AddEffects(Card.PlayableEffects.ToList());
+            _effectController.AddEffects(Card.PlayableEffects.ToArray());
         }
+
+        public void ShowEffect(Effect effect)
+        {
+            if (!Card.CanPlay) return;
+            _effectController.AddEffects(effect);
+        }
+
+        public void ClearEffects() => _effectController.Clear();
     }
 }

@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
 
         private float AvatarLeftWidth => _avatarLeftWidth ??= -_avatarLeft.GetComponent<RectTransform>().rect.width;
         private float AvatarRightWidth => _avatarRightWidth ??= -_avatarRight.GetComponent<RectTransform>().rect.width;
-        public bool IsEmpty => gameObject.activeSelf == false;
+        public bool IsEmpty => !gameObject.activeSelf;
 
         /*******************************************************************/
         public void SetDescription(string text)
@@ -36,6 +36,12 @@ namespace MythsAndHorrors.GameView
             _description.margin += sprite == null ? new Vector4(0, 0, AvatarRightWidth, 0) : Vector4.zero;
             _avatarRight.enabled = sprite != null;
             _avatarRight.sprite = sprite;
+        }
+
+        public void Clear()
+        {
+            SetDescription(string.Empty);
+            _description.margin = Vector4.zero;
         }
     }
 }
