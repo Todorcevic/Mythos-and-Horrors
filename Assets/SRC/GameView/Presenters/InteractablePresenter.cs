@@ -33,16 +33,19 @@ namespace MythsAndHorrors.GameView
             await waitForSelection.Task;
 
             await Deactivate();
+            Card choose = await SelectCard();
             HideCardsPlayables(allCardViews);
-            if (_cardViewSelected == null) return null;
-            Card choose = _cardViewSelected.Card.HasMultiEffect ?
-                await ShowMultiEffects(_cardViewSelected.Card.PlayableEffects.ToList()) :
-                _cardViewSelected.Card;
-            if (choose == null) return await Interact(interactableGameAction);
             return choose;
+
+            async Task<Card> SelectCard()
+            {
+                if (_cardViewSelected == null) return null;
+                else if (_cardViewSelected.Card.HasMultiEffect) return await ShowMultiEffects(_cardViewSelected.Card.PlayableEffects.ToList(), interactableGameAction);
+                else return _cardViewSelected.Card;
+            }
         }
 
-        private async Task<Card> ShowMultiEffects(List<Effect> effects)
+        private async Task<Card> ShowMultiEffects(List<Effect> effects, InteractableGameAction interactableGameAction)
         {
             waitForSelection = new();
             CardView originalCardView = _cardViewsManager.Get(effects[0].Card);
@@ -51,9 +54,9 @@ namespace MythsAndHorrors.GameView
 
             await waitForSelection.Task;
 
-            Card cardSelected = SelecteEffect();
+            Card cardSelected = SelectEffect();
             await PostResolve();
-            return cardSelected;
+            return cardSelected ?? await Interact(interactableGameAction);
 
             /*******************************************************************/
             Dictionary<CardView, Effect> CreateCardViewDictionary()
@@ -74,7 +77,7 @@ namespace MythsAndHorrors.GameView
                 ShowCardsPlayables(clonesCardView.Keys.ToList());
             }
 
-            Card SelecteEffect()
+            Card SelectEffect()
             {
                 if (_cardViewSelected == null) return null;
                 Effect effectSelected = clonesCardView[_cardViewSelected];
