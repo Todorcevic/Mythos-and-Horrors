@@ -16,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
         protected override bool DEBUG_MODE => true;
 
@@ -42,7 +42,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardSensorController cardSensor = _cardViewsManager.Get(card).GetComponentInChildren<CardSensorController>();
             yield return new WaitUntil(() => cardSensor.IsClickable);
             cardSensor.OnMouseUpAsButton();
-            yield return new WaitUntil(() => cardSensor.IsClickable && _zoneViewsManager.SelectorZone.GetComponentsInChildren<CardView>().Length > 0);
+            yield return new WaitUntil(() => cardSensor.IsClickable && _zoneViewManager.SelectorZone.GetComponentsInChildren<CardView>().Length > 0);
             cardSensor.OnMouseUpAsButton();
         }
     }

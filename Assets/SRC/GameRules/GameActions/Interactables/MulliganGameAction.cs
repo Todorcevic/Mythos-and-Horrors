@@ -20,7 +20,6 @@ namespace MythsAndHorrors.GameRules
         protected sealed override async Task ExecuteThisLogic()
         {
             Investigator.HandZone.Cards.ForEach(card => card.AddEffect(Investigator, "Discard", MulliganDiscardEffect));
-            Investigator.HandZone.Cards.ForEach(card => card.AddEffect(Investigator, "Restore", MulliganRestoreEffect));
             Investigator.DiscardZone.Cards.ForEach(card => card.AddEffect(Investigator, "Restore", MulliganRestoreEffect));
 
             await base.ExecuteThisLogic();

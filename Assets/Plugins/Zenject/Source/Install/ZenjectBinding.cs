@@ -10,9 +10,9 @@ namespace Zenject
         public enum BindId
         {
             None,
-            SelectorZone,
             CenterShowZone,
-            OutZone
+            OutZone,
+            SelectorZone
         }
 
         public enum BindTypes
