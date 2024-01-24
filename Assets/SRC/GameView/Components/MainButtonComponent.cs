@@ -16,8 +16,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
         [Inject] private readonly IInteractable _interactable;
-        private const float OFFSET = 120f;
-        private const float SCALE = 0.05f;
+        private const float OFFSET = 1f;
 
         private bool IsActivated => _collider.enabled;
 
@@ -57,7 +56,8 @@ namespace MythsAndHorrors.GameView
 
             Vector3 ButtonPositionInUI()
             {
-                float distanceBorderRight = (OFFSET - (Screen.width - Camera.main.WorldToScreenPoint(scenePoint.position).x)) * SCALE;
+
+                float distanceBorderRight = (OFFSET - (Screen.width - Camera.main.WorldToScreenPoint(scenePoint.position).x) / Screen.width);
                 return new Vector3(scenePoint.position.x - distanceBorderRight, scenePoint.position.y, scenePoint.position.z);
             }
         }
