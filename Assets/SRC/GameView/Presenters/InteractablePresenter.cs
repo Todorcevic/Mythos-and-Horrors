@@ -35,9 +35,9 @@ namespace MythsAndHorrors.GameView
             }
 
             async Task PostInteraction()
-            {
-                await DeactivateInteraction();
+            {       
                 HideCardsPlayables(allCardViews);
+                await DeactivateInteraction();
                 await _showCenterComponent.ReturnPlayables(exceptThisCarView: cardViewChoose);
             }
 
