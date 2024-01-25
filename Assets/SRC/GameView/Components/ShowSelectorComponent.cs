@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -16,10 +16,34 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _buttonPosition;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
         private List<CardView> _cardViews = new();
 
+        public bool IsVoid => _cardViews.Count == 0;
+        public bool IsMultiEffect => !_cardViews.SequenceEqual(_cardViewsManager.GetAllCanPlay());
+
         /*******************************************************************/
-        public Tween ShowCenter(Dictionary<CardView, Effect> cardViews)
+        public Tween ShowPlayables()
+        {
+            _cardViews = _cardViewsManager.GetAllCanPlay();
+            _blocker.enabled = true;
+            _cardViews.ForEach(cardView => cardView.ShowEffects());
+            return Animation();
+        }
+
+        public async Task ReturnPlayables(CardView exceptThisCarView = null)
+        {
+            Shutdown();
+            Sequence returnSequence = DOTween.Sequence();
+            _cardViews.Except(new CardView[] { exceptThisCarView }).ToList()
+                .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone))));
+            _cardViews.Clear();
+            await returnSequence.AsyncWaitForCompletion();
+        }
+
+        /*******************************************************************/
+        public Tween ShowMultiEffects(Dictionary<CardView, Effect> cardViews)
         {
             _cardViews = cardViews.Keys.ToList();
             _blocker.enabled = true;
@@ -27,38 +51,44 @@ namespace MythsAndHorrors.GameView
             return Animation();
         }
 
-        public Tween ShowCenter(List<CardView> cardViews)
+        public async Task ReturnClones()
         {
-            _cardViews = cardViews;
-            _blocker.enabled = true;
-            cardViews.ForEach(cardView => cardView.ShowEffects());
-            return Animation();
+            Shutdown();
+            CardView originalCardView = _cardViews[0];
+            _cardViews.Except(new[] { originalCardView }).ToList().ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
+                .OnComplete(() => Destroy(clone.gameObject)));
+            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
+            _cardViews.Clear();
         }
 
-        private Sequence Animation()
+        public async Task DestroyClones(CardView cardViewSelected)
         {
-            Sequence showCenterSequence = DOTween.Sequence()
-           .Join(_background.DOFade(ViewValues.DEFAULT_FADE, ViewValues.DEFAULT_TIME_ANIMATION))
-           .Join(_mainButtonComponent.MoveToThis(_buttonPosition))
-           .Join(_mainButtonComponent.transform.DOScale(_buttonPosition.localScale, ViewValues.DEFAULT_TIME_ANIMATION));
-            _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone)));
-            return showCenterSequence;
+            Shutdown();
+            CardView originalCardView = _cardViews[0];
+            List<CardView> clones = _cardViews.Except(new[] { originalCardView }).ToList();
+            (originalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, originalCardView.transform.position);
+            await _moveCardHandler.MoveCardsToZone(clones, _zoneViewsManager.OutZone);
+            clones.ForEach(cardView => Destroy(cardView.gameObject));
+            _cardViews.Clear();
         }
 
-        public Tween Return()
-        {
-            Sequence returnSequence = Shutdown();
-            _cardViews.ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone))));
-            return returnSequence;
-        }
-
-        public Sequence Shutdown()
+        /*******************************************************************/
+        private Sequence Shutdown()
         {
             _blocker.enabled = false;
             _cardViews.ForEach(cardView => cardView.ClearEffects());
             return DOTween.Sequence()
            .Join(_background.DOFade(0f, ViewValues.DEFAULT_TIME_ANIMATION))
            .Join(_mainButtonComponent.RestorePosition());
+        }
+
+        private Sequence Animation()
+        {
+            Sequence showCenterSequence = DOTween.Sequence()
+           .Join(_background.DOFade(ViewValues.DEFAULT_FADE, ViewValues.DEFAULT_TIME_ANIMATION))
+           .Join(_mainButtonComponent.MoveToThis(_buttonPosition));
+            _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone)));
+            return showCenterSequence;
         }
     }
 }

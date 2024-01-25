@@ -27,8 +27,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
             Card card = investigator1.Cards[1];
+            Card card2 = investigator1.Cards[2];
             card.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator1.DangerZone));
             card.AddEffect(null, "EffectTwo En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator1.HandZone));
+            card2.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create<MoveCardsGameAction>().Run(card2, investigator1.DangerZone));
+
 
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.Cards.Take(5).ToList(), investigator1.AidZone).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick(card).AsTask();

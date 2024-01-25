@@ -13,8 +13,8 @@ namespace MythsAndHorrors.GameRules
 
         public List<Card> ActivableCards => _cardsProvider.GetPlayableCards();
         public virtual bool IsManadatary => false;
-        public Card CardSelected { get; private set; }
-        public bool NothingIsSelected => CardSelected == null;
+        public Effect EffectSelected { get; private set; }
+        public bool NothingIsSelected => EffectSelected == null;
 
         /*******************************************************************/
         protected override async Task Start()
@@ -25,9 +25,9 @@ namespace MythsAndHorrors.GameRules
 
         protected override async Task ExecuteThisLogic()
         {
-            CardSelected = await _viewLayer.StartSelectionWith(this);
+            EffectSelected = await _viewLayer.StartSelectionWith(this);
             if (NothingIsSelected) return;
-            await _gameActionFactory.Create<PlayEffectGameAction>().Run(CardSelected.PlayableEffects.Single());
+            await _gameActionFactory.Create<PlayEffectGameAction>().Run(EffectSelected);
         }
     }
 }

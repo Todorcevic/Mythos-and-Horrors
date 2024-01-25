@@ -27,9 +27,9 @@ namespace MythsAndHorrors.GameRules
             await _gameActionFactory.Create<MulliganGameAction>().Run(Investigator);
         }
 
-        private Task MulliganDiscardEffect() => _gameActionFactory.Create<DiscardGameAction>().Run(CardSelected);
+        private Task MulliganDiscardEffect() => _gameActionFactory.Create<DiscardGameAction>().Run(EffectSelected.Card);
 
-        private Task MulliganRestoreEffect() => _gameActionFactory.Create<MoveCardsGameAction>().Run(CardSelected, Investigator.HandZone);
+        private Task MulliganRestoreEffect() => _gameActionFactory.Create<MoveCardsGameAction>().Run(EffectSelected.Card, Investigator.HandZone);
 
     }
 }

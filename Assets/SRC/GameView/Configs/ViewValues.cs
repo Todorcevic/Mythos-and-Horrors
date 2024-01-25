@@ -13,5 +13,6 @@ namespace MythsAndHorrors.GameView
         public const string EMPTY_STAT = "0";
         public const float INITIAL_LAYOUT_WIDTH = 24f;
         public const float DEFAULT_FADE = 0.5f;
+        public const float DEFAULT_SCALE = 1.2f;
     }
 }

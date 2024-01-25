@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -52,11 +51,11 @@ namespace MythsAndHorrors.GameView
         {
             return DOTween.Sequence().OnStart(() => transform.ChangeAllLayers(3))
                      .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
-                     .Join(transform.DOScale(scenePoint.localScale, ViewValues.DEFAULT_TIME_ANIMATION));
+                     .Join(transform.DOScale(scenePoint.localScale, ViewValues.DEFAULT_TIME_ANIMATION))
+                     .SetEase(Ease.InOutCubic);
 
             Vector3 ButtonPositionInUI()
             {
-
                 float distanceBorderRight = (OFFSET - (Screen.width - Camera.main.WorldToScreenPoint(scenePoint.position).x) / Screen.width);
                 return new Vector3(scenePoint.position.x - distanceBorderRight, scenePoint.position.y, scenePoint.position.z);
             }
@@ -64,7 +63,8 @@ namespace MythsAndHorrors.GameView
 
         public Tween RestorePosition() => DOTween.Sequence()
             .Join(transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
-            .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION));
+            .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
+            .SetEase(Ease.InOutCubic);
 
         /*******************************************************************/
         public void OnMouseEnter()
