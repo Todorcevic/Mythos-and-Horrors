@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -26,8 +25,11 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             EffectSelected = await _viewLayer.StartSelectionWith(this);
+            ClearEffectsInAllCards();
             if (NothingIsSelected) return;
             await _gameActionFactory.Create<PlayEffectGameAction>().Run(EffectSelected);
         }
+
+        private void ClearEffectsInAllCards() => _cardsProvider.AllCards.ForEach(card => card.ClearEffects());
     }
 }

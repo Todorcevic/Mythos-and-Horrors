@@ -32,11 +32,11 @@ namespace MythsAndHorrors.GameView
             return Animation();
         }
 
-        public async Task ReturnPlayables(CardView exceptThisCarView = null)
+        public async Task ReturnPlayables(CardView exceptThis = null)
         {
             Shutdown();
             Sequence returnSequence = DOTween.Sequence();
-            _cardViews.Except(new CardView[] { exceptThisCarView }).ToList()
+            _cardViews.Except(new CardView[] { exceptThis?.Card.HasMultiEffect ?? false ? exceptThis : null }).ToList()
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone))));
             _cardViews.Clear();
             await returnSequence.AsyncWaitForCompletion();
@@ -55,8 +55,9 @@ namespace MythsAndHorrors.GameView
         {
             Shutdown();
             CardView originalCardView = _cardViews[0];
-            _cardViews.Except(new[] { originalCardView }).ToList().ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
-                .OnComplete(() => Destroy(clone.gameObject)));
+            List<CardView> clones = _cardViews.Except(new[] { originalCardView }).ToList();
+            clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone)
+                 .OnComplete(() => Destroy(clone.gameObject)));
             await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
             _cardViews.Clear();
         }
@@ -67,8 +68,9 @@ namespace MythsAndHorrors.GameView
             CardView originalCardView = _cardViews[0];
             List<CardView> clones = _cardViews.Except(new[] { originalCardView }).ToList();
             (originalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, originalCardView.transform.position);
-            await _moveCardHandler.MoveCardsToZone(clones, _zoneViewsManager.OutZone);
-            clones.ForEach(cardView => Destroy(cardView.gameObject));
+            clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.OutZone)
+                 .OnComplete(() => Destroy(clone.gameObject)));
+            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
             _cardViews.Clear();
         }
 

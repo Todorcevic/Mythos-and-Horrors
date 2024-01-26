@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting.YamlDotNet.Serialization.TypeResolvers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {

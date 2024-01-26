@@ -35,35 +35,28 @@ namespace MythsAndHorrors.GameView
             }
 
             async Task PostInteraction()
-            {       
+            {
                 HideCardsPlayables(allCardViews);
                 await DeactivateInteraction();
-                await _showCenterComponent.ReturnPlayables(exceptThisCarView: cardViewChoose);
+                await _showCenterComponent.ReturnPlayables(cardViewChoose);
             }
 
-            async Task<Effect> ResolveEffectFrom(CardView cardViewChoose)
-            {
-                Effect effectSelected;
-                if (cardViewChoose?.Card.HasMultiEffect ?? false)
-                {
-                    (cardViewChoose, effectSelected) = await ShowMultiEffects(cardViewChoose.Card.PlayableEffects.ToList());
-                    if (cardViewChoose == null) return await Interact(interactableGameAction);
-                }
-                else effectSelected = cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
-                return effectSelected;
-            }
+            async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false
+                    ? await ShowMultiEffects(cardViewChoose.Card.PlayableEffects.ToList()) ?? await Interact(interactableGameAction)
+                    : cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
         }
 
         void IInteractable.Clicked(CardView cardView) => waitForSelection.SetResult(cardView);
 
-        private async Task<(CardView, Effect)> ShowMultiEffects(List<Effect> effects)
+        private async Task<Effect> ShowMultiEffects(List<Effect> effects)
         {
             waitForSelection = new();
             Dictionary<CardView, Effect> clonesCardViewDictionary = CreateCardViewDictionary();
             await PreInteraction();
             CardView cardViewSelected = await waitForSelection.Task;
+            Effect effectSelected = cardViewSelected == null ? null : clonesCardViewDictionary[cardViewSelected]; //Before destroy clones
             await PostInteraction(cardViewSelected);
-            return (cardViewSelected, cardViewSelected == null ? null : clonesCardViewDictionary[cardViewSelected]);
+            return effectSelected;
 
             /*******************************************************************/
             Dictionary<CardView, Effect> CreateCardViewDictionary()
@@ -88,6 +81,7 @@ namespace MythsAndHorrors.GameView
 
             async Task PostInteraction(CardView cardViewSelected)
             {
+                HideCardsPlayables(clonesCardViewDictionary.Keys.ToList());
                 await DeactivateInteraction();
                 if (cardViewSelected == null) await _showCenterComponent.ReturnClones();
                 else await _showCenterComponent.DestroyClones(cardViewSelected);
