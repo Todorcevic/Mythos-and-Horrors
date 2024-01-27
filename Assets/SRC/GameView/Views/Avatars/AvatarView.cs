@@ -78,6 +78,7 @@ namespace MythsAndHorrors.GameView
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
+
             _ioActivatorComponent.DeactivateSensor();
             await _swapInvestigatorPresenter.Select(Investigator).AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateSensor();

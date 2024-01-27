@@ -53,21 +53,21 @@ namespace MythsAndHorrors.GameView
             await Pay(allTokens, destiny, resourcesTokenController).AsyncWaitForCompletion();
         }
 
-        private Tween Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
+        private Sequence Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
         {
             return DOTween.Sequence()
                 .Join(MoveUp(allTokens, origin, null))
                 .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
         }
 
-        private Tween Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
+        private Sequence Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
         {
             return DOTween.Sequence()
                 .Join(MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.Deactivate()))
                 .Append(MoveDown(allTokens, destiny, null));
         }
 
-        private Tween MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)
+        private Sequence MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)
         {
             Sequence sequence = DOTween.Sequence();
             foreach (TokenView tokenView in allTokens)
@@ -85,7 +85,7 @@ namespace MythsAndHorrors.GameView
             return sequence;
         }
 
-        private Tween MoveDown(List<TokenView> allTokens, Transform target, TweenCallback finish)
+        private Sequence MoveDown(List<TokenView> allTokens, Transform target, TweenCallback finish)
         {
             Sequence sequence = DOTween.Sequence();
             foreach (TokenView tokenView in allTokens)
