@@ -38,7 +38,7 @@ namespace MythsAndHorrors.GameView
             {
                 HideCardsPlayables(allCardViews);
                 await DeactivateInteraction();
-                await _showCenterComponent.ReturnPlayables(cardViewChoose);
+                await _showCenterComponent.ReturnPlayables(cardViewChoose).AsyncWaitForCompletion();
             }
 
             async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false
@@ -84,7 +84,7 @@ namespace MythsAndHorrors.GameView
                 HideCardsPlayables(clonesCardViewDictionary.Keys.ToList());
                 await DeactivateInteraction();
                 if (cardViewSelected == null) await _showCenterComponent.ReturnClones();
-                else await _showCenterComponent.DestroyClones(cardViewSelected);
+                else await _showCenterComponent.DestroyClones(cardViewSelected).AsyncWaitForCompletion();
             }
         }
 

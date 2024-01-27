@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ namespace MythsAndHorrors.GameView
         private async void Start()
         {
             if (!_mustBeLoaded) return;
-
+            DOTween.SetTweensCapacity(200, 125);
             _loadGameUseCase.Execute();
 
             _ioActivatorComponent.DeactivateUI();
