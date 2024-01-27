@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
     public class ZoneDiscardView : ZoneView
     {
         private const float OFF_SET_EXPAND_X = -1.5f;
-        private const float OFF_SET_EXPAND_SELECTED = 6f;
+        public float OFF_SET_EXPAND_SELECTED = 2f;
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
         private bool isStandUp;
@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameView
         private readonly List<CardView> _allCards = new();
 
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
-        private int LastIndex => _allCards.Count - 1;
+        public int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView)
@@ -41,7 +41,9 @@ namespace MythsAndHorrors.GameView
             int selectedIndex = _allCards.IndexOf(cardView);
             for (int j = 0; j <= LastIndex; j++)
             {
-                currentSequence.Join(_allCards[j].transform.DOLocalMoveX((j <= selectedIndex && LastIndex != selectedIndex) ? OFF_SET_EXPAND_X * (LastIndex - j) - OFF_SET_EXPAND_SELECTED : OFF_SET_EXPAND_X * (LastIndex - j), ViewValues.FAST_TIME_ANIMATION));
+                currentSequence.Join(_allCards[j].transform.DOLocalMoveX((j <= selectedIndex && LastIndex != selectedIndex) ?
+                    OFF_SET_EXPAND_X * (LastIndex - j) - OFF_SET_EXPAND_SELECTED : OFF_SET_EXPAND_X * (LastIndex - j),
+                    ViewValues.FAST_TIME_ANIMATION));
             }
 
             currentSequence.Join(cardView.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION))

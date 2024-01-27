@@ -375,6 +375,10 @@ PrefabInstance:
       value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
+      propertyPath: _showEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22077229486266845, guid: 7fea2872dfcc21049b19df860c354f41, type: 3}
       propertyPath: _avoidCardShower
       value: 1
       objectReference: {fileID: 0}

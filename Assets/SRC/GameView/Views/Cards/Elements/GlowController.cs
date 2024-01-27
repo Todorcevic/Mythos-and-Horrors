@@ -7,16 +7,26 @@ namespace MythsAndHorrors.GameView
     public class GlowController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _spriteRenderer;
+        [SerializeField, Required, AssetsOnly] private Material _active;
+        [SerializeField, Required, AssetsOnly] private Material _off;
 
         /*******************************************************************/
         public Tween Off()
         {
-            return _spriteRenderer.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
+            _spriteRenderer.material = _off;
+            return Animation();
         }
 
         public Tween SetGreenGlow()
         {
-            return _spriteRenderer.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+            _spriteRenderer.material = _active;
+            return Animation();
+        }
+
+        private Tween Animation()
+        {
+            _spriteRenderer.transform.localScale = Vector3.one;
+            return _spriteRenderer.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
         }
     }
 }

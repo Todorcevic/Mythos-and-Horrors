@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - BLUR_ON
   - DISTORT_ON
   - OUTBASE8DIR_ON
   m_InvalidKeywords:
@@ -106,8 +107,8 @@ Material:
     - _ColorSwapRedLuminosity: 0.25
     - _Contrast: 1
     - _CullingOption: 0
-    - _DistortAmount: 0.32
-    - _DistortTexXSpeed: 0
+    - _DistortAmount: 0.1
+    - _DistortTexXSpeed: 6.3
     - _DistortTexYSpeed: 1
     - _EditorDrawers: 6
     - _FadeAmount: 0.069

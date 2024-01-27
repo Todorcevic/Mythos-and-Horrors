@@ -12,7 +12,9 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - ALPHACUTOFF_ON
   - BLUR_ON
+  - DISTORT_ON
   - OUTBASE8DIR_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
@@ -77,7 +79,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
-    - _AlphaCutoffValue: 0
+    - _AlphaCutoffValue: 0.1
     - _AlphaOutlineBlend: 1
     - _AlphaOutlineGlow: 5
     - _AlphaOutlineMinAlpha: 0
@@ -106,9 +108,9 @@ Material:
     - _ColorSwapRedLuminosity: 0.25
     - _Contrast: 1
     - _CullingOption: 0
-    - _DistortAmount: 0.45
-    - _DistortTexXSpeed: 0
-    - _DistortTexYSpeed: 1
+    - _DistortAmount: 0.1
+    - _DistortTexXSpeed: 1.2
+    - _DistortTexYSpeed: 1.2
     - _EditorDrawers: 6
     - _FadeAmount: 0.069
     - _FadeBurnGlow: 2.8

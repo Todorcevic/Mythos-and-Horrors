@@ -24,6 +24,7 @@ namespace MythsAndHorrors.GameView
         public Card Card { get; private set; }
         public ZoneCardView OwnZone => _zoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
+        public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
 
         /*******************************************************************/
         [Inject]
@@ -47,7 +48,7 @@ namespace MythsAndHorrors.GameView
         {
             _cardSensor.gameObject.SetActive(false);
             _zoneCardView.gameObject.SetActive(false);
-            _glowComponent.gameObject.SetActive(false);
+            _glowComponent.Off();
         }
 
         public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);
@@ -103,6 +104,6 @@ namespace MythsAndHorrors.GameView
             _effectController.AddEffects(effect);
         }
 
-        public void ClearEffects() => _effectController.Clear();
+        public void HideEffects() => _effectController.Clear();
     }
 }

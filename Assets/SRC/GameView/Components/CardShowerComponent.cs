@@ -16,6 +16,7 @@ namespace MythsAndHorrors.GameView
             if (MustNotShowFilter(cardView)) return;
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
+
             _currentShowCard = _cardViewGeneratorComponent.Clone(cardView, transform);
             _currentShowCard.DisableToShow();
             _currentShowCard.ShowEffects();
