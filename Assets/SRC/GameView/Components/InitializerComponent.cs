@@ -12,18 +12,24 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
         private async void Start()
         {
             if (!_mustBeLoaded) return;
-            DOTween.SetTweensCapacity(200, 125);
+            IntialState();
             _loadGameUseCase.Execute();
-
-            _ioActivatorComponent.DeactivateUI();
-            await _ioActivatorComponent.DeactivateSensor();
             await _gameActionFactory.Create<StartChapterGameAction>().Run(_chaptersProvider.CurrentChapter);
             await _gameActionFactory.Create<StartGameAction>().Run();
+        }
+
+        private void IntialState()
+        {
+            DOTween.SetTweensCapacity(200, 125);
+            _ioActivatorComponent.DeactivateUI();
+            _mainButtonComponent.Deactivate();
+            _ = _ioActivatorComponent.DeactivateSensor();
         }
     }
 }

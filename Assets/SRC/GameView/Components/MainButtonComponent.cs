@@ -31,7 +31,6 @@ namespace MythsAndHorrors.GameView
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION);
-
             _message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f);
             _message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
