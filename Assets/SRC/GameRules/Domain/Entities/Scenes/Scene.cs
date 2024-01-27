@@ -7,13 +7,13 @@ namespace MythsAndHorrors.GameRules
     public abstract class Scene : IStartReactionable, IEndReactionable
     {
         [Inject] public SceneInfo Info { get; }
-        public Zone DangerDeckZone { get; } = new Zone();
-        public Zone DangerDiscardZone { get; } = new Zone();
-        public Zone GoalZone { get; } = new Zone();
-        public Zone PlotZone { get; } = new Zone();
-        public Zone VictoryZone { get; } = new Zone();
-        public Zone LimboZone { get; } = new Zone();
-        public Zone OutZone { get; } = new Zone();
+        public Zone DangerDeckZone { get; } = new Zone(ZoneType.DangerDeck);
+        public Zone DangerDiscardZone { get; } = new Zone(ZoneType.DangerDiscard);
+        public Zone GoalZone { get; } = new Zone(ZoneType.Goal);
+        public Zone PlotZone { get; } = new Zone(ZoneType.Plot);
+        public Zone VictoryZone { get; } = new Zone(ZoneType.Victory);
+        public Zone LimboZone { get; } = new Zone(ZoneType.Limbo);
+        public Zone OutZone { get; } = new Zone(ZoneType.Out);
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
         public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameRules
             {
                 for (int j = 0; j < PlaceZone.GetLength(1); j++)
                 {
-                    PlaceZone[i, j] = new Zone();
+                    PlaceZone[i, j] = new Zone(ZoneType.Place);
                 }
             }
         }

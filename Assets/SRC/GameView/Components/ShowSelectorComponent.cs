@@ -21,11 +21,12 @@ namespace MythsAndHorrors.GameView
         private List<CardView> _cardViews = new();
 
         public bool IsVoid => _cardViews.Count == 0;
-        public bool IsMultiEffect => !_cardViews.SequenceEqual(_cardViewsManager.GetAllCanPlay());
+        public bool IsMultiEffect { get; private set; }
 
         /*******************************************************************/
         public Tween ShowPlayables()
         {
+            IsMultiEffect = false;
             _cardViews = _cardViewsManager.GetAllCanPlay();
             _blocker.enabled = true;
             _cardViews.ForEach(cardView => cardView.ShowEffects());
@@ -46,6 +47,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween ShowMultiEffects(Dictionary<CardView, Effect> cardViews)
         {
+            IsMultiEffect = true;
             _cardViews = cardViews.Keys.ToList();
             _blocker.enabled = true;
             _cardViews.ForEach(cardView => cardView.ShowEffect(cardViews[cardView]));

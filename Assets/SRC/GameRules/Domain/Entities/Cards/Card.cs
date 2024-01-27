@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] protected readonly GameActionFactory _gameActionFactory;
         [Inject] public CardInfo Info { get; }
         [Inject] public List<History> Histories { get; }
-        public Zone OwnZone { get; } = new Zone();
+        public Zone OwnZone { get; } = new Zone(ZoneType.Own);
         public Zone CurrentZone { get; private set; }
         public bool IsSpecial => Info.CardType == CardType.None;
         public bool IsScenaryCard => Info.Faction == Faction.Myths;

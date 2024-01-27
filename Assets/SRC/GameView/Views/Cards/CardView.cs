@@ -44,11 +44,11 @@ namespace MythsAndHorrors.GameView
             transform.SetParent(zoneView.transform);
         }
 
-        public void DisableToShow()
+        public Tween DisableToShow()
         {
             _cardSensor.gameObject.SetActive(false);
             _zoneCardView.gameObject.SetActive(false);
-            _glowComponent.Off();
+            return _glowComponent.Off();
         }
 
         public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);

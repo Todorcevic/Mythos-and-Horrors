@@ -10,6 +10,14 @@ namespace MythsAndHorrors.GameRules
         public Card TopCard => Cards.Last();
         public Card BottomCard => Cards.First();
 
+        public ZoneType ZoneType { get; }
+
+        /*******************************************************************/
+        public Zone(ZoneType type)
+        {
+            ZoneType = type;
+        }
+
         /*******************************************************************/
         public void AddCard(Card card)
         {

@@ -20,12 +20,12 @@ namespace MythsAndHorrors.GameRules
         public Stat Hints { get; } = new Stat(0);
         public Stat InitialHandSize { get; } = new Stat(5);
         public Stat Turns { get; } = new Stat(0, 3);
-        public Zone HandZone { get; } = new Zone();
-        public Zone DeckZone { get; } = new Zone();
-        public Zone DiscardZone { get; } = new Zone();
-        public Zone AidZone { get; } = new Zone();
-        public Zone DangerZone { get; } = new Zone();
-        public Zone InvestigatorZone { get; } = new Zone();
+        public Zone HandZone { get; } = new Zone(ZoneType.Hand);
+        public Zone DeckZone { get; } = new Zone(ZoneType.InvestigatorDeck);
+        public Zone DiscardZone { get; } = new Zone(ZoneType.InvestigatorDiscard);
+        public Zone AidZone { get; } = new Zone(ZoneType.Aid);
+        public Zone DangerZone { get; } = new Zone(ZoneType.Danger);
+        public Zone InvestigatorZone { get; } = new Zone(ZoneType.Investigator);
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>

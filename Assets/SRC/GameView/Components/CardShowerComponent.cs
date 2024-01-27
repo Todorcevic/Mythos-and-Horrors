@@ -18,17 +18,19 @@ namespace MythsAndHorrors.GameView
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
 
             _currentShowCard = _cardViewGeneratorComponent.Clone(cardView, transform);
-            _currentShowCard.DisableToShow();
             _currentShowCard.ShowEffects();
             _currentShowCard.transform.ResetToZero();
-            _currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo).SetId(_currentShowCard.transform);
+            DOTween.Sequence()
+                .Join(_currentShowCard.DisableToShow())
+                .Join(_currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo))
+                .SetId(_currentShowCard);
         }
 
         public void HideCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
-            DOTween.Kill(_currentShowCard.transform);
-            foreach (Transform child in gameObject.transform) Destroy(child.gameObject);
+            DOTween.Kill(_currentShowCard);
+            Destroy(_currentShowCard.gameObject);
         }
 
         private Vector3 GetPosition(Transform cardTransform) =>
