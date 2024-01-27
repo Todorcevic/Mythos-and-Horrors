@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
             Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
-            await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator);
+            await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator).AsyncWaitForCompletion();
             await Gain(allTokens, origin, hintsTokenController).AsyncWaitForCompletion();
         }
 
@@ -31,7 +31,7 @@ namespace MythsAndHorrors.GameView
             TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
             Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
-            await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator);
+            await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator).AsyncWaitForCompletion();
             await Pay(allTokens, destiny, hintsTokenController).AsyncWaitForCompletion();
         }
 
@@ -40,7 +40,7 @@ namespace MythsAndHorrors.GameView
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
             Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
-            await _swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator);
+            await _swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator).AsyncWaitForCompletion();
             await Gain(allTokens, origin, resourcesTokenController).AsyncWaitForCompletion();
         }
 
@@ -49,7 +49,7 @@ namespace MythsAndHorrors.GameView
             TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController;
             List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
             Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
-            await _swapInvestigatorPresenter.Select(payResourceGameAction.Investigator);
+            await _swapInvestigatorPresenter.Select(payResourceGameAction.Investigator).AsyncWaitForCompletion();
             await Pay(allTokens, destiny, resourcesTokenController).AsyncWaitForCompletion();
         }
 

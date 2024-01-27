@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -10,26 +9,24 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         private Investigator _investigatorSelected;
 
         /*******************************************************************/
-        public async Task Select(Investigator investigator, bool withActivation = false)
+        public Tween Select(Investigator investigator)
         {
-            if (_investigatorSelected == investigator) return;
-            _ioActivatorComponent.DeactivateSensor();
-            await DOTween.Sequence()
+            if (_investigatorSelected == investigator) return DOTween.Sequence();
+            Sequence swapSequence = DOTween.Sequence()
             .Join(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
-            .Join(_avatarViewsManager.Get(investigator).Select()).AsyncWaitForCompletion();
+            .Join(_avatarViewsManager.Get(investigator).Select());
             _investigatorSelected = investigator;
-            if (withActivation) _ioActivatorComponent.ActivateSensor();
+            return swapSequence;
         }
 
-        public async Task Select(Zone zone)
+        public Tween Select(Zone zone)
         {
             Investigator investigator = _investigatorsProvider.GetInvestigatorWithThisZone(zone) ?? _investigatorSelected;
-            await Select(investigator);
+            return Select(investigator);
         }
     }
 }
