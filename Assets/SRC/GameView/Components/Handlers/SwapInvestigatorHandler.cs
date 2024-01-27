@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameView
         public async Task Select(Investigator investigator, bool withActivation = false)
         {
             if (_investigatorSelected == investigator) return;
-            await _ioActivatorComponent.DeactivateSensor();
+            _ioActivatorComponent.DeactivateSensor();
             await DOTween.Sequence()
             .Join(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())

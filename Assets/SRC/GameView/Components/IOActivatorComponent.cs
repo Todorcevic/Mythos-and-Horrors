@@ -19,10 +19,10 @@ namespace MythsAndHorrors.GameView
             _boxCollider.enabled = false;
         }
 
-        public async Task DeactivateSensor()
+        public void DeactivateSensor()
         {
             _boxCollider.enabled = true;
-            await DotweenExtension.WaitForAllTweensToComplete();
+            //await DotweenExtension.WaitForAllTweensToComplete();
         }
 
         public void ActivateUI()

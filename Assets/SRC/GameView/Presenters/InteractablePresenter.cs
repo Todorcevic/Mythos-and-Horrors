@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
-        [Inject] private readonly ShowSelectorComponent _showCenterComponent;
+        [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
 
         private TaskCompletionSource<CardView> waitForSelection;
 
@@ -23,22 +23,22 @@ namespace MythsAndHorrors.GameView
         {
             waitForSelection = new();
             List<CardView> allCardViews = _cardViewsManager.Get(interactableGameAction.ActivableCards);
-            PreInteraction();
+            await PreInteraction();
             CardView cardViewChoose = await waitForSelection.Task;
             await PostInteraction();
             return await ResolveEffectFrom(cardViewChoose);
 
-            void PreInteraction()
+            async Task PreInteraction()
             {
-                ActivateInteraction(!interactableGameAction.IsManadatary);
                 ShowCardsPlayables(allCardViews);
+                await ActivateInteraction(!interactableGameAction.IsManadatary);
             }
 
             async Task PostInteraction()
             {
                 HideCardsPlayables(allCardViews);
                 await DeactivateInteraction();
-                await _showCenterComponent.ReturnPlayables(cardViewChoose).AsyncWaitForCompletion();
+                await _showSelectorComponent.ReturnPlayables(withActivation: false, exceptThis: cardViewChoose).AsyncWaitForCompletion();
             }
 
             async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false
@@ -73,7 +73,7 @@ namespace MythsAndHorrors.GameView
 
             async Task PreInteraction()
             {
-                await _showCenterComponent.ShowMultiEffects(clonesCardViewDictionary).AsyncWaitForCompletion();
+                await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary).AsyncWaitForCompletion();
                 _mainButtonComponent.Activate();
                 _ioActivatorComponent.ActivateSensor();
                 ShowCardsPlayables(clonesCardViewDictionary.Keys.ToList());
@@ -83,13 +83,14 @@ namespace MythsAndHorrors.GameView
             {
                 HideCardsPlayables(clonesCardViewDictionary.Keys.ToList());
                 await DeactivateInteraction();
-                if (cardViewSelected == null) await _showCenterComponent.ReturnClones();
-                else await _showCenterComponent.DestroyClones(cardViewSelected).AsyncWaitForCompletion();
+                if (cardViewSelected == null) await _showSelectorComponent.ReturnClones();
+                else await _showSelectorComponent.DestroyClones(cardViewSelected).AsyncWaitForCompletion();
             }
         }
 
-        private void ActivateInteraction(bool withButton)
+        private async Task ActivateInteraction(bool withButton)
         {
+            await DotweenExtension.WaitForAllTweensToComplete();
             if (withButton) _mainButtonComponent.Activate();
             _ioActivatorComponent.ActivateSensor();
             _ioActivatorComponent.ActivateUI();
@@ -98,8 +99,9 @@ namespace MythsAndHorrors.GameView
         private async Task DeactivateInteraction()
         {
             _mainButtonComponent.Deactivate();
-            if (_ioActivatorComponent.IsSensorActivated) await _ioActivatorComponent.DeactivateSensor();
+            if (_ioActivatorComponent.IsSensorActivated) _ioActivatorComponent.DeactivateSensor();
             if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.DeactivateUI();
+            await DotweenExtension.WaitForAllTweensToComplete();
         }
 
         private void ShowCardsPlayables(List<CardView> _cards)
