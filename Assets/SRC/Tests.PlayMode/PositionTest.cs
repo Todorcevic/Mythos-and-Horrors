@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
@@ -45,10 +46,8 @@ namespace MythsAndHorrors.PlayMode.Tests
                     yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j]).AsCoroutine();
                 }
             }
+            if (DEBUG_MODE) yield return _gameActionFactory.Create<BasicPlayGameAction>().Run().AsCoroutine();
 
-            yield return _gameActionFactory.Create<BasicPlayGameAction>().Run().AsCoroutine();
-
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
             Assert.That(true);
         }

@@ -10,16 +10,44 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _amount;
         [SerializeField, Required, ChildGameObjectsOnly] private GameObject _model;
 
-        public bool IsActive => _model.activeSelf;
+        public bool IsActive { get; private set; }
+
         /*******************************************************************/
-        public void Activate()
+        private void Activate()
         {
+            IsActive = true;
             _model.SetActive(true);
         }
 
         public void Deactivate()
         {
+            IsActive = false;
             _model.SetActive(false);
+        }
+
+        public Tween MoveTo(Transform destiny, Transform centerShow)
+        {
+            _model.transform.SetParent(destiny);
+
+            return DOTween.Sequence()
+                   .Append(_model.transform.DOFullMove(centerShow))
+                   .Append(_model.transform.DORecolocate())
+                   .OnComplete(ReturnToken);
+
+            void ReturnToken()
+            {
+                Deactivate();
+                _model.transform.SetParent(transform);
+            }
+        }
+
+        public Tween MoveFrom(Transform origin, Transform centerShow)
+        {
+            _model.transform.SetEqual(origin);
+            Activate();
+            return DOTween.Sequence()
+                    .Append(_model.transform.DOFullMove(centerShow))
+                    .Append(_model.transform.DORecolocate());
         }
 
         public Tween SetAmount(int amount)
@@ -33,7 +61,8 @@ namespace MythsAndHorrors.GameView
         public TokenView Clone()
         {
             TokenView newToken = Instantiate(this, transform.parent);
-            newToken.Deactivate();
+            //_model.SetActive(false);
+            SetAmount(0);
             newToken.name = name;
             newToken.transform.position += Vector3.up * 0.2f;
             return newToken;

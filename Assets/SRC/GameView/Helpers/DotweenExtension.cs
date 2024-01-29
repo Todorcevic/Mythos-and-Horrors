@@ -7,53 +7,30 @@ namespace MythsAndHorrors.GameView
 {
     public static class DotweenExtension
     {
-        public static Sequence DOFullMove(this Transform transform, Transform toMove)
+        public static Sequence DOFullMove(this Transform transform, Transform toMove, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
         {
             return DOTween.Sequence()
-                .Join(transform.DOMove(toMove.position, ViewValues.FAST_TIME_ANIMATION))
-                .Join(transform.DORotate(toMove.eulerAngles, ViewValues.FAST_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.FAST_TIME_ANIMATION));
+                .Join(transform.DOMove(toMove.position, timeAnimation))
+                .Join(transform.DORotate(toMove.eulerAngles, timeAnimation))
+                .Join(transform.DOScale(toMove.lossyScale, timeAnimation));
         }
 
-        public static Sequence DOFullLocalMove(this Transform transform, Transform toMove)
+        public static Sequence DOFullLocalMove(this Transform transform, Transform toMove, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
         {
             return DOTween.Sequence()
-                .Join(transform.DOLocalMove(toMove.localPosition, ViewValues.FAST_TIME_ANIMATION))
-                .Join(transform.DOLocalRotate(toMove.localEulerAngles, ViewValues.FAST_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.FAST_TIME_ANIMATION));
+                .Join(transform.DOLocalMove(toMove.localPosition, timeAnimation))
+                .Join(transform.DOLocalRotate(toMove.localEulerAngles, timeAnimation))
+                .Join(transform.DOScale(toMove.lossyScale, timeAnimation));
         }
 
-        public static Sequence DOFullLocalDefaultMove(this Transform transform, Transform toMove)
+        public static Sequence DORecolocate(this Transform transform, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
         {
             return DOTween.Sequence()
-                .Join(transform.DOLocalMove(toMove.localPosition, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DOLocalRotate(toMove.localEulerAngles, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION));
+                .Join(transform.DOLocalMove(Vector3.zero, timeAnimation))
+                .Join(transform.DOLocalRotate(Vector3.zero, timeAnimation))
+                .Join(transform.DOScale(1f, timeAnimation));
         }
 
-        public static Sequence DOFullLocalSlowMove(this Transform transform, Transform toMove)
-        {
-            return DOTween.Sequence()
-                .Join(transform.DOLocalMove(toMove.localPosition, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOLocalRotate(toMove.localEulerAngles, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.SLOW_TIME_ANIMATION));
-        }
-
-        public static Sequence DOFullMoveSlow(this Transform transform, Transform toMove)
-        {
-            return DOTween.Sequence()
-                .Join(transform.DOMove(toMove.position, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DORotate(toMove.eulerAngles, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.SLOW_TIME_ANIMATION));
-        }
-
-        public static Sequence DOFullMoveDefault(this Transform transform, Transform toMove)
-        {
-            return DOTween.Sequence()
-                .Join(transform.DOMove(toMove.position, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DORotate(toMove.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(transform.DOScale(toMove.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION));
-        }
         public static async Task WaitForAllTweensToComplete()
         {
             while (DOTween.TotalPlayingTweens() > 0) await Task.Yield();

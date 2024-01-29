@@ -22,9 +22,9 @@ namespace MythsAndHorrors.GameView
         public Stat Stat => _chaptersProvider.CurrentScene.ResourcesPile;
 
         /*******************************************************************/
-        public List<TokenView> GetResourceTokens(int amount = 1) => _resourceTokensView.Take(amount).ToList();
+        //public List<TokenView> GetResourceTokens(int amount = 1) => _resourceTokensView.Take(amount).ToList();
 
-        public List<TokenView> GetHintTokens(int amount = 1) => _hintsTokensView.Take(amount).ToList();
+        //public List<TokenView> GetHintTokens(int amount = 1) => _hintsTokensView.Take(amount).ToList();
 
         public void OnMouseEnter()
         {

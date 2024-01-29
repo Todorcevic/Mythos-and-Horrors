@@ -27,8 +27,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
             Investigator investigator2 = _investigatorsProvider.AllInvestigators[1];
 
-            if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0;
-
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.InvestigatorCard, investigator1.InvestigatorZone).AsCoroutine();
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[1], investigator1.HandZone).AsCoroutine();
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[2], investigator1.AidZone).AsCoroutine();
@@ -42,7 +40,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[4], investigator2.DeckZone).AsCoroutine();
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[5], investigator2.DangerZone).AsCoroutine();
 
-            if (DEBUG_MODE) ViewValues.FAST_TIME_ANIMATION = 0.25f;
+            if (DEBUG_MODE) Time.timeScale = 1;
             while (DEBUG_MODE)
             {
                 yield return PressAnyKey();

@@ -30,18 +30,12 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         protected void WithoutAnimations()
         {
-            ViewValues.FAST_TIME_ANIMATION = 0f;
-            ViewValues.DEFAULT_TIME_ANIMATION = 0f;
-            ViewValues.MID_TIME_ANIMATION = 0f;
-            ViewValues.SLOW_TIME_ANIMATION = 0f;
+            Time.timeScale = 20;
         }
 
         private void SetTimeDefault()
         {
-            ViewValues.FAST_TIME_ANIMATION = 0.25f;
-            ViewValues.DEFAULT_TIME_ANIMATION = 0.4f;
-            ViewValues.MID_TIME_ANIMATION = 0.5f;
-            ViewValues.SLOW_TIME_ANIMATION = 0.75f;
+            Time.timeScale = 1;
         }
 
         private void InstallerToScene()

@@ -26,9 +26,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            ViewValues.FAST_TIME_ANIMATION = DEBUG_MODE ? ViewValues.FAST_TIME_ANIMATION : 0f;
-            ViewValues.DEFAULT_TIME_ANIMATION = DEBUG_MODE ? ViewValues.DEFAULT_TIME_ANIMATION : 0f;
-
             yield return base.SetUp();
             _prepareGameUseCase.Execute();
         }

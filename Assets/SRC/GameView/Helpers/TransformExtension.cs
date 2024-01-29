@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
             transform.localPosition = transform.localScale = transform.localEulerAngles = Vector3.zero;
         }
 
-        public static void CloneFrom(this Transform transform, Transform origin)
+        public static void SetEqual(this Transform transform, Transform origin)
         {
             transform.position = origin.position;
             transform.rotation = origin.rotation;

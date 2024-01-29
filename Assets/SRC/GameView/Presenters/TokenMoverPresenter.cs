@@ -19,36 +19,36 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task GainHints(GainHintGameAction gainHintGameAction)
         {
-            await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator).AsyncWaitForCompletion();
-            await Gain().AsyncWaitForCompletion();
+            //await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator).AsyncWaitForCompletion();
+            //await Gain().AsyncWaitForCompletion();
 
-            Tween Gain()
-            {
-                Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
-                List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
-                TokenController tokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
+            //Tween Gain()
+            //{
+            //    Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
+            //    List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
+            //    TokenController tokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
 
-                return DOTween.Sequence()
-                    .Append(MoveUp(allTokens, origin, null))
-                    .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
-            }
+            //    return DOTween.Sequence()
+            //        .Append(MoveUp(allTokens, origin, null))
+            //        .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
+            //}
         }
 
         public async Task PayHints(PayHintGameAction payHintGameAction)
         {
-            await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator).AsyncWaitForCompletion();
-            await Pay().AsyncWaitForCompletion();
+            //await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator).AsyncWaitForCompletion();
+            //await Pay().AsyncWaitForCompletion();
 
-            Tween Pay()
-            {
-                TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
-                List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
-                Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
+            //Tween Pay()
+            //{
+            //    TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
+            //    List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
+            //    Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
 
-                return DOTween.Sequence()
-                    .Append(MoveUp(allTokens, hintsTokenController.TokenOn.transform, () => hintsTokenController.TokenOn.Deactivate()))
-                    .Append(MoveDown(allTokens, destiny, null));
-            }
+            //    return DOTween.Sequence()
+            //        .Append(MoveUp(allTokens, hintsTokenController.TokenOn.transform, () => hintsTokenController.TokenOn.Deactivate()))
+            //        .Append(MoveDown(allTokens, destiny, null));
+            //}
         }
 
         public async Task GainResource(GainResourceGameAction gainResourceGameAction)
@@ -59,12 +59,15 @@ namespace MythsAndHorrors.GameView
             Tween Gain()
             {
                 TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController;
-                List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
-                Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
+                return resourcesTokenController.Gain(gainResourceGameAction.Amount, _statableManager.Get(gainResourceGameAction.FromStat).StatTransform);
 
-                return DOTween.Sequence()
-                   .Append(MoveUp(allTokens, origin, null))
-                   .Append(MoveDown(allTokens, resourcesTokenController.TokenOff.transform, () => resourcesTokenController.TokenOff.Activate()));
+
+                //List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
+                //Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
+
+                //return DOTween.Sequence()
+                //   .Append(MoveUp(allTokens, origin, null))
+                //   .Append(MoveDown(allTokens, resourcesTokenController.TokenOff.transform, () => resourcesTokenController.TokenOff.Activate()));
             }
         }
 
@@ -76,29 +79,31 @@ namespace MythsAndHorrors.GameView
             Tween Pay()
             {
                 TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController;
-                List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
-                Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
+                return resourcesTokenController.Pay(payResourceGameAction.Amount, _statableManager.Get(payResourceGameAction.ToStat).StatTransform);
 
-                return DOTween.Sequence()
-                   .Append(MoveUp(allTokens, resourcesTokenController.TokenOn.transform, () => resourcesTokenController.TokenOn.Deactivate()))
-                   .Append(MoveDown(allTokens, destiny, null));
+                //List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
+                //Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
+
+                //return DOTween.Sequence()
+                //   .Append(MoveUp(allTokens, resourcesTokenController.TokenOn.transform, () => resourcesTokenController.TokenOn.Deactivate()))
+                //   .Append(MoveDown(allTokens, destiny, null));
             }
         }
 
         private Sequence MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)
         {
             Sequence sequence = DOTween.Sequence();
-            foreach (TokenView tokenView in allTokens)
-            {
-                Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
-                sequence.Join(DOTween.Sequence()
-                .PrependCallback(() => tokenView.transform.position = startPosition.position)
-                .PrependCallback(() => tokenView.Activate())
-                .PrependCallback(starting)
-                .Append(tokenView.transform.DOMove(_zonesManager.CenterShowZone.transform.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
-                .Join(tokenView.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
-                .Join(tokenView.transform.DORotate(_zonesManager.CenterShowZone.transform.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear)));
-            }
+            //foreach (TokenView tokenView in allTokens)
+            //{
+            //    Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
+            //    sequence.Join(DOTween.Sequence()
+            //    .PrependCallback(() => tokenView.transform.position = startPosition.position)
+            //    .PrependCallback(() => tokenView.Activate())
+            //    .PrependCallback(starting)
+            //    .Append(tokenView.transform.DOMove(_zonesManager.CenterShowZone.transform.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
+            //    .Join(tokenView.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
+            //    .Join(tokenView.transform.DORotate(_zonesManager.CenterShowZone.transform.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear)));
+            //}
 
             return sequence;
         }
@@ -106,15 +111,15 @@ namespace MythsAndHorrors.GameView
         private Sequence MoveDown(List<TokenView> allTokens, Transform target, TweenCallback finish)
         {
             Sequence sequence = DOTween.Sequence();
-            foreach (TokenView tokenView in allTokens)
-            {
-                sequence.Join(DOTween.Sequence()
-                .Append(tokenView.transform.DOMove(target.position, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.InCubic))
-                .Join(tokenView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION))
-                .Join(tokenView.transform.DORotate(target.rotation.eulerAngles + new Vector3(0, 0, 180), ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear))
-                .AppendCallback(() => tokenView.Deactivate())
-                .AppendCallback(finish));
-            }
+            //foreach (TokenView tokenView in allTokens)
+            //{
+            //    sequence.Join(DOTween.Sequence()
+            //    .Append(tokenView.transform.DOMove(target.position, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.InCubic))
+            //    .Join(tokenView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION))
+            //    .Join(tokenView.transform.DORotate(target.rotation.eulerAngles + new Vector3(0, 0, 180), ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear))
+            //    .AppendCallback(() => tokenView.Deactivate())
+            //    .AppendCallback(finish));
+            //}
 
             return sequence;
         }
