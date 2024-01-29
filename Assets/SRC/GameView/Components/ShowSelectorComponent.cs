@@ -34,20 +34,16 @@ namespace MythsAndHorrors.GameView
             return Animation();
         }
 
-        public Tween ReturnPlayables(bool withActivation, CardView exceptThis = null)
+        public async Task ReturnPlayables(bool withActivation, CardView exceptThis = null)
         {
             Shutdown(withActivation);
-            if (_cardViews.Count == 0) return DOTween.Sequence();
+            if (_cardViews.Count == 0) return;
             Sequence returnSequence = DOTween.Sequence();
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.Linear)));
-
-            if (exceptThis != null)
-                _ = _moveCardHandler.MoveCardWithPreviewToZone(exceptThis, _zoneViewsManager.Get(exceptThis.Card.CurrentZone));
-
+            await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
-            return returnSequence;
         }
 
         /*******************************************************************/
@@ -62,13 +58,12 @@ namespace MythsAndHorrors.GameView
 
         public async Task ReturnClones()
         {
+            Shutdown();
             CardView originalCardView = _cardViews[0];
             List<CardView> clones = _cardViews.Except(new[] { originalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
-
-            clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone)
+            clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
                  .OnComplete(() => Destroy(clone.gameObject)));
-            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone))
-                .Join(Shutdown().AsyncWaitForCompletion());
+            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
             _cardViews.Clear();
         }
 
@@ -77,14 +72,10 @@ namespace MythsAndHorrors.GameView
             Shutdown();
             CardView originalCardView = _cardViews[0];
             List<CardView> clones = _cardViews.Except(new[] { originalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
-
             (originalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, originalCardView.transform.position);
-
             Sequence sequence = DOTween.Sequence();
             clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone))
                  .OnComplete(() => Destroy(clone.gameObject)));
-
-            sequence.Join(originalCardView.MoveToZone(_zoneViewsManager.Get(originalCardView.Card.CurrentZone)));
             _cardViews.Clear();
             return sequence;
 

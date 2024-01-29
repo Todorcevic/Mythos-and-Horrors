@@ -38,7 +38,7 @@ namespace MythsAndHorrors.GameView
             {
                 HideCardsPlayables(allCardViews);
                 await DeactivateInteraction();
-                await _showSelectorComponent.ReturnPlayables(withActivation: false, exceptThis: cardViewChoose).AsyncWaitForCompletion();
+                await _showSelectorComponent.ReturnPlayables(withActivation: false, exceptThis: cardViewChoose);
             }
 
             async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false

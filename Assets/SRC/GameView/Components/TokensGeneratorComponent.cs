@@ -14,6 +14,7 @@ namespace MythsAndHorrors.GameView
         private const float Z_OFF_SET = 2f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
+        [SerializeField, Required, ChildGameObjectsOnly] private Transform _tokenCenterShow;
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _resourceTokensView;
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _hintsTokensView;
 

@@ -16,7 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -81,6 +81,11 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Move_Resource_Swaping()
         {
             _prepareGameUse.Execute();
+
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigatorsProvider.Leader.Cards[0], _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(_investigatorsProvider.Second.Cards[0], _investigatorsProvider.Second.AidZone).AsCoroutine();
+
+
             yield return _gameActionFactory.Create<GainResourceGameAction>()
                 .Run(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.ResourcesPile, 5).AsCoroutine();
 

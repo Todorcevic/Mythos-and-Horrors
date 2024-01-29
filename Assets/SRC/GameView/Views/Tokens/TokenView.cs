@@ -8,16 +8,18 @@ namespace MythsAndHorrors.GameView
     public class TokenView : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _amount;
+        [SerializeField, Required, ChildGameObjectsOnly] private GameObject _model;
 
+        public bool IsActive => _model.activeSelf;
         /*******************************************************************/
         public void Activate()
         {
-            gameObject.SetActive(true);
+            _model.SetActive(true);
         }
 
         public void Deactivate()
         {
-            gameObject.SetActive(false);
+            _model.SetActive(false);
         }
 
         public Tween SetAmount(int amount)

@@ -1,10 +1,10 @@
 ﻿using Zenject;
-using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameView
 {
@@ -19,52 +19,70 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task GainHints(GainHintGameAction gainHintGameAction)
         {
-            TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
-            List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
-            Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainHintGameAction.Investigator).AsyncWaitForCompletion();
-            await Gain(allTokens, origin, hintsTokenController).AsyncWaitForCompletion();
+            await Gain().AsyncWaitForCompletion();
+
+            Tween Gain()
+            {
+                Transform origin = _statableManager.Get(gainHintGameAction.FromStat).StatTransform;
+                List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(gainHintGameAction.Amount);
+                TokenController tokenController = _areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController;
+
+                return DOTween.Sequence()
+                    .Append(MoveUp(allTokens, origin, null))
+                    .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
+            }
         }
 
         public async Task PayHints(PayHintGameAction payHintGameAction)
         {
-            TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
-            List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
-            Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payHintGameAction.Investigator).AsyncWaitForCompletion();
-            await Pay(allTokens, destiny, hintsTokenController).AsyncWaitForCompletion();
+            await Pay().AsyncWaitForCompletion();
+
+            Tween Pay()
+            {
+                TokenController hintsTokenController = _areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController;
+                List<TokenView> allTokens = _tokensGeneratorComponent.GetHintTokens(payHintGameAction.Amount);
+                Transform destiny = _statableManager.Get(payHintGameAction.ToStat).StatTransform;
+
+                return DOTween.Sequence()
+                    .Append(MoveUp(allTokens, hintsTokenController.TokenOn.transform, () => hintsTokenController.TokenOn.Deactivate()))
+                    .Append(MoveDown(allTokens, destiny, null));
+            }
         }
 
         public async Task GainResource(GainResourceGameAction gainResourceGameAction)
         {
-            TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController;
-            List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
-            Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
             await _swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator).AsyncWaitForCompletion();
-            await Gain(allTokens, origin, resourcesTokenController).AsyncWaitForCompletion();
+            await Gain().AsyncWaitForCompletion();
+
+            Tween Gain()
+            {
+                TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController;
+                List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(gainResourceGameAction.Amount);
+                Transform origin = _statableManager.Get(gainResourceGameAction.FromStat).StatTransform;
+
+                return DOTween.Sequence()
+                   .Append(MoveUp(allTokens, origin, null))
+                   .Append(MoveDown(allTokens, resourcesTokenController.TokenOff.transform, () => resourcesTokenController.TokenOff.Activate()));
+            }
         }
 
         public async Task PayResource(PayResourceGameAction payResourceGameAction)
         {
-            TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController;
-            List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
-            Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
             await _swapInvestigatorPresenter.Select(payResourceGameAction.Investigator).AsyncWaitForCompletion();
-            await Pay(allTokens, destiny, resourcesTokenController).AsyncWaitForCompletion();
-        }
+            await Pay().AsyncWaitForCompletion();
 
-        private Sequence Gain(List<TokenView> allTokens, Transform origin, TokenController tokenController)
-        {
-            return DOTween.Sequence()
-                .Join(MoveUp(allTokens, origin, null))
-                .Append(MoveDown(allTokens, tokenController.TokenOff.transform, () => tokenController.TokenOff.Activate()));
-        }
+            Tween Pay()
+            {
+                TokenController resourcesTokenController = _areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController;
+                List<TokenView> allTokens = _tokensGeneratorComponent.GetResourceTokens(payResourceGameAction.Amount);
+                Transform destiny = _statableManager.Get(payResourceGameAction.ToStat).StatTransform;
 
-        private Sequence Pay(List<TokenView> allTokens, Transform destiny, TokenController tokenController)
-        {
-            return DOTween.Sequence()
-                .Join(MoveUp(allTokens, tokenController.TokenOn.transform, () => tokenController.TokenOn.Deactivate()))
-                .Append(MoveDown(allTokens, destiny, null));
+                return DOTween.Sequence()
+                   .Append(MoveUp(allTokens, resourcesTokenController.TokenOn.transform, () => resourcesTokenController.TokenOn.Deactivate()))
+                   .Append(MoveDown(allTokens, destiny, null));
+            }
         }
 
         private Sequence MoveUp(List<TokenView> allTokens, Transform startPosition, TweenCallback starting)

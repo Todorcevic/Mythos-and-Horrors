@@ -35,25 +35,13 @@ namespace MythsAndHorrors.GameView
             gameObject.SetActive(true);
         }
 
-        public Tween Select()
-        {
-            return transform.DOScale(1.25f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public Tween Select() => transform.DOScale(1.25f, ViewValues.FAST_TIME_ANIMATION);
 
-        public Tween Deselect()
-        {
-            return transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public Tween Deselect() => transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
 
-        public Tween ActivateGlow()
-        {
-            return _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public Tween ActivateGlow() => _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
 
-        public Tween DeactivateGlow()
-        {
-            return _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public Tween DeactivateGlow() => _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
 
         public void SetHealth(int amount) => _health.text = amount.ToString();
 

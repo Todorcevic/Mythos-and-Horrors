@@ -13,7 +13,6 @@ namespace MythsAndHorrors.GameView
         public async Task UpdateStat(StatGameAction updateStatGameAction)
         {
             IStatableView statable = _statsViewsManager.Get(updateStatGameAction.Stat);
-
             if (statable != null) await statable.UpdateValue().AsyncWaitForCompletion();
         }
     }

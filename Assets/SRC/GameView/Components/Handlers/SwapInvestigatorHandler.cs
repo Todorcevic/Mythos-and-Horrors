@@ -16,7 +16,7 @@ namespace MythsAndHorrors.GameView
         {
             if (_investigatorSelected == investigator) return DOTween.Sequence();
             Sequence swapSequence = DOTween.Sequence()
-            .Join(_swapInvestigatorComponent.Select(investigator))
+            .Append(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
             .Join(_avatarViewsManager.Get(investigator).Select());
             _investigatorSelected = investigator;

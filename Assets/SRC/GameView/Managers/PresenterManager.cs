@@ -25,6 +25,7 @@ namespace MythsAndHorrors.GameView
                 StatGameAction statGameAction => Get<StatUpdatePresenter>().UpdateStat(statGameAction),
                 _ => Task.CompletedTask,
             };
+            //if (animation != Task.CompletedTask) await DotweenExtension.WaitForAllTweensToComplete();
             await animation;
         }
 

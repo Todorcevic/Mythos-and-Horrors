@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
             await DotweenExtension.WaitForAllTweensToComplete();
             if (_showSelectorComponent.IsVoid) await _showSelectorComponent.ShowPlayables().AsyncWaitForCompletion();
             else if (_showSelectorComponent.IsMultiEffect) await _showSelectorComponent.ReturnClones();
-            else await _showSelectorComponent.ReturnPlayables(withActivation: true).AsyncWaitForCompletion();
+            else await _showSelectorComponent.ReturnPlayables(withActivation: true);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

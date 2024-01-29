@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
             (Transform positionToExit, Transform positionToEnter) = GetSidePosition(investigator);
             areaInvestigatorView.transform.position = positionToEnter.position;
             Sequence swapSequence = DOTween.Sequence()
-                .Join(areaInvestigatorView.transform.DOFullMoveSlow(_playPosition).SetEase(Ease.InOutCubic))
+                .Append(areaInvestigatorView.transform.DOFullMoveSlow(_playPosition).SetEase(Ease.InOutCubic))
                 .Join(_currentAreaInvestigator.transform.DOFullMoveSlow(positionToExit).SetEase(Ease.InOutCubic));
             _currentAreaInvestigator.transform.position *= 4f;
             _currentAreaInvestigator = areaInvestigatorView;
