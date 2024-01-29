@@ -28,10 +28,9 @@ namespace MythsAndHorrors.GameView
         public Tween MoveTo(Transform destiny, Transform centerShow)
         {
             _model.transform.SetParent(destiny);
-
             return DOTween.Sequence()
-                   .Append(_model.transform.DOFullMove(centerShow))
-                   .Append(_model.transform.DORecolocate())
+                   .Append(MoveCenter(centerShow))
+                   .Append(_model.transform.DORecolocate(ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)))
                    .OnComplete(ReturnToken);
 
             void ReturnToken()
@@ -43,11 +42,12 @@ namespace MythsAndHorrors.GameView
 
         public Tween MoveFrom(Transform origin, Transform centerShow)
         {
+
             _model.transform.SetEqual(origin);
             Activate();
             return DOTween.Sequence()
-                    .Append(_model.transform.DOFullMove(centerShow))
-                    .Append(_model.transform.DORecolocate());
+                .Append(MoveCenter(centerShow))
+                .Append(_model.transform.DORecolocate(ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)));
         }
 
         public Tween SetAmount(int amount)
@@ -61,11 +61,20 @@ namespace MythsAndHorrors.GameView
         public TokenView Clone()
         {
             TokenView newToken = Instantiate(this, transform.parent);
-            //_model.SetActive(false);
-            SetAmount(0);
+            newToken._amount.text = string.Empty;
             newToken.name = name;
             newToken.transform.position += Vector3.up * 0.2f;
             return newToken;
+        }
+
+        private Tween MoveCenter(Transform centerShow)
+        {
+            Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
+            return DOTween.Sequence()
+                 .Append(_model.transform.DOMove(centerShow.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)))
+                 .Join(_model.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
+                 .Join(_model.transform.DORotate(centerShow.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear))
+                 .Append(_model.transform.DORotate(centerShow.rotation.eulerAngles + new Vector3(0f, 0, -0.5f), 0.1f));
         }
     }
 }

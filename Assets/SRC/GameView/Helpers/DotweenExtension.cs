@@ -26,7 +26,7 @@ namespace MythsAndHorrors.GameView
         public static Sequence DORecolocate(this Transform transform, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
         {
             return DOTween.Sequence()
-                .Join(transform.DOLocalMove(Vector3.zero, timeAnimation))
+                .Join(transform.DOLocalMove(Vector3.zero, timeAnimation).SetEase(Ease.InCubic))
                 .Join(transform.DOLocalRotate(Vector3.zero, timeAnimation))
                 .Join(transform.DOScale(1f, timeAnimation));
         }

@@ -12,13 +12,14 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
         [Inject] private readonly ZoneViewsManager _zonesManager;
+        [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] public Transform CenterShow { get; }
 
         public int Amount => _allTokens.Count(tokenView => tokenView.IsActive);
         public TokenView TokenOn => _allTokens.Last(tokenView => tokenView.IsActive);
         public TokenView TokenOff => _allTokens.Find(tokenView => !tokenView.IsActive) ?? CreateNewToken();
         public Stat Stat { get; private set; }
         public Transform StatTransform => TokenOn.transform;
-        private Transform CenterShow => _zonesManager.CenterShowZone.transform;
+        //private Transform CenterShow => _zonesManager.CenterShowZone.transform;
 
         /*******************************************************************/
         public void Init(Stat stat)
@@ -54,13 +55,32 @@ namespace MythsAndHorrors.GameView
         {
             int deactiveTokensAmount = _allTokens.Count(tokenView => !tokenView.IsActive);
             if (deactiveTokensAmount < amount)
-                _allTokens.AddRange(Enumerable.Repeat(CreateNewToken(), amount - deactiveTokensAmount));
+            {
+                for (int i = 0; i < amount - deactiveTokensAmount; i++)
+                {
+                    CreateNewToken();
+                }
+            }
 
-            return _allTokens.Where(tokenView => !tokenView.IsActive).Take(amount).ToList();
+            List<TokenView> deactiveTokens = new();
+            for (int i = 0; i < amount; i++)
+            {
+                TokenView token = _allTokens.First(tokenView => !tokenView.IsActive && !deactiveTokens.Contains(tokenView));
+                deactiveTokens.Add(token);
+            }
+            return deactiveTokens;
         }
 
-        private List<TokenView> GetActiveTokens(int amount) =>
-            _allTokens.Where(tokenView => tokenView.IsActive).Take(amount).ToList();
+        private List<TokenView> GetActiveTokens(int amount)
+        {
 
+            List<TokenView> activeTokens = new();
+            for (int i = 0; i < amount; i++)
+            {
+                TokenView token = _allTokens.Last(tokenView => tokenView.IsActive && !activeTokens.Contains(tokenView));
+                activeTokens.Add(token);
+            }
+            return activeTokens;
+        }
     }
 }

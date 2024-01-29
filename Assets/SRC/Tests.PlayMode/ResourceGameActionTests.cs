@@ -2,6 +2,7 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
@@ -16,7 +17,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
