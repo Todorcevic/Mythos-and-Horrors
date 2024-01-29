@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,15 +18,14 @@ namespace MythsAndHorrors.GameView
             {
                 MoveCardsGameAction moveCardsGameAction => Get<CardMoverPresenter>().MoveCardWith(moveCardsGameAction),
                 ShowHistoryGameAction showHistoryGameAction => Get<ShowHistoryPresenter>().ShowHistory(showHistoryGameAction),
-                GainResourceGameAction gainResourceGameAction => Get<TokenMoverPresenter>().GainResource(gainResourceGameAction),
-                PayResourceGameAction payResourceGameAction => Get<TokenMoverPresenter>().PayResource(payResourceGameAction),
-                GainHintGameAction gainHintsGameAction => Get<TokenMoverPresenter>().GainHints(gainHintsGameAction),
-                PayHintGameAction payHintsGameAction => Get<TokenMoverPresenter>().PayHints(payHintsGameAction),
+                GainResourceGameAction gainResourceGameAction => Get<TokenMoverPresenter>().GainResource(gainResourceGameAction).AsyncWaitForCompletion(),
+                PayResourceGameAction payResourceGameAction => Get<TokenMoverPresenter>().PayResource(payResourceGameAction).AsyncWaitForCompletion(),
+                GainHintGameAction gainHintsGameAction => Get<TokenMoverPresenter>().GainHints(gainHintsGameAction).AsyncWaitForCompletion(),
+                PayHintGameAction payHintsGameAction => Get<TokenMoverPresenter>().PayHints(payHintsGameAction).AsyncWaitForCompletion(),
                 ShuffleGameAction shuffleGameAction => Get<ShufflePresenter>().Shuffle(shuffleGameAction),
                 StatGameAction statGameAction => Get<StatUpdatePresenter>().UpdateStat(statGameAction),
                 _ => Task.CompletedTask,
             };
-            //if (animation != Task.CompletedTask) await DotweenExtension.WaitForAllTweensToComplete();
             await animation;
         }
 
