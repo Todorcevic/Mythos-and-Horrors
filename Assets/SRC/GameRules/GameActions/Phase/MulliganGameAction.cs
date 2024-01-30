@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public Investigator Investigator { get; private set; }
+        public Investigator Investigator { get; }
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -27,9 +27,9 @@ namespace MythsAndHorrors.GameRules
             await _gameActionFactory.Create(new MulliganGameAction(Investigator));
         }
 
-        private Task MulliganDiscardEffect(Card card) => _gameActionFactory.Create<DiscardGameAction>().Run(card);
+        private Task MulliganDiscardEffect(Card card) => _gameActionFactory.Create(new DiscardGameAction(card));
 
-        private Task MulliganRestoreEffect(Card card, Zone zone) => _gameActionFactory.Create<MoveCardsGameAction>().Run(card, zone);
+        private Task MulliganRestoreEffect(Card card, Zone zone) => _gameActionFactory.Create(new MoveCardsGameAction(card, zone));
     }
 }
 

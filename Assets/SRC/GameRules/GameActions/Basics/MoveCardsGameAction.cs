@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -9,21 +8,23 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly IViewLayer _viewLayer;
 
-        public List<Card> Cards { get; private set; }
+        public List<Card> Cards { get; }
         public Card Card => Cards[0];
-        public Zone Zone { get; private set; }
+        public Zone Zone { get; }
         public bool IsSingleMove => Cards.Count == 1;
 
         /*******************************************************************/
-        private async Task Run(Zone zone, params Card[] cards)
+        public MoveCardsGameAction(List<Card> cards, Zone zone)
         {
-            Cards = cards.ToList();
+            Cards = cards;
             Zone = zone;
-            await Start();
         }
 
-        public async Task Run(List<Card> cards, Zone zone) => await Run(zone, cards.ToArray());
-        public async Task Run(Card card, Zone zone) => await Run(zone, card);
+        public MoveCardsGameAction(Card card, Zone zone)
+        {
+            Cards = new List<Card> { card };
+            Zone = zone;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

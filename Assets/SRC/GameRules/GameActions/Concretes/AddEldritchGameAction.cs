@@ -5,14 +5,14 @@ namespace MythsAndHorrors.GameRules
 {
     public class AddEldritchGameAction : GameAction
     {
-        private int _amount;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
+        public int Amount { get; }
+
         /*******************************************************************/
-        public async Task Run(int amount)
+        public AddEldritchGameAction(int amount)
         {
-            _amount = amount;
-            await Start();
+            Amount = amount;
         }
 
         /*******************************************************************/
@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             _chaptersProvider.CurrentScene.CurrentPlot.Eldritch
-                .UpdateValue(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch.Value + _amount);
+                .UpdateValue(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch.Value + Amount);
             await Task.CompletedTask;
         }
     }

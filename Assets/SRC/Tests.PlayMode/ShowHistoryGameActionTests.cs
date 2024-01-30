@@ -35,7 +35,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             do
             {
-                yield return _gameActionFactory.Create<ShowHistoryGameAction>().Run(sutHistory).AsCoroutine();
+                yield return _gameActionFactory.Create(new ShowHistoryGameAction(sutHistory)).AsCoroutine();
             }
             while (DEBUG_MODE);
 

@@ -8,13 +8,12 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly IViewLayer _animator;
 
-        public Effect Effect { get; private set; }
+        public Effect Effect { get; }
 
         /*******************************************************************/
-        public async Task Run(Effect effect)
+        public PlayEffectGameAction(Effect effect)
         {
             Effect = effect ?? throw new ArgumentNullException("Effect cant be null");
-            await Start();
         }
 
         /*******************************************************************/

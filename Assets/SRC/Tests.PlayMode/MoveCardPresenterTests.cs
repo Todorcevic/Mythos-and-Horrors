@@ -30,13 +30,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
             Card card = investigator1.Cards[1];
 
-            //yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.Cards[4], investigator1.InvestigatorZone).AsCoroutine();
-            //yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.Cards[5], investigator2.InvestigatorZone).AsCoroutine();
-
-
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator1.DangerZone).AsCoroutine();
-            //yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.Cards[2], investigator2.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator2.DangerZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator2.DangerZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

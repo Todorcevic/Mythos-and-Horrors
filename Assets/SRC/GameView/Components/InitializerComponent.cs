@@ -20,8 +20,8 @@ namespace MythsAndHorrors.GameView
             if (!_mustBeLoaded) return;
             IntialState();
             _loadGameUseCase.Execute();
-            await _gameActionFactory.Create<StartChapterGameAction>().Run(_chaptersProvider.CurrentChapter);
-            await _gameActionFactory.Create<StartGameAction>().Run();
+            await _gameActionFactory.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
+            await _gameActionFactory.Create(new StartGameAction());
             await _gameActionFactory.Create(new InteractableGameAction(false));
         }
 

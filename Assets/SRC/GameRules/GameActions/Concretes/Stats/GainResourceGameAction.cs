@@ -9,25 +9,23 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Investigator Investigator { get; private set; }
-        public Stat FromStat { get; private set; }
-        public int Amount { get; private set; }
+        public Investigator Investigator { get; }
+        public Stat FromStat { get; }
+        public int Amount { get; }
 
         /*******************************************************************/
-        public async Task Run(Investigator investigator, int amount)
+        public GainResourceGameAction(Investigator investigator, int amount)
         {
             Investigator = investigator;
             FromStat = _chaptersProvider.CurrentScene.ResourcesPile;
             Amount = amount;
-            await Start();
         }
 
-        public async Task Run(Investigator investigator, Stat fromStat, int amount)
+        public GainResourceGameAction(Investigator investigator, Stat fromStat, int amount)
         {
             Investigator = investigator;
             FromStat = fromStat;
             Amount = fromStat.Value < amount ? fromStat.Value : amount;
-            await Start();
         }
 
         /*******************************************************************/

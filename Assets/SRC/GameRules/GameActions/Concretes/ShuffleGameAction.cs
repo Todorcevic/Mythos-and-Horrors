@@ -7,13 +7,12 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly IViewLayer _animator;
 
-        public Zone ZoneToShuffle { get; private set; }
+        public Zone ZoneToShuffle { get; }
 
         /*******************************************************************/
-        public async Task Run(Zone zoneToShuffle)
+        public ShuffleGameAction(Zone zoneToShuffle)
         {
             ZoneToShuffle = zoneToShuffle;
-            await Start();
         }
 
         /*******************************************************************/

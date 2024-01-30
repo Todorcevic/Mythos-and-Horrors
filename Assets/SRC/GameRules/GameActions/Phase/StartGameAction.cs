@@ -10,17 +10,14 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
-        public async Task Run() => await Start();
-
-        /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
-                await _gameActionFactory.Create<PrepareInvestigatorGameAction>().Run(investigator);
+                await _gameActionFactory.Create(new PrepareInvestigatorGameAction(investigator));
             }
 
-            await _gameActionFactory.Create<PrepareSceneGameAction>().Run(_chaptersProvider.CurrentScene);
+            await _gameActionFactory.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
         }
     }
 }

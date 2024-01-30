@@ -27,18 +27,18 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.AllInvestigators[0];
             Investigator investigator2 = _investigatorsProvider.AllInvestigators[1];
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.InvestigatorCard, investigator1.InvestigatorZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[1], investigator1.HandZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[2], investigator1.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[3], investigator1.DiscardZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[4], investigator1.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.FullDeck[5], investigator1.DangerZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.InvestigatorCard, investigator2.InvestigatorZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[1], investigator2.HandZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[2], investigator2.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[3], investigator2.DiscardZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[4], investigator2.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator2.FullDeck[5], investigator2.DangerZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.InvestigatorCard, investigator1.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.FullDeck[1], investigator1.HandZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.FullDeck[2], investigator1.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.FullDeck[3], investigator1.DiscardZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.FullDeck[4], investigator1.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.FullDeck[5], investigator1.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.InvestigatorCard, investigator2.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.FullDeck[1], investigator2.HandZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.FullDeck[2], investigator2.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.FullDeck[3], investigator2.DiscardZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.FullDeck[4], investigator2.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator2.FullDeck[5], investigator2.DangerZone)).AsCoroutine();
 
             if (DEBUG_MODE) Time.timeScale = 1;
             while (DEBUG_MODE)

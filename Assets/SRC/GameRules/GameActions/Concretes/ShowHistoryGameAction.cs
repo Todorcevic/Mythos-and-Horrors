@@ -6,13 +6,13 @@ namespace MythsAndHorrors.GameRules
     public class ShowHistoryGameAction : GameAction
     {
         [Inject] private readonly IViewLayer _animator;
-        public History History { get; private set; }
+
+        public History History { get; }
 
         /*******************************************************************/
-        public async Task Run(History history)
+        public ShowHistoryGameAction(History history)
         {
             History = history;
-            await Start();
         }
 
         /*******************************************************************/

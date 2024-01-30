@@ -22,13 +22,13 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.Leader;
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator.FullDeck[0], investigator.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator.FullDeck[1], investigator.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator.FullDeck[2], investigator.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator.FullDeck[3], investigator.DeckZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[0], investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[1], investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[2], investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[3], investigator.DeckZone)).AsCoroutine();
 
-            InitialDrawGameAction initialDrawGameAction = _gameActionFactory.Create<InitialDrawGameAction>();
-            yield return initialDrawGameAction.Run(investigator).AsCoroutine();
+            InitialDrawGameAction initialDrawGameAction = new(investigator);
+            yield return _gameActionFactory.Create(initialDrawGameAction).AsCoroutine();
 
             Assert.That(_gameActionFactory.Actions[5] is DrawGameAction);
             Assert.That(_gameActionFactory.Actions[5].Parent, Is.EqualTo(initialDrawGameAction));

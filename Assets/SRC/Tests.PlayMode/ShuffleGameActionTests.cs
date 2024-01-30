@@ -2,7 +2,6 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.TestTools;
 using Zenject;
@@ -24,12 +23,11 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Shuffle_Zone()
         {
             _prepareGameUse.Execute();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>()
-                .Run(_investigatorsProvider.Leader.FullDeck, _investigatorsProvider.Leader.DeckZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
             CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.Leader.DeckZone).GetComponentsInChildren<CardView>();
             do
             {
-                yield return _gameActionFactory.Create<ShuffleGameAction>().Run(_investigatorsProvider.Leader.DeckZone).AsCoroutine();
+                yield return _gameActionFactory.Create(new ShuffleGameAction(_investigatorsProvider.Leader.DeckZone)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
             CardView[] allCardViewsShuffled = zoneViewsManager.Get(_investigatorsProvider.Leader.DeckZone).GetComponentsInChildren<CardView>();

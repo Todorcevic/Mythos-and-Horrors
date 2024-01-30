@@ -4,19 +4,17 @@ namespace MythsAndHorrors.GameRules
 {
     public class ActivateBuffGameAction : GameAction
     {
-        private Buff _buff;
+        public Buff Buff { get; }
 
         /*******************************************************************/
-        public async Task Run(Buff buff)
+        public ActivateBuffGameAction(Buff buff)
         {
-            _buff = buff;
-            await Start();
+            Buff = buff;
         }
-
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _buff.Apply();
+            await Buff.Apply();
         }
     }
 }

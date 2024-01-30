@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (CanActivate(gameAction))
             {
-                await _gameActionRepository.Create<MoveCardsGameAction>().Run(this, null); //TODO Remove Resource
+                await _gameActionRepository.Create(new MoveCardsGameAction(this, null)); //TODO Remove Resource
             }
         }
 

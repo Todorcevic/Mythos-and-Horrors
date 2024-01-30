@@ -8,15 +8,13 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
 
-        public Investigator Investigator { get; private set; }
+        public Investigator Investigator { get; }
         public Card CardDrawed { get; private set; }
 
         /*******************************************************************/
-        public async Task<Card> Run(Investigator investigator)
+        public DrawGameAction(Investigator investigator)
         {
             Investigator = investigator;
-            await Start();
-            return CardDrawed;
         }
 
         /*******************************************************************/
@@ -24,7 +22,7 @@ namespace MythsAndHorrors.GameRules
         {
             CardDrawed = Investigator.DeckZone.Cards.Last();
             CardDrawed.TurnDown(false);
-            await _gameActionRepository.Create<MoveCardsGameAction>().Run(CardDrawed, Investigator.HandZone);
+            await _gameActionRepository.Create(new MoveCardsGameAction(CardDrawed, Investigator.HandZone));
         }
     }
 }

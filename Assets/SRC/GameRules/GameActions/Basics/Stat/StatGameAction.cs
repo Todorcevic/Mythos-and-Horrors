@@ -7,14 +7,14 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly IViewLayer _animator;
 
-        public Stat Stat { get; private set; }
-        public int Value { get; private set; }
+        public Stat Stat { get; }
+        public int Value { get; }
 
         /*******************************************************************/
         public StatGameAction(Stat stat, int value)
         {
             Stat = stat;
-            Value = value;  
+            Value = value;
         }
 
         protected override async Task ExecuteThisLogic()

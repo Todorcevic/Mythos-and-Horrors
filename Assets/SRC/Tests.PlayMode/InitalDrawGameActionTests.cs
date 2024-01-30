@@ -24,8 +24,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.AllInvestigators[0];
             Card card = _cardsProvider.GetCard("01517");
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<InitialDrawGameAction>().Run(investigator).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator.HandZone.Cards.Contains(card));
@@ -39,8 +39,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.AllInvestigators[0];
             Card weaknessCard = _cardsProvider.GetCard("01507");
             Card normalCard = _cardsProvider.GetCard("01517");
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(new System.Collections.Generic.List<Card>() { normalCard, weaknessCard }, investigator.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<InitialDrawGameAction>().Run(investigator).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(new System.Collections.Generic.List<Card>() { normalCard, weaknessCard }, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator.HandZone.Cards.Contains(normalCard));

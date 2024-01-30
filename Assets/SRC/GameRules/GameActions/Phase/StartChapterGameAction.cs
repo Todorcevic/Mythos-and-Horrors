@@ -5,20 +5,20 @@ namespace MythsAndHorrors.GameRules
 {
     public class StartChapterGameAction : GameAction
     {
-        private ChapterInfo _chapter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
+        public ChapterInfo Chapter { get; }
+
         /*******************************************************************/
-        public async Task Run(ChapterInfo chapter)
+        public StartChapterGameAction(ChapterInfo chapter)
         {
-            _chapter = chapter;
-            await Start();
+            Chapter = chapter;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<ShowHistoryGameAction>().Run(_chapter.Description);
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Chapter.Description));
         }
     }
 }

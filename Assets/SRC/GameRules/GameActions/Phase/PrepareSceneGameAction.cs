@@ -4,19 +4,18 @@ namespace MythsAndHorrors.GameRules
 {
     public class PrepareSceneGameAction : GameAction
     {
-        private Scene _scene;
+        public Scene Scene { get; }
 
         /*******************************************************************/
-        public async Task Run(Scene scene)
+        public PrepareSceneGameAction(Scene scene)
         {
-            _scene = scene;
-            await Start();
+            Scene = scene;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _scene.PrepareScene();
+            await Scene.PrepareScene();
         }
     }
 }

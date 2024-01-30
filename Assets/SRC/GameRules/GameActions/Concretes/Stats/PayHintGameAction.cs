@@ -8,17 +8,16 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly IViewLayer _animator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public Investigator Investigator { get; private set; }
-        public Stat ToStat { get; private set; }
-        public int Amount { get; private set; }
+        public Investigator Investigator { get; }
+        public Stat ToStat { get; }
+        public int Amount { get; }
 
         /*******************************************************************/
-        public async Task Run(Investigator investigator, Stat toStat, int amount)
+        public PayHintGameAction(Investigator investigator, Stat toStat, int amount)
         {
             Investigator = investigator;
             ToStat = toStat;
             Amount = investigator.Hints.Value < amount ? Investigator.Hints.Value : amount;
-            await Start();
         }
 
         /*******************************************************************/

@@ -37,8 +37,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
             CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.FullDeck[0]);
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3]).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 2]));
@@ -52,7 +52,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _investigatorsProvider.Leader.InvestigatorZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorZone));
@@ -64,7 +64,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -77,7 +77,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone)).AsCoroutine();
 
             _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -91,7 +91,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 13).Select(card => _cardViewsManager.Get(card)).ToArray();
 
             foreach (CardView cardView in sut)
-                yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(cardView.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
+                yield return _gameActionFactory.Create(new MoveCardsGameAction(cardView.Card, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.AidZone));
@@ -103,7 +103,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
 
             _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -116,8 +116,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             _ioActivatorComponent.ActivateSensor();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -129,8 +129,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -141,8 +141,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -153,8 +153,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.Last().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -165,7 +165,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.DeckZone));
@@ -177,7 +177,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.DiscardZone));
@@ -190,8 +190,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut2.Card, _investigatorsProvider.Leader.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(sut2.Card.OwnZone));
@@ -204,9 +204,9 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
             CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.Get(card)).ToArray();
 
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2]).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.First().Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
@@ -219,11 +219,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
 
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _chaptersProvider.CurrentScene.OutZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(sut.Card, _investigatorsProvider.Leader.HandZone).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(true));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

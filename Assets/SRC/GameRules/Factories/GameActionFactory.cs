@@ -17,13 +17,5 @@ namespace MythsAndHorrors.GameRules
             await gameAction.Start();
             return gameAction;
         }
-
-
-        public T Create<T>() where T : GameAction
-        {
-            T newAction = _container.Instantiate<T>();
-            Actions.Add(newAction);
-            return newAction;
-        }
     }
 }

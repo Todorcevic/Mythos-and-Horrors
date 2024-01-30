@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (CanActivate(gameAction))
             {
-                await _gameActionFactory.Create<MoveCardsGameAction>().Run(this, _investigatorsProvider.GetInvestigatorWithThisCard(this).DangerZone); //TODO Remove Resource
+                await _gameActionFactory.Create(new MoveCardsGameAction(this, _investigatorsProvider.GetInvestigatorWithThisCard(this).DangerZone)); //TODO Remove Resource
             }
         }
 

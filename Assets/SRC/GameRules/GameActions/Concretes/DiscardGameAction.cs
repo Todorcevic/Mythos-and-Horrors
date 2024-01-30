@@ -9,20 +9,19 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public Card Card { get; private set; }
+        public Card Card { get; }
 
         /*******************************************************************/
-        public async Task Run(Card card)
+        public DiscardGameAction(Card card)
         {
             Card = card;
-            await Start();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             Card.TurnDown(false);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(Card, GetDiscardZone());
+            await _gameActionFactory.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
         }
 
         private Zone GetDiscardZone()

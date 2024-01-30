@@ -20,12 +20,12 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionFactory.Create<ShowHistoryGameAction>().Run(Info.Description);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(FirstPlot, PlotZone);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(FirstGoal, GoalZone);
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Info.Description));
+            await _gameActionFactory.Create(new MoveCardsGameAction(FirstPlot, PlotZone));
+            await _gameActionFactory.Create(new MoveCardsGameAction(FirstGoal, GoalZone));
             RealDangerCards.ForEach(card => card.TurnDown(true));
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(RealDangerCards, DangerDeckZone);
-            await _gameActionFactory.Create<MoveCardsGameAction>().Run(Studio, PlaceZone[0, 3]);
+            await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
+            await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
         }
     }
 }
