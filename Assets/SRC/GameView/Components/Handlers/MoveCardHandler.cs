@@ -13,25 +13,20 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
-        public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
+        public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            return MoveCardWithPreviewToZone(cardView, zoneView);
+            await MoveCardWithPreviewToZone(cardView, zoneView);
         }
 
-        public Tween MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
+        public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            return DOTween.Sequence()
-                .Append(_swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone))
-                .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine))
-                .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
-                .Append(cardView.MoveToZone(zoneView, Ease.InCubic));
-            //await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
-            //await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
-            //await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
-            //await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
+            await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
+            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
+            await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
 
         public async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)

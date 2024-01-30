@@ -22,12 +22,13 @@ namespace MythsAndHorrors.GameView
             _loadGameUseCase.Execute();
             await _gameActionFactory.Create<StartChapterGameAction>().Run(_chaptersProvider.CurrentChapter);
             await _gameActionFactory.Create<StartGameAction>().Run();
+            await _gameActionFactory.Create<BasicPlayGameAction>().Run();
         }
 
         private void IntialState()
         {
             DOTween.SetTweensCapacity(200, 125);
-            _ioActivatorComponent.DeactivateUI();
+            _ioActivatorComponent.BlockUI();
             _mainButtonComponent.Deactivate();
             _ioActivatorComponent.DeactivateSensor();
         }

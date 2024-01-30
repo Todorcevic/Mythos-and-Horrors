@@ -93,14 +93,14 @@ namespace MythsAndHorrors.GameView
             await DotweenExtension.WaitForAllTweensToComplete();
             if (withButton) _mainButtonComponent.Activate();
             _ioActivatorComponent.ActivateSensor();
-            _ioActivatorComponent.ActivateUI();
+            _ioActivatorComponent.UnblockUI();
         }
 
         private async Task DeactivateInteraction()
         {
             _mainButtonComponent.Deactivate();
             if (_ioActivatorComponent.IsSensorActivated) _ioActivatorComponent.DeactivateSensor();
-            if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.DeactivateUI();
+            if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.BlockUI();
             await DotweenExtension.WaitForAllTweensToComplete();
         }
 

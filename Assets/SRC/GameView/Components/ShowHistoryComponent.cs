@@ -31,20 +31,25 @@ namespace MythsAndHorrors.GameView
             waitForClicked = new();
             _title.text = history.Title;
             _content.text = history.Description;
+            _button.interactable = true;
             await _screen.LoadHistorySprite(history.Image);
-            _blockBackground.enabled = _button.interactable = true;
-            await DOTween.Sequence().Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.MID_TIME_ANIMATION))
-                 .Join(transform.DOMove(_showPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.OutBack, 1.5f).AsyncWaitForCompletion();
+            await ShowAnimation().AsyncWaitForCompletion();
             await waitForClicked.Task;
             _button.interactable = false;
-            await DOTween.Sequence().Join(_blockBackground.DOFade(0f, ViewValues.MID_TIME_ANIMATION))
-              .Join(transform.DOMove(_outPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.InOutCubic).AsyncWaitForCompletion();
-            _blockBackground.enabled = false;
+            await HideAnimation().AsyncWaitForCompletion();
         }
 
         private void Clicked()
         {
             waitForClicked.SetResult(true);
         }
+
+        private Tween ShowAnimation() => DOTween.Sequence()
+                .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.MID_TIME_ANIMATION))
+                .Join(transform.DOMove(_showPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.OutBack, 1.5f);
+
+        private Tween HideAnimation() => DOTween.Sequence()
+                .Join(_blockBackground.DOFade(0f, ViewValues.MID_TIME_ANIMATION))
+                .Join(transform.DOMove(_outPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.InOutCubic);
     }
 }

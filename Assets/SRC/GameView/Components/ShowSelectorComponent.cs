@@ -63,7 +63,7 @@ namespace MythsAndHorrors.GameView
             List<CardView> clones = _cardViews.Except(new[] { originalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
             clones.ForEach(clone => clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
                  .OnComplete(() => Destroy(clone.gameObject)));
-            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone)).AsyncWaitForCompletion();
+            await _moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone));
             _cardViews.Clear();
         }
 

@@ -22,17 +22,16 @@ namespace MythsAndHorrors.GameView
         public void DeactivateSensor()
         {
             _boxCollider.enabled = true;
-            //await DotweenExtension.WaitForAllTweensToComplete();
         }
 
-        public void ActivateUI()
+        public void UnblockUI()
         {
-            _blockBackground.enabled = false;
+            _blockBackground.raycastTarget = false;
         }
 
-        public void DeactivateUI()
+        public void BlockUI()
         {
-            _blockBackground.enabled = true;
+            _blockBackground.raycastTarget = true;
         }
     }
 }
