@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
             _loadGameUseCase.Execute();
             await _gameActionFactory.Create<StartChapterGameAction>().Run(_chaptersProvider.CurrentChapter);
             await _gameActionFactory.Create<StartGameAction>().Run();
-            await _gameActionFactory.Create<BasicPlayGameAction>().Run();
+            await _gameActionFactory.Create(new InteractableGameAction(false));
         }
 
         private void IntialState()

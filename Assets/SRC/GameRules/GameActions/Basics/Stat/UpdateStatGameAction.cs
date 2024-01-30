@@ -4,15 +4,13 @@ namespace MythsAndHorrors.GameRules
 {
     public class UpdateStatGameAction : StatGameAction
     {
-        public override async Task Run(Stat stat, int value)
-        {
-            if (value == stat.Value) return;
-            await base.Run(stat, value);
-        }
+        /*******************************************************************/
+        public UpdateStatGameAction(Stat stat, int value) : base(stat, value) { }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            if (Value == Stat.Value) return;
             Stat.UpdateValue(Value);
             await base.ExecuteThisLogic();
         }

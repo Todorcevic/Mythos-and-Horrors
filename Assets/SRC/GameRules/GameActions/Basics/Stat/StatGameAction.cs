@@ -11,11 +11,10 @@ namespace MythsAndHorrors.GameRules
         public int Value { get; private set; }
 
         /*******************************************************************/
-        public virtual async Task Run(Stat stat, int value)
+        public StatGameAction(Stat stat, int value)
         {
             Stat = stat;
-            Value = value;
-            await Start();
+            Value = value;  
         }
 
         protected override async Task ExecuteThisLogic()

@@ -24,9 +24,9 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create<DecrementStatGameAction>().Run(Investigator.Hints, Amount);
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Hints, Amount));
             await _animator.PlayAnimationWith(this);
-            await _gameActionFactory.Create<IncrementStatGameAction>().Run(ToStat, Amount);
+            await _gameActionFactory.Create(new IncrementStatGameAction(ToStat, Amount));
         }
     }
 }

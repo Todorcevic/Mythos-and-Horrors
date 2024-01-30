@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         public GameAction Parent { get; private set; }
 
         /*******************************************************************/
-        protected async virtual Task Start()
+        public async Task Start()
         {
             Parent = _current ?? this;
             _current = this;
@@ -21,16 +21,10 @@ namespace MythsAndHorrors.GameRules
             _current = Parent ?? this;
         }
 
-        private async Task AtTheBeginning()
-        {
-            await _reactionablesProvider.WhenBegin(this);
-        }
+        private async Task AtTheBeginning() => await _reactionablesProvider.WhenBegin(this);
 
         protected abstract Task ExecuteThisLogic();
 
-        private async Task AtTheEnd()
-        {
-            await _reactionablesProvider.WhenFinish(this);
-        }
+        private async Task AtTheEnd() => await _reactionablesProvider.WhenFinish(this);
     }
 }

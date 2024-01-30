@@ -35,14 +35,13 @@ namespace MythsAndHorrors.GameRules
 
         private async Task ApplyInjuty()
         {
-            await _gameActionFactory.Create<DecrementStatGameAction>()
-                .Run(_investigator.InvestigatorCard.Health, _investigator.Injury.Value);
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigator.InvestigatorCard.Health, _investigator.Injury.Value));
+
         }
 
         private async Task ApplyShock()
         {
-            await _gameActionFactory.Create<DecrementStatGameAction>()
-                .Run(_investigator.InvestigatorCard.Sanity, _investigator.Shock.Value);
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigator.InvestigatorCard.Sanity, _investigator.Shock.Value));
         }
 
         private async Task PositionateDeck()
@@ -66,7 +65,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task Mulligan()
         {
-            await _gameActionFactory.Create<MulliganGameAction>().Run(_investigator);
+            await _gameActionFactory.Create(new MulliganGameAction(_investigator));
         }
     }
 }

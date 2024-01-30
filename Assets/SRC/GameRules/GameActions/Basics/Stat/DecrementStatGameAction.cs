@@ -4,15 +4,13 @@ namespace MythsAndHorrors.GameRules
 {
     public class DecrementStatGameAction : StatGameAction
     {
-        public override async Task Run(Stat stat, int value)
-        {
-            if (value == 0) return;
-            await base.Run(stat, value);
-        }
+        /*******************************************************************/
+        public DecrementStatGameAction(Stat stat, int value) : base(stat, value) { }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            if (Value == 0) return;
             Stat.Decrease(Value);
             await base.ExecuteThisLogic();
         }

@@ -36,7 +36,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(investigator1.Cards.Take(5).ToList(), investigator1.AidZone).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick(card).AsTask();
-            yield return _gameActionFactory.Create<BasicPlayGameAction>().Run().AsCoroutine();
+            yield return _gameActionFactory.Create(new InteractableGameAction(false)).AsCoroutine();
 
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));
         }
