@@ -17,6 +17,7 @@ namespace MythsAndHorrors.GameView
             Task animation = gameAction switch
             {
                 MoveCardsGameAction moveCardsGameAction => Get<CardMoverPresenter>().MoveCardWith(moveCardsGameAction),
+                TurnCardGameAction turnCardGameAction => Get<TurnCardPresenter>().TurnCard(turnCardGameAction),
                 ShowHistoryGameAction showHistoryGameAction => Get<ShowHistoryPresenter>().ShowHistory(showHistoryGameAction),
                 GainResourceGameAction gainResourceGameAction => Get<TokenMoverPresenter>().GainResource(gainResourceGameAction).AsyncWaitForCompletion(),
                 PayResourceGameAction payResourceGameAction => Get<TokenMoverPresenter>().PayResource(payResourceGameAction).AsyncWaitForCompletion(),

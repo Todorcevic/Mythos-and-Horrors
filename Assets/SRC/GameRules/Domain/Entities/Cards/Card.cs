@@ -42,9 +42,9 @@ namespace MythsAndHorrors.GameRules
             _playableEffects.Clear();
         }
 
-        public void TurnDown(bool isFaceDown)
+        public void TurnDown(bool toFaceDown)
         {
-            IsFaceDown = isFaceDown;
+            IsFaceDown = toFaceDown;
         }
     }
 }

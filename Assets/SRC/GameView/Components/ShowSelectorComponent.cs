@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         private List<CardView> _cardViews = new();
 
-        public bool IsVoid => _cardViews.Count == 0;
+        public bool IsShowing => _blocker.enabled;
         public bool IsMultiEffect { get; private set; }
 
         /*******************************************************************/

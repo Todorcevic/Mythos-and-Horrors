@@ -8,23 +8,23 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly IViewLayer _animator;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        private readonly Stat _fromStat;
 
         public Investigator Investigator { get; }
-        public Stat FromStat { get; }
+        public Stat FromStat => _fromStat ?? _chaptersProvider.CurrentScene.ResourcesPile;
         public int Amount { get; }
 
         /*******************************************************************/
         public GainResourceGameAction(Investigator investigator, int amount)
         {
             Investigator = investigator;
-            FromStat = _chaptersProvider.CurrentScene.ResourcesPile;
             Amount = amount;
         }
 
         public GainResourceGameAction(Investigator investigator, Stat fromStat, int amount)
         {
             Investigator = investigator;
-            FromStat = fromStat;
+            _fromStat = fromStat;
             Amount = fromStat.Value < amount ? fromStat.Value : amount;
         }
 

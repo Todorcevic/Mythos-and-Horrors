@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         {
             if (!moveCardsGameAction.IsSingleMove)
             {
-                await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone);
+                await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone, ViewValues.DELAY_TIME_ANIMATION);
                 return;
             }
 

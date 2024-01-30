@@ -23,8 +23,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
-            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
             await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
@@ -34,26 +33,31 @@ namespace MythsAndHorrors.GameView
             CardView cardView = _cardsManager.Get(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
             await _swapInvestigatorHandler.Select(zone).AsyncWaitForCompletion();
             cardView.MoveToZone(zoneView, Ease.InCubic);
         }
 
-        public async Task MoveCardsToZone(List<Card> cards, Zone zone)
+        public async Task MoveCardToCenter(CardView cardView)
+        {
+            await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
+            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+        }
+
+        public async Task MoveCardsToZone(List<Card> cards, Zone zone, float delay = 0f)
         {
             List<CardView> cardViews = _cardsManager.Get(cards);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await MoveCardsToZone(cardViews, zoneView);
+            await MoveCardsToZone(cardViews, zoneView, delay);
         }
 
-        public async Task MoveCardsToZone(List<CardView> cardViews, ZoneView zoneView)
+        private async Task MoveCardsToZone(List<CardView> cardViews, ZoneView zoneView, float delay)
         {
             await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
-            float delay = 0;
+            float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
-
-            cardViews.ForEach(cardView => sequence.Insert(delay += 0.016f, cardView.MoveToZone(zoneView)));
+            cardViews.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneView)));
             await sequence.AsyncWaitForCompletion();
         }
     }

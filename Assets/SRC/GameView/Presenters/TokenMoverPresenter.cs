@@ -1,7 +1,6 @@
 ﻿using Zenject;
 using MythsAndHorrors.GameRules;
 using DG.Tweening;
-using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameView
 {
@@ -30,7 +29,6 @@ namespace MythsAndHorrors.GameView
 
         public Tween GainResource(GainResourceGameAction gainResourceGameAction)
         {
-
             return DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator))
                 .Append(_areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController

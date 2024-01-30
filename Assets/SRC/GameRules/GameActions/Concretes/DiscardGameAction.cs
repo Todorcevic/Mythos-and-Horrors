@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card.TurnDown(false);
+            await _gameActionFactory.Create(new TurnCardGameAction(Card, toFaceDown: false));
             await _gameActionFactory.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
         }
 
