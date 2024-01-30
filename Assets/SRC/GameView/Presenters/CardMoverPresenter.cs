@@ -1,6 +1,7 @@
 using Zenject;
 using System.Threading.Tasks;
 using MythsAndHorrors.GameRules;
+using DG.Tweening;
 
 namespace MythsAndHorrors.GameView
 {
@@ -22,7 +23,7 @@ namespace MythsAndHorrors.GameView
                 await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
                 return;
             }
-            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone).AsyncWaitForCompletion();
         }
     }
 }

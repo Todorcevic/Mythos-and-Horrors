@@ -16,20 +16,23 @@ namespace MythsAndHorrors.GameView
 
         public List<InvisibleHolder> AllActivesInvisibleHolders => _allInvisibleHolders.Where(invisibleHolder => !invisibleHolder.IsFree)
             .OrderBy(invisibleHolder => invisibleHolder.transform.GetSiblingIndex()).ToList();
+
         public int AmountOfCards => AllActivesInvisibleHolders.Count();
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
         {
             GetFreeHolder().SetCardView(cardView);
-            return Repositionate(GetInvisibleHolderIndex(cardView), withFast: false);
+            int selectedCardPosition = GetInvisibleHolderIndex(cardView);
+            return Repositionate(selectedCardPosition, withFast: false);
         }
 
         public Tween RemoveCardView(CardView cardView)
         {
-            int cardViewIndex = GetInvisibleHolderIndex(cardView);
+            int selectedCardPosition = GetInvisibleHolderIndex(cardView);
             GetInvisibleHolder(cardView).Clear();
-            return Repositionate(cardViewIndex, withFast: false);
+            return Repositionate(selectedCardPosition, withFast: false);
+
         }
 
         public Transform SetLayout(CardView cardView, float layoutAmount)
@@ -57,8 +60,8 @@ namespace MythsAndHorrors.GameView
             for (int i = 0; i < AmountOfCards; i++)
             {
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;
-                if (i == selectedCardPosition && withFast) repositionSequence.Join(AllActivesInvisibleHolders[i].RepositionateFast(realYOffSet));
-                else repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet));
+                float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.FAST_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
+                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, animationTime));
             }
 
             return repositionSequence;

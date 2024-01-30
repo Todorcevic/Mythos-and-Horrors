@@ -13,19 +13,23 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
+        public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.Get(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await MoveCardWithPreviewToZone(cardView, zoneView);
+            return MoveCardWithPreviewToZone(cardView, zoneView);
         }
 
-        public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
+        public Tween MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
-            await _swapInvestigatorPresenter.Select(zoneView.Zone).AsyncWaitForCompletion();
-            await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
+            return DOTween.Sequence().Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine))
+                .Append(_swapInvestigatorPresenter.Select(zoneView.Zone))
+                .Append(cardView.MoveToZone(zoneView, Ease.InCubic));
+
+            //await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            //await _swapInvestigatorPresenter.Select(zoneView.Zone).AsyncWaitForCompletion();
+            //await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
 
         public async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)

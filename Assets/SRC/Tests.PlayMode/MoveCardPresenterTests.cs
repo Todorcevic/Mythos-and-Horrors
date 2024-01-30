@@ -19,7 +19,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -31,7 +31,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Card card = investigator1.Cards[1];
 
             yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator1.AidZone).AsCoroutine();
-            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator2.DangerZone).AsCoroutine();
+            yield return _gameActionFactory.Create<MoveCardsGameAction>().Run(card, investigator2.AidZone).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

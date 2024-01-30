@@ -75,9 +75,9 @@ namespace MythsAndHorrors.GameView
         {
             Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
             return DOTween.Sequence()
-                 .Append(_model.transform.DOMove(centerShow.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)))
+                 .Append(_model.transform.DOMove(centerShow.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
                  .Join(_model.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
-                 .Join(_model.transform.DORotate(centerShow.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.Linear))
+                 .Join(_model.transform.DORotate(centerShow.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.Linear))
                  .Append(_model.transform.DORotate(centerShow.rotation.eulerAngles + new Vector3(0f, 0, -0.5f), 0.1f));
         }
     }
