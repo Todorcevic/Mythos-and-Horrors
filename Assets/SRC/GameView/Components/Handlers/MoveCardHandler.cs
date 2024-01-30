@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly CardViewsManager _cardsManager;
         [Inject] private readonly ZoneViewsManager _zonesViewManager;
-        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
         public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
@@ -23,12 +23,14 @@ namespace MythsAndHorrors.GameView
 
         public Tween MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            return DOTween.Sequence().Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine))
-                .Append(_swapInvestigatorPresenter.Select(zoneView.Zone))
+            return DOTween.Sequence()
+                .Append(_swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone))
+                .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine))
+                .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
                 .Append(cardView.MoveToZone(zoneView, Ease.InCubic));
-
+            //await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
             //await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
-            //await _swapInvestigatorPresenter.Select(zoneView.Zone).AsyncWaitForCompletion();
+            //await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             //await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
 
@@ -38,7 +40,7 @@ namespace MythsAndHorrors.GameView
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
-            await _swapInvestigatorPresenter.Select(zone).AsyncWaitForCompletion();
+            await _swapInvestigatorHandler.Select(zone).AsyncWaitForCompletion();
             cardView.MoveToZone(zoneView, Ease.InCubic);
         }
 
@@ -52,7 +54,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardsToZone(List<CardView> cardViews, ZoneView zoneView)
         {
-            await _swapInvestigatorPresenter.Select(zoneView.Zone).AsyncWaitForCompletion();
+            await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             float delay = 0;
             Sequence sequence = DOTween.Sequence();
 

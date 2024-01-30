@@ -29,12 +29,13 @@ namespace MythsAndHorrors.GameRules
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>
-            zone == HandZone ||
-            zone == DeckZone ||
-            zone == DiscardZone ||
-            zone == AidZone ||
-            zone == DangerZone ||
-            zone == InvestigatorZone;
+            zone == HandZone || HandZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+            zone == DeckZone || DeckZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+            zone == DiscardZone || DiscardZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+            zone == AidZone || AidZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+            zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+            zone == InvestigatorZone || InvestigatorZone.Cards.Select(card => card.OwnZone).Contains(zone);
+
 
         public bool HasThisCard(Card card) => CardsWithInvestigator.Contains(card);
     }
