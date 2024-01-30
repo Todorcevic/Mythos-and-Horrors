@@ -26,10 +26,10 @@ namespace MythsAndHorrors.GameView
         public Sprite Image => _picture.sprite;
 
         /*******************************************************************/
-        public async void Init(Investigator investigator)
+        public void Init(Investigator investigator)
         {
             Investigator = investigator;
-            await SetPicture();
+            SetPicture();
             SetHealth(investigator.InvestigatorCard.Info.Health ?? 0);
             SetSanity(investigator.InvestigatorCard.Info.Sanity ?? 0);
             SetHints(investigator.InvestigatorCard.Info.Hints ?? 0);
@@ -52,7 +52,7 @@ namespace MythsAndHorrors.GameView
 
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
-        private async Task SetPicture() => await _picture.LoadAvatarSprite(Investigator.InvestigatorCard.Info.Code);
+        private async void SetPicture() => await _picture.LoadAvatarSprite(Investigator.InvestigatorCard.Info.Code);
 
         /*******************************************************************/
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
