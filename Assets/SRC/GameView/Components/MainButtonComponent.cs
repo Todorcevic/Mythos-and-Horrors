@@ -25,8 +25,9 @@ namespace MythsAndHorrors.GameView
             _message.text = text;
         }
 
-        public void Activate()
+        public void Activate(string withThisText)
         {
+            ShowText(withThisText);
             if (IsActivated) return;
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);

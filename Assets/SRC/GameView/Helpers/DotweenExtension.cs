@@ -23,10 +23,10 @@ namespace MythsAndHorrors.GameView
                 .Join(transform.DOScale(toMove.lossyScale, timeAnimation));
         }
 
-        public static Sequence DORecolocate(this Transform transform, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)
+        public static Sequence DORecolocate(this Transform transform, float timeAnimation = ViewValues.FAST_TIME_ANIMATION, Ease ease = Ease.InCubic)
         {
             return DOTween.Sequence()
-                .Join(transform.DOLocalMove(Vector3.zero, timeAnimation).SetEase(Ease.InCubic))
+                .Join(transform.DOLocalMove(Vector3.zero, timeAnimation).SetEase(ease))
                 .Join(transform.DOLocalRotate(Vector3.zero, timeAnimation))
                 .Join(transform.DOScale(1f, timeAnimation));
         }

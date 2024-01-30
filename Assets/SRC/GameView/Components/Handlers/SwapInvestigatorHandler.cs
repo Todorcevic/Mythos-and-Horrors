@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
         private Investigator _investigatorSelected;
 
         /*******************************************************************/
-        public Sequence Select(Investigator investigator)
+        public Tween Select(Investigator investigator)
         {
             if (_investigatorSelected == investigator) return DOTween.Sequence();
             Sequence swapSequence = DOTween.Sequence()
@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
             return swapSequence;
         }
 
-        public Sequence Select(Zone zone)
+        public Tween Select(Zone zone)
         {
             Investigator investigator = _investigatorsProvider.GetInvestigatorWithThisZone(zone) ?? _investigatorSelected;
             return Select(investigator);

@@ -14,6 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _playPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rightPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _leftPosition;
+        [SerializeField, Required, ChildGameObjectsOnly] private Transform _optimizationPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private AreaInvestigatorView _currentAreaInvestigator;
 
         /*******************************************************************/
@@ -23,8 +24,12 @@ namespace MythsAndHorrors.GameView
             (Transform positionToExit, Transform positionToEnter) = GetSidePosition(investigator);
             Sequence swapSequence = DOTween.Sequence().OnStart(() => areaInvestigatorView.transform.position = positionToEnter.position)
                 .Append(areaInvestigatorView.transform.DOFullMove(_playPosition, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutCubic))
-                .Join(_currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutCubic));
-            _currentAreaInvestigator = areaInvestigatorView;
+                .Join(_currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutCubic))
+                .OnComplete(() =>
+                {
+                    _currentAreaInvestigator.transform.position = _optimizationPosition.position;
+                    _currentAreaInvestigator = areaInvestigatorView;
+                });
             return swapSequence;
         }
 

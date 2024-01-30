@@ -21,8 +21,8 @@ namespace MythsAndHorrors.GameView
             _currentShowCard.ShowEffects();
             _currentShowCard.transform.ResetToZero();
             DOTween.Sequence()
-                .Join(_currentShowCard.DisableToShow())
-                .Join(_currentShowCard.transform.DOFullMove(transform).SetEase(Ease.InOutExpo))
+                .Append(_currentShowCard.DisableToShow())
+                .Join(_currentShowCard.transform.DORecolocate().SetEase(Ease.InOutExpo))
                 .SetId(_currentShowCard);
         }
 

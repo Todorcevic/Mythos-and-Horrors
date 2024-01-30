@@ -31,7 +31,10 @@ namespace MythsAndHorrors.GameView
             async Task PreInteraction()
             {
                 ShowCardsPlayables(allCardViews);
-                await ActivateInteraction(!interactableGameAction.IsManadatary);
+                await DotweenExtension.WaitForAllTweensToComplete();
+                if (!interactableGameAction.IsManadatary) _mainButtonComponent.Activate(ViewText.BUTTON_DONE);
+                _ioActivatorComponent.ActivateSensor();
+                _ioActivatorComponent.UnblockUI();
             }
 
             async Task PostInteraction()
@@ -73,8 +76,9 @@ namespace MythsAndHorrors.GameView
 
             async Task PreInteraction()
             {
+                _ioActivatorComponent.BlockUI();
                 await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary).AsyncWaitForCompletion();
-                _mainButtonComponent.Activate();
+                _mainButtonComponent.Activate(ViewText.BUTTON_BACK);
                 _ioActivatorComponent.ActivateSensor();
                 ShowCardsPlayables(clonesCardViewDictionary.Keys.ToList());
             }
@@ -86,14 +90,6 @@ namespace MythsAndHorrors.GameView
                 if (cardViewSelected == null) await _showSelectorComponent.ReturnClones();
                 else await _showSelectorComponent.DestroyClones(cardViewSelected).AsyncWaitForCompletion();
             }
-        }
-
-        private async Task ActivateInteraction(bool withButton)
-        {
-            await DotweenExtension.WaitForAllTweensToComplete();
-            if (withButton) _mainButtonComponent.Activate();
-            _ioActivatorComponent.ActivateSensor();
-            _ioActivatorComponent.UnblockUI();
         }
 
         private async Task DeactivateInteraction()

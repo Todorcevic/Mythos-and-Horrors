@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokensGeneratorComponent : MonoBehaviour, IStatableView
+    public class TokensPileComponent : MonoBehaviour, IStatableView
     {
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
@@ -29,7 +29,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseExit()
         {
-            _showToken.DOFullMove(_showToken.parent);
+            _showToken.DORecolocate(ease: Ease.OutQuad);
         }
 
         public void OnMouseUpAsButton()
