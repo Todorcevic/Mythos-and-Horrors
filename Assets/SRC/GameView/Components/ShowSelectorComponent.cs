@@ -89,7 +89,7 @@ namespace MythsAndHorrors.GameView
             _cardViews.ForEach(cardView => cardView.HideEffects());
             return DOTween.Sequence()
            .Join(_background.DOFade(0f, ViewValues.DEFAULT_TIME_ANIMATION))
-           .Join(_mainButtonComponent.RestorePosition().SetEase(Ease.Linear))
+           .Join(_mainButtonComponent.RestorePosition())
            .OnComplete(() => { if (withActivation) _ioActivatorComponent.ActivateSensor(); });
         }
 

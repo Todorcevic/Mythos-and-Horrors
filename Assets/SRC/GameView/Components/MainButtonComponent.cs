@@ -49,9 +49,9 @@ namespace MythsAndHorrors.GameView
 
         public Tween MoveToThis(Transform scenePoint)
         {
-            return DOTween.Sequence().OnStart(() => transform.ChangeAllLayers(3))
+            return DOTween.Sequence()
                      .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
-                     .Join(transform.DOScale(scenePoint.localScale, ViewValues.DEFAULT_TIME_ANIMATION))
+                     .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))
                      .SetEase(Ease.InOutCubic);
 
             Vector3 ButtonPositionInUI()
@@ -63,8 +63,9 @@ namespace MythsAndHorrors.GameView
 
         public Tween RestorePosition() => DOTween.Sequence()
             .Join(transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
+            .Join(transform.DOScale(Vector3.one, ViewValues.DEFAULT_TIME_ANIMATION))
             .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
-            .SetEase(Ease.InOutCubic);
+            .SetEase(Ease.Linear);
 
         /*******************************************************************/
         public void OnMouseEnter()
