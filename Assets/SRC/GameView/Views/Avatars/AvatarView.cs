@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -67,10 +66,9 @@ namespace MythsAndHorrors.GameView
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-
-            _ioActivatorComponent.DeactivateSensor();
+            _ioActivatorComponent.DeactivateCardSensors();
             await _swapInvestigatorPresenter.Select(Investigator).AsyncWaitForCompletion();
-            _ioActivatorComponent.ActivateSensor();
+            _ioActivatorComponent.ActivateCardSensors();
         }
     }
 }

@@ -79,7 +79,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone)).AsCoroutine();
 
-            _ioActivatorComponent.ActivateSensor();
+            _ioActivatorComponent.ActivateCardSensors();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.AidZone));
             Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
@@ -105,7 +105,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
 
-            _ioActivatorComponent.ActivateSensor();
+            _ioActivatorComponent.ActivateCardSensors();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_investigatorsProvider.Leader.HandZone));
             Assert.That(sut.First().CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
@@ -119,7 +119,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
-            _ioActivatorComponent.ActivateSensor();
+            _ioActivatorComponent.ActivateCardSensors();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
         }

@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameView
                 ShowCardsPlayables(allCardViews);
                 await DotweenExtension.WaitForAllTweensToComplete();
                 if (!interactableGameAction.IsManadatary) _mainButtonComponent.Activate(ViewText.BUTTON_DONE);
-                _ioActivatorComponent.ActivateSensor();
+                _ioActivatorComponent.ActivateCardSensors();
                 _ioActivatorComponent.UnblockUI();
             }
 
@@ -41,7 +41,7 @@ namespace MythsAndHorrors.GameView
             {
                 HideCardsPlayables(allCardViews);
                 await DeactivateInteraction();
-                await _showSelectorComponent.ReturnPlayables(withActivation: false, exceptThis: cardViewChoose);
+                await _showSelectorComponent.ReturnPlayables(exceptThis: cardViewChoose);
             }
 
             async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false
@@ -78,8 +78,7 @@ namespace MythsAndHorrors.GameView
             {
                 _ioActivatorComponent.BlockUI();
                 await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary).AsyncWaitForCompletion();
-                _mainButtonComponent.Activate(ViewText.BUTTON_BACK);
-                _ioActivatorComponent.ActivateSensor();
+                _ioActivatorComponent.ActivateCardSensors();
                 ShowCardsPlayables(clonesCardViewDictionary.Keys.ToList());
             }
 
@@ -95,7 +94,7 @@ namespace MythsAndHorrors.GameView
         private async Task DeactivateInteraction()
         {
             _mainButtonComponent.Deactivate();
-            if (_ioActivatorComponent.IsSensorActivated) _ioActivatorComponent.DeactivateSensor();
+            if (_ioActivatorComponent.IsSensorActivated) _ioActivatorComponent.DeactivateCardSensors();
             if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.BlockUI();
             await DotweenExtension.WaitForAllTweensToComplete();
         }

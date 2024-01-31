@@ -30,7 +30,7 @@ namespace MythsAndHorrors.GameView
             DOTween.SetTweensCapacity(200, 125);
             _ioActivatorComponent.BlockUI();
             _mainButtonComponent.Deactivate();
-            _ioActivatorComponent.DeactivateSensor();
+            _ioActivatorComponent.DeactivateCardSensors();
         }
     }
 }
