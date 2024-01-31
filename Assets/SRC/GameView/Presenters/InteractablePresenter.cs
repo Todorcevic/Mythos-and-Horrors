@@ -21,6 +21,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
+            await DotweenExtension.WaitForAllTweensToComplete();
             waitForSelection = new();
             List<CardView> allCardViews = _cardViewsManager.Get(interactableGameAction.ActivableCards);
             PreInteraction();
@@ -31,7 +32,6 @@ namespace MythsAndHorrors.GameView
             void PreInteraction()
             {
                 ShowCardsPlayables(allCardViews);
-                //await DotweenExtension.WaitForAllTweensToComplete();
                 if (!interactableGameAction.IsManadatary) _mainButtonComponent.Activate(ViewText.BUTTON_DONE);
                 _ioActivatorComponent.ActivateCardSensors();
                 _ioActivatorComponent.UnblockUI();

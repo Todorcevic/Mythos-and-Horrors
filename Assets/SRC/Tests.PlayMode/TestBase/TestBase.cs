@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameView;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameView;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -15,6 +16,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public override IEnumerator SetUp()
         {
             yield return base.SetUp();
+            DOTween.SetTweensCapacity(200, 125);
             if (!DEBUG_MODE) WithoutAnimations();
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
