@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +19,10 @@ namespace MythsAndHorrors.GameView
             _fullBlock.enabled = false;
         }
 
-        public void DeactivateCardSensors()
+        public async Task DeactivateCardSensors()
         {
             _fullBlock.enabled = true;
+            await DotweenExtension.WaitForAllTweensToComplete();
         }
 
         public void UnblockUI()

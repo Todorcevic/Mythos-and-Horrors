@@ -1,5 +1,6 @@
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -18,19 +19,19 @@ namespace MythsAndHorrors.GameView
         private async void Start()
         {
             if (!_mustBeLoaded) return;
-            IntialState();
+            await IntialState();
             _loadGameUseCase.Execute();
             await _gameActionFactory.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
             await _gameActionFactory.Create(new StartGameAction());
             await _gameActionFactory.Create(new InteractableGameAction(false));
         }
 
-        private void IntialState()
+        private async Task IntialState()
         {
             DOTween.SetTweensCapacity(200, 125);
             _ioActivatorComponent.BlockUI();
             _mainButtonComponent.Deactivate();
-            _ioActivatorComponent.DeactivateCardSensors();
+            await _ioActivatorComponent.DeactivateCardSensors();
         }
     }
 }

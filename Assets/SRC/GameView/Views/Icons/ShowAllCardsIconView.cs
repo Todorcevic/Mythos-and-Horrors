@@ -13,8 +13,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async void OnPointerClick(PointerEventData eventData)
         {
-            _ioActivatorComponent.DeactivateCardSensors();
-            await DotweenExtension.WaitForAllTweensToComplete();
+            await _ioActivatorComponent.DeactivateCardSensors();
             if (_showSelectorComponent.IsMultiEffect) await _showSelectorComponent.ReturnClones();
             else if (!_showSelectorComponent.IsShowing) await _showSelectorComponent.ShowPlayables().AsyncWaitForCompletion();
             else await _showSelectorComponent.ReturnPlayables();
