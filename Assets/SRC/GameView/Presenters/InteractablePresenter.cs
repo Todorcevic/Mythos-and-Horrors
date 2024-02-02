@@ -1,113 +1,33 @@
-﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
+﻿using MythsAndHorrors.GameRules;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractablePresenter : IPresenter, IInteractable
+    public class InteractablePresenter : IPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
-        [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
-
-        private TaskCompletionSource<CardView> waitForSelection;
+        [Inject] private readonly MultiEffectHandler _multiEffectHandler;
+        [Inject] private readonly ActivateCardViewsHandler _showCardHandler;
+        [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         /*******************************************************************/
         public async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
-            waitForSelection = new();
-            List<CardView> allCardViews = _cardViewsManager.Get(interactableGameAction.ActivableCards);
-            PreInteraction();
-            CardView cardViewChoose = await waitForSelection.Task;
-            await PostInteraction();
-            return await ResolveEffectFrom(cardViewChoose);
+            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.Get(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
 
-            void PreInteraction()
-            {
-                ShowCardsPlayables(allCardViews);
-                if (!interactableGameAction.IsManadatary) _mainButtonComponent.Activate(ViewText.BUTTON_DONE);
-                _ioActivatorComponent.ActivateCardSensors();
-                _ioActivatorComponent.UnblockUI();
-            }
+            CardView cardViewChoose = await _clickHandler.WaitingClick();
 
-            async Task PostInteraction()
-            {
-                HideCardsPlayables(allCardViews);
-                await DeactivateInteraction();
-                await _showSelectorComponent.ReturnPlayables(exceptThis: cardViewChoose);
-            }
+            await _showCardHandler.DeactivateCardViewsPlayables(_cardViewsManager.Get(interactableGameAction.ActivableCards));
+            await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThis: cardViewChoose);
 
-            async Task<Effect> ResolveEffectFrom(CardView cardViewChoose) => cardViewChoose?.Card.HasMultiEffect ?? false
-                    ? await ShowMultiEffects(cardViewChoose.Card.PlayableEffects.ToList()) ?? await Interact(interactableGameAction)
-                    : cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
+            return cardViewChoose?.Card.HasMultiEffect ?? false ?
+              await _multiEffectHandler.ShowMultiEffects(cardViewChoose) ?? await Interact(interactableGameAction) :
+              cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
         }
 
-        void IInteractable.Clicked(CardView cardView) => waitForSelection.SetResult(cardView);
-
-        private async Task<Effect> ShowMultiEffects(List<Effect> effects)
-        {
-            waitForSelection = new();
-            Dictionary<CardView, Effect> clonesCardViewDictionary = CreateCardViewDictionary();
-            await PreInteraction();
-            CardView cardViewSelected = await waitForSelection.Task;
-            Effect effectSelected = cardViewSelected == null ? null : clonesCardViewDictionary[cardViewSelected]; //Before destroy clones
-            await PostInteraction(cardViewSelected);
-            return effectSelected;
-
-            /*******************************************************************/
-            Dictionary<CardView, Effect> CreateCardViewDictionary()
-            {
-                CardView originalCardView = _cardViewsManager.Get(effects.First().Card);
-                Dictionary<CardView, Effect> newClonesCardView = new() { { originalCardView, effects.First() } };
-                foreach (Effect effect in effects.Skip(1))
-                {
-                    CardView cloneCardView = _cardViewGeneratorComponent.Clone(originalCardView, originalCardView.CurrentZoneView.transform);
-                    newClonesCardView.Add(cloneCardView, effect);
-                }
-                return newClonesCardView;
-            }
-
-            async Task PreInteraction()
-            {
-                _ioActivatorComponent.BlockUI();
-                await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary).AsyncWaitForCompletion();
-                _ioActivatorComponent.ActivateCardSensors();
-                ShowCardsPlayables(clonesCardViewDictionary.Keys.ToList());
-            }
-
-            async Task PostInteraction(CardView cardViewSelected)
-            {
-                HideCardsPlayables(clonesCardViewDictionary.Keys.ToList());
-                await DeactivateInteraction();
-                if (cardViewSelected == null) await _showSelectorComponent.ReturnClones();
-                else await _showSelectorComponent.DestroyClones(cardViewSelected).AsyncWaitForCompletion();
-            }
-        }
-
-        private async Task DeactivateInteraction()
-        {
-            _mainButtonComponent.Deactivate();
-            if (_ioActivatorComponent.IsSensorActivated) await _ioActivatorComponent.DeactivateCardSensors();
-            if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.BlockUI();
-        }
-
-        private void ShowCardsPlayables(List<CardView> _cards)
-        {
-            _cards.ForEach(card => card.ActivateToClick());
-            _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
-        }
-
-        private void HideCardsPlayables(List<CardView> _cards)
-        {
-            _cards?.ForEach(card => card.DeactivateToClick());
-            _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.DeactivateGlow());
-        }
     }
 }

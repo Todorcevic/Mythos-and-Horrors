@@ -1,4 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
+using System.Linq;
+using System.Reflection;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -77,6 +79,7 @@ namespace MythsAndHorrors.GameView
         private void InstallSingle()
         {
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
+            Container.Bind(typeof(ClickHandler<>)).AsSingle();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly IInteractable _interactable;
+        [Inject] private readonly ClickHandler<CardView> _clickHandler;
         private const float OFFSET = 1f;
 
         private bool IsActivated => _collider.enabled;
@@ -65,7 +65,7 @@ namespace MythsAndHorrors.GameView
             .Join(transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
             .Join(transform.DOScale(Vector3.one, ViewValues.DEFAULT_TIME_ANIMATION))
             .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
-            .SetEase(Ease.Linear);
+            .SetEase(Ease.InSine);
 
         /*******************************************************************/
         public void OnMouseEnter()
@@ -80,7 +80,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
-            _interactable.Clicked(null);
+            _clickHandler.Clicked(null);
         }
     }
 }

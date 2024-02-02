@@ -6,7 +6,6 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-
     public class MoveCardHandler
     {
         [Inject] private readonly CardViewsManager _cardsManager;

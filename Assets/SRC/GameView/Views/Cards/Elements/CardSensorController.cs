@@ -9,7 +9,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required] private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
-        [Inject] private readonly IInteractable _interactable;
+        [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         public bool IsClickable { get; set; }
 
@@ -31,7 +31,7 @@ namespace MythsAndHorrors.GameView
         public void OnMouseUpAsButton()
         {
             if (!IsClickable) return;
-            _interactable.Clicked(_cardView);
+            _clickHandler.Clicked(_cardView);
         }
     }
 }

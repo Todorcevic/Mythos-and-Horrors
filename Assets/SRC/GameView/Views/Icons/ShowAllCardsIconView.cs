@@ -8,16 +8,14 @@ namespace MythsAndHorrors.GameView
     public class ShowAllCardsIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
+        [Inject] private readonly ClickHandler<CardView> _interactionHandler;
 
         /*******************************************************************/
         public async void OnPointerClick(PointerEventData eventData)
         {
-            await _ioActivatorComponent.DeactivateCardSensors();
-            if (_showSelectorComponent.IsMultiEffect) await _showSelectorComponent.ReturnClones();
-            else if (!_showSelectorComponent.IsShowing) await _showSelectorComponent.ShowPlayables().AsyncWaitForCompletion();
-            else await _showSelectorComponent.ReturnPlayables();
-            _ioActivatorComponent.ActivateCardSensors();
+            if (_showSelectorComponent.IsMultiEffect) _interactionHandler.Clicked(null);
+            else if (!_showSelectorComponent.IsShowing) await _showSelectorComponent.ShowPlayables();
+            else await _showSelectorComponent.ReturnPlayableWithActivation();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
