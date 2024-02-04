@@ -25,6 +25,7 @@ namespace MythsAndHorrors.GameView
                 PayHintGameAction payHintsGameAction => Get<TokenMoverPresenter>().PayHints(payHintsGameAction).AsyncWaitForCompletion(),
                 ShuffleGameAction shuffleGameAction => Get<ShufflePresenter>().Shuffle(shuffleGameAction),
                 StatGameAction statGameAction => Get<StatUpdatePresenter>().UpdateStat(statGameAction),
+                MoveInvestigatorGameAction moveInvestigatorGameAction => Get<CardMoverPresenter>().MovePlayCardWith(moveInvestigatorGameAction),
                 _ => Task.CompletedTask,
             };
             await animation;

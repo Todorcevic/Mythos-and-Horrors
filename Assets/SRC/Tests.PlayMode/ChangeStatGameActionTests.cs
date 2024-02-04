@@ -38,7 +38,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardSupply.Cost.Value, Is.EqualTo(8));
-            Assert.That((_cardViewsManager.Get(cardSupply) as DeckCardView).GetPrivateMember<StatView>("_cost").Stat.Value, Is.EqualTo(8));
+            Assert.That((_cardViewsManager.GetCardView(cardSupply) as DeckCardView).GetPrivateMember<StatView>("_cost").Stat.Value, Is.EqualTo(8));
         }
     }
 }

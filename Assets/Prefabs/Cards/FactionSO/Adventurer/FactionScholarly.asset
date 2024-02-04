@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faction: 16
   _templateFront: {fileID: 21300000, guid: 0f2217a999ab3c848ad124bde1108861, type: 3}
+  _templatePlayCard: {fileID: 21300000, guid: d97702afc43df694394b01a32e2bccde, type: 3}
   _badget: {fileID: 21300000, guid: 0b3bb388fcd39194fbafe3c551851031, type: 3}
   _stats: {fileID: 21300000, guid: a6228eee2d76e304b86a695aeeaca13e, type: 3}

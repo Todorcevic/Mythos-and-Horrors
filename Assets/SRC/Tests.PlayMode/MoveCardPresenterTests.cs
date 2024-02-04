@@ -35,9 +35,24 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_cardViewsManager.Get(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
-            Assert.That(_zoneViewsManager.Get(investigator2.DangerZone).GetComponentsInChildren<CardView>().Contains(_cardViewsManager.Get(card)));
+            Assert.That(_cardViewsManager.GetCardView(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
+            Assert.That(_zoneViewsManager.Get(investigator2.DangerZone).GetComponentsInChildren<CardView>().Contains(_cardViewsManager.GetCardView(card)));
             Assert.That(_swapInvestigatorPresenter.GetPrivateMember<Investigator>("_investigatorSelected"), Is.EqualTo(investigator2));
+        }
+
+        [UnityTest]
+        public IEnumerator Move_PlayCard()
+        {
+            _prepareGameUseCase.Execute();
+            Investigator investigator1 = _investigatorsProvider.Leader;
+            Card card = investigator1.Cards[1];
+
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, card.OwnZone)).AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+
+            Assert.That(_cardViewsManager.GetPlayCardView(_investigatorsProvider.Leader).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(card.OwnZone)));
         }
     }
 }

@@ -15,10 +15,18 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
         {
-            CardView cardView = _cardsManager.Get(card);
+            CardView cardView = _cardsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardWithPreviewToZone(cardView, zoneView);
+        }
+
+        public async Task MovePlayCardWithPreviewToZone(Investigator investigator, Zone zone)
+        {
+            PlayCardView playCardView = _cardsManager.GetPlayCardView(investigator);
+            ZoneView zoneView = _zonesViewManager.Get(zone);
+
+            await MoveCardWithPreviewToZone(playCardView, zoneView);
         }
 
         public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
@@ -30,7 +38,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)
         {
-            CardView cardView = _cardsManager.Get(card);
+            CardView cardView = _cardsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
@@ -46,7 +54,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardsToZone(List<Card> cards, Zone zone, float delay = 0f)
         {
-            List<CardView> cardViews = _cardsManager.Get(cards);
+            List<CardView> cardViews = _cardsManager.GetCardViews(cards);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardsToZone(cardViews, zoneView, delay);

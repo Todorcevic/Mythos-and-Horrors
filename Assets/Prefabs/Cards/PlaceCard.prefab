@@ -224,7 +224,7 @@ MonoBehaviour:
   _picture: {fileID: 8971544262225794579}
   _glowComponent: {fileID: 866625928266129189}
   _cardSensor: {fileID: 8282791756316178403}
-  _zoneCardView: {fileID: 1100189038249415795}
+  _ownZoneCardView: {fileID: 1100189038249415795}
   _rotator: {fileID: 4527797467675142982}
   _effectController: {fileID: 7802075727094105136}
   _hints: {fileID: 249355578914456148}

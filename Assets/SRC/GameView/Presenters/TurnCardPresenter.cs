@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task TurnCard(TurnCardGameAction turnCardGameAction)
         {
-            CardView cardView = _cardsManager.Get(turnCardGameAction.Card);
+            CardView cardView = _cardsManager.GetCardView(turnCardGameAction.Card);
             await _moveCardHandler.MoveCardToCenter(cardView).Join(cardView.Rotate().AsyncWaitForCompletion());
         }
     }

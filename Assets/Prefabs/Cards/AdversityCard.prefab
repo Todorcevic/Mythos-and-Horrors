@@ -300,6 +300,6 @@ MonoBehaviour:
   _picture: {fileID: 5350600697932543366}
   _glowComponent: {fileID: 4235260197794380976}
   _cardSensor: {fileID: 4914014549907215478}
-  _zoneCardView: {fileID: 4144680672120993766}
+  _ownZoneCardView: {fileID: 4144680672120993766}
   _rotator: {fileID: 582515539232999635}
   _effectController: {fileID: 6523182087786473381}

@@ -17,11 +17,11 @@ namespace MythsAndHorrors.GameView
         public async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
-            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.Get(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
+            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
 
             CardView cardViewChoose = await _clickHandler.WaitingClick();
 
-            await _showCardHandler.DeactivateCardViewsPlayables(_cardViewsManager.Get(interactableGameAction.ActivableCards));
+            await _showCardHandler.DeactivateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards));
             await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThis: cardViewChoose);
 
             return cardViewChoose?.Card.HasMultiEffect ?? false ?

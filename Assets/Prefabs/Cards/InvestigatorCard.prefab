@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health
       objectReference: {fileID: 0}
+    - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.87
@@ -1093,7 +1097,7 @@ MonoBehaviour:
   _picture: {fileID: 1067358713734866247}
   _glowComponent: {fileID: 9103896156492934257}
   _cardSensor: {fileID: 45939617387398327}
-  _zoneCardView: {fileID: 9013390572942960423}
+  _ownZoneCardView: {fileID: 9013390572942960423}
   _rotator: {fileID: 5513709070450464786}
   _effectController: {fileID: 2168444085115320164}
   _factions:

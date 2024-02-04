@@ -24,5 +24,10 @@ namespace MythsAndHorrors.GameView
             }
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
         }
+
+        public async Task MovePlayCardWith(MoveInvestigatorGameAction moveInvestigatorGameAction)
+        {
+            await _moveCardHandler.MovePlayCardWithPreviewToZone(moveInvestigatorGameAction.Investigator, moveInvestigatorGameAction.Zone);
+        }
     }
 }

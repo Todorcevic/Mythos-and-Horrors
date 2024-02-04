@@ -16,13 +16,13 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
-        [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _zoneCardView;
+        [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
-        public ZoneCardView OwnZone => _zoneCardView;
+        public ZoneCardView OwnZone => _ownZoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
 
@@ -47,7 +47,7 @@ namespace MythsAndHorrors.GameView
         public Tween DisableToShow()
         {
             _cardSensor.gameObject.SetActive(false);
-            _zoneCardView.gameObject.SetActive(false);
+            _ownZoneCardView.gameObject.SetActive(false);
             return _glowComponent.Off();
         }
 
@@ -76,7 +76,7 @@ namespace MythsAndHorrors.GameView
             name = Card.Info.Code;
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description ?? Card.Info.Flavor;
-            _zoneCardView.Init(Card.OwnZone);
+            _ownZoneCardView.Init(Card.OwnZone);
         }
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);

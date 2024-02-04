@@ -34,8 +34,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Two_Zones()
         {
-            CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
-            CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.FullDeck[0]);
+            CardView sut = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView sut2 = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.FullDeck[0]);
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
@@ -50,7 +50,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Basic()
         {
-            CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView sut = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
 
@@ -62,7 +62,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Out()
         {
-            CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView sut = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 
@@ -75,7 +75,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Row()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone)).AsCoroutine();
 
@@ -88,7 +88,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Row_Creating_Holders()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 13).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 13).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             foreach (CardView cardView in sut)
                 yield return _gameActionFactory.Create(new MoveCardsGameAction(cardView.Card, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
@@ -101,7 +101,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Hand()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
 
@@ -114,7 +114,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Hand()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
@@ -127,7 +127,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Row()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 5).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
@@ -139,7 +139,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Deck()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
@@ -151,7 +151,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Discard()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Last().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
@@ -163,7 +163,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Deck()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
 
@@ -175,7 +175,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Discard()
         {
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), _investigatorsProvider.Leader.DiscardZone)).AsCoroutine();
 
@@ -187,8 +187,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Card()
         {
-            CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView sut2 = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
@@ -201,8 +201,8 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Remove_Card_In_Zone_Card()
         {
-            CardView sut2 = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
-            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.Get(card)).ToArray();
+            CardView sut2 = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView[] sut = _investigatorsProvider.Leader.FullDeck.GetRange(0, 4).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
@@ -216,7 +216,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_In_Zone_Out_And_Back()
         {
-            CardView sut = _cardViewsManager.Get(_investigatorsProvider.Leader.InvestigatorCard);
+            CardView sut = _cardViewsManager.GetCardView(_investigatorsProvider.Leader.InvestigatorCard);
 
             Assert.That(sut.gameObject.activeSelf, Is.EqualTo(false));
             yield return _gameActionFactory.Create(new MoveCardsGameAction(sut.Card, _investigatorsProvider.Leader.HandZone)).AsCoroutine();

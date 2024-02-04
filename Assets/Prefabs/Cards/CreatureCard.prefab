@@ -586,7 +586,7 @@ MonoBehaviour:
   _picture: {fileID: 6609396689711385768}
   _glowComponent: {fileID: 3116146850402944414}
   _cardSensor: {fileID: 6181889277975604568}
-  _zoneCardView: {fileID: 2917400884095274696}
+  _ownZoneCardView: {fileID: 2917400884095274696}
   _rotator: {fileID: 1868412697410466301}
   _effectController: {fileID: 5439946156936142475}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
@@ -777,6 +777,10 @@ PrefabInstance:
     - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Name
       value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397700754147102556, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x

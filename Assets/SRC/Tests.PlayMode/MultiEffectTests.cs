@@ -18,7 +18,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -31,8 +31,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             card.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
             card.AddEffect(null, "EffectTwo En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
             card2.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
-            //investigator1.Cards[3].AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create<MoveCardsGameAction>().Run(card2, investigator1.DangerZone));
-
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick(card).AsTask();
@@ -43,7 +41,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         private IEnumerator WaitToClick(Card card)
         {
-            CardSensorController cardSensor = _cardViewsManager.Get(card).GetComponentInChildren<CardSensorController>();
+            CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
             yield return new WaitUntil(() => cardSensor.IsClickable);
             cardSensor.OnMouseUpAsButton();
             yield return new WaitUntil(() => cardSensor.IsClickable && _zoneViewManager.SelectorZone.GetComponentsInChildren<CardView>().Length > 0);

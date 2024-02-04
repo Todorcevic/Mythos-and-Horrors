@@ -26,6 +26,7 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; } = new Zone(ZoneType.Aid);
         public Zone DangerZone { get; } = new Zone(ZoneType.Danger);
         public Zone InvestigatorZone { get; } = new Zone(ZoneType.Investigator);
+        public Zone CurrentZone { get; private set; }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>
@@ -38,5 +39,10 @@ namespace MythsAndHorrors.GameRules
 
 
         public bool HasThisCard(Card card) => CardsWithInvestigator.Contains(card);
+
+        public void MoveToZone(Zone zone)
+        {
+            CurrentZone = zone;
+        }
     }
 }
