@@ -15,7 +15,6 @@ namespace MythsAndHorrors.GameRules
         Place = 1 << 6,
         Goal = 1 << 7,
         Plot = 1 << 8,
-        Avatar = 1 << 9,
-        Resource = 1 << 10,
+        Avatar = 1 << 9
     }
 }

@@ -72918,10 +72918,6 @@
         "Name": "Random Basic Weakness"
     },
     {
-        "Code": "CardResource",
-        "CardType": 1024
-    },
-    {
         "Code": "CardAvatar",
         "CardType": 512
     }
