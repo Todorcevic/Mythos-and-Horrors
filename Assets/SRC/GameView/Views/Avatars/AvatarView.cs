@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameView
         public Investigator Investigator { get; private set; }
         public Sprite Image => _picture.sprite;
 
-        public PlayCardView PlayCardView { get; private set; }
+        public AvatarCardView PlayCardView { get; private set; }
 
         /*******************************************************************/
         public void Init(Investigator investigator)

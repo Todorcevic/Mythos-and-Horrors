@@ -41,7 +41,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator Move_PlayCard()
+        public IEnumerator Move_AvatarCard()
         {
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
@@ -52,7 +52,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_cardViewsManager.GetPlayCardView(_investigatorsProvider.Leader).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(card.OwnZone)));
+            Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.Leader).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(card.OwnZone)));
         }
     }
 }

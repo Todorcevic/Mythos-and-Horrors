@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-
     public class Card01501 : CardInvestigator, IStartReactionable, IEndReactionable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;

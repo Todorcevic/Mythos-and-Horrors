@@ -1312,7 +1312,7 @@ MonoBehaviour:
   _placePrefab: {fileID: 3389488844118557959, guid: 752fd52db2c20464bbb397778fac086c, type: 3}
   _plotPrefab: {fileID: 6152357295490081171, guid: 56917f8d4144eab40b707d70c4fa71d3, type: 3}
   _goalPrefab: {fileID: 1814247740993376737, guid: 42fc4388623fe654394161e52a1db726, type: 3}
-  _playCardPrefab: {fileID: 1778711296119500744, guid: 0b7cb4843b66ca0409be4bc0555f796a, type: 3}
+  _avatarCardPrefab: {fileID: 1778711296119500744, guid: 0b7cb4843b66ca0409be4bc0555f796a, type: 3}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0

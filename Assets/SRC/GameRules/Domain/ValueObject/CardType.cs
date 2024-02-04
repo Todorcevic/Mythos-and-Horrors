@@ -14,6 +14,8 @@ namespace MythsAndHorrors.GameRules
         Adversity = 1 << 5,
         Place = 1 << 6,
         Goal = 1 << 7,
-        Plot = 1 << 8
+        Plot = 1 << 8,
+        Avatar = 1 << 9,
+        Resource = 1 << 10,
     }
 }

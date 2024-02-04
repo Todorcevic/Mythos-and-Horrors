@@ -11,17 +11,16 @@ namespace MythsAndHorrors.GameRules
         public Zone Zone { get; }
 
         /*******************************************************************/
-
         public MoveInvestigatorGameAction(Investigator investigator, Zone zone)
         {
             Investigator = investigator;
             Zone = zone;
         }
-        /*******************************************************************/
 
+        /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Investigator.MoveToZone(Zone);
+            Investigator.AvatarCard.MoveToZone(Zone);
             await _animator.PlayAnimationWith(this);
         }
     }

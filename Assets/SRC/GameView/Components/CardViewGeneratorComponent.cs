@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _placePrefab;
         [SerializeField, Required, AssetsOnly] private CardView _plotPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
-        [SerializeField, Required, AssetsOnly] private PlayCardView _playCardPrefab;
+        [SerializeField, Required, AssetsOnly] private AvatarCardView _avatarCardPrefab;
 
         /*******************************************************************/
         public CardView Clone(CardView cardView, Transform parent) =>
@@ -33,15 +33,6 @@ namespace MythsAndHorrors.GameView
             return newCardview;
         }
 
-        public void BuildPlayCard(Investigator investigator)
-        {
-            PlayCardView newCardview = _diContainer.InstantiatePrefabForComponent<PlayCardView>(_playCardPrefab, transform, new object[] { investigator.InvestigatorCard });
-            newCardview.Off();
-            newCardview.SetCurrentZoneView(_zoneViewManager.OutZone);
-            newCardview.SetInvestigator(investigator);
-            _cardViewsManager.AddPlayCardView(newCardview);
-        }
-
         private CardView GetPrefab(CardType cardType) => cardType switch
         {
             CardType.Investigator => _investigatorPrefab,
@@ -51,6 +42,7 @@ namespace MythsAndHorrors.GameView
             CardType.Place => _placePrefab,
             CardType.Plot => _plotPrefab,
             CardType.Goal => _goalPrefab,
+            CardType.Avatar => _avatarCardPrefab,
             _ => throw new ArgumentException($"Card type {cardType} not supported"),
         };
     }

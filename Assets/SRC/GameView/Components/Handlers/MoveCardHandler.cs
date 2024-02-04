@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MovePlayCardWithPreviewToZone(Investigator investigator, Zone zone)
         {
-            PlayCardView playCardView = _cardsManager.GetPlayCardView(investigator);
+            AvatarCardView playCardView = _cardsManager.GetAvatarCardView(investigator);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardWithPreviewToZone(playCardView, zoneView);

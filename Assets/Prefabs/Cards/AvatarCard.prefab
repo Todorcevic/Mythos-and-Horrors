@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 3762236406814514275}
   - component: {fileID: 1778711296119500744}
   m_Layer: 3
-  m_Name: PlayCard
+  m_Name: AvatarCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
