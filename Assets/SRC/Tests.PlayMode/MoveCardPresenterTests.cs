@@ -18,6 +18,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -45,14 +46,14 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
-            Card card = investigator1.InvestigatorCard;
+            CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards[0];
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, card.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, cardPlace)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.Leader).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(card.OwnZone)));
+            Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.Leader).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace MythsAndHorrors.GameRules
 {
@@ -7,7 +8,7 @@ namespace MythsAndHorrors.GameRules
     {
         public string Code => InvestigatorCard.Info.Code;
         public CardInvestigator InvestigatorCard { get; init; }
-        public CardAvatar AvatarCard { get; init; }
+        public CardAvatar AvatarCard { get; private set; }
         public List<Card> Cards { get; init; }
         public List<Card> RequerimentCard { get; init; }
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
@@ -27,6 +28,12 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; } = new Zone(ZoneType.Aid);
         public Zone DangerZone { get; } = new Zone(ZoneType.Danger);
         public Zone InvestigatorZone { get; } = new Zone(ZoneType.Investigator);
+
+        /*******************************************************************/
+        public void Init(CardAvatar cardAvatar)
+        {
+            AvatarCard = cardAvatar;
+        }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>

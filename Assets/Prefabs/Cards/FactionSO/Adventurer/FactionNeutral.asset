@@ -17,3 +17,4 @@ MonoBehaviour:
   _templatePlayCard: {fileID: 21300000, guid: 659785bf7e8e52540ad05dc813ad0929, type: 3}
   _badget: {fileID: 21300000, guid: c2a5de880ff13d644872a403e9d14639, type: 3}
   _stats: {fileID: 21300000, guid: 2550c6b29d3474644a51285d262a0950, type: 3}
+  _color: {r: 0.10196079, g: 0.10196079, b: 0.10196079, a: 1}

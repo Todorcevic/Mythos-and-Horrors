@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
@@ -12,9 +13,9 @@ namespace MythsAndHorrors.GameRules
         public List<Card> Cards { get; init; }
         public string NextScene { get; init; }
 
-        public List<Card> PlaceCards => Cards.FindAll(card => card is CardPlace);
-        public List<Card> PlotCards => Cards.FindAll(card => card is CardPlot);
-        public List<Card> GoalCards => Cards.FindAll(card => card is CardGoal);
+        public List<CardPlace> PlaceCards => Cards.OfType<CardPlace>().ToList();
+        public List<CardPlot> PlotCards => Cards.OfType<CardPlot>().ToList();
+        public List<CardGoal> GoalCards => Cards.OfType<CardGoal>().ToList();
         public List<Card> DangerCards => Cards.FindAll(card => card is CardAdversity || card is CardCreature);
     }
 }

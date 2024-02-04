@@ -5,23 +5,22 @@ namespace MythsAndHorrors.GameRules
 {
     public class MoveInvestigatorGameAction : GameAction
     {
-        [Inject] private readonly IViewLayer _animator;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; }
-        public Zone Zone { get; }
+        public CardPlace CardPlace { get; }
 
         /*******************************************************************/
-        public MoveInvestigatorGameAction(Investigator investigator, Zone zone)
+        public MoveInvestigatorGameAction(Investigator investigator, CardPlace cardPlace)
         {
             Investigator = investigator;
-            Zone = zone;
+            CardPlace = cardPlace;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Investigator.AvatarCard.MoveToZone(Zone);
-            await _animator.PlayAnimationWith(this);
+            await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.AvatarCard, CardPlace.OwnZone));
         }
     }
 }

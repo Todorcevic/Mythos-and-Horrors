@@ -26,24 +26,24 @@ namespace MythsAndHorrors.GameView
 
         public CardView BuildCard(Card card)
         {
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card.Info.CardType), transform, new object[] { card });
+            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform, new object[] { card });
             newCardview.Off();
             newCardview.SetCurrentZoneView(_zoneViewManager.OutZone);
             _cardViewsManager.AddCardView(newCardview);
             return newCardview;
         }
 
-        private CardView GetPrefab(CardType cardType) => cardType switch
+        private CardView GetPrefab(Card card) => card switch
         {
-            CardType.Investigator => _investigatorPrefab,
-            CardType.Supply or CardType.Talent or CardType.Condition => _investigatorDeckPrefab,
-            CardType.Adversity => _adversityPrefab,
-            CardType.Creature => _creaturePrefab,
-            CardType.Place => _placePrefab,
-            CardType.Plot => _plotPrefab,
-            CardType.Goal => _goalPrefab,
-            CardType.Avatar => _avatarCardPrefab,
-            _ => throw new ArgumentException($"Card type {cardType} not supported"),
+            CardInvestigator => _investigatorPrefab,
+            CardSupply or CardTalent or CardCondition => _investigatorDeckPrefab,
+            CardAdversity => _adversityPrefab,
+            CardCreature => _creaturePrefab,
+            CardPlace => _placePrefab,
+            CardPlot => _plotPrefab,
+            CardGoal => _goalPrefab,
+            CardAvatar => _avatarCardPrefab,
+            _ => throw new ArgumentException($"Card type {card} not supported"),
         };
     }
 }

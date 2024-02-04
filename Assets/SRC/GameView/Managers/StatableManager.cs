@@ -1,5 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -11,6 +12,8 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void Add(IStatableView statView) => _allStats.Add(statView);
 
-        public IStatableView Get(Stat stat) => _allStats.Find(statView => statView.Stat == stat);
+        public IStatableView Get(Stat stat) => _allStats.Single(statView => statView.Stat == stat);
+
+        public List<IStatableView> GetAll(Stat stat) => _allStats.FindAll(statView => statView.Stat == stat);
     }
 }

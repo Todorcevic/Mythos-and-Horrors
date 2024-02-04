@@ -44,7 +44,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(avatarView.GetComponentsInChildren<TurnView>().Count(), Is.EqualTo(3));
+            Assert.That(avatarView.GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(3));
         }
     }
 }

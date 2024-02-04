@@ -12,5 +12,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _templatePlayCard;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _badget;
         [SerializeField, Required, ChildGameObjectsOnly] public Sprite _stats;
+        [SerializeField, Required] public Color _color;
     }
 }

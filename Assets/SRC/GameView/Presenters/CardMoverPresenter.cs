@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MovePlayCardWith(MoveInvestigatorGameAction moveInvestigatorGameAction)
         {
-            await _moveCardHandler.MovePlayCardWithPreviewToZone(moveInvestigatorGameAction.Investigator, moveInvestigatorGameAction.Zone);
+            await _moveCardHandler.MovePlayCardWithPreviewToZone(moveInvestigatorGameAction.Investigator, moveInvestigatorGameAction.CardPlace.OwnZone);
         }
     }
 }

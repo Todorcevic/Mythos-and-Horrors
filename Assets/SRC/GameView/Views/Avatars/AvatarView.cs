@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
+using PlasticGui.WorkspaceWindow.PendingChanges;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -13,9 +14,10 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private Image _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _glow;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _sanity;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _hints;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _healthStat;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _sanityStat;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _resourcesStat;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _hintsStat;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
@@ -24,16 +26,12 @@ namespace MythsAndHorrors.GameView
         public Investigator Investigator { get; private set; }
         public Sprite Image => _picture.sprite;
 
-        public AvatarCardView PlayCardView { get; private set; }
-
         /*******************************************************************/
         public void Init(Investigator investigator)
         {
             Investigator = investigator;
             SetPicture();
-            SetHealth(investigator.InvestigatorCard.Info.Health ?? 0);
-            SetSanity(investigator.InvestigatorCard.Info.Sanity ?? 0);
-            SetHints(investigator.InvestigatorCard.Info.Hints ?? 0);
+            SetStats();
             gameObject.SetActive(true);
         }
 
@@ -45,15 +43,17 @@ namespace MythsAndHorrors.GameView
 
         public Tween DeactivateGlow() => _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
 
-        public void SetHealth(int amount) => _health.text = amount.ToString();
-
-        public void SetSanity(int amount) => _sanity.text = amount.ToString();
-
-        public void SetHints(int amount) => _hints.text = amount.ToString();
-
         public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
         private async void SetPicture() => await _picture.LoadAvatarSprite(Investigator.InvestigatorCard.Info.Code);
+
+        private void SetStats()
+        {
+            _healthStat.SetStat(Investigator.InvestigatorCard.Health);
+            _sanityStat.SetStat(Investigator.InvestigatorCard.Sanity);
+            _resourcesStat.SetStat(Investigator.Resources);
+            _hintsStat.SetStat(Investigator.Hints);
+        }
 
         /*******************************************************************/
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)

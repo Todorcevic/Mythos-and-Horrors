@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
+        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
-        public Card Card { get; private set; }
+        public Card Card { get; protected set; }
         public ZoneCardView OwnZone => _ownZoneCardView;
         public ZoneView CurrentZoneView { get; private set; }
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);

@@ -3,15 +3,16 @@ using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class StatView : MonoBehaviour, IStatableView
+    public class StatUIView : MonoBehaviour, IStatableView
     {
         [Inject] private readonly StatableManager _statsViewsManager;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _holder;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
@@ -27,7 +28,7 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public Tween UpdateValue()
+        Tween IStatableView.UpdateValue()
         {
             return DOTween.Sequence()
                  .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))

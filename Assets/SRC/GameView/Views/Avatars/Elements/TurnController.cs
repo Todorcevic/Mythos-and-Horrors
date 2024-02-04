@@ -1,22 +1,24 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
     public class TurnController : MonoBehaviour
     {
-        [SerializeField, Required, AssetsOnly] private TurnView _turnPrefab;
-        private readonly List<TurnView> _turns = new();
+        [SerializeField, Required] private List<GameObject> _turns;
+
+        public int ActiveTurnsCount => _turns.Count(turn => turn.activeSelf);
 
         /*******************************************************************/
         public void TurnOn(int amount)
         {
             AddTurn(amount - _turns.Count);
-            _turns.ForEach(turn => turn.TurnOff());
+            _turns.ForEach(turn => turn.SetActive(false));
             for (int i = 0; i < amount; i++)
             {
-                _turns[i].TurnOn();
+                _turns[i].SetActive(true);
             }
         }
 
@@ -25,8 +27,7 @@ namespace MythsAndHorrors.GameView
             if (amount <= 0) return;
             for (int i = 0; i < amount; i++)
             {
-                TurnView newTurnView = Instantiate(_turnPrefab, transform);
-                _turns.Add(newTurnView);
+                _turns.Add(Instantiate(_turns.First(), transform));
             }
         }
     }
