@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
 
-        public Investigator Investigator => (Card as CardAvatar).Investigator;
+        public Investigator Investigator => ((CardAvatar)Card).Investigator;
 
         /*******************************************************************/
         protected override void SetSpecific()

@@ -6,9 +6,11 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneCardView : ZoneView
     {
-        [SerializeField] private CardView _ownerCardView;
-        [SerializeField, Required] protected Transform _hoverPosition;
+        private CardView _ownerCardView;
+        [SerializeField, Required] private Transform _hoverPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private InvisibleHolderController _invisibleHolderController;
+
+        private CardView OwnerCardView => _ownerCardView ??= GetComponentInParent<CardView>();
 
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView) => _invisibleHolderController.AddCardView(cardView);
@@ -20,13 +22,13 @@ namespace MythsAndHorrors.GameView
             Transform invisibleHolder = _invisibleHolderController.SetLayout(cardView, layoutAmount: 1.5f);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
             cardView.transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
-            return _ownerCardView.CurrentZoneView.MouseEnter(_ownerCardView);
+            return OwnerCardView.CurrentZoneView.MouseEnter(OwnerCardView);
         }
 
         public override Tween MouseExit(CardView cardView)
         {
             _invisibleHolderController.ResetLayout(cardView);
-            return _ownerCardView.CurrentZoneView.MouseExit(_ownerCardView);
+            return OwnerCardView.CurrentZoneView.MouseExit(OwnerCardView);
         }
     }
 }

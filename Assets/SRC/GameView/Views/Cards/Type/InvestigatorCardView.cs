@@ -33,14 +33,14 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         private void SetStats(Sprite holderImage)
         {
-            if (Card is CardInvestigator _investigator)
+            if (Card is CardInvestigator _cardInvestigator)
             {
-                _health.SetStat(_investigator.Health);
-                _sanity.SetStat(_investigator.Sanity);
-                _strength.SetStat(_investigator.Strength, holderImage);
-                _agility.SetStat(_investigator.Agility, holderImage);
-                _intelligence.SetStat(_investigator.Intelligence, holderImage);
-                _power.SetStat(_investigator.Power, holderImage);
+                _health.SetStat(_cardInvestigator.Health);
+                _sanity.SetStat(_cardInvestigator.Sanity);
+                _strength.SetStat(_cardInvestigator.Strength, holderImage);
+                _agility.SetStat(_cardInvestigator.Agility, holderImage);
+                _intelligence.SetStat(_cardInvestigator.Intelligence, holderImage);
+                _power.SetStat(_cardInvestigator.Power, holderImage);
             }
         }
     }

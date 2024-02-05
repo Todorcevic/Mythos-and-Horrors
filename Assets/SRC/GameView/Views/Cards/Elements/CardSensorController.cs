@@ -7,31 +7,33 @@ namespace MythsAndHorrors.GameView
 {
     public class CardSensorController : MonoBehaviour
     {
-        [SerializeField, Required] private CardView _cardView;
+        private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         public bool IsClickable { get; set; }
 
+        private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
+
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            DOTween.Kill(_cardView.CurrentZoneView);
+            DOTween.Kill(CardView.CurrentZoneView);
 
-            _cardView.CurrentZoneView.MouseEnter(_cardView);
-            _cardShowerComponent.ShowCard(_cardView);
+            CardView.CurrentZoneView.MouseEnter(CardView);
+            _cardShowerComponent.ShowCard(CardView);
         }
 
         public void OnMouseExit()
         {
-            _cardView.CurrentZoneView.MouseExit(_cardView).SetId(_cardView.CurrentZoneView);
-            _cardShowerComponent.HideCard(_cardView);
+            CardView.CurrentZoneView.MouseExit(CardView).SetId(CardView.CurrentZoneView);
+            _cardShowerComponent.HideCard(CardView);
         }
 
         public void OnMouseUpAsButton()
         {
             if (!IsClickable) return;
-            _clickHandler.Clicked(_cardView);
+            _clickHandler.Clicked(CardView);
         }
     }
 }
