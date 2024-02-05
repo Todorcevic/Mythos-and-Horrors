@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
+        [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
 
         public Investigator Investigator => (Card as CardAvatar).Investigator;
 
@@ -33,6 +34,7 @@ namespace MythsAndHorrors.GameView
         {
             _health.SetStat(Investigator.InvestigatorCard.Health);
             _sanity.SetStat(Investigator.InvestigatorCard.Sanity);
+            _turnController.Init(Investigator.Turns);
         }
     }
 }

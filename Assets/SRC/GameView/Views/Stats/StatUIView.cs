@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -11,6 +12,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _holder;
+        [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
@@ -20,6 +22,7 @@ namespace MythsAndHorrors.GameView
         {
             gameObject.SetActive(true);
             Stat = stat;
+            _statableManager.Add(this);
             _value.text = stat.Value.ToString();
             _holder.sprite = holderImage ?? _holder.sprite;
         }

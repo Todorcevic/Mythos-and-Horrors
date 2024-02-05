@@ -4,12 +4,14 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class TurnController : MonoBehaviour, IStatableView
     {
         [SerializeField, Required] private List<GameObject> _turns;
+        [Inject] private readonly StatableManager _statableManager;
 
         public int ActiveTurnsCount => _turns.Count(turn => turn.activeSelf);
 
@@ -21,6 +23,7 @@ namespace MythsAndHorrors.GameView
         public void Init(Stat stat)
         {
             Stat = stat;
+            _statableManager.Add(this);
             TurnOn(stat.Value);
         }
 

@@ -12,6 +12,7 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
         [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] public Transform CenterShow { get; }
+        [Inject] private readonly StatableManager _statableManager;
 
         public int Amount => _allTokens.Count(tokenView => tokenView.IsActive);
         public TokenView TokenOn => _allTokens.Last(tokenView => tokenView.IsActive);
@@ -23,6 +24,7 @@ namespace MythsAndHorrors.GameView
         public void Init(Stat stat)
         {
             Stat = stat;
+            _statableManager.Add(this);
         }
 
         Tween IStatableView.UpdateValue() => TokenOn.SetAmount(Stat.Value);
