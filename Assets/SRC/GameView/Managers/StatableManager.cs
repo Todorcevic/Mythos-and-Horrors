@@ -1,12 +1,13 @@
 ﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class StatableManager
     {
-        private readonly List<IStatableView> _allStats = new();
+        [Inject] private List<IStatableView> _allStats;
 
         /*******************************************************************/
         public void Add(IStatableView statableView)
