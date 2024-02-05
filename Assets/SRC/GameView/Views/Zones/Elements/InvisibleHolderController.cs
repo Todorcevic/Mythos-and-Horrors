@@ -33,16 +33,15 @@ namespace MythsAndHorrors.GameView
             int selectedCardPosition = GetInvisibleHolderIndex(cardView);
             GetInvisibleHolder(cardView).Clear();
             return Repositionate(selectedCardPosition, withFast: false);
-
         }
 
-        public Transform SetLayout(CardView cardView, float layoutAmount)
+        public (Transform, Tween) SetLayout(CardView cardView, float layoutAmount)
         {
             repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             if (AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * layoutAmount);
-            Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);
-            return invisibleHolder.transform;
+            //Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);
+            return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true));
         }
 
         public Tween ResetLayout(CardView cardView)

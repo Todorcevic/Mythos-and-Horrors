@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -15,18 +16,19 @@ namespace MythsAndHorrors.GameView
 
         private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
 
+        private Tween tweenToKill;
+
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            DOTween.Kill(CardView.CurrentZoneView);
-
+            tweenToKill?.Kill();
             CardView.CurrentZoneView.MouseEnter(CardView);
             _cardShowerComponent.ShowCard(CardView);
         }
 
         public void OnMouseExit()
         {
-            CardView.CurrentZoneView.MouseExit(CardView).SetId(CardView.CurrentZoneView);
+            tweenToKill = CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
         }
 

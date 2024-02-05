@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            Transform invisibleHolder = _invisibleHolderController.SetLayout(cardView, layoutAmount: 1.5f);
+            (Transform invisibleHolder, Tween holdersTween) = _invisibleHolderController.SetLayout(cardView, layoutAmount: 1.5f);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
             cardView.transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
             return OwnerCardView.CurrentZoneView.MouseEnter(OwnerCardView);
