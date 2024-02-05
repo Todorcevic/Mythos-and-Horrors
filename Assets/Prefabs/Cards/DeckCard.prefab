@@ -1408,6 +1408,9 @@ PrefabInstance:
     - {fileID: 8329475486560576591, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
     - {fileID: 4639424630435119918, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6574687530609869690, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8429343200509556218}
     - targetCorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1486799286374248551}
@@ -1432,9 +1435,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6950507450979799400}
-    - targetCorrespondingSourceObject: {fileID: 6574687530609869690, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8429343200509556218}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       insertIndex: -1
@@ -1460,6 +1460,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1da366caf849aa0449f61d08cdf31849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1783176149808278925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &2087415250321823477 stripped
@@ -1492,6 +1503,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 8012474368596726933}
   _rotator: {fileID: 6819392305497336736}
   _effectController: {fileID: 878241973791065302}
+  _cloneComponent: {fileID: 1783176149808278925}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   - {fileID: 11400000, guid: 718b229d1d745154490881fb66fb844b, type: 2}

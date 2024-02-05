@@ -1,14 +1,13 @@
 ﻿using DG.Tweening;
+using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class CardShowerComponent : MonoBehaviour
     {
-        [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         private const float X_OFFSET = 6.5f;
-        private CardView _currentShowCard;
+        private CloneComponent _currentShowCard;
 
         /*******************************************************************/
         public void ShowCard(CardView cardView)
@@ -16,12 +15,12 @@ namespace MythsAndHorrors.GameView
             if (MustNotShowFilter(cardView)) return;
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
-
-            _currentShowCard = _cardViewGeneratorComponent.Clone(cardView, transform);
-            _currentShowCard.ShowEffects();
+            _currentShowCard = cardView.Clone(transform);
+            _currentShowCard.ShowEffects(cardView.Card.PlayableEffects.ToArray());
+            _currentShowCard.DisableGlow();
             _currentShowCard.transform.ResetToZero();
+
             DOTween.Sequence()
-                .Append(_currentShowCard.DisableToShow())
                 .Join(_currentShowCard.transform.DORecolocate().SetEase(Ease.InOutExpo))
                 .SetId(_currentShowCard);
         }

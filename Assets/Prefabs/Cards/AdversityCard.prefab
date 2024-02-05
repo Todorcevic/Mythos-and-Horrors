@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 103108624820255126, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 36f60230b0fdb1344bd5e91e9896b2b6, type: 2}
+      objectReference: {fileID: 7731311714726296084, guid: 083741ee09acafd49b97556bdeec2d7d, type: 2}
     - target: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Size.x
       value: 7.5
@@ -268,6 +268,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 3831476094482434684}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5623244011324493566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3831476094482434684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6523182087786473381 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8046486371691589081, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -315,3 +326,4 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 4144680672120993766}
   _rotator: {fileID: 582515539232999635}
   _effectController: {fileID: 6523182087786473381}
+  _cloneComponent: {fileID: 5623244011324493566}

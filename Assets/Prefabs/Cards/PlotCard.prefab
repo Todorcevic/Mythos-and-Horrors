@@ -537,6 +537,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 8032590091954852428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1467218788831893198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 8032590091954852428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2190802374549720134 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -578,6 +589,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 7192670855116009430}
   _rotator: {fileID: 5926983261047525603}
   _effectController: {fileID: 59569994945036181}
+  _cloneComponent: {fileID: 1467218788831893198}
   _eldritch: {fileID: 8432757924129616535}
 --- !u!114 &5493573126717618492 stripped
 MonoBehaviour:

@@ -290,6 +290,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da366caf849aa0449f61d08cdf31849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5338572555751483404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3545334441379851406}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &5647103997997765492 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -331,6 +342,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 4439265872406860052}
   _rotator: {fileID: 867557680850497057}
   _effectController: {fileID: 6816570061375242583}
+  _cloneComponent: {fileID: 5338572555751483404}
   _hints: {fileID: 1325195686989644074}
 --- !u!4 &7868108235360879443 stripped
 Transform:

@@ -1355,6 +1355,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 1167729326512625970}
   _rotator: {fileID: 2424559985049822727}
   _effectController: {fileID: 8302026588544928113}
+  _cloneComponent: {fileID: 7474145916525699114}
   _factions:
   - {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
   - {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}
@@ -1371,6 +1372,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 2061634377852609704}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7474145916525699114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2061634377852609704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7890958061512669858 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8151010682676239882, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

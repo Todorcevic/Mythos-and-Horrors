@@ -19,6 +19,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
+        [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; protected set; }
@@ -106,5 +107,7 @@ namespace MythsAndHorrors.GameView
         }
 
         public void HideEffects() => _effectController.Clear();
+
+        public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
     }
 }

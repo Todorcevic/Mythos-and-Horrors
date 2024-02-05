@@ -235,6 +235,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 1100189038249415795}
   _rotator: {fileID: 4527797467675142982}
   _effectController: {fileID: 7802075727094105136}
+  _cloneComponent: {fileID: 8703685288465444203}
   _hints: {fileID: 249355578914456148}
   _enigma: {fileID: 6128284257626759234}
 --- !u!4 &6912737438678058548 stripped
@@ -273,6 +274,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1da366caf849aa0449f61d08cdf31849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8703685288465444203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8873751080413955202, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168233e33e5b8804b915a99b23a19d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &8971544262225794579 stripped

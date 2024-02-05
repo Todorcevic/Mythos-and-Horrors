@@ -30,6 +30,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(placeCard, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, placeCard)).AsCoroutine();
+
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[2], placeCard.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[3], placeCard.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[4], placeCard.OwnZone)).AsCoroutine();
+
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Health, 3)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 2)).AsCoroutine();
 
