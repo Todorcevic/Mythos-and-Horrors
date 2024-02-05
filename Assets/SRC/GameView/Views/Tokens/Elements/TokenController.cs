@@ -11,7 +11,6 @@ namespace MythsAndHorrors.GameView
     public class TokenController : MonoBehaviour, IStatableView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
-        [Inject] private readonly ZoneViewsManager _zonesManager;
         [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] public Transform CenterShow { get; }
 
         public int Amount => _allTokens.Count(tokenView => tokenView.IsActive);
@@ -19,13 +18,14 @@ namespace MythsAndHorrors.GameView
         public TokenView TokenOff => _allTokens.Find(tokenView => !tokenView.IsActive) ?? CreateNewToken();
         public Stat Stat { get; private set; }
         public Transform StatTransform => TokenOn.transform;
-        //private Transform CenterShow => _zonesManager.CenterShowZone.transform;
 
         /*******************************************************************/
         public void Init(Stat stat)
         {
             Stat = stat;
         }
+
+        Tween IStatableView.UpdateValue() => TokenOn.SetAmount(Stat.Value);
 
         /*******************************************************************/
         public Tween Pay(int amount, Transform thisPosition)
@@ -41,8 +41,6 @@ namespace MythsAndHorrors.GameView
             GetDeactiveTokens(amount).ForEach(token => gainSequence.Join(token.MoveFrom(thisPosition, CenterShow)));
             return gainSequence;
         }
-
-        public Tween UpdateValue() => TokenOn.SetAmount(Stat.Value);
 
         private TokenView CreateNewToken()
         {

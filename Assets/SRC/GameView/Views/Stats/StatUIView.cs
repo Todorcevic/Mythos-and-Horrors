@@ -4,13 +4,11 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public class StatUIView : MonoBehaviour, IStatableView
     {
-        [Inject] private readonly StatableManager _statsViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _holder;
 
@@ -22,7 +20,6 @@ namespace MythsAndHorrors.GameView
         {
             gameObject.SetActive(true);
             Stat = stat;
-            _statsViewsManager.Add(this);
             _value.text = stat.Value.ToString();
             _holder.sprite = holderImage ?? _holder.sprite;
         }

@@ -9,9 +9,9 @@ namespace MythsAndHorrors.GameView
 {
     public class StatView : MonoBehaviour, IStatableView
     {
-        [Inject] private readonly StatableManager _statsViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder;
+        [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         {
             gameObject.SetActive(true);
             Stat = stat;
-            _statsViewsManager.Add(this);
+            _statableManager.Add(this);
             _value.text = stat.Value.ToString();
             _holder.sprite = holderImage ?? _holder.sprite;
         }

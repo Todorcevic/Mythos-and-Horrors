@@ -37,7 +37,7 @@ namespace MythsAndHorrors.GameView
             Debug.Log("Resource Clicked");
         }
 
-        public Tween UpdateValue()
+        Tween IStatableView.UpdateValue()
         {
             return DOTween.Sequence();
         }

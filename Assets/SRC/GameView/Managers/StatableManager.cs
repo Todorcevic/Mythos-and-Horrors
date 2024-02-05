@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly List<IStatableView> _allStats;
 
         /*******************************************************************/
-        public void Add(IStatableView statView) => _allStats.Add(statView);
+        public void Add(IStatableView statableView) => _allStats.Add(statableView);
 
         public IStatableView Get(Stat stat) => _allStats.Single(statView => statView.Stat == stat);
 

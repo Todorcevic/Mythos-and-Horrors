@@ -21,14 +21,6 @@ namespace MythsAndHorrors.GameView
             await MoveCardWithPreviewToZone(cardView, zoneView);
         }
 
-        public async Task MovePlayCardWithPreviewToZone(Investigator investigator, Zone zone)
-        {
-            AvatarCardView playCardView = _cardsManager.GetAvatarCardView(investigator);
-            ZoneView zoneView = _zonesViewManager.Get(zone);
-
-            await MoveCardWithPreviewToZone(playCardView, zoneView);
-        }
-
         public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
             if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
