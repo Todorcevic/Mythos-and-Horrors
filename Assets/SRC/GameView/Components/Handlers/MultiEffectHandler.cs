@@ -14,13 +14,13 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         private Dictionary<CardView, Effect> clonesCardViewDictionary;
+
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs)
         {
             clonesCardViewDictionary = CreateCardViewDictionary(cardViewWithMultiEffecs);
             await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary);
             _showCardHandler.ActiavateCardViewsPlayables(clonesCardViewDictionary.Keys.ToList(), withMainButton: true);
-
             return await FinishMultiEffect(await _clickHandler.WaitingClick());
         }
 

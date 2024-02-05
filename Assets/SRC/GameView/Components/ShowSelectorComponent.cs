@@ -22,12 +22,14 @@ namespace MythsAndHorrors.GameView
 
         public bool IsShowing => _selectorBlockController.IsActivated;
         public bool IsMultiEffect => _cardViews.Count > 1 && _cardViews.All(cardView => cardView.Card == _cardViews[0].Card);
+        private CardView OriginalCardView => _cardViews[0];
 
         /*******************************************************************/
         public async Task ShowPlayables()
         {
             _cardViews = _cardViewsManager.GetAllCanPlay();
             _cardViews.ForEach(cardView => cardView.ShowEffects());
+            _cardViews.ForEach(cardView => cardView.DisableToCenterShow());
             await Animation();
         }
 
@@ -41,6 +43,7 @@ namespace MythsAndHorrors.GameView
         {
             if (!IsShowing) return;
             await Shutdown();
+            _cardViews.ForEach(cardView => cardView.EnableToCenterShow());
             Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
@@ -54,33 +57,34 @@ namespace MythsAndHorrors.GameView
         {
             _cardViews = cardViews.Keys.ToList();
             _cardViews.ForEach(cardView => cardView.ShowEffect(cardViews[cardView]));
+            OriginalCardView.DisableToCenterShow();
             await Animation();
         }
 
         public async Task ReturnClones()
         {
             await Shutdown();
-            CardView originalCardView = _cardViews[0];
-            List<CardView> clones = _cardViews.Except(new[] { originalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
+            List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
             Sequence returnClonesSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             clones.ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
                  .OnComplete(() => Destroy(clone.gameObject))));
             await returnClonesSequence.AsyncWaitForCompletion()
-                .Join(_moveCardHandler.MoveCardWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone)));
+                .Join(_moveCardHandler.MoveCardWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)));
             _cardViews.Clear();
+            OriginalCardView.EnableToCenterShow();
         }
 
         public async Task DestroyClones(CardView cardViewSelected)
         {
             await Shutdown();
-            CardView originalCardView = _cardViews[0];
-            List<CardView> clones = _cardViews.Except(new[] { originalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
-            (originalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, originalCardView.transform.position);
+            List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
+            (OriginalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, OriginalCardView.transform.position);
             Sequence sequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                  .OnComplete(() => Destroy(clone.gameObject)));
             _cardViews.Clear();
             await sequence.AsyncWaitForCompletion();
+            OriginalCardView.EnableToCenterShow();
         }
 
         /*******************************************************************/

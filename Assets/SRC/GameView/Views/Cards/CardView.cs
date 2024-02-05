@@ -24,18 +24,22 @@ namespace MythsAndHorrors.GameView
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; protected set; }
         public ZoneCardView OwnZone => _ownZoneCardView;
+        public RotatorController Rotator => _rotator;
         public ZoneView CurrentZoneView { get; private set; }
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(Card card)
+        public void Init(Card card)
         {
             Card = card;
             SetPicture();
             SetCommon();
             SetSpecific();
+        }
+
+        public void InitClone(Card card)
+        {
+            Card = card;
         }
 
         /*******************************************************************/
@@ -45,11 +49,14 @@ namespace MythsAndHorrors.GameView
             transform.SetParent(zoneView.transform);
         }
 
-        public Tween DisableToShow()
+        public void DisableToCenterShow()
         {
-            _cardSensor.gameObject.SetActive(false);
             _ownZoneCardView.gameObject.SetActive(false);
-            return _glowComponent.Off();
+        }
+
+        public void EnableToCenterShow()
+        {
+            _ownZoneCardView.gameObject.SetActive(true);
         }
 
         public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);

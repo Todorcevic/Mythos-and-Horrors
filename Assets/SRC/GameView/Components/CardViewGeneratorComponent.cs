@@ -21,12 +21,19 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private AvatarCardView _avatarCardPrefab;
 
         /*******************************************************************/
-        public CardView Clone(CardView cardView, Transform parent) =>
-            _diContainer.InstantiatePrefabForComponent<CardView>(cardView, parent, new object[] { cardView.Card });
+        public CardView Clone(CardView cardView, Transform parent)
+        {
+            cardView.OwnZone.transform.SetParent(transform);
+            CardView clone = _diContainer.InstantiatePrefabForComponent<CardView>(cardView, parent);
+            clone.InitClone(cardView.Card);
+            cardView.OwnZone.transform.SetParent(cardView.Rotator.transform);
+            return clone;
+        }
 
         public CardView BuildCard(Card card)
         {
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform, new object[] { card });
+            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform);
+            newCardview.Init(card);
             newCardview.Off();
             newCardview.SetCurrentZoneView(_zoneViewManager.OutZone);
             _cardViewsManager.AddCardView(newCardview);
