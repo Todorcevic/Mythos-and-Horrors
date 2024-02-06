@@ -32,7 +32,6 @@ namespace MythsAndHorrors.GameRules
             foreach (Card card in Cards)
             {
                 card.CurrentZone?.RemoveCard(card);
-                card.MoveToZone(Zone);
                 Zone.AddCard(card);
             }
 

@@ -6,7 +6,6 @@ namespace MythsAndHorrors.GameView
 {
     public class SwapInvestigatorHandler
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly SwapInvestigatorComponent _swapInvestigatorComponent;
         private Investigator _investigatorSelected;
@@ -25,7 +24,7 @@ namespace MythsAndHorrors.GameView
 
         public Tween Select(Zone zone)
         {
-            Investigator investigator = _investigatorsProvider.GetInvestigatorWithThisZone(zone) ?? _investigatorSelected;
+            Investigator investigator = zone?.Owner ?? _investigatorSelected;
             return Select(investigator);
         }
     }

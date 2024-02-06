@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class Investigator
     {
+        [Inject] private readonly ZonesProvider _zonesProvider;
+
         public string Code => InvestigatorCard.Info.Code;
         public CardInvestigator InvestigatorCard { get; init; }
         public CardAvatar AvatarCard { get; init; }
@@ -13,18 +17,25 @@ namespace MythsAndHorrors.GameRules
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
         public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
-        public Zone HandZone { get; } = new Zone(ZoneType.Hand);
-        public Zone DeckZone { get; } = new Zone(ZoneType.InvestigatorDeck);
-        public Zone DiscardZone { get; } = new Zone(ZoneType.InvestigatorDiscard);
-        public Zone AidZone { get; } = new Zone(ZoneType.Aid);
-        public Zone DangerZone { get; } = new Zone(ZoneType.Danger);
-        public Zone InvestigatorZone { get; } = new Zone(ZoneType.Investigator);
+        public Zone HandZone { get; private set; }
+        public Zone DeckZone { get; private set; }
+        public Zone DiscardZone { get; private set; }
+        public Zone AidZone { get; private set; }
+        public Zone DangerZone { get; private set; }
+        public Zone InvestigatorZone { get; private set; }
 
         /*******************************************************************/
-        //public void Init(CardAvatar cardAvatar)
-        //{
-        //    AvatarCard = cardAvatar;
-        //}
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
+        private void Init()
+        {
+            HandZone = _zonesProvider.Create();
+            DeckZone = _zonesProvider.Create();
+            DiscardZone = _zonesProvider.Create();
+            AidZone = _zonesProvider.Create();
+            DangerZone = _zonesProvider.Create();
+            InvestigatorZone = _zonesProvider.Create();
+        }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>

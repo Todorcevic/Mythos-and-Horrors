@@ -5,7 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class DiscardGameAction : GameAction
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
@@ -29,8 +28,7 @@ namespace MythsAndHorrors.GameRules
             if (_chaptersProvider.CurrentScene.Info.DangerCards.Contains(Card))
                 return _chaptersProvider.CurrentScene.DangerDiscardZone;
 
-            return _investigatorsProvider.GetInvestigatorWithThisCard(Card)?.DiscardZone
-                ?? _chaptersProvider.CurrentScene.OutZone;
+            return Card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;
         }
     }
 }

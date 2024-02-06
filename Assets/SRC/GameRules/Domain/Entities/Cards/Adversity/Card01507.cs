@@ -5,14 +5,11 @@ namespace MythsAndHorrors.GameRules
 {
     public class Card01507 : CardAdversity, IEndReactionable, IWeakness
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-
-        /*******************************************************************/
         public async Task WhenFinish(GameAction gameAction)
         {
             if (CanActivate(gameAction))
             {
-                await _gameActionFactory.Create(new MoveCardsGameAction(this, _investigatorsProvider.GetInvestigatorWithThisCard(this).DangerZone)); //TODO Remove Resource
+                await _gameActionFactory.Create(new MoveCardsGameAction(this, Owner.DangerZone)); //TODO Remove Resource
             }
         }
 
@@ -20,7 +17,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
-            if (moveCardsGameAction.Zone != _investigatorsProvider.GetInvestigatorWithThisZone(moveCardsGameAction.Zone)?.HandZone) return false;
+            if (moveCardsGameAction.Zone != moveCardsGameAction.Zone.Owner?.HandZone) return false;
 
             return true;
         }

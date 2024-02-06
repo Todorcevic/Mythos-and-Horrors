@@ -1,22 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class Zone
     {
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+
         public List<Card> Cards { get; } = new();
         public Card TopCard => Cards.Last();
         public Card BottomCard => Cards.First();
-
-        public ZoneType ZoneType { get; }
-
-        /*******************************************************************/
-        public Zone(ZoneType type)
-        {
-            ZoneType = type;
-        }
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
 
         /*******************************************************************/
         public void AddCard(Card card)
