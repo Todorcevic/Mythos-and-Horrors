@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class GainHintGameAction : GameAction
     {
-        [Inject] private readonly IViewLayer _animator;
+        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; }
@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(FromStat, Amount));
-            await _animator.PlayAnimationWith(this);
+            await _viewLayerProvider.PlayAnimationWith(this);
             await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.InvestigatorCard.Hints, Amount));
         }
     }

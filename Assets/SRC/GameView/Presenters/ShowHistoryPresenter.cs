@@ -9,7 +9,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ShowHistoryComponent _historyComponent;
 
         /*******************************************************************/
-        public async Task ShowHistory(ShowHistoryGameAction showHistoryGameAction)
+        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is ShowHistoryGameAction showHistoryGameAction)
+                await ShowHistory(showHistoryGameAction);
+        }
+
+        /*******************************************************************/
+        private async Task ShowHistory(ShowHistoryGameAction showHistoryGameAction)
         {
             await _historyComponent.Show(showHistoryGameAction.History);
         }

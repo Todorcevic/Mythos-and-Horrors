@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
-        [Inject] private readonly IViewLayer _viewLayer;
+        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
 
@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            EffectSelected = await _viewLayer.StartSelectionWith(this);
+            EffectSelected = await _viewLayersProvider.StartSelectionWith(this);
             ClearEffectsInAllCards();
             if (NothingIsSelected) return;
             await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));

@@ -95,5 +95,11 @@ namespace MythsAndHorrors.GameView
             _titleHolder.sprite = currentFaction._titleHolder;
             _badge.sprite = currentFaction._badget;
         }
+
+        public void ChangeColorResource()
+        {
+            Color color = _cost.Stat?.Value > Card.Owner.InvestigatorCard.Resources.Value ? Color.red : Color.green;
+            _cost.ChangeColor(color);
+        }
     }
 }

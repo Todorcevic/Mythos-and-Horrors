@@ -42,5 +42,23 @@ namespace MythsAndHorrors.GameRules
             InitialHandSize = new Stat(5);
             Turns = new Stat(0, 3);
         }
+
+        public bool HasThisStat(Stat stat)
+        {
+            return stat == Health
+                || stat == Sanity
+                || stat == Strength
+                || stat == Agility
+                || stat == Intelligence
+                || stat == Power
+                || stat == DeckSize
+                || stat == Xp
+                || stat == Injury
+                || stat == Shock
+                || stat == Resources
+                || stat == Hints
+                || stat == InitialHandSize
+                || stat == Turns;
+        }
     }
 }

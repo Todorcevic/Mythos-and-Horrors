@@ -2,7 +2,6 @@
 
 namespace MythsAndHorrors.GameRules
 {
-
     [Flags]
     public enum Slot
     {

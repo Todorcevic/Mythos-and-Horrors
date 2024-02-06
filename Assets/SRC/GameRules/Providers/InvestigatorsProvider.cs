@@ -28,5 +28,8 @@ namespace MythsAndHorrors.GameRules
 
         public Investigator GetInvestigatorWithThisCard(Card card)
             => _investigator.FirstOrDefault(investigator => investigator.HasThisCard(card));
+
+        public Investigator GetInvestigatorWithThisStat(Stat stat)
+            => _investigator.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
     }
 }

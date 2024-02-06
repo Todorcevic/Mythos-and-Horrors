@@ -24,19 +24,19 @@ namespace MythsAndHorrors.GameView
             {
                 case Slot.Trinket:
                     _slot1.sprite = _trinket;
-                    _slot2.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
                 case Slot.Equipment:
                     _slot1.sprite = _equipment;
-                    _slot2.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
                 case Slot.Supporter:
                     _slot1.sprite = _supporter;
-                    _slot2.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
                 case Slot.Item:
                     _slot1.sprite = _item;
-                    _slot2.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
                 case Slot.Itemx2:
                     _slot1.sprite = _item;
@@ -44,15 +44,15 @@ namespace MythsAndHorrors.GameView
                     break;
                 case Slot.Magical:
                     _slot1.sprite = _magical;
-                    _slot2.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
                 case Slot.Magicalx2:
                     _slot1.sprite = _magical;
                     _slot2.sprite = _magical;
                     break;
                 default:
-                    _slot1.gameObject.SetActive(false);
-                    _slot2.gameObject.SetActive(false);
+                    _slot1.transform.parent.gameObject.SetActive(false);
+                    _slot2.transform.parent.gameObject.SetActive(false);
                     break;
             }
             DoPermisive();

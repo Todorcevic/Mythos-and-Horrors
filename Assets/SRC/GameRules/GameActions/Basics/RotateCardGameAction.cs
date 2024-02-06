@@ -3,15 +3,15 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class TurnCardGameAction : GameAction
+    public class RotateCardGameAction : GameAction
     {
-        [Inject] private readonly IViewLayer _viewLayer;
+        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
 
         public Card Card { get; }
         public bool ToFaceDown { get; }
 
         /*******************************************************************/
-        public TurnCardGameAction(Card card, bool toFaceDown)
+        public RotateCardGameAction(Card card, bool toFaceDown)
         {
             Card = card;
             ToFaceDown = toFaceDown;
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Card.TurnDown(ToFaceDown);
-            await _viewLayer.PlayAnimationWith(this);
+            await _viewLayersProvider.PlayAnimationWith(this);
         }
 
     }

@@ -11,12 +11,21 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly StatableManager _statsViewsManager;
 
         /*******************************************************************/
-        public async Task UpdateStat(StatGameAction updateStatGameAction)
+        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is StatGameAction updateStatGameAction)
+                await UpdateStat(updateStatGameAction);
+        }
+
+        /*******************************************************************/
+        private async Task UpdateStat(StatGameAction updateStatGameAction)
         {
             List<IStatableView> statables = _statsViewsManager.GetAll(updateStatGameAction.Stat);
             Sequence sequence = DOTween.Sequence();
             statables.ForEach(statView => sequence.Join(statView.UpdateValue()));
             await sequence.AsyncWaitForCompletion();
         }
+
+
     }
 }

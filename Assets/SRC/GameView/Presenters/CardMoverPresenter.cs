@@ -9,7 +9,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
-        public async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)
+        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is MoveCardsGameAction moveCardsGameAction)
+                await MoveCardWith(moveCardsGameAction);
+        }
+
+        /*******************************************************************/
+        private async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)
         {
             if (!moveCardsGameAction.IsSingleMove)
             {

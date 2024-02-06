@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class InteractablePresenter : IPresenter
+    public class InteractablePresenter : IInteractablePresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
@@ -14,7 +14,17 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         /*******************************************************************/
-        public async Task<Effect> Interact(InteractableGameAction interactableGameAction)
+        async Task<Effect> IInteractablePresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is InteractableGameAction interactableGameAction)
+            {
+                return await Interact(interactableGameAction);
+            }
+            return default;
+        }
+
+        /*******************************************************************/
+        private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
             _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
@@ -28,6 +38,5 @@ namespace MythsAndHorrors.GameView
               await _multiEffectHandler.ShowMultiEffects(cardViewChoose) ?? await Interact(interactableGameAction) :
               cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
         }
-
     }
 }

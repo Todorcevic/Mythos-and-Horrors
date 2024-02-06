@@ -53,7 +53,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task CollectResources()
         {
-            await _gameActionFactory.Create(new GainResourceGameAction(Investigator, 5));
+            await _gameActionFactory.Create(new GainResourceGameAction(Investigator, 2));
         }
 
         private async Task DrawInitialHand()

@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShuffleGameAction : GameAction
     {
-        [Inject] private readonly IViewLayer _animator;
+        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
         public Zone ZoneToShuffle { get; }
 
@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             ZoneToShuffle.Cards.Shuffle();
-            await _animator.PlayAnimationWith(this);
+            await _viewLayerProvider.PlayAnimationWith(this);
         }
     }
 }

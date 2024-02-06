@@ -10,9 +10,18 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 
         /*******************************************************************/
-        public async Task Shuffle(ShuffleGameAction shuffleGameAction)
+        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is ShuffleGameAction shuffleGameAction)
+                await Shuffle(shuffleGameAction);
+        }
+
+        /*******************************************************************/
+        private async Task Shuffle(ShuffleGameAction shuffleGameAction)
         {
             await _zoneViewsManager.Get(shuffleGameAction.ZoneToShuffle).Shuffle().AsyncWaitForCompletion();
         }
+
+
     }
 }

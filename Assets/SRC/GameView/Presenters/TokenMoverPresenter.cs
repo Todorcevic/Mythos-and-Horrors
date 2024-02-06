@@ -1,6 +1,7 @@
 ﻿using Zenject;
 using MythsAndHorrors.GameRules;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameView
 {
@@ -11,7 +12,20 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly StatableManager _statableManager;
 
         /*******************************************************************/
-        public Tween GainHints(GainHintGameAction gainHintGameAction)
+        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        {
+            if (gamAction is GainHintGameAction gainHintsGameAction)
+                await GainHints(gainHintsGameAction).AsyncWaitForCompletion();
+            else if (gamAction is PayHintGameAction payHintsGameAction)
+                await PayHints(payHintsGameAction).AsyncWaitForCompletion();
+            else if (gamAction is GainResourceGameAction gainResourceGameAction)
+                await GainResource(gainResourceGameAction).AsyncWaitForCompletion();
+            else if (gamAction is PayResourceGameAction payResourceGameAction)
+                await PayResource(payResourceGameAction).AsyncWaitForCompletion();
+        }
+
+        /*******************************************************************/
+        private Tween GainHints(GainHintGameAction gainHintGameAction)
         {
             return DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(gainHintGameAction.Investigator))
@@ -19,7 +33,7 @@ namespace MythsAndHorrors.GameView
                        .Gain(gainHintGameAction.Amount, _statableManager.Get(gainHintGameAction.FromStat).StatTransform));
         }
 
-        public Tween PayHints(PayHintGameAction payHintGameAction)
+        private Tween PayHints(PayHintGameAction payHintGameAction)
         {
             return DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(payHintGameAction.Investigator))
@@ -27,7 +41,7 @@ namespace MythsAndHorrors.GameView
                        .Pay(payHintGameAction.Amount, _statableManager.Get(payHintGameAction.ToStat).StatTransform));
         }
 
-        public Tween GainResource(GainResourceGameAction gainResourceGameAction)
+        private Tween GainResource(GainResourceGameAction gainResourceGameAction)
         {
             return DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator))
@@ -35,13 +49,12 @@ namespace MythsAndHorrors.GameView
                        .Gain(gainResourceGameAction.Amount, _statableManager.Get(gainResourceGameAction.FromStat).StatTransform));
         }
 
-        public Tween PayResource(PayResourceGameAction payResourceGameAction)
+        private Tween PayResource(PayResourceGameAction payResourceGameAction)
         {
             return DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(payResourceGameAction.Investigator))
                 .Append(_areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController
                        .Pay(payResourceGameAction.Amount, _statableManager.Get(payResourceGameAction.ToStat).StatTransform));
-
         }
     }
 }
