@@ -17,13 +17,13 @@ namespace MythsAndHorrors.GameRules
         {
             Investigator = investigator;
             ToStat = toStat;
-            Amount = investigator.Hints.Value < amount ? Investigator.Hints.Value : amount;
+            Amount = investigator.InvestigatorCard.Hints.Value < amount ? Investigator.InvestigatorCard.Hints.Value : amount;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Hints, Amount));
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.InvestigatorCard.Hints, Amount));
             await _animator.PlayAnimationWith(this);
             await _gameActionFactory.Create(new IncrementStatGameAction(ToStat, Amount));
         }

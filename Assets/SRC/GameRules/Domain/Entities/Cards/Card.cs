@@ -8,10 +8,12 @@ namespace MythsAndHorrors.GameRules
     public class Card
     {
         private readonly List<Effect> _playableEffects = new();
-
+        [Inject] private readonly CardInfo _info;
         [Inject] protected readonly GameActionFactory _gameActionFactory;
-        [Inject] public CardInfo Info { get; }
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+
         [Inject] public List<History> Histories { get; }
+        public virtual CardInfo Info => _info;
         public Zone OwnZone { get; } = new Zone(ZoneType.Own);
         public Zone CurrentZone { get; private set; }
         public bool IsSpecial => Info.CardType == CardType.None;
@@ -20,7 +22,8 @@ namespace MythsAndHorrors.GameRules
         public IReadOnlyList<Effect> PlayableEffects => _playableEffects;
         public bool CanPlay => PlayableEffects.Count > 0;
         public bool HasMultiEffect => PlayableEffects.Count > 1;
-        public Investigator Owner { get; private set; }
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
+        public Investigator CurrentOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)
@@ -46,11 +49,6 @@ namespace MythsAndHorrors.GameRules
         public void TurnDown(bool toFaceDown)
         {
             IsFaceDown = toFaceDown;
-        }
-
-        public void SetOwner(Investigator owner)
-        {
-            Owner = owner;
         }
     }
 }

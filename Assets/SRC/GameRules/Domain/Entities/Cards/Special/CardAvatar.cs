@@ -4,6 +4,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class CardAvatar : Card
     {
-        //[Inject] public Investigator Investigator { get; }
+        public override CardInfo Info => Owner.InvestigatorCard.Info;
     }
 }

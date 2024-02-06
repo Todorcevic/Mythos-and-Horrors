@@ -35,7 +35,7 @@ namespace MythsAndHorrors.GameView
         {
             _health.SetStat(Investigator.InvestigatorCard.Health);
             _sanity.SetStat(Investigator.InvestigatorCard.Sanity);
-            _turnController.Init(Investigator.Turns);
+            _turnController.Init(Investigator.InvestigatorCard.Turns);
         }
     }
 }

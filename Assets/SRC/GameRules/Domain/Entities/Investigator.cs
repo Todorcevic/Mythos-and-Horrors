@@ -7,20 +7,12 @@ namespace MythsAndHorrors.GameRules
     {
         public string Code => InvestigatorCard.Info.Code;
         public CardInvestigator InvestigatorCard { get; init; }
-        public CardAvatar AvatarCard { get; private set; }
+        public CardAvatar AvatarCard { get; init; }
         public List<Card> Cards { get; init; }
         public List<Card> RequerimentCard { get; init; }
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
         public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
-        public Stat DeckSize { get; } = new Stat(30);
-        public Stat Xp { get; } = new Stat(0);
-        public Stat Injury { get; } = new Stat(0);
-        public Stat Shock { get; } = new Stat(0);
-        public Stat Resources { get; } = new Stat(0);
-        public Stat Hints { get; } = new Stat(0);
-        public Stat InitialHandSize { get; } = new Stat(5);
-        public Stat Turns { get; } = new Stat(0, 3);
         public Zone HandZone { get; } = new Zone(ZoneType.Hand);
         public Zone DeckZone { get; } = new Zone(ZoneType.InvestigatorDeck);
         public Zone DiscardZone { get; } = new Zone(ZoneType.InvestigatorDiscard);
@@ -29,11 +21,10 @@ namespace MythsAndHorrors.GameRules
         public Zone InvestigatorZone { get; } = new Zone(ZoneType.Investigator);
 
         /*******************************************************************/
-        public void Init(CardAvatar cardAvatar)
-        {
-            AvatarCard = cardAvatar;
-            AllCards.ForEach(card => card.SetOwner(this));
-        }
+        //public void Init(CardAvatar cardAvatar)
+        //{
+        //    AvatarCard = cardAvatar;
+        //}
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone) =>

@@ -25,7 +25,7 @@ namespace MythsAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(FromStat, Amount));
             await _animator.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.Hints, Amount));
+            await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.InvestigatorCard.Hints, Amount));
         }
     }
 }

@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(FromStat, Amount));
             await _animator.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.Resources, Amount));
+            await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.InvestigatorCard.Resources, Amount));
         }
     }
 }

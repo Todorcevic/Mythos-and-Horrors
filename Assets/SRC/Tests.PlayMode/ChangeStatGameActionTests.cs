@@ -31,7 +31,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(placeCard, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, placeCard)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Health, 3)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Turns, 2)).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

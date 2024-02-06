@@ -31,8 +31,8 @@ namespace MythsAndHorrors.GameView
             _discardZone.Init(investigator.DiscardZone);
             _aidZone.Init(investigator.AidZone);
             _dangerZone.Init(investigator.DangerZone);
-            ResourcesTokenController.Init(investigator.Resources);
-            HintsTokenController.Init(investigator.Hints);
+            ResourcesTokenController.Init(investigator.InvestigatorCard.Resources);
+            HintsTokenController.Init(investigator.InvestigatorCard.Hints);
         }
 
         /*******************************************************************/
