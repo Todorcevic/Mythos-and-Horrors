@@ -18,7 +18,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -31,15 +31,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             card.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
             card.AddEffect(null, "EffectTwo En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
             card2.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
-            investigator1.Cards[8].AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[8], investigator1.DangerZone)));
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[9], investigator1.HandZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(7).ToList(), investigator1.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[8], card.OwnZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[10], card.OwnZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[11], card.OwnZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[12], card.OwnZone)).AsCoroutine();
-
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick(card).AsTask();
             yield return _gameActionFactory.Create(new InteractableGameAction(false)).AsCoroutine();
 

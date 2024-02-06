@@ -45,16 +45,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-      propertyPath: m_text
-      value: 'When you would pay the cost of a Spell card, exhaust Shining Trapezohedron:
-        Instead, test  (X), where X is the card''s resource cost. If you succeed,
-        its resource cost is considered paid. If you fail, cancel the playing of
-        that card without paying any of its costs (including its action cost). For
-        the remainder of the round, you cannot play copies of that card.'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_fontSize
-      value: 5.25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_fontColor.b

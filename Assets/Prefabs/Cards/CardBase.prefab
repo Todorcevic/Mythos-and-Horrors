@@ -505,17 +505,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
-      propertyPath: m_text
-      value: " Despu\xE9s de que se coloquen 1 o m\xE1s puntos de horror sobre Agnes
-        Baker: Inflige 1 punto de da\xF1o a un Enemigo que est\xE9 en tu Lugar. L\xEDmite
-        de una vez por fase.\r\n\rEfecto : +1 por cada punto de horror que haya sobre
-        Agnes Baker."
-      objectReference: {fileID: 0}
-    - target: {fileID: 9206576804247278190, guid: 19582cecc071dd4479700741548ed7c9, type: 3}
-      propertyPath: m_fontSize
-      value: 3.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TMPro;
@@ -83,8 +84,25 @@ namespace MythsAndHorrors.GameView
         {
             name = Card.Info.Code;
             _title.text = Card.Info.Name;
-            _description.text = Card.Info.Description ?? Card.Info.Flavor;
+            SetDescription();
             _ownZoneCardView.Init(Card.OwnZone);
+
+            void SetDescription()
+            {
+                if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
+                {
+                    _description.text = "<size=3><b>";
+                    Card.Info.Tags.ForEach(tag => _description.text += tag + ", ");
+                    _description.text = _description.text.Remove(_description.text.Length - 2);
+                    _description.text += "</b></size>\n";
+                }
+
+
+                //if (!string.IsNullOrEmpty(_description.text))
+                //    _description.text = _description.text.Remove(_description.text.Length - 2);
+
+                _description.text += "\n<voffset=0.5em>" + Card.Info.Description+ "</voffset>" ?? Card.Info.Flavor;
+            }
         }
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
