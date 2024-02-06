@@ -7,13 +7,14 @@ namespace MythsAndHorrors.GameView
 {
     public class AvatarCardView : CardView
     {
+        [Title("AvatarCardView")]
         [SerializeField, Required, AssetsOnly] private List<FactionInvestigatorSO> _factions;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
 
-        public Investigator Investigator => ((CardAvatar)Card).Investigator;
+        public Investigator Investigator => Card.Owner;
 
         /*******************************************************************/
         protected override void SetSpecific()

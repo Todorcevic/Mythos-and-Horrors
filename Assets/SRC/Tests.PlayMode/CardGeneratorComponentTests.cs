@@ -30,7 +30,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result is InvestigatorCardView);
             Assert.That(result.CurrentZoneView, Is.InstanceOf<OutZoneView>());
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
             yield return null;
@@ -68,7 +68,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(healthStat.gameObject.activeInHierarchy, Is.False);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
@@ -134,7 +134,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo(card.Info.Sanity.ToString()));
@@ -155,7 +155,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is PlaceCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Enigma"), Is.EqualTo(card.Info.Enigma.ToString()));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
             yield return null;
@@ -175,7 +175,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is CreatureCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo(card.Info.Strength.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
@@ -195,7 +195,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is AdversityCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             yield return null;
         }
 
@@ -212,7 +212,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is PlotCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Eldritch"), Is.EqualTo(card.Info.Eldritch.ToString()));
             yield return null;
         }
@@ -229,7 +229,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is GoalCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description"), Is.EqualTo(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
             yield return null;
         }

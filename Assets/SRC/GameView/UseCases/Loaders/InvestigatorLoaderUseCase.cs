@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
 
         private void CreateCardAvatar(Investigator newInvestigator)
         {
-            CardAvatar newCardAvatar = _reactionablesProvider.Create(typeof(CardAvatar), new object[] { newInvestigator.InvestigatorCard.Info, newInvestigator }) as CardAvatar;
+            CardAvatar newCardAvatar = _reactionablesProvider.Create(typeof(CardAvatar), new object[] { newInvestigator.InvestigatorCard.Info }) as CardAvatar;
             newInvestigator.Init(newCardAvatar);
             _cardProvider.AddCard(newCardAvatar);
         }

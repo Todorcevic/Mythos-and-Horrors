@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameRules
         public IReadOnlyList<Effect> PlayableEffects => _playableEffects;
         public bool CanPlay => PlayableEffects.Count > 0;
         public bool HasMultiEffect => PlayableEffects.Count > 1;
+        public Investigator Owner { get; private set; }
 
         /*******************************************************************/
         public void MoveToZone(Zone zone)
@@ -45,6 +46,11 @@ namespace MythsAndHorrors.GameRules
         public void TurnDown(bool toFaceDown)
         {
             IsFaceDown = toFaceDown;
+        }
+
+        public void SetOwner(Investigator owner)
+        {
+            Owner = owner;
         }
     }
 }

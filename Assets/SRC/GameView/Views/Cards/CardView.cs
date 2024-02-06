@@ -2,16 +2,15 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour
     {
+        [Title("CardView")]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
@@ -23,7 +22,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
-        public Card Card { get; protected set; }
+        public Card Card { get; private set; }
         public ZoneCardView OwnZone => _ownZoneCardView;
         public RotatorController Rotator => _rotator;
         public ZoneView CurrentZoneView { get; private set; }
@@ -89,6 +88,7 @@ namespace MythsAndHorrors.GameView
 
             void SetDescription()
             {
+                _description.text = "";
                 if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
                 {
                     _description.text = "<size=3><b>";
@@ -97,16 +97,13 @@ namespace MythsAndHorrors.GameView
                     _description.text += "</b></size>\n";
                 }
 
-
-                //if (!string.IsNullOrEmpty(_description.text))
-                //    _description.text = _description.text.Remove(_description.text.Length - 2);
-
-                _description.text += "\n<voffset=0.5em>" + Card.Info.Description+ "</voffset>" ?? Card.Info.Flavor;
+                _description.text += "\n<voffset=0.5em>" + Card.Info.Description + "</voffset>" ?? Card.Info.Flavor;
             }
         }
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
 
+        /*******************************************************************/
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             Sequence moveSequence = DOTween.Sequence()

@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class CreatureCardView : CardView
     {
+        [Title("CreatureCardView")]
         [SerializeField, Required, AssetsOnly] private Sprite _skillDamageIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillHolder;
@@ -19,12 +20,12 @@ namespace MythsAndHorrors.GameView
         protected override void SetSpecific()
         {
             if (Card.Info.CardType != CardType.Creature) throw new Exception("Wrong CardType:" + Card.Info.CardType);
-            SetInfo();
+            SetSkillIcons();
             SetStats();
         }
 
         /*******************************************************************/
-        private void SetInfo()
+        private void SetSkillIcons()
         {
             _skillIconsController.SetSkillIconView(Card.Info.EnemyDamage ?? 0, _skillDamageIcon, _skillHolder);
             _skillIconsController.SetSkillIconView(Card.Info.EnemyFear ?? 0, _skillFearIcon, _skillHolder);

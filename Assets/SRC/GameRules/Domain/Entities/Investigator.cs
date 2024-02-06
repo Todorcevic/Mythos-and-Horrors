@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace MythsAndHorrors.GameRules
 {
@@ -12,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         public List<Card> Cards { get; init; }
         public List<Card> RequerimentCard { get; init; }
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
-        public List<Card> CardsWithInvestigator => FullDeck.Concat(new[] { InvestigatorCard }).ToList();
+        public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
         public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public Stat DeckSize { get; } = new Stat(30);
         public Stat Xp { get; } = new Stat(0);
@@ -33,6 +32,7 @@ namespace MythsAndHorrors.GameRules
         public void Init(CardAvatar cardAvatar)
         {
             AvatarCard = cardAvatar;
+            AllCards.ForEach(card => card.SetOwner(this));
         }
 
         /*******************************************************************/
@@ -44,6 +44,6 @@ namespace MythsAndHorrors.GameRules
             zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
             zone == InvestigatorZone || InvestigatorZone.Cards.Select(card => card.OwnZone).Contains(zone);
 
-        public bool HasThisCard(Card card) => CardsWithInvestigator.Contains(card);
+        public bool HasThisCard(Card card) => AllCards.Contains(card);
     }
 }

@@ -13,6 +13,9 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _supporter;
         [SerializeField, Required, AssetsOnly] private Sprite _item;
         [SerializeField, Required, AssetsOnly] private Sprite _magical;
+        [SerializeField] private Color _defaultColor;
+        [SerializeField] private Color _permisiveColor;
+        [SerializeField] private Color _restrictedColor;
 
         /*******************************************************************/
         public void SetSlot(Slot slot)
@@ -52,6 +55,25 @@ namespace MythsAndHorrors.GameView
                     _slot2.gameObject.SetActive(false);
                     break;
             }
+            DoPermisive();
+        }
+
+        public void DoDefault()
+        {
+            _slot1.material.color = _defaultColor;
+            _slot2.material.color = _defaultColor;
+        }
+
+        public void DoPermisive()
+        {
+            _slot1.material.color = _permisiveColor;
+            _slot2.material.color = _permisiveColor;
+        }
+
+        public void DoRestricted()
+        {
+            _slot1.material.color = _restrictedColor;
+            _slot2.material.color = _restrictedColor;
         }
     }
 }

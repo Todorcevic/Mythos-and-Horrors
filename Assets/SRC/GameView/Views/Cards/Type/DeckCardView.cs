@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class DeckCardView : CardView
     {
+        [Title(nameof(DeckCardView))]
         [SerializeField, Required, AssetsOnly] private List<FactionDeckSO> _factions;
         [SerializeField, Required, AssetsOnly] private Sprite _skillStrengthIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillAgilityIcon;
@@ -29,9 +30,9 @@ namespace MythsAndHorrors.GameView
         protected override void SetSpecific()
         {
             FactionDeckSO currentFaction = SetCurrent(Card.Info.Faction);
-            SetInfo();
+            SetSlots();
             SetStat();
-            SetSkillPlacer(currentFaction);
+            SetSkillIcons(currentFaction);
             SetRenderers(currentFaction);
         }
 
@@ -46,11 +47,21 @@ namespace MythsAndHorrors.GameView
             _resourceIconsController.SetSkillIconView(amount, _resourceChargeIcon, null);
         }
 
+        public void SlotsAllowed()
+        {
+            _slotController.DoPermisive();
+        }
+
+        public void SlotsRestricted()
+        {
+            _slotController.DoRestricted();
+        }
+
         private FactionDeckSO SetCurrent(Faction faction) =>
             _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
             _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
 
-        private void SetInfo()
+        private void SetSlots()
         {
             _slotController.SetSlot(Card.Info.Slot);
         }
@@ -69,7 +80,7 @@ namespace MythsAndHorrors.GameView
             }
         }
 
-        private void SetSkillPlacer(FactionDeckSO currentFaction)
+        private void SetSkillIcons(FactionDeckSO currentFaction)
         {
             _skillIconsController.SetSkillIconView(Card.Info.Wild ?? 0, _skillWildIcon, currentFaction._skillHolder);
             _skillIconsController.SetSkillIconView(Card.Info.Strength ?? 0, _skillStrengthIcon, currentFaction._skillHolder);
