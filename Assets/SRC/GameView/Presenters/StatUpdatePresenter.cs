@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
@@ -14,18 +13,15 @@ namespace MythsAndHorrors.GameView
         async Task IPresenter.CheckGameAction(GameAction gamAction)
         {
             if (gamAction is StatGameAction updateStatGameAction)
-                await UpdateStat(updateStatGameAction);
+                UpdateStat(updateStatGameAction);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
-        private async Task UpdateStat(StatGameAction updateStatGameAction)
+        private void UpdateStat(StatGameAction updateStatGameAction)
         {
             List<IStatableView> statables = _statsViewsManager.GetAll(updateStatGameAction.Stat);
-            Sequence sequence = DOTween.Sequence();
-            statables.ForEach(statView => sequence.Join(statView.UpdateValue()));
-            await sequence.AsyncWaitForCompletion();
+            statables.ForEach(statView => statView.UpdateValue());
         }
-
-
     }
 }

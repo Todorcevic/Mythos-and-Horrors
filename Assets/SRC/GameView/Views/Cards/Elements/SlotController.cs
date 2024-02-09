@@ -8,14 +8,13 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot2;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder1;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder2;
         [SerializeField, Required, AssetsOnly] private Sprite _trinket;
         [SerializeField, Required, AssetsOnly] private Sprite _equipment;
         [SerializeField, Required, AssetsOnly] private Sprite _supporter;
         [SerializeField, Required, AssetsOnly] private Sprite _item;
         [SerializeField, Required, AssetsOnly] private Sprite _magical;
-        [SerializeField] private Color _defaultColor;
-        [SerializeField] private Color _permisiveColor;
-        [SerializeField] private Color _restrictedColor;
 
         /*******************************************************************/
         public void SetSlots(SlotType[] slots)
@@ -64,20 +63,31 @@ namespace MythsAndHorrors.GameView
 
         public void DoDefault()
         {
-            _slot1.material.color = _defaultColor;
-            _slot2.material.color = _defaultColor;
+            _slot1.material.DisableKeyword("_EMISSION");
+            _slot2.material.DisableKeyword("_EMISSION");
         }
 
         public void DoPermisive()
         {
-            _slot1.material.color = _permisiveColor;
-            _slot2.material.color = _permisiveColor;
+            _slot1.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
+            _slot1.material.EnableKeyword("_EMISSION");
+            DynamicGI.SetEmissive(_slot1, ViewValues.ACTIVE_COLOR);
+
+            _slot2.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
+            _slot2.material.EnableKeyword("_EMISSION");
+            DynamicGI.SetEmissive(_slot2, ViewValues.ACTIVE_COLOR);
+
         }
 
         public void DoRestricted()
         {
-            _slot1.material.color = _restrictedColor;
-            _slot2.material.color = _restrictedColor;
+            _slot1.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
+            _slot1.material.EnableKeyword("_EMISSION");
+            DynamicGI.SetEmissive(_slot1, ViewValues.DEACTIVE_COLOR);
+
+            _slot2.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
+            _slot2.material.EnableKeyword("_EMISSION");
+            DynamicGI.SetEmissive(_slot2, ViewValues.DEACTIVE_COLOR);
         }
     }
 }

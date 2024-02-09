@@ -49,16 +49,6 @@ namespace MythsAndHorrors.GameView
             _resourceIconsController.SetSkillIconView(amount, _resourceChargeIcon, null);
         }
 
-        public void SlotsAllowed()
-        {
-            _slotController.DoPermisive();
-        }
-
-        public void SlotsRestricted()
-        {
-            _slotController.DoRestricted();
-        }
-
         private FactionDeckSO SetCurrent(Faction faction) =>
             _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
             _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
@@ -103,6 +93,16 @@ namespace MythsAndHorrors.GameView
             if (Card.CurrentZone != Card.Owner.HandZone) _cost.Default();
             else if (_cost.Stat?.Value > Card.Owner.InvestigatorCard.Resources.Value) _cost.Deactive();
             else _cost.Active();
+        }
+
+        public void SlotsAllowed()
+        {
+            _slotController.DoPermisive();
+        }
+
+        public void SlotsRestricted()
+        {
+            _slotController.DoRestricted();
         }
     }
 }

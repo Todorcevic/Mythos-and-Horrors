@@ -11,7 +11,6 @@ namespace MythsAndHorrors.GameRules
         public Stat Agility { get; private set; }
         public Stat Intelligence { get; private set; }
         public Stat Power { get; private set; }
-
         public Stat DeckSize { get; private set; }
         public Stat Xp { get; private set; }
         public Stat Injury { get; private set; }

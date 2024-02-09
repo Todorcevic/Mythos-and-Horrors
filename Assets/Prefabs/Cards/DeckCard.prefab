@@ -387,14 +387,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slot1: {fileID: 175457440691660611}
   _slot2: {fileID: 3311206828611990572}
-  _trinket: {fileID: 21300000, guid: a7e99b7b851c84648984e9d50b681060, type: 3}
-  _equipment: {fileID: 21300000, guid: 31f08f618a3ec354d9aa97718da806b8, type: 3}
-  _supporter: {fileID: 21300000, guid: 36cd16dc18c17104bbc6d9a265cda1d1, type: 3}
-  _item: {fileID: 21300000, guid: d3b2e4cf8a7e0874bab1557a60014131, type: 3}
-  _magical: {fileID: 21300000, guid: ce7ccd3150665bb47a5114aa6cc30e2c, type: 3}
-  _defaultColor: {r: 0.7019608, g: 0.77254903, b: 0.8784314, a: 1}
-  _permisiveColor: {r: 0.3111112, g: 1, b: 0, a: 1}
-  _restrictedColor: {r: 1, g: 0, b: 0, a: 1}
+  _holder1: {fileID: 4144737667312452664}
+  _holder2: {fileID: 5806006097911811865}
+  _trinket: {fileID: 21300000, guid: 77e7dbfa27488574ea2a6b7ed9127d5a, type: 3}
+  _equipment: {fileID: 21300000, guid: 1fe7b10582b40bf4488b684792982eaf, type: 3}
+  _supporter: {fileID: 21300000, guid: ecbb298ad9ffa224ebf3dbcbd95f0293, type: 3}
+  _item: {fileID: 21300000, guid: 6288356b5a1b4a84f91858946e2d4b2c, type: 3}
+  _magical: {fileID: 21300000, guid: 6b4dc65b3b9023548a240f8952c0aa44, type: 3}
 --- !u!1 &7526520832164339479
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +446,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
+  - {fileID: 2100000, guid: cc1388f83bd568f459ce4cb476bd9446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -468,7 +467,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 31f08f618a3ec354d9aa97718da806b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1fe7b10582b40bf4488b684792982eaf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -531,7 +530,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
+  - {fileID: 2100000, guid: cc1388f83bd568f459ce4cb476bd9446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -552,7 +551,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 31f08f618a3ec354d9aa97718da806b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77e7dbfa27488574ea2a6b7ed9127d5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
