@@ -20,16 +20,16 @@ namespace MythsAndHorrors.GameView
         {
             if (!moveCardsGameAction.IsSingleMove)
             {
-                await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.Zone, ViewValues.DELAY_TIME_ANIMATION);
+                await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.ToZone, ViewValues.DELAY_TIME_ANIMATION);
                 return;
             }
 
             if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
             {
-                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.ToZone);
                 return;
             }
-            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Zone);
+            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.ToZone);
         }
     }
 }

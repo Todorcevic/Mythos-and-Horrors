@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameRules
         public Card TopCard => Cards.Last();
         public Card BottomCard => Cards.First();
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
+        public bool IsHandZone => Owner.HandZone == this;
 
         /*******************************************************************/
         public void AddCard(Card card)

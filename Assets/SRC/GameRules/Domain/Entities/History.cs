@@ -1,10 +1,12 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿using Unity.Plastic.Newtonsoft.Json;
+
+namespace MythsAndHorrors.GameRules
 {
     public record History
     {
-        public string Code { get; init; }
-        public string Title { get; init; }
-        public string Description { get; init; }
-        public string Image { get; init; }
+        [JsonProperty("Code")] public string Code { get; init; }
+        [JsonProperty("Title")] public string Title { get; init; }
+        [JsonProperty("Description")] public string Description { get; init; }
+        [JsonProperty("Image")] public string Image { get; init; }
     }
 }

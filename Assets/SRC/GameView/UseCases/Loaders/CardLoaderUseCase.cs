@@ -9,18 +9,19 @@ namespace MythsAndHorrors.GameView
 {
     public class CardLoaderUseCase
     {
+        [Inject] private readonly JsonService _jsonService;
+        [Inject] private readonly FilesPath _filesPath;
         [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] private readonly CardInfoLoaderUseCase cardInfoLoaderUseCase;
-        [Inject] private readonly CardHistoriesLoaderUseCase cardHistoriesLoaderUseCase;
         private List<CardInfo> _allCardInfo;
         private List<History> _allHistories;
 
         /*******************************************************************/
         public Card Execute(string cardCode)
         {
-            _allCardInfo ??= cardInfoLoaderUseCase.Execute();
-            _allHistories ??= cardHistoriesLoaderUseCase.Execute();
+            _allCardInfo ??= _jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDINFO_PATH)
+                .Concat(_jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDEXTRAINFO_PATH)).ToList();
+            _allHistories ??= _jsonService.CreateDataFromFile<List<History>>(_filesPath.JSON_CARD_HISTORIES_PATH);
 
             CardInfo cardInfo = _allCardInfo.First(cardInfo => cardInfo.Code == cardCode);
 

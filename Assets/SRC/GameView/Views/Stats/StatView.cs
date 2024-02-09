@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameView
 {
     public class StatView : MonoBehaviour, IStatableView
     {
+        private const float GLOW_INTENSITY = 0.4f;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder;
         [Inject] private readonly StatableManager _statableManager;
@@ -35,9 +36,21 @@ namespace MythsAndHorrors.GameView
                  .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));
         }
 
-        public void ChangeColor(Color color)
+        public void Active()
         {
-            _value.color = color;
+            _value.fontMaterial.SetColor("_GlowColor", ViewValues.ACTIVE_COLOR);
+            _value.fontSharedMaterial.SetFloat("_GlowPower", GLOW_INTENSITY);
+        }
+
+        public void Deactive()
+        {
+            _value.fontMaterial.SetColor("_GlowColor", ViewValues.DEACTIVE_COLOR);
+            _value.fontSharedMaterial.SetFloat("_GlowPower", GLOW_INTENSITY);
+        }
+
+        public void Default()
+        {
+            _value.fontSharedMaterial.SetFloat("_GlowPower", 0f);
         }
     }
 }

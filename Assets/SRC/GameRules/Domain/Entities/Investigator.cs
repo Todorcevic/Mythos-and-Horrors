@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Unity.Plastic.Newtonsoft.Json;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -9,20 +10,25 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
 
+        [JsonProperty("InvestigatorCard")] public CardInvestigator InvestigatorCard { get; init; }
+        [JsonProperty("AvatarCard")] public CardAvatar AvatarCard { get; init; }
+        [JsonProperty("Cards")] public List<Card> Cards { get; init; }
+        [JsonProperty("RequerimentCard")] public List<Card> RequerimentCard { get; init; }
+        [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public string Code => InvestigatorCard.Info.Code;
-        public CardInvestigator InvestigatorCard { get; init; }
-        public CardAvatar AvatarCard { get; init; }
-        public List<Card> Cards { get; init; }
-        public List<Card> RequerimentCard { get; init; }
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
-        public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public Zone HandZone { get; private set; }
         public Zone DeckZone { get; private set; }
         public Zone DiscardZone { get; private set; }
         public Zone AidZone { get; private set; }
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
+        public Stat TrinketSlot { get; private set; }
+        public Stat EquipmentSlot { get; private set; }
+        public Stat SupporterSlot { get; private set; }
+        public Stat ItemtSlot { get; private set; }
+        public Stat MagicalSlot { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -35,6 +41,11 @@ namespace MythsAndHorrors.GameRules
             AidZone = _zonesProvider.Create();
             DangerZone = _zonesProvider.Create();
             InvestigatorZone = _zonesProvider.Create();
+            TrinketSlot = new Stat(0, 1);
+            EquipmentSlot = new Stat(0, 1);
+            SupporterSlot = new Stat(0, 1);
+            ItemtSlot = new Stat(0, 2);
+            MagicalSlot = new Stat(0, 2);
         }
 
         /*******************************************************************/

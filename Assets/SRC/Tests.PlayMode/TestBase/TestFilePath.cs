@@ -5,6 +5,7 @@ namespace MythsAndHorrors.PlayMode.Tests
     public class TestFilePath : FilesPath
     {
         public override string JSON_CARDINFO_PATH { get; } = "Assets/Data/Tests/CardsInfo.json";
+        public override string JSON_CARDEXTRAINFO_PATH { get; } = "Assets/Data/Tests/CardsExtraInfo.json";
         public override string JSON_INVESTIGATORS_PATH { get; } = "Assets/Data/Tests/Investigators.json";
         public override string JSON_SAVE_DATA_PATH { get; } = "Assets/Data/Tests/Save/SaveData.json";
 

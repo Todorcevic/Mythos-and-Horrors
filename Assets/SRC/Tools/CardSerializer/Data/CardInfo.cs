@@ -31,7 +31,7 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
-        public Slot Slot { get; set; }
+        public SlotType[] Slots { get; set; }
 
         [BoxGroup("Split/Left")]
         [SerializeField]
@@ -139,16 +139,16 @@ namespace MythsAndHorrors.Tools
                 _ => Faction.None,
             };
 
-            Slot = oldCardinfo.Slot switch
+            Slots = oldCardinfo.Slot switch
             {
-                "Ally" => Slot.Supporter,
-                "Hand" => Slot.Item,
-                "Hand x2" => Slot.Itemx2,
-                "Arcane" => Slot.Magical,
-                "Arcane x2" => Slot.Magicalx2,
-                "Accesory" => Slot.Trinket,
-                "Body" => Slot.Equipment,
-                _ => Slot.None,
+                "Ally" => new[] { SlotType.Supporter },
+                "Hand" => new[] { SlotType.Item },
+                "Hand x2" => new[] { SlotType.Item, SlotType.Item },
+                "Arcane" => new[] { SlotType.Magical },
+                "Arcane x2" => new[] { SlotType.Magical, SlotType.Magical },
+                "Accesory" => new[] { SlotType.Trinket },
+                "Body" => new[] { SlotType.Equipment },
+                _ => new[] { SlotType.None },
             };
 
             var traits = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()) ?? Enumerable.Empty<string>();

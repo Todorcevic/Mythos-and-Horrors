@@ -108,7 +108,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithSlot(Slot.Trinket).GiveMe());
+            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithSlot(SlotType.Trinket).GiveMe());
             _cardGenerator.BuildCard(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 

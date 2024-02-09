@@ -34,7 +34,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
-            if (moveCardsGameAction.Zone != _chaptersProviders.CurrentScene.PlotZone) return false;
+            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
 
             return true;
         }

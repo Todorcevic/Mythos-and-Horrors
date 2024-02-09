@@ -1,6 +1,5 @@
 ﻿using MythsAndHorrors.GameRules;
 using System;
-using System.Reflection;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
@@ -119,9 +118,9 @@ namespace MythsAndHorrors.PlayMode.Tests
             return this;
         }
 
-        public CardInfoBuilder WithSlot(Slot slot)
+        public CardInfoBuilder WithSlot(SlotType slot)
         {
-            currentCardInfo = currentCardInfo with { Slot = slot };
+            currentCardInfo = currentCardInfo with { Slots = new[] { slot } };
             return this;
         }
 

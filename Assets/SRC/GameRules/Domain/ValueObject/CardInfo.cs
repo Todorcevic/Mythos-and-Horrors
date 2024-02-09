@@ -1,33 +1,35 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿using Unity.Plastic.Newtonsoft.Json;
+
+namespace MythsAndHorrors.GameRules
 {
     public record CardInfo
     {
-        public string Code { get; init; }
-        public string Name { get; init; }
-        public string Description { get; init; }
-        public string Flavor { get; init; }
-        public CardType CardType { get; init; }
-        public Faction Faction { get; init; }
-        public Slot Slot { get; init; }
-        public string[] Tags { get; init; }
-        public int? Health { get; init; }
-        public int? Sanity { get; init; }
-        public int? Cost { get; init; }
-        public int? Quantity { get; init; }
-        public string PackCode { get; init; }
-        public string SceneCode { get; init; }
-        public int? Strength { get; init; }
-        public int? Agility { get; init; }
-        public int? Intelligence { get; init; }
-        public int? Power { get; init; }
-        public int? Wild { get; init; }
-        public int? EnemyDamage { get; init; }
-        public int? EnemyFear { get; init; }
-        public int? Xp { get; init; }
-        public int? Victory { get; init; }
-        public int? Enigma { get; init; }
-        public int? Hints { get; init; }
-        public int? Eldritch { get; init; }
-        public bool? HealthPerInvestigator { get; init; }
+        [JsonProperty("Code")] public string Code { get; init; }
+        [JsonProperty("Name")] public string Name { get; init; }
+        [JsonProperty("Description")] public string Description { get; init; }
+        [JsonProperty("Flavor")] public string Flavor { get; init; }
+        [JsonProperty("CardType")] public CardType CardType { get; init; }
+        [JsonProperty("Faction")] public Faction Faction { get; init; }
+        [JsonProperty("Slots")] public SlotType[] Slots { get; init; }
+        [JsonProperty("Tags")] public string[] Tags { get; init; }
+        [JsonProperty("Health")] public int? Health { get; init; }
+        [JsonProperty("Sanity")] public int? Sanity { get; init; }
+        [JsonProperty("Cost")] public int? Cost { get; init; }
+        [JsonProperty("Quantity")] public int? Quantity { get; init; }
+        [JsonProperty("PackCode")] public string PackCode { get; init; }
+        [JsonProperty("SceneCode")] public string SceneCode { get; init; }
+        [JsonProperty("Strength")] public int? Strength { get; init; }
+        [JsonProperty("Agility")] public int? Agility { get; init; }
+        [JsonProperty("Intelligence")] public int? Intelligence { get; init; }
+        [JsonProperty("Power")] public int? Power { get; init; }
+        [JsonProperty("Wild")] public int? Wild { get; init; }
+        [JsonProperty("EnemyDamage")] public int? EnemyDamage { get; init; }
+        [JsonProperty("EnemyFear")] public int? EnemyFear { get; init; }
+        [JsonProperty("Xp")] public int? Xp { get; init; }
+        [JsonProperty("Victory")] public int? Victory { get; init; }
+        [JsonProperty("Enigma")] public int? Enigma { get; init; }
+        [JsonProperty("Hints")] public int? Hints { get; init; }
+        [JsonProperty("Eldritch")] public int? Eldritch { get; init; }
+        [JsonProperty("HealthPerInvestigator")] public bool? HealthPerInvestigator { get; init; }
     }
 }

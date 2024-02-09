@@ -25,6 +25,8 @@ namespace MythsAndHorrors.GameRules
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
         //public Investigator CurrentOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
 
+        public bool IsInHand => CurrentZone == Owner?.HandZone;
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]

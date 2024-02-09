@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
-            if (moveCardsGameAction.Zone != moveCardsGameAction.Zone.Owner?.HandZone) return false;
+            if (moveCardsGameAction.ToZone != moveCardsGameAction.ToZone.Owner?.HandZone) return false;
 
             return true;
         }

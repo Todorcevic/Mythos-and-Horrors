@@ -1,17 +1,25 @@
-﻿using System;
-
-namespace MythsAndHorrors.GameRules
+﻿namespace MythsAndHorrors.GameRules
 {
-    [Flags]
-    public enum Slot
+    public class Slot
     {
-        None = 0,
-        Trinket = 1 << 0,
-        Equipment = 1 << 1,
-        Supporter = 1 << 2,
-        Item = 1 << 3,
-        Itemx2 = 1 << 4,
-        Magical = 1 << 5,
-        Magicalx2 = 1 << 6
+        public SlotType Type { get; private set; }
+        public Card FilledByThisCard { get; private set; }
+        public bool IsEmpty => FilledByThisCard == null;
+
+        /*******************************************************************/
+        public Slot(SlotType slotType)
+        {
+            Type = slotType;
+        }
+
+        /*******************************************************************/
+        public void FillWith(Card card)
+        {
+            if (FilledByThisCard != null)
+            {
+                throw new System.Exception("Slot already filled");
+            }
+            FilledByThisCard = card;
+        }
     }
 }

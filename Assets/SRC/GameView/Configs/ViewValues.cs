@@ -1,3 +1,7 @@
+
+
+using UnityEngine;
+
 namespace MythsAndHorrors.GameView
 {
     public class ViewValues
@@ -15,5 +19,8 @@ namespace MythsAndHorrors.GameView
         public const float INITIAL_LAYOUT_WIDTH = 24f;
         public const float DEFAULT_FADE = 0.5f;
         public const float DEFAULT_SCALE = 1.2f;
+
+        public static Color ACTIVE_COLOR = new(0.1607843f, 0.4039216f, 0.05098039f);
+        public static Color DEACTIVE_COLOR = new(0.4528302f, 0.07903168f, 0.07903168f);
     }
 }

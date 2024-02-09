@@ -18,44 +18,48 @@ namespace MythsAndHorrors.GameView
         [SerializeField] private Color _restrictedColor;
 
         /*******************************************************************/
-        public void SetSlot(Slot slot)
+        public void SetSlots(SlotType[] slots)
         {
-            switch (slot)
+            foreach (SlotType slot in slots)
             {
-                case Slot.Trinket:
-                    _slot1.sprite = _trinket;
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
-                case Slot.Equipment:
-                    _slot1.sprite = _equipment;
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
-                case Slot.Supporter:
-                    _slot1.sprite = _supporter;
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
-                case Slot.Item:
-                    _slot1.sprite = _item;
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
-                case Slot.Itemx2:
-                    _slot1.sprite = _item;
-                    _slot2.sprite = _item;
-                    break;
-                case Slot.Magical:
-                    _slot1.sprite = _magical;
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
-                case Slot.Magicalx2:
-                    _slot1.sprite = _magical;
-                    _slot2.sprite = _magical;
-                    break;
-                default:
-                    _slot1.transform.parent.gameObject.SetActive(false);
-                    _slot2.transform.parent.gameObject.SetActive(false);
-                    break;
+                switch (slot)
+                {
+                    case SlotType.Trinket:
+                        ActivateSlot(_trinket);
+                        break;
+                    case SlotType.Equipment:
+                        ActivateSlot(_trinket);
+                        break;
+                    case SlotType.Supporter:
+                        ActivateSlot(_trinket);
+                        break;
+                    case SlotType.Item:
+                        ActivateSlot(_trinket);
+                        break;
+                    case SlotType.Magical:
+                        ActivateSlot(_trinket);
+                        break;
+                    default:
+                        _slot1.transform.parent.gameObject.SetActive(false);
+                        _slot2.transform.parent.gameObject.SetActive(false);
+                        break;
+                }
             }
             DoPermisive();
+        }
+
+        private void ActivateSlot(Sprite withThis)
+        {
+            if (_slot1.sprite == null)
+            {
+                _slot1.sprite = withThis;
+                _slot1.transform.parent.gameObject.SetActive(true);
+            }
+            else
+            {
+                _slot2.sprite = withThis;
+                _slot2.transform.parent.gameObject.SetActive(true);
+            }
         }
 
         public void DoDefault()
