@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ResourceColorPresenter : IPresenter
+    public class StatsColorPresenter : IPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -17,24 +17,32 @@ namespace MythsAndHorrors.GameView
         {
             if (gameAction is MoveCardsGameAction moveCardsGameAction)
             {
-                ChangeColor(moveCardsGameAction.CardsInOutHand);
+                ChangeResourceColor(moveCardsGameAction.CardsInOutHand);
+                ChangeSlotColor(moveCardsGameAction.CardsInOutHand);
                 return;
             }
 
             if (gameAction is StatGameAction statGameAction)
             {
                 Investigator investigator = _investigatorsProvider.GetInvestigatorWithThisStat(statGameAction.Stat);
-                if (investigator?.InvestigatorCard.Resources == statGameAction.Stat) ChangeColor(investigator.AllCards);
+                if (investigator?.InvestigatorCard.Resources == statGameAction.Stat) ChangeResourceColor(investigator.AllCards);
                 return;
 
             }
             await Task.CompletedTask;
         }
-        private void ChangeColor(List<Card> cards)
+        private void ChangeResourceColor(List<Card> cards)
         {
             _cardViewsManager.GetCardViews(cards)
                 .OfType<DeckCardView>().Where(deckCardView => deckCardView.HasResource)
                 .ForEach(deckCardView => deckCardView.ChangeColorResource());
+        }
+
+        private void ChangeSlotColor(List<Card> cards)
+        {
+            _cardViewsManager.GetCardViews(cards)
+                .OfType<DeckCardView>().Where(deckCardView => deckCardView.HasSlot)
+                .ForEach(deckCardView => deckCardView.ChangeSlotColor());
         }
     }
 }

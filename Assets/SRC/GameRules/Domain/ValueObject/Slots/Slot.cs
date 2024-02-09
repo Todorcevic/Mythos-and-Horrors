@@ -13,13 +13,20 @@
         }
 
         /*******************************************************************/
+        public bool CanAddThis(SlotType slotType)
+        {
+            if (!IsEmpty) return false;
+            if (slotType != Type) return false;
+
+            return SpecialCondition();
+        }
+
         public void FillWith(Card card)
         {
-            if (FilledByThisCard != null)
-            {
-                throw new System.Exception("Slot already filled");
-            }
             FilledByThisCard = card;
         }
+
+        protected virtual bool SpecialCondition() => true;
+
     }
 }

@@ -27,16 +27,16 @@ namespace MythsAndHorrors.GameView
                         ActivateSlot(_trinket);
                         break;
                     case SlotType.Equipment:
-                        ActivateSlot(_trinket);
+                        ActivateSlot(_equipment);
                         break;
                     case SlotType.Supporter:
-                        ActivateSlot(_trinket);
+                        ActivateSlot(_supporter);
                         break;
                     case SlotType.Item:
-                        ActivateSlot(_trinket);
+                        ActivateSlot(_item);
                         break;
                     case SlotType.Magical:
-                        ActivateSlot(_trinket);
+                        ActivateSlot(_magical);
                         break;
                     default:
                         _slot1.transform.parent.gameObject.SetActive(false);
@@ -44,7 +44,6 @@ namespace MythsAndHorrors.GameView
                         break;
                 }
             }
-            DoPermisive();
         }
 
         private void ActivateSlot(Sprite withThis)
@@ -67,27 +66,18 @@ namespace MythsAndHorrors.GameView
             _slot2.material.DisableKeyword("_EMISSION");
         }
 
-        public void DoPermisive()
+        public void DoActive(int amount)
         {
-            _slot1.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
             _slot1.material.EnableKeyword("_EMISSION");
-            DynamicGI.SetEmissive(_slot1, ViewValues.ACTIVE_COLOR);
-
-            _slot2.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
             _slot2.material.EnableKeyword("_EMISSION");
-            DynamicGI.SetEmissive(_slot2, ViewValues.ACTIVE_COLOR);
-
-        }
-
-        public void DoRestricted()
-        {
             _slot1.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
-            _slot1.material.EnableKeyword("_EMISSION");
-            DynamicGI.SetEmissive(_slot1, ViewValues.DEACTIVE_COLOR);
-
             _slot2.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
-            _slot2.material.EnableKeyword("_EMISSION");
-            DynamicGI.SetEmissive(_slot2, ViewValues.DEACTIVE_COLOR);
+
+            if (amount < 1) return;
+            _slot1.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
+
+            if (amount < 2) return;
+            _slot2.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
         }
     }
 }

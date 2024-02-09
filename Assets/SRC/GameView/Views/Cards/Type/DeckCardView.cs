@@ -1,6 +1,7 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -27,6 +28,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
         public bool HasResource => Card is CardSupply || Card is CardTalent;
+        public bool HasSlot => Card.Info.Slots.Count() > 0;
 
         /*******************************************************************/
         protected override void SetSpecific()
@@ -95,14 +97,11 @@ namespace MythsAndHorrors.GameView
             else _cost.Active();
         }
 
-        public void SlotsAllowed()
+        public void ChangeSlotColor()
         {
-            _slotController.DoPermisive();
-        }
-
-        public void SlotsRestricted()
-        {
-            _slotController.DoRestricted();
+            if (Card.CurrentZone == Card.Owner.AidZone) _slotController.DoActive(2);
+            else if (Card.CurrentZone != Card.Owner.HandZone) _slotController.DoDefault();
+            else _slotController.DoActive(Card.Owner.SlotsManager.GetFreeSlotFor(Card).Count);
         }
     }
 }

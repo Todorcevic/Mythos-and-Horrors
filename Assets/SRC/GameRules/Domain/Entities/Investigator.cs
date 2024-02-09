@@ -24,11 +24,7 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; private set; }
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
-        public Stat TrinketSlot { get; private set; }
-        public Stat EquipmentSlot { get; private set; }
-        public Stat SupporterSlot { get; private set; }
-        public Stat ItemtSlot { get; private set; }
-        public Stat MagicalSlot { get; private set; }
+        public SlotsManager SlotsManager { get; private set; } = new();
 
         /*******************************************************************/
         [Inject]
@@ -41,11 +37,7 @@ namespace MythsAndHorrors.GameRules
             AidZone = _zonesProvider.Create();
             DangerZone = _zonesProvider.Create();
             InvestigatorZone = _zonesProvider.Create();
-            TrinketSlot = new Stat(0, 1);
-            EquipmentSlot = new Stat(0, 1);
-            SupporterSlot = new Stat(0, 1);
-            ItemtSlot = new Stat(0, 2);
-            MagicalSlot = new Stat(0, 2);
+
         }
 
         /*******************************************************************/
