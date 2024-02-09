@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5412292895367262765
 Transform:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 853a2203a48cc2b4896551a10fb1effd, type: 2}
+  - {fileID: 2100000, guid: bc7f6c62d29d13945972ab46c63da3f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,14 +233,14 @@ MonoBehaviour:
   m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 083741ee09acafd49b97556bdeec2d7d, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 853a2203a48cc2b4896551a10fb1effd, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: bc7f6c62d29d13945972ab46c63da3f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291098623
-  m_fontColor: {r: 1, g: 0.96862745, b: 0.76862746, a: 1}
+    rgba: 4292920755
+  m_fontColor: {r: 0.7019608, g: 0.77254903, b: 0.8784314, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
