@@ -9,7 +9,6 @@
         "Name": "Random Basic Weakness"
     },
     {
-        "Code": "Avatar",
-        "Faction": 512
+        "Code": "Avatar"
     }
 ]

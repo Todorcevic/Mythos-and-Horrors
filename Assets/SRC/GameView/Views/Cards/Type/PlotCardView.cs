@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-
     public class PlotCardView : CardView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritch;
@@ -17,5 +16,8 @@ namespace MythsAndHorrors.GameView
                 _eldritch.SetStat(_plot.Eldritch);
             }
         }
+
+        /*******************************************************************/
+        public override void UpdateState() { }
     }
 }

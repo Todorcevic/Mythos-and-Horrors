@@ -18,5 +18,8 @@ namespace MythsAndHorrors.GameView
                 _enigma.SetStat(_place.Enigma);
             }
         }
+
+        /*******************************************************************/
+        public override void UpdateState() { }
     }
 }

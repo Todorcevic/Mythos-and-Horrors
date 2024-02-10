@@ -28,8 +28,7 @@ namespace MythsAndHorrors.GameView
 
         private void LoadSaveData() => _saveData = saveDataLoaderUseCase.Execute();
 
-        private void LoadInvestigators() =>
-            _saveData.InvestigatorsSelected.ForEach(investigatorCode =>
+        private void LoadInvestigators() => _saveData.InvestigatorsSelected.ForEach(investigatorCode =>
             _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH(investigatorCode)));
 
         private void LoadChapters() =>

@@ -1,8 +1,10 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿using System.Linq;
+
+namespace MythsAndHorrors.GameRules
 {
     public class Slot
     {
-        public SlotType Type { get; private set; }
+        public SlotType Type { get; }
         public Card FilledByThisCard { get; private set; }
         public bool IsEmpty => FilledByThisCard == null;
 
@@ -13,12 +15,12 @@
         }
 
         /*******************************************************************/
-        public bool CanAddThis(SlotType slotType)
+        public bool CanAddThis(Card card)
         {
             if (!IsEmpty) return false;
-            if (slotType != Type) return false;
+            if (!card.Info.Slots.Contains(Type)) return false;
 
-            return SpecialCondition();
+            return SpecialCondition(card);
         }
 
         public void FillWith(Card card)
@@ -26,7 +28,12 @@
             FilledByThisCard = card;
         }
 
-        protected virtual bool SpecialCondition() => true;
+        public void Clear()
+        {
+            FilledByThisCard = null;
+        }
+
+        protected virtual bool SpecialCondition(Card card) => true;
 
     }
 }

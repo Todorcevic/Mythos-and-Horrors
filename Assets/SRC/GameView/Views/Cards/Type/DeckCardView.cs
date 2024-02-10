@@ -27,8 +27,8 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
-        public bool HasResource => Card is CardSupply || Card is CardTalent;
-        public bool HasSlot => Card.Info.Slots.Count() > 0;
+        private bool HasResource => Card is CardSupply || Card is CardTalent;
+        private bool HasSlot => Card.Info.Slots.Count() > 0;
 
         /*******************************************************************/
         protected override void SetSpecific()
@@ -90,18 +90,27 @@ namespace MythsAndHorrors.GameView
             _badge.sprite = currentFaction._badget;
         }
 
-        public void ChangeColorResource()
+        /*******************************************************************/
+        public override void UpdateState()
         {
-            if (Card.CurrentZone != Card.Owner.HandZone) _cost.Default();
-            else if (_cost.Stat?.Value > Card.Owner.InvestigatorCard.Resources.Value) _cost.Deactive();
+            ChangeColorResource();
+            ChangeSlotColor();
+        }
+
+        private void ChangeColorResource()
+        {
+            if (!HasResource) return;
+            if (Card.CurrentZone != Card.Owner?.HandZone) _cost.Default();
+            else if (_cost.Stat?.Value > Card.Owner?.InvestigatorCard.Resources.Value) _cost.Deactive();
             else _cost.Active();
         }
 
-        public void ChangeSlotColor()
+        private void ChangeSlotColor()
         {
-            if (Card.CurrentZone == Card.Owner.AidZone) _slotController.DoActive(2);
-            else if (Card.CurrentZone != Card.Owner.HandZone) _slotController.DoDefault();
-            else _slotController.DoActive(Card.Owner.SlotsManager.GetFreeSlotFor(Card).Count);
+            if (!HasSlot) return;
+            if (Card.CurrentZone == Card.Owner?.AidZone) _slotController.DoActive(2);
+            else if (Card.CurrentZone != Card.Owner?.HandZone) _slotController.DoDefault();
+            else _slotController.DoActive(Card.Owner.SlotsCollection.GetFreeSlotFor(Card).Count);
         }
     }
 }

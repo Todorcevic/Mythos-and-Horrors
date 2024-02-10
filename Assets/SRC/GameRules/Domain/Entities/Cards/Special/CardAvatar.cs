@@ -1,6 +1,4 @@
-﻿using Zenject;
-
-namespace MythsAndHorrors.GameRules
+﻿namespace MythsAndHorrors.GameRules
 {
     public class CardAvatar : Card
     {

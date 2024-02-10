@@ -36,21 +36,30 @@ namespace MythsAndHorrors.GameView
                  .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));
         }
 
+        /*******************************************************************/
+        private ViewState state;
+
         public void Active()
         {
+            if (state == ViewState.Active) return;
             _value.fontMaterial.SetColor("_GlowColor", ViewValues.ACTIVE_COLOR);
             _value.fontSharedMaterial.SetFloat("_GlowPower", GLOW_INTENSITY);
+            state = ViewState.Active;
         }
 
         public void Deactive()
         {
+            if (state == ViewState.Deactive) return;
             _value.fontMaterial.SetColor("_GlowColor", ViewValues.DEACTIVE_COLOR);
             _value.fontSharedMaterial.SetFloat("_GlowPower", GLOW_INTENSITY);
+            state = ViewState.Deactive;
         }
 
         public void Default()
         {
+            if (state == ViewState.Default) return;
             _value.fontSharedMaterial.SetFloat("_GlowPower", 0f);
+            state = ViewState.Default;
         }
     }
 }

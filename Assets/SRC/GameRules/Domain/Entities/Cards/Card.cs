@@ -23,9 +23,11 @@ namespace MythsAndHorrors.GameRules
         public bool HasMultiEffect => PlayableEffects.Count > 1;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
+
         //public Investigator CurrentOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
 
         public bool IsInHand => CurrentZone == Owner?.HandZone;
+        public bool HasOwner => Owner != null;
 
         /*******************************************************************/
         [Inject]

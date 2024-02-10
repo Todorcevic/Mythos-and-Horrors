@@ -131,5 +131,8 @@ namespace MythsAndHorrors.GameView
         public void HideEffects() => _effectController.Clear();
 
         public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
+        /*******************************************************************/
+
+        public abstract void UpdateState();
     }
 }

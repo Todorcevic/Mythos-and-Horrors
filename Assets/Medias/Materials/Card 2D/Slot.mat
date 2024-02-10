@@ -12,11 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - ALPHAOUTLINE_ON
-  - ALPHAROUND_ON
   - BLUR_ON
-  - INNEROUTLINE_ON
-  - OUTBASE_ON
+  - DISTORT_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -46,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeBurnTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
@@ -81,10 +78,10 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaCutoffValue: 0.108
-    - _AlphaOutlineBlend: 0.276
-    - _AlphaOutlineGlow: 31.1
-    - _AlphaOutlineMinAlpha: 0.229
-    - _AlphaOutlinePower: 0.93
+    - _AlphaOutlineBlend: 0.25
+    - _AlphaOutlineGlow: 16
+    - _AlphaOutlineMinAlpha: 0.64
+    - _AlphaOutlinePower: 0.4
     - _AlphaRoundThreshold: 0.8
     - _BillboardY: 0
     - _BlurHD: 0
@@ -126,8 +123,8 @@ Material:
     - _GhostTransparency: 0
     - _GlitchAmount: 3.7
     - _GlitchSize: 1
-    - _Glow: 41.2
-    - _GlowGlobal: 25.6
+    - _Glow: 2.3
+    - _GlowGlobal: 1
     - _GlowTexUsed: 0
     - _GradBlend: 0.516
     - _GradBoostX: 1.2
@@ -143,8 +140,8 @@ Material:
     - _GreyscaleOutline: 0
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
-    - _HitEffectBlend: 0
-    - _HitEffectGlow: 33.9
+    - _HitEffectBlend: 0.032
+    - _HitEffectGlow: 100
     - _HologramBlend: 1
     - _HologramFlickerAlpha: 0
     - _HologramFlickerFreq: 0.2
@@ -160,7 +157,7 @@ Material:
     - _HsvBright: 1.5
     - _HsvSaturation: 1.5
     - _HsvShift: 0
-    - _InnerOutlineAlpha: 0.164
+    - _InnerOutlineAlpha: 0.131
     - _InnerOutlineGlow: 42
     - _InnerOutlineThickness: 0.8
     - _MaxXUV: 1
@@ -177,7 +174,7 @@ Material:
     - _OnlyInnerOutline: 0
     - _OnlyOutline: 0
     - _Outline8Directions: 0
-    - _OutlineAlpha: 1
+    - _OutlineAlpha: 0.738
     - _OutlineDistortAmount: 0.389
     - _OutlineDistortTexXSpeed: 15.4
     - _OutlineDistortTexYSpeed: 22.6
@@ -189,7 +186,7 @@ Material:
     - _OutlineTexToggle: 0
     - _OutlineTexXSpeed: 2
     - _OutlineTexYSpeed: -2
-    - _OutlineWidth: 0.016
+    - _OutlineWidth: 0.0814
     - _OverlayBlend: 1
     - _OverlayGlow: 1
     - _PinchUvAmount: 0
@@ -227,8 +224,8 @@ Material:
     - _ZWrite: 0
     - _ZoomUvAmount: 1.1
     m_Colors:
-    - _AlphaOutlineColor: {r: 0.06132126, g: 1, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _AlphaOutlineColor: {r: 0.16078432, g: 0.40392157, b: 0.050980393, a: 1}
+    - _Color: {r: 0.16316223, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}
@@ -239,13 +236,13 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 0.9654912, b: 0, a: 1}
     - _ColorSwapRed: {r: 1, g: 0.40227598, b: 0, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0.10399608, g: 0.38679248, b: 0.14439555, a: 1}
+    - _GlowColor: {r: 0, g: 1, b: 0.13888884, a: 1}
     - _GradBotLeftCol: {r: 0, g: 1, b: 0, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
     - _GradTopLeftCol: {r: 0, g: 1, b: 0, a: 1}
     - _GradTopRightCol: {r: 0, g: 1, b: 0, a: 1}
     - _GreyscaleTintColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HitEffectColor: {r: 0.4215169, g: 0.9433962, b: 0.048949808, a: 1}
+    - _HitEffectColor: {r: 0.4509804, g: 0.078431375, b: 0.078431375, a: 1}
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 0.1084907, g: 1, b: 0.042452812, a: 1}
     - _OutlineColor: {r: 0.07066631, g: 1, b: 0, a: 1}

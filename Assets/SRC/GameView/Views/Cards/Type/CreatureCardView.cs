@@ -40,5 +40,8 @@ namespace MythsAndHorrors.GameView
                 _agility.SetStat(_creature.Agility);
             }
         }
+
+        /*******************************************************************/
+        public override void UpdateState() { }
     }
 }

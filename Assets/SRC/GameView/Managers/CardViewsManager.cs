@@ -8,6 +8,8 @@ namespace MythsAndHorrors.GameView
     {
         private readonly List<CardView> _allCardsView = new();
 
+        public List<CardView> AllCardsView => _allCardsView;
+
         /*******************************************************************/
         public CardView GetCardView(Card card) => _allCardsView.First(cardView => cardView.Card == card);
 
@@ -19,5 +21,8 @@ namespace MythsAndHorrors.GameView
 
         public List<CardView> GetAllCanPlay() => _allCardsView.Where(cardView => cardView.Card.CanPlay)
             .OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count).ThenBy(cardView => cardView.DeckPosition).ToList();
+
+        public List<T> GetAllOfType<T>() where T : CardView => _allCardsView.OfType<T>().ToList();
+
     }
 }

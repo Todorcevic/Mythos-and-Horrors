@@ -8,8 +8,6 @@ namespace MythsAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot2;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder1;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder2;
         [SerializeField, Required, AssetsOnly] private Sprite _trinket;
         [SerializeField, Required, AssetsOnly] private Sprite _equipment;
         [SerializeField, Required, AssetsOnly] private Sprite _supporter;
@@ -60,24 +58,36 @@ namespace MythsAndHorrors.GameView
             }
         }
 
+        /*******************************************************************/
+
+        private ViewState state;
+
         public void DoDefault()
         {
+            if (state == ViewState.Default) return;
             _slot1.material.DisableKeyword("_EMISSION");
             _slot2.material.DisableKeyword("_EMISSION");
+            state = ViewState.Default;
         }
+
+        private int lastAmount;
 
         public void DoActive(int amount)
         {
+            if (lastAmount == amount) return;
             _slot1.material.EnableKeyword("_EMISSION");
             _slot2.material.EnableKeyword("_EMISSION");
             _slot1.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
             _slot2.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
+            lastAmount = 0;
 
             if (amount < 1) return;
             _slot1.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
+            lastAmount = 1;
 
             if (amount < 2) return;
             _slot2.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
+            lastAmount = 2;
         }
     }
 }

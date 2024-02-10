@@ -1,11 +1,11 @@
-﻿using Sirenix.Utilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class SlotsManager
+    public class SlotsCollection
     {
-        public List<Slot> Slots { get; private set; } = new List<Slot>()
+        public List<Slot> Slots { get; private set; } = new()
         {
             new(SlotType.Trinket),
             new(SlotType.Equipment),
@@ -23,12 +23,14 @@ namespace MythsAndHorrors.GameRules
 
             foreach (SlotType slot in card.Info.Slots)
             {
-                Slot freeSlot = Slots.Find(SlotType => SlotType.CanAddThis(slot));
+                Slot freeSlot = Slots.Except(slots).FirstOrDefault(SlotType => SlotType.CanAddThis(card));
                 if (freeSlot != null) slots.Add(freeSlot);
             }
 
             return slots;
         }
+
+        public bool CanAddThis(Card card) => GetFreeSlotFor(card).Count >= card.Info.Slots.Count();
 
         public void AddSlot(Slot slot) => Slots.Add(slot);
     }

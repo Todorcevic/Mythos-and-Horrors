@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; private set; }
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
-        public SlotsManager SlotsManager { get; private set; } = new();
+        public SlotsCollection SlotsCollection { get; } = new();
 
         /*******************************************************************/
         [Inject]
