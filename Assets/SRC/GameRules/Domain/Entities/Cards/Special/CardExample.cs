@@ -9,6 +9,12 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardsProvider _cardsProvider;
 
+        string IViewEffect.CardCode => Info.Code;
+
+        string IViewEffect.CardCodeSecundary => Owner.Code;
+
+        string IViewEffect.Description => "Reduce cost by 1";
+
         /*******************************************************************/
         void IBuffable.ActivateBuff()
         {
@@ -33,13 +39,6 @@ namespace MythsAndHorrors.GameRules
                     .ForEach(async card => await card.RemoveBuff(this));
             }
         }
-
-        /*******************************************************************/
-        string IViewEffect.CardCode => Info.Code;
-
-        string IViewEffect.CardCodeSecundary => Owner.Code;
-
-        string IViewEffect.Description => "Reduce cost by 1";
 
         async Task IBuffable.BuffAffectTo(Card cardAffected)
         {

@@ -13,7 +13,6 @@ namespace MythsAndHorrors.GameRules
         public Investigator Second => _investigator[1];
         public Investigator Third => _investigator[2];
         public Investigator Fourth => _investigator[3];
-        public Investigator NullInvestigator => _investigator.Last();
 
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)
@@ -25,12 +24,12 @@ namespace MythsAndHorrors.GameRules
         public int GetInvestigatorPosition(Investigator investigator) => _investigator.IndexOf(investigator) + 1;
 
         public Investigator GetInvestigatorWithThisZone(Zone zone)
-            => _investigator.FirstOrDefault(investigator => investigator.HasThisZone(zone)) ?? NullInvestigator;
+            => _investigator.FirstOrDefault(investigator => investigator.HasThisZone(zone));
 
         public Investigator GetInvestigatorWithThisCard(Card card)
-            => _investigator.FirstOrDefault(investigator => investigator.HasThisCard(card)) ?? NullInvestigator;
+            => _investigator.FirstOrDefault(investigator => investigator.HasThisCard(card));
 
         public Investigator GetInvestigatorWithThisStat(Stat stat)
-            => _investigator.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat)) ?? NullInvestigator;
+            => _investigator.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
     }
 }
