@@ -93,8 +93,8 @@ namespace MythsAndHorrors.GameView
                 if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
                 {
                     _description.text = "<size=3><b>";
-                    Card.Info.Tags.ForEach(tag => _description.text += tag + ", ");
-                    _description.text = _description.text.Remove(_description.text.Length - 2);
+                    Card.Info.Tags.ForEach(tag => _description.text += tag + " - ");
+                    _description.text = _description.text.Remove(_description.text.Length - 3);
                     _description.text += "</b></size>\n";
                 }
 
