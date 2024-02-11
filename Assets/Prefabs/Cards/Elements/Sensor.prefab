@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da366caf849aa0449f61d08cdf31849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardView: {fileID: 0}
+  _collider: {fileID: 4743662630197685880}
 --- !u!65 &4743662630197685880
 BoxCollider:
   m_ObjectHideFlags: 0

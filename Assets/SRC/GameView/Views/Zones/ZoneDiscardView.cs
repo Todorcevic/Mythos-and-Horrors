@@ -22,15 +22,26 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView)
         {
-            _allCards.Add(cardView);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
+            _allCards.Add(cardView);
             return cardView.transform.DOFullLocalMove(_movePosition, ViewValues.DEFAULT_TIME_ANIMATION);
         }
 
         public override Tween ExitZone(CardView cardView)
         {
             _allCards.Remove(cardView);
-            return DOTween.Sequence();
+            return Repositionate();
+        }
+
+        private Tween Repositionate()
+        {
+            Sequence seq = DOTween.Sequence();
+            _allCards.ForEach((card) =>
+            {
+                int index = _allCards.IndexOf(card);
+                seq.Join(card.transform.DOLocalMoveY(index * ViewValues.CARD_THICKNESS, ViewValues.FAST_TIME_ANIMATION));
+            });
+            return seq;
         }
 
         public override Tween MouseEnter(CardView cardView)

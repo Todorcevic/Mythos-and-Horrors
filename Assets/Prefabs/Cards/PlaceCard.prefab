@@ -190,6 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4389523202190102296 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4541579130041722609, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4527797467675142982 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -228,6 +233,7 @@ MonoBehaviour:
   _effectController: {fileID: 7802075727094105136}
   _buffController: {fileID: 225925023858090713}
   _cloneComponent: {fileID: 8703685288465444203}
+  _collider: {fileID: 4389523202190102296}
   _hints: {fileID: 249355578914456148}
   _enigma: {fileID: 6128284257626759234}
 --- !u!4 &6912737438678058548 stripped

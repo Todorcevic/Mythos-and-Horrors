@@ -3680,7 +3680,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.2358105
+  m_Size: 0.23581047
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10617,6 +10617,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bc7f6c62d29d13945972ab46c63da3f0, type: 2}
+    - target: {fileID: 2021810433673865390, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: threshold
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2376807492431030388, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

@@ -1729,6 +1729,7 @@ MonoBehaviour:
   _effectController: {fileID: 878241973791065302}
   _buffController: {fileID: 7157358325647876671}
   _cloneComponent: {fileID: 1783176149808278925}
+  _collider: {fileID: 6673234024097615870}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   - {fileID: 11400000, guid: 718b229d1d745154490881fb66fb844b, type: 2}
@@ -1755,6 +1756,11 @@ MonoBehaviour:
 --- !u!4 &4582506037116978898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6673234024097615870 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4541579130041722609, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 7177322550284085519}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6819392305497336736 stripped

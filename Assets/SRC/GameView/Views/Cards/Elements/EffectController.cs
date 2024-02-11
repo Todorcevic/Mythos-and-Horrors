@@ -12,6 +12,8 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private List<EffectView> _effectViews;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
+        public int EffectsAmount => _effectViews.Count(effectView => !effectView.IsEmpty);
+
         /*******************************************************************/
         public void AddEffects(params IViewEffect[] effects)
         {

@@ -10,11 +10,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _avatarLeft;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _avatarRight;
 
-        private float? _avatarLeftWidth;
-        private float? _avatarRightWidth;
-
-        private float AvatarLeftWidth => _avatarLeftWidth ??= -_avatarLeft.GetComponent<RectTransform>().rect.width;
-        private float AvatarRightWidth => _avatarRightWidth ??= -_avatarRight.GetComponent<RectTransform>().rect.width;
         public bool IsEmpty => !gameObject.activeSelf;
 
         /*******************************************************************/
@@ -26,14 +21,12 @@ namespace MythsAndHorrors.GameView
 
         public void SetAvatarLeft(Sprite sprite)
         {
-            _description.margin += sprite == null ? new Vector4(AvatarLeftWidth, 0, 0, 0) : Vector4.zero;
             _avatarLeft.enabled = sprite != null;
             _avatarLeft.sprite = sprite;
         }
 
         public void SetAvatarRight(Sprite sprite)
         {
-            _description.margin += sprite == null ? new Vector4(0, 0, AvatarRightWidth, 0) : Vector4.zero;
             _avatarRight.enabled = sprite != null;
             _avatarRight.sprite = sprite;
         }

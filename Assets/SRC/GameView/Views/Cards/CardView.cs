@@ -129,9 +129,15 @@ namespace MythsAndHorrors.GameView
             _buffController.Clear();
         }
 
+        public int GetBuffsAmount() => _buffController.EffectsAmount;
+
         public void ShowEffect(IViewEffect effect) => _effectController.AddEffects(effect);
 
         public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
+
+        public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);
+
+        public void ColliderRespore() => _cardSensor.ColliderDown();
 
         /*******************************************************************/
         public abstract void UpdateState();

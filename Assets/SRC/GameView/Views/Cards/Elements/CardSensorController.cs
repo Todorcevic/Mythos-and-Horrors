@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -8,15 +7,30 @@ namespace MythsAndHorrors.GameView
 {
     public class CardSensorController : MonoBehaviour
     {
-        private CardView _cardView;
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
+        [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
+        private CardView _cardView;
+        private Tween tweenToKill;
+        private Vector3 _colliderOriginalSize;
 
         public bool IsClickable { get; set; }
 
         private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
 
-        private Tween tweenToKill;
+        /*******************************************************************/
+        public void ColliderUp(float amount)
+        {
+            _colliderOriginalSize = _collider.size;
+            _collider.size += Vector3.up * amount;
+            _collider.center -= 0.5f * amount * Vector3.up;
+        }
+
+        public void ColliderDown()
+        {
+            _collider.size = _colliderOriginalSize;
+            _collider.center = Vector3.zero;
+        }
 
         /*******************************************************************/
         public void OnMouseEnter()
