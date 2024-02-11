@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public record Effect : IEffect
+    public record Effect : IViewEffect
     {
         public Effect(Investigator investigator, Card card, string description, Func<Task> logic, Investigator investigatorAffected = null)
         {
@@ -22,6 +22,6 @@ namespace MythsAndHorrors.GameRules
         public Func<Task> Logic { get; init; }
 
         public string CardCode => Investigator?.Code;
-        public string CardCodeAffected => InvestigatorAffected?.Code;
+        public string CardCodeSecundary => InvestigatorAffected?.Code;
     }
 }

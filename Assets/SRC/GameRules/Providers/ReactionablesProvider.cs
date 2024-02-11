@@ -11,13 +11,15 @@ namespace MythsAndHorrors.GameRules
 
         private readonly List<IStartReactionable> _startReactionables = new();
         private readonly List<IEndReactionable> _endReactionables = new();
+        private readonly List<IBuffable> _buffables = new();
 
         /*******************************************************************/
         public object Create(Type type, object[] args)
         {
             var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
-            if (newReactionable is IEndReactionable endReactionable) AddEndReactionable(endReactionable);
-            if (newReactionable is IStartReactionable startReactionable) AddStartReactionable(startReactionable);
+            if (newReactionable is IEndReactionable endReactionable) _endReactionables.Add(endReactionable);
+            if (newReactionable is IStartReactionable startReactionable) _startReactionables.Add(startReactionable);
+            if (newReactionable is IBuffable buffable) _buffables.Add(buffable);
             return newReactionable;
         }
 
@@ -38,16 +40,20 @@ namespace MythsAndHorrors.GameRules
             }
         }
 
-        private void AddStartReactionable(IStartReactionable reactionable)
+        public void CheckActivationBuffs()
         {
-            if (_startReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
-            _startReactionables.Add(reactionable);
+            foreach (IBuffable buffable in _buffables)
+            {
+                buffable.ActivateBuff();
+            }
         }
 
-        private void AddEndReactionable(IEndReactionable reactionable)
+        public void CheckDeactivationBuffs()
         {
-            if (_endReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
-            _endReactionables.Add(reactionable);
+            foreach (IBuffable buffable in _buffables)
+            {
+                buffable.DeactivateBuff();
+            }
         }
     }
 }

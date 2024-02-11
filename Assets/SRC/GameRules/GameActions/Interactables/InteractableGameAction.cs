@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ViewLayersProvider _viewLayersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public List<Card> ActivableCards => _cardsProvider.GetPlayableCards();
         public bool IsManadatary { get; }
@@ -24,10 +25,17 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            CheckBuffs();
             EffectSelected = await _viewLayersProvider.StartSelectionWith(this);
             ClearEffectsInAllCards();
             if (NothingIsSelected) return;
             await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));
+        }
+
+        private void CheckBuffs()
+        {
+            _reactionablesProvider.CheckActivationBuffs();
+            _reactionablesProvider.CheckDeactivationBuffs();
         }
 
         private void ClearEffectsInAllCards() => _cardsProvider.AllCards.ForEach(card => card.ClearEffects());

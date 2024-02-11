@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Card01501 : CardInvestigator, IBuffable
+    public class CardExample : CardInvestigator, IBuffable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardsProvider _cardsProvider;

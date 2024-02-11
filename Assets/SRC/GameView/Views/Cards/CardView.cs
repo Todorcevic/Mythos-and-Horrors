@@ -129,7 +129,7 @@ namespace MythsAndHorrors.GameView
             _buffController.Clear();
         }
 
-        public void ShowEffect(IEffect effect) => _effectController.AddEffects(effect);
+        public void ShowEffect(IViewEffect effect) => _effectController.AddEffects(effect);
 
         public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
 

@@ -21,9 +21,9 @@ namespace MythsAndHorrors.GameRules
             Investigator.HandZone.Cards.ForEach(card => card.AddEffect(Investigator, "Discard", () => MulliganDiscardEffect(card)));
             Investigator.DiscardZone.Cards.FindAll(card => card is not IWeakness).ForEach(card => card.AddEffect(Investigator, "Restore", () => MulliganRestoreEffect(card, Investigator.HandZone)));
 
-            InteractableGameAction basicPlay = await _gameActionFactory.Create(new InteractableGameAction(false));
+            InteractableGameAction interactableGameAction = await _gameActionFactory.Create(new InteractableGameAction(false));
 
-            if (basicPlay.NothingIsSelected) return;
+            if (interactableGameAction.NothingIsSelected) return;
             await _gameActionFactory.Create(new MulliganGameAction(Investigator));
         }
 

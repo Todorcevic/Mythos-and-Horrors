@@ -16,7 +16,6 @@ namespace MythsAndHorrors.GameRules
 
         public List<Card> GetPlayableCards() => AllCards.FindAll(card => card.CanPlay);
 
-        public List<Card> GetCardsWithThisBuff(Func<Card, Task> ActivateBuff) =>
-            AllCards.FindAll(card => card.HasThisBuff(ActivateBuff));
+        public List<Card> GetCardsBuffedWith(IBuffable buff) => AllCards.FindAll(card => card.HasThisBuff(buff));
     }
 }

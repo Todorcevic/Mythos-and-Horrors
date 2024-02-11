@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameRules
     public class Card
     {
         private readonly List<Effect> _playableEffects = new();
-        private readonly List<Buff> _buffs = new();
+        private readonly List<IBuffable> _buffs = new();
         [Inject] private readonly CardInfo _info;
         [Inject] protected readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         public Zone OwnZone { get; private set; }
         public bool IsFaceDown { get; private set; }
         public IReadOnlyList<Effect> PlayableEffects => _playableEffects;
-        public IReadOnlyList<Buff> Buffs => _buffs;
+        public IReadOnlyList<IBuffable> Buffs => _buffs;
         public bool CanPlay => PlayableEffects.Count > 0;
         public bool HasMultiEffect => PlayableEffects.Count > 1;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
@@ -53,20 +53,19 @@ namespace MythsAndHorrors.GameRules
             _playableEffects.Clear();
         }
 
-        public async Task AddBuff(Buff newBuff)
+        public async Task AddBuff(IBuffable newBuff)
         {
             _buffs.Add(newBuff);
-            await newBuff.ActivateBuff.Invoke(this);
+            await newBuff.BuffAffectTo(this);
         }
 
-        public async Task RemoveBuff(Func<Card, Task> ActivateBuff)
+        public async Task RemoveBuff(IBuffable ActivateBuff)
         {
-            Buff buffToRemove = Buffs.First(buff => buff.ActivateBuff == ActivateBuff);
-            await buffToRemove.DeactivateBuff.Invoke(this);
-            _buffs.Remove(buffToRemove);
+            await ActivateBuff.BuffDeaffectTo(this);
+            _buffs.Remove(ActivateBuff);
         }
 
-        public bool HasThisBuff(Func<Card, Task> activateBuff) => Buffs.Any(buff => buff.ActivateBuff == activateBuff);
+        public bool HasThisBuff(IBuffable buff) => _buffs.Contains(buff);
 
         public void TurnDown(bool toFaceDown)
         {
