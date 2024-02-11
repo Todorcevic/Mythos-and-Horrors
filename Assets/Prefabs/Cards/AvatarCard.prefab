@@ -553,6 +553,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 2061634377852609704}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2040858679273271192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2061634377852609704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2424559985049822727 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4411735425654588079, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -605,6 +616,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 1167729326512625970}
   _rotator: {fileID: 2424559985049822727}
   _effectController: {fileID: 8302026588544928113}
+  _buffController: {fileID: 2040858679273271192}
   _cloneComponent: {fileID: 7474145916525699114}
   _factions:
   - {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
@@ -693,6 +705,10 @@ PrefabInstance:
     - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_fontSize
       value: 9.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292920755
       objectReference: {fileID: 0}
     - target: {fileID: 5386744458594796054, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_IsActive
@@ -810,6 +826,10 @@ PrefabInstance:
     - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_fontSize
       value: 9.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292920755
       objectReference: {fileID: 0}
     - target: {fileID: 5386744458594796054, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_IsActive

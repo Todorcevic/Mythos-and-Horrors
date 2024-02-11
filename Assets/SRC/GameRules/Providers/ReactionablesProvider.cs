@@ -1,7 +1,5 @@
-﻿using Sirenix.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -18,8 +16,8 @@ namespace MythsAndHorrors.GameRules
         public object Create(Type type, object[] args)
         {
             var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
-            type.GetInterfaces().OfType<IStartReactionable>().ForEach(startReactionable => AddReactionable(startReactionable));
-            type.GetInterfaces().OfType<IEndReactionable>().ForEach(endReactionable => AddReactionable(endReactionable));
+            if (newReactionable is IEndReactionable endReactionable) AddEndReactionable(endReactionable);
+            if (newReactionable is IStartReactionable startReactionable) AddStartReactionable(startReactionable);
             return newReactionable;
         }
 
@@ -40,13 +38,13 @@ namespace MythsAndHorrors.GameRules
             }
         }
 
-        private void AddReactionable(IStartReactionable reactionable)
+        private void AddStartReactionable(IStartReactionable reactionable)
         {
             if (_startReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
             _startReactionables.Add(reactionable);
         }
 
-        private void AddReactionable(IEndReactionable reactionable)
+        private void AddEndReactionable(IEndReactionable reactionable)
         {
             if (_endReactionables.Contains(reactionable)) throw new InvalidOperationException("Reactionable already added");
             _endReactionables.Add(reactionable);

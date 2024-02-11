@@ -16,6 +16,7 @@ namespace MythsAndHorrors.GameView
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
+        public bool IsActive => Stat != null;
 
         /*******************************************************************/
         public void SetStat(Stat stat, Sprite holderImage = null)

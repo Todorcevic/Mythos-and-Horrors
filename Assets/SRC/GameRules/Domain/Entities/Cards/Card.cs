@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -9,6 +10,7 @@ namespace MythsAndHorrors.GameRules
     public class Card
     {
         private readonly List<Effect> _playableEffects = new();
+        private readonly List<Buff> _buffs = new();
         [Inject] private readonly CardInfo _info;
         [Inject] protected readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -19,13 +21,11 @@ namespace MythsAndHorrors.GameRules
         public Zone OwnZone { get; private set; }
         public bool IsFaceDown { get; private set; }
         public IReadOnlyList<Effect> PlayableEffects => _playableEffects;
+        public IReadOnlyList<Buff> Buffs => _buffs;
         public bool CanPlay => PlayableEffects.Count > 0;
         public bool HasMultiEffect => PlayableEffects.Count > 1;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
-
-        //public Investigator CurrentOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
-
         public bool IsInHand => CurrentZone == Owner?.HandZone;
         public bool HasOwner => Owner != null;
 
@@ -52,6 +52,21 @@ namespace MythsAndHorrors.GameRules
         {
             _playableEffects.Clear();
         }
+
+        public async Task AddBuff(Buff newBuff)
+        {
+            _buffs.Add(newBuff);
+            await newBuff.ActivateBuff.Invoke(this);
+        }
+
+        public async Task RemoveBuff(Func<Card, Task> ActivateBuff)
+        {
+            Buff buffToRemove = Buffs.First(buff => buff.ActivateBuff == ActivateBuff);
+            await buffToRemove.DeactivateBuff.Invoke(this);
+            _buffs.Remove(buffToRemove);
+        }
+
+        public bool HasThisBuff(Func<Card, Task> activateBuff) => Buffs.Any(buff => buff.ActivateBuff == activateBuff);
 
         public void TurnDown(bool toFaceDown)
         {

@@ -1,34 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
-    public abstract class Buff : IStartReactionable, IEndReactionable
+    public class Buff : IEffect
     {
-        public List<Card> CardsAffected { get; } = new List<Card>();
+        public Card CardParent { get; init; }
+        public string Description { get; }
+        public Func<Card, Task> ActivateBuff { get; }
+        public Func<Card, Task> DeactivateBuff { get; }
+        public string CardCode => CardParent.Info.Code;
+        public string CardCodeAffected => CardParent.Owner.Code;
 
         /*******************************************************************/
-        public virtual Task Apply()
+        public Buff(Card cardParent, string description, Func<Card, Task> activate, Func<Card, Task> deactivate)
         {
-            foreach (Card card in CardsAffected)
-            {
-
-            }
-
-            return Task.CompletedTask;
-        }
-
-
-        public abstract Task Remove();
-
-        public Task WhenBegin(GameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task WhenFinish(GameAction gameAction)
-        {
-            throw new System.NotImplementedException();
+            CardParent = cardParent;
+            Description = description;
+            ActivateBuff = activate;
+            DeactivateBuff = deactivate;
         }
     }
 }

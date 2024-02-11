@@ -266,6 +266,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3602173056264382398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 3545334441379851406}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4439265872406860052 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -351,6 +362,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 4439265872406860052}
   _rotator: {fileID: 867557680850497057}
   _effectController: {fileID: 6816570061375242583}
+  _buffController: {fileID: 3602173056264382398}
   _cloneComponent: {fileID: 5338572555751483404}
   _hints: {fileID: 1325195686989644074}
 --- !u!4 &7868108235360879443 stripped
@@ -393,6 +405,10 @@ PrefabInstance:
     - target: {fileID: 5196269710735338531, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251936806604186943, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292920755
       objectReference: {fileID: 0}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Size.x

@@ -355,6 +355,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8811269189814881902}
     - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_fontSize
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_fontColor.b
       value: 0.8784314
       objectReference: {fileID: 0}
@@ -508,6 +512,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2601599683950590050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2653832444634788690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2917400884095274696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -604,6 +619,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 2917400884095274696}
   _rotator: {fileID: 1868412697410466301}
   _effectController: {fileID: 5439946156936142475}
+  _buffController: {fileID: 2601599683950590050}
   _cloneComponent: {fileID: 6913495037968709584}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
   _skillFearIcon: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}

@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
-        private bool HasResource => Card is CardSupply || Card is CardTalent;
+        private bool HasCost => _cost.IsActive;
         private bool HasSlot => Card.Info.Slots.Count() > 0;
 
         /*******************************************************************/
@@ -68,9 +68,9 @@ namespace MythsAndHorrors.GameView
                 if (Card.Info.Health != null) _health.SetStat(cardSupply.Health);
                 if (Card.Info.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
             }
-            else if (Card is CardTalent cardTalent)
+            else if (Card is CardCondition cardCondition)
             {
-                _cost.SetStat(cardTalent.Cost);
+                _cost.SetStat(cardCondition.Cost);
             }
         }
 
@@ -99,7 +99,7 @@ namespace MythsAndHorrors.GameView
 
         private void ChangeColorResource()
         {
-            if (!HasResource) return;
+            if (!HasCost) return;
             if (Card.CurrentZone != Card.Owner?.HandZone) _cost.Default();
             else if (_cost.Stat?.Value > Card.Owner?.InvestigatorCard.Resources.Value) _cost.Deactive();
             else _cost.Active();

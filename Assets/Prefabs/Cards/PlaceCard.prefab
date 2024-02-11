@@ -146,6 +146,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3389488844118557959}
   m_SourcePrefab: {fileID: 100100000, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+--- !u!114 &225925023858090713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &866625928266129189 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1146880241690785484, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -215,6 +226,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 1100189038249415795}
   _rotator: {fileID: 4527797467675142982}
   _effectController: {fileID: 7802075727094105136}
+  _buffController: {fileID: 225925023858090713}
   _cloneComponent: {fileID: 8703685288465444203}
   _hints: {fileID: 249355578914456148}
   _enigma: {fileID: 6128284257626759234}

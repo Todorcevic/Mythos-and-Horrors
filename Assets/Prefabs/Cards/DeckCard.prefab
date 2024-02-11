@@ -387,8 +387,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slot1: {fileID: 175457440691660611}
   _slot2: {fileID: 3311206828611990572}
-  _holder1: {fileID: 4144737667312452664}
-  _holder2: {fileID: 5806006097911811865}
   _trinket: {fileID: 21300000, guid: 77e7dbfa27488574ea2a6b7ed9127d5a, type: 3}
   _equipment: {fileID: 21300000, guid: 1fe7b10582b40bf4488b684792982eaf, type: 3}
   _supporter: {fileID: 21300000, guid: ecbb298ad9ffa224ebf3dbcbd95f0293, type: 3}
@@ -1729,6 +1727,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 8012474368596726933}
   _rotator: {fileID: 6819392305497336736}
   _effectController: {fileID: 878241973791065302}
+  _buffController: {fileID: 7157358325647876671}
   _cloneComponent: {fileID: 1783176149808278925}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
@@ -1767,6 +1766,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7157358325647876671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &7498737834845332294 stripped

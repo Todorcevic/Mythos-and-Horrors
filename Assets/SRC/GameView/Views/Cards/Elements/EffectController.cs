@@ -13,14 +13,14 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        public void AddEffects(params Effect[] effects)
+        public void AddEffects(params IEffect[] effects)
         {
-            foreach (Effect effect in effects)
+            foreach (IEffect effect in effects)
             {
                 EffectView effectView = GetEffectView();
                 effectView.SetDescription(effect.Description);
-                effectView.SetAvatarLeft(_avatarViewsManager.Get(effect.Investigator)?.Image);
-                effectView.SetAvatarRight(_avatarViewsManager.Get(effect.InvestigatorAffected)?.Image);
+                effectView.SetAvatarLeft(_avatarViewsManager.GetByCode(effect.CardCode)?.Image);
+                effectView.SetAvatarRight(_avatarViewsManager.GetByCode(effect.CardCodeAffected)?.Image);
             }
         }
 

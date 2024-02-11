@@ -28,7 +28,7 @@ namespace MythsAndHorrors.GameView
         public async Task ShowPlayables()
         {
             _cardViews = _cardViewsManager.GetAllCanPlay();
-            _cardViews.ForEach(cardView => cardView.ShowEffects());
+            _cardViews.ForEach(cardView => cardView.ShowBuffsAndEffects());
             _cardViews.ForEach(cardView => cardView.DisableToCenterShow());
             await Animation();
         }
@@ -92,7 +92,7 @@ namespace MythsAndHorrors.GameView
         {
             await _ioActivatorComponent.DeactivateCardSensors();
             _selectorBlockController.DeactivateSelector();
-            _cardViews.ForEach(cardView => cardView.HideEffects());
+            _cardViews.ForEach(cardView => cardView.HideBuffsAndEffects());
         }
 
         private async Task Animation()

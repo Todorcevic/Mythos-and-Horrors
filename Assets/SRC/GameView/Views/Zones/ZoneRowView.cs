@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
-            if (_showEffects) cardView.ShowEffects();
+            if (_showEffects) cardView.ShowBuffsAndEffects();
 
             (Transform invisibleHolder, Tween holdersTween) = _invisibleHolderController.SetLayout(cardView, layoutAmount: _layoutAmount);
             _hoverPosition.localPosition = new Vector3(invisibleHolder.localPosition.x, _hoverPosition.localPosition.y, _hoverPosition.localPosition.z);
@@ -27,7 +27,7 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseExit(CardView cardView)
         {
-            if (_showEffects) cardView.HideEffects();
+            if (_showEffects) cardView.HideBuffsAndEffects();
             return _invisibleHolderController.ResetLayout(cardView);
         }
     }

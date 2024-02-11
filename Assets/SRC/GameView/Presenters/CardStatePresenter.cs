@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gameAction)
         {
-            _cardViewsManager.AllCardsView.ForEach(deckCardView => deckCardView.UpdateState());
+            _cardViewsManager.AllCardsView.ForEach(cardView => cardView.UpdateState());
             await Task.CompletedTask;
         }
     }

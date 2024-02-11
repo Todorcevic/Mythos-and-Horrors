@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameRules
 {
@@ -13,5 +15,8 @@ namespace MythsAndHorrors.GameRules
         public void AddCard(Card objectCard) => AllCards.Add(objectCard);
 
         public List<Card> GetPlayableCards() => AllCards.FindAll(card => card.CanPlay);
+
+        public List<Card> GetCardsWithThisBuff(Func<Card, Task> ActivateBuff) =>
+            AllCards.FindAll(card => card.HasThisBuff(ActivateBuff));
     }
 }
