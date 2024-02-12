@@ -10,9 +10,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         string IViewEffect.CardCode => Info.Code;
-
         string IViewEffect.CardCodeSecundary => Owner.Code;
-
         string IViewEffect.Description => "Reduce cost by 1";
 
         /*******************************************************************/

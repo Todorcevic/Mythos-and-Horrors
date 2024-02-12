@@ -98,7 +98,7 @@ namespace MythsAndHorrors.GameView
                     _description.text += "</b></size>\n";
                 }
 
-                _description.text += "\n<voffset=0.5em>" + Card.Info.Description + "</voffset>" ?? Card.Info.Flavor;
+                _description.text += "\n<voffset=0.5em>" + (Card.Info.Description ?? Card.Info.Flavor) + "</voffset>";
             }
         }
 

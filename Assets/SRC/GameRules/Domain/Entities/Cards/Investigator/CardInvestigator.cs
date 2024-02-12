@@ -11,13 +11,11 @@ namespace MythsAndHorrors.GameRules
         public Stat Agility { get; private set; }
         public Stat Intelligence { get; private set; }
         public Stat Power { get; private set; }
-        public Stat DeckSize { get; private set; }
         public Stat Xp { get; private set; }
         public Stat Injury { get; private set; }
         public Stat Shock { get; private set; }
         public Stat Resources { get; private set; }
         public Stat Hints { get; private set; }
-        public Stat InitialHandSize { get; private set; }
         public Stat Turns { get; private set; }
 
         /*******************************************************************/
@@ -31,15 +29,12 @@ namespace MythsAndHorrors.GameRules
             Agility = new Stat(Info.Agility ?? 0);
             Intelligence = new Stat(Info.Intelligence ?? 0);
             Power = new Stat(Info.Power ?? 0);
-
-            DeckSize = new Stat(30);
             Xp = new Stat(0);
             Injury = new Stat(0);
             Shock = new Stat(0);
             Resources = new Stat(0);
             Hints = new Stat(0);
-            InitialHandSize = new Stat(5);
-            Turns = new Stat(0, 3);
+            Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
         }
 
         public bool HasThisStat(Stat stat)
@@ -50,13 +45,11 @@ namespace MythsAndHorrors.GameRules
                 || stat == Agility
                 || stat == Intelligence
                 || stat == Power
-                || stat == DeckSize
                 || stat == Xp
                 || stat == Injury
                 || stat == Shock
                 || stat == Resources
                 || stat == Hints
-                || stat == InitialHandSize
                 || stat == Turns;
         }
     }

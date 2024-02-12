@@ -3,11 +3,15 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class MulliganGameAction : GameAction
+    public class MulliganGameAction : GameAction, IPhase
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameText _gameText;
 
         public Investigator Investigator { get; }
+
+        string IPhase.Name => _gameText.MULLIGAN_PHASE_NAME;
+        string IPhase.Description => _gameText.MULLIGAN_PHASE_DESCRIPTION;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -18,18 +22,25 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected sealed override async Task ExecuteThisLogic()
         {
-            Investigator.HandZone.Cards.ForEach(card => card.AddEffect(Investigator, "Discard", () => MulliganDiscardEffect(card)));
-            Investigator.DiscardZone.Cards.FindAll(card => card is not IWeakness).ForEach(card => card.AddEffect(Investigator, "Restore", () => MulliganRestoreEffect(card, Investigator.HandZone)));
+            foreach (Card card in Investigator.HandZone.Cards)
+            {
+                card.AddEffect(Investigator, _gameText.MULLIGAN_EFFECT1, DiscardEffect);
+
+                Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
+            }
+
+            foreach (Card card in Investigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
+            {
+                card.AddEffect(Investigator, _gameText.MULLIGAN_EFFECT2, RestoreEffect);
+
+                Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, Investigator.HandZone));
+            }
 
             InteractableGameAction interactableGameAction = await _gameActionFactory.Create(new InteractableGameAction(false));
 
             if (interactableGameAction.NothingIsSelected) return;
             await _gameActionFactory.Create(new MulliganGameAction(Investigator));
         }
-
-        private Task MulliganDiscardEffect(Card card) => _gameActionFactory.Create(new DiscardGameAction(card));
-
-        private Task MulliganRestoreEffect(Card card, Zone zone) => _gameActionFactory.Create(new MoveCardsGameAction(card, zone));
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MythsAndHorrors.GameRules;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -10,6 +11,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly GameText _gameText;
 
         /*******************************************************************/
         public void ActiavateCardViewsPlayables(List<CardView> _cards, bool withMainButton)
@@ -17,7 +19,7 @@ namespace MythsAndHorrors.GameView
             _cards.ForEach(card => card.ActivateToClick());
             _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
 
-            if (withMainButton) _mainButtonComponent.Activate(ViewText.BUTTON_DONE);
+            if (withMainButton) _mainButtonComponent.Activate(_gameText.BUTTON_DONE);
             _ioActivatorComponent.ActivateCardSensors();
             _ioActivatorComponent.UnblockUI();
         }

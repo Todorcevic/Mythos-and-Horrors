@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -40,7 +39,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public void AddEffect(Investigator investigator, string description, Func<Task> effect, Investigator investigatorAffected = null)
         {
-            _playableEffects.Add(new Effect(investigator, this, description, effect, investigatorAffected));
+            _playableEffects.Add(new Effect(investigator, description, effect, investigatorAffected));
         }
 
         public void AddEffect(Effect newEffect)

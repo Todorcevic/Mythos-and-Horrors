@@ -58,7 +58,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task DrawInitialHand()
         {
-            while (Investigator.HandZone.Cards.Count < Investigator.InvestigatorCard.InitialHandSize.Value)
+            while (Investigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
                 await _gameActionFactory.Create(new InitialDrawGameAction(Investigator));
             await Task.Delay(250);
         }
