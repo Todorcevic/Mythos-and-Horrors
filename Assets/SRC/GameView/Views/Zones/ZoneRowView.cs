@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneRowView : ZoneView
     {
-        private const float threshold = 1.05f;
+        private const float threshold = 1.15f;
         [SerializeField] private bool _showEffects;
         [SerializeField] private float _layoutAmount;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _hoverPosition;

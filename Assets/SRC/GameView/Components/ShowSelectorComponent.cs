@@ -43,7 +43,7 @@ namespace MythsAndHorrors.GameView
         {
             if (!IsShowing) return;
             await Shutdown();
-            _cardViews.ForEach(cardView => cardView.EnableToCenterShow());
+            _cardViews.ForEach(cardView => cardView.EnableFromCenterShow());
             Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
@@ -70,7 +70,7 @@ namespace MythsAndHorrors.GameView
                  .OnComplete(() => Destroy(clone.gameObject))));
             await returnClonesSequence.AsyncWaitForCompletion()
                 .Join(_moveCardHandler.MoveCardWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)));
-            OriginalCardView.EnableToCenterShow();
+            OriginalCardView.EnableFromCenterShow();
             _cardViews.Clear();
         }
 
@@ -82,7 +82,7 @@ namespace MythsAndHorrors.GameView
             Sequence sequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                  .OnComplete(() => Destroy(clone.gameObject)));
-            OriginalCardView.EnableToCenterShow();
+            OriginalCardView.EnableFromCenterShow();
             _cardViews.Clear();
             await sequence.AsyncWaitForCompletion();
         }

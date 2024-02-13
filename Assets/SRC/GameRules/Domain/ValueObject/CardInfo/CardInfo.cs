@@ -6,8 +6,11 @@ namespace MythsAndHorrors.GameRules
     {
         [JsonProperty("Code")] public string Code { get; init; }
         [JsonProperty("Name")] public string Name { get; init; }
+        [JsonProperty("Name2")] public string Name2 { get; init; }
         [JsonProperty("Description")] public string Description { get; init; }
+        [JsonProperty("Description2")] public string Description2 { get; init; }
         [JsonProperty("Flavor")] public string Flavor { get; init; }
+        [JsonProperty("Flavor2")] public string Flavor2 { get; init; }
         [JsonProperty("CardType")] public CardType CardType { get; init; }
         [JsonProperty("Faction")] public Faction Faction { get; init; }
         [JsonProperty("Slots")] public SlotType[] Slots { get; init; }

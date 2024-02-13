@@ -1455,25 +1455,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4743662630197685880, guid: f4506dd32102b3d4aa6c422ae7eacb09, type: 3}
-      propertyPath: m_Size.x
-      value: 7.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4743662630197685880, guid: f4506dd32102b3d4aa6c422ae7eacb09, type: 3}
-      propertyPath: m_Size.y
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4743662630197685880, guid: f4506dd32102b3d4aa6c422ae7eacb09, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5212684921449707348, guid: f4506dd32102b3d4aa6c422ae7eacb09, type: 3}
       propertyPath: m_Name
       value: Sensor
-      objectReference: {fileID: 0}
-    - target: {fileID: 5212684921449707348, guid: f4506dd32102b3d4aa6c422ae7eacb09, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

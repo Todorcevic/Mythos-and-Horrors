@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd897dbc3934e874f9ff69d5cee2e4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avoidCardShower: 0
   _movePosition: {fileID: 7008661953015496867}
   _hoverPosition: {fileID: 7826362246790121539}
 --- !u!114 &8811774599659767288
@@ -63,8 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 5501566172161863611}
-  _identifier: 
-  _identifierWithName: 0
+  _bindId: 0
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 2971469487883121144}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 4.4, z: 0}
+  m_LocalPosition: {x: 0, y: 4.5, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

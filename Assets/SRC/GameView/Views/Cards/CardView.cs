@@ -50,15 +50,9 @@ namespace MythsAndHorrors.GameView
             transform.SetParent(zoneView.transform);
         }
 
-        public void DisableToCenterShow()
-        {
-            _ownZoneCardView.gameObject.SetActive(false);
-        }
+        public void DisableToCenterShow() => _ownZoneCardView.gameObject.SetActive(false);
 
-        public void EnableToCenterShow()
-        {
-            _ownZoneCardView.gameObject.SetActive(true);
-        }
+        public void EnableFromCenterShow() => _ownZoneCardView.gameObject.SetActive(true);
 
         public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);
 

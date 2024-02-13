@@ -9,8 +9,9 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        private Card Studio => _cardsProvider.GetCard("01111");
+        private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
         private Card FirstPlot => _cardsProvider.GetCard("01105");
         private Card FirstGoal => _cardsProvider.GetCard("01108");
         private Card Lita => _cardsProvider.GetCard("01117");
@@ -26,6 +27,15 @@ namespace MythsAndHorrors.GameRules
             RealDangerCards.ForEach(card => card.TurnDown(true));
             await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
+            await MoveAvatars();
+        }
+
+        private async Task MoveAvatars()
+        {
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            {
+                await _gameActionFactory.Create(new MoveInvestigatorGameAction(investigator, Studio));
+            }
         }
     }
 }

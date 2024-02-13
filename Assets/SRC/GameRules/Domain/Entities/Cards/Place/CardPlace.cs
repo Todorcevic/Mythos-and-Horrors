@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlace : Card
+    public class CardPlace : Card, IEndReactionable
     {
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
+        public bool IsReveled { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -15,6 +17,19 @@ namespace MythsAndHorrors.GameRules
         {
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
+        }
+
+        /*******************************************************************/
+        async Task IEndReactionable.WhenFinish(GameAction gameAction)
+        {
+            await Task.CompletedTask;
+        }
+
+        private void Reveal()
+        {
+
+
+            IsReveled = true;
         }
     }
 }
