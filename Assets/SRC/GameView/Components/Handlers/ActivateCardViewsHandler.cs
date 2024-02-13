@@ -1,5 +1,4 @@
-﻿using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,7 +10,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly GameText _gameText;
+        [Inject] private readonly ViewText _gameText;
 
         /*******************************************************************/
         public void ActiavateCardViewsPlayables(List<CardView> _cards, bool withMainButton)

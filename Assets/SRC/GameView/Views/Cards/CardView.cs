@@ -83,9 +83,9 @@ namespace MythsAndHorrors.GameView
         private void SetCommon()
         {
             name = Card.Info.Code;
+            _ownZoneCardView.Init(Card.OwnZone);
             _title.text = Card.Info.Name;
             SetDescription();
-            _ownZoneCardView.Init(Card.OwnZone);
 
             void SetDescription()
             {

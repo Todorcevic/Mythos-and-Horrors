@@ -2,7 +2,6 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;

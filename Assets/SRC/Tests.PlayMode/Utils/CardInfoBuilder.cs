@@ -148,6 +148,7 @@ namespace MythsAndHorrors.PlayMode.Tests
                 EnemyFear = rand.Next(1, 4),
                 Wild = rand.Next(1, 4),
                 Eldritch = rand.Next(1, 4),
+                Slots = new[] { SlotType.None }
             };
             return this;
         }

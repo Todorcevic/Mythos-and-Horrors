@@ -4,7 +4,6 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
-
     public class CardMoverPresenter : IPresenter
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;

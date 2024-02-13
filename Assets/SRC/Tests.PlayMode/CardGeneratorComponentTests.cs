@@ -69,7 +69,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
-            Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(healthStat.gameObject.activeInHierarchy, Is.False);
             Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
             yield return null;

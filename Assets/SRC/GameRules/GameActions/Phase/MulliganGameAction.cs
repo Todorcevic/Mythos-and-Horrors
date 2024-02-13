@@ -9,7 +9,6 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameText _gameText;
 
         public Investigator Investigator { get; }
-
         string IPhase.Name => _gameText.MULLIGAN_PHASE_NAME;
         string IPhase.Description => _gameText.MULLIGAN_PHASE_DESCRIPTION;
 
