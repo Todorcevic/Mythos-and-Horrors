@@ -10,8 +10,15 @@ namespace MythsAndHorrors.EditMode.Tests
     {
         [Inject] private readonly CardLoaderUseCase _sut;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
 
         /*******************************************************************/
+        [SetUp]
+        public void SetUp()
+        {
+            _dataSaveLoaderUseCase.Execute();
+        }
+
         [Test]
         public void LoadManyCards()
         {

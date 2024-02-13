@@ -22,7 +22,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardInvestigator>();
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -41,7 +41,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Investigator).WithFaction(Faction.Esoteric).GiveMe());
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
             FactionInvestigatorSO factionElementsExpected = result.GetPrivateMember<List<FactionInvestigatorSO>>("_factions")
                 .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Esoteric);
@@ -59,7 +59,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             CardTalent card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Talent).WithHealth(null).GiveMe()) as CardTalent;
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -80,7 +80,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardCondition card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithStrength(2).WithIntelligence(4)
                 .WithWild(3).WithAgility(3).GiveMe()) as CardCondition;
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -93,7 +93,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithHealth(null).GiveMe());
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             DeckCardView result = _cardGenerator.transform.GetComponentInChildren<DeckCardView>(includeInactive: true);
 
             result.SetBulletsIcons(3);
@@ -108,7 +108,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithSlot(SlotType.Trinket).GiveMe());
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -124,7 +124,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardSupply card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply)
                 .WithHealth(3).WithSanity(1).WithCost(5).GiveMe()) as CardSupply;
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -147,7 +147,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardPlace>();
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -166,7 +166,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardCreature card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Creature)
                 .WithHealth(3).WithStrength(1).WithAgility(5).WithEnemyDamage(2).WithEnemyFear(1).GiveMe()) as CardCreature;
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
             SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
@@ -187,7 +187,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildOfType<CardAdversity>();
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -204,7 +204,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Plot).WithEldritch(3).GiveMe());
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -221,7 +221,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Goal).WithHints(3).GiveMe());
 
-            _cardGenerator.BuildCard(card);
+            _cardGenerator.BuildCardView(card);
             CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

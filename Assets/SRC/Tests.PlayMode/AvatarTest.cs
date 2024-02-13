@@ -14,7 +14,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
         [Inject] private readonly CardBuilder _cardBuilder;
-        [Inject] private readonly FilesPath _filesPath;
+        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -22,10 +22,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Load_Avatar()
         {
-            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01501"));
-            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01502"));
-            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01503"));
-            _investigatorLoaderUseCase.Execute(_filesPath.JSON_INVESTIGATOR_PATH("01504"));
+            _dataSaveLoaderUseCase.Execute();
+
+            _investigatorLoaderUseCase.Execute();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameView
             Dictionary<CardView, Effect> newClonesCardView = new() { { originalCardView, effects.First() } };
             foreach (Effect effect in effects.Skip(1))
             {
-                CardView cloneCardView = _cardViewGeneratorComponent.Clone(originalCardView, originalCardView.CurrentZoneView.transform);
+                CardView cloneCardView = _cardViewGeneratorComponent.CloneCardView(originalCardView, originalCardView.CurrentZoneView.transform);
                 newClonesCardView.Add(cloneCardView, effect);
             }
             return newClonesCardView;

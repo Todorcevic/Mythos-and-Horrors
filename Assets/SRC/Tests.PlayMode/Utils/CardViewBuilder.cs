@@ -10,9 +10,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
 
         /*******************************************************************/
-        public CardView BuildRand() => _cardGenerator.BuildCard(_cardBuilder.BuildRand());
+        public CardView BuildRand() => _cardGenerator.BuildCardView(_cardBuilder.BuildRand());
 
-        public CardView BuildWith(CardInfo cardInfo) => _cardGenerator.BuildCard(_cardBuilder.BuildWith(cardInfo));
+        public CardView BuildWith(CardInfo cardInfo) => _cardGenerator.BuildCardView(_cardBuilder.BuildWith(cardInfo));
 
         public CardView[] BuildManyRandom(int count)
         {

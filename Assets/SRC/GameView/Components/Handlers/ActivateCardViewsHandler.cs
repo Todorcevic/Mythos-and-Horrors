@@ -10,7 +10,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly ViewText _gameText;
+        [Inject] private readonly TextsManager _textsManager;
 
         /*******************************************************************/
         public void ActiavateCardViewsPlayables(List<CardView> _cards, bool withMainButton)
@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameView
             _cards.ForEach(card => card.ActivateToClick());
             _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
 
-            if (withMainButton) _mainButtonComponent.Activate(_gameText.BUTTON_DONE);
+            if (withMainButton) _mainButtonComponent.Activate(_textsManager.ViewText.BUTTON_DONE);
             _ioActivatorComponent.ActivateCardSensors();
             _ioActivatorComponent.UnblockUI();
         }

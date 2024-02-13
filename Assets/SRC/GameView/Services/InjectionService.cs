@@ -77,8 +77,6 @@ namespace MythsAndHorrors.GameView
         private void InstallSingle()
         {
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
-            Container.Bind<GameText>().AsSingle();
-            Container.Bind<ViewText>().AsSingle();
             Container.Bind(typeof(ClickHandler<>)).AsSingle();
         }
     }

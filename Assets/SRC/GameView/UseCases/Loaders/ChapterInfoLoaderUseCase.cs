@@ -8,14 +8,16 @@ namespace MythsAndHorrors.GameView
 {
     public class ChapterInfoLoaderUseCase
     {
+        [Inject] private readonly FilesPath _filesPath;
+        [Inject] private readonly DataSaveLoaderUseCase _saveDataLoaderUseCase;
         [Inject] private readonly ChaptersProvider chaptersProvider;
 
         /*******************************************************************/
-        public void Execute(string path, Dificulty dificulty)
+        public void Execute()
         {
-            string jsonData = File.ReadAllText(path);
+            string jsonData = File.ReadAllText(_filesPath.JSON_CHAPTERINFO_PATH);
             chaptersProvider.AddChapters(JsonConvert.DeserializeObject<List<ChapterInfo>>(jsonData));
-            chaptersProvider.SetCurrentDificulty(dificulty);
+            chaptersProvider.SetCurrentDificulty(_saveDataLoaderUseCase.DataSave.DificultySelected);
         }
     }
 }

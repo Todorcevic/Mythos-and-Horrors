@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.Plastic.Newtonsoft.Json;
 
 namespace MythsAndHorrors.GameRules
 {
     public record SceneInfo
     {
-        public string Code { get; init; }
-        public int Position { get; init; }
-        public string Name { get; init; }
-        public History Description { get; init; }
-        public List<History> Resolutions { get; init; }
-        public List<Card> Cards { get; init; }
-        public string NextScene { get; init; }
+        [JsonProperty("Code")] public string Code { get; init; }
+        [JsonProperty("Position")] public int Position { get; init; }
+        [JsonProperty("Name")] public string Name { get; init; }
+        [JsonProperty("Description")] public History Description { get; init; }
+        [JsonProperty("Resolutions")] public List<History> Resolutions { get; init; }
+        [JsonProperty("Cards")] public List<Card> Cards { get; init; }
+        [JsonProperty("NextScene")] public string NextScene { get; init; }
 
         public List<CardPlace> PlaceCards => Cards.OfType<CardPlace>().ToList();
         public List<CardPlot> PlotCards => Cards.OfType<CardPlot>().ToList();

@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MythsAndHorrors.GameRules
 {
+
     public class ChaptersProvider
     {
         private List<ChapterInfo> _chapters = new();

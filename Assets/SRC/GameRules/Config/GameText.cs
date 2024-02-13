@@ -2,10 +2,10 @@
 {
     public class GameText
     {
-        public string MULLIGAN_EFFECT1 => "Mulligan";
-        public string MULLIGAN_EFFECT2 => "Return";
-        public string MULLIGAN_PHASE_NAME => "Mulligan";
-        public string MULLIGAN_PHASE_DESCRIPTION => "Después de robar su mano inicial de cartas, un investigador puede descartar cualquiera de esas cartas que no desee conservar, y luego robar la misma cantidad de cartas del mazo para reemplazarlas. Esto se hace con la intención de mejorar la mano inicial del investigador, dándole una mejor oportunidad de tener un comienzo fuerte en el juego. Esta acción solo se permite una vez al comienzo de la partida, antes de que cualquier acción del juego se lleve a cabo.";
-        public string CARD01501_BUFF => "Reduce cost by 1";
+        public string MULLIGAN_EFFECT1 { get; init; }
+        public string MULLIGAN_EFFECT2 { get; init; }
+        public string MULLIGAN_PHASE_NAME { get; init; }
+        public string MULLIGAN_PHASE_DESCRIPTION { get; init; }
+        public string CARD01501_BUFF { get; init; }
     }
 }

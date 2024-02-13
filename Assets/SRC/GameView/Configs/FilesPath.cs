@@ -1,16 +1,25 @@
-﻿namespace MythsAndHorrors.GameView
+﻿using Zenject;
+
+namespace MythsAndHorrors.GameView
 {
     public class FilesPath
     {
-        public virtual string JSON_CARDINFO_PATH => "Assets/Data/Base/CardsInfo.json";
-        public virtual string JSON_CARDEXTRAINFO_PATH => "Assets/Data/Base/CardsExtraInfo.json";
-        public virtual string JSON_CARD_HISTORIES_PATH => "Assets/Data/Base/CardsHistories.json";
-        public virtual string JSON_CHAPTERINFO_PATH => "Assets/Data/Base/ChaptersInfo.json";
-        public virtual string JSON_INVESTIGATORS_PATH => "Assets/Data/Base/Investigators.json";
-        public virtual string JSON_SAVE_DATA_PATH => "Assets/Data/Save/SaveData.json";
+        [Inject] private readonly DataSaveLoaderUseCase _saveDataLoaderUseCase;
 
-        public virtual string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/Scenes/{sceneName}/Scene.json";
-        public virtual string JSON_HISTORY_PATH(string sceneName) => $"Assets/Data/Base/Scenes/{sceneName}/Histories.json";
-        public virtual string JSON_INVESTIGATOR_PATH(string investigatorCode) => $"Assets/Data/Base/Investigators/{investigatorCode}.json";
+        private Languaje Languaje => _saveDataLoaderUseCase.DataSave.LanguajeSelected;
+        public string JSON_CARDINFO_PATH => $"Assets/Data/Base/{Languaje}/CardsInfo.json";
+        public string JSON_CARDEXTRAINFO_PATH => $"Assets/Data/Base/{Languaje}/CardsExtraInfo.json";
+        public string JSON_CARD_HISTORIES_PATH => $"Assets/Data/Base/{Languaje}/CardsHistories.json";
+        public string JSON_CHAPTERINFO_PATH => $"Assets/Data/Base/{Languaje}/ChaptersInfo.json";
+        public string JSON_GAMETEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/GameText.json";
+        public string JSON_VIEWTEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/ViewText.json";
+
+        /*******************************************************************/
+        public string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Scene.json";
+        public string JSON_HISTORY_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Histories.json";
+        public string JSON_INVESTIGATOR_PATH(string investigatorCode) => $"Assets/Data/Base/{Languaje}/Investigators/{investigatorCode}.json";
+
+        /*******************************************************************/
+        public string JSON_INVESTIGATORS_PATH => $"Assets/Data/Base/{Languaje}/Investigators.json";
     }
 }

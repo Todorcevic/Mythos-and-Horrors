@@ -8,11 +8,11 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameText _gameText;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         string IViewEffect.CardCode => Info.Code;
         string IViewEffect.CardCodeSecundary => Owner.Code;
-        string IViewEffect.Description => _gameText.CARD01501_BUFF;
+        string IViewEffect.Description => _textsProvider.GameText.CARD01501_BUFF;
 
         /*******************************************************************/
         void IBuffable.ActivateBuff()

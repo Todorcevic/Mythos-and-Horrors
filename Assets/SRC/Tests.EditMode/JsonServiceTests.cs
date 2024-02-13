@@ -13,8 +13,15 @@ namespace MythsAndHorrors.EditMode.Tests
         private const string JSON_TEST_DATA_PATH = "Assets/Data/Tests/Test.json";
         [Inject] private readonly JsonService _sut;
         [Inject] private readonly FilesPath _filesPath;
+        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
 
         /*******************************************************************/
+        [SetUp]
+        public void SetUp()
+        {
+            _dataSaveLoaderUseCase.Execute();
+        }
+
         [Test]
         public void CardInfoJson_File_Exist()
         {

@@ -6,11 +6,11 @@ namespace MythsAndHorrors.GameRules
     public class MulliganGameAction : GameAction, IPhase
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
-        [Inject] private readonly GameText _gameText;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         public Investigator Investigator { get; }
-        string IPhase.Name => _gameText.MULLIGAN_PHASE_NAME;
-        string IPhase.Description => _gameText.MULLIGAN_PHASE_DESCRIPTION;
+        string IPhase.Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
+        string IPhase.Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -23,14 +23,14 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Card card in Investigator.HandZone.Cards)
             {
-                card.AddEffect(Investigator, _gameText.MULLIGAN_EFFECT1, DiscardEffect);
+                card.AddEffect(Investigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect);
 
                 Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
             }
 
             foreach (Card card in Investigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
             {
-                card.AddEffect(Investigator, _gameText.MULLIGAN_EFFECT2, RestoreEffect);
+                card.AddEffect(Investigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect);
 
                 Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, Investigator.HandZone));
             }

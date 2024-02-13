@@ -43,7 +43,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         private void InstallerToScene()
         {
             StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-            StaticContext.Container.Bind<FilesPath>().To<TestFilePath>().AsSingle();
         }
 
         private void InstallerToTests()
