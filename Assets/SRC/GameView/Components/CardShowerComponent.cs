@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameView
     {
         private const float X_OFFSET = 6.5f;
         private CloneComponent _currentShowCard;
+        private Tween _showcardSequence;
 
         /*******************************************************************/
         public void ShowCard(CardView cardView)
@@ -17,18 +18,17 @@ namespace MythsAndHorrors.GameView
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = cardView.Clone(transform);
             _currentShowCard.ShowEffects(cardView.Card.PlayableEffects.ToArray());
-            _currentShowCard.DisableGlow();
             _currentShowCard.transform.ResetToZero();
 
-            DOTween.Sequence()
-                .Join(_currentShowCard.transform.DORecolocate().SetEase(Ease.InOutExpo))
-                .SetId(_currentShowCard);
+            _showcardSequence = DOTween.Sequence()
+                .Join(_currentShowCard.DisableGlow())
+                .Join(_currentShowCard.transform.DORecolocate().SetEase(Ease.InOutExpo));
         }
 
         public void HideCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
-            DOTween.Kill(_currentShowCard);
+            _showcardSequence?.Kill();
             Destroy(_currentShowCard.gameObject);
         }
 

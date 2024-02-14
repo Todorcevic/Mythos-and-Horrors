@@ -1067,6 +1067,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1347000323519497104, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7a73025bcc1c9554ea56551093c5cc69, type: 3}
+    - target: {fileID: 4617215027915496625, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617215027915496625, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 7150144120459505034, guid: db1a3cde559c1e34d88ca1c457767b6c, type: 3}
       propertyPath: m_Name
       value: Glow

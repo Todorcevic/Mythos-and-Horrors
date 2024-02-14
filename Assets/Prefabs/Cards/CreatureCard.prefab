@@ -430,10 +430,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4215937149250949353, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4215937149250949353, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.88
+      objectReference: {fileID: 0}
     - target: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Name
       value: CreatureCard
       objectReference: {fileID: 0}
+    - target: {fileID: 7503034030098550728, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce4e34d00617df8479ee6b1752edfe08, type: 2}
     - target: {fileID: 7855043723497567537, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
       value: 5
@@ -512,11 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2004841411285489059 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4541579130041722609, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 2653832444634788690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2601599683950590050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 58251768659200816, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -626,7 +633,6 @@ MonoBehaviour:
   _effectController: {fileID: 5439946156936142475}
   _buffController: {fileID: 2601599683950590050}
   _cloneComponent: {fileID: 6913495037968709584}
-  _collider: {fileID: 2004841411285489059}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
   _skillFearIcon: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}
   _skillHolder: {fileID: 21300000, guid: f5f6b314861eb2244a36caad856d2f37, type: 3}

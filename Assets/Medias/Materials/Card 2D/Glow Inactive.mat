@@ -76,7 +76,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.75
+    - _Alpha: 0.5
     - _AlphaCutoffValue: 0.1
     - _AlphaOutlineBlend: 1
     - _AlphaOutlineGlow: 5

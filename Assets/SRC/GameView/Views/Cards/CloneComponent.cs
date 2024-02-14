@@ -1,6 +1,6 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +17,6 @@ namespace MythsAndHorrors.GameView
 
         public void ShowEffects(Effect[] effects) => _effectController.AddEffects(effects);
 
-        public void DisableGlow() => _glowComponent.gameObject.SetActive(false);
+        public Tween DisableGlow() => _glowComponent.Off();
     }
 }

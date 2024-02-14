@@ -25,8 +25,9 @@ namespace MythsAndHorrors.GameView
 
         private Tween Animation()
         {
-            _spriteRenderer.transform.localScale = Vector3.one;
-            return _spriteRenderer.transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
+            Vector3 currentScale = _spriteRenderer.transform.localScale;
+            _spriteRenderer.transform.localScale = currentScale * 0.8f;
+            return _spriteRenderer.transform.DOScale(currentScale, ViewValues.FAST_TIME_ANIMATION);
         }
     }
 }
