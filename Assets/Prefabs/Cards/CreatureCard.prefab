@@ -442,10 +442,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreatureCard
       objectReference: {fileID: 0}
-    - target: {fileID: 7503034030098550728, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ce4e34d00617df8479ee6b1752edfe08, type: 2}
     - target: {fileID: 7855043723497567537, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_SizeDelta.x
       value: 5

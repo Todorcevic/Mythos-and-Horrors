@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +10,6 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         private CardView _cardView;
-        private Tween tweenToKill;
         private Vector3 _colliderOriginalSize;
 
         public bool IsClickable { get; set; }
@@ -35,14 +33,13 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            tweenToKill?.Kill();
             CardView.CurrentZoneView.MouseEnter(CardView);
             _cardShowerComponent.ShowCard(CardView);
         }
 
         public void OnMouseExit()
         {
-            tweenToKill = CardView.CurrentZoneView.MouseExit(CardView);
+            CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
         }
 

@@ -255,11 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145150b7fdff7d54b9a2cf50e9615a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1023830919469959807 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4541579130041722609, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-  m_PrefabInstance: {fileID: 3545334441379851406}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1330786638716946430 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -369,7 +364,6 @@ MonoBehaviour:
   _effectController: {fileID: 6816570061375242583}
   _buffController: {fileID: 3602173056264382398}
   _cloneComponent: {fileID: 5338572555751483404}
-  _collider: {fileID: 1023830919469959807}
   _hints: {fileID: 1325195686989644074}
 --- !u!4 &7868108235360879443 stripped
 Transform:

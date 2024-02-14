@@ -12,7 +12,7 @@ namespace MythsAndHorrors.GameView
         public const float DELAY_TIME_ANIMATION = 0.016f;
 
         public const float CARD_ORIGINAL_SCALE = 1f;
-        public const float CARD_THICKNESS = 0.05f;
+        public const float CARD_THICKNESS = 0.1f;
         public const string EMPTY_STAT = "0";
         public const float INITIAL_LAYOUT_WIDTH = 24f;
         public const float DEFAULT_FADE = 0.5f;

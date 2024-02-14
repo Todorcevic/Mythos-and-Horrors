@@ -9,8 +9,9 @@ namespace MythsAndHorrors.GameView
 {
     public class ZoneDeckView : ZoneView
     {
-        [SerializeField, Required] protected Transform _movePosition;
-        [SerializeField, Required] protected Transform _hoverPosition;
+        private Tween _hoverAnimation;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
+        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
         private List<CardView> _allCards = new();
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
@@ -30,15 +31,19 @@ namespace MythsAndHorrors.GameView
 
         public override Tween MouseEnter(CardView cardView)
         {
+            _hoverAnimation?.Kill();
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
-            return _allCards.Last().transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
+            _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
+            return _hoverAnimation;
         }
 
         public override Tween MouseExit(CardView cardView)
         {
+            _hoverAnimation?.Kill();
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            return _allCards.Last().transform.DOFullLocalMove(_movePosition);
+            _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_movePosition);
+            return _hoverAnimation;
         }
 
         public override Tween Shuffle()

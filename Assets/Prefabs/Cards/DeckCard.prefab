@@ -1559,10 +1559,6 @@ PrefabInstance:
       propertyPath: _ownerCardView
       value: 
       objectReference: {fileID: 1562043755092353539}
-    - target: {fileID: 1269700630547864476, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 1345709414827164232, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
