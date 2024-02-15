@@ -79,7 +79,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 0.75
-    - _AlphaCutoffValue: 0
+    - _AlphaCutoffValue: 0.131
     - _AlphaOutlineBlend: 1
     - _AlphaOutlineGlow: 1
     - _AlphaOutlineMinAlpha: 0
@@ -87,7 +87,7 @@ Material:
     - _AlphaRoundThreshold: 0.432
     - _BillboardY: 0
     - _BlurHD: 0
-    - _BlurIntensity: 20
+    - _BlurIntensity: 8
     - _Brightness: -0.352
     - _ChromAberrAlpha: 0.4
     - _ChromAberrAmount: 1
@@ -108,9 +108,9 @@ Material:
     - _ColorSwapRedLuminosity: 0.25
     - _Contrast: 2.52
     - _CullingOption: 0
-    - _DistortAmount: 0.2
-    - _DistortTexXSpeed: 1.2
-    - _DistortTexYSpeed: 1.2
+    - _DistortAmount: 0.15
+    - _DistortTexXSpeed: 1.1
+    - _DistortTexYSpeed: 1.1
     - _EditorDrawers: 6
     - _FadeAmount: 0.069
     - _FadeBurnGlow: 2.8
@@ -224,7 +224,7 @@ Material:
     - _WaveY: 0.5
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 1.05
+    - _ZoomUvAmount: 1.01
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 1, b: 0.020439148, a: 1}

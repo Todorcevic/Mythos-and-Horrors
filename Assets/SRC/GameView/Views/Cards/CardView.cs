@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
     public abstract class CardView : MonoBehaviour
     {
         [Title("CardView")]
-        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
@@ -92,7 +92,7 @@ namespace MythsAndHorrors.GameView
                     _description.text += "</b></size>\n";
                 }
 
-                _description.text += "\n<voffset=0.5em>" + (Card.Info.Description ?? Card.Info.Flavor) + "</voffset>";
+                _description.text += "\n<voffset=0.25em>" + (Card.Info.Description ?? Card.Info.Flavor) + "</voffset>";
             }
         }
 

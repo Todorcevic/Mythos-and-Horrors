@@ -160,7 +160,7 @@ namespace MythsAndHorrors.Tools
                 "Hand x2" => new[] { SlotType.Item, SlotType.Item },
                 "Arcane" => new[] { SlotType.Magical },
                 "Arcane x2" => new[] { SlotType.Magical, SlotType.Magical },
-                "Accesory" => new[] { SlotType.Trinket },
+                "Accessory" => new[] { SlotType.Trinket },
                 "Body" => new[] { SlotType.Equipment },
                 _ => new[] { SlotType.None },
             };

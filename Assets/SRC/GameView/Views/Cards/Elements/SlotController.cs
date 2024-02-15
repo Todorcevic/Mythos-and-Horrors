@@ -36,10 +36,6 @@ namespace MythsAndHorrors.GameView
                     case SlotType.Magical:
                         ActivateSlot(_magical);
                         break;
-                    default:
-                        _slot1.transform.parent.gameObject.SetActive(false);
-                        _slot2.transform.parent.gameObject.SetActive(false);
-                        break;
                 }
             }
         }
