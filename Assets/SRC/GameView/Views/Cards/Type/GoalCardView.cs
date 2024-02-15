@@ -6,6 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class GoalCardView : CardView
     {
+        [Title(nameof(GoalCardView))]
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _hints;
 
         /*******************************************************************/

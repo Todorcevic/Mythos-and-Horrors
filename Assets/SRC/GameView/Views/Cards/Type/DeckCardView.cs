@@ -57,8 +57,6 @@ namespace MythsAndHorrors.GameView
 
         private void SetSlots()
         {
-            if (Card.Info.Code == "01559") 
-                Debug.Log("SetSlots");
             _slotController.SetSlots(Card.Info.Slots);
         }
 

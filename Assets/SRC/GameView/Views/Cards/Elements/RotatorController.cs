@@ -11,5 +11,9 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween Rotate(bool rotate) => _rotator.DOLocalRotate(new Vector3(0, 0, rotate ? 180 : 0), ViewValues.DEFAULT_TIME_ANIMATION)
             .SetEase(Ease.OutCubic);
+
+        public Tween Rotate360() => _rotator.DOLocalRotate(new Vector3(0, 0, 360), ViewValues.DEFAULT_TIME_ANIMATION, mode: RotateMode.FastBeyond360)
+            .OnComplete(() => _rotator.localEulerAngles = Vector3.zero)
+            .SetEase(Ease.OutCubic);
     }
 }

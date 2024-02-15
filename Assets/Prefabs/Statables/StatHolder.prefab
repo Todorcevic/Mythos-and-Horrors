@@ -108,7 +108,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291098623
+    rgba: 4292920755
   m_fontColor: {r: 0.7019608, g: 0.77254903, b: 0.8784314, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -223,7 +223,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a9b1ec6883a3d642823ffd15602cc59, type: 2}
+  - {fileID: 2100000, guid: cc1388f83bd568f459ce4cb476bd9446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8473775195063153283
 Transform:
   m_ObjectHideFlags: 0

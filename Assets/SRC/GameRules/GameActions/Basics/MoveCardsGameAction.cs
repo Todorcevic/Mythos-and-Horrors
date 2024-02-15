@@ -13,16 +13,12 @@ namespace MythsAndHorrors.GameRules
         public Zone ToZone { get; }
         public Zone FromZone { get; }
         public bool IsSingleMove => Cards.Count == 1;
-        public List<Card> CardsInOutHand { get; }
 
         /*******************************************************************/
         public MoveCardsGameAction(List<Card> cards, Zone zone)
         {
             Cards = cards;
             ToZone = zone;
-
-            if (ToZone.IsHandZone) CardsInOutHand = Cards;
-            else CardsInOutHand = Cards.FindAll(card => card.IsInHand);
         }
 
         public MoveCardsGameAction(Card card, Zone zone) : this(new List<Card> { card }, zone) { }

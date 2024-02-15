@@ -27,15 +27,7 @@ namespace MythsAndHorrors.GameRules
             RealDangerCards.ForEach(card => card.TurnDown(true));
             await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
-            await MoveAvatars();
-        }
-
-        private async Task MoveAvatars()
-        {
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
-            {
-                await _gameActionFactory.Create(new MoveInvestigatorGameAction(investigator, Studio));
-            }
+            await _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.AllInvestigators, Studio));
         }
     }
 }

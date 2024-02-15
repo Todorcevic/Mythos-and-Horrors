@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class CreatureCardView : CardView
     {
-        [Title("CreatureCardView")]
+        [Title(nameof(CreatureCardView))]
         [SerializeField, Required, AssetsOnly] private Sprite _skillDamageIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillHolder;

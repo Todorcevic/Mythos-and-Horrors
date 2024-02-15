@@ -3,6 +3,7 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
+
     public class ChangePhasePresenter : IPresenter
     {
         async Task IPresenter.CheckGameAction(GameAction gameAction)

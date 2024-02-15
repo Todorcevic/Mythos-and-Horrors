@@ -5,6 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IPresenter
     {
-        Task CheckGameAction(GameAction gamAction);
+        Task CheckGameAction(GameAction gameAction);
     }
 }

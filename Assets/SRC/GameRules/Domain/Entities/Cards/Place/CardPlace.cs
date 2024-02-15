@@ -4,7 +4,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlace : Card, IEndReactionable
+    public interface IRevelable
+    {
+        void Reveal();
+    }
+
+    public class CardPlace : Card, IEndReactionable, IRevelable
     {
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
@@ -18,18 +23,17 @@ namespace MythsAndHorrors.GameRules
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
         }
-
         /*******************************************************************/
+
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            await Task.CompletedTask;
+            if (gameAction is not MoveInvestigatorGameAction moveCardsGameAction) return;
+            if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
+
+            await _gameActionFactory.Create(new RevealCardGameAction(this));
         }
 
-        private void Reveal()
-        {
+        void IRevelable.Reveal() => IsReveled = true;
 
-
-            IsReveled = true;
-        }
     }
 }

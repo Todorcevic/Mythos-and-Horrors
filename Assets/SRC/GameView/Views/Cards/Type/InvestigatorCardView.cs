@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameView
 {
     public class InvestigatorCardView : CardView
     {
+        [Title(nameof(InvestigatorCardView))]
         [SerializeField, Required, AssetsOnly] private List<FactionInvestigatorSO> _factions;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;

@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class AvatarCardView : CardView
     {
-        [Title("AvatarCardView")]
+        [Title(nameof(AvatarCardView))]
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;

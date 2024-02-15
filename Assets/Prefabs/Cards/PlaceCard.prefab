@@ -23,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9ca94703a16d74e4ea7d352ee8def309, type: 3}
+      objectReference: {fileID: 21300000, guid: 44d71b3298c254c41afdb949fec298e2, type: 3}
     - target: {fileID: 912258379143200154, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
       propertyPath: _ownerCardView
       value: 
@@ -362,7 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 002b0cf4e15e3f54e9477d5a2083339e, type: 3}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -473,6 +473,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 741c8f52ccaf30c4794a4e3b95552d77, type: 3}
+    - target: {fileID: 4174958607158802831, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4174958607158802831, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4174958607158802831, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5196269710735338531, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -523,7 +535,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: f9e643979e44c7142af07d5c8ffae301, type: 3}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6873506989783419329, guid: 0d8eb38b53c77774298c283dde3562c0, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlot : Card, IEndReactionable
+    public class CardPlot : Card, IEndReactionable, IRevelable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
@@ -27,7 +27,6 @@ namespace MythsAndHorrors.GameRules
 
             if (CanShowFinalHistory(gameAction))
                 await _gameActionRepository.Create(new ShowHistoryGameAction(Histories[1]));
-
         }
 
         protected virtual bool CanShowInitialHistory(GameAction gameAction)
@@ -35,6 +34,7 @@ namespace MythsAndHorrors.GameRules
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
+            if (Histories == null || Histories.Count < 1) return false;
 
             return true;
         }
@@ -43,8 +43,14 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not AddEldritchGameAction addEldritchGameAction) return false;
             if (Eldritch.Value < Info.Eldritch) return false;
+            if (Histories == null || Histories.Count < 2) return false;
 
             return true;
+        }
+
+        void IRevelable.Reveal()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

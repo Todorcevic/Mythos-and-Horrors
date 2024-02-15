@@ -6,6 +6,7 @@ namespace MythsAndHorrors.GameView
 {
     public class PlotCardView : CardView
     {
+        [Title(nameof(PlotCardView))]
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritch;
 
         /*******************************************************************/

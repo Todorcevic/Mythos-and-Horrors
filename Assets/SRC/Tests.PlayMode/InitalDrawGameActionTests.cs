@@ -8,11 +8,12 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
+
     public class InitalDrawGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         //protected override bool DEBUG_MODE => true;

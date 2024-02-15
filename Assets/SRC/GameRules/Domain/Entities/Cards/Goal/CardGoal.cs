@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardGoal : Card
+    public class CardGoal : Card, IRevelable
     {
         public Stat Hints { get; private set; }
 
@@ -13,6 +13,12 @@ namespace MythsAndHorrors.GameRules
         private void Init()
         {
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
+        }
+
+        /*******************************************************************/
+        void IRevelable.Reveal()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
