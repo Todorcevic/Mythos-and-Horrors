@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Zenject;
@@ -19,12 +20,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         private async Task RevealCardWith(CardPlace cardPlace)
         {
-            CardView cardToReveal = _cardViewsManager.GetCardView(cardPlace);
+            if (_cardViewsManager.GetCardView(cardPlace) is not PlaceCardView placeCardView) return;
 
-            if (cardToReveal is PlaceCardView placeCardView)
-            {
-                await placeCardView.RevealAnimation().AsyncWaitForCompletion();
-            }
+            await placeCardView.RevealAnimation()
+                .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, placeCardView.RevealInfo).AsyncWaitForCompletion();
         }
     }
 }

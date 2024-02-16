@@ -17,8 +17,5 @@ namespace MythsAndHorrors.GameView
                 _eldritch.SetStat(_plot.Eldritch);
             }
         }
-
-        /*******************************************************************/
-        public override void UpdateState() { }
     }
 }

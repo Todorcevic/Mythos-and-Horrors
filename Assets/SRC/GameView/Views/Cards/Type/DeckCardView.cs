@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class DeckCardView : CardView
+    public class DeckCardView : CardView, IUpdatable
     {
         [Title(nameof(DeckCardView))]
         [SerializeField, Required, AssetsOnly] private List<FactionDeckSO> _factions;
@@ -91,7 +91,7 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public override void UpdateState()
+        public void UpdateState()
         {
             ChangeColorResource();
             ChangeSlotColor();

@@ -1,11 +1,16 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
     public class CardGoal : Card
     {
+        [Inject] private readonly List<History> _histories;
+
         public Stat Hints { get; private set; }
+        public History InitialHistory => _histories[0];
+        public History FinalHistory => _histories[1];
 
         /*******************************************************************/
         [Inject]

@@ -11,10 +11,8 @@ using Zenject;
 namespace MythsAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class ShowHistoryGameActionTests : TestBase
+    public class ShowHistoryests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
         //protected override bool DEBUG_MODE => true;
@@ -23,7 +21,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Show_History()
         {
-            _prepareGameUse.Execute();
             History sutHistory = new()
             {
                 Title = "Title",
@@ -35,7 +32,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             do
             {
-                yield return _gameActionFactory.Create(new ShowHistoryGameAction(sutHistory)).AsCoroutine();
+                yield return _showHistoryComponent.Show(sutHistory).AsCoroutine();
             }
             while (DEBUG_MODE);
 

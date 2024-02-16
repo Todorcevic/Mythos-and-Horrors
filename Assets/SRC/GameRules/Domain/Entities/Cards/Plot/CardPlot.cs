@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,10 +7,13 @@ namespace MythsAndHorrors.GameRules
 {
     public class CardPlot : Card, IEndReactionable
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
+        [Inject] private readonly List<History> _histories;
+        [Inject] private readonly IShowHistory _showHistory;
 
         public Stat Eldritch { get; private set; }
+        public History InitialHistory => _histories[0];
+        public History FinalHistory => _histories[1];
 
         /*******************************************************************/
         [Inject]
@@ -22,13 +26,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public async virtual Task WhenFinish(GameAction gameAction)
         {
-            if (CanShowInitialHistory(gameAction))
-                await _gameActionRepository.Create(new ShowHistoryGameAction(Histories[0]));
-
-            if (CanShowFinalHistory(gameAction))
-            {
-                await _gameActionRepository.Create(new ShowHistoryGameAction(Histories[1]));
-            }
+            if (CanShowInitialHistory(gameAction)) await _showHistory.Show(InitialHistory);
+            if (CanShowFinalHistory(gameAction)) await _showHistory.Show(FinalHistory);
         }
 
         protected virtual bool CanShowInitialHistory(GameAction gameAction)
@@ -36,7 +35,7 @@ namespace MythsAndHorrors.GameRules
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
-            if (Histories == null || Histories.Count < 1) return false;
+            if (_histories == null || _histories.Count < 1) return false;
 
             return true;
         }
@@ -45,7 +44,7 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not AddEldritchGameAction addEldritchGameAction) return false;
             if (Eldritch.Value < Info.Eldritch) return false;
-            if (Histories == null || Histories.Count < 2) return false;
+            if (_histories == null || _histories.Count < 2) return false;
 
             return true;
         }

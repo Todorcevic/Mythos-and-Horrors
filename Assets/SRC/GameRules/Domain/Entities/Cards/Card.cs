@@ -15,7 +15,6 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
 
-        [Inject] public List<History> Histories { get; }
         public virtual CardInfo Info => _info;
         public Zone OwnZone { get; private set; }
         public bool IsFaceDown { get; private set; }

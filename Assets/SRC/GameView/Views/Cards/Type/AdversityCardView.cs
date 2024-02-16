@@ -7,7 +7,5 @@ namespace MythsAndHorrors.GameView
         [Title(nameof(AdversityCardView))]
         protected override void SetSpecific() { }
 
-        /*******************************************************************/
-        public override void UpdateState() { }
     }
 }

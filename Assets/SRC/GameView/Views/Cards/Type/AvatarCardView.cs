@@ -20,7 +20,5 @@ namespace MythsAndHorrors.GameView
             _sanity.SetStat(Investigator.InvestigatorCard.Sanity);
             _turnController.Init(Investigator.InvestigatorCard.Turns);
         }
-        /*******************************************************************/
-        public override void UpdateState() { }
     }
 }

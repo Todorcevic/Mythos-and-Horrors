@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -25,20 +24,7 @@ namespace MythsAndHorrors.GameView
             }
         }
 
-        /*******************************************************************/
-        public override void UpdateState() { }
-
-        public Tween RevealAnimation()
-        {
-            return DOTween.Sequence().Append(DOTween.Sequence()
-                .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)))
-                .Join(_rotator.Rotate360(ViewValues.DEFAULT_TIME_ANIMATION * 2))
-                .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
-        }
-
-
-        private void RevealInfo()
+        public void RevealInfo()
         {
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description ?? Card.Info.Flavor;

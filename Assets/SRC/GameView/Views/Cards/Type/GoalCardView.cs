@@ -17,8 +17,5 @@ namespace MythsAndHorrors.GameView
                 _hints.SetStat(_goal.Hints);
             }
         }
-
-        /*******************************************************************/
-        public override void UpdateState() { }
     }
 }

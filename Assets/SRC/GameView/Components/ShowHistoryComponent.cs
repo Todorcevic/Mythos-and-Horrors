@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryComponent : MonoBehaviour
+    public class ShowHistoryComponent : MonoBehaviour, IShowHistory
     {
         private TaskCompletionSource<bool> waitForClicked;
         [SerializeField, Required, SceneObjectsOnly] Transform _outPosition;

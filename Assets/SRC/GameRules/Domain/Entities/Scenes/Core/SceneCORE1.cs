@@ -10,6 +10,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly IShowHistory _showHistory;
 
         private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
         private Card FirstPlot => _cardsProvider.GetCard("01105");
@@ -21,7 +22,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Info.Description));
+            await _showHistory.Show(Info.Description);
             await _gameActionFactory.Create(new MoveCardsGameAction(FirstPlot, PlotZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(FirstGoal, GoalZone));
             RealDangerCards.ForEach(card => card.TurnDown(true));

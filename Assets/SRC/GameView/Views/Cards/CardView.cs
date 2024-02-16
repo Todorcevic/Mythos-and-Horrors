@@ -111,6 +111,11 @@ namespace MythsAndHorrors.GameView
             return moveSequence;
         }
 
+        public Sequence RevealAnimation() => DOTween.Sequence().Append(DOTween.Sequence()
+                .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)))
+                .Join(_rotator.Rotate360(ViewValues.DEFAULT_TIME_ANIMATION * 2));
+
         public void ShowBuffsAndEffects()
         {
             _effectController.AddEffects(Card.PlayableEffects.ToArray());
@@ -132,8 +137,5 @@ namespace MythsAndHorrors.GameView
         public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);
 
         public void ColliderRespore() => _cardSensor.ColliderDown();
-
-        /*******************************************************************/
-        public abstract void UpdateState();
     }
 }

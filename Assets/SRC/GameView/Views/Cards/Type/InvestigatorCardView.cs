@@ -44,8 +44,5 @@ namespace MythsAndHorrors.GameView
                 _power.SetStat(_cardInvestigator.Power, holderImage);
             }
         }
-
-        /*******************************************************************/
-        public override void UpdateState() { }
     }
 }

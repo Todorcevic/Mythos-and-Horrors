@@ -2,7 +2,7 @@
 {
     public interface IPhase
     {
-        public string Name { get; }
-        public string Description { get; }
+        string Name { get; }
+        string Description { get; }
     }
 }

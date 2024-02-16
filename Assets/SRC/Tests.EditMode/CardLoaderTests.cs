@@ -34,9 +34,9 @@ namespace MythsAndHorrors.EditMode.Tests
         [Test]
         public void LoadCardWithHistory()
         {
-            Card result = _sut.Execute("01105");
+            CardPlot result = _sut.Execute("01105") as CardPlot;
 
-            Assert.That(result.Histories.Count, Is.EqualTo(2));
+            Assert.That(result.FinalHistory.Description, Is.Not.Empty);
         }
     }
 }
