@@ -1,4 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -24,7 +25,10 @@ namespace MythsAndHorrors.GameView
             }
         }
 
-        public void RevealInfo()
+        public override Sequence RevealAnimation() => base.RevealAnimation()
+            .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
+
+        private void RevealInfo()
         {
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description ?? Card.Info.Flavor;

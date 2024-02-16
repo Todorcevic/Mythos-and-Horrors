@@ -4,21 +4,22 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class RevealPlaceGameAction : GameAction
+    public class RevealGameAction : GameAction
     {
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
-        public CardPlace Card { get; init; }
+        public IRevellable RevellableCard { get; init; }
 
         /*******************************************************************/
-        public RevealPlaceGameAction(CardPlace cardPlaceReveled)
+        public RevealGameAction(IRevellable cardReveled)
         {
-            Card = cardPlaceReveled;
+            RevellableCard = cardReveled;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            RevellableCard.Reveal();
             await _viewLayerProvider.PlayAnimationWith(this);
         }
     }

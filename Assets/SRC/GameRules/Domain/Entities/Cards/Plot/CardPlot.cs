@@ -5,15 +5,16 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlot : Card, IEndReactionable
+    public class CardPlot : Card, IEndReactionable, IRevellable
     {
+        private bool _isRevealed;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly List<History> _histories;
-        [Inject] private readonly IShowHistory _showHistory;
 
         public Stat Eldritch { get; private set; }
         public History InitialHistory => _histories[0];
         public History FinalHistory => _histories[1];
+
 
         /*******************************************************************/
         [Inject]
@@ -24,14 +25,17 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async virtual Task WhenFinish(GameAction gameAction)
+        async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            if (CanShowInitialHistory(gameAction)) await _showHistory.Show(InitialHistory);
-            if (CanShowFinalHistory(gameAction)) await _showHistory.Show(FinalHistory);
+            if (CanShowInitialHistory(gameAction)) await _gameActionFactory.Create(new RevealGameAction(this)); //TODO ShowHistoryGameAction wellcome
+            if (CanShowFinalHistory(gameAction)) await _gameActionFactory.Create(new RevealGameAction(this));
         }
+
+        void IRevellable.Reveal() => _isRevealed = true;
 
         protected virtual bool CanShowInitialHistory(GameAction gameAction)
         {
+            if (_isRevealed) return false;
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
@@ -42,11 +46,15 @@ namespace MythsAndHorrors.GameRules
 
         protected virtual bool CanShowFinalHistory(GameAction gameAction)
         {
-            if (gameAction is not AddEldritchGameAction addEldritchGameAction) return false;
+            if (_isRevealed) return false;
+            if (gameAction is not StatGameAction statGameAction) return false;
+            if (statGameAction.Stat != Eldritch) return false;
             if (Eldritch.Value < Info.Eldritch) return false;
             if (_histories == null || _histories.Count < 2) return false;
 
             return true;
         }
+
+
     }
 }

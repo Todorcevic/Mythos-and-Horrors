@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class StartChapterGameAction : GameAction
     {
-        [Inject] private readonly IShowHistory _showHistory;
+        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
         public ChapterInfo Chapter { get; }
 
@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _showHistory.Show(Chapter.Description);
+            await _viewLayerProvider.PlayAnimationWith(this);
         }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryComponent : MonoBehaviour, IShowHistory
+    public class ShowHistoryComponent : MonoBehaviour, IPresenter
     {
         private TaskCompletionSource<bool> waitForClicked;
         [SerializeField, Required, SceneObjectsOnly] Transform _outPosition;
@@ -26,6 +26,12 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
+        async Task IPresenter.CheckGameAction(GameAction gameAction)
+        {
+            if (gameAction is StartChapterGameAction showHistoryGameAction) await Show(showHistoryGameAction.Chapter.Description);
+            if (gameAction is PrepareSceneGameAction showHistorySceneGameAction) await Show(showHistorySceneGameAction.Scene.Info.Description);
+        }
+
         public async Task Show(History history)
         {
             waitForClicked = new();

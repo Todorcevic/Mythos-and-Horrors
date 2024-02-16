@@ -153,8 +153,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is PlaceCardView);
-            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name2));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description2));
             Assert.That(result.transform.GetTextFromThis("Enigma"), Is.EqualTo(card.Info.Enigma.ToString()));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
             yield return null;

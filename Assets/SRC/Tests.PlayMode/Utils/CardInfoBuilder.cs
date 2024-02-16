@@ -131,9 +131,11 @@ namespace MythsAndHorrors.PlayMode.Tests
             currentCardInfo = new CardInfo()
             {
                 Description = GetRandomName(),
+                Description2 = GetRandomName(),
                 CardType = GetRandomCardType(),
                 Code = rand.Next(10000, 99999).ToString(),
                 Name = GetRandomName(),
+                Name2 = GetRandomName(),
                 Faction = (Faction)rand.Next(1, 6),
                 Health = rand.Next(1, 4),
                 Sanity = rand.Next(1, 4),
