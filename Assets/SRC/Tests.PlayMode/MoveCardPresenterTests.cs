@@ -5,6 +5,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
@@ -19,6 +20,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -47,8 +49,9 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.Leader;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards[0];
-
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
+            WaitToClickHistoryPanel().AsTask();
+
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, cardPlace)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

@@ -25,14 +25,10 @@ namespace MythsAndHorrors.PlayMode.Tests
         public IEnumerator Update_Investigator_Stats()
         {
             _prepareGameUse.Execute();
-            CardPlace placeCard = _chaptersProvider.CurrentScene.Info.PlaceCards[0];
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(placeCard, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.Leader, placeCard)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Health, 3)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Turns, 2)).AsCoroutine();
-
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -41,7 +37,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<StatUIView>("_healthStat").Stat.Value, Is.EqualTo(3));
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(2));
         }
-
 
         [UnityTest]
         public IEnumerator Move_Resource_From_Card()

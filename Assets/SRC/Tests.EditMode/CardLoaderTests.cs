@@ -36,7 +36,7 @@ namespace MythsAndHorrors.EditMode.Tests
         {
             CardPlot result = _sut.Execute("01105") as CardPlot;
 
-            Assert.That(result.FinalHistory.Description, Is.Not.Empty);
+            Assert.That(result.RevealHistory.Description, Is.Not.Empty);
         }
     }
 }

@@ -2,11 +2,6 @@
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IRevellable
-    {
-        void Reveal();
-    }
-
     public interface IBuffable : IViewEffect
     {
         void ActivateBuff();

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlace : Card, IEndReactionable, IRevellable
+    public class CardPlace : Card, IEndReactionable
     {
         private bool _isReveled;
         [Inject] private readonly List<History> _histories;
@@ -24,15 +24,20 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        void IRevellable.Reveal() => _isReveled = true;
-
-        async Task IEndReactionable.WhenFinish(GameAction gameAction)
+        public virtual async Task WhenFinish(GameAction gameAction)
         {
             if (_isReveled) return;
             if (gameAction is not MoveInvestigatorGameAction moveCardsGameAction) return;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
 
+            await Reveal();
+        }
+
+        protected virtual async Task Reveal()
+        {
+            _isReveled = true;
             await _gameActionFactory.Create(new RevealGameAction(this));
+            await _gameActionFactory.Create(new ShowHistoryGameAction(RevealHistory));
         }
     }
 }

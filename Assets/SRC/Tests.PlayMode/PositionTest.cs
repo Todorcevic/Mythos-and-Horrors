@@ -33,8 +33,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(9, 5), investigator1.DangerZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(15, 8), investigator1.HandZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(24, 4), investigator1.DiscardZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[0], _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[1], _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[30], _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[31], _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards.GetRange(24, 4), _chaptersProvider.CurrentScene.DangerDiscardZone)).AsCoroutine();
 

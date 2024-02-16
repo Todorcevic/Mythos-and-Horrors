@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public History InitialHistory => _histories[0];
-        public History FinalHistory => _histories[1];
+        public History RevealHistory => _histories[1];
 
         /*******************************************************************/
         [Inject]
@@ -28,30 +28,37 @@ namespace MythsAndHorrors.GameRules
 
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            if (CanShowInitialHistory(gameAction)) await _gameActionFactory.Create(new RevealGameAction(this)); //TODO ShowHistoryGameAction wellcome
-            if (CanShowFinalHistory(gameAction)) await _gameActionFactory.Create(new RevealGameAction(this));
+            await CanShowInitialHistory(gameAction);
+            await CanShowFinalHistory(gameAction);
         }
 
-        protected virtual bool CanShowInitialHistory(GameAction gameAction)
+        protected virtual async Task CanShowInitialHistory(GameAction gameAction)
         {
-            if (_isRevealed) return false;
-            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
-            if (!moveCardsGameAction.Cards.Contains(this)) return false;
-            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.GoalZone) return false;
-            if (_histories == null || _histories.Count < 1) return false;
+            if (_isRevealed) return;
+            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
+            if (!moveCardsGameAction.Cards.Contains(this)) return;
+            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.GoalZone) return;
+            if (_histories == null || _histories.Count < 1) return;
 
-            return true;
+            await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory));
         }
 
-        protected virtual bool CanShowFinalHistory(GameAction gameAction)
+        protected virtual async Task CanShowFinalHistory(GameAction gameAction)
         {
-            if (_isRevealed) return false;
-            if (gameAction is not StatGameAction statGameAction) return false;
-            if (statGameAction.Stat != Hints) return false;
-            if (Hints.Value < Info.Hints) return false;
-            if (_histories == null || _histories.Count < 2) return false;
+            if (_isRevealed) return;
+            if (gameAction is not StatGameAction statGameAction) return;
+            if (statGameAction.Stat != Hints) return;
+            if (Hints.Value < Info.Hints) return;
+            if (_histories == null || _histories.Count < 2) return;
 
-            return true;
+            await Reveal();
+        }
+
+        protected virtual async Task Reveal()
+        {
+            _isRevealed = true;
+            await _gameActionFactory.Create(new RevealGameAction(this));
+            await _gameActionFactory.Create(new ShowHistoryGameAction(RevealHistory));
         }
     }
 }

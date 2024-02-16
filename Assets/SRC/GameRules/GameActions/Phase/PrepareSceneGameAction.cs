@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class PrepareSceneGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Scene Scene { get; }
 
@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _viewLayerProvider.PlayAnimationWith(this);
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Scene.Info.Description));
             await Scene.PrepareScene();
         }
     }

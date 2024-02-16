@@ -8,22 +8,17 @@ namespace MythsAndHorrors.GameView
     public class RevealCardPresenter : IPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gameAction)
         {
-            if (gameAction is RevealGameAction revealCard && revealCard.RevellableCard is CardPlace cardPlace)
-                await RevealCardPlaceWith(cardPlace);
+            if (gameAction is RevealGameAction revealCard) await RevealCardPlaceWith(revealCard.Card);
         }
 
         /*******************************************************************/
-        private async Task RevealCardPlaceWith(CardPlace cardPlace)
+        private async Task RevealCardPlaceWith(Card card)
         {
-            if (_cardViewsManager.GetCardView(cardPlace) is not PlaceCardView placeCardView) return;
-
-            await placeCardView.RevealAnimation().AsyncWaitForCompletion();
-            await _showHistoryComponent.Show(cardPlace.RevealHistory);
+            await _cardViewsManager.GetCardView(card).RevealAnimation().AsyncWaitForCompletion();
         }
     }
 }

@@ -1,14 +1,18 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameView;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {
+
+
         protected virtual bool DEBUG_MODE => false;
 
         /*******************************************************************/
@@ -55,5 +59,12 @@ namespace MythsAndHorrors.PlayMode.Tests
         protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
 
         protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
+
+        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
+        protected IEnumerator WaitToClickHistoryPanel()
+        {
+            yield return new WaitUntil(() => _showHistoryComponent.GetPrivateMember<Button>("_button").interactable);
+            _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
+        }
     }
 }

@@ -28,8 +28,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gameAction)
         {
-            if (gameAction is StartChapterGameAction showHistoryGameAction) await Show(showHistoryGameAction.Chapter.Description);
-            if (gameAction is PrepareSceneGameAction showHistorySceneGameAction) await Show(showHistorySceneGameAction.Scene.Info.Description);
+            if (gameAction is ShowHistoryGameAction showHistoryGameAction) await Show(showHistoryGameAction.History);
         }
 
         public async Task Show(History history)

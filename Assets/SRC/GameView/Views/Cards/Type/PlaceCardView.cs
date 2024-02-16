@@ -28,6 +28,7 @@ namespace MythsAndHorrors.GameView
         public override Sequence RevealAnimation() => base.RevealAnimation()
             .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
 
+
         private void RevealInfo()
         {
             _title.text = Card.Info.Name;

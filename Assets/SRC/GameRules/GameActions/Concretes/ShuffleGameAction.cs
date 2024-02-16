@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
+
     public class ShuffleGameAction : GameAction
     {
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;

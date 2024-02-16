@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -7,19 +6,19 @@ namespace MythsAndHorrors.GameRules
     public class RevealGameAction : GameAction
     {
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public IRevellable RevellableCard { get; init; }
+        public Card Card { get; }
 
         /*******************************************************************/
-        public RevealGameAction(IRevellable cardReveled)
+        public RevealGameAction(Card cardReveled)
         {
-            RevellableCard = cardReveled;
+            Card = cardReveled;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            RevellableCard.Reveal();
             await _viewLayerProvider.PlayAnimationWith(this);
         }
     }

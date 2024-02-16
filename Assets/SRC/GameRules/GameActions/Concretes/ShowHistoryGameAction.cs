@@ -3,22 +3,22 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class StartChapterGameAction : GameAction
+    public class ShowHistoryGameAction : GameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
-        public ChapterInfo Chapter { get; }
+        public History History { get; }
 
         /*******************************************************************/
-        public StartChapterGameAction(ChapterInfo chapter)
+        public ShowHistoryGameAction(History history)
         {
-            Chapter = chapter;
+            History = history;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Chapter.Description));
+            await _viewLayerProvider.PlayAnimationWith(this);
         }
     }
 }

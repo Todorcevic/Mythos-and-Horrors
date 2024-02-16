@@ -28,7 +28,7 @@ namespace MythsAndHorrors.PlayMode.Tests
                 Image = "01105",
             };
 
-            WaitToClick().AsTask();
+            WaitToClickHistoryPanel().AsTask();
 
             do
             {
@@ -39,12 +39,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             Assert.That(_showHistoryComponent.GetPrivateMember<TextMeshProUGUI>("_title").text, Is.EqualTo(sutHistory.Title));
             Assert.That(_showHistoryComponent.GetPrivateMember<TextMeshProUGUI>("_content").text, Is.EqualTo(sutHistory.Description));
             Assert.That(_showHistoryComponent.GetPrivateMember<Image>("_screen").sprite.name, Is.EqualTo(sutHistory.Image));
-        }
-
-        private IEnumerator WaitToClick()
-        {
-            yield return new WaitUntil(() => _showHistoryComponent.GetPrivateMember<Button>("_button").interactable);
-            _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
         }
     }
 }

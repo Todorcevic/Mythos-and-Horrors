@@ -113,8 +113,9 @@ namespace MythsAndHorrors.GameView
 
         public virtual Sequence RevealAnimation() => DOTween.Sequence().Append(DOTween.Sequence()
                 .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)))
-                .Join(_rotator.Rotate360(ViewValues.DEFAULT_TIME_ANIMATION * 2));
+                .Join(_rotator.FakeRotate(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
+                .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
+            );
 
         public void ShowBuffsAndEffects()
         {
