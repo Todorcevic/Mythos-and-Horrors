@@ -72,27 +72,33 @@
         "Image": "01110b"
     },
     {
-        "Code": "01109b",
-        "Title": "",
-        "Description": "",
-        "Image": "01109b"
+        "Code": "01111",
+        "Title": "Derrumbamiento",
+        "Description": "Enormes rocas y escombros se han desprendido violentamente, obstruyendo la entrada y eliminando cualquier camino evidente de retorno al campamento base. La única iluminación disponible emana de linternas y lámparas, proyectando sombras fluctuantes sobre las paredes de piedra.",
+        "Image": "01111"
     },
     {
-        "Code": "01109b",
-        "Title": "",
-        "Description": "",
-        "Image": "01109b"
+        "Code": "01112",
+        "Title": "Pasaje Subterráneo",
+        "Description": "Las paredes rocosas del pasaje empiezan a revelar indicios de transformación. El suelo pétreo se metamorfosea lentamente en una senda de tierra apisonada, mientras que las paredes de la caverna muestran manchas de barro y raíces entrelazadas. Este cambio en el ambiente evoca la impresión de haber ingresado en un dominio distinto, como si la cueva condujera a un espacio o dimensión ajena.",
+        "Image": "01112"
     },
     {
-        "Code": "01109b",
-        "Title": "",
-        "Description": "",
-        "Image": "01109b"
+        "Code": "01113",
+        "Title": "Cámara Elevada en la Cueva",
+        "Description": "Al acercarse a esta área elevada, un olor fétido y penetrante se apodera del ambiente, evocando carne en descomposición y exacerbando una sensación de malestar y alerta. La cámara elevada, claramente formada por procesos naturales, muestra signos de haber sido alterada con el tiempo, posiblemente por antiguos habitantes de la cueva o por fuerzas enigmáticas.\nDentro de la cámara, se descubre una escena escalofriante y sorprendente. Colgado de una formación rocosa del techo, yace el cadáver ensangrentado de una criatura deformada, suspendido de manera macabra como si se tratara de carne en un matadero. La sangre de la criatura cae en gotas, acumulándose en un pequeño receptáculo natural en el suelo, formado por las rocas de la propia cueva.\nLa visión de este cadáver y su macabra exposición despierta una mezcla de horror y preguntas. Surge la curiosidad sobre la naturaleza de la criatura, cómo llegó a ese lugar y el posible significado detrás de su presencia.",
+        "Image": "01113"
     },
     {
-        "Code": "01109b",
-        "Title": "",
-        "Description": "",
-        "Image": "01109b"
+        "Code": "01114",
+        "Title": "Descenso Helado en la Cueva",
+        "Description": "Las rocas y formaciones naturales utilizadas como escaleras en este descenso están recubiertas de una fina capa de hielo, volviéndolas peligrosamente resbaladizas. El aire se torna notablemente más frío al acercarse a esta área, un cambio sorprendente considerando la temperatura habitual de la cueva.\nEn vez de una continuación de la cueva rocosa, se revela una extensa red de túneles y cavernas completamente cubiertas de hielo. Las formaciones de hielo y las estalactitas brillan bajo la luz de las linternas, creando un paisaje cautivador.\nEl frío en esta área es intenso, calando profundamente. El aire, casi congelado, da lugar a un ambiente que combina belleza y peligro. ",
+        "Image": "01114"
+    },
+    {
+        "Code": "01115",
+        "Title": "Vestíbulo de la Barrera Mística",
+        "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+        "Image": "01115"
     }
 ]

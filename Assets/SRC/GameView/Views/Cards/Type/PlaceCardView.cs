@@ -28,12 +28,17 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override void UpdateState() { }
 
-        public Tween RevealAnimation() =>
-            DOTween.Sequence()
-            .Append(_rotator.Rotate360())
-            .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION * 0.5f, ChangeInfo);
+        public Tween RevealAnimation()
+        {
+            return DOTween.Sequence().Append(DOTween.Sequence()
+                .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)))
+                .Join(_rotator.Rotate360(ViewValues.DEFAULT_TIME_ANIMATION * 2))
+                .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
+        }
 
-        private void ChangeInfo()
+
+        private void RevealInfo()
         {
             _title.text = Card.Info.Name;
             _description.text = Card.Info.Description ?? Card.Info.Flavor;

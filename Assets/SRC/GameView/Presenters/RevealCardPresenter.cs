@@ -7,30 +7,24 @@ namespace MythsAndHorrors.GameView
 {
     public class RevealCardPresenter : IPresenter
     {
-        [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gameAction)
         {
-            if (gameAction is RevealCardGameAction revealCard)
-                await RevealCardWith(revealCard);
+            if (gameAction is RevealPlaceGameAction revealCard)
+                await RevealCardWith(revealCard.Card);
         }
 
         /*******************************************************************/
-        private async Task RevealCardWith(RevealCardGameAction revealCard)
+        private async Task RevealCardWith(CardPlace cardPlace)
         {
-            CardView cardToReveal = _cardViewsManager.GetCardView(revealCard.Card);
+            CardView cardToReveal = _cardViewsManager.GetCardView(cardPlace);
 
             if (cardToReveal is PlaceCardView placeCardView)
-                await RevealAnimation(placeCardView);
-        }
-
-        private async Task RevealAnimation(PlaceCardView placeCardView)
-        {
-            await _moveCardHandler.MoveCardToCenter(placeCardView);
-            await placeCardView.RevealAnimation().AsyncWaitForCompletion();
-            await _moveCardHandler.MoveCardWithPreviewToZone(placeCardView.Card, placeCardView.Card.CurrentZone);
+            {
+                await placeCardView.RevealAnimation().AsyncWaitForCompletion();
+            }
         }
     }
 }

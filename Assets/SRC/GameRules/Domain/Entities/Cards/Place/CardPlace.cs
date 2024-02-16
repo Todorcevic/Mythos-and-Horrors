@@ -1,19 +1,16 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public interface IRevelable
+    public class CardPlace : Card, IEndReactionable
     {
-        void Reveal();
-    }
+        private bool isReveled;
 
-    public class CardPlace : Card, IEndReactionable, IRevelable
-    {
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
-        public bool IsReveled { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -27,13 +24,13 @@ namespace MythsAndHorrors.GameRules
 
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
+            if (isReveled) return;
             if (gameAction is not MoveInvestigatorGameAction moveCardsGameAction) return;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
 
-            await _gameActionFactory.Create(new RevealCardGameAction(this));
+            isReveled = true;
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Histories.First()));
+            await _gameActionFactory.Create(new RevealPlaceGameAction(this));
         }
-
-        void IRevelable.Reveal() => IsReveled = true;
-
     }
 }

@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class OutZoneView : ZoneView
+    public class ZoneOutView : ZoneView
     {
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
 
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView) =>

@@ -3,26 +3,21 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class RevealCardGameAction : GameAction
+    public class RevealPlaceGameAction : GameAction
     {
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
-        public IRevelable RevelableCard { get; }
-        public Card Card => RevelableCard as Card;
-        public bool IsPlaceReveled => RevelableCard is CardPlace;
-        public bool IsPlotReveled => RevelableCard is CardPlot;
-        public bool IsGoalReveled => RevelableCard is CardGoal;
+        public CardPlace Card { get; init; }
 
         /*******************************************************************/
-        public RevealCardGameAction(IRevelable revelableCard)
+        public RevealPlaceGameAction(CardPlace cardPlaceReveled)
         {
-            RevelableCard = revelableCard;
+            Card = cardPlaceReveled;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            RevelableCard.Reveal();
             await _viewLayerProvider.PlayAnimationWith(this);
         }
     }
