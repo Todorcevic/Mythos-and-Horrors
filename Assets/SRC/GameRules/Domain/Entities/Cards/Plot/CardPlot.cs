@@ -40,7 +40,7 @@ namespace MythsAndHorrors.GameRules
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return;
             if (_histories == null || _histories.Count < 1) return;
 
-            await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory));
+            await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
         }
 
         protected virtual async Task CanShowFinalHistory(GameAction gameAction)

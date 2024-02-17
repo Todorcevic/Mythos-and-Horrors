@@ -3683,8 +3683,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.24734452
+  m_Value: 1.0000002
+  m_Size: 0.24734455
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4840,6 +4840,7 @@ MonoBehaviour:
   _content: {fileID: 1480674529}
   _screen: {fileID: 942543336}
   _button: {fileID: 858062149}
+  canvas: {fileID: 2099084357}
 --- !u!114 &1680896923
 MonoBehaviour:
   m_ObjectHideFlags: 0

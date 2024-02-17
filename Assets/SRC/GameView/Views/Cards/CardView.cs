@@ -79,21 +79,23 @@ namespace MythsAndHorrors.GameView
             name = Card.Info.Code;
             _ownZoneCardView.Init(Card.OwnZone);
             _title.text = Card.Info.Name;
-            SetDescription();
+            SetDescription(Card.Info.Description ?? Card.Info.Flavor);
 
-            void SetDescription()
+
+        }
+
+        protected void SetDescription(string description)
+        {
+            _description.text = "";
+            if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
             {
-                _description.text = "";
-                if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
-                {
-                    _description.text = "<size=3><b>";
-                    Card.Info.Tags.ForEach(tag => _description.text += tag + " - ");
-                    _description.text = _description.text.Remove(_description.text.Length - 3);
-                    _description.text += "</b></size>\n";
-                }
-
-                _description.text += "\n<voffset=0.25em>" + (Card.Info.Description ?? Card.Info.Flavor) + "</voffset>";
+                _description.text = "<size=3><b>";
+                Card.Info.Tags.ForEach(tag => _description.text += tag + " - ");
+                _description.text = _description.text.Remove(_description.text.Length - 3);
+                _description.text += "</b></size>\n";
             }
+
+            _description.text += "\n<voffset=0.25em>" + description + "</voffset>";
         }
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);

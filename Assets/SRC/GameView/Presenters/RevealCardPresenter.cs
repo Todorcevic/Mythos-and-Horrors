@@ -12,13 +12,13 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gameAction)
         {
-            if (gameAction is RevealGameAction revealCard) await RevealCardPlaceWith(revealCard.Card);
+            if (gameAction is RevealGameAction revealCard) await RevealCardPlaceWith(revealCard);
         }
 
         /*******************************************************************/
-        private async Task RevealCardPlaceWith(Card card)
+        private async Task RevealCardPlaceWith(RevealGameAction revealGameAction)
         {
-            await _cardViewsManager.GetCardView(card).RevealAnimation().AsyncWaitForCompletion();
+            await _cardViewsManager.GetCardView(revealGameAction.Card).RevealAnimation().AsyncWaitForCompletion();
         }
     }
 }

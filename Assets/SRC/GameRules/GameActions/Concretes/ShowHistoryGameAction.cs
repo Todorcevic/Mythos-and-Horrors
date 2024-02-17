@@ -8,11 +8,13 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;
 
         public History History { get; }
+        public Card Card { get; }
 
         /*******************************************************************/
-        public ShowHistoryGameAction(History history)
+        public ShowHistoryGameAction(History history, Card card = null)
         {
             History = history;
+            Card = card;
         }
 
         /*******************************************************************/

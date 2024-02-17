@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         protected override void SetSpecific()
         {
             _title.text = Card.Info.Name2 ?? Card.Info.Name;
-            _description.text = Card.Info.Description2 ?? Card.Info.Flavor2;
+            SetDescription(Card.Info.Description2 ?? Card.Info.Flavor2);
             if (Card is CardPlace _place)
             {
                 _hints.SetStat(_place.Hints);
@@ -28,11 +28,10 @@ namespace MythsAndHorrors.GameView
         public override Sequence RevealAnimation() => base.RevealAnimation()
             .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
 
-
         private void RevealInfo()
         {
             _title.text = Card.Info.Name;
-            _description.text = Card.Info.Description ?? Card.Info.Flavor;
+            SetDescription(Card.Info.Description ?? Card.Info.Flavor);
             _hints.gameObject.SetActive(true);
             _enigma.gameObject.SetActive(true);
         }

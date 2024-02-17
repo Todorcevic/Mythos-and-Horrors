@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
+            Hints = new Stat(Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
             Revealed = new State(false);
         }

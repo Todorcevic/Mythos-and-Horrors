@@ -21,7 +21,5 @@ namespace MythsAndHorrors.GameView
         {
             await _zoneViewsManager.Get(shuffleGameAction.ZoneToShuffle).Shuffle().AsyncWaitForCompletion();
         }
-
-
     }
 }

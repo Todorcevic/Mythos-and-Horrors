@@ -8,8 +8,10 @@ using UnityEngine.UI;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryComponent : MonoBehaviour, IPresenter
+    public class ShowHistoryComponent : MonoBehaviour
     {
+        private Vector3 initialScale;
+
         private TaskCompletionSource<bool> waitForClicked;
         [SerializeField, Required, SceneObjectsOnly] Transform _outPosition;
         [SerializeField, Required, SceneObjectsOnly] Transform _showPosition;
@@ -22,26 +24,25 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         private void Start()
         {
+            initialScale = transform.localScale;
             _button.onClick.AddListener(Clicked);
         }
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gameAction)
-        {
-            if (gameAction is ShowHistoryGameAction showHistoryGameAction) await Show(showHistoryGameAction.History);
-        }
-
-        public async Task Show(History history)
+        public async Task Show(History history, Transform worldObject = null)
         {
             waitForClicked = new();
             _title.text = history.Title;
             _content.text = history.Description;
             _button.interactable = true;
+            transform.localScale = Vector3.zero;
+            Vector3 returnPosition = transform.position = (worldObject == null) ? _outPosition.transform.position : RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
             await _screen.LoadHistorySprite(history.Image);
+
             await ShowAnimation().AsyncWaitForCompletion();
             await waitForClicked.Task;
             _button.interactable = false;
-            await HideAnimation().AsyncWaitForCompletion();
+            await HideAnimation(returnPosition).AsyncWaitForCompletion();
         }
 
         private void Clicked()
@@ -49,12 +50,15 @@ namespace MythsAndHorrors.GameView
             waitForClicked.SetResult(true);
         }
 
-        private Tween ShowAnimation() => DOTween.Sequence()
-                .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.MID_TIME_ANIMATION))
-                .Join(transform.DOMove(_showPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.OutBack, 1.5f);
+        private Sequence ShowAnimation() => DOTween.Sequence()
+                .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.SLOW_TIME_ANIMATION))
+                .Join(transform.DOMove(_showPosition.position, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
+                .Join(transform.DOScale(initialScale, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
 
-        private Tween HideAnimation() => DOTween.Sequence()
-                .Join(_blockBackground.DOFade(0f, ViewValues.MID_TIME_ANIMATION))
-                .Join(transform.DOMove(_outPosition.position, ViewValues.MID_TIME_ANIMATION)).SetEase(Ease.InOutCubic);
+        private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
+                .Join(_blockBackground.DOFade(0f, ViewValues.SLOW_TIME_ANIMATION))
+                .Join(transform.DOMove(returnPosition, ViewValues.SLOW_TIME_ANIMATION))
+                .Join(transform.DOScale(Vector3.zero, ViewValues.SLOW_TIME_ANIMATION))
+                .SetEase(Ease.InOutCubic);
     }
 }
