@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlace : Card, IEndReactionable
+    public class CardPlace : Card, IEndReactionable, IRevellable
     {
-        private bool _isReveled;
         [Inject] private readonly List<History> _histories;
 
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
+        public State Revealed { get; private set; }
         public History RevealHistory => _histories[0];
 
         /*******************************************************************/
@@ -21,23 +21,17 @@ namespace MythsAndHorrors.GameRules
         {
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
+            Revealed = new State(false);
         }
 
         /*******************************************************************/
         public virtual async Task WhenFinish(GameAction gameAction)
         {
-            if (_isReveled) return;
+            if (Revealed.Value) return;
             if (gameAction is not MoveInvestigatorGameAction moveCardsGameAction) return;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
 
-            await Reveal();
-        }
-
-        protected virtual async Task Reveal()
-        {
-            _isReveled = true;
             await _gameActionFactory.Create(new RevealGameAction(this));
-            await _gameActionFactory.Create(new ShowHistoryGameAction(RevealHistory));
         }
     }
 }

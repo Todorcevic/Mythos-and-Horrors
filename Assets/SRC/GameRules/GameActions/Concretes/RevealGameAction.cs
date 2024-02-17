@@ -8,18 +8,21 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly ViewLayersProvider _viewLayerProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
-        public Card Card { get; }
+        public IRevellable RevellableCard { get; }
+        public Card Card => RevellableCard as Card;
 
         /*******************************************************************/
-        public RevealGameAction(Card cardReveled)
+        public RevealGameAction(IRevellable cardReveled)
         {
-            Card = cardReveled;
+            RevellableCard = cardReveled;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            RevellableCard.Revealed.UpdateValue(true);
             await _viewLayerProvider.PlayAnimationWith(this);
+            await _gameActionFactory.Create(new ShowHistoryGameAction(RevellableCard.RevealHistory));
         }
     }
 }

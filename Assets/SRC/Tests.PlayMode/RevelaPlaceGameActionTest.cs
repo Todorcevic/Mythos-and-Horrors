@@ -4,7 +4,6 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
@@ -19,7 +18,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
