@@ -18,6 +18,14 @@ namespace MythsAndHorrors.GameRules
             }
 
             await _gameActionFactory.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
+
+            while (true)
+            {
+                await _gameActionFactory.Create(new InvestigatorPhaseGameAction());
+                await _gameActionFactory.Create(new CreaturePhaseGameAction());
+                await _gameActionFactory.Create(new RestorePhaseGameAction());
+                await _gameActionFactory.Create(new ScenePhaseGameAction());
+            }
         }
     }
 }

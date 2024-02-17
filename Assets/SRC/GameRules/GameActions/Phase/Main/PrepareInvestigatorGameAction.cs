@@ -3,11 +3,13 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class PrepareInvestigatorGameAction : GameAction
+    public class PrepareInvestigatorGameAction : GameAction, IPhase
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; }
+        string IPhase.Name => throw new System.NotImplementedException();
+        string IPhase.Description => throw new System.NotImplementedException();
 
         /*******************************************************************/
         public PrepareInvestigatorGameAction(Investigator investigator)
