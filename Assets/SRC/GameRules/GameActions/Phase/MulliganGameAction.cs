@@ -3,14 +3,16 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class MulliganGameAction : GameAction, IPhase
+
+    public class MulliganGameAction : PhaseGameAction
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public Investigator Investigator { get; }
-        string IPhase.Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
-        string IPhase.Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
+        public override Phase MainPhase => Phase.Prepare;
+        public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
+        public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -19,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected sealed override async Task ExecuteThisLogic()
+        protected sealed override async Task ExecuteThisPhaseLogic()
         {
             foreach (Card card in Investigator.HandZone.Cards)
             {

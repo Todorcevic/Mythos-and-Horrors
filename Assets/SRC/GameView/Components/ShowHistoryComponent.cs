@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _content;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _screen;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _button;
+        [SerializeField, Required, ChildGameObjectsOnly] private ScrollRect _scrollRect;
 
         /*******************************************************************/
         private void Start()
@@ -37,8 +38,8 @@ namespace MythsAndHorrors.GameView
             _button.interactable = true;
             transform.localScale = Vector3.zero;
             Vector3 returnPosition = transform.position = (worldObject == null) ? _outPosition.transform.position : RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
-            await _screen.LoadHistorySprite(history.Image);
 
+            await _screen.LoadHistorySprite(history.Image);
             await ShowAnimation().AsyncWaitForCompletion();
             await waitForClicked.Task;
             _button.interactable = false;
@@ -51,6 +52,7 @@ namespace MythsAndHorrors.GameView
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
+                .Join(_scrollRect.DOVerticalNormalizedPos(1f, ViewValues.SLOW_TIME_ANIMATION))
                 .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.SLOW_TIME_ANIMATION))
                 .Join(transform.DOMove(_showPosition.position, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
                 .Join(transform.DOScale(initialScale, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));

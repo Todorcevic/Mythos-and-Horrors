@@ -1,0 +1,75 @@
+﻿using System.Threading.Tasks;
+using Zenject;
+
+namespace MythsAndHorrors.GameRules
+{
+    public class PrepareInvestigatorGameAction : PhaseGameAction
+    {
+        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly TextsProvider _textsProvider;
+
+        public Investigator Investigator { get; }
+        public override Phase MainPhase => Phase.Prepare;
+        public override string Name => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_NAME;
+        public override string Description => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_DESCRIPTION;
+
+        /*******************************************************************/
+        public PrepareInvestigatorGameAction(Investigator investigator)
+        {
+            Investigator = investigator;
+        }
+
+        /*******************************************************************/
+        protected override async Task ExecuteThisPhaseLogic()
+        {
+            await PositionateInvestigatorCard();
+            await ApplyInjuty();
+            await ApplyShock();
+            await PositionateDeck();
+            await CollectResources();
+            await DrawInitialHand();
+            await Mulligan();
+            await DrawInitialHand();
+        }
+
+        private async Task PositionateInvestigatorCard()
+        {
+            await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.InvestigatorCard, Investigator.InvestigatorZone));
+        }
+
+        private async Task ApplyInjuty()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.InvestigatorCard.Health, Investigator.InvestigatorCard.Injury.Value));
+
+        }
+
+        private async Task ApplyShock()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.InvestigatorCard.Sanity, Investigator.InvestigatorCard.Shock.Value));
+        }
+
+        private async Task PositionateDeck()
+        {
+            Investigator.FullDeck.ForEach(card => card.TurnDown(true));
+            await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.FullDeck, Investigator.DeckZone));
+            await _gameActionFactory.Create(new ShuffleGameAction(Investigator.DeckZone));
+        }
+
+        private async Task CollectResources()
+        {
+            await _gameActionFactory.Create(new GainResourceGameAction(Investigator, 5));
+        }
+
+        private async Task DrawInitialHand()
+        {
+            while (Investigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
+                await _gameActionFactory.Create(new InitialDrawGameAction(Investigator));
+            await Task.Delay(250);
+        }
+
+        private async Task Mulligan()
+        {
+            await _gameActionFactory.Create(new MulliganGameAction(Investigator));
+        }
+    }
+}

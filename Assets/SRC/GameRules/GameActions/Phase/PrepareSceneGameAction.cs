@@ -3,26 +3,27 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class StartChapterGameAction : PhaseGameAction
+    public class PrepareSceneGameAction : PhaseGameAction
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public ChapterInfo Chapter { get; }
+        public Scene Scene { get; }
         public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GameText.START_CHAPTER_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.START_CHAPTER_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GameText.PREPARE_SCENE_PHASE_NAME;
+        public override string Description => _textsProvider.GameText.PREPARE_SCENE_PHASE_DESCRIPTION;
 
         /*******************************************************************/
-        public StartChapterGameAction(ChapterInfo chapter)
+        public PrepareSceneGameAction(Scene scene)
         {
-            Chapter = chapter;
+            Scene = scene;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Chapter.Description));
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Scene.Info.Description));
+            await Scene.PrepareScene();
         }
     }
 }

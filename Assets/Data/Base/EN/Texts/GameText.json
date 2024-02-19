@@ -3,5 +3,19 @@
     "MULLIGAN_EFFECT2": "Return",
     "MULLIGAN_PHASE_NAME": "Mulligan",
     "MULLIGAN_PHASE_DESCRIPTION": "Después de robar su mano inicial de cartas, un investigador puede descartar cualquiera de esas cartas que no desee conservar, y luego robar la misma cantidad de cartas del mazo para reemplazarlas. Esto se hace con la intención de mejorar la mano inicial del investigador, dándole una mejor oportunidad de tener un comienzo fuerte en el juego. Esta acción solo se permite una vez al comienzo de la partida, antes de que cualquier acción del juego se lleve a cabo.",
-    "CARD01501_BUFF": "Reduce cost by 1"
+    "CARD01501_BUFF": "Reduce cost by 1",
+    "START_CHAPTER_PHASE_NAME": "Start Chapter",
+    "START_CHAPTER_PHASE_DESCRIPTION": "Start Chapter Description",
+    "PREPARE_SCENE_PHASE_NAME": "Scene Prepare",
+    "PREPARE_SCENE_PHASE_DESCRIPTION": "Scene Preparation Description",
+    "PREPARE_INVESTIGATOR_PHASE_NAME": "Investigator Preparation",
+    "PREPARE_INVESTIGATOR_PHASE_DESCRIPTION": "Investigator Preparation Description",
+    "CREATURE_PHASE_NAME": "Creature Phase",
+    "CREATURE_PHASE_DESCRIPTION": "Creature Phase Description",
+    "INVESTIGATOR_PHASE_NAME": "Investigator Phase",
+    "INVESTIGATOR_PHASE_DESCRIPTION": "Investigator Phase Description",
+    "RESTORE_PHASE_NAME": "Restore Phase",
+    "RESTORE_PHASE_DESCRIPTION": " Restore Phase Description",
+    "SCENE_PHASE_NAME": "Scene Phase",
+    "SCENE_PHASE_DESCRIPTION": "Scene Phase Description"
 }
