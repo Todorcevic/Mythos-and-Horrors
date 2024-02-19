@@ -16,9 +16,10 @@ namespace MythsAndHorrors.GameView
         {
             PhaseView newPhase = _phaseViews.Find(phaseView => phaseView.Phase == phaseGameAction.MainPhase);
             if (newPhase == null) return DOTween.Sequence();
-            if (newPhase == _currentPhaseView) return newPhase.Show(phaseGameAction.Name, phaseGameAction.Description);
+            if (newPhase == _currentPhaseView) return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description);
             return DOTween.Sequence().Append(_currentPhaseView.Hide())
-                .Append(newPhase.Show(phaseGameAction.Name, phaseGameAction.Description))
+                .Append(newPhase.Show())
+                .Join(newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description))
                 .OnComplete(() => _currentPhaseView = newPhase);
         }
     }

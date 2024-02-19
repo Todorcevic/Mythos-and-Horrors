@@ -15,14 +15,13 @@ namespace MythsAndHorrors.GameView
         public Phase Phase => _phase;
 
         /*******************************************************************/
-        public Tween Show(string name, string description) => DOTween.Sequence().OnStart(() => gameObject.SetActive(true))
-                .Append(transform.DOScale(Vector3.one, ViewValues.DEFAULT_TIME_ANIMATION))
-                .Join(ChangeText(name, description));
+        public Tween Show() => DOTween.Sequence().OnStart(() => gameObject.SetActive(true))
+                .Append(transform.DOScale(Vector3.one, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBounce, 1.1f));
 
-        public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION)
+        public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
             .OnComplete(() => gameObject.SetActive(false));
 
-        private Tween ChangeText(string name, string description) => DOTween.Sequence()
+        public Tween ChangeText(string name, string description) => DOTween.Sequence()
             .Join(_name.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
             .Join(_description.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).OnComplete(() => { _name.text = name; _description.text = description; }))
             .Append(_name.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))

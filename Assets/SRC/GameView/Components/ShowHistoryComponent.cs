@@ -52,15 +52,15 @@ namespace MythsAndHorrors.GameView
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
-                .Join(_scrollRect.DOVerticalNormalizedPos(1f, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOMove(_showPosition.position, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
-                .Join(transform.DOScale(initialScale, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
+                .Join(_scrollRect.DOVerticalNormalizedPos(1f, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(transform.DOMove(_showPosition.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
+                .Join(transform.DOScale(initialScale, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
 
         private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
-                .Join(_blockBackground.DOFade(0f, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOMove(returnPosition, ViewValues.SLOW_TIME_ANIMATION))
-                .Join(transform.DOScale(Vector3.zero, ViewValues.SLOW_TIME_ANIMATION))
+                .Join(_blockBackground.DOFade(0f, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
                 .SetEase(Ease.InOutCubic);
     }
 }

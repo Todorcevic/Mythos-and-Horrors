@@ -188,7 +188,7 @@ MonoBehaviour:
   - {fileID: 1687642467}
   - {fileID: 77215830}
   - {fileID: 1216384642}
-  _currentPhaseView: {fileID: 1216384642}
+  _currentPhaseView: {fileID: 77215830}
 --- !u!114 &33126647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4012,8 +4012,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 0.99999994
-  m_Size: 0.24734452
+  m_Value: 1
+  m_Size: 0.24734455
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8760,7 +8760,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!1001 &2444946668287794458
 PrefabInstance:
