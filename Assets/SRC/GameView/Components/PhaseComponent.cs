@@ -2,6 +2,7 @@
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -14,8 +15,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween ShowThisPhase(PhaseGameAction phaseGameAction)
         {
-            PhaseView newPhase = _phaseViews.Find(phaseView => phaseView.Phase == phaseGameAction.MainPhase);
-            if (newPhase == null) return DOTween.Sequence();
+            PhaseView newPhase = _phaseViews.First(phaseView => phaseView.Phase == phaseGameAction.MainPhase);
             if (newPhase == _currentPhaseView) return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description);
             return DOTween.Sequence().Append(_currentPhaseView.Hide())
                 .Append(newPhase.Show())
