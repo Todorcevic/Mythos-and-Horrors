@@ -28,8 +28,6 @@ namespace MythsAndHorrors.GameView
         public async Task ShowPlayables()
         {
             _cardViews = _cardViewsManager.GetAllCanPlay();
-            _cardViews.ForEach(cardView => cardView.ShowBuffsAndEffects());
-            _cardViews.ForEach(cardView => cardView.DisableToCenterShow());
             await Animation();
         }
 
@@ -43,7 +41,7 @@ namespace MythsAndHorrors.GameView
         {
             if (!IsShowing) return;
             await Shutdown();
-            _cardViews.ForEach(cardView => cardView.EnableFromCenterShow());
+            //_cardViews.ForEach(cardView => cardView.EnableFromCenterShow());
             Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
@@ -56,8 +54,6 @@ namespace MythsAndHorrors.GameView
         public async Task ShowMultiEffects(Dictionary<CardView, Effect> cardViews)
         {
             _cardViews = cardViews.Keys.ToList();
-            _cardViews.ForEach(cardView => cardView.ShowEffect(cardViews[cardView]));
-            OriginalCardView.DisableToCenterShow();
             await Animation();
         }
 
@@ -70,7 +66,6 @@ namespace MythsAndHorrors.GameView
                  .OnComplete(() => Destroy(clone.gameObject))));
             await returnClonesSequence.AsyncWaitForCompletion()
                 .Join(_moveCardHandler.MoveCardWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)));
-            returnClonesSequence.Join(OriginalCardView.EnableFromCenterShow());
             _cardViews.Clear();
         }
 
@@ -82,7 +77,6 @@ namespace MythsAndHorrors.GameView
             Sequence sequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                  .OnComplete(() => Destroy(clone.gameObject)));
-            sequence.Join(OriginalCardView.EnableFromCenterShow());
             _cardViews.Clear();
             await sequence.AsyncWaitForCompletion();
         }
@@ -92,7 +86,6 @@ namespace MythsAndHorrors.GameView
         {
             await _ioActivatorComponent.DeactivateCardSensors();
             _selectorBlockController.DeactivateSelector();
-            _cardViews.ForEach(cardView => cardView.HideBuffsAndEffects());
         }
 
         private async Task Animation()

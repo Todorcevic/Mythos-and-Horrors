@@ -80,8 +80,6 @@ namespace MythsAndHorrors.GameView
             _ownZoneCardView.Init(Card.OwnZone);
             _title.text = Card.Info.Name;
             SetDescription(Card.Info.Description ?? Card.Info.Flavor);
-
-
         }
 
         protected void SetDescription(string description)
@@ -133,8 +131,6 @@ namespace MythsAndHorrors.GameView
         }
 
         public int GetBuffsAmount() => _buffController.EffectsAmount;
-
-        public void ShowEffect(IViewEffect effect) => _effectController.AddEffects(effect);
 
         public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
 

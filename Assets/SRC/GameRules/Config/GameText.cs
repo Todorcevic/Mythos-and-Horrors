@@ -25,5 +25,9 @@
         public string SCENE_PHASE_NAME { get; init; }
         public string SCENE_PHASE_DESCRIPTION { get; init; }
 
+
+
+        public string DEFAULT_VOID_TEXT => "<color=red>VOID TEXT</color>";
+
     }
 }
