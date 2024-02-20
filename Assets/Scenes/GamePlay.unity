@@ -549,17 +549,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 582586615}
     m_Modifications:
-    - target: {fileID: -3793163400148800551, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: _avoidCardShower
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 860334125506983460, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: m_Name
       value: OutZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 860334125506983460, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5705089823220367788, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -600,22 +592,6 @@ PrefabInstance:
     - target: {fileID: 5705089823220367788, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: _bindId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: _identifier
-      value: OutZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: _identifierWithName
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811774599659767288, guid: 5b71990d8c641a84ebba3612f9b904a4, type: 3}
-      propertyPath: _components.Array.size
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3867,8 +3843,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.24734455
+  m_Value: 1
+  m_Size: 0.24734452
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10000,14 +9976,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 141937760}
     m_Modifications:
-    - target: {fileID: 478789604186197384, guid: f636da84bd115224da2a2496855c8b88, type: 3}
-      propertyPath: _bindId
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 478789604186197384, guid: f636da84bd115224da2a2496855c8b88, type: 3}
-      propertyPath: _bindType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6918025284560886389, guid: f636da84bd115224da2a2496855c8b88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

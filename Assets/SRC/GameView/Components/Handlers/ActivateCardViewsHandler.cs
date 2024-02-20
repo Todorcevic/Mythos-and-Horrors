@@ -29,8 +29,8 @@ namespace MythsAndHorrors.GameView
             _avatarViewsManager.AvatarsPlayabled(_cards.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.DeactivateGlow());
 
             _mainButtonComponent.Deactivate();
-            if (_ioActivatorComponent.IsSensorActivated) await _ioActivatorComponent.DeactivateCardSensors();
-            if (_ioActivatorComponent.IsUIActivated) _ioActivatorComponent.BlockUI();
+            await _ioActivatorComponent.DeactivateCardSensors();
+            _ioActivatorComponent.BlockUI();
         }
     }
 }

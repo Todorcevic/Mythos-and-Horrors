@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a18cc5c2efd7a409dea8dae95b23e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avoidCardShower: 1
   _movePosition: {fileID: 7008661953015496867}
-  _hoverPosition: {fileID: 7826362246790121539}
 --- !u!114 &8811774599659767288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   _bindId: 2
   _useSceneContext: 0
   _context: {fileID: 0}
-  _bindType: 3
+  _bindType: 0
 --- !u!1 &2887957197120514844
 GameObject:
   m_ObjectHideFlags: 0

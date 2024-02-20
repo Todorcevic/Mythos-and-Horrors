@@ -10,9 +10,6 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, SceneObjectsOnly] private Image _uIBlock;
         [SerializeField, Required, SceneObjectsOnly] private BoxCollider _fullBlock;
 
-        public bool IsSensorActivated => !_fullBlock.enabled;
-        public bool IsUIActivated => !_uIBlock.enabled;
-
         /*******************************************************************/
         public void ActivateCardSensors()
         {
@@ -21,6 +18,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task DeactivateCardSensors()
         {
+            if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
             await DotweenExtension.WaitForAllTweensToComplete();
         }
