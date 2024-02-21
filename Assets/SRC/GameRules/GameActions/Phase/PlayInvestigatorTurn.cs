@@ -20,9 +20,9 @@ namespace MythsAndHorrors.GameRules
 
 
         /*******************************************************************/
-        protected override Task ExecuteThisPhaseLogic()
+        protected override async Task ExecuteThisPhaseLogic()
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

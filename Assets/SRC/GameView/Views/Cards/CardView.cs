@@ -120,7 +120,9 @@ namespace MythsAndHorrors.GameView
 
 
         /*******************************************************************/
-        public Effect UniqueEffect { get; set; }
+        public Effect UniqueEffect { get; private set; }
+        public void SetUniqueEffect(Effect effect) => UniqueEffect = effect;
+        public void ClearUniqueEffect() => UniqueEffect = null;
 
         public void ShowBuffsAndEffects()
         {

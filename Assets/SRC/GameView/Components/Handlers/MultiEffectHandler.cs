@@ -12,43 +12,39 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ActivateCardViewsHandler _showCardHandler;
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
-
-        //private Dictionary<CardView, Effect> clonesCardViewDictionary;
-
-        private List<CardView> clonesCardViewList;
+        private List<CardView> cardViewClones;
 
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs)
         {
-            clonesCardViewList = CreateCardViewDictionary(cardViewWithMultiEffecs);
-            await _showSelectorComponent.ShowMultiEffects(clonesCardViewList);
-            _showCardHandler.ActiavateCardViewsPlayables(clonesCardViewList, withMainButton: true);
+            cardViewClones = CreateCardViewClones(cardViewWithMultiEffecs);
+            await _showSelectorComponent.ShowMultiEffects(cardViewClones);
+            _showCardHandler.ActiavateCardViewsPlayables(cardViewClones, withMainButton: true);
 
             return await FinishMultiEffect(await _clickHandler.WaitingClick());
         }
 
         private async Task<Effect> FinishMultiEffect(CardView cardViewSelected)
         {
-            await _showCardHandler.DeactivateCardViewsPlayables(clonesCardViewList);
+            await _showCardHandler.DeactivateCardViewsPlayables(cardViewClones);
             Effect effectSelected = cardViewSelected == null ? null : cardViewSelected.UniqueEffect;
-
-            clonesCardViewList.First().UniqueEffect = null;
+            cardViewClones.First().ClearUniqueEffect();
 
             if (effectSelected == null) await _showSelectorComponent.ReturnClones();
             else await _showSelectorComponent.DestroyClones(cardViewSelected);
             return effectSelected;
         }
 
-        private List<CardView> CreateCardViewDictionary(CardView originalCardView)
+        private List<CardView> CreateCardViewClones(CardView originalCardView)
         {
             List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
             originalCardView.HideBuffsAndEffects();
-            originalCardView.UniqueEffect = effects.First();
+            originalCardView.SetUniqueEffect(effects.First());
             List<CardView> newClonesCardView = new() { { originalCardView } };
             foreach (Effect effect in effects.Skip(1))
             {
                 CardView cloneCardView = _cardViewGeneratorComponent.CloneCardView(originalCardView, originalCardView.CurrentZoneView.transform);
-                cloneCardView.UniqueEffect = effect;
+                cloneCardView.SetUniqueEffect(effect);
                 newClonesCardView.Add(cloneCardView);
             }
             return newClonesCardView;
