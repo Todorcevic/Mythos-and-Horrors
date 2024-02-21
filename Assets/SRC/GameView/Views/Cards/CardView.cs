@@ -118,15 +118,16 @@ namespace MythsAndHorrors.GameView
                  .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
                  .Append(EnableFromCenterShow()));
 
-        public void ShowEffect(IViewEffect effect) => _effectController.AddEffects(effect);
+
+        /*******************************************************************/
+        public Effect UniqueEffect { get; set; }
 
         public void ShowBuffsAndEffects()
         {
-            if (_effectController.EffectsAmount < 1)
-                _effectController.AddEffects(Card.PlayableEffects.ToArray());
+            if (UniqueEffect != null) _effectController.AddEffects(UniqueEffect);
+            else _effectController.AddEffects(Card.PlayableEffects.ToArray());
 
-            if (_buffController.EffectsAmount < 1)
-                _buffController.AddEffects(Card.Buffs.ToArray());
+            _buffController.AddEffects(Card.Buffs.ToArray());
         }
 
         public void HideBuffsAndEffects()
@@ -137,6 +138,7 @@ namespace MythsAndHorrors.GameView
 
         public int GetBuffsAmount() => _buffController.EffectsAmount;
 
+        /*******************************************************************/
         public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
 
         public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);

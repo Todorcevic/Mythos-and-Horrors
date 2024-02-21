@@ -50,10 +50,9 @@ namespace MythsAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task ShowMultiEffects(Dictionary<CardView, Effect> cardViews)
+        public async Task ShowMultiEffects(List<CardView> cardViews)
         {
-            _cardViews = cardViews.Keys.ToList();
-            _cardViews.ForEach(cardView => cardView.ShowEffect(cardViews[cardView]));
+            _cardViews = cardViews;
             await Animation();
         }
 

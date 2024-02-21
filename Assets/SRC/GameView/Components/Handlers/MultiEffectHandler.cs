@@ -13,34 +13,43 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ActivateCardViewsHandler _showCardHandler;
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
-        private Dictionary<CardView, Effect> clonesCardViewDictionary;
+        //private Dictionary<CardView, Effect> clonesCardViewDictionary;
+
+        private List<CardView> clonesCardViewList;
 
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs)
         {
-            clonesCardViewDictionary = CreateCardViewDictionary(cardViewWithMultiEffecs);
-            await _showSelectorComponent.ShowMultiEffects(clonesCardViewDictionary);
-            _showCardHandler.ActiavateCardViewsPlayables(clonesCardViewDictionary.Keys.ToList(), withMainButton: true);
+            clonesCardViewList = CreateCardViewDictionary(cardViewWithMultiEffecs);
+            await _showSelectorComponent.ShowMultiEffects(clonesCardViewList);
+            _showCardHandler.ActiavateCardViewsPlayables(clonesCardViewList, withMainButton: true);
+
             return await FinishMultiEffect(await _clickHandler.WaitingClick());
         }
 
         private async Task<Effect> FinishMultiEffect(CardView cardViewSelected)
         {
-            await _showCardHandler.DeactivateCardViewsPlayables(clonesCardViewDictionary.Keys.ToList());
-            Effect effectSelected = cardViewSelected == null ? null : clonesCardViewDictionary[cardViewSelected];
+            await _showCardHandler.DeactivateCardViewsPlayables(clonesCardViewList);
+            Effect effectSelected = cardViewSelected == null ? null : cardViewSelected.UniqueEffect;
+
+            clonesCardViewList.First().UniqueEffect = null;
+
             if (effectSelected == null) await _showSelectorComponent.ReturnClones();
             else await _showSelectorComponent.DestroyClones(cardViewSelected);
             return effectSelected;
         }
 
-        private Dictionary<CardView, Effect> CreateCardViewDictionary(CardView originalCardView)
+        private List<CardView> CreateCardViewDictionary(CardView originalCardView)
         {
             List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
-            Dictionary<CardView, Effect> newClonesCardView = new() { { originalCardView, effects.First() } };
+            originalCardView.HideBuffsAndEffects();
+            originalCardView.UniqueEffect = effects.First();
+            List<CardView> newClonesCardView = new() { { originalCardView } };
             foreach (Effect effect in effects.Skip(1))
             {
                 CardView cloneCardView = _cardViewGeneratorComponent.CloneCardView(originalCardView, originalCardView.CurrentZoneView.transform);
-                newClonesCardView.Add(cloneCardView, effect);
+                cloneCardView.UniqueEffect = effect;
+                newClonesCardView.Add(cloneCardView);
             }
             return newClonesCardView;
         }
