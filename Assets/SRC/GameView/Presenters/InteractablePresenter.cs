@@ -16,7 +16,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.CheckGameAction(GameAction gamAction)
         {
-            if (gamAction is InteractableGameAction interactableGameAction) await Interact(interactableGameAction);
+            if (gamAction is InteractableGameAction interactableGameAction)
+            {
+                return await Interact(interactableGameAction);
+            }
             return default;
         }
 
@@ -24,8 +27,8 @@ namespace MythsAndHorrors.GameView
         private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
-            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
+            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
 
             CardView cardViewChoose = await _clickHandler.WaitingClick();
 

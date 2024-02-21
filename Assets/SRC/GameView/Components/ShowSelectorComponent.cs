@@ -41,7 +41,6 @@ namespace MythsAndHorrors.GameView
         {
             if (!IsShowing) return;
             await Shutdown();
-            //_cardViews.ForEach(cardView => cardView.EnableFromCenterShow());
             Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
@@ -54,6 +53,7 @@ namespace MythsAndHorrors.GameView
         public async Task ShowMultiEffects(Dictionary<CardView, Effect> cardViews)
         {
             _cardViews = cardViews.Keys.ToList();
+            _cardViews.ForEach(cardView => cardView.ShowEffect(cardViews[cardView]));
             await Animation();
         }
 

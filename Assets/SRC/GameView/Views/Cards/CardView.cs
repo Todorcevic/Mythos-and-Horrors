@@ -118,10 +118,15 @@ namespace MythsAndHorrors.GameView
                  .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
                  .Append(EnableFromCenterShow()));
 
+        public void ShowEffect(IViewEffect effect) => _effectController.AddEffects(effect);
+
         public void ShowBuffsAndEffects()
         {
-            _effectController.AddEffects(Card.PlayableEffects.ToArray());
-            _buffController.AddEffects(Card.Buffs.ToArray());
+            if (_effectController.EffectsAmount < 1)
+                _effectController.AddEffects(Card.PlayableEffects.ToArray());
+
+            if (_buffController.EffectsAmount < 1)
+                _buffController.AddEffects(Card.Buffs.ToArray());
         }
 
         public void HideBuffsAndEffects()

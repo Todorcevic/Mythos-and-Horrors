@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
+using MythsAndHorrors.GameView;
+using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {

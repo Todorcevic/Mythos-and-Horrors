@@ -1,6 +1,6 @@
-﻿using ModestTree;
-using MythsAndHorrors.GameRules;
+﻿using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -17,11 +17,11 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator RevealPlaceTest()
+        public IEnumerator ChooseInvestigatorTest()
         {
             _prepareGameUseCase.Execute();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
@@ -29,11 +29,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.AllInvestigators, place)).AsCoroutine();
 
-            _gameActionFactory.Create(new ChooseInvestigatorGameAction()).AsCoroutine();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.AvatarCard).AsTask();
+            yield return _gameActionFactory.Create(new ChooseInvestigatorGameAction()).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_zoneViewsManager.SelectorZone.GetComponentsInChildren<CardView>().Length == 4);
+            Assert.That(_zoneViewsManager.SelectorZone.GetComponentInChildren<CardView>().Card, Is.EqualTo(_investigatorsProvider.Leader.AvatarCard));
         }
     }
 }

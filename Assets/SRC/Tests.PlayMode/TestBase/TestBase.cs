@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -11,8 +11,6 @@ namespace MythsAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {
-
-
         protected virtual bool DEBUG_MODE => false;
 
         /*******************************************************************/
@@ -65,6 +63,14 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             yield return new WaitUntil(() => _showHistoryComponent.GetPrivateMember<Button>("_button").interactable);
             _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
+        }
+
+        [Inject] private readonly CardViewsManager _cardViewsManager;
+        protected IEnumerator WaitToClick(Card card)
+        {
+            CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
+            yield return new WaitUntil(() => cardSensor.IsClickable);
+            cardSensor.OnMouseUpAsButton();
         }
     }
 }

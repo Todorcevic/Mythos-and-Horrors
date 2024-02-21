@@ -14,6 +14,7 @@ namespace MythsAndHorrors.GameView
         public override Tween ExitZone(CardView cardView)
         {
             cardView.HideBuffsAndEffects();
+            cardView.EnableFromCenterShow();
             return base.ExitZone(cardView);
         }
     }
