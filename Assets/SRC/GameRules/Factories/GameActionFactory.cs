@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -7,15 +8,19 @@ namespace MythsAndHorrors.GameRules
     public class GameActionFactory
     {
         [Inject] private readonly DiContainer _container;
-        public List<GameAction> Actions { get; } = new();
+        public List<GameAction> AllGameActions { get; } = new();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
         {
             _container.Inject(gameAction);
-            Actions.Add(gameAction);
+            AllGameActions.Add(gameAction);
             await gameAction.Start();
             return gameAction;
         }
+
+        public T GetLastActive<T>() where T : GameAction =>
+            AllGameActions.Last(gameAction => gameAction is T && gameAction.IsActive) as T;
+
     }
 }

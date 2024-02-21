@@ -1,10 +1,6 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using PlasticGui.WorkspaceWindow.PendingChanges;
 using Sirenix.OdinInspector;
-using System.Globalization;
-using System.Threading;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -44,8 +40,6 @@ namespace MythsAndHorrors.GameView
         public Tween ActivateGlow() => _glow.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
 
         public Tween DeactivateGlow() => _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
-
-        public void ShowTurns(int amount) => _turnController.TurnOn(amount);
 
         private async void SetPicture() => await _picture.LoadAvatarSprite(Investigator.InvestigatorCard.Info.Code);
 

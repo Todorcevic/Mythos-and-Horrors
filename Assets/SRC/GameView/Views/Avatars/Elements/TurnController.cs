@@ -14,9 +14,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly StatableManager _statableManager;
 
         public int ActiveTurnsCount => _turns.Count(turn => turn.activeSelf);
-
         public Stat Stat { get; private set; }
-
         public Transform StatTransform => transform;
 
         /*******************************************************************/
@@ -27,9 +25,9 @@ namespace MythsAndHorrors.GameView
             TurnOn(stat.Value);
         }
 
-        public void TurnOn(int amount)
+        private void TurnOn(int amount)
         {
-            AddTurn(amount - _turns.Count);
+            AddExtraTurn(amount - _turns.Count);
             _turns.ForEach(turn => turn.SetActive(false));
             for (int i = 0; i < amount; i++)
             {
@@ -37,7 +35,7 @@ namespace MythsAndHorrors.GameView
             }
         }
 
-        private void AddTurn(int amount)
+        private void AddExtraTurn(int amount)
         {
             if (amount <= 0) return;
             for (int i = 0; i < amount; i++)
@@ -49,7 +47,7 @@ namespace MythsAndHorrors.GameView
         Tween IStatableView.UpdateValue()
         {
             TurnOn(Stat.Value);
-            return DOTween.Sequence();
+            return DOTween.Sequence(); //TODO: Do animation
         }
     }
 }

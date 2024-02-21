@@ -25,6 +25,5 @@ namespace MythsAndHorrors.GameView
         public List<T> GetAllOfType<T>() where T : CardView => _allCardsView.OfType<T>().ToList();
 
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
-
     }
 }

@@ -25,6 +25,7 @@ namespace MythsAndHorrors.GameRules
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
         public SlotsCollection SlotsCollection { get; } = new();
+        public bool CanStartHisTurn => InvestigatorCard.Turns.Value > 0;
 
         /*******************************************************************/
         [Inject]

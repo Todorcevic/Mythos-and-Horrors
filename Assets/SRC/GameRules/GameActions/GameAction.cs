@@ -8,17 +8,20 @@ namespace MythsAndHorrors.GameRules
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
+        public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
 
         /*******************************************************************/
         public async Task Start()
         {
+            IsActive = true;
             Parent = _current ?? this;
             _current = this;
             await AtTheBeginning();
             await ExecuteThisLogic();
             await AtTheEnd();
             _current = Parent ?? this;
+            IsActive = false;
         }
 
         private async Task AtTheBeginning() => await _reactionablesProvider.WhenBegin(this);

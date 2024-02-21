@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
 
             while (true)
             {
-                await _gameActionFactory.Create(new InvestigatorPhaseGameAction());
+                await _gameActionFactory.Create(new InvestigatorsPhaseGameAction());
                 await _gameActionFactory.Create(new CreaturePhaseGameAction());
                 await _gameActionFactory.Create(new RestorePhaseGameAction());
                 await _gameActionFactory.Create(new ScenePhaseGameAction());
