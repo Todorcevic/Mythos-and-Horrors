@@ -12,6 +12,7 @@ namespace MythsAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override Phase MainPhase => Phase.Investigator;
+        public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
@@ -20,7 +21,7 @@ namespace MythsAndHorrors.GameRules
             {
                 investigator.AvatarCard.AddEffect(investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, ChooseInvestigatorEffect);
 
-                Task ChooseInvestigatorEffect() => _gameActionFactory.Create(new PlayInvestigatorGameAction(investigator));
+                Task ChooseInvestigatorEffect() => Task.Run(() => ActiveInvestigator = investigator);
             }
 
             await _gameActionFactory.Create(new InteractableGameAction(isMandatary: true));

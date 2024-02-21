@@ -60,5 +60,12 @@ namespace MythsAndHorrors.GameView
             cardViews.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneView)));
             await sequence.AsyncWaitForCompletion();
         }
+
+        public async Task ReturnCenterShowCard()
+        {
+            CardView cardViewInSelector = _cardsManager.GetCardViewInCenterShow();
+            if (cardViewInSelector == null) return;
+            await MoveCardWithPreviewToZone(cardViewInSelector.Card, cardViewInSelector.Card.CurrentZone);
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
 
 
 
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, 1));
+            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, 1)); //Probablably must be in the concrete action
 
         }
     }

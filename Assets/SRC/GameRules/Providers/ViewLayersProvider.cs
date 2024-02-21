@@ -16,11 +16,6 @@ namespace MythsAndHorrors.GameRules
             {
                 await presenter.CheckGameAction(gameAction);
             }
-
-            foreach (IInteractablePresenter presenter in _allInteractablePresenters)
-            {
-                await presenter.CheckGameAction(gameAction);
-            }
         }
 
         public async Task<Effect> StartSelectionWith(InteractableGameAction interactableGameAction)

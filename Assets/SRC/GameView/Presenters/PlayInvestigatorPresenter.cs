@@ -11,14 +11,13 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter.CheckGameAction(GameAction gamAction)
         {
-            if (gamAction is PlayInvestigatorGameAction playInvestigatorGameAction)
-                await ReturnInvestigator(playInvestigatorGameAction);
+            if (gamAction is InteractableGameAction) await ReturnInvestigator();
         }
 
         /*******************************************************************/
-        private async Task ReturnInvestigator(PlayInvestigatorGameAction playInvestigatorGameAction)
+        private async Task ReturnInvestigator()
         {
-            await _moveCardHandler.MoveCardWithPreviewToZone(playInvestigatorGameAction.ActiveInvestigator.AvatarCard, playInvestigatorGameAction.ActiveInvestigator.AvatarCard.CurrentZone);
+            await _moveCardHandler.ReturnCenterShowCard();
         }
     }
 }

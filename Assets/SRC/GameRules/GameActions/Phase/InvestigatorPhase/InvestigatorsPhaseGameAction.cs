@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
         {
             while (ThereAreInvestigatorsWithTurns)
             {
-                await _gameActionFactory.Create(new ChooseInvestigatorGameAction());
+                await _gameActionFactory.Create(new PlayInvestigatorGameAction());
             }
         }
     }
