@@ -15,7 +15,6 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
-        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -30,11 +29,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.AllInvestigators, place)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.AvatarCard).AsTask();
-            yield return _gameActionFactory.Create(new ChooseInvestigatorGameAction()).AsCoroutine();
+            ChooseInvestigatorGameAction chooseInvestigatoGA = new();
+            yield return _gameActionFactory.Create(chooseInvestigatoGA).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_zoneViewsManager.SelectorZone.GetComponentInChildren<CardView>().Card, Is.EqualTo(_investigatorsProvider.Leader.AvatarCard));
+            Assert.That(chooseInvestigatoGA.ActiveInvestigator, Is.EqualTo(_investigatorsProvider.Leader));
         }
     }
 }
