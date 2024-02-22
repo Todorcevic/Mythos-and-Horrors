@@ -47,7 +47,7 @@ namespace MythsAndHorrors.GameView
             Container.Bind(x => x.AllNonAbstractClasses()
                 .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
 
-            InstallGenericPresenterBindings(typeof(INewPresenter<>));
+            InstallGenericPresenterBindings(typeof(IPresenter<>));
         }
 
         private void InstallRules()

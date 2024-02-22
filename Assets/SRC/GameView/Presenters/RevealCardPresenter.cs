@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class RevealCardPresenter : INewPresenter<RevealGameAction>
+    public class RevealCardPresenter : IPresenter<RevealGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
-        async Task INewPresenter<RevealGameAction>.PlayAnimationWith(RevealGameAction revealCard)
+        async Task IPresenter<RevealGameAction>.PlayAnimationWith(RevealGameAction revealCard)
         {
             await RevealCardPlaceWith(revealCard);
         }

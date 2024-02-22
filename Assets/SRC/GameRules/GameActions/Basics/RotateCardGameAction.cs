@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class RotateCardGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<RotateCardGameAction> _rotateCardPresenter;
+        [Inject] private readonly IPresenter<RotateCardGameAction> _rotateCardPresenter;
 
         public Card Card { get; }
         public bool ToFaceDown { get; }

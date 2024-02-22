@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ClickHandler<CardView> _clickHandler;
 
         /*******************************************************************/
-        async Task<Effect> IInteractablePresenter.CheckGameAction(GameAction gamAction)
+        async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
             if (gamAction is InteractableGameAction interactableGameAction)
             {

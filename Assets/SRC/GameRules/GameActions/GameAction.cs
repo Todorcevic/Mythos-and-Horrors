@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] private readonly INewPresenter<GameAction> _cardStatePresenter;
+        [Inject] private readonly IPresenter<GameAction> _cardStatePresenter;
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }

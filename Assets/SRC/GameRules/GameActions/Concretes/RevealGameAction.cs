@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class RevealGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<RevealGameAction> _revealCardPresenter;
+        [Inject] private readonly IPresenter<RevealGameAction> _revealCardPresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public IRevellable RevellableCard { get; }

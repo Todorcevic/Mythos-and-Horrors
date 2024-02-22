@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class StatGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<StatGameAction> _StatsPresenter;
+        [Inject] private readonly IPresenter<StatGameAction> _StatsPresenter;
 
         public Stat Stat { get; }
         public int Value { get; }

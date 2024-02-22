@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<ShowHistoryGameAction> _showHistoryPresenter;
+        [Inject] private readonly IPresenter<ShowHistoryGameAction> _showHistoryPresenter;
 
         public History History { get; }
         public Card Card { get; }

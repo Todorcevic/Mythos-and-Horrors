@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShufflePresenter : INewPresenter<ShuffleGameAction>
+    public class ShufflePresenter : IPresenter<ShuffleGameAction>
     {
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
 
         /*******************************************************************/
-        async Task INewPresenter<ShuffleGameAction>.PlayAnimationWith(ShuffleGameAction shuffleGameAction)
+        async Task IPresenter<ShuffleGameAction>.PlayAnimationWith(ShuffleGameAction shuffleGameAction)
         {
             await Shuffle(shuffleGameAction);
         }

@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<MoveCardsGameAction> _moveCardPresenter;
+        [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
         public List<Card> Cards { get; }
         public Card Card => Cards[0];

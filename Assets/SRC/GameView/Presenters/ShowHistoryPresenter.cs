@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ShowHistoryPresenter : INewPresenter<ShowHistoryGameAction>
+    public class ShowHistoryPresenter : IPresenter<ShowHistoryGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 
         /*******************************************************************/
-        async Task INewPresenter<ShowHistoryGameAction>.PlayAnimationWith(ShowHistoryGameAction showHistoryGameAction)
+        async Task IPresenter<ShowHistoryGameAction>.PlayAnimationWith(ShowHistoryGameAction showHistoryGameAction)
         {
             Transform initialPosition = showHistoryGameAction.Card == null ? null : _cardViewsManager.GetCardView(showHistoryGameAction.Card).transform;
             await _showHistoryComponent.Show(showHistoryGameAction.History, initialPosition);

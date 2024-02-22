@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokenMoverPresenter : INewPresenter<GainHintGameAction>, INewPresenter<PayHintGameAction>, INewPresenter<GainResourceGameAction>, INewPresenter<PayResourceGameAction>
+    public class TokenMoverPresenter : IPresenter<GainHintGameAction>, IPresenter<PayHintGameAction>, IPresenter<GainResourceGameAction>, IPresenter<PayResourceGameAction>
     {
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly StatableManager _statableManager;
 
         /*******************************************************************/
-        async Task INewPresenter<GainHintGameAction>.PlayAnimationWith(GainHintGameAction gainHintGameAction)
+        async Task IPresenter<GainHintGameAction>.PlayAnimationWith(GainHintGameAction gainHintGameAction)
         {
             await DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(gainHintGameAction.Investigator))
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
                 .AsyncWaitForCompletion();
         }
 
-        async Task INewPresenter<PayHintGameAction>.PlayAnimationWith(PayHintGameAction payHintGameAction)
+        async Task IPresenter<PayHintGameAction>.PlayAnimationWith(PayHintGameAction payHintGameAction)
         {
             await DOTween.Sequence()
               .Append(_swapInvestigatorPresenter.Select(payHintGameAction.Investigator))
@@ -30,7 +30,7 @@ namespace MythsAndHorrors.GameView
               .AsyncWaitForCompletion();
         }
 
-        async Task INewPresenter<GainResourceGameAction>.PlayAnimationWith(GainResourceGameAction gainResourceGameAction)
+        async Task IPresenter<GainResourceGameAction>.PlayAnimationWith(GainResourceGameAction gainResourceGameAction)
         {
             await DOTween.Sequence()
                .Append(_swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator))
@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameView
                .AsyncWaitForCompletion();
         }
 
-        async Task INewPresenter<PayResourceGameAction>.PlayAnimationWith(PayResourceGameAction payResourceGameAction)
+        async Task IPresenter<PayResourceGameAction>.PlayAnimationWith(PayResourceGameAction payResourceGameAction)
         {
             await DOTween.Sequence()
               .Append(_swapInvestigatorPresenter.Select(payResourceGameAction.Investigator))

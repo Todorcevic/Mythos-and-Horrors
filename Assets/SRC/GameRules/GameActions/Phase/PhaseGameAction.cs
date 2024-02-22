@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class PhaseGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<PhaseGameAction> _changePhasePresenter;
+        [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public abstract string Name { get; }
         public abstract string Description { get; }

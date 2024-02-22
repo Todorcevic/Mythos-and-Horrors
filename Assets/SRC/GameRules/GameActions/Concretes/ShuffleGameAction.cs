@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShuffleGameAction : GameAction
     {
-        [Inject] private readonly INewPresenter<ShuffleGameAction> _shufllePresenter;
+        [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
 
         public Zone ZoneToShuffle { get; }
 

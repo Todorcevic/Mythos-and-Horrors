@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ChangePhasePresenter : INewPresenter<PhaseGameAction>
+    public class ChangePhasePresenter : IPresenter<PhaseGameAction>
     {
         [Inject] private readonly PhaseComponent _phaseComponent;
 
         /*******************************************************************/
-        async Task INewPresenter<PhaseGameAction>.PlayAnimationWith(PhaseGameAction phaseGameAction)
+        async Task IPresenter<PhaseGameAction>.PlayAnimationWith(PhaseGameAction phaseGameAction)
         {
             await ShowThisPhase(phaseGameAction);
         }
