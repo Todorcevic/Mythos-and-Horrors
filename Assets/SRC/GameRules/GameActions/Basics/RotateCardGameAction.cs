@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class RotateCardGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
+        [Inject] private readonly INewPresenter<RotateCardGameAction> _rotateCardPresenter;
 
         public Card Card { get; }
         public bool ToFaceDown { get; }
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Card.TurnDown(ToFaceDown);
-            await _viewLayersProvider.PlayAnimationWith(this);
+            await _rotateCardPresenter.PlayAnimationWith(this);
         }
 
     }

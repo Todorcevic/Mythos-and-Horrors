@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
+        [Inject] private readonly INewPresenter<MoveCardsGameAction> _moveCardPresenter;
 
         public List<Card> Cards { get; }
         public Card Card => Cards[0];
@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameRules
                 ToZone.AddCard(card);
             }
 
-            await _viewLayerProvider.PlayAnimationWith(this);
+            await _moveCardPresenter.PlayAnimationWith(this);
         }
     }
 }

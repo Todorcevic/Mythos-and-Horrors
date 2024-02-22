@@ -4,15 +4,14 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardMoverPresenter : IPresenter
+    public class CardMoverPresenter : INewPresenter<MoveCardsGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        async Task INewPresenter<MoveCardsGameAction>.PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)
         {
-            if (gamAction is MoveCardsGameAction moveCardsGameAction)
-                await MoveCardWith(moveCardsGameAction);
+            await MoveCardWith(moveCardsGameAction);
         }
 
         /*******************************************************************/

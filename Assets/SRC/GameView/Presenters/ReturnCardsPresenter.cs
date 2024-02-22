@@ -4,14 +4,14 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
-    public class PlayInvestigatorPresenter : IPresenter
+    public class ReturnCardsPresenter : INewPresenter<InteractableGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        async Task INewPresenter<InteractableGameAction>.PlayAnimationWith(InteractableGameAction gameAction)
         {
-            if (gamAction is InteractableGameAction) await ReturnInvestigator();
+            await ReturnInvestigator();
         }
 
         /*******************************************************************/

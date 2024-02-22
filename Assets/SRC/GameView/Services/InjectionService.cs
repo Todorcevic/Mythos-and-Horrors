@@ -32,13 +32,6 @@ namespace MythsAndHorrors.GameView
             Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
                 .InNamespace(gameViewNameSpace).WithSuffix("Service")).FromResolve();
 
-            /*** Presenters ***/
-            Container.Bind(x => x.AllNonAbstractClasses()
-                .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).AsSingle();
-
-            Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
-                .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).FromResolve();
-
             /*** Handlers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
                 .InNamespace(gameViewNameSpace).WithSuffix("Handler")).AsSingle();
@@ -82,6 +75,7 @@ namespace MythsAndHorrors.GameView
         {
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
             Container.Bind(typeof(ClickHandler<>)).AsSingle();
+            Container.Bind<IInteractablePresenter>().To<InteractablePresenter>().AsSingle();
         }
 
         private void InstallGenericPresenterBindings(Type interfaceT)
@@ -99,7 +93,7 @@ namespace MythsAndHorrors.GameView
                         Type argumentType = @interface.GetGenericArguments()[0];
                         Type genericType = interfaceT.MakeGenericType(argumentType);
 
-                        Container.Bind(genericType).To(type).AsSingle();
+                        Container.Bind(genericType).To(type).AsCached();
                     }
                 }
             }

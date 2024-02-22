@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class StatGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
+        [Inject] private readonly INewPresenter<StatGameAction> _StatsPresenter;
 
         public Stat Stat { get; }
         public int Value { get; }
@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameRules
 
         protected override async Task ExecuteThisLogic()
         {
-            await _viewLayersProvider.PlayAnimationWith(this);
+            await _StatsPresenter.PlayAnimationWith(this);
         }
     }
 }

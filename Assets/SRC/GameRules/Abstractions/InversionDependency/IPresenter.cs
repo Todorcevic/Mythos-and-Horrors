@@ -1,10 +1,9 @@
-﻿using MythsAndHorrors.GameRules;
-using System.Threading.Tasks;
+﻿//using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules
-{
-    public interface IPresenter
-    {
-        Task CheckGameAction(GameAction gameAction);
-    }
-}
+//namespace MythsAndHorrors.GameRules
+//{
+//    public interface IPresenter
+//    {
+//        Task CheckGameAction(GameAction gameAction);
+//    }
+//}

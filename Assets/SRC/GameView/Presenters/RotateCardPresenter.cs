@@ -5,16 +5,15 @@ using DG.Tweening;
 
 namespace MythsAndHorrors.GameView
 {
-    public class RotateCardPresenter : IPresenter
+    public class RotateCardPresenter : INewPresenter<RotateCardGameAction>
     {
         [Inject] private readonly CardViewsManager _cardsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        async Task INewPresenter<RotateCardGameAction>.PlayAnimationWith(RotateCardGameAction rotateCardGameAction)
         {
-            if (gamAction is RotateCardGameAction rotateCardGameAction)
-                await RotateCard(rotateCardGameAction);
+            await RotateCard(rotateCardGameAction);
         }
 
         /*******************************************************************/

@@ -5,56 +5,47 @@ using System.Threading.Tasks;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokenMoverPresenter : IPresenter
+    public class TokenMoverPresenter : INewPresenter<GainHintGameAction>, INewPresenter<PayHintGameAction>, INewPresenter<GainResourceGameAction>, INewPresenter<PayResourceGameAction>
     {
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly StatableManager _statableManager;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        async Task INewPresenter<GainHintGameAction>.PlayAnimationWith(GainHintGameAction gainHintGameAction)
         {
-            if (gamAction is GainHintGameAction gainHintsGameAction)
-                await GainHints(gainHintsGameAction).AsyncWaitForCompletion();
-            else if (gamAction is PayHintGameAction payHintsGameAction)
-                await PayHints(payHintsGameAction).AsyncWaitForCompletion();
-            else if (gamAction is GainResourceGameAction gainResourceGameAction)
-                await GainResource(gainResourceGameAction).AsyncWaitForCompletion();
-            else if (gamAction is PayResourceGameAction payResourceGameAction)
-                await PayResource(payResourceGameAction).AsyncWaitForCompletion();
-        }
-
-        /*******************************************************************/
-        private Tween GainHints(GainHintGameAction gainHintGameAction)
-        {
-            return DOTween.Sequence()
+            await DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(gainHintGameAction.Investigator))
                 .Append(_areaInvestigatorViewsManager.Get(gainHintGameAction.Investigator).HintsTokenController
-                       .Gain(gainHintGameAction.Amount, _statableManager.Get(gainHintGameAction.FromStat).StatTransform));
+                    .Gain(gainHintGameAction.Amount, _statableManager.Get(gainHintGameAction.FromStat).StatTransform))
+                .AsyncWaitForCompletion();
         }
 
-        private Tween PayHints(PayHintGameAction payHintGameAction)
+        async Task INewPresenter<PayHintGameAction>.PlayAnimationWith(PayHintGameAction payHintGameAction)
         {
-            return DOTween.Sequence()
-                .Append(_swapInvestigatorPresenter.Select(payHintGameAction.Investigator))
-                .Append(_areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController
-                       .Pay(payHintGameAction.Amount, _statableManager.Get(payHintGameAction.ToStat).StatTransform));
+            await DOTween.Sequence()
+              .Append(_swapInvestigatorPresenter.Select(payHintGameAction.Investigator))
+              .Append(_areaInvestigatorViewsManager.Get(payHintGameAction.Investigator).HintsTokenController
+                    .Pay(payHintGameAction.Amount, _statableManager.Get(payHintGameAction.ToStat).StatTransform))
+              .AsyncWaitForCompletion();
         }
 
-        private Tween GainResource(GainResourceGameAction gainResourceGameAction)
+        async Task INewPresenter<GainResourceGameAction>.PlayAnimationWith(GainResourceGameAction gainResourceGameAction)
         {
-            return DOTween.Sequence()
-                .Append(_swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator))
-                .Append(_areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController
-                       .Gain(gainResourceGameAction.Amount, _statableManager.Get(gainResourceGameAction.FromStat).StatTransform));
+            await DOTween.Sequence()
+               .Append(_swapInvestigatorPresenter.Select(gainResourceGameAction.Investigator))
+               .Append(_areaInvestigatorViewsManager.Get(gainResourceGameAction.Investigator).ResourcesTokenController
+                   .Gain(gainResourceGameAction.Amount, _statableManager.Get(gainResourceGameAction.FromStat).StatTransform))
+               .AsyncWaitForCompletion();
         }
 
-        private Tween PayResource(PayResourceGameAction payResourceGameAction)
+        async Task INewPresenter<PayResourceGameAction>.PlayAnimationWith(PayResourceGameAction payResourceGameAction)
         {
-            return DOTween.Sequence()
-                .Append(_swapInvestigatorPresenter.Select(payResourceGameAction.Investigator))
-                .Append(_areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController
-                       .Pay(payResourceGameAction.Amount, _statableManager.Get(payResourceGameAction.ToStat).StatTransform));
+            await DOTween.Sequence()
+              .Append(_swapInvestigatorPresenter.Select(payResourceGameAction.Investigator))
+              .Append(_areaInvestigatorViewsManager.Get(payResourceGameAction.Investigator).ResourcesTokenController
+                     .Pay(payResourceGameAction.Amount, _statableManager.Get(payResourceGameAction.ToStat).StatTransform))
+              .AsyncWaitForCompletion();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ShowHistoryGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
+        [Inject] private readonly INewPresenter<ShowHistoryGameAction> _showHistoryPresenter;
 
         public History History { get; }
         public Card Card { get; }
@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _viewLayerProvider.PlayAnimationWith(this);
+            await _showHistoryPresenter.PlayAnimationWith(this);
         }
     }
 }

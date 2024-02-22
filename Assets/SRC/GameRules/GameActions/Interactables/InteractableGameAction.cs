@@ -7,6 +7,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
+        [Inject] private readonly INewPresenter<InteractableGameAction> _returnCardPresenter;
         [Inject] private readonly ViewLayersProvider _viewLayersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -35,7 +36,7 @@ namespace MythsAndHorrors.GameRules
             ClearEffectsInAllCards();
             if (NothingIsSelected) return;
             await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));
-            await _viewLayersProvider.PlayAnimationWith(this);
+            await _returnCardPresenter.PlayAnimationWith(this);
         }
 
         private void CheckBuffs()

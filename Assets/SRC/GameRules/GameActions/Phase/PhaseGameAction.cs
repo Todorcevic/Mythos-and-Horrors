@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class PhaseGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayerProvider;
+        [Inject] private readonly INewPresenter<PhaseGameAction> _changePhasePresenter;
 
         public abstract string Name { get; }
         public abstract string Description { get; }
@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _viewLayerProvider.PlayAnimationWith(this);
+            await _changePhasePresenter.PlayAnimationWith(this);
             await ExecuteThisPhaseLogic();
         }
 

@@ -6,8 +6,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class PlayEffectGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
-
         public Effect Effect { get; }
 
         /*******************************************************************/
@@ -19,7 +17,6 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _viewLayersProvider.PlayAnimationWith(this);
             await Effect.Logic();
         }
     }

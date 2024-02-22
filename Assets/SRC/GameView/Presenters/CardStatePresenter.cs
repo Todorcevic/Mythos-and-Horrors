@@ -4,12 +4,12 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
-    public class CardStatePresenter : IPresenter
+    public class CardStatePresenter : INewPresenter<GameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gameAction)
+        async Task INewPresenter<GameAction>.PlayAnimationWith(GameAction gameAction)
         {
             _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.UpdateState());
             await Task.CompletedTask;

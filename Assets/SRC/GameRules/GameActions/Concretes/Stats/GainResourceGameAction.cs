@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class GainResourceGameAction : GameAction
     {
-        [Inject] private readonly ViewLayersProvider _viewLayersProvider;
+        [Inject] private readonly INewPresenter<GainResourceGameAction> _gainResourcePresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         private readonly Stat _fromStat;
@@ -32,7 +32,7 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(FromStat, Amount));
-            await _viewLayersProvider.PlayAnimationWith(this);
+            await _gainResourcePresenter.PlayAnimationWith(this);
             await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.InvestigatorCard.Resources, Amount));
         }
     }

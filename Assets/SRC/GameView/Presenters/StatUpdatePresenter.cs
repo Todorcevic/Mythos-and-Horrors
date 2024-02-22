@@ -6,15 +6,14 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class StatUpdatePresenter : IPresenter
+    public class StatUpdatePresenter : INewPresenter<StatGameAction>
     {
         [Inject] private readonly StatableManager _statsViewsManager;
 
         /*******************************************************************/
-        async Task IPresenter.CheckGameAction(GameAction gamAction)
+        async Task INewPresenter<StatGameAction>.PlayAnimationWith(StatGameAction updateStatGameAction)
         {
-            if (gamAction is StatGameAction updateStatGameAction)
-                await UpdateStat(updateStatGameAction).AsyncWaitForCompletion();
+            await UpdateStat(updateStatGameAction).AsyncWaitForCompletion();
         }
 
         /*******************************************************************/
