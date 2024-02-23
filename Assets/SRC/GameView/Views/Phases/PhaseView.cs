@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameView
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
             .OnComplete(() => gameObject.SetActive(false));
 
-        public Tween ChangeText(string name, string description) => DOTween.Sequence()
+        public Sequence ChangeText(string name, string description) => DOTween.Sequence()
             .Join(_name.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
             .Join(_description.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).OnComplete(() => { _name.text = name; _description.text = description; }))
             .Append(_name.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))

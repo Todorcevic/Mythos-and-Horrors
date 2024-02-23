@@ -12,7 +12,6 @@ namespace MythsAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override Phase MainPhase => Phase.Investigator;
-        public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

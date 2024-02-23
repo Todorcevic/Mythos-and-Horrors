@@ -34,7 +34,7 @@ namespace MythsAndHorrors.GameRules
             Shock = new Stat(0);
             Resources = new Stat(0);
             Hints = new Stat(0);
-            Turns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT, GameValues.DEFAULT_TURNS_AMOUNT);
+            Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
         }
 
         public bool HasThisStat(Stat stat)

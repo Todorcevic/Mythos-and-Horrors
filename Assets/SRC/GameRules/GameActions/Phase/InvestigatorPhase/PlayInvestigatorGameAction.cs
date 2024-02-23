@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameRules
         {
             ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionFactory.Create(new ChooseInvestigatorGameAction());
 
-            while (chooseInvestigatorGA.ActiveInvestigator.InvestigatorCard.Turns.Value > 0)
+            while (chooseInvestigatorGA.ActiveInvestigator.HasTurnsAvailable)
             {
                 await _gameActionFactory.Create(new OneInvestigatorTurnGameAction(chooseInvestigatorGA.ActiveInvestigator));
             }

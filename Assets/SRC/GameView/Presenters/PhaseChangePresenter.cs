@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class ChangePhasePresenter : IPresenter<PhaseGameAction>
+    public class PhaseChangePresenter : IPresenter<PhaseGameAction>
     {
         [Inject] private readonly PhaseComponent _phaseComponent;
 

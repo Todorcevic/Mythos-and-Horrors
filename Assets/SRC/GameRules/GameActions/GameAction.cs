@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameRules
     {
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] private readonly IPresenter<GameAction> _cardStatePresenter;
+        [Inject] private readonly IPresenter<GameAction> _continuousPresenter;
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
             _current = this;
             await AtTheBeginning();
             await ExecuteThisLogic();
-            await _cardStatePresenter.PlayAnimationWith(this);
+            await _continuousPresenter.PlayAnimationWith(this);
             await AtTheEnd();
             _current = Parent ?? this;
             IsActive = false;

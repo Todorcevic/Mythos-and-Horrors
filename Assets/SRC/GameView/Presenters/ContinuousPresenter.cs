@@ -4,7 +4,7 @@ using MythsAndHorrors.GameRules;
 
 namespace MythsAndHorrors.GameView
 {
-    public class FullStatePresenter : IPresenter<GameAction>
+    public class ContinuousPresenter : IPresenter<GameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -13,11 +13,11 @@ namespace MythsAndHorrors.GameView
         async Task IPresenter<GameAction>.PlayAnimationWith(GameAction gameAction)
         {
             UpdateCardsState();
-            await ReturnAvatar();
+            await ReturnFromCenterShow();
         }
 
         private void UpdateCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.UpdateState());
 
-        private async Task ReturnAvatar() => await _moveCardHandler.ReturnCenterShowCard();
+        private async Task ReturnFromCenterShow() => await _moveCardHandler.ReturnCenterShowCard();
     }
 }

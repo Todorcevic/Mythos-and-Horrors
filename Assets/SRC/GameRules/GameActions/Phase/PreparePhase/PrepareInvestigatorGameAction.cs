@@ -8,7 +8,6 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public Investigator Investigator { get; }
         public override Phase MainPhase => Phase.Prepare;
         public override string Name => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_NAME;
         public override string Description => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_DESCRIPTION;
@@ -16,7 +15,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public PrepareInvestigatorGameAction(Investigator investigator)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
@@ -25,6 +24,7 @@ namespace MythsAndHorrors.GameRules
             await PositionateInvestigatorCard();
             await ApplyInjuty();
             await ApplyShock();
+            await SetTurns();
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
@@ -34,42 +34,46 @@ namespace MythsAndHorrors.GameRules
 
         private async Task PositionateInvestigatorCard()
         {
-            await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.InvestigatorCard, Investigator.InvestigatorZone));
+            await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
         }
 
         private async Task ApplyInjuty()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.InvestigatorCard.Health, Investigator.InvestigatorCard.Injury.Value));
-
+            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Health, ActiveInvestigator.InvestigatorCard.Injury.Value));
         }
 
         private async Task ApplyShock()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.InvestigatorCard.Sanity, Investigator.InvestigatorCard.Shock.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Sanity, ActiveInvestigator.InvestigatorCard.Shock.Value));
+        }
+
+        private async Task SetTurns()
+        {
+            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, GameValues.DEFAULT_TURNS_AMOUNT));
         }
 
         private async Task PositionateDeck()
         {
-            Investigator.FullDeck.ForEach(card => card.TurnDown(true));
-            await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.FullDeck, Investigator.DeckZone));
-            await _gameActionFactory.Create(new ShuffleGameAction(Investigator.DeckZone));
+            ActiveInvestigator.FullDeck.ForEach(card => card.TurnDown(true));
+            await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone));
+            await _gameActionFactory.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
         }
 
         private async Task CollectResources()
         {
-            await _gameActionFactory.Create(new GainResourceGameAction(Investigator, 5));
+            await _gameActionFactory.Create(new GainResourceGameAction(ActiveInvestigator, 5));
         }
 
         private async Task DrawInitialHand()
         {
-            while (Investigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
-                await _gameActionFactory.Create(new InitialDrawGameAction(Investigator));
+            while (ActiveInvestigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
+                await _gameActionFactory.Create(new InitialDrawGameAction(ActiveInvestigator));
             await Task.Delay(250);
         }
 
         private async Task Mulligan()
         {
-            await _gameActionFactory.Create(new MulliganGameAction(Investigator));
+            await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
         }
     }
 }

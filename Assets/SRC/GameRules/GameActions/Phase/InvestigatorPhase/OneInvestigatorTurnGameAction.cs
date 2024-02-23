@@ -3,11 +3,14 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : GameAction //2.2.1	Investigator takes an action, if able.
+    public class OneInvestigatorTurnGameAction : PhaseGameAction //2.2.1	Investigator takes an action, if able.
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly TextsProvider _textsProvider;
 
-        public Investigator ActiveInvestigator { get; }
+        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT;
+        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
+        public override Phase MainPhase => Phase.Investigator;
 
         /*******************************************************************/
         public OneInvestigatorTurnGameAction(Investigator investigator)
@@ -16,13 +19,11 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        protected override async Task ExecuteThisPhaseLogic()
         {
-
-
+            await _gameActionFactory.Create(new InteractableGameAction(isMandatary: false));
 
             await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, 1)); //Probablably must be in the concrete action
-
         }
     }
 }

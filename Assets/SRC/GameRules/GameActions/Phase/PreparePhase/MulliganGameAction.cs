@@ -9,7 +9,6 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public Investigator Investigator { get; }
         public override Phase MainPhase => Phase.Prepare;
         public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
         public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
@@ -17,30 +16,30 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
         protected sealed override async Task ExecuteThisPhaseLogic()
         {
-            foreach (Card card in Investigator.HandZone.Cards)
+            foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                card.AddEffect(Investigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect);
+                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect);
 
                 Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
             }
 
-            foreach (Card card in Investigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
+            foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
             {
-                card.AddEffect(Investigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect);
+                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect);
 
-                Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, Investigator.HandZone));
+                Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
             }
 
             InteractableGameAction interactableGameAction = await _gameActionFactory.Create(new InteractableGameAction(false));
 
             if (interactableGameAction.NothingIsSelected) return;
-            await _gameActionFactory.Create(new MulliganGameAction(Investigator));
+            await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
         }
     }
 }

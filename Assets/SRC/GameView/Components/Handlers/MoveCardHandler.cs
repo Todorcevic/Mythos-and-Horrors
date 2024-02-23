@@ -65,7 +65,9 @@ namespace MythsAndHorrors.GameView
         {
             CardView cardViewInSelector = _cardsManager.GetCardViewInCenterShow();
             if (cardViewInSelector == null) return;
-            await MoveCardWithPreviewToZone(cardViewInSelector.Card, cardViewInSelector.Card.CurrentZone);
+            await ReturnCard(cardViewInSelector.Card);
         }
+
+        private async Task ReturnCard(Card card) => await MoveCardWithPreviewToZone(card, card.CurrentZone);
     }
 }
