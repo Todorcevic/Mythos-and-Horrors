@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameRules
         public Investigator ActiveInvestigator { get; protected set; }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        protected override sealed async Task ExecuteThisLogic()
         {
             await _changePhasePresenter.PlayAnimationWith(this);
             await ExecuteThisPhaseLogic();

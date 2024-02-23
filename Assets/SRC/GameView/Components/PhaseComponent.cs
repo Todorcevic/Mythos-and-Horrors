@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
     {
         private const float OFFSET = -130f;
 
+        private Investigator currentInvestigator;
         [SerializeField, Required, ChildGameObjectsOnly] private List<PhaseView> _phaseViews;
         [SerializeField, Required, ChildGameObjectsOnly] private PhaseView _currentPhaseView;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _avatarImage;
@@ -32,7 +33,6 @@ namespace MythsAndHorrors.GameView
                 .OnComplete(() => _currentPhaseView = newPhase);
         }
 
-        private Investigator currentInvestigator;
         private Tween SetAvatar(Investigator investigatorTurn)
         {
             if (investigatorTurn == null) return HideAvatar();
@@ -53,6 +53,6 @@ namespace MythsAndHorrors.GameView
             .OnStart(() => _avatarImage.gameObject.SetActive(true)).SetEase(Ease.OutBounce, 1.1f);
 
         private Tween HideAvatar() => _avatarImage.transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)
-                .OnComplete(() => _avatarImage.gameObject.SetActive(false));
+            .OnComplete(() => { currentInvestigator = null; _avatarImage.gameObject.SetActive(false); });
     }
 }
