@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         }
 
         public T GetLastActive<T>() where T : GameAction =>
-            AllGameActions.Last(gameAction => gameAction is T && gameAction.IsActive) as T;
+            AllGameActions.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
     }
 }

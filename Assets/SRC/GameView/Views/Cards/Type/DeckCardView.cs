@@ -101,7 +101,7 @@ namespace MythsAndHorrors.GameView
         {
             if (!HasCost) return;
             if (Card.CurrentZone != Card.Owner?.HandZone) _cost.Default();
-            else if (_cost.Stat?.Value > Card.Owner?.InvestigatorCard.Resources.Value) _cost.Deactive();
+            else if (_cost.Stat.Value > Card.Owner?.InvestigatorCard.Resources.Value) _cost.Deactive();
             else _cost.Active();
         }
 

@@ -24,6 +24,9 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
+            _investigatorsProvider.AllInvestigators.ForEach(investigator =>
+            _gameActionFactory.Create(new UpdateStatGameAction(investigator.InvestigatorCard.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine());
+
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
             yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.AllInvestigators, place)).AsCoroutine();
