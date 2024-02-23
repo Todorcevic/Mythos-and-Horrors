@@ -9,6 +9,7 @@ namespace MythsAndHorrors.GameRules
     public class Investigator
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         [JsonProperty("InvestigatorCard")] public CardInvestigator InvestigatorCard { get; init; }
         [JsonProperty("AvatarCard")] public CardAvatar AvatarCard { get; init; }
@@ -26,6 +27,7 @@ namespace MythsAndHorrors.GameRules
         public Zone InvestigatorZone { get; private set; }
         public SlotsCollection SlotsCollection { get; } = new();
         public bool HasTurnsAvailable => InvestigatorCard.Turns.Value > 0;
+        public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
 
         /*******************************************************************/
         [Inject]
@@ -38,7 +40,6 @@ namespace MythsAndHorrors.GameRules
             AidZone = _zonesProvider.Create();
             DangerZone = _zonesProvider.Create();
             InvestigatorZone = _zonesProvider.Create();
-
         }
 
         /*******************************************************************/

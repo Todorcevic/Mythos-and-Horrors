@@ -13,5 +13,6 @@ namespace MythsAndHorrors.GameRules
         public void AddCard(Card objectCard) => AllCards.Add(objectCard);
         public List<Card> GetPlayableCards() => AllCards.FindAll(card => card.CanPlay);
         public List<Card> GetCardsBuffedWith(IBuffable buff) => AllCards.FindAll(card => card.HasThisBuff(buff));
+        public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
     }
 }

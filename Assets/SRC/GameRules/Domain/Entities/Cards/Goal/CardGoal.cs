@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameRules
     public class CardGoal : Card, IEndReactionable, IRevellable
     {
         [Inject] private readonly List<History> _histories;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public Stat Hints { get; private set; }

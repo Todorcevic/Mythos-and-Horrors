@@ -8,6 +8,7 @@ namespace MythsAndHorrors.GameRules
     public class CardPlot : Card, IEndReactionable, IRevellable
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
+        [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly List<History> _histories;
 
         public Stat Eldritch { get; private set; }

@@ -11,7 +11,6 @@ namespace MythsAndHorrors.GameRules
         private readonly List<Effect> _playableEffects = new();
         private readonly List<IBuffable> _buffs = new();
         [Inject] private readonly CardInfo _info;
-        [Inject] protected readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
 

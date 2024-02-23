@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
-    public class ChooseInvestigatorGameActionTes : TestBase
+    public class ChooseInvestigatorGameActionTest : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
