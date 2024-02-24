@@ -51,7 +51,7 @@ namespace MythsAndHorrors.GameRules
             if (turnInvestigatorGA.ActiveInvestigator.CurrentPlace != this) return;
             if (turnInvestigatorGA.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return;
 
-            AddEffect(new Effect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate));
+            AddEffect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate);
             Task Investigate() => _gameActionFactory.Create(new InvestigateGameAction(turnInvestigatorGA.ActiveInvestigator, this));
 
             await Task.CompletedTask;

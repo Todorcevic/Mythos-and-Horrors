@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
+            await MoveCardToCenter(cardView);
             await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
         }
@@ -33,13 +33,14 @@ namespace MythsAndHorrors.GameView
             CardView cardView = _cardsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            if (cardView.CurrentZoneView != _zonesViewManager.CenterShowZone) await MoveCardToCenter(cardView);
+            await MoveCardToCenter(cardView);
             await _swapInvestigatorHandler.Select(zone).AsyncWaitForCompletion();
             cardView.MoveToZone(zoneView, Ease.InCubic);
         }
 
         public async Task MoveCardToCenter(CardView cardView)
         {
+            if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone) return;
             await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
             await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
         }
@@ -61,13 +62,6 @@ namespace MythsAndHorrors.GameView
             await sequence.AsyncWaitForCompletion();
         }
 
-        public async Task ReturnCenterShowCard()
-        {
-            CardView cardViewInSelector = _cardsManager.GetCardViewInCenterShow();
-            if (cardViewInSelector == null) return;
-            await ReturnCard(cardViewInSelector.Card);
-        }
-
-        private async Task ReturnCard(Card card) => await MoveCardWithPreviewToZone(card, card.CurrentZone);
+        public async Task ReturnCard(Card card) => await MoveCardWithPreviewToZone(card, card.CurrentZone);
     }
 }

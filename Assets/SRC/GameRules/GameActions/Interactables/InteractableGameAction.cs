@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
 
         public List<Card> ActivableCards => _cardsProvider.GetPlayableCards();
         public bool IsManadatary { get; }
@@ -50,6 +51,6 @@ namespace MythsAndHorrors.GameRules
             return null;
         }
 
-        private void ClearEffectsInAllCards() => _cardsProvider.AllCards.ForEach(card => card.ClearEffects());
+        private void ClearEffectsInAllCards() => _effectProvider.ClearAllEffects();
     }
 }

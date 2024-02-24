@@ -20,10 +20,10 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            if (Card.IsFaceDown == ToFaceDown) return;
             Card.TurnDown(ToFaceDown);
             await _rotateCardPresenter.PlayAnimationWith(this);
         }
-
     }
 }
 

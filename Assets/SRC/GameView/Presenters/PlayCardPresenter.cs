@@ -6,23 +6,27 @@ namespace MythsAndHorrors.GameView
 {
     public class PlayCardPresenter : IPresenter<PlayEffectGameAction>
     {
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
         async Task IPresenter<PlayEffectGameAction>.PlayAnimationWith(PlayEffectGameAction playEffectGA)
         {
-            await MoveCenterCardEffect(playEffectGA);
+            CardView cardView = _cardViewsManager.GetCardView(playEffectGA.Effect.Card);
+            if (!playEffectGA.IsEffectPlayed) await MoveCenterCardEffect(cardView);
+            else await ReturnFromCenterShow(cardView);
         }
 
-        private async Task MoveCenterCardEffect(PlayEffectGameAction playEffectGA)
+        private async Task MoveCenterCardEffect(CardView cardView)
         {
-            //Card asda = _cardsProvider.GetCardWithThisEffect(playEffectGA.Effect);
-            //CardView adsdsa = _cardViewsManager.GetCardView(asda);
-            //await _moveCardHandler.MoveCardToCenter(adsdsa);
-            await Task.CompletedTask;
+            await _moveCardHandler.MoveCardToCenter(cardView);
         }
 
+        private async Task ReturnFromCenterShow(CardView cardView)
+        {
+            if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone)
+                await _moveCardHandler.ReturnCard(cardView.Card);
+        }
     }
 }

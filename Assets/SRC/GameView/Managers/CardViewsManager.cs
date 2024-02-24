@@ -26,6 +26,6 @@ namespace MythsAndHorrors.GameView
 
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
 
-        public CardView GetCardViewInCenterShow() => _allCardsView.Find(cardView => cardView.CurrentZoneView is ShowSelectorZoneView);
+        public CardView GetCardViewInCenterShow() => _allCardsView.Find(cardView => cardView.CurrentZoneView is ZoneCenterView);
     }
 }
