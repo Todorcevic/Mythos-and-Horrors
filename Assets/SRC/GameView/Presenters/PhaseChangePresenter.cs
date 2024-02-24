@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Zenject;
 
@@ -12,13 +11,14 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<PhaseGameAction>.PlayAnimationWith(PhaseGameAction phaseGameAction)
         {
-            await ShowThisPhase(phaseGameAction);
+            ShowThisPhase(phaseGameAction);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
-        private async Task ShowThisPhase(PhaseGameAction phaseGameAction)
+        private void ShowThisPhase(PhaseGameAction phaseGameAction)
         {
-            await _phaseComponent.ShowThisPhase(phaseGameAction).AsyncWaitForCompletion();
+            _phaseComponent.ShowThisPhase(phaseGameAction);
         }
     }
 }

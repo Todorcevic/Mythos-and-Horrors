@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
 {
     public class PhaseComponent : MonoBehaviour
     {
-        private const float OFFSET = -130f;
+        private const float OFFSET = -140f;
 
         private Investigator currentInvestigator;
         [SerializeField, Required, ChildGameObjectsOnly] private List<PhaseView> _phaseViews;

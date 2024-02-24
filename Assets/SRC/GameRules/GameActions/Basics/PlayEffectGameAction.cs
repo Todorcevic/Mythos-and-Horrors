@@ -9,7 +9,6 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly IPresenter<PlayEffectGameAction> _rotateCardPresenter;
 
         public Effect Effect { get; }
-        public bool IsEffectPlayed { get; private set; }
 
         /*******************************************************************/
         public PlayEffectGameAction(Effect effect)
@@ -22,8 +21,7 @@ namespace MythsAndHorrors.GameRules
         {
             await _rotateCardPresenter.PlayAnimationWith(this);
             await Effect.Logic();
-            IsEffectPlayed = true;
-            await _rotateCardPresenter.PlayAnimationWith(this);
+
         }
     }
 }

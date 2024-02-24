@@ -28,9 +28,9 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.Leader;
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];
-            card.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
-            card.AddEffect(null, "EffectTwo En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
-            card2.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
+            card.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)), withReturn: false);
+            card.AddEffect(null, "EffectTwo En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)), withReturn: false);
+            card2.AddEffect(investigator1, "EffectOne En un lugar de la Mancha Cuyo sin es la carretera", () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)), withReturn: false);
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();

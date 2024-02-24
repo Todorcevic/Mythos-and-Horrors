@@ -18,7 +18,7 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStart)
             {
-                investigator.AvatarCard.AddEffect(investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, ChooseInvestigatorEffect);
+                investigator.AvatarCard.AddEffect(investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, ChooseInvestigatorEffect, withReturn: true);
 
                 Task ChooseInvestigatorEffect() => Task.Run(() => ActiveInvestigator = investigator);
             }

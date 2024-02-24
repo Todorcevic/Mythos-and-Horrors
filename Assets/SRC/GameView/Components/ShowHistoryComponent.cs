@@ -1,10 +1,12 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -23,7 +25,9 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ScrollRect _scrollRect;
 
         /*******************************************************************/
-        private void Start()
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Initialized by Injection")]
+        private void Init()
         {
             initialScale = transform.localScale;
             _button.onClick.AddListener(Clicked);
