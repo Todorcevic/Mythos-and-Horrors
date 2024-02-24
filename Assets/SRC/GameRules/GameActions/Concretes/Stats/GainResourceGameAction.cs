@@ -13,9 +13,10 @@ namespace MythsAndHorrors.GameRules
         public Investigator Investigator { get; }
         public Stat FromStat => _fromStat ?? _chaptersProvider.CurrentScene.ResourcesPile;
         public int Amount { get; }
+        protected override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
-        public GainResourceGameAction(Investigator investigator, int amount)
+        public GainResourceGameAction(Investigator investigator, int amount) // fromStat ResourcePile -> See line 14
         {
             Investigator = investigator;
             Amount = amount;

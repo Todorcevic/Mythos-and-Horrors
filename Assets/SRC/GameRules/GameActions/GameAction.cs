@@ -11,10 +11,12 @@ namespace MythsAndHorrors.GameRules
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
+        protected virtual bool CanBeExecuted => true;
 
         /*******************************************************************/
         public async Task Start()
         {
+            if (!CanBeExecuted) return;
             IsActive = true;
             Parent = _current ?? this;
             _current = this;

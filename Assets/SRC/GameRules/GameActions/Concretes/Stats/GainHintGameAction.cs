@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameRules
         public Investigator Investigator { get; }
         public Stat FromStat { get; }
         public int Amount { get; }
+        protected override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
         public GainHintGameAction(Investigator investigator, Stat fromStat, int amount)
