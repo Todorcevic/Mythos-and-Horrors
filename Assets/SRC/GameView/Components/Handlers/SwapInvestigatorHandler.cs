@@ -13,7 +13,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Tween Select(Investigator investigator)
         {
-            if (_investigatorSelected == investigator) return DOTween.Sequence();
+            if (investigator == null || _investigatorSelected == investigator) return DOTween.Sequence();
             Sequence swapSequence = DOTween.Sequence()
             .Append(_swapInvestigatorComponent.Select(investigator))
             .Join(_avatarViewsManager.Get(_investigatorSelected ?? investigator).Deselect())
