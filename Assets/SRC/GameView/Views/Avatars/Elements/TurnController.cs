@@ -22,17 +22,27 @@ namespace MythsAndHorrors.GameView
         {
             Stat = stat;
             _statableManager.Add(this);
-            TurnOn(stat.Value);
+            TurnOn();
         }
 
-        private void TurnOn(int amount)
+        private Tween TurnOn()
         {
+            int amount = Stat.Value;
             AddExtraTurn(amount - _turns.Count);
-            _turns.ForEach(turn => turn.SetActive(false));
+
+            Sequence turningSequence = DOTween.Sequence();
+            for (int i = 0; i < ActiveTurnsCount; i++)
+            {
+                turningSequence.Join(SwitchOffTurn(_turns[i]));
+            }
+
+            turningSequence.Append(DOTween.Sequence());
             for (int i = 0; i < amount; i++)
             {
-                _turns[i].SetActive(true);
+                turningSequence.Join(SwitchOnTurn(_turns[i]));
             }
+
+            return turningSequence;
         }
 
         private void AddExtraTurn(int amount)
@@ -40,14 +50,19 @@ namespace MythsAndHorrors.GameView
             if (amount <= 0) return;
             for (int i = 0; i < amount; i++)
             {
-                _turns.Add(Instantiate(_turns.First(), transform));
+                GameObject newTurn = Instantiate(_turns.First(), transform);
+                _turns.Add(newTurn);
+                newTurn.SetActive(false);
+                newTurn.transform.localScale = Vector3.zero;
             }
         }
 
-        Tween IStatableView.UpdateValue()
-        {
-            TurnOn(Stat.Value);
-            return DOTween.Sequence(); //TODO: Do animation
-        }
+        private Tween SwitchOnTurn(GameObject turn) => turn.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION)
+                .OnStart(() => { turn.transform.localScale = Vector3.zero; turn.SetActive(true); });
+
+        private Tween SwitchOffTurn(GameObject turn) =>
+            turn.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => turn.SetActive(false));
+
+        Tween IStatableView.UpdateValue() => TurnOn();
     }
 }

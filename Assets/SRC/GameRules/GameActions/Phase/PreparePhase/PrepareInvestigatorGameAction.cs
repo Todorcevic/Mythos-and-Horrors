@@ -49,7 +49,7 @@ namespace MythsAndHorrors.GameRules
 
         private async Task SetTurns()
         {
-            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.Turns, GameValues.DEFAULT_TURNS_AMOUNT));
+            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.MaxValue));
         }
 
         private async Task PositionateDeck()
