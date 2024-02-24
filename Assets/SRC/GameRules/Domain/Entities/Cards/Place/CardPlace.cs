@@ -49,9 +49,9 @@ namespace MythsAndHorrors.GameRules
         {
             if (gameAction is not OneInvestigatorTurnGameAction turnInvestigatorGA) return;
             if (turnInvestigatorGA.ActiveInvestigator.CurrentPlace != this) return;
-            if (turnInvestigatorGA.ActiveInvestigator.InvestigatorCard.Turns.Value >= InvestigationCost.Value) return;
+            if (turnInvestigatorGA.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return;
 
-            AddEffect(new Effect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT1 + "Investigate", Investigate));
+            AddEffect(new Effect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate));
             Task Investigate() => _gameActionFactory.Create(new InvestigateGameAction(turnInvestigatorGA.ActiveInvestigator, this));
 
             await Task.CompletedTask;

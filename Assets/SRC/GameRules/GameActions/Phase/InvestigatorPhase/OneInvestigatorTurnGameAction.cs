@@ -22,8 +22,6 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _gameActionFactory.Create(new InteractableGameAction(isMandatary: false));
-
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, 1)); //Probablably must be in the concrete action
         }
     }
 }

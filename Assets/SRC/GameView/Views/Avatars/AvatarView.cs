@@ -45,11 +45,11 @@ namespace MythsAndHorrors.GameView
 
         private void SetStats()
         {
-            _healthStat.SetStat(Investigator.InvestigatorCard.Health);
-            _sanityStat.SetStat(Investigator.InvestigatorCard.Sanity);
-            _resourcesStat.SetStat(Investigator.InvestigatorCard.Resources);
-            _hintsStat.SetStat(Investigator.InvestigatorCard.Hints);
-            _turnController.Init(Investigator.InvestigatorCard.Turns);
+            _healthStat.SetStat(Investigator.Health);
+            _sanityStat.SetStat(Investigator.Sanity);
+            _resourcesStat.SetStat(Investigator.Resources);
+            _hintsStat.SetStat(Investigator.Hints);
+            _turnController.Init(Investigator.Turns);
         }
 
         /*******************************************************************/

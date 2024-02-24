@@ -402,6 +402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8728796067692711741}
     m_Modifications:
+    - target: {fileID: 1034048964588942184, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1376901513346778098, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
       propertyPath: m_Name
       value: ResourcesPile
@@ -449,6 +453,10 @@ PrefabInstance:
     - target: {fileID: 3265398270051058551, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278533670710122335, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
+      propertyPath: m_fontSize
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -788,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3265398270051058551, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3265398270051058551, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -838,6 +846,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6d51945ab04cf3f439a3e8e95c683b1f, type: 2}
+    - target: {fileID: 5278533670710122335, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 5674297040286244330, guid: 523d725e637ce37418a04c79efbfb7d4, type: 3}
       propertyPath: m_Name
       value: HintToken

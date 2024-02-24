@@ -5,7 +5,6 @@ namespace MythsAndHorrors.GameRules
 {
     public class InvestigateGameAction : GameAction
     {
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Investigator Investigator { get; }
@@ -21,7 +20,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await Task.CompletedTask;
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Turns, CardPlace.InvestigationCost.Value));
+            await _gameActionFactory.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
         }
     }
 }

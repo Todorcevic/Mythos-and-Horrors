@@ -25,8 +25,20 @@ namespace MythsAndHorrors.GameRules
         public Zone AidZone { get; private set; }
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
+        public Stat Health => InvestigatorCard.Health;
+        public Stat Sanity => InvestigatorCard.Sanity;
+        public Stat Strength => InvestigatorCard.Strength;
+        public Stat Agility => InvestigatorCard.Agility;
+        public Stat Intelligence => InvestigatorCard.Intelligence;
+        public Stat Power => InvestigatorCard.Power;
+        public Stat Xp => InvestigatorCard.Xp;
+        public Stat Injury => InvestigatorCard.Injury;
+        public Stat Shock => InvestigatorCard.Shock;
+        public Stat Resources => InvestigatorCard.Resources;
+        public Stat Hints => InvestigatorCard.Hints;
+        public Stat Turns => InvestigatorCard.Turns;
         public SlotsCollection SlotsCollection { get; } = new();
-        public bool HasTurnsAvailable => InvestigatorCard.Turns.Value > 0;
+        public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
 
         /*******************************************************************/

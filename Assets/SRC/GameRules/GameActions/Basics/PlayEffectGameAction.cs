@@ -6,6 +6,8 @@ namespace MythsAndHorrors.GameRules
 {
     public class PlayEffectGameAction : GameAction
     {
+        [Inject] private readonly IPresenter<PlayEffectGameAction> _rotateCardPresenter;
+
         public Effect Effect { get; }
 
         /*******************************************************************/
@@ -17,6 +19,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await _rotateCardPresenter.PlayAnimationWith(this);
             await Effect.Logic();
         }
     }

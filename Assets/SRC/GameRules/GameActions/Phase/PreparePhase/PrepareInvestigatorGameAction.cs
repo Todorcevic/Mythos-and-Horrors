@@ -39,17 +39,17 @@ namespace MythsAndHorrors.GameRules
 
         private async Task ApplyInjuty()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Health, ActiveInvestigator.InvestigatorCard.Injury.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Health, ActiveInvestigator.Injury.Value));
         }
 
         private async Task ApplyShock()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.InvestigatorCard.Sanity, ActiveInvestigator.InvestigatorCard.Shock.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Sanity, ActiveInvestigator.Shock.Value));
         }
 
         private async Task SetTurns()
         {
-            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.InvestigatorCard.Turns, GameValues.DEFAULT_TURNS_AMOUNT));
+            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.Turns, GameValues.DEFAULT_TURNS_AMOUNT));
         }
 
         private async Task PositionateDeck()

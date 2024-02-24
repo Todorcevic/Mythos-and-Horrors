@@ -5,6 +5,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
+
     public class RevealCardPresenter : IPresenter<RevealGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;

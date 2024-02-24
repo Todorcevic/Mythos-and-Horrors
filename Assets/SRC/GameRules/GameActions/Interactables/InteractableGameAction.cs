@@ -35,7 +35,6 @@ namespace MythsAndHorrors.GameRules
             ClearEffectsInAllCards();
             if (NothingIsSelected) return;
             await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));
-            //await _returnCardPresenter.PlayAnimationWith(this);
         }
 
         private void CheckBuffs()

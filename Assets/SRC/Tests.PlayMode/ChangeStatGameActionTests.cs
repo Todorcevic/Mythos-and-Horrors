@@ -27,12 +27,12 @@ namespace MythsAndHorrors.PlayMode.Tests
             _prepareGameUse.Execute();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Health, 3)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.InvestigatorCard.Turns, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Health, 3)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 2)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_investigatorsProvider.Leader.InvestigatorCard.Health.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Leader.Health.Value, Is.EqualTo(3));
             Assert.That((_cardViewsManager.GetCardView(_investigatorsProvider.Leader.AvatarCard) as AvatarCardView).GetPrivateMember<StatView>("_health").Stat.Value, Is.EqualTo(3));
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<StatUIView>("_healthStat").Stat.Value, Is.EqualTo(3));
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(2));

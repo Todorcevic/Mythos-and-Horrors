@@ -16,9 +16,9 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         protected override void SetSpecific()
         {
-            _health.SetStat(Investigator.InvestigatorCard.Health);
-            _sanity.SetStat(Investigator.InvestigatorCard.Sanity);
-            _turnController.Init(Investigator.InvestigatorCard.Turns);
+            _health.SetStat(Investigator.Health);
+            _sanity.SetStat(Investigator.Sanity);
+            _turnController.Init(Investigator.Turns);
         }
     }
 }
