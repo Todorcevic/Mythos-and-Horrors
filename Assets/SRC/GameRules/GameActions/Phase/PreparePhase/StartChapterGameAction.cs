@@ -8,13 +8,13 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public ChapterInfo Chapter { get; }
+        public Chapter Chapter { get; }
         public override Phase MainPhase => Phase.Prepare;
         public override string Name => _textsProvider.GameText.START_CHAPTER_PHASE_NAME;
         public override string Description => _textsProvider.GameText.START_CHAPTER_PHASE_DESCRIPTION;
 
         /*******************************************************************/
-        public StartChapterGameAction(ChapterInfo chapter)
+        public StartChapterGameAction(Chapter chapter)
         {
             Chapter = chapter;
         }

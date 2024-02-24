@@ -24,7 +24,10 @@ namespace MythsAndHorrors.GameView
         public Tween ShowThisPhase(PhaseGameAction phaseGameAction)
         {
             PhaseView newPhase = _phaseViews.First(phaseView => phaseView.Phase == phaseGameAction.MainPhase);
-            if (newPhase == _currentPhaseView) return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description).Join(SetAvatar(phaseGameAction.ActiveInvestigator));
+            if (newPhase == _currentPhaseView)
+            {
+                return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description).Join(SetAvatar(phaseGameAction.ActiveInvestigator));
+            }
             return DOTween.Sequence()
                 .Append(_currentPhaseView.Hide())
                 .Append(newPhase.Show())

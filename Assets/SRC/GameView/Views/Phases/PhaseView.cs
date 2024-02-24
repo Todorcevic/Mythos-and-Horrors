@@ -24,11 +24,22 @@ namespace MythsAndHorrors.GameView
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
             .OnComplete(() => gameObject.SetActive(false));
 
-        public Sequence ChangeText(string name, string description) => DOTween.Sequence()
-            .Join(_name.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
-            .Join(_description.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).OnComplete(() => { _name.text = name; _description.text = description; }))
-            .Append(_name.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
-            .Join(_description.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f));
+        public Sequence ChangeText(string name, string description)
+        {
+            Sequence namingSequence = DOTween.Sequence();
+            if (_name.text != name)
+            {
+                namingSequence.Join(DOTween.Sequence().Join(_name.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).OnComplete(() => _name.text = name))
+                .Append(_name.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f)));
+            }
+            if (_description.text != description)
+            {
+                namingSequence.Join(DOTween.Sequence().Join(_description.DOFade(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f).OnComplete(() => _description.text = description))
+                .Append(_description.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f)));
+
+            }
+            return namingSequence;
+        }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {

@@ -3,7 +3,7 @@ using Unity.Plastic.Newtonsoft.Json;
 
 namespace MythsAndHorrors.GameRules
 {
-    public record ChapterInfo
+    public record Chapter
     {
         [JsonProperty("Code")] public string Code { get; init; }
         [JsonProperty("Title")] public string Title { get; init; }

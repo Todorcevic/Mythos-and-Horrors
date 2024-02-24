@@ -11,10 +11,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView) =>
             cardView.transform.DOFullLocalMove(_movePosition, ViewValues.DEFAULT_TIME_ANIMATION)
-            //.Join(transform.DOSpiral(ViewValues.DEFAULT_TIME_ANIMATION, speed: 0.25f, frequency: 50, depth: 0, mode: SpiralMode.ExpandThenContract).SetEase(Ease.Linear))
             .Join(cardView.DisableToCenterShow());
+        //.Append(cardView.transform.DOSpiral(ViewValues.DEFAULT_TIME_ANIMATION, Vector3.up, speed: 1f, frequency: 5, depth: 0, mode: SpiralMode.ExpandThenContract));
 
-        public override Tween ExitZone(CardView cardView) => DOTween.Sequence().Join(cardView.EnableFromCenterShow());
+        public override Tween ExitZone(CardView cardView) => cardView.EnableFromCenterShow();
 
         public override Tween MouseEnter(CardView cardView) => DOTween.Sequence();
 

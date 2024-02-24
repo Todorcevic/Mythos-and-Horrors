@@ -13,7 +13,8 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<StatGameAction>.PlayAnimationWith(StatGameAction updateStatGameAction)
         {
-            await UpdateStat(updateStatGameAction).AsyncWaitForCompletion();
+            UpdateStat(updateStatGameAction);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/

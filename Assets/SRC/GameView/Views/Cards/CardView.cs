@@ -50,9 +50,17 @@ namespace MythsAndHorrors.GameView
             transform.SetParent(zoneView.transform);
         }
 
-        public Tween DisableToCenterShow() => _ownZoneCardView.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION);
+        public Tween DisableToCenterShow()
+        {
+            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            return _ownZoneCardView.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION);
+        }
 
-        public Tween EnableFromCenterShow() => _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION * 2).SetEase(Ease.OutElastic, 1.1f);
+        public Tween EnableFromCenterShow()
+        {
+            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            return _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+        }
 
         public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);
 
@@ -99,6 +107,9 @@ namespace MythsAndHorrors.GameView
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
 
         /*******************************************************************/
+        public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION, Vector3.up, speed: 1f, frequency: 5, depth: 0, mode: SpiralMode.ExpandThenContract)
+                 .SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear).SetId("Idle");
+
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             Sequence moveSequence = DOTween.Sequence()
@@ -117,7 +128,6 @@ namespace MythsAndHorrors.GameView
                  .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
                  .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
                  .Append(EnableFromCenterShow()));
-
 
         /*******************************************************************/
         public Effect UniqueEffect { get; private set; }

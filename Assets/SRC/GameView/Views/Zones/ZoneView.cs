@@ -12,6 +12,7 @@ namespace MythsAndHorrors.GameView
 
         public Zone Zone { get; private set; }
         public bool AvoidCardShower => _avoidCardShower;
+        public bool IsEmpty => Zone.Cards.Count == 0;
 
         /*******************************************************************/
         public void Init(Zone zone = null)

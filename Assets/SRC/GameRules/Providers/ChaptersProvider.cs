@@ -7,21 +7,21 @@ namespace MythsAndHorrors.GameRules
 
     public class ChaptersProvider
     {
-        private List<ChapterInfo> _chapters = new();
+        private List<Chapter> _chapters = new();
 
-        public ChapterInfo CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Info.Code));
+        public Chapter CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Info.Code));
         public Scene CurrentScene { get; private set; }
         public Dificulty CurrentDificulty { get; private set; }
 
         /*******************************************************************/
-        public void AddChapters(List<ChapterInfo> chapters)
+        public void AddChapters(List<Chapter> chapters)
         {
             _chapters = chapters ?? throw new ArgumentNullException(nameof(chapters) + " chapters cant be null");
         }
 
-        public ChapterInfo GetChapter(string chapterCode)
+        public Chapter GetChapter(string chapterCode)
         {
-            ChapterInfo chapter = _chapters.FirstOrDefault(chapter => chapter.Code == chapterCode);
+            Chapter chapter = _chapters.FirstOrDefault(chapter => chapter.Code == chapterCode);
             return chapter ?? throw new ArgumentException(nameof(chapterCode) + " chapter not found");
         }
 
