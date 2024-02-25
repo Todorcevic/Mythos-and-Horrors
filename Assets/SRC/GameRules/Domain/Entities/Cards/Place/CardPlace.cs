@@ -6,10 +6,10 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class CardPlace : Card, IStartReactionable, IEndReactionable, IRevellable
+    public class CardPlace : Card, IEndReactionable, IRevellable
     {
+        private List<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionFactory _gameActionFactory;
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat Hints { get; private set; }
@@ -18,8 +18,8 @@ namespace MythsAndHorrors.GameRules
         public Stat MoveCost { get; private set; }
         public State IsRevealed { get; private set; }
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
-        public List<CardPlace> ConnectedPlacesToMove => ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
-        public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
+        public List<CardPlace> ConnectedPlacesToMove => _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
+        private List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/
         [Inject]
@@ -39,15 +39,6 @@ namespace MythsAndHorrors.GameRules
             if (gameAction is MoveCardsGameAction) await CheckIfCanReveal();
         }
 
-        public virtual async Task WhenBegin(GameAction gameAction)
-        {
-            if (gameAction is OneInvestigatorTurnGameAction investigatorTurnGA)
-            {
-                await CheckIfInvestigate(investigatorTurnGA);
-                await CheckIfMove(investigatorTurnGA);
-            }
-        }
-
         /*******************************************************************/
         private async Task CheckIfCanReveal()
         {
@@ -57,28 +48,11 @@ namespace MythsAndHorrors.GameRules
             await _gameActionFactory.Create(new RevealGameAction(this));
         }
 
-        private async Task CheckIfInvestigate(OneInvestigatorTurnGameAction turnInvestigatorGA)
+        public virtual bool CanMoveWithThis(Investigator investigator)
         {
-            if (turnInvestigatorGA.ActiveInvestigator.CurrentPlace != this) return;
-            if (turnInvestigatorGA.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return;
-
-            AddEffect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate);
-            await Task.CompletedTask;
-
-            /*******************************************************************/
-            Task Investigate() => _gameActionFactory.Create(new InvestigateGameAction(turnInvestigatorGA.ActiveInvestigator, this));
-        }
-
-        private async Task CheckIfMove(OneInvestigatorTurnGameAction turnInvestigatorGA)
-        {
-            if (!ConnectedPlacesFromMove.Contains(turnInvestigatorGA.ActiveInvestigator.CurrentPlace)) return;
-            if (turnInvestigatorGA.ActiveInvestigator.Turns.Value < MoveCost.Value) return;
-
-            AddEffect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Move", Move);
-            await Task.CompletedTask;
-
-            /*******************************************************************/
-            Task Move() => _gameActionFactory.Create(new MoveToPlaceGameAction(turnInvestigatorGA.ActiveInvestigator, this));
+            if (!ConnectedPlacesFromMove.Contains(investigator.CurrentPlace)) return false;
+            if (investigator.Turns.Value < MoveCost.Value) return false;
+            return true;
         }
     }
 }

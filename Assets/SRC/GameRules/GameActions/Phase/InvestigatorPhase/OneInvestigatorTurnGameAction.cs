@@ -21,7 +21,28 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            CheckIfCanInvestigate();
+            CheckIfCanMove();
             await _gameActionFactory.Create(new InteractableGameAction(isMandatary: false));
+        }
+
+        private void CheckIfCanInvestigate()
+        {
+            if (!ActiveInvestigator.CanInvestigate) return;
+            ActiveInvestigator.CurrentPlace.AddEffect(ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigateEffect), InvestigateEffect);
+
+            Task InvestigateEffect() => _gameActionFactory.Create(new InvestigateGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
+        }
+
+        private void CheckIfCanMove()
+        {
+            foreach (CardPlace connectedPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
+            {
+                if (connectedPlace.CanMoveWithThis(ActiveInvestigator))
+                    connectedPlace.AddEffect(ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(MoveEffect), MoveEffect);
+
+                Task MoveEffect() => _gameActionFactory.Create(new MoveToPlaceGameAction(ActiveInvestigator, connectedPlace));
+            }
         }
     }
 }

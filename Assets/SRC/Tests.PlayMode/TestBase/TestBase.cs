@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using MythsAndHorrors.GameView;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -61,16 +62,29 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
         protected IEnumerator WaitToClickHistoryPanel()
         {
-            yield return new WaitUntil(() => _showHistoryComponent.GetPrivateMember<Button>("_button").interactable);
-            _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
+            float timeout = 1f;
+            float startTime = Time.realtimeSinceStartup;
+
+            while (Time.realtimeSinceStartup - startTime < timeout && !_showHistoryComponent.GetPrivateMember<Button>("_button").interactable)
+                yield return null;
+
+            if (_showHistoryComponent.GetPrivateMember<Button>("_button").interactable)
+                _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
+
+            else throw new TimeoutException("Not become interactable");
         }
 
         [Inject] private readonly CardViewsManager _cardViewsManager;
         protected IEnumerator WaitToClick(Card card)
         {
+            float timeout = 1f;
+            float startTime = Time.realtimeSinceStartup;
             CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
-            yield return new WaitUntil(() => cardSensor.IsClickable);
-            cardSensor.OnMouseUpAsButton();
+
+            while (Time.realtimeSinceStartup - startTime < timeout && !cardSensor.IsClickable) yield return null;
+
+            if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+            else throw new TimeoutException("Not become clickable");
         }
     }
 }

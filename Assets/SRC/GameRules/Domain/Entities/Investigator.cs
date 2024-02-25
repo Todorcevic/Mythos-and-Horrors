@@ -40,6 +40,7 @@ namespace MythsAndHorrors.GameRules
         public SlotsCollection SlotsCollection { get; } = new();
         public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
+        public bool CanInvestigate => CurrentPlace.InvestigationCost.Value <= Turns.Value;
 
         /*******************************************************************/
         [Inject]
