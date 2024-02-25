@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -7,14 +7,13 @@ namespace MythsAndHorrors.GameRules
 {
     public class CardGoal : Card, IEndReactionable, IRevellable
     {
-        [Inject] private readonly List<History> _histories;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public Stat Hints { get; private set; }
         public State IsRevealed { get; private set; }
-        public History InitialHistory => _histories[0];
-        public History RevealHistory => _histories[1];
+        public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
+        public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
         /*******************************************************************/
         [Inject]
@@ -38,7 +37,7 @@ namespace MythsAndHorrors.GameRules
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
             if (!moveCardsGameAction.Cards.Contains(this)) return;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.GoalZone) return;
-            if (_histories == null || _histories.Count < 1) return;
+            if (InitialHistory == null) return;
 
             await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
         }
@@ -49,7 +48,7 @@ namespace MythsAndHorrors.GameRules
             if (gameAction is not StatGameAction statGameAction) return;
             if (statGameAction.Stat != Hints) return;
             if (Hints.Value < Info.Hints) return;
-            if (_histories == null || _histories.Count < 2) return;
+            if (InitialHistory == null) return;
 
             await _gameActionFactory.Create(new RevealGameAction(this));
         }

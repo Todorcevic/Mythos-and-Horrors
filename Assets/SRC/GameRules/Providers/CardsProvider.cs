@@ -14,5 +14,7 @@ namespace MythsAndHorrors.GameRules
         public List<Card> GetPlayableCards() => AllCards.FindAll(card => card.CanPlay);
         public List<Card> GetCardsBuffedWith(IBuffable buff) => AllCards.FindAll(card => card.HasThisBuff(buff));
         public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
+        public List<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>
+            AllCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace)).ToList();
     }
 }

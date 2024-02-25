@@ -2,6 +2,8 @@
 using MythsAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -29,7 +31,11 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
-            yield return _gameActionFactory.Create(new MoveInvestigatorGameAction(_investigatorsProvider.AllInvestigators, place)).AsCoroutine();
+
+            List<Card> allAvatars = _investigatorsProvider.AllInvestigators
+               .Select(investigator => investigator.AvatarCard).Cast<Card>().ToList();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
+
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.AvatarCard).AsTask();
             ChooseInvestigatorGameAction chooseInvestigatoGA = new();

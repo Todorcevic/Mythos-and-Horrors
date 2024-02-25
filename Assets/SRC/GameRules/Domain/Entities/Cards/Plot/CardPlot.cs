@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -9,13 +9,11 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly GameActionFactory _gameActionFactory;
-        [Inject] private readonly List<History> _histories;
 
         public Stat Eldritch { get; private set; }
         public State IsRevealed { get; private set; }
-        public History InitialHistory => _histories[0];
-        public History RevealHistory => _histories[1];
-
+        public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
+        public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
         /*******************************************************************/
         [Inject]
@@ -29,28 +27,26 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            await CanShowInitialHistory(gameAction);
-            await CanShowFinalHistory(gameAction);
+            if (gameAction is MoveCardsGameAction moveCardsGameAction) await CanShowInitialHistory(moveCardsGameAction);
+            if (gameAction is StatGameAction statGameAction) await CanShowFinalHistory(statGameAction);
         }
 
-        protected virtual async Task CanShowInitialHistory(GameAction gameAction)
+        protected virtual async Task CanShowInitialHistory(MoveCardsGameAction moveCardsGameAction)
         {
             if (IsRevealed.Value) return;
-            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
+            if (InitialHistory == null) return;
             if (!moveCardsGameAction.Cards.Contains(this)) return;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return;
-            if (_histories == null || _histories.Count < 1) return;
 
             await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
         }
 
-        protected virtual async Task CanShowFinalHistory(GameAction gameAction)
+        protected virtual async Task CanShowFinalHistory(StatGameAction statGameAction)
         {
             if (IsRevealed.Value) return;
-            if (gameAction is not StatGameAction statGameAction) return;
+            if (RevealHistory == null) return;
             if (statGameAction.Stat != Eldritch) return;
             if (Eldritch.Value < Info.Eldritch) return;
-            if (_histories == null || _histories.Count < 2) return;
 
             await _gameActionFactory.Create(new RevealGameAction(this));
         }

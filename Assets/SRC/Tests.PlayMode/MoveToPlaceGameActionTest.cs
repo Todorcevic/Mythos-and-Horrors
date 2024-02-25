@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythsAndHorrors.PlayMode.Tests
 {
-    public class InvestigateGameActionTest : TestBase
+    public class MoveToPlaceGameActionTest : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -20,20 +20,25 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator InvestigateTest()
+        public IEnumerator MoveToPlaceTest()
         {
             _prepareGameUseCase.Execute();
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
+            CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
+            CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01113");
+
             _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(place2, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            yield return _gameActionFactory.Create(new InvestigateGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
+            if (!DEBUG_MODE) WaitToClick(place2).AsTask();
+            if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
+            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - 1));
-            Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - place.MoveCost.Value));
+            Assert.That(_investigatorsProvider.Leader.CurrentPlace, Is.EqualTo(place2));
         }
     }
 }

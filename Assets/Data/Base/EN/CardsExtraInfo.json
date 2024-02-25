@@ -1,14 +1,174 @@
 [
     {
-        "Description": "This is a placeholder random basic weakness\n You can replace it with a specific weakness using the Special tab or click the random button to replace it with a random weakness from your collection.",
-        "PackCode": "rcore",
-        "Faction": 32,
-        "Quantity": 1,
-        "CardType": 32,
-        "Code": "00000",
-        "Name": "Random Basic Weakness"
+        "Code": "01105",
+        "Histories": [
+            {
+                "Code": "01105",
+                "Title": "Ecos en la Caverna",
+                "Description": "En las profundidades de la enigmática cueva, un grupo de investigadores avanza cautelosamente, iluminando con sus linternas las antiguas formaciones rocosas en busca de pistas sobre el equipo de geólogos desaparecido. La cueva, un laberinto de oscuridad y secretos ocultos, resuena con el eco de sus pasos y el goteo constante del agua subterránea.\n De repente, un cántico extraño y lejano llega a sus oídos, emanando desde algún rincón oculto de la caverna. El sonido, hipnótico y desorientador, parece evocar imágenes de rituales arcanos y secretos ancestrales. Al mismo tiempo, un temblor suave pero insistente se siente bajo sus pies, como si algo, o alguien, estuviera excavando o moviéndose en las profundidades inexploradas de la tierra.",
+                "Image": "01105"
+            },
+            {
+                "Code": "01105b",
+                "Title": "Alteración Subterránea",
+                "Description": "A medida que los investigadores avanzan por la cueva, una transformación asombrosa e inquietante ocurre ante sus ojos. Las paredes rocosas de la cueva comienzan a desmoronarse, revelando capas de tierra y raíces que se entrelazan en el espacio. El suelo, antes sólido y seguro bajo sus pies, se torna inestable, transformándose en un terreno irregular y natural. Esta metamorfosis desafía toda explicación lógica y conocimiento geológico.\n Aunque claramente se encuentran en un entorno subterráneo, los investigadores perciben extrañamente fragmentos y reliquias de lo que parece ser una estructura residencial, dispersos entre las formaciones de la cueva. Aquí y allá, reconocen elementos que recuerdan a una casa, como trozos de muebles, pedazos de papel tapiz o incluso partes de marcos de ventanas, incrustados en las paredes de la cueva como si hubieran sido absorbidos y fusionados con la geología del lugar.",
+                "Image": "01105b"
+            }
+        ]
     },
     {
-        "Code": "Avatar"
+        "Code": "01106",
+        "Histories": [
+            {
+                "Code": "01106",
+                "Title": "En las Profundidades Desconocidas",
+                "Description": "En lo más profundo de la cueva, un giro inesperado y peligroso aguarda a los investigadores. De repente, el suelo bajo sus pies cede, revelando una vasta red de túneles oscuros que se extienden en las profundidades del subsuelo. Ante ellos, se abre un mundo subterráneo, un reino de oscuridad y misterio que permanecía oculto hasta ahora.\n En las sombras de estos túneles, pueden distinguir formas y siluetas de criaturas desconocidas moviéndose con rapidez y agilidad. Estos seres, jamás documentados en ningún texto o estudio geológico, parecen ser parte de un ecosistema subterráneo completamente ajeno a la superficie. Sus movimientos son ágiles y calculados, como si estuvieran acostumbrados a navegar por esta red de oscuridad.",
+                "Image": "01106"
+            },
+            {
+                "Code": "01106b",
+                "Title": "La Amenaza Subterránea",
+                "Description": "En el momento más inesperado, mientras los investigadores examinan con cautela el terreno de la cueva, el suelo ante ellos se resquebraja con una violencia sorprendente. De esta fisura emerge una criatura de pesadilla: una bestia salvaje con grotescos rasgos humanoides, un rostro que recuerda vagamente al de un canino y extremidades terminadas en pezuñas. La aparición de este ser, tan monstruoso como fascinante, los deja paralizados momentáneamente.\n Bajo la abertura recién formada, se revela una red de túneles que se extiende en todas direcciones, mucho más amplia y compleja de lo que habían imaginado. Estos túneles, que parecen ser naturales pero alterados por presencias desconocidas, se extienden por debajo de la estructura de la casa y más allá, hacia las profundidades desconocidas de la tierra.\n Un aullido infernal, que parece nacer de las mismas entrañas de la tierra, resuena a través de las cavernas subterráneas, llenando el aire con un eco que hiela la sangre. Este sonido no solo anuncia la presencia de la bestia que tienen ante sí, sino que sugiere la existencia de más criaturas, posiblemente una especie entera habitando estos túneles oscuros y olvidados.",
+                "Image": "01106b"
+            }
+        ]
+    },
+    {
+        "Code": "01107",
+        "Histories": [
+            {
+                "Code": "01107",
+                "Title": "La Huida Caótica",
+                "Description": "Los investigadores, aún intentando procesar la aparición de la monstruosa criatura y los insondables túneles subterráneos, se ven abruptamente sacudidos por un cambio dramático en la situación. Un aullido demencial, resonando desde el exterior de la cueva, corta el aire como una cuchilla. Este sonido, cargado de locura y desesperación, parece tener un efecto inmediato y poderoso en las criaturas que moran en las profundidades.\n En un instante, todas las criaturas, incluyendo la bestia de rasgos caninos y humanoides, giran su atención hacia el origen del aullido. Un instinto primario se despierta en ellas, un llamado urgente que no pueden ignorar. Con movimientos frenéticos y descontrolados, comienzan a correr hacia la salida de la cueva, derribando puertas, desgarrando obstáculos y creando un caos absoluto en su desesperada huida.\n Los investigadores se encuentran ahora en medio de una estampida salvaje, donde cada criatura parece estar empeñada en escapar a toda costa. El peligro de ser arrastrados o lastimados en este tumulto es inminente. Deben actuar rápidamente para evitar ser atrapados en el torbellino de pánico y encontrar una manera segura de salir de la cueva, mientras intentan comprender qué ha provocado esta reacción tan extrema en las criaturas.",
+                "Image": "01107"
+            },
+            {
+                "Code": "01107b",
+                "Title": "Emergencia Subterránea",
+                "Description": "En un giro inesperado y aterrador, los investigadores se encuentran en medio de un cataclismo subterráneo. El suelo de la cueva comienza a vibrar y temblar violentamente bajo sus pies, un presagio de una amenaza inminente. Antes de que puedan reaccionar, garras afiladas y temibles emergen de la tierra, rompiendo el suelo con una fuerza descomunal.\n Las criaturas, pertenecientes a un mundo que desafía toda lógica y comprensión humana, se abren paso a través de la tierra con un fervor desesperado. Seres de pesadilla que hasta ahora habían permanecido ocultos en las profundidades, ahora se liberan en un frenesí de actividad, emergiendo de la tierra que rodea a los investigadores por todos lados.\n La escena es de pura pesadilla: por cada lugar que miran, más de estas abominaciones se revelan, rompiendo la barrera que los separaba del mundo de la superficie.\n Aterrorizados y superados en número, los investigadores no tienen otra opción que huir tan rápido como sus piernas se lo permitan. Cada segundo cuenta mientras se abren camino a través del laberinto de túneles, esquivando las criaturas emergentes y los escombros que caen a su alrededor.",
+                "Image": "01107b"
+            }
+        ]
+    },
+    {
+        "Code": "01108",
+        "Histories": [
+            {
+                "Code": "01108",
+                "Title": "Cautivos del Derrumbe",
+                "Description": "Los investigadores, sumidos en la penumbra de un túnel subterráneo, se ven sorprendidos por un estruendo ensordecedor. Rocas y tierra caen como una cascada implacable, bloqueando la única ruta de regreso a la superficie. La nube de polvo y el retumbar de la tierra en convulsión se mezclan con sus gritos de alarma. Están atrapados.\n El aire, denso y polvoriento, se calma lentamente, revelando la magnitud del desastre. Ante ellos, lo que una vez fue un camino conocido, ahora es un amasijo caótico de rocas y escombros. Cada intento de mover las piedras parece solo empeorar el bloqueo, como si la propia cueva se resistiera a ser abierta nuevamente.",
+                "Image": "01108"
+            },
+            {
+                "Code": "01108b",
+                "Title": "La Puerta Oculta en la Cueva",
+                "Description": "En lo profundo de la cueva, los investigadores descubren una puerta desgastada y manchada de barro bajo una capa de tierra. Intrigados, la despejan y la abren, revelando una escalera que desciende hacia una oscuridad desconocida. Con cautela, descienden, pero detrás de ellos, la puerta se cierra de golpe, atrapándolos en un estrecho pasillo subterráneo.\n El aire está cargado de un olor a madera quemada y putrefacción. Con sus linternas apenas iluminando el camino, se aventuran por el pasillo, donde las sombras parecen cobrar vida propia. Ahora, su única opción es seguir adelante, adentrándose en los secretos ocultos en esta extensión subterránea de la cueva.",
+                "Image": "01108b"
+            }
+        ]
+    },
+    {
+        "Code": "01109",
+        "Histories": [
+            {
+                "Code": "01109",
+                "Title": "La Barrera Viviente",
+                "Description": "Frente a los investigadores se alza una barrera de luz deslumbrante que emana un calor abrasador. Al lanzar tierra contra ella, esta se incinera al instante, demostrando el peligro que representa. Deciden buscar algo que les ayude a superar este obstáculo en el sótano y el ático de la estructura subterránea, con la esperanza de encontrar un artefacto o conocimiento que pueda disipar la barrera y permitirles continuar su exploración.\n Ante ellos se extiende una barrera formada por enredaderas y plantas, entrelazadas con cristales brillantes y pulsantes. Esta barrera emite una luz tenue y parece vibrar con una energía desconocida.\n Al intentar tocar las enredaderas o los cristales, los investigadores sienten una repulsión energética, como si una fuerza invisible les impidiera el paso.",
+                "Image": "01109"
+            },
+            {
+                "Code": "01109b",
+                "Title": "Rompiendo la Barrera",
+                "Description": "Recordando el barril que habían descubierto en una cámara oculta más arriba, idean un plan. Rellenan el barril con fragmentos de cristales y rocas afiladas encontrados en la cueva, buscando crear una herramienta capaz de cortar las enredaderas.\n Con precaución, comienzan a golpear la barrera con su improvisada herramienta. Las enredaderas resisten al principio, pero poco a poco, los cristales del barril comienzan a cortar a través de ellas. Con cada golpe, las enredaderas se retiran, reacias a soltar su agarre, hasta que finalmente, con un crujido y un susurro de hojas, la barrera cede, abriendo un camino que antes estaba celosamente guardado.",
+                "Image": "01109b"
+            }
+        ]
+    },
+    {
+        "Code": "01110",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "El Guardián de la Cueva",
+                "Description": "Dentro de la cavernosa salita, más allá de la barrera ahora destruida, los investigadores se encuentran con una figura imponente. Un hombre de mirada severa y ojos que arden con un brillo de odio se enfrenta a ellos, sosteniendo una antorcha que ilumina su rostro marcado por la vida en las profundidades. “¿Qué le habéis hecho a mi barrera?” interroga con voz temblorosa de furia.\n Antes de que los investigadores puedan formular una respuesta, un alarido escalofriante resuena detrás de ellos. Girándose, ven una aparición espectacular: una criatura envuelta en una túnica, con una máscara hecha del cráneo de un ciervo, emerge de la pared de la cueva como si fuera un fantasma, moviéndose con una gracia inquietante hacia ellos.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "",
+                "Description": "",
+                "Image": "01110b"
+            }
+        ]
+    },
+    {
+        "Code": "01111",
+        "Histories": [
+            {
+                "Code": "01111",
+                "Title": "Derrumbamiento",
+                "Description": "Enormes rocas y escombros se han desprendido violentamente, obstruyendo la entrada y eliminando cualquier camino evidente de retorno al campamento base. La única iluminación disponible emana de linternas y lámparas, proyectando sombras fluctuantes sobre las paredes de piedra.",
+                "Image": "01111"
+            }
+        ],
+        "ConnectedPlaces": []
+    },
+    {
+        "Code": "01112",
+        "Histories": [
+            {
+                "Code": "01112",
+                "Title": "Pasaje Subterráneo",
+                "Description": "Las paredes rocosas del pasaje empiezan a revelar indicios de transformación. El suelo pétreo se metamorfosea lentamente en una senda de tierra apisonada, mientras que las paredes de la caverna muestran manchas de barro y raíces entrelazadas. Este cambio en el ambiente evoca la impresión de haber ingresado en un dominio distinto, como si la cueva condujera a un espacio o dimensión ajena.",
+                "Image": "01112"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01113",
+            "01114",
+            "01115"
+        ]
+    },
+    {
+        "Code": "01113",
+        "Histories": [
+            {
+                "Code": "01113",
+                "Title": "Cámara Elevada en la Cueva",
+                "Description": "Al acercarse a esta área elevada, un olor fétido y penetrante se apodera del ambiente, evocando carne en descomposición y exacerbando una sensación de malestar y alerta. La cámara elevada, claramente formada por procesos naturales, muestra signos de haber sido alterada con el tiempo, posiblemente por antiguos habitantes de la cueva o por fuerzas enigmáticas.\nDentro de la cámara, se descubre una escena escalofriante y sorprendente. Colgado de una formación rocosa del techo, yace el cadáver ensangrentado de una criatura deformada, suspendido de manera macabra como si se tratara de carne en un matadero. La sangre de la criatura cae en gotas, acumulándose en un pequeño receptáculo natural en el suelo, formado por las rocas de la propia cueva.\nLa visión de este cadáver y su macabra exposición despierta una mezcla de horror y preguntas. Surge la curiosidad sobre la naturaleza de la criatura, cómo llegó a ese lugar y el posible significado detrás de su presencia.",
+                "Image": "01113"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
+    },
+    {
+        "Code": "01114",
+        "Histories": [
+            {
+                "Code": "01114",
+                "Title": "Descenso Helado en la Cueva",
+                "Description": "Las rocas y formaciones naturales utilizadas como escaleras en este descenso están recubiertas de una fina capa de hielo, volviéndolas peligrosamente resbaladizas. El aire se torna notablemente más frío al acercarse a esta área, un cambio sorprendente considerando la temperatura habitual de la cueva.\nEn vez de una continuación de la cueva rocosa, se revela una extensa red de túneles y cavernas completamente cubiertas de hielo. Las formaciones de hielo y las estalactitas brillan bajo la luz de las linternas, creando un paisaje cautivador.\nEl frío en esta área es intenso, calando profundamente. El aire, casi congelado, da lugar a un ambiente que combina belleza y peligro. ",
+                "Image": "01114"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
+    },
+    {
+        "Code": "01115",
+        "Histories": [
+            {
+                "Code": "01115",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
     }
 ]

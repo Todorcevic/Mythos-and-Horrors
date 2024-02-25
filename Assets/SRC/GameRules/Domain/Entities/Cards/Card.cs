@@ -10,11 +10,13 @@ namespace MythsAndHorrors.GameRules
     {
         private readonly List<IBuffable> _buffs = new();
         [Inject] private readonly CardInfo _info;
+        [InjectOptional] private readonly CardExtraInfo _extraInfo;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
 
         public virtual CardInfo Info => _info;
+        public CardExtraInfo ExtraInfo => _extraInfo;
         public Zone OwnZone { get; private set; }
         public bool IsFaceDown { get; private set; }
         public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
