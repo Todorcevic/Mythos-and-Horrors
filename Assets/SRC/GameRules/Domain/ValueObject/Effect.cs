@@ -5,21 +5,19 @@ namespace MythsAndHorrors.GameRules
 {
     public record Effect : IViewEffect
     {
-        public Effect(Card card, Investigator investigator, string description, Func<Task> logic, bool withReturn, Investigator investigatorAffected = null)
+        public Effect(Card card, Investigator investigator, string description, Func<Task> logic, Investigator investigatorAffected = null)
         {
             Card = card;
             Investigator = investigator;
             InvestigatorAffected = investigatorAffected;
             Logic = logic;
             Description = description;
-            WithReturn = withReturn;
         }
 
         /*******************************************************************/
         public Card Card { get; init; }
         public Investigator Investigator { get; init; }
         public Investigator InvestigatorAffected { get; init; }
-        public bool WithReturn { get; init; }
 
         public Func<Task> Logic { get; init; }
 

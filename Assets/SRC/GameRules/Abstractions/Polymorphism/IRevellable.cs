@@ -2,7 +2,7 @@
 {
     public interface IRevellable
     {
-        State Revealed { get; }
+        State IsRevealed { get; }
         History RevealHistory { get; }
     }
 }

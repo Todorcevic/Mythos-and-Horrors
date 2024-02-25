@@ -35,9 +35,9 @@ namespace MythsAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public void AddEffect(Investigator investigator, string description, Func<Task> effect, bool withReturn, Investigator investigatorAffected = null)
+        public void AddEffect(Investigator investigator, string description, Func<Task> effect, Investigator investigatorAffected = null)
         {
-            _effectProvider.Add(new Effect(this, investigator, description, effect, withReturn, investigatorAffected));
+            _effectProvider.Add(new Effect(this, investigator, description, effect, investigatorAffected));
         }
 
         public async Task AddBuff(IBuffable newBuff)

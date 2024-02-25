@@ -14,10 +14,8 @@ namespace MythsAndHorrors.GameRules
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
         public Stat InvestigationCost { get; private set; }
-        public State Revealed { get; private set; }
+        public State IsRevealed { get; private set; }
         public History RevealHistory => _histories[0];
-
-
 
         /*******************************************************************/
         [Inject]
@@ -27,34 +25,40 @@ namespace MythsAndHorrors.GameRules
             Hints = new Stat(Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
             InvestigationCost = new Stat(1, 1);
-            Revealed = new State(false);
+            IsRevealed = new State(false);
         }
 
         /*******************************************************************/
         public virtual async Task WhenFinish(GameAction gameAction)
         {
-            await CheckIfCanReveal(gameAction);
+            if (gameAction is MoveInvestigatorGameAction)
+                await CheckIfCanReveal();
         }
 
-        private async Task CheckIfCanReveal(GameAction gameAction)
+        public virtual async Task WhenBegin(GameAction gameAction)
         {
-            if (Revealed.Value) return;
-            if (gameAction is not MoveInvestigatorGameAction) return;
+            if (gameAction is OneInvestigatorTurnGameAction investigatorTurnGA)
+                await CheckIfInvestigate(investigatorTurnGA);
+        }
+
+        private async Task CheckIfCanReveal()
+        {
+            if (IsRevealed.Value) return;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
 
             await _gameActionFactory.Create(new RevealGameAction(this));
         }
 
-        public virtual async Task WhenBegin(GameAction gameAction)
+        private async Task CheckIfInvestigate(OneInvestigatorTurnGameAction turnInvestigatorGA)
         {
-            if (gameAction is not OneInvestigatorTurnGameAction turnInvestigatorGA) return;
             if (turnInvestigatorGA.ActiveInvestigator.CurrentPlace != this) return;
             if (turnInvestigatorGA.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return;
 
-            AddEffect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate, withReturn: true);
-            Task Investigate() => _gameActionFactory.Create(new InvestigateGameAction(turnInvestigatorGA.ActiveInvestigator, this));
-
+            AddEffect(turnInvestigatorGA.ActiveInvestigator, _textsProvider.GameText.DEFAULT_VOID_TEXT + "Investigate", Investigate);
             await Task.CompletedTask;
+
+            /*******************************************************************/
+            Task Investigate() => _gameActionFactory.Create(new InvestigateGameAction(turnInvestigatorGA.ActiveInvestigator, this));
         }
     }
 }

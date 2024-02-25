@@ -24,14 +24,14 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect, withReturn: false);
+                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect);
 
                 Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
             {
-                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect, withReturn: false);
+                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect);
 
                 Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
             }
