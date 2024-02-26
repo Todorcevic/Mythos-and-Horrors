@@ -5,6 +5,12 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
+    public interface IActivable
+    {
+        void ActivateToClick();
+        void DeactivateToClick();
+    }
+
     public class ActivateCardViewsHandler
     {
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;

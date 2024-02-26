@@ -9,21 +9,26 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly ChaptersProvider _chapterProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override Phase MainPhase => Phase.Investigator;
 
         public Stat DrawCost { get; private set; }
+        public Stat ResourceCost { get; private set; }
         public List<Effect> MoveToPlaceEffects { get; } = new();
         public Effect DrawEffect { get; private set; }
         public Effect InvestigateEffect { get; private set; }
+        public Effect TakeResourceEffect { get; private set; }
 
         /*******************************************************************/
         public OneInvestigatorTurnGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
             DrawCost = new Stat(1);
+            ResourceCost = new Stat(1);
+
         }
 
         /*******************************************************************/
@@ -32,7 +37,28 @@ namespace MythsAndHorrors.GameRules
             CheckIfCanMove();
             CheckIfCanInvestigate();
             CheckIfCanDraw();
+            CheckIfCanTakeResource();
             await _gameActionFactory.Create(new InteractableGameAction(isMandatary: false));
+        }
+
+        /*******************************************************************/
+        private void CheckIfCanTakeResource()
+        {
+            TakeResourceEffect = new(
+                _chapterProvider.CurrentScene,
+                ActiveInvestigator,
+                _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource),
+                () => ActiveInvestigator.Turns.Value >= ResourceCost.Value,
+                TakeResource);
+
+            _effectProvider.Add(TakeResourceEffect);
+
+            /*******************************************************************/
+            async Task TakeResource()
+            {
+                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ResourceCost.Value));
+                await _gameActionFactory.Create(new GainResourceGameAction(ActiveInvestigator, 1));
+            }
         }
 
         private void CheckIfCanMove()

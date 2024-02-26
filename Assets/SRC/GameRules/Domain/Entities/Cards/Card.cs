@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Card
+    public class Card : IEffectable
     {
         private readonly List<IBuffable> _buffs = new();
         [Inject] private readonly CardInfo _info;
@@ -24,7 +24,7 @@ namespace MythsAndHorrors.GameRules
         public State FaceDown { get; private set; }
         public Zone OwnZone { get; private set; }
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
-        public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
+        public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
         public IReadOnlyList<IBuffable> Buffs => _buffs;
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
 

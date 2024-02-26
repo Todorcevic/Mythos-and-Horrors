@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public record Effect : IViewEffect
     {
-        public Card Card { get; init; }
+        public IEffectable Effectable { get; init; }
         public Investigator Investigator { get; init; }
         public Investigator InvestigatorAffected { get; init; }
         public Func<bool> CanPlay { get; private set; }
@@ -15,9 +15,9 @@ namespace MythsAndHorrors.GameRules
         public string CardCodeSecundary => InvestigatorAffected?.Code;
 
         /*******************************************************************/
-        public Effect(Card card, Investigator investigator, string description, Func<bool> canPlay, Func<Task> logic, Investigator investigatorAffected = null)
+        public Effect(IEffectable effectable, Investigator investigator, string description, Func<bool> canPlay, Func<Task> logic, Investigator investigatorAffected = null)
         {
-            Card = card;
+            Effectable = effectable;
             Investigator = investigator;
             InvestigatorAffected = investigatorAffected;
             CanPlay = canPlay;

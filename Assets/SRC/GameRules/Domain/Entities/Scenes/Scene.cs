@@ -1,13 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public abstract class Scene : IStartReactionable, IEndReactionable
+    public abstract class Scene : IStartReactionable, IEndReactionable, IEffectable
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -20,6 +22,8 @@ namespace MythsAndHorrors.GameRules
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
         public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
+
+        public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
 
         /*******************************************************************/
         [Inject]
