@@ -20,7 +20,6 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Turns, CardPlace.MoveCost.Value));
             await _gameActionFactory.Create(new MoveCardsGameAction(Investigator.AvatarCard, CardPlace.OwnZone));
         }
     }

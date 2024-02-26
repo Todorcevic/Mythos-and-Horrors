@@ -22,7 +22,6 @@ namespace MythsAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _startingAnimationPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Turns, CardPlace.InvestigationCost.Value));
             await _gameActionFactory.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
         }
     }

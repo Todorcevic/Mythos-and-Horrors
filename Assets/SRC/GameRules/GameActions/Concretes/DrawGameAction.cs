@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -20,8 +19,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CardDrawed = Investigator.DeckZone.Cards.Last();
-            await _gameActionRepository.Create(new RotateCardGameAction(CardDrawed, toFaceDown: false));
+            CardDrawed = Investigator.CardToDraw;
+            CardDrawed.TurnDown(false);
             await _gameActionRepository.Create(new MoveCardsGameAction(CardDrawed, Investigator.HandZone));
         }
     }

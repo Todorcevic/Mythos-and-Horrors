@@ -20,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            RevellableCard.IsRevealed.UpdateValue(true);
+            RevellableCard.Revealed.UpdateValue(true);
             await _revealCardPresenter.PlayAnimationWith(this);
             await _gameActionFactory.Create(new ShowHistoryGameAction(RevellableCard.RevealHistory, Card));
         }

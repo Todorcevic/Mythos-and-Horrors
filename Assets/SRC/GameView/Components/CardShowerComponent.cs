@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameView
 
         private bool MustNotShowFilter(CardView cardView)
         {
-            if (cardView.Card.IsFaceDown) return true;
+            if (cardView.Card.FaceDown.IsActive) return true;
             if (cardView.CurrentZoneView.AvoidCardShower) return true;
             return false;
         }

@@ -41,6 +41,7 @@ namespace MythsAndHorrors.GameRules
         public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public bool CanInvestigate => CurrentPlace.InvestigationCost.Value <= Turns.Value;
+        public Card CardToDraw => DeckZone.Cards.LastOrDefault();
 
         /*******************************************************************/
         [Inject]

@@ -3,10 +3,10 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-
     public class MulliganGameAction : PhaseGameAction
     {
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public override Phase MainPhase => Phase.Prepare;
@@ -24,14 +24,24 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT1, DiscardEffect);
+                _effectProvider.Add(new(
+                    card,
+                    ActiveInvestigator,
+                    _textsProvider.GameText.MULLIGAN_EFFECT1,
+                    new Condition(() => true),
+                    DiscardEffect));
 
                 Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
             {
-                card.AddEffect(ActiveInvestigator, _textsProvider.GameText.MULLIGAN_EFFECT2, RestoreEffect);
+                _effectProvider.Add(new(
+                    card,
+                    ActiveInvestigator,
+                    _textsProvider.GameText.MULLIGAN_EFFECT2,
+                    new Condition(() => true),
+                    RestoreEffect));
 
                 Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
             }

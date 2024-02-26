@@ -16,10 +16,11 @@ namespace MythsAndHorrors.GameRules
         public Stat Enigma { get; private set; }
         public Stat InvestigationCost { get; private set; }
         public Stat MoveCost { get; private set; }
-        public State IsRevealed { get; private set; }
+        public State Revealed { get; private set; }
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public List<CardPlace> ConnectedPlacesToMove => _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
-        private List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
+        public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
+        //protected Condition CanMove { get; set; }
 
         /*******************************************************************/
         [Inject]
@@ -30,7 +31,8 @@ namespace MythsAndHorrors.GameRules
             Enigma = new Stat(Info.Enigma ?? 0);
             InvestigationCost = new Stat(1, 1);
             MoveCost = new Stat(1, 1);
-            IsRevealed = new State(false);
+            Revealed = new State(false);
+            //CanMove = new Condition(() => false);
         }
 
         /*******************************************************************/
@@ -42,7 +44,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         private async Task CheckIfCanReveal()
         {
-            if (IsRevealed.Value) return;
+            if (Revealed.IsActive) return;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
 
             await _gameActionFactory.Create(new RevealGameAction(this));

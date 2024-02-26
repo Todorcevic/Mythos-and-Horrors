@@ -62,7 +62,7 @@ namespace MythsAndHorrors.GameView
             return _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public Tween Rotate() => _rotator.Rotate(Card.IsFaceDown);
+        public Tween Rotate() => _rotator.Rotate(Card.FaceDown.IsActive);
 
         public void On() => gameObject.SetActive(true);
 

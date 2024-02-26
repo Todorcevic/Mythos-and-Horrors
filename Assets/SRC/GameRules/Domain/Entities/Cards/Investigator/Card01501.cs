@@ -18,8 +18,9 @@ namespace MythsAndHorrors.GameRules
         void IBuffable.ActivateBuff()
         {
             if (CurrentZone != Owner.InvestigatorZone) return;
-            List<Card> cardsAffected = Owner.HandZone.Cards
-                .FindAll(card => !card.HasThisBuff(this) && ((card is CardCondition cardTalent && cardTalent.Cost.Value > 0) || (card is CardSupply cardSupply && cardSupply.Cost.Value > 0)));
+            List<Card> cardsAffected = Owner.HandZone.Cards.FindAll(card => !card.HasThisBuff(this)
+            && ((card is CardCondition cardTalent && cardTalent.Cost.Value > 0)
+            || (card is CardSupply cardSupply && cardSupply.Cost.Value > 0)));
 
             cardsAffected.ForEach(async card => await card.AddBuff(this));
         }

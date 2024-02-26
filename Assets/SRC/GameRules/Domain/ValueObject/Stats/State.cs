@@ -2,17 +2,17 @@
 {
     public class State
     {
-        public bool Value { get; private set; }
+        public bool IsActive { get; private set; }
 
         /*******************************************************************/
-        public State(bool value)
+        public State(bool isActive)
         {
-            Value = value;
+            IsActive = isActive;
         }
 
-        public void UpdateValue(bool value)
+        public void UpdateValue(bool isActive)
         {
-            Value = value;
+            IsActive = isActive;
         }
     }
 }

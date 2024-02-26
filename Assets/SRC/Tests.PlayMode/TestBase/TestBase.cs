@@ -59,19 +59,19 @@ namespace MythsAndHorrors.PlayMode.Tests
 
         protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
 
+
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
         protected IEnumerator WaitToClickHistoryPanel()
         {
             float timeout = 1f;
             float startTime = Time.realtimeSinceStartup;
+            Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
 
-            while (Time.realtimeSinceStartup - startTime < timeout && !_showHistoryComponent.GetPrivateMember<Button>("_button").interactable)
+            while (Time.realtimeSinceStartup - startTime < timeout && !historyButton.interactable)
                 yield return null;
 
-            if (_showHistoryComponent.GetPrivateMember<Button>("_button").interactable)
-                _showHistoryComponent.GetPrivateMember<Button>("_button").onClick.Invoke();
-
-            else throw new TimeoutException("Not become interactable");
+            if (historyButton.interactable) historyButton.onClick.Invoke();
+            else throw new TimeoutException("History Button Not become clickable");
         }
 
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -84,7 +84,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             while (Time.realtimeSinceStartup - startTime < timeout && !cardSensor.IsClickable) yield return null;
 
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
-            else throw new TimeoutException("Not become clickable");
+            else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
         }
     }
 }

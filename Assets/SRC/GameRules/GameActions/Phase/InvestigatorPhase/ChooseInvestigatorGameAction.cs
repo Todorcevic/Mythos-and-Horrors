@@ -5,6 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : PhaseGameAction //2.2	Next investigator's turn begins.
     {
+        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -19,7 +20,7 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStart)
             {
-                investigator.AvatarCard.AddEffect(investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, ChooseInvestigatorEffect);
+                _effectProvider.Add(new(investigator.AvatarCard, investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, new Condition(() => true), ChooseInvestigatorEffect));
 
                 /*******************************************************************/
                 async Task ChooseInvestigatorEffect()

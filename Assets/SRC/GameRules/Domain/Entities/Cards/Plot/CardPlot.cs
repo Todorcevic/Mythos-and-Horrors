@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly GameActionFactory _gameActionFactory;
 
         public Stat Eldritch { get; private set; }
-        public State IsRevealed { get; private set; }
+        public State Revealed { get; private set; }
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameRules
         private void Init()
         {
             Eldritch = new Stat(Info.Eldritch ?? 0, Info.Eldritch ?? 0);
-            IsRevealed = new State(false);
+            Revealed = new State(false);
         }
 
         /*******************************************************************/
@@ -33,7 +33,7 @@ namespace MythsAndHorrors.GameRules
 
         protected virtual async Task CanShowInitialHistory(MoveCardsGameAction moveCardsGameAction)
         {
-            if (IsRevealed.Value) return;
+            if (Revealed.IsActive) return;
             if (InitialHistory == null) return;
             if (!moveCardsGameAction.Cards.Contains(this)) return;
             if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return;
@@ -43,7 +43,7 @@ namespace MythsAndHorrors.GameRules
 
         protected virtual async Task CanShowFinalHistory(StatGameAction statGameAction)
         {
-            if (IsRevealed.Value) return;
+            if (Revealed.IsActive) return;
             if (RevealHistory == null) return;
             if (statGameAction.Stat != Eldritch) return;
             if (Eldritch.Value < Info.Eldritch) return;
