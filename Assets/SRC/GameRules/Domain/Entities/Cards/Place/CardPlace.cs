@@ -20,7 +20,6 @@ namespace MythsAndHorrors.GameRules
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public List<CardPlace> ConnectedPlacesToMove => _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
         public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
-        //protected Condition CanMove { get; set; }
 
         /*******************************************************************/
         [Inject]
@@ -32,22 +31,21 @@ namespace MythsAndHorrors.GameRules
             InvestigationCost = new Stat(1, 1);
             MoveCost = new Stat(1, 1);
             Revealed = new State(false);
-            //CanMove = new Condition(() => false);
         }
 
         /*******************************************************************/
         public virtual async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardsGameAction) await CheckIfCanReveal();
+            if (gameAction is MoveCardsGameAction && CheckIfMustReveal())
+                await _gameActionFactory.Create(new RevealGameAction(this));
         }
 
-        /*******************************************************************/
-        private async Task CheckIfCanReveal()
+        /************************** CONDITIONS *****************************/
+        private bool CheckIfMustReveal()
         {
-            if (Revealed.IsActive) return;
-            if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return;
-
-            await _gameActionFactory.Create(new RevealGameAction(this));
+            if (Revealed.IsActive) return false;
+            if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return false;
+            return true;
         }
 
         public virtual bool CanMoveWithThis(Investigator investigator)

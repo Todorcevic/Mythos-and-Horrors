@@ -1,21 +1,25 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Zenject;
-
-namespace MythsAndHorrors.GameRules
+﻿namespace MythsAndHorrors.GameRules
 {
     public class Card01115 : CardPlace
     {
-        //[Inject]
-        //[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
-        //private void Init()
-        //{
-        //    CanMove.UpdateCondition(() => Revealed.IsActive && CanMove.Result);
-        //}
-
         public override bool CanMoveWithThis(Investigator investigator)
         {
             if (!Revealed.IsActive) return false;
             return base.CanMoveWithThis(investigator);
         }
+
+        //async Task IStartReactionable.WhenBegin(GameAction gameAction)
+        //{
+        //    if (gameAction is InteractableGameAction interactableGA)
+        //    {
+        //        if (interactableGA.Parent is OneInvestigatorTurnGameAction oneInvestigatorGA)
+        //        {
+        //            Effect effectToModify = oneInvestigatorGA.MoveToPlaceEffects.Find(e => e.Card == this);
+        //            effectToModify.ConcatCondition(() => Revealed.IsActive);
+        //        }
+        //    }
+
+        //    await Task.CompletedTask;
+        //}
     }
 }

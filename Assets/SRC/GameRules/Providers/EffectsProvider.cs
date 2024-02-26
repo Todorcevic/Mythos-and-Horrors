@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public void Add(Effect effect) => _allEffects.Add(effect);
 
-        public List<Effect> GetEffectForThisCard(Card card) => _allEffects.FindAll(effect => effect.Card == card && effect.CanPlay.Result);
+        public List<Effect> GetEffectForThisCard(Card card) => _allEffects.FindAll(effect => effect.Card == card && effect.CanPlay.Invoke());
 
         public Effect GetEffectWithThiLogic(Func<Task> logic) => _allEffects.Find(effect => effect.Logic == logic);
 

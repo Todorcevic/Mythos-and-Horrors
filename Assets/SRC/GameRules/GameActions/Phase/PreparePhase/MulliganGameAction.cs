@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -13,6 +14,9 @@ namespace MythsAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
         public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
 
+        public List<Effect> DiscardEffects { get; } = new();
+        public List<Effect> RestoreEffects { get; } = new();
+
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
         {
@@ -24,26 +28,32 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                _effectProvider.Add(new(
+                Effect newDiscardEffect = new(
                     card,
                     ActiveInvestigator,
                     _textsProvider.GameText.MULLIGAN_EFFECT1,
-                    new Condition(() => true),
-                    DiscardEffect));
+                    () => true,
+                    Discard);
+                DiscardEffects.Add(newDiscardEffect);
+                _effectProvider.Add(newDiscardEffect);
 
-                Task DiscardEffect() => _gameActionFactory.Create(new DiscardGameAction(card));
+                /*******************************************************************/
+                Task Discard() => _gameActionFactory.Create(new DiscardGameAction(card));
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
             {
-                _effectProvider.Add(new(
+                Effect newRestoreEffect = new(
                     card,
                     ActiveInvestigator,
                     _textsProvider.GameText.MULLIGAN_EFFECT2,
-                    new Condition(() => true),
-                    RestoreEffect));
+                    () => true,
+                    Restore);
+                RestoreEffects.Add(newRestoreEffect);
+                _effectProvider.Add(newRestoreEffect);
 
-                Task RestoreEffect() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
+                /*******************************************************************/
+                Task Restore() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
             }
 
             InteractableGameAction interactableGameAction = await _gameActionFactory.Create(new InteractableGameAction(false));

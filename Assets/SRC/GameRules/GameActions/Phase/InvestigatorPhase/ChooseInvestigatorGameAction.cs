@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -15,15 +16,24 @@ namespace MythsAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override Phase MainPhase => Phase.Investigator;
 
+        public List<Effect> ChooseInvestigatorEffects { get; } = new();
+
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStart)
             {
-                _effectProvider.Add(new(investigator.AvatarCard, investigator, _textsProvider.GameText.DEFAULT_VOID_TEXT, new Condition(() => true), ChooseInvestigatorEffect));
+                Effect newEffect = new(
+                    investigator.AvatarCard,
+                    investigator,
+                    _textsProvider.GameText.DEFAULT_VOID_TEXT,
+                    () => true,
+                    ChooseInvestigator);
+                _effectProvider.Add(newEffect);
+                ChooseInvestigatorEffects.Add(newEffect);
 
                 /*******************************************************************/
-                async Task ChooseInvestigatorEffect()
+                async Task ChooseInvestigator()
                 {
                     ActiveInvestigator = investigator;
                     await _startingAnimationPresenter.PlayAnimationWith(this);

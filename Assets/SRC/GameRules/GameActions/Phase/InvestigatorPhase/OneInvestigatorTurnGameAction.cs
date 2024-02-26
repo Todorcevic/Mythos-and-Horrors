@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
@@ -14,16 +15,15 @@ namespace MythsAndHorrors.GameRules
         public override Phase MainPhase => Phase.Investigator;
 
         public Stat DrawCost { get; private set; }
-        public Condition CanDraw { get; private set; }
-        public Condition CanInvestigate { get; private set; }
+        public List<Effect> MoveToPlaceEffects { get; } = new();
+        public Effect DrawEffect { get; private set; }
+        public Effect InvestigateEffect { get; private set; }
 
         /*******************************************************************/
         public OneInvestigatorTurnGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
             DrawCost = new Stat(1);
-            CanDraw = new Condition(() => ActiveInvestigator.Turns.Value >= DrawCost.Value);
-            CanInvestigate = new Condition(() => ActiveInvestigator.Turns.Value >= ActiveInvestigator.CurrentPlace.InvestigationCost.Value);
         }
 
         /*******************************************************************/
@@ -39,14 +39,17 @@ namespace MythsAndHorrors.GameRules
         {
             foreach (CardPlace connectedPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                _effectProvider.Add(new(
+                Effect newEffect = new(
                     connectedPlace,
                     ActiveInvestigator,
-                    _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(MoveEffect),
-                    new Condition(() => connectedPlace.CanMoveWithThis(ActiveInvestigator)),
-                    MoveEffect));
+                    _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Move),
+                    () => connectedPlace.CanMoveWithThis(ActiveInvestigator),
+                    Move);
+                MoveToPlaceEffects.Add(newEffect);
+                _effectProvider.Add(newEffect);
 
-                async Task MoveEffect()
+                /*******************************************************************/
+                async Task Move()
                 {
                     await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, connectedPlace.MoveCost.Value));
                     await _gameActionFactory.Create(new MoveToPlaceGameAction(ActiveInvestigator, connectedPlace));
@@ -56,14 +59,16 @@ namespace MythsAndHorrors.GameRules
 
         private void CheckIfCanInvestigate()
         {
-            _effectProvider.Add(new(
+            InvestigateEffect = new(
                 ActiveInvestigator.CurrentPlace,
                 ActiveInvestigator,
-                _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigateEffect),
-                CanInvestigate,
-                InvestigateEffect));
+                _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Investigate),
+                () => ActiveInvestigator.Turns.Value >= ActiveInvestigator.CurrentPlace.InvestigationCost.Value,
+                Investigate);
+            _effectProvider.Add(InvestigateEffect);
 
-            async Task InvestigateEffect()
+            /*******************************************************************/
+            async Task Investigate()
             {
                 await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.CurrentPlace.InvestigationCost.Value));
                 await _gameActionFactory.Create(new InvestigateGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
@@ -72,14 +77,16 @@ namespace MythsAndHorrors.GameRules
 
         private void CheckIfCanDraw()
         {
-            _effectProvider.Add(new(
-            ActiveInvestigator.CardToDraw,
-            ActiveInvestigator,
-            _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DrawEffect),
-            CanDraw,
-            DrawEffect));
+            DrawEffect = new(
+                ActiveInvestigator.CardToDraw,
+                ActiveInvestigator,
+                _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw),
+                () => ActiveInvestigator.Turns.Value >= DrawCost.Value,
+                Draw);
+            _effectProvider.Add(DrawEffect);
 
-            async Task DrawEffect()
+            /*******************************************************************/
+            async Task Draw()
             {
                 await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, DrawCost.Value));
                 await _gameActionFactory.Create(new DrawGameAction(ActiveInvestigator));

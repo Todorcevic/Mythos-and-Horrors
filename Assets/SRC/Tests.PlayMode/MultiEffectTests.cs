@@ -29,9 +29,9 @@ namespace MythsAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.Leader;
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];
-            _effectProvider.Add(new(card, investigator1, "EffectOne", new Condition(() => true), () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone))));
-            _effectProvider.Add(new(card, null, "EffectTwo", new Condition(() => true), () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone))));
-            _effectProvider.Add(new(card2, investigator1, "EffectOne", new Condition(() => true), () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone))));
+            _effectProvider.Add(new(card, investigator1, "EffectOne", () => true, () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone))));
+            _effectProvider.Add(new(card, null, "EffectTwo", () => true, () => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone))));
+            _effectProvider.Add(new(card2, investigator1, "EffectOne", () => true, () => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone))));
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();
