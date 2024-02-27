@@ -9,6 +9,9 @@ namespace MythsAndHorrors.GameView
 {
     public class EffectController : MonoBehaviour
     {
+        private const float REVERSE_OFFSET_Z = 0.003f;
+        private const float OFFSET_Z = -0.001f;
+
         [SerializeField, Required, ChildGameObjectsOnly] private List<EffectView> _effectViews;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
@@ -28,6 +31,12 @@ namespace MythsAndHorrors.GameView
 
         public void Clear() => _effectViews.FindAll(effectView => !effectView.IsEmpty)
             .ForEach(effectView => effectView.Clear());
+
+        public void Rotate(bool faceDown)
+        {
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, faceDown ? 180 : 0, transform.localEulerAngles.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, faceDown ? REVERSE_OFFSET_Z : OFFSET_Z);
+        }
 
         private EffectView GetEffectView() => _effectViews.Find(effectView => effectView.IsEmpty) ?? CreateNew();
 

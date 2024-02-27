@@ -11,14 +11,14 @@ namespace MythsAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour, IPlayable
     {
-        [Title("CardView")]
+        [Title(nameof(CardView))]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
-        [SerializeField, Required, ChildGameObjectsOnly] protected RotatorController _rotator;
+        [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
@@ -62,8 +62,6 @@ namespace MythsAndHorrors.GameView
             if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
             return _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
-
-        public Tween Rotate() => _rotator.Rotate(Card.FaceDown.IsActive);
 
         public void On() => gameObject.SetActive(true);
 
@@ -112,6 +110,13 @@ namespace MythsAndHorrors.GameView
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
 
         /*******************************************************************/
+        public Tween Rotate()
+        {
+            _effectController.Rotate(Card.FaceDown.IsActive);
+            _buffController.Rotate(Card.FaceDown.IsActive);
+            return _rotator.Rotate(Card.FaceDown.IsActive);
+        }
+
         public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION, Vector3.up, speed: 1f, frequency: 5, depth: 0, mode: SpiralMode.ExpandThenContract)
                  .SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear).SetId("Idle");
 
