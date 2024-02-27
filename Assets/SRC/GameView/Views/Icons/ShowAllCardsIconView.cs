@@ -8,7 +8,7 @@ namespace MythsAndHorrors.GameView
     public class ShowAllCardsIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
-        [Inject] private readonly ClickHandler<CardView> _interactionHandler;
+        [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
 
         /*******************************************************************/
         public async void OnPointerClick(PointerEventData eventData)

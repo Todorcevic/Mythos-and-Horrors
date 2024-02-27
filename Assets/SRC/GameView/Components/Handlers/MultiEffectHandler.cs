@@ -27,8 +27,8 @@ namespace MythsAndHorrors.GameView
         private async Task<Effect> FinishMultiEffect(CardView cardViewSelected)
         {
             await _showCardHandler.DeactivatePlayables();
-            Effect effectSelected = cardViewSelected == null ? null : cardViewSelected.UniqueEffect;
-            cardViewClones.First().ClearUniqueEffect();
+            Effect effectSelected = cardViewSelected == null ? null : cardViewSelected.CloneEffect;
+            cardViewClones.First().ClearCloneEffect();
 
             if (effectSelected == null) await _showSelectorComponent.ReturnClones();
             else await _showSelectorComponent.DestroyClones(cardViewSelected);
@@ -39,12 +39,12 @@ namespace MythsAndHorrors.GameView
         {
             List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
             originalCardView.HideBuffsAndEffects();
-            originalCardView.SetUniqueEffect(effects.First());
+            originalCardView.SetCloneEffect(effects.First());
             List<CardView> newClonesCardView = new() { { originalCardView } };
             foreach (Effect effect in effects.Skip(1))
             {
                 CardView cloneCardView = _cardViewGeneratorComponent.CloneCardView(originalCardView, originalCardView.CurrentZoneView.transform);
-                cloneCardView.SetUniqueEffect(effect);
+                cloneCardView.SetCloneEffect(effect);
                 newClonesCardView.Add(cloneCardView);
             }
             return newClonesCardView;

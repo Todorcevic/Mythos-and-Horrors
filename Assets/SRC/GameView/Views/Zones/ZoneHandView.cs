@@ -21,7 +21,7 @@ namespace MythsAndHorrors.GameView
         public override Tween MouseExit(CardView cardView)
         {
             cardView.HideBuffsAndEffects();
-            cardView.ColliderRespore();
+            cardView.ColliderRestore();
             return base.MouseExit(cardView);
         }
     }

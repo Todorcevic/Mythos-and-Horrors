@@ -70,12 +70,14 @@ namespace MythsAndHorrors.GameView
 
         public void ActivateToClick()
         {
+            if (_cardSensor.IsClickable) return;
             _glowComponent.SetGreenGlow();
             _cardSensor.IsClickable = true;
         }
 
         public void DeactivateToClick()
         {
+            if (!_cardSensor.IsClickable) return;
             _glowComponent.Off();
             _cardSensor.IsClickable = false;
         }
@@ -130,13 +132,13 @@ namespace MythsAndHorrors.GameView
                  .Append(EnableFromCenterShow()));
 
         /*******************************************************************/
-        public Effect UniqueEffect { get; private set; }
-        public void SetUniqueEffect(Effect effect) => UniqueEffect = effect;
-        public void ClearUniqueEffect() => UniqueEffect = null;
+        public Effect CloneEffect { get; private set; }
+        public void SetCloneEffect(Effect effect) => CloneEffect = effect;
+        public void ClearCloneEffect() => CloneEffect = null;
 
         public void ShowBuffsAndEffects()
         {
-            if (UniqueEffect != null) _effectController.AddEffects(UniqueEffect);
+            if (CloneEffect != null) _effectController.AddEffects(CloneEffect);
             else _effectController.AddEffects(Card.PlayableEffects.ToArray());
 
             _buffController.AddEffects(Card.Buffs.ToArray());
@@ -155,6 +157,6 @@ namespace MythsAndHorrors.GameView
 
         public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);
 
-        public void ColliderRespore() => _cardSensor.ColliderDown();
+        public void ColliderRestore() => _cardSensor.ColliderDown();
     }
 }
