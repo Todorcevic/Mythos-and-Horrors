@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -18,9 +19,9 @@ namespace MythsAndHorrors.GameRules
         void IBuffable.ActivateBuff()
         {
             if (CurrentZone != Owner.InvestigatorZone) return;
-            List<Card> cardsAffected = Owner.HandZone.Cards.FindAll(card => !card.HasThisBuff(this)
+            List<Card> cardsAffected = Owner.HandZone.Cards.Concat(Owner.DiscardZone.Cards).Where(card => !card.HasThisBuff(this)
             && ((card is CardCondition cardTalent && cardTalent.Cost.Value > 0)
-            || (card is CardSupply cardSupply && cardSupply.Cost.Value > 0)));
+            || (card is CardSupply cardSupply && cardSupply.Cost.Value > 0))).ToList();
 
             cardsAffected.ForEach(async card => await card.AddBuff(this));
         }
@@ -35,7 +36,7 @@ namespace MythsAndHorrors.GameRules
             }
             else
             {
-                cardsAffected.FindAll(card => card.CurrentZone != Owner.HandZone)
+                cardsAffected.FindAll(card => card.CurrentZone != Owner.HandZone && card.CurrentZone != Owner.DiscardZone)
                     .ForEach(async card => await card.RemoveBuff(this));
             }
         }

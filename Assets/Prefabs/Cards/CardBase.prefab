@@ -994,6 +994,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93db482e544e0e347afbc2a07e019932, type: 3}
+--- !u!114 &58251768659200816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7780863587134484157, guid: 93db482e544e0e347afbc2a07e019932, type: 3}
+  m_PrefabInstance: {fileID: 7725324388892173709}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1786510565655157742 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8358443950822915683, guid: 93db482e544e0e347afbc2a07e019932, type: 3}
@@ -1276,6 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectController: {fileID: 8046486371691589081}
+  _buffsController: {fileID: 58251768659200816}
   _glowComponent: {fileID: 1146880241690785484}
 --- !u!1001 &8974383125090078373
 PrefabInstance:

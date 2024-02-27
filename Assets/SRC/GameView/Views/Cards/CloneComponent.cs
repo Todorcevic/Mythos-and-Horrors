@@ -8,17 +8,22 @@ namespace MythsAndHorrors.GameView
     public class CloneComponent : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffsController;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
-        public CloneComponent Clone(Transform parent) => _diContainer.InstantiatePrefabForComponent<CloneComponent>(gameObject, parent);
-
-        public void ShowEffects()
+        public CloneComponent Clone(Transform parent)
         {
-            _effectController.gameObject.SetActive(true);
+            CloneComponent clone = _diContainer.InstantiatePrefabForComponent<CloneComponent>(gameObject, parent);
+            clone.transform.ResetToZero();
+            clone._effectController.gameObject.SetActive(true);
+            clone._buffsController.gameObject.SetActive(true);
+            return clone;
         }
 
-        public Tween DisableGlow() => _glowComponent.Off();
+        public Tween Animate() => DOTween.Sequence()
+                .Join(_glowComponent.Off())
+                .Join(transform.DORecolocate().SetEase(Ease.InOutExpo));
     }
 }

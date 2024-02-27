@@ -17,12 +17,7 @@ namespace MythsAndHorrors.GameView
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = cardView.Clone(transform);
-            _currentShowCard.ShowEffects();
-            _currentShowCard.transform.ResetToZero();
-
-            _showcardSequence = DOTween.Sequence()
-                .Join(_currentShowCard.DisableGlow())
-                .Join(_currentShowCard.transform.DORecolocate().SetEase(Ease.InOutExpo));
+            _showcardSequence = _currentShowCard.Animate();
         }
 
         public void HideCard(CardView cardView)
