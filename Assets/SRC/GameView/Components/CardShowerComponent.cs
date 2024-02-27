@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
@@ -17,12 +16,13 @@ namespace MythsAndHorrors.GameView
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = cardView.Clone(transform);
-            _showcardSequence = _currentShowCard.Animate();
+            _showcardSequence = _currentShowCard.Animation();
         }
 
         public void HideCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
+
             _showcardSequence?.Kill();
             Destroy(_currentShowCard.gameObject);
         }

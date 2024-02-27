@@ -22,7 +22,7 @@ namespace MythsAndHorrors.GameView
             return clone;
         }
 
-        public Tween Animate() => DOTween.Sequence()
+        public Tween Animation() => DOTween.Sequence()
                 .Join(_glowComponent.Off())
                 .Join(transform.DORecolocate().SetEase(Ease.InOutExpo));
     }
