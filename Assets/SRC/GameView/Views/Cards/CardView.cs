@@ -36,6 +36,7 @@ namespace MythsAndHorrors.GameView
             SetPicture();
             SetCommon();
             SetSpecific();
+            HideBuffsAndEffects();
         }
 
         public void InitClone(Card card)
@@ -133,21 +134,33 @@ namespace MythsAndHorrors.GameView
 
         /*******************************************************************/
         public Effect CloneEffect { get; private set; }
+
         public void SetCloneEffect(Effect effect) => CloneEffect = effect;
+
         public void ClearCloneEffect() => CloneEffect = null;
+
+        public void AddBuffsAndEffects()
+        {
+            _effectController.AddEffects(CloneEffect != null ? new IViewEffect[] { CloneEffect } : Card.PlayableEffects.ToArray());
+            _buffController.AddEffects(Card.Buffs.ToArray());
+        }
+
+        public void RemoveBuffsAndEffects()
+        {
+            _effectController.Clear();
+            _buffController.Clear();
+        }
 
         public void ShowBuffsAndEffects()
         {
-            if (CloneEffect != null) _effectController.AddEffects(CloneEffect);
-            else _effectController.AddEffects(Card.PlayableEffects.ToArray());
-
-            _buffController.AddEffects(Card.Buffs.ToArray());
+            _effectController.gameObject.SetActive(true);
+            _buffController.gameObject.SetActive(true);
         }
 
         public void HideBuffsAndEffects()
         {
-            _effectController.Clear();
-            _buffController.Clear();
+            _effectController.gameObject.SetActive(false);
+            _buffController.gameObject.SetActive(false);
         }
 
         public int GetBuffsAmount() => _buffController.EffectsAmount;

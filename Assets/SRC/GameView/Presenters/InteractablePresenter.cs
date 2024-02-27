@@ -49,11 +49,6 @@ namespace MythsAndHorrors.GameView
             }
 
             return default;
-
-
-            //  return playableChoose?.Card.HasMultiEffect ?? false ?
-            //await _multiEffectHandler.ShowMultiEffects(playableChoose) ?? await Interact(interactableGameAction) :
-            //playableChoose?.Card.ResourcePlayableEffects.FirstOrDefault();
         }
     }
 }

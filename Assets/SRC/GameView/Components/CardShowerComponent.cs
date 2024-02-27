@@ -17,7 +17,7 @@ namespace MythsAndHorrors.GameView
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = cardView.Clone(transform);
-            _currentShowCard.ShowEffects(cardView.Card.PlayableEffects.ToArray());
+            _currentShowCard.ShowEffects();
             _currentShowCard.transform.ResetToZero();
 
             _showcardSequence = DOTween.Sequence()

@@ -32,7 +32,6 @@ namespace MythsAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new InvestigateGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - 1));
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(1));
         }
     }

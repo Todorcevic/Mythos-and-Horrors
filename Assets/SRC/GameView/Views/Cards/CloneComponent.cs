@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -15,7 +14,10 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public CloneComponent Clone(Transform parent) => _diContainer.InstantiatePrefabForComponent<CloneComponent>(gameObject, parent);
 
-        public void ShowEffects(Effect[] effects) => _effectController.AddEffects(effects);
+        public void ShowEffects()
+        {
+            _effectController.gameObject.SetActive(true);
+        }
 
         public Tween DisableGlow() => _glowComponent.Off();
     }

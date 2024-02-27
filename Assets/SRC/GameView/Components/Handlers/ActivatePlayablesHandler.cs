@@ -18,7 +18,9 @@ namespace MythsAndHorrors.GameView
         public void ActiavatePlayables(bool withMainButton, List<CardView> specificsCardViews = null)
         {
             List<CardView> activablesCardViews = specificsCardViews ?? _cardViewsManager.AllCardsView.Where(cardView => cardView.Card.CanPlay).ToList();
-            activablesCardViews.ForEach(card => card.ActivateToClick());
+
+            activablesCardViews.ForEach(cardView => cardView.AddBuffsAndEffects());
+            activablesCardViews.ForEach(cardView => cardView.ActivateToClick());
 
             _avatarViewsManager.AvatarsPlayabled(activablesCardViews.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
 
@@ -31,6 +33,7 @@ namespace MythsAndHorrors.GameView
 
         public async Task DeactivatePlayables()
         {
+            _cardViewsManager.AllCardsView?.ForEach(card => card.RemoveBuffsAndEffects());
             _cardViewsManager.AllCardsView?.ForEach(card => card.DeactivateToClick());
 
             _avatarViewsManager.AvatarsPlayabled(_cardViewsManager.AllCardsView.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.DeactivateGlow());
