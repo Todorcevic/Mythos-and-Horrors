@@ -79,7 +79,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         {
             float timeout = 1f;
             float startTime = Time.realtimeSinceStartup;
-            CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
+            CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
             while (Time.realtimeSinceStartup - startTime < timeout && !cardSensor.IsClickable) yield return null;
 

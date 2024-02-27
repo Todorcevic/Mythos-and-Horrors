@@ -10,24 +10,21 @@ namespace MythsAndHorrors.GameView
 {
     public class MainButtonComponent : MonoBehaviour, IPlayable
     {
+        private const float OFFSET = 1f;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        private const float OFFSET = 1f;
 
         private bool IsActivated => _collider.enabled;
 
         List<Effect> IPlayable.EffectsSelected => new();
 
         /*******************************************************************/
-        public void ShowText(string text)
-        {
-            _message.text = text;
-        }
+        public void ShowText(string text) => _message.text = text;
 
         public void Activate(string withThisText)
         {

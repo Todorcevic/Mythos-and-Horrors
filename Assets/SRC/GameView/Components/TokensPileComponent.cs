@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
         private bool _isClickable;
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
+        private const float LIGHT_INTENSITY = 10f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
@@ -23,13 +24,13 @@ namespace MythsAndHorrors.GameView
         public Scene Scene => _chaptersProvider.CurrentScene;
         public bool CanPlayResource => Scene.CanPlayResource;
 
-        List<Effect> IPlayable.EffectsSelected => Scene.PlayableEffects.ToList();
+        List<Effect> IPlayable.EffectsSelected => Scene.PlayableEffects;
 
         /*******************************************************************/
         public void ActivateToClick()
         {
-            if (!CanPlayResource || _isClickable) return;
-            _light.DOIntensity(10f, ViewValues.FAST_TIME_ANIMATION);
+            if (_isClickable || !CanPlayResource) return;
+            _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION);
             _isClickable = true;
         }
 

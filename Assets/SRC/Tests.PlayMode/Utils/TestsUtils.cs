@@ -40,11 +40,18 @@ namespace MythsAndHorrors.PlayMode.Tests
             if (objectTarget == null) throw new ArgumentNullException("objectTarget cant be null");
             if (string.IsNullOrEmpty(memberName)) throw new ArgumentNullException("memberName cant be null or empty");
 
-            FieldInfo field = (objectTarget.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .FirstOrDefault(fieldInfo => fieldInfo.Name == memberName && fieldInfo.FieldType == typeof(T))
-                ?? throw new ArgumentException($"No private field named {memberName} of type {typeof(T).Name} found in {objectTarget.GetType().Name}."));
+            Type objectType = objectTarget.GetType();
+            FieldInfo field = null;
 
-            return (T)field.GetValue(objectTarget);
+            while (objectType != null && field == null)
+            {
+                field = objectType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                  .FirstOrDefault(fieldInfo => fieldInfo.Name == memberName && fieldInfo.FieldType == typeof(T));
+
+                objectType = objectType.BaseType;
+            }
+
+            return (T)field?.GetValue(objectTarget) ?? throw new ArgumentException($"No private or public field named {memberName} of type {typeof(T).Name} found in {objectTarget.GetType().Name} or its base classes.");
         }
 
         public static IEnumerator AsCoroutine(this Task task)

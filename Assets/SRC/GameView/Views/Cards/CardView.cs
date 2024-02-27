@@ -72,16 +72,16 @@ namespace MythsAndHorrors.GameView
         public void ActivateToClick()
         {
             if (_cardSensor.IsClickable) return;
-            _glowComponent.SetGreenGlow();
             _cardSensor.IsClickable = true;
+            _glowComponent.SetGreenGlow();
             AddBuffsAndEffects();
         }
 
         public void DeactivateToClick()
         {
             if (!_cardSensor.IsClickable) return;
-            _glowComponent.Off();
             _cardSensor.IsClickable = false;
+            _glowComponent.Off();
             RemoveBuffsAndEffects();
         }
 
@@ -137,7 +137,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Effect CloneEffect { get; private set; }
 
-        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects.ToList();
+        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
 
         public void SetCloneEffect(Effect effect) => CloneEffect = effect;
 
@@ -145,8 +145,8 @@ namespace MythsAndHorrors.GameView
 
         private void AddBuffsAndEffects()
         {
-            _effectController.AddEffects(CloneEffect != null ? new IViewEffect[] { CloneEffect } : Card.PlayableEffects.ToArray());
-            _buffController.AddEffects(Card.Buffs.ToArray());
+            _effectController.AddEffects(((IPlayable)this).EffectsSelected);
+            _buffController.AddEffects(Card.Buffs);
         }
 
         private void RemoveBuffsAndEffects()

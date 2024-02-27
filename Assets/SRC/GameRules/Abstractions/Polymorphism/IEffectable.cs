@@ -4,6 +4,6 @@ namespace MythsAndHorrors.GameRules
 {
     public interface IEffectable
     {
-        IReadOnlyList<Effect> PlayableEffects { get; }
+        List<Effect> PlayableEffects { get; }
     }
 }

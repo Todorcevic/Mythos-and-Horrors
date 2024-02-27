@@ -34,11 +34,8 @@ namespace MythsAndHorrors.GameView
             await _showCardHandler.DeactivatePlayables();
             await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThisPlayable: playableChoose);
 
-
             if (playableChoose.IsMultiEffect)
-            {
                 return await _multiEffectHandler.ShowMultiEffects(playableChoose as CardView) ?? await Interact(interactableGameAction);
-            }
 
             return playableChoose.EffectsSelected.FirstOrDefault();
         }

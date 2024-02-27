@@ -1,7 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.UI;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -17,7 +16,7 @@ namespace MythsAndHorrors.GameView
 
         public AvatarView Get(Investigator investigator) => AllAvatars.Find(avatarView => avatarView.Investigator == investigator);
 
-        public List<AvatarView> AvatarsPlayabled() => AllAvatars.FindAll(avatar => avatar.Investigator.Cards.Any(card => card.CanPlay));
+        public List<AvatarView> AvatarsPlayabled() => AllAvatars.FindAll(avatar => avatar.Investigator.Cards.Any(card => card.CanBePlayed));
 
         public AvatarView GetByCode(string code) => AllAvatars.Find(avatarView => avatarView.Investigator.Code == code);
     }

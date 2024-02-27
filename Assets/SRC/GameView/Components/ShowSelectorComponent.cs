@@ -26,7 +26,8 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task ShowPlayables()
         {
-            _cardViews = _cardViewsManager.GetAllCanPlay();
+            _cardViews = _cardViewsManager.GetAllCanPlay()
+                .OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count).ThenBy(cardView => cardView.DeckPosition).ToList();
             await Animation();
         }
 

@@ -23,7 +23,7 @@ namespace MythsAndHorrors.GameRules
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
         public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
 
-        public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
+        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
         public bool CanPlayResource => PlayableEffects.Count > 0;
 
         /*******************************************************************/

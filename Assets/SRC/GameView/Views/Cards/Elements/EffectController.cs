@@ -15,7 +15,7 @@ namespace MythsAndHorrors.GameView
         public int EffectsAmount => _effectViews.Count(effectView => !effectView.IsEmpty);
 
         /*******************************************************************/
-        public void AddEffects(params IViewEffect[] effects)
+        public void AddEffects(IEnumerable<IViewEffect> effects)
         {
             foreach (IViewEffect effect in effects)
             {
