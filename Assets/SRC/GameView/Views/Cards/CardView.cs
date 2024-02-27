@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public abstract class CardView : MonoBehaviour
+    public abstract class CardView : MonoBehaviour, IPlayable
     {
         [Title("CardView")]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;

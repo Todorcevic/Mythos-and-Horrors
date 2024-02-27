@@ -24,6 +24,7 @@ namespace MythsAndHorrors.GameRules
         public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
 
         public IReadOnlyList<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
+        public bool CanPlayResource => PlayableEffects.Count > 0;
 
         /*******************************************************************/
         [Inject]

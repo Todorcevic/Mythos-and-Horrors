@@ -22,10 +22,8 @@ namespace MythsAndHorrors.GameView
         public List<CardView> GetAllCanPlay() => _allCardsView.Where(cardView => cardView.Card.CanPlay)
             .OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count).ThenBy(cardView => cardView.DeckPosition).ToList();
 
-        public List<T> GetAllOfType<T>() where T : CardView => _allCardsView.OfType<T>().ToList();
-
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
 
-        public CardView GetCardViewInCenterShow() => _allCardsView.Find(cardView => cardView.CurrentZoneView is ZoneCenterView);
+        public CardView GetCardWithThisEffect(Effect effect) => _allCardsView.Find(cardView => cardView.Card.PlayableEffects.Contains(effect));
     }
 }

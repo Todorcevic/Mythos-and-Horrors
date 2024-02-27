@@ -36,8 +36,9 @@ namespace MythsAndHorrors.GameView
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-        public async Task CheckIfIsInSelectorAndReturnPlayables(CardView exceptThis = null)
+        public async Task CheckIfIsInSelectorAndReturnPlayables(IPlayable exceptThisPlayable = null)
         {
+            CardView exceptThis = exceptThisPlayable as CardView;
             if (!IsShowing) return;
             await Shutdown();
             Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());

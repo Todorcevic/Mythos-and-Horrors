@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class MainButtonComponent : MonoBehaviour
+    public class MainButtonComponent : MonoBehaviour, IPlayable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
@@ -14,7 +14,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
-        [Inject] private readonly ClickHandler<CardView> _clickHandler;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         private const float OFFSET = 1f;
 
         private bool IsActivated => _collider.enabled;
@@ -80,7 +80,7 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
-            _clickHandler.Clicked(null);
+            _clickHandler.Clicked(this);
         }
     }
 }

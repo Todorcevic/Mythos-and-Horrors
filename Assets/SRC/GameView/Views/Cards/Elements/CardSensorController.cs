@@ -7,7 +7,7 @@ namespace MythsAndHorrors.GameView
     public class CardSensorController : MonoBehaviour
     {
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
-        [Inject] private readonly ClickHandler<CardView> _clickHandler;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         private CardView _cardView;
         private Vector3 _colliderOriginalSize;

@@ -7,15 +7,37 @@ using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public class TokensPileComponent : MonoBehaviour, IStatableView
+    public interface IPlayable { }
+
+    public class TokensPileComponent : MonoBehaviour, IStatableView, IPlayable
     {
+        private bool _isClickable;
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
+        [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
         public Transform StatTransform => _showToken;
         public Stat Stat => _chaptersProvider.CurrentScene.ResourcesPile;
+        public Scene Scene => _chaptersProvider.CurrentScene;
+        public bool CanPlayResource => Scene.CanPlayResource;
+
+        /*******************************************************************/
+        public void ActivateToClick()
+        {
+            // _glowComponent.SetGreenGlow();
+            _light.DOIntensity(10f, ViewValues.FAST_TIME_ANIMATION);
+            _isClickable = true;
+        }
+
+        public void DeactivateToClick()
+        {
+            //_glowComponent.Off();
+            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
+            _isClickable = false;
+        }
 
         /*******************************************************************/
         public void OnMouseEnter()
@@ -34,7 +56,8 @@ namespace MythsAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
-            Debug.Log("Resource Clicked");
+            if (!_isClickable) return;
+            _clickHandler.Clicked(this);
         }
 
         Tween IStatableView.UpdateValue() => DOTween.Sequence();

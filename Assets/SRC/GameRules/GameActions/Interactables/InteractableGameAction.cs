@@ -12,14 +12,18 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public List<Card> ActivableCards => _cardsProvider.GetPlayableCards();
+        private List<IEffectable> SceneOnly => _chaptersProvider.CurrentScene.CanPlayResource ? new List<IEffectable> { _chaptersProvider.CurrentScene } : new List<IEffectable>() { };
+        private List<IEffectable> ActivableCards => _cardsProvider.GetPlayableCards().Concat(SceneOnly).ToList();
+        private IEnumerable<Effect> AllEffects => ActivableCards.SelectMany(card => card.PlayableEffects);
+        private bool IsUniqueEffect => AllEffects.Count() == 1;
+        private bool NoEffect => AllEffects.Count() == 0;
+        private Effect EffectSelected { get; set; }
+
         public bool IsManadatary { get; }
-        public Effect EffectSelected { get; private set; }
         public bool NothingIsSelected => EffectSelected == null;
-        public IEnumerable<Effect> AllEffects => ActivableCards.SelectMany(card => card.PlayableEffects);
-        public bool IsUniqueEffect => AllEffects.Count() == 1;
-        public bool NoEffect => AllEffects.Count() == 0;
+
 
         /*******************************************************************/
         public InteractableGameAction(bool isMandatary)

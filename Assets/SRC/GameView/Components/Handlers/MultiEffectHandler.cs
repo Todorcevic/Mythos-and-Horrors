@@ -10,8 +10,8 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
-        [Inject] private readonly ActivateCardViewsHandler _showCardHandler;
-        [Inject] private readonly ClickHandler<CardView> _clickHandler;
+        [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         private List<CardView> cardViewClones;
 
         /*******************************************************************/
@@ -19,14 +19,14 @@ namespace MythsAndHorrors.GameView
         {
             cardViewClones = CreateCardViewClones(cardViewWithMultiEffecs);
             await _showSelectorComponent.ShowMultiEffects(cardViewClones);
-            _showCardHandler.ActiavateCardViewsPlayables(cardViewClones, withMainButton: true);
+            _showCardHandler.ActiavatePlayables(withMainButton: true, cardViewClones);
 
-            return await FinishMultiEffect(await _clickHandler.WaitingClick());
+            return await FinishMultiEffect(await _clickHandler.WaitingClick() as CardView);
         }
 
         private async Task<Effect> FinishMultiEffect(CardView cardViewSelected)
         {
-            await _showCardHandler.DeactivateCardViewsPlayables(cardViewClones);
+            await _showCardHandler.DeactivatePlayables();
             Effect effectSelected = cardViewSelected == null ? null : cardViewSelected.UniqueEffect;
             cardViewClones.First().ClearUniqueEffect();
 

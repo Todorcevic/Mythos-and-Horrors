@@ -7,11 +7,10 @@ namespace MythsAndHorrors.GameView
 {
     public class InteractablePresenter : IInteractablePresenter
     {
-        [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
-        [Inject] private readonly ActivateCardViewsHandler _showCardHandler;
-        [Inject] private readonly ClickHandler<CardView> _clickHandler;
+        [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
 
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
@@ -28,15 +27,33 @@ namespace MythsAndHorrors.GameView
         {
             await DotweenExtension.WaitForAllTweensToComplete();
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
-            _showCardHandler.ActiavateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards), withMainButton: !interactableGameAction.IsManadatary);
+            _showCardHandler.ActiavatePlayables(withMainButton: !interactableGameAction.IsManadatary);
 
-            CardView cardViewChoose = await _clickHandler.WaitingClick();
+            IPlayable playableChoose = await _clickHandler.WaitingClick();
 
-            await _showCardHandler.DeactivateCardViewsPlayables(_cardViewsManager.GetCardViews(interactableGameAction.ActivableCards));
-            await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThis: cardViewChoose);
-            return cardViewChoose?.Card.HasMultiEffect ?? false ?
-              await _multiEffectHandler.ShowMultiEffects(cardViewChoose) ?? await Interact(interactableGameAction) :
-              cardViewChoose?.Card.PlayableEffects.FirstOrDefault();
+            await _showCardHandler.DeactivatePlayables();
+            await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThisPlayable: playableChoose);
+
+            if (playableChoose is MainButtonComponent) return null;
+            if (playableChoose is TokensPileComponent tokenPile) return tokenPile.Scene.PlayableEffects.First();
+            if (playableChoose is CardView cardView)
+            {
+                if (cardView.Card.HasMultiEffect)
+                {
+                    Effect effectSelectedFromMultiEffect = await _multiEffectHandler.ShowMultiEffects(cardView);
+                    if (effectSelectedFromMultiEffect == null)
+                        return await Interact(interactableGameAction);
+                }
+
+                return cardView.Card.PlayableEffects.FirstOrDefault();
+            }
+
+            return default;
+
+
+            //  return playableChoose?.Card.HasMultiEffect ?? false ?
+            //await _multiEffectHandler.ShowMultiEffects(playableChoose) ?? await Interact(interactableGameAction) :
+            //playableChoose?.Card.ResourcePlayableEffects.FirstOrDefault();
         }
     }
 }
