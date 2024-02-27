@@ -1,14 +1,13 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public interface IPlayable { }
-
     public class TokensPileComponent : MonoBehaviour, IStatableView, IPlayable
     {
         private bool _isClickable;
@@ -24,17 +23,19 @@ namespace MythsAndHorrors.GameView
         public Scene Scene => _chaptersProvider.CurrentScene;
         public bool CanPlayResource => Scene.CanPlayResource;
 
+        List<Effect> IPlayable.EffectsSelected => Scene.PlayableEffects.ToList();
+
         /*******************************************************************/
         public void ActivateToClick()
         {
-            // _glowComponent.SetGreenGlow();
+            if (!CanPlayResource || _isClickable) return;
             _light.DOIntensity(10f, ViewValues.FAST_TIME_ANIMATION);
             _isClickable = true;
         }
 
         public void DeactivateToClick()
         {
-            //_glowComponent.Off();
+            if (!_isClickable) return;
             _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
             _isClickable = false;
         }
@@ -61,6 +62,5 @@ namespace MythsAndHorrors.GameView
         }
 
         Tween IStatableView.UpdateValue() => DOTween.Sequence();
-
     }
 }

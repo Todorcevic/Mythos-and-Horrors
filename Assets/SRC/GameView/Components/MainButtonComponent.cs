@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
+using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -18,6 +20,8 @@ namespace MythsAndHorrors.GameView
         private const float OFFSET = 1f;
 
         private bool IsActivated => _collider.enabled;
+
+        List<Effect> IPlayable.EffectsSelected => new();
 
         /*******************************************************************/
         public void ShowText(string text)

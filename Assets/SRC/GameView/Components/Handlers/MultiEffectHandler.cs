@@ -1,4 +1,5 @@
 ﻿using MythsAndHorrors.GameRules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs)
         {
+            if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
+
             cardViewClones = CreateCardViewClones(cardViewWithMultiEffecs);
             await _showSelectorComponent.ShowMultiEffects(cardViewClones);
             _showCardHandler.ActiavatePlayables(withMainButton: true, cardViewClones);
@@ -38,7 +41,6 @@ namespace MythsAndHorrors.GameView
         private List<CardView> CreateCardViewClones(CardView originalCardView)
         {
             List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
-            originalCardView.HideBuffsAndEffects();
             originalCardView.SetCloneEffect(effects.First());
             List<CardView> newClonesCardView = new() { { originalCardView } };
             foreach (Effect effect in effects.Skip(1))

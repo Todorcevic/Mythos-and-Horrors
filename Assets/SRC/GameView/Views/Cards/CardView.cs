@@ -2,6 +2,7 @@ using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -36,7 +37,6 @@ namespace MythsAndHorrors.GameView
             SetPicture();
             SetCommon();
             SetSpecific();
-            HideBuffsAndEffects();
         }
 
         public void InitClone(Card card)
@@ -74,6 +74,7 @@ namespace MythsAndHorrors.GameView
             if (_cardSensor.IsClickable) return;
             _glowComponent.SetGreenGlow();
             _cardSensor.IsClickable = true;
+            AddBuffsAndEffects();
         }
 
         public void DeactivateToClick()
@@ -81,6 +82,7 @@ namespace MythsAndHorrors.GameView
             if (!_cardSensor.IsClickable) return;
             _glowComponent.Off();
             _cardSensor.IsClickable = false;
+            RemoveBuffsAndEffects();
         }
 
         protected abstract void SetSpecific();
@@ -135,17 +137,19 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Effect CloneEffect { get; private set; }
 
+        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects.ToList();
+
         public void SetCloneEffect(Effect effect) => CloneEffect = effect;
 
         public void ClearCloneEffect() => CloneEffect = null;
 
-        public void AddBuffsAndEffects()
+        private void AddBuffsAndEffects()
         {
             _effectController.AddEffects(CloneEffect != null ? new IViewEffect[] { CloneEffect } : Card.PlayableEffects.ToArray());
             _buffController.AddEffects(Card.Buffs.ToArray());
         }
 
-        public void RemoveBuffsAndEffects()
+        private void RemoveBuffsAndEffects()
         {
             _effectController.Clear();
             _buffController.Clear();

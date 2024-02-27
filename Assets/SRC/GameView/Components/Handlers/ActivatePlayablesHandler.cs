@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -17,32 +16,61 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public void ActiavatePlayables(bool withMainButton, List<CardView> specificsCardViews = null)
         {
-            List<CardView> activablesCardViews = specificsCardViews ?? _cardViewsManager.AllCardsView.Where(cardView => cardView.Card.CanPlay).ToList();
+            CheckActivateCards();
+            CheckActivateAvatars();
+            CheckActivateTokensPile();
+            CheckActivateMainButton();
+            CheckActivateIOActivator();
 
-            activablesCardViews.ForEach(cardView => cardView.AddBuffsAndEffects());
-            activablesCardViews.ForEach(cardView => cardView.ActivateToClick());
+            /*******************************************************************/
+            void CheckActivateCards()
+            {
+                List<CardView> activablesCardViews = specificsCardViews ?? _cardViewsManager.GetAllCanPlay();
+                activablesCardViews.ForEach(cardView => cardView.ActivateToClick());
+            }
 
-            _avatarViewsManager.AvatarsPlayabled(activablesCardViews.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.ActivateGlow());
+            void CheckActivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());
 
-            if (_tokensPileComponent.CanPlayResource) _tokensPileComponent.ActivateToClick();
-            if (withMainButton) _mainButtonComponent.Activate(_textsManager.ViewText.BUTTON_DONE);
+            void CheckActivateTokensPile() => _tokensPileComponent.ActivateToClick();
 
-            _ioActivatorComponent.ActivateCardSensors();
-            _ioActivatorComponent.UnblockUI();
+            void CheckActivateMainButton()
+            {
+                if (withMainButton) _mainButtonComponent.Activate(_textsManager.ViewText.BUTTON_DONE);
+            }
+
+            void CheckActivateIOActivator()
+            {
+                _ioActivatorComponent.ActivateCardSensors();
+                _ioActivatorComponent.UnblockUI();
+            }
+
         }
 
         public async Task DeactivatePlayables()
         {
-            _cardViewsManager.AllCardsView?.ForEach(card => card.RemoveBuffsAndEffects());
-            _cardViewsManager.AllCardsView?.ForEach(card => card.DeactivateToClick());
+            CheckDeactivateCards();
+            CheckDeactivateAvatars();
+            CheckDeactivateTokensPile();
+            CheckDeactivateMainButton();
+            await CheckDeactivateIOActivator();
 
-            _avatarViewsManager.AvatarsPlayabled(_cardViewsManager.AllCardsView.Select(cardView => cardView.Card).ToList()).ForEach(avatar => avatar.DeactivateGlow());
+            /*******************************************************************/
+            void CheckDeactivateCards()
+            {
+                _cardViewsManager.AllCardsView?.ForEach(card => card.DeactivateToClick());
+            }
 
-            _tokensPileComponent.DeactivateToClick();
-            _mainButtonComponent.Deactivate();
+            void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.DeactivateGlow());
 
-            await _ioActivatorComponent.DeactivateCardSensors();
-            _ioActivatorComponent.BlockUI();
+            void CheckDeactivateTokensPile() => _tokensPileComponent.DeactivateToClick();
+
+            void CheckDeactivateMainButton() => _mainButtonComponent.Deactivate();
+
+            async Task CheckDeactivateIOActivator()
+            {
+                await _ioActivatorComponent.DeactivateCardSensors();
+                _ioActivatorComponent.BlockUI();
+            }
         }
     }
 }
