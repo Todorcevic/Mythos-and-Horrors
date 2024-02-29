@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameRules
         private readonly Stat _fromStat;
 
         public Investigator Investigator { get; }
-        public Stat FromStat => _fromStat ?? _chaptersProvider.CurrentScene.ResourcesPile;
+        public Stat FromStat => _fromStat ?? _chaptersProvider.CurrentScene.Info.CardScene.PileAmount;
         public int Amount { get; }
         protected override bool CanBeExecuted => Amount > 0;
 

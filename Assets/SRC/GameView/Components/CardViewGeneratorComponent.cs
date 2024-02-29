@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private CardView _plotPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
         [SerializeField, Required, AssetsOnly] private AvatarCardView _avatarCardPrefab;
+        [SerializeField, Required, AssetsOnly] private SceneCardView _sceneCardPrefab;
 
         /*******************************************************************/
         public void BuildAllCardViews() => _cardProvider.AllCards.ForEach(card => BuildCardView(card));
@@ -53,6 +54,7 @@ namespace MythsAndHorrors.GameView
             CardPlot => _plotPrefab,
             CardGoal => _goalPrefab,
             CardAvatar => _avatarCardPrefab,
+            CardScene => _sceneCardPrefab,
             _ => throw new ArgumentException($"Card type {card} not supported"),
         };
     }

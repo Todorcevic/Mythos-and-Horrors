@@ -12,11 +12,9 @@ namespace MythsAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        private List<IEffectable> SceneOnly => _chaptersProvider.CurrentScene.CanPlayResource ? new List<IEffectable> { _chaptersProvider.CurrentScene } : new List<IEffectable>() { };
-        private List<IEffectable> ActivableCards => _cardsProvider.GetPlayableCards().Concat(SceneOnly).ToList();
-        private IEnumerable<Effect> AllEffects => ActivableCards.SelectMany(card => card.PlayableEffects);
+        private List<IEffectable> ActivableCards => _cardsProvider.GetPlayableCards();
+        private IEnumerable<Effect> AllEffects => ActivableCards.SelectMany(effectable => effectable.PlayableEffects);
         private bool IsUniqueEffect => AllEffects.Count() == 1;
         private bool NoEffect => AllEffects.Count() == 0;
         private Effect EffectSelected { get; set; }

@@ -35,6 +35,7 @@
         }
     ],
     "NextScene": "CORE2",
+    "CardScene":"01104",
     "Cards": [
         "01108",
         "01109",

@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SelectorBlockController _selectorBlockController;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _buttonPosition;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly TokensPileComponent _tokensPileComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -26,7 +27,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public async Task ShowPlayables()
         {
-            _cardViews = _cardViewsManager.GetAllCanPlay()
+            _cardViews = _cardViewsManager.GetAllCanPlay().Where(cardView => cardView is not SceneCardView)
                 .OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count).ThenBy(cardView => cardView.DeckPosition).ToList();
             await Animation();
         }
@@ -42,7 +43,9 @@ namespace MythsAndHorrors.GameView
             CardView exceptThis = exceptThisPlayable as CardView;
             if (!IsShowing) return;
             await Shutdown();
-            Sequence returnSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
+            Sequence returnSequence = DOTween.Sequence()
+                .Append(_mainButtonComponent.RestorePosition())
+                .Join(_tokensPileComponent.RestorePosition());
             _cardViews.Except(new CardView[] { exceptThis })
                 .OrderBy(cardView => cardView.DeckPosition).ToList()
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
@@ -61,7 +64,9 @@ namespace MythsAndHorrors.GameView
         {
             await Shutdown();
             List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
-            Sequence returnClonesSequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
+            Sequence returnClonesSequence = DOTween.Sequence()
+                .Append(_mainButtonComponent.RestorePosition())
+                .Join(_tokensPileComponent.RestorePosition());
             clones.ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
                  .OnComplete(() => Destroy(clone.gameObject))));
             await returnClonesSequence.AsyncWaitForCompletion()
@@ -74,7 +79,9 @@ namespace MythsAndHorrors.GameView
             await Shutdown();
             List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
             (OriginalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, OriginalCardView.transform.position);
-            Sequence sequence = DOTween.Sequence().Append(_mainButtonComponent.RestorePosition());
+            Sequence sequence = DOTween.Sequence()
+                .Append(_mainButtonComponent.RestorePosition())
+                .Join(_tokensPileComponent.RestorePosition());
             clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                  .OnComplete(() => Destroy(clone.gameObject)));
             _cardViews.Clear();
@@ -93,6 +100,7 @@ namespace MythsAndHorrors.GameView
             await _ioActivatorComponent.DeactivateCardSensors();
             Sequence showCenterSequence = DOTween.Sequence()
                .Append(_mainButtonComponent.MoveToThis(_buttonPosition).SetEase(Ease.InSine))
+               .Join(_tokensPileComponent.MoveToThis(_buttonPosition).SetEase(Ease.InSine))
                .Join(_selectorBlockController.ActivateSelector());
             _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
             await showCenterSequence.AsyncWaitForCompletion();

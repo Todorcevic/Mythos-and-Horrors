@@ -9,11 +9,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "88001",
     "Name": "Fortune and Folly"
   },
@@ -2305,11 +2305,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "01104",
     "Name": "The Gathering"
   },
@@ -2659,11 +2659,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "01120",
     "Name": "The Midnight Masks"
   },
@@ -3149,11 +3149,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "01142",
     "Name": "The Devourer Below"
   },
@@ -4027,11 +4027,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "81001",
     "Name": "Curse of the Rougarou"
   },
@@ -4797,11 +4797,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "82001",
     "Name": "Carnevale of Horrors"
   },
@@ -6540,11 +6540,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02041",
     "Name": "Extracurricular Activity"
   },
@@ -7001,11 +7001,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02062",
     "Name": "The House Always Wins"
   },
@@ -8200,11 +8200,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02118",
     "Name": "The Miskatonic Museum"
   },
@@ -9075,11 +9075,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02159",
     "Name": "Essex County Express"
   },
@@ -9828,11 +9828,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02195",
     "Name": "Blood on the Altar"
   },
@@ -10688,11 +10688,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02236",
     "Name": "Undimensioned and Unseen"
   },
@@ -11484,11 +11484,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02274",
     "Name": "Where Doom Awaits"
   },
@@ -12310,11 +12310,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "02311",
     "Name": "Lost in Time and Space"
   },
@@ -13697,11 +13697,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03043",
     "Name": "Curtain Call"
   },
@@ -14137,11 +14137,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03061",
     "Name": "The Last King"
   },
@@ -15487,11 +15487,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03120",
     "Name": "Echoes of the Past"
   },
@@ -16345,11 +16345,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03159",
     "Name": "The Unspeakable Oath"
   },
@@ -17273,11 +17273,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03200",
     "Name": "A Phantom of Truth"
   },
@@ -18136,11 +18136,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03240",
     "Name": "The Pallid Mask"
   },
@@ -18858,11 +18858,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03274",
     "Name": "Black Stars Rise"
   },
@@ -19834,11 +19834,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "03316",
     "Name": "Dim Carcosa"
   },
@@ -21458,11 +21458,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04043",
     "Name": "The Untamed Wilds"
   },
@@ -21702,11 +21702,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04054",
     "Name": "The Doom of Eztli"
   },
@@ -22725,11 +22725,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "70001",
     "Name": "The Labyrinths of Lunacy"
   },
@@ -24262,11 +24262,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04113",
     "Name": "Threads of Fate"
   },
@@ -25214,11 +25214,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "50011",
     "Name": "Return to The Gathering"
   },
@@ -25521,11 +25521,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "50025",
     "Name": "Return to The Midnight Masks"
   },
@@ -25667,11 +25667,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "50032a",
     "Name": "Return to The Devourer Below"
   },
@@ -26254,11 +26254,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04161",
     "Name": "The Boundary Beyond"
   },
@@ -27199,11 +27199,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04205",
     "Name": "Heart of the Elders"
   },
@@ -27878,11 +27878,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04237",
     "Name": "The City of Archives"
   },
@@ -28752,11 +28752,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04277",
     "Name": "The Depths of Yoth"
   },
@@ -29550,11 +29550,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04314",
     "Name": "Shattered Aeons"
   },
@@ -30178,11 +30178,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "04344",
     "Name": "Turn Back Time"
   },
@@ -30261,11 +30261,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "83001",
     "Name": "The Eternal Slumber"
   },
@@ -30585,11 +30585,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "83016",
     "Name": "The Night's Usurper"
   },
@@ -31740,11 +31740,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51012",
     "Name": "Return to Extracurricular Activities"
   },
@@ -31803,11 +31803,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51015",
     "Name": "Return to The House Always Wins"
   },
@@ -31901,11 +31901,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51020",
     "Name": "Return to The Miskatonic Museum"
   },
@@ -32003,11 +32003,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51025",
     "Name": "Return to The Essex County Express"
   },
@@ -32153,11 +32153,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51032",
     "Name": "Return to Blood on the Altar"
   },
@@ -32345,11 +32345,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51041",
     "Name": "Return to Undimensioned and Unseen"
   },
@@ -32481,11 +32481,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51047",
     "Name": "Return to Where Doom Awaits"
   },
@@ -32618,11 +32618,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "51053",
     "Name": "Return to Lost in Time and Space"
   },
@@ -33907,11 +33907,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05043",
     "Name": "Disappearance at the Twilight Estate"
   },
@@ -34072,11 +34072,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05050",
     "Name": "The Witching Hour"
   },
@@ -34402,11 +34402,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05065",
     "Name": "At Death's Doorstep"
   },
@@ -35574,11 +35574,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05120",
     "Name": "The Secret Name"
   },
@@ -36472,11 +36472,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05161",
     "Name": "The Wages of Sin"
   },
@@ -37370,11 +37370,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05197",
     "Name": "For the Greater Good"
   },
@@ -38269,11 +38269,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05238",
     "Name": "Union and Disillusion"
   },
@@ -39234,11 +39234,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05284",
     "Name": "In the Clutches of Chaos"
   },
@@ -40094,11 +40094,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "05325",
     "Name": "Before the Black Throne"
   },
@@ -40830,12 +40830,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52014",
     "Name": "Return to Curtain Call"
   },
@@ -40981,12 +40981,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52021",
     "Name": "Return to The Last King"
   },
@@ -41127,12 +41127,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52028",
     "Name": "Return to Echoes of the Past"
   },
@@ -41261,12 +41261,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52034",
     "Name": "Return to The Unspeakable Oath"
   },
@@ -41383,12 +41383,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52040",
     "Name": "Return to A Phantom of Truth"
   },
@@ -41554,12 +41554,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52048",
     "Name": "Return to The Pallid Mask"
   },
@@ -41684,12 +41684,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52054",
     "Name": "Return to Black Stars Rise"
   },
@@ -41781,12 +41781,12 @@
       0
     ],
     "Tags": [
-      "None",
+      "Scene",
       "Return"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "52059",
     "Name": "Return to Dim Carcosa"
   },
@@ -42980,11 +42980,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06039",
     "Name": "Beyond the Gates of Sleep"
   },
@@ -43517,11 +43517,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06063",
     "Name": "Waking Nightmare"
   },
@@ -44509,11 +44509,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "84001",
     "Name": "Murder at the Excelsior Hotel"
   },
@@ -45803,11 +45803,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06119",
     "Name": "The Search for Kadath"
   },
@@ -46885,11 +46885,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06168",
     "Name": "A Thousand Shapes of Horror"
   },
@@ -47679,11 +47679,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06206",
     "Name": "Dark Side of the Moon"
   },
@@ -48557,11 +48557,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06247",
     "Name": "Point of No Return"
   },
@@ -49387,11 +49387,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06286",
     "Name": "Where the Gods Dwell"
   },
@@ -50207,11 +50207,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90004",
     "Name": "Read or Die"
   },
@@ -50514,11 +50514,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "06333",
     "Name": "Weaver of the Cosmos"
   },
@@ -51047,11 +51047,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "85001",
     "Name": "The Blob That Ate Everything"
   },
@@ -52181,11 +52181,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "86001",
     "Name": "War of the Outer Gods"
   },
@@ -53696,11 +53696,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53016",
     "Name": "Return to The Untamed Wilds"
   },
@@ -53714,11 +53714,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53017",
     "Name": "Return to The Doom of Eztli"
   },
@@ -53951,11 +53951,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53028",
     "Name": "Return to Threads of Fate"
   },
@@ -54153,11 +54153,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53038",
     "Name": "Return to The Boundary Beyond"
   },
@@ -54303,11 +54303,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53045",
     "Name": "Return to Heart of the Elders, Part 1"
   },
@@ -54363,11 +54363,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53048",
     "Name": "Return to Heart of the Elders, Part 2"
   },
@@ -54470,11 +54470,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53053",
     "Name": "Return to The City of Archives"
   },
@@ -54597,11 +54597,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53059",
     "Name": "Return to The Depths of Yoth"
   },
@@ -54633,11 +54633,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53061",
     "Name": "Return to Shattered Aeons"
   },
@@ -54729,11 +54729,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "53066",
     "Name": "Return to Turn Back Time"
   },
@@ -55078,11 +55078,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90011",
     "Name": "All or Nothing"
   },
@@ -62002,11 +62002,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07041",
     "Name": "The Pit of Despair"
   },
@@ -62321,11 +62321,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07056",
     "Name": "The Vanishing of Elina Harper"
   },
@@ -63788,11 +63788,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07123",
     "Name": "In Too Deep"
   },
@@ -64530,11 +64530,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90020",
     "Name": "Bad Blood"
   },
@@ -64855,11 +64855,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07163",
     "Name": "Devil Reef"
   },
@@ -65703,11 +65703,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07198",
     "Name": "Horror in High Gear"
   },
@@ -66591,11 +66591,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07231",
     "Name": "A Light in the Fog"
   },
@@ -67520,11 +67520,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07274",
     "Name": "The Lair of Dagon"
   },
@@ -68320,11 +68320,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "07311",
     "Name": "Into the Maelstrom"
   },
@@ -69051,11 +69051,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90032",
     "Name": "By the Book"
   },
@@ -69453,11 +69453,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54016",
     "Name": "Return to Disappearance at the Twilight Estate"
   },
@@ -69471,11 +69471,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54017",
     "Name": "Return to The Witching Hour"
   },
@@ -69618,11 +69618,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54024",
     "Name": "Return to At Death's Doorstep"
   },
@@ -69729,11 +69729,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54029",
     "Name": "Return to The Secret Name"
   },
@@ -69838,11 +69838,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54034",
     "Name": "Return to The Wages of Sin"
   },
@@ -70014,11 +70014,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54042",
     "Name": "Return to For the Greater Good"
   },
@@ -70099,11 +70099,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54046",
     "Name": "Return to Union and Disillusion"
   },
@@ -70157,11 +70157,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54049",
     "Name": "Return to In the Clutches of Chaos"
   },
@@ -70303,11 +70303,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "54056",
     "Name": "Return to Before the Black Throne"
   },
@@ -73571,11 +73571,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "08501",
     "Name": "Ice and Death"
   },
@@ -74629,11 +74629,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "08549",
     "Name": "Fatal Mirage"
   },
@@ -75652,11 +75652,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "08596",
     "Name": "To the Forbidden Peaks"
   },
@@ -76209,11 +76209,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "08621",
     "Name": "City of the Elder Things"
   },
@@ -76792,11 +76792,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "08648",
     "Name": "The Heart of Madness"
   },
@@ -78819,11 +78819,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90041",
     "Name": "Red Tide Rising"
   },
@@ -81436,7 +81436,7 @@
       "Melee"
     ],
     "Cost": 2,
-    "Quantity": 1,
+    "Quantity": 2,
     "Strength": 2,
     "Xp": 2,
     "HealthPerInvestigator": false,
@@ -81543,7 +81543,7 @@
       "Fortune"
     ],
     "Quantity": 2,
-    "Intelligence": 2,
+    "Intelligence": 0,
     "Xp": 3,
     "HealthPerInvestigator": false,
     "CardType": 8,
@@ -81771,11 +81771,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09501",
     "Name": "Riddles and Rain"
   },
@@ -82180,11 +82180,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09520",
     "Name": "Dead Heat"
   },
@@ -82734,11 +82734,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09545",
     "Name": "Sanguine Shadows"
   },
@@ -83178,11 +83178,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09566",
     "Name": "Dealings in the Dark"
   },
@@ -83758,11 +83758,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09591",
     "Name": "Dancing Mad"
   },
@@ -84153,11 +84153,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09609",
     "Name": "On Thin Ice"
   },
@@ -84727,11 +84727,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09635",
     "Name": "Dogs of War"
   },
@@ -85271,11 +85271,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09660",
     "Name": "Shades of Suffering"
   },
@@ -85809,11 +85809,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09681",
     "Name": "Without a Trace"
   },
@@ -86092,11 +86092,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "09694",
     "Name": "Congress of the Keys"
   },
@@ -88077,7 +88077,7 @@
     ],
     "Cost": 0,
     "Quantity": 1,
-    "Strength": 1,
+    "Agility": 1,
     "HealthPerInvestigator": false,
     "CardType": 8,
     "Code": "10007",
@@ -88337,6 +88337,51 @@
     "Name": "Ancestral Token"
   },
   {
+    "Description": "Uses (3 supplies).\nSupplies on Cleaning Kit may be spent as if they were supplies or ammo on assets you control.",
+    "Flavor": "\"It cleans! It fixes! It picks, plucks, shines, and swishes!\"\n-Schoffner's Catalogue, Winter 1924 ed.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      1
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Tool"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10020",
+    "Name": "Cleaning Kit"
+  },
+  {
+    "Description": "[action]: <b>Fight.</b> You get +2 [combat] for this test. If you succeed by exactly 2, you may exhaust Katana to deal +2 damage for this attack.\n[fast]Exhaust Katana: <b>Fight.</b> Use [agility] instead of [combat] for this attack.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      8,
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Weapon",
+      "Melee"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Strength": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10021",
+    "Name": "Katana"
+  },
+  {
     "Description": "Uses (1 charge). Replenish this charge the first time a [bless] token is revealed at your location each round.\n[fast] Choose a non-[[Elite]] enemy at your location and spend 1 charge: That enemy loses the alert, aloof, elusive, and retaliate keywords until the end of the round.",
     "PackCode": "fhvp",
     "Faction": 4,
@@ -88448,6 +88493,29 @@
     "Name": "Hold Up"
   },
   {
+    "Description": "As an additional cost to play Task Force, spend an action. One at a time, in any order, choose an investigator at your location to...\n- ...resolve an [action] ability on an asset they control without paying its [action] cost.\n- ...move to a connecting location.\n- ...discover 1 clue at their location.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Tactic",
+      "Double"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10027",
+    "Name": "Task Force"
+  },
+  {
     "Description": "Fast. Play only during your turn.\nAttach Tinker to a [[Tool]] asset in your play area. Limit 1 per asset.\nAttached asset takes up 1 fewer hand or accessory slot.",
     "Flavor": "\"You still call that a wrench?!\"",
     "PackCode": "fhvp",
@@ -88530,6 +88598,184 @@
     "CardType": 4,
     "Code": "10031",
     "Name": "Strong-Armed"
+  },
+  {
+    "Description": "Play only as your first action.\nHeal 2 damage (3 instead if you drew a treachery this round). Draw 1 card.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spirit",
+      "Bold"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10032",
+    "Name": "Second Wind"
+  },
+  {
+    "Description": "Uses (4 supplies).\nSupplies on Cleaning Kit may be spent as if they were supplies or ammo on assets you control.\n[reaction] When a supply is spent from Cleaning Kit, exhaust it: The performing investigator gets +2 skill value for this test.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      1
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Tool"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 3,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10033",
+    "Name": "Cleaning Kit"
+  },
+  {
+    "Description": "[action]: <b>Fight.</b> You get +2 [combat] for this attack. If this attack is successful, it deals +1 damage. Return each [bless] token revealed during this attack to the chaos bag. Before revealing chaos token(s) for this attack, you may exhaust Blessed Blade to add 2 [bless] tokens to the chaos bag.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Weapon",
+      "Melee",
+      "Blessed"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10034",
+    "Name": "Blessed Blade"
+  },
+  {
+    "Description": "[action]: <b>Parley.</b> Choose an enemy at your location. Until the end of the round, each investigator gets +1 skill value while fighting, evading, or parleying with the chosen enemy. Place 1 resource on Eyes of Valusia, as a charge.\n[fast]: Search your bonded cards for Blade of Yoth and swap it with Eyes of Valusia, moving all charges from Eyes of Valusia to Blade of Yoth.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Relic",
+      "Spell"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10035",
+    "Name": "Eyes of Valusia"
+  },
+  {
+    "Description": "Bonded (Eyes of Valusia).\n[action] Spend 1-3 charges: <b>Fight.</b> For this attack, you may use [willpower] instead of [combat]. You get +2 skill value and deal +1 damage for each charge spent as part of this action's cost.\n[fast]: Search your bonded cards for Eyes of Valusia and swap it with Blade of Yoth, discarding all charges.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Relic",
+      "Weapon",
+      "Melee"
+    ],
+    "Quantity": 1,
+    "Strength": 1,
+    "Agility": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10036",
+    "Name": "Blade of Yoth"
+  },
+  {
+    "Description": "Play only if you control a [[Melee]] asset. As an additional cost to play Flurry of Blows, spend an action.\n<b>Fight.</b> Choose a [[Melee]] asset you control and take an immediate fight action with that asset <i>(without paying its [action] cost)</i>. You may repeat this effect up to three times. After the final attack resolves, if it is your turn, end your turn.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Tactic",
+      "Double",
+      "Fated"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Wild": 1,
+    "Xp": 5,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10037",
+    "Name": "Flurry of Blows"
+  },
+  {
+    "Description": "Fast. Play after 1 or more [bless] tokens are revealed during a skill test at your location.\nSearch your bonded cards for Evanescent Ascension and put it into play. Place up to X resources on it, as wishes (to a maximum of the number of [bless] tokens revealed). Remove Miracle Wish from the game.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Favor",
+      "Blessed"
+    ],
+    "Cost": -2,
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 5,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10038",
+    "Name": "Miracle Wish"
+  },
+  {
+    "Description": "Bonded (Miracle Wish). If Evanescent Ascension has no wishes, set it aside, out of play.\n[reaction] When an investigator at your location would fail a skill test, spend 1 wish and exhaust Evanescent Ascension: Resolve that investigator's [elder_sign] effect <i>(in addition to all other tokens revealed during this test)</i>.",
+    "PackCode": "fhvp",
+    "Faction": 4,
+    "Slots": [
+      16
+    ],
+    "Tags": [
+      "Supply",
+      "Ritual",
+      "Pact",
+      "Blessed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10039",
+    "Name": "Evanescent Ascension"
   },
   {
     "Description": "[action] Exhaust Chemistry Set: <b>Investigate.</b> If you...\n- ...fail by exactly 2, discard Chemistry Set.\n- ...succeed by exactly 0, gain 2 resources.\n- ...succeed by exactly 2, draw 1 card.\n- ...succeed by exactly 4, discover 1 additional clue at your location.",
@@ -88667,6 +88913,77 @@
     "Name": "Uncanny Growth"
   },
   {
+    "Description": "Fast. Play after an investigator reveals a h token during a skill test at your location.\nDiscover 1 clue at your location.",
+    "Flavor": "\"There was a solution which he injected into the veins of dead things, and if they were fresh enough they responded in strange ways.\"\n-H.P. Lovecraft, <i>Herbert West - Reanimator</i>",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Insight",
+      "Science",
+      "Cursed"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10046",
+    "Name": "Control Variable"
+  },
+  {
+    "Description": "As an additional cost to play Testing Sprint, spend an action.\n<b>Investigate.</b> One at a time, investigate your location and each connecting location once each in ascending order of shroud, until you either fail to investigate or successfully investigate each eligible location.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Insight",
+      "Double"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10047",
+    "Name": "Testing Sprint"
+  },
+  {
+    "Description": "As an additional cost to play Thorough Inquiry, spend an action.\nInvestigators at your location draw a combined total of 5 cards <i>(you decide how many cards each investigator draws)</i>.",
+    "Flavor": "The truth is often hidden in plain sight.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Insight",
+      "Double"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10048",
+    "Name": "Thorough Inquiry"
+  },
+  {
     "Description": "<b>Fight.</b> Choose a [[Tome]] asset you control. You get +X [combat] for this attack, where X is that asset's printed cost. If you succeed, you may either automatically evade the attacked enemy, or after the attack ends, you may resolve an [action] or [fast] ability on the chosen asset <i>(ignoring its [action] cost, if any)</i>.",
     "Flavor": "\"Kid, you... you took that a lot more literally than I expected you to.\"",
     "PackCode": "fhvp",
@@ -88733,6 +89050,54 @@
     "Name": "Well-Funded"
   },
   {
+    "Description": "You get +1 [intellect].\n[reaction] At the start of your turn, add 1 [curse] token to the chaos bag: Draw 1 card.",
+    "Flavor": "\"Helping you is easier than teaching my students geometry.\"",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      4
+    ],
+    "Tags": [
+      "Supply",
+      "Ally",
+      "Scholar",
+      "Cursed"
+    ],
+    "Cost": 4,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Health": 1,
+    "Sanity": 1,
+    "Xp": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10052",
+    "Name": "Gabriel Carillo"
+  },
+  {
+    "Description": "Limit 1 per investigator.\n[reaction] When you would succeed at a skill test, exhaust Steady-Handed: You either succeed by 1 more or 1 less. If you succeeded by exactly 2, heal 1 horror.",
+    "Flavor": "A nick can be the difference between life and death.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Talent",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10053",
+    "Name": "Steady-Handed"
+  },
+  {
     "Description": "Attach to a [[Tool]] or [[Science]] asset you control. Limit 1 per asset.\n[reaction] After attached asset exhausts, exhaust Fine Tuning: Ready attached asset.",
     "Flavor": "\"I assure you there's nothing to fear!\"",
     "PackCode": "fhvp",
@@ -88754,6 +89119,27 @@
     "CardType": 8,
     "Code": "10054",
     "Name": "Fine Tuning"
+  },
+  {
+    "Description": "After this skill test ends, add 1 [curse] token to the chaos bag for each point the performing investigator either succeeded or failed by.",
+    "Flavor": "Rumor has it the university's last phrenology professor enjoyed an unnaturally long tenure.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Talent",
+      "Practiced",
+      "Cursed"
+    ],
+    "Quantity": 2,
+    "Wild": 4,
+    "Xp": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 4,
+    "Code": "10055",
+    "Name": "Esoteric Method"
   },
   {
     "Description": "[action] Add 1 [curse] token to the chaos bag: <b>Investigate.</b> You get +2 skill value for this investigation. If a [curse] token is revealed during this investigation, you may exhaust Prismatic Spectacles to discover 1 additional clue at your location.",
@@ -88801,6 +89187,147 @@
     "Name": "Confound"
   },
   {
+    "Description": "[reaction] After an enemy at your location is successfully evaded or defeated: Place 1 resource on Microscope, as evidence.\n[action] [action]: <b>Investigate.</b> You get +2 [intellect] for this investigation for each evidence on Microscope (max +6 [intellect]). If you succeed, you may spend up to 3 evidence to discover that many additional clues at your location.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Tool",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10058",
+    "Name": "Microscope"
+  },
+  {
+    "Description": "Researched. Limit 1 per deck.\n[fast]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)\n[reaction] When an investigator draws a non-weakness treachery card, it their locations shroud is equal to or less than Ravenous Myconid's growth: Cancel that treachery's effects and discard it. Remove all growth from Ravenous Myconid.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Creature",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Intelligence": 1,
+    "Health": 1,
+    "Sanity": 1,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10059",
+    "Name": "Ravenous Myconid"
+  },
+  {
+    "Description": "Researched. Limit 1 per deck.\n[fast]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)\n[fast] Choose a non-[[Elite]] enemy at your location with equal or fewer remaining health than the amount of growth on Ravenous Myconid: Defeat that enemy. Remove all growth from Ravenous Myconid.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Monster",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Strength": 1,
+    "Health": 1,
+    "Sanity": 1,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10060",
+    "Name": "Ravenous Myconid"
+  },
+  {
+    "Description": "Researched. Limit 1 per deck.\n[fast]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)\n[fast] Remove all growth from Ravenous Myconid: Either heal that much damage/horror from Ravenous Myconid, or move that much damage/horror from investigators or Ally assets at your location to Ravenous Myconid.",
+    "PackCode": "fhvp",
+    "Faction": 16,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Flora",
+      "Science"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Power": 1,
+    "Health": 3,
+    "Sanity": 3,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10061",
+    "Name": "Ravenous Myconid"
+  },
+  {
+    "Description": "Limit 1 per deck. Uses (10 resources).\n[action] Exhaust Bianca \"Die Katz\": <b>Parley.</b> Move X resources from Bianca \"Die Katz\" to your resource pool. X cannot be more than 5. Test [agility] (X). If you fail, remember \"you owe Bianca X resources.\" Then, search your bonded cards for the Bianca \"Die Katz\" enemy and spawn her at your location. Remove this card from the game.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      4
+    ],
+    "Tags": [
+      "Supply",
+      "Ally",
+      "Criminal",
+      "Socialite"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Agility": 1,
+    "Health": 2,
+    "Sanity": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10062",
+    "Name": "Bianca \"Die Katz\""
+  },
+  {
+    "Description": "Bonded (Bianca \"Die Katz\"). Hunter.\n<b>Prey</b> - Bearer only.\n[action] If \"you owe Bianca X resources,\" spend X resources: <b>Parley.</b> Add Bianca \"Die Katz\" to the victory display.\n<b>Forced</b> - When Bianca \"Die Katz\" leaves play (except by the above ability: Shuffle her into your deck.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Creature",
+      "Weakness",
+      "Humanoid",
+      "Criminal",
+      "Socialite"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Strength": 3,
+    "Agility": 3,
+    "Health": 3,
+    "CreatureDamage": 2,
+    "Victory": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 16,
+    "Code": "10063",
+    "Name": "Bianca \"Die Katz\""
+  },
+  {
     "Description": "[action] Choose a non-[[Elite]] enemy at your location: <b>Parley.</b> Test [willpower] (X), where X is that enemy's printed health value. If you succeed, that enemy disengages from each investigator and gains aloof until the end of the round.",
     "PackCode": "fhvp",
     "Faction": 2,
@@ -88821,6 +89348,30 @@
     "CardType": 2,
     "Code": "10064",
     "Name": "Blackmail File"
+  },
+  {
+    "Description": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You may use [agility] instead of [combat], for this attack. This attack deals +1 damage.\n[reaction] After you fail a skill test while parleying with an enemy: Put British Bull Dog into play from your hand.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Weapon",
+      "Firearm",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10065",
+    "Name": "British Bull Dog"
   },
   {
     "Description": "[action] Choose an enemy at your location and exhaust Fake Credentials: <b>Parley.</b> Test [intellect] (1). This test gets +1 difficulty for each suspicion on Fake Credentials. If you succeed, discover 1 clue at your location and place 1 resource on Fake Credentials, as suspicion. If you fail, you must either discard Fake Credentials, or the chosen enemy attacks you.",
@@ -88888,6 +89439,31 @@
     "CardType": 2,
     "Code": "10068",
     "Name": "Scrimshaw Charm"
+  },
+  {
+    "Description": "As an additional cost to play Bank Job, spend an action.\nInvestigators at your location gain a total of 8 resources, distributed as you wish.",
+    "Flavor": "\"No names, Skids.\"\n\"Sorry, Finn.\"",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Gambit",
+      "Double",
+      "Illicit"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10069",
+    "Name": "Bank Job"
   },
   {
     "Description": "<b>Parley.</b> Choose an enemy at your location and play a [[Weapon]] asset from your hand, reducing its cost by 1. You may then take a fight action with that weapon against the chosen enemy, using [agility] instead of the skill indicated.",
@@ -88958,6 +89534,29 @@
     "Name": "\"I'll Pay You Back!\""
   },
   {
+    "Description": "<b>Parley.</b> Choose an enemy at your location and test [intellect] (X), where X is the chosen enemy's combined damage and horror values. If you succeed, deal 2 damage to each enemy at your location. If you succeed by 2 or more, after this effect resolves you may disengage from each enemy and move to a connecting location.",
+    "Flavor": "\"He did say something about your hair...\"",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Trick",
+      "Gambit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10073",
+    "Name": "Stir the Pot"
+  },
+  {
     "Description": "<b>Parley.</b> Choose an enemy at your location and test any skill (3). If you succeed and you tested...\n- ...[willpower], remove 1 doom from that enemy.\n- ...[intellect], discover 1 clue at your location.\n- ...[agility], automatically evade that enemy. If it is non-[[Elite]], move it to a connecting location.\n- ...[combat], deal 2 damage to that enemy.",
     "PackCode": "fhvp",
     "Faction": 2,
@@ -88976,6 +89575,72 @@
     "CardType": 8,
     "Code": "10074",
     "Name": "Vamp"
+  },
+  {
+    "Description": "When you reveal a [curse] token during a skill test you are performing, you may commit Diabolical Luck to that skill test from your hand. If you do, Diabolical Luck gains [wild][wild][wild].",
+    "Flavor": "\"Shoggoths. Why did it have to be shoggoths?\"",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Talent",
+      "Fortune",
+      "Cursed"
+    ],
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 4,
+    "Code": "10075",
+    "Name": "Diabolical Luck"
+  },
+  {
+    "Description": "If this skill test is successful during an evasion attempt, you may automatically evade another enemy at your location.",
+    "Flavor": "\"I never ran from anything like that devil tonight, though. Hope I never have to again.\"\n-<i>Rita Young, Investigators of Arkham Horror</i>",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Talent",
+      "Practiced",
+      "Trick"
+    ],
+    "Quantity": 2,
+    "Agility": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 4,
+    "Code": "10076",
+    "Name": "Lightfooted"
+  },
+  {
+    "Description": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You may use [agility] instead of [combat] for this attack and you get +2 skill value. This attack deals +1 damage. Ignore the aloof keyword for this attack.\n[reaction] After you fail a skill test while parleying with an enemy: Put British Bull Dog into play from your hand.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Weapon",
+      "Firearm",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10077",
+    "Name": "British Bull Dog"
   },
   {
     "Description": "Fast. Play after you succeed at a skill test while parleying.\nDiscover 2 total clues from among your location and connecting locations.",
@@ -89001,6 +89666,49 @@
     "Name": "Snitch"
   },
   {
+    "Description": "Permanent. Exceptional.\n[reaction] Before you draw your opening hand: Search your deck for up to 3 different Trick cards, and attach them facedown to Bewitching. Shuffle your deck.\n[reaction] When you engage an enemy, exhaust Bewitching: Either draw 1 attached card, or search the top 9 cards of your deck for a copy of an attached card, draw it, and shuffle your deck.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Talent",
+      "Trick"
+    ],
+    "Quantity": 1,
+    "Xp": 3,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10079",
+    "Name": "Bewitching"
+  },
+  {
+    "Description": "As an additional cost to play Dirty Deeds, spend an action.\nSearch your deck for an [[Illicit]] asset and play it, paying its cost. Then, you may resolve an [action] or [fast] ability on that asset, ignoring all costs <i>(including its [action] cost, if any)</i>. Playing this card does not provoke attacks of opportunity.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Favor",
+      "Double",
+      "Illicit"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Wild": 1,
+    "Xp": 3,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10080",
+    "Name": "Dirty Deeds"
+  },
+  {
     "Description": "<b>Parley.</b> Choose an enemy at your location and test any number of skills. One at a time, in any order, test each chosen skill (2). For each test you succeeded, if it was...\n- ...[willpower], remove 1 doom from that enemy.\n- ...[intellect], discover 1 clue at your location.\n- ...[agility], automatically evade that enemy. Move it to a connecting location if it is non-[[Elite]].\n- ...[combat], deal 2 damage to that enemy.",
     "PackCode": "fhvp",
     "Faction": 2,
@@ -89019,6 +89727,28 @@
     "CardType": 8,
     "Code": "10081",
     "Name": "Vamp"
+  },
+  {
+    "Description": "[action] Choose an enemy at your location: <b>Parley.</b> Test [intellect](0). This test gets +1 difficulty for each suspicion on Fake Credentials. If you succeed, discover 1 clue at your location or a connecting location. If you did not succeed by 2 or more, place 1 resource on Fake Credentials, as suspicion. If you fail, return Fake Credentials to your hand.",
+    "PackCode": "fhvp",
+    "Faction": 2,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Illicit"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Agility": 1,
+    "Intelligence": 1,
+    "Xp": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10082",
+    "Name": "Fake Credentials"
   },
   {
     "Description": "<b>Parley.</b> Choose an enemy at your location and test [intellect] (X), where X is the chosen enemy's combined damage/horror values. If you succeed, deal X damage to each enemy at your location. After this effect resolves, you may disengage from each enemy and move to a connecting location.",
@@ -89067,6 +89797,124 @@
     "Name": "Cat Mask"
   },
   {
+    "Description": "Limit 1 per deck.\n[fast] Choose a non-[[Elite]] enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. If a [curse] token is revealed, search your bonded cards for a random [[Rot]] event and attach it to that enemy.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Relic",
+      "Occult",
+      "Cursed"
+    ],
+    "Cost": 2,
+    "Quantity": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10085",
+    "Name": "Rod of Carnamagos"
+  },
+  {
+    "Description": "Bonded (Rod of Carnamagos)\nAttached enemy cannot attack.\n<b>Forced</b> - When attached enemy leaves play: Set Abyssal Rot aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Rot",
+      "Cursed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10086",
+    "Name": "Abyssal Rot"
+  },
+  {
+    "Description": "Bonded (Rod of Carnamagos)\n<b>Forced</b> - When attached enemy is defeated: Gain resources equal to its printed health (to a maximum of 5).\n<b>Forced</b> - When attached enemy leaves play: Set Aember Rot aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Rot",
+      "Cursed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10087",
+    "Name": "Aember Rot"
+  },
+  {
+    "Description": "Bonded (Rod of Carnamagos)\nAttached enemy gets -1 fight and -1 evade.\n<b>Forced</b> - When attached enemy leaves play: Set Putrescent Rot aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Rot",
+      "Cursed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10088",
+    "Name": "Putrescent Rot"
+  },
+  {
+    "Description": "Bonded (Rod of Carnamagos)\n<b>Forced</b> - At the end of the round: Attached enemy takes 1 damage.\n<b>Forced</b> - When attached enemy leaves play: Set Scarlet Rot aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Rot",
+      "Cursed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10089",
+    "Name": "Scarlet Rot"
+  },
+  {
+    "Description": "Bonded (Rod of Carnamagos)\nAttached enemy cannot move.\n<b>Forced</b> - When attached enemy leaves play: Set Virescent Rot aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Rot",
+      "Cursed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10090",
+    "Name": "Virescent Rot"
+  },
+  {
     "Description": "Uses (6 offerings).\n[action] Spend any number of offerings: <b>Parley.</b> Choose a [[Spell]] or [[Ritual]] event in your discard pile and reveal tokens from the chaos bag equal to the number of offerings spent. If at least 1 [skull] or [curse] token was revealed, return the chosen event to your hand.",
     "PackCode": "fhvp",
     "Faction": 8,
@@ -89088,7 +89936,7 @@
     "Name": "Speak to the Dead"
   },
   {
-    "Description": "[action] Add 1-3 [curse] tokens to the chaos bag: <b>Fight.</b> You get +2 [combat] for each [curse] token added as part of this action's cost. If this attack defeats an enemy, replenish 1 charge or offering on an asset you control.",
+    "Description": "[action] Add 1-3 [curse] tokens to the chaos bag: <b>Fight.</b> You get +2 [combat] for this attack for each [curse] token added as part of this action's cost. If this attack defeats an enemy, replenish 1 charge or offering on an asset you control.",
     "PackCode": "fhvp",
     "Faction": 8,
     "Slots": [
@@ -89101,7 +89949,7 @@
       "Melee",
       "Cursed"
     ],
-    "Cost": 3,
+    "Cost": 2,
     "Quantity": 2,
     "Strength": 1,
     "Xp": 0,
@@ -89111,7 +89959,30 @@
     "Name": "Wicked Athame"
   },
   {
-    "Description": "<b>Parley.</b> Choose an enemy at your location and test [willpower] (X), where X is the chosen enemy's fight value. If you succeed, move 1 damage from your investigator to the chosen enemy (up to 2 damage instead if the chosen enemy is non-[[Elite]]).",
+    "Description": "As an additional cost to play Antediluvian Hymn, spend an action.\nReveal the top 5 cards of the encounter deck. For each card revealed, you may add 1 [curse] token to the chaos bag to place that card on the bottom of the encounter deck. Return the rest to the top of the encounter deck in any order.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Augury",
+      "Double"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10093",
+    "Name": "Antediluvian Hymn"
+  },
+  {
+    "Description": "<b>Parley.</b> Choose an enemy at your location and test [willpower](X), where X is the chosen enemy's fight value. If you succeed, move 1 damage from your investigator to the chosen enemy (up to 2 damage instead if the chosen enemy is non-[[Elite]]).",
     "Flavor": "What was yours is now mine.",
     "PackCode": "fhvp",
     "Faction": 8,
@@ -89154,6 +90025,27 @@
     "Name": "Accursed"
   },
   {
+    "Description": "While this card is committed to a skill test, the performing investigator may ignore all keyword or location effects that would trigger during this test.",
+    "Flavor": "The dreaming mind is as deep as any sea.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Talent",
+      "Practiced"
+    ],
+    "Quantity": 2,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 4,
+    "Code": "10096",
+    "Name": "Mesmeric Influence"
+  },
+  {
     "Description": "[reaction] When you would reveal a chaos token, exhaust Olive McBride: Reveal 4 chaos tokens instead of 1. Choose 2 of those tokens to resolve, and ignore the rest.",
     "Flavor": "You must invest yourself in every spell. Sometimes literally.",
     "PackCode": "fhvp",
@@ -89168,7 +90060,7 @@
     ],
     "Cost": 2,
     "Quantity": 2,
-    "Strength": 1,
+    "Power": 2,
     "Health": 1,
     "Sanity": 3,
     "Xp": 2,
@@ -89176,6 +90068,140 @@
     "CardType": 2,
     "Code": "10097",
     "Name": "Olive McBride"
+  },
+  {
+    "Description": "Limit 1 per deck.\n[fast] Choose a non-[[Elite]] enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. For each [curse] token revealed, you may search your bonded cards for a [[Rot]] event and attach it to that enemy.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Relic",
+      "Occult",
+      "Cursed"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Power": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10098",
+    "Name": "Rod of Carnamagos"
+  },
+  {
+    "Description": "As an additional cost to play Call the Beyond, add 3 [curse] tokens to the chaos bag.\nChoose an asset vou control with \"uses (charges)\" or \"uses (secrets)\". Replenish all of that asset's charges or secrets. Then, you may resolve an [action] or [fast] ability on that asset without paying its [action] cost, if any.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Ritual",
+      "Cursed"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10099",
+    "Name": "Call the Beyond"
+  },
+  {
+    "Description": "<b>Evade.</b> Add your [willpower] value to your skill value for this evasion attempt. If you succeed, disengage from each other enemy engaged with you, and for the remainder of the round, you are ethereal (enemies cannot engage or be engaged with you, and you cannot attack or deal damage to enemies). If a symbol was revealed during this evasion attempt, return Ethereal Form to your hand at the end of your turn.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10100",
+    "Name": "Ethereal Form"
+  },
+  {
+    "Description": "<b>Investigate.</b> Add your [willpower] value to your skill value for this investigation. You may ignore any effect or keyword on your location which would trigger during this investigation. If you succeed, discover 1 additional clue at this location. If a symbol was revealed during this investigation, return Read the Signs to your hand at the end of your turn.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 1,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10101",
+    "Name": "Read the Signs"
+  },
+  {
+    "Description": "<b>Fight.</b> Add your [willpower] value to your skill value for this attack. Immediately before this attack, you may engage the attacked enemy. This attack deals + 1 damage (+2 damage instead if the enemy is non-[[Elite]]). If a symbol was revealed during this attack, return Spectral Razor to your hand at the end of your turn.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10102",
+    "Name": "Spectral Razor"
+  },
+  {
+    "Description": "As an additional cost to play Ethereal Weaving, spend an action.\nReveal up to 3 different [[Spell]] events from your hand. One at a time, play each revealed event, reducing its cost by 1. While resolving each of these events, you get +2 skill value.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spirit",
+      "Double"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Power": 1,
+    "Wild": 1,
+    "Xp": 3,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10103",
+    "Name": "Ethereal Weaving"
   },
   {
     "Description": "[fast] If there are more [bless] than [curse] tokens in the chaos bag, remove 1 [bless] token from the chaos bag and exhaust The Key of Solomon: Heal up to 2 damage and/or horror from an investigator or [[Ally]] asset at your location.\n[fast] If there are more [curse] than [bless] tokens in the chaos bag, remove 1 [curse] token from the chaos bag and exhaust The Key of Solomon: Gain 2 resources.",
@@ -89201,6 +90227,66 @@
     "CardType": 2,
     "Code": "10104",
     "Name": "The Key of Solomon"
+  },
+  {
+    "Description": "Fast. Play after a skill test at your location ends in which at least 2 [curse] tokens or 2 [bless] tokens were revealed.\nIf 2 [curse] tokens were revealed, search your bonded cards for 1 copy of Servant of Brass and put it into play. If 2 [bless] tokens were revealed, search your bonded cards for Keeper of the Key and put it into play. If 2 [curse] tokens and 2 [bless] tokens were revealed, do both instead. Remove Seal of the Elders from the game.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Spell",
+      "Pact",
+      "Blessed",
+      "Cursed"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Strength": 1,
+    "Power": 1,
+    "Xp": 5,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10105",
+    "Name": "Seal of the Elders"
+  },
+  {
+    "Description": "Bonded (Seal of the Elders).\n[reaction] When a [bless] token is revealed during a skill test at your location: Deal 1 damage to Servant of Brass and 2 damage to an enemy at your location or a connecting location.\n<b>Forced</b> - When Servant of Brass would leave play: Set it aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Summon"
+    ],
+    "Quantity": 1,
+    "Sanity": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10106",
+    "Name": "Keeper of the Key"
+  },
+  {
+    "Description": "Bonded (Seal of the Elders).\n[reaction] When a [curse] token is revealed during a skill test at your location: Deal 1 damage to Servant of Brass and 2 damage to an enemy at your location or a connecting location.\n<b>Forced</b> - When Servant of Brass would leave play: Set it aside, out of play.",
+    "PackCode": "fhvp",
+    "Faction": 8,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Summon"
+    ],
+    "Quantity": 1,
+    "Health": 4,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10107",
+    "Name": "Servant of Brass"
   },
   {
     "Description": "Uses (3 supplies). If Matchbox has no supplies, discard it.\n[fast] During any investigator's turn, exhaust Matchbox and spend 1 supply: Your location gets -1 shroud until the end of this turn.",
@@ -89291,6 +90377,29 @@
     "Name": "Sparrow Mask"
   },
   {
+    "Description": "As an additional cost to play Elaborate Distraction, spend an action. Playing Elaborate Distraction does not provoke attacks of opportunity.\nFor each enemy at your location and at each connecting location (choose one):\n- Automatically evade that enemy if it is non-[[Elite]].\n- Deal 1 damage to that enemy.",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Trick",
+      "Double"
+    ],
+    "Cost": 3,
+    "Quantity": 2,
+    "Strength": 1,
+    "Agility": 1,
+    "Power": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10112",
+    "Name": "Elaborate Distraction"
+  },
+  {
     "Description": "Choose a [[Weapon]] or [[Tool]] asset in your discard pile. Resolve an [action] ability on that asset, ignoring all costs <i>(including its [action] cost)</i>.\nAfter this effect resolves, shuffle the chosen asset into your deck. Playing this card does not provoke attacks of opportunity.",
     "PackCode": "fhvp",
     "Faction": 1,
@@ -89376,7 +90485,7 @@
     "Name": "Long Shot"
   },
   {
-    "Description": "[action]: <b>Fight.</b> Add your [agility] to your skill value for this attack. This attack deals + 1 damage. If this attack defeats an enemy, discard Hatchet. Otherwise, lose control of Hatchet and attach it to the attacked enemy. Attached enemy gains:\n\"[reaction] When attached enemy is defeated: Take control of Hatchet. Any investigator at Hatchet's location may trigger this ability.\"",
+    "Description": "[action]: <b>Fight.</b> Add your [agility] to your skill value for this attack. This attack deals +1 damage. If this attack defeats an enemy, discard Hatchet. Otherwise, lose control of Hatchet and attach it to the attacked enemy. Attached enemy gains:\n\"[reaction] When attached enemy is defeated: Take control of Hatchet. Any investigator at Hatchet's location may trigger this ability.\"",
     "PackCode": "fhvp",
     "Faction": 1,
     "Slots": [
@@ -89419,6 +90528,96 @@
     "Name": "Persistence"
   },
   {
+    "Description": "<b>Forced</b> - When your turn begins: Move 1 damage from your investigator to \"Devil\"\n<b>Forced</b> - When \"Devil\" is defeated: Deal 2 damage to each enemy and investigator at your location.",
+    "Flavor": "I will guide thy hand.",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      4
+    ],
+    "Tags": [
+      "Supply",
+      "Ally",
+      "Creature",
+      "Cursed"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Agility": 1,
+    "Health": 3,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10119",
+    "Name": "Devil"
+  },
+  {
+    "Description": "Fast.\n[action]: <b>Fight.</b> If you have no resources in your resource pool, this attack deals +1 damage.\n[free] During an attack using Fire Axe, spend 1 resource: You get +2 [combat] for this skill test. (Limit three times per attack.)",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Weapon",
+      "Melee"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Strength": 2,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10120",
+    "Name": "Fire Axe"
+  },
+  {
+    "Description": "[fast] Exhaust Hunting Jacket: Choose 1 non-weakness card in your hand and attach it facedown to Hunting Jacket (max 3 cards attached). Then, gain 1 resource for each attached card.\n[reaction] When Hunting Jacket is defeated: Draw each attached card.",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      2
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Clothing"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Agility": 1,
+    "Health": 2,
+    "Sanity": 2,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10121",
+    "Name": "Hunting Jacket"
+  },
+  {
+    "Description": "[action] Exhaust Mariner's Compass: <b>Investigate.</b> If you fail, ready Mariner's Compass. If you succeed and have no resources in your resource pool, discover 1 additional clue at your location.\n[fast] During an investigation using Mariner's Compass, spend 1 resource: You get +1 [intellect] for this skill test. (Limit three times per investigation.)",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Tool"
+    ],
+    "Cost": 2,
+    "Quantity": 2,
+    "Intelligence": 2,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10122",
+    "Name": "Mariner's Compass"
+  },
+  {
     "Description": "[fast] Choose a card you own that is attached to your location and exhaust Survival Technique: Add that card to your hand.\n[fast] During a skill test on a location or on a treachery attached to your location, exhaust Survival Technique: You get +2 skill value for this test.",
     "PackCode": "fhvp",
     "Faction": 1,
@@ -89438,6 +90637,28 @@
     "CardType": 2,
     "Code": "10123",
     "Name": "Survival Technique"
+  },
+  {
+    "Description": "Fast. Play during any [fast] window.\nAdd 4 [bless] tokens to the chaos bag.",
+    "Flavor": "Those who walk in faith need not fear the dark.",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Fortune",
+      "Blessed"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Power": 2,
+    "Xp": 2,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10124",
+    "Name": "Keep Faith"
   },
   {
     "Description": "If this skill test is successful, add 1 [bless] token to the chaos bag for each damage or horror on you (whichever is less).",
@@ -89486,6 +90707,24 @@
     "Name": "Token of Faith"
   },
   {
+    "Description": "Permanent. Limit 1 per deck.\nDuring the upkeep phase, you may choose to not gain resources.\nWhile you have no resources in your resource pool, you get +1 [willpower], +1 [intellect], +1 [combat], and +1 [agility].",
+    "PackCode": "fhvp",
+    "Faction": 1,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Condition"
+    ],
+    "Quantity": 1,
+    "Xp": 5,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10127",
+    "Name": "Dark Horse"
+  },
+  {
     "Description": "Uses (4 charges).\nYou may play events with \"parley\" from your discard pile as if they were in your hand. As an additional cost to play an event this way, spend 1 charge from Eldritch Tongue. After that event resolves, remove it from the game.",
     "PackCode": "fhvp",
     "Faction": 32,
@@ -89504,6 +90743,27 @@
     "CardType": 2,
     "Code": "10128",
     "Name": "Eldritch Tongue"
+  },
+  {
+    "Description": "As an additional cost to play Bide Your Time, spend an action.\nDuring your next turn, you may take two additional actions.",
+    "Flavor": "It's half past midnight, and you're starting to wonder if the whole thing's a ruse.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Double"
+    ],
+    "Cost": 0,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 0,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10129",
+    "Name": "Bide Your Time"
   },
   {
     "Description": "While Well-Dressed is committed to a skill test during a parley action, it gains [wild] [wild] [wild].",
@@ -89527,6 +90787,28 @@
     "Name": "Well-Dressed"
   },
   {
+    "Description": "Fast. Play after revealing chaos tokens during a skill test at your location.\nIgnore the modifiers of each [curse] token revealed during this test. For each [curse] token ignored, deal 1 damage to an enemy at your location.",
+    "Flavor": "Only the strongest spirit can sunder the dark.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Condition",
+      "Ritual",
+      "Blessed"
+    ],
+    "Cost": 1,
+    "Quantity": 2,
+    "Wild": 1,
+    "Xp": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 8,
+    "Code": "10131",
+    "Name": "Dawn Star"
+  },
+  {
     "Description": "Permanent. Limit 1 per deck.\nYou have 1 additional hand, accessory, or arcane slot, which can only be used to hold a [[Blessed]] or [[Cursed]] asset.",
     "Flavor": "\"The price is but a pittance for what you will gain.\"",
     "PackCode": "fhvp",
@@ -89539,12 +90821,90 @@
       "Boon",
       "Pact"
     ],
-    "Quantity": 2,
+    "Quantity": 1,
     "Xp": 3,
     "HealthPerInvestigator": false,
     "CardType": 2,
     "Code": "10132",
     "Name": "Occult Reliquary"
+  },
+  {
+    "Description": "Limit 1 per deck. Limit 1 [[Mask]] per investigator.\n[reaction] After a skill test at your location ends in which both a [bless] and [curse] token were revealed: Place 1 resource on this card, as an offering. Then, if there are 3 offerings on this card, search your bonded cards for Twilight Diadem and swap it with this card, moving all offerings from this card to Twilight Diadem.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Charm",
+      "Mask"
+    ],
+    "Cost": 1,
+    "Quantity": 1,
+    "Wild": 1,
+    "Xp": 5,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10133",
+    "Name": "Broken Diadem"
+  },
+  {
+    "Description": "Bonded (Broken Diadem). Limit 1 [[Mask]] per investigator.\n[reaction] When you reveal either a [bless] or [curse] token during a skill test, spend 1 offering and exhaust this card: Treat the revealed token as an [elder_sign] token instead, returning it to the chaos bag. Then, if this card has no offerings, search your bonded cards for Broken Diadem and swap it with this card.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      0
+    ],
+    "Tags": [
+      "Supply",
+      "Item",
+      "Charm",
+      "Mask",
+      "Blessed"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10134",
+    "Name": "Twilight Diadem"
+  },
+  {
+    "Description": "<b>Revelation</b> - You must either put Maimed Hand into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Maimed Hand.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      8
+    ],
+    "Tags": [
+      "Supply",
+      "Basic Weakness",
+      "Injury"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10135",
+    "Name": "Maimed Hand"
+  },
+  {
+    "Description": "<b>Revelation</b> - You must either put Back Injury into play in your threat area, or take 1 damage and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 health.\n[action] [action]: Discard Back Injury.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      2
+    ],
+    "Tags": [
+      "Supply",
+      "Basic Weakness",
+      "Injury"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10136",
+    "Name": "Back Injury"
   },
   {
     "Description": "<b>Revelation</b> - You must either put The Silver Moth into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard The Silver Moth.",
@@ -89559,11 +90919,29 @@
       "Item",
       "Relic"
     ],
-    "Quantity": 2,
+    "Quantity": 1,
     "HealthPerInvestigator": false,
     "CardType": 2,
     "Code": "10137",
     "Name": "The Silver Moth"
+  },
+  {
+    "Description": "<b>Revelation</b> - You must either put Vow of Drzytelech into play in your threat area, or take 1 horror and shuffle it into your deck. It cannot leave play except by the [action] [action] ability below.\nYou get -1 sanity.\n[action] [action]: Discard Vow of Drzytelech.",
+    "PackCode": "fhvp",
+    "Faction": 32,
+    "Slots": [
+      16
+    ],
+    "Tags": [
+      "Supply",
+      "Basic Weakness",
+      "Pact"
+    ],
+    "Quantity": 1,
+    "HealthPerInvestigator": false,
+    "CardType": 2,
+    "Code": "10138",
+    "Name": "Vow of Drzytelech"
   },
   {
     "Description": "\"Ashcan\" Pete deck only. Replacement.\n[fast] Exhaust Pete's Guitar: Choose a non-[[Elite]] enemy at your location or a connecting location. Move that enemy once in a direction of your choice. Then, if there are no enemies at your location, either heal 1 horror or gain 1 resource.",
@@ -89605,7 +90983,7 @@
   {
     "Description": "You begin the game with Ravenous <i>(Controlled Hunger)</i> in play.\nDuring each upkeep phase, draw 1 additional card and devour anon-weakness player card in your hand.\n[fast]: Devour a non-story card controlled by an investigator at your location. (Limit once per round.)\n[elder_sign] effect: +2. After this test ends, you may add a devoured card to its owner's hand.",
     "Description2": "<b>Deck Size</b>: 50.\n<b>Deckbuilding Options</b>: Neutral cards level 0-5, cards from any class level 0.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Ravenous, 3 copies of Regurgitation, 3 copies of Reality Acid, 2 random basic weaknesses.\n<b>Deckbuilding Restrictions:</b> No permanents except story and signature permanents.\n<b>Additional Requirements:</b> Your deck must include at least 7 cards from each class ([guardian], [seeker], [rogue], [mystic], and [survivor]).\n<b>Additional Upgrade Options:</b> After each scenario ends, separate each card you devoured <i>(beneath Ravenous and set-aside)</i> by class. Before the next scenario in this campaign, you may spend experience to purchase or upgrade 1 or more cards of any level from the class with the most devoured cards (if there is a tie, choose one).",
-    "Flavor": "\"It can be arranged. It's just a matter of acceptable terms.\"",
+    "Flavor": "",
     "PackCode": "blbe",
     "Faction": 32,
     "Slots": [
@@ -89852,11 +91230,11 @@
       0
     ],
     "Tags": [
-      "None"
+      "Scene"
     ],
     "Quantity": 1,
     "HealthPerInvestigator": false,
-    "CardType": 0,
+    "CardType": 512,
     "Code": "90054",
     "Name": "Laid to Rest"
   },

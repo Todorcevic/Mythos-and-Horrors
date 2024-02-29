@@ -129,6 +129,7 @@ namespace MythsAndHorrors.Tools
                 "treachery" => CardType.Adversity,
                 "act" => CardType.Goal,
                 "agenda" => CardType.Plot,
+                "scenario" => CardType.Scene,
                 _ => CardType.None,
             };
 

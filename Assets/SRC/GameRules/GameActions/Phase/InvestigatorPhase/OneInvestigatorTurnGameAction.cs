@@ -16,7 +16,6 @@ namespace MythsAndHorrors.GameRules
         public override Phase MainPhase => Phase.Investigator;
 
         public Stat DrawCost { get; private set; }
-        public Stat ResourceCost { get; private set; }
         public List<Effect> MoveToPlaceEffects { get; } = new();
         public Effect DrawEffect { get; private set; }
         public Effect InvestigateEffect { get; private set; }
@@ -27,8 +26,6 @@ namespace MythsAndHorrors.GameRules
         {
             ActiveInvestigator = investigator;
             DrawCost = new Stat(1);
-            ResourceCost = new Stat(1);
-
         }
 
         /*******************************************************************/
@@ -45,10 +42,10 @@ namespace MythsAndHorrors.GameRules
         private void CheckIfCanTakeResource()
         {
             TakeResourceEffect = new(
-                _chapterProvider.CurrentScene,
+                _chapterProvider.CurrentScene.Info.CardScene,
                 ActiveInvestigator,
                 _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource),
-                () => ActiveInvestigator.Turns.Value >= ResourceCost.Value,
+                () => ActiveInvestigator.Turns.Value >= _chapterProvider.CurrentScene.Info.CardScene.ResourceCost.Value,
                 TakeResource);
 
             _effectProvider.Add(TakeResourceEffect);
@@ -56,7 +53,7 @@ namespace MythsAndHorrors.GameRules
             /*******************************************************************/
             async Task TakeResource()
             {
-                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ResourceCost.Value));
+                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, _chapterProvider.CurrentScene.Info.CardScene.ResourceCost.Value));
                 await _gameActionFactory.Create(new GainResourceGameAction(ActiveInvestigator, 1));
             }
         }

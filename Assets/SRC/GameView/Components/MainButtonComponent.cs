@@ -50,6 +50,7 @@ namespace MythsAndHorrors.GameView
 
         public Tween MoveToThis(Transform scenePoint)
         {
+            if (!IsActivated) return DOTween.Sequence();
             return DOTween.Sequence()
                      .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                      .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))

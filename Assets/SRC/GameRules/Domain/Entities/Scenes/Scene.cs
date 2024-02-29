@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public abstract class Scene : IStartReactionable, IEndReactionable, IEffectable
+    public abstract class Scene
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -21,10 +19,7 @@ namespace MythsAndHorrors.GameRules
         public Zone OutZone { get; private set; }
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
-        public Stat ResourcesPile { get; } = new Stat(int.MaxValue);
-
-        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
-        public bool CanPlayResource => PlayableEffects.Count > 0;
+    
 
         /*******************************************************************/
         [Inject]
@@ -65,17 +60,6 @@ namespace MythsAndHorrors.GameRules
                 || zone == LimboZone
                 || zone == OutZone
                 || PlaceZone.Cast<Zone>().Contains(zone);
-        }
-
-        /*********************** Resources Logic ****************************/
-        public virtual async Task WhenBegin(GameAction gameAction)
-        {
-            await Task.CompletedTask;
-        }
-
-        public virtual async Task WhenFinish(GameAction gameAction)
-        {
-            await Task.CompletedTask;
         }
     }
 }
