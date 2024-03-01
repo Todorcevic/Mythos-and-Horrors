@@ -11,6 +11,7 @@ namespace MythsAndHorrors.GameView
     public class MainButtonComponent : MonoBehaviour, IPlayable
     {
         private const float OFFSET = 1f;
+        List<Effect> _effects = new();
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
@@ -21,14 +22,23 @@ namespace MythsAndHorrors.GameView
 
         private bool IsActivated => _collider.enabled;
 
-        List<Effect> IPlayable.EffectsSelected => new();
+        List<Effect> IPlayable.EffectsSelected => _effects;
 
         /*******************************************************************/
-        public void ShowText(string text) => _message.text = text;
-
-        public void Activate(string withThisText)
+        public void SetButton(string text, List<Effect> effects)
         {
-            ShowText(withThisText);
+            _message.text = text;
+            _effects = effects;
+        }
+
+        public void Clear()
+        {
+            _message.text = string.Empty;
+            _effects.Clear();
+        }
+
+        public void ActivateToClick()
+        {
             if (IsActivated) return;
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
@@ -37,7 +47,7 @@ namespace MythsAndHorrors.GameView
             _message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public void Deactivate()
+        public void DeactivateToClick()
         {
             if (!IsActivated) return;
             _collider.enabled = false;
@@ -48,9 +58,9 @@ namespace MythsAndHorrors.GameView
             _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public Tween MoveToThis(Transform scenePoint)
+        public Tween MoveToShowSelector(Transform scenePoint)
         {
-            if (!IsActivated) return DOTween.Sequence();
+            if (!IsActivated || !((IPlayable)this).CanBePlayed) return DOTween.Sequence();
             return DOTween.Sequence()
                      .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                      .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))
@@ -84,5 +94,15 @@ namespace MythsAndHorrors.GameView
         {
             _clickHandler.Clicked(this);
         }
+
+        //void IPlayable.ActivateToClick()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
+
+        //void IPlayable.DeactivateToClick()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
     }
 }

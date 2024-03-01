@@ -26,8 +26,9 @@ namespace MythsAndHorrors.GameView
         private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
-            _showCardHandler.ActiavatePlayables(withMainButton: !interactableGameAction.IsManadatary);
+
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
+            _showCardHandler.ActiavatePlayables(withMainButton: !interactableGameAction.IsManadatary);
 
             IPlayable playableChoose = await _clickHandler.WaitingClick();
 

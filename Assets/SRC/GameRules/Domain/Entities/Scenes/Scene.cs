@@ -22,6 +22,7 @@ namespace MythsAndHorrors.GameRules
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
 
+        /************************** RESOURCES *****************************/
         public Stat ResourceCost { get; private set; }
         public Stat PileAmount { get; private set; }
         List<Effect> IEffectable.PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);

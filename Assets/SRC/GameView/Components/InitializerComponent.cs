@@ -1,9 +1,5 @@
 using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using System;
-using System.Globalization;
-using System.Resources;
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -33,7 +29,7 @@ namespace MythsAndHorrors.GameView
         {
             DOTween.SetTweensCapacity(200, 125);
             _ioActivatorComponent.BlockUI();
-            _mainButtonComponent.Deactivate();
+            _mainButtonComponent.DeactivateToClick();
             await _ioActivatorComponent.DeactivateCardSensors();
         }
     }

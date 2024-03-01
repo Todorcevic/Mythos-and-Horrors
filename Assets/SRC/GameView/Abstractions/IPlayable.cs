@@ -7,5 +7,8 @@ namespace MythsAndHorrors.GameView
     {
         List<Effect> EffectsSelected { get; }
         bool IsMultiEffect => EffectsSelected.Count > 1;
+        bool CanBePlayed => EffectsSelected.Count > 0;
+        void ActivateToClick();
+        void DeactivateToClick();
     }
 }

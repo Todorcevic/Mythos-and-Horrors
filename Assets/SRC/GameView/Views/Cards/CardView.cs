@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
@@ -22,6 +23,7 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
+        [Inject(Id = ZenjectBinding.BindId.SelectorZone)] private ShowSelectorZoneView _selectorZone;
 
         public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
@@ -66,6 +68,8 @@ namespace MythsAndHorrors.GameView
         public void On() => gameObject.SetActive(true);
 
         public void Off() => gameObject.SetActive(false);
+
+        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
 
         public void ActivateToClick()
         {
@@ -142,7 +146,7 @@ namespace MythsAndHorrors.GameView
         /*******************************************************************/
         public Effect CloneEffect { get; private set; }
 
-        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
+
 
         public void SetCloneEffect(Effect effect) => CloneEffect = effect;
 

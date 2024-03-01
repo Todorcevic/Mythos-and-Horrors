@@ -921,6 +921,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2944534426254864101, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
+      propertyPath: _bindType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3912260284232278279, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
       propertyPath: m_fontColor.b
       value: 0.8784314
@@ -1630,7 +1634,6 @@ MonoBehaviour:
   _plotPrefab: {fileID: 6152357295490081171, guid: 56917f8d4144eab40b707d70c4fa71d3, type: 3}
   _goalPrefab: {fileID: 1814247740993376737, guid: 42fc4388623fe654394161e52a1db726, type: 3}
   _avatarCardPrefab: {fileID: 6456135701690473418, guid: 1311585ac48ff5d41be687f492a23623, type: 3}
-  _sceneCardPrefab: {fileID: 7051761709196166918, guid: 3dc8d89aabb05ae4087cdcda9dcde331, type: 3}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0
@@ -4129,8 +4132,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.24734457
+  m_Value: 0.99999994
+  m_Size: 0.24734452
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
