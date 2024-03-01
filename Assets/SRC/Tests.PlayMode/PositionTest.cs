@@ -46,7 +46,7 @@ namespace MythsAndHorrors.PlayMode.Tests
                     yield return _gameActionFactory.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j])).AsCoroutine();
                 }
             }
-            if (DEBUG_MODE) yield return _gameActionFactory.Create(new InteractableGameAction(false)).AsCoroutine();
+            if (DEBUG_MODE) yield return _gameActionFactory.Create(new InteractableGameAction()).AsCoroutine();
 
 
             Assert.That(true);

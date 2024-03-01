@@ -5,18 +5,19 @@ namespace MythsAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
+        private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
 
-        private Effect EffectSelected { get; set; }
-        public bool IsManadatary { get; }
+        public bool IsManadatary => ButtonEffect == null;
+        public Effect ButtonEffect { get; private set; }
 
         /*******************************************************************/
-        public InteractableGameAction(bool isMandatary)
+        public InteractableGameAction(Effect buttonEffect = null)
         {
-            IsManadatary = isMandatary;
+            ButtonEffect = buttonEffect;
         }
 
         /*******************************************************************/
@@ -24,9 +25,9 @@ namespace MythsAndHorrors.GameRules
         {
             CheckBuffs();
             if (_effectProvider.NoEffect) return;
-            EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
+            _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             ClearEffectsInAllCards();
-            await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));
+            await _gameActionFactory.Create(new PlayEffectGameAction(_effectSelected));
         }
 
         private void CheckBuffs()

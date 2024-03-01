@@ -40,7 +40,7 @@ namespace MythsAndHorrors.GameRules
                 };
             }
 
-            await _gameActionFactory.Create(new InteractableGameAction(true));
+            await _gameActionFactory.Create(new InteractableGameAction());
         }
     }
 }

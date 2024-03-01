@@ -64,7 +64,7 @@ namespace MythsAndHorrors.GameRules
                 }
             }
 
-            await _gameActionFactory.Create(new InteractableGameAction(false));
+            await _gameActionFactory.Create(new InteractableGameAction(Effect.ContinueEffect));
         }
     }
 }

@@ -13,23 +13,16 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        private List<IPlayable> cardViewClones;
-
-
-
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly TextsManager _textsManager;
+        private List<IPlayable> cardViewClones;
 
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs)
         {
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
 
-
-            _mainButtonComponent.SetButton(_textsManager.ViewText.BUTTON_DONE, new() { Effect.NullEffect });
+            _mainButtonComponent.SetButton(Effect.ContinueEffect);
             cardViewClones = CreateCardViewClones(cardViewWithMultiEffecs);
-
-
             await _showSelectorComponent.ShowMultiEffects(cardViewClones.Cast<CardView>().ToList());
             _showCardHandler.ActiavatePlayables(cardViewClones);
 

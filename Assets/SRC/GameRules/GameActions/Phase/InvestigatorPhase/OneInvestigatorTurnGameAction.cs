@@ -39,7 +39,7 @@ namespace MythsAndHorrors.GameRules
             CheckIfCanDraw();
             CheckIfCanTakeResource();
             CheckIsCanPlayFromHand();
-            await _gameActionFactory.Create(new InteractableGameAction(false));
+            await _gameActionFactory.Create(new InteractableGameAction(PassEffect));
         }
 
         /*******************************************************************/
@@ -55,10 +55,9 @@ namespace MythsAndHorrors.GameRules
             _effectProvider.Add(PassEffect);
 
             /*******************************************************************/
-            async Task PassTurn()
-            {
+            async Task PassTurn() =>
                 await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.Value));
-            }
+
         }
 
         private void CheckIsCanPlayFromHand()

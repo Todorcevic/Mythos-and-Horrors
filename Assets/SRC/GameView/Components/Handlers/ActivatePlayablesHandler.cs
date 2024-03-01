@@ -1,5 +1,4 @@
-﻿using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -13,9 +12,6 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly List<IPlayable> _allPlayablesComponent;
 
-        private List<IPlayable> AllIPlayablesActivables => _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
-            .Where(playable => playable.CanBePlayed).ToList();
-
         /*******************************************************************/
         public void ActiavatePlayables(List<IPlayable> specificsCardViews = null)
         {
@@ -26,8 +22,8 @@ namespace MythsAndHorrors.GameView
             /*******************************************************************/
             void CheckActivateActivables(List<IPlayable> specificsCardViews)
             {
-                List<IPlayable> activablesCardViews = specificsCardViews ?? _cardViewsManager.GetAllIPlayable();
-                activablesCardViews.Concat(_allPlayablesComponent).Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.ActivateToClick());
+                _allPlayablesComponent.Concat(specificsCardViews ?? _cardViewsManager.GetAllIPlayable())
+                    .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.ActivateToClick());
             }
 
             void CheckActivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());
@@ -46,8 +42,8 @@ namespace MythsAndHorrors.GameView
             await CheckDeactivateIOActivator();
 
             /*******************************************************************/
-
-            void CheckDeactivateActivables() => AllIPlayablesActivables.ForEach(playable => playable.DeactivateToClick());
+            void CheckDeactivateActivables() => _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
+            .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.DeactivateToClick());
 
             void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.DeactivateGlow());
 

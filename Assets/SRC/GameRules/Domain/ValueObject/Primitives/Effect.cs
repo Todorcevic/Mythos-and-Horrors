@@ -6,7 +6,7 @@ namespace MythsAndHorrors.GameRules
     public record Effect : IViewEffect
     {
         private static readonly Effect _nullEffect = new(null, null, "Null Effect", () => true, () => Task.CompletedTask);
-        public static Effect NullEffect => _nullEffect;
+        public static Effect ContinueEffect => _nullEffect;
 
         public IEffectable Effectable { get; init; }
         public Investigator Investigator { get; init; }

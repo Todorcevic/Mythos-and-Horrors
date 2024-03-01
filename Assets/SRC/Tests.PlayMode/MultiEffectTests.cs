@@ -19,7 +19,7 @@ namespace MythsAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -35,7 +35,7 @@ namespace MythsAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();
-            yield return _gameActionFactory.Create(new InteractableGameAction(false)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InteractableGameAction()).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));

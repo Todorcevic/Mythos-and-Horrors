@@ -11,7 +11,7 @@ namespace MythsAndHorrors.GameView
     public class MainButtonComponent : MonoBehaviour, IPlayable
     {
         private const float OFFSET = 1f;
-        List<Effect> _effects = new();
+        Effect _effect;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
@@ -22,19 +22,13 @@ namespace MythsAndHorrors.GameView
 
         private bool IsActivated => _collider.enabled;
 
-        List<Effect> IPlayable.EffectsSelected => _effects;
+        List<Effect> IPlayable.EffectsSelected => new() { _effect };
 
         /*******************************************************************/
-        public void SetButton(string text, List<Effect> effects)
+        public void SetButton(Effect effect)
         {
-            _message.text = text;
-            _effects = effects;
-        }
-
-        public void Clear()
-        {
-            _message.text = string.Empty;
-            _effects.Clear();
+            _message.text = effect?.Description;
+            _effect = effect;
         }
 
         public void ActivateToClick()
