@@ -20,6 +20,8 @@ namespace MythsAndHorrors.GameRules
         public Effect DrawEffect { get; private set; }
         public Effect InvestigateEffect { get; private set; }
         public Effect TakeResourceEffect { get; private set; }
+        public Effect PassEffect { get; private set; }
+        public List<Effect> PlayFromHandEffects { get; } = new();
 
         /*******************************************************************/
         public OneInvestigatorTurnGameAction(Investigator investigator)
@@ -31,14 +33,60 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            PreparePassEffect();
             CheckIfCanMove();
             CheckIfCanInvestigate();
             CheckIfCanDraw();
             CheckIfCanTakeResource();
-            await _gameActionFactory.Create(new InteractableGameAction(isMandatary: false));
+            CheckIsCanPlayFromHand();
+            await _gameActionFactory.Create(new InteractableGameAction(false));
         }
 
         /*******************************************************************/
+        private void PreparePassEffect()
+        {
+            PassEffect = new Effect(
+                            null,
+                            ActiveInvestigator,
+                            _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(OneInvestigatorTurnGameAction),
+                            () => true,
+                            PassTurn);
+
+            _effectProvider.Add(PassEffect);
+
+            /*******************************************************************/
+            async Task PassTurn()
+            {
+                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.Value));
+            }
+        }
+
+        private void CheckIsCanPlayFromHand()
+        {
+            foreach (Card card in ActiveInvestigator.HandZone.Cards)
+            {
+                if (card is IPlayableFromHand playableFromHand)
+                {
+                    Effect newEffect = new(
+                        card,
+                        ActiveInvestigator,
+                        _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PlayFromHand),
+                        () => playableFromHand.CanPlayFromHand(),
+                        PlayFromHand);
+                    _effectProvider.Add(newEffect);
+                    PlayFromHandEffects.Add(newEffect);
+
+                    /*******************************************************************/
+                    async Task PlayFromHand()
+                    {
+                        await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, playableFromHand.TurnsCost.Value));
+                        await _gameActionFactory.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
+                        await playableFromHand.PlayFromHand();
+                    }
+                }
+            }
+        }
+
         private void CheckIfCanTakeResource()
         {
             TakeResourceEffect = new(
@@ -104,7 +152,7 @@ namespace MythsAndHorrors.GameRules
                 ActiveInvestigator.CardToDraw,
                 ActiveInvestigator,
                 _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw),
-                () => ActiveInvestigator.Turns.Value >= DrawCost.Value,
+               () => ActiveInvestigator.Turns.Value >= DrawCost.Value,
                 Draw);
             _effectProvider.Add(DrawEffect);
 

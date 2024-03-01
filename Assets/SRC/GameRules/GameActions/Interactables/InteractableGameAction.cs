@@ -12,7 +12,6 @@ namespace MythsAndHorrors.GameRules
 
         private Effect EffectSelected { get; set; }
         public bool IsManadatary { get; }
-        public bool NothingIsSelected => EffectSelected == Effect.NullEffect;
 
         /*******************************************************************/
         public InteractableGameAction(bool isMandatary)
@@ -27,7 +26,6 @@ namespace MythsAndHorrors.GameRules
             if (_effectProvider.NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             ClearEffectsInAllCards();
-            if (NothingIsSelected) return;
             await _gameActionFactory.Create(new PlayEffectGameAction(EffectSelected));
         }
 

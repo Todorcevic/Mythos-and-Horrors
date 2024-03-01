@@ -15,7 +15,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionFactory.Create(new InteractableGameAction(false));
+            //await _gameActionFactory.Create(new InteractableGameAction(Effect.NullEffect));
+            await Task.CompletedTask;
         }
     }
 }

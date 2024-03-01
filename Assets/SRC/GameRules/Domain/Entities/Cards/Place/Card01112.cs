@@ -4,9 +4,8 @@ using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Card01112 : CardPlace
+    public class Card01112 : CardPlace, IEndReactionable
     {
-
 
     }
 }

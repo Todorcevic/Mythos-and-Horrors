@@ -5,7 +5,7 @@ namespace MythsAndHorrors.GameRules
 {
     public record Effect : IViewEffect
     {
-        private static readonly Effect _nullEffect = new(null, null, "Null Effect", () => false, () => Task.CompletedTask);
+        private static readonly Effect _nullEffect = new(null, null, "Null Effect", () => true, () => Task.CompletedTask);
         public static Effect NullEffect => _nullEffect;
 
         public IEffectable Effectable { get; init; }
@@ -26,18 +26,6 @@ namespace MythsAndHorrors.GameRules
             CanPlay = canPlay;
             Logic = logic;
             Description = description;
-        }
-
-        /*******************************************************************/
-        public void ConcatCondition(Func<bool> condition)
-        {
-            Func<bool> previousCanPlay = CanPlay;
-            CanPlay = () => condition.Invoke() && previousCanPlay.Invoke();
-        }
-
-        public void UpdateCondition(Func<bool> condition)
-        {
-            CanPlay = condition;
         }
     }
 }

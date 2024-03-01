@@ -26,7 +26,7 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.Cost, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 2)).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(2));
         }
@@ -38,8 +38,8 @@ namespace MythsAndHorrors.PlayMode.Tests
             CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.Cost, 5)).AsCoroutine();
-            yield return _gameActionFactory.Create(new PayResourceGameAction(_investigatorsProvider.Leader, cardSupply.Cost, 5)).AsCoroutine();
+            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 5)).AsCoroutine();
+            yield return _gameActionFactory.Create(new PayResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 5)).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(0));
         }

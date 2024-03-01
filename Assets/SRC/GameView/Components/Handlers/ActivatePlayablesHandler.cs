@@ -13,6 +13,7 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly TextsManager _textsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+
         [Inject] private readonly List<IPlayable> _allPlayablesComponent;
 
         private List<IPlayable> AllIPlayablesActivables => _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())

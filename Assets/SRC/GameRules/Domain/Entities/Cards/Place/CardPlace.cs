@@ -20,6 +20,7 @@ namespace MythsAndHorrors.GameRules
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public List<CardPlace> ConnectedPlacesToMove => _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
         public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
+        public Reaction MustReveal { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -31,23 +32,27 @@ namespace MythsAndHorrors.GameRules
             InvestigationCost = new Stat(1, 1);
             MoveCost = new Stat(1, 1);
             Revealed = new State(false);
+            MustReveal = new Reaction(CheckIfMustReveal, Reveal);
         }
 
         /*******************************************************************/
         public virtual async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardsGameAction && CheckIfMustReveal())
-                await _gameActionFactory.Create(new RevealGameAction(this));
+            await MustReveal.Check(gameAction);
         }
 
-        /************************** CONDITIONS *****************************/
-        private bool CheckIfMustReveal()
+        /************************** REACTIONS *****************************/
+        private bool CheckIfMustReveal(GameAction gameAction)
         {
+            if (gameAction is not MoveCardsGameAction) return false;
             if (Revealed.IsActive) return false;
             if (!OwnZone.Cards.Exists(card => card is CardAvatar)) return false;
             return true;
         }
 
+        private async Task Reveal() => await _gameActionFactory.Create(new RevealGameAction(this));
+
+        /************************** CONDITIONS *****************************/
         public virtual bool CanMoveWithThis(Investigator investigator)
         {
             if (!ConnectedPlacesFromMove.Contains(investigator.CurrentPlace)) return false;

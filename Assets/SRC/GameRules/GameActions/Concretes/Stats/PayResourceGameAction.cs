@@ -7,17 +7,25 @@ namespace MythsAndHorrors.GameRules
     {
         [Inject] private readonly IPresenter<PayResourceGameAction> _payResourcePresenter;
         [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        private readonly Stat _toStat;
 
         public Investigator Investigator { get; }
-        public Stat ToStat { get; }
+        public Stat ToStat => _toStat ?? _chaptersProvider.CurrentScene.PileAmount;
         public int Amount { get; }
         protected override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
+        public PayResourceGameAction(Investigator investigator, int amount) // toStat ResourcePile -> See line 14
+        {
+            Investigator = investigator;
+            Amount = amount;
+        }
+
         public PayResourceGameAction(Investigator investigator, Stat toStat, int amount)
         {
             Investigator = investigator;
-            ToStat = toStat;
+            _toStat = toStat;
             Amount = investigator.Resources.Value < amount ? Investigator.Resources.Value : amount;
         }
 

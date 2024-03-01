@@ -64,13 +64,13 @@ namespace MythsAndHorrors.GameView
         {
             if (Card is CardSupply cardSupply)
             {
-                _cost.SetStat(cardSupply.Cost);
+                _cost.SetStat(cardSupply.ResourceCost);
                 if (Card.Info.Health != null) _health.SetStat(cardSupply.Health);
                 if (Card.Info.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
             }
             else if (Card is CardCondition cardCondition)
             {
-                _cost.SetStat(cardCondition.Cost);
+                _cost.SetStat(cardCondition.ResourceCost);
             }
         }
 

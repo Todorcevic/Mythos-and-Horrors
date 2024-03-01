@@ -32,13 +32,17 @@ namespace MythsAndHorrors.GameRules
                     card,
                     ActiveInvestigator,
                     _textsProvider.GameText.MULLIGAN_EFFECT1,
-                    () => true,
+                   () => true,
                     Discard);
                 DiscardEffects.Add(newDiscardEffect);
                 _effectProvider.Add(newDiscardEffect);
 
                 /*******************************************************************/
-                Task Discard() => _gameActionFactory.Create(new DiscardGameAction(card));
+                async Task Discard()
+                {
+                    await _gameActionFactory.Create(new DiscardGameAction(card));
+                    await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+                }
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
@@ -53,13 +57,14 @@ namespace MythsAndHorrors.GameRules
                 _effectProvider.Add(newRestoreEffect);
 
                 /*******************************************************************/
-                Task Restore() => _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
+                async Task Restore()
+                {
+                    await _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
+                    await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+                }
             }
 
-            InteractableGameAction interactableGameAction = await _gameActionFactory.Create(new InteractableGameAction(false));
-
-            if (interactableGameAction.NothingIsSelected) return;
-            await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+            await _gameActionFactory.Create(new InteractableGameAction(false));
         }
     }
 }
