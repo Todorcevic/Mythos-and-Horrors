@@ -10,21 +10,15 @@ namespace MythsAndHorrors.GameView
     {
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
-        [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly TextsManager _textsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-
         [Inject] private readonly List<IPlayable> _allPlayablesComponent;
 
         private List<IPlayable> AllIPlayablesActivables => _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
             .Where(playable => playable.CanBePlayed).ToList();
 
         /*******************************************************************/
-        public void ActiavatePlayables(bool withMainButton, List<IPlayable> specificsCardViews = null)
+        public void ActiavatePlayables(List<IPlayable> specificsCardViews = null)
         {
-            if (withMainButton) _mainButtonComponent.SetButton(_textsManager.ViewText.BUTTON_DONE, new() { Effect.NullEffect });
-            else _mainButtonComponent.Clear();
-
             CheckActivateActivables(specificsCardViews);
             CheckActivateAvatars();
             CheckActivateIOActivator();
@@ -32,8 +26,8 @@ namespace MythsAndHorrors.GameView
             /*******************************************************************/
             void CheckActivateActivables(List<IPlayable> specificsCardViews)
             {
-                List<IPlayable> activablesCardViews = specificsCardViews ?? AllIPlayablesActivables;
-                activablesCardViews.ForEach(playable => playable.ActivateToClick());
+                List<IPlayable> activablesCardViews = specificsCardViews ?? _cardViewsManager.GetAllIPlayable();
+                activablesCardViews.Concat(_allPlayablesComponent).Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.ActivateToClick());
             }
 
             void CheckActivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());

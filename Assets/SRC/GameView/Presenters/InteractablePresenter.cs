@@ -12,6 +12,13 @@ namespace MythsAndHorrors.GameView
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
 
+
+
+
+
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly TextsManager _textsManager;
+
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
@@ -27,8 +34,14 @@ namespace MythsAndHorrors.GameView
         {
             await DotweenExtension.WaitForAllTweensToComplete();
 
+
+            if (!interactableGameAction.IsManadatary) _mainButtonComponent.SetButton(_textsManager.ViewText.BUTTON_DONE, new() { Effect.NullEffect });
+            else _mainButtonComponent.Clear();
+
+
+
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
-            _showCardHandler.ActiavatePlayables(withMainButton: !interactableGameAction.IsManadatary);
+            _showCardHandler.ActiavatePlayables();
 
             IPlayable playableChoose = await _clickHandler.WaitingClick();
 
