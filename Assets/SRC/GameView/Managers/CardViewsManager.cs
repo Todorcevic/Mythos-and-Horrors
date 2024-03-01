@@ -19,7 +19,7 @@ namespace MythsAndHorrors.GameView
 
         public void AddCardView(CardView cardView) => _allCardsView.Add(cardView);
 
-        public List<CardView> GetAllCanPlay() => _allCardsView.FindAll(cardView => cardView.Card.CanBePlayed);
+        public List<CardView> GetAllCanPlay() => _allCardsView.FindAll(cardView => cardView.Card.CanBePlayed && cardView is not SceneCardView);
 
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
 

@@ -1,13 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public abstract class Scene
+    public abstract class Scene : IEffectable
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -19,7 +21,10 @@ namespace MythsAndHorrors.GameRules
         public Zone OutZone { get; private set; }
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
-    
+
+        public Stat ResourceCost { get; private set; }
+        public Stat PileAmount { get; private set; }
+        List<Effect> IEffectable.PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
 
         /*******************************************************************/
         [Inject]
@@ -34,6 +39,8 @@ namespace MythsAndHorrors.GameRules
             LimboZone = _zonesProvider.Create();
             OutZone = _zonesProvider.Create();
             InitializePlaceZones();
+            ResourceCost = new Stat(1);
+            PileAmount = new Stat(int.MaxValue);
         }
 
         /*******************************************************************/

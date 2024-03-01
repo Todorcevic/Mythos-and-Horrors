@@ -11,7 +11,6 @@ namespace MythsAndHorrors.GameRules
         [JsonProperty("Name")] public string Name { get; init; }
         [JsonProperty("Description")] public History Description { get; init; }
         [JsonProperty("Resolutions")] public List<History> Resolutions { get; init; }
-        [JsonProperty("CardScene")] public CardScene CardScene { get; init; }
         [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         [JsonProperty("NextScene")] public string NextScene { get; init; }
 

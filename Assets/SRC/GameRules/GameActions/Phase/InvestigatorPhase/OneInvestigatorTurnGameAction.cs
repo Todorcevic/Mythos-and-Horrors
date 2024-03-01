@@ -42,10 +42,10 @@ namespace MythsAndHorrors.GameRules
         private void CheckIfCanTakeResource()
         {
             TakeResourceEffect = new(
-                _chapterProvider.CurrentScene.Info.CardScene,
+                _chapterProvider.CurrentScene,
                 ActiveInvestigator,
                 _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource),
-                () => ActiveInvestigator.Turns.Value >= _chapterProvider.CurrentScene.Info.CardScene.ResourceCost.Value,
+                () => ActiveInvestigator.Turns.Value >= _chapterProvider.CurrentScene.ResourceCost.Value,
                 TakeResource);
 
             _effectProvider.Add(TakeResourceEffect);
@@ -53,7 +53,7 @@ namespace MythsAndHorrors.GameRules
             /*******************************************************************/
             async Task TakeResource()
             {
-                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, _chapterProvider.CurrentScene.Info.CardScene.ResourceCost.Value));
+                await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, _chapterProvider.CurrentScene.ResourceCost.Value));
                 await _gameActionFactory.Create(new GainResourceGameAction(ActiveInvestigator, 1));
             }
         }

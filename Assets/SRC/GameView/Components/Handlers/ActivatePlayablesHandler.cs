@@ -43,7 +43,6 @@ namespace MythsAndHorrors.GameView
                 _ioActivatorComponent.ActivateCardSensors();
                 _ioActivatorComponent.UnblockUI();
             }
-
         }
 
         public async Task DeactivatePlayables()

@@ -20,16 +20,18 @@ namespace MythsAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
-        public Transform StatTransform => _showToken;
-        public Stat Stat => Scene.Info.CardScene.PileAmount;
-        public Scene Scene => _chaptersProvider.CurrentScene;
+        public IEffectable Scene => _chaptersProvider.CurrentScene;
+        List<Effect> IPlayable.EffectsSelected => Scene.PlayableEffects;
 
-        List<Effect> IPlayable.EffectsSelected => Scene.Info.CardScene.PlayableEffects;
+        /*******************************************************************/
+        Transform IStatableView.StatTransform => _showToken;
+        Stat IStatableView.Stat => _chaptersProvider.CurrentScene.PileAmount;
+        Tween IStatableView.UpdateValue() => DOTween.Sequence();
 
         /*******************************************************************/
         public void ActivateToClick()
         {
-            if (_isClickable || !Scene.Info.CardScene.CanBePlayed) return;
+            if (_isClickable || !Scene.CanBePlayed) return;
             _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION);
             _isClickable = true;
         }
@@ -62,11 +64,10 @@ namespace MythsAndHorrors.GameView
             _clickHandler.Clicked(this);
         }
 
-        Tween IStatableView.UpdateValue() => DOTween.Sequence();
-
-        internal Tween MoveToThis(Transform scenePoint)
+        /*******************************************************************/
+        public Tween MoveToThis(Transform scenePoint)
         {
-            if (!Scene.Info.CardScene.CanBePlayed) return DOTween.Sequence();
+            if (!Scene.CanBePlayed) return DOTween.Sequence();
             return DOTween.Sequence()
                     .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                     .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))
