@@ -78,7 +78,9 @@ namespace MythosAndHorrors.GameView
         {
             await Shutdown();
             List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
+
             (OriginalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, OriginalCardView.transform.position);
+
             Sequence sequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());

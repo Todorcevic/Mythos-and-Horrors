@@ -9,11 +9,12 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
         public async void OnPointerClick(PointerEventData eventData)
         {
-            if (_showSelectorComponent.IsMultiEffect) _interactionHandler.Clicked(null);
+            if (_showSelectorComponent.IsMultiEffect) _interactionHandler.Clicked(_mainButtonComponent);
             else if (!_showSelectorComponent.IsShowing) await _showSelectorComponent.ShowPlayables();
             else await _showSelectorComponent.ReturnPlayableWithActivation();
         }

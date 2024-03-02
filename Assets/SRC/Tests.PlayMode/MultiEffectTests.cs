@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();
-            yield return _gameActionFactory.Create(new InteractableGameAction()).AsCoroutine();
+            yield return _gameActionFactory.Create(new InteractableGameAction(Effect.ContinueEffect)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));

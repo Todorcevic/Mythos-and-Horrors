@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour, IPlayable
     {
+        private Effect _cloneEffect;
         [Title(nameof(CardView))]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
@@ -27,12 +28,10 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly DiContainer _diContainer;
 
         public Card Card { get; private set; }
-        public Effect CloneEffect { get; private set; }
+
         public ZoneView CurrentZoneView { get; private set; }
-        public ZoneCardView OwnZoneCardView => _ownZoneCardView;
-        public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
-        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
+        List<Effect> IPlayable.EffectsSelected => _cloneEffect != null ? new() { _cloneEffect } : Card.PlayableEffects;
 
         /*******************************************************************/
         public void Init(Card card)
@@ -42,8 +41,6 @@ namespace MythosAndHorrors.GameView
             SetCommon();
             SetSpecific();
         }
-
-
 
         /*******************************************************************/
         public void SetCurrentZoneView(ZoneView zoneView)
@@ -142,11 +139,9 @@ namespace MythosAndHorrors.GameView
                  .Append(EnableFromCenterShow()));
 
         /*******************************************************************/
+        public void SetCloneEffect(Effect effect) => _cloneEffect = effect;
 
-
-        public void SetCloneEffect(Effect effect) => CloneEffect = effect;
-
-        public void ClearCloneEffect() => CloneEffect = null;
+        public void ClearCloneEffect() => _cloneEffect = null;
 
         private void AddBuffsAndEffects()
         {
