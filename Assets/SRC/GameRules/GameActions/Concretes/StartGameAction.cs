@@ -5,45 +5,27 @@ namespace MythsAndHorrors.GameRules
 {
     public class StartGameAction : GameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly CardProvider _cardProvider;
-        [Inject] private readonly ZoneProvider _zoneProvider;
-
-        /*******************************************************************/
-        public async Task Run() => await Start();
+        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            MoveCardDTO moveCardDTO = new(
-               _cardProvider.GetCard("01501"),
-               _zoneProvider.GetZone("AdventurerDeckZone"),
-               CardMovementAnimation.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            {
+                await _gameActionFactory.Create(new PrepareInvestigatorGameAction(investigator));
+            }
 
-            moveCardDTO = new(
-              _cardProvider.GetCard("01502"),
-              _zoneProvider.GetZone("SceneDiscardZone"),
-              CardMovementAnimation.BasicWithPreview);
-            await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            await _gameActionFactory.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
 
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("5"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
-
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("6"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
-
-            //moveCardDTO = new(
-            //  _cardRepository.GetCard("7"),
-            //  _zoneRepository.GetZone(ZoneType.AssetsDeck),
-            //  CardMovementType.Fast);
-            //await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
+            while (true)
+            {
+                await _gameActionFactory.Create(new InvestigatorsPhaseGameAction());
+                await _gameActionFactory.Create(new CreaturePhaseGameAction());
+                await _gameActionFactory.Create(new RestorePhaseGameAction());
+                await _gameActionFactory.Create(new ScenePhaseGameAction());
+            }
         }
     }
 }

@@ -1,98 +1,116 @@
 ﻿using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
-    public class DeckCardView : CardView
+    public class DeckCardView : CardView, IUpdatable
     {
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _versatile;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _cunning;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _brave;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _scholarly;
-        [SerializeField, Required, AssetsOnly] private FactionDeckSO _esoteric;
-
+        [Title(nameof(DeckCardView))]
+        [SerializeField, Required, AssetsOnly] private List<FactionDeckSO> _factions;
         [SerializeField, Required, AssetsOnly] private Sprite _skillStrengthIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillAgilityIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillIntelligenceIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillPowerIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<SkillIconView> _skillPlacer;
-
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceBulletIcon;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceChargeIcon;
+        [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
+        [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _resourceIconsController;
+        [SerializeField, Required, ChildGameObjectsOnly] private SlotController _slotController;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _costRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _healthRenderer;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _sanityRenderer;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _cost;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _sanity;
+        private bool HasCost => _cost.IsActive;
+        private bool HasSlot => Card.Info.Slots.Count() > 0;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
             FactionDeckSO currentFaction = SetCurrent(Card.Info.Faction);
-            SetSkillPlacer();
-            SetInfo();
-            if (currentFaction == null) return;
+            SetSlots();
+            SetStat();
+            SetSkillIcons(currentFaction);
             SetRenderers(currentFaction);
-            SetBadget(currentFaction);
-            SetSupporterInfo(currentFaction);
         }
 
         /*******************************************************************/
-        private void SetSkillPlacer()
+        public void SetBulletsIcons(int amount)
         {
-            for (int i = 0; i < Card.Info.Wild; i++) GetNextPlacerInactive().SetSkillIcon(_skillWildIcon);
-            for (int i = 0; i < Card.Info.Strength; i++) GetNextPlacerInactive().SetSkillIcon(_skillStrengthIcon);
-            for (int i = 0; i < Card.Info.Agility; i++) GetNextPlacerInactive().SetSkillIcon(_skillAgilityIcon);
-            for (int i = 0; i < Card.Info.Intelligence; i++) GetNextPlacerInactive().SetSkillIcon(_skillIntelligenceIcon);
-            for (int i = 0; i < Card.Info.Power; i++) GetNextPlacerInactive().SetSkillIcon(_skillPowerIcon);
+            _resourceIconsController.SetSkillIconView(amount, _resourceBulletIcon, null);
         }
 
-        private void SetInfo()
+        public void SetChargesIcons(int amount)
         {
-            _cost.text = Card.Info.Cost.ToString();
-            _health.text = Card.Info.Health.ToString() ?? ViewValues.EMPTY_STAT;
-            _sanity.text = Card.Info.Sanity.ToString() ?? ViewValues.EMPTY_STAT;
+            _resourceIconsController.SetSkillIconView(amount, _resourceChargeIcon, null);
+        }
+
+        private FactionDeckSO SetCurrent(Faction faction) =>
+            _factions.Find(factionDeckSO => factionDeckSO._faction == faction) ??
+            _factions.Find(factionDeckSO => factionDeckSO._faction == Faction.Neutral);
+
+        private void SetSlots()
+        {
+            _slotController.SetSlots(Card.Info.Slots);
+        }
+
+        private void SetStat()
+        {
+            if (Card is CardSupply cardSupply)
+            {
+                _cost.SetStat(cardSupply.ResourceCost);
+                if (Card.Info.Health != null) _health.SetStat(cardSupply.Health);
+                if (Card.Info.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
+            }
+            else if (Card is CardCondition cardCondition)
+            {
+                _cost.SetStat(cardCondition.ResourceCost);
+            }
+        }
+
+        private void SetSkillIcons(FactionDeckSO currentFaction)
+        {
+            _skillIconsController.SetSkillIconView(Card.Info.Wild ?? 0, _skillWildIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Strength ?? 0, _skillStrengthIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Agility ?? 0, _skillAgilityIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Intelligence ?? 0, _skillIntelligenceIcon, currentFaction._skillHolder);
+            _skillIconsController.SetSkillIconView(Card.Info.Power ?? 0, _skillPowerIcon, currentFaction._skillHolder);
         }
 
         private void SetRenderers(FactionDeckSO currentFaction)
         {
             _template.sprite = currentFaction._templateDeckFront;
-            _costRenderer.sprite = currentFaction._cost;
-            _skillPlacer.ForEach(spriteRenderer => spriteRenderer.SetHolder(currentFaction._skillHolder));
-        }
-
-        private void SetSupporterInfo(FactionDeckSO currentFaction)
-        {
-            _healthRenderer.gameObject.SetActive(Card.Info.Health != null);
-            _sanityRenderer.gameObject.SetActive(Card.Info.Sanity != null);
-            _healthRenderer.sprite = _sanityRenderer.sprite = currentFaction._supporter;
-        }
-
-        private void SetBadget(FactionDeckSO currentFaction)
-        {
-            _badge.gameObject.SetActive(true);
+            _titleHolder.sprite = currentFaction._titleHolder;
             _badge.sprite = currentFaction._badget;
         }
 
-        private FactionDeckSO SetCurrent(Faction faction)
+        /*******************************************************************/
+        public void UpdateState()
         {
-            return faction switch
-            {
-                Faction.Cunning => _cunning,
-                Faction.Versatile => _versatile,
-                Faction.Brave => _brave,
-                Faction.Esoteric => _esoteric,
-                Faction.Scholarly => _scholarly,
-                _ => null,
-            };
+            ChangeColorResource();
+            ChangeSlotColor();
         }
 
-        private SkillIconView GetNextPlacerInactive() => _skillPlacer.Find(x => x.IsInactive);
+        private void ChangeColorResource()
+        {
+            if (!HasCost) return;
+            if (Card.CurrentZone != Card.Owner?.HandZone) _cost.Default();
+            else if (_cost.Stat.Value > Card.Owner?.Resources.Value) _cost.Deactive();
+            else _cost.Active();
+        }
+
+        private void ChangeSlotColor()
+        {
+            if (!HasSlot) return;
+            if (Card.CurrentZone == Card.Owner?.AidZone) _slotController.DoActive(2);
+            else if (Card.CurrentZone != Card.Owner?.HandZone) _slotController.DoDefault();
+            else _slotController.DoActive(Card.Owner.SlotsCollection.GetFreeSlotFor(Card).Count);
+        }
     }
 }

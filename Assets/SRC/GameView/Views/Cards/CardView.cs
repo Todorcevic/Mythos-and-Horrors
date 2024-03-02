@@ -1,51 +1,188 @@
+using DG.Tweening;
 using MythsAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Diagnostics.CodeAnalysis;
+using Sirenix.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
-    public abstract class CardView : MonoBehaviour
+    public abstract class CardView : MonoBehaviour, IPlayable
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _title;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
-        [SerializeField, Required, ChildGameObjectsOnly] private GlowView _glowView;
+        [Title(nameof(CardView))]
+        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
+        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
+        [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
+        [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
+        [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
+        [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
+        [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
+        [Inject(Id = ZenjectBinding.BindId.SelectorZone)] private ShowSelectorZoneView _selectorZone;
 
+        public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
+        public ZoneCardView OwnZone => _ownZoneCardView;
+        public RotatorController Rotator => _rotator;
+        public ZoneView CurrentZoneView { get; private set; }
+        public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init(Card card)
+        public void Init(Card card)
         {
-            Debug.Log("Building...: " + card.Info.Code);
             Card = card;
-            SetCommonInfo();
-            SetAll();
             SetPicture();
+            SetCommon();
+            SetSpecific();
+        }
+
+        public void InitClone(Card card)
+        {
+            Card = card;
         }
 
         /*******************************************************************/
-        public void ActivateToSelect()
+        public void SetCurrentZoneView(ZoneView zoneView)
         {
-            _glowView.SetGreenGlow();
+            CurrentZoneView = zoneView;
+            transform.SetParent(zoneView.transform);
         }
 
-        protected abstract void SetAll();
+        public Tween DisableToCenterShow()
+        {
+            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            return _ownZoneCardView.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION);
+        }
 
-        private void SetCommonInfo()
+        public Tween EnableFromCenterShow()
+        {
+            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            return _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+        }
+
+        public void On() => gameObject.SetActive(true);
+
+        public void Off() => gameObject.SetActive(false);
+
+        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
+
+        public void ActivateToClick()
+        {
+            if (_cardSensor.IsClickable) return;
+            _cardSensor.IsClickable = true;
+            _glowComponent.SetGreenGlow();
+            AddBuffsAndEffects();
+        }
+
+        public void DeactivateToClick()
+        {
+            if (!_cardSensor.IsClickable) return;
+            _cardSensor.IsClickable = false;
+            _glowComponent.Off();
+            RemoveBuffsAndEffects();
+        }
+
+        protected abstract void SetSpecific();
+
+        private void SetCommon()
         {
             name = Card.Info.Code;
+            _ownZoneCardView.Init(Card.OwnZone);
             _title.text = Card.Info.Name;
-            _description.text = Card.Info.Description;
+            SetDescription(Card.Info.Description ?? Card.Info.Flavor);
         }
 
-        private void SetPicture()
+        protected void SetDescription(string description)
         {
-            _picture.sprite = _picture.sprite; //TODO
+            _description.text = "";
+            if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
+            {
+                _description.text = "<size=3><b>";
+                Card.Info.Tags.ForEach(tag => _description.text += tag + " - ");
+                _description.text = _description.text.Remove(_description.text.Length - 3);
+                _description.text += "</b></size>\n";
+            }
+
+            _description.text += "\n<voffset=0.25em>" + description + "</voffset>";
         }
+
+        private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
+
+        /*******************************************************************/
+        public Tween Rotate()
+        {
+            _effectController.Rotate(Card.FaceDown.IsActive);
+            _buffController.Rotate(Card.FaceDown.IsActive);
+            return _rotator.Rotate(Card.FaceDown.IsActive);
+        }
+
+        public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION, Vector3.up, speed: 1f, frequency: 5, depth: 0, mode: SpiralMode.ExpandThenContract)
+                 .SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear).SetId("Idle");
+
+        public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
+        {
+            Sequence moveSequence = DOTween.Sequence()
+                 .OnStart(() => transform.SetParent(newZoneView.transform))
+                 .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
+                 .Join(Rotate())
+                 .Join(newZoneView.EnterZone(this).SetEase(ease));
+
+            CurrentZoneView = newZoneView;
+            return moveSequence;
+        }
+
+        public virtual Sequence RevealAnimation() => DOTween.Sequence().Append(DOTween.Sequence()
+                 .Append(DisableToCenterShow())
+                 .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
+                 .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
+                 .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
+                 .Append(EnableFromCenterShow()));
+
+        /*******************************************************************/
+        public Effect CloneEffect { get; private set; }
+
+
+
+        public void SetCloneEffect(Effect effect) => CloneEffect = effect;
+
+        public void ClearCloneEffect() => CloneEffect = null;
+
+        private void AddBuffsAndEffects()
+        {
+            _effectController.AddEffects(((IPlayable)this).EffectsSelected);
+            _buffController.AddEffects(Card.Buffs);
+        }
+
+        private void RemoveBuffsAndEffects()
+        {
+            _effectController.Clear();
+            _buffController.Clear();
+        }
+
+        public void ShowBuffsAndEffects()
+        {
+            _effectController.gameObject.SetActive(true);
+            _buffController.gameObject.SetActive(true);
+        }
+
+        public void HideBuffsAndEffects()
+        {
+            _effectController.gameObject.SetActive(false);
+            _buffController.gameObject.SetActive(false);
+        }
+
+        public int GetBuffsAmount() => _buffController.EffectsAmount;
+
+        /*******************************************************************/
+        public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
+
+        public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);
+
+        public void ColliderRestore() => _cardSensor.ColliderDown();
     }
 }

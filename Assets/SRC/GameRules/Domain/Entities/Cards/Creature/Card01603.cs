@@ -6,8 +6,7 @@ namespace MythsAndHorrors.GameRules
     public class Card01603 : CardCreature, IStartReactionable, IEndReactionable
     {
         [Inject] private readonly GameActionFactory _gameActionRepository;
-        [Inject] private readonly CardProvider _cardRepository;
-        [Inject] private readonly ZoneProvider _zoneRepository;
+        [Inject] private readonly CardsProvider _cardRepository;
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
@@ -20,6 +19,7 @@ namespace MythsAndHorrors.GameRules
             //    CardMovementAnimation.BasicWithPreview);
             //    await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             //}
+            await Task.CompletedTask;
         }
 
         public async Task WhenFinish(GameAction gameAction)
@@ -32,6 +32,7 @@ namespace MythsAndHorrors.GameRules
             //        CardMovementAnimation.BasicWithPreview);
             //    await _gameActionRepository.Create<MoveCardGameAction>().Run(moveCardDTO);
             //}
+            await Task.CompletedTask;
         }
     }
 }

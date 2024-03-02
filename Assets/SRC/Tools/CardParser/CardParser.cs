@@ -1,12 +1,10 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using DG.Tweening.Plugins.Core.PathCore;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -92,11 +90,7 @@ namespace MythsAndHorrors.Tools
         private void SelectDetinationAndSave()
         {
             string path = EditorUtility.SaveFilePanel("Save JSON", DATA_PATH, "packs", "json");
-            if (string.IsNullOrEmpty(path))
-            {
-                Debug.LogError("No path selected");
-                return;
-            }
+            if (string.IsNullOrEmpty(path)) return;
 
             string jsonData = JsonConvert.SerializeObject(allPacks, Formatting.Indented, jsonSettings);
             SaveToFile(path, jsonData);

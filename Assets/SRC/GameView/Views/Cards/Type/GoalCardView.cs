@@ -1,17 +1,21 @@
-﻿using Sirenix.OdinInspector;
-using TMPro;
+﻿using MythsAndHorrors.GameRules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace MythsAndHorrors.GameView
 {
     public class GoalCardView : CardView
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _hints;
+        [Title(nameof(GoalCardView))]
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _hints;
 
         /*******************************************************************/
-        protected override void SetAll()
+        protected override void SetSpecific()
         {
-            _hints.text = Card.Info.Hints.ToString();
+            if (Card is CardGoal _goal)
+            {
+                _hints.SetStat(_goal.Hints);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using MythsAndHorrors.GameRules;
+using System;
+using System.Reflection;
 using Zenject;
 
 namespace MythsAndHorrors.GameView
@@ -9,6 +11,7 @@ namespace MythsAndHorrors.GameView
         {
             InstallView();
             InstallRules();
+            InstallSingle();
         }
 
         private void InstallView()
@@ -17,32 +20,34 @@ namespace MythsAndHorrors.GameView
 
             /*** Managers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Manager")).AsSingle();
+                .InNamespace(gameViewNameSpace).WithSuffix("Manager")).AsSingle();
 
             Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
-           .InNamespace(gameViewNameSpace).WithSuffix("Manager")).FromResolve();
+                .InNamespace(gameViewNameSpace).WithSuffix("Manager")).FromResolve();
 
             /*** Services ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Service")).AsSingle();
+                .InNamespace(gameViewNameSpace).WithSuffix("Service")).AsSingle();
 
             Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Service")).FromResolve();
+                .InNamespace(gameViewNameSpace).WithSuffix("Service")).FromResolve();
 
-            /*** Presenters ***/
+            /*** Handlers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).AsSingle();
+                .InNamespace(gameViewNameSpace).WithSuffix("Handler")).AsSingle();
 
             Container.Bind(x => x.AllInterfaces()).To(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).FromResolve();
+                .InNamespace(gameViewNameSpace).WithSuffix("Handler")).FromResolve();
 
             /*** UseCases ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("UseCase")).AsSingle();
+                .InNamespace(gameViewNameSpace).WithSuffix("UseCase")).AsSingle();
 
             /*** Converters ***/
             Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
+                .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
+
+            InstallGenericPresenterBindings(typeof(IPresenter<>));
         }
 
         private void InstallRules()
@@ -64,6 +69,34 @@ namespace MythsAndHorrors.GameView
             /*** Factories ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameRulesNameSpace).WithSuffix("Factory")).AsSingle();
+        }
+
+        private void InstallSingle()
+        {
+            Container.Bind<FilesPath>().AsSingle().IfNotBound();
+            Container.Bind(typeof(ClickHandler<>)).AsSingle();
+            Container.Bind<IInteractablePresenter>().To<InteractablePresenter>().AsSingle();
+        }
+
+        private void InstallGenericPresenterBindings(Type interfaceT)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type[] allTypes = assembly.GetTypes();
+
+            foreach (Type type in allTypes)
+            {
+                Type[] interfaces = type.GetInterfaces();
+                foreach (Type @interface in interfaces)
+                {
+                    if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == interfaceT)
+                    {
+                        Type argumentType = @interface.GetGenericArguments()[0];
+                        Type genericType = interfaceT.MakeGenericType(argumentType);
+
+                        Container.Bind(genericType).To(type).AsCached();
+                    }
+                }
+            }
         }
     }
 }

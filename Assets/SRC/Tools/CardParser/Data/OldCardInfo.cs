@@ -219,6 +219,11 @@ namespace MythsAndHorrors.Tools
         [JsonProperty("subtype_code")]
         public string SubtypeCode { get; set; }
 
+        [BoxGroup("Split/center")]
+        [SerializeField]
+        [JsonProperty("subtype_name")]
+        public string SubtypeName { get; set; }
+
         [BoxGroup("Split/right")]
         [SerializeField]
         [JsonProperty("xp")]

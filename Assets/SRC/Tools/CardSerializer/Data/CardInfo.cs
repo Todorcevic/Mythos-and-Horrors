@@ -15,7 +15,22 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
+        public string Description2 { get; set; }
+
+        [BoxGroup("Split/Left")]
+        [SerializeField]
+        public string Flavor { get; set; }
+        [BoxGroup("Split/Left")]
+        [SerializeField]
+        public string Flavor2 { get; set; }
+
+        [BoxGroup("Split/Left")]
+        [SerializeField]
         public string PackCode { get; set; }
+
+        [BoxGroup("Split/Left")]
+        [SerializeField]
+        public string Name2 { get; set; }
 
         [BoxGroup("Split/Left")]
         [SerializeField]
@@ -27,7 +42,7 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Left")]
         [SerializeField]
-        public Slot Slot { get; set; }
+        public SlotType[] Slots { get; set; }
 
         [BoxGroup("Split/Left")]
         [SerializeField]
@@ -99,14 +114,14 @@ namespace MythsAndHorrors.Tools
 
         [BoxGroup("Split/Right")]
         [SerializeField]
-        public bool? HealthPerAdventurer { get; set; }
+        public bool? HealthPerInvestigator { get; set; }
 
         public CardInfo CreateWith(OldCardInfo oldCardinfo)
         {
             CardType = oldCardinfo.TypeCode switch
             {
-                "investigator" => CardType.Adventurer,
-                "asset" => CardType.Aid,
+                "investigator" => CardType.Investigator,
+                "asset" => CardType.Supply,
                 "skill" => CardType.Talent,
                 "event" => CardType.Condition,
                 "enemy" => CardType.Creature,
@@ -114,12 +129,17 @@ namespace MythsAndHorrors.Tools
                 "treachery" => CardType.Adversity,
                 "act" => CardType.Goal,
                 "agenda" => CardType.Plot,
+                "scenario" => CardType.Scene,
                 _ => CardType.None,
             };
 
             Code = oldCardinfo.Code;
             Name = oldCardinfo.Name;
+            Name2 = oldCardinfo.BackName;
             Description = oldCardinfo.Text;
+            Description2 = oldCardinfo.BackText;
+            Flavor = oldCardinfo.Flavor;
+            Flavor2 = oldCardinfo.BackFlavor;
             PackCode = oldCardinfo.PackCode;
             SceneCode = oldCardinfo.EncounterCode;
             Faction = oldCardinfo.FactionCode switch
@@ -134,19 +154,21 @@ namespace MythsAndHorrors.Tools
                 _ => Faction.None,
             };
 
-            Slot = oldCardinfo.Slot switch
+            Slots = oldCardinfo.Slot switch
             {
-                "Ally" => Slot.Supporter,
-                "Hand" => Slot.Item,
-                "Hand x2" => Slot.Itemx2,
-                "Arcane" => Slot.Magical,
-                "Arcane x2" => Slot.Magicalx2,
-                "Accesory" => Slot.Trinket,
-                "Body" => Slot.Equipment,
-                _ => Slot.None,
+                "Ally" => new[] { SlotType.Supporter },
+                "Hand" => new[] { SlotType.Item },
+                "Hand x2" => new[] { SlotType.Item, SlotType.Item },
+                "Arcane" => new[] { SlotType.Magical },
+                "Arcane x2" => new[] { SlotType.Magical, SlotType.Magical },
+                "Accessory" => new[] { SlotType.Trinket },
+                "Body" => new[] { SlotType.Equipment },
+                _ => new[] { SlotType.None },
             };
 
-            Tags = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToArray();
+            var traits = oldCardinfo.Traits?.Split('.', StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()) ?? Enumerable.Empty<string>();
+            var subtypeName = oldCardinfo.SubtypeName != null ? new[] { oldCardinfo.SubtypeName } : Enumerable.Empty<string>();
+            Tags = new[] { Enum.GetName(typeof(CardType), CardType) }.Concat(subtypeName).Concat(traits).ToArray();
             Cost = oldCardinfo.Cost;
             Quantity = oldCardinfo.Quantity;
             Strength = oldCardinfo.SkillCombat ?? oldCardinfo.EnemyFight;
@@ -163,7 +185,7 @@ namespace MythsAndHorrors.Tools
             Enigma = oldCardinfo.Shroud;
             Hints = oldCardinfo.Clues;
             Eldritch = oldCardinfo.Doom;
-            HealthPerAdventurer = oldCardinfo.HealthPerInvestigator;
+            HealthPerInvestigator = oldCardinfo.HealthPerInvestigator;
             return this;
         }
     }

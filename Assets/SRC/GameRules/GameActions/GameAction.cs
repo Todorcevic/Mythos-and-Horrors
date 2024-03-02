@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,35 +5,33 @@ namespace MythsAndHorrors.GameRules
 {
     public abstract class GameAction
     {
-        [Inject] private readonly GameStateService _gameStateService;
-        [Inject] private readonly IEnumerable<IStartReactionable> _startReactionables;
-        [Inject] private readonly IEnumerable<IEndReactionable> _endReactionables;
+        private static GameAction _current;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly IPresenter<GameAction> _continuousPresenter;
+
+        public bool IsActive { get; private set; }
+        public GameAction Parent { get; private set; }
+        protected virtual bool CanBeExecuted => true;
 
         /*******************************************************************/
-        protected async Task Start()
+        public async Task Start()
         {
-            _gameStateService.SetCurrentAction(this);
+            if (!CanBeExecuted) return;
+            IsActive = true;
+            Parent = _current ?? this;
+            _current = this;
             await AtTheBeginning();
             await ExecuteThisLogic();
+            await _continuousPresenter.PlayAnimationWith(this);
             await AtTheEnd();
+            _current = Parent ?? this;
+            IsActive = false;
         }
 
-        private async Task AtTheBeginning()
-        {
-            foreach (IStartReactionable reaction in _startReactionables)
-            {
-                await reaction.WhenBegin(this);
-            }
-        }
+        private async Task AtTheBeginning() => await _reactionablesProvider.WhenBegin(this);
 
         protected abstract Task ExecuteThisLogic();
 
-        private async Task AtTheEnd()
-        {
-            foreach (IEndReactionable reaction in _endReactionables)
-            {
-                await reaction.WhenFinish(this);
-            }
-        }
+        private async Task AtTheEnd() => await _reactionablesProvider.WhenFinish(this);
     }
 }

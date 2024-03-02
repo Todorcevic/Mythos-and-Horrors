@@ -1,24 +1,35 @@
 ﻿using DG.Tweening;
 using MythsAndHorrors.GameRules;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythsAndHorrors.GameView
 {
     public abstract class ZoneView : MonoBehaviour
     {
+        [SerializeField] private bool _avoidCardShower;
+        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+
         public Zone Zone { get; private set; }
-        protected List<CardView> AllCards => GetComponentsInChildren<CardView>().ToList();
-        protected float YOffSet => AllCards.Count * ViewValues.CARD_THICKNESS;
+        public bool AvoidCardShower => _avoidCardShower;
+        public bool IsEmpty => Zone.Cards.Count == 0;
 
         /*******************************************************************/
-        private void Awake()
+        public void Init(Zone zone = null)
         {
-            Zone = new Zone(name);
+            Zone = zone;
+            _zoneViewsManager.Add(this);
         }
 
         /*******************************************************************/
-        public abstract Tween MoveCard(CardView card);
+        public abstract Tween EnterZone(CardView cardView);
+
+        public abstract Tween ExitZone(CardView cardView);
+
+        public abstract Tween MouseEnter(CardView cardView);
+
+        public abstract Tween MouseExit(CardView cardView);
+
+        public virtual Tween Shuffle() => DOTween.Sequence();
     }
 }

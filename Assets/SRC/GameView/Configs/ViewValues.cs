@@ -1,11 +1,25 @@
+using UnityEngine;
+
 namespace MythsAndHorrors.GameView
 {
-    public static class ViewValues
+    public class ViewValues
     {
-        public const float CARD_THICKNESS = 0.05f;
+        public const float INSTANT_TIME_ANIMATION = 0f;
         public const float FAST_TIME_ANIMATION = 0.25f;
+        public const float DEFAULT_TIME_ANIMATION = 0.4f;
         public const float MID_TIME_ANIMATION = 0.5f;
-        public const float SLOW_TIME_ANIMATION = 1f;
+        public const float SLOW_TIME_ANIMATION = 0.75f;
+        public const float DELAY_TIME_ANIMATION = 0.016f;
+
+        public const float CARD_ORIGINAL_SCALE = 1f;
+        public const float CARD_THICKNESS = 0.1f;
         public const string EMPTY_STAT = "0";
+        public const float INITIAL_LAYOUT_WIDTH = 24f;
+        public const float DEFAULT_FADE = 0.5f;
+        public const float DEFAULT_SCALE = 1.2f;
+
+        public static Color ACTIVE_COLOR = new(0.1607843f, 0.4039216f, 0.05098039f);
+        public static Color DEACTIVE_COLOR = new(0.4528302f, 0.07903168f, 0.07903168f);
+        public static Color DEFAULT_COLOR = new(0.7019608f, 0.772549f, 0.8784314f);
     }
 }

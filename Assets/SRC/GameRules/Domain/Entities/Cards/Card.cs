@@ -1,18 +1,56 @@
-using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythsAndHorrors.GameRules
 {
-    public class Card
+    public class Card : IEffectable
     {
-        [Inject] public CardInfo Info { get; }
-        public Zone CurrentZone { get; private set; }
-        public bool IsScenaryCard => Info.Faction == Faction.Myths;
+        [Inject] private readonly CardInfo _info;
+        [InjectOptional] private readonly CardExtraInfo _extraInfo;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
+
+        public State FaceDown { get; private set; }
+        public Zone OwnZone { get; private set; }
+        public List<IBuffable> Buffs { get; private set; } = new();
+
+        public virtual CardInfo Info => _info;
+        public CardExtraInfo ExtraInfo => _extraInfo;
+        public bool CanBePlayed => PlayableEffects.Count > 0;
+        public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
+        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
 
         /*******************************************************************/
-        public void MoveToZone(Zone zone)
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
+        private void Init()
         {
-            CurrentZone = zone ?? throw new ArgumentNullException(nameof(zone));
+            OwnZone = _zonesProvider.Create();
+            FaceDown = new State(false);
+        }
+
+        /*******************************************************************/
+        public async Task AddBuff(IBuffable newBuff)
+        {
+            Buffs.Add(newBuff);
+            await newBuff.BuffAffectTo(this);
+        }
+
+        public async Task RemoveBuff(IBuffable ActivateBuff)
+        {
+            await ActivateBuff.BuffDeaffectTo(this);
+            Buffs.Remove(ActivateBuff);
+        }
+
+        public bool HasThisBuff(IBuffable buff) => Buffs.Contains(buff);
+
+        public void TurnDown(bool toFaceDown)
+        {
+            FaceDown.UpdateValue(toFaceDown);
         }
     }
 }
