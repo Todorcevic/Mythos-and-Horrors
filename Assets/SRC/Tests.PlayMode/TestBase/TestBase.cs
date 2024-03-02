@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
+using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode.Tests
+namespace MythosAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {

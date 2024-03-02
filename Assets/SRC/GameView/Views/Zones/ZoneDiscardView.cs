@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class ZoneDiscardView : ZoneView
     {

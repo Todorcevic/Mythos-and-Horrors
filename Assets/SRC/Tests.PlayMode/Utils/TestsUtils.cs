@@ -5,10 +5,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
-using MythsAndHorrors.GameView;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
+using MythosAndHorrors.GameRules;
 
-namespace MythsAndHorrors.PlayMode.Tests
+namespace MythosAndHorrors.PlayMode.Tests
 {
     public static class TestsUtils
     {

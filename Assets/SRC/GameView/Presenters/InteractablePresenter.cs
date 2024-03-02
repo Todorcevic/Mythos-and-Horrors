@@ -1,9 +1,9 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class InteractablePresenter : IInteractablePresenter
     {

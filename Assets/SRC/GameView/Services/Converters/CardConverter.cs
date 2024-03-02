@@ -1,9 +1,9 @@
 ﻿using System;
 using Unity.Plastic.Newtonsoft.Json;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class CardConverter : JsonConverter<Card>
     {

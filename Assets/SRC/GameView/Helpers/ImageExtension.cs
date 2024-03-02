@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public static class ImageExtension
     {

@@ -1,7 +1,7 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using System;
 
-namespace MythsAndHorrors.PlayMode.Tests
+namespace MythosAndHorrors.PlayMode.Tests
 {
     public class CardInfoBuilder
     {

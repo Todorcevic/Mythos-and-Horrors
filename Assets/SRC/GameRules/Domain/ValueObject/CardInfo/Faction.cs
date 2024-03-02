@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     [Flags]
     public enum Faction

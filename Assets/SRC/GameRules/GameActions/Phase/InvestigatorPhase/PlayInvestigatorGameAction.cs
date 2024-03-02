@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class PlayInvestigatorGameAction : PhaseGameAction //2.2	Next investigator's turn begins.
     {

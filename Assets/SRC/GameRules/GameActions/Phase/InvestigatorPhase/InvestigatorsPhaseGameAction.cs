@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsPhaseGameAction : PhaseGameAction //2.1	Investigation phase begins.
     {

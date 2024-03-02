@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace MythsAndHorrors.Tools
+namespace MythosAndHorrors.Tools
 {
     public class DeckOption
     {

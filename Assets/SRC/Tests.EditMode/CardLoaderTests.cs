@@ -1,9 +1,9 @@
-﻿using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
+﻿using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using Zenject;
 
-namespace MythsAndHorrors.EditMode.Tests
+namespace MythosAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class CardLoaderTests : SetupAutoInject

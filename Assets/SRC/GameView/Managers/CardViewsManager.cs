@@ -1,8 +1,8 @@
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class CardViewsManager
     {

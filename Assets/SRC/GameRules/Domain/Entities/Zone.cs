@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class Zone
     {

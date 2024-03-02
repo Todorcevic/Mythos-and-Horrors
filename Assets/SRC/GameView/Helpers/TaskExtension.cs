@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public static class TaskExtension
     {

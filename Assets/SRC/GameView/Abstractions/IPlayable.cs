@@ -1,7 +1,7 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public interface IPlayable
     {

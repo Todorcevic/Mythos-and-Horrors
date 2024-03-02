@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class IncrementStatGameAction : StatGameAction
     {

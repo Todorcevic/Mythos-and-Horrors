@@ -1,11 +1,11 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class CardLoaderUseCase
     {

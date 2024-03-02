@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class CardExample : CardInvestigator, IBuffable
     {

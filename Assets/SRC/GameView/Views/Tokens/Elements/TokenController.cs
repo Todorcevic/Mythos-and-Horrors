@@ -1,12 +1,12 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class TokenController : MonoBehaviour, IStatableView
     {

@@ -1,10 +1,10 @@
 using Sirenix.OdinInspector;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using UnityEngine;
 using System.Linq;
 using System;
 
-namespace MythsAndHorrors.Tools
+namespace MythosAndHorrors.Tools
 {
     public class CardInfo : DataCreatorBase
     {

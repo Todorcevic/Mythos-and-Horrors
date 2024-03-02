@@ -1,8 +1,8 @@
 using Zenject;
 using System.Threading.Tasks;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class CardMoverPresenter : IPresenter<MoveCardsGameAction>
     {

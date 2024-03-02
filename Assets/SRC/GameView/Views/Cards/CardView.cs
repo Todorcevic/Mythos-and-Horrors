@@ -1,5 +1,5 @@
 using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour, IPlayable
     {

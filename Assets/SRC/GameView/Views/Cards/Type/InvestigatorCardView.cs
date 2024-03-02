@@ -1,9 +1,9 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class InvestigatorCardView : CardView
     {

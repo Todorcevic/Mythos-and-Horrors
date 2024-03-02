@@ -1,5 +1,5 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class ShowHistoryComponent : MonoBehaviour
     {

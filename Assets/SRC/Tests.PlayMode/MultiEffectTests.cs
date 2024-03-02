@@ -1,5 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
+﻿using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode.Tests
+namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class MultiEffectTests : TestBase

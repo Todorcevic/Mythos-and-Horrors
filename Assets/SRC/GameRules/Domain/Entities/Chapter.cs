@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unity.Plastic.Newtonsoft.Json;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public record Chapter
     {

@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.GameView
+﻿namespace MythosAndHorrors.GameView
 {
     public interface IUpdatable
     {

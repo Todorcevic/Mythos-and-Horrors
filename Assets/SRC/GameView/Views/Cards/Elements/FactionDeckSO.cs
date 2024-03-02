@@ -1,8 +1,8 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     [CreateAssetMenu(fileName = "Faction", menuName = "ScriptableObjects/DeckElements")]
     public class FactionDeckSO : ScriptableObject

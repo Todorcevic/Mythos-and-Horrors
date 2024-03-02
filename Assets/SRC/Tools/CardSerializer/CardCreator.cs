@@ -1,5 +1,5 @@
 ﻿#pragma warning disable IDE0051, IDE0052 // Remove unused private members
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
@@ -12,7 +12,7 @@ using UnityEditor;
 using UnityEngine;
 using FilePathAttribute = Sirenix.OdinInspector.FilePathAttribute;
 
-namespace MythsAndHorrors.Tools
+namespace MythosAndHorrors.Tools
 {
     public class CardCreator : OdinEditorWindow
     {

@@ -1,10 +1,10 @@
 ﻿using Sirenix.OdinInspector;
 using System;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace MythsAndHorrors.Tools
+namespace MythosAndHorrors.Tools
 {
     public class DataCreatorBase
     {

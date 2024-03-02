@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
     public interface IWeakness { }
 }

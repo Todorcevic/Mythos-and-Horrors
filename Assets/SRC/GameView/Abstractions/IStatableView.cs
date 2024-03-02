@@ -1,8 +1,8 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using UnityEngine;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public interface IStatableView
     {

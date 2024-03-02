@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class SceneCardView : CardView
     {

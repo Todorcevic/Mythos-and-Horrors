@@ -1,9 +1,9 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class ShowHistoryPresenter : IPresenter<ShowHistoryGameAction>
     {

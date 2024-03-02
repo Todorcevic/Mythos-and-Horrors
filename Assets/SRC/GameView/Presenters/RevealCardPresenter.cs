@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
 
     public class RevealCardPresenter : IPresenter<RevealGameAction>

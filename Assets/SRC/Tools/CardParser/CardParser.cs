@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using FilePathAttribute = Sirenix.OdinInspector.FilePathAttribute;
 
-namespace MythsAndHorrors.Tools
+namespace MythosAndHorrors.Tools
 {
 
     public class CardParser : OdinEditorWindow

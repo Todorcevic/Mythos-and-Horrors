@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public abstract class ZoneView : MonoBehaviour
     {

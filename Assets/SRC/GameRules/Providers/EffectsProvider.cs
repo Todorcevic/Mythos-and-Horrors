@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class EffectsProvider
     {
@@ -17,9 +15,8 @@ namespace MythsAndHorrors.GameRules
         /*******************************************************************/
         public void Add(Effect effect) => _allEffects.Add(effect);
 
-        public List<Effect> GetEffectForThisEffectable(IEffectable effectable) => _allEffects.FindAll(effect => effect.Effectable == effectable && effect.CanPlay.Invoke());
-
-        public Effect GetEffectWithThiLogic(Func<Task> logic) => _allEffects.Find(effect => effect.Logic == logic);
+        public List<Effect> GetEffectForThisEffectable(IEffectable effectable) =>
+            _allEffects.FindAll(effect => effect.Effectable == effectable && effect.CanPlay.Invoke());
 
         public void ClearAllEffects() => _allEffects.Clear();
     }

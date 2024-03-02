@@ -1,6 +1,6 @@
 {
     "name": "Tools",
-    "rootNamespace": "MythsAndHorrors.Tools",
+    "rootNamespace": "MythosAndHorrors.Tools",
     "references": [
         "GUID:7a45bcb1ff27d214f9029d21bfd937cb"
     ],

@@ -1,11 +1,11 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class StatView : MonoBehaviour, IStatableView
     {

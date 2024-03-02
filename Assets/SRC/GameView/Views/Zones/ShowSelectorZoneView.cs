@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class ShowSelectorZoneView : ZoneRowView
     {

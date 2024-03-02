@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class Card01112 : CardPlace, IEndReactionable
     {

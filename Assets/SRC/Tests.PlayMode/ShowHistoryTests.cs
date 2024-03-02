@@ -1,5 +1,5 @@
-﻿using MythsAndHorrors.GameRules;
-using MythsAndHorrors.GameView;
+﻿using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using TMPro;
@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Zenject;
 
-namespace MythsAndHorrors.PlayMode.Tests
+namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class ShowHistoryests : TestBase

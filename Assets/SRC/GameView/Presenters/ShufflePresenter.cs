@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class ShufflePresenter : IPresenter<ShuffleGameAction>
     {

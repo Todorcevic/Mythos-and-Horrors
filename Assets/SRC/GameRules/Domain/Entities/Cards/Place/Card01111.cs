@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class Card01111 : CardPlace
     {

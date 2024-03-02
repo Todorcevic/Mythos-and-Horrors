@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.Plastic.Newtonsoft.Json;
 using Zenject;
 
-namespace MythsAndHorrors.GameRules
+namespace MythosAndHorrors.GameRules
 {
     public class Investigator
     {

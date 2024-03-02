@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using MythsAndHorrors.GameView;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
+using MythosAndHorrors.GameRules;
 using Zenject;
 
-namespace MythsAndHorrors.EditMode.Tests
+namespace MythosAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class JsonServiceTests : OneTimeAutoInject

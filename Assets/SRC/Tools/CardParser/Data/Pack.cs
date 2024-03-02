@@ -1,4 +1,4 @@
-﻿namespace MythsAndHorrors.Tools
+﻿namespace MythosAndHorrors.Tools
 {
     public class Pack
     {

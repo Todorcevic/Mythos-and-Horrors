@@ -1,9 +1,9 @@
 ﻿using Zenject;
-using MythsAndHorrors.GameRules;
+using MythosAndHorrors.GameRules;
 using DG.Tweening;
 using System.Threading.Tasks;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class TokenMoverPresenter : IPresenter<GainHintGameAction>, IPresenter<PayHintGameAction>, IPresenter<GainResourceGameAction>, IPresenter<PayResourceGameAction>
     {

@@ -1,8 +1,8 @@
-﻿using MythsAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using Zenject;
 
-namespace MythsAndHorrors.EditMode.Tests
+namespace MythosAndHorrors.EditMode.Tests
 {
     [TestFixture]
     public class InvestigatorsProvideTests : SetupAutoInject

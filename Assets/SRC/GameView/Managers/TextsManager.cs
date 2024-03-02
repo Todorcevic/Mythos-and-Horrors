@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MythsAndHorrors.GameView
+namespace MythosAndHorrors.GameView
 {
     public class TextsManager
     {
