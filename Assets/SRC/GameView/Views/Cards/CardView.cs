@@ -23,14 +23,16 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
-        [Inject(Id = ZenjectBinding.BindId.SelectorZone)] private ShowSelectorZoneView _selectorZone;
+        [Inject(Id = ZenjectBinding.BindId.SelectorZone)] private readonly ShowSelectorZoneView _selectorZone;
+        [Inject] private readonly DiContainer _diContainer;
 
-        public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public Card Card { get; private set; }
-        public ZoneCardView OwnZone => _ownZoneCardView;
-        public RotatorController Rotator => _rotator;
+        public Effect CloneEffect { get; private set; }
         public ZoneView CurrentZoneView { get; private set; }
+        public ZoneCardView OwnZoneCardView => _ownZoneCardView;
+        public bool IsBack => transform.rotation.eulerAngles.y == 180;
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
+        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
 
         /*******************************************************************/
         public void Init(Card card)
@@ -41,10 +43,7 @@ namespace MythosAndHorrors.GameView
             SetSpecific();
         }
 
-        public void InitClone(Card card)
-        {
-            Card = card;
-        }
+
 
         /*******************************************************************/
         public void SetCurrentZoneView(ZoneView zoneView)
@@ -55,13 +54,13 @@ namespace MythosAndHorrors.GameView
 
         public Tween DisableToCenterShow()
         {
-            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            if (_ownZoneCardView == null || _ownZoneCardView.IsEmpty) return DOTween.Sequence();
             return _ownZoneCardView.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public Tween EnableFromCenterShow()
         {
-            if (_ownZoneCardView.IsEmpty) return DOTween.Sequence();
+            if (_ownZoneCardView == null || _ownZoneCardView.IsEmpty) return DOTween.Sequence();
             return _ownZoneCardView.transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
@@ -69,7 +68,6 @@ namespace MythosAndHorrors.GameView
 
         public void Off() => gameObject.SetActive(false);
 
-        List<Effect> IPlayable.EffectsSelected => CloneEffect != null ? new() { CloneEffect } : Card.PlayableEffects;
 
         public void ActivateToClick()
         {
@@ -144,8 +142,6 @@ namespace MythosAndHorrors.GameView
                  .Append(EnableFromCenterShow()));
 
         /*******************************************************************/
-        public Effect CloneEffect { get; private set; }
-
 
 
         public void SetCloneEffect(Effect effect) => CloneEffect = effect;
@@ -179,7 +175,16 @@ namespace MythosAndHorrors.GameView
         public int GetBuffsAmount() => _buffController.EffectsAmount;
 
         /*******************************************************************/
-        public CloneComponent Clone(Transform parent) => _cloneComponent.Clone(parent);
+        public CloneComponent CloneToCardShower(Transform parent) => _cloneComponent.Clone(parent);
+
+        public CardView CloneToMultiEffect(Transform parent)
+        {
+            CardView clone = _diContainer.InstantiatePrefabForComponent<CardView>(this, parent);
+            Destroy(clone._ownZoneCardView.gameObject);
+            clone._ownZoneCardView = null;
+            clone.Card = Card;
+            return clone;
+        }
 
         public void ColliderForBuffs(float amount) => _cardSensor.ColliderUp(amount);
 

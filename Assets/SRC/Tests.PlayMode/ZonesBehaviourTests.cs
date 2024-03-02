@@ -195,7 +195,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(sut2.Card.OwnZone));
-            Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
+            Assert.That(sut2.GetPrivateMember<ZoneCardView>("_ownZoneCardView").GetComponentsInChildren<CardView>(), Contains.Item(sut.First()));
         }
 
         [UnityTest]
@@ -210,7 +210,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
-            Assert.That(sut2.OwnZone.GetComponentsInChildren<CardView>().Contains(sut.First()), Is.False);
+            Assert.That(sut2.GetPrivateMember<ZoneCardView>("_ownZoneCardView").GetComponentsInChildren<CardView>().Contains(sut.First()), Is.False);
         }
 
         [UnityTest]

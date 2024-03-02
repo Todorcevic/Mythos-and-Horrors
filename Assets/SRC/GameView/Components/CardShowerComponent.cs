@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
             if (MustNotShowFilter(cardView)) return;
 
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
-            _currentShowCard = cardView.Clone(transform);
+            _currentShowCard = cardView.CloneToCardShower(transform);
             _showcardSequence = _currentShowCard.Animation();
         }
 

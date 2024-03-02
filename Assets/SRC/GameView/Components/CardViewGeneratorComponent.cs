@@ -24,15 +24,6 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void BuildAllCardViews() => _cardProvider.AllCards.ForEach(card => BuildCardView(card));
 
-        public CardView CloneCardView(CardView cardView, Transform parent)
-        {
-            cardView.OwnZone.transform.SetParent(transform);
-            CardView clone = _diContainer.InstantiatePrefabForComponent<CardView>(cardView, parent);
-            clone.InitClone(cardView.Card);
-            cardView.OwnZone.transform.SetParent(cardView.Rotator.transform);
-            return clone;
-        }
-
         public CardView BuildCardView(Card card)
         {
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform);
