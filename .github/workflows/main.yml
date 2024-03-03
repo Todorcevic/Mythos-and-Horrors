@@ -1,4 +1,4 @@
-name: Actions 😎
+name: Execute tests after push
 on: [push]
 jobs:
   build:
