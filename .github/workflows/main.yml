@@ -51,13 +51,7 @@ jobs:
           unityVersion: 2022.3.7f1
           projectPath: ./
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Upload tests result
-        uses: actions/upload-artifact@v4.3.1
-        if: always()
-        with:
-          name: Test results
-          path: ${{ steps.myTestStep.outputs.artifactsPath }}
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+GameRules,+GameView'
 
       - name: Upload tests coverage
         uses: actions/upload-artifact@v4.3.1
@@ -66,4 +60,20 @@ jobs:
           name: Coverage results
           path: ${{ steps.myTestStep.outputs.coveragePath }}
 
+    # Build
+      - name: Build
+        uses: game-ci/unity-builder@v4.2.1
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows64
+          versioning: Semantic
+
+      - uses: actions/upload-artifact@v4.3.1
+        with:
+          name: Build
+          path: build
+          
           
