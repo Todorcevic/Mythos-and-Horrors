@@ -1,5 +1,8 @@
 name: Execute tests after push
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   build:
     name: Build my project ✨
