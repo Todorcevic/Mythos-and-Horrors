@@ -12,6 +12,8 @@ jobs:
     # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4.1.1
+        with:
+          lfs: true
 
     # Git LFS Cache
       - name: Create LFS file list
@@ -69,7 +71,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          allowDirtyBuild: true
           versioning: Semantic
           
       - uses: actions/upload-artifact@v4.3.1
