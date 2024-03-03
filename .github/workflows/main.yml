@@ -11,9 +11,9 @@ jobs:
     
     # Checkout
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
 
-    # Git LFS
+    # Git LFS Cache
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
     
@@ -30,7 +30,7 @@ jobs:
           git add .
           git reset --hard
           
-    # Cache
+    # Library Cache
       - name: Cache              
         uses: actions/cache@v4.0.1
         with:
@@ -41,7 +41,8 @@ jobs:
             
     # Tests      
       - name: Run tests
-        uses: game-ci/unity-test-runner@v4
+        uses: game-ci/unity-test-runner@v4.1.1
+        id: myTestStep
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -50,3 +51,19 @@ jobs:
           unityVersion: 2022.3.7f1
           projectPath: ./
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload tests result
+        uses: actions/upload-artifact@v4.3.1
+        if: always()
+        with:
+          name: Test results
+          path: ${{ steps.myTestStep.outputs.artifactsPath }}
+
+      - name: Upload tests coverage
+        uses: actions/upload-artifact@v4.3.1
+        if: always()
+        with:
+          name: Coverage results
+          path: ${{ steps.myTestStep.outputs.coveragePath }}
+
+          
