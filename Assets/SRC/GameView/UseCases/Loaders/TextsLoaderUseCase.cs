@@ -1,6 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using Zenject;
 
 namespace MythosAndHorrors.GameView

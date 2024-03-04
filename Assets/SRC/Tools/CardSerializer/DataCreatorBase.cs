@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System;
 using MythosAndHorrors.GameRules;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace MythosAndHorrors.Tools
