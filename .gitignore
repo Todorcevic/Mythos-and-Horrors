@@ -74,3 +74,4 @@ crashlytics-build.properties
 # Github Actions
 /[Aa]rtifacts/
 /[Cc]odeCoverage/
+/Documents/[Cc]odeCoverage/
