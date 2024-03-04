@@ -12,8 +12,23 @@ jobs:
     # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4.1.1
+
+    # Git LFS Cache
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+    
+      - name: Restore LFS cache
+        uses: actions/cache@v4.0.1
+        id: lfs-cache
         with:
-          lfs: true
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+    
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
           
     # Library Cache
       - name: Cache              
@@ -44,21 +59,5 @@ jobs:
         with:
           name: Coverage results
           path: ${{ steps.myTestStep.outputs.coveragePath }}
-
-    # Build
-      - name: Build
-        uses: game-ci/unity-builder@v4.2.1
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: StandaloneWindows64
-          versioning: Semantic
-          
-      - uses: actions/upload-artifact@v4.3.1
-        with:
-          name: Build
-          path: build
           
           
