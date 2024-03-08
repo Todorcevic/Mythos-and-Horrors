@@ -27,7 +27,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             PreparePassEffect();
-            CheckIfCanPlayFromHand();
             CheckIfCanActivate();
             await _gameActionFactory.Create(new InteractableGameAction());
         }
@@ -66,30 +65,6 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, activableCard.ActivationTurnsCost.Value));
                     await activableCard.Activate();
-                }
-            }
-        }
-
-        private void CheckIfCanPlayFromHand()
-        {
-            foreach (Card card in ActiveInvestigator.HandZone.Cards)
-            {
-                if (card is IPlayableFromHand playableFromHand)
-                {
-                    _effectProvider.Create()
-                        .SetCard(card)
-                        .SetInvestigator(ActiveInvestigator)
-                        .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PlayFromHand))
-                        .SetCanPlay(() => playableFromHand.CanPlayFromHand())
-                        .SetLogic(PlayFromHand);
-
-                    /*******************************************************************/
-                    async Task PlayFromHand()
-                    {
-                        await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, playableFromHand.TurnsCost.Value));
-                        await _gameActionFactory.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
-                        await playableFromHand.PlayFromHand();
-                    }
                 }
             }
         }

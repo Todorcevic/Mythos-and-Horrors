@@ -43,12 +43,12 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void SetBulletsIcons(int amount)
         {
-            _resourceIconsController.SetSkillIconView(amount, _resourceBulletIcon, null);
+            _resourceIconsController.SetResourceIconView(amount, _resourceBulletIcon, null);
         }
 
         public void SetChargesIcons(int amount)
         {
-            _resourceIconsController.SetSkillIconView(amount, _resourceChargeIcon, null);
+            _resourceIconsController.SetResourceIconView(amount, _resourceChargeIcon, null);
         }
 
         private FactionDeckSO SetCurrent(Faction faction) =>
@@ -76,11 +76,11 @@ namespace MythosAndHorrors.GameView
 
         private void SetSkillIcons(FactionDeckSO currentFaction)
         {
-            _skillIconsController.SetSkillIconView(Card.Info.Wild ?? 0, _skillWildIcon, currentFaction._skillHolder);
-            _skillIconsController.SetSkillIconView(Card.Info.Strength ?? 0, _skillStrengthIcon, currentFaction._skillHolder);
-            _skillIconsController.SetSkillIconView(Card.Info.Agility ?? 0, _skillAgilityIcon, currentFaction._skillHolder);
-            _skillIconsController.SetSkillIconView(Card.Info.Intelligence ?? 0, _skillIntelligenceIcon, currentFaction._skillHolder);
-            _skillIconsController.SetSkillIconView(Card.Info.Power ?? 0, _skillPowerIcon, currentFaction._skillHolder);
+            _skillIconsController.AddSkillIconView(Card.Info.Wild ?? 0, _skillWildIcon, currentFaction._skillHolder);
+            _skillIconsController.AddSkillIconView(Card.Info.Strength ?? 0, _skillStrengthIcon, currentFaction._skillHolder);
+            _skillIconsController.AddSkillIconView(Card.Info.Agility ?? 0, _skillAgilityIcon, currentFaction._skillHolder);
+            _skillIconsController.AddSkillIconView(Card.Info.Intelligence ?? 0, _skillIntelligenceIcon, currentFaction._skillHolder);
+            _skillIconsController.AddSkillIconView(Card.Info.Power ?? 0, _skillPowerIcon, currentFaction._skillHolder);
         }
 
         private void SetRenderers(FactionDeckSO currentFaction)

@@ -1,13 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardCondition : Card, IPlayableFromHand
+    public class CardCondition : Card, IStartReactionable
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Stat ResourceCost { get; private set; }
         public Stat TurnsCost { get; private set; }
@@ -16,7 +18,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
@@ -24,16 +25,37 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public bool CanPlayFromHand()
+        async Task IStartReactionable.WhenBegin(GameAction gameAction)
         {
-            if (!Owner.HandZone.Cards.Contains(this)) return false;
-            if (Owner.Resources.Value < ResourceCost.Value) return false;
-            if (Owner.Turns.Value < TurnsCost.Value) return false;
+            CheckPlayFromHand(gameAction);
+            await Task.CompletedTask;
+        }
+
+        /*************************** PLAY FROM HAND *********************************/
+        protected void CheckPlayFromHand(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(this)
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetCanPlay(CanPlayFromHand)
+                .SetLogic(PlayFromHand)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PlayFromHand));
+        }
+
+        protected bool CanPlayFromHand()
+        {
+            if (_investigatorProvider.ActiveInvestigator.HandZone != CurrentZone) return false;
+            if (_investigatorProvider.ActiveInvestigator.Resources.Value < ResourceCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < TurnsCost.Value) return false;
             return true;
         }
 
-        public async Task PlayFromHand()
+        protected async Task PlayFromHand()
         {
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, TurnsCost.Value));
+            await _gameActionFactory.Create(new PayResourceGameAction(_investigatorProvider.ActiveInvestigator, ResourceCost.Value));
             await _gameActionFactory.Create(new DiscardGameAction(this));
         }
     }

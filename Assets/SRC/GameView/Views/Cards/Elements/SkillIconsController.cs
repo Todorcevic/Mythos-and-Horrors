@@ -11,15 +11,20 @@ namespace MythosAndHorrors.GameView
         private int totalIcons;
 
         /*******************************************************************/
-        public void SetSkillIconView(int amount, Sprite icon, Sprite holder)
+        public void AddSkillIconView(int amount, Sprite icon, Sprite holder)
         {
-            ClearAll();
             for (int i = 0; i < amount; i++)
             {
                 SkillIconView skillIconInstantiate = Instantiate(_skillIconPrefab, transform);
                 skillIconInstantiate.SetSkillIcon(icon, holder);
                 skillIconInstantiate.transform.localPosition += new Vector3(0, 0, totalIcons++ * Z_OFFSET);
             }
+        }
+
+        public void SetResourceIconView(int amount, Sprite icon, Sprite holder)
+        {
+            ClearAll();
+            AddSkillIconView(amount, icon, holder);
         }
 
         private void ClearAll()
