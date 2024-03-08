@@ -43,8 +43,9 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public void SetCurrentZoneView(ZoneView zoneView)
+        public void SetInitialCurrentZoneView(ZoneView zoneView)
         {
+            zoneView.Zone.AddCard(Card);
             CurrentZoneView = zoneView;
             transform.SetParent(zoneView.transform);
         }

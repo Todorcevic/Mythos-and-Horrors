@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform);
             newCardview.Init(card);
             newCardview.Off();
-            newCardview.SetCurrentZoneView(_zoneViewManager.OutZone);
+            newCardview.SetInitialCurrentZoneView(_zoneViewManager.OutZone);
             _cardViewsManager.AddCardView(newCardview);
             return newCardview;
         }

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator MoveToPlaceTest()
+        public IEnumerator ActivateCardGameActionTest()
         {
             _prepareGameUseCase.Execute();
             CardSupply aidCard = _cardsProvider.GetCard<CardSupply>("01535");
@@ -29,6 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.Second.AidZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(aidCard).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Second.AvatarCard).AsTask();
             yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Second)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

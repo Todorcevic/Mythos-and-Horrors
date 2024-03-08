@@ -1,39 +1,60 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01535 : CardSupply, IActivable
+    public class Card01535 : CardSupply
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
-        public Stat ActivationTurnsCost { get; private set; }
+        public Stat HealthActivationTurnsCost { get; private set; }
         public Effect ActivateEffect { get; private set; }
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            ActivationTurnsCost = new Stat(1);
+            HealthActivationTurnsCost = new Stat(1);
         }
 
         /*******************************************************************/
-        bool IActivable.CanActivate()
+        public override async Task WhenBegin(GameAction gameAction)
         {
-            if (!Owner.AidZone.Cards.Contains(this)) return false;
-            if (Owner.Turns.Value < ActivationTurnsCost.Value) return false;
-            if (_investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace).Count < 1) return false;
+            await base.WhenBegin(gameAction);
+            CheckHealthActivation(gameAction);
+        }
+
+        /************************ HEALTH ACTIVATION ******************************/
+        protected void CheckHealthActivation(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(this)
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetCanPlay(CanHealthActivation)
+                .SetLogic(HealthActivation)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(HealthActivation));
+        }
+
+        protected bool CanHealthActivation()
+        {
+            if (_investigatorProvider.ActiveInvestigator.AidZone != CurrentZone) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < HealthActivationTurnsCost.Value) return false;
             return true;
         }
 
-        async Task IActivable.Activate()
+        protected async Task HealthActivation()
         {
-            //ChooseInvestigatorGameAction chooseInvestigatorGA =
-            //    await _gameActionFactory.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)));
-            await _gameActionFactory.Create(new IncrementStatGameAction(Owner.Health, 1));
+            ChooseInvestigatorGameAction chooseInvestigatorGA =
+                    await _gameActionFactory.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsInThisPlace(_investigatorProvider.ActiveInvestigator.CurrentPlace)));
+            if (!chooseInvestigatorGA.InvestigatorSelected.CanBeHealed) return;
+            await _gameActionFactory.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
         }
     }
 }

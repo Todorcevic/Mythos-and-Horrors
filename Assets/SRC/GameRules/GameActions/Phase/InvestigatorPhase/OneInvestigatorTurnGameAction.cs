@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -27,7 +25,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             PreparePassEffect();
-            CheckIfCanActivate();
             await _gameActionFactory.Create(new InteractableGameAction());
         }
 
@@ -44,29 +41,6 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task PassTurn() =>
                 await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.Value));
-        }
-
-        private void CheckIfCanActivate()
-        {
-            foreach (IActivable activableCard in _cardsProvider.AllCards.OfType<IActivable>())
-            {
-                if (activableCard.CanActivate())
-                {
-                    _effectProvider.Create()
-                        .SetCard(activableCard as Card)
-                        .SetInvestigator(ActiveInvestigator)
-                        .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(activableCard.Activate))
-                        .SetCanPlay(() => activableCard.CanActivate())
-                        .SetLogic(ActivateCard);
-                }
-
-                /*******************************************************************/
-                async Task ActivateCard()
-                {
-                    await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, activableCard.ActivationTurnsCost.Value));
-                    await activableCard.Activate();
-                }
-            }
         }
     }
 }

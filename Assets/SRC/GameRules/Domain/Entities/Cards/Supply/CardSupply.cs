@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = new Stat(Info.Sanity ?? 0, Info.Sanity ?? 0);
         }
         /*******************************************************************/
-        async Task IStartReactionable.WhenBegin(GameAction gameAction)
+        public virtual async Task WhenBegin(GameAction gameAction)
         {
             CheckPlayFromHand(gameAction);
             await Task.CompletedTask;
