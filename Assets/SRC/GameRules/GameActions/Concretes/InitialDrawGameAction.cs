@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InitialDrawGameAction : GameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Investigator Investigator { get; }
 

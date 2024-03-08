@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01501 : CardInvestigator, IBuffable
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
+        [Inject] private readonly GameActionProvider _gameActionRepository;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 

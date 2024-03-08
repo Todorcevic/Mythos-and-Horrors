@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class GainResourceGameAction : GameAction
     {
         [Inject] private readonly IPresenter<GainResourceGameAction> _gainResourcePresenter;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         private readonly Stat _fromStat;
 

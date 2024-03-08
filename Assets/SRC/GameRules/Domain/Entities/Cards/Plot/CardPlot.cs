@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class CardPlot : Card, IEndReactionable, IRevellable
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }

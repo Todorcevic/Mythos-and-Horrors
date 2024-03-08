@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class DiscardGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Card Card { get; }
 

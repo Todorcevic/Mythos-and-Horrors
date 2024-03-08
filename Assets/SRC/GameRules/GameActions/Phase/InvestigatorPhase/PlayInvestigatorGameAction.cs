@@ -6,7 +6,8 @@ namespace MythosAndHorrors.GameRules
     public class PlayInvestigatorGameAction : PhaseGameAction //2.2	Next investigator's turn begins.
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT;
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT;
@@ -15,11 +16,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionFactory.Create(new ChooseInvestigatorGameAction());
+            ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionFactory.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStart));
+            ActiveInvestigator = chooseInvestigatorGA.InvestigatorSelected;
 
-            while (chooseInvestigatorGA.ActiveInvestigator.HasTurnsAvailable)
+            while (ActiveInvestigator.HasTurnsAvailable)
             {
-                await _gameActionFactory.Create(new OneInvestigatorTurnGameAction(chooseInvestigatorGA.ActiveInvestigator));
+                await _gameActionFactory.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
             }
         }
     }

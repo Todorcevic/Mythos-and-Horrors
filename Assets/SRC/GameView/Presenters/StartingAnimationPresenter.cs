@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<ChooseInvestigatorGameAction>.PlayAnimationWith(ChooseInvestigatorGameAction playEffectGA)
         {
-            await _moveCardHandler.ReturnCard(playEffectGA.ActiveInvestigator.AvatarCard);
+            await _moveCardHandler.ReturnCard(playEffectGA.InvestigatorSelected.AvatarCard);
         }
 
         async Task IPresenter<InvestigateGameAction>.PlayAnimationWith(InvestigateGameAction playEffectGA)

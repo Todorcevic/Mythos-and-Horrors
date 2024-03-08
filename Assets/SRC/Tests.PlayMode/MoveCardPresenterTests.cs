@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
 

@@ -54,21 +54,9 @@ namespace MythosAndHorrors.GameView
         {
             string gameRulesNameSpace = typeof(Card).Namespace;
 
-            /*** Actions ***/
-            Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameRulesNameSpace).WithSuffix("Action")).AsTransient();
-
-            /*** Services ***/
-            Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameRulesNameSpace).WithSuffix("Service")).AsSingle();
-
             /*** Providers ***/
             Container.Bind(x => x.AllNonAbstractClasses()
             .InNamespace(gameRulesNameSpace).WithSuffix("Provider")).AsSingle();
-
-            /*** Factories ***/
-            Container.Bind(x => x.AllNonAbstractClasses()
-            .InNamespace(gameRulesNameSpace).WithSuffix("Factory")).AsSingle();
         }
 
         private void InstallSingle()

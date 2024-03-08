@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class AvatarTest : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;

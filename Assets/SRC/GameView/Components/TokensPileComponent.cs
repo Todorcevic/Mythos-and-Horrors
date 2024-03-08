@@ -20,8 +20,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
-        public IEffectable Resources => _chaptersProvider.CurrentScene;
-        List<Effect> IPlayable.EffectsSelected => Resources.PlayableEffects;
+        private Effect TakeResourceEffect => _chaptersProvider.CurrentScene.TakeResourceEffect;
+        List<Effect> IPlayable.EffectsSelected => TakeResourceEffect == null ? new() { } : new() { TakeResourceEffect };
 
         /*******************************************************************/
         Transform IStatableView.StatTransform => _showToken;
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void ActivateToClick()
         {
-            if (_isClickable || !Resources.CanBePlayed) return;
+            if (_isClickable || !((IPlayable)this).CanBePlayed) return;
             _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION);
             _isClickable = true;
         }
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Tween MoveToShowSelector(Transform scenePoint)
         {
-            if (!Resources.CanBePlayed) return DOTween.Sequence();
+            if (!((IPlayable)this).CanBePlayed) return DOTween.Sequence();
             return DOTween.Sequence()
                     .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                     .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))

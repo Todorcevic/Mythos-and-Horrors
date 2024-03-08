@@ -5,27 +5,53 @@ namespace MythosAndHorrors.GameRules
 {
     public record Effect : IViewEffect
     {
-        private static readonly Effect _nullEffect = new(null, null, "Null Effect", () => true, () => Task.CompletedTask);
-        public static Effect ContinueEffect => _nullEffect;
-
-        public IEffectable Effectable { get; init; }
-        public Investigator Investigator { get; init; }
-        public Investigator InvestigatorAffected { get; init; }
+        private Investigator _investigator;
+        private Investigator _investigatorAffected;
+        public Card CardAffected { get; private set; }
         public Func<bool> CanPlay { get; private set; }
-        public Func<Task> Logic { get; init; }
-        public string CardCode => Investigator?.Code;
-        public string Description { get; init; }
-        public string CardCodeSecundary => InvestigatorAffected?.Code;
+        public Func<Task> Logic { get; private set; }
+        public string CardCode => _investigator?.Code;
+        public string Description { get; private set; }
+        public string CardCodeSecundary => _investigatorAffected?.Code;
 
         /*******************************************************************/
-        public Effect(IEffectable effectable, Investigator investigator, string description, Func<bool> canPlay, Func<Task> logic, Investigator investigatorAffected = null)
+        private Effect() { } //EffectProvider creates this object
+
+        /*******************************************************************/
+        public Effect SetCard(Card cardAffected)
         {
-            Effectable = effectable;
-            Investigator = investigator;
-            InvestigatorAffected = investigatorAffected;
+            CardAffected = cardAffected;
+            return this;
+        }
+
+        public Effect SetInvestigator(Investigator investigator)
+        {
+            _investigator = investigator;
+            return this;
+        }
+
+        public Effect SetInvestigatorAffected(Investigator investigatorAffected)
+        {
+            _investigatorAffected = investigatorAffected;
+            return this;
+        }
+
+        public Effect SetCanPlay(Func<bool> canPlay)
+        {
             CanPlay = canPlay;
+            return this;
+        }
+
+        public Effect SetLogic(Func<Task> logic)
+        {
             Logic = logic;
+            return this;
+        }
+
+        public Effect SetDescription(string description)
+        {
             Description = description;
+            return this;
         }
     }
 }

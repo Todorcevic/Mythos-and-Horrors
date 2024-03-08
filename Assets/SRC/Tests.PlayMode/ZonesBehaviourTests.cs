@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
 

@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardSupply : Card, IPlayableFromHand
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Stat ResourceCost { get; private set; }
         public Stat TurnsCost { get; private set; }

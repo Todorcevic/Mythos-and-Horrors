@@ -86,5 +86,17 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
         }
+
+        [Inject] private readonly TokensPileComponent tokensPileComponent;
+        protected IEnumerator WaitToTokenClick()
+        {
+            float timeout = 1f;
+            float startTime = Time.realtimeSinceStartup;
+
+            while (Time.realtimeSinceStartup - startTime < timeout && !tokensPileComponent.GetPrivateMember<bool>("_isClickable")) yield return null;
+
+            if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
+            else throw new TimeoutException($"Tokenpile Not become clickable");
+        }
     }
 }

@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using UnityEditor.Networking.PlayerConnection;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardPlace : Card, IEndReactionable, IRevellable
+    public class CardPlace : Card, IEndReactionable, IStartReactionable, IRevellable
     {
         private List<CardPlace> _connectedPlacesToMove;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
@@ -24,7 +29,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
             Hints = new Stat(Info.Hints ?? 0);
@@ -41,8 +45,15 @@ namespace MythosAndHorrors.GameRules
             await MustReveal.Check(gameAction);
         }
 
-        /************************** REACTIONS *****************************/
-        private bool CheckIfMustReveal(GameAction gameAction)
+        public virtual async Task WhenBegin(GameAction gameAction)
+        {
+            CheckInvestigate(gameAction);
+            CheckMove(gameAction);
+            await Task.CompletedTask;
+        }
+
+        /************************** REVEAL *****************************/
+        protected bool CheckIfMustReveal(GameAction gameAction)
         {
             if (gameAction is not MoveCardsGameAction) return false;
             if (Revealed.IsActive) return false;
@@ -50,14 +61,62 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task Reveal() => await _gameActionFactory.Create(new RevealGameAction(this));
+        protected async Task Reveal() => await _gameActionFactory.Create(new RevealGameAction(this));
 
-        /************************** CONDITIONS *****************************/
-        public virtual bool CanMoveWithThis(Investigator investigator)
+        /************************** INVESTIGATE *****************************/
+        protected void CheckInvestigate(GameAction gameAction)
         {
-            if (!ConnectedPlacesFromMove.Contains(investigator.CurrentPlace)) return false;
-            if (investigator.Turns.Value < MoveCost.Value) return false;
+            if (gameAction is not InteractableGameAction interactableGA) return;
+            if (interactableGA.Parent is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(this)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Investigate))
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetCanPlay(CanInvestigate)
+                .SetLogic(Investigate);
+        }
+
+        protected bool CanInvestigate()
+        {
+            if (_investigatorProvider.ActiveInvestigator.CurrentPlace != this) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return false;
             return true;
+        }
+
+        protected async Task Investigate()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigationCost.Value));
+            await _gameActionFactory.Create(new InvestigateGameAction(_investigatorProvider.ActiveInvestigator, this));
+        }
+
+
+        /************************** Move *****************************/
+        protected void CheckMove(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(this)
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Move))
+                .SetCanPlay(CanMove)
+                .SetLogic(Move);
+        }
+
+        protected virtual bool CanMove()
+        {
+            if (_investigatorProvider.ActiveInvestigator.CurrentPlace == null) return false;
+            if (!ConnectedPlacesFromMove.Contains(_investigatorProvider.ActiveInvestigator.CurrentPlace)) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < MoveCost.Value) return false;
+
+            return true;
+        }
+
+        protected async Task Move()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveCost.Value));
+            await _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
     }
 }

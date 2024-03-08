@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class PayHintGameAction : GameAction
     {
         [Inject] private readonly IPresenter<PayHintGameAction> _payHintPresenter;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Investigator Investigator { get; }
         public Stat ToStat { get; }

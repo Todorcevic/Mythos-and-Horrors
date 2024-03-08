@@ -1,10 +1,15 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardInvestigator : Card
+    public class CardInvestigator : Card, IStartReactionable
     {
+        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
+
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat Strength { get; private set; }
@@ -18,9 +23,10 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; private set; }
         public Stat Turns { get; private set; }
 
+        public Stat DrawTurnsCost { get; private set; }
+
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
             Health = new Stat(Info.Health ?? 0, Info.Health ?? 0);
@@ -35,6 +41,8 @@ namespace MythosAndHorrors.GameRules
             Resources = new Stat(0);
             Hints = new Stat(0);
             Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
+            DrawTurnsCost = new Stat(1);
+
         }
 
         public bool HasThisStat(Stat stat)
@@ -51,6 +59,39 @@ namespace MythosAndHorrors.GameRules
                 || stat == Resources
                 || stat == Hints
                 || stat == Turns;
+        }
+
+        async Task IStartReactionable.WhenBegin(GameAction gameAction)
+        {
+            CheckDraw(gameAction);
+            await Task.CompletedTask;
+        }
+
+        /************************** DRAW *****************************/
+        protected void CheckDraw(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(Owner.CardToDraw)
+                .SetInvestigator(Owner)
+                .SetCanPlay(CanDraw)
+                .SetLogic(Draw)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw));
+        }
+
+        protected bool CanDraw()
+        {
+            if (_investigatorProvider.ActiveInvestigator != Owner) return false;
+            if (Owner.Turns.Value < DrawTurnsCost.Value) return false;
+
+            return true;
+        }
+
+        protected async Task Draw()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(Owner.Turns, DrawTurnsCost.Value));
+            await _gameActionFactory.Create(new DrawGameAction(Owner));
         }
     }
 }

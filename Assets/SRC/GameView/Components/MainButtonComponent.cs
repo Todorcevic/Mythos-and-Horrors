@@ -11,8 +11,8 @@ namespace MythosAndHorrors.GameView
     public class MainButtonComponent : MonoBehaviour, IPlayable
     {
         private const float OFFSET = 1f;
-        Effect _effect;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly EffectsProvider _effectsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
@@ -21,19 +21,14 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _deactivateColor;
 
         private bool IsActivated => _collider.enabled;
-
-        List<Effect> IPlayable.EffectsSelected => new() { _effect };
+        private Effect MainButtonEffect => _effectsProvider.MainButtonEffect;
+        List<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? new() { } : new() { MainButtonEffect };
 
         /*******************************************************************/
-        public void SetButton(Effect effect)
-        {
-            _message.text = effect?.Description;
-            _effect = effect;
-        }
-
         public void ActivateToClick()
         {
             if (IsActivated) return;
+            _message.text = MainButtonEffect?.Description;
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION);
@@ -74,29 +69,10 @@ namespace MythosAndHorrors.GameView
             .SetEase(Ease.InSine);
 
         /*******************************************************************/
-        public void OnMouseEnter()
-        {
-            _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public void OnMouseEnter() => _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
 
-        public void OnMouseExit()
-        {
-            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
-        }
+        public void OnMouseExit() => _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
 
-        public void OnMouseUpAsButton()
-        {
-            _clickHandler.Clicked(this);
-        }
-
-        //void IPlayable.ActivateToClick()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //void IPlayable.DeactivateToClick()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
+        public void OnMouseUpAsButton() => _clickHandler.Clicked(this);
     }
 }

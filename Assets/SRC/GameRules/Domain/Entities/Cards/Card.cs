@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card : IEffectable
+    public class Card
     {
         [Inject] private readonly CardInfo _info;
         [InjectOptional] private readonly CardExtraInfo _extraInfo;
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
-        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
+        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
 
         /*******************************************************************/

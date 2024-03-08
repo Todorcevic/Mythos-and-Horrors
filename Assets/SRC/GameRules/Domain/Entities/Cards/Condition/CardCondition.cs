@@ -6,7 +6,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardCondition : Card, IPlayableFromHand
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat ResourceCost { get; private set; }
         public Stat TurnsCost { get; private set; }

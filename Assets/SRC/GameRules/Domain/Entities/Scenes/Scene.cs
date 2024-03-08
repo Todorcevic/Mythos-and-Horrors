@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class Scene : IEffectable
+    public abstract class Scene : IStartReactionable
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -25,11 +26,10 @@ namespace MythosAndHorrors.GameRules
         /************************** RESOURCES *****************************/
         public Stat ResourceCost { get; private set; }
         public Stat PileAmount { get; private set; }
-        List<Effect> IEffectable.PlayableEffects => _effectProvider.GetEffectForThisEffectable(this);
+        public Effect TakeResourceEffect => _effectProvider.GetSpecificEffect(TakeResource);
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
             DangerDeckZone = _zonesProvider.Create();
@@ -68,6 +68,37 @@ namespace MythosAndHorrors.GameRules
                 || zone == LimboZone
                 || zone == OutZone
                 || PlaceZone.Cast<Zone>().Contains(zone);
+        }
+
+        public virtual async Task WhenBegin(GameAction gameAction)
+        {
+            CheckTakeResource(gameAction);
+            await Task.CompletedTask;
+        }
+
+        /************************** TAKE RESOURCE *****************************/
+        protected void CheckTakeResource(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+               .SetCard(null)
+               .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource))
+               .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+               .SetCanPlay(CanTakeResource)
+               .SetLogic(TakeResource);
+        }
+
+        protected bool CanTakeResource()
+        {
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < ResourceCost.Value) return false;
+            return true;
+        }
+
+        protected async Task TakeResource()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, ResourceCost.Value));
+            await _gameActionFactory.Create(new GainResourceGameAction(_investigatorProvider.ActiveInvestigator, 1));
         }
     }
 }

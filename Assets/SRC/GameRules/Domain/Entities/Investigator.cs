@@ -42,6 +42,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public bool CanInvestigate => CurrentPlace.InvestigationCost.Value <= Turns.Value;
         public Card CardToDraw => DeckZone.Cards.LastOrDefault();
+        public bool CanBeHealed => Health.Value < Health.MaxValue;
 
         /*******************************************************************/
         [Inject]

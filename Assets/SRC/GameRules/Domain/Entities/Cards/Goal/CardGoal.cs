@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardGoal : Card, IEndReactionable, IRevellable
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public Stat Hints { get; private set; }

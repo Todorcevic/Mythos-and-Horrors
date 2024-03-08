@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class SceneCORE1 : Scene
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 

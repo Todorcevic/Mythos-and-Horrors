@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
     {
         [InjectOptional] private readonly bool _mustBeLoaded = true;
         [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;

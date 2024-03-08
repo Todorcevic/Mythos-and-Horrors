@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardExample : CardInvestigator, IBuffable
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
+        [Inject] private readonly GameActionProvider _gameActionRepository;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         string IViewEffect.CardCode => Info.Code;

@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01097 : CardAdversity, IEndReactionable, IWeakness
     {
-        [Inject] private readonly GameActionFactory _gameActionRepository;
+        [Inject] private readonly GameActionProvider _gameActionRepository;
 
         /*******************************************************************/
         public async Task WhenFinish(GameAction gameAction)

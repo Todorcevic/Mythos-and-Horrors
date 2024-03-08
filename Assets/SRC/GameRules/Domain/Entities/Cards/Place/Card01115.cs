@@ -2,24 +2,10 @@
 {
     public class Card01115 : CardPlace
     {
-        public override bool CanMoveWithThis(Investigator investigator)
+        protected override bool CanMove()
         {
             if (!Revealed.IsActive) return false;
-            return base.CanMoveWithThis(investigator);
+            return base.CanMove();
         }
-
-        //async Task IStartReactionable.WhenBegin(GameAction gameAction)
-        //{
-        //    if (gameAction is InteractableGameAction interactableGA)
-        //    {
-        //        if (interactableGA.Parent is OneInvestigatorTurnGameAction oneInvestigatorGA)
-        //        {
-        //            Effect effectToModify = oneInvestigatorGA.MoveToPlaceEffects.Find(e => e.Card == this);
-        //            effectToModify.ConcatCondition(() => Revealed.IsActive);
-        //        }
-        //    }
-
-        //    await Task.CompletedTask;
-        //}
     }
 }

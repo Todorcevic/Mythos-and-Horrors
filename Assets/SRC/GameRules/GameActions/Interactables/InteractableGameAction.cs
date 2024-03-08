@@ -7,18 +7,11 @@ namespace MythosAndHorrors.GameRules
     {
         private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
 
-        public bool IsManadatary => ButtonEffect == null;
-        public Effect ButtonEffect { get; private set; }
-
-        /*******************************************************************/
-        public InteractableGameAction(Effect buttonEffect = null)
-        {
-            ButtonEffect = buttonEffect;
-        }
+        public bool IsManadatary => _effectProvider.MainButtonEffect == null;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

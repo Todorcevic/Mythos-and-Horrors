@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsProvider
     {
-        [Inject] GameActionFactory _gameActionFactory;
+        [Inject] GameActionProvider _gameActionFactory;
 
         private readonly List<Investigator> _investigator = new();
 
@@ -36,6 +36,11 @@ namespace MythosAndHorrors.GameRules
         public Investigator GetInvestigatorWithThisStat(Stat stat)
             => _investigator.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
 
+        public List<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
+            => _investigator.FindAll(investigator => investigator.CurrentPlace == cardPlace);
+
         public List<Investigator> GetInvestigatorsCanStart => _investigator.FindAll(investigator => investigator.HasTurnsAvailable);
+        public List<Investigator> GetInvestigatorsCanInvestigate => _investigator.FindAll(investigator => investigator.CanInvestigate);
+        public List<Investigator> GetInvestigatorsCanBeHealed => _investigator.FindAll(investigator => investigator.CanBeHealed);
     }
 }

@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class PrepareInvestigatorGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public override Phase MainPhase => Phase.Prepare;

@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveToPlaceGameAction : GameAction
     {
-        [Inject] private readonly GameActionFactory _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Investigator Investigator { get; }
         public CardPlace CardPlace { get; }

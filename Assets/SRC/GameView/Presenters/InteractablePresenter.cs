@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
@@ -27,7 +26,6 @@ namespace MythosAndHorrors.GameView
         private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
-            _mainButtonComponent.SetButton(interactableGameAction.ButtonEffect);
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
             _showCardHandler.ActiavatePlayables();
 
@@ -43,8 +41,5 @@ namespace MythosAndHorrors.GameView
             }
             return playableChoose.EffectsSelected.FirstOrDefault();
         }
-
-        private bool MainButtonIsPressed(Effect effect) => effect == Effect.ContinueEffect;
-
     }
 }
