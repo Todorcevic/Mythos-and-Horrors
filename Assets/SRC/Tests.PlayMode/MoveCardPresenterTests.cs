@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.Leader;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards[0];
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
-            WaitToClickHistoryPanel().AsTask();
+            WaitToHistoryPanelClick().AsTask();
 
             yield return _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorsProvider.Leader, cardPlace)).AsCoroutine();
 

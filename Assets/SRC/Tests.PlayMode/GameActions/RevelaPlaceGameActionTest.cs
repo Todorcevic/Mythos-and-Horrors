@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
             yield return _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 

@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _gameActionFactory.Create(new UpdateStatGameAction(investigator.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine());
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToClickHistoryPanel().AsTask();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
             List<Card> allAvatars = _investigatorsProvider.AllInvestigators
                .Select(investigator => investigator.AvatarCard).Cast<Card>().ToList();

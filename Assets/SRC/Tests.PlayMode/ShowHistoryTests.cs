@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Image = "01105",
             };
 
-            WaitToClickHistoryPanel().AsTask();
+            WaitToHistoryPanelClick().AsTask();
 
             do
             {
