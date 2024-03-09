@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        public Effect FightEffect => _effectProvider.GetSpecificEffect(Fight);
+        public Effect AttackEffect => _effectProvider.GetSpecificEffect(InvestigatorAttack);
 
         /*******************************************************************/
         [Inject]
@@ -41,31 +41,31 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual Task WhenBegin(GameAction gameAction)
         {
-            CheckFigth(gameAction);
+            CheckInvestigatorAttack(gameAction);
             return Task.CompletedTask;
         }
 
-        /************************** FIGHT *****************************/
-        protected void CheckFigth(GameAction gameAction)
+        /************************** INVESTIGATOR ATTACK *****************************/
+        protected void CheckInvestigatorAttack(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
 
             _effectProvider.Create()
                 .SetCard(this)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Fight))
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorAttack))
                 .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-                .SetCanPlay(CanFight)
-                .SetLogic(Fight);
+                .SetCanPlay(CanInvestigatorAttack)
+                .SetLogic(InvestigatorAttack);
         }
 
-        protected bool CanFight()
+        protected bool CanInvestigatorAttack()
         {
             if (_investigatorProvider.ActiveInvestigator.Turns.Value < FightTurnsCost.Value) return false;
             if (_investigatorProvider.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
             return true;
         }
 
-        protected async Task Fight()
+        protected async Task InvestigatorAttack()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, FightTurnsCost.Value));
             await _gameActionFactory.Create(new DecrementStatGameAction(Health, 1));

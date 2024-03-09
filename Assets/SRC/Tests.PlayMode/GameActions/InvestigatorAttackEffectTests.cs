@@ -9,7 +9,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class FightGameActionTests : TestBase
+    public class InvestigatorAttackEffectTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator FightInDangerZoneTest()
+        public IEnumerator InvestigatorAttackInDangerZoneTest()
         {
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator FightInPlaceZoneTest()
+        public IEnumerator InvestigatorAttackInPlaceZoneTest()
         {
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator CantFightTest()
+        public IEnumerator CantInvestigatorAttackTest()
         {
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _ = _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(!creature.FightEffect.CanPlay.Invoke());
+            Assert.That(!creature.AttackEffect.CanPlay.Invoke());
         }
     }
 }
