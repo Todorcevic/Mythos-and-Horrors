@@ -28,8 +28,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, _investigatorsProvider.Leader.DangerZone)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(creature).AsTask();
-            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
+            _ = _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
+            if (!DEBUG_MODE) yield return WaitToClick(creature);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(creature.AttackEffect);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
@@ -47,8 +48,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(creature).AsTask();
-            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
+            _ = _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
+            if (!DEBUG_MODE) yield return WaitToClick(creature);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(creature.AttackEffect);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));

@@ -15,7 +15,8 @@ namespace MythosAndHorrors.GameRules
         public Stat Strength { get; private set; }
         public Stat Agility { get; private set; }
         public Stat InvestigatorAttackTurnsCost { get; private set; }
-        public Stat ConfronTurnsCost { get; private set; }
+        public Stat InvestigatorConfronTurnsCost { get; private set; }
+        public Stat EludeTurnsCost { get; private set; }
 
         /*******************************************************************/
         public int TotalEnemyHits => (Info.EnemyDamage ?? 0) + (Info.EnemyFear ?? 0);
@@ -31,7 +32,8 @@ namespace MythosAndHorrors.GameRules
 
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(CurrentZone) as CardPlace ?? ConfrontedInvestigator?.CurrentPlace;
         public Effect AttackEffect => _effectProvider.GetSpecificEffect(InvestigatorAttack);
-        public Effect ConfrontEffect => _effectProvider.GetSpecificEffect(Confront);
+        public Effect ConfrontEffect => _effectProvider.GetSpecificEffect(InvestigatorConfront);
+        public Effect EludeEffect => _effectProvider.GetSpecificEffect(Elude);
 
         /*******************************************************************/
         [Inject]
@@ -41,14 +43,16 @@ namespace MythosAndHorrors.GameRules
             Strength = new Stat(Info.Strength ?? 0);
             Agility = new Stat(Info.Agility ?? 0);
             InvestigatorAttackTurnsCost = new Stat(1, 1);
-            ConfronTurnsCost = new Stat(1, 1);
+            InvestigatorConfronTurnsCost = new Stat(1, 1);
+            EludeTurnsCost = new Stat(1, 1);
         }
 
         /*******************************************************************/
         public virtual Task WhenBegin(GameAction gameAction)
         {
             CheckInvestigatorAttack(gameAction);
-            CheckConfront(gameAction);
+            CheckInvestigatorConfront(gameAction);
+            CheckElude(gameAction);
             return Task.CompletedTask;
         }
 
@@ -78,31 +82,58 @@ namespace MythosAndHorrors.GameRules
             await _gameActionFactory.Create(new DecrementStatGameAction(Health, 1));
         }
 
-        /************************** CONFRONT *****************************/
-        protected void CheckConfront(GameAction gameAction)
+        /************************** INVESTIGATOR CONFRONT *****************************/
+        protected void CheckInvestigatorConfront(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
 
             _effectProvider.Create()
                 .SetCard(this)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Confront))
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorConfront))
                 .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-                .SetCanPlay(CanConfront)
-                .SetLogic(Confront);
+                .SetCanPlay(CanInvestigatorConfront)
+                .SetLogic(InvestigatorConfront);
         }
 
-        protected bool CanConfront()
+        protected bool CanInvestigatorConfront()
         {
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < ConfronTurnsCost.Value) return false;
-            if (_investigatorProvider.ActiveInvestigator == ConfrontedInvestigator) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < InvestigatorConfronTurnsCost.Value) return false;
             if (_investigatorProvider.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
+            if (_investigatorProvider.ActiveInvestigator == ConfrontedInvestigator) return false;
             return true;
         }
 
-        protected async Task Confront()
+        protected async Task InvestigatorConfront()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, ConfronTurnsCost.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigatorConfronTurnsCost.Value));
             await _gameActionFactory.Create(new MoveCardsGameAction(this, _investigatorProvider.ActiveInvestigator.DangerZone));
+        }
+
+        /************************** ELUDE *****************************/
+        protected void CheckElude(GameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+
+            _effectProvider.Create()
+                .SetCard(this)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorConfront))
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetCanPlay(CanElude)
+                .SetLogic(Elude);
+        }
+
+        protected bool CanElude()
+        {
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < EludeTurnsCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator != ConfrontedInvestigator) return false;
+            return true;
+        }
+
+        protected async Task Elude()
+        {
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigatorConfronTurnsCost.Value));
+            Exausted.UpdateValueTo(true); //TODO : Create Exaust gameaction   
+            await _gameActionFactory.Create(new MoveCardsGameAction(this, _investigatorProvider.ActiveInvestigator.CurrentPlace.OwnZone));
         }
     }
 }

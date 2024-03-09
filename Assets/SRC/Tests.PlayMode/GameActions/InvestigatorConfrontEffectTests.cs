@@ -9,7 +9,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ConfrontEffectTests : TestBase
+    public class InvestigatorConfrontEffectTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator ConfrontTest()
+        public IEnumerator InvestigatorConfrontTest()
         {
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
@@ -32,9 +32,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(creature).AsTask();
-            if (!DEBUG_MODE) WaitToCloneClick(creature.ConfrontEffect).AsTask();
-            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
+            _ = _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
+            if (!DEBUG_MODE) yield return WaitToClick(creature);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(creature.ConfrontEffect);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.Leader.DangerZone));

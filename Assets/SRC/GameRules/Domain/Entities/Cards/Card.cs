@@ -14,9 +14,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly EffectsProvider _effectProvider;
 
         public State FaceDown { get; private set; }
+        public State Exausted { get; private set; }
         public Zone OwnZone { get; private set; }
         public List<IBuffable> Buffs { get; private set; } = new();
 
+        /*******************************************************************/
         public virtual CardInfo Info => _info;
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count > 0;
@@ -31,6 +33,7 @@ namespace MythosAndHorrors.GameRules
         {
             OwnZone = _zonesProvider.Create();
             FaceDown = new State(false);
+            Exausted = new State(false);
         }
 
         /*******************************************************************/
@@ -50,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
         public void TurnDown(bool toFaceDown)
         {
-            FaceDown.UpdateValue(toFaceDown);
+            FaceDown.UpdateValueTo(toFaceDown);
         }
     }
 }

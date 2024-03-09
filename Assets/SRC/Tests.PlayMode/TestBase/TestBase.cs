@@ -4,7 +4,6 @@ using MythosAndHorrors.GameView;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -74,6 +73,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (historyButton.interactable) historyButton.onClick.Invoke();
             else throw new TimeoutException("History Button Not become clickable");
+            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
         }
 
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -87,24 +87,26 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
+            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
         }
 
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
-        List<IPlayable> Clones => _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones");
         protected IEnumerator WaitToCloneClick(Effect effect)
         {
             float timeout = 1f;
             float startTime = Time.realtimeSinceStartup;
 
-            while (Clones == null) yield return null;
+            while (_multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
 
-            CardView cardView = Clones.Find(playable => playable.EffectsSelected.Contains(effect)) as CardView;
+            List<IPlayable> clones = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones");
+            CardView cardView = clones.Find(playable => playable.EffectsSelected.Contains(effect)) as CardView;
             CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
 
             while (Time.realtimeSinceStartup - startTime < timeout && !cardSensor.IsClickable) yield return null;
 
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Clone with Effect: {effect.Description} Not become clickable");
+            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
         }
 
         [Inject] private readonly TokensPileComponent tokensPileComponent;
@@ -117,6 +119,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
             else throw new TimeoutException($"Tokenpile Not become clickable");
+            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
         }
     }
 }

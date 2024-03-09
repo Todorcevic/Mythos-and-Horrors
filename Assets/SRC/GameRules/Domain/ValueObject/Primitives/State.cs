@@ -10,7 +10,8 @@
             IsActive = isActive;
         }
 
-        public void UpdateValue(bool isActive)
+        /*******************************************************************/
+        public void UpdateValueTo(bool isActive)
         {
             IsActive = isActive;
         }

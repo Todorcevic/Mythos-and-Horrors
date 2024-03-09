@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 objectType = objectType.BaseType;
             }
 
-            return (T)field?.GetValue(objectTarget) ?? throw new ArgumentException($"No private or public field named {memberName} of type {typeof(T).Name} found in {objectTarget.GetType().Name} or its base classes.");
+            return (T)field.GetValue(objectTarget);
         }
 
         public static IEnumerator AsCoroutine(this Task task)
