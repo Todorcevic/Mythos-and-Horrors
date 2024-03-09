@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,15 +21,16 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         private List<CardView> _cardViews = new();
 
+        private CardView OriginalCardView => _cardViews[0];
+        private List<CardView> CardViewsOrdered => _cardViews.OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count)
+            .ThenBy(cardView => cardView.DeckPosition).ToList();
         public bool IsShowing => _selectorBlockController.IsActivated;
         public bool IsMultiEffect => _cardViews.Count > 1 && _cardViews.All(cardView => cardView.Card == _cardViews[0].Card);
-        private CardView OriginalCardView => _cardViews[0];
 
         /*******************************************************************/
         public async Task ShowPlayables()
         {
-            _cardViews = _cardViewsManager.GetAllCanPlay()
-                .OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count).ThenBy(cardView => cardView.DeckPosition).ToList();
+            _cardViews = _cardViewsManager.GetAllCanPlay();
             await Animation();
         }
 
@@ -46,8 +48,7 @@ namespace MythosAndHorrors.GameView
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
-            _cardViews.Except(new CardView[] { exceptThis })
-                .OrderBy(cardView => cardView.DeckPosition).ToList()
+            CardViewsOrdered.Except(new CardView[] { exceptThis })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
@@ -63,12 +64,12 @@ namespace MythosAndHorrors.GameView
         public async Task ReturnClones()
         {
             await Shutdown();
-            List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
             Sequence returnClonesSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
-            clones.ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
-                 .OnComplete(() => Destroy(clone.gameObject))));
+            CardViewsOrdered.Except(new[] { OriginalCardView })
+                .ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
+                    .OnComplete(() => Destroy(clone.gameObject))));
             await returnClonesSequence.AsyncWaitForCompletion()
                 .Join(_moveCardHandler.MoveCardWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)));
             _cardViews.Clear();
@@ -77,15 +78,13 @@ namespace MythosAndHorrors.GameView
         public async Task DestroyClones(CardView cardViewSelected)
         {
             await Shutdown();
-            List<CardView> clones = _cardViews.Except(new[] { OriginalCardView }).OrderBy(cardView => cardView.DeckPosition).ToList();
-
             (OriginalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, OriginalCardView.transform.position);
-
             Sequence sequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
-            clones.ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
-                 .OnComplete(() => Destroy(clone.gameObject)));
+            CardViewsOrdered.Except(new[] { OriginalCardView })
+                .ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
+                    .OnComplete(() => Destroy(clone.gameObject)));
             _cardViews.Clear();
             await sequence.AsyncWaitForCompletion();
         }
@@ -104,7 +103,7 @@ namespace MythosAndHorrors.GameView
                .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition).SetEase(Ease.InSine))
                .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition).SetEase(Ease.InSine))
                .Join(_selectorBlockController.ActivateSelector());
-            _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
+            CardViewsOrdered.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
         }
