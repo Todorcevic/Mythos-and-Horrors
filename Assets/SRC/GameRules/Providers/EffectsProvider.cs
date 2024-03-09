@@ -11,11 +11,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly DiContainer _diContainer;
         private readonly List<Effect> _allEffects = new();
 
+        public Effect MainButtonEffect { get; private set; }
         public List<Effect> AllEffectsPlayable => _allEffects.FindAll(effect => effect.CanPlay.Invoke());
         public Effect UniqueEffect => AllEffectsPlayable.Single();
         public bool IsUniqueEffect => AllEffectsPlayable.Count == 1;
         public bool NoEffect => AllEffectsPlayable.Count == 0;
-        public Effect MainButtonEffect { get; private set; }
 
         /*******************************************************************/
         public Effect Create()

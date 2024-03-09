@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         public SlotsCollection SlotsCollection { get; } = new();
         public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
-        public bool CanInvestigate => CurrentPlace.InvestigationCost.Value <= Turns.Value;
+        public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= Turns.Value;
         public Card CardToDraw => DeckZone.Cards.LastOrDefault();
         public bool CanBeHealed => Health.Value < Health.MaxValue;
 

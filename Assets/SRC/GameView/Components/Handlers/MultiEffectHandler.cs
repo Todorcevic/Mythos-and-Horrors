@@ -1,8 +1,10 @@
 ﻿using MythosAndHorrors.GameRules;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -12,6 +14,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly DiContainer _diContainer;
         private CardView originalCardView;
         private List<IPlayable> cardViewClones;
 

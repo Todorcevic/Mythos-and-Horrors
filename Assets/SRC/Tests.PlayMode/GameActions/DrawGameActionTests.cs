@@ -13,8 +13,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chapterProvider;
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
         //protected override bool DEBUG_MODE => true;

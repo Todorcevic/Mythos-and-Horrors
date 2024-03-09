@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using UnityEditor.Networking.PlayerConnection;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -19,11 +16,12 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
-        public Stat InvestigationCost { get; private set; }
-        public Stat MoveCost { get; private set; }
+        public Stat InvestigationTurnsCost { get; private set; }
+        public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
-        public List<CardPlace> ConnectedPlacesToMove => _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
+        public List<CardPlace> ConnectedPlacesToMove =>
+            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
         public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
         public Reaction MustReveal { get; private set; }
 
@@ -33,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = new Stat(Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
-            InvestigationCost = new Stat(1, 1);
-            MoveCost = new Stat(1, 1);
+            InvestigationTurnsCost = new Stat(1, 1);
+            MoveTurnsCost = new Stat(1, 1);
             Revealed = new State(false);
             MustReveal = new Reaction(CheckIfMustReveal, Reveal);
         }
@@ -66,8 +64,7 @@ namespace MythosAndHorrors.GameRules
         /************************** INVESTIGATE *****************************/
         protected void CheckInvestigate(GameAction gameAction)
         {
-            if (gameAction is not InteractableGameAction interactableGA) return;
-            if (interactableGA.Parent is not OneInvestigatorTurnGameAction oneTurnGA) return;
+            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
 
             _effectProvider.Create()
                 .SetCard(this)
@@ -80,16 +77,15 @@ namespace MythosAndHorrors.GameRules
         protected bool CanInvestigate()
         {
             if (_investigatorProvider.ActiveInvestigator.CurrentPlace != this) return false;
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < InvestigationCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < InvestigationTurnsCost.Value) return false;
             return true;
         }
 
         protected async Task Investigate()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigationCost.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigationTurnsCost.Value));
             await _gameActionFactory.Create(new InvestigateGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
-
 
         /************************** Move *****************************/
         protected void CheckMove(GameAction gameAction)
@@ -108,14 +104,14 @@ namespace MythosAndHorrors.GameRules
         {
             if (_investigatorProvider.ActiveInvestigator.CurrentPlace == null) return false;
             if (!ConnectedPlacesFromMove.Contains(_investigatorProvider.ActiveInvestigator.CurrentPlace)) return false;
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < MoveCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < MoveTurnsCost.Value) return false;
 
             return true;
         }
 
         protected async Task Move()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveCost.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveTurnsCost.Value));
             await _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
     }

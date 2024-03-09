@@ -24,7 +24,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
-        [Inject(Id = ZenjectBinding.BindId.SelectorZone)] private readonly ShowSelectorZoneView _selectorZone;
         [Inject] private readonly DiContainer _diContainer;
 
         public Card Card { get; private set; }

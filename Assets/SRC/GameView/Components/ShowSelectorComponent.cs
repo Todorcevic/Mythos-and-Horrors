@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
         public bool IsShowing => _selectorBlockController.IsActivated;
         public bool IsMultiEffect => _cardViews.Count > 1 && _cardViews.All(cardView => cardView.Card == _cardViews[0].Card);
 
-        /*******************************************************************/
+        /******************* BASIC SHOW CENTER ***********************/
         public async Task ShowPlayables()
         {
             _cardViews = _cardViewsManager.GetAllCanPlay();
@@ -42,19 +42,18 @@ namespace MythosAndHorrors.GameView
 
         public async Task CheckIfIsInSelectorAndReturnPlayables(IPlayable exceptThisPlayable = null)
         {
-            CardView exceptThis = exceptThisPlayable as CardView;
             if (!IsShowing) return;
             await Shutdown();
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
-            CardViewsOrdered.Except(new CardView[] { exceptThis })
+            CardViewsOrdered.Except(new CardView[] { exceptThisPlayable as CardView })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }
 
-        /*******************************************************************/
+        /************************ MULTIEFFECTS **************************/
         public async Task ShowMultiEffects(List<CardView> cardViews)
         {
             _cardViews = cardViews;

@@ -48,7 +48,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - place.InvestigationCost.Value));
+            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - place.InvestigationTurnsCost.Value));
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(1));
         }
     }
