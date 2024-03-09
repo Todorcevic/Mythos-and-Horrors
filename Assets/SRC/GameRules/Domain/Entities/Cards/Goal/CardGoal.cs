@@ -12,6 +12,10 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
+        public Reaction MustShowInitialHistory { get; private set; }
+        public Reaction MustShowFinalHistory { get; private set; }
+
+        /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
@@ -22,35 +26,41 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
             Revealed = new State(false);
+            MustShowInitialHistory = new Reaction(CheckShowInitialHistory, ShowInitialHistory);
+            MustShowFinalHistory = new Reaction(CheckShowFinalHistory, ShowFinalHistory);
         }
 
         /*******************************************************************/
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            await CanShowInitialHistory(gameAction);
-            await CanShowFinalHistory(gameAction);
+            await MustShowInitialHistory.Check(gameAction);
+            await MustShowFinalHistory.Check(gameAction);
         }
 
-        protected virtual async Task CanShowInitialHistory(GameAction gameAction)
+        /********************** SHOW INITIAL HISTORY ****************************/
+        protected virtual bool CheckShowInitialHistory(GameAction gameAction)
         {
-            if (Revealed.IsActive) return;
-            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
-            if (!moveCardsGameAction.Cards.Contains(this)) return;
-            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.GoalZone) return;
-            if (InitialHistory == null) return;
-
-            await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
+            if (Revealed.IsActive) return false;
+            if (InitialHistory == null) return false;
+            if (!moveCardsGameAction.Cards.Contains(this)) return false;
+            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.GoalZone) return false;
+            return true;
         }
 
-        protected virtual async Task CanShowFinalHistory(GameAction gameAction)
+        protected async Task ShowInitialHistory() => await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+
+        /********************** SHOW FINAL HISTORY *********************/
+        protected virtual bool CheckShowFinalHistory(GameAction gameAction)
         {
-            if (Revealed.IsActive) return;
-            if (gameAction is not StatGameAction statGameAction) return;
-            if (statGameAction.Stat != Hints) return;
-            if (Hints.Value < Info.Hints) return;
-            if (InitialHistory == null) return;
-
-            await _gameActionFactory.Create(new RevealGameAction(this));
+            if (gameAction is not StatGameAction statGameAction) return false;
+            if (Revealed.IsActive) return false;
+            if (RevealHistory == null) return false;
+            if (statGameAction.Stat != Hints) return false;
+            if (Hints.Value < Info.Hints) return false;
+            return true;
         }
+
+        protected async Task ShowFinalHistory() => await _gameActionFactory.Create(new RevealGameAction(this));
     }
 }

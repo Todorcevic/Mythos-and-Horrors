@@ -19,11 +19,13 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
+        public Reaction MustReveal { get; private set; }
+
+        /*******************************************************************/
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public List<CardPlace> ConnectedPlacesToMove =>
             _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
         public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
-        public Reaction MustReveal { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -34,7 +36,7 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = new Stat(1, 1);
             MoveTurnsCost = new Stat(1, 1);
             Revealed = new State(false);
-            MustReveal = new Reaction(CheckIfMustReveal, Reveal);
+            MustReveal = new Reaction(CheckReveal, Reveal);
         }
 
         /*******************************************************************/
@@ -51,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REVEAL *****************************/
-        protected bool CheckIfMustReveal(GameAction gameAction)
+        protected bool CheckReveal(GameAction gameAction)
         {
             if (gameAction is not MoveCardsGameAction) return false;
             if (Revealed.IsActive) return false;
@@ -87,7 +89,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionFactory.Create(new InvestigateGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
 
-        /************************** Move *****************************/
+        /************************** MOVE *****************************/
         protected void CheckMove(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;

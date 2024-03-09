@@ -12,6 +12,10 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
+        public Reaction MustShowInitialHistory { get; private set; }
+        public Reaction MustShowFinalHistory { get; private set; }
+
+        /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
@@ -22,33 +26,41 @@ namespace MythosAndHorrors.GameRules
         {
             Eldritch = new Stat(Info.Eldritch ?? 0, Info.Eldritch ?? 0);
             Revealed = new State(false);
+            MustShowInitialHistory = new Reaction(CheckShowInitialHistory, ShowInitialHistory);
+            MustShowFinalHistory = new Reaction(CanShowFinalHistory, ShowFinalHistory);
         }
 
         /*******************************************************************/
         async Task IEndReactionable.WhenFinish(GameAction gameAction)
         {
-            if (gameAction is MoveCardsGameAction moveCardsGameAction) await CanShowInitialHistory(moveCardsGameAction);
-            if (gameAction is StatGameAction statGameAction) await CanShowFinalHistory(statGameAction);
+            await MustShowInitialHistory.Check(gameAction);
+            await MustShowFinalHistory.Check(gameAction);
         }
 
-        protected virtual async Task CanShowInitialHistory(MoveCardsGameAction moveCardsGameAction)
+        /********************** SHOW INITIAL HISTORY ****************************/
+        protected virtual bool CheckShowInitialHistory(GameAction gameAction)
         {
-            if (Revealed.IsActive) return;
-            if (InitialHistory == null) return;
-            if (!moveCardsGameAction.Cards.Contains(this)) return;
-            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return;
-
-            await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
+            if (Revealed.IsActive) return false;
+            if (InitialHistory == null) return false;
+            if (!moveCardsGameAction.Cards.Contains(this)) return false;
+            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
+            return true;
         }
 
-        protected virtual async Task CanShowFinalHistory(StatGameAction statGameAction)
+        protected async Task ShowInitialHistory() => await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+
+        /********************** SHOW FINAL HISTORY *********************/
+        protected virtual bool CanShowFinalHistory(GameAction gameAction)
         {
-            if (Revealed.IsActive) return;
-            if (RevealHistory == null) return;
-            if (statGameAction.Stat != Eldritch) return;
-            if (Eldritch.Value < Info.Eldritch) return;
-
-            await _gameActionFactory.Create(new RevealGameAction(this));
+            if (gameAction is not StatGameAction statGameAction) return false;
+            if (Revealed.IsActive) return false;
+            if (RevealHistory == null) return false;
+            if (statGameAction.Stat != Eldritch) return false;
+            if (Eldritch.Value < Info.Eldritch) return false;
+            return true;
         }
+
+        protected async Task ShowFinalHistory() => await _gameActionFactory.Create(new RevealGameAction(this));
     }
 }
