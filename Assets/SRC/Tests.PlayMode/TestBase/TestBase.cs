@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTearDown]
         public override IEnumerator TearDown()
         {
-            yield return WaitLoadImages();
+            //yield return WaitLoadImages();
             SetTimeDefault();
             yield return base.TearDown();
         }

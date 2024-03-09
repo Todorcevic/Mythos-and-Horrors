@@ -3,7 +3,6 @@ using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using TMPro;
-using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 using Zenject;

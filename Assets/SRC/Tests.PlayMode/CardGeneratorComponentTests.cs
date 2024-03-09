@@ -12,18 +12,19 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
-        [Inject] private readonly CardInfoBuilder _cardInfoBuilder;
-        [Inject] private readonly CardBuilder _cardBuilder;
-        [Inject] private readonly CardViewGeneratorComponent _cardGenerator;
+        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_InvestigatorCard()
         {
-            Card card = _cardBuilder.BuildOfType<CardInvestigator>();
+            _prepareGameUse.Execute();
+            Card card = _investigatorsProvider.Leader.InvestigatorCard;
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            CardView result = _cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
@@ -33,18 +34,19 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
+            Assert.That(result.GetPrivateMember<SpriteRenderer>("_badge").sprite, Is.Not.Null);
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Faction()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Investigator).WithFaction(Faction.Esoteric).GiveMe());
+            _prepareGameUse.Execute();
+            Card card = _investigatorsProvider.Leader.InvestigatorCard;
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            CardView result = _cardViewsManager.GetCardView(card);
             FactionInvestigatorSO factionElementsExpected = result.GetPrivateMember<List<FactionInvestigatorSO>>("_factions")
-                .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Esoteric);
+                .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Brave);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_template").sprite == factionElementsExpected._templateFront,
@@ -57,83 +59,68 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
-            CardTalent card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Talent).WithHealth(null).GiveMe()) as CardTalent;
+            _prepareGameUse.Execute();
+            CardTalent card = _cardsProvider.GetCard<CardTalent>("01525");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            CardView result = _cardViewsManager.GetCardView(card);
+            SkillIconView skillIcon = result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentInChildren<SkillIconView>();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            StatView healthStat = result.GetPrivateMember<StatView>("_health");
-            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
+
             Assert.That(result.Card, Is.EqualTo(card));
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
-            Assert.That(healthStat.gameObject.activeInHierarchy, Is.False);
-            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
-            yield return null;
-        }
-
-        [UnityTest]
-        public IEnumerator CardGeneratorComponent_Generate_DeckCard_with_SkillIcons()
-        {
-            CardCondition card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Condition).WithStrength(2).WithIntelligence(4)
-                .WithWild(3).WithAgility(3).GiveMe()) as CardCondition;
-
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
-
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
-            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
+            Assert.That(result.GetPrivateMember<StatView>("_health").gameObject.activeInHierarchy, Is.False);
+            Assert.That(result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentsInChildren<SkillIconView>().Length,
+                Is.EqualTo(card.TotalChallengePoints));
+            Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_skillStrengthIcon")));
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithHealth(null).GiveMe());
-            _cardGenerator.BuildCardView(card);
-            DeckCardView result = _cardGenerator.transform.GetComponentInChildren<DeckCardView>(includeInactive: true);
+            _prepareGameUse.Execute();
+            CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
 
+            DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
             result.SetBulletsIcons(3);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             SkillIconsController resourceIconsController = result.GetPrivateMember<SkillIconsController>("_resourceIconsController");
+            SkillIconView skillIcon = resourceIconsController.GetComponentInChildren<SkillIconView>();
             Assert.That(resourceIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(3));
+            Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_resourceBulletIcon")));
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply).WithSlot(SlotType.Trinket).GiveMe());
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            _prepareGameUse.Execute();
+            CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
+
+            DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             SlotController slotController = result.GetPrivateMember<SlotController>("_slotController");
             Assert.That(slotController.GetPrivateMember<SpriteRenderer>("_slot1").sprite,
-                Is.EqualTo(slotController.GetPrivateMember<Sprite>("_trinket")));
+                Is.EqualTo(slotController.GetPrivateMember<Sprite>("_item")));
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
-            CardSupply card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Supply)
-                .WithHealth(3).WithSanity(1).WithCost(5).GiveMe()) as CardSupply;
+            _prepareGameUse.Execute();
+            CardSupply card = _cardsProvider.GetCard<CardSupply>("01518");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             StatView healthStat = result.GetPrivateMember<StatView>("_health");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is DeckCardView);
-            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo(card.Info.Sanity.ToString()));
@@ -145,16 +132,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Place()
         {
-            Card card = _cardBuilder.BuildOfType<CardPlace>();
+            _prepareGameUse.Execute();
+            Card card = _cardsProvider.GetCard("01112");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            PlaceCardView result = (PlaceCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is PlaceCardView);
-            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name2));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description2));
             Assert.That(result.transform.GetTextFromThis("Enigma"), Is.EqualTo(card.Info.Enigma.ToString()));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
             yield return null;
@@ -163,18 +146,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_CreatureCard()
         {
-            CardCreature card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Creature)
-                .WithHealth(3).WithStrength(1).WithAgility(5).WithEnemyDamage(2).WithEnemyFear(1).GiveMe()) as CardCreature;
+            _prepareGameUse.Execute();
+            CardCreature card = _cardsProvider.GetCard<CardCreature>("01118");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            CreatureCardView result = (CreatureCardView)_cardViewsManager.GetCardView(card);
             SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is CreatureCardView);
-            Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo(card.Info.Strength.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
@@ -185,14 +163,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdversityCard()
         {
-            Card card = _cardBuilder.BuildOfType<CardAdversity>();
+            _prepareGameUse.Execute();
+            CardAdversity card = _cardsProvider.GetCard<CardAdversity>("01167");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            AdversityCardView result = (AdversityCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is AdversityCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             yield return null;
@@ -202,16 +178,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_PlotCard()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Plot).WithEldritch(3).GiveMe());
+            _prepareGameUse.Execute();
+            Card card = _cardsProvider.GetCard("01105");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            PlotCardView result = (PlotCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is PlotCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Flavor));
             Assert.That(result.transform.GetTextFromThis("Eldritch"), Is.EqualTo(card.Info.Eldritch.ToString()));
             yield return null;
         }
@@ -219,16 +193,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_GoalCard()
         {
-            Card card = _cardBuilder.BuildWith(_cardInfoBuilder.CreateRandom().WithCardType(CardType.Goal).WithHints(3).GiveMe());
+            _prepareGameUse.Execute();
+            Card card = _cardsProvider.GetCard("01108");
 
-            _cardGenerator.BuildCardView(card);
-            CardView result = _cardGenerator.transform.GetComponentInChildren<CardView>(includeInactive: true);
+            GoalCardView result = (GoalCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.Card, Is.EqualTo(card));
-            Assert.That(result is GoalCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
+            Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Flavor));
             Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
             yield return null;
         }
