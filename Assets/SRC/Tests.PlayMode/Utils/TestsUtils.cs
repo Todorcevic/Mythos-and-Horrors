@@ -5,8 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections;
-using MythosAndHorrors.GameView;
-using MythosAndHorrors.GameRules;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -17,10 +15,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (parentTransform == null) throw new ArgumentNullException("parentTransform cant be null");
             if (string.IsNullOrEmpty(gameObjectName)) throw new ArgumentNullException("gameObjectName cant be null or empty");
 
-            Transform targetTransform = parentTransform.FindDeepChild(gameObjectName)
-                ?? throw new InvalidOperationException($"A GameObject with the name {gameObjectName} was not found among the children of the given Transform.");
-            TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>(includeInactive: true)
-                ?? throw new InvalidOperationException($"A TextMeshPro component was not found in the GameObject {targetTransform.name}.");
+            Transform targetTransform = parentTransform.FindDeepChild(gameObjectName) ??
+                 throw new InvalidOperationException($"A GameObject with the name {gameObjectName} was not found among the children of the given Transform.");
+            TextMeshPro textMeshPro = targetTransform.GetComponentInChildren<TextMeshPro>(includeInactive: true) ??
+                 throw new InvalidOperationException($"A TextMeshPro component was not found in the GameObject {targetTransform.name}.");
             return textMeshPro.text;
         }
 
@@ -62,14 +60,14 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public static Task AsTask(this IEnumerator coroutine)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            new GameObject().AddComponent<JustForCoroutine>().StartCoroutine(RunCoroutine(coroutine, tcs));
-            return tcs.Task;
+            TaskCompletionSource<bool> taskCompletionSource = new();
+            new GameObject().AddComponent<JustForCoroutine>().StartCoroutine(RunCoroutine(coroutine, taskCompletionSource));
+            return taskCompletionSource.Task;
 
-            static IEnumerator RunCoroutine(IEnumerator coroutine, TaskCompletionSource<bool> tcs)
+            static IEnumerator RunCoroutine(IEnumerator coroutine, TaskCompletionSource<bool> taskCompletionSource)
             {
                 while (coroutine.MoveNext()) yield return coroutine.Current;
-                tcs.SetResult(true);
+                taskCompletionSource.SetResult(true);
             }
         }
 
