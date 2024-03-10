@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -43,7 +44,7 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = new Stat(1);
             PileAmount = new Stat(int.MaxValue);
 
-            GameAction.SubscribeAtStart(WhenBegin);
+            _reactionablesProvider.SubscribeAtStart(WhenBegin);
         }
 
         private void InitializePlaceZones()

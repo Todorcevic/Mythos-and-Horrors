@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
@@ -35,8 +36,8 @@ namespace MythosAndHorrors.GameRules
             FaceDown = new State(false);
             Exausted = new State(false);
 
-            GameAction.SubscribeAtStart(WhenBegin);
-            GameAction.SubscribeAtEnd(WhenFinish);
+            _reactionablesProvider.SubscribeAtStart(WhenBegin);
+            _reactionablesProvider.SubscribeAtEnd(WhenFinish);
         }
 
         protected virtual Task WhenBegin(GameAction gameAction) => Task.CompletedTask;
