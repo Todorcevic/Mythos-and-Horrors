@@ -42,14 +42,14 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in cardsToActivate)
             {
-                await ActivationLogic.Invoke(card);
                 _currentCardsAffected.Add(card);
+                await ActivationLogic.Invoke(card);
             }
 
             foreach (Card card in cardsToDeactivate)
             {
-                await DeactivationLogic.Invoke(card);
                 _currentCardsAffected.Remove(card);
+                await DeactivationLogic.Invoke(card);
             }
         }
     }

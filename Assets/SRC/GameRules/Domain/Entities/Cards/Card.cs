@@ -17,7 +17,6 @@ namespace MythosAndHorrors.GameRules
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public Zone OwnZone { get; private set; }
-        public List<IBuffable> Buffs { get; private set; } = new();
         public List<Buff> Buuffs => _buffsProvider.GetBuffsForThisCard(this);
 
         /*******************************************************************/
@@ -45,39 +44,10 @@ namespace MythosAndHorrors.GameRules
         protected virtual Task WhenFinish(GameAction gameAction) => Task.CompletedTask;
 
         /*******************************************************************/
-        public async Task AddBuff(IBuffable newBuff)
-        {
-            Buffs.Add(newBuff);
-            await newBuff.BuffAffectTo(this);
-        }
-
-        public async Task RemoveBuff(IBuffable ActivateBuff)
-        {
-            await ActivateBuff.BuffDeaffectTo(this);
-            Buffs.Remove(ActivateBuff);
-        }
-
-        public bool HasThisBuff(IBuffable buff) => Buffs.Contains(buff);
-
+       
         public void TurnDown(bool toFaceDown)
         {
             FaceDown.UpdateValueTo(toFaceDown);
-        }
-
-
-
-        List<Buff> newBuuffs = new();
-
-        public async Task ActivateBuff(Buff newBuff)
-        {
-            newBuuffs.Add(newBuff);
-            await newBuff.ActivationLogic(this);
-        }
-
-        public async Task DeactivateBuff(Buff ActivateBuff)
-        {
-            await ActivateBuff.ActivationLogic(this);
-            newBuuffs.Remove(ActivateBuff);
         }
     }
 }

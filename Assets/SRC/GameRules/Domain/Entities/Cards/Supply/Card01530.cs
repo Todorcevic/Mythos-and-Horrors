@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             return _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
                   .Select(investigator => investigator.InvestigatorCard).Cast<Card>().ToList();
 
-            bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).AidZone == CurrentZone;
+            bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;
         }
 
         private async Task AddIntelligenceBuff(Card card)

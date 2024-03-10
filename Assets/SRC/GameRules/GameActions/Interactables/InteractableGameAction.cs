@@ -9,24 +9,19 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;    
+        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly BuffsProvider _buffsProvider;
 
         public bool IsManadatary => _effectProvider.MainButtonEffect == null;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CheckBuffs();
+            //await _buffsProvider.CheckAllBuffs();
             if (_effectProvider.NoEffect) return;
             _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             ClearEffectsInAllCards();
             await _gameActionFactory.Create(new PlayEffectGameAction(_effectSelected));
-        }
-
-        private void CheckBuffs()
-        {
-            _reactionablesProvider.CheckActivationBuffs();
-            _reactionablesProvider.CheckDeactivationBuffs();
         }
 
         private Effect GetUniqueEffect()

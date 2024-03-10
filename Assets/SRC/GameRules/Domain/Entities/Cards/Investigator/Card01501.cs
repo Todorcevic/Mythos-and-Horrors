@@ -21,7 +21,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-
         private List<Card> CardsToBuff()
         {
             if (CurrentZone != Owner.InvestigatorZone) return new List<Card>();

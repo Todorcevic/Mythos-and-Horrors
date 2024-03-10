@@ -10,34 +10,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly DiContainer _diContainer;
         private readonly List<Func<GameAction, Task>> _onGameActionStart = new();
         private readonly List<Func<GameAction, Task>> _onGameActionEnd = new();
-        private readonly List<IBuffable> _buffables = new();
-
-        public IReadOnlyList<Func<GameAction, Task>> OnGameActionStart => _onGameActionStart;
-        public IReadOnlyList<Func<GameAction, Task>> OnGameActionEnd => _onGameActionEnd;
 
         /*******************************************************************/
         public object Create(Type type, object[] args)
         {
             var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
-            if (newReactionable is IBuffable buffable) _buffables.Add(buffable);
             return newReactionable;
-        }
-
-        /*******************************************************************/
-        public void CheckActivationBuffs()
-        {
-            foreach (IBuffable buffable in _buffables)
-            {
-                buffable.ActivateBuff();
-            }
-        }
-
-        public void CheckDeactivationBuffs()
-        {
-            foreach (IBuffable buffable in _buffables)
-            {
-                buffable.DeactivateBuff();
-            }
         }
 
         /*******************************************************************/
