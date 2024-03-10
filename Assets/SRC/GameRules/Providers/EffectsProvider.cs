@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class EffectsProvider
     {
-        [Inject] private readonly DiContainer _diContainer;
         private readonly List<Effect> _allEffects = new();
 
         public Effect MainButtonEffect { get; private set; }
@@ -21,14 +18,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public Effect Create()
         {
-            Effect effect = _diContainer.Instantiate<Effect>();
+            Effect effect = new();
             _allEffects.Add(effect);
             return effect;
         }
 
         public Effect CreateMainButton()
         {
-            Effect effect = _diContainer.Instantiate<Effect>();
+            Effect effect = new();
             MainButtonEffect = effect;
             return effect;
         }

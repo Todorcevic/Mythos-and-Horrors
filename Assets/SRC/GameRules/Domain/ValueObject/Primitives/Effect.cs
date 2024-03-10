@@ -15,9 +15,6 @@ namespace MythosAndHorrors.GameRules
         public string CardCodeSecundary => _investigatorAffected?.Code;
 
         /*******************************************************************/
-        private Effect() { } //EffectsProvider creates this object
-
-        /*******************************************************************/
         public Effect SetCard(Card cardAffected)
         {
             CardAffected = cardAffected;

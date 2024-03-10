@@ -18,9 +18,14 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            AddIntelligence = _buffsProvider.Create(this, _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(AddIntelligenceBuff), CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
-        }
+            AddIntelligence = _buffsProvider.Create()
+                .SetCard(this)
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(AddIntelligenceBuff))
+                .SetCardsToBuff(CardsToBuff)
+                .SetAddBuff(AddIntelligenceBuff)
+                .SetRemoveBuff(RemoveIntelligenceBuff);
 
+        }
         /*******************************************************************/
         private List<Card> CardsToBuff()
         {

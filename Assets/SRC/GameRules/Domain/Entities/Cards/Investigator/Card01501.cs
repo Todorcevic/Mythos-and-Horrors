@@ -17,7 +17,12 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            AddResourceCost = _buffsProvider.Create(this, _textsProvider.GameText.CARD01501_BUFF, CardsToBuff, AddReductionCostBuff, RemoveReductionCostBuff);
+            AddResourceCost = _buffsProvider.Create()
+                .SetCard(this)
+                .SetDescription(_textsProvider.GameText.CARD01501_BUFF)
+                .SetCardsToBuff(CardsToBuff)
+                .SetAddBuff(AddReductionCostBuff)
+                .SetRemoveBuff(RemoveReductionCostBuff);
         }
 
         /*******************************************************************/

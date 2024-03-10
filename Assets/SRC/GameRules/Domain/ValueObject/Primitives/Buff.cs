@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +8,8 @@ namespace MythosAndHorrors.GameRules
     public class Buff : IViewEffect
     {
         private bool _isBuffing;
-        private readonly Card _cardMaster;
+        private string _description;
+        private Card _cardMaster;
         private readonly List<Card> _currentCardsAffected = new();
 
         public Func<List<Card>> CardsToBuff { get; private set; }
@@ -17,22 +17,18 @@ namespace MythosAndHorrors.GameRules
         public Func<Card, Task> DeactivationLogic { get; private set; }
 
         string IViewEffect.CardCode => _cardMaster.Info.Code;
-
-        public string Description { get; private set; }
-
+        string IViewEffect.Description => _description;
         string IViewEffect.CardCodeSecundary => _cardMaster.Owner.Code;
 
         /*******************************************************************/
-
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private Buff(Card cardMaster, string description, Func<List<Card>> cardsAffected, Func<Card, Task> activationLogic, Func<Card, Task> deactivationLogic)
-        {
-            _cardMaster = cardMaster;
-            Description = description;
-            CardsToBuff = cardsAffected;
-            ActivationLogic = activationLogic;
-            DeactivationLogic = deactivationLogic;
-        }
+        //public Buff(Card cardMaster, string description, Func<List<Card>> cardsAffected, Func<Card, Task> activationLogic, Func<Card, Task> deactivationLogic)
+        //{
+        //    _cardMaster = cardMaster;
+        //    _description = description;
+        //    CardsToBuff = cardsAffected;
+        //    ActivationLogic = activationLogic;
+        //    DeactivationLogic = deactivationLogic;
+        //}
 
         /*******************************************************************/
         public async Task Check()
@@ -55,6 +51,37 @@ namespace MythosAndHorrors.GameRules
                 await DeactivationLogic.Invoke(card);
             }
             _isBuffing = false;
+        }
+        /*******************************************************************/
+
+        public Buff SetCard(Card cardMaster)
+        {
+            _cardMaster = cardMaster;
+            return this;
+        }
+
+        public Buff SetDescription(string description)
+        {
+            _description = description;
+            return this;
+        }
+
+        public Buff SetCardsToBuff(Func<List<Card>> cardsToBuff)
+        {
+            CardsToBuff = cardsToBuff;
+            return this;
+        }
+
+        public Buff SetAddBuff(Func<Card, Task> activationLogic)
+        {
+            ActivationLogic = activationLogic;
+            return this;
+        }
+
+        public Buff SetRemoveBuff(Func<Card, Task> deactivationLogic)
+        {
+            DeactivationLogic = deactivationLogic;
+            return this;
         }
     }
 }
