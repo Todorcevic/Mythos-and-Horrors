@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardInvestigator : Card, IStartReactionable
+    public class CardInvestigator : Card
     {
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
@@ -41,29 +41,12 @@ namespace MythosAndHorrors.GameRules
             Hints = new Stat(0);
             Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
-
         }
 
-        public bool HasThisStat(Stat stat)
-        {
-            return stat == Health
-                || stat == Sanity
-                || stat == Strength
-                || stat == Agility
-                || stat == Intelligence
-                || stat == Power
-                || stat == Xp
-                || stat == Injury
-                || stat == Shock
-                || stat == Resources
-                || stat == Hints
-                || stat == Turns;
-        }
-
-        async Task IStartReactionable.WhenBegin(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             CheckDraw(gameAction);
-            await Task.CompletedTask;
+            await base.WhenBegin(gameAction);
         }
 
         /************************** DRAW *****************************/
@@ -92,5 +75,19 @@ namespace MythosAndHorrors.GameRules
             await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, DrawTurnsCost.Value));
             await _gameActionFactory.Create(new DrawGameAction(_investigatorProvider.ActiveInvestigator));
         }
+
+        /*******************************************************************/
+        public bool HasThisStat(Stat stat) => stat == Health
+                || stat == Sanity
+                || stat == Strength
+                || stat == Agility
+                || stat == Intelligence
+                || stat == Power
+                || stat == Xp
+                || stat == Injury
+                || stat == Shock
+                || stat == Resources
+                || stat == Hints
+                || stat == Turns;
     }
 }

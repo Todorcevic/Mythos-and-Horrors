@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardGoal : Card, IEndReactionable, IRevellable
+    public class CardGoal : Card, IRevellable
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
@@ -30,8 +30,7 @@ namespace MythosAndHorrors.GameRules
             MustShowFinalHistory = new Reaction(CheckShowFinalHistory, ShowFinalHistory);
         }
 
-        /*******************************************************************/
-        async Task IEndReactionable.WhenFinish(GameAction gameAction)
+        protected override async Task WhenFinish(GameAction gameAction)
         {
             await MustShowInitialHistory.Check(gameAction);
             await MustShowFinalHistory.Check(gameAction);

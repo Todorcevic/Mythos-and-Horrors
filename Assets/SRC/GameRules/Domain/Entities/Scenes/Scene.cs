@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class Scene : IStartReactionable
+    public abstract class Scene
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly TextsProvider _textsProvider;
@@ -42,10 +42,9 @@ namespace MythosAndHorrors.GameRules
             InitializePlaceZones();
             ResourceCost = new Stat(1);
             PileAmount = new Stat(int.MaxValue);
-        }
 
-        /*******************************************************************/
-        public abstract Task PrepareScene();
+            GameAction.SubscribeAtStart(WhenBegin);
+        }
 
         private void InitializePlaceZones()
         {
@@ -58,23 +57,14 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        public bool HasThisZone(Zone zone)
-        {
-            return zone == DangerDeckZone
-                || zone == DangerDiscardZone
-                || zone == GoalZone
-                || zone == PlotZone
-                || zone == VictoryZone
-                || zone == LimboZone
-                || zone == OutZone
-                || PlaceZone.Cast<Zone>().Contains(zone);
-        }
-
-        public virtual async Task WhenBegin(GameAction gameAction)
+        protected virtual async Task WhenBegin(GameAction gameAction)
         {
             CheckTakeResource(gameAction);
             await Task.CompletedTask;
         }
+
+        /*******************************************************************/
+        public abstract Task PrepareScene();
 
         /************************** TAKE RESOURCE *****************************/
         protected void CheckTakeResource(GameAction gameAction)
@@ -99,6 +89,19 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, ResourceCost.Value));
             await _gameActionFactory.Create(new GainResourceGameAction(_investigatorProvider.ActiveInvestigator, 1));
+        }
+
+        /*******************************************************************/
+        public bool HasThisZone(Zone zone)
+        {
+            return zone == DangerDeckZone
+                || zone == DangerDiscardZone
+                || zone == GoalZone
+                || zone == PlotZone
+                || zone == VictoryZone
+                || zone == LimboZone
+                || zone == OutZone
+                || PlaceZone.Cast<Zone>().Contains(zone);
         }
     }
 }

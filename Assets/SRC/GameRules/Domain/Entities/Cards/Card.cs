@@ -34,7 +34,14 @@ namespace MythosAndHorrors.GameRules
             OwnZone = _zonesProvider.Create();
             FaceDown = new State(false);
             Exausted = new State(false);
+
+            GameAction.SubscribeAtStart(WhenBegin);
+            GameAction.SubscribeAtEnd(WhenFinish);
         }
+
+        protected virtual Task WhenBegin(GameAction gameAction) => Task.CompletedTask;
+
+        protected virtual Task WhenFinish(GameAction gameAction) => Task.CompletedTask;
 
         /*******************************************************************/
         public async Task AddBuff(IBuffable newBuff)

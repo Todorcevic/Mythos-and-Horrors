@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardCreature : Card, IStartReactionable
+    public class CardCreature : Card
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -47,8 +47,7 @@ namespace MythosAndHorrors.GameRules
             EludeTurnsCost = new Stat(1, 1);
         }
 
-        /*******************************************************************/
-        public virtual Task WhenBegin(GameAction gameAction)
+        protected override Task WhenBegin(GameAction gameAction)
         {
             CheckInvestigatorAttack(gameAction);
             CheckInvestigatorConfront(gameAction);

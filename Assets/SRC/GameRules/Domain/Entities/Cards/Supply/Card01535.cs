@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -23,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task WhenBegin(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             await base.WhenBegin(gameAction);
             CheckHealthActivation(gameAction);

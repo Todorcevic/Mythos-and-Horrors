@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardPlace : Card, IEndReactionable, IStartReactionable, IRevellable
+    public class CardPlace : Card, IRevellable
     {
         private List<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionProvider _gameActionFactory;
@@ -39,17 +39,17 @@ namespace MythosAndHorrors.GameRules
             MustReveal = new Reaction(CheckReveal, Reveal);
         }
 
-        /*******************************************************************/
-        public virtual async Task WhenFinish(GameAction gameAction)
-        {
-            await MustReveal.Check(gameAction);
-        }
-
-        public virtual async Task WhenBegin(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             CheckInvestigate(gameAction);
             CheckMove(gameAction);
-            await Task.CompletedTask;
+            await base.WhenBegin(gameAction);
+        }
+
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await MustReveal.Check(gameAction);
+            await base.WhenFinish(gameAction);
         }
 
         /************************** REVEAL *****************************/

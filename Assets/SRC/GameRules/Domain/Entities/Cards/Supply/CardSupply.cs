@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardSupply : Card, IStartReactionable
+    public class CardSupply : Card
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = new Stat(Info.Sanity ?? 0, Info.Sanity ?? 0);
         }
         /*******************************************************************/
-        public virtual async Task WhenBegin(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             CheckPlayFromHand(gameAction);
             await Task.CompletedTask;

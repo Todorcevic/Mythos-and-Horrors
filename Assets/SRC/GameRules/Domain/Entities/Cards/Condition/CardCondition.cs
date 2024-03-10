@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardCondition : Card, IStartReactionable
+    public class CardCondition : Card
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -24,8 +24,7 @@ namespace MythosAndHorrors.GameRules
             TurnsCost = new Stat(1);
         }
 
-        /*******************************************************************/
-        async Task IStartReactionable.WhenBegin(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             CheckPlayFromHand(gameAction);
             await Task.CompletedTask;

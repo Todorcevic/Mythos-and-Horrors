@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Zenject;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01112 : CardPlace, IEndReactionable
+    public class Card01112 : CardPlace
     {
 
     }
