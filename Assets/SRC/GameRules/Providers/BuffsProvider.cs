@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
             return buff;
         }
 
-        public async Task CheckAllBuffs()
+        public async Task CheckAllBuffs(GameAction gameAction)
         {
             foreach (Buff buff in _allBuffs)
             {
@@ -27,6 +27,6 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
         public List<Buff> GetBuffsForThisCard(Card cardAffected) =>
-            _allBuffs.FindAll(buff => buff.CardsAffected.Invoke().Contains(cardAffected));
+            _allBuffs.FindAll(buff => buff.CardsToBuff.Invoke().Contains(cardAffected));
     }
 }

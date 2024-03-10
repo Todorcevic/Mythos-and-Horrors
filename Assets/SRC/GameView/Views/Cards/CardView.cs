@@ -143,7 +143,7 @@ namespace MythosAndHorrors.GameView
 
         public void ClearCloneEffect() => _cloneEffect = null;
 
-        public void AddBuffs() => _buffController.AddEffects(Card.Buuffs);
+        public void AddBuffs() => _buffController.AddEffects(Card.Buffs);
 
         public void RemoveBuffs() => _buffController.Clear();
 

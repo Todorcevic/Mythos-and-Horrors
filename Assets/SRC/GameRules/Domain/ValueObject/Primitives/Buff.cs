@@ -8,10 +8,11 @@ namespace MythosAndHorrors.GameRules
 {
     public class Buff : IViewEffect
     {
+        private bool _isBuffing;
         private readonly Card _cardMaster;
         private readonly List<Card> _currentCardsAffected = new();
 
-        public Func<List<Card>> CardsAffected { get; private set; }
+        public Func<List<Card>> CardsToBuff { get; private set; }
         public Func<Card, Task> ActivationLogic { get; private set; }
         public Func<Card, Task> DeactivationLogic { get; private set; }
 
@@ -28,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         {
             _cardMaster = cardMaster;
             Description = description;
-            CardsAffected = cardsAffected;
+            CardsToBuff = cardsAffected;
             ActivationLogic = activationLogic;
             DeactivationLogic = deactivationLogic;
         }
@@ -36,7 +37,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Check()
         {
-            List<Card> cardsAffected = CardsAffected.Invoke();
+            if (_isBuffing) return;
+            _isBuffing = true;
+            List<Card> cardsAffected = CardsToBuff.Invoke();
             List<Card> cardsToActivate = cardsAffected.Except(_currentCardsAffected).ToList();
             List<Card> cardsToDeactivate = _currentCardsAffected.Except(cardsAffected).ToList();
 
@@ -51,6 +54,7 @@ namespace MythosAndHorrors.GameRules
                 _currentCardsAffected.Remove(card);
                 await DeactivationLogic.Invoke(card);
             }
+            _isBuffing = false;
         }
     }
 }

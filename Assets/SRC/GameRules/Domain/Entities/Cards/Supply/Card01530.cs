@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
         public Buff AddIntelligence { get; private set; }
@@ -17,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            AddIntelligence = _buffsProvider.Create(this, "BuffExample", CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
+            AddIntelligence = _buffsProvider.Create(this, _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(AddIntelligenceBuff), CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
         }
 
         /*******************************************************************/

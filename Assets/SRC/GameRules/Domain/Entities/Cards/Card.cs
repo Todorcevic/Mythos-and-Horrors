@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public Zone OwnZone { get; private set; }
-        public List<Buff> Buuffs => _buffsProvider.GetBuffsForThisCard(this);
+        public List<Buff> Buffs => _buffsProvider.GetBuffsForThisCard(this);
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
             OwnZone = _zonesProvider.Create();

@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameRules
             IsActive = true;
             Parent = _current ?? this;
             _current = this;
-           
+
             await _reactionablesProvider.WheBegin(this);
             await ExecuteThisLogic();
             await _continuousPresenter.PlayAnimationWith(this);
-            await _buffsProvider.CheckAllBuffs();
+            await _buffsProvider.CheckAllBuffs(this);
             await _reactionablesProvider.WhenFinish(this);
-            
+
             _current = Parent ?? this;
             IsActive = false;
         }
