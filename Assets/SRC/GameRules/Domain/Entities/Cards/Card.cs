@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -29,6 +30,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>")]
         private void Init()
         {
             OwnZone = _zonesProvider.Create();

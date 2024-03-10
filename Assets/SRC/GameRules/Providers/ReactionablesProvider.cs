@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ReactionablesProvider
     {
-        [Inject] private readonly DiContainer _diContainer;
         private readonly List<Func<GameAction, Task>> _onGameActionStart = new();
         private readonly List<Func<GameAction, Task>> _onGameActionEnd = new();
-
-        /*******************************************************************/
-        public object Create(Type type, object[] args)
-        {
-            var newReactionable = _diContainer.Instantiate(type, args ?? new object[0]);
-            return newReactionable;
-        }
 
         /*******************************************************************/
         public void SubscribeAtStart(Func<GameAction, Task> handler)
