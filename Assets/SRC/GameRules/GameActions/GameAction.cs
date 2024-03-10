@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IPresenter<GameAction> _continuousPresenter;
 
         public bool IsActive { get; private set; }
@@ -24,6 +25,7 @@ namespace MythosAndHorrors.GameRules
             await _reactionablesProvider.WheBegin(this);
             await ExecuteThisLogic();
             await _continuousPresenter.PlayAnimationWith(this);
+            await _buffsProvider.CheckAllBuffs();
             await _reactionablesProvider.WhenFinish(this);
             _current = Parent ?? this;
             IsActive = false;

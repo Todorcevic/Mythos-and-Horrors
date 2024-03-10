@@ -6,6 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class EffectsProvider
     {
         [Inject] private readonly DiContainer _diContainer;

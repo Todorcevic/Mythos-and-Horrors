@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.AvatarCard).AsTask();
-            ChooseInvestigatorGameAction chooseInvestigatoGA = new(_investigatorsProvider.GetInvestigatorsCanStart);
+            ChooseInvestigatorGameAction chooseInvestigatoGA = new(_investigatorsProvider.GetInvestigatorsCanStartTurn);
             yield return _gameActionFactory.Create(chooseInvestigatoGA).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

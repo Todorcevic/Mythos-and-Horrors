@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class Card01535 : CardSupply
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;

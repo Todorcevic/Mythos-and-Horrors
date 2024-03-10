@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -13,11 +12,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly BuffsProvider _buffsProvider;
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public Zone OwnZone { get; private set; }
         public List<IBuffable> Buffs { get; private set; } = new();
+        public List<Buff> Buuffs => _buffsProvider.GetBuffsForThisCard(this);
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
@@ -29,7 +30,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
             OwnZone = _zonesProvider.Create();
@@ -62,6 +62,22 @@ namespace MythosAndHorrors.GameRules
         public void TurnDown(bool toFaceDown)
         {
             FaceDown.UpdateValueTo(toFaceDown);
+        }
+
+
+
+        List<Buff> newBuuffs = new();
+
+        public async Task ActivateBuff(Buff newBuff)
+        {
+            newBuuffs.Add(newBuff);
+            await newBuff.ActivationLogic(this);
+        }
+
+        public async Task DeactivateBuff(Buff ActivateBuff)
+        {
+            await ActivateBuff.ActivationLogic(this);
+            newBuuffs.Remove(ActivateBuff);
         }
     }
 }

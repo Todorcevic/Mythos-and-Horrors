@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         public List<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
             => _investigator.FindAll(investigator => investigator.CurrentPlace == cardPlace);
 
-        public List<Investigator> GetInvestigatorsCanStart => _investigator.FindAll(investigator => investigator.HasTurnsAvailable);
+        public List<Investigator> GetInvestigatorsCanStartTurn => _investigator.FindAll(investigator => investigator.HasTurnsAvailable);
         public List<Investigator> GetInvestigatorsCanInvestigate => _investigator.FindAll(investigator => investigator.CanInvestigate);
         public List<Investigator> GetInvestigatorsCanBeHealed => _investigator.FindAll(investigator => investigator.CanBeHealed);
     }

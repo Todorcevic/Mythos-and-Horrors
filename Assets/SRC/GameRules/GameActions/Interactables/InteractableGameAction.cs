@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly EffectsProvider _effectProvider;    
 
         public bool IsManadatary => _effectProvider.MainButtonEffect == null;
 

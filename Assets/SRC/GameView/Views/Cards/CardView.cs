@@ -146,7 +146,8 @@ namespace MythosAndHorrors.GameView
         private void AddBuffsAndEffects()
         {
             _effectController.AddEffects(((IPlayable)this).EffectsSelected);
-            _buffController.AddEffects(Card.Buffs);
+            //_buffController.AddEffects(Card.Buffs);
+            _buffController.AddEffects(Card.Buuffs);
         }
 
         private void RemoveBuffsAndEffects()
