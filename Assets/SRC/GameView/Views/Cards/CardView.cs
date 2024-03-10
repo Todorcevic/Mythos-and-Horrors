@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameView
             if (_cardSensor.IsClickable) return;
             _cardSensor.IsClickable = true;
             _glowComponent.SetGreenGlow();
-            AddBuffsAndEffects();
+            _effectController.AddEffects(((IPlayable)this).EffectsSelected);
         }
 
         public void DeactivateToClick()
@@ -79,7 +79,7 @@ namespace MythosAndHorrors.GameView
             if (!_cardSensor.IsClickable) return;
             _cardSensor.IsClickable = false;
             _glowComponent.Off();
-            RemoveBuffsAndEffects();
+            _effectController.Clear();
         }
 
         protected abstract void SetSpecific();
@@ -143,18 +143,9 @@ namespace MythosAndHorrors.GameView
 
         public void ClearCloneEffect() => _cloneEffect = null;
 
-        private void AddBuffsAndEffects()
-        {
-            _effectController.AddEffects(((IPlayable)this).EffectsSelected);
-            //_buffController.AddEffects(Card.Buffs);
-            _buffController.AddEffects(Card.Buuffs);
-        }
+        public void AddBuffs() => _buffController.AddEffects(Card.Buuffs);
 
-        private void RemoveBuffsAndEffects()
-        {
-            _effectController.Clear();
-            _buffController.Clear();
-        }
+        public void RemoveBuffs() => _buffController.Clear();
 
         public void ShowBuffsAndEffects()
         {

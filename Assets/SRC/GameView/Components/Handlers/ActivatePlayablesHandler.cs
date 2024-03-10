@@ -15,20 +15,22 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void ActiavatePlayables(List<IPlayable> specificsCardViews = null)
         {
-            CheckActivateActivables(specificsCardViews);
-            CheckActivateAvatars();
-            CheckActivateIOActivator();
+            CheckActivesActivables(specificsCardViews);
+            CheckActivesAvatars();
+            CheckActivesIOActivator();
 
             /*******************************************************************/
-            void CheckActivateActivables(List<IPlayable> specificsCardViews)
+            void CheckActivesActivables(List<IPlayable> specificsCardViews)
             {
                 _allPlayablesComponent.Concat(specificsCardViews ?? _cardViewsManager.GetAllIPlayable())
                     .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.ActivateToClick());
+
+                _cardViewsManager.AllCardsView.ForEach(cardView => cardView.AddBuffs());
             }
 
-            void CheckActivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());
+            void CheckActivesAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());
 
-            void CheckActivateIOActivator()
+            void CheckActivesIOActivator()
             {
                 _ioActivatorComponent.ActivateCardSensors();
                 _ioActivatorComponent.UnblockUI();
@@ -42,8 +44,12 @@ namespace MythosAndHorrors.GameView
             await CheckDeactivateIOActivator();
 
             /*******************************************************************/
-            void CheckDeactivateActivables() => _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
-            .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.DeactivateToClick());
+            void CheckDeactivateActivables()
+            {
+                _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
+                    .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.DeactivateToClick());
+                _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
+            }
 
             void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.DeactivateGlow());
 
