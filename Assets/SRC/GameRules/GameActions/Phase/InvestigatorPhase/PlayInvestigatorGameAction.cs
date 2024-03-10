@@ -23,6 +23,6 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionFactory.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
             }
-        }
+        }       //2.2.2	Investigator's turn ends  
     }
 }

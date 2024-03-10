@@ -22,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         public Stat Resources { get; private set; }
         public Stat Hints { get; private set; }
         public Stat Turns { get; private set; }
-
         public Stat DrawTurnsCost { get; private set; }
 
         /*******************************************************************/
@@ -73,8 +72,8 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
 
             _effectProvider.Create()
-                .SetCard(Owner.CardToDraw)
-                .SetInvestigator(Owner)
+                .SetCard(_investigatorProvider.ActiveInvestigator.CardToDraw)
+                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
                 .SetCanPlay(CanDraw)
                 .SetLogic(Draw)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw));
@@ -83,15 +82,15 @@ namespace MythosAndHorrors.GameRules
         protected bool CanDraw()
         {
             if (_investigatorProvider.ActiveInvestigator != Owner) return false;
-            if (Owner.Turns.Value < DrawTurnsCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator.Turns.Value < DrawTurnsCost.Value) return false;
 
             return true;
         }
 
         protected async Task Draw()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Owner.Turns, DrawTurnsCost.Value));
-            await _gameActionFactory.Create(new DrawGameAction(Owner));
+            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, DrawTurnsCost.Value));
+            await _gameActionFactory.Create(new DrawGameAction(_investigatorProvider.ActiveInvestigator));
         }
     }
 }
