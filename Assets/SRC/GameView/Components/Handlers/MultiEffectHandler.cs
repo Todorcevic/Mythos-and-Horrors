@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task<Effect> FinishMultiEffect(IPlayable playableSelected)
         {
-            await _showCardHandler.DeactivatePlayables();
+            await _showCardHandler.DeactivatePlayables(cardViewClones);
 
             if (playableSelected is MainButtonComponent)
             {

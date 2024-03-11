@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameView
             }
         }
 
-        public async Task DeactivatePlayables()
+        public async Task DeactivatePlayables(List<IPlayable> clones = null)
         {
             CheckDeactivateActivables();
             CheckDeactivateAvatars();
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameView
             /*******************************************************************/
             void CheckDeactivateActivables()
             {
-                _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
+                _allPlayablesComponent.Concat(clones ?? _cardViewsManager.GetAllIPlayable())
                     .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.DeactivateToClick());
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
             }

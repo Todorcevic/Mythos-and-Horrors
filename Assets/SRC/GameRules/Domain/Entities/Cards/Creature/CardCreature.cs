@@ -58,14 +58,14 @@ namespace MythosAndHorrors.GameRules
         /************************** INVESTIGATOR ATTACK *****************************/
         protected void CheckInvestigatorAttack(GameAction gameAction)
         {
-            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+            if (gameAction is not OneInvestigatorTurnGameAction) return;
 
             _effectProvider.Create()
-                .SetCard(this)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorAttack))
-                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-                .SetCanPlay(CanInvestigatorAttack)
-                .SetLogic(InvestigatorAttack);
+            .SetCard(this)
+            .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorAttack))
+            .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+            .SetCanPlay(CanInvestigatorAttack)
+            .SetLogic(InvestigatorAttack);
         }
 
         protected bool CanInvestigatorAttack()
