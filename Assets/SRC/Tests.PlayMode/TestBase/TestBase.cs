@@ -53,7 +53,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             SceneContainer.Bind<CardInfoBuilder>().AsTransient();
             SceneContainer.Bind<CardBuilder>().AsSingle();
-            SceneContainer.Bind<CardViewBuilder>().AsSingle();
         }
 
         protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
