@@ -3,7 +3,8 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigatorsPhaseGameAction : PhaseGameAction //2.1	Investigation phase begins.
+    //2.1	Investigation phase begins.
+    public class InvestigatorsPhaseGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionProvider _gameActionFactory;
@@ -23,4 +24,5 @@ namespace MythosAndHorrors.GameRules
             }
         }
     }
+    //2.3	Investigation phase ends.
 }

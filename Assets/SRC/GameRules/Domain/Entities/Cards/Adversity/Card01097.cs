@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01097 : CardAdversity, IWeakness
+    public class Card01097 : CardAdversity, IFlaw
     {
         [Inject] private readonly GameActionProvider _gameActionRepository;
 

@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IWeakness))
+            foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IFlaw))
             {
                 _effectProvider.Create()
                     .SetCard(card)

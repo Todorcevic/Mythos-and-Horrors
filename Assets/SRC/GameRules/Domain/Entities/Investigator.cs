@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         [JsonProperty("InvestigatorCard")] public CardInvestigator InvestigatorCard { get; init; }
         [JsonProperty("AvatarCard")] public CardAvatar AvatarCard { get; init; }
@@ -17,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("RequerimentCard")] public List<Card> RequerimentCard { get; init; }
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public string Code => InvestigatorCard.Info.Code;
+        public int Position => _investigatorsProvider.AllInvestigators.IndexOf(this) + 1;
         public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
         public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
         public Zone HandZone { get; private set; }

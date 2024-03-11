@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameView
 {
     public class SwapInvestigatorComponent : MonoBehaviour
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _playPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _rightPosition;
@@ -34,8 +33,7 @@ namespace MythosAndHorrors.GameView
         }
 
         private (Transform, Transform) GetSidePosition(Investigator investigator) =>
-            _investigatorsProvider.GetInvestigatorPosition(investigator) >
-            _investigatorsProvider.GetInvestigatorPosition(_currentAreaInvestigator.Investigator) ?
+            investigator.Position > _currentAreaInvestigator.Investigator.Position ?
             (_leftPosition, _rightPosition) : (_rightPosition, _leftPosition);
     }
 }

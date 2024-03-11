@@ -3,7 +3,8 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : PhaseGameAction //2.2.1	Investigator takes an action, if able.
+    //2.2.1	Investigator takes an action, if able.
+    public class OneInvestigatorTurnGameAction : PhaseGameAction 
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly EffectsProvider _effectProvider;

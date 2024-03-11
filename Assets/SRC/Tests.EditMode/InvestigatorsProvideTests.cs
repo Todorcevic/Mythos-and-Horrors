@@ -8,23 +8,25 @@ namespace MythosAndHorrors.EditMode.Tests
     public class InvestigatorsProvideTests : SetupAutoInject
     {
         [Inject] private readonly InvestigatorsProvider _sut;
+        [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
         [Test]
         public void AddManyInvestigators()
         {
-            Investigator _doc1 = new();
-            Investigator _doc2 = new();
-            Investigator _doc3 = new();
+            Investigator _doc1 = _diContainer.Instantiate<Investigator>();
+            Investigator _doc2 = _diContainer.Instantiate<Investigator>();
+            Investigator _doc3 = _diContainer.Instantiate<Investigator>();
+
             _sut.AddInvestigator(_doc1);
             _sut.AddInvestigator(_doc2);
             _sut.AddInvestigator(_doc3);
 
             Assert.That(_sut.AllInvestigators.Count, Is.EqualTo(3));
             Assert.That(_sut.Leader, Is.EqualTo(_doc1));
-            Assert.That(_sut.GetInvestigatorPosition(_doc1), Is.EqualTo(1));
-            Assert.That(_sut.GetInvestigatorPosition(_doc2), Is.EqualTo(2));
-            Assert.That(_sut.GetInvestigatorPosition(_doc3), Is.EqualTo(3));
+            Assert.That(_doc1.Position, Is.EqualTo(1));
+            Assert.That(_doc2.Position, Is.EqualTo(2));
+            Assert.That(_doc3.Position, Is.EqualTo(3));
         }
     }
 }

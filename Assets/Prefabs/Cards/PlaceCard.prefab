@@ -161,6 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00720d7bdd4749c4ea42319f8950d7a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &605295108782236576 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 831519419743701577, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 282695642698394089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &866625928266129189 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1146880241690785484, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -224,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: {fileID: 7897172197363283759}
   _description: {fileID: 2353200856997724825}
+  _template: {fileID: 605295108782236576}
   _picture: {fileID: 8971544262225794579}
   _glowComponent: {fileID: 866625928266129189}
   _cardSensor: {fileID: 8282791756316178403}

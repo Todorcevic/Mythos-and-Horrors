@@ -25,8 +25,6 @@ namespace MythosAndHorrors.GameRules
             _investigator.Add(investigator);
         }
 
-        public int GetInvestigatorPosition(Investigator investigator) => _investigator.IndexOf(investigator) + 1;
-
         public Investigator GetInvestigatorWithThisZone(Zone zone)
             => _investigator.FirstOrDefault(investigator => investigator.HasThisZone(zone));
 

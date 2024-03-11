@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Card nextDraw = Investigator.DeckZone.Cards.Last();
-            if (nextDraw is IWeakness)
+            if (nextDraw is IFlaw)
             {
                 await _gameActionFactory.Create(new DiscardGameAction(nextDraw));
                 await _gameActionFactory.Create(new InitialDrawGameAction(Investigator));
