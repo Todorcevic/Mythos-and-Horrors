@@ -21,16 +21,6 @@ namespace MythosAndHorrors.GameRules
         string IViewEffect.CardCodeSecundary => _cardMaster.Owner.Code;
 
         /*******************************************************************/
-        //public Buff(Card cardMaster, string description, Func<List<Card>> cardsAffected, Func<Card, Task> activationLogic, Func<Card, Task> deactivationLogic)
-        //{
-        //    _cardMaster = cardMaster;
-        //    _description = description;
-        //    CardsToBuff = cardsAffected;
-        //    ActivationLogic = activationLogic;
-        //    DeactivationLogic = deactivationLogic;
-        //}
-
-        /*******************************************************************/
         public async Task Check()
         {
             if (_isBuffing) return;

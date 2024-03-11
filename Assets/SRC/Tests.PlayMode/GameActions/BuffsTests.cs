@@ -29,6 +29,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.Leader.Intelligence.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Intelligence + 1));
+            Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(_investigatorsProvider.Second.InvestigatorCard.Info.Intelligence + 1));
+
         }
     }
 }
