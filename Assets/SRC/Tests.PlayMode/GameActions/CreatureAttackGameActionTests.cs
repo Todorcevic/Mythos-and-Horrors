@@ -2,11 +2,13 @@
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class CreatureAttackGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
@@ -28,8 +30,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             do
             {
                 yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.Leader)).AsCoroutine();
-                yield return PressAnyKey();
+                if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
+
+            yield return new WaitForSeconds(1);
 
             Assert.That(_investigatorsProvider.Leader.Health.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Health - 2));
             Assert.That(_investigatorsProvider.Leader.Sanity.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Sanity - 1));
@@ -48,8 +52,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             do
             {
                 yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.Second)).AsCoroutine();
-                yield return PressAnyKey();
+                if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
+
+            yield return new WaitForSeconds(2);
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(_investigatorsProvider.Second.InvestigatorCard.Info.Health - 2));
             Assert.That(_investigatorsProvider.Second.Sanity.Value, Is.EqualTo(_investigatorsProvider.Second.InvestigatorCard.Info.Sanity - 1));

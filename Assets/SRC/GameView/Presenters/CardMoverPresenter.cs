@@ -36,7 +36,5 @@ namespace MythosAndHorrors.GameView
             }
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.ToZone);
         }
-
-
     }
 }

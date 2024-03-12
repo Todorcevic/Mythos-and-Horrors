@@ -21,10 +21,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create(new MoveCardsGameAction(Creature, ZoneToMove()));
+            await _gameActionRepository.Create(new MoveCardsGameAction(Creature, CardPlaceToMove().OwnZone));
         }
 
-        private Zone ZoneToMove()
+        private CardPlace CardPlaceToMove()
         {
             Dictionary<Investigator, CardPlace> finalResult = new();
             (CardPlace path, int distance) winner = (default, int.MaxValue);
@@ -42,9 +42,9 @@ namespace MythosAndHorrors.GameRules
             }
 
             if (Creature is ITarget target && finalResult.TryGetValue(target.Investigator, out CardPlace place))
-                return place.CurrentZone;
+                return place;
 
-            return finalResult.First().Value.CurrentZone;
+            return finalResult.First().Value;
         }
 
         private (CardPlace path, int distance) InitializerFindPath(List<CardPlace> listLocation, CardPlace moveToLocation)

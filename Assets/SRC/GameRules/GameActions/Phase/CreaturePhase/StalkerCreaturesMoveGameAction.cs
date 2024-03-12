@@ -24,11 +24,6 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionFactory.Create(new MoveCreatureGameAction(creature));
             }
-
-            await Task.CompletedTask;
         }
-
-        /*******************************************************************/
-
     }
 }

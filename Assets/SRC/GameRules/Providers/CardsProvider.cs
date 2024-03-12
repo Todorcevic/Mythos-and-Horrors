@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Card GetCard(string code) => AllCards.First(card => card.Info.Code == code);
-        public T GetCard<T>(string code) where T : Card => AllCards.First(card => card.Info.Code == code && card is T) as T;
+        public T GetCard<T>(string code) where T : Card => (T)AllCards.First(card => card.Info.Code == code);
         public void AddCard(Card objectCard) => AllCards.Add(objectCard);
         public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
         public List<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>
