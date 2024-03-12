@@ -29,5 +29,4 @@ namespace MythosAndHorrors.GameRules
             }
         }
     }
-
 }

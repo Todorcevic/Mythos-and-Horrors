@@ -16,7 +16,8 @@ namespace MythosAndHorrors.GameView
 
         async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
         {
-            await _moveCardHandler.ReturnCard(gameAction.Creature);
+            await _moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone);
+            _ = _moveCardHandler.ReturnCard(gameAction.Creature);
         }
 
         /*******************************************************************/
