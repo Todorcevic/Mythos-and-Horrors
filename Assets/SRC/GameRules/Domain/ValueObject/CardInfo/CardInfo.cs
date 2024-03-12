@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Intelligence")] public int? Intelligence { get; init; }
         [JsonProperty("Power")] public int? Power { get; init; }
         [JsonProperty("Wild")] public int? Wild { get; init; }
-        [JsonProperty("EnemyDamage")] public int? EnemyDamage { get; init; }
-        [JsonProperty("EnemyFear")] public int? EnemyFear { get; init; }
+        [JsonProperty("CreatureDamage")] public int? CreatureDamage { get; init; }
+        [JsonProperty("CreatureFear")] public int? CreatureFear { get; init; }
         [JsonProperty("Xp")] public int? Xp { get; init; }
         [JsonProperty("Victory")] public int? Victory { get; init; }
         [JsonProperty("Enigma")] public int? Enigma { get; init; }

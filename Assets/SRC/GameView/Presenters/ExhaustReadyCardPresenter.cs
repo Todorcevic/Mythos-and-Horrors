@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
+using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
+
     public class ExhaustReadyCardPresenter : IPresenter<ExhaustCardGameAction>, IPresenter<ReadyCardGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -11,14 +14,13 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<ExhaustCardGameAction>.PlayAnimationWith(ExhaustCardGameAction exhaultGamneAction)
         {
-            _cardViewsManager.GetCardView(exhaultGamneAction.Card).Exhaust();
-            await Task.CompletedTask;
+            await _cardViewsManager.GetCardView(exhaultGamneAction.Card).Exhaust().AsyncWaitForCompletion();
         }
 
-        Task IPresenter<ReadyCardGameAction>.PlayAnimationWith(ReadyCardGameAction gameAction)
+        async Task IPresenter<ReadyCardGameAction>.PlayAnimationWith(ReadyCardGameAction gameAction)
         {
-            _cardViewsManager.GetCardView(gameAction.Card).Ready();
-            return Task.CompletedTask;
+            await _cardViewsManager.GetCardView(gameAction.Card).Ready().AsyncWaitForCompletion();
+
         }
     }
 }

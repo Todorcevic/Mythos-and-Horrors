@@ -27,8 +27,8 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private void SetSkillIcons()
         {
-            _skillIconsController.SetResourceIconView(Card.Info.EnemyDamage ?? 0, _skillDamageIcon, _skillHolder);
-            _skillIconsController.SetResourceIconView(Card.Info.EnemyFear ?? 0, _skillFearIcon, _skillHolder);
+            _skillIconsController.SetResourceIconView(Card.Info.CreatureDamage ?? 0, _skillDamageIcon, _skillHolder);
+            _skillIconsController.SetResourceIconView(Card.Info.CreatureFear ?? 0, _skillFearIcon, _skillHolder);
         }
 
         private void SetStats()

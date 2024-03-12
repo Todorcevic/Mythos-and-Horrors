@@ -16,7 +16,6 @@ namespace MythosAndHorrors.GameView
         [Title(nameof(CardView))]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
-        [SerializeField, Required, ChildGameObjectsOnly] protected SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
@@ -109,14 +108,14 @@ namespace MythosAndHorrors.GameView
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
 
-        public void Exhaust()
+        public Tween Exhaust()
         {
-            _template.material.color = _picture.material.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
+            return _picture.material.DOColor(ViewValues.DEACTIVE_COLOR, ViewValues.DEFAULT_TIME_ANIMATION);
         }
 
-        public void Ready()
+        public Tween Ready()
         {
-            _template.material.color = _picture.material.color = Color.white;
+            return _picture.material.DOColor(Color.white, ViewValues.DEFAULT_TIME_ANIMATION);
         }
 
         /*******************************************************************/

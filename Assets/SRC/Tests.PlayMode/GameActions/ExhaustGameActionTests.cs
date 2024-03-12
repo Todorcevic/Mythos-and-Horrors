@@ -3,19 +3,19 @@ using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class ExhaustGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -27,9 +27,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new ExhaustCardGameAction(cardToExhaust)).AsCoroutine();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
+            if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(cardToExhaust.Exausted.IsActive);
+
+            yield return _gameActionFactory.Create(new ReadyCardGameAction(cardToExhaust)).AsCoroutine();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            Assert.That(!cardToExhaust.Exausted.IsActive);
         }
     }
 }

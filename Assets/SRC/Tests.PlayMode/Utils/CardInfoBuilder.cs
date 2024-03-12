@@ -96,13 +96,13 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public CardInfoBuilder WithEnemyDamage(int? damage)
         {
-            currentCardInfo = currentCardInfo with { EnemyDamage = damage };
+            currentCardInfo = currentCardInfo with { CreatureDamage = damage };
             return this;
         }
 
         public CardInfoBuilder WithEnemyFear(int? fear)
         {
-            currentCardInfo = currentCardInfo with { EnemyFear = fear };
+            currentCardInfo = currentCardInfo with { CreatureFear = fear };
             return this;
         }
 
@@ -146,8 +146,8 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Cost = rand.Next(1, 4),
                 Enigma = rand.Next(1, 4),
                 Hints = rand.Next(1, 4),
-                EnemyDamage = rand.Next(1, 4),
-                EnemyFear = rand.Next(1, 4),
+                CreatureDamage = rand.Next(1, 4),
+                CreatureFear = rand.Next(1, 4),
                 Wild = rand.Next(1, 4),
                 Eldritch = rand.Next(1, 4),
                 Slots = new[] { SlotType.None }

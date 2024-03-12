@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public Stat EludeTurnsCost { get; private set; }
 
         /*******************************************************************/
-        public int TotalEnemyHits => (Info.EnemyDamage ?? 0) + (Info.EnemyFear ?? 0);
+        public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
         public bool IsConfronted => ConfrontedInvestigator != null;
         public Investigator ConfrontedInvestigator
         {
@@ -44,8 +44,8 @@ namespace MythosAndHorrors.GameRules
             Health = new Stat(Info.Health ?? 0, Info.Health ?? 0);
             Strength = new Stat(Info.Strength ?? 0);
             Agility = new Stat(Info.Agility ?? 0);
-            Damage = new Stat(Info.EnemyDamage ?? 0);
-            Fear = new Stat(Info.EnemyFear ?? 0);
+            Damage = new Stat(Info.CreatureDamage ?? 0);
+            Fear = new Stat(Info.CreatureFear ?? 0);
             InvestigatorAttackTurnsCost = new Stat(1, 1);
             InvestigatorConfronTurnsCost = new Stat(1, 1);
             EludeTurnsCost = new Stat(1, 1);

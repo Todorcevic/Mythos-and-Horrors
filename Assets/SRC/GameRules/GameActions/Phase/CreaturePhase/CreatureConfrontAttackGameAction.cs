@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (CardCreature creature in AttackerCreatures)
             {
-                await _gameActionFactory.Create(new CreatureAttackGameAction(creature));
+                await _gameActionFactory.Create(new CreatureAttackGameAction(creature, creature.ConfrontedInvestigator));
             }
         }
     }

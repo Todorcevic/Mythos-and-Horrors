@@ -9,19 +9,21 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public CardCreature Creature { get; private set; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public CreatureAttackGameAction(CardCreature creature)
+        public CreatureAttackGameAction(CardCreature creature, Investigator investigator)
         {
             Creature = creature;
+            Investigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _creatureAttackPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new DecrementStatGameAction(Creature.ConfrontedInvestigator.Health, Creature.Damage.Value));
-            await _gameActionFactory.Create(new DecrementStatGameAction(Creature.ConfrontedInvestigator.Sanity, Creature.Fear.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Health, Creature.Damage.Value));
+            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Sanity, Creature.Fear.Value));
         }
     }
 }

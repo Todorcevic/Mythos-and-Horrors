@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
     {
         [Title(nameof(InvestigatorCardView))]
         [SerializeField, Required, AssetsOnly] private List<FactionInvestigatorSO> _factions;
-        //[SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;

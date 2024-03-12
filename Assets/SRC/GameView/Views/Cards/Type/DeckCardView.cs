@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _resourceIconsController;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotController _slotController;
-        //[SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
