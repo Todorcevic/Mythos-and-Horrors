@@ -3,16 +3,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckHandSize : GameAction
+    public class CheckHandSizeGameAction : GameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
+        [Inject] private readonly IPresenter<CheckHandSizeGameAction> _swapInvestigatorPresenter;
 
         public Investigator Investigator { get; }
 
         /*******************************************************************/
-        public CheckHandSize(Investigator investigator)
+        public CheckHandSizeGameAction(Investigator investigator)
         {
             Investigator = investigator;
         }
@@ -23,6 +24,7 @@ namespace MythosAndHorrors.GameRules
             while (Investigator.HandSize > GameValues.MAX_HAND_SIZE)
             {
                 Create();
+                await _swapInvestigatorPresenter.PlayAnimationWith(this);
                 await _gameActionProvider.Create(new InteractableGameAction());
             }
         }
@@ -42,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionProvider.Create(new DiscardGameAction(card));
-                    await _gameActionProvider.Create(new CheckHandSize(Investigator));
+                    await _gameActionProvider.Create(new CheckHandSizeGameAction(Investigator));
                 };
 
                 bool CanChoose()

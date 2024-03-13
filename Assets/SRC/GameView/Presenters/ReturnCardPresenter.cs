@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StartingAnimationPresenter : IPresenter<ChooseInvestigatorGameAction>, IPresenter<InvestigateGameAction>
+    public class ReturnCardPresenter : IPresenter<ChooseInvestigatorGameAction>, IPresenter<InvestigateGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 

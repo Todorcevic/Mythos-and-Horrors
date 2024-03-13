@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
     public class InvisibleHolderController : MonoBehaviour
     {
         private Sequence repositionSequence;
-        private const float _thickFactor = 0.25f;
+        private const float THICK_FACTOR = 0.25f;
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _invisibleHolderRect;
         [SerializeField, Required, ChildGameObjectsOnly] private List<InvisibleHolder> _allInvisibleHolders;
 
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
             .OrderBy(invisibleHolder => invisibleHolder.transform.GetSiblingIndex()).ToList();
 
         public int AmountOfCards => AllActivesInvisibleHolders.Count();
-        private float Y_OFF_SET => ViewValues.CARD_THICKNESS * _thickFactor;
+        private float Y_OFF_SET => ViewValues.CARD_THICKNESS * THICK_FACTOR;
 
         /*******************************************************************/
         public Tween AddCardView(CardView cardView)
@@ -40,7 +40,6 @@ namespace MythosAndHorrors.GameView
             repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             if (AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * layoutAmount);
-            //Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);
             return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true));
         }
 

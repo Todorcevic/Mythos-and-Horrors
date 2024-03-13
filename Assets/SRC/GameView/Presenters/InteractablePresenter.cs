@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
 
         /*******************************************************************/
@@ -26,6 +27,7 @@ namespace MythosAndHorrors.GameView
         private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
             await DotweenExtension.WaitForAllTweensToComplete();
+            //_swapInvestigatorPresenter.Select(interactableGameAction);
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
             _showCardHandler.ActiavatePlayables();
 
