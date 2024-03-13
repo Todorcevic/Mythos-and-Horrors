@@ -4,7 +4,8 @@ using MythosAndHorrors.GameRules;
 
 namespace MythosAndHorrors.GameView
 {
-    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>
+    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>,
+        IPresenter<ChooseInvestigatorGameAction>, IPresenter<InvestigateGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
@@ -35,6 +36,17 @@ namespace MythosAndHorrors.GameView
                 return;
             }
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.ToZone);
+        }
+
+        /*******************************************************************/
+        async Task IPresenter<ChooseInvestigatorGameAction>.PlayAnimationWith(ChooseInvestigatorGameAction playEffectGA)
+        {
+            await _moveCardHandler.ReturnCard(playEffectGA.InvestigatorSelected.AvatarCard);
+        }
+
+        async Task IPresenter<InvestigateGameAction>.PlayAnimationWith(InvestigateGameAction playEffectGA)
+        {
+            await _moveCardHandler.ReturnCard(playEffectGA.CardPlace);
         }
     }
 }

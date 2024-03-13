@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,7 +28,11 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
         }
 
-        Tween IStatableView.UpdateValue() => TokenOn.SetAmount(Stat.Value);
+        Tween IStatableView.UpdateValue()
+        {
+            _allTokens.ForEach(token => token.SetAmount(_allTokens.IndexOf(token) + 1));
+            return DOTween.Sequence();
+        }
 
         /*******************************************************************/
         public Tween Pay(int amount, Transform thisPosition)

@@ -23,6 +23,7 @@ namespace MythosAndHorrors.GameRules
         public Zone OutZone { get; private set; }
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
+        public CardGoal CurrentGoal => GoalZone.Cards.Last() as CardGoal;
 
         /************************** RESOURCES *****************************/
         public Stat ResourceCost { get; private set; }

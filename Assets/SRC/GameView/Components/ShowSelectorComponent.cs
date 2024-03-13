@@ -98,11 +98,11 @@ namespace MythosAndHorrors.GameView
         private async Task Animation()
         {
             await _ioActivatorComponent.DeactivateCardSensors();
-            Sequence showCenterSequence = DOTween.Sequence()
+            Sequence showCenterSequence = DOTween.Sequence().SetId("ShowCenter")
                .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
                .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition))
                .Join(_selectorBlockController.ActivateSelector());
-            CardViewsOrdered.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.OutSine)));
+            CardViewsOrdered.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
         }

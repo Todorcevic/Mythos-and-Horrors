@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task IntialState()
         {
-            DOTween.SetTweensCapacity(200, 125);
+            DOTween.SetTweensCapacity(500, 312);
             _ioActivatorComponent.BlockUI();
             _mainButtonComponent.DeactivateToClick();
             await _ioActivatorComponent.DeactivateCardSensors();

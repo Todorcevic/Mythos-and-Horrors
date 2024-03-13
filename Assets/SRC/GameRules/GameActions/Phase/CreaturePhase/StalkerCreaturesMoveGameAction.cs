@@ -20,7 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (CardCreature creature in _cardsProvider.AllCards.OfType<IStalker>().Cast<CardCreature>())
+            foreach (CardCreature creature in _cardsProvider.AllCards.OfType<IStalker>()
+                .Cast<CardCreature>().Where(creature => creature.CurrentPlace != null))
             {
                 await _gameActionFactory.Create(new MoveCreatureGameAction(creature));
             }

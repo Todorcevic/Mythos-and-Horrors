@@ -10,12 +10,12 @@ namespace MythosAndHorrors.GameView
     public class StatUpdatePresenter : IPresenter<StatGameAction>
     {
         [Inject] private readonly StatableManager _statsViewsManager;
-
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
         /*******************************************************************/
         async Task IPresenter<StatGameAction>.PlayAnimationWith(StatGameAction updateStatGameAction)
         {
-            UpdateStat(updateStatGameAction);
-            await Task.CompletedTask;
+            await UpdateStat(updateStatGameAction).AsyncWaitForCompletion();
         }
 
         /*******************************************************************/
@@ -25,6 +25,14 @@ namespace MythosAndHorrors.GameView
             Sequence updateStatsSequence = DOTween.Sequence();
             statables.ForEach(statView => updateStatsSequence.Join(statView.UpdateValue()));
             return updateStatsSequence;
+        }
+
+        private async Task SpecialAnimations(StatGameAction updateStatGameAction)
+        {
+            if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch))
+            {
+                await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public override IEnumerator SetUp()
         {
             yield return base.SetUp();
-            DOTween.SetTweensCapacity(200, 125);
+            DOTween.SetTweensCapacity(500, 312);
             if (!DEBUG_MODE) WithoutAnimations();
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
