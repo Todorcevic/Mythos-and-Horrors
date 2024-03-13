@@ -38,6 +38,12 @@ namespace MythosAndHorrors.GameView
             cardView.MoveToZone(zoneView, Ease.InCubic);
         }
 
+        public async Task MoveCardtoCenter(Card card)
+        {
+            CardView cardView = _cardsManager.GetCardView(card);
+            await MoveCardToCenter(cardView);
+        }
+
         public async Task MoveCardToCenter(CardView cardView)
         {
             if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone) return;
