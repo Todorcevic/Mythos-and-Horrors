@@ -21,12 +21,12 @@ namespace MythosAndHorrors.GameView
         {
             AreaInvestigatorView areaInvestigatorView = _areaInvestigatorViewsManager.Get(investigator);
             (Transform positionToExit, Transform positionToEnter) = GetSidePosition(investigator);
-            Sequence swapSequence = DOTween.Sequence().OnStart(() => areaInvestigatorView.transform.position = positionToEnter.position)
-                .Append(areaInvestigatorView.transform.DOFullMove(_playPosition, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutCubic))
-                .Join(_currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutCubic))
+            Sequence swapSequence = DOTween.Sequence()/*.OnStart(() => areaInvestigatorView.transform.position = positionToEnter.position)*/
+                .Append(areaInvestigatorView.transform.DOFullMove(_playPosition, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutQuad))
+                .Join(_currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutQuad))
                 .OnComplete(() =>
                 {
-                    _currentAreaInvestigator.transform.position = _optimizationPosition.position;
+                    //_currentAreaInvestigator.transform.position = _optimizationPosition.position;
                     _currentAreaInvestigator = areaInvestigatorView;
                 });
             return swapSequence;

@@ -45,6 +45,7 @@ namespace MythosAndHorrors.GameRules
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= Turns.Value;
         public Card CardToDraw => DeckZone.Cards.LastOrDefault();
         public bool CanBeHealed => Health.Value < Health.MaxValue;
+        public int HandSize => HandZone.Cards.Count;
 
         /*******************************************************************/
         [Inject]

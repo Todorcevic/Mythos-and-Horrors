@@ -1,5 +1,4 @@
-﻿
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
@@ -9,6 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class MoveCreatureGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -36,7 +36,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place4, _chaptersProvider.CurrentScene.PlaceZone[1, 4])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place5, _chaptersProvider.CurrentScene.PlaceZone[2, 4])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place2.OwnZone)).AsCoroutine();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place3.OwnZone)).AsCoroutine();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
 
             yield return _gameActionFactory.Create(new MoveCreatureGameAction(creature)).AsCoroutine();

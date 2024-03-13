@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence()
                      .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                      .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))
-                     .SetEase(Ease.InOutCubic);
+                     .SetEase(Ease.InOutSine);
 
             Vector3 ButtonPositionInUI()
             {
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.GameView
             .Join(transform.DOLocalMove(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
             .Join(transform.DOScale(Vector3.one, ViewValues.DEFAULT_TIME_ANIMATION))
             .Join(transform.DOLocalRotate(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
-            .SetEase(Ease.InSine);
+            .SetEase(Ease.InOutSine);
 
         /*******************************************************************/
         public void OnMouseEnter() => _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);

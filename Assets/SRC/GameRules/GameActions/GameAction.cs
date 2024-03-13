@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
-        protected virtual bool CanBeExecuted => true;
+        public bool CanBeExecuted { get; protected set; } = true;
 
         /*******************************************************************/
         public async Task Start()

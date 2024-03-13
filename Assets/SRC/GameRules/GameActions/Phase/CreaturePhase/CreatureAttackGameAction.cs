@@ -8,8 +8,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<CreatureAttackGameAction> _creatureAttackPresenter;
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
-        public CardCreature Creature { get; private set; }
-        public Investigator Investigator { get; private set; }
+        public CardCreature Creature { get; }
+        public Investigator Investigator { get; }
 
         /*******************************************************************/
         public CreatureAttackGameAction(CardCreature creature, Investigator investigator)

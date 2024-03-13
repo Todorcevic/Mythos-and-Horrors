@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly IPresenter<ChooseInvestigatorGameAction> _startingAnimationPresenter;
 
         public List<Investigator> InvestigatorsToSelect { get; }
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
                     .SetCard(investigator.AvatarCard)
                     .SetInvestigator(investigator)
                     .SetCanPlay(() => true)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT)
+                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(ChooseInvestigator))
                     .SetLogic(ChooseInvestigator);
 
                 /*******************************************************************/
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionFactory.Create(new InteractableGameAction());
+            await _gameActionProvider.Create(new InteractableGameAction());
         }
     }
 }

@@ -13,13 +13,13 @@ namespace MythosAndHorrors.GameRules
         public Investigator Investigator { get; }
         public Stat ToStat => _toStat ?? _chaptersProvider.CurrentScene.PileAmount;
         public int Amount { get; }
-        protected override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
         public PayResourceGameAction(Investigator investigator, int amount) // toStat ResourcePile -> See line 14
         {
             Investigator = investigator;
             Amount = amount;
+            CanBeExecuted = Amount > 0;
         }
 
         public PayResourceGameAction(Investigator investigator, Stat toStat, int amount)
@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
             Investigator = investigator;
             _toStat = toStat;
             Amount = investigator.Resources.Value < amount ? Investigator.Resources.Value : amount;
+            CanBeExecuted = Amount > 0;
         }
 
         /*******************************************************************/

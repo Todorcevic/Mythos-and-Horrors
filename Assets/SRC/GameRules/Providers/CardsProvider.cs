@@ -14,5 +14,7 @@ namespace MythosAndHorrors.GameRules
         public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
         public List<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>
             AllCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace)).ToList();
+
+        public List<Card> GetCardsExhausted() => AllCards.FindAll(card => card.Exausted.IsActive);
     }
 }

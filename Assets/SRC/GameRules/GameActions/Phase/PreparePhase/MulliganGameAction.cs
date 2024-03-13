@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
                 _effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetCanPlay(() => true)
+                    .SetCanPlay(CanDiscard)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT1)
                     .SetLogic(Discard);
 
@@ -42,14 +42,19 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionFactory.Create(new DiscardGameAction(card));
                     await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
                 }
+
+                bool CanDiscard()
+                {
+                    return true;
+                }
             }
 
-            foreach (Card card in ActiveInvestigator.DiscardZone.Cards.FindAll(card => card is not IFlaw))
+            foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
             {
                 _effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetCanPlay(() => true)
+                    .SetCanPlay(CanRestore)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT2)
                     .SetLogic(Restore);
 
@@ -58,6 +63,12 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
                     await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+                }
+
+                bool CanRestore()
+                {
+                    if (card is IFlaw) return false;
+                    return true;
                 }
             }
 

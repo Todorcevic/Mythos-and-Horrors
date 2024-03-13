@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionProvider _gameActionRepository;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public CardCreature Creature { get; init; }
+        public CardCreature Creature { get; }
 
         /*******************************************************************/
         public MoveCreatureGameAction(CardCreature creature)
