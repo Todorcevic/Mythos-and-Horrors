@@ -1,21 +1,27 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class StatGameAction : GameAction
+    public abstract class StatGameAction : GameAction
     {
         [Inject] private readonly IPresenter<StatGameAction> _StatsPresenter;
 
-        public Stat Stat { get; }
-        public int Value { get; }
+        public Dictionary<Stat, int> StatsWithValue { get; }
+        public List<Stat> AllStats => StatsWithValue.Keys.ToList();
 
         /*******************************************************************/
-        public StatGameAction(Stat stat, int value)
+        public StatGameAction(Stat stat, int value) : this(new Dictionary<Stat, int> { { stat, value } }) { }
+
+        public StatGameAction(Dictionary<Stat, int> statsWithValues)
         {
-            Stat = stat;
-            Value = value;
+            StatsWithValue = statsWithValues;
         }
+
+        /*******************************************************************/
+        public bool HasStat(Stat stat) => StatsWithValue.ContainsKey(stat);
 
         protected override async Task ExecuteThisLogic()
         {

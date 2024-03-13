@@ -135,8 +135,8 @@ namespace MythosAndHorrors.GameRules
         protected async Task Elude()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigatorConfronTurnsCost.Value));
-            Exausted.UpdateValueTo(true); //TODO : Create Exaust gameaction   
-            await _gameActionFactory.Create(new MoveCardsGameAction(this, _investigatorProvider.ActiveInvestigator.CurrentPlace.OwnZone));
+            await _gameActionFactory.Create(new ExhaustCardsGameAction(this));
+            await _gameActionFactory.Create(new MoveCardsGameAction(this, CurrentPlace.OwnZone));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -22,8 +23,13 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _creatureAttackPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Health, Creature.Damage.Value));
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Sanity, Creature.Fear.Value));
+
+            Dictionary<Stat, int> statsWithValues = new()
+            {
+                {Investigator.Health, Creature.Damage.Value},
+                {Investigator.Sanity, Creature.Fear.Value}
+            };
+            await _gameActionFactory.Create(new DecrementStatGameAction(statsWithValues));
         }
     }
 }

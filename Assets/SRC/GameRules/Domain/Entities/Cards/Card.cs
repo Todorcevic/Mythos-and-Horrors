@@ -46,10 +46,5 @@ namespace MythosAndHorrors.GameRules
         protected virtual Task WhenFinish(GameAction gameAction) => Task.CompletedTask;
 
         /*******************************************************************/
-       
-        public void TurnDown(bool toFaceDown)
-        {
-            FaceDown.UpdateValueTo(toFaceDown);
-        }
     }
 }

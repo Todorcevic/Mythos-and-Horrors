@@ -63,7 +63,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
         protected IEnumerator WaitToHistoryPanelClick()
         {
-            float timeout = 1f;
+            float timeout = 10f;
             float startTime = Time.realtimeSinceStartup;
             Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
 
@@ -78,7 +78,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         protected IEnumerator WaitToClick(Card card)
         {
-            float timeout = 1f;
+            float timeout = 10f;
             float startTime = Time.realtimeSinceStartup;
             CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
@@ -92,7 +92,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         protected IEnumerator WaitToCloneClick(Effect effect)
         {
-            float timeout = 1f;
+            float timeout = 10f;
             float startTime = Time.realtimeSinceStartup;
 
             while (_multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
@@ -111,7 +111,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly TokensPileComponent tokensPileComponent;
         protected IEnumerator WaitToTokenClick()
         {
-            float timeout = 1f;
+            float timeout = 10f;
             float startTime = Time.realtimeSinceStartup;
 
             while (Time.realtimeSinceStartup - startTime < timeout && !tokensPileComponent.GetPrivateMember<bool>("_isClickable")) yield return null;

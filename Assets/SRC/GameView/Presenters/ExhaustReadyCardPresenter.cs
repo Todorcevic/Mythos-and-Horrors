@@ -1,25 +1,33 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ExhaustReadyCardPresenter : IPresenter<ExhaustCardGameAction>, IPresenter<ReadyCardGameAction>
+    public class ExhaustReadyCardPresenter : IPresenter<ExhaustCardsGameAction>, IPresenter<ReadyCardGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        async Task IPresenter<ExhaustCardGameAction>.PlayAnimationWith(ExhaustCardGameAction exhaultGamneAction)
+        async Task IPresenter<ExhaustCardsGameAction>.PlayAnimationWith(ExhaustCardsGameAction exhaultGamneAction)
         {
-            await _cardViewsManager.GetCardView(exhaultGamneAction.Card).Exhaust().AsyncWaitForCompletion();
+            Sequence exhaustSequence = DOTween.Sequence()
+                .Append(_swapInvestigatorPresenter.Select(exhaultGamneAction.Cards.Select(card => card.Owner).UniqueOrDefault()));
+            foreach (Card card in exhaultGamneAction.Cards)
+                exhaustSequence.Join(_cardViewsManager.GetCardView(card).Exhaust());
+            await exhaustSequence.AsyncWaitForCompletion();
         }
 
         async Task IPresenter<ReadyCardGameAction>.PlayAnimationWith(ReadyCardGameAction readyCardGameAction)
         {
-            await _cardViewsManager.GetCardView(readyCardGameAction.Card).Ready().AsyncWaitForCompletion();
-            //if (readyCardGameAction.Parent is ReadyAllCardsGameAction) _cardViewsManager.GetCardView(readyCardGameAction.Card).Ready();
-            //else await _cardViewsManager.GetCardView(readyCardGameAction.Card).Ready().AsyncWaitForCompletion();
+            Sequence readySequence = DOTween.Sequence()
+                .Append(_swapInvestigatorPresenter.Select(readyCardGameAction.Cards.Select(card => card.Owner).UniqueOrDefault()));
+            foreach (Card card in readyCardGameAction.Cards)
+                readySequence.Join(_cardViewsManager.GetCardView(card).Ready());
+            await readySequence.AsyncWaitForCompletion();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Sirenix.Utilities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -7,11 +9,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public IncrementStatGameAction(Stat stat, int value) : base(stat, value) { }
 
+        public IncrementStatGameAction(Dictionary<Stat, int> statsWithValues) : base(statsWithValues) { }
+
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (Value == 0) return;
-            Stat.Increase(Value);
+            StatsWithValue.ForEach(stat => stat.Key.Increase(stat.Value));
             await base.ExecuteThisLogic();
         }
     }

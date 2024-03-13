@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     //4.2	Reset actions.
     public class ResetAllInvestigatorsTurnsGameAction : PhaseGameAction
     {
@@ -18,10 +19,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
-            {
-                await _gameActionProvider.Create(new ResetInvestigatorTurnsGameAction(investigator));
-            }
+            Dictionary<Stat, int> turnsInvestigastors = _investigatorsProvider.AllInvestigators
+                .ToDictionary(investigator => investigator.Turns, investigator => investigator.Turns.MaxValue);
+            await _gameActionProvider.Create(new UpdateStatGameAction(turnsInvestigastors));
         }
     }
 }

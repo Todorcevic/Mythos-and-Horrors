@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not StatGameAction statGameAction) return false;
             if (Revealed.IsActive) return false;
             if (RevealHistory == null) return false;
-            if (statGameAction.Stat != Hints) return false;
+            if (!statGameAction.HasStat(Hints)) return false;
             if (Hints.Value < Info.Hints) return false;
             return true;
         }

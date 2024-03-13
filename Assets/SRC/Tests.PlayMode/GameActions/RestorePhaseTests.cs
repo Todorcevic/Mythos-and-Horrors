@@ -13,9 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionProvider _gameActionFactory;
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         protected override bool DEBUG_MODE => true;
 
@@ -33,21 +31,23 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Second.Turns, 0)).AsCoroutine();
             _investigatorsProvider.Second.Turns.ChangeMaxValue(4);
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[10], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Leader.FullDeck[10])).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck[11], _investigatorsProvider.Second.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Second.FullDeck[11])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[12], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Leader.FullDeck[12])).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck[13], _investigatorsProvider.Second.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Second.FullDeck[13])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[14], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Leader.FullDeck[14])).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck[11], _investigatorsProvider.Second.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck[13], _investigatorsProvider.Second.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck[15], _investigatorsProvider.Second.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(_investigatorsProvider.Second.FullDeck[15])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Second.FullDeck[11])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Leader.FullDeck[10])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Leader.FullDeck[12])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Second.FullDeck[13])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Leader.FullDeck[14])).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(_investigatorsProvider.Second.FullDeck[15])).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.HandZone.Cards[1]).AsTask();
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.HandZone.Cards[2]).AsTask();
             yield return _gameActionFactory.Create(new RestorePhaseGameAction()).AsCoroutine();
+
+            yield return new WaitForSeconds(1);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

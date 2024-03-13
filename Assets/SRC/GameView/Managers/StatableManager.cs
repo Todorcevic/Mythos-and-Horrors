@@ -19,5 +19,7 @@ namespace MythosAndHorrors.GameView
         public IStatableView Get(Stat stat) => _allStats.Single(statView => statView.Stat == stat);
 
         public List<IStatableView> GetAll(Stat stat) => _allStats.FindAll(statView => statView.Stat == stat);
+
+        public List<IStatableView> GetAll(List<Stat> stats) => _allStats.FindAll(statView => stats.Contains(statView.Stat));
     }
 }

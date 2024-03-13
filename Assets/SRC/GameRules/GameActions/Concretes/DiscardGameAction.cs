@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class DiscardGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
 
         public Card Card { get; }
 
@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card.TurnDown(false);
-            await _gameActionFactory.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
+            await _gameActionProvider.Create(new UpdateStatesGameAction(Card.FaceDown, false));
+            await _gameActionProvider.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
         }
 
         private Zone GetDiscardZone()

@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         public override Phase MainPhase => Phase.Restore;
         public override string Name => _textsProvider.GameText.RESTORE_PHASE_NAME;

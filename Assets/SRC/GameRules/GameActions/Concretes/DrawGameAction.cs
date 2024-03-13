@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardDrawed = Investigator.CardToDraw;
-            CardDrawed.TurnDown(false);
+            await _gameActionRepository.Create(new UpdateStatesGameAction(CardDrawed.FaceDown, false));
             await _gameActionRepository.Create(new MoveCardsGameAction(CardDrawed, Investigator.HandZone));
         }
     }

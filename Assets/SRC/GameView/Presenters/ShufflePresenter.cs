@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameView
     public class ShufflePresenter : IPresenter<ShuffleGameAction>
     {
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         /*******************************************************************/
         async Task IPresenter<ShuffleGameAction>.PlayAnimationWith(ShuffleGameAction shuffleGameAction)
@@ -18,6 +19,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private async Task Shuffle(ShuffleGameAction shuffleGameAction)
         {
+            await _swapInvestigatorPresenter.Select(shuffleGameAction.ZoneToShuffle).AsyncWaitForCompletion();
             await _zoneViewsManager.Get(shuffleGameAction.ZoneToShuffle).Shuffle().AsyncWaitForCompletion();
         }
     }

@@ -5,17 +5,18 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ReadyCardGameAction : GameAction
+
+    public class ExhaustCardsGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<ReadyCardGameAction> _readyCardPresenter;
+        [Inject] private readonly IPresenter<ExhaustCardsGameAction> _exhaustCardPresenter;
         [Inject] private readonly GameActionProvider _gameActionProvider;
 
         public List<Card> Cards { get; private set; }
 
         /*******************************************************************/
-        public ReadyCardGameAction(Card card) : this(new List<Card> { card }) { }
+        public ExhaustCardsGameAction(Card card) : this(new List<Card> { card }) { }
 
-        public ReadyCardGameAction(List<Card> cards)
+        public ExhaustCardsGameAction(List<Card> cards)
         {
             Cards = cards;
         }
@@ -23,8 +24,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted).ToList(), false));
-            await _readyCardPresenter.PlayAnimationWith(this);
+            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted).ToList(), true));
+            await _exhaustCardPresenter.PlayAnimationWith(this);
         }
     }
 }

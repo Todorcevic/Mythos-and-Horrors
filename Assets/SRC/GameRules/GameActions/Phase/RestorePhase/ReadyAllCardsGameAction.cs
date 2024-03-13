@@ -17,10 +17,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (Card card in _cardsProvider.GetCardsExhausted())
-            {
-                await _gameActionProvider.Create(new ReadyCardGameAction(card));
-            }
+            await _gameActionProvider.Create(new ReadyCardGameAction(_cardsProvider.GetCardsExhausted()));
         }
     }
 }

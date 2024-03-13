@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new MoveCardsGameAction(FirstPlot, PlotZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(FirstGoal, GoalZone));
-            RealDangerCards.ForEach(card => card.TurnDown(true));
+            await _gameActionFactory.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown).ToList(), true));
             await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
 

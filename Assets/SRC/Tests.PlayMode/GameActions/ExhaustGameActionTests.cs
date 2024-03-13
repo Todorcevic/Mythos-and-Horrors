@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card cardToExhaust = _investigatorsProvider.Leader.FullDeck.First();
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardGameAction(cardToExhaust)).AsCoroutine();
+            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(cardToExhaust)).AsCoroutine();
 
             if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(cardToExhaust.Exausted.IsActive);

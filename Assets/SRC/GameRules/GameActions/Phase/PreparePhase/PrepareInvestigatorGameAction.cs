@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -22,9 +24,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await PositionateInvestigatorCard();
-            await ApplyInjuty();
-            await ApplyShock();
-            await SetTurns();
+            await ApplyStats();
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
@@ -37,24 +37,21 @@ namespace MythosAndHorrors.GameRules
             await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
         }
 
-        private async Task ApplyInjuty()
+        private async Task ApplyStats()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Health, ActiveInvestigator.Injury.Value));
-        }
+            Dictionary<Stat, int> stats = new()
+            {
+                { ActiveInvestigator.Health, ActiveInvestigator.Health.Value - ActiveInvestigator.Injury.Value },
+                { ActiveInvestigator.Sanity,  ActiveInvestigator.Sanity.Value - ActiveInvestigator.Shock.Value },
+                { ActiveInvestigator.Turns, ActiveInvestigator.Turns.MaxValue }
+            };
 
-        private async Task ApplyShock()
-        {
-            await _gameActionFactory.Create(new DecrementStatGameAction(ActiveInvestigator.Sanity, ActiveInvestigator.Shock.Value));
-        }
-
-        private async Task SetTurns()
-        {
-            await _gameActionFactory.Create(new UpdateStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.MaxValue));
+            await _gameActionFactory.Create(new UpdateStatGameAction(stats));
         }
 
         private async Task PositionateDeck()
         {
-            ActiveInvestigator.FullDeck.ForEach(card => card.TurnDown(true));
+            await _gameActionFactory.Create(new UpdateStatesGameAction(ActiveInvestigator.FullDeck.Select(card => card.FaceDown).ToList(), true));
             await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone));
             await _gameActionFactory.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
         }

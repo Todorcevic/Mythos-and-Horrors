@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not StatGameAction statGameAction) return false;
             if (Revealed.IsActive) return false;
             if (RevealHistory == null) return false;
-            if (statGameAction.Stat != Eldritch) return false;
+            if (!statGameAction.HasStat(Eldritch)) return false;
             if (Eldritch.Value < Info.Eldritch) return false;
             return true;
         }

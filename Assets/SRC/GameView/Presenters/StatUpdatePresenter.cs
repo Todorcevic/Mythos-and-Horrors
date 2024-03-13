@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -20,7 +21,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private Sequence UpdateStat(StatGameAction updateStatGameAction)
         {
-            List<IStatableView> statables = _statsViewsManager.GetAll(updateStatGameAction.Stat);
+            List<IStatableView> statables = _statsViewsManager.GetAll(updateStatGameAction.AllStats);
             Sequence updateStatsSequence = DOTween.Sequence();
             statables.ForEach(statView => updateStatsSequence.Join(statView.UpdateValue()));
             return updateStatsSequence;
