@@ -39,6 +39,8 @@ namespace MythosAndHorrors.GameRules
         public Stat Resources => InvestigatorCard.Resources;
         public Stat Hints => InvestigatorCard.Hints;
         public Stat Turns => InvestigatorCard.Turns;
+        public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
+        public Stat ResourceTurnsCost => InvestigatorCard.ResourceTurnsCost;
         public SlotsCollection SlotsCollection { get; } = new();
         public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
@@ -46,6 +48,8 @@ namespace MythosAndHorrors.GameRules
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public bool CanBeHealed => Health.Value < Health.MaxValue;
         public int HandSize => HandZone.Cards.Count;
+        public List<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
+            .Where(creature => creature.CurrentPlace == CurrentPlace).ToList();
 
         /*******************************************************************/
         [Inject]

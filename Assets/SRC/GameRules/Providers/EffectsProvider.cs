@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -10,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allEffects = new();
 
         public Effect MainButtonEffect { get; private set; }
-        public List<Effect> AllEffectsPlayable => _allEffects.FindAll(effect => effect.CanPlay.Invoke());
+        public List<Effect> AllEffectsPlayable => _allEffects;
         public Effect UniqueEffect => AllEffectsPlayable.Single();
         public bool IsUniqueEffect => AllEffectsPlayable.Count == 1;
         public bool NoEffect => AllEffectsPlayable.Count == 0;
@@ -30,6 +28,8 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
+        public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);
+
         public void ClearAllEffects()
         {
             _allEffects.Clear();
@@ -38,8 +38,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public List<Effect> GetEffectForThisCard(Card cardAffected) =>
-            _allEffects.FindAll(effect => effect.CardAffected == cardAffected && effect.CanPlay.Invoke());
-
-        public Effect GetSpecificEffect(Func<Task> logic) => _allEffects.Find(effect => effect.Logic == logic);
+            _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
     }
 }

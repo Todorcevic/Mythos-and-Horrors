@@ -33,27 +33,23 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             _effectProvider.CreateMainButton()
                      .SetDescription("Continue")
-                     .SetCanPlay(() => true)
                      .SetLogic(() => Task.CompletedTask);
 
             _effectProvider.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
-                .SetCanPlay(() => true)
                 .SetDescription("EffectOne")
                 .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
 
             _effectProvider.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
-                .SetCanPlay(() => true)
                 .SetDescription("EffectTwo")
                 .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
 
             _effectProvider.Create()
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
-                .SetCanPlay(() => true)
                 .SetDescription("EffectOne")
                 .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
 

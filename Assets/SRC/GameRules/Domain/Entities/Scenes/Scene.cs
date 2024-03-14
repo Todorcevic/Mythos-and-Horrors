@@ -27,9 +27,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
         /************************** RESOURCES *****************************/
-        public Stat ResourceCost { get; private set; }
         public Stat PileAmount { get; private set; }
-        public Effect TakeResourceEffect => _effectProvider.GetSpecificEffect(TakeResource);
 
         /*******************************************************************/
         [Inject]
@@ -43,10 +41,7 @@ namespace MythosAndHorrors.GameRules
             LimboZone = _zonesProvider.Create();
             OutZone = _zonesProvider.Create();
             InitializePlaceZones();
-            ResourceCost = new Stat(1);
             PileAmount = new Stat(int.MaxValue);
-
-            _reactionablesProvider.SubscribeAtStart(WhenBegin);
         }
 
         private void InitializePlaceZones()
@@ -60,39 +55,8 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        protected virtual async Task WhenBegin(GameAction gameAction)
-        {
-            CheckTakeResource(gameAction);
-            await Task.CompletedTask;
-        }
-
         /*******************************************************************/
         public abstract Task PrepareScene();
-
-        /************************** TAKE RESOURCE *****************************/
-        protected void CheckTakeResource(GameAction gameAction)
-        {
-            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
-
-            _effectProvider.Create()
-               .SetCard(null)
-               .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource))
-               .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-               .SetCanPlay(CanTakeResource)
-               .SetLogic(TakeResource);
-        }
-
-        protected bool CanTakeResource()
-        {
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < ResourceCost.Value) return false;
-            return true;
-        }
-
-        protected async Task TakeResource()
-        {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, ResourceCost.Value));
-            await _gameActionFactory.Create(new GainResourceGameAction(_investigatorProvider.ActiveInvestigator, 1));
-        }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone)

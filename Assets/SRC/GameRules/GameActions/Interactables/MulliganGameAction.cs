@@ -29,7 +29,6 @@ namespace MythosAndHorrors.GameRules
         {
             _effectProvider.CreateMainButton()
                      .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
-                     .SetCanPlay(() => true)
                      .SetLogic(() => Task.CompletedTask);
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
@@ -37,7 +36,6 @@ namespace MythosAndHorrors.GameRules
                 DiscardEffects.Add(_effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetCanPlay(CanDiscard)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT1)
                     .SetLogic(Discard));
 
@@ -47,16 +45,15 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionFactory.Create(new DiscardGameAction(card));
                     await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
                 }
-
-                bool CanDiscard() => true;
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
             {
+                if (!CanRestore()) continue;
+
                 RestoreEffects.Add(_effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetCanPlay(CanRestore)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT2)
                     .SetLogic(Restore));
 

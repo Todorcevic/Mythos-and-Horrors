@@ -28,7 +28,6 @@ namespace MythosAndHorrors.GameRules
                 _effectProvider.Create()
                     .SetCard(investigator.AvatarCard)
                     .SetInvestigator(investigator)
-                    .SetCanPlay(() => true)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(ChooseInvestigator))
                     .SetLogic(ChooseInvestigator);
 

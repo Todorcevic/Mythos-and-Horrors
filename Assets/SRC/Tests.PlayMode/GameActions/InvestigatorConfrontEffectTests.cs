@@ -32,9 +32,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            _ = _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
+            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.Leader);
+            _ = _gameActionFactory.Create(oiGA);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(creature.ConfrontEffect);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorConfrontEffects.Find(effect => effect.CardAffected == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.Leader.DangerZone));

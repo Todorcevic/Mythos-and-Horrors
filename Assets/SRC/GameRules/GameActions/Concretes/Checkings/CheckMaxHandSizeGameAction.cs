@@ -33,10 +33,11 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in Investigator.HandZone.Cards)
             {
+                if (!CanChoose()) continue;
+
                 _effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(Investigator)
-                    .SetCanPlay(CanChoose)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
                     .SetLogic(Discard);
 

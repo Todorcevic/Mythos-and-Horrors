@@ -1,15 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CardInvestigator : Card
     {
-        [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
-
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat Strength { get; private set; }
@@ -23,9 +18,11 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; private set; }
         public Stat Turns { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
+        public Stat ResourceTurnsCost { get; private set; }
 
         /*******************************************************************/
         [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
             Health = new Stat(Info.Health ?? 0, Info.Health ?? 0);
@@ -41,39 +38,7 @@ namespace MythosAndHorrors.GameRules
             Hints = new Stat(0);
             Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
-        }
-
-        protected override async Task WhenBegin(GameAction gameAction)
-        {
-            CheckDraw(gameAction);
-            await base.WhenBegin(gameAction);
-        }
-
-        /************************** DRAW *****************************/
-        protected void CheckDraw(GameAction gameAction)
-        {
-            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
-
-            _effectProvider.Create()
-                .SetCard(_investigatorProvider.ActiveInvestigator.CardAidToDraw)
-                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-                .SetCanPlay(CanDraw)
-                .SetLogic(Draw)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw));
-        }
-
-        protected bool CanDraw()
-        {
-            if (_investigatorProvider.ActiveInvestigator != Owner) return false;
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < DrawTurnsCost.Value) return false;
-
-            return true;
-        }
-
-        protected async Task Draw()
-        {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, DrawTurnsCost.Value));
-            await _gameActionFactory.Create(new DrawAidGameAction(_investigatorProvider.ActiveInvestigator));
+            ResourceTurnsCost = new Stat(1);
         }
 
         /*******************************************************************/

@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
         private Investigator _investigator;
         private Investigator _investigatorAffected;
         public Card CardAffected { get; private set; }
-        public Func<bool> CanPlay { get; private set; }
         public Func<Task> Logic { get; private set; }
         public string CardCode => _investigator?.Code;
         public string Description { get; private set; }
@@ -33,12 +32,6 @@ namespace MythosAndHorrors.GameRules
             return this;
         }
 
-        public Effect SetCanPlay(Func<bool> canPlay)
-        {
-            CanPlay = canPlay;
-            return this;
-        }
-
         public Effect SetLogic(Func<Task> logic)
         {
             Logic = logic;
@@ -49,32 +42,6 @@ namespace MythosAndHorrors.GameRules
         {
             Description = description;
             return this;
-        }
-
-        /*******************************************************************/
-        public async Task Play()
-        {
-            if (CanPlay())
-            {
-                await Logic();
-            }
-        }
-
-        /*******************************************************************/
-        public void ConcatNewCanPlay(Func<bool> canPlay)
-        {
-            Func<bool> oldCanPlay = CanPlay;
-            CanPlay = () => oldCanPlay() && canPlay();
-        }
-
-        public void ConcatLogic(Func<Task> logic)
-        {
-            Func<Task> oldLogic = Logic;
-            Logic = async () =>
-            {
-                await oldLogic();
-                await logic();
-            };
         }
     }
 }

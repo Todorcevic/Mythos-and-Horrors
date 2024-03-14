@@ -9,7 +9,6 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class DrawGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;

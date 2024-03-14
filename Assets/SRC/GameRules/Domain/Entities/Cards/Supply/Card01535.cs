@@ -33,11 +33,11 @@ namespace MythosAndHorrors.GameRules
         protected void CheckHealthActivation(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+            if (!CanHealthActivation()) return;
 
             _effectProvider.Create()
                 .SetCard(this)
                 .SetInvestigator(_investigatorProvider.ActiveInvestigator)
-                .SetCanPlay(CanHealthActivation)
                 .SetLogic(HealthActivation)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(HealthActivation));
         }
