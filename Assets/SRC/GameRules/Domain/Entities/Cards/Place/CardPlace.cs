@@ -119,7 +119,7 @@ namespace MythosAndHorrors.GameRules
         protected async Task Move()
         {
             await _gameActionProvider.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveTurnsCost.Value));
-            await _gameActionProvider.Create(new MoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
+            await _gameActionProvider.Create(new InvestigatorMoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
     }
 }

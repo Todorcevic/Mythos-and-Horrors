@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public interface IPresenter<T> where T : GameAction
+    public interface IPresenter<T>
     {
         Task PlayAnimationWith(T gameAction);
     }

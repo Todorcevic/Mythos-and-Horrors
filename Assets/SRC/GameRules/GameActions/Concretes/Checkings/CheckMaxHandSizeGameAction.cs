@@ -3,17 +3,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckHandSizeGameAction : GameAction
+    public class CheckMaxHandSizeGameAction : GameAction, IWithInvestigator
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly IPresenter<CheckHandSizeGameAction> _swapInvestigatorPresenter;
+        [Inject] private readonly IPresenter<IWithInvestigator> _swapInvestigatorPresenter;
 
         public Investigator Investigator { get; }
 
         /*******************************************************************/
-        public CheckHandSizeGameAction(Investigator investigator)
+        public CheckMaxHandSizeGameAction(Investigator investigator)
         {
             Investigator = investigator;
         }
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionProvider.Create(new DiscardGameAction(card));
-                    await _gameActionProvider.Create(new CheckHandSizeGameAction(Investigator));
+                    await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(Investigator));
                 };
 
                 bool CanChoose()

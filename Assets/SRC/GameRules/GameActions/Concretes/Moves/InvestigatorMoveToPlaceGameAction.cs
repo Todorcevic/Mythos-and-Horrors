@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MoveToPlaceGameAction : GameAction
+    public class InvestigatorMoveToPlaceGameAction : GameAction
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CardPlace { get; }
 
         /*******************************************************************/
-        public MoveToPlaceGameAction(Investigator investigator, CardPlace cardPlace)
+        public InvestigatorMoveToPlaceGameAction(Investigator investigator, CardPlace cardPlace)
         {
             Investigator = investigator;
             CardPlace = cardPlace;

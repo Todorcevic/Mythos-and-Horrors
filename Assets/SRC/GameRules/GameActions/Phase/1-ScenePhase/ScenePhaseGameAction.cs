@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             //1.2	Place 1 doom on the current agenda. (DecrementStatGameAction.Parent is ScenePhaseGameAction)
             await _gameActionProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
             //1.3	Check doom threshold.
-            await _gameActionProvider.Create(new CheckEldritchPlotGameAction());
+            await _gameActionProvider.Create(new CheckEldritchsPlotGameAction());
             //1.4	Each investigator draws 1 encounter card.
             await _gameActionProvider.Create(new InvestigatorsDrawDangerCard());
         }

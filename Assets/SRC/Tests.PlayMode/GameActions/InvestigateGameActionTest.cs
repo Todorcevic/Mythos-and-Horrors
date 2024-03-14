@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InvestigatorMoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 
             yield return _gameActionFactory.Create(new InvestigateGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InvestigatorMoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(place).AsTask();
             yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();

@@ -3,18 +3,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckEldritchPlotGameAction : GameAction
+    public class CheckEldritchsPlotGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             if (!_chaptersProvider.CurrentScene.CurrentPlot.IsComplete) return;
-            if (_chaptersProvider.CurrentScene.CurrentPlot.Revealed.IsActive) return;
 
-            await _gameActionFactory.Create(new RevealGameAction(_chaptersProvider.CurrentScene.CurrentPlot));
+            await _gameActionProvider.Create(new RevealGameAction(_chaptersProvider.CurrentScene.CurrentPlot));
         }
     }
 }

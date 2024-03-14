@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
-            yield return _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
+            yield return _gameActionFactory.Create(new InvestigatorMoveToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

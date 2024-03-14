@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
-        public Reaction MustShowInitialHistory { get; private set; }
         public bool IsComplete => Eldritch.Value <= 0;
         public int Position => _chaptersProviders.CurrentScene.Info.PlotCards.IndexOf(this);
         public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.Info.PlotCards.ElementAtOrDefault(Position + 1);
@@ -28,34 +27,14 @@ namespace MythosAndHorrors.GameRules
         {
             Eldritch = new Stat(Info.Eldritch ?? 0, Info.Eldritch ?? 0);
             Revealed = new State(false);
-            MustShowInitialHistory = new Reaction(CheckShowInitialHistory, ShowInitialHistory);
         }
 
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await MustShowInitialHistory.Check(gameAction);
-            await base.WhenFinish(gameAction);
-        }
-
-        /********************** SHOW INITIAL HISTORY ****************************/
-        protected virtual bool CheckShowInitialHistory(GameAction gameAction)
-        {
-            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
-            if (Revealed.IsActive) return false;
-            if (InitialHistory == null) return false;
-            if (!moveCardsGameAction.Cards.Contains(this)) return false;
-            if (moveCardsGameAction.ToZone != _chaptersProviders.CurrentScene.PlotZone) return false;
-            return true;
-        }
-
-        protected async Task ShowInitialHistory() => await _gameActionProvider.Create(new ShowHistoryGameAction(InitialHistory, this));
-
-        /********************** REVEAL ****************************/
+        /*******************************************************************/
         public virtual async Task RevealEffect()
         {
             await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await _gameActionProvider.Create(new DiscardGameAction(this));
-            await _gameActionProvider.Create(new MoveCardsGameAction(NextCardPlot, _chaptersProviders.CurrentScene.PlotZone));
+            await _gameActionProvider.Create(new PlacePlotGameAction(NextCardPlot));
         }
     }
 }

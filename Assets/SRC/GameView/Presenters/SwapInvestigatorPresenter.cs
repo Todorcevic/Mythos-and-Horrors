@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class SwapInvestigatorPresenter : IPresenter<CheckHandSizeGameAction>
+    public class SwapInvestigatorPresenter : IPresenter<IWithInvestigator>
     {
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
-        async Task IPresenter<CheckHandSizeGameAction>.PlayAnimationWith(CheckHandSizeGameAction checkHandSizeGameAction)
+        async Task IPresenter<IWithInvestigator>.PlayAnimationWith(IWithInvestigator checkHandSizeGameAction)
         {
             await _swapInvestigatorHandler.Select(checkHandSizeGameAction.Investigator).AsyncWaitForCompletion();
         }

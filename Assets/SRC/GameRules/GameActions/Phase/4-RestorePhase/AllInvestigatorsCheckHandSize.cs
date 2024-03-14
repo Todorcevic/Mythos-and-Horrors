@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
-                await _gameActionProvider.Create(new CheckHandSizeGameAction(investigator));
+                await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(investigator));
             }
         }
     }
