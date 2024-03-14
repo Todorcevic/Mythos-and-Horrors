@@ -14,6 +14,8 @@ namespace MythosAndHorrors.GameRules
         public State Revealed { get; private set; }
         public Reaction MustShowInitialHistory { get; private set; }
         public bool IsComplete => Eldritch.Value <= 0;
+        public int Position => _chaptersProviders.CurrentScene.Info.PlotCards.IndexOf(this);
+        public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.Info.PlotCards.ElementAtOrDefault(Position + 1);
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -53,6 +55,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await _gameActionProvider.Create(new DiscardGameAction(this));
+            await _gameActionProvider.Create(new MoveCardsGameAction(NextCardPlot, _chaptersProviders.CurrentScene.PlotZone));
         }
     }
 }

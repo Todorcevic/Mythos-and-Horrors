@@ -14,6 +14,8 @@ namespace MythosAndHorrors.GameRules
         public State Revealed { get; private set; }
         public Reaction MustShowInitialHistory { get; private set; }
         public Reaction MustShowFinalHistory { get; private set; }
+        public int Position => _chaptersProviders.CurrentScene.Info.GoalCards.IndexOf(this);
+        public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.ElementAtOrDefault(Position + 1);
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -27,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             Hints = new Stat(Info.Hints ?? 0, Info.Hints ?? 0);
             Revealed = new State(false);
             MustShowInitialHistory = new Reaction(CheckShowInitialHistory, ShowInitialHistory);
-            MustShowFinalHistory = new Reaction(CheckShowFinalHistory, ShowFinalHistory);
+            MustShowFinalHistory = new Reaction(CheckShowFinalHistory, Reveal);
         }
 
         protected override async Task WhenFinish(GameAction gameAction)
@@ -56,16 +58,17 @@ namespace MythosAndHorrors.GameRules
             if (Revealed.IsActive) return false;
             if (RevealHistory == null) return false;
             if (!statGameAction.HasStat(Hints)) return false;
-            if (Hints.Value < Info.Hints) return false;
+            if (Hints.Value > 0) return false;
             return true;
         }
 
-        protected async Task ShowFinalHistory() => await _gameActionProvider.Create(new RevealGameAction(this));
+        protected async Task Reveal() => await _gameActionProvider.Create(new RevealGameAction(this));
 
         public virtual async Task RevealEffect()
         {
             await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await _gameActionProvider.Create(new DiscardGameAction(this));
+            await _gameActionProvider.Create(new MoveCardsGameAction(NextCardGoal, _chaptersProviders.CurrentScene.GoalZone));
         }
     }
 }

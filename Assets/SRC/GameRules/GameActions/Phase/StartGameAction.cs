@@ -12,6 +12,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await _gameActionFactory.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
+
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
                 await _gameActionFactory.Create(new PrepareInvestigatorGameAction(investigator));

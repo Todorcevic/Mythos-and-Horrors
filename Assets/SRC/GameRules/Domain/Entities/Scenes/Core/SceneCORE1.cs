@@ -12,8 +12,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
-        private Card FirstPlot => _cardsProvider.GetCard("01105");
-        private Card FirstGoal => _cardsProvider.GetCard("01108");
+        private Card FirstPlot => Info.PlotCards.First();
+        private Card FirstGoal => Info.GoalCards.First();
         private Card Lita => _cardsProvider.GetCard("01117");
         private Card GhoulPriest => _cardsProvider.GetCard("01116");
         private List<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest }).ToList();
