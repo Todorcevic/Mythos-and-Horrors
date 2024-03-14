@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //2.2	Next investigator's turn begins.
     public class PlayInvestigatorGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
@@ -22,9 +21,10 @@ namespace MythosAndHorrors.GameRules
 
             while (ActiveInvestigator.HasTurnsAvailable)
             {
+                //2.2.1	Investigator takes an action, if able.
                 await _gameActionFactory.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
             }
         }
+        //2.2.2	Investigator's turn ends
     }
-    //2.2.2	Investigator's turn ends
 }

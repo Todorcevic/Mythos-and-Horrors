@@ -63,10 +63,6 @@ namespace MythosAndHorrors.GameView
         private Tween SwitchOffTurn(GameObject turn) =>
             turn.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => turn.SetActive(false));
 
-        Tween IStatableView.UpdateValue()
-        {
-            TurnOn();
-            return DOTween.Sequence();
-        }
+        Tween IStatableView.UpdateValue() => TurnOn();
     }
 }

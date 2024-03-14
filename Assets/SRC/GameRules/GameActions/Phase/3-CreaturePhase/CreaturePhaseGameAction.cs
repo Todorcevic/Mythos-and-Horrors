@@ -3,8 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
-    //3.1	Enemy phase begins.
     public class CreaturePhaseGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
@@ -15,12 +13,14 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.CREATURE_PHASE_DESCRIPTION;
 
         /*******************************************************************/
+        //3.1	Enemy phase begins.
         protected override async Task ExecuteThisPhaseLogic()
         {
+            //3.2	Hunter enemies move.
             await _gameActionFactory.Create(new StalkerCreaturesMoveGameAction());
-
-
+            //3.3	Next investigator resolves engaged enemy attacks.
+            await _gameActionFactory.Create(new CreatureConfrontAttackGameAction());
         }
+        //3.4	Enemy phase ends.
     }
-    //3.4	Enemy phase ends.
 }

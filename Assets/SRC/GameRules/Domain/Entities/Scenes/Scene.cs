@@ -22,8 +22,9 @@ namespace MythosAndHorrors.GameRules
         public Zone LimboZone { get; private set; }
         public Zone OutZone { get; private set; }
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
-        public CardPlot CurrentPlot => PlotZone.Cards.Last() as CardPlot;
-        public CardGoal CurrentGoal => GoalZone.Cards.Last() as CardGoal;
+        public CardPlot CurrentPlot => PlotZone.Cards.LastOrDefault() as CardPlot;
+        public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
+        public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
         /************************** RESOURCES *****************************/
         public Stat ResourceCost { get; private set; }

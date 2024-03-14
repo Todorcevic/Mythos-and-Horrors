@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardGoal : Card, IRevellable
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public Stat Hints { get; private set; }
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task ShowInitialHistory() => await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+        protected async Task ShowInitialHistory() => await _gameActionProvider.Create(new ShowHistoryGameAction(InitialHistory, this));
 
         /********************** SHOW FINAL HISTORY *********************/
         protected virtual bool CheckShowFinalHistory(GameAction gameAction)
@@ -60,6 +60,12 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task ShowFinalHistory() => await _gameActionFactory.Create(new RevealGameAction(this));
+        protected async Task ShowFinalHistory() => await _gameActionProvider.Create(new RevealGameAction(this));
+
+        public virtual async Task RevealEffect()
+        {
+            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionProvider.Create(new DiscardGameAction(this));
+        }
     }
 }

@@ -8,12 +8,12 @@ namespace MythosAndHorrors.GameRules
     public class CardPlot : Card, IRevellable
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
         public Reaction MustShowInitialHistory { get; private set; }
-        public Reaction MustShowFinalHistory { get; private set; }
+        public bool IsComplete => Eldritch.Value <= 0;
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -27,13 +27,11 @@ namespace MythosAndHorrors.GameRules
             Eldritch = new Stat(Info.Eldritch ?? 0, Info.Eldritch ?? 0);
             Revealed = new State(false);
             MustShowInitialHistory = new Reaction(CheckShowInitialHistory, ShowInitialHistory);
-            MustShowFinalHistory = new Reaction(CanShowFinalHistory, ShowFinalHistory);
         }
 
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await MustShowInitialHistory.Check(gameAction);
-            await MustShowFinalHistory.Check(gameAction);
             await base.WhenFinish(gameAction);
         }
 
@@ -48,19 +46,13 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task ShowInitialHistory() => await _gameActionFactory.Create(new ShowHistoryGameAction(InitialHistory, this));
+        protected async Task ShowInitialHistory() => await _gameActionProvider.Create(new ShowHistoryGameAction(InitialHistory, this));
 
-        /********************** SHOW FINAL HISTORY *********************/
-        protected virtual bool CanShowFinalHistory(GameAction gameAction)
+        /********************** REVEAL ****************************/
+        public virtual async Task RevealEffect()
         {
-            if (gameAction is not StatGameAction statGameAction) return false;
-            if (Revealed.IsActive) return false;
-            if (RevealHistory == null) return false;
-            if (!statGameAction.HasStat(Eldritch)) return false;
-            if (Eldritch.Value < Info.Eldritch) return false;
-            return true;
+            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionProvider.Create(new DiscardGameAction(this));
         }
-
-        protected async Task ShowFinalHistory() => await _gameActionFactory.Create(new RevealGameAction(this));
     }
 }

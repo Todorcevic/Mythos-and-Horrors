@@ -5,7 +5,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //3.3	Next investigator resolves engaged enemy attacks.
     public class CreatureConfrontAttackGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;

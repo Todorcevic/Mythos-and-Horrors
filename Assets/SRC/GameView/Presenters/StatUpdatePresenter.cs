@@ -15,8 +15,8 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<StatGameAction>.PlayAnimationWith(StatGameAction updateStatGameAction)
         {
-            if (await SpecialAnimations(updateStatGameAction)) return;
-            await UpdateStat(updateStatGameAction).AsyncWaitForCompletion();
+            await SpecialAnimations(updateStatGameAction);
+            UpdateStat(updateStatGameAction);
         }
 
         /*******************************************************************/
@@ -28,17 +28,15 @@ namespace MythosAndHorrors.GameView
             return updateStatsSequence;
         }
 
-        private async Task<bool> SpecialAnimations(StatGameAction updateStatGameAction)
+        private async Task SpecialAnimations(StatGameAction updateStatGameAction)
         {
-            if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch))
+            if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
             {
                 await _moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot);
                 await _statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch).First()
                     .UpdateValue().AsyncWaitForCompletion();
                 await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot);
-                return true;
             }
-            return false;
         }
     }
 }

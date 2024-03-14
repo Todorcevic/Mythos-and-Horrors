@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new UpdateStatesGameAction(RevellableCard.Revealed, true));
             await _revealCardPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new ShowHistoryGameAction(RevellableCard.RevealHistory, Card));
+            await RevellableCard.RevealEffect();
         }
     }
 }

@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //2.1	Investigation phase begins.
     public class InvestigatorsPhaseGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
@@ -16,13 +15,15 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.INVESTIGATOR_PHASE_DESCRIPTION;
 
         /*******************************************************************/
+        //2.1	Investigation phase begins.
         protected override async Task ExecuteThisPhaseLogic()
         {
             while (ThereAreInvestigatorsWithTurns)
             {
+                //2.2	Next investigator's turn begins.
                 await _gameActionFactory.Create(new PlayInvestigatorGameAction());
             }
         }
+        //2.3	Investigation phase ends.
     }
-    //2.3	Investigation phase ends.
 }

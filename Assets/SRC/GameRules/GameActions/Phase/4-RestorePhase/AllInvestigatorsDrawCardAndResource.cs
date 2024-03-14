@@ -3,8 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
-    //4.4	Each investigator draws 1 card and gains 1 resource.
     public class AllInvestigatorsDrawCardAndResource : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
@@ -20,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators.FindAll(i => i.HandSize > 0)) //TODO: Quitar
             {
-                await _gameActionProvider.Create(new DrawGameAction(investigator));
+                await _gameActionProvider.Create(new DrawAidGameAction(investigator));
                 await _gameActionProvider.Create(new GainResourceGameAction(investigator, 1));
             }
         }

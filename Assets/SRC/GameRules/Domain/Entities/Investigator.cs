@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         public bool HasTurnsAvailable => Turns.Value > 0;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= Turns.Value;
-        public Card CardToDraw => DeckZone.Cards.LastOrDefault();
+        public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public bool CanBeHealed => Health.Value < Health.MaxValue;
         public int HandSize => HandZone.Cards.Count;
 

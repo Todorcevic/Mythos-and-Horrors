@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //4.5	Each investigator checks hand size.
     public class AllInvestigatorsCheckHandSize : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;

@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -43,20 +44,33 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
-
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 8)).AsCoroutine();
-            while (DEBUG_MODE)
+
+            do
             {
-                yield return _gameActionFactory.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 1)).AsCoroutine();
-                yield return PressAnyKey();
                 yield return _gameActionFactory.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 8)).AsCoroutine();
-                yield return PressAnyKey();
-            }
+                if (DEBUG_MODE) yield return PressAnyKey();
+            } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardSupply.ResourceCost.Value, Is.EqualTo(8));
             Assert.That((_cardViewsManager.GetCardView(cardSupply) as DeckCardView).GetPrivateMember<StatView>("_cost").Stat.Value, Is.EqualTo(8));
+        }
+
+        [UnityTest]
+        public IEnumerator Update_Eldritch_Stats()
+        {
+            _prepareGameUse.Execute();
+            CardPlot cardPlot = _chaptersProvider.CurrentScene.Info.PlotCards.First();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+
+            do yield return _gameActionFactory.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
+            while (DEBUG_MODE);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(cardPlot.Eldritch.Value, Is.EqualTo(2));
+            Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<StatView>("_eldritch").Stat.Value, Is.EqualTo(2));
         }
     }
 }

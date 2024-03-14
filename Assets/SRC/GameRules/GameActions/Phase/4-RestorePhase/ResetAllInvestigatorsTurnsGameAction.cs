@@ -5,7 +5,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //4.2	Reset actions.
     public class ResetAllInvestigatorsTurnsGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;

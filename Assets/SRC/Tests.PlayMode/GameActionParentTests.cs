@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             InitialDrawGameAction initialDrawGameAction = new(investigator);
             yield return _gameActionFactory.Create(initialDrawGameAction).AsCoroutine();
 
-            Assert.That(_gameActionFactory.AllGameActions[5] is DrawGameAction);
+            Assert.That(_gameActionFactory.AllGameActions[5] is DrawAidGameAction);
             Assert.That(_gameActionFactory.AllGameActions[5].Parent, Is.EqualTo(initialDrawGameAction));
         }
     }

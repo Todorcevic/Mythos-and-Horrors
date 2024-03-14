@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //4.3	Ready all exhausted cards.
     public class ReadyAllCardsGameAction : PhaseGameAction
     {
         [Inject] private readonly CardsProvider _cardsProvider;

@@ -9,8 +9,6 @@ namespace MythosAndHorrors.GameView
         [Title(nameof(PlotCardView))]
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritch;
 
-        public IStatableView EldritchStat => _eldritch;
-
         /*******************************************************************/
         protected override void SetSpecific()
         {

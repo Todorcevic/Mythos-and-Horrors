@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
 
             _effectProvider.Create()
-                .SetCard(_investigatorProvider.ActiveInvestigator.CardToDraw)
+                .SetCard(_investigatorProvider.ActiveInvestigator.CardAidToDraw)
                 .SetInvestigator(_investigatorProvider.ActiveInvestigator)
                 .SetCanPlay(CanDraw)
                 .SetLogic(Draw)
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
         protected async Task Draw()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, DrawTurnsCost.Value));
-            await _gameActionFactory.Create(new DrawGameAction(_investigatorProvider.ActiveInvestigator));
+            await _gameActionFactory.Create(new DrawAidGameAction(_investigatorProvider.ActiveInvestigator));
         }
 
         /*******************************************************************/

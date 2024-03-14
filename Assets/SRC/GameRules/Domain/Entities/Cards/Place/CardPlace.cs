@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class CardPlace : Card, IRevellable
     {
         private List<CardPlace> _connectedPlacesToMove;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
@@ -61,7 +61,12 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task Reveal() => await _gameActionFactory.Create(new RevealGameAction(this));
+        protected async Task Reveal() => await _gameActionProvider.Create(new RevealGameAction(this));
+
+        public virtual async Task RevealEffect()
+        {
+            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+        }
 
         /************************** INVESTIGATE *****************************/
         protected void CheckInvestigate(GameAction gameAction)
@@ -85,8 +90,8 @@ namespace MythosAndHorrors.GameRules
 
         protected async Task Investigate()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigationTurnsCost.Value));
-            await _gameActionFactory.Create(new InvestigateGameAction(_investigatorProvider.ActiveInvestigator, this));
+            await _gameActionProvider.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, InvestigationTurnsCost.Value));
+            await _gameActionProvider.Create(new InvestigateGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
 
         /************************** MOVE *****************************/
@@ -113,8 +118,8 @@ namespace MythosAndHorrors.GameRules
 
         protected async Task Move()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveTurnsCost.Value));
-            await _gameActionFactory.Create(new MoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
+            await _gameActionProvider.Create(new DecrementStatGameAction(_investigatorProvider.ActiveInvestigator.Turns, MoveTurnsCost.Value));
+            await _gameActionProvider.Create(new MoveToPlaceGameAction(_investigatorProvider.ActiveInvestigator, this));
         }
     }
 }

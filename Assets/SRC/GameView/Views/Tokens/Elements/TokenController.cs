@@ -30,8 +30,9 @@ namespace MythosAndHorrors.GameView
 
         Tween IStatableView.UpdateValue()
         {
-            _allTokens.ForEach(token => token.SetAmount(_allTokens.IndexOf(token) + 1));
-            return DOTween.Sequence();
+            Sequence updateSequence = DOTween.Sequence();
+            _allTokens.ForEach(token => updateSequence.Join(token.SetAmount(_allTokens.IndexOf(token) + 1)));
+            return updateSequence;
         }
 
         /*******************************************************************/

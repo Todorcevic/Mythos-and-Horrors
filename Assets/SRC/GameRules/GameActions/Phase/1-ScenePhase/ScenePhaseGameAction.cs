@@ -3,11 +3,10 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    //1.1	Mythos phase begins.
     public class ScenePhaseGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override Phase MainPhase => Phase.Scene;
@@ -15,11 +14,16 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.SCENE_PHASE_DESCRIPTION;
 
         /*******************************************************************/
+        //1.1	Mythos phase begins.
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionFactory.Create(new IncrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch, 1));
-
+            //1.2	Place 1 doom on the current agenda.
+            await _gameActionProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
+            //1.3	Check doom threshold.
+            await _gameActionProvider.Create(new CheckEldritchPlotGameAction());
+            //1.4	Each investigator draws 1 encounter card.
+            await _gameActionProvider.Create(new InvestigatorsDrawDangerCard());
         }
+        //1.5	Mythos phase ends.
     }
-    //1.5	Mythos phase ends.
 }

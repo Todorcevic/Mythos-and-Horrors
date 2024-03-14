@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DrawGameAction : GameAction
+    public class DrawAidGameAction : GameAction
     {
         [Inject] private readonly GameActionProvider _gameActionRepository;
 
@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardDrawed { get; private set; }
 
         /*******************************************************************/
-        public DrawGameAction(Investigator investigator)
+        public DrawAidGameAction(Investigator investigator)
         {
             Investigator = investigator;
         }
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CardDrawed = Investigator.CardToDraw;
+            CardDrawed = Investigator.CardAidToDraw;
             await _gameActionRepository.Create(new UpdateStatesGameAction(CardDrawed.FaceDown, false));
             await _gameActionRepository.Create(new MoveCardsGameAction(CardDrawed, Investigator.HandZone));
         }
