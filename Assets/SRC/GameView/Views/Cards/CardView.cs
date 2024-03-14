@@ -135,12 +135,12 @@ namespace MythosAndHorrors.GameView
             return moveSequence;
         }
 
-        public virtual Sequence RevealAnimation() => DOTween.Sequence().Append(DOTween.Sequence()
-                 .Append(DisableToCenterShow())
-                 .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
-                 .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
-                 .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
-                 .Append(EnableFromCenterShow()));
+        public virtual Sequence RevealAnimation() => DOTween.Sequence()
+                            .Append(DisableToCenterShow())
+                            .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
+                            .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
+                            .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
+                            .Append(EnableFromCenterShow());
 
         /*******************************************************************/
         public void SetCloneEffect(Effect effect) => _cloneEffect = effect;

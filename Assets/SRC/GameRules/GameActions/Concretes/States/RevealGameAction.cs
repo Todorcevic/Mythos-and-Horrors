@@ -6,13 +6,13 @@ namespace MythosAndHorrors.GameRules
     public class RevealGameAction : GameAction
     {
         [Inject] private readonly IPresenter<RevealGameAction> _revealCardPresenter;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionProvider _gameActionProvider;
 
-        public IRevellable RevellableCard { get; }
+        public IRevealable RevellableCard { get; }
         public Card Card => RevellableCard as Card;
 
         /*******************************************************************/
-        public RevealGameAction(IRevellable cardReveled)
+        public RevealGameAction(IRevealable cardReveled)
         {
             RevellableCard = cardReveled;
         }
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new UpdateStatesGameAction(RevellableCard.Revealed, true));
+            await _gameActionProvider.Create(new UpdateStatesGameAction(RevellableCard.Revealed, true));
             await _revealCardPresenter.PlayAnimationWith(this);
             await RevellableCard.RevealEffect();
         }

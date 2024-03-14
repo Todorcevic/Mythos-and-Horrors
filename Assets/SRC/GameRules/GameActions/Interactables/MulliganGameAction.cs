@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,6 +10,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
+        List<Effect> DiscardEffects { get; } = new();
+        List<Effect> RestoreEffects { get; } = new();
+
+        /*******************************************************************/
         public override Phase MainPhase => Phase.Prepare;
         public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
         public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
@@ -29,12 +34,12 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                _effectProvider.Create()
+                DiscardEffects.Add(_effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetCanPlay(CanDiscard)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT1)
-                    .SetLogic(Discard);
+                    .SetLogic(Discard));
 
                 /*******************************************************************/
                 async Task Discard()
@@ -43,20 +48,17 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
                 }
 
-                bool CanDiscard()
-                {
-                    return true;
-                }
+                bool CanDiscard() => true;
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
             {
-                _effectProvider.Create()
+                RestoreEffects.Add(_effectProvider.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetCanPlay(CanRestore)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT2)
-                    .SetLogic(Restore);
+                    .SetLogic(Restore));
 
                 /*******************************************************************/
                 async Task Restore()

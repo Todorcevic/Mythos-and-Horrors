@@ -50,5 +50,31 @@ namespace MythosAndHorrors.GameRules
             Description = description;
             return this;
         }
+
+        /*******************************************************************/
+        public async Task Play()
+        {
+            if (CanPlay())
+            {
+                await Logic();
+            }
+        }
+
+        /*******************************************************************/
+        public void ConcatNewCanPlay(Func<bool> canPlay)
+        {
+            Func<bool> oldCanPlay = CanPlay;
+            CanPlay = () => oldCanPlay() && canPlay();
+        }
+
+        public void ConcatLogic(Func<Task> logic)
+        {
+            Func<Task> oldLogic = Logic;
+            Logic = async () =>
+            {
+                await oldLogic();
+                await logic();
+            };
+        }
     }
 }

@@ -21,15 +21,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
+            await _gameActionFactory.Create(new ShowHistoryGameAction(Info.Description));
             await _gameActionFactory.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionFactory.Create(new PlaceGoalGameAction(FirstGoal));
             await _gameActionFactory.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown).ToList(), true));
             await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
-
-            List<Card> allAvatars = _investigatorsProvider.AllInvestigators
-                .Select(investigator => investigator.AvatarCard).Cast<Card>().ToList();
-            await _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, Studio.OwnZone));
+            await _gameActionFactory.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, Studio));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public interface IRevellable
+    public interface IRevealable
     {
         State Revealed { get; }
         Task RevealEffect();

@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameView
         }
 
         public override Sequence RevealAnimation() => base.RevealAnimation()
-            .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION, RevealInfo);
+            .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION * 1.5f, RevealInfo);
 
         private void RevealInfo()
         {

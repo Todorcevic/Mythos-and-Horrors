@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             if (!_chaptersProvider.CurrentScene.CurrentPlot.IsComplete) return;
-
             await _gameActionProvider.Create(new RevealGameAction(_chaptersProvider.CurrentScene.CurrentPlot));
         }
     }

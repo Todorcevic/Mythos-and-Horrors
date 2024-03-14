@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PrepareSceneGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public Scene Scene { get; }
@@ -22,7 +21,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Scene.Info.Description));
             await Scene.PrepareScene();
         }
     }
