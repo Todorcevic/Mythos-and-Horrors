@@ -5,6 +5,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardInvestigator : Card
     {
+        public int RealHealth => Info.Health ?? 0 - Injury.Value;
+        public int RealSanity => Info.Sanity ?? 0 - Shock.Value;
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat Strength { get; private set; }
@@ -16,7 +18,8 @@ namespace MythosAndHorrors.GameRules
         public Stat Shock { get; private set; }
         public Stat Resources { get; private set; }
         public Stat Hints { get; private set; }
-        public Stat Turns { get; private set; }
+        public Stat CurrentTurns { get; private set; }
+        public Stat MaxTurns { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
         public Stat ResourceTurnsCost { get; private set; }
 
@@ -25,8 +28,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            Health = new Stat(Info.Health ?? 0, Info.Health ?? 0);
-            Sanity = new Stat(Info.Sanity ?? 0, Info.Sanity ?? 0);
+            Health = new Stat(RealHealth);
+            Sanity = new Stat(RealSanity);
             Strength = new Stat(Info.Strength ?? 0);
             Agility = new Stat(Info.Agility ?? 0);
             Intelligence = new Stat(Info.Intelligence ?? 0);
@@ -36,7 +39,8 @@ namespace MythosAndHorrors.GameRules
             Shock = new Stat(0);
             Resources = new Stat(0);
             Hints = new Stat(0);
-            Turns = new Stat(0, GameValues.DEFAULT_TURNS_AMOUNT);
+            CurrentTurns = new Stat(0);
+            MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             ResourceTurnsCost = new Stat(1);
         }
@@ -53,6 +57,6 @@ namespace MythosAndHorrors.GameRules
                 || stat == Shock
                 || stat == Resources
                 || stat == Hints
-                || stat == Turns;
+                || stat == CurrentTurns;
     }
 }

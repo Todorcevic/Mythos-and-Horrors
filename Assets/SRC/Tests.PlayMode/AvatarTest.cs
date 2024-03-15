@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 3)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, 3)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(3));

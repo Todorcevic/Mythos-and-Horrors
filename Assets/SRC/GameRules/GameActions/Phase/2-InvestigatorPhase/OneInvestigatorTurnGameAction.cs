@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
                 .SetLogic(PassTurn);
 
             async Task PassTurn() =>
-                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.Turns.Value));
+                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
         }
 
         /*******************************************************************/
@@ -74,13 +74,13 @@ namespace MythosAndHorrors.GameRules
 
             bool CanInvestigate()
             {
-                if (ActiveInvestigator.Turns.Value < ActiveInvestigator.CurrentPlace?.InvestigationTurnsCost.Value) return false;
+                if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.CurrentPlace?.InvestigationTurnsCost.Value) return false;
                 return true;
             }
 
             async Task Investigate()
             {
-                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.CurrentPlace.InvestigationTurnsCost.Value));
+                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentPlace.InvestigationTurnsCost.Value));
                 await _gameActionProvider.Create(new InvestigateGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
             }
         }
@@ -101,13 +101,13 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanMove()
                 {
-                    if (ActiveInvestigator.Turns.Value < cardPlace.MoveTurnsCost.Value) return false;
+                    if (ActiveInvestigator.CurrentTurns.Value < cardPlace.MoveTurnsCost.Value) return false;
                     return true;
                 }
 
                 async Task Move()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, cardPlace.MoveTurnsCost.Value));
+                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardPlace.MoveTurnsCost.Value));
                     await _gameActionProvider.Create(new MoveInvestigatorToPlaceGameAction(ActiveInvestigator, cardPlace));
                 }
             }
@@ -128,13 +128,13 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanInvestigatorAttack()
                 {
-                    if (ActiveInvestigator.Turns.Value < cardCreature.InvestigatorAttackTurnsCost.Value) return false;
+                    if (ActiveInvestigator.CurrentTurns.Value < cardCreature.InvestigatorAttackTurnsCost.Value) return false;
                     return true;
                 }
 
                 async Task InvestigatorAttack()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, cardCreature.InvestigatorAttackTurnsCost.Value));
+                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorAttackTurnsCost.Value));
                     await _gameActionProvider.Create(new DecrementStatGameAction(cardCreature.Health, 1));
                 }
             }
@@ -155,14 +155,14 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanInvestigatorConfront()
                 {
-                    if (ActiveInvestigator.Turns.Value < cardCreature.InvestigatorConfronTurnsCost.Value) return false;
+                    if (ActiveInvestigator.CurrentTurns.Value < cardCreature.InvestigatorConfronTurnsCost.Value) return false;
                     if (ActiveInvestigator == cardCreature.ConfrontedInvestigator) return false;
                     return true;
                 }
 
                 async Task InvestigatorConfront()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, cardCreature.InvestigatorConfronTurnsCost.Value));
+                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
                     await _gameActionProvider.Create(new MoveCardsGameAction(cardCreature, ActiveInvestigator.DangerZone));
                 }
             }
@@ -183,14 +183,14 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanInvestigatorElude()
                 {
-                    if (ActiveInvestigator.Turns.Value < cardCreature.EludeTurnsCost.Value) return false;
+                    if (ActiveInvestigator.CurrentTurns.Value < cardCreature.EludeTurnsCost.Value) return false;
                     if (ActiveInvestigator != cardCreature.ConfrontedInvestigator) return false;
                     return true;
                 }
 
                 async Task InvestigatorElude()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, cardCreature.InvestigatorConfronTurnsCost.Value));
+                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
                     await _gameActionProvider.Create(new ExhaustCardsGameAction(cardCreature));
                     await _gameActionProvider.Create(new MoveCardsGameAction(cardCreature, cardCreature.CurrentPlace.OwnZone));
                 }
@@ -213,13 +213,13 @@ namespace MythosAndHorrors.GameRules
                 bool CanPlayFromHand()
                 {
                     if (ActiveInvestigator.Resources.Value < playableFromHand.ResourceCost.Value) return false;
-                    if (ActiveInvestigator.Turns.Value < playableFromHand.TurnsCost.Value) return false;
+                    if (ActiveInvestigator.CurrentTurns.Value < playableFromHand.TurnsCost.Value) return false;
                     return true;
                 }
 
                 async Task PlayFromHand()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, playableFromHand.TurnsCost.Value));
+                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, playableFromHand.TurnsCost.Value));
                     await _gameActionProvider.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
                     await _gameActionProvider.Create(new DiscardGameAction(playableFromHand as Card));
                 }
@@ -240,13 +240,13 @@ namespace MythosAndHorrors.GameRules
 
         private bool CanDraw()
         {
-            if (ActiveInvestigator.Turns.Value < ActiveInvestigator.DrawTurnsCost.Value) return false;
+            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.DrawTurnsCost.Value) return false;
             return true;
         }
 
         private async Task Draw()
         {
-            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.DrawTurnsCost.Value));
+            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.DrawTurnsCost.Value));
             await _gameActionProvider.Create(new DrawAidGameAction(ActiveInvestigator));
         }
 
@@ -263,13 +263,13 @@ namespace MythosAndHorrors.GameRules
 
         private bool CanTakeResource()
         {
-            if (ActiveInvestigator.Turns.Value < ActiveInvestigator.ResourceTurnsCost.Value) return false;
+            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.ResourceTurnsCost.Value) return false;
             return true;
         }
 
         private async Task TakeResource()
         {
-            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.Turns, ActiveInvestigator.ResourceTurnsCost.Value));
+            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.ResourceTurnsCost.Value));
             await _gameActionProvider.Create(new GainResourceGameAction(ActiveInvestigator, 1));
         }
     }

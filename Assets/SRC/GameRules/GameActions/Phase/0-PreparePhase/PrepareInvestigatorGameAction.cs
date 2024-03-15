@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             {
                 { ActiveInvestigator.Health, ActiveInvestigator.Health.Value - ActiveInvestigator.Injury.Value },
                 { ActiveInvestigator.Sanity,  ActiveInvestigator.Sanity.Value - ActiveInvestigator.Shock.Value },
-                { ActiveInvestigator.Turns, ActiveInvestigator.Turns.MaxValue }
+                { ActiveInvestigator.CurrentTurns, ActiveInvestigator.MaxTurns.Value }
             };
 
             await _gameActionFactory.Create(new UpdateStatGameAction(stats));

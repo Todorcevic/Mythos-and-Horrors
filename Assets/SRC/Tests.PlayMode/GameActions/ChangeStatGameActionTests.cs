@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Health, 3)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, 2)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Card cardToDraw = _investigatorsProvider.Leader.FullDeck.First();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(cardToDraw).AsTask();

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToTokenClick().AsTask();
             yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();

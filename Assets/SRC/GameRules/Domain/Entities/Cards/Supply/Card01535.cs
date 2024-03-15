@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
         protected bool CanHealthActivation()
         {
             if (_investigatorProvider.ActiveInvestigator.AidZone != CurrentZone) return false;
-            if (_investigatorProvider.ActiveInvestigator.Turns.Value < HealthActivationTurnsCost.Value) return false;
+            if (_investigatorProvider.ActiveInvestigator.CurrentTurns.Value < HealthActivationTurnsCost.Value) return false;
             return true;
         }
 

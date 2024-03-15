@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         {
             _health.SetStat(Investigator.Health);
             _sanity.SetStat(Investigator.Sanity);
-            _turnController.Init(Investigator.Turns);
+            _turnController.Init(Investigator.CurrentTurns);
         }
     }
 }

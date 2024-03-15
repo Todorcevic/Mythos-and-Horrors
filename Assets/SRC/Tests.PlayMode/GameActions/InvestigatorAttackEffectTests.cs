@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, _investigatorsProvider.Leader.DangerZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place.OwnZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place.OwnZone)).AsCoroutine();
 

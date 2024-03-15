@@ -31,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = new Stat(Info.Hints ?? 0);
             Enigma = new Stat(Info.Enigma ?? 0);
-            InvestigationTurnsCost = new Stat(1, 1);
-            MoveTurnsCost = new Stat(1, 1);
+            InvestigationTurnsCost = new Stat(1);
+            MoveTurnsCost = new Stat(1);
             Revealed = new State(false);
         }
 

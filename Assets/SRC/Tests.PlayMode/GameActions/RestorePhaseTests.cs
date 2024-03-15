@@ -27,9 +27,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3).ToList(), _investigatorsProvider.Second.HandZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck.GetRange(20, 5).ToList(), _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.GetRange(20, 5).ToList(), _investigatorsProvider.Second.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Turns, 2)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Second.Turns, 0)).AsCoroutine();
-            _investigatorsProvider.Second.Turns.ChangeMaxValue(4);
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 0)).AsCoroutine();
+            _investigatorsProvider.Second.MaxTurns.UpdateValue(4);
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[10], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[12], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck[14], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
@@ -55,8 +55,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.Second.HandZone.Cards.Count, Is.EqualTo(4));
             Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(1));
             Assert.That(_investigatorsProvider.Second.Resources.Value, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.Leader.Turns.Value, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Second.Turns.Value, Is.EqualTo(4));
+            Assert.That(_investigatorsProvider.Leader.CurrentTurns.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(4));
             Assert.That(_investigatorsProvider.Leader.FullDeck[10].Exausted.IsActive, Is.False);
             Assert.That(_investigatorsProvider.Second.FullDeck[10].Exausted.IsActive, Is.False);
         }

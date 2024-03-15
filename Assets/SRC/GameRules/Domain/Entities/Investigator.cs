@@ -17,16 +17,29 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         [JsonProperty("RequerimentCard")] public List<Card> RequerimentCard { get; init; }
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
-        public string Code => InvestigatorCard.Info.Code;
-        public int Position => _investigatorsProvider.AllInvestigators.IndexOf(this) + 1;
-        public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
-        public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
         public Zone HandZone { get; private set; }
         public Zone DeckZone { get; private set; }
         public Zone DiscardZone { get; private set; }
         public Zone AidZone { get; private set; }
         public Zone DangerZone { get; private set; }
         public Zone InvestigatorZone { get; private set; }
+        public SlotsCollection SlotsCollection { get; } = new();
+
+        /*******************************************************************/
+        public bool CanBeHealed => Health.Value < RealHealth;
+        public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
+        public bool HasTurnsAvailable => CurrentTurns.Value > 0;
+        public int Position => _investigatorsProvider.AllInvestigators.IndexOf(this) + 1;
+        public int RealHealth => InvestigatorCard.RealHealth;
+        public int RealSanity => InvestigatorCard.RealSanity;
+        public int HandSize => HandZone.Cards.Count;
+        public string Code => InvestigatorCard.Info.Code;
+        public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
+        public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
+        public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
+        public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
+        public List<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
+          .Where(creature => creature.CurrentPlace == CurrentPlace).ToList();
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
         public Stat Strength => InvestigatorCard.Strength;
@@ -38,18 +51,10 @@ namespace MythosAndHorrors.GameRules
         public Stat Shock => InvestigatorCard.Shock;
         public Stat Resources => InvestigatorCard.Resources;
         public Stat Hints => InvestigatorCard.Hints;
-        public Stat Turns => InvestigatorCard.Turns;
+        public Stat CurrentTurns => InvestigatorCard.CurrentTurns;
+        public Stat MaxTurns => InvestigatorCard.MaxTurns;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
         public Stat ResourceTurnsCost => InvestigatorCard.ResourceTurnsCost;
-        public SlotsCollection SlotsCollection { get; } = new();
-        public bool HasTurnsAvailable => Turns.Value > 0;
-        public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
-        public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= Turns.Value;
-        public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
-        public bool CanBeHealed => Health.Value < Health.MaxValue;
-        public int HandSize => HandZone.Cards.Count;
-        public List<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
-            .Where(creature => creature.CurrentPlace == CurrentPlace).ToList();
 
         /*******************************************************************/
         [Inject]
