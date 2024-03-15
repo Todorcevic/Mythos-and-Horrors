@@ -37,38 +37,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator Move_Resource_From_Card()
-        {
-            _prepareGameUse.Execute();
-            CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
-
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 2)).AsCoroutine();
-
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(2));
-        }
-
-        [UnityTest]
-        public IEnumerator Move_Resource_To_Card()
-        {
-            _prepareGameUse.Execute();
-            CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
-
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 5)).AsCoroutine();
-            yield return _gameActionFactory.Create(new PayResourceGameAction(_investigatorsProvider.Leader, cardSupply.ResourceCost, 5)).AsCoroutine();
-
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Leader).ResourcesTokenController.Amount, Is.EqualTo(0));
-        }
-
-        [UnityTest]
         public IEnumerator Move_Resource_To_Investigator()
         {
             _prepareGameUse.Execute();
 
             do
             {
-                yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.PileAmount, 5)).AsCoroutine();
+                yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, 5)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -82,8 +57,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             do
             {
-                yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.PileAmount, 5)).AsCoroutine();
-                yield return _gameActionFactory.Create(new PayResourceGameAction(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.PileAmount, 2)).AsCoroutine();
+                yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, 5)).AsCoroutine();
+                if (DEBUG_MODE) yield return PressAnyKey();
+                yield return _gameActionFactory.Create(new PayResourceGameAction(_investigatorsProvider.Leader, 2)).AsCoroutine();
 
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
@@ -99,8 +75,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.Cards[0], _investigatorsProvider.Leader.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.Cards[0], _investigatorsProvider.Second.AidZone)).AsCoroutine();
 
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, _chaptersProvider.CurrentScene.PileAmount, 5)).AsCoroutine();
-            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Second, _chaptersProvider.CurrentScene.PileAmount, 5)).AsCoroutine();
+            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Leader, 5)).AsCoroutine();
+            yield return _gameActionFactory.Create(new GainResourceGameAction(_investigatorsProvider.Second, 5)).AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));
         }

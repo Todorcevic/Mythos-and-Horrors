@@ -3,6 +3,7 @@ using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -18,6 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -65,12 +67,41 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
-            do yield return _gameActionFactory.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
-            while (DEBUG_MODE);
+            do
+            {
+                yield return _gameActionFactory.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
+                if (DEBUG_MODE) yield return PressAnyKey();
+
+            } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardPlot.Eldritch.Value, Is.EqualTo(2));
             Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<StatView>("_eldritch").Stat.Value, Is.EqualTo(2));
         }
+
+
+        [UnityTest]
+        public IEnumerator Full_Hint_Stats()
+        {
+            _prepareGameUse.Execute();
+            CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
+            CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
+            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
+            yield return _gameActionFactory.Create(new RevealGameAction(place)).AsCoroutine();
+
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            yield return _gameActionFactory.Create(new GainHintGameAction(_investigatorsProvider.Leader, place.Hints, 2)).AsCoroutine();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            yield return _gameActionFactory.Create(new PayHintGameAction(_investigatorsProvider.Leader, cardGoal.Hints, 1)).AsCoroutine();
+
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(cardGoal.Hints.Value, Is.EqualTo(1));
+        }
+
     }
 }

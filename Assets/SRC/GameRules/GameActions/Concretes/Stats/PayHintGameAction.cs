@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class PayHintGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<PayHintGameAction> _payHintPresenter;
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
         public Investigator Investigator { get; }
@@ -24,9 +24,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Hints, Amount));
-            await _payHintPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new IncrementStatGameAction(ToStat, Amount));
+            Dictionary<Stat, int> statablesUpdated = new()
+            {
+                { ToStat, ToStat.Value - Amount },
+                { Investigator.Hints, Investigator.Hints.Value - Amount}
+            };
+
+            await _gameActionFactory.Create(new UpdateStatGameAction(statablesUpdated));
         }
     }
 }

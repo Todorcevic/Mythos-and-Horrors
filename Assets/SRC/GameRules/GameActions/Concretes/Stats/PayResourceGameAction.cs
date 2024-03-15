@@ -5,28 +5,16 @@ namespace MythosAndHorrors.GameRules
 {
     public class PayResourceGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<PayResourceGameAction> _payResourcePresenter;
         [Inject] private readonly GameActionProvider _gameActionFactory;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        private readonly Stat _toStat;
 
         public Investigator Investigator { get; }
-        public Stat ToStat => _toStat ?? _chaptersProvider.CurrentScene.PileAmount;
         public int Amount { get; }
 
         /*******************************************************************/
-        public PayResourceGameAction(Investigator investigator, int amount) // toStat ResourcePile -> See line 14
+        public PayResourceGameAction(Investigator investigator, int amount)
         {
             Investigator = investigator;
             Amount = amount;
-            CanBeExecuted = Amount > 0;
-        }
-
-        public PayResourceGameAction(Investigator investigator, Stat toStat, int amount)
-        {
-            Investigator = investigator;
-            _toStat = toStat;
-            Amount = investigator.Resources.Value < amount ? Investigator.Resources.Value : amount;
             CanBeExecuted = Amount > 0;
         }
 
@@ -34,8 +22,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionFactory.Create(new DecrementStatGameAction(Investigator.Resources, Amount));
-            await _payResourcePresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new IncrementStatGameAction(ToStat, Amount));
         }
     }
 }

@@ -3,6 +3,7 @@
     public class Stat
     {
         public int Value { get; private set; }
+        public int ValueBeforeUpdate { get; private set; }
 
         /*******************************************************************/
         public Stat(int value)
@@ -13,19 +14,13 @@
         /*******************************************************************/
         public void UpdateValue(int value)
         {
+            ValueBeforeUpdate = Value;
             Value = value;
             if (Value < 0) Value = 0;
         }
 
-        public void Increase(int amount)
-        {
-            Value += amount;
-        }
+        public void Increase(int amount) => UpdateValue(Value + amount);
 
-        public void Decrease(int amount)
-        {
-            Value -= amount;
-            if (Value < 0) Value = 0;
-        }
+        public void Decrease(int amount) => UpdateValue(Value - amount);
     }
 }
