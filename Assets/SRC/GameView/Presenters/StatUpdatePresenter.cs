@@ -3,7 +3,6 @@ using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine.PlayerLoop;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -12,8 +11,6 @@ namespace MythosAndHorrors.GameView
     {
         private Dictionary<IStatableView, bool> statablesUpdated;
         [Inject] private readonly StatableManager _statsViewsManager;
-        [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
-        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;

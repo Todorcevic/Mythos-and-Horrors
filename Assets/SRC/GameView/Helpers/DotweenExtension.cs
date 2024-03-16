@@ -31,9 +31,14 @@ namespace MythosAndHorrors.GameView
                 .Join(transform.DOScale(1f, timeAnimation));
         }
 
-        public static async Task WaitForAllTweensToComplete()
+        public static async Task WaitForAnimationsComplete()
         {
             while (DOTween.TotalPlayingTweens() > 0) await Task.Yield();
+        }
+
+        public static async Task WaitForMoveToZoneComplete()
+        {
+            while (DOTween.TweensById(nameof(CardView), playingOnly: true)?.Count > 0) await Task.Yield();
         }
     }
 }

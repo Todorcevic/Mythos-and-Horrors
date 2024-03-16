@@ -87,7 +87,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (historyButton.interactable) historyButton.onClick.Invoke();
             else throw new TimeoutException("History Button Not become clickable");
-            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -100,7 +100,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
-            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
@@ -118,7 +118,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Clone with Effect: {effect.Description} Not become clickable");
-            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         [Inject] private readonly TokensPileComponent tokensPileComponent;
@@ -130,7 +130,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
             else throw new TimeoutException($"Tokenpile Not become clickable");
-            yield return DotweenExtension.WaitForAllTweensToComplete().AsCoroutine();
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
     }
 }

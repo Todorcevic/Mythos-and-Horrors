@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         {
             if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
-            await DotweenExtension.WaitForAllTweensToComplete();
+            await DotweenExtension.WaitForAnimationsComplete();
         }
 
         public void UnblockUI()

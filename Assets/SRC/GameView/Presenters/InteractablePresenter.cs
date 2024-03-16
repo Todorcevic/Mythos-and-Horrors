@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
-            await DotweenExtension.WaitForAllTweensToComplete();
+            await DotweenExtension.WaitForMoveToZoneComplete();
             if (interactableGameAction.IsManadatary) await _showSelectorComponent.ShowPlayables();
             _showCardHandler.ActiavatePlayables();
 
