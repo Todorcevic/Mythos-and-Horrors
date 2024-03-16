@@ -3,41 +3,41 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckMaxHandSizeGameAction : GameAction, IWithInvestigator
+    public class CheckMaxHandSizeGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly IPresenter<IWithInvestigator> _swapInvestigatorPresenter;
 
-        public Investigator Investigator { get; }
+        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
+        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
+        public override Phase MainPhase => Phase.Restore;
 
         /*******************************************************************/
         public CheckMaxHandSizeGameAction(Investigator investigator)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        protected override async Task ExecuteThisPhaseLogic()
         {
-            while (Investigator.HandSize > GameValues.MAX_HAND_SIZE)
+            while (ActiveInvestigator.HandSize > GameValues.MAX_HAND_SIZE)
             {
                 Create();
-                await _swapInvestigatorPresenter.PlayAnimationWith(this);
                 await _gameActionProvider.Create(new InteractableGameAction());
             }
         }
 
         private void Create()
         {
-            foreach (Card card in Investigator.HandZone.Cards)
+            foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
                 if (!CanChoose()) continue;
 
                 _effectProvider.Create()
                     .SetCard(card)
-                    .SetInvestigator(Investigator)
+                    .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
                     .SetLogic(Discard);
 
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionProvider.Create(new DiscardGameAction(card));
-                    await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(Investigator));
+                    await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
                 };
 
                 bool CanChoose()
@@ -55,5 +55,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
         }
+
+
     }
 }

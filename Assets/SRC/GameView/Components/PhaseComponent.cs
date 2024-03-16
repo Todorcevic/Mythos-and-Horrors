@@ -14,8 +14,8 @@ namespace MythosAndHorrors.GameView
         private const float OFFSET = -140f;
 
         private Investigator currentInvestigator;
+        private PhaseView _currentPhaseView;
         [SerializeField, Required, ChildGameObjectsOnly] private List<PhaseView> _phaseViews;
-        [SerializeField, Required, ChildGameObjectsOnly] private PhaseView _currentPhaseView;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _avatarImage;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
                 return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description).Join(SetAvatar(phaseGameAction.ActiveInvestigator));
             }
             return DOTween.Sequence()
-                .Append(_currentPhaseView.Hide())
+                .Append(_currentPhaseView?.Hide() ?? DOTween.Sequence())
                 .Append(newPhase.Show())
                 .Join(SetAvatar(phaseGameAction.ActiveInvestigator))
                 .Join(newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description))

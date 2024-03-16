@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ChooseInvestigatorGameAction : GameAction //2.2	Next investigator's turn begins.
+    public class ChooseInvestigatorGameAction : PhaseGameAction //2.2	Next investigator's turn begins.
     {
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
@@ -14,6 +14,10 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Investigator> InvestigatorsToSelect { get; }
         public Investigator InvestigatorSelected { get; private set; }
 
+        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChooseInvestigatorGameAction);
+        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ChooseInvestigatorGameAction);
+        public override Phase MainPhase => Phase.Investigator;
+
         /*******************************************************************/
         public ChooseInvestigatorGameAction(IEnumerable<Investigator> investigatorsToSelect)
         {
@@ -21,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        protected override async Task ExecuteThisPhaseLogic()
         {
             foreach (Investigator investigator in InvestigatorsToSelect)
             {
