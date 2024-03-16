@@ -13,8 +13,12 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly List<IPlayable> _allPlayablesComponent;
 
         /*******************************************************************/
+        private void ShowCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Show());
+        private void HideCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Hide());
+
         public void ActiavatePlayables(List<IPlayable> specificsCardViews = null)
         {
+            ShowCardsState();
             CheckActivesActivables(specificsCardViews);
             CheckActivesAvatars();
             CheckActivesIOActivator();
@@ -39,6 +43,7 @@ namespace MythosAndHorrors.GameView
 
         public async Task DeactivatePlayables(List<IPlayable> clones = null)
         {
+            HideCardsState();
             CheckDeactivateActivables();
             CheckDeactivateAvatars();
             await CheckDeactivateIOActivator();

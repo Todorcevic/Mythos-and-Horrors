@@ -6,6 +6,7 @@ namespace MythosAndHorrors.GameView
 {
     public class SlotController : MonoBehaviour
     {
+        private ViewState state;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _slot2;
         [SerializeField, Required, AssetsOnly] private Sprite _trinket;
@@ -55,35 +56,29 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-
-        private ViewState state;
-
-        public void DoDefault()
+        public void Default()
         {
             if (state == ViewState.Default) return;
+            state = ViewState.Default;
             _slot1.material.DisableKeyword("_EMISSION");
             _slot2.material.DisableKeyword("_EMISSION");
-            state = ViewState.Default;
+            _slot1.material.SetColor("_EmissionColor", ViewValues.DEFAULT_COLOR);
+            _slot2.material.SetColor("_EmissionColor", ViewValues.DEFAULT_COLOR);
         }
 
-        private int lastAmount;
-
-        public void DoActive(int amount)
+        public void Active(int amount)
         {
-            if (lastAmount == amount) return;
+            if (state == ViewState.Active) return;
+            state = ViewState.Active;
             _slot1.material.EnableKeyword("_EMISSION");
             _slot2.material.EnableKeyword("_EMISSION");
             _slot1.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
             _slot2.material.SetColor("_EmissionColor", ViewValues.DEACTIVE_COLOR);
-            lastAmount = 0;
 
             if (amount < 1) return;
             _slot1.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
-            lastAmount = 1;
-
             if (amount < 2) return;
             _slot2.material.SetColor("_EmissionColor", ViewValues.ACTIVE_COLOR);
-            lastAmount = 2;
         }
     }
 }

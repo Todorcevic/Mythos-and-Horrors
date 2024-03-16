@@ -69,8 +69,9 @@ namespace MythosAndHorrors.GameView
             CardViewsOrdered.Except(new[] { OriginalCardView })
                 .ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
                     .OnComplete(() => Destroy(clone.gameObject))));
-            await returnClonesSequence.AsyncWaitForCompletion()
-                .Join(_moveCardHandler.MoveCardWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)));
+            await returnClonesSequence
+                .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
+                .AsyncWaitForCompletion();
             _cardViews.Clear();
         }
 

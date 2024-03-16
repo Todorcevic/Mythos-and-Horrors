@@ -2,6 +2,7 @@
 {
     public interface IUpdatable
     {
-        void UpdateState();
+        void Show();
+        void Hide();
     }
 }

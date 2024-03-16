@@ -13,61 +13,63 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
-        public async Task MoveCardWithPreviewToZone(Card card, Zone zone)
+        public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await MoveCardWithPreviewToZone(cardView, zoneView);
+            return MoveCardViewWithPreviewToZone(cardView, zoneView);
         }
 
-        public async Task MoveCardWithPreviewToZone(CardView cardView, ZoneView zoneView)
+        public Tween MoveCardViewWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
-            await MoveCardToCenter(cardView);
-            await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
-            await cardView.MoveToZone(zoneView, Ease.InCubic).AsyncWaitForCompletion();
+            return DOTween.Sequence()
+             .Append(MoveCardViewToCenter(cardView))
+             .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
+             .Append(cardView.MoveToZone(zoneView, Ease.InCubic));
         }
 
-        public async Task MoveCardWithPreviewWithoutWait(Card card, Zone zone)
+        public Tween MoveCardWithPreviewWithoutWait(Card card, Zone zone)
         {
             CardView cardView = _cardsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
-
-            await MoveCardToCenter(cardView);
-            await _swapInvestigatorHandler.Select(zone).AsyncWaitForCompletion();
-            cardView.MoveToZone(zoneView, Ease.InCubic);
+            return DOTween.Sequence()
+                .Append(MoveCardViewToCenter(cardView))
+                .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
+                .OnComplete(() => cardView.MoveToZone(zoneView, Ease.InCubic));
         }
 
-        public async Task MoveCardtoCenter(Card card)
+        public Tween MoveCardtoCenter(Card card)
         {
             CardView cardView = _cardsManager.GetCardView(card);
-            await MoveCardToCenter(cardView);
+            return MoveCardViewToCenter(cardView);
         }
 
-        public async Task MoveCardToCenter(CardView cardView)
+        public Tween MoveCardViewToCenter(CardView cardView)
         {
-            if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone) return;
-            await _swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone).AsyncWaitForCompletion();
-            await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone) return DOTween.Sequence();
+
+            return DOTween.Sequence()
+                .Append(_swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone))
+                .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine));
         }
 
-        public async Task MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
+        public Tween MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
         {
             IEnumerable<CardView> cardViews = _cardsManager.GetCardViews(cards);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            await MoveCardsToZone(cardViews, zoneView, delay);
+            return MoveCardViewsToZone(cardViews, zoneView, delay);
         }
 
-        private async Task MoveCardsToZone(IEnumerable<CardView> cardViews, ZoneView zoneView, float delay)
+        private Tween MoveCardViewsToZone(IEnumerable<CardView> cardViews, ZoneView zoneView, float delay)
         {
-            await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
             cardViews.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneView)));
-            await sequence.AsyncWaitForCompletion();
+            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(zoneView.Zone)).Append(sequence);
         }
 
-        public async Task ReturnCard(Card card) => await MoveCardWithPreviewToZone(card, card.CurrentZone);
+        public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
     }
 }

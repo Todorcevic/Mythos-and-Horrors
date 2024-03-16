@@ -91,10 +91,16 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public void UpdateState() //TODO: Se podria hacer solo en interactable
+        void IUpdatable.Show()
         {
             ChangeColorResource();
             ChangeSlotColor();
+        }
+
+        void IUpdatable.Hide()
+        {
+            _cost.Default();
+            _slotController.Default();
         }
 
         private void ChangeColorResource()
@@ -108,9 +114,9 @@ namespace MythosAndHorrors.GameView
         private void ChangeSlotColor()
         {
             if (!HasSlot) return;
-            if (Card.CurrentZone == Card.Owner?.AidZone) _slotController.DoActive(2);
-            else if (Card.CurrentZone != Card.Owner?.HandZone) _slotController.DoDefault();
-            else _slotController.DoActive(Card.Owner.SlotsCollection.GetFreeSlotFor(Card).Count);
+            if (Card.CurrentZone == Card.Owner?.AidZone) _slotController.Active(2);
+            else if (Card.CurrentZone != Card.Owner?.HandZone) _slotController.Default();
+            else _slotController.Active(Card.Owner.SlotsCollection.GetFreeSlotFor(Card).Count);
         }
     }
 }

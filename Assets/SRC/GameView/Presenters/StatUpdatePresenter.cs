@@ -32,9 +32,9 @@ namespace MythosAndHorrors.GameView
         {
             if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
             {
-                await _moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot);
+                await _moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
                 await Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch)).AsyncWaitForCompletion();
-                await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot);
+                await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
             }
 
             await CheckResources(updateStatGameAction).AsyncWaitForCompletion();
