@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameRules
         public DrawAidGameAction(Investigator investigator)
         {
             Investigator = investigator;
+            CanBeExecuted = Investigator.CardAidToDraw != null;
         }
 
         /*******************************************************************/

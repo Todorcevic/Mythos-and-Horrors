@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameView
         {
             Sequence payResourceSequence = DOTween.Sequence();
 
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
                         .Where(investigator => updateStatGameAction.AllStats.Contains(investigator.Resources)))
             {
                 int amount = investigator.Resources.Value - investigator.Resources.ValueBeforeUpdate;

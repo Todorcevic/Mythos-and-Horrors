@@ -8,10 +8,10 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allEffects = new();
 
         public Effect MainButtonEffect { get; private set; }
-        public List<Effect> AllEffectsPlayable => _allEffects;
+        public IEnumerable<Effect> AllEffectsPlayable => _allEffects;
         public Effect UniqueEffect => AllEffectsPlayable.Single();
-        public bool IsUniqueEffect => AllEffectsPlayable.Count == 1;
-        public bool NoEffect => AllEffectsPlayable.Count == 0;
+        public bool IsUniqueEffect => AllEffectsPlayable.Count() == 1;
+        public bool NoEffect => AllEffectsPlayable.Count() == 0;
 
         /*******************************************************************/
         public Effect Create()
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public List<Effect> GetEffectForThisCard(Card cardAffected) =>
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) =>
             _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
     }
 }

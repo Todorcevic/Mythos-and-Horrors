@@ -10,10 +10,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionProvider _gameActionRepository;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public CardCreature Creature { get; }
+        public IStalker Creature { get; }
 
         /*******************************************************************/
-        public MoveCreatureGameAction(CardCreature creature)
+        public MoveCreatureGameAction(IStalker creature)
         {
             Creature = creature;
         }
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create(new MoveCardsGameAction(Creature, CardPlaceToMove().OwnZone));
+            await _gameActionRepository.Create(new MoveCardsGameAction((Card)Creature, CardPlaceToMove().OwnZone));
         }
 
         private CardPlace CardPlaceToMove()
@@ -29,9 +29,9 @@ namespace MythosAndHorrors.GameRules
             Dictionary<Investigator, CardPlace> finalResult = new();
             (CardPlace path, int distance) winner = (default, int.MaxValue);
 
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
-                (CardPlace path, int distance) result = InitializerFindPath(new() { Creature.CurrentPlace }, investigator.CurrentPlace);
+                (CardPlace path, int distance) result = InitializerFindPath(new[] { Creature.CurrentPlace }, investigator.CurrentPlace);
                 if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
                 else if (result.distance < winner.distance)
                 {
@@ -47,14 +47,14 @@ namespace MythosAndHorrors.GameRules
             return finalResult.First().Value;
         }
 
-        private (CardPlace path, int distance) InitializerFindPath(List<CardPlace> listLocation, CardPlace moveToLocation)
+        private (CardPlace path, int distance) InitializerFindPath(IEnumerable<CardPlace> listLocation, CardPlace moveToLocation)
         {
             CardPlace[] currentPath = new CardPlace[12];
             List<CardPlace> locationsCheck = new();
             int distance = 0;
             return FindPath(listLocation, moveToLocation);
 
-            (CardPlace path, int distance) FindPath(List<CardPlace> listLocation, CardPlace moveToLocation)
+            (CardPlace path, int distance) FindPath(IEnumerable<CardPlace> listLocation, CardPlace moveToLocation)
             {
                 List<CardPlace> listToCheck = new();
                 foreach (CardPlace location in listLocation)
@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
                     if (location == moveToLocation) return (currentPath[1] ?? currentPath[0], distance);
                     locationsCheck.Add(location);
                     listToCheck.AddRange(location.ConnectedPlacesToMove
-                        .FindAll(cardPlace => !locationsCheck.Contains(cardPlace) && !listToCheck.Contains(cardPlace)));
+                        .Where(cardPlace => !locationsCheck.Contains(cardPlace) && !listToCheck.Contains(cardPlace)));
                 }
                 distance++;
                 if (listToCheck.Count > 0) return FindPath(listToCheck, moveToLocation);

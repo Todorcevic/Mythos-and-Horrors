@@ -16,11 +16,11 @@ namespace MythosAndHorrors.GameRules
         public Effect InvestigateEffect { get; private set; }
         public Effect DrawEffect { get; private set; }
         public Effect TakeResourceEffect { get; private set; }
-        public List<Effect> MoveEffects { get; } = new List<Effect>();
-        public List<Effect> InvestigatorAttackEffects { get; } = new List<Effect>();
-        public List<Effect> InvestigatorConfrontEffects { get; } = new List<Effect>();
-        public List<Effect> InvestigatorEludeEffects { get; } = new List<Effect>();
-        public List<Effect> PlayFromHandEffects { get; } = new List<Effect>();
+        public List<Effect> MoveEffects { get; } = new();
+        public List<Effect> InvestigatorAttackEffects { get; } = new();
+        public List<Effect> InvestigatorConfrontEffects { get; } = new();
+        public List<Effect> InvestigatorEludeEffects { get; } = new();
+        public List<Effect> PlayFromHandEffects { get; } = new();
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(OneInvestigatorTurnGameAction);

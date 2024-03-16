@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators.FindAll(i => i.HandSize > 0)) //TODO: Quitar
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
                 await _gameActionProvider.Create(new DrawAidGameAction(investigator));
                 await _gameActionProvider.Create(new GainResourceGameAction(investigator, 1));

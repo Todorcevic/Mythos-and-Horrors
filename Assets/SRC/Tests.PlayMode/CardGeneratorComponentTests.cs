@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_InvestigatorCard()
         {
             _prepareGameUse.Execute();
-            Card card = _investigatorsProvider.Leader.InvestigatorCard;
+            Card card = _investigatorsProvider.First.InvestigatorCard;
 
             CardView result = _cardViewsManager.GetCardView(card);
 
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_Faction()
         {
             _prepareGameUse.Execute();
-            Card card = _investigatorsProvider.Leader.InvestigatorCard;
+            Card card = _investigatorsProvider.First.InvestigatorCard;
 
             CardView result = _cardViewsManager.GetCardView(card);
             FactionInvestigatorSO factionElementsExpected = result.GetPrivateMember<List<FactionInvestigatorSO>>("_factions")

@@ -23,17 +23,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
 
-            Card cardToDraw = _investigatorsProvider.Leader.FullDeck.First();
+            Card cardToDraw = _investigatorsProvider.First.FullDeck.First();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.First.DeckZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(cardToDraw).AsTask();
-            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader)).AsCoroutine();
+            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_investigatorsProvider.Leader.HandZone.Cards.First(), Is.EqualTo(cardToDraw));
+            Assert.That(_investigatorsProvider.First.HandZone.Cards.First(), Is.EqualTo(cardToDraw));
         }
     }
 }

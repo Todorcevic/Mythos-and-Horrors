@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator MoveCratureTest()
         {
             _prepareGameUseCase.Execute();
+            yield return PlayAllInvestigators();
             CardPlace place1 = _cardsProvider.GetCard<CardPlace>("01111");
             CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01112");
             CardPlace place3 = _cardsProvider.GetCard<CardPlace>("01113");
@@ -37,11 +38,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place5, _chaptersProvider.CurrentScene.PlaceZone[2, 4])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place2.OwnZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place3.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place3.OwnZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
 
-            yield return _gameActionFactory.Create(new MoveCreatureGameAction(creature)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.CurrentPlace, Is.EqualTo(place3));

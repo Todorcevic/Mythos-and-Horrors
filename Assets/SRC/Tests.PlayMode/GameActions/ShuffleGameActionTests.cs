@@ -23,14 +23,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Shuffle_Zone()
         {
             _prepareGameUse.Execute();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.FullDeck, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
-            CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.Leader.DeckZone).GetComponentsInChildren<CardView>();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DeckZone)).AsCoroutine();
+            CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             do
             {
-                yield return _gameActionFactory.Create(new ShuffleGameAction(_investigatorsProvider.Leader.DeckZone)).AsCoroutine();
+                yield return _gameActionFactory.Create(new ShuffleGameAction(_investigatorsProvider.First.DeckZone)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
-            CardView[] allCardViewsShuffled = zoneViewsManager.Get(_investigatorsProvider.Leader.DeckZone).GetComponentsInChildren<CardView>();
+            CardView[] allCardViewsShuffled = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             Assert.That(!allCardViews.SequenceEqual(allCardViewsShuffled));
         }
     }

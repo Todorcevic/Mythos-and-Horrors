@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionProvider _gameActionFactory;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        private bool ThereAreInvestigatorsWithTurns => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count > 0;
+        private bool ThereAreInvestigatorsWithTurns => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
         public override Phase MainPhase => Phase.Investigator;
         public override string Name => _textsProvider.GameText.INVESTIGATOR_PHASE_NAME;
         public override string Description => _textsProvider.GameText.INVESTIGATOR_PHASE_DESCRIPTION;

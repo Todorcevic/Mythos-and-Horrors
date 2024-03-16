@@ -10,12 +10,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<ReadyCardGameAction> _readyCardPresenter;
         [Inject] private readonly GameActionProvider _gameActionProvider;
 
-        public List<Card> Cards { get; private set; }
+        public IEnumerable<Card> Cards { get; }
 
         /*******************************************************************/
-        public ReadyCardGameAction(Card card) : this(new List<Card> { card }) { }
+        public ReadyCardGameAction(Card card) : this(new[] { card }) { }
 
-        public ReadyCardGameAction(List<Card> cards)
+        public ReadyCardGameAction(IEnumerable<Card> cards)
         {
             Cards = cards;
         }
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted).ToList(), false));
+            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted), false));
             await _readyCardPresenter.PlayAnimationWith(this);
         }
     }

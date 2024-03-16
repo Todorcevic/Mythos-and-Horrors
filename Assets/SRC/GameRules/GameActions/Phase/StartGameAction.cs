@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionFactory.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
 
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            foreach (Investigator investigator in _investigatorsProvider.Investigators)
             {
                 await _gameActionFactory.Create(new PrepareInvestigatorGameAction(investigator));
             }

@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly List<AreaInvestigatorView> _allAreaInvestigatorViews;
 
         /*******************************************************************/
-        public void Init(List<Investigator> investigators)
+        public void Init(IEnumerable<Investigator> investigators)
         {
             investigators.ForEach(investigator =>
             _allAreaInvestigatorViews.OrderBy(areaInvestigatorView => areaInvestigatorView.name).First(area => area.IsFree).Init(investigator));

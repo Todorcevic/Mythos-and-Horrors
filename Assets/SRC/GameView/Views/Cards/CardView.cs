@@ -1,7 +1,6 @@
 using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -30,7 +29,7 @@ namespace MythosAndHorrors.GameView
 
         public ZoneView CurrentZoneView { get; private set; }
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
-        List<Effect> IPlayable.EffectsSelected => _cloneEffect != null ? new() { _cloneEffect } : Card.PlayableEffects;
+        IEnumerable<Effect> IPlayable.EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
 
         /*******************************************************************/
         public void Init(Card card)

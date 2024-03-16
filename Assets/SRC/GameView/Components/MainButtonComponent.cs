@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -22,7 +23,7 @@ namespace MythosAndHorrors.GameView
 
         private bool IsActivated => _collider.enabled;
         private Effect MainButtonEffect => _effectsProvider.MainButtonEffect;
-        List<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? new() { } : new() { MainButtonEffect };
+        IEnumerable<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/
         public void ActivateToClick()

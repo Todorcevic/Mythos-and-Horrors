@@ -7,38 +7,42 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsProvider
     {
-        [Inject] GameActionProvider _gameActionFactory;
-
-        private readonly List<Investigator> _investigator = new();
-
-        public List<Investigator> AllInvestigators => _investigator;
-        public Investigator Leader => _investigator.First();
-        public Investigator Second => _investigator[1];
-        public Investigator Third => _investigator[2];
-        public Investigator Fourth => _investigator[3];
-        public Investigator ActiveInvestigator => _gameActionFactory.GetLastActive<PhaseGameAction>()?.ActiveInvestigator;
+        [Inject] GameActionProvider _gameActionProvider;
+        public List<Investigator> Investigators { get; private set; } = new();
+        public List<Investigator> AllInvestigatorsInPlay => Investigators.FindAll(investigator => investigator.IsInPlay);
+        public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.FindAll(investigator => investigator.HasTurnsAvailable);
+        public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.FindAll(investigator => investigator.CanInvestigate);
+        public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.FindAll(investigator => investigator.CanBeHealed);
+        public Investigator Leader => AllInvestigatorsInPlay[0];
+        public Investigator First => Investigators[0];
+        public Investigator Second => Investigators[1];
+        public Investigator Third => Investigators[2];
+        public Investigator Fourth => Investigators[3];
+        public Investigator GetTopInvestigatorsStrength =>
+            AllInvestigatorsInPlay.OrderByDescending(investigator => investigator.Strength.Value).First();
+        public Investigator ActiveInvestigator => _gameActionProvider.GetLastActive<PhaseGameAction>()?.ActiveInvestigator;
 
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)
         {
-            if (_investigator.Contains(investigator)) throw new InvalidOperationException("Investigator already added");
-            _investigator.Add(investigator);
+            if (Investigators.Contains(investigator)) throw new InvalidOperationException("Investigator already added");
+            Investigators.Add(investigator);
         }
 
+        /*******************************************************************/
+        public int GetInvestigatorPosition(Investigator investigator)
+            => Investigators.IndexOf(investigator) + 1;
+
         public Investigator GetInvestigatorWithThisZone(Zone zone)
-            => _investigator.FirstOrDefault(investigator => investigator.HasThisZone(zone));
+            => Investigators.FirstOrDefault(investigator => investigator.HasThisZone(zone));
 
         public Investigator GetInvestigatorWithThisCard(Card card)
-            => _investigator.FirstOrDefault(investigator => investigator.HasThisCard(card));
+            => Investigators.FirstOrDefault(investigator => investigator.HasThisCard(card));
 
         public Investigator GetInvestigatorWithThisStat(Stat stat)
-            => _investigator.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
+            => Investigators.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
 
-        public List<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
-            => _investigator.FindAll(investigator => investigator.CurrentPlace == cardPlace);
-
-        public List<Investigator> GetInvestigatorsCanStartTurn => _investigator.FindAll(investigator => investigator.HasTurnsAvailable);
-        public List<Investigator> GetInvestigatorsCanInvestigate => _investigator.FindAll(investigator => investigator.CanInvestigate);
-        public List<Investigator> GetInvestigatorsCanBeHealed => _investigator.FindAll(investigator => investigator.CanBeHealed);
+        public IEnumerable<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
+            => AllInvestigatorsInPlay.FindAll(investigator => investigator.CurrentPlace == cardPlace);
     }
 }

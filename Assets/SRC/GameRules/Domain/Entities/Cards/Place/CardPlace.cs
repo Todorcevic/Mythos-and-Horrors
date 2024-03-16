@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardPlace : Card, IRevealable
     {
-        private List<CardPlace> _connectedPlacesToMove;
+        private IEnumerable<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
@@ -20,9 +20,9 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
-        public List<CardPlace> ConnectedPlacesToMove =>
-            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code)).ToList();
-        public List<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
+        public IEnumerable<CardPlace> ConnectedPlacesToMove =>
+            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code));
+        public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/
         [Inject]

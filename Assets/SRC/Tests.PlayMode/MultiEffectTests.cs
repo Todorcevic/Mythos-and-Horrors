@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator MultiEffect_Test()
         {
             _prepareGameUseCase.Execute();
-            Investigator investigator1 = _investigatorsProvider.Leader;
+            Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];
 

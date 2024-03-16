@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using UnityEngine.TestTools;
 using Zenject;
 
@@ -21,11 +22,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Parent_GameAction_Test()
         {
             _prepareGameUseCase.Execute();
-            Investigator investigator = _investigatorsProvider.Leader;
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[0], investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[1], investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[2], investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck[3], investigator.DeckZone)).AsCoroutine();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(0), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(1), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(2), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(3), investigator.DeckZone)).AsCoroutine();
 
             InitialDrawGameAction initialDrawGameAction = new(investigator);
             yield return _gameActionFactory.Create(initialDrawGameAction).AsCoroutine();

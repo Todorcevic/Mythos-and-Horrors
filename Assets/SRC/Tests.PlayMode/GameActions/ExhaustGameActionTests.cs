@@ -22,9 +22,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator ExhaustTest()
         {
             _prepareGameUseCase.Execute();
-            Card cardToExhaust = _investigatorsProvider.Leader.FullDeck.First();
+            Card cardToExhaust = _investigatorsProvider.First.FullDeck.First();
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.First.AidZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new ExhaustCardsGameAction(cardToExhaust)).AsCoroutine();
 
             if (DEBUG_MODE) yield return PressAnyKey();

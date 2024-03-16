@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.Utilities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
     public class UpdateStatesGameAction : GameAction
     {
-        public List<State> States { get; }
+        public IEnumerable<State> States { get; }
         public bool Value { get; }
 
         /*******************************************************************/
-        public UpdateStatesGameAction(State state, bool value) : this(new List<State> { state }, value) { }
+        public UpdateStatesGameAction(State state, bool value) : this(new[] { state }, value) { }
 
-        public UpdateStatesGameAction(List<State> states, bool value)
+        public UpdateStatesGameAction(IEnumerable<State> states, bool value)
         {
             States = states;
             Value = value;

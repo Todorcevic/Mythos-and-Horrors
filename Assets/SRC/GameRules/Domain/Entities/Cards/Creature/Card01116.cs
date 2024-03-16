@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        Investigator ITarget.Investigator => _investigatorsProvider.AllInvestigators
-            .OrderByDescending(investigator => investigator.Strength.Value).First();
+        Investigator ITarget.Investigator => _investigatorsProvider.GetTopInvestigatorsStrength;
     }
 }

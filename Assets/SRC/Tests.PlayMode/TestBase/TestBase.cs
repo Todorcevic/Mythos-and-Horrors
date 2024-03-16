@@ -4,6 +4,7 @@ using MythosAndHorrors.GameView;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {
-        private float TIMEOUT = 3f;
+        private const float TIMEOUT = 3f;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -57,10 +58,23 @@ namespace MythosAndHorrors.PlayMode.Tests
             SceneContainer.Bind<CardBuilder>().AsSingle();
         }
 
+        /*******************************************************************/
         protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
 
         protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
 
+        [Inject] private readonly GameActionProvider _gameActionFactory;
+        protected IEnumerator PlayThisInvestigator(Investigator investigator)
+        {
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
+        }
+
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        protected IEnumerator PlayAllInvestigators()
+        {
+            foreach (Investigator investigator in _investigatorsProvider.Investigators)
+                yield return PlayThisInvestigator(investigator);
+        }
 
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
         protected IEnumerator WaitToHistoryPanelClick()

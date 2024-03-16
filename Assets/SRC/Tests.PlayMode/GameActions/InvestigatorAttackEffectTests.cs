@@ -27,13 +27,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, _investigatorsProvider.Leader.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.Leader);
+            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
             _ = _gameActionFactory.Create(oiGA);
 
             if (!DEBUG_MODE) yield return WaitToClick(creature);
@@ -49,13 +49,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place.OwnZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.AvatarCard, place.OwnZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.Leader);
+            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
             _ = _gameActionFactory.Create(oiGA);
 
             if (!DEBUG_MODE) yield return WaitToClick(creature);
@@ -71,11 +71,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, place.OwnZone)).AsCoroutine();
 
-            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.Leader);
+            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
             _ = _gameActionFactory.Create(oiGA);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

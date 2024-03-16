@@ -23,12 +23,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             Card cardWithBuff = _cardsProvider.GetCard("01530");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
+            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return PlayThisInvestigator(_investigatorsProvider.Second);
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardWithBuff, _investigatorsProvider.Leader.AidZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardWithBuff, _investigatorsProvider.First.AidZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Leader.Intelligence.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Intelligence + 1));
+            Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(_investigatorsProvider.First.InvestigatorCard.Info.Intelligence + 1));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(_investigatorsProvider.Second.InvestigatorCard.Info.Intelligence + 1));
 
         }

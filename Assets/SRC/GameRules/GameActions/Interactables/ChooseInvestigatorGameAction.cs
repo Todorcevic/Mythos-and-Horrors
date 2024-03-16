@@ -11,11 +11,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionProvider _gameActionProvider;
         [Inject] private readonly IPresenter<ChooseInvestigatorGameAction> _startingAnimationPresenter;
 
-        public List<Investigator> InvestigatorsToSelect { get; }
+        public IEnumerable<Investigator> InvestigatorsToSelect { get; }
         public Investigator InvestigatorSelected { get; private set; }
 
         /*******************************************************************/
-        public ChooseInvestigatorGameAction(List<Investigator> investigatorsToSelect)
+        public ChooseInvestigatorGameAction(IEnumerable<Investigator> investigatorsToSelect)
         {
             InvestigatorsToSelect = investigatorsToSelect;
         }

@@ -1,4 +1,7 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public interface IStalker { }
+    public interface IStalker
+    {
+        CardPlace CurrentPlace { get; }
+    }
 }

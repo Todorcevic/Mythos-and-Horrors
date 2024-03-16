@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator All_Zones_With_Cards()
         {
             _prepareGameUseCase.Execute();
-            Investigator investigator1 = _investigatorsProvider.Leader;
+            Investigator investigator1 = _investigatorsProvider.First;
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.InvestigatorCard, investigator1.InvestigatorZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards[1], investigator1.DiscardZone)).AsCoroutine();

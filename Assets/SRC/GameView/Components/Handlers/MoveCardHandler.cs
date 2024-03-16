@@ -51,15 +51,15 @@ namespace MythosAndHorrors.GameView
             await cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
         }
 
-        public async Task MoveCardsToZone(List<Card> cards, Zone zone, float delay = 0f)
+        public async Task MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
         {
-            List<CardView> cardViews = _cardsManager.GetCardViews(cards);
+            IEnumerable<CardView> cardViews = _cardsManager.GetCardViews(cards);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             await MoveCardsToZone(cardViews, zoneView, delay);
         }
 
-        private async Task MoveCardsToZone(List<CardView> cardViews, ZoneView zoneView, float delay)
+        private async Task MoveCardsToZone(IEnumerable<CardView> cardViews, ZoneView zoneView, float delay)
         {
             await _swapInvestigatorHandler.Select(zoneView.Zone).AsyncWaitForCompletion();
             float delayBetweenMoves = 0f;

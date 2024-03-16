@@ -22,8 +22,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator ActivateCardGameActionTest()
         {
             _prepareGameUseCase.Execute();
+            yield return PlayThisInvestigator(_investigatorsProvider.Second);
             CardSupply aidCard = _cardsProvider.GetCard<CardSupply>("01535");
-
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Second.Health, 2)).AsCoroutine();
             yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.Second.AidZone)).AsCoroutine();

@@ -31,5 +31,7 @@ namespace MythosAndHorrors.GameRules
 
             Cards.Remove(card);
         }
+
+        public bool HasThisCard(Card card) => Cards.Contains(card);
     }
 }

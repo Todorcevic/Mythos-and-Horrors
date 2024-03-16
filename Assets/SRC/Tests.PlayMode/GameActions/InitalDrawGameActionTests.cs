@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -23,7 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator InitialDrawGameAction()
         {
             _prepareGameUseCase.Execute();
-            Investigator investigator = _investigatorsProvider.AllInvestigators[0];
+            Investigator investigator = _investigatorsProvider.First;
             Card card = _cardsProvider.GetCard("01517");
             yield return _gameActionFactory.Create(new MoveCardsGameAction(card, investigator.DeckZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
@@ -37,10 +38,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator InitialDrawWeaknessGameAction()
         {
             _prepareGameUseCase.Execute();
-            Investigator investigator = _investigatorsProvider.AllInvestigators[0];
+            Investigator investigator = _investigatorsProvider.First;
             Card weaknessCard = _cardsProvider.GetCard("01507");
             Card normalCard = _cardsProvider.GetCard("01517");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(new System.Collections.Generic.List<Card>() { normalCard, weaknessCard }, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(new[] { normalCard, weaknessCard }, investigator.DeckZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

@@ -24,19 +24,19 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.Leader.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             do
             {
-                yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.Leader)).AsCoroutine();
+                yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.First)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
             yield return new WaitForSeconds(1);
 
-            Assert.That(_investigatorsProvider.Leader.Health.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Health - 2));
-            Assert.That(_investigatorsProvider.Leader.Sanity.Value, Is.EqualTo(_investigatorsProvider.Leader.InvestigatorCard.Info.Sanity - 1));
+            Assert.That(_investigatorsProvider.First.Health.Value, Is.EqualTo(_investigatorsProvider.First.InvestigatorCard.Info.Health - 2));
+            Assert.That(_investigatorsProvider.First.Sanity.Value, Is.EqualTo(_investigatorsProvider.First.InvestigatorCard.Info.Sanity - 1));
         }
 
         /*******************************************************************/
@@ -45,9 +45,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.InvestigatorCard, _investigatorsProvider.Second.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.Leader.DangerZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             do
             {

@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public CardView GetCardView(Card card) => _allCardsView.First(cardView => cardView.Card == card);
 
-        public List<CardView> GetCardViews(List<Card> cards) => _allCardsView.Where(cardView => cards.Contains(cardView.Card)).ToList();
+        public IEnumerable<CardView> GetCardViews(IEnumerable<Card> cards) => _allCardsView.Where(cardView => cards.Contains(cardView.Card));
 
         public AvatarCardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard) as AvatarCardView;
 

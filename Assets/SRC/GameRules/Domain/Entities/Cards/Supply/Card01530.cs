@@ -27,11 +27,11 @@ namespace MythosAndHorrors.GameRules
 
         }
         /*******************************************************************/
-        private List<Card> CardsToBuff()
+        private IEnumerable<Card> CardsToBuff()
         {
-            if (!BuffActivation()) return new List<Card>();
+            if (!BuffActivation()) return Enumerable.Empty<Card>();
             return _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
-                  .Select(investigator => investigator.InvestigatorCard).Cast<Card>().ToList();
+                  .Select(investigator => investigator.InvestigatorCard).Cast<Card>();
 
             bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;
         }

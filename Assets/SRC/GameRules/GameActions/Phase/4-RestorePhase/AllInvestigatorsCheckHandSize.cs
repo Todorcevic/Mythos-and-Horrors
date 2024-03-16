@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
                 await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(investigator));
             }

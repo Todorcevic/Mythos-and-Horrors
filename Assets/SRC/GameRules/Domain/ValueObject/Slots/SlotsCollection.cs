@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             return slots;
         }
 
-        public bool CanAddThis(Card card) => GetFreeSlotFor(card).Count >= card.Info.Slots.Count();
+        public bool CanAddThis(Card card) => GetFreeSlotFor(card).Count >= card.Info.Slots.Length;
 
         public void AddSlot(Slot slot) => Slots.Add(slot);
     }

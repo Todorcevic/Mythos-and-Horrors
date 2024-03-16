@@ -26,10 +26,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private List<Card> CardsToBuff()
+        private IEnumerable<Card> CardsToBuff()
         {
             if (CurrentZone != Owner.InvestigatorZone) return new List<Card>();
-            return Owner.HandZone.Cards.Where(card => card is CardCondition || card is CardSupply).ToList();
+            return Owner.HandZone.Cards.Where(card => card is CardCondition || card is CardSupply);
         }
 
         private async Task AddReductionCostBuff(Card card)

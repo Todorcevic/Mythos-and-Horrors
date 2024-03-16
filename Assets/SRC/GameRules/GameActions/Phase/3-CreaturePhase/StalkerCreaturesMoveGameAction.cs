@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -20,8 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (CardCreature creature in _cardsProvider.AllCards.OfType<IStalker>()
-                .Cast<CardCreature>().Where(creature => creature.CurrentPlace != null))
+            foreach (IStalker creature in _cardsProvider.StalkersInPlay)
             {
                 await _gameActionFactory.Create(new MoveCreatureGameAction(creature));
             }

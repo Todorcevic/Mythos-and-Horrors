@@ -14,10 +14,10 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         [JsonProperty("NextScene")] public string NextScene { get; init; }
 
-        public List<CardPlace> PlaceCards => Cards.OfType<CardPlace>().ToList();
-        public List<CardPlot> PlotCards => Cards.OfType<CardPlot>().ToList();
-        public List<CardGoal> GoalCards => Cards.OfType<CardGoal>().ToList();
-        public List<Card> DangerCards => Cards.FindAll(card => card is CardAdversity || card is CardCreature);
+        public IEnumerable<CardPlace> PlaceCards => Cards.OfType<CardPlace>();
+        public IEnumerable<CardPlot> PlotCards => Cards.OfType<CardPlot>();
+        public IEnumerable<CardGoal> GoalCards => Cards.OfType<CardGoal>();
+        public IEnumerable<Card> DangerCards => Cards.FindAll(card => card is CardAdversity || card is CardCreature);
 
     }
 }

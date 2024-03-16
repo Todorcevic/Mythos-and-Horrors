@@ -25,24 +25,24 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator ChooseInvestigatorTest()
         {
             _prepareGameUseCase.Execute();
+            yield return PlayAllInvestigators();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
-            _investigatorsProvider.AllInvestigators.ForEach(investigator =>
+            _investigatorsProvider.AllInvestigatorsInPlay.ForEach(investigator =>
             _gameActionFactory.Create(new UpdateStatGameAction(investigator.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine());
 
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
-            List<Card> allAvatars = _investigatorsProvider.AllInvestigators
-               .Select(investigator => investigator.AvatarCard).Cast<Card>().ToList();
+            IEnumerable<Card> allAvatars = _investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.AvatarCard).Cast<Card>();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.Leader.AvatarCard).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.AvatarCard).AsTask();
             ChooseInvestigatorGameAction chooseInvestigatoGA = new(_investigatorsProvider.GetInvestigatorsCanStartTurn);
             yield return _gameActionFactory.Create(chooseInvestigatoGA).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(chooseInvestigatoGA.InvestigatorSelected, Is.EqualTo(_investigatorsProvider.Leader));
+            Assert.That(chooseInvestigatoGA.InvestigatorSelected, Is.EqualTo(_investigatorsProvider.First));
         }
     }
 }

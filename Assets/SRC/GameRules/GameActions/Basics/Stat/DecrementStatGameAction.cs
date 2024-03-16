@@ -1,5 +1,4 @@
-﻿using Sirenix.Utilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules

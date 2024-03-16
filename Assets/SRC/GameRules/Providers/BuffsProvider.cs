@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -24,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        public List<Buff> GetBuffsForThisCard(Card cardAffected) =>
+        public IEnumerable<Buff> GetBuffsForThisCard(Card cardAffected) =>
             _allBuffs.FindAll(buff => buff.CardsToBuff.Invoke().Contains(cardAffected));
     }
 }

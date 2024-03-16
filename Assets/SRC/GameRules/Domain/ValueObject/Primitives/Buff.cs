@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         private Card _cardMaster;
         private readonly List<Card> _currentCardsAffected = new();
 
-        public Func<List<Card>> CardsToBuff { get; private set; }
+        public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
         public Func<Card, Task> ActivationLogic { get; private set; }
         public Func<Card, Task> DeactivationLogic { get; private set; }
 
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (_isBuffing) return;
             _isBuffing = true;
-            List<Card> cardsAffected = CardsToBuff.Invoke();
+            IEnumerable<Card> cardsAffected = CardsToBuff.Invoke();
             List<Card> cardsToActivate = cardsAffected.Except(_currentCardsAffected).ToList();
             List<Card> cardsToDeactivate = _currentCardsAffected.Except(cardsAffected).ToList();
 
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
             return this;
         }
 
-        public Buff SetCardsToBuff(Func<List<Card>> cardsToBuff)
+        public Buff SetCardsToBuff(Func<IEnumerable<Card>> cardsToBuff)
         {
             CardsToBuff = cardsToBuff;
             return this;

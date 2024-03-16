@@ -29,23 +29,23 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.Health, 3)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.Leader.CurrentTurns, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
+            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_investigatorsProvider.Leader.Health.Value, Is.EqualTo(3));
-            Assert.That((_cardViewsManager.GetCardView(_investigatorsProvider.Leader.AvatarCard) as AvatarCardView).GetPrivateMember<StatView>("_health").Stat.Value, Is.EqualTo(3));
-            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<StatUIView>("_healthStat").Stat.Value, Is.EqualTo(3));
-            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.Leader).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(2));
+            Assert.That(_investigatorsProvider.First.Health.Value, Is.EqualTo(3));
+            Assert.That((_cardViewsManager.GetCardView(_investigatorsProvider.First.AvatarCard) as AvatarCardView).GetPrivateMember<StatView>("_health").Stat.Value, Is.EqualTo(3));
+            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.First).GetPrivateMember<StatUIView>("_healthStat").Stat.Value, Is.EqualTo(3));
+            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.First).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(2));
         }
 
         [UnityTest]
         public IEnumerator Move_Resource_From_Card()
         {
             _prepareGameUse.Execute();
-            CardSupply cardSupply = _investigatorsProvider.Leader.Cards[0] as CardSupply;
+            CardSupply cardSupply = _investigatorsProvider.First.Cards[0] as CardSupply;
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
@@ -87,16 +87,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
             yield return _gameActionFactory.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Leader.InvestigatorCard, _investigatorsProvider.Leader.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionFactory.Create(new RevealGameAction(place)).AsCoroutine();
 
             yield return _gameActionFactory.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionFactory.Create(new GainHintGameAction(_investigatorsProvider.Leader, place.Hints, 2)).AsCoroutine();
+            yield return _gameActionFactory.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionFactory.Create(new PayHintGameAction(_investigatorsProvider.Leader, cardGoal.Hints, 1)).AsCoroutine();
+            yield return _gameActionFactory.Create(new PayHintGameAction(_investigatorsProvider.First, cardGoal.Hints, 1)).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

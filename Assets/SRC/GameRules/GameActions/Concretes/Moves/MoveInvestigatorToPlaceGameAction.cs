@@ -9,17 +9,17 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionProvider _gameActionFactory;
 
-        public List<Investigator> Investigators { get; }
+        public IEnumerable<Investigator> Investigators { get; }
         public CardPlace CardPlace { get; }
 
         /*******************************************************************/
         public MoveInvestigatorToPlaceGameAction(Investigator investigator, CardPlace cardPlace)
         {
-            Investigators = new() { investigator };
+            Investigators = new[] { investigator };
             CardPlace = cardPlace;
         }
 
-        public MoveInvestigatorToPlaceGameAction(List<Investigator> investigators, CardPlace cardPlace)
+        public MoveInvestigatorToPlaceGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace)
         {
             Investigators = investigators;
             CardPlace = cardPlace;
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            List<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard).Cast<Card>().ToList();
+            IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard).Cast<Card>();
             await _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, CardPlace.OwnZone));
             await _gameActionFactory.Create(new CheckRevealPlaceGameAction(CardPlace));
         }

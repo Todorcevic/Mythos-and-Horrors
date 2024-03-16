@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -8,20 +9,20 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
-        public List<Card> Cards { get; }
-        public Card Card => Cards[0];
+        public IEnumerable<Card> Cards { get; }
+        public Card Card => Cards.First();
         public Zone ToZone { get; }
         public Zone FromZone { get; }
-        public bool IsSingleMove => Cards.Count == 1;
+        public bool IsSingleMove => Cards.Count() == 1;
 
         /*******************************************************************/
-        public MoveCardsGameAction(List<Card> cards, Zone zone)
+        public MoveCardsGameAction(IEnumerable<Card> cards, Zone zone)
         {
             Cards = cards;
             ToZone = zone;
         }
 
-        public MoveCardsGameAction(Card card, Zone zone) : this(new List<Card> { card }, zone) { }
+        public MoveCardsGameAction(Card card, Zone zone) : this(new[] { card }, zone) { }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

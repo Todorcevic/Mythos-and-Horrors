@@ -29,17 +29,18 @@ namespace MythosAndHorrors.GameRules
         public bool CanBeHealed => Health.Value < RealHealth;
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
-        public int Position => _investigatorsProvider.AllInvestigators.IndexOf(this) + 1;
+        public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
+        public int Position => _investigatorsProvider.GetInvestigatorPosition(this);
         public int RealHealth => InvestigatorCard.RealHealth;
         public int RealSanity => InvestigatorCard.RealSanity;
         public int HandSize => HandZone.Cards.Count;
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
-        public List<Card> FullDeck => Cards.Concat(RequerimentCard).ToList();
-        public List<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard }).ToList();
-        public List<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
-          .Where(creature => creature.CurrentPlace == CurrentPlace).ToList();
+        public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
+        public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
+        public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
+          .Where(creature => creature.CurrentPlace == CurrentPlace);
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
         public Stat Strength => InvestigatorCard.Strength;

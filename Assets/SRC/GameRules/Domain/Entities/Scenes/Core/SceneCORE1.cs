@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         private CardGoal FirstGoal => Info.GoalCards.First();
         private Card Lita => _cardsProvider.GetCard("01117");
         private Card GhoulPriest => _cardsProvider.GetCard("01116");
-        private List<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest }).ToList();
+        private IEnumerable<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
         public async override Task PrepareScene()
@@ -24,10 +24,10 @@ namespace MythosAndHorrors.GameRules
             await _gameActionFactory.Create(new ShowHistoryGameAction(Info.Description));
             await _gameActionFactory.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionFactory.Create(new PlaceGoalGameAction(FirstGoal));
-            await _gameActionFactory.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown).ToList(), true));
+            await _gameActionFactory.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown), true));
             await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
             await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
-            await _gameActionFactory.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, Studio));
+            await _gameActionFactory.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
         }
     }
 }

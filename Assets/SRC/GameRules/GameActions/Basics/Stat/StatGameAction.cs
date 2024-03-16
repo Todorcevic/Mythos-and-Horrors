@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<StatGameAction> _StatsPresenter;
 
         public Dictionary<Stat, int> StatsWithValue { get; }
-        public List<Stat> AllStats => StatsWithValue.Keys.ToList();
+        public IEnumerable<Stat> AllStats => StatsWithValue.Keys.ToList();
 
         /*******************************************************************/
         public StatGameAction(Stat stat, int value) : this(new Dictionary<Stat, int> { { stat, value } }) { }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -18,14 +19,14 @@ namespace MythosAndHorrors.GameRules
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public Zone OwnZone { get; private set; }
-        public List<Buff> Buffs => _buffsProvider.GetBuffsForThisCard(this);
+        public IEnumerable<Buff> Buffs => _buffsProvider.GetBuffsForThisCard(this);
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
         public CardExtraInfo ExtraInfo => _extraInfo;
-        public bool CanBePlayed => PlayableEffects.Count > 0;
+        public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
-        public List<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
+        public IEnumerable<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
 
         /*******************************************************************/
