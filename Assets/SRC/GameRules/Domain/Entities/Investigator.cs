@@ -54,6 +54,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints => InvestigatorCard.Hints;
         public Stat CurrentTurns => InvestigatorCard.CurrentTurns;
         public Stat MaxTurns => InvestigatorCard.MaxTurns;
+        public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
         public Stat ResourceTurnsCost => InvestigatorCard.ResourceTurnsCost;
 

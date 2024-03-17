@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StatUIView : MonoBehaviour, IStatableView
+    public class StatUIView : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _holder;
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        Tween IStatableView.UpdateValue() => DOTween.Sequence()
+        Tween IStatable.UpdateValue() => DOTween.Sequence()
                 .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))
                 .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = Stat.Value.ToString())
                 .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));

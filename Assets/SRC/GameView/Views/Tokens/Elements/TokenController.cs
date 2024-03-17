@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TokenController : MonoBehaviour, IStatableView
+    public class TokenController : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
         [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] public Transform CenterShow { get; }
@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
         }
 
-        Tween IStatableView.UpdateValue()
+        Tween IStatable.UpdateValue()
         {
             Sequence updateSequence = DOTween.Sequence();
             _allTokens.ForEach(token => updateSequence.Join(token.SetAmount(_allTokens.IndexOf(token) + 1)));

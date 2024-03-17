@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,6 +7,7 @@ namespace MythosAndHorrors.GameRules
     public abstract class GameAction
     {
         private static GameAction _current;
+        private readonly Stack<GameAction> _gameActionToUndo = new();
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
@@ -20,6 +22,7 @@ namespace MythosAndHorrors.GameRules
             IsActive = true;
             Parent = _current ?? this;
             _current = this;
+            Parent._gameActionToUndo.Push(this);
 
             await _reactionablesProvider.WheBegin(this);
             await ExecuteThisLogic();
@@ -32,11 +35,9 @@ namespace MythosAndHorrors.GameRules
 
         protected abstract Task ExecuteThisLogic();
 
-        public async Task Undo()
+        public virtual async Task Undo()
         {
-            await UndoThisLogic();
+            while (_gameActionToUndo.Count > 0) await _gameActionToUndo.Pop().Undo();
         }
-
-        protected virtual async Task UndoThisLogic() { await Task.CompletedTask; }
     }
 }

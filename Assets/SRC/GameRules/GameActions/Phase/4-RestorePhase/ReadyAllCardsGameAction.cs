@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -16,7 +18,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new ReadyCardGameAction(_cardsProvider.GetCardsExhausted()));
+            IEnumerable<State> exhaustedStates = _cardsProvider.GetCardsExhausted().Select(card => card.Exausted);
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(exhaustedStates, false));
         }
     }
 }

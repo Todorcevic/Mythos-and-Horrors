@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard).Cast<Card>();
+            IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard);
             await _gameActionsProvider.Create(new MoveCardsGameAction(allAvatars, CardPlace.OwnZone));
             await _gameActionsProvider.Create(new CheckRevealPlaceGameAction(CardPlace));
         }

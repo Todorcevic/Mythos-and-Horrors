@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; private set; }
         public Stat CurrentTurns { get; private set; }
         public Stat MaxTurns { get; private set; }
+        public Stat MaxHandSize { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
         public Stat ResourceTurnsCost { get; private set; }
 
@@ -40,6 +41,7 @@ namespace MythosAndHorrors.GameRules
             Resources = new Stat(0);
             Hints = new Stat(0);
             CurrentTurns = new Stat(0);
+            MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             ResourceTurnsCost = new Stat(1);

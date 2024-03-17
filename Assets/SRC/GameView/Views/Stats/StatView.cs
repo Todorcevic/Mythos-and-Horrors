@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StatView : MonoBehaviour, IStatableView
+    public class StatView : MonoBehaviour, IStatable
     {
         private const float GLOW_INTENSITY = 0.4f;
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _value;
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        Tween IStatableView.UpdateValue() => DOTween.Sequence()
+        Tween IStatable.UpdateValue() => DOTween.Sequence()
                   .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))
                   .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = Stat.Value.ToString())
                   .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));

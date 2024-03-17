@@ -191,7 +191,7 @@ namespace MythosAndHorrors.GameRules
                 async Task InvestigatorElude()
                 {
                     await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
-                    await _gameActionsProvider.Create(new ExhaustCardsGameAction(cardCreature));
+                    await _gameActionsProvider.Create(new UpdateStatesGameAction(cardCreature.Exausted, true));
                     await _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, cardCreature.CurrentPlace.OwnZone));
                 }
             }

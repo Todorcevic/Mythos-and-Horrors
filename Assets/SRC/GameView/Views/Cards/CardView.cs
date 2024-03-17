@@ -107,9 +107,20 @@ namespace MythosAndHorrors.GameView
 
         private async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
 
-        public Tween Exhaust() => _picture.material.DOColor(ViewValues.DEACTIVE_COLOR, ViewValues.DEFAULT_TIME_ANIMATION);
+        private bool _isExhausted;
+        public Tween Exhaust()
+        {
+            if (_isExhausted) return DOTween.Sequence();
+            _isExhausted = true;
+            return _picture.material.DOColor(ViewValues.DEACTIVE_COLOR, ViewValues.DEFAULT_TIME_ANIMATION);
+        }
 
-        public Tween Ready() => _picture.material.DOColor(Color.white, ViewValues.DEFAULT_TIME_ANIMATION);
+        public Tween Ready()
+        {
+            if (!_isExhausted) return DOTween.Sequence();
+            _isExhausted = false;
+            return _picture.material.DOColor(Color.white, ViewValues.DEFAULT_TIME_ANIMATION);
+        }
 
         /*******************************************************************/
         public Tween Rotate()

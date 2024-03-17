@@ -17,12 +17,13 @@ namespace MythosAndHorrors.GameRules
         public CheckMaxHandSizeGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
+            _stopThisPhase = ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (ActiveInvestigator.HandSize > GameValues.MAX_HAND_SIZE)
+            while (ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value)
             {
                 Create();
                 await _gameActionsProvider.Create(new InteractableGameAction());
@@ -55,7 +56,5 @@ namespace MythosAndHorrors.GameRules
                 }
             }
         }
-
-
     }
 }

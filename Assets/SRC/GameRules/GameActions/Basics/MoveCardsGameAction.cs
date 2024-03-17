@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         private readonly Dictionary<Card, Zone> _cardsWithPreviousZones;
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
+        public bool IsUndo { get; private set; }
         public IEnumerable<Card> Cards => _cardsWithPreviousZones.Keys;
         public Card Card => Cards.First();
         public Zone ToZone { get; }
@@ -37,8 +38,9 @@ namespace MythosAndHorrors.GameRules
             await _moveCardPresenter.PlayAnimationWith(this);
         }
 
-        protected override async Task UndoThisLogic()
+        public override async Task Undo()
         {
+            IsUndo = true;
             foreach (Card card in Cards)
             {
                 ToZone.RemoveCard(card);

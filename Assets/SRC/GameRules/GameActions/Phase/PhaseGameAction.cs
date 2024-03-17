@@ -5,6 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class PhaseGameAction : GameAction
     {
+        protected bool _stopThisPhase;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public abstract string Name { get; }
@@ -16,19 +17,18 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override sealed async Task ExecuteThisLogic()
         {
+            if (_stopThisPhase) return;
             await _changePhasePresenter.PlayAnimationWith(this);
             await ExecuteThisPhaseLogic();
         }
 
         protected abstract Task ExecuteThisPhaseLogic();
 
-        protected override sealed async Task UndoThisLogic()
+        public override async Task Undo()
         {
-            await UndoThisPhaseLogic();
             await _changePhasePresenter.PlayAnimationWith(this);
+            await base.Undo();
         }
-
-        protected virtual async Task UndoThisPhaseLogic() { await Task.CompletedTask; }
     }
 }
 

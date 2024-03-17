@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TurnController : MonoBehaviour, IStatableView
+    public class TurnController : MonoBehaviour, IStatable
     {
         [SerializeField, Required] private List<GameObject> _turns;
         [Inject] private readonly StatableManager _statableManager;
@@ -63,6 +63,6 @@ namespace MythosAndHorrors.GameView
         private Tween SwitchOffTurn(GameObject turn) =>
             turn.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => turn.SetActive(false));
 
-        Tween IStatableView.UpdateValue() => TurnOn();
+        Tween IStatable.UpdateValue() => TurnOn();
     }
 }

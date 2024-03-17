@@ -14,8 +14,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -31,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return moveCardsGA.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.FullDeck), Is.True);
+            Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.DeckZone), Is.True);
         }
 
         [UnityTest]
@@ -60,6 +58,22 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
             yield return allInvestigatorsDrawCardAndResource.Undo().AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator UndoRestorePhaseGameActionTest()
+        {
+            _prepareGameUseCase.Execute();
+            yield return PlayAllInvestigators();
+            RestorePhaseGameAction restorePhaseGameAction = new();
+            yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
+
+            yield return restorePhaseGameAction.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

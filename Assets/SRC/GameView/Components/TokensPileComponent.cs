@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TokensPileComponent : MonoBehaviour, IStatableView, IPlayable
+    public class TokensPileComponent : MonoBehaviour, IStatable, IPlayable
     {
         private bool _isClickable;
         private const float MOVE_OFFSET = 8;
@@ -25,9 +25,9 @@ namespace MythosAndHorrors.GameView
         IEnumerable<Effect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<Effect>() : new[] { TakeResourceEffect };
 
         /*******************************************************************/
-        Transform IStatableView.StatTransform => _showToken;
-        Stat IStatableView.Stat => _chaptersProvider.CurrentScene.PileAmount;
-        Tween IStatableView.UpdateValue() => DOTween.Sequence();
+        Transform IStatable.StatTransform => _showToken;
+        Stat IStatable.Stat => _chaptersProvider.CurrentScene.PileAmount;
+        Tween IStatable.UpdateValue() => DOTween.Sequence();
 
         /*******************************************************************/
         public void ActivateToClick()

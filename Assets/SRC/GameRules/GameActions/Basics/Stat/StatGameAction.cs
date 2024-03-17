@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             await _StatsPresenter.PlayAnimationWith(this);
         }
 
-        protected override async Task UndoThisLogic()
+        public override async Task Undo()
         {
             StatsWithValue.ForEach(stat => stat.Key.UpdateValue(_statsWithOldValue[stat.Key]));
             await _StatsPresenter.PlayAnimationWith(this);

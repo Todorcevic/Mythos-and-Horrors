@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
 {
     public class StatUpdatePresenter : IPresenter<StatGameAction>
     {
-        private Dictionary<IStatableView, bool> statablesUpdated;
+        private Dictionary<IStatable, bool> statablesUpdated;
         [Inject] private readonly StatableManager _statsViewsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -70,10 +70,10 @@ namespace MythosAndHorrors.GameView
             return hintsSequence;
         }
 
-        private Tween Update(IEnumerable<IStatableView> statView)
+        private Tween Update(IEnumerable<IStatable> statView)
         {
             Sequence updateSequence = DOTween.Sequence();
-            foreach (IStatableView stat in statView)
+            foreach (IStatable stat in statView)
             {
                 if (statablesUpdated[stat]) continue;
                 statablesUpdated[stat] = true;
