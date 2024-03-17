@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     public class InvestigatorsPhaseGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         private bool ThereAreInvestigatorsWithTurns => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             while (ThereAreInvestigatorsWithTurns)
             {
                 //2.2	Next investigator's turn begins.
-                await _gameActionFactory.Create(new PlayInvestigatorGameAction());
+                await _gameActionsProvider.Create(new PlayInvestigatorGameAction());
             }
         }
         //2.3	Investigation phase ends.

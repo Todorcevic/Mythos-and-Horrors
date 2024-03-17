@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class Card01530 : CardSupply
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
@@ -39,13 +39,13 @@ namespace MythosAndHorrors.GameRules
         private async Task AddIntelligenceBuff(Card card)
         {
             if (card is not CardInvestigator cardInvestigator) return;
-            await _gameActionProvider.Create(new IncrementStatGameAction(cardInvestigator.Intelligence, 1));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Intelligence, 1));
         }
 
         private async Task RemoveIntelligenceBuff(Card card)
         {
             if (card is not CardInvestigator cardInvestigator) return;
-            await _gameActionProvider.Create(new DecrementStatGameAction(cardInvestigator.Intelligence, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(cardInvestigator.Intelligence, 1));
         }
     }
 }

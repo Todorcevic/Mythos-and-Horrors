@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class OneInvestigatorTurnGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
             PreparePlayFromHandEffect();
             PrepareDraw();
             PrepareTakeResource();
-            await _gameActionProvider.Create(new InteractableGameAction());
+            await _gameActionsProvider.Create(new InteractableGameAction());
         }
 
         /*******************************************************************/
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
                 .SetLogic(PassTurn);
 
             async Task PassTurn() =>
-                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
+                await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
         }
 
         /*******************************************************************/
@@ -80,8 +80,8 @@ namespace MythosAndHorrors.GameRules
 
             async Task Investigate()
             {
-                await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentPlace.InvestigationTurnsCost.Value));
-                await _gameActionProvider.Create(new InvestigateGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
+                await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentPlace.InvestigationTurnsCost.Value));
+                await _gameActionsProvider.Create(new InvestigateGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
             }
         }
 
@@ -107,8 +107,8 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Move()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardPlace.MoveTurnsCost.Value));
-                    await _gameActionProvider.Create(new MoveInvestigatorToPlaceGameAction(ActiveInvestigator, cardPlace));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardPlace.MoveTurnsCost.Value));
+                    await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(ActiveInvestigator, cardPlace));
                 }
             }
         }
@@ -134,8 +134,8 @@ namespace MythosAndHorrors.GameRules
 
                 async Task InvestigatorAttack()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorAttackTurnsCost.Value));
-                    await _gameActionProvider.Create(new DecrementStatGameAction(cardCreature.Health, 1));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorAttackTurnsCost.Value));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(cardCreature.Health, 1));
                 }
             }
         }
@@ -162,8 +162,8 @@ namespace MythosAndHorrors.GameRules
 
                 async Task InvestigatorConfront()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
-                    await _gameActionProvider.Create(new MoveCardsGameAction(cardCreature, ActiveInvestigator.DangerZone));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
+                    await _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, ActiveInvestigator.DangerZone));
                 }
             }
         }
@@ -190,9 +190,9 @@ namespace MythosAndHorrors.GameRules
 
                 async Task InvestigatorElude()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
-                    await _gameActionProvider.Create(new ExhaustCardsGameAction(cardCreature));
-                    await _gameActionProvider.Create(new MoveCardsGameAction(cardCreature, cardCreature.CurrentPlace.OwnZone));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorConfronTurnsCost.Value));
+                    await _gameActionsProvider.Create(new ExhaustCardsGameAction(cardCreature));
+                    await _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, cardCreature.CurrentPlace.OwnZone));
                 }
             }
         }
@@ -219,9 +219,9 @@ namespace MythosAndHorrors.GameRules
 
                 async Task PlayFromHand()
                 {
-                    await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, playableFromHand.TurnsCost.Value));
-                    await _gameActionProvider.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
-                    await _gameActionProvider.Create(new DiscardGameAction(playableFromHand as Card));
+                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, playableFromHand.TurnsCost.Value));
+                    await _gameActionsProvider.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
+                    await _gameActionsProvider.Create(new DiscardGameAction(playableFromHand as Card));
                 }
             }
         }
@@ -246,8 +246,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Draw()
         {
-            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.DrawTurnsCost.Value));
-            await _gameActionProvider.Create(new DrawAidGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.DrawTurnsCost.Value));
+            await _gameActionsProvider.Create(new DrawAidGameAction(ActiveInvestigator));
         }
 
         /*******************************************************************/
@@ -269,8 +269,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task TakeResource()
         {
-            await _gameActionProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.ResourceTurnsCost.Value));
-            await _gameActionProvider.Create(new GainResourceGameAction(ActiveInvestigator, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.ResourceTurnsCost.Value));
+            await _gameActionsProvider.Create(new GainResourceGameAction(ActiveInvestigator, 1));
         }
     }
 }

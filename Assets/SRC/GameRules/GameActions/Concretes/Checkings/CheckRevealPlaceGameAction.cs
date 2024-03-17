@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckRevealPlaceGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardPlace CardPlace { get; }
 
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             if (CardPlace.Revealed.IsActive) return;
-            await _gameActionProvider.Create(new RevealGameAction(CardPlace));
+            await _gameActionsProvider.Create(new RevealGameAction(CardPlace));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01501 : CardInvestigator
     {
-        [Inject] private readonly GameActionProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionRepository;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 

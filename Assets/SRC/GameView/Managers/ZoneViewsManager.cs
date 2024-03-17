@@ -22,5 +22,7 @@ namespace MythosAndHorrors.GameView
         }
 
         public ZoneView Get(Zone zone) => _allZones.First(zoneView => zoneView.Zone == zone);
+
+        public IEnumerable<ZoneView> Get(IEnumerable<Zone> zones) => _allZones.FindAll(zoneView => zones.Contains(zoneView.Zone));
     }
 }

@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class CreatureAttackGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
@@ -24,12 +24,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             do
             {
-                yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.First)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.First)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -45,13 +45,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.Second.InvestigatorCard, _investigatorsProvider.Second.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.InvestigatorCard, _investigatorsProvider.Second.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             do
             {
-                yield return _gameActionFactory.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.Second)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, _investigatorsProvider.Second)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 

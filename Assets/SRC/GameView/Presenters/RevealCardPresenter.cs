@@ -21,5 +21,11 @@ namespace MythosAndHorrors.GameView
         {
             await _cardViewsManager.GetCardView(revealGameAction.Card).RevealAnimation().AsyncWaitForCompletion();
         }
+
+        /*******************************************************************/
+        Task IPresenter<RevealGameAction>.UndoAnimationWith(RevealGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

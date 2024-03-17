@@ -24,6 +24,13 @@ namespace MythosAndHorrors.GameRules
             return source;
         }
 
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T, int> action)
+        {
+            int num = 0;
+            foreach (T item in source) action(item, num++);
+            return source;
+        }
+
         public static int IndexOf<T>(this IEnumerable<T> source, T item)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));

@@ -13,18 +13,6 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<MoveCardsGameAction>.PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)
         {
-            await MoveCardWith(moveCardsGameAction);
-        }
-
-        async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
-        {
-            await _moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone).AsyncWaitForCompletion();
-            _ = _moveCardHandler.ReturnCard(gameAction.Creature);
-        }
-
-        /*******************************************************************/
-        private async Task MoveCardWith(MoveCardsGameAction moveCardsGameAction)
-        {
             if (!moveCardsGameAction.IsSingleMove)
             {
                 await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.ToZone, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
@@ -39,7 +27,12 @@ namespace MythosAndHorrors.GameView
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.ToZone).AsyncWaitForCompletion();
         }
 
-        /*******************************************************************/
+        async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
+        {
+            await _moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone).AsyncWaitForCompletion();
+            _ = _moveCardHandler.ReturnCard(gameAction.Creature);
+        }
+
         async Task IPresenter<ChooseInvestigatorGameAction>.PlayAnimationWith(ChooseInvestigatorGameAction playEffectGA)
         {
             await _moveCardHandler.ReturnCard(playEffectGA.InvestigatorSelected.AvatarCard).AsyncWaitForCompletion();
@@ -48,6 +41,31 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<InvestigateGameAction>.PlayAnimationWith(InvestigateGameAction playEffectGA)
         {
             await _moveCardHandler.ReturnCard(playEffectGA.CardPlace).AsyncWaitForCompletion();
+        }
+
+        /*******************************************************************/
+        async Task IPresenter<MoveCardsGameAction>.UndoAnimationWith(MoveCardsGameAction moveCardsGameAction)
+        {
+            if (!moveCardsGameAction.IsSingleMove)
+            {
+                await _moveCardHandler.MoveCardsToZones(moveCardsGameAction.PreviousZones, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
+                return;
+            }
+        }
+
+        Task IPresenter<InvestigateGameAction>.UndoAnimationWith(InvestigateGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task IPresenter<ChooseInvestigatorGameAction>.UndoAnimationWith(ChooseInvestigatorGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task IPresenter<CreatureAttackGameAction>.UndoAnimationWith(CreatureAttackGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

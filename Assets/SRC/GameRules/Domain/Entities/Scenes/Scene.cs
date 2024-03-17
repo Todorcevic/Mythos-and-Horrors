@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         [Inject] public SceneInfo Info { get; }

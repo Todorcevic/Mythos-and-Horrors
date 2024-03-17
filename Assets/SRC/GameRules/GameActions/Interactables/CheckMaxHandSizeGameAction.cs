@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class CheckMaxHandSizeGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             while (ActiveInvestigator.HandSize > GameValues.MAX_HAND_SIZE)
             {
                 Create();
-                await _gameActionProvider.Create(new InteractableGameAction());
+                await _gameActionsProvider.Create(new InteractableGameAction());
             }
         }
 
@@ -44,8 +44,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Discard()
                 {
-                    await _gameActionProvider.Create(new DiscardGameAction(card));
-                    await _gameActionProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
                 };
 
                 bool CanChoose()

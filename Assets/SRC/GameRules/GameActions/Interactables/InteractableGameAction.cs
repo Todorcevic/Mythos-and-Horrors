@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     {
         private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
 
         public bool IsManadatary => _effectProvider.MainButtonEffect == null;
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
             if (_effectProvider.NoEffect) return;
             _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             ClearEffectsInAllCards();
-            await _gameActionFactory.Create(new PlayEffectGameAction(_effectSelected));
+            await _gameActionsProvider.Create(new PlayEffectGameAction(_effectSelected));
         }
 
         private Effect GetUniqueEffect()

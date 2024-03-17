@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -23,16 +23,16 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(0), investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(1), investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(2), investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(3), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(0), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(1), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(2), investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.ElementAt(3), investigator.DeckZone)).AsCoroutine();
 
             InitialDrawGameAction initialDrawGameAction = new(investigator);
-            yield return _gameActionFactory.Create(initialDrawGameAction).AsCoroutine();
+            yield return _gameActionsProvider.Create(initialDrawGameAction).AsCoroutine();
 
-            Assert.That(_gameActionFactory.AllGameActions[5] is DrawAidGameAction);
-            Assert.That(_gameActionFactory.AllGameActions[5].Parent, Is.EqualTo(initialDrawGameAction));
+            Assert.That(_gameActionsProvider.AllGameActions[5] is DrawAidGameAction);
+            Assert.That(_gameActionsProvider.AllGameActions[5].Parent, Is.EqualTo(initialDrawGameAction));
         }
     }
 }

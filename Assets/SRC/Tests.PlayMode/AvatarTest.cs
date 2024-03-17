@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class AvatarTest : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 3)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_avatarViewsManager.Get(_investigatorsProvider.First).GetPrivateMember<TurnController>("_turnController").ActiveTurnsCount, Is.EqualTo(3));

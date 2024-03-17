@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class PrepareInvestigatorGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public override Phase MainPhase => Phase.Prepare;
@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PositionateInvestigatorCard()
         {
-            await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
         }
 
         private async Task ApplyStats()
@@ -46,31 +46,31 @@ namespace MythosAndHorrors.GameRules
                 { ActiveInvestigator.CurrentTurns, ActiveInvestigator.MaxTurns.Value }
             };
 
-            await _gameActionFactory.Create(new UpdateStatGameAction(stats));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(stats));
         }
 
         private async Task PositionateDeck()
         {
-            await _gameActionFactory.Create(new UpdateStatesGameAction(ActiveInvestigator.FullDeck.Select(card => card.FaceDown), true));
-            await _gameActionFactory.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone));
-            await _gameActionFactory.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(ActiveInvestigator.FullDeck.Select(card => card.FaceDown), true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone));
+            await _gameActionsProvider.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
         }
 
         private async Task CollectResources()
         {
-            await _gameActionFactory.Create(new GainResourceGameAction(ActiveInvestigator, 5));
+            await _gameActionsProvider.Create(new GainResourceGameAction(ActiveInvestigator, 5));
         }
 
         private async Task DrawInitialHand()
         {
             while (ActiveInvestigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
-                await _gameActionFactory.Create(new InitialDrawGameAction(ActiveInvestigator));
+                await _gameActionsProvider.Create(new InitialDrawGameAction(ActiveInvestigator));
             await Task.Delay(250);
         }
 
         private async Task Mulligan()
         {
-            await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
         }
     }
 }

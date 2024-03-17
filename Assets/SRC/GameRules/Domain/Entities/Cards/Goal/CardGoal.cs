@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardGoal : Card, IRevealable
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public Stat Hints { get; private set; }
@@ -32,9 +32,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual async Task RevealEffect()
         {
-            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
-            await _gameActionProvider.Create(new DiscardGameAction(this));
-            await _gameActionProvider.Create(new PlaceGoalGameAction(NextCardGoal));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
         }
     }
 }

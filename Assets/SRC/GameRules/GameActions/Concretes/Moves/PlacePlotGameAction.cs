@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 
     public class PlacePlotGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public CardPlot CardPlot { get; }
@@ -20,9 +20,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(CardPlot.FaceDown, false));
-            await _gameActionProvider.Create(new MoveCardsGameAction(CardPlot, _chaptersProviders.CurrentScene.PlotZone));
-            await _gameActionProvider.Create(new ShowHistoryGameAction(CardPlot.InitialHistory, CardPlot));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(CardPlot.FaceDown, false));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CardPlot, _chaptersProviders.CurrentScene.PlotZone));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(CardPlot.InitialHistory, CardPlot));
         }
     }
 }

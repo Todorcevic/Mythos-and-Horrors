@@ -31,5 +31,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected abstract Task ExecuteThisLogic();
+
+        public async Task Undo()
+        {
+            await UndoThisLogic();
+        }
+
+        protected virtual async Task UndoThisLogic() { await Task.CompletedTask; }
     }
 }

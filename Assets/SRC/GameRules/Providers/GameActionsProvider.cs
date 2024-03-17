@@ -5,10 +5,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class GameActionProvider
+    public class GameActionsProvider
     {
+
         [Inject] private readonly DiContainer _container;
         public List<GameAction> AllGameActions { get; } = new();
+        private List<GameAction> GameActionsFinished => AllGameActions.FindAll(gameAction => !gameAction.IsActive);
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction

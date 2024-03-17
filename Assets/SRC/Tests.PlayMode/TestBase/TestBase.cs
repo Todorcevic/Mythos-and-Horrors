@@ -63,10 +63,10 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
 
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         protected IEnumerator PlayThisInvestigator(Investigator investigator)
         {
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
         }
 
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;

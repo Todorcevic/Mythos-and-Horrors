@@ -22,5 +22,11 @@ namespace MythosAndHorrors.GameView
             await _swapInvestigatorPresenter.Select(shuffleGameAction.ZoneToShuffle).AsyncWaitForCompletion();
             await _zoneViewsManager.Get(shuffleGameAction.ZoneToShuffle).Shuffle().AsyncWaitForCompletion();
         }
+
+        /*******************************************************************/
+        Task IPresenter<ShuffleGameAction>.UndoAnimationWith(ShuffleGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class PayHintToGoalGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; }
@@ -21,8 +21,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new PayHintGameAction(Investigator, _chaptersProvider.CurrentScene.CurrentGoal.Hints, Amount));
-            await _gameActionProvider.Create(new CheckHintsGoalGameAction());
+            await _gameActionsProvider.Create(new PayHintGameAction(Investigator, _chaptersProvider.CurrentScene.CurrentGoal.Hints, Amount));
+            await _gameActionsProvider.Create(new CheckHintsGoalGameAction());
         }
     }
 }

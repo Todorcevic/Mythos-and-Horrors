@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class StartChapterGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public Chapter Chapter { get; }
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Chapter.Description));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Chapter.Description));
         }
     }
 }

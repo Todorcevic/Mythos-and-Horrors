@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class ReadyAllCardsGameAction : PhaseGameAction
     {
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ReadyAllCardsGameAction);
@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionProvider.Create(new ReadyCardGameAction(_cardsProvider.GetCardsExhausted()));
+            await _gameActionsProvider.Create(new ReadyCardGameAction(_cardsProvider.GetCardsExhausted()));
         }
     }
 }

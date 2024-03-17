@@ -6,14 +6,14 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01507 : CardAdversity, IFlaw
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
             if (CanActivate(gameAction)) //TODO Make Reaction
             {
-                await _gameActionFactory.Create(new MoveCardsGameAction(this, Owner.DangerZone)); //TODO Remove Resource
+                await _gameActionsProvider.Create(new MoveCardsGameAction(this, Owner.DangerZone)); //TODO Remove Resource
             }
 
             await base.WhenFinish(gameAction);

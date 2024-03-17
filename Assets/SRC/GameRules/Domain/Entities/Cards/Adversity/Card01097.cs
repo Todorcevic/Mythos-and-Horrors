@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01097 : CardAdversity, IFlaw
     {
-        [Inject] private readonly GameActionProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionRepository;
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)

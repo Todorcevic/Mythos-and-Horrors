@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         //protected override bool DEBUG_MODE => true;
@@ -26,14 +26,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
-            _ = _gameActionFactory.Create(oiGA);
+            _ = _gameActionsProvider.Create(oiGA);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
             if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorEludeEffects.Find(effect => effect.CardAffected == creature));
 

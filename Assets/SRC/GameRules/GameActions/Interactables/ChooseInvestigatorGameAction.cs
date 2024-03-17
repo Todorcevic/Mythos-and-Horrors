@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IPresenter<ChooseInvestigatorGameAction> _startingAnimationPresenter;
 
         public IEnumerable<Investigator> InvestigatorsToSelect { get; }
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionProvider.Create(new InteractableGameAction());
+            await _gameActionsProvider.Create(new InteractableGameAction());
         }
     }
 }

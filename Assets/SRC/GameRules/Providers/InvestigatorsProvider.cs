@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsProvider
     {
-        [Inject] GameActionProvider _gameActionProvider;
+        [Inject] GameActionsProvider _gameActionsProvider;
         public List<Investigator> Investigators { get; private set; } = new();
         public List<Investigator> AllInvestigatorsInPlay => Investigators.FindAll(investigator => investigator.IsInPlay);
         public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.FindAll(investigator => investigator.HasTurnsAvailable);
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         public Investigator Fourth => Investigators[3];
         public Investigator GetTopInvestigatorsStrength =>
             AllInvestigatorsInPlay.OrderByDescending(investigator => investigator.Strength.Value).First();
-        public Investigator ActiveInvestigator => _gameActionProvider.GetLastActive<PhaseGameAction>()?.ActiveInvestigator;
+        public Investigator ActiveInvestigator => _gameActionsProvider.GetLastActive<PhaseGameAction>()?.ActiveInvestigator;
 
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)

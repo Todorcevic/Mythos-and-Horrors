@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class ShuffleGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZoneViewsManager zoneViewsManager;
 
@@ -23,11 +23,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Shuffle_Zone()
         {
             _prepareGameUse.Execute();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             do
             {
-                yield return _gameActionFactory.Create(new ShuffleGameAction(_investigatorsProvider.First.DeckZone)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new ShuffleGameAction(_investigatorsProvider.First.DeckZone)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
             CardView[] allCardViewsShuffled = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();

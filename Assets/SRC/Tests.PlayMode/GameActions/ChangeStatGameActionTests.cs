@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class ChangeStatGameActionTests : TestBase
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUse;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -29,9 +29,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -46,11 +46,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUse.Execute();
             CardSupply cardSupply = _investigatorsProvider.First.Cards[0] as CardSupply;
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
             {
-                yield return _gameActionFactory.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 8)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 8)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -65,11 +65,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUse.Execute();
             CardPlot cardPlot = _chaptersProvider.CurrentScene.Info.PlotCards.First();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
             {
-                yield return _gameActionFactory.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
 
             } while (DEBUG_MODE);
@@ -86,17 +86,17 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUse.Execute();
             CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
-            yield return _gameActionFactory.Create(new RevealGameAction(place)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionFactory.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionFactory.Create(new PayHintGameAction(_investigatorsProvider.First, cardGoal.Hints, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new PayHintGameAction(_investigatorsProvider.First, cardGoal.Hints, 1)).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

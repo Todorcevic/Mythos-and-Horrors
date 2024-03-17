@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsDrawDangerCard : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
-                await _gameActionProvider.Create(new DrawDangerGameAction(investigator));
+                await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
             }
         }
     }

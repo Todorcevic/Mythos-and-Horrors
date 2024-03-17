@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
     {
         [InjectOptional] private readonly bool _mustBeLoaded = true;
         [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
             await IntialState();
             _loadGameUseCase.Execute();
      
-            await _gameActionFactory.Create(new StartGameAction());
+            await _gameActionsProvider.Create(new StartGameAction());
         }
 
         private async Task IntialState()

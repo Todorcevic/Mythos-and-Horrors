@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class CardPlot : Card, IRevealable
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
@@ -32,9 +32,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual async Task RevealEffect()
         {
-            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
-            await _gameActionProvider.Create(new DiscardGameAction(this));
-            await _gameActionProvider.Create(new PlacePlotGameAction(NextCardPlot));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create(new PlacePlotGameAction(NextCardPlot));
         }
     }
 }

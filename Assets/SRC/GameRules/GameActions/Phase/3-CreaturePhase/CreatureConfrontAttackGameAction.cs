@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class CreatureConfrontAttackGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (CardCreature creature in _cardsProvider.AttackerCreatures)
             {
-                await _gameActionFactory.Create(new CreatureAttackGameAction(creature, creature.ConfrontedInvestigator));
+                await _gameActionsProvider.Create(new CreatureAttackGameAction(creature, creature.ConfrontedInvestigator));
             }
         }
     }

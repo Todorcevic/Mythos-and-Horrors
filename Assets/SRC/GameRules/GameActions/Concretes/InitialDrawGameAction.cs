@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InitialDrawGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
 
@@ -22,12 +22,12 @@ namespace MythosAndHorrors.GameRules
             Card nextDraw = Investigator.DeckZone.Cards.Last();
             if (nextDraw is IFlaw)
             {
-                await _gameActionFactory.Create(new DiscardGameAction(nextDraw));
-                await _gameActionFactory.Create(new InitialDrawGameAction(Investigator));
+                await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));
+                await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
                 return;
             }
 
-            await _gameActionFactory.Create(new DrawAidGameAction(Investigator));
+            await _gameActionsProvider.Create(new DrawAidGameAction(Investigator));
         }
     }
 }

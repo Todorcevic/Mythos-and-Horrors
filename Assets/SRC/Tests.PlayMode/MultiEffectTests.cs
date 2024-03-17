@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
@@ -39,23 +39,23 @@ namespace MythosAndHorrors.PlayMode.Tests
                 .SetCard(card)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectOne")
-                .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
+                .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
 
             _effectProvider.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectTwo")
-                .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
+                .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
 
             _effectProvider.Create()
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectOne")
-                .SetLogic(() => _gameActionFactory.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
+                .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();
-            yield return _gameActionFactory.Create(new InteractableGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create(new InteractableGameAction()).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));

@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     public class CreatureAttackGameAction : GameAction
     {
         [Inject] private readonly IPresenter<CreatureAttackGameAction> _creatureAttackPresenter;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature Creature { get; }
         public Investigator Investigator { get; }
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
                 {Investigator.Health, Creature.Damage.Value},
                 {Investigator.Sanity, Creature.Fear.Value}
             };
-            await _gameActionFactory.Create(new DecrementStatGameAction(statsWithValues));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(statsWithValues));
         }
     }
 }

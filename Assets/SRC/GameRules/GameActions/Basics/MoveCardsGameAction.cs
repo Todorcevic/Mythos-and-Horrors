@@ -10,9 +10,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
         public IEnumerable<Card> Cards { get; }
+        public Dictionary<Card, Zone> PreviousZones { get; } = new();
         public Card Card => Cards.First();
         public Zone ToZone { get; }
-        public Zone FromZone { get; }
         public bool IsSingleMove => Cards.Count() == 1;
 
         /*******************************************************************/
@@ -29,11 +29,23 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in Cards)
             {
+                PreviousZones.Add(card, card.CurrentZone);
                 card.CurrentZone?.RemoveCard(card);
                 ToZone.AddCard(card);
             }
 
             await _moveCardPresenter.PlayAnimationWith(this);
+        }
+
+        protected override async Task UndoThisLogic()
+        {
+            foreach (Card card in Cards)
+            {
+                ToZone.RemoveCard(card);
+                PreviousZones[card].AddCard(card);
+            }
+
+            await _moveCardPresenter.UndoAnimationWith(this);
         }
     }
 }

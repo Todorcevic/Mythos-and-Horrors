@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlaceGoalGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public CardGoal CardGoal { get; }
@@ -19,9 +19,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(CardGoal.FaceDown, false));
-            await _gameActionProvider.Create(new MoveCardsGameAction(CardGoal, _chaptersProviders.CurrentScene.GoalZone));
-            await _gameActionProvider.Create(new ShowHistoryGameAction(CardGoal.InitialHistory, CardGoal));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(CardGoal.FaceDown, false));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CardGoal, _chaptersProviders.CurrentScene.GoalZone));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(CardGoal.InitialHistory, CardGoal));
         }
     }
 }

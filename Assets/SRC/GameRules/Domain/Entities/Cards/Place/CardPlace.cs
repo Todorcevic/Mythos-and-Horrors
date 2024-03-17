@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class CardPlace : Card, IRevealable
     {
         private IEnumerable<CardPlace> _connectedPlacesToMove;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat Hints { get; private set; }
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual async Task RevealEffect()
         {
-            await _gameActionProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
         }
     }
 }

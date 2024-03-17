@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ResetAllInvestigatorsTurnsGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ResetAllInvestigatorsTurnsGameAction);
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             Dictionary<Stat, int> turnsInvestigastors = _investigatorsProvider.AllInvestigatorsInPlay
                 .ToDictionary(investigator => investigator.CurrentTurns, investigator => investigator.MaxTurns.Value);
-            await _gameActionProvider.Create(new UpdateStatGameAction(turnsInvestigastors));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(turnsInvestigastors));
         }
     }
 }

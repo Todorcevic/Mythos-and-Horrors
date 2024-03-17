@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class GainResourceGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
         public int Amount { get; }
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionFactory.Create(new IncrementStatGameAction(Investigator.Resources, Amount));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Investigator.Resources, Amount));
         }
     }
 }

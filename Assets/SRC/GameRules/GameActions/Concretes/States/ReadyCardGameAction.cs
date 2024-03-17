@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class ReadyCardGameAction : GameAction
     {
         [Inject] private readonly IPresenter<ReadyCardGameAction> _readyCardPresenter;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IEnumerable<Card> Cards { get; }
 
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted), false));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted), false));
             await _readyCardPresenter.PlayAnimationWith(this);
         }
     }

@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 
     public class Card01535 : CardSupply
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
@@ -52,9 +52,9 @@ namespace MythosAndHorrors.GameRules
         protected async Task HealthActivation()
         {
             ChooseInvestigatorGameAction chooseInvestigatorGA =
-                    await _gameActionFactory.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsInThisPlace(_investigatorProvider.ActiveInvestigator.CurrentPlace)));
+                    await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsInThisPlace(_investigatorProvider.ActiveInvestigator.CurrentPlace)));
             if (!chooseInvestigatorGA.InvestigatorSelected.CanBeHealed) return;
-            await _gameActionFactory.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
         }
     }
 }

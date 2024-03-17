@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveCreatureGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionRepository;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public IStalker Creature { get; }

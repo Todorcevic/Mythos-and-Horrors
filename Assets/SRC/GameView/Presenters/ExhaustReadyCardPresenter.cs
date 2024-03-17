@@ -29,5 +29,16 @@ namespace MythosAndHorrors.GameView
                 readySequence.Join(_cardViewsManager.GetCardView(card).Ready());
             await readySequence.AsyncWaitForCompletion();
         }
+
+        /*******************************************************************/
+        Task IPresenter<ExhaustCardsGameAction>.UndoAnimationWith(ExhaustCardsGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task IPresenter<ReadyCardGameAction>.UndoAnimationWith(ReadyCardGameAction gameAction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

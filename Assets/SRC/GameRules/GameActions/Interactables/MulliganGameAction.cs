@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class MulliganGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
@@ -42,8 +42,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Discard()
                 {
-                    await _gameActionFactory.Create(new DiscardGameAction(card));
-                    await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
                 }
             }
 
@@ -60,8 +60,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Restore()
                 {
-                    await _gameActionFactory.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
-                    await _gameActionFactory.Create(new MulliganGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
+                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
                 }
 
                 bool CanRestore()
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionFactory.Create(new InteractableGameAction());
+            await _gameActionsProvider.Create(new InteractableGameAction());
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -28,17 +28,17 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return PlayAllInvestigators();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             _investigatorsProvider.AllInvestigatorsInPlay.ForEach(investigator =>
-            _gameActionFactory.Create(new UpdateStatGameAction(investigator.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine());
+            _gameActionsProvider.Create(new UpdateStatGameAction(investigator.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine());
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
             IEnumerable<Card> allAvatars = _investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.AvatarCard).Cast<Card>();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.AvatarCard).AsTask();
             ChooseInvestigatorGameAction chooseInvestigatoGA = new(_investigatorsProvider.GetInvestigatorsCanStartTurn);
-            yield return _gameActionFactory.Create(chooseInvestigatoGA).AsCoroutine();
+            yield return _gameActionsProvider.Create(chooseInvestigatoGA).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

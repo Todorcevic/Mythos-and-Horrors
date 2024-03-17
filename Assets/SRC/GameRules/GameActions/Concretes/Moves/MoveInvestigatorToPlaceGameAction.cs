@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveInvestigatorToPlaceGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IEnumerable<Investigator> Investigators { get; }
         public CardPlace CardPlace { get; }
@@ -29,8 +29,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard).Cast<Card>();
-            await _gameActionFactory.Create(new MoveCardsGameAction(allAvatars, CardPlace.OwnZone));
-            await _gameActionFactory.Create(new CheckRevealPlaceGameAction(CardPlace));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(allAvatars, CardPlace.OwnZone));
+            await _gameActionsProvider.Create(new CheckRevealPlaceGameAction(CardPlace));
         }
     }
 }

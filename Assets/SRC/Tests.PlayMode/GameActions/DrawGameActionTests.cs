@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -25,11 +25,11 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Card cardToDraw = _investigatorsProvider.First.FullDeck.First();
 
-            yield return _gameActionFactory.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.First.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.First.DeckZone)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(cardToDraw).AsTask();
-            yield return _gameActionFactory.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 

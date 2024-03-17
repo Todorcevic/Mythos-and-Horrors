@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class GainHintGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
         public Stat FromStat { get; }
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
                 { Investigator.Hints, Investigator.Hints.Value + Amount}
             };
 
-            await _gameActionFactory.Create(new UpdateStatGameAction(statablesUpdated));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(statablesUpdated));
         }
     }
 }

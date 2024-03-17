@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class DrawDangerGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionRepository;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; }

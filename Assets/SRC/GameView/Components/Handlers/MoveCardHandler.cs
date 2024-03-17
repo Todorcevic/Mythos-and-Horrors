@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -71,5 +71,21 @@ namespace MythosAndHorrors.GameView
         }
 
         public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
+
+        public Tween MoveCardsToZones(Dictionary<Card, Zone> cards, float delay = 0f)
+        {
+            IEnumerable<CardView> cardViews = _cardsManager.GetCardViews(cards.Keys);
+            IEnumerable<ZoneView> zoneViews = _zonesViewManager.Get(cards.Values);
+
+            return MoveCardViewsToZones(cardViews, zoneViews, delay);
+        }
+
+        private Tween MoveCardViewsToZones(IEnumerable<CardView> cardViews, IEnumerable<ZoneView> zoneViews, float delay)
+        {
+            float delayBetweenMoves = 0f;
+            Sequence sequence = DOTween.Sequence();
+            cardViews.ForEach((cardView, position) => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneViews.ElementAt(position))));
+            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(cardViews.First().Card.CurrentZone)).Append(sequence);
+        }
     }
 }

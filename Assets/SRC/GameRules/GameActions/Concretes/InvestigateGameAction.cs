@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigateGameAction : GameAction
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IPresenter<InvestigateGameAction> _startingAnimationPresenter;
 
         public Investigator Investigator { get; }
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _startingAnimationPresenter.PlayAnimationWith(this);
-            await _gameActionFactory.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
+            await _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
         }
     }
 }

@@ -17,11 +17,11 @@ namespace MythosAndHorrors.GameView
         private const float LIGHT_INTENSITY = 10f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
-        private Effect TakeResourceEffect => _gameActionProvider.GetLastActive<OneInvestigatorTurnGameAction>()?.TakeResourceEffect;
+        private Effect TakeResourceEffect => _gameActionsProvider.GetLastActive<OneInvestigatorTurnGameAction>()?.TakeResourceEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<Effect>() : new[] { TakeResourceEffect };
 
         /*******************************************************************/

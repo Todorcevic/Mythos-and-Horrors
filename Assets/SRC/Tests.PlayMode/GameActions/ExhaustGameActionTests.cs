@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -24,13 +24,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             Card cardToExhaust = _investigatorsProvider.First.FullDeck.First();
 
-            yield return _gameActionFactory.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.First.AidZone)).AsCoroutine();
-            yield return _gameActionFactory.Create(new ExhaustCardsGameAction(cardToExhaust)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToExhaust, _investigatorsProvider.First.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new ExhaustCardsGameAction(cardToExhaust)).AsCoroutine();
 
             if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(cardToExhaust.Exausted.IsActive);
 
-            yield return _gameActionFactory.Create(new ReadyCardGameAction(cardToExhaust)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new ReadyCardGameAction(cardToExhaust)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(!cardToExhaust.Exausted.IsActive);
         }

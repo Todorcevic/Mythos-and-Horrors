@@ -1,5 +1,4 @@
-﻿using Sirenix.Utilities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -22,6 +21,12 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             States.ForEach(state => state.UpdateValueTo(Value));
+            await Task.CompletedTask;
+        }
+
+        protected override async Task UndoThisLogic()
+        {
+            States.ForEach(state => state.UpdateValueTo(!Value));
             await Task.CompletedTask;
         }
     }

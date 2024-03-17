@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class ExhaustCardsGameAction : GameAction
     {
         [Inject] private readonly IPresenter<ExhaustCardsGameAction> _exhaustCardPresenter;
-        [Inject] private readonly GameActionProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IEnumerable<Card> Cards { get; private set; }
 
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted), true));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.Exausted), true));
             await _exhaustCardPresenter.PlayAnimationWith(this);
         }
     }

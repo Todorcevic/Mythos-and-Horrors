@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class SceneCORE1 : Scene
     {
-        [Inject] private readonly GameActionProvider _gameActionFactory;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
@@ -21,13 +21,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionFactory.Create(new ShowHistoryGameAction(Info.Description));
-            await _gameActionFactory.Create(new PlacePlotGameAction(FirstPlot));
-            await _gameActionFactory.Create(new PlaceGoalGameAction(FirstGoal));
-            await _gameActionFactory.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown), true));
-            await _gameActionFactory.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
-            await _gameActionFactory.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
-            await _gameActionFactory.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Description));
+            await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
+            await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown), true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
+            await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
         }
     }
 }
