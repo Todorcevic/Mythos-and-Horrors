@@ -17,10 +17,5 @@ namespace MythosAndHorrors.GameView
             await _showHistoryComponent.Show(showHistoryGameAction.History, initialPosition);
         }
 
-        /*******************************************************************/
-        Task IPresenter<ShowHistoryGameAction>.UndoAnimationWith(ShowHistoryGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

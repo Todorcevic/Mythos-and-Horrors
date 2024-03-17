@@ -8,14 +8,14 @@ namespace MythosAndHorrors.GameView
 {
     public class MoveCardHandler
     {
-        [Inject] private readonly CardViewsManager _cardsManager;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
         public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
         {
-            CardView cardView = _cardsManager.GetCardView(card);
+            CardView cardView = _cardViewsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             return MoveCardViewWithPreviewToZone(cardView, zoneView);
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween MoveCardWithPreviewWithoutWait(Card card, Zone zone)
         {
-            CardView cardView = _cardsManager.GetCardView(card);
+            CardView cardView = _cardViewsManager.GetCardView(card);
             ZoneView zoneView = _zonesViewManager.Get(zone);
             return DOTween.Sequence()
                 .Append(MoveCardViewToCenter(cardView))
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween MoveCardtoCenter(Card card)
         {
-            CardView cardView = _cardsManager.GetCardView(card);
+            CardView cardView = _cardViewsManager.GetCardView(card);
             return MoveCardViewToCenter(cardView);
         }
 
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
         {
-            IEnumerable<CardView> cardViews = _cardsManager.GetCardViews(cards);
+            IEnumerable<CardView> cardViews = _cardViewsManager.GetCardViews(cards);
             ZoneView zoneView = _zonesViewManager.Get(zone);
 
             return MoveCardViewsToZone(cardViews, zoneView, delay);
@@ -72,20 +72,18 @@ namespace MythosAndHorrors.GameView
 
         public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
 
-        public Tween MoveCardsToZones(Dictionary<Card, Zone> cards, float delay = 0f)
+        public Tween MoveCardsToCurrentZones(IEnumerable<Card> cards, float delay = 0f)
         {
-            IEnumerable<CardView> cardViews = _cardsManager.GetCardViews(cards.Keys);
-            IEnumerable<ZoneView> zoneViews = _zonesViewManager.Get(cards.Values);
-
-            return MoveCardViewsToZones(cardViews, zoneViews, delay);
+            Dictionary<CardView, ZoneView> cardViewsWithZones = cards.ToDictionary(card => _cardViewsManager.GetCardView(card), card => _zonesViewManager.Get(card.CurrentZone));
+            return MoveCardViewsToZones(cardViewsWithZones, delay);
         }
 
-        private Tween MoveCardViewsToZones(IEnumerable<CardView> cardViews, IEnumerable<ZoneView> zoneViews, float delay)
+        private Tween MoveCardViewsToZones(Dictionary<CardView, ZoneView> cardViewsWithZones, float delay)
         {
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
-            cardViews.ForEach((cardView, position) => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneViews.ElementAt(position))));
-            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(cardViews.First().Card.CurrentZone)).Append(sequence);
+            cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value)));
+            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(cardViewsWithZones.First().Key.Card.CurrentZone)).Append(sequence);
         }
     }
 }

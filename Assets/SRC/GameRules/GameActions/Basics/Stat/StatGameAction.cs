@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class StatGameAction : GameAction
     {
+        private readonly Dictionary<Stat, int> _statsWithOldValue;
         [Inject] private readonly IPresenter<StatGameAction> _StatsPresenter;
 
         public Dictionary<Stat, int> StatsWithValue { get; }
@@ -17,7 +18,9 @@ namespace MythosAndHorrors.GameRules
 
         public StatGameAction(Dictionary<Stat, int> statsWithValues)
         {
+            _statsWithOldValue = statsWithValues.ToDictionary(kvp => kvp.Key, kvp => kvp.Key.Value);
             StatsWithValue = statsWithValues;
+            CanBeExecuted = StatsWithValue.Count > 0;
         }
 
         /*******************************************************************/
@@ -25,6 +28,12 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task ExecuteThisLogic()
         {
+            await _StatsPresenter.PlayAnimationWith(this);
+        }
+
+        protected override async Task UndoThisLogic()
+        {
+            StatsWithValue.ForEach(stat => stat.Key.UpdateValue(_statsWithOldValue[stat.Key]));
             await _StatsPresenter.PlayAnimationWith(this);
         }
     }

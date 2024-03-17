@@ -15,16 +15,16 @@ namespace MythosAndHorrors.GameView
         {
             if (!moveCardsGameAction.IsSingleMove)
             {
-                await _moveCardHandler.MoveCardsToZone(moveCardsGameAction.Cards, moveCardsGameAction.ToZone, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
+                await _moveCardHandler.MoveCardsToCurrentZones(moveCardsGameAction.Cards, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
                 return;
             }
 
             if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
             {
-                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.ToZone).AsyncWaitForCompletion();
+                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Card.CurrentZone).AsyncWaitForCompletion();
                 return;
             }
-            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.ToZone).AsyncWaitForCompletion();
+            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Card.CurrentZone).AsyncWaitForCompletion();
         }
 
         async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
@@ -44,28 +44,5 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        async Task IPresenter<MoveCardsGameAction>.UndoAnimationWith(MoveCardsGameAction moveCardsGameAction)
-        {
-            if (!moveCardsGameAction.IsSingleMove)
-            {
-                await _moveCardHandler.MoveCardsToZones(moveCardsGameAction.PreviousZones, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
-                return;
-            }
-        }
-
-        Task IPresenter<InvestigateGameAction>.UndoAnimationWith(InvestigateGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task IPresenter<ChooseInvestigatorGameAction>.UndoAnimationWith(ChooseInvestigatorGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task IPresenter<CreatureAttackGameAction>.UndoAnimationWith(CreatureAttackGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -9,11 +9,11 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] GameActionsProvider _gameActionsProvider;
         public List<Investigator> Investigators { get; private set; } = new();
-        public List<Investigator> AllInvestigatorsInPlay => Investigators.FindAll(investigator => investigator.IsInPlay);
-        public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.FindAll(investigator => investigator.HasTurnsAvailable);
-        public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.FindAll(investigator => investigator.CanInvestigate);
-        public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.FindAll(investigator => investigator.CanBeHealed);
-        public Investigator Leader => AllInvestigatorsInPlay[0];
+        public IEnumerable<Investigator> AllInvestigatorsInPlay => Investigators.FindAll(investigator => investigator.IsInPlay);
+        public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable);
+        public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate);
+        public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.Where(investigator => investigator.CanBeHealed);
+        public Investigator Leader => AllInvestigatorsInPlay.First();
         public Investigator First => Investigators[0];
         public Investigator Second => Investigators[1];
         public Investigator Third => Investigators[2];
@@ -43,6 +43,6 @@ namespace MythosAndHorrors.GameRules
             => Investigators.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
 
         public IEnumerable<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
-            => AllInvestigatorsInPlay.FindAll(investigator => investigator.CurrentPlace == cardPlace);
+            => AllInvestigatorsInPlay.Where(investigator => investigator.CurrentPlace == cardPlace);
     }
 }

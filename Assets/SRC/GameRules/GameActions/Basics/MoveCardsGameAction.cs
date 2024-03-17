@@ -7,10 +7,10 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
+        private readonly Dictionary<Card, Zone> _cardsWithPreviousZones;
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
-        public IEnumerable<Card> Cards { get; }
-        public Dictionary<Card, Zone> PreviousZones { get; } = new();
+        public IEnumerable<Card> Cards => _cardsWithPreviousZones.Keys;
         public Card Card => Cards.First();
         public Zone ToZone { get; }
         public bool IsSingleMove => Cards.Count() == 1;
@@ -18,8 +18,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public MoveCardsGameAction(IEnumerable<Card> cards, Zone zone)
         {
-            Cards = cards;
             ToZone = zone;
+            _cardsWithPreviousZones = cards.ToDictionary(card => card, card => card.CurrentZone);
+            CanBeExecuted = cards.Count() > 0;
         }
 
         public MoveCardsGameAction(Card card, Zone zone) : this(new[] { card }, zone) { }
@@ -29,7 +30,6 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in Cards)
             {
-                PreviousZones.Add(card, card.CurrentZone);
                 card.CurrentZone?.RemoveCard(card);
                 ToZone.AddCard(card);
             }
@@ -42,10 +42,10 @@ namespace MythosAndHorrors.GameRules
             foreach (Card card in Cards)
             {
                 ToZone.RemoveCard(card);
-                PreviousZones[card].AddCard(card);
+                _cardsWithPreviousZones[card].AddCard(card);
             }
 
-            await _moveCardPresenter.UndoAnimationWith(this);
+            await _moveCardPresenter.PlayAnimationWith(this);
         }
     }
 }

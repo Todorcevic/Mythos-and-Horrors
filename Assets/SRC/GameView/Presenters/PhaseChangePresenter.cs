@@ -23,11 +23,5 @@ namespace MythosAndHorrors.GameView
             _phaseComponent.ShowThisPhase(phaseGameAction);
 
         }
-
-        /*******************************************************************/
-        Task IPresenter<PhaseGameAction>.UndoAnimationWith(PhaseGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

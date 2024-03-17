@@ -21,6 +21,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected abstract Task ExecuteThisPhaseLogic();
+
+        protected override sealed async Task UndoThisLogic()
+        {
+            await UndoThisPhaseLogic();
+            await _changePhasePresenter.PlayAnimationWith(this);
+        }
+
+        protected virtual async Task UndoThisPhaseLogic() { await Task.CompletedTask; }
     }
 }
 

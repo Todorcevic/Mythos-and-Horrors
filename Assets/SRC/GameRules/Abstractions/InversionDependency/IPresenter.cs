@@ -5,6 +5,6 @@ namespace MythosAndHorrors.GameRules
     public interface IPresenter<T>
     {
         Task PlayAnimationWith(T gameAction);
-        Task UndoAnimationWith(T gameAction);
+        //Task UndoAnimationWith(T gameAction);
     }
 }

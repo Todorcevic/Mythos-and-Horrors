@@ -81,11 +81,5 @@ namespace MythosAndHorrors.GameView
             }
             return updateSequence;
         }
-
-        /*******************************************************************/
-        Task IPresenter<StatGameAction>.UndoAnimationWith(StatGameAction gameAction)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
