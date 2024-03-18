@@ -9,14 +9,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
-        protected override async Task WhenBeing(GameAction gameAction)
+        protected override async Task WhenBegin(GameAction gameAction)
         {
             if (CanActivate(gameAction)) //TODO Make Reaction
             {
                 await _gameActionsProvider.Create(new MoveCardsGameAction(this, Owner.DangerZone)); //TODO Remove Resource
             }
 
-            await base.WhenBeing(gameAction);
+            await base.WhenBegin(gameAction);
         }
 
         /*******************************************************************/
