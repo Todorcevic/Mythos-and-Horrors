@@ -51,8 +51,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PositionateDeck()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(ActiveInvestigator.FullDeck.Select(card => card.FaceDown), true));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
         }
 

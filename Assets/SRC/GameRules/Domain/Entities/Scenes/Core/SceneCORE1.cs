@@ -24,8 +24,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Description));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(RealDangerCards.Select(card => card.FaceDown), true));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
         }

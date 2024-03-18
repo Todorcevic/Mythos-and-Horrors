@@ -15,6 +15,12 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class TestBase : SceneTestFixture
     {
         private const float TIMEOUT = 3f;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly TokensPileComponent tokensPileComponent;
+        [Inject] private readonly MultiEffectHandler _multiEffectHandler;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -24,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             yield return base.SetUp();
             DOTween.SetTweensCapacity(500, 312);
-            if (!DEBUG_MODE) WithoutAnimations();
+            if (!DEBUG_MODE) Time.timeScale = 20;
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
         }
@@ -33,18 +39,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         public override IEnumerator TearDown()
         {
             //yield return WaitLoadImages();
-            SetTimeDefault();
-            yield return base.TearDown();
-        }
-
-        protected void WithoutAnimations()
-        {
-            Time.timeScale = 20;
-        }
-
-        private void SetTimeDefault()
-        {
             Time.timeScale = 1;
+            yield return base.TearDown();
         }
 
         private void InstallerToScene()
@@ -59,26 +55,23 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
-        protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
-
-        protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
-
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         protected IEnumerator PlayThisInvestigator(Investigator investigator)
         {
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.FullDeck.Select(card => card.FaceDown), true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck, investigator.DeckZone, isFaceDown: true)).AsCoroutine();
         }
 
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         protected IEnumerator PlayAllInvestigators()
         {
             foreach (Investigator investigator in _investigatorsProvider.Investigators)
                 yield return PlayThisInvestigator(investigator);
         }
 
-        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
+        /*******************************************************************/
+        protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
+
+        protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
+
         protected IEnumerator WaitToHistoryPanelClick()
         {
             float startTime = Time.realtimeSinceStartup;
@@ -92,7 +85,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
-        [Inject] private readonly CardViewsManager _cardViewsManager;
         protected IEnumerator WaitToClick(Card card)
         {
             float startTime = Time.realtimeSinceStartup;
@@ -105,7 +97,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
-        [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         protected IEnumerator WaitToCloneClick(Effect effect)
         {
             float startTime = Time.realtimeSinceStartup;
@@ -123,7 +114,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
-        [Inject] private readonly TokensPileComponent tokensPileComponent;
         protected IEnumerator WaitToTokenClick()
         {
             float startTime = Time.realtimeSinceStartup;

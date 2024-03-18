@@ -9,13 +9,13 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator Investigator { get; }
         public int Amount { get; }
+        public override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
         public PayResourceGameAction(Investigator investigator, int amount)
         {
             Investigator = investigator;
             Amount = amount;
-            CanBeExecuted = Amount > 0;
         }
 
         /*******************************************************************/

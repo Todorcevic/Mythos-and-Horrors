@@ -6,19 +6,20 @@ namespace MythosAndHorrors.GameRules
 {
     public class PayHintGameAction : GameAction
     {
+        private readonly int _amount;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
         public Stat ToStat { get; }
-        public int Amount { get; }
+        public int Amount => Investigator.Hints.Value < _amount ? Investigator.Hints.Value : _amount;
+        public override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
         public PayHintGameAction(Investigator investigator, Stat toStat, int amount)
         {
             Investigator = investigator;
             ToStat = toStat;
-            Amount = investigator.Hints.Value < amount ? Investigator.Hints.Value : amount;
-            CanBeExecuted = Amount > 0;
+            _amount = amount;
         }
 
         /*******************************************************************/

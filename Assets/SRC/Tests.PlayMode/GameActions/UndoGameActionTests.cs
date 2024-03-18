@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -23,9 +23,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone)).AsCoroutine();
+            MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
+            yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
 
-            yield return _gameActionsProvider.Undo().AsCoroutine();
+            yield return moveCardsGameAction.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.DeckZone), Is.True);
@@ -38,9 +39,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.DiscardZone)).AsCoroutine();
+            MoveCardsGameAction moveCardGameAction = new(cardTomove, _investigatorsProvider.First.DiscardZone);
+            yield return _gameActionsProvider.Create(moveCardGameAction).AsCoroutine();
 
-            yield return _gameActionsProvider.Undo().AsCoroutine();
+            yield return moveCardGameAction.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardTomove.CurrentZone, Is.EqualTo(_investigatorsProvider.First.AidZone));
@@ -84,17 +86,22 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return PlayThisInvestigator(_investigatorsProvider.Second);
 
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-            yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
+
+            if (DEBUG_MODE) yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
+            else _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
 
             yield return _gameActionsProvider.Undo().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Count(), Is.EqualTo(0));
         }
-
     }
 }

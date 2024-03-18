@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -14,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
-        public bool CanBeExecuted { get; protected set; } = true;
+        public virtual bool CanBeExecuted => true;
 
         /*******************************************************************/
         public async Task Start()
@@ -25,6 +23,7 @@ namespace MythosAndHorrors.GameRules
             _current = this;
 
             await _reactionablesProvider.WhenBegin(this);
+            if (!CanBeExecuted) return;
             await ExecuteThisLogic();
 
             _gameActionsProvider.AddUndo(this);

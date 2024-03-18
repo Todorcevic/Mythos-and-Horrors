@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class GameActionsProvider
     {
-        private List<GameAction> _undoGameActions = new();
+        private readonly Stack<GameAction> _undoGameActions = new();
 
         [Inject] private readonly DiContainer _container;
         public List<GameAction> AllGameActions { get; } = new();
@@ -26,15 +26,11 @@ namespace MythosAndHorrors.GameRules
             AllGameActions.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
 
-        public void AddUndo(GameAction gameAction) => _undoGameActions.Add(gameAction);
+        public void AddUndo(GameAction gameAction) => _undoGameActions.Push(gameAction);
 
         public async Task Undo()
         {
-            while (_undoGameActions.Count > 0)
-            {
-                await _undoGameActions.Last().Undo();
-                _undoGameActions.RemoveAt(_undoGameActions.Count - 1);
-            }
+            while (_undoGameActions.Count > 0) await _undoGameActions.Pop().Undo();
         }
     }
 }

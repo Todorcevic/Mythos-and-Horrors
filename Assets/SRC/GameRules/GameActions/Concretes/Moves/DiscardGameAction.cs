@@ -20,7 +20,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Card.FaceDown, false));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
         }
 
@@ -30,12 +29,6 @@ namespace MythosAndHorrors.GameRules
                 return _chaptersProvider.CurrentScene.DangerDiscardZone;
 
             return Card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;
-        }
-
-        public override async Task Undo()
-        {
-            Card.FaceDown.UpdateValueTo(true);
-            await Task.CompletedTask;
         }
     }
 }

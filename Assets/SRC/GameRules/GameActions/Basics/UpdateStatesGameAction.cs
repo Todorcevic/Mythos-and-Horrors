@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class UpdateStatesGameAction : GameAction
     {
         [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
-        private readonly Dictionary<State, bool> _statesWithOldValue;
+        private Dictionary<State, bool> _statesWithOldValue;
 
         public IEnumerable<State> States { get; }
         public bool Value { get; }
@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
 
         public UpdateStatesGameAction(IEnumerable<State> states, bool value)
         {
-            _statesWithOldValue = states.ToDictionary(kvp => kvp, kvp => kvp.IsActive);
             States = states;
             Value = value;
         }
@@ -26,6 +25,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            _statesWithOldValue = States.ToDictionary(kvp => kvp, kvp => kvp.IsActive);
             States.ForEach(state => state.UpdateValueTo(Value));
             await _updateStatesPresenters.PlayAnimationWith(this);
         }

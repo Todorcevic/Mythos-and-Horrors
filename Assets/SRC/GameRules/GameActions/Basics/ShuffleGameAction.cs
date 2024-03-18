@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class ShuffleGameAction : GameAction
     {
-        private readonly List<Card> _cards;
+        private List<Card> _cards;
         [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
 
         public Zone ZoneToShuffle { get; }
@@ -16,12 +16,12 @@ namespace MythosAndHorrors.GameRules
         public ShuffleGameAction(Zone zoneToShuffle)
         {
             ZoneToShuffle = zoneToShuffle;
-            _cards = ZoneToShuffle.Cards.ToList();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            _cards = ZoneToShuffle.Cards.ToList();
             ZoneToShuffle.Shuffle();
             await _shufllePresenter.PlayAnimationWith(this);
         }

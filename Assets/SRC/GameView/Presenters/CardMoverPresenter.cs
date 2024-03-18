@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         {
             if (!moveCardsGameAction.IsSingleMove)
             {
-                await _moveCardHandler.MoveCardsToCurrentZones(moveCardsGameAction.IsUndo ? moveCardsGameAction.Cards.Reverse() : moveCardsGameAction.Cards, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
+                await _moveCardHandler.MoveCardsToCurrentZones(moveCardsGameAction.Cards, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
                 return;
             }
 
