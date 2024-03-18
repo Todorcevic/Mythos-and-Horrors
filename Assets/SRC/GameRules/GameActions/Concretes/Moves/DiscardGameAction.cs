@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public DiscardGameAction(Card card)
         {
             Card = card;
+            UndoInverse = true;
         }
 
         /*******************************************************************/

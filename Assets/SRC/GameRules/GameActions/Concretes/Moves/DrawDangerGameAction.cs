@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -14,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public DrawDangerGameAction(Investigator investigator)
         {
             Investigator = investigator;
+            UndoInverse = true;
         }
 
         /*******************************************************************/

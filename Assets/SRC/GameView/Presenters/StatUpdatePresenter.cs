@@ -57,15 +57,32 @@ namespace MythosAndHorrors.GameView
         {
             Sequence hintsSequence = DOTween.Sequence();
 
-            if (updateStatGameAction.Parent is GainHintGameAction gainHintGA)
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
+                       .Where(investigator => updateStatGameAction.AllStats.Contains(investigator.Hints)))
             {
-                hintsSequence.Join(Update(_statsViewsManager.GetAll(gainHintGA.FromStat)));
-                hintsSequence.Append(_tokenMoverHandler.GainHintsAnimation(gainHintGA.Investigator, gainHintGA.Amount, gainHintGA.FromStat));
+                int amount = investigator.Hints.Value - investigator.Hints.ValueBeforeUpdate;
+                Stat locationHint = updateStatGameAction.AllStats.Except(new[] { investigator.Hints }).Unique();
+
+                if (amount > 0)
+                {
+                    hintsSequence.Join(Update(_statsViewsManager.GetAll(locationHint)));
+                    hintsSequence.Append(_tokenMoverHandler.GainHintsAnimation(investigator, amount, locationHint));
+                }
+                else if (amount < 0)
+                {
+                    hintsSequence.Append(_tokenMoverHandler.PayHintsAnimation(investigator, -1 * amount, locationHint));
+                }
             }
-            else if (updateStatGameAction.Parent is PayHintGameAction payHintGA)
-            {
-                hintsSequence.Append(_tokenMoverHandler.PayHintsAnimation(payHintGA.Investigator, payHintGA.Amount, payHintGA.ToStat));
-            }
+
+            //if (updateStatGameAction.Parent is GainHintGameAction gainHintGA)
+            //{
+            //    hintsSequence.Join(Update(_statsViewsManager.GetAll(gainHintGA.FromStat)));
+            //    hintsSequence.Append(_tokenMoverHandler.GainHintsAnimation(gainHintGA.Investigator, gainHintGA.Amount, gainHintGA.FromStat));
+            //}
+            //else if (updateStatGameAction.Parent is PayHintGameAction payHintGA)
+            //{
+            //    hintsSequence.Append(_tokenMoverHandler.PayHintsAnimation(payHintGA.Investigator, payHintGA.Amount, payHintGA.ToStat));
+            //}
 
             return hintsSequence;
         }

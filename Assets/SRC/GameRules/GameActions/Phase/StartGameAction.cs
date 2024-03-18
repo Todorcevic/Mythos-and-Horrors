@@ -27,7 +27,9 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new CreaturePhaseGameAction());
                 await _gameActionsProvider.Create(new RestorePhaseGameAction());
                 await _gameActionsProvider.Create(new ScenePhaseGameAction());
+                break;
             }
+            await Undo();
         }
     }
 }
