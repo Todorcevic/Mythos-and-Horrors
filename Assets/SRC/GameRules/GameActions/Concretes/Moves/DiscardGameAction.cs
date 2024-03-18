@@ -31,5 +31,11 @@ namespace MythosAndHorrors.GameRules
 
             return Card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;
         }
+
+        public override async Task Undo()
+        {
+            Card.FaceDown.UpdateValueTo(true);
+            await Task.CompletedTask;
+        }
     }
 }

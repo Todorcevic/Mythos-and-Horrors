@@ -54,21 +54,21 @@ namespace MythosAndHorrors.GameView
                 .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine));
         }
 
-        public Tween MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
-        {
-            IEnumerable<CardView> cardViews = _cardViewsManager.GetCardViews(cards);
-            ZoneView zoneView = _zonesViewManager.Get(zone);
+        //public Tween MoveCardsToZone(IEnumerable<Card> cards, Zone zone, float delay = 0f)
+        //{
+        //    IEnumerable<CardView> cardViews = _cardViewsManager.GetCardViews(cards);
+        //    ZoneView zoneView = _zonesViewManager.Get(zone);
 
-            return MoveCardViewsToZone(cardViews, zoneView, delay);
-        }
+        //    return MoveCardViewsToZone(cardViews, zoneView, delay);
+        //}
 
-        private Tween MoveCardViewsToZone(IEnumerable<CardView> cardViews, ZoneView zoneView, float delay)
-        {
-            float delayBetweenMoves = 0f;
-            Sequence sequence = DOTween.Sequence();
-            cardViews.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneView)));
-            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(zoneView.Zone)).Append(sequence);
-        }
+        //private Tween MoveCardViewsToZone(IEnumerable<CardView> cardViews, ZoneView zoneView, float delay)
+        //{
+        //    float delayBetweenMoves = 0f;
+        //    Sequence sequence = DOTween.Sequence();
+        //    cardViews.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.MoveToZone(zoneView)));
+        //    return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(zoneView.Zone?.Owner ?? cardViews.First().Card.Owner)).Append(sequence);
+        //}
 
         public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
 
@@ -83,7 +83,11 @@ namespace MythosAndHorrors.GameView
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
             cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value)));
-            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(cardViewsWithZones.First().Key.Card.CurrentZone)).Append(sequence);
+
+            Investigator owner = cardViewsWithZones.Select(cardView => cardView.Value.Zone.Owner).UniqueOrDefault() ??
+                cardViewsWithZones.Select(cardView => cardView.Key.Card.Owner).UniqueOrDefault();
+
+            return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(owner)).Append(sequence);
         }
     }
 }

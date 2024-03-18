@@ -67,8 +67,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected IEnumerator PlayThisInvestigator(Investigator investigator)
         {
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.FullDeck.Select(card => card.FaceDown), true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck, investigator.DeckZone)).AsCoroutine();
-
         }
 
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;

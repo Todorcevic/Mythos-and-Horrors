@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public bool IsActive { get; private set; }
         public GameAction Parent { get; private set; }
@@ -25,6 +26,9 @@ namespace MythosAndHorrors.GameRules
 
             await _reactionablesProvider.WhenBegin(this);
             await ExecuteThisLogic();
+
+            _gameActionsProvider.AddUndo(this);
+
             await _buffsProvider.CheckAllBuffs(this);
             await _reactionablesProvider.WhenFinish(this);
 
@@ -34,9 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         protected abstract Task ExecuteThisLogic();
 
-        public virtual async Task Undo()
-        {
-            await Task.CompletedTask;
-        }
+        public virtual async Task Undo() => await Task.CompletedTask;
+
     }
 }
