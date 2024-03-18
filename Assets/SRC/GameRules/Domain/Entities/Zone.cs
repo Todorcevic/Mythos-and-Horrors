@@ -7,11 +7,12 @@ namespace MythosAndHorrors.GameRules
 {
     public class Zone
     {
+        private readonly List<Card> _cards = new();
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public List<Card> Cards { get; } = new();
-        public Card TopCard => Cards.Last();
-        public Card BottomCard => Cards.First();
+        public IReadOnlyList<Card> Cards => _cards;
+        public Card TopCard => _cards.Last();
+        public Card BottomCard => _cards.First();
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
         public bool IsHandZone => Owner?.HandZone == this;
 
@@ -19,19 +20,41 @@ namespace MythosAndHorrors.GameRules
         public void AddCard(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
-            if (Cards.Contains(card)) throw new ArgumentException("Card already in zone", card.Info.Code);
+            if (_cards.Contains(card)) throw new ArgumentException("Card already in zone", card.Info.Code);
 
-            Cards.Add(card);
+            _cards.Add(card);
         }
 
         public void RemoveCard(Card card)
         {
             if (card == null) throw new ArgumentNullException(nameof(card));
-            if (!Cards.Contains(card)) throw new ArgumentException("Card not in zone", card.Info.Code);
+            if (!_cards.Contains(card)) throw new ArgumentException("Card not in zone", card.Info.Code);
 
-            Cards.Remove(card);
+            _cards.Remove(card);
         }
 
-        public bool HasThisCard(Card card) => Cards.Contains(card);
+        public void ReorderCardsWith(IEnumerable<Card> cards)
+        {
+            if (cards == null) throw new ArgumentNullException(nameof(cards));
+            if (!new HashSet<Card>(cards).SetEquals(new HashSet<Card>(_cards))) throw new ArgumentException("Cards not match", nameof(cards));
+
+            _cards.Clear();
+            _cards.AddRange(cards);
+        }
+
+        public void Shuffle()
+        {
+            Random rng = new();
+            int elementAmount = _cards.Count;
+            while (elementAmount > 1)
+            {
+                elementAmount--;
+                int randomNumber = rng.Next(elementAmount + 1);
+                (_cards[elementAmount], _cards[randomNumber]) = (_cards[randomNumber], _cards[elementAmount]);
+            }
+        }
+
+        /*******************************************************************/
+        public bool HasThisCard(Card card) => _cards.Contains(card);
     }
 }
