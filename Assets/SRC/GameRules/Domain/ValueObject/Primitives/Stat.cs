@@ -18,9 +18,5 @@
             Value = value;
             if (Value < 0) Value = 0;
         }
-
-        public void Increase(int amount) => UpdateValue(Value + amount);
-
-        public void Decrease(int amount) => UpdateValue(Value - amount);
     }
 }

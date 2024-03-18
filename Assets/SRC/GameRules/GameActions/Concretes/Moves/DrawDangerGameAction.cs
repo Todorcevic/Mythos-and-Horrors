@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.CardDangerToDraw, _chaptersProvider.CurrentScene.LimboZone));
+            await _gameActionRepository.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.CardDangerToDraw, Investigator.DangerZone));
             //TODO: Resolve card (Revelation, Creature, etc...)
         }
     }

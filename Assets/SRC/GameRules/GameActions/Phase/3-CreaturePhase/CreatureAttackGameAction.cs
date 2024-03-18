@@ -31,11 +31,5 @@ namespace MythosAndHorrors.GameRules
             };
             await _gameActionsProvider.Create(new DecrementStatGameAction(statsWithValues));
         }
-
-        //public override async Task Undo()
-        //{
-        //    await base.Undo();
-        //    await _creatureAttackPresenter.PlayAnimationWith(this);
-        //}
     }
 }

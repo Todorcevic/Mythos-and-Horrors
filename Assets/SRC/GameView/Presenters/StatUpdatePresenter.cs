@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StatUpdatePresenter : IPresenter<StatGameAction>
+    public class StatUpdatePresenter : IPresenter<UpdateStatGameAction>
     {
         private Dictionary<IStatable, bool> statablesUpdated;
         [Inject] private readonly StatableManager _statsViewsManager;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly TokenMoverHandler _tokenMoverHandler;
 
         /*******************************************************************/
-        async Task IPresenter<StatGameAction>.PlayAnimationWith(StatGameAction updateStatGameAction)
+        async Task IPresenter<UpdateStatGameAction>.PlayAnimationWith(UpdateStatGameAction updateStatGameAction)
         {
             statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStats).ToDictionary(statView => statView, _ => false);
             await SpecialAnimations(updateStatGameAction);
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private async Task SpecialAnimations(StatGameAction updateStatGameAction)
+        private async Task SpecialAnimations(UpdateStatGameAction updateStatGameAction)
         {
             if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
             {
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameView
             await CheckHints(updateStatGameAction).AsyncWaitForCompletion();
         }
 
-        private Tween CheckResources(StatGameAction updateStatGameAction)
+        private Tween CheckResources(UpdateStatGameAction updateStatGameAction)
         {
             Sequence payResourceSequence = DOTween.Sequence();
 
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameView
             return payResourceSequence;
         }
 
-        private Tween CheckHints(StatGameAction updateStatGameAction)
+        private Tween CheckHints(UpdateStatGameAction updateStatGameAction)
         {
             Sequence hintsSequence = DOTween.Sequence();
 
