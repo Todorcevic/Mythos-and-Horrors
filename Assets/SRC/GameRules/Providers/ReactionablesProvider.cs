@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             _onGameActionEnd.Add(handler);
         }
 
-        public async Task WheBegin(GameAction gameAction)
+        public async Task WhenBegin(GameAction gameAction)
         {
             foreach (Func<GameAction, Task> handler in _onGameActionStart)
                 await handler.Invoke(gameAction);

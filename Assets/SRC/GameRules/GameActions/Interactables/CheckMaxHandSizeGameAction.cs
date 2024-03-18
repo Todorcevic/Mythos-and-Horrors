@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         public CheckMaxHandSizeGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
-            _stopThisPhase = ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value;
+            CanBeExecuted = ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
         }
 
         /*******************************************************************/

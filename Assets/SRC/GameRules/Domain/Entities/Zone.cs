@@ -15,6 +15,11 @@ namespace MythosAndHorrors.GameRules
         public Card BottomCard => _cards.First();
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
         public bool IsHandZone => Owner?.HandZone == this;
+        public bool IsDeckZone => Owner?.DeckZone == this;
+        public bool IsDiscardZone => Owner?.DiscardZone == this;
+        public bool IsAidZone => Owner?.AidZone == this;
+        public bool IsDangerZone => Owner?.DangerZone == this;
+        public bool IsInvestigatorZone => Owner?.InvestigatorZone == this;
 
         /*******************************************************************/
         public void AddCard(Card card)

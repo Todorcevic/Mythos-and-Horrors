@@ -74,16 +74,6 @@ namespace MythosAndHorrors.GameView
                 }
             }
 
-            //if (updateStatGameAction.Parent is GainHintGameAction gainHintGA)
-            //{
-            //    hintsSequence.Join(Update(_statsViewsManager.GetAll(gainHintGA.FromStat)));
-            //    hintsSequence.Append(_tokenMoverHandler.GainHintsAnimation(gainHintGA.Investigator, gainHintGA.Amount, gainHintGA.FromStat));
-            //}
-            //else if (updateStatGameAction.Parent is PayHintGameAction payHintGA)
-            //{
-            //    hintsSequence.Append(_tokenMoverHandler.PayHintsAnimation(payHintGA.Investigator, payHintGA.Amount, payHintGA.ToStat));
-            //}
-
             return hintsSequence;
         }
 

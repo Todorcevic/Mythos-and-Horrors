@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -23,10 +23,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            MoveCardsGameAction moveCardsGA = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
-            yield return _gameActionsProvider.Create(moveCardsGA).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone)).AsCoroutine();
 
-            yield return moveCardsGA.Undo().AsCoroutine();
+            yield return _gameActionsProvider.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.DeckZone), Is.True);
@@ -39,10 +38,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
-            MoveCardsGameAction moveCardsGA = new(cardTomove, _investigatorsProvider.First.DiscardZone);
-            yield return _gameActionsProvider.Create(moveCardsGA).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.DiscardZone)).AsCoroutine();
 
-            yield return moveCardsGA.Undo().AsCoroutine();
+            yield return _gameActionsProvider.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardTomove.CurrentZone, Is.EqualTo(_investigatorsProvider.First.AidZone));
@@ -57,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
-            yield return allInvestigatorsDrawCardAndResource.Undo().AsCoroutine();
+            yield return _gameActionsProvider.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -73,12 +71,29 @@ namespace MythosAndHorrors.PlayMode.Tests
             RestorePhaseGameAction restorePhaseGameAction = new();
             yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
 
-            yield return restorePhaseGameAction.Undo().AsCoroutine();
+            yield return _gameActionsProvider.Undo().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator UndoTursStatTest()
+        {
+            _prepareGameUseCase.Execute();
+            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return PlayThisInvestigator(_investigatorsProvider.Second);
+
+            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
+
+            yield return _gameActionsProvider.Undo().AsCoroutine();
+
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+
         }
 
     }

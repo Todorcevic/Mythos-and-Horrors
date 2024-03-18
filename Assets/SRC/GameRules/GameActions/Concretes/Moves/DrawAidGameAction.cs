@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -15,7 +14,6 @@ namespace MythosAndHorrors.GameRules
         {
             Investigator = investigator;
             CanBeExecuted = Investigator.CardAidToDraw != null;
-            UndoInverse = true;
         }
 
         /*******************************************************************/
