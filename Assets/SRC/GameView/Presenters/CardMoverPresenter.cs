@@ -2,7 +2,6 @@ using Zenject;
 using System.Threading.Tasks;
 using MythosAndHorrors.GameRules;
 using DG.Tweening;
-using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {

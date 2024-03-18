@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameView
 {
     public class StatUpdatePresenter : IPresenter<UpdateStatGameAction>
     {
-        private Dictionary<IStatable, bool> statablesUpdated;
         [Inject] private readonly StatableManager _statsViewsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -19,23 +18,23 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<UpdateStatGameAction>.PlayAnimationWith(UpdateStatGameAction updateStatGameAction)
         {
-            statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStats).ToDictionary(statView => statView, _ => false);
-            await SpecialAnimations(updateStatGameAction);
-            Update(_statsViewsManager.GetAll(updateStatGameAction.AllStats));
+            Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStats).ToDictionary(statView => statView, _ => false);
+            await SpecialAnimations(updateStatGameAction, statablesUpdated);
+            Update(_statsViewsManager.GetAll(updateStatGameAction.AllStats), statablesUpdated);
         }
 
         /*******************************************************************/
-        private async Task SpecialAnimations(UpdateStatGameAction updateStatGameAction)
+        private async Task SpecialAnimations(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
         {
             if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
             {
                 await _moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
-                await Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch)).AsyncWaitForCompletion();
+                await Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch), statablesUpdated).AsyncWaitForCompletion();
                 await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
             }
 
             await CheckResources(updateStatGameAction).AsyncWaitForCompletion();
-            await CheckHints(updateStatGameAction).AsyncWaitForCompletion();
+            await CheckHints(updateStatGameAction, statablesUpdated).AsyncWaitForCompletion();
         }
 
         private Tween CheckResources(UpdateStatGameAction updateStatGameAction)
@@ -53,7 +52,7 @@ namespace MythosAndHorrors.GameView
             return payResourceSequence;
         }
 
-        private Tween CheckHints(UpdateStatGameAction updateStatGameAction)
+        private Tween CheckHints(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
         {
             Sequence hintsSequence = DOTween.Sequence();
 
@@ -65,7 +64,7 @@ namespace MythosAndHorrors.GameView
 
                 if (amount > 0)
                 {
-                    hintsSequence.Join(Update(_statsViewsManager.GetAll(locationHint)));
+                    hintsSequence.Join(Update(_statsViewsManager.GetAll(locationHint), statablesUpdated));
                     hintsSequence.Append(_tokenMoverHandler.GainHintsAnimation(investigator, amount, locationHint));
                 }
                 else if (amount < 0)
@@ -77,7 +76,7 @@ namespace MythosAndHorrors.GameView
             return hintsSequence;
         }
 
-        private Tween Update(IEnumerable<IStatable> statView)
+        private Tween Update(IEnumerable<IStatable> statView, Dictionary<IStatable, bool> statablesUpdated)
         {
             Sequence updateSequence = DOTween.Sequence();
             foreach (IStatable stat in statView)

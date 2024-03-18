@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -108,6 +108,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PassTurnTest()
         {
             _prepareGameUseCase.Execute();
+            //yield return PlayAllInvestigators();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
