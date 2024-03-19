@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameView
 
             void Set()
             {
-                _turnController.Init(investigatorTurn.CurrentTurns);
+                _turnController.Init(investigatorTurn.CurrentTurns, investigatorTurn.MaxTurns);
                 _avatarImage.sprite = _avatarViewsManager.GetByCode(investigatorTurn.Code)?.Image;
                 currentInvestigator = investigatorTurn;
             }

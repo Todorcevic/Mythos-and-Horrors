@@ -33,6 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
 
+
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
             Assert.That(_investigatorsProvider.First.Health.Value, Is.EqualTo(3));

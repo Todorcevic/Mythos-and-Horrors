@@ -10,17 +10,20 @@ namespace MythosAndHorrors.GameView
 {
     public class TurnController : MonoBehaviour, IStatable
     {
-        [SerializeField, Required] private List<GameObject> _turns;
+        private Stat _maxTurns;
+        [SerializeField, Required, ChildGameObjectsOnly] private List<TurnView> _turnViews;
         [Inject] private readonly StatableManager _statableManager;
 
-        public int ActiveTurnsCount => _turns.Count(turn => turn.activeSelf);
+        public int ActiveTurnsCount => _turnViews.FindAll(turn => turn.IsOn).Count;
         public Stat Stat { get; private set; }
+
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(Stat stat)
+        public void Init(Stat stat, Stat maxTurns)
         {
             Stat = stat;
+            _maxTurns = maxTurns;
             _statableManager.Add(this);
             TurnOn();
         }
@@ -28,41 +31,55 @@ namespace MythosAndHorrors.GameView
         private Tween TurnOn()
         {
             int amount = Stat.Value;
-            AddExtraTurn(amount - _turns.Count);
+            CheckMaxTurn();
+            int amountToAdd = amount - ActiveTurnsCount;
 
             Sequence turningSequence = DOTween.Sequence();
-            for (int i = 0; i < ActiveTurnsCount; i++)
+            if (amountToAdd < 0)
             {
-                turningSequence.Join(SwitchOffTurn(_turns[i]));
+                for (int i = 0; i < -amountToAdd; i++)
+                {
+                    turningSequence.Join(GetActiveTurn().SwitchOff());
+                }
             }
-
-            turningSequence.Append(DOTween.Sequence());
-            for (int i = 0; i < amount; i++)
+            else if (amountToAdd > 0)
             {
-                turningSequence.Join(SwitchOnTurn(_turns[i]));
+                for (int i = 0; i < amountToAdd; i++)
+                {
+                    turningSequence.Join(GetFreeTurn().SwitchOn());
+                }
             }
-
             return turningSequence;
         }
 
-        private void AddExtraTurn(int amount)
+        private void CheckMaxTurn()
         {
-            if (amount <= 0) return;
-            for (int i = 0; i < amount; i++)
+            int amount = _maxTurns.Value - _turnViews.Count;
+
+            if (amount < 0)
             {
-                GameObject newTurn = Instantiate(_turns.First(), transform);
-                _turns.Add(newTurn);
-                newTurn.SetActive(false);
-                newTurn.transform.localScale = Vector3.zero;
+                for (int i = 0; i < -amount; i++)
+                {
+                    TurnView turn = _turnViews.Last();
+                    _turnViews.Remove(turn);
+                    Destroy(turn.gameObject);
+                }
+            }
+            else if (amount > 0)
+            {
+                for (int i = 0; i < amount; i++)
+                {
+                    TurnView newTurn = Instantiate(GetFreeTurn() ?? GetActiveTurn(), transform);
+                    _turnViews.Add(newTurn);
+                }
             }
         }
 
-        private Tween SwitchOnTurn(GameObject turn) => turn.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION)
-                .OnStart(() => { turn.transform.localScale = Vector3.zero; turn.SetActive(true); });
+        private TurnView GetFreeTurn() => _turnViews.FirstOrDefault(turn => !turn.IsOn);
 
-        private Tween SwitchOffTurn(GameObject turn) =>
-            turn.transform.DOScale(0, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => turn.SetActive(false));
+        private TurnView GetActiveTurn() => _turnViews.Last(turn => turn.IsOn);
 
         Tween IStatable.UpdateValue() => TurnOn();
     }
 }
+

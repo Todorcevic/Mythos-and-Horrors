@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameView
             _sanityStat.SetStat(Investigator.Sanity);
             _resourcesStat.SetStat(Investigator.Resources);
             _hintsStat.SetStat(Investigator.Hints);
-            _turnController.Init(Investigator.CurrentTurns);
+            _turnController.Init(Investigator.CurrentTurns, Investigator.MaxTurns);
         }
 
         /*******************************************************************/
