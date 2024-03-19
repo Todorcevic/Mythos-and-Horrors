@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class UpdateStatesGameAction : GameAction
+    public class UpdateStatesGameAction : GameAction, IUndable
     {
         [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
         private Dictionary<State, bool> _statesWithOldValue;
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             await _updateStatesPresenters.PlayAnimationWith(this);
         }
 
-        public override async Task Undo()
+        public async Task Undo()
         {
             States.ForEach(state => state.UpdateValueTo(_statesWithOldValue[state]));
             await _updateStatesPresenters.PlayAnimationWith(this);

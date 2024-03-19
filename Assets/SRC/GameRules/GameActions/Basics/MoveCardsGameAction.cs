@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MoveCardsGameAction : GameAction
+    public class MoveCardsGameAction : GameAction, IUndable
     {
         private readonly bool _isFaceDown;
         private readonly IEnumerable<Card> _cards;
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             await _moveCardPresenter.PlayAnimationWith(this);
         }
 
-        public override async Task Undo()
+        public async Task Undo()
         {
             foreach (Card card in Cards)
             {
