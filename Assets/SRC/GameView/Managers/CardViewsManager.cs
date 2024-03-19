@@ -13,8 +13,6 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public CardView GetCardView(Card card) => _allCardsView.First(cardView => cardView.Card == card);
 
-        public IEnumerable<CardView> GetCardViews(IEnumerable<Card> cards) => _allCardsView.Where(cardView => cards.Contains(cardView.Card));
-
         public AvatarCardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard) as AvatarCardView;
 
         public void AddCardView(CardView cardView) => _allCardsView.Add(cardView);
@@ -24,7 +22,5 @@ namespace MythosAndHorrors.GameView
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
 
         public List<IPlayable> GetAllIPlayable() => _allCardsView.OfType<IPlayable>().ToList();
-
-        public CardView GetCardWithThisEffect(Effect effect) => _allCardsView.Find(cardView => cardView.Card.PlayableEffects.Contains(effect));
     }
 }

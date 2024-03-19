@@ -8,10 +8,9 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allEffects = new();
 
         public Effect MainButtonEffect { get; private set; }
-        public IEnumerable<Effect> AllEffectsPlayable => _allEffects;
-        public Effect UniqueEffect => AllEffectsPlayable.Single();
-        public bool IsUniqueEffect => AllEffectsPlayable.Count() == 1;
-        public bool NoEffect => AllEffectsPlayable.Count() == 0;
+        public Effect UniqueEffect => _allEffects.Single();
+        public bool IsUniqueEffect => _allEffects.Count() == 1;
+        public bool NoEffect => _allEffects.Count() == 0;
 
         /*******************************************************************/
         public Effect Create()

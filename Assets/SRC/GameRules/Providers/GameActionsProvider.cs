@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class GameActionsProvider
     {
-        private readonly Stack<IUndable> _undablesGameActions = new();
+        private readonly Stack<GameAction> _undablesGameActions = new();
 
         [Inject] private readonly DiContainer _container;
         public List<GameAction> AllGameActions { get; } = new();
@@ -26,11 +26,48 @@ namespace MythosAndHorrors.GameRules
             AllGameActions.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
 
-        public void AddUndo(IUndable gameAction) => _undablesGameActions.Push(gameAction);
+        public void AddUndo(GameAction gameAction) => _undablesGameActions.Push(gameAction);
 
-        public async Task Undo()
+        public async Task UndoRewind()
         {
-            while (_undablesGameActions.Count > 0) await _undablesGameActions.Pop().Undo();
+            while (_undablesGameActions.Count > 0)
+            {
+                if (_undablesGameActions.Pop() is IUndable undable) await undable.Undo();
+            }
+        }
+
+        public async Task UndoLast()
+        {
+            while (_undablesGameActions.Count > 0)
+            {
+                if (_undablesGameActions.Pop() is IUndable undable)
+                {
+                    await undable.Undo();
+                    break;
+                }
+            }
+        }
+
+        public async Task UndoLastInteractable()
+        {
+            GameAction returnedGameAction = default;
+            while (_undablesGameActions.Count > 0)
+            {
+                GameAction currentGameAction = _undablesGameActions.Pop();
+
+                if (currentGameAction is IUndable undable)
+                {
+                    await undable.Undo();
+                }
+                else if (currentGameAction is InteractableGameAction interactable)
+                {
+                    returnedGameAction = interactable.Parent;
+                    break;
+                }
+            }
+
+            AllGameActions.Add(returnedGameAction);
+            await returnedGameAction.Start();
         }
     }
 }

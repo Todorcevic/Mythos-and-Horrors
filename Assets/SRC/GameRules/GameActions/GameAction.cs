@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             await _reactionablesProvider.WhenBegin(this);
             if (!CanBeExecuted) return;
             await ExecuteThisLogic();
-            if (this is IUndable undableGameAction) _gameActionsProvider.AddUndo(undableGameAction);
+            _gameActionsProvider.AddUndo(this);
             await _buffsProvider.CheckAllBuffs(this);
             await _reactionablesProvider.WhenFinish(this);
 
