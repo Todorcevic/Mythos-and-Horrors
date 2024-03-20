@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : PhaseGameAction //2.2	Next investigator's turn begins.
     {
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IPresenter<ChooseInvestigatorGameAction> _startingAnimationPresenter;
@@ -27,9 +26,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            InteractableGameAction interactableGameAction = new();
             foreach (Investigator investigator in InvestigatorsToSelect)
             {
-                _effectProvider.Create()
+                interactableGameAction.Create()
                     .SetCard(investigator.AvatarCard)
                     .SetInvestigator(investigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(ChooseInvestigator))
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionsProvider.Create(new InteractableGameAction());
+            await _gameActionsProvider.Create(interactableGameAction);
         }
     }
 }

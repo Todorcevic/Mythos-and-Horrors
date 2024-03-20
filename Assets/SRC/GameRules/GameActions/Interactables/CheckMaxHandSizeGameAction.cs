@@ -5,9 +5,9 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : PhaseGameAction
     {
+
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
 
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
@@ -24,24 +24,25 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            InteractableGameAction interactableGameAction = new();
             while (ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value)
             {
-                Create();
-                await _gameActionsProvider.Create(new InteractableGameAction());
+                Create(interactableGameAction);
+                await _gameActionsProvider.Create(interactableGameAction);
             }
         }
 
-        private void Create()
+        private void Create(InteractableGameAction interactableGameAction)
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
                 if (!CanChoose()) continue;
 
-                _effectProvider.Create()
-                    .SetCard(card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
-                    .SetLogic(Discard);
+                interactableGameAction.Create()
+               .SetCard(card)
+               .SetInvestigator(ActiveInvestigator)
+               .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
+               .SetLogic(Discard);
 
                 /*******************************************************************/
                 async Task Discard()

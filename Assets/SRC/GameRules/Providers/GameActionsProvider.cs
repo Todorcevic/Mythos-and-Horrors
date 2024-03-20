@@ -7,40 +7,41 @@ namespace MythosAndHorrors.GameRules
 {
     public class GameActionsProvider
     {
-        private readonly Stack<GameAction> _undablesGameActions = new();
+        private readonly Stack<GameAction> _allGameActionsExecuted = new();
 
         [Inject] private readonly DiContainer _container;
-        public List<GameAction> AllGameActions { get; } = new();
-        public List<GameAction> GameActionsFinished => AllGameActions.FindAll(gameAction => !gameAction.IsActive);
+        public List<GameAction> AllGameActionsCreated { get; } = new();
+        public List<GameAction> GameActionsFinished => AllGameActionsCreated.FindAll(gameAction => !gameAction.IsActive);
+        public InteractableGameAction LastInteractable => AllGameActionsCreated.OfType<InteractableGameAction>().Last();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
         {
             _container.Inject(gameAction);
-            AllGameActions.Add(gameAction);
+            AllGameActionsCreated.Add(gameAction);
             await gameAction.Start();
             return gameAction;
         }
 
         public T GetLastActive<T>() where T : GameAction =>
-            AllGameActions.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
+            AllGameActionsCreated.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
 
-        public void AddUndo(GameAction gameAction) => _undablesGameActions.Push(gameAction);
+        public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
 
         public async Task UndoRewind()
         {
-            while (_undablesGameActions.Count > 0)
+            while (_allGameActionsExecuted.Count > 0)
             {
-                if (_undablesGameActions.Pop() is IUndable undable) await undable.Undo();
+                if (_allGameActionsExecuted.Pop() is IUndable undable) await undable.Undo();
             }
         }
 
         public async Task UndoLast()
         {
-            while (_undablesGameActions.Count > 0)
+            while (_allGameActionsExecuted.Count > 0)
             {
-                if (_undablesGameActions.Pop() is IUndable undable)
+                if (_allGameActionsExecuted.Pop() is IUndable undable)
                 {
                     await undable.Undo();
                     break;
@@ -51,9 +52,9 @@ namespace MythosAndHorrors.GameRules
         public async Task UndoLastInteractable()
         {
             GameAction returnedGameAction = default;
-            while (_undablesGameActions.Count > 0)
+            while (_allGameActionsExecuted.Count > 0)
             {
-                GameAction currentGameAction = _undablesGameActions.Pop();
+                GameAction currentGameAction = _allGameActionsExecuted.Pop();
 
                 if (currentGameAction is IUndable undable)
                 {
@@ -66,7 +67,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            AllGameActions.Add(returnedGameAction);
+            AllGameActionsCreated.Add(returnedGameAction);
             await returnedGameAction.Start();
         }
     }

@@ -12,9 +12,9 @@ namespace MythosAndHorrors.GameRules
         [InjectOptional] private readonly CardExtraInfo _extraInfo;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
-        public IEnumerable<Effect> PlayableEffects => _effectProvider.GetEffectForThisCard(this);
+        public IEnumerable<Effect> PlayableEffects => _gameActionsProvider.LastInteractable.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
 
         /*******************************************************************/

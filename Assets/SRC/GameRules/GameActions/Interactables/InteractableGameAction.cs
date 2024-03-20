@@ -1,33 +1,56 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
+        private readonly List<Effect> _allEffects = new();
         private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
 
-        public bool IsManadatary => _effectProvider.MainButtonEffect == null;
+        public Effect MainButtonEffect { get; private set; }
+        private Effect UniqueEffect => _allEffects.Single();
+        private bool IsUniqueEffect => _allEffects.Count() == 1;
+        private bool NoEffect => _allEffects.Count() == 0;
+        public bool IsManadatary => MainButtonEffect == null;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (_effectProvider.NoEffect) return;
+            if (NoEffect) return;
             _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
-            ClearEffectsInAllCards();
             await _gameActionsProvider.Create(new PlayEffectGameAction(_effectSelected));
         }
 
         private Effect GetUniqueEffect()
         {
             if (!IsManadatary) return null;
-            if (_effectProvider.IsUniqueEffect) return _effectProvider.UniqueEffect;
+            if (IsUniqueEffect) return UniqueEffect;
             return null;
         }
+        /*******************************************************************/
 
-        private void ClearEffectsInAllCards() => _effectProvider.ClearAllEffects();
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) =>
+           _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
+
+        public Effect Create()
+        {
+            Effect effect = new();
+            _allEffects.Add(effect);
+            return effect;
+        }
+
+        public Effect CreateMainButton()
+        {
+            Effect effect = new();
+            MainButtonEffect = effect;
+            return effect;
+        }
+
+        public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);
     }
 }

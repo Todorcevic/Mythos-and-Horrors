@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
     {
         private const float OFFSET = 1f;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly EffectsProvider _effectsProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _deactivateColor;
 
         private bool IsActivated => _collider.enabled;
-        private Effect MainButtonEffect => _effectsProvider.MainButtonEffect;
+        private Effect MainButtonEffect => _gameActionsProvider.LastInteractable.MainButtonEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/

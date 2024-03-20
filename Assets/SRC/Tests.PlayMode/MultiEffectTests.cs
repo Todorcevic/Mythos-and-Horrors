@@ -13,7 +13,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class MultiEffectTests : TestBase
     {
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -26,28 +25,29 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MultiEffect_Test()
         {
+            InteractableGameAction interactableGameAction = new();
             _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];
 
-            _effectProvider.CreateMainButton()
+            interactableGameAction.CreateMainButton()
                      .SetDescription("Continue")
                      .SetLogic(() => Task.CompletedTask);
 
-            _effectProvider.Create()
+            interactableGameAction.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectOne")
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
 
-            _effectProvider.Create()
+            interactableGameAction.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectTwo")
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
 
-            _effectProvider.Create()
+            interactableGameAction.Create()
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
                 .SetDescription("EffectOne")
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
             if (!DEBUG_MODE) WaitToClick2(card).AsTask();
-            yield return _gameActionsProvider.Create(new InteractableGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create(interactableGameAction).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));

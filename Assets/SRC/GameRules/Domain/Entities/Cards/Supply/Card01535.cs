@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Stat HealthActivationTurnsCost { get; private set; }
@@ -32,10 +31,11 @@ namespace MythosAndHorrors.GameRules
         /************************ HEALTH ACTIVATION ******************************/
         protected void CheckHealthActivation(GameAction gameAction)
         {
-            if (gameAction is not OneInvestigatorTurnGameAction oneTurnGA) return;
+            if (gameAction is not InteractableGameAction interactableGameAction) return;
+            if (interactableGameAction.Parent is not OneInvestigatorTurnGameAction) return;
             if (!CanHealthActivation()) return;
 
-            _effectProvider.Create()
+            interactableGameAction.Create()
                 .SetCard(this)
                 .SetInvestigator(_investigatorProvider.ActiveInvestigator)
                 .SetLogic(HealthActivation)

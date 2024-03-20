@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class MulliganGameAction : PhaseGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         List<Effect> DiscardEffects { get; } = new();
@@ -27,13 +26,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected sealed override async Task ExecuteThisPhaseLogic()
         {
-            _effectProvider.CreateMainButton()
-                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
-                     .SetLogic(() => Task.CompletedTask);
+            InteractableGameAction interactableGameAction = new();
+            interactableGameAction.CreateMainButton()
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
+                .SetLogic(() => Task.CompletedTask);
+
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                DiscardEffects.Add(_effectProvider.Create()
+                DiscardEffects.Add(interactableGameAction.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT1)
@@ -51,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanRestore()) continue;
 
-                RestoreEffects.Add(_effectProvider.Create()
+                RestoreEffects.Add(interactableGameAction.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT2)
@@ -71,7 +72,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(new InteractableGameAction());
+            await _gameActionsProvider.Create(interactableGameAction);
         }
     }
 }

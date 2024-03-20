@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     public class OneInvestigatorTurnGameAction : PhaseGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -36,22 +35,23 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            PreparePassEffect();
-            PrepareInvestigateEffect();
-            PrepareMoveEffect();
-            PrepareInvestigatorAttackEffect();
-            PrepareInvestigatorConfrontEffect();
-            PrepareInvestigatorEludeEffect();
-            PreparePlayFromHandEffect();
-            PrepareDraw();
-            PrepareTakeResource();
-            await _gameActionsProvider.Create(new InteractableGameAction());
+            InteractableGameAction interactableGameAction = new();
+            PreparePassEffect(interactableGameAction);
+            PrepareInvestigateEffect(interactableGameAction);
+            PrepareMoveEffect(interactableGameAction);
+            PrepareInvestigatorAttackEffect(interactableGameAction);
+            PrepareInvestigatorConfrontEffect(interactableGameAction);
+            PrepareInvestigatorEludeEffect(interactableGameAction);
+            PreparePlayFromHandEffect(interactableGameAction);
+            PrepareDraw(interactableGameAction);
+            PrepareTakeResource(interactableGameAction);
+            await _gameActionsProvider.Create(interactableGameAction);
         }
 
         /*******************************************************************/
-        private void PreparePassEffect()
+        private void PreparePassEffect(InteractableGameAction interactableGameAction)
         {
-            _effectProvider.CreateMainButton()
+            interactableGameAction.CreateMainButton()
                 .SetCard(null)
                 .SetInvestigator(ActiveInvestigator)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PassTurn))
@@ -62,11 +62,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigateEffect()
+        private void PrepareInvestigateEffect(InteractableGameAction interactableGameAction)
         {
             if (!CanInvestigate()) return;
 
-            InvestigateEffect = _effectProvider.Create()
+            InvestigateEffect = interactableGameAction.Create()
                 .SetCard(ActiveInvestigator.CurrentPlace)
                 .SetInvestigator(ActiveInvestigator)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Investigate))
@@ -86,14 +86,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareMoveEffect()
+        private void PrepareMoveEffect(InteractableGameAction interactableGameAction)
         {
             if (ActiveInvestigator.CurrentPlace == null) return;
             foreach (CardPlace cardPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
             {
                 if (!CanMove()) continue;
 
-                MoveEffects.Add(_effectProvider.Create()
+                MoveEffects.Add(interactableGameAction.Create()
                     .SetCard(cardPlace)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Move))
@@ -114,13 +114,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorAttackEffect()
+        private void PrepareInvestigatorAttackEffect(InteractableGameAction interactableGameAction)
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorAttack()) continue;
 
-                InvestigatorAttackEffects.Add(_effectProvider.Create()
+                InvestigatorAttackEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorAttack))
@@ -141,13 +141,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorConfrontEffect()
+        private void PrepareInvestigatorConfrontEffect(InteractableGameAction interactableGameAction)
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorConfront()) continue;
 
-                InvestigatorConfrontEffects.Add(_effectProvider.Create()
+                InvestigatorConfrontEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorConfront))
@@ -169,13 +169,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorEludeEffect()
+        private void PrepareInvestigatorEludeEffect(InteractableGameAction interactableGameAction)
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorElude()) continue;
 
-                InvestigatorEludeEffects.Add(_effectProvider.Create()
+                InvestigatorEludeEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorElude))
@@ -198,13 +198,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PreparePlayFromHandEffect()
+        private void PreparePlayFromHandEffect(InteractableGameAction interactableGameAction)
         {
             foreach (IPlayableFromHand playableFromHand in ActiveInvestigator.HandZone.Cards.OfType<IPlayableFromHand>())
             {
                 if (!CanPlayFromHand()) continue;
 
-                PlayFromHandEffects.Add(_effectProvider.Create()
+                PlayFromHandEffects.Add(interactableGameAction.Create()
                     .SetCard(playableFromHand as Card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PlayFromHand))
@@ -227,11 +227,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareDraw()
+        private void PrepareDraw(InteractableGameAction interactableGameAction)
         {
             if (!CanDraw()) return;
 
-            DrawEffect = _effectProvider.Create()
+            DrawEffect = interactableGameAction.Create()
                   .SetCard(ActiveInvestigator.CardAidToDraw)
                   .SetInvestigator(ActiveInvestigator)
                   .SetLogic(Draw)
@@ -251,11 +251,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareTakeResource()
+        private void PrepareTakeResource(InteractableGameAction interactableGameAction)
         {
             if (!CanTakeResource()) return;
 
-            TakeResourceEffect = _effectProvider.Create()
+            TakeResourceEffect = interactableGameAction.Create()
                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource))
                .SetInvestigator(ActiveInvestigator)
                .SetLogic(TakeResource);

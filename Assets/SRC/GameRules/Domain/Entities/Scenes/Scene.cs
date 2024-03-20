@@ -8,11 +8,6 @@ namespace MythosAndHorrors.GameRules
     public abstract class Scene
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
-        [Inject] private readonly EffectsProvider _effectProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
