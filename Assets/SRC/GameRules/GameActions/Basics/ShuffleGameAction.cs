@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ShuffleGameAction : GameAction, IUndable
+    public class ShuffleGameAction : GameAction
     {
         private List<Card> _cards;
         [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             await _shufllePresenter.PlayAnimationWith(this);
         }
 
-        public async Task Undo()
+        public override async Task Undo()
         {
             ZoneToShuffle.ReorderCardsWith(_cards);
             await _shufllePresenter.PlayAnimationWith(this);

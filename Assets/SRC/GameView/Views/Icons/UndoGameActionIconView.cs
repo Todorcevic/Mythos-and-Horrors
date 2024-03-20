@@ -1,19 +1,15 @@
 ﻿using DG.Tweening;
-using MythosAndHorrors.GameRules;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
     public class UndoGameActionIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         /*******************************************************************/
-        public async void OnPointerClick(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            await _gameActionsProvider.UndoLastInteractable();
+
         }
 
         public void OnPointerEnter(PointerEventData eventData)

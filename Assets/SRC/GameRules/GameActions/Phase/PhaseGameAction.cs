@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class PhaseGameAction : GameAction, IUndable
+    public abstract class PhaseGameAction : GameAction
     {
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
 
         protected abstract Task ExecuteThisPhaseLogic();
 
-        public async Task Undo()
+        public override async Task Undo()
         {
             await _changePhasePresenter.PlayAnimationWith(this);
         }

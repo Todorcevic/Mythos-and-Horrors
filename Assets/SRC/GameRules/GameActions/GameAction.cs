@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -6,6 +8,7 @@ namespace MythosAndHorrors.GameRules
     public abstract class GameAction
     {
         private static GameAction _current;
+        public readonly List<GameAction> _childsGameActions = new();
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -21,11 +24,14 @@ namespace MythosAndHorrors.GameRules
             IsActive = true;
             Parent = _current ?? this;
             _current = this;
+            Parent._childsGameActions.Add(this);
 
             await _reactionablesProvider.WhenBegin(this);
             if (!CanBeExecuted) return;
-            await ExecuteThisLogic();
+
             _gameActionsProvider.AddUndo(this);
+            await ExecuteThisLogic();
+
             await _buffsProvider.CheckAllBuffs(this);
             await _reactionablesProvider.WhenFinish(this);
 
@@ -35,7 +41,9 @@ namespace MythosAndHorrors.GameRules
 
         protected abstract Task ExecuteThisLogic();
 
-        //public virtual async Task Undo() => await Task.CompletedTask;
-
+        public virtual async Task Undo()
+        {
+            await Task.CompletedTask;
+        }
     }
 }

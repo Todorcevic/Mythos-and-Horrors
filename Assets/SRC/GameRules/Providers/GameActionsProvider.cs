@@ -26,49 +26,14 @@ namespace MythosAndHorrors.GameRules
         public T GetLastActive<T>() where T : GameAction =>
             AllGameActionsCreated.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
-
         public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
 
         public async Task UndoRewind()
         {
             while (_allGameActionsExecuted.Count > 0)
             {
-                if (_allGameActionsExecuted.Pop() is IUndable undable) await undable.Undo();
+                await _allGameActionsExecuted.Pop().Undo();
             }
-        }
-
-        public async Task UndoLast()
-        {
-            while (_allGameActionsExecuted.Count > 0)
-            {
-                if (_allGameActionsExecuted.Pop() is IUndable undable)
-                {
-                    await undable.Undo();
-                    break;
-                }
-            }
-        }
-
-        public async Task UndoLastInteractable()
-        {
-            GameAction returnedGameAction = default;
-            while (_allGameActionsExecuted.Count > 0)
-            {
-                GameAction currentGameAction = _allGameActionsExecuted.Pop();
-
-                if (currentGameAction is IUndable undable)
-                {
-                    await undable.Undo();
-                }
-                else if (currentGameAction is InteractableGameAction interactable)
-                {
-                    returnedGameAction = interactable.Parent;
-                    break;
-                }
-            }
-
-            AllGameActionsCreated.Add(returnedGameAction);
-            await returnedGameAction.Start();
         }
     }
 }
