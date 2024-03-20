@@ -57,7 +57,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
-            yield return _gameActionsProvider.UndoRewind().AsCoroutine();
+            yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             RestorePhaseGameAction restorePhaseGameAction = new();
             yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
 
-            yield return _gameActionsProvider.UndoRewind().AsCoroutine();
+            yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
@@ -96,7 +96,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
 
-            yield return _gameActionsProvider.UndoRewind().AsCoroutine();
+            yield return _gameActionsProvider.Rewind().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

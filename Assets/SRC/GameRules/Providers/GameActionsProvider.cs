@@ -28,12 +28,14 @@ namespace MythosAndHorrors.GameRules
 
         public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
 
-        public async Task UndoRewind()
+        public async Task Rewind()
         {
             while (_allGameActionsExecuted.Count > 0)
             {
                 await _allGameActionsExecuted.Pop().Undo();
             }
+
+            await AllGameActionsCreated.First().Start();
         }
     }
 }

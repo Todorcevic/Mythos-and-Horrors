@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
-        private bool _mustBeStopped;
         private readonly List<Effect> _allEffects = new();
         private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
@@ -24,10 +23,6 @@ namespace MythosAndHorrors.GameRules
         {
             if (NoEffect) return;
             _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
-            if (_mustBeStopped)
-            {
-                return;
-            }
             await _gameActionsProvider.Create(new PlayEffectGameAction(_effectSelected));
         }
 
@@ -57,7 +52,5 @@ namespace MythosAndHorrors.GameRules
         }
 
         public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);
-
-        public void Stop() => _mustBeStopped = true;
     }
 }
