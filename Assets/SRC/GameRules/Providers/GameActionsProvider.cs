@@ -7,18 +7,20 @@ namespace MythosAndHorrors.GameRules
 {
     public class GameActionsProvider
     {
-        private readonly Stack<GameAction> _allGameActionsExecuted = new();
         [Inject] private readonly DiContainer _container;
+        private readonly Stack<GameAction> _allGameActionsExecuted = new();
+        private readonly List<GameAction> _allGameActionsCreated = new();
 
-        public List<GameAction> AllGameActionsCreated { get; } = new();
-        public T GetLastActive<T>() where T : GameAction => AllGameActionsCreated.OfType<T>().LastOrDefault(gameAction => gameAction.IsActive);
+        public T GetLastActive<T>() where T : GameAction => _allGameActionsCreated.OfType<T>().LastOrDefault(gameAction => gameAction.IsActive);
+        public T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
+
         public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First()?.ActiveInvestigator;
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
         {
             _container.Inject(gameAction);
-            AllGameActionsCreated.Add(gameAction);
+            _allGameActionsCreated.Add(gameAction);
             await gameAction.Start();
             return gameAction;
         }
@@ -28,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         public async Task Rewind()
         {
             while (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
-            await AllGameActionsCreated.First().Start();
+            await _allGameActionsCreated.First().Start();
         }
 
         public async Task<InteractableGameAction> UndoLastInteractable()

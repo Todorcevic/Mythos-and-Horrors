@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private bool _isPlayable;
-        private Effect UndoEffect => _gameActionsProvider.GetLastActive<InteractableGameAction>()?.UndoEffect;
+        private Effect UndoEffect => _gameActionsProvider.GetRealLastActive<InteractableGameAction>()?.UndoEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
 
         /*******************************************************************/

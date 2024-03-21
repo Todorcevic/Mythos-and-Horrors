@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _deactivateColor;
 
         private bool IsActivated => _collider.enabled;
-        private Effect MainButtonEffect => _gameActionsProvider.GetLastActive<InteractableGameAction>()?.MainButtonEffect;
+        private Effect MainButtonEffect => _gameActionsProvider.GetRealLastActive<InteractableGameAction>()?.MainButtonEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/
