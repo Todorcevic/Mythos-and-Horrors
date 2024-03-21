@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
+        public override bool CanBeExecuted => Investigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE;
 
         /*******************************************************************/
         public InitialDrawGameAction(Investigator investigator)
@@ -28,6 +29,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new DrawAidGameAction(Investigator));
+            await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
         }
     }
 }

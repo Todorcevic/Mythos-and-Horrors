@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
 
-            AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
+            AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new(_investigatorsProvider.Leader);
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
             yield return _gameActionsProvider.Rewind().AsCoroutine();
@@ -101,7 +101,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Count(), Is.EqualTo(0));
+            Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
     }
 }

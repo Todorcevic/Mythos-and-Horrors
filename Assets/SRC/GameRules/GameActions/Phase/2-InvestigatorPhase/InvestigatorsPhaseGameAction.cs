@@ -10,21 +10,22 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        private bool ThereAreInvestigatorsWithTurns => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
+        /*******************************************************************/
         public override Phase MainPhase => Phase.Investigator;
         public override string Name => _textsProvider.GameText.INVESTIGATOR_PHASE_NAME;
         public override string Description => _textsProvider.GameText.INVESTIGATOR_PHASE_DESCRIPTION;
 
         /*******************************************************************/
-        //2.1	Investigation phase begins.
+        public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
+
+        /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (ThereAreInvestigatorsWithTurns)
-            {
-                //2.2	Next investigator's turn begins.
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction());
-            }
+            ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStartTurn));
+            ActiveInvestigator = chooseInvestigatorGA.InvestigatorSelected;
+
+            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
         }
-        //2.3	Investigation phase ends.
     }
 }

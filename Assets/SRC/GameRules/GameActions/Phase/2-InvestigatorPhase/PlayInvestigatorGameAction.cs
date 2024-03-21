@@ -9,22 +9,24 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(PlayInvestigatorGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(PlayInvestigatorGameAction);
         public override Phase MainPhase => Phase.Investigator;
 
+        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
+
+        /*******************************************************************/
+        public PlayInvestigatorGameAction(Investigator investigator)
+        {
+            ActiveInvestigator = investigator;
+        }
+
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStartTurn));
-            ActiveInvestigator = chooseInvestigatorGA.InvestigatorSelected;
-
-            while (ActiveInvestigator.HasTurnsAvailable)
-            {
-                //2.2.1	Investigator takes an action, if able.
-                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
-            }
+            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
         }
-        //2.2.2	Investigator's turn ends
     }
 }

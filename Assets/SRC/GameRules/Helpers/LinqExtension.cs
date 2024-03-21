@@ -42,5 +42,11 @@ namespace MythosAndHorrors.GameRules
             }
             return -1;
         }
+
+        public static T NextElementFor<T>(this IEnumerable<T> creatures, T currentAttacker)
+        {
+            if (creatures == null || currentAttacker == null) return default;
+            return creatures.ElementAtOrDefault(creatures.IndexOf(currentAttacker) + 1);
+        }
     }
 }

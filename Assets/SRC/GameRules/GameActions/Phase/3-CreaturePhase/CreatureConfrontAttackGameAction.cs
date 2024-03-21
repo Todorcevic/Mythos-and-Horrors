@@ -10,17 +10,28 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
+        public CardCreature CreatureAttacker { get; private set; }
+
+        /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CreatureConfrontAttackGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CreatureConfrontAttackGameAction);
         public override Phase MainPhase => Phase.Creature;
 
         /*******************************************************************/
+        public CardCreature NextCreatureAttacker => _cardsProvider.AttackerCreatures.NextElementFor(CreatureAttacker);
+        public override bool CanBeExecuted => CreatureAttacker != null;
+
+        /*******************************************************************/
+        public CreatureConfrontAttackGameAction(CardCreature cardCreature)
+        {
+            CreatureAttacker = cardCreature;
+        }
+
+        /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            foreach (CardCreature creature in _cardsProvider.AttackerCreatures)
-            {
-                await _gameActionsProvider.Create(new CreatureAttackGameAction(creature, creature.ConfrontedInvestigator));
-            }
+            await _gameActionsProvider.Create(new CreatureAttackGameAction(CreatureAttacker, CreatureAttacker.ConfrontedInvestigator));
+            await _gameActionsProvider.Create(new CreatureConfrontAttackGameAction(NextCreatureAttacker));
         }
     }
 }

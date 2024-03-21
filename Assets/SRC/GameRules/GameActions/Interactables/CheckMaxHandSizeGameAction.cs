@@ -25,11 +25,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             InteractableGameAction interactableGameAction = new();
-            while (ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value)
-            {
-                Create(interactableGameAction);
-                await _gameActionsProvider.Create(interactableGameAction);
-            }
+            Create(interactableGameAction);
+            await _gameActionsProvider.Create(interactableGameAction);
+            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
         }
 
         private void Create(InteractableGameAction interactableGameAction)
@@ -48,7 +46,6 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
                 };
 
                 bool CanChoose()

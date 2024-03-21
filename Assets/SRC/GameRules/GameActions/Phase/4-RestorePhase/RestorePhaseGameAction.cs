@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override Phase MainPhase => Phase.Restore;
         public override string Name => _textsProvider.GameText.RESTORE_PHASE_NAME;
@@ -21,9 +22,9 @@ namespace MythosAndHorrors.GameRules
             //4.3	Ready all exhausted cards.
             await _gameActionsProvider.Create(new ReadyAllCardsGameAction());
             //4.4	Each investigator draws 1 card and gains 1 resource.
-            await _gameActionsProvider.Create(new AllInvestigatorsDrawCardAndResource());
+            await _gameActionsProvider.Create(new AllInvestigatorsDrawCardAndResource(_investigatorsProvider.Leader));
             //4.5	Each investigator checks hand size.
-            await _gameActionsProvider.Create(new AllInvestigatorsCheckHandSize());
+            await _gameActionsProvider.Create(new AllInvestigatorsCheckHandSize(_investigatorsProvider.Leader));
         }
         //4.6	Upkeep phase ends.
     }

@@ -26,5 +26,7 @@ namespace MythosAndHorrors.GameRules
             AllCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace));
 
         public IEnumerable<Card> GetCardsExhausted() => AllCards.FindAll(card => card.Exausted.IsActive);
+
+
     }
 }

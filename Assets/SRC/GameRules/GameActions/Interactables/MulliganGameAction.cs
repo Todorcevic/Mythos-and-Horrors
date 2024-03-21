@@ -9,13 +9,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        List<Effect> DiscardEffects { get; } = new();
-        List<Effect> RestoreEffects { get; } = new();
+        public List<Effect> DiscardEffects { get; } = new();
+        public List<Effect> RestoreEffects { get; } = new();
+        public Effect ButtonEffect { get; private set; }
 
         /*******************************************************************/
         public override Phase MainPhase => Phase.Prepare;
         public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
         public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
+
+        public override bool CanBeExecuted => ActiveInvestigator != null;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -27,9 +30,9 @@ namespace MythosAndHorrors.GameRules
         protected sealed override async Task ExecuteThisPhaseLogic()
         {
             InteractableGameAction interactableGameAction = new();
-            interactableGameAction.CreateMainButton()
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
-                .SetLogic(() => Task.CompletedTask);
+            ButtonEffect = interactableGameAction.CreateMainButton()
+                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
+                    .SetLogic(() => Task.CompletedTask);
 
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
@@ -41,11 +44,7 @@ namespace MythosAndHorrors.GameRules
                     .SetLogic(Discard));
 
                 /*******************************************************************/
-                async Task Discard()
-                {
-                    await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
-                }
+                async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(card));
             }
 
             foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
@@ -59,11 +58,7 @@ namespace MythosAndHorrors.GameRules
                     .SetLogic(Restore));
 
                 /*******************************************************************/
-                async Task Restore()
-                {
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
-                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
-                }
+                async Task Restore() => await _gameActionsProvider.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
 
                 bool CanRestore()
                 {
@@ -73,6 +68,8 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(interactableGameAction);
+            if (interactableGameAction.EffectSelected == ButtonEffect) return;
+            await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
         }
     }
 }

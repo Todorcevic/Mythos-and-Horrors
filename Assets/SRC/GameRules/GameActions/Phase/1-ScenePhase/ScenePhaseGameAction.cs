@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override Phase MainPhase => Phase.Scene;
         public override string Name => _textsProvider.GameText.SCENE_PHASE_NAME;
@@ -22,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             //1.3	Check doom threshold.
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             //1.4	Each investigator draws 1 encounter card.
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard());
+            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(_investigatorsProvider.Leader));
         }
         //1.5	Mythos phase ends.
     }

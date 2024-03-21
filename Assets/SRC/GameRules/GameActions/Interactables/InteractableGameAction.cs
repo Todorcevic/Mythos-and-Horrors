@@ -8,11 +8,12 @@ namespace MythosAndHorrors.GameRules
     public class InteractableGameAction : GameAction
     {
         private readonly List<Effect> _allEffects = new();
-        private Effect _effectSelected;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
+        public Effect UndoEffect { get; private set; }
         private Effect UniqueEffect => _allEffects.Single();
         private bool IsUniqueEffect => _allEffects.Count() == 1;
         private bool NoEffect => _allEffects.Count() == 0;
@@ -22,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             if (NoEffect) return;
-            _effectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
-            await _gameActionsProvider.Create(new PlayEffectGameAction(_effectSelected));
+            EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
+            await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
         }
 
         private Effect GetUniqueEffect()
@@ -48,6 +49,13 @@ namespace MythosAndHorrors.GameRules
         {
             Effect effect = new();
             MainButtonEffect = effect;
+            return effect;
+        }
+
+        public Effect CreateUndoButton()
+        {
+            Effect effect = new();
+            UndoEffect = effect;
             return effect;
         }
 

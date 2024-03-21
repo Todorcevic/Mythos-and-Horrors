@@ -37,5 +37,25 @@ namespace MythosAndHorrors.GameRules
 
             await AllGameActionsCreated.First().Start();
         }
+
+        public async Task<PlayInvestigatorGameAction> UndoLast()
+        {
+            int i = 0;
+            while (_allGameActionsExecuted.Count > 0)
+            {
+                GameAction lastGameAction = _allGameActionsExecuted.Pop();
+                await lastGameAction.Undo();
+                if (lastGameAction is PlayInvestigatorGameAction lastPlayInvestigator)
+                {
+                    if (i < 1)
+                    {
+                        i++;
+                        continue;
+                    }
+                    return lastPlayInvestigator;
+                }
+            }
+            return null;
+        }
     }
 }

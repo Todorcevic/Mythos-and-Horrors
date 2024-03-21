@@ -57,6 +57,8 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
         public Stat ResourceTurnsCost => InvestigatorCard.ResourceTurnsCost;
+        public Investigator NextInvestigator => _investigatorsProvider.Investigators.NextElementFor(this);
+        public Investigator NextInvestigatorInPlay => _investigatorsProvider.AllInvestigatorsInPlay.NextElementFor(this);
 
         /*******************************************************************/
         [Inject]

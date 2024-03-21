@@ -14,6 +14,8 @@ namespace MythosAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_NAME;
         public override string Description => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_DESCRIPTION;
 
+        public override bool CanBeExecuted => ActiveInvestigator != null;
+
         /*******************************************************************/
         public PrepareInvestigatorGameAction(Investigator investigator)
         {
@@ -30,6 +32,7 @@ namespace MythosAndHorrors.GameRules
             await DrawInitialHand();
             await Mulligan();
             await DrawInitialHand();
+            await _gameActionsProvider.Create(new PrepareInvestigatorGameAction(ActiveInvestigator.NextInvestigator));
         }
 
         private async Task PositionateInvestigatorCard()
@@ -62,9 +65,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawInitialHand()
         {
-            while (ActiveInvestigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE)
-                await _gameActionsProvider.Create(new InitialDrawGameAction(ActiveInvestigator));
-            await Task.Delay(250);
+            await _gameActionsProvider.Create(new InitialDrawGameAction(ActiveInvestigator));
+            await Task.Delay(400); //TODO: Remove this delay, its must be in GameView
         }
 
         private async Task Mulligan()

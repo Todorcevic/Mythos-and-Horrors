@@ -12,8 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
-        public int Position => _chaptersProviders.CurrentScene.Info.GoalCards.IndexOf(this);
-        public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.ElementAtOrDefault(Position + 1);
+        public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
         public bool IsComplete => Hints.Value <= 0;
 
         /*******************************************************************/
