@@ -8,11 +8,11 @@ namespace MythosAndHorrors.GameRules
     public class GameActionsProvider
     {
         private readonly Stack<GameAction> _allGameActionsExecuted = new();
-
         [Inject] private readonly DiContainer _container;
+
         public List<GameAction> AllGameActionsCreated { get; } = new();
-        public List<GameAction> GameActionsFinished => AllGameActionsCreated.FindAll(gameAction => !gameAction.IsActive);
-        public InteractableGameAction LastInteractable => AllGameActionsCreated.OfType<InteractableGameAction>().Last();
+        public T GetLastActive<T>() where T : GameAction => AllGameActionsCreated.OfType<T>().LastOrDefault(gameAction => gameAction.IsActive);
+        public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First()?.ActiveInvestigator;
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
@@ -23,26 +23,15 @@ namespace MythosAndHorrors.GameRules
             return gameAction;
         }
 
-        public T GetLastActive<T>() where T : GameAction =>
-            AllGameActionsCreated.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
-
-
-        public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First()?.ActiveInvestigator;
-
-
         public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
 
         public async Task Rewind()
         {
-            while (_allGameActionsExecuted.Count > 0)
-            {
-                await _allGameActionsExecuted.Pop().Undo();
-            }
-
+            while (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
             await AllGameActionsCreated.First().Start();
         }
 
-        public async Task<InteractableGameAction> UndoLast()
+        public async Task<InteractableGameAction> UndoLastInteractable()
         {
             int i = 0;
             while (_allGameActionsExecuted.Count > 0)

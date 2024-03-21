@@ -10,6 +10,8 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
@@ -34,9 +36,7 @@ namespace MythosAndHorrors.GameRules
             return null;
         }
         /*******************************************************************/
-
-        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) =>
-           _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
 
         public Effect Create()
         {
@@ -52,11 +52,17 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public Effect CreateUndoButton()
+        public void WithUndoButton()
         {
-            Effect effect = new();
-            UndoEffect = effect;
-            return effect;
+            UndoEffect = new();
+            UndoEffect.SetLogic(RealUndoEffect);
+
+            async Task RealUndoEffect()
+            {
+                InteractableGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLastInteractable();
+                _gameActionsProvider.GetLastActive<PlayInvestigatorGameAction>()?.SetInvestigator(null);
+                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorProvider.ActiveInvestigator));
+            }
         }
 
         public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);

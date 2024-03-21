@@ -43,24 +43,9 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            PrepareUndoEffect(interactableGameAction);
+            interactableGameAction.WithUndoButton();
 
             await _gameActionsProvider.Create(interactableGameAction);
-        }
-
-        private void PrepareUndoEffect(InteractableGameAction interactableGameAction)
-        {
-            interactableGameAction.CreateUndoButton()
-                .SetInvestigator(ActiveInvestigator)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(UndoEffect))
-                .SetLogic(UndoEffect);
-
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLast();
-                _gameActionsProvider.GetLastActive<PlayInvestigatorGameAction>()?.SetInvestigator(null); //Esto es correcto NO TOCAR
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.GetActiveInvestigator()));
-            }
         }
     }
 }

@@ -28,11 +28,13 @@ namespace MythosAndHorrors.GameView
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (!_isPlayable) return;
             transform.DOScale(ViewValues.DEFAULT_SCALE, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (!_isPlayable) return;
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 

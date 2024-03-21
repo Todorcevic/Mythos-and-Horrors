@@ -37,7 +37,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new();
             PreparePassEffect(interactableGameAction);
-            PrepareUndoEffect(interactableGameAction);
             PrepareInvestigateEffect(interactableGameAction);
             PrepareMoveEffect(interactableGameAction);
             PrepareInvestigatorAttackEffect(interactableGameAction);
@@ -46,6 +45,7 @@ namespace MythosAndHorrors.GameRules
             PreparePlayFromHandEffect(interactableGameAction);
             PrepareDraw(interactableGameAction);
             PrepareTakeResource(interactableGameAction);
+            interactableGameAction.WithUndoButton();
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
@@ -60,21 +60,6 @@ namespace MythosAndHorrors.GameRules
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
-        }
-
-        private void PrepareUndoEffect(InteractableGameAction interactableGameAction)
-        {
-            interactableGameAction.CreateUndoButton()
-                .SetInvestigator(ActiveInvestigator)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(UndoEffect))
-                .SetLogic(UndoEffect);
-
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLast();
-                _gameActionsProvider.GetLastActive<PlayInvestigatorGameAction>()?.SetInvestigator(null); //Esto es correcto NO TOCAR
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.GetActiveInvestigator()));
-            }
         }
 
         /*******************************************************************/
