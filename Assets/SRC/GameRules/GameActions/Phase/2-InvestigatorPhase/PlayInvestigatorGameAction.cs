@@ -28,9 +28,9 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
         }
 
-        public void SetInvestigator(Investigator investigator)
+        public void Stop()
         {
-            ActiveInvestigator = investigator;
+            ActiveInvestigator = null;
         }
     }
 }
