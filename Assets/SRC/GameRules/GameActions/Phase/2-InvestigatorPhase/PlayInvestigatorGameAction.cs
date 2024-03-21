@@ -9,12 +9,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(PlayInvestigatorGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(PlayInvestigatorGameAction);
         public override Phase MainPhase => Phase.Investigator;
 
-        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
+        public override bool CanBeExecuted => ActiveInvestigator?.HasTurnsAvailable ?? false;
 
         /*******************************************************************/
         public PlayInvestigatorGameAction(Investigator investigator)
@@ -27,6 +26,11 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
             await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
+        }
+
+        public void SetInvestigator(Investigator investigator)
+        {
+            ActiveInvestigator = investigator;
         }
     }
 }

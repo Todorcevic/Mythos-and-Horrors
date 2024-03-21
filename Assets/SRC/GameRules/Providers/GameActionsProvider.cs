@@ -26,6 +26,10 @@ namespace MythosAndHorrors.GameRules
         public T GetLastActive<T>() where T : GameAction =>
             AllGameActionsCreated.LastOrDefault(gameAction => gameAction is T && gameAction.IsActive) as T;
 
+
+        public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First()?.ActiveInvestigator;
+
+
         public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
 
         public async Task Rewind()
@@ -38,14 +42,14 @@ namespace MythosAndHorrors.GameRules
             await AllGameActionsCreated.First().Start();
         }
 
-        public async Task<PlayInvestigatorGameAction> UndoLast()
+        public async Task<InteractableGameAction> UndoLast()
         {
             int i = 0;
             while (_allGameActionsExecuted.Count > 0)
             {
                 GameAction lastGameAction = _allGameActionsExecuted.Pop();
                 await lastGameAction.Undo();
-                if (lastGameAction is PlayInvestigatorGameAction lastPlayInvestigator)
+                if (lastGameAction is InteractableGameAction lastPlayInvestigator)
                 {
                     if (i < 1)
                     {

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {
@@ -15,16 +16,10 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private bool _isPlayable;
-        private Effect UndoEffect => _gameActionsProvider.LastInteractable.UndoEffect;
-        IEnumerable<Effect> IPlayable.EffectsSelected => new[] { UndoEffect };
+        private Effect UndoEffect => _gameActionsProvider.GetLastActive<InteractableGameAction>()?.UndoEffect;
+        IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
 
         /*******************************************************************/
-
-        private void Start()
-        {
-            _icon.DOFade(0.5f, 0f);
-        }
-
         public void OnPointerClick(PointerEventData eventData)
         {
             if (!_isPlayable) return;

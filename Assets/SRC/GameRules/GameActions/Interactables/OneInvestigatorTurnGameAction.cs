@@ -71,8 +71,9 @@ namespace MythosAndHorrors.GameRules
 
             async Task UndoEffect()
             {
-                PlayInvestigatorGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLast();
-                await _gameActionsProvider.Create(lastPlayInvestigator);
+                InteractableGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLast();
+                _gameActionsProvider.GetLastActive<PlayInvestigatorGameAction>()?.SetInvestigator(null); //Esto es correcto NO TOCAR
+                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.GetActiveInvestigator()));
             }
         }
 
