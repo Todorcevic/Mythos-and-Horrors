@@ -18,28 +18,33 @@ namespace MythosAndHorrors.GameRules
         public async Task Start()
         {
             if (!CanBeExecuted) return;
-            IsActive = true;
-            Parent = _current ?? this;
-            _current = this;
-
+            InitialSet();
             await _reactionablesProvider.WhenBegin(this);
             if (!CanBeExecuted) return;
-
             _gameActionsProvider.AddUndo(this);
+
             await ExecuteThisLogic();
 
             await _buffsProvider.CheckAllBuffs(this);
             await _reactionablesProvider.WhenFinish(this);
-
-            _current = Parent;
-            IsActive = false;
+            FinishSet();
         }
+
+        public virtual async Task Undo() => await Task.CompletedTask;
 
         protected abstract Task ExecuteThisLogic();
 
-        public virtual async Task Undo()
+        private void InitialSet()
         {
-            await Task.CompletedTask;
+            IsActive = true;
+            Parent = _current ?? this;
+            _current = this;
+        }
+
+        private void FinishSet()
+        {
+            _current = Parent;
+            IsActive = false;
         }
     }
 }

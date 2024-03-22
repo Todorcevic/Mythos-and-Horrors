@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 using Zenject;
 using UnityEngine.UI;
 using System.Linq;
+using Sirenix.OdinInspector;
 
 namespace MythosAndHorrors.GameView
 {
-    public class UndoGameActionIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPlayable
+    public class UndoGameActionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPlayable
     {
         private bool _isPlayable;
-        [SerializeField] private Image _icon;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 

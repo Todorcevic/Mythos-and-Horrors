@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,10 +7,10 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ShowAllCardsIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class ShowCardInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         private bool _isPlayable;
-        [SerializeField] private Image _icon;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
         [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
@@ -35,16 +36,16 @@ namespace MythosAndHorrors.GameView
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public void ActivateToClick()
+        public Tween ActivateToClick()
         {
             _isPlayable = true;
-            _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+            return _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public void DeactivateToClick()
+        public Tween DeactivateToClick()
         {
             _isPlayable = false;
-            _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
+            return _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
         }
     }
 }

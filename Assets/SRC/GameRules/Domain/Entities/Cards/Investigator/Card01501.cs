@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01501 : CardInvestigator
     {
-        [Inject] private readonly GameActionsProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
@@ -35,19 +35,19 @@ namespace MythosAndHorrors.GameRules
         private async Task AddReductionCostBuff(Card card)
         {
             if (card is CardCondition cardTalent)
-                await _gameActionRepository.Create(new DecrementStatGameAction(cardTalent.ResourceCost, 1));
+                await _gameActionProvider.Create(new DecrementStatGameAction(cardTalent.ResourceCost, 1));
 
             if (card is CardSupply cardSupply)
-                await _gameActionRepository.Create(new DecrementStatGameAction(cardSupply.ResourceCost, 1));
+                await _gameActionProvider.Create(new DecrementStatGameAction(cardSupply.ResourceCost, 1));
         }
 
         private async Task RemoveReductionCostBuff(Card card)
         {
             if (card is CardCondition cardTalent)
-                await _gameActionRepository.Create(new IncrementStatGameAction(cardTalent.ResourceCost, 1));
+                await _gameActionProvider.Create(new IncrementStatGameAction(cardTalent.ResourceCost, 1));
 
             if (card is CardSupply cardSupply)
-                await _gameActionRepository.Create(new IncrementStatGameAction(cardSupply.ResourceCost, 1));
+                await _gameActionProvider.Create(new IncrementStatGameAction(cardSupply.ResourceCost, 1));
         }
     }
 }

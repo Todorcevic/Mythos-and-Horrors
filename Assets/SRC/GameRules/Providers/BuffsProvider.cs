@@ -19,10 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task CheckAllBuffs(GameAction gameAction)
         {
-            foreach (Buff buff in _allBuffs)
-            {
-                await buff.Check();
-            }
+            foreach (Buff buff in _allBuffs) await buff.Check();
         }
 
         public IEnumerable<Buff> GetBuffsForThisCard(Card cardAffected) =>
