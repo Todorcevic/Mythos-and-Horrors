@@ -14,6 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class TestBase : SceneTestFixture
     {
+        private static bool _hasLoadedScene;
         private const float TIMEOUT = 3f;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -21,6 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly TokensPileComponent tokensPileComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
+        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -28,19 +30,30 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            yield return base.SetUp();
-            DOTween.SetTweensCapacity(500, 312);
-            if (!DEBUG_MODE) Time.timeScale = 20;
+            if (_hasLoadedScene)
+            {
+                SceneContainer?.Inject(this);
+                yield break;
+            }
+
+            LoadSceneSettings();
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
+            _prepareGameUseCase.Execute();
         }
+
 
         [UnityTearDown]
         public override IEnumerator TearDown()
         {
-            //yield return WaitLoadImages();
-            Time.timeScale = 1;
-            yield return base.TearDown();
+            yield return _gameActionsProvider.Rewind().AsCoroutine();
+        }
+
+        private void LoadSceneSettings()
+        {
+            if (!DEBUG_MODE) Time.timeScale = 64;
+            DOTween.SetTweensCapacity(500, 312);
+            _hasLoadedScene = true;
         }
 
         private void InstallerToScene()

@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
     public class InitalDrawGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -23,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InitialDrawGameAction()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.First;
             yield return PlayThisInvestigator(investigator);
             Card card = _cardsProvider.GetCard("01517");
@@ -39,7 +36,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InitialDrawWeaknessGameAction()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator = _investigatorsProvider.First;
             yield return PlayThisInvestigator(investigator);
             Card weaknessCard = _cardsProvider.GetCard("01507");

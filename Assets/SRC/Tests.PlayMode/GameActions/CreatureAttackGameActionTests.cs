@@ -11,7 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
     public class CreatureAttackGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -22,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CreatureAttackTest()
         {
-            _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
@@ -43,7 +41,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CreatureAttackOtherInvestigatorTest()
         {
-            _prepareGameUseCase.Execute();
             CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.InvestigatorCard, _investigatorsProvider.Second.InvestigatorZone)).AsCoroutine();

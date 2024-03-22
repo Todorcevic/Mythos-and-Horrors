@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -10,7 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class MoveToPlaceGameActionTest : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
@@ -22,7 +20,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveToPlaceTest()
         {
-            _prepareGameUseCase.Execute();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
             CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01113");
 
@@ -44,7 +41,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveToCard01115PlaceTest()
         {
-            _prepareGameUseCase.Execute();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
             CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01115");
 

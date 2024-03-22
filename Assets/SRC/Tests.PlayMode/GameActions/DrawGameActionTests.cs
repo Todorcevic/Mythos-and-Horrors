@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class DrawGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -21,10 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator DrawTest()
         {
-            _prepareGameUseCase.Execute();
-
             Card cardToDraw = _investigatorsProvider.First.FullDeck.First();
-
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.First.DeckZone)).AsCoroutine();
 

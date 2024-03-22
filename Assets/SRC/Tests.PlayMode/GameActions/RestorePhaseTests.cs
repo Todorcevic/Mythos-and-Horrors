@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class RestorePhaseTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
@@ -21,7 +19,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator RestorePhaseTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9).ToList(), _investigatorsProvider.First.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3).ToList(), _investigatorsProvider.Second.HandZone)).AsCoroutine();

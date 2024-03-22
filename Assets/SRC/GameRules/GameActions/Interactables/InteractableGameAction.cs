@@ -59,8 +59,8 @@ namespace MythosAndHorrors.GameRules
 
             async Task RealUndoEffect()
             {
-                InteractableGameAction lastPlayInvestigator = await _gameActionsProvider.UndoLastInteractable();
-                _gameActionsProvider.GetLastCreate<PlayInvestigatorGameAction>()?.Stop();
+                _gameActionsProvider.GetRealLastActive<PlayInvestigatorGameAction>()?.Stop();
+                await _gameActionsProvider.UndoLastInteractable();
                 await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorProvider.ActiveInvestigator));
             }
         }

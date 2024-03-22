@@ -11,7 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class AvatarTest : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
@@ -22,8 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Load_Avatar()
         {
-            _prepareGameUse.Execute();
-
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_avatarViewsManager.AllAvatars.Count, Is.EqualTo(4));
         }
@@ -31,8 +28,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Show_Turns()
         {
-            _prepareGameUse.Execute();
-
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 3)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

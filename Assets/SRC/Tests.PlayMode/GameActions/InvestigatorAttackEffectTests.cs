@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class InvestigatorAttackEffectTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -23,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInDangerZoneTest()
         {
-            _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
 
@@ -46,7 +43,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInPlaceZoneTest()
         {
-            _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
@@ -68,7 +64,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CantInvestigatorAttackTest()
         {
-            _prepareGameUseCase.Execute();
             CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
             CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();

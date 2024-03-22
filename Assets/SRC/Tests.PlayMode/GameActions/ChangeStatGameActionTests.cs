@@ -12,7 +12,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ChangeStatGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
@@ -26,8 +25,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Update_Investigator_Stats()
         {
-            _prepareGameUse.Execute();
-
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
@@ -44,7 +41,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_From_Card()
         {
-            _prepareGameUse.Execute();
             CardSupply cardSupply = _investigatorsProvider.First.Cards[0] as CardSupply;
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
@@ -62,7 +58,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Update_Eldritch_Stats()
         {
-            _prepareGameUse.Execute();
             CardPlot cardPlot = _chaptersProvider.CurrentScene.Info.PlotCards.First();
             if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
@@ -83,7 +78,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Full_Hint_Stats()
         {
-            _prepareGameUse.Execute();
             CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();

@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ChooseInvestigatorGameActionTest : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
@@ -24,7 +22,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ChooseInvestigatorTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             _investigatorsProvider.AllInvestigatorsInPlay.ForEach(investigator =>

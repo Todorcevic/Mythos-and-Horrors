@@ -1,8 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -12,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class PrepareGameUseCaseTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _sut;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvide;
@@ -23,8 +20,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator PrepareGame()
         {
-            _sut.Execute();
-
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.Investigators.Count, Is.EqualTo(4));
             Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));

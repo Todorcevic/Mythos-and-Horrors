@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -10,7 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ActiveCardGameActionTest : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -21,7 +19,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ActivateCardGameActionTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             CardSupply aidCard = _cardsProvider.GetCard<CardSupply>("01535");

@@ -12,16 +12,16 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_InvestigatorCard()
         {
-            _prepareGameUse.Execute();
             Card card = _investigatorsProvider.First.InvestigatorCard;
 
             CardView result = _cardViewsManager.GetCardView(card);
@@ -41,7 +41,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Faction()
         {
-            _prepareGameUse.Execute();
             Card card = _investigatorsProvider.First.InvestigatorCard;
 
             CardView result = _cardViewsManager.GetCardView(card);
@@ -59,7 +58,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
-            _prepareGameUse.Execute();
             CardTalent card = _cardsProvider.GetCard<CardTalent>("01525");
 
             CardView result = _cardViewsManager.GetCardView(card);
@@ -81,7 +79,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
         {
-            _prepareGameUse.Execute();
             CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
@@ -98,7 +95,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
         {
-            _prepareGameUse.Execute();
             CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
@@ -113,7 +109,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
-            _prepareGameUse.Execute();
             CardSupply card = _cardsProvider.GetCard<CardSupply>("01518");
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
@@ -132,7 +127,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Place()
         {
-            _prepareGameUse.Execute();
             Card card = _cardsProvider.GetCard("01112");
 
             PlaceCardView result = (PlaceCardView)_cardViewsManager.GetCardView(card);
@@ -146,7 +140,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_CreatureCard()
         {
-            _prepareGameUse.Execute();
             CardCreature card = _cardsProvider.GetCard<CardCreature>("01118");
 
             CreatureCardView result = (CreatureCardView)_cardViewsManager.GetCardView(card);
@@ -157,13 +150,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Strength"), Is.EqualTo(card.Info.Strength.ToString()));
             Assert.That(result.transform.GetTextFromThis("Agility"), Is.EqualTo(card.Info.Agility.ToString()));
             Assert.That(skillPlacer.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalEnemyHits));
+
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdversityCard()
         {
-            _prepareGameUse.Execute();
             CardAdversity card = _cardsProvider.GetCard<CardAdversity>("01167");
 
             AdversityCardView result = (AdversityCardView)_cardViewsManager.GetCardView(card);
@@ -178,7 +171,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_PlotCard()
         {
-            _prepareGameUse.Execute();
             Card card = _cardsProvider.GetCard("01105");
 
             PlotCardView result = (PlotCardView)_cardViewsManager.GetCardView(card);
@@ -193,7 +185,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_GoalCard()
         {
-            _prepareGameUse.Execute();
             Card card = _cardsProvider.GetCard("01108");
 
             GoalCardView result = (GoalCardView)_cardViewsManager.GetCardView(card);

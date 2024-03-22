@@ -11,7 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ShuffleGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZoneViewsManager zoneViewsManager;
@@ -22,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Shuffle_Zone()
         {
-            _prepareGameUse.Execute();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             do

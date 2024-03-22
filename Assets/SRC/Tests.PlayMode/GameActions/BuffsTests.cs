@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
     public class BuffsTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -22,7 +20,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator BuffTest()
         {
-            _prepareGameUseCase.Execute();
             Card cardWithBuff = _cardsProvider.GetCard("01530");
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);

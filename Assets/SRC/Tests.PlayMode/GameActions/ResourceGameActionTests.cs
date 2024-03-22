@@ -11,9 +11,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ResourceGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUse;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
@@ -23,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Full_Take_Resource()
         {
-            _prepareGameUse.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
 
@@ -39,7 +36,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_To_Investigator()
         {
-            _prepareGameUse.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             do
             {
@@ -53,7 +49,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_To_Pile()
         {
-            _prepareGameUse.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             do
             {
@@ -70,7 +65,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_Swaping()
         {
-            _prepareGameUse.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.Cards[0], _investigatorsProvider.First.AidZone)).AsCoroutine();

@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
     public class MoveCreatureGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -23,7 +21,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveCratureTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
             CardPlace place1 = _cardsProvider.GetCard<CardPlace>("01111");
             CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01112");
@@ -37,9 +34,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place4, _chaptersProvider.CurrentScene.PlaceZone[1, 4])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place5, _chaptersProvider.CurrentScene.PlaceZone[2, 4])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, place2.OwnZone)).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place3.OwnZone)).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();

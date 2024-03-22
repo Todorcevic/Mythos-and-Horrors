@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -11,7 +10,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class UndoGameActionTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -21,7 +19,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoMoveMulticardsTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
@@ -35,7 +32,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoOneCardTest()
         {
-            _prepareGameUseCase.Execute();
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
@@ -51,16 +47,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
-
             AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new(_investigatorsProvider.Leader);
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
         }
@@ -68,7 +61,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoRestorePhaseGameActionTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayAllInvestigators();
             RestorePhaseGameAction restorePhaseGameAction = new();
             yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
@@ -76,7 +68,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
         }
@@ -84,23 +75,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoTursStatTest()
         {
-            _prepareGameUseCase.Execute();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-
             if (DEBUG_MODE) yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
             else _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
-
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
-
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
     }
