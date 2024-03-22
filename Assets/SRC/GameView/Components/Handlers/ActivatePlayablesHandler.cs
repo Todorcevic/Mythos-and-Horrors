@@ -36,8 +36,8 @@ namespace MythosAndHorrors.GameView
 
             void CheckActivesIOActivator()
             {
-                _ioActivatorComponent.ActivateCardSensors();
                 _ioActivatorComponent.UnblockUI();
+                _ioActivatorComponent.ActivateCardSensors();
             }
         }
 
@@ -60,8 +60,8 @@ namespace MythosAndHorrors.GameView
 
             async Task CheckDeactivateIOActivator()
             {
-                await _ioActivatorComponent.DeactivateCardSensors();
                 _ioActivatorComponent.BlockUI();
+                await _ioActivatorComponent.DeactivateCardSensors();
             }
         }
     }
