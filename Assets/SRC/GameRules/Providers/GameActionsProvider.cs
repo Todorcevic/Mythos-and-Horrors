@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         private readonly Stack<GameAction> _allGameActionsExecuted = new();
         private readonly List<GameAction> _allGameActionsCreated = new();
 
-        public T GetLastActive<T>() where T : GameAction => _allGameActionsCreated.OfType<T>().LastOrDefault(gameAction => gameAction.IsActive);
+        public T GetLastCreate<T>() where T : GameAction => _allGameActionsCreated.OfType<T>().LastOrDefault(gameAction => gameAction.IsActive);
         public T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
 
         public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First()?.ActiveInvestigator;

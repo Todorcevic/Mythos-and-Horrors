@@ -2862,7 +2862,7 @@ GameObject:
   - component: {fileID: 930184495}
   - component: {fileID: 930184494}
   m_Layer: 0
-  m_Name: SelectorBlock
+  m_Name: BLOCK-SELECTOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4132,7 +4132,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
   m_Value: 0.99999994
-  m_Size: 0.24734452
+  m_Size: 0.24734455
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4318,7 +4318,7 @@ GameObject:
   - component: {fileID: 1248083929}
   - component: {fileID: 1248083928}
   m_Layer: 5
-  m_Name: UIBlock
+  m_Name: BLOCK-UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5266,7 +5266,7 @@ GameObject:
   - component: {fileID: 1607980309}
   - component: {fileID: 1607980310}
   m_Layer: 0
-  m_Name: FullBlock
+  m_Name: BLOCK-FULL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6673,6 +6673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e164874f6bfbc469730d2d2931c021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
 --- !u!4 &2015118311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
@@ -6775,7 +6776,7 @@ GameObject:
   - component: {fileID: 2029690828}
   - component: {fileID: 2029690827}
   m_Layer: 5
-  m_Name: AvatarBlock
+  m_Name: BLOCK-AVATAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

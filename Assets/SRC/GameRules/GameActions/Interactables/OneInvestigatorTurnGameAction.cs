@@ -53,8 +53,6 @@ namespace MythosAndHorrors.GameRules
         private void PreparePassEffect(InteractableGameAction interactableGameAction)
         {
             interactableGameAction.CreateMainButton()
-                .SetCard(null)
-                .SetInvestigator(ActiveInvestigator)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PassTurn))
                 .SetLogic(PassTurn);
 

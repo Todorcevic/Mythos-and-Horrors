@@ -11,11 +11,12 @@ namespace MythosAndHorrors.GameView
 {
     public class UndoGameActionIconView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPlayable
     {
+        private bool _isPlayable;
         [SerializeField] private Image _icon;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        private bool _isPlayable;
+
         private Effect UndoEffect => _gameActionsProvider.GetRealLastActive<InteractableGameAction>()?.UndoEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
 
