@@ -24,12 +24,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That((_cardViewsManager.GetCardView(place) as PlaceCardView).GetPrivateMember<StatView>("_hints").isActiveAndEnabled);
         }
     }

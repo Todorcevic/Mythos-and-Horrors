@@ -26,7 +26,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, place.OwnZone)).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
 
             OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);

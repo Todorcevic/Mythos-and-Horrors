@@ -22,7 +22,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new InvestigateGameAction(_investigatorsProvider.First, place)).AsCoroutine();
@@ -37,7 +36,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(place).AsTask();

@@ -59,7 +59,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Update_Eldritch_Stats()
         {
             CardPlot cardPlot = _chaptersProvider.CurrentScene.Info.PlotCards.First();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
@@ -83,7 +82,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
-            if (!DEBUG_MODE) WaitToHistoryPanelClick().AsTask();
             yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();

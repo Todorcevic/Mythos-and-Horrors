@@ -33,7 +33,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator2.DangerZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_cardViewsManager.GetCardView(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
             Assert.That(_zoneViewsManager.Get(investigator2.DangerZone).GetComponentsInChildren<CardView>().Contains(_cardViewsManager.GetCardView(card)));
             Assert.That(_swapInvestigatorPresenter.GetPrivateMember<Investigator>("_investigatorSelected"), Is.EqualTo(investigator2));
@@ -45,12 +44,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards.First();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
-            WaitToHistoryPanelClick().AsTask();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, cardPlace)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.First).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
         }
     }

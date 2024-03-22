@@ -28,8 +28,6 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Image = "01105",
             };
 
-            WaitToHistoryPanelClick().AsTask();
-
             do
             {
                 yield return _gameActionsProvider.Create(new ShowHistoryGameAction(sutHistory)).AsCoroutine();

@@ -100,21 +100,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return AlwaysHistoryPanelClick();
         }
 
-
-        protected IEnumerator WaitToHistoryPanelClick()
-        {
-            //float startTime = Time.realtimeSinceStartup;
-            //Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
-
-            //while (Time.realtimeSinceStartup - startTime < TIMEOUT && !historyButton.interactable)
-            //    yield return null;
-
-            //if (historyButton.interactable) historyButton.onClick.Invoke();
-            //else throw new TimeoutException("History Button Not become clickable");
-            //yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
-            yield return null;
-        }
-
         protected IEnumerator WaitToClick(Card card)
         {
             float startTime = Time.realtimeSinceStartup;
