@@ -28,6 +28,11 @@ namespace MythosAndHorrors.GameRules
             while (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
         }
 
+        public async Task UndoLast()
+        {
+            if (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
+        }
+
         public async Task UndoLastInteractable()
         {
             int interactablesFindAmount = 0;

@@ -22,7 +22,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator All_Zones_With_Cards()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.First;
 
             Dictionary<Card, Zone> cardsWithZone = new()

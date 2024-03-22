@@ -14,7 +14,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class SwapInvestigatorTest : TestBase
     {
         [Inject] private readonly SwapInvestigatorComponent _sut;
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -24,7 +23,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Swap()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
 

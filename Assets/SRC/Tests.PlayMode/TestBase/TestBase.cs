@@ -40,6 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
             _prepareGameUseCase.Execute();
+            AlwaysHistoryPanelClick().AsTask();
         }
 
 
@@ -52,7 +53,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         private void LoadSceneSettings()
         {
             if (!DEBUG_MODE) Time.timeScale = 64;
-            DOTween.SetTweensCapacity(500, 312);
+            DOTween.SetTweensCapacity(1250, 312);
             _hasLoadedScene = true;
         }
 
@@ -85,17 +86,33 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
 
-        protected IEnumerator WaitToHistoryPanelClick()
+        protected IEnumerator AlwaysHistoryPanelClick()
         {
-            float startTime = Time.realtimeSinceStartup;
             Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
 
-            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !historyButton.interactable)
-                yield return null;
+            while (!historyButton.interactable) yield return null;
 
             if (historyButton.interactable) historyButton.onClick.Invoke();
             else throw new TimeoutException("History Button Not become clickable");
-            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+
+            while (historyButton.interactable) yield return null;
+
+            yield return AlwaysHistoryPanelClick();
+        }
+
+
+        protected IEnumerator WaitToHistoryPanelClick()
+        {
+            //float startTime = Time.realtimeSinceStartup;
+            //Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
+
+            //while (Time.realtimeSinceStartup - startTime < TIMEOUT && !historyButton.interactable)
+            //    yield return null;
+
+            //if (historyButton.interactable) historyButton.onClick.Invoke();
+            //else throw new TimeoutException("History Button Not become clickable");
+            //yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            yield return null;
         }
 
         protected IEnumerator WaitToClick(Card card)

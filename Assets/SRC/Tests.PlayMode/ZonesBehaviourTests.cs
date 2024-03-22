@@ -23,14 +23,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
-        [UnitySetUp]
-        public override IEnumerator SetUp()
-        {
-            yield return base.SetUp();
-            _prepareGameUseCase.Execute();
-        }
-
-        /*******************************************************************/
         [UnityTest]
         public IEnumerator Move_Card_In_Two_Zones()
         {

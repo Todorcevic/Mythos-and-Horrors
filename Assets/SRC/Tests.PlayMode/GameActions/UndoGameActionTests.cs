@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
 
-            yield return moveCardsGameAction.Undo().AsCoroutine();
+            yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.DeckZone), Is.True);
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             MoveCardsGameAction moveCardGameAction = new(cardTomove, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardGameAction).AsCoroutine();
 
-            yield return moveCardGameAction.Undo().AsCoroutine();
+            yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardTomove.CurrentZone, Is.EqualTo(_investigatorsProvider.First.AidZone));

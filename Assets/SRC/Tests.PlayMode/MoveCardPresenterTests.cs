@@ -12,7 +12,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class MoveCardPresenterTests : TestBase
     {
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -26,7 +25,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Card_To_Other_Investigator()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
             Card card = investigator1.Cards[1];
@@ -44,7 +42,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_AvatarCard()
         {
-            _prepareGameUseCase.Execute();
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards.First();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();

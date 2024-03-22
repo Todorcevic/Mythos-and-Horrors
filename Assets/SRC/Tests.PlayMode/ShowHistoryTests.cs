@@ -13,6 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class ShowHistoryests : TestBase
     {
         [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -31,7 +32,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             do
             {
-                yield return _showHistoryComponent.Show(sutHistory).AsCoroutine();
+                yield return _gameActionsProvider.Create(new ShowHistoryGameAction(sutHistory)).AsCoroutine();
             }
             while (DEBUG_MODE);
 
