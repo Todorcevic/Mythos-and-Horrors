@@ -99,7 +99,7 @@ namespace MythosAndHorrors.GameView
         private async Task Animation()
         {
             await _ioActivatorComponent.DeactivateCardSensors();
-            Sequence showCenterSequence = DOTween.Sequence().SetId("ShowCenter")
+            Sequence showCenterSequence = DOTween.Sequence()
                .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
                .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition))
                .Join(_selectorBlockController.ActivateSelector());

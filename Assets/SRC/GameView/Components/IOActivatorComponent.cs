@@ -15,23 +15,26 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void ActivateCardSensors()
         {
+            if (!_fullBlock.enabled) return;
             _fullBlock.enabled = false;
+            UnblockUI();
         }
 
         public async Task DeactivateCardSensors()
         {
             if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
+            BlockUI();
             await DotweenExtension.WaitForAnimationsComplete();
         }
 
-        public Tween UnblockUI()
+        private Tween UnblockUI()
         {
             _uIBlock.raycastTarget = false;
             return _showCardsInCenterButton.ActivateToClick();
         }
 
-        public Tween BlockUI()
+        private Tween BlockUI()
         {
             _uIBlock.raycastTarget = true;
             return _showCardsInCenterButton.DeactivateToClick();

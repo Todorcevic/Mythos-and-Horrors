@@ -21,14 +21,13 @@ namespace MythosAndHorrors.GameView
             if (!_mustBeLoaded) return;
             await IntialState();
             _loadGameUseCase.Execute();
-     
+
             await _gameActionsProvider.Create(new StartGameAction());
         }
 
         private async Task IntialState()
         {
             DOTween.SetTweensCapacity(500, 312);
-            _ioActivatorComponent.BlockUI();
             _mainButtonComponent.DeactivateToClick();
             await _ioActivatorComponent.DeactivateCardSensors();
         }
