@@ -45,7 +45,6 @@ namespace MythosAndHorrors.GameRules
             PreparePlayFromHandEffect(interactableGameAction);
             PrepareDraw(interactableGameAction);
             PrepareTakeResource(interactableGameAction);
-            interactableGameAction.WithUndoButton();
             await _gameActionsProvider.Create(interactableGameAction);
         }
 

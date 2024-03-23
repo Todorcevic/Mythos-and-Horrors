@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
 
         public Zone ZoneToShuffle { get; }
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public ShuffleGameAction(Zone zoneToShuffle)

@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _gameActionsProvider.Create(new DrawDangerGameAction(Investigator));
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(Investigator));
+            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(Investigator.NextInvestigatorInPlay));
         }
     }
 }

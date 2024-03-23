@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ShowCardInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class ShowCardsInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         private bool _isPlayable;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;

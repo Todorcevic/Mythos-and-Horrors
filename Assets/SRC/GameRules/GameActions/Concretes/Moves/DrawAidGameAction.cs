@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator Investigator { get; }
         public override bool CanBeExecuted => Investigator.CardAidToDraw != null;
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public DrawAidGameAction(Investigator investigator)

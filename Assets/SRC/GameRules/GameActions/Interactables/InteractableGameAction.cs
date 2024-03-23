@@ -17,13 +17,14 @@ namespace MythosAndHorrors.GameRules
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
         private Effect UniqueEffect => _allEffects.Single();
-        private bool IsUniqueEffect => _allEffects.Count() == 1;
+        public bool IsUniqueEffect => _allEffects.Count() == 1;
         private bool NoEffect => _allEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            WithUndoButton();
             if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
@@ -52,10 +53,10 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public void WithUndoButton()
+        private void WithUndoButton()
         {
-            UndoEffect = new();
-            UndoEffect.SetLogic(RealUndoEffect);
+            if (!_gameActionsProvider.CanUndo()) return;
+            UndoEffect = new Effect().SetLogic(RealUndoEffect);
 
             async Task RealUndoEffect()
             {

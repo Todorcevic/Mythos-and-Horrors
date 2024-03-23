@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, SceneObjectsOnly] private Image _uIBlock;
         [SerializeField, Required, SceneObjectsOnly] private BoxCollider _fullBlock;
-        [SerializeField, Required, SceneObjectsOnly] private ShowCardInCenterButton _showAllCardsButton;
+        [SerializeField, Required, SceneObjectsOnly] private ShowCardsInCenterButton _showCardsInCenterButton;
 
         /*******************************************************************/
         public void ActivateCardSensors()
@@ -28,13 +28,13 @@ namespace MythosAndHorrors.GameView
         public Tween UnblockUI()
         {
             _uIBlock.raycastTarget = false;
-            return _showAllCardsButton.ActivateToClick();
+            return _showCardsInCenterButton.ActivateToClick();
         }
 
         public Tween BlockUI()
         {
             _uIBlock.raycastTarget = true;
-            return _showAllCardsButton.DeactivateToClick();
+            return _showCardsInCenterButton.DeactivateToClick();
         }
     }
 }

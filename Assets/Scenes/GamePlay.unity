@@ -4131,8 +4131,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.24734455
+  m_Value: 1.0000002
+  m_Size: 0.24734457
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6332,7 +6332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uIBlock: {fileID: 1248083928}
   _fullBlock: {fileID: 1607980310}
-  _showAllCardsButton: {fileID: 2010415231}
+  _showCardsInCenterButton: {fileID: 2010415231}
 --- !u!114 &1836102657
 MonoBehaviour:
   m_ObjectHideFlags: 0

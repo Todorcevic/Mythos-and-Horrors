@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -35,13 +36,32 @@ namespace MythosAndHorrors.GameRules
 
         public async Task UndoLastInteractable()
         {
-            int interactablesFindAmount = 0;
-            while (interactablesFindAmount < 2)
+            if (!CanUndo()) throw new Exception("Can't undo last interactable");
+            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
+
+            while (_allGameActionsExecuted.Count > 0)
             {
                 GameAction lastGameAction = _allGameActionsExecuted.Pop();
                 await lastGameAction.Undo();
-                if (lastGameAction is InteractableGameAction) interactablesFindAmount++;
+                if (lastGameAction == lastInteractableToUndo) break;
             }
         }
+
+        public bool CanUndo()
+        {
+            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
+            if (lastInteractableToUndo?.IsUniqueEffect ?? true) return false;
+
+            foreach (GameAction gameAction in _allGameActionsExecuted)
+            {
+                if (!gameAction.CanUndo) return false;
+                if (gameAction == lastInteractableToUndo) break;
+            }
+
+            return true;
+        }
+
+        private InteractableGameAction GetInteractableToUndo() =>
+             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1).FirstOrDefault();
     }
 }

@@ -43,8 +43,6 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            interactableGameAction.WithUndoButton();
-
             await _gameActionsProvider.Create(interactableGameAction);
         }
     }

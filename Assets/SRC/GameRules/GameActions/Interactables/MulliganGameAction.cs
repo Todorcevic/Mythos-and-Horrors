@@ -18,7 +18,9 @@ namespace MythosAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
         public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
 
+        /*******************************************************************/
         public override bool CanBeExecuted => ActiveInvestigator != null;
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)

@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public History History { get; }
         public Card Card { get; }
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public ShowHistoryGameAction(History history, Card card = null)

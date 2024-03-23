@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; }
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public DrawDangerGameAction(Investigator investigator)
