@@ -1,26 +1,29 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
     public class ChallengeBagComponent : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private List<ChallengeTokenView> _tokens;
+        [SerializeField, Required, AssetsOnly] private List<ChallengeTokenView> _tokensPool;
 
         /*******************************************************************/
-
-        public void CreateTokens(IEnumerable<ChallengeTokenType> tokens)
+        public void DropToken(ChallengeToken realToken)
         {
+            ChallengeTokenView tokenView = GetTokenView(realToken);
 
-
+            tokenView.SetValue(realToken.Value());
+            tokenView.gameObject.SetActive(true);
+            tokenView.PushUp();
         }
 
-        public void DropToken(ChallengeTokenView token)
+        private ChallengeTokenView GetTokenView(ChallengeToken tokens)
         {
-            token.gameObject.SetActive(true);
-            token.PushUp();
+            return _tokensPool.FirstOrDefault(tokenView => tokenView.Type == tokens.TokenType);
         }
+
     }
 }

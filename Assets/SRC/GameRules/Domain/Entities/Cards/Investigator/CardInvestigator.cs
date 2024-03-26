@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             ResourceTurnsCost = new Stat(1);
-            StarToken = new ChallengeToken();
+            StarToken = new ChallengeToken(ChallengeTokenType.Star);
         }
 
         /*******************************************************************/

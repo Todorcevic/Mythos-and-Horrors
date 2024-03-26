@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -24,6 +23,7 @@ namespace MythosAndHorrors.GameRules
         public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
+        /************************** TOKENS *****************************/
         public ChallengeToken FailToken { get; private set; }
         public abstract ChallengeToken AncientToken { get; protected set; }
         public abstract ChallengeToken CultistToken { get; protected set; }
@@ -66,8 +66,10 @@ namespace MythosAndHorrors.GameRules
 
         public virtual void PrepareChallengeTokens()
         {
-            FailToken = new ChallengeToken();
-            _challengeTokensProvider.CreateTokens(Info.ChallengeTokens);
+            FailToken = new ChallengeToken(ChallengeTokenType.Fail);
+
+
+            //_challengeTokensProvider.CreateTokens(Info.ChallengeTokens);
         }
 
         /*******************************************************************/

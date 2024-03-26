@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -36,10 +35,10 @@ namespace MythosAndHorrors.GameRules
 
         public override void PrepareChallengeTokens()
         {
-            AncientToken = new ChallengeToken();
-            CultistToken = new ChallengeToken();
-            DangerToken = new ChallengeToken();
-            CreatureToken = new ChallengeToken();
+            AncientToken = new ChallengeToken(ChallengeTokenType.Ancient);
+            CultistToken = new ChallengeToken(ChallengeTokenType.Cultist);
+            DangerToken = new ChallengeToken(ChallengeTokenType.Danger);
+            CreatureToken = new ChallengeToken(ChallengeTokenType.Creature);
         }
     }
 }

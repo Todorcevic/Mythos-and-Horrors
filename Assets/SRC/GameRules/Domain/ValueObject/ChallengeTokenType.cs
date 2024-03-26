@@ -21,10 +21,10 @@
         Value_7 = -7,
         Value_8 = -8,
         Value_9 = -9,
-        Ancient = 10,
-        Creature = 20,
+        Creature = 10,
+        Cultist = 20,
         Danger = 30,
-        Cultist = 40,
+        Ancient = 40,
         Fail = 50,
         Star = 60
     }

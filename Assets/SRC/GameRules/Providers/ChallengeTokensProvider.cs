@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -7,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class ChallengeTokensProvider
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider chaptersProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         private List<ChallengeTokenType> _tokens;
 
@@ -18,27 +19,25 @@ namespace MythosAndHorrors.GameRules
         }
 
 
-        public ChallengeToken ResolveToken(ChallengeTokenType token)
+        public ChallengeToken GetRandomToken()
         {
-            switch (token)
-            {
-                case ChallengeTokenType.Ancient:
-                    break;
-                case ChallengeTokenType.Creature:
-                    break;
-                case ChallengeTokenType.Danger:
-                    break;
-                case ChallengeTokenType.Cultist:
-                    break;
-                case ChallengeTokenType.Fail:
-                    break;
-                case ChallengeTokenType.Star:
-                    break;
-                default:
-                    break;
-            }
+            int index = new Random().Next(_tokens.Count);
+            return ResolveToken(_tokens[index]);
+        }
 
-            return new ChallengeToken();
+
+        private ChallengeToken ResolveToken(ChallengeTokenType token)
+        {
+            return token switch
+            {
+                ChallengeTokenType.Ancient => _chaptersProvider.CurrentScene.AncientToken,
+                ChallengeTokenType.Creature => _chaptersProvider.CurrentScene.CreatureToken,
+                ChallengeTokenType.Danger => _chaptersProvider.CurrentScene.DangerToken,
+                ChallengeTokenType.Cultist => _chaptersProvider.CurrentScene.CultistToken,
+                ChallengeTokenType.Fail => _chaptersProvider.CurrentScene.FailToken,
+                ChallengeTokenType.Star => _investigatorsProvider.ActiveInvestigator.InvestigatorCard.StarToken,
+                _ => new ChallengeToken(token, () => (int)token, () => Task.CompletedTask),
+            };
         }
     }
 }

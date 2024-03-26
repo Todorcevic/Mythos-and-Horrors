@@ -7,14 +7,15 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengeTokenView : MonoBehaviour
     {
-        private ChallengeToken _type;
-        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _value;
+        [SerializeField, Required] private ChallengeTokenType _type;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
 
+        public ChallengeTokenType Type => _type;
+
         /*******************************************************************/
-        public void Set(ChallengeToken type, int? amount)
+        public void SetValue(int? amount)
         {
-            _type = type;
             _value.text = amount?.ToString() ?? string.Empty;
         }
 
