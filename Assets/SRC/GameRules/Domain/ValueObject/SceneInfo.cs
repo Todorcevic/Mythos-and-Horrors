@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Resolutions")] public List<History> Resolutions { get; init; }
         [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         [JsonProperty("NextScene")] public string NextScene { get; init; }
+        [JsonProperty("ChallengeTokens")] public List<ChallengeTokenType> ChallengeTokens { get; init; }
 
         public IEnumerable<CardPlace> PlaceCards => Cards.OfType<CardPlace>();
         public IEnumerable<CardPlot> PlotCards => Cards.OfType<CardPlot>();

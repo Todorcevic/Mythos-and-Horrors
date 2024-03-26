@@ -23,6 +23,7 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
         public Stat ResourceTurnsCost { get; private set; }
+        public ChallengeToken StarToken { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -45,6 +46,7 @@ namespace MythosAndHorrors.GameRules
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             ResourceTurnsCost = new Stat(1);
+            StarToken = new ChallengeToken();
         }
 
         /*******************************************************************/

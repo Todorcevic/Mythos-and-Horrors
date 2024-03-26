@@ -7,6 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class SwapInvestigatorComponent : MonoBehaviour
     {
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -7,6 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class Scene
     {
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
 
         [Inject] public SceneInfo Info { get; }
@@ -21,6 +23,12 @@ namespace MythosAndHorrors.GameRules
         public CardPlot CurrentPlot => PlotZone.Cards.LastOrDefault() as CardPlot;
         public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
+
+        public ChallengeToken FailToken { get; private set; }
+        public abstract ChallengeToken AncientToken { get; protected set; }
+        public abstract ChallengeToken CultistToken { get; protected set; }
+        public abstract ChallengeToken DangerToken { get; protected set; }
+        public abstract ChallengeToken CreatureToken { get; protected set; }
 
         /************************** RESOURCES *****************************/
         public Stat PileAmount { get; private set; }
@@ -39,6 +47,7 @@ namespace MythosAndHorrors.GameRules
             OutZone = _zonesProvider.Create();
             InitializePlaceZones();
             PileAmount = new Stat(int.MaxValue);
+            PrepareChallengeTokens();
         }
 
         private void InitializePlaceZones()
@@ -54,6 +63,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public abstract Task PrepareScene();
+
+        public virtual void PrepareChallengeTokens()
+        {
+            FailToken = new ChallengeToken();
+            _challengeTokensProvider.CreateTokens(Info.ChallengeTokens);
+        }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone)

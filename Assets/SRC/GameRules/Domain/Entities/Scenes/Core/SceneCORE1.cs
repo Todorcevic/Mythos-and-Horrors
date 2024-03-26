@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,6 +12,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+        public override ChallengeToken AncientToken { get; protected set; }
+        public override ChallengeToken CultistToken { get; protected set; }
+        public override ChallengeToken DangerToken { get; protected set; }
+        public override ChallengeToken CreatureToken { get; protected set; }
         private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
         private CardPlot FirstPlot => Info.PlotCards.First();
         private CardGoal FirstGoal => Info.GoalCards.First();
@@ -27,6 +32,14 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Studio, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
+        }
+
+        public override void PrepareChallengeTokens()
+        {
+            AncientToken = new ChallengeToken();
+            CultistToken = new ChallengeToken();
+            DangerToken = new ChallengeToken();
+            CreatureToken = new ChallengeToken();
         }
     }
 }
