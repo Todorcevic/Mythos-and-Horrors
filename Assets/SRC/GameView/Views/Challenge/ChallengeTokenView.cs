@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(transform.up * Random.Range(100f, 200f), ForceMode.Impulse);
-            _rigidBody.AddTorque(new Vector3(1, 2, 5), ForceMode.Impulse);
+            _rigidBody.AddTorque(new Vector3(10, 20, 50), ForceMode.Impulse);
 
             while (!_rigidBody.IsSleeping())
             {
