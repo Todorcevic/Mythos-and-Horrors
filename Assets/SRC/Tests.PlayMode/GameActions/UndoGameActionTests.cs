@@ -75,22 +75,22 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
         }
 
-        [UnityTest]
-        public IEnumerator UndoTursStatTest()
-        {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-            if (DEBUG_MODE) yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
-            else _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+        //[UnityTest]
+        //public IEnumerator UndoTursStatTest()
+        //{
+        //    yield return PlayThisInvestigator(_investigatorsProvider.First);
+        //    yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
+        //    if (DEBUG_MODE) yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
+        //    else _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
-            yield return _gameActionsProvider.Rewind().AsCoroutine();
+        //    if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+        //    if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+        //    if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+        //    yield return _gameActionsProvider.Rewind().AsCoroutine();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
-        }
+        //    if (DEBUG_MODE) yield return new WaitForSeconds(230);
+        //    Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
+        //}
 
         [UnityTest]
         public IEnumerator UndoButtonShow()

@@ -1,4 +1,5 @@
-﻿using MythosAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Threading.Tasks;
 using TMPro;
@@ -13,23 +14,42 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
 
         public ChallengeTokenType Type => _type;
+        public bool IsValueToken => (int)_type < 10;
 
         /*******************************************************************/
-        public void SetValue(int? amount)
-        {
-            _value.text = amount?.ToString() ?? string.Empty;
-        }
-
         public async Task PushUp()
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(transform.up * Random.Range(100f, 200f), ForceMode.Impulse);
             _rigidBody.AddTorque(new Vector3(10, 20, 50), ForceMode.Impulse);
+            await Task.Delay(1000);
+        }
 
-            while (!_rigidBody.IsSleeping())
-            {
-                await Task.Yield();
-            }
+        public Tween Restore(Transform centerShow, Transform ChallengeBag)
+        {
+            Sleep();
+            return DOTween.Sequence().Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Join(_value.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
+                     .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.SLOW_TIME_ANIMATION))
+                     .OnComplete(() => Destroy(gameObject));
+        }
+
+        public void SetValue(int amount)
+        {
+            if (!IsValueToken) _value.DOFade(0, 0);
+            _value.text = amount.ToString();
+        }
+
+        private void Sleep()
+        {
+            _rigidBody.velocity = Vector3.zero;
+            _rigidBody.angularVelocity = Vector3.zero;
+            _rigidBody.Sleep();
+            _rigidBody.isKinematic = true;
         }
     }
 }
+

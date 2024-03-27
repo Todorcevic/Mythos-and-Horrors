@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly UndoGameActionButton _undoGameActionButton;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             do
             {
                 if (DEBUG_MODE) yield return PressAnyKey();
-                yield return _challengeBagComponent.DropToken(new ChallengeToken(ChallengeTokenType.Danger)).AsCoroutine();
+                yield return _challengeBagComponent.DropToken(new ChallengeToken(ChallengeTokenType.Ancient, () => -2)).AsCoroutine();
             } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
