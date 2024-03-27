@@ -1,5 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -19,11 +20,16 @@ namespace MythosAndHorrors.GameView
             _value.text = amount?.ToString() ?? string.Empty;
         }
 
-        public void PushUp()
+        public async Task PushUp()
         {
             _rigidBody.isKinematic = false;
-            _rigidBody.AddForce(transform.up * Random.Range(1f, 10f), ForceMode.Impulse);
+            _rigidBody.AddForce(transform.up * Random.Range(100f, 200f), ForceMode.Impulse);
             _rigidBody.AddTorque(new Vector3(1, 2, 5), ForceMode.Impulse);
+
+            while (!_rigidBody.IsSleeping())
+            {
+                await Task.Yield();
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3780111965837630663, guid: 1ebba09b8826cec4eb794fb09e241713, type: 3}
       propertyPath: m_text
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3780111965837630663, guid: 1ebba09b8826cec4eb794fb09e241713, type: 3}
       propertyPath: m_fontSize
@@ -67,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 7397164127428249575, guid: 1ebba09b8826cec4eb794fb09e241713, type: 3}
       propertyPath: m_Name
       value: DangerToken Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9001920573477931502, guid: 1ebba09b8826cec4eb794fb09e241713, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,6 +1,8 @@
-﻿using MythosAndHorrors.GameRules;
+﻿using ModestTree;
+using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
 
@@ -13,13 +15,22 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly UndoGameActionButton _undoGameActionButton;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator UndoMoveMulticardsTest()
+        public IEnumerator PushTokenTest()
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First);
+
+            do
+            {
+                if (DEBUG_MODE) yield return PressAnyKey();
+                yield return _challengeBagComponent.DropToken(new ChallengeToken(ChallengeTokenType.Danger)).AsCoroutine();
+            } while (DEBUG_MODE);
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(true);
         }
     }
 }

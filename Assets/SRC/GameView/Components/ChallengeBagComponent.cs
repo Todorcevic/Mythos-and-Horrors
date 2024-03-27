@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -11,18 +12,19 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private List<ChallengeTokenView> _tokensPool;
 
         /*******************************************************************/
-        public void DropToken(ChallengeToken realToken)
+        public async Task DropToken(ChallengeToken realToken)
         {
             ChallengeTokenView tokenView = GetTokenView(realToken);
 
             tokenView.SetValue(realToken.Value());
             tokenView.gameObject.SetActive(true);
-            tokenView.PushUp();
+            await tokenView.PushUp();
         }
 
         private ChallengeTokenView GetTokenView(ChallengeToken tokens)
         {
-            return _tokensPool.FirstOrDefault(tokenView => tokenView.Type == tokens.TokenType);
+            ChallengeTokenView tokenPrefab = _tokensPool.First(tokenView => tokenView.Type == tokens.TokenType);
+            return Instantiate(tokenPrefab, transform);
         }
 
     }
