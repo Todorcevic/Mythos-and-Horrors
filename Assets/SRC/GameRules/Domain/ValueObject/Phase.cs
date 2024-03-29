@@ -6,6 +6,7 @@
         Investigator,
         Scene,
         Creature,
-        Restore
+        Restore,
+        Challenge
     }
 }

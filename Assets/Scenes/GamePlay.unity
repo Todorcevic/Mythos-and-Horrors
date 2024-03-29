@@ -1292,7 +1292,11 @@ MonoBehaviour:
   _skill: {fileID: 959346892}
   _token: {fileID: 1214566520}
   _investigator: {fileID: 1684121747}
-  _danger: {fileID: 1302332429}
+  _challenge: {fileID: 1302332429}
+  _strengh: {fileID: 21300000, guid: db99d1c0bc4b3064aaabf8f54ebfdbeb, type: 3}
+  _agility: {fileID: 21300000, guid: 1669a1cfd77a8d74b8fee7ca849dfd51, type: 3}
+  _intelligence: {fileID: 21300000, guid: 1c2b47b2b2c03a644ac02df74ec52154, type: 3}
+  _power: {fileID: 21300000, guid: 6b4dc65b3b9023548a240f8952c0aa44, type: 3}
 --- !u!1001 &308462136
 PrefabInstance:
   m_ObjectHideFlags: 0

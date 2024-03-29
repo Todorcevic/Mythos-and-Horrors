@@ -83,5 +83,15 @@ namespace MythosAndHorrors.GameRules
             zone == InvestigatorZone || InvestigatorZone.Cards.Select(card => card.OwnZone).Contains(zone);
 
         public bool HasThisCard(Card card) => AllCards.Contains(card);
+
+        public ChallengeType GetChallengeType(Stat stat)
+        {
+            if (stat == Strength) return ChallengeType.Strength;
+            if (stat == Agility) return ChallengeType.Agility;
+            if (stat == Intelligence) return ChallengeType.Intelligence;
+            if (stat == Power) return ChallengeType.Power;
+            return ChallengeType.None;
+        }
+
     }
 }

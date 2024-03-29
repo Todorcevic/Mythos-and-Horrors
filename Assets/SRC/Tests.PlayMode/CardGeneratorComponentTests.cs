@@ -120,7 +120,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
             Assert.That(result.transform.GetTextFromThis("Sanity"), Is.EqualTo(card.Info.Sanity.ToString()));
             Assert.That(healthStat.gameObject.activeSelf, Is.True);
-            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.TotalChallengePoints));
+            Assert.That(skillIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(card.GetChallengeValue(ChallengeType.Strength)));
             yield return null;
         }
 
