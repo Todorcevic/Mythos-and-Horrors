@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
             _tokens = tokens;
         }
 
-
         public ChallengeToken GetRandomToken()
         {
             int index = new Random().Next(_tokens.Count);
