@@ -16,6 +16,12 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private List<ChallengeTokenView> _tokensPool;
 
         /*******************************************************************/
+        public ChallengeTokenView ChallengeTokenView(ChallengeTokenType tokenType)
+        {
+            ChallengeTokenView tokenView = _tokensPool.FirstOrDefault(tokenView => tokenView.Type == tokenType) ?? _valueTokenPrefab;
+            return tokenView;
+        }
+
         public async Task DropToken(ChallengeToken realToken)
         {
             ChallengeTokenView tokenView = GetTokenView(realToken);

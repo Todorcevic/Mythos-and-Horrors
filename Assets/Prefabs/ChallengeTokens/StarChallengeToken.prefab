@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _type
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 498263387118021954, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
+      propertyPath: _image
+      value: 
+      objectReference: {fileID: 21300000, guid: 223d8adc8dbf68d4e92b21421faaa05d, type: 3}
     - target: {fileID: 1514813978098927346, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
