@@ -1,4 +1,6 @@
-﻿namespace MythosAndHorrors.GameRules
+﻿using System;
+
+namespace MythosAndHorrors.GameRules
 {
     public enum Dificulty
     {

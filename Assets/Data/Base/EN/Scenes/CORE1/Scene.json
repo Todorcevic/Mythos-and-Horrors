@@ -93,8 +93,7 @@
         30,
         50,
         60
-    ]
-    ,
+    ],
     "ChallengeTokensEasy": [
         1,
         1,
@@ -112,8 +111,7 @@
         30,
         50,
         60
-    ]
-    ,
+    ],
     "ChallengeTokensHard": [
         0,
         0,
@@ -132,8 +130,7 @@
         30,
         50,
         60
-    ]
-    ,
+    ],
     "ChallengeTokensExpert": [
         0,
         -1,
@@ -154,5 +151,13 @@
         30,
         50,
         60
-    ]
+    ],
+    "AncientTokenDescriptionNormal": "",
+    "CreatureTokenDescriptionNormal": "X es la cantidad de Enemigos Gul que hay en tu Lugar.",
+    "DangerTokenDescriptionNormal": "Si hay un enemigo Gul en tu Lugar, recibe 1 punto de daño",
+    "CultistTokenDescriptionNormal": "Si fracasas, recibe 1 punto de horror",
+    "AncientTokenDescriptionHard": "",
+    "CreatureTokenDescriptionHard": "Si fracasas, después de esta prueba de habilidad busca en el mazo y la pila de descartes de Encuentros un Enemigo Gul y róbalo. Baraja el mazo de Encuentros",
+    "DangerTokenDescriptionHard": "Si hay un enemigo Gul en tu Lugar, recibe 1 punto de daño y 1 punto de horror",
+    "CultistTokenDescriptionHard": "Revela otra ficha. Si fracasas, recibe 2 puntos de horror"
 }

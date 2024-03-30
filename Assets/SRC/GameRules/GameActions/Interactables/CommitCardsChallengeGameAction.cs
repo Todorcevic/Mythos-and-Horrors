@@ -41,21 +41,20 @@ namespace MythosAndHorrors.GameRules
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Drop")
                 .SetLogic(() => Task.CompletedTask);
 
-            IEnumerable<ICommitable> allCommitableCards = _investigatorsProvider.AllInvestigatorsInPlay.SelectMany(investigator => investigator.HandZone.Cards)
-                .OfType<ICommitable>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType.Strength) > 0);
+            IEnumerable<ICommitable> allCommitableCards = _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
+                .SelectMany(investigator => investigator.HandZone.Cards)
+                .OfType<ICommitable>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
 
-            foreach (ICommitable commitableCard in allCommitableCards)
+            foreach (Card commitableCard in allCommitableCards.Cast<Card>())
             {
-                Card card = (Card)commitableCard;
-
                 interactableGameAction.Create()
-                    .SetCard(card)
-                    .SetInvestigator(card.Owner)
+                    .SetCard(commitableCard)
+                    .SetInvestigator(commitableCard.Owner)
                     .SetInvestigatorAffected(ActiveInvestigator)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Commit))
                     .SetLogic(Commit);
 
-                async Task Commit() => await _gameActionsProvider.Create(new CommitGameAction(card));
+                async Task Commit() => await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
             }
 
             await _gameActionsProvider.Create(interactableGameAction);

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,13 +10,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
 
         public Stat Stat { get; init; }
         public int DifficultValue { get; init; }
         public ChallengeType ChallengeType { get; init; }
-        public Effect SuccesEffect { get; init; }
-        public Effect FailEffect { get; init; }
+        public Func<Task> SuccesEffect { get; init; }
+        public Func<Task> FailEffect { get; init; }
+        public Card CardToChallenge { get; init; }
 
+        public List<ChallengeToken> TokensRevealed { get; private set; } = new();
         public bool IsSuccessful { get; private set; }
 
         /*******************************************************************/
@@ -23,12 +28,13 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ChallengePhaseGameAction);
 
         /*******************************************************************/
-        public ChallengePhaseGameAction(Stat stat, int difficultValue, Effect succesEffect = null, Effect failEffect = null)
+        public ChallengePhaseGameAction(Stat stat, int difficultValue, Func<Task> succesEffect = null, Func<Task> failEffect = null, Card cardToChallenge = null)
         {
             Stat = stat;
             DifficultValue = difficultValue;
             SuccesEffect = succesEffect;
             FailEffect = failEffect;
+            CardToChallenge = cardToChallenge;
             ActiveInvestigator = _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
             ChallengeType = ActiveInvestigator.GetChallengeType(Stat);
         }
@@ -36,16 +42,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(Stat, DifficultValue));
             ChallengeToken revealToken = (await _gameActionsProvider.Create(new RevealChallengeTokenGameAction())).ChallengeTokenRevealed;
-            await _gameActionsProvider.Create(new ResolveChallengeTokenGameAction(revealToken));
+            TokensRevealed.Add(revealToken);
+            await _gameActionsProvider.Create(new ResolveMultiChallengeTokensGamaAction(TokensRevealed));
             IsSuccessful = (await _gameActionsProvider.Create(new ResultChallengeGameAction(Stat, DifficultValue, revealToken, ChallengeType))).IsSuccessful;
-
-            if (IsSuccessful)
-            {
-                if (SuccesEffect != null) await _gameActionsProvider.Create(new PlayEffectGameAction(SuccesEffect));
-            }
-            else if (FailEffect != null) await _gameActionsProvider.Create(new PlayEffectGameAction(FailEffect));
+            await _gameActionsProvider.Create(new ResolveChallengeGameAction(IsSuccessful, SuccesEffect, FailEffect));
+            await _gameActionsProvider.Create(new FinishChallengeGameAction());
         }
     }
 }

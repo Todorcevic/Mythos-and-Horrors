@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameView
             if (imagen != null) imagen.sprite = cardSprite;
         }
 
-        public static async Task LoadAvatarSprite(this Image imagen, string address)
+        public static async Task LoadCardSprite(this Image imagen, string address)
         {
             Sprite avatarSprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;
             if (imagen != null) imagen.sprite = avatarSprite;

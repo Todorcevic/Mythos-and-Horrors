@@ -936,6 +936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 153090778}
+  - component: {fileID: 153090781}
   - component: {fileID: 153090780}
   - component: {fileID: 153090779}
   m_Layer: 5
@@ -1003,6 +1004,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153090777}
   m_CullTransparentMesh: 1
+--- !u!114 &153090781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153090777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab0a74aea444c14dbdf93ea898a573b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _card: {fileID: 1302332429}
 --- !u!4 &166073289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5705089823220367788, guid: 0337cb2a3cb3e5c45a6b2b41a9d698ea, type: 3}
@@ -1289,14 +1303,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f880a9eda5a8d7543960db771482c31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skill: {fileID: 959346892}
+  _showPosition: {fileID: 360327164}
+  _outPosition: {fileID: 1546864317}
+  _skillChallengeController: {fileID: 1827124678}
+  _investigatorCardController: {fileID: 973774943}
+  _challengeCardController: {fileID: 153090781}
+  _statValue: {fileID: 1557118228}
+  _difficultValue: {fileID: 344241714}
   _token: {fileID: 1214566520}
-  _investigator: {fileID: 1684121747}
-  _challenge: {fileID: 1302332429}
-  _strengh: {fileID: 21300000, guid: db99d1c0bc4b3064aaabf8f54ebfdbeb, type: 3}
-  _agility: {fileID: 21300000, guid: 1669a1cfd77a8d74b8fee7ca849dfd51, type: 3}
-  _intelligence: {fileID: 21300000, guid: 1c2b47b2b2c03a644ac02df74ec52154, type: 3}
-  _power: {fileID: 21300000, guid: 6b4dc65b3b9023548a240f8952c0aa44, type: 3}
+  _cancelButton: {fileID: 940832640}
 --- !u!1001 &308462136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1478,7 +1493,7 @@ GameObject:
   - component: {fileID: 344241715}
   - component: {fileID: 344241714}
   m_Layer: 5
-  m_Name: First (1)
+  m_Name: DifficultValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1501,7 +1516,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 120}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344241714
 MonoBehaviour:
@@ -1550,7 +1565,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 106
+  m_fontSize: 88.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4792,7 +4807,7 @@ GameObject:
   - component: {fileID: 940832641}
   - component: {fileID: 940832640}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4815,7 +4830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 80, y: 40}
+  m_AnchoredPosition: {x: 0, y: 40}
   m_SizeDelta: {x: 256, y: 96}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &940832640
@@ -5613,6 +5628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973774940}
+  - component: {fileID: 973774943}
   - component: {fileID: 973774942}
   - component: {fileID: 973774941}
   m_Layer: 5
@@ -5680,6 +5696,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973774939}
   m_CullTransparentMesh: 1
+--- !u!114 &973774943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973774939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab0a74aea444c14dbdf93ea898a573b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _card: {fileID: 1684121747}
 --- !u!4 &978280453 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d5aedf37d25c2184692e281fdf49677b, type: 3}
@@ -7978,7 +8007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1397497181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9185,7 +9214,7 @@ GameObject:
   - component: {fileID: 1557118229}
   - component: {fileID: 1557118228}
   m_Layer: 5
-  m_Name: First (1)
+  m_Name: StatValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9208,7 +9237,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 120}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557118228
 MonoBehaviour:
@@ -9257,7 +9286,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 106
+  m_fontSize: 88.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11043,6 +11072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1827124675}
+  - component: {fileID: 1827124678}
   - component: {fileID: 1827124677}
   - component: {fileID: 1827124676}
   m_Layer: 5
@@ -11110,6 +11140,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827124674}
   m_CullTransparentMesh: 1
+--- !u!114 &1827124678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827124674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5eed7d93ece9b14c95f80d0746d921c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _strength: {fileID: 21300000, guid: db99d1c0bc4b3064aaabf8f54ebfdbeb, type: 3}
+  _agility: {fileID: 21300000, guid: 1669a1cfd77a8d74b8fee7ca849dfd51, type: 3}
+  _intelligence: {fileID: 21300000, guid: a12d7db934e565d4481d3c9ccf8684f5, type: 3}
+  _power: {fileID: 21300000, guid: 6b4dc65b3b9023548a240f8952c0aa44, type: 3}
+  _skill: {fileID: 959346892}
 --- !u!4 &1834867011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d5aedf37d25c2184692e281fdf49677b, type: 3}
@@ -12114,7 +12161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cancel
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82957d229b28fb740b8c7ac3bfa8ad9b, type: 2}
   m_sharedMaterial: {fileID: 797800522219533068, guid: 82957d229b28fb740b8c7ac3bfa8ad9b, type: 2}

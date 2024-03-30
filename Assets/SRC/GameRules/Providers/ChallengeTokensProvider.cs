@@ -10,20 +10,35 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        private List<ChallengeTokenType> _tokens;
+        public List<ChallengeTokenType> TokensRevealed { get; private set; } = new();
+        public List<ChallengeTokenType> Tokens { get; private set; }
 
         /*******************************************************************/
         public void CreateTokens(List<ChallengeTokenType> tokens)
         {
-            _tokens = tokens;
+            Tokens = tokens;
         }
 
         public ChallengeToken GetRandomToken()
         {
-            int index = new Random().Next(_tokens.Count);
-            return ResolveToken(_tokens[index]);
+            int index = new Random().Next(Tokens.Count);
+            ChallengeTokenType tokenType = Tokens[index];
+            TokensRevealed.Add(tokenType);
+            Tokens.Remove(tokenType);
+            return ResolveToken(tokenType);
         }
 
+        public void RestoreSingleToken(ChallengeTokenType token)
+        {
+            Tokens.Add(token);
+            TokensRevealed.Remove(token);
+        }
+
+        public void RestoreTokens()
+        {
+            Tokens.AddRange(TokensRevealed);
+            TokensRevealed.Clear();
+        }
 
         private ChallengeToken ResolveToken(ChallengeTokenType token)
         {

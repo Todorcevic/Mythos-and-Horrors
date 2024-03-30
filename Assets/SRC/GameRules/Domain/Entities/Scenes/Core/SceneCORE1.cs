@@ -10,11 +10,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override ChallengeToken AncientToken { get; protected set; }
-        public override ChallengeToken CultistToken { get; protected set; }
-        public override ChallengeToken DangerToken { get; protected set; }
-        public override ChallengeToken CreatureToken { get; protected set; }
         private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
         private CardPlot FirstPlot => Info.PlotCards.First();
         private CardGoal FirstGoal => Info.GoalCards.First();
@@ -35,10 +32,20 @@ namespace MythosAndHorrors.GameRules
 
         public override void PrepareChallengeTokens()
         {
-            AncientToken = new ChallengeToken(ChallengeTokenType.Ancient);
-            CultistToken = new ChallengeToken(ChallengeTokenType.Cultist);
-            DangerToken = new ChallengeToken(ChallengeTokenType.Danger);
-            CreatureToken = new ChallengeToken(ChallengeTokenType.Creature);
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+            {
+                FailToken = new ChallengeToken(ChallengeTokenType.Fail);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, description: Info.DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, description: Info.CreatureTokenDescriptionNormal);
+            }
+            else if (_chaptersProvider.CurrentDificulty == Dificulty.Hard || _chaptersProvider.CurrentDificulty == Dificulty.Expert)
+            {
+                FailToken = new ChallengeToken(ChallengeTokenType.Fail);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, description: Info.CultistTokenDescriptionHard);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, description: Info.DangerTokenDescriptionHard);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, description: Info.CreatureTokenDescriptionHard);
+            }
         }
     }
 }

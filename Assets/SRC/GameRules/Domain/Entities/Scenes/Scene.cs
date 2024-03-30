@@ -24,11 +24,11 @@ namespace MythosAndHorrors.GameRules
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
         /************************** TOKENS *****************************/
-        public ChallengeToken FailToken { get; private set; }
-        public abstract ChallengeToken AncientToken { get; protected set; }
-        public abstract ChallengeToken CultistToken { get; protected set; }
-        public abstract ChallengeToken DangerToken { get; protected set; }
-        public abstract ChallengeToken CreatureToken { get; protected set; }
+        public ChallengeToken FailToken { get; protected set; }
+        public ChallengeToken AncientToken { get; protected set; }
+        public ChallengeToken CultistToken { get; protected set; }
+        public ChallengeToken DangerToken { get; protected set; }
+        public ChallengeToken CreatureToken { get; protected set; }
 
         /************************** RESOURCES *****************************/
         public Stat PileAmount { get; private set; }
@@ -64,13 +64,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public abstract Task PrepareScene();
 
-        public virtual void PrepareChallengeTokens()
-        {
-            FailToken = new ChallengeToken(ChallengeTokenType.Fail);
+        public abstract void PrepareChallengeTokens();
 
-
-            //_challengeTokensProvider.CreateTokens(Info.ChallengeTokens);
-        }
 
         /*******************************************************************/
         public bool HasThisZone(Zone zone)
