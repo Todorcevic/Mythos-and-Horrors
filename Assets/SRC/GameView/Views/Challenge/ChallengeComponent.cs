@@ -1,7 +1,8 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -17,29 +18,21 @@ namespace MythosAndHorrors.GameView
 
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
-
         [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeController _investigatorCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeController _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _statValue;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _difficultValue;
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
-
-
         [SerializeField, Required, ChildGameObjectsOnly] private Image _token;
-
         [SerializeField, Required, ChildGameObjectsOnly] private Button _cancelButton;
 
+        /******************** MANAGER **************************/
+        [SerializeField, Required, AssetsOnly] private ChallengeTokenSO _voidToken;
+        [SerializeField, Required, AssetsOnly] private List<ChallengeTokenSO> _tokens;
 
-        //[SerializeField, Required, AssetsOnly] private Sprite _ancient;
-        //[SerializeField, Required, AssetsOnly] private Sprite _creature;
-        //[SerializeField, Required, AssetsOnly] private Sprite _cultist;
-        //[SerializeField, Required, AssetsOnly] private Sprite _danger;
-        //[SerializeField, Required, AssetsOnly] private Sprite _fail;
-        //[SerializeField, Required, AssetsOnly] private Sprite _star;
-        //[SerializeField, Required, AssetsOnly] private Sprite _void;
-
-
+        public ChallengeTokenSO GetToken(ChallengeTokenType tokenType) =>
+            _tokens.Find(token => token.TokenType == tokenType) ?? _voidToken;
 
         /*******************************************************************/
         [Inject]
@@ -47,6 +40,7 @@ namespace MythosAndHorrors.GameView
         {
             initialScale = transform.localScale;
             _cancelButton.onClick.AddListener(Clicked);
+            _sceneTokenController.SetTokens();
         }
 
         /*******************************************************************/
@@ -71,9 +65,7 @@ namespace MythosAndHorrors.GameView
             await _challengeCardController.SetCard(challenge.CardToChallenge);
             _statValue.text = challenge.Stat.Value.ToString();
             _difficultValue.text = challenge.DifficultValue.ToString();
-            _sceneTokenController.SetTokens();
             _sceneTokenController.UpdateValues();
-
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
@@ -93,9 +85,9 @@ namespace MythosAndHorrors.GameView
         }
 
 
-        private void SetToken(Sprite sprite)
+        public void SetToken(ChallengeToken token)
         {
-            _token.sprite = sprite;
+            _token.sprite = GetToken(token.TokenType).Image;
         }
     }
 }
