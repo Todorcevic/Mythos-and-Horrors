@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -24,18 +25,14 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _statValue;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _difficultValue;
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _token;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _cancelButton;
-
-        /******************** MANAGER **************************/
-        [SerializeField, Required, AssetsOnly] private ChallengeTokenSO _voidToken;
-        [SerializeField, Required, AssetsOnly] private List<ChallengeTokenSO> _tokens;
-
-        public ChallengeTokenSO GetToken(ChallengeTokenType tokenType) =>
-            _tokens.Find(token => token.TokenType == tokenType) ?? _voidToken;
+        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
 
         /*******************************************************************/
         [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Initialized by Injection")]
         private void Init()
         {
             initialScale = transform.localScale;
@@ -66,6 +63,7 @@ namespace MythosAndHorrors.GameView
             _statValue.text = challenge.Stat.Value.ToString();
             _difficultValue.text = challenge.DifficultValue.ToString();
             _sceneTokenController.UpdateValues();
+            _tokenLeftController.Refresh();
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
@@ -87,7 +85,7 @@ namespace MythosAndHorrors.GameView
 
         public void SetToken(ChallengeToken token)
         {
-            _token.sprite = GetToken(token.TokenType).Image;
+            _token.sprite = _tokensManager.GetToken(token.TokenType).Image;
         }
     }
 }

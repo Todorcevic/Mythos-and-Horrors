@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87bc9e98c21c29546bc146c2ad67828b, type: 3}
-  m_Name: CreatureToken
+  m_Script: {fileID: 11500000, guid: b701bcd9246c8fc4bad3b069501831ff, type: 3}
+  m_Name: TokensManager
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _type: 0
+  _voidToken: {fileID: 0}
+  _tokens: []

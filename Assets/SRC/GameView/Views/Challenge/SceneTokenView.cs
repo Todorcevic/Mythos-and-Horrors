@@ -2,11 +2,9 @@
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class SceneTokenView : MonoBehaviour
     {
         private ChallengeToken _challengeToken;

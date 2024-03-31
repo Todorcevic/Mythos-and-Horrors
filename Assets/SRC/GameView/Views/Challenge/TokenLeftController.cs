@@ -9,25 +9,26 @@ namespace MythosAndHorrors.GameView
 {
     public class TokenLeftController : MonoBehaviour
     {
-        [SerializeField, Required, AssetsOnly] private ChallengeTokenSO _voidToken;
-        [SerializeField, Required, AssetsOnly] private List<ChallengeTokenSO> _tokens;
-
-        public ChallengeTokenSO GetToken(ChallengeTokenType tokenType) =>
-            _tokens.Find(token => token.TokenType == tokenType) ?? _voidToken;
-
-
-
-
+        private readonly List<Image> allTokens = new();
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
+        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
         [SerializeField, Required] private Image _image;
 
-        public void Create()
+        public void Refresh()
         {
+            DestroyAll();
             foreach (ChallengeTokenType token in _challengeTokensProvider.Tokens)
             {
                 Image tokenImage = Instantiate(_image, transform);
-                tokenImage.sprite = GetToken(token).Image;
+                allTokens.Add(tokenImage);
+                tokenImage.sprite = _tokensManager.GetToken(token).Image;
             }
+        }
+
+        private void DestroyAll()
+        {
+            allTokens.ForEach(token => Destroy(token.gameObject));
+            allTokens.Clear();
         }
     }
 }

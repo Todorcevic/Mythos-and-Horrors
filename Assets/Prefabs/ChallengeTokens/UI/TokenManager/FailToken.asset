@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87bc9e98c21c29546bc146c2ad67828b, type: 3}
-  m_Name: StarToken
+  m_Name: FailToken
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _type: 0
+  _image: {fileID: 21300000, guid: 02dd12e272fc4aa4ca25065efc75bfbe, type: 3}
+  _type: 50
