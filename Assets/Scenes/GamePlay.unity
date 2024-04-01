@@ -5939,7 +5939,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.24734451
+  m_Size: 0.24734452
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17949,15 +17949,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 26264056116456534, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 26264056116456534, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 26264056116456534, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -32
       objectReference: {fileID: 0}
     - target: {fileID: 26264056116456534, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17993,7 +17993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3375400328656556330, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_Name
-      value: OutZone
+      value: LimboZone
       objectReference: {fileID: 0}
     - target: {fileID: 4936304347524684766, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_Name

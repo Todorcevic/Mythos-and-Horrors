@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
@@ -57,6 +58,19 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Commit() => await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
             }
+
+
+            foreach (Card card in _chaptersProvider.CurrentScene.LimboZone.Cards.Where(card => card is ICommitable))
+            {
+                interactableGameAction.Create()
+                    .SetCard(card)
+                    .SetInvestigator(ActiveInvestigator)
+                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Uncommit))
+                    .SetLogic(Uncommit);
+
+                async Task Uncommit() => await _gameActionsProvider.Create(new MoveCardsGameAction(card, card.Owner.HandZone));
+            }
+
 
             await _gameActionsProvider.Create(interactableGameAction);
             if (interactableGameAction.EffectSelected == ButtonEffect) return;

@@ -13,8 +13,8 @@ namespace MythosAndHorrors.GameView
         private bool isStandUp;
         private Sequence hoverAnimation;
         private readonly List<CardView> _allCards = new();
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
-        [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
+        [SerializeField, Required] protected Transform _movePosition;
+        [SerializeField, Required] protected Transform _hoverPosition;
 
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
         public int LastIndex => _allCards.Count - 1;

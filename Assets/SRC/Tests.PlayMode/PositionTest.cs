@@ -66,6 +66,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(24, 4), investigator1.DiscardZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[30], _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[31], _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[32], _chaptersProvider.CurrentScene.LimboZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards.GetRange(24, 4), _chaptersProvider.CurrentScene.DangerDiscardZone)).AsCoroutine();
 
