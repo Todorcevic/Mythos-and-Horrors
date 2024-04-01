@@ -14,8 +14,11 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Stat { get; init; }
         public int Vs { get; init; }
-        public ChallengeType ChallengeType { get; init; }
         public Effect ButtonEffect { get; private set; }
+
+        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
+        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
+        public ChallengePhaseGameAction CurrentChallenge => _gameActionsProvider.GetRealLastActive<ChallengePhaseGameAction>();
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CommitCardsChallengeGameAction);
@@ -27,14 +30,12 @@ namespace MythosAndHorrors.GameRules
         {
             Stat = stat;
             Vs = vs;
-            ActiveInvestigator = _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
-            ChallengeType = ActiveInvestigator.GetChallengeType(Stat);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _commitPresenter.PlayAnimationWith(this); //Show and Update UI
+            await _commitPresenter.PlayAnimationWith(this);
 
             InteractableGameAction interactableGameAction = new();
             ButtonEffect = interactableGameAction.CreateMainButton()

@@ -10,25 +10,22 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
-        public Investigator Investigator { get; }
-
-        /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(AllInvestigatorsCheckHandSize);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(AllInvestigatorsCheckHandSize);
         public override Phase MainPhase => Phase.Restore;
-        public override bool CanBeExecuted => Investigator != null;
+        public override bool CanBeExecuted => ActiveInvestigator != null;
 
         /*******************************************************************/
         public AllInvestigatorsCheckHandSize(Investigator investigator)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(Investigator));
-            await _gameActionsProvider.Create(new AllInvestigatorsCheckHandSize(Investigator.NextInvestigatorInPlay));
+            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new AllInvestigatorsCheckHandSize(ActiveInvestigator.NextInvestigatorInPlay));
         }
     }
 }

@@ -22,6 +22,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeController _investigatorCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeController _challengeCardController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _statValue;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _difficultValue;
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
@@ -37,7 +38,6 @@ namespace MythosAndHorrors.GameView
         {
             initialScale = transform.localScale;
             _cancelButton.onClick.AddListener(Clicked);
-            _sceneTokenController.SetTokens();
         }
 
         /*******************************************************************/
@@ -55,11 +55,12 @@ namespace MythosAndHorrors.GameView
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
         }
 
-        private async Task UpdateInfo(ChallengePhaseGameAction challenge)
+        public async Task UpdateInfo(ChallengePhaseGameAction challenge)
         {
             _skillChallengeController.SetSkill(challenge.ChallengeType);
             await _investigatorCardController.SetCard(challenge.ActiveInvestigator.InvestigatorCard);
             await _challengeCardController.SetCard(challenge.CardToChallenge);
+            _challengeName.text = challenge.ChallengeName;
             _statValue.text = challenge.Stat.Value.ToString();
             _difficultValue.text = challenge.DifficultValue.ToString();
             _sceneTokenController.UpdateValues();

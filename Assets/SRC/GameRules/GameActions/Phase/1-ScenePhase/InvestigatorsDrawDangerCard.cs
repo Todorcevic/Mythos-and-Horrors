@@ -10,25 +10,22 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
 
         /*******************************************************************/
-        public Investigator Investigator { get; }
-
-        /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(InvestigatorsDrawDangerCard);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(InvestigatorsDrawDangerCard);
         public override Phase MainPhase => Phase.Scene;
-        public override bool CanBeExecuted => Investigator != null;
+        public override bool CanBeExecuted => ActiveInvestigator != null;
 
         /*******************************************************************/
         public InvestigatorsDrawDangerCard(Investigator investigator)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new DrawDangerGameAction(Investigator));
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(Investigator.NextInvestigatorInPlay));
+            await _gameActionsProvider.Create(new DrawDangerGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(ActiveInvestigator.NextInvestigatorInPlay));
         }
     }
 }

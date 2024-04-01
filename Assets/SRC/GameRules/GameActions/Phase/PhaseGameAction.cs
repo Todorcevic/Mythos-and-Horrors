@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public abstract string Description { get; }
         public abstract Phase MainPhase { get; }
 
-        public Investigator ActiveInvestigator { get; protected set; }
+        public virtual Investigator ActiveInvestigator { get; protected set; }
 
         /*******************************************************************/
         protected override sealed async Task ExecuteThisLogic()

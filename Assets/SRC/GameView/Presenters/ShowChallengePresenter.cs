@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ShowChallengePresenter : IPresenter<ChallengePhaseGameAction>
+    public class ShowChallengePresenter : IPresenter<ChallengePhaseGameAction>, IPresenter<CommitCardsChallengeGameAction>
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -17,8 +17,12 @@ namespace MythosAndHorrors.GameView
                 null :
                 _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
 
-
             await _challengeComponent.Show(challengePhaseGameAction, initialPosition);
+        }
+
+        async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commintCardChallengeGameAction)
+        {
+            await _challengeComponent.UpdateInfo(commintCardChallengeGameAction.CurrentChallenge);
         }
     }
 }

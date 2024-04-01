@@ -13,6 +13,8 @@ namespace MythosAndHorrors.GameRules
 
         public T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
         public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First().ActiveInvestigator;
+        public PhaseGameAction GetRealCurrentPhase() => _allGameActionsExecuted.OfType<PhaseGameAction>()
+            .First(phaseGameAction => phaseGameAction.IsActive && phaseGameAction is not ChallengePhaseGameAction);
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction

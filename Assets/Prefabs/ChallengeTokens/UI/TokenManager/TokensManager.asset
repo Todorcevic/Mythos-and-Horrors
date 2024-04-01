@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b701bcd9246c8fc4bad3b069501831ff, type: 3}
   m_Name: TokensManager
   m_EditorClassIdentifier: 
-  _voidToken: {fileID: 0}
-  _tokens: []
+  _voidToken: {fileID: 11400000, guid: 54a2f1965d90e4547ae6bdf6bb6eca85, type: 2}
+  _tokens:
+  - {fileID: 11400000, guid: 92f946fc86dc81044a88ee5c83c16323, type: 2}
+  - {fileID: 11400000, guid: 04ae3999460425447b035738416e241b, type: 2}
+  - {fileID: 11400000, guid: 32a36f75ff899da4eb5000ddce5ea408, type: 2}
+  - {fileID: 11400000, guid: 8175c11f7f128b645bd00d30cd3596a9, type: 2}
+  - {fileID: 11400000, guid: 28dcd80daa3e0f84e9fd76169ea6edef, type: 2}
+  - {fileID: 11400000, guid: 93e5dfbf45a877c4d89b8a7d1dd19a7e, type: 2}

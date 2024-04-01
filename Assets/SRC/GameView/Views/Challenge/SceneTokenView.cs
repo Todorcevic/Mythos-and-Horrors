@@ -12,15 +12,18 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _description;
 
         /*******************************************************************/
-        public void SetChallengeToken(ChallengeToken challengeToken)
+        public void SetToken(ChallengeToken challengeToken)
         {
+            if (challengeToken == null) return;
+            gameObject.SetActive(true);
             _challengeToken = challengeToken;
             _description.text = _challengeToken.Description;
         }
 
         public void UpdateValue()
         {
-            _value.text = _challengeToken.Value.Invoke().ToString();
+            if (_challengeToken == null) return;
+            _value.text = (_challengeToken.Value?.Invoke() ?? 0).ToString();
         }
     }
 }

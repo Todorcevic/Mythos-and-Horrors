@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: CultistToken
   m_EditorClassIdentifier: 
   _image: {fileID: 21300000, guid: f41a010ba78029446aa7dd84b50f3fc6, type: 3}
+  _texture: {fileID: 2800000, guid: b2f53b70a4fbdbc489be711d507fa6b0, type: 3}
   _type: 20
