@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly DiContainer _diContainer;
 
         public Card Card { get; private set; }
-
         public ZoneView CurrentZoneView { get; private set; }
+        public CardSensorController CardSensor => _cardSensor;
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
         IEnumerable<Effect> IPlayable.EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
 

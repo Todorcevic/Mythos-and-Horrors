@@ -59,7 +59,6 @@ namespace MythosAndHorrors.GameRules
                 async Task Commit() => await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
             }
 
-
             foreach (Card card in _chaptersProvider.CurrentScene.LimboZone.Cards.Where(card => card is ICommitable))
             {
                 interactableGameAction.Create()
@@ -70,7 +69,6 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Uncommit() => await _gameActionsProvider.Create(new MoveCardsGameAction(card, card.Owner.HandZone));
             }
-
 
             await _gameActionsProvider.Create(interactableGameAction);
             if (interactableGameAction.EffectSelected == ButtonEffect) return;
