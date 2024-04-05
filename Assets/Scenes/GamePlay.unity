@@ -771,8 +771,9 @@ GameObject:
   - component: {fileID: 139855878}
   - component: {fileID: 139855877}
   - component: {fileID: 139855876}
+  - component: {fileID: 139855879}
   m_Layer: 5
-  m_Name: Percentage
+  m_Name: MeterComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -866,6 +867,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &139855879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139855874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbe6e2ba88467d42bd6749366604e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minos2: {fileID: 1531533029}
+  _minos1: {fileID: 1855389032}
+  _zero: {fileID: 1023686987}
+  _plus1: {fileID: 2009366787}
+  _plus2: {fileID: 1707738125}
 --- !u!1 &141937759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,7 +1280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1024}
   m_SizeDelta: {x: 800, y: 610}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &303007373
@@ -1324,6 +1342,7 @@ MonoBehaviour:
   _sceneTokenController: {fileID: 2141169575}
   _tokenLeftController: {fileID: 862297338}
   _commitCardController: {fileID: 376341815}
+  _challengeMeterComponent: {fileID: 139855879}
   _token: {fileID: 1214566520}
   _cancelButton: {fileID: 940832640}
   _tokensManager: {fileID: 11400000, guid: 09fc65450f5340a4994669165b367dcc, type: 2}
@@ -1882,7 +1901,7 @@ GameObject:
   - component: {fileID: 409619487}
   - component: {fileID: 409619486}
   m_Layer: 5
-  m_Name: Percentage
+  m_Name: -2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2251,7 +2270,7 @@ GameObject:
   - component: {fileID: 464594345}
   - component: {fileID: 464594344}
   m_Layer: 5
-  m_Name: Percentage (1)
+  m_Name: -1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5080,7 +5099,7 @@ GameObject:
   - component: {fileID: 963623449}
   - component: {fileID: 963623448}
   m_Layer: 5
-  m_Name: Percentage (3)
+  m_Name: +1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5548,7 +5567,7 @@ GameObject:
   - component: {fileID: 1023686988}
   - component: {fileID: 1023686987}
   m_Layer: 5
-  m_Name: Percentage (2)
+  m_Name: Percentage 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6434,7 +6453,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.24734452
+  m_Size: 0.24734455
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6690,7 +6709,7 @@ GameObject:
   - component: {fileID: 1226710918}
   - component: {fileID: 1226710917}
   m_Layer: 5
-  m_Name: Percentage (2)
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8414,7 +8433,7 @@ GameObject:
   - component: {fileID: 1531533030}
   - component: {fileID: 1531533029}
   m_Layer: 5
-  m_Name: Percentage
+  m_Name: Percentage -2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9338,7 +9357,7 @@ GameObject:
   - component: {fileID: 1707738126}
   - component: {fileID: 1707738125}
   m_Layer: 5
-  m_Name: Percentage (4)
+  m_Name: Percentage +2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10142,7 +10161,7 @@ GameObject:
   - component: {fileID: 1855389033}
   - component: {fileID: 1855389032}
   m_Layer: 5
-  m_Name: Percentage (1)
+  m_Name: Percentage -1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10867,7 +10886,7 @@ GameObject:
   - component: {fileID: 2009366788}
   - component: {fileID: 2009366787}
   m_Layer: 5
-  m_Name: Percentage (3)
+  m_Name: Percentage +1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11736,7 +11755,7 @@ GameObject:
   - component: {fileID: 2102379265}
   - component: {fileID: 2102379264}
   m_Layer: 5
-  m_Name: Percentage (4)
+  m_Name: +2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

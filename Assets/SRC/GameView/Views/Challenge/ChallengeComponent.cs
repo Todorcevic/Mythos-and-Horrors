@@ -25,6 +25,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMeterComponent _challengeMeterComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _token;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _cancelButton;
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
@@ -63,6 +64,7 @@ namespace MythosAndHorrors.GameView
             _challengeName.text = challenge.ChallengeName;
             _sceneTokenController.UpdateValues();
             _tokenLeftController.Refresh();
+            _challengeMeterComponent.Show();
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()

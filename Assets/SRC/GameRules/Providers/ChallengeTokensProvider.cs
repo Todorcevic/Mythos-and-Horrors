@@ -9,9 +9,12 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public List<ChallengeTokenType> TokensRevealed { get; private set; } = new();
         public List<ChallengeTokenType> Tokens { get; private set; }
+        public List<ChallengeToken> ChallengeTokens => Tokens.ConvertAll(ResolveToken);
+        public ChallengePhaseGameAction CurrentChallenge => _gameActionsProvider.GetRealLastActive<ChallengePhaseGameAction>();
 
         /*******************************************************************/
         public void CreateTokens(List<ChallengeTokenType> tokens)
