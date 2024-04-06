@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         public override bool CanUndo => false;
 
         /*******************************************************************/
+
         protected override async Task ExecuteThisLogic()
         {
             ChallengeTokenRevealed = _challengeTokensProvider.GetRandomToken();

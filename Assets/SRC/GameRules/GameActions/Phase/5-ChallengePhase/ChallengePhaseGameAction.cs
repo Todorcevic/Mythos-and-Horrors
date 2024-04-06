@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardToChallenge { get; init; }
 
         public List<ChallengeToken> TokensRevealed { get; private set; } = new();
-        public bool IsSuccessful { get; private set; }
+        public bool? IsSuccessful { get; private set; }
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
 
@@ -56,8 +56,11 @@ namespace MythosAndHorrors.GameRules
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(Stat, DifficultValue));
             TokensRevealed.Add((await _gameActionsProvider.Create(new RevealChallengeTokenGameAction())).ChallengeTokenRevealed);
-            await _gameActionsProvider.Create(new ResolveMultiChallengeTokensGamaAction(TokensRevealed));
+            await _challengerPresenter.PlayAnimationWith(this);
+            await _gameActionsProvider.Create(new ResolveMultiChallengeTokensGamaAction(TokensRevealed.ToList()));
             IsSuccessful = (await _gameActionsProvider.Create(new ResultChallengeGameAction(this))).IsSuccessful;
+            await _challengerPresenter.PlayAnimationWith(this);
+
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(IsSuccessful, SuccesEffect, FailEffect));
             await _gameActionsProvider.Create(new FinishChallengeGameAction());
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());

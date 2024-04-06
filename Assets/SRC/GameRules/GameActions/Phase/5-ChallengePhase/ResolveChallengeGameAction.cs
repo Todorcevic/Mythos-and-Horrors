@@ -10,9 +10,9 @@ namespace MythosAndHorrors.GameRules
         public bool IsSuccessful { get; init; }
 
         /*******************************************************************/
-        public ResolveChallengeGameAction(bool isSuccessful, Func<Task> succesEffect, Func<Task> failEffect)
+        public ResolveChallengeGameAction(bool? isSuccessful, Func<Task> succesEffect, Func<Task> failEffect)
         {
-            IsSuccessful = isSuccessful;
+            IsSuccessful = (bool)isSuccessful;
             SuccesEffect = succesEffect;
             FailEffect = failEffect;
         }

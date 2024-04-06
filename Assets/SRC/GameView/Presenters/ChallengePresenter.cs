@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengePresenter : IPresenter<ChallengePhaseGameAction>, IPresenter<CommitCardsChallengeGameAction>,
         IPresenter<FinishChallengeGameAction>, IPresenter<RevealChallengeTokenGameAction>, IPresenter<ResolveSingleChallengeTokenGameAction>,
-        IPresenter<ResultChallengeGameAction>, IPresenter<RestoreChallengeTokens>
+        IPresenter<RestoreChallengeTokens>
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -22,17 +22,13 @@ namespace MythosAndHorrors.GameView
                 _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
 
             await _challengeComponent.Show(challengePhaseGameAction, initialPosition);
+            UpdateChallengeInfo();
         }
 
-        async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commintCardChallengeGameAction)
+        async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction _)
         {
-            _challengeComponent.UpdateInfo();
+            UpdateChallengeInfo();
             await Task.CompletedTask;
-        }
-
-        async Task IPresenter<FinishChallengeGameAction>.PlayAnimationWith(FinishChallengeGameAction _)
-        {
-            await _challengeComponent.Hide();
         }
 
         async Task IPresenter<RevealChallengeTokenGameAction>.PlayAnimationWith(RevealChallengeTokenGameAction revealChallengeTokenGA)
@@ -44,14 +40,6 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<ResolveSingleChallengeTokenGameAction>.PlayAnimationWith(ResolveSingleChallengeTokenGameAction resolveSingleChallengeGA)
         {
             //await _challengeBagComponent.ShowCenter(resolveSingleChallengeGA.ChallengeTokenToResolve).AsyncWaitForCompletion();
-
-            await _challengeComponent.ShowSceneToken(resolveSingleChallengeGA.ChallengeTokenToResolve).AsyncWaitForCompletion();
-        }
-
-        async Task IPresenter<ResultChallengeGameAction>.PlayAnimationWith(ResultChallengeGameAction resultChallengeGameAction)
-        {
-            _challengeComponent.UpdateResult(resultChallengeGameAction.IsSuccessful);
-            _challengeComponent.UpdateInfo();
             await Task.CompletedTask;
         }
 
@@ -59,5 +47,12 @@ namespace MythosAndHorrors.GameView
         {
             await _challengeBagComponent.RestoreAllTokens().AsyncWaitForCompletion();
         }
+
+        async Task IPresenter<FinishChallengeGameAction>.PlayAnimationWith(FinishChallengeGameAction _)
+        {
+            await _challengeComponent.Hide();
+        }
+
+        private void UpdateChallengeInfo() => _challengeComponent.UpdateInfo();
     }
 }

@@ -46,12 +46,12 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task Show(ChallengePhaseGameAction challenge, Transform worldObject = null)
         {
+            if (currentChallenge != null) return;
             currentChallenge = challenge;
             transform.localScale = Vector3.zero;
             returnPosition = transform.position = (worldObject == null) ?
                 _outPosition.transform.position :
                 RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
-            UpdateInfo();
             await ShowAnimation().AsyncWaitForCompletion();
         }
 
@@ -72,12 +72,15 @@ namespace MythosAndHorrors.GameView
             _sceneTokenController.UpdateValues();
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(currentChallenge);
+            UpdateResult(currentChallenge.IsSuccessful);
         }
 
-        public void UpdateResult(bool isSuccessful)
+        private void UpdateResult(bool? isSuccessful)
         {
-            _result.text = isSuccessful ? "Success" : "Fail";
-            _result.color = isSuccessful ? Color.green : Color.red;
+            if (!isSuccessful.HasValue) return;
+            bool isSuccess = isSuccessful.Value;
+            _result.text = isSuccess ? "Success" : "Fail";
+            _result.color = isSuccess ? Color.green : Color.red;
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
