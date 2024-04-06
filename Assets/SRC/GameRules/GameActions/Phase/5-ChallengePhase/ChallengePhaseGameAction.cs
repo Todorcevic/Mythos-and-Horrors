@@ -26,8 +26,6 @@ namespace MythosAndHorrors.GameRules
         public bool? IsSuccessful { get; set; }
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
-
-        public bool IsFinished => IsSuccessful.HasValue;
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
@@ -66,7 +64,6 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task Undo()
         {
-            IsSuccessful = false;
             await _challengerPresenter.PlayAnimationWith(this);
         }
     }

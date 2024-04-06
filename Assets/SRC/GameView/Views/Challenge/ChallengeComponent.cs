@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,12 +12,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ChallengeComponent : MonoBehaviour
+    public class ChallengeComponent : MonoBehaviour, IPlayable
     {
         private Vector3 initialScale;
         private Vector3 returnPosition;
-        //private ChallengePhaseGameAction currentChallenge;
+        private bool isShowed;
 
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
@@ -34,6 +36,12 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, SceneObjectsOnly] private UndoGameActionButton _undoGameActionButton;
 
         /*******************************************************************/
+        private Effect UndoEffect => _gameActionsProvider.CurrentInteractable?.UndoEffect;
+        IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
+        void IPlayable.ActivateToClick() => ActivationCancelButton(true);
+        void IPlayable.DeactivateToClick() => ActivationCancelButton(false);
+
+        /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Initialized by Injection")]
         private void Init()
@@ -44,19 +52,10 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task Show(Transform worldObject = null)
+        public async Task Move(Transform worldObject = null)
         {
-            transform.localScale = Vector3.zero;
-            returnPosition = transform.position = (worldObject == null) ?
-                _outPosition.transform.position :
-                RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
-            await ShowAnimation().AsyncWaitForCompletion();
-        }
-
-        public async Task Hide()
-        {
-            await HideAnimation(returnPosition).AsyncWaitForCompletion();
-            _token.gameObject.SetActive(false);
+            if (isShowed) await Hide();
+            else await Show(worldObject);
         }
 
         public Tween UpdateInfo(ChallengePhaseGameAction challengePhaseGameAction)
@@ -71,6 +70,29 @@ namespace MythosAndHorrors.GameView
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(currentChallenge);
             return UpdateResult(currentChallenge.IsSuccessful);
+        }
+
+        public void SetToken(ChallengeToken token)
+        {
+            _token.gameObject.SetActive(true);
+            _token.sprite = _tokensManager.GetToken(token.TokenType).Image;
+        }
+
+        private async Task Show(Transform worldObject)
+        {
+            transform.localScale = Vector3.zero;
+            returnPosition = transform.position = (worldObject == null) ?
+                _outPosition.transform.position :
+                RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
+            await ShowAnimation().AsyncWaitForCompletion();
+            isShowed = true;
+        }
+
+        private async Task Hide()
+        {
+            await HideAnimation(returnPosition).AsyncWaitForCompletion();
+            _token.gameObject.SetActive(false);
+            isShowed = false;
         }
 
         private Tween UpdateResult(bool? isSuccessful)
@@ -101,13 +123,7 @@ namespace MythosAndHorrors.GameView
 
         private void Clicked() => _undoGameActionButton.OnPointerClick(null);
 
-        public void SetToken(ChallengeToken token)
-        {
-            _token.gameObject.SetActive(true);
-            _token.sprite = _tokensManager.GetToken(token.TokenType).Image;
-        }
-
-        public void ActivationCancelButton(bool isActivate)
+        private void ActivationCancelButton(bool isActivate)
         {
             _cancelButton.interactable = isActivate;
             _cancelButton.gameObject.SetActive(isActivate);

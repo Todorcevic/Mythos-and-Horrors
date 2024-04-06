@@ -16,7 +16,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChallengeComponent _challengeComponent;
 
         private Effect UndoEffect => _gameActionsProvider.CurrentInteractable?.UndoEffect;
         IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
@@ -44,14 +43,12 @@ namespace MythosAndHorrors.GameView
         {
             _isPlayable = true;
             _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
-            _challengeComponent.ActivationCancelButton(true);
         }
 
         void IPlayable.DeactivateToClick()
         {
             _isPlayable = false;
             _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
-            _challengeComponent.ActivationCancelButton(false);
         }
     }
 }

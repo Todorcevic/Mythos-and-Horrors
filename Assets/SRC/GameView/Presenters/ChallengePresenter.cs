@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -18,13 +17,11 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<ChallengePhaseGameAction>.PlayAnimationWith(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            Transform initialPosition = challengePhaseGameAction.CardToChallenge == null ?
-                null :
-                _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
-
             await _challengeComponent.UpdateInfo(challengePhaseGameAction).AsyncWaitForCompletion();
-            if (challengePhaseGameAction.IsFinished) await _challengeComponent.Hide();
-            else await _challengeComponent.Show(initialPosition);
+
+            Transform initialPosition = challengePhaseGameAction.CardToChallenge == null ? null :
+                _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
+            await _challengeComponent.Move(initialPosition);
         }
 
         async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
