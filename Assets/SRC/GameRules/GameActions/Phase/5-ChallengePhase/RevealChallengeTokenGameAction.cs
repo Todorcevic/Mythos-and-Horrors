@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<RevealChallengeTokenGameAction> _revealTokenPresenter;
 
         public ChallengeToken ChallengeTokenRevealed { get; private set; }
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

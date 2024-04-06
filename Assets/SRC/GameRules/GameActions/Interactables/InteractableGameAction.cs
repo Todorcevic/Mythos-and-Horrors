@@ -10,16 +10,23 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
+
+        public bool IsUndable { get; init; }
 
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
         private Effect UniqueEffect => _allEffects.Single();
-        public bool IsUniqueEffect => _allEffects.Count() == 1;
-        private bool NoEffect => _allEffects.Count() == 0;
+        private bool IsUniqueEffect => _allEffects.Count() == 1;
+        private bool NoEffect => IsManadatary && _allEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null;
+
+        /*******************************************************************/
+        public InteractableGameAction(bool isUndable)
+        {
+            IsUndable = isUndable;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
@@ -30,7 +37,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
         }
 
-        private Effect GetUniqueEffect()
+        public Effect GetUniqueEffect()
         {
             if (!IsManadatary) return null;
             if (IsUniqueEffect) return UniqueEffect;
@@ -60,7 +67,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task RealUndoEffect()
             {
-                _gameActionsProvider.GetRealLastActive<PlayInvestigatorGameAction>()?.Stop();
+                _gameActionsProvider.CurrentPlayInvestigator?.Stop();
                 await _gameActionsProvider.UndoLastInteractable();
                 await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorProvider.ActiveInvestigator));
             }

@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
 
+        public ChallengeToken ChallengeToken { get; private set; }
         public ChallengeTokenType Type => _type;
         public bool IsValueToken => (int)_type < 10;
 
@@ -31,16 +32,26 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence().Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
-                     .Join(_value.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
                      .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.SLOW_TIME_ANIMATION))
                      .OnComplete(() => Destroy(gameObject));
         }
 
-        public void SetValue(int amount)
+        public Tween ShowCenter(Transform centerShow)
         {
+            Transform realTransfromt = transform;
+            return DOTween.Sequence().Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                     .Append(transform.DOFullMove(realTransfromt));
+        }
+
+        public void SetValue(ChallengeToken challengeToken)
+        {
+            ChallengeToken = challengeToken;
+            _value.text = challengeToken.Value().ToString();
             if (!IsValueToken) _value.DOFade(0, 0);
-            _value.text = amount.ToString();
+            else _value.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine);
         }
 
         private void Sleep()

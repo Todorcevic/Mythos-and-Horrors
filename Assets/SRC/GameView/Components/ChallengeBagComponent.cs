@@ -11,24 +11,41 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengeBagComponent : MonoBehaviour
     {
+        private readonly List<ChallengeTokenView> _allTokensDrop = new();
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [SerializeField, Required, AssetsOnly] private ChallengeTokenView _valueTokenPrefab;
         [SerializeField, Required, AssetsOnly] private List<ChallengeTokenView> _tokensPool;
 
         /*******************************************************************/
-        public ChallengeTokenView ChallengeTokenView(ChallengeTokenType tokenType)
-        {
-            ChallengeTokenView tokenView = _tokensPool.FirstOrDefault(tokenView => tokenView.Type == tokenType) ?? _valueTokenPrefab;
-            return tokenView;
-        }
-
         public async Task DropToken(ChallengeToken realToken)
         {
             ChallengeTokenView tokenView = GetTokenView(realToken);
-            tokenView.SetValue(realToken.Value());
+            tokenView.SetValue(realToken);
             tokenView.gameObject.SetActive(true);
+            _allTokensDrop.Add(tokenView);
             await tokenView.PushUp();
-            await tokenView.Restore(_zoneViewsManager.CenterShowZone.transform, transform).AsyncWaitForCompletion();
+        }
+
+        public Tween RestoreAllTokens()
+        {
+            Sequence sequence = DOTween.Sequence();
+            foreach (ChallengeTokenView tokenView in _allTokensDrop)
+                sequence.Append(tokenView.Restore(_zoneViewsManager.CenterShowZone.transform, transform)
+                    .OnComplete(() => _allTokensDrop.Remove(tokenView)));
+            return sequence;
+        }
+
+        public Tween RestoreToken(ChallengeToken realToken)
+        {
+            ChallengeTokenView tokenView = _allTokensDrop.First(token => token.ChallengeToken == realToken);
+            return tokenView.Restore(_zoneViewsManager.CenterShowZone.transform, transform)
+                .OnComplete(() => _allTokensDrop.Remove(tokenView));
+        }
+
+        public Tween ShowCenter(ChallengeToken realToken)
+        {
+            ChallengeTokenView tokenView = _allTokensDrop.First(token => token.ChallengeToken == realToken);
+            return tokenView.ShowCenter(_zoneViewsManager.CenterShowZone.transform);
         }
 
         private ChallengeTokenView GetTokenView(ChallengeToken tokens)

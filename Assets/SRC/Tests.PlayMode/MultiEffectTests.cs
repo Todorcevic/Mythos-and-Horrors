@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MultiEffect_Test()
         {
-            InteractableGameAction interactableGameAction = new();
+            InteractableGameAction interactableGameAction = new(isUndable: true);
             Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];

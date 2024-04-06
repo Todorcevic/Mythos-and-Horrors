@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new();
+            InteractableGameAction interactableGameAction = new(isUndable: true);
             foreach (Investigator investigator in InvestigatorsToSelect)
             {
                 interactableGameAction.Create()

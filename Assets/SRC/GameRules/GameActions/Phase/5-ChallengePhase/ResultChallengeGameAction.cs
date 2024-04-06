@@ -7,21 +7,21 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly IPresenter<ResultChallengeGameAction> _resolveChallengePresenter;
 
-        public int TotalChallenge { get; init; }
-        public int DifficultValue { get; init; }
+        public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
         public bool IsSuccessful { get; private set; }
 
         /*******************************************************************/
-        public ResultChallengeGameAction(int totalChallengeValue, int difficultValue)
+        public ResultChallengeGameAction(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            TotalChallenge = totalChallengeValue;
-            DifficultValue = difficultValue;
+            ChallengePhaseGameAction = challengePhaseGameAction;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            IsSuccessful = TotalChallenge >= DifficultValue;
+            if (ChallengePhaseGameAction.IsAutoSucceed) IsSuccessful = true;
+            else if (ChallengePhaseGameAction.IsAutoFail) IsSuccessful = false;
+            else IsSuccessful = ChallengePhaseGameAction.TotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
             await _resolveChallengePresenter.PlayAnimationWith(this);
         }
     }

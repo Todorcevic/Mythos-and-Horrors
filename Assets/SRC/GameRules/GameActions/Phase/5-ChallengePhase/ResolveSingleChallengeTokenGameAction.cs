@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengeToken ChallengeTokenToResolve { get; private set; }
 
+        public override bool CanBeExecuted => ChallengeTokenToResolve.Effect != null;
+
         /*******************************************************************/
         public ResolveSingleChallengeTokenGameAction(ChallengeToken challengeTokenToResolve)
         {
@@ -18,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _solveTokenPresenter.PlayAnimationWith(this); //Mover a la ventana UI
+            await _solveTokenPresenter.PlayAnimationWith(this);
             await ChallengeTokenToResolve.Effect?.Invoke();
         }
     }

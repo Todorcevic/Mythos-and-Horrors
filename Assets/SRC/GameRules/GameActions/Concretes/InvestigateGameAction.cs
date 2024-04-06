@@ -22,7 +22,12 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _startingAnimationPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
+            await _gameActionsProvider.Create(new ChallengePhaseGameAction(
+                Investigator.Intelligence,
+                CardPlace.Enigma.Value,
+                "Investigate" + CardPlace.Info.Name,
+                succesEffect: () => _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1)),
+                cardToChallenge: CardPlace));
         }
     }
 }

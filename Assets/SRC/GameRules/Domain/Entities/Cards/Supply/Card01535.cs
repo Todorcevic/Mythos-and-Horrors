@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class Card01535 : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -29,32 +29,26 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************ HEALTH ACTIVATION ******************************/
-        protected void CheckHealthActivation(GameAction gameAction)
+        private void CheckHealthActivation(GameAction gameAction)
         {
             if (gameAction is not InteractableGameAction interactableGameAction) return;
-            if (interactableGameAction.Parent is not OneInvestigatorTurnGameAction) return;
-            if (!CanHealthActivation()) return;
+            if (interactableGameAction.Parent is not OneInvestigatorTurnGameAction oneInvestigatorTurnGA) return;
+            if (CurrentZone != oneInvestigatorTurnGA.ActiveInvestigator.AidZone) return;
+            if (oneInvestigatorTurnGA.ActiveInvestigator.CurrentTurns.Value < HealthActivationTurnsCost.Value) return;
 
             interactableGameAction.Create()
                 .SetCard(this)
-                .SetInvestigator(_investigatorProvider.ActiveInvestigator)
+                .SetInvestigator(oneInvestigatorTurnGA.ActiveInvestigator)
                 .SetLogic(HealthActivation)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(HealthActivation));
-        }
 
-        protected bool CanHealthActivation()
-        {
-            if (_investigatorProvider.ActiveInvestigator.AidZone != CurrentZone) return false;
-            if (_investigatorProvider.ActiveInvestigator.CurrentTurns.Value < HealthActivationTurnsCost.Value) return false;
-            return true;
-        }
-
-        protected async Task HealthActivation()
-        {
-            ChooseInvestigatorGameAction chooseInvestigatorGA =
-                    await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsInThisPlace(_investigatorProvider.ActiveInvestigator.CurrentPlace)));
-            if (!chooseInvestigatorGA.InvestigatorSelected.CanBeHealed) return;
-            await _gameActionsProvider.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
+            async Task HealthActivation()
+            {
+                IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(oneInvestigatorTurnGA.ActiveInvestigator.CurrentPlace);
+                ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(investigators));
+                if (!chooseInvestigatorGA.InvestigatorSelected.CanBeHealed) return;
+                await _gameActionsProvider.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
+            }
         }
     }
 }

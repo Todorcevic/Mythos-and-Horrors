@@ -1,6 +1,5 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Reflection;
 using System;
 using TMPro;
 using UnityEngine;
@@ -19,9 +18,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _plus2;
 
         /*******************************************************************/
-        public void Show()
+        public void Show(ChallengePhaseGameAction currentChallenge)
         {
-            ChallengePhaseGameAction currentChallenge = _challengeTokensProvider.CurrentChallenge;
             _minos2.text = Calculate(currentChallenge, -2).ToString() + "%";
             _minos1.text = Calculate(currentChallenge, -1).ToString() + "%";
             _zero.text = Calculate(currentChallenge, 0).ToString() + "%";

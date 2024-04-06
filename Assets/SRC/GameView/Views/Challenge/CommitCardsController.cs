@@ -2,7 +2,6 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -15,14 +14,14 @@ namespace MythosAndHorrors.GameView
             ?? CreateCardChallenge();
 
         /*******************************************************************/
-        public async Task ShowAll(IEnumerable<ICommitable> commitCards, ChallengeType challengeType)
+        public void ShowAll(IEnumerable<ICommitable> commitCards, ChallengeType challengeType)
         {
             _cardChallenges.FindAll(cardChallenge => !commitCards.OfType<Card>().Contains(cardChallenge.Card))
                 .ForEach(cardChallenge => cardChallenge.Disable());
 
             foreach (Card commitCard in commitCards.OfType<Card>().Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))
             {
-                await GetFreeCardChallenge.SetCard(commitCard, ((ICommitable)commitCard).GetChallengeValue(challengeType));
+                GetFreeCardChallenge.SetCard(commitCard, ((ICommitable)commitCard).GetChallengeValue(challengeType));
             }
         }
 

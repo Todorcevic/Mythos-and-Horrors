@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
+        [Inject] private readonly IPresenter<FinishChallengeGameAction> _finishChallengePresenter;
 
         public Stat Stat { get; init; }
         public int DifficultValue { get; init; }
@@ -21,12 +22,14 @@ namespace MythosAndHorrors.GameRules
         public Func<Task> SuccesEffect { get; init; }
         public Func<Task> FailEffect { get; init; }
         public Card CardToChallenge { get; init; }
+
         public List<ChallengeToken> TokensRevealed { get; private set; } = new();
         public bool IsSuccessful { get; private set; }
+        public bool IsAutoSucceed { get; set; }
+        public bool IsAutoFail { get; set; }
 
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
-
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
         private int TotalTokenRevealed => TokensRevealed.Sum(token => token.Value());
         public int TotalChallengeValue => Stat.Value + TotalTokenRevealed + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
@@ -52,13 +55,17 @@ namespace MythosAndHorrors.GameRules
         {
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(Stat, DifficultValue));
-            ChallengeToken revealToken = (await _gameActionsProvider.Create(new RevealChallengeTokenGameAction())).ChallengeTokenRevealed;
-            TokensRevealed.Add(revealToken);
+            TokensRevealed.Add((await _gameActionsProvider.Create(new RevealChallengeTokenGameAction())).ChallengeTokenRevealed);
             await _gameActionsProvider.Create(new ResolveMultiChallengeTokensGamaAction(TokensRevealed));
-            IsSuccessful = (await _gameActionsProvider.Create(new ResultChallengeGameAction(TotalChallengeValue, DifficultValue))).IsSuccessful;
+            IsSuccessful = (await _gameActionsProvider.Create(new ResultChallengeGameAction(this))).IsSuccessful;
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(IsSuccessful, SuccesEffect, FailEffect));
             await _gameActionsProvider.Create(new FinishChallengeGameAction());
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
+        }
+
+        public override async Task Undo()
+        {
+            await _finishChallengePresenter.PlayAnimationWith(null);
         }
     }
 }

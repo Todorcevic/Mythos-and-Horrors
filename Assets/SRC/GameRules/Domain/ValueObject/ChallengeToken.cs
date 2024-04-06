@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         {
             TokenType = type;
             Value = value ?? (() => 0);
-            Effect = effect ?? (() => Task.CompletedTask);
+            Effect = effect;
             Description = description;
         }
     }

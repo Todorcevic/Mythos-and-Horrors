@@ -20,7 +20,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public override bool CanBeExecuted => ActiveInvestigator != null;
-        public override bool CanUndo => false;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator)
@@ -31,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected sealed override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new();
+            InteractableGameAction interactableGameAction = new(isUndable: false);
             ButtonEffect = interactableGameAction.CreateMainButton()
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
                     .SetLogic(() => Task.CompletedTask);

@@ -17,9 +17,9 @@ namespace MythosAndHorrors.GameRules
         public int Vs { get; init; }
         public Effect ButtonEffect { get; private set; }
 
+        //public override bool CanUndo => false;
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
-        public ChallengePhaseGameAction CurrentChallenge => _gameActionsProvider.GetRealLastActive<ChallengePhaseGameAction>();
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CommitCardsChallengeGameAction);
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _commitPresenter.PlayAnimationWith(this);
 
-            InteractableGameAction interactableGameAction = new();
+            InteractableGameAction interactableGameAction = new(isUndable: false);
             ButtonEffect = interactableGameAction.CreateMainButton()
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Drop")
                 .SetLogic(() => Task.CompletedTask);
@@ -73,6 +73,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(interactableGameAction);
             if (interactableGameAction.EffectSelected == ButtonEffect) return;
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(Stat, Vs));
+        }
+
+        public override async Task Undo()
+        {
+            await _commitPresenter.PlayAnimationWith(this);
         }
     }
 }

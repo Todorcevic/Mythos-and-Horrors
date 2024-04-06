@@ -11,10 +11,15 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly DiContainer _container;
         private readonly Stack<GameAction> _allGameActionsExecuted = new();
 
-        public T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
-        public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First().ActiveInvestigator;
+        private T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
+        //public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First().ActiveInvestigator;
         public PhaseGameAction GetRealCurrentPhase() => _allGameActionsExecuted.OfType<PhaseGameAction>()
             .First(phaseGameAction => phaseGameAction.IsActive && phaseGameAction is not ChallengePhaseGameAction);
+
+        public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
+        public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
+        public PlayInvestigatorGameAction CurrentPlayInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
+        public PhaseGameAction CurrentPhase => GetRealLastActive<PhaseGameAction>();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
@@ -52,7 +57,7 @@ namespace MythosAndHorrors.GameRules
         public bool CanUndo()
         {
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
-            if (lastInteractableToUndo?.IsUniqueEffect ?? true) return false;
+            if (lastInteractableToUndo?.GetUniqueEffect() != null) return false;
 
             foreach (GameAction gameAction in _allGameActionsExecuted)
             {
@@ -64,6 +69,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         private InteractableGameAction GetInteractableToUndo() =>
-             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1).FirstOrDefault();
+             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1)
+            .Where(interactableGameAction => interactableGameAction.IsUndable)
+            .FirstOrDefault();
     }
 }

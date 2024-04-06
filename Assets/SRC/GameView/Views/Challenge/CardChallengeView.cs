@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         public Card Card { get; private set; }
 
         /*******************************************************************/
-        public async Task SetCard(Card card, int value)
+        public async void SetCard(Card card, int value)
         {
             if (Card != card) await _cardImage.LoadCardSprite(card.Info.Code);
             Card = card;

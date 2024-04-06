@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : PhaseGameAction
     {
-
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -24,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new();
+            InteractableGameAction interactableGameAction = new(isUndable: false);
             Create(interactableGameAction);
             await _gameActionsProvider.Create(interactableGameAction);
             await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
