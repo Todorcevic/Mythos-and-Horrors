@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,8 +17,17 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         public Card Card { get; private set; }
+        public ChallengeToken Token { get; private set; }
 
         /*******************************************************************/
+        public void SetToken(ChallengeToken challengeToken, Sprite tokenSprite)
+        {
+            Token = challengeToken;
+            _cardImage.sprite = tokenSprite;
+            _value.text = challengeToken.Value().ToString();
+            gameObject.SetActive(true);
+        }
+
         public async void SetCard(Card card, int value)
         {
             if (Card != card) await _cardImage.LoadCardSprite(card.Info.Code);
@@ -32,6 +40,7 @@ namespace MythosAndHorrors.GameView
         public void Disable()
         {
             Card = null;
+            Token = null;
             gameObject.SetActive(false);
         }
 

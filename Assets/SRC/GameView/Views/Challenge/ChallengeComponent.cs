@@ -30,7 +30,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMeterComponent _challengeMeterComponent;
-        [SerializeField, Required, ChildGameObjectsOnly] private Image _token;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _cancelButton;
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
         [SerializeField, Required, SceneObjectsOnly] private UndoGameActionButton _undoGameActionButton;
@@ -74,8 +73,7 @@ namespace MythosAndHorrors.GameView
 
         public void SetToken(ChallengeToken token)
         {
-            _token.gameObject.SetActive(true);
-            _token.sprite = _tokensManager.GetToken(token.TokenType).Image;
+            _commitCardController.ShowToken(token);
         }
 
         private async Task Show(Transform worldObject)
@@ -91,7 +89,7 @@ namespace MythosAndHorrors.GameView
         private async Task Hide()
         {
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
-            _token.gameObject.SetActive(false);
+            _commitCardController.ClearAll();
             isShowed = false;
         }
 

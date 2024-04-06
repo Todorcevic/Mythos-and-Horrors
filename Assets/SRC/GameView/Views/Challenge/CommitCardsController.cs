@@ -8,15 +8,23 @@ namespace MythosAndHorrors.GameView
 {
     public class CommitCardsController : MonoBehaviour
     {
+        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _challengeTokensManager;
         [SerializeField, Required, ChildGameObjectsOnly] private List<CardChallengeView> _cardChallenges;
 
         private CardChallengeView GetFreeCardChallenge => _cardChallenges.FirstOrDefault(cardChallenge => cardChallenge.Card == null)
             ?? CreateCardChallenge();
 
         /*******************************************************************/
+        public void ShowToken(ChallengeToken challengeToken)
+        {
+            GetFreeCardChallenge.SetToken(challengeToken, _challengeTokensManager.GetToken(challengeToken.TokenType).Image);
+        }
+
+        public void ClearAll() => _cardChallenges.ForEach(cardChallenge => cardChallenge.Disable());
+
         public void ShowAll(IEnumerable<ICommitable> commitCards, ChallengeType challengeType)
         {
-            _cardChallenges.FindAll(cardChallenge => !commitCards.OfType<Card>().Contains(cardChallenge.Card))
+            _cardChallenges.FindAll(cardChallengeView => !commitCards.OfType<Card>().Contains(cardChallengeView.Card) && cardChallengeView.Token == null)
                 .ForEach(cardChallenge => cardChallenge.Disable());
 
             foreach (Card commitCard in commitCards.OfType<Card>().Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))

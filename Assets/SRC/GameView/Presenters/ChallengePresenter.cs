@@ -32,8 +32,8 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<RevealChallengeTokenGameAction>.PlayAnimationWith(RevealChallengeTokenGameAction revealChallengeTokenGA)
         {
             await _challengeBagComponent.DropToken(revealChallengeTokenGA.ChallengeTokenRevealed);
-            _challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed);
             await _challengeComponent.UpdateInfo(revealChallengeTokenGA.ChallengePhase).AsyncWaitForCompletion();
+            _challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed);
         }
 
         async Task IPresenter<ResolveSingleChallengeTokenGameAction>.PlayAnimationWith(ResolveSingleChallengeTokenGameAction resolveSingleChallengeGA)
