@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
     {
         private Vector3 initialScale;
         private Vector3 returnPosition;
-        private ChallengePhaseGameAction currentChallenge;
+        //private ChallengePhaseGameAction currentChallenge;
 
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
@@ -44,10 +44,8 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task Show(ChallengePhaseGameAction challenge, Transform worldObject = null)
+        public async Task Show(Transform worldObject = null)
         {
-            if (currentChallenge != null) return;
-            currentChallenge = challenge;
             transform.localScale = Vector3.zero;
             returnPosition = transform.position = (worldObject == null) ?
                 _outPosition.transform.position :
@@ -59,11 +57,11 @@ namespace MythosAndHorrors.GameView
         {
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
             _token.gameObject.SetActive(false);
-            currentChallenge = null;
         }
 
-        public void UpdateInfo()
+        public Tween UpdateInfo(ChallengePhaseGameAction challengePhaseGameAction)
         {
+            ChallengePhaseGameAction currentChallenge = challengePhaseGameAction;
             _skillChallengeController.SetSkill(currentChallenge.ChallengeType);
             _investigatorCardController.SetCard(currentChallenge.ActiveInvestigator.InvestigatorCard, currentChallenge.TotalChallengeValue);
             _challengeCardController.SetCard(currentChallenge.CardToChallenge, currentChallenge.DifficultValue);
@@ -72,15 +70,24 @@ namespace MythosAndHorrors.GameView
             _sceneTokenController.UpdateValues();
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(currentChallenge);
-            UpdateResult(currentChallenge.IsSuccessful);
+            return UpdateResult(currentChallenge.IsSuccessful);
         }
 
-        private void UpdateResult(bool? isSuccessful)
+        private Tween UpdateResult(bool? isSuccessful)
         {
-            if (!isSuccessful.HasValue) return;
-            bool isSuccess = isSuccessful.Value;
-            _result.text = isSuccess ? "Success" : "Fail";
-            _result.color = isSuccess ? Color.green : Color.red;
+            if (!isSuccessful.HasValue)
+            {
+                _result.DOFade(0, 0);
+                _result.text = string.Empty;
+                _result.color = Color.white;
+            }
+            else
+            {
+                _result.text = isSuccessful.Value ? "Success" : "Fail";
+                _result.color = isSuccessful.Value ? Color.green : Color.red;
+                return _result.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION);
+            }
+            return DOTween.Sequence();
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()

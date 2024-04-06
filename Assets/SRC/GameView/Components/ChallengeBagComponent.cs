@@ -48,6 +48,12 @@ namespace MythosAndHorrors.GameView
             return tokenView.ShowCenter(_zoneViewsManager.CenterShowZone.transform);
         }
 
+        public Tween ShakeToken(ChallengeToken realToken)
+        {
+            ChallengeTokenView tokenView = _allTokensDrop.First(token => token.ChallengeToken == realToken);
+            return tokenView.ShakeToken();
+        }
+
         private ChallengeTokenView GetTokenView(ChallengeToken tokens)
         {
             ChallengeTokenView tokenPrefab = _tokensPool.FirstOrDefault(tokenView => tokenView.Type == tokens.TokenType) ?? _valueTokenPrefab;

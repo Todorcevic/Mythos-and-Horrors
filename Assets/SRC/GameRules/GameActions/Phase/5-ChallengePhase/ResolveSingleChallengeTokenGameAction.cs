@@ -6,10 +6,9 @@ namespace MythosAndHorrors.GameRules
     public class ResolveSingleChallengeTokenGameAction : GameAction
     {
         [Inject] private readonly IPresenter<ResolveSingleChallengeTokenGameAction> _solveTokenPresenter;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public ChallengeToken ChallengeTokenToResolve { get; private set; }
-
-        public override bool CanBeExecuted => ChallengeTokenToResolve.Effect != null;
 
         /*******************************************************************/
         public ResolveSingleChallengeTokenGameAction(ChallengeToken challengeTokenToResolve)
@@ -20,8 +19,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _solveTokenPresenter.PlayAnimationWith(this);
-            await ChallengeTokenToResolve.Effect?.Invoke();
+            if (ChallengeTokenToResolve.Effect != null)
+            {
+                await _solveTokenPresenter.PlayAnimationWith(this);
+                await ChallengeTokenToResolve.Effect?.Invoke();
+            }
+            await _gameActionsProvider.Create(new RestoreChallengeToken(ChallengeTokenToResolve));
         }
     }
 }

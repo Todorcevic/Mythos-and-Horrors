@@ -14,25 +14,26 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
-        [Inject] private readonly IPresenter<FinishChallengeGameAction> _finishChallengePresenter;
 
         public Stat Stat { get; init; }
-        public int DifficultValue { get; init; }
+        public int InitialDifficultValue { get; init; }
         public string ChallengeName { get; init; }
         public Func<Task> SuccesEffect { get; init; }
         public Func<Task> FailEffect { get; init; }
         public Card CardToChallenge { get; init; }
 
         public List<ChallengeToken> TokensRevealed { get; private set; } = new();
-        public bool? IsSuccessful { get; private set; }
+        public bool? IsSuccessful { get; set; }
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
 
+        public bool IsFinished => IsSuccessful.HasValue;
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
         private int TotalTokenRevealed => TokensRevealed.Sum(token => token.Value());
-        public int TotalChallengeValue => Stat.Value + TotalTokenRevealed + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
+        public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenRevealed + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
+        public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);
@@ -43,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Func<Task> succesEffect = null, Func<Task> failEffect = null, Card cardToChallenge = null)
         {
             Stat = stat;
-            DifficultValue = difficultValue;
+            InitialDifficultValue = difficultValue;
             ChallengeName = name;
             SuccesEffect = succesEffect;
             FailEffect = failEffect;
@@ -54,21 +55,19 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(Stat, DifficultValue));
-            TokensRevealed.Add((await _gameActionsProvider.Create(new RevealChallengeTokenGameAction())).ChallengeTokenRevealed);
+            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
+            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(this));
+            await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new ResolveMultiChallengeTokensGamaAction(TokensRevealed.ToList()));
-            IsSuccessful = (await _gameActionsProvider.Create(new ResultChallengeGameAction(this))).IsSuccessful;
-            await _challengerPresenter.PlayAnimationWith(this);
-
-            await _gameActionsProvider.Create(new ResolveChallengeGameAction(IsSuccessful, SuccesEffect, FailEffect));
-            await _gameActionsProvider.Create(new FinishChallengeGameAction());
+            await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
+            await _gameActionsProvider.Create(new DiscardCommitsCards());
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
         }
 
         public override async Task Undo()
         {
-            await _finishChallengePresenter.PlayAnimationWith(null);
+            IsSuccessful = false;
+            await _challengerPresenter.PlayAnimationWith(this);
         }
     }
 }

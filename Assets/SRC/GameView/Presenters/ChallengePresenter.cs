@@ -1,14 +1,15 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
     public class ChallengePresenter : IPresenter<ChallengePhaseGameAction>, IPresenter<CommitCardsChallengeGameAction>,
-        IPresenter<FinishChallengeGameAction>, IPresenter<RevealChallengeTokenGameAction>, IPresenter<ResolveSingleChallengeTokenGameAction>,
-        IPresenter<RestoreChallengeTokens>
+        IPresenter<RevealChallengeTokenGameAction>, IPresenter<ResolveSingleChallengeTokenGameAction>,
+        IPresenter<RestoreChallengeToken>
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -21,38 +22,31 @@ namespace MythosAndHorrors.GameView
                 null :
                 _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
 
-            await _challengeComponent.Show(challengePhaseGameAction, initialPosition);
-            UpdateChallengeInfo();
+            await _challengeComponent.UpdateInfo(challengePhaseGameAction).AsyncWaitForCompletion();
+            if (challengePhaseGameAction.IsFinished) await _challengeComponent.Hide();
+            else await _challengeComponent.Show(initialPosition);
         }
 
-        async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction _)
+        async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
         {
-            UpdateChallengeInfo();
-            await Task.CompletedTask;
+            await _challengeComponent.UpdateInfo(commitCardsChallengeGameAction.ChallengePhase).AsyncWaitForCompletion();
         }
 
         async Task IPresenter<RevealChallengeTokenGameAction>.PlayAnimationWith(RevealChallengeTokenGameAction revealChallengeTokenGA)
         {
             await _challengeBagComponent.DropToken(revealChallengeTokenGA.ChallengeTokenRevealed);
             _challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed);
+            await _challengeComponent.UpdateInfo(revealChallengeTokenGA.ChallengePhase).AsyncWaitForCompletion();
         }
 
         async Task IPresenter<ResolveSingleChallengeTokenGameAction>.PlayAnimationWith(ResolveSingleChallengeTokenGameAction resolveSingleChallengeGA)
         {
-            //await _challengeBagComponent.ShowCenter(resolveSingleChallengeGA.ChallengeTokenToResolve).AsyncWaitForCompletion();
-            await Task.CompletedTask;
+            await _challengeBagComponent.ShakeToken(resolveSingleChallengeGA.ChallengeTokenToResolve).AsyncWaitForCompletion();
         }
 
-        async Task IPresenter<RestoreChallengeTokens>.PlayAnimationWith(RestoreChallengeTokens gameAction)
+        async Task IPresenter<RestoreChallengeToken>.PlayAnimationWith(RestoreChallengeToken restoreChallengeToken)
         {
-            await _challengeBagComponent.RestoreAllTokens().AsyncWaitForCompletion();
+            await _challengeBagComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore).AsyncWaitForCompletion();
         }
-
-        async Task IPresenter<FinishChallengeGameAction>.PlayAnimationWith(FinishChallengeGameAction _)
-        {
-            await _challengeComponent.Hide();
-        }
-
-        private void UpdateChallengeInfo() => _challengeComponent.UpdateInfo();
     }
 }

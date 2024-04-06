@@ -46,6 +46,11 @@ namespace MythosAndHorrors.GameView
                      .Append(transform.DOFullMove(realTransfromt));
         }
 
+        public Tween ShakeToken()
+        {
+            return transform.DOShakePosition(ViewValues.SLOW_TIME_ANIMATION, 1f, 10, 90, false, true);
+        }
+
         public void SetValue(ChallengeToken challengeToken)
         {
             ChallengeToken = challengeToken;

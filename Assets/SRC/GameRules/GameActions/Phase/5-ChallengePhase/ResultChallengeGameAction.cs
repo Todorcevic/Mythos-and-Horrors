@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
     public class ResultChallengeGameAction : GameAction
     {
         public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
-        public bool IsSuccessful { get; private set; }
 
         /*******************************************************************/
         public ResultChallengeGameAction(ChallengePhaseGameAction challengePhaseGameAction)
@@ -16,9 +15,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (ChallengePhaseGameAction.IsAutoSucceed) IsSuccessful = true;
-            else if (ChallengePhaseGameAction.IsAutoFail) IsSuccessful = false;
-            else IsSuccessful = ChallengePhaseGameAction.TotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
+            if (ChallengePhaseGameAction.IsAutoSucceed) ChallengePhaseGameAction.IsSuccessful = true;
+            else if (ChallengePhaseGameAction.IsAutoFail) ChallengePhaseGameAction.IsSuccessful = false;
+            else ChallengePhaseGameAction.IsSuccessful = ChallengePhaseGameAction.TotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
             await Task.CompletedTask;
         }
     }

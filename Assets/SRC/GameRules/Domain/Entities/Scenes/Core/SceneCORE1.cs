@@ -34,21 +34,19 @@ namespace MythosAndHorrors.GameRules
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
             {
-                FailToken = new ChallengeToken(ChallengeTokenType.Fail, value: FailValue, effect: FailEffect);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, description: Info.DangerTokenDescriptionNormal);
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, description: Info.CreatureTokenDescriptionNormal);
+                FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionNormal);
             }
             else if (_chaptersProvider.CurrentDificulty == Dificulty.Hard || _chaptersProvider.CurrentDificulty == Dificulty.Expert)
             {
-                FailToken = new ChallengeToken(ChallengeTokenType.Fail, value: FailValue, effect: FailEffect);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, description: Info.CultistTokenDescriptionHard);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, description: Info.DangerTokenDescriptionHard);
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, description: Info.CreatureTokenDescriptionHard);
+                FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionHard);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionHard);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionHard);
             }
         }
-
-        private int FailValue() => _gameActionsProvider.CurrentChallenge.TotalChallengeValue * -1;
 
         private async Task FailEffect()
         {

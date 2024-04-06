@@ -1,5 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
+
     public enum Phase
     {
         Prepare,
