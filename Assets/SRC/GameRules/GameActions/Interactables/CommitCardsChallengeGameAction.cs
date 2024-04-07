@@ -14,10 +14,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
         public Effect ButtonEffect { get; private set; }
-        public ChallengePhaseGameAction ChallengePhase { get; init; }
 
-        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(ChallengePhase.Stat);
-        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(ChallengePhase.Stat);
+        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(_gameActionsProvider.CurrentChallenge.Stat);
+        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(_gameActionsProvider.CurrentChallenge.Stat);
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CommitCardsChallengeGameAction);
@@ -25,16 +24,9 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public CommitCardsChallengeGameAction(ChallengePhaseGameAction challengePhase)
-        {
-            ChallengePhase = challengePhase;
-        }
-
-        /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _commitPresenter.PlayAnimationWith(this);
-
             InteractableGameAction interactableGameAction = new(isUndable: false);
             ButtonEffect = interactableGameAction.CreateMainButton()
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Drop")
@@ -69,7 +61,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactableGameAction);
             if (interactableGameAction.EffectSelected == ButtonEffect) return;
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ChallengePhase));
+            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction());
         }
 
         public override async Task Undo()

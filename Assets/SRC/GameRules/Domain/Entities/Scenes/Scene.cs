@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class Scene
     {
-        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
 
         [Inject] public SceneInfo Info { get; }
@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
         /************************** TOKENS *****************************/
+        public ChallengeToken StarToken { get; protected set; }
         public ChallengeToken FailToken { get; protected set; }
         public ChallengeToken AncientToken { get; protected set; }
         public ChallengeToken CultistToken { get; protected set; }
@@ -64,7 +65,21 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public abstract Task PrepareScene();
 
-        public abstract void PrepareChallengeTokens();
+        public virtual void PrepareChallengeTokens()
+        {
+            StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue);
+            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
+
+            async Task StarEffect() => await _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarEffect();
+
+            int StarValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarValue();
+
+            async Task FailEffect()
+            {
+                _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
+                await Task.CompletedTask;
+            }
+        }
 
 
         /*******************************************************************/

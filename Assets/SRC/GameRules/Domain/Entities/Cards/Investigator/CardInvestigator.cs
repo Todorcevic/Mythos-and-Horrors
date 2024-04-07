@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -23,7 +24,6 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
         public Stat ResourceTurnsCost { get; private set; }
-        public ChallengeToken StarToken { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -46,7 +46,6 @@ namespace MythosAndHorrors.GameRules
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             ResourceTurnsCost = new Stat(1);
-            StarToken = new ChallengeToken(ChallengeTokenType.Star);
         }
 
         /*******************************************************************/
@@ -62,5 +61,9 @@ namespace MythosAndHorrors.GameRules
                 || stat == Resources
                 || stat == Hints
                 || stat == CurrentTurns;
+
+        public virtual async Task StarEffect() => await Task.CompletedTask; //TODO: must be abstract
+
+        public virtual int StarValue() => 0; //TODO: must be abstract
     }
 }

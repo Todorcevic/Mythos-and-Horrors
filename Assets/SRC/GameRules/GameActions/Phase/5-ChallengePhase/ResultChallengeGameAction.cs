@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ResultChallengeGameAction : GameAction
     {
+        [Inject] private readonly IPresenter<ResultChallengeGameAction> _resultChallengePresent;
+
         public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
 
         /*******************************************************************/
@@ -18,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             if (ChallengePhaseGameAction.IsAutoSucceed) ChallengePhaseGameAction.IsSuccessful = true;
             else if (ChallengePhaseGameAction.IsAutoFail) ChallengePhaseGameAction.IsSuccessful = false;
             else ChallengePhaseGameAction.IsSuccessful = ChallengePhaseGameAction.TotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
-            await Task.CompletedTask;
+            await _resultChallengePresent.PlayAnimationWith(this);
         }
     }
 }

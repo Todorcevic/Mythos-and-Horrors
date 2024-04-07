@@ -29,11 +29,11 @@ namespace MythosAndHorrors.GameView
 
         private double Calculate(ChallengePhaseGameAction challenge, int mod)
         {
-            int amountWins = _challengeTokensProvider.ChallengeTokens.Count(token =>
+            int amountWins = _challengeTokensProvider.ChallengeTokensInBag.Count(token =>
                 token.TokenType != ChallengeTokenType.Fail &&
                 challenge.TotalChallengeValue + token.Value() + mod >= challenge.DifficultValue);
 
-            return Math.Round(((double)amountWins / _challengeTokensProvider.Tokens.Count) * 100);
+            return Math.Round(((double)amountWins / _challengeTokensProvider.ChallengeTokensInBag.Count) * 100);
         }
     }
 }

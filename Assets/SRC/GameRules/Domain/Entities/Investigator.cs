@@ -92,6 +92,5 @@ namespace MythosAndHorrors.GameRules
             if (stat == Power) return ChallengeType.Power;
             return ChallengeType.None;
         }
-
     }
 }

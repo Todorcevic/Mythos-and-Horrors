@@ -32,23 +32,22 @@ namespace MythosAndHorrors.GameRules
 
         public override void PrepareChallengeTokens()
         {
+            base.PrepareChallengeTokens();
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
             {
-                FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
                 CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionNormal);
                 DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionNormal);
                 CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionNormal);
             }
             else if (_chaptersProvider.CurrentDificulty == Dificulty.Hard || _chaptersProvider.CurrentDificulty == Dificulty.Expert)
             {
-                FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
                 CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionHard);
                 DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionHard);
                 CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionHard);
             }
         }
 
-        private async Task FailEffect()
+        private async Task FailEffect() // TODO: Test Effect, mus be change
         {
             _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
             await Task.CompletedTask;

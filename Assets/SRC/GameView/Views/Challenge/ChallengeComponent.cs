@@ -16,7 +16,6 @@ namespace MythosAndHorrors.GameView
     {
         private Vector3 initialScale;
         private Vector3 returnPosition;
-        private bool isShowed;
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
@@ -51,24 +50,17 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task Move(Transform worldObject = null)
+        public Tween UpdateInfo(ChallengePhaseGameAction ChallengePhaseGameAction)
         {
-            if (isShowed) await Hide();
-            else await Show(worldObject);
-        }
-
-        public Tween UpdateInfo(ChallengePhaseGameAction challengePhaseGameAction)
-        {
-            ChallengePhaseGameAction currentChallenge = challengePhaseGameAction;
-            _skillChallengeController.SetSkill(currentChallenge.ChallengeType);
-            _investigatorCardController.SetCard(currentChallenge.ActiveInvestigator.InvestigatorCard, currentChallenge.TotalChallengeValue);
-            _challengeCardController.SetCard(currentChallenge.CardToChallenge, currentChallenge.DifficultValue);
-            _commitCardController.ShowAll(currentChallenge.CommitsCards, currentChallenge.ChallengeType);
-            _challengeName.text = currentChallenge.ChallengeName;
+            _skillChallengeController.SetSkill(ChallengePhaseGameAction.ChallengeType);
+            _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.TotalChallengeValue);
+            _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
+            _commitCardController.ShowAll(ChallengePhaseGameAction.CommitsCards, ChallengePhaseGameAction.ChallengeType);
+            _challengeName.text = ChallengePhaseGameAction.ChallengeName;
             _sceneTokenController.UpdateValues();
             _tokenLeftController.Refresh();
-            _challengeMeterComponent.Show(currentChallenge);
-            return UpdateResult(currentChallenge.IsSuccessful);
+            _challengeMeterComponent.Show(ChallengePhaseGameAction);
+            return UpdateResult(ChallengePhaseGameAction.IsSuccessful);
         }
 
         public void SetToken(ChallengeToken token)
@@ -76,21 +68,19 @@ namespace MythosAndHorrors.GameView
             _commitCardController.ShowToken(token);
         }
 
-        private async Task Show(Transform worldObject)
+        public async Task Show(Transform worldObject)
         {
             transform.localScale = Vector3.zero;
             returnPosition = transform.position = (worldObject == null) ?
                 _outPosition.transform.position :
                 RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
             await ShowAnimation().AsyncWaitForCompletion();
-            isShowed = true;
         }
 
-        private async Task Hide()
+        public async Task Hide()
         {
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
             _commitCardController.ClearAll();
-            isShowed = false;
         }
 
         private Tween UpdateResult(bool? isSuccessful)

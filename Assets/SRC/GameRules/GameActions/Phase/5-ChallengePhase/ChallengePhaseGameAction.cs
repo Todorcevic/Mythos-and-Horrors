@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
@@ -22,10 +23,11 @@ namespace MythosAndHorrors.GameRules
         public Func<Task> FailEffect { get; init; }
         public Card CardToChallenge { get; init; }
 
-        public List<ChallengeToken> TokensRevealed { get; private set; } = new();
         public bool? IsSuccessful { get; set; }
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
+
+        public IEnumerable<ChallengeToken> TokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
@@ -53,17 +55,20 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
-            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(this));
+            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction());
+            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+            await _gameActionsProvider.Create(new ResolveAllTokensGameAction(_challengeTokensProvider.ChallengeTokensRevealed.FirstOrDefault()));
             await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
-            await _challengerPresenter.PlayAnimationWith(this);
+            await _gameActionsProvider.Create(new RestoreAllChallengeTokens(_challengeTokensProvider.ChallengeTokensRevealed.FirstOrDefault()));
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
         }
 
+        public bool IsUndo { get; private set; }
         public override async Task Undo()
         {
+            IsUndo = true;
             await _challengerPresenter.PlayAnimationWith(this);
         }
     }

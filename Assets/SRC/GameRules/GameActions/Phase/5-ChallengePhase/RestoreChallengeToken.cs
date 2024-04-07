@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _challengeTokensProvider.RestoreSingleToken(ChallengeTokenToRestore.TokenType);
+            _challengeTokensProvider.RestoreSingleToken(ChallengeTokenToRestore);
             await _presenter.PlayAnimationWith(this);
         }
     }

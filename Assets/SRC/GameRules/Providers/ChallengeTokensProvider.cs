@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,38 +9,30 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public List<ChallengeTokenType> TokensRevealed { get; private set; } = new();
-        public List<ChallengeTokenType> Tokens { get; private set; }
-        public List<ChallengeToken> ChallengeTokens => Tokens.ConvertAll(ResolveToken);
+        public List<ChallengeToken> ChallengeTokensInBag { get; private set; }
+        public List<ChallengeToken> ChallengeTokensRevealed { get; private set; } = new();
 
         /*******************************************************************/
         public void CreateTokens(List<ChallengeTokenType> tokens)
         {
-            Tokens = tokens;
+            ChallengeTokensInBag = tokens.ConvertAll(ConvertToken);
         }
 
-        public ChallengeToken GetRandomToken()
+        public ChallengeToken GetRandomToken() => ChallengeTokensInBag[new Random().Next(ChallengeTokensInBag.Count)];
+
+        public void RestoreSingleToken(ChallengeToken token)
         {
-            int index = new Random().Next(Tokens.Count);
-            ChallengeTokenType tokenType = Tokens[index];
-            TokensRevealed.Add(tokenType);
-            Tokens.Remove(tokenType);
-            return ResolveToken(tokenType);
+            ChallengeTokensInBag.Add(token);
+            ChallengeTokensRevealed.Remove(token);
         }
 
-        public void RestoreSingleToken(ChallengeTokenType token)
+        public void RevealToken(ChallengeToken token)
         {
-            Tokens.Add(token);
-            TokensRevealed.Remove(token);
+            ChallengeTokensInBag.Remove(token);
+            ChallengeTokensRevealed.Add(token);
         }
 
-        public void RestoreTokens()
-        {
-            Tokens.AddRange(TokensRevealed);
-            TokensRevealed.Clear();
-        }
-
-        private ChallengeToken ResolveToken(ChallengeTokenType token)
+        private ChallengeToken ConvertToken(ChallengeTokenType token)
         {
             return token switch
             {
@@ -50,7 +41,7 @@ namespace MythosAndHorrors.GameRules
                 ChallengeTokenType.Danger => _chaptersProvider.CurrentScene.DangerToken,
                 ChallengeTokenType.Cultist => _chaptersProvider.CurrentScene.CultistToken,
                 ChallengeTokenType.Fail => _chaptersProvider.CurrentScene.FailToken,
-                ChallengeTokenType.Star => _investigatorsProvider.ActiveInvestigator.InvestigatorCard.StarToken,
+                ChallengeTokenType.Star => _chaptersProvider.CurrentScene.StarToken,
                 _ => new ChallengeToken(token, () => (int)token)
             };
         }
