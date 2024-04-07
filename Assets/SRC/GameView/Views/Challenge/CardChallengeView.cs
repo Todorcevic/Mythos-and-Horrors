@@ -20,28 +20,36 @@ namespace MythosAndHorrors.GameView
         public ChallengeToken Token { get; private set; }
 
         /*******************************************************************/
-        public void SetToken(ChallengeToken challengeToken, Sprite tokenSprite)
+        public Tween SetToken(ChallengeToken challengeToken, Sprite tokenSprite)
         {
+            if (Card != null || Token != null) return DOTween.Sequence();
             Token = challengeToken;
             _cardImage.sprite = tokenSprite;
             _value.text = challengeToken.Value().ToString();
-            gameObject.SetActive(true);
+            transform.localScale = Vector3.zero;
+            return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
+              .OnStart(() => gameObject.SetActive(true));
         }
 
-        public async void SetCard(Card card, int value)
+        public Tween SetCard(Card card, int value)
         {
-            if (Card != card) await _cardImage.LoadCardSprite(card.Info.Code);
+            if (Card != null || Token != null) return DOTween.Sequence();
+            _ = _cardImage.LoadCardSprite(card.Info.Code);
             Card = card;
             _cardView = _cardViewsManager.GetCardView(card);
             _value.text = value.ToString();
-            gameObject.SetActive(true);
+            transform.localScale = Vector3.zero;
+            return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
+                .OnStart(() => gameObject.SetActive(true));
         }
 
         public void Disable()
         {
+            if (Card == null && Token == null) return;
             Card = null;
             Token = null;
             gameObject.SetActive(false);
+            transform.SetAsLastSibling();
         }
 
         /*******************************************************************/

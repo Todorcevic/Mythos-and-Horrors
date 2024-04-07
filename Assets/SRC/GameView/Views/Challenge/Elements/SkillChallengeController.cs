@@ -1,4 +1,5 @@
-﻿using MythosAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,8 @@ namespace MythosAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private Image _skill;
 
-        public void SetSkill(ChallengeType challengeType)
+        /*******************************************************************/
+        public Tween SetSkill(ChallengeType challengeType)
         {
             _skill.sprite = challengeType switch
             {
@@ -24,8 +26,11 @@ namespace MythosAndHorrors.GameView
                 ChallengeType.Power => _power,
                 _ => null
             };
+
+            return transform.DOScale(1, 0).SetEase(Ease.OutBack);
         }
 
+        public Tween ShutDown() => transform.DOScale(0, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InBack);
     }
 }
 

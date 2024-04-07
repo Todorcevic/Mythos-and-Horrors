@@ -55,6 +55,7 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<RestoreChallengeToken>.PlayAnimationWith(RestoreChallengeToken restoreChallengeToken)
         {
             await _challengeBagComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore).AsyncWaitForCompletion();
+            _challengeComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore);
         }
     }
 }

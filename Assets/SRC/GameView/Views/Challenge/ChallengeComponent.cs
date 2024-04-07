@@ -1,23 +1,20 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ChallengeComponent : MonoBehaviour, IPlayable
+    public class ChallengeComponent : MonoBehaviour
     {
         private Vector3 initialScale;
         private Vector3 returnPosition;
 
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
@@ -25,19 +22,13 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _result;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _totalChallenge;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _difficult;
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMeterComponent _challengeMeterComponent;
-        [SerializeField, Required, ChildGameObjectsOnly] private Button _cancelButton;
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
-        [SerializeField, Required, SceneObjectsOnly] private UndoGameActionButton _undoGameActionButton;
-
-        /*******************************************************************/
-        private Effect UndoEffect => _gameActionsProvider.CurrentInteractable?.UndoEffect;
-        IEnumerable<Effect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
-        void IPlayable.ActivateToClick() => ActivationCancelButton(true);
-        void IPlayable.DeactivateToClick() => ActivationCancelButton(false);
 
         /*******************************************************************/
         [Inject]
@@ -46,27 +37,26 @@ namespace MythosAndHorrors.GameView
         {
             initialScale = transform.localScale;
             transform.position = _outPosition.position;
-            _cancelButton.onClick.AddListener(Clicked);
         }
 
         /*******************************************************************/
         public Tween UpdateInfo(ChallengePhaseGameAction ChallengePhaseGameAction)
         {
-            _skillChallengeController.SetSkill(ChallengePhaseGameAction.ChallengeType);
-            _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.TotalChallengeValue);
+            _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.Stat.Value);
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
             _sceneTokenController.UpdateValues();
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(ChallengePhaseGameAction);
-            return UpdateResult(ChallengePhaseGameAction.IsSuccessful);
+            _totalChallenge.text = ChallengePhaseGameAction.TotalChallengeValue.ToString();
+            _difficult.text = ChallengePhaseGameAction.DifficultValue.ToString();
+            return UpdateResult(ChallengePhaseGameAction);
         }
 
-        public void SetToken(ChallengeToken token)
-        {
-            _commitCardController.ShowToken(token);
-        }
+        public void SetToken(ChallengeToken token) => _commitCardController.ShowToken(token);
+
+        public void RestoreToken(ChallengeToken token) => _commitCardController.RestoreToken(token);
 
         public async Task Show(Transform worldObject)
         {
@@ -83,19 +73,21 @@ namespace MythosAndHorrors.GameView
             _commitCardController.ClearAll();
         }
 
-        private Tween UpdateResult(bool? isSuccessful)
+        private Tween UpdateResult(ChallengePhaseGameAction ChallengePhaseGameAction)
         {
-            if (!isSuccessful.HasValue)
+            if (!ChallengePhaseGameAction.IsSuccessful.HasValue)
             {
-                _result.DOFade(0, 0);
+                _result.transform.DOScale(0, 0).SetEase(Ease.InBack);
                 _result.text = string.Empty;
                 _result.color = Color.white;
+                _skillChallengeController.SetSkill(ChallengePhaseGameAction.ChallengeType);
             }
             else
             {
-                _result.text = isSuccessful.Value ? "Success" : "Fail";
-                _result.color = isSuccessful.Value ? Color.green : Color.red;
-                return _result.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION);
+                _result.text = ChallengePhaseGameAction.IsSuccessful.Value ? "Success" : "Fail";
+                _result.color = ChallengePhaseGameAction.IsSuccessful.Value ? Color.green : Color.red;
+                return DOTween.Sequence().Append(_skillChallengeController.ShutDown())
+                    .Append(_result.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack));
             }
             return DOTween.Sequence();
         }
@@ -108,14 +100,6 @@ namespace MythosAndHorrors.GameView
                 .Join(transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
                 .SetEase(Ease.InOutCubic);
-
-        private void Clicked() => _undoGameActionButton.OnPointerClick(null);
-
-        private void ActivationCancelButton(bool isActivate)
-        {
-            _cancelButton.interactable = isActivate;
-            _cancelButton.gameObject.SetActive(isActivate);
-        }
     }
 }
 
