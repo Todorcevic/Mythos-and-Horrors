@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly ReactionableControl _reactionableControl;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -42,13 +43,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return LoadScene("GamePlay", InstallerToTests);
             _prepareGameUseCase.Execute();
             AlwaysHistoryPanelClick().AsTask();
+            _reactionableControl.Init();
         }
-
 
         [UnityTearDown]
         public override IEnumerator TearDown()
         {
             yield return _gameActionsProvider.Rewind().AsCoroutine();
+            _reactionableControl.ClearAllSubscriptions();
         }
 
         private void LoadSceneSettings()
@@ -65,8 +67,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private void InstallerToTests()
         {
-            SceneContainer.Bind<CardInfoBuilder>().AsTransient();
-            SceneContainer.Bind<CardBuilder>().AsSingle();
+            SceneContainer.Bind<ReactionableControl>().AsSingle();
         }
 
         /*******************************************************************/

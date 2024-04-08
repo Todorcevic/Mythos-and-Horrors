@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private async Task FailEffect() // TODO: Test Effect, mus be change
+        private async Task FailEffect() // TODO: Test Effect, must be change
         {
             _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
             await Task.CompletedTask;

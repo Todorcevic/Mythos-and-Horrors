@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChallengeTokensProvider
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public List<ChallengeToken> ChallengeTokensInBag { get; private set; }

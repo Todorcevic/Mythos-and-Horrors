@@ -15,8 +15,9 @@ namespace MythosAndHorrors.GameRules
 
         public Effect ButtonEffect { get; private set; }
 
-        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(_gameActionsProvider.CurrentChallenge.Stat);
-        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(_gameActionsProvider.CurrentChallenge.Stat);
+        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(CurrentChallenge.Stat);
+        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
+        public ChallengePhaseGameAction CurrentChallenge => (ChallengePhaseGameAction)Parent;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CommitCardsChallengeGameAction);

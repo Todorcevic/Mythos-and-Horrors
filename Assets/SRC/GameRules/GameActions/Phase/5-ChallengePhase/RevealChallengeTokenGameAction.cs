@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<RevealChallengeTokenGameAction> _revealTokenPresenter;
 
-        public ChallengeToken ChallengeTokenRevealed { get; init; }
+        public ChallengeToken ChallengeTokenRevealed { get; private set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
@@ -22,6 +22,11 @@ namespace MythosAndHorrors.GameRules
         {
             _challengeTokensProvider.RevealToken(ChallengeTokenRevealed);
             await _revealTokenPresenter.PlayAnimationWith(this);
+        }
+
+        public void SetChallengeToken(ChallengeToken challengeToken)
+        {
+            ChallengeTokenRevealed = challengeToken;
         }
     }
 }

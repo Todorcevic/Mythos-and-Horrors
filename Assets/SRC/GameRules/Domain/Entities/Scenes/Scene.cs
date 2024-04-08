@@ -81,7 +81,6 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-
         /*******************************************************************/
         public bool HasThisZone(Zone zone)
         {

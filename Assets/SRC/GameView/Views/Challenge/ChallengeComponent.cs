@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameView
         private Vector3 initialScale;
         private Vector3 returnPosition;
 
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
@@ -40,8 +41,11 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public Tween UpdateInfo(ChallengePhaseGameAction ChallengePhaseGameAction)
+        public Tween UpdateInfo()
         {
+            ChallengePhaseGameAction ChallengePhaseGameAction = _gameActionsProvider.CurrentChallenge;
+            if (ChallengePhaseGameAction == null) return DOTween.Sequence();
+
             _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.Stat.Value);
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CommitsCards, ChallengePhaseGameAction.ChallengeType);

@@ -12,13 +12,12 @@ namespace MythosAndHorrors.GameRules
         private readonly Stack<GameAction> _allGameActionsExecuted = new();
 
         private T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
-        //public Investigator GetActiveInvestigator() => _allGameActionsExecuted.OfType<PhaseGameAction>().First().ActiveInvestigator;
         public PhaseGameAction GetRealCurrentPhase() => _allGameActionsExecuted.OfType<PhaseGameAction>()
             .First(phaseGameAction => phaseGameAction.IsActive && phaseGameAction is not ChallengePhaseGameAction);
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
-        public PlayInvestigatorGameAction CurrentPlayInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
+        public PlayInvestigatorGameAction CurrentPlayPhaseInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
         public PhaseGameAction CurrentPhase => GetRealLastActive<PhaseGameAction>();
 
         /*******************************************************************/

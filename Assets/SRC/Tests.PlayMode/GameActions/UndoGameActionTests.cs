@@ -9,7 +9,6 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class UndoGameActionTests : TestBase
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
