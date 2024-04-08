@@ -28,10 +28,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
 
-            OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
-            _ = _gameActionsProvider.Create(oiGA);
+            OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = new(_investigatorsProvider.First);
+            _ = _gameActionsProvider.Create(oneInvestigatorTurnGameAction);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorAttackEffects.Find(effect => effect.CardAffected == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorAttackEffects.Find(effect => effect.CardAffected == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));

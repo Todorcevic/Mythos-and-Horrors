@@ -23,6 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly TokensPileComponent tokensPileComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -98,6 +99,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             while (historyButton.interactable) yield return null;
 
             yield return AlwaysHistoryPanelClick();
+        }
+
+        protected IEnumerator WaitToMainButtonClick()
+        {
+            while (!_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
+
+            if (_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) _mainButtonComponent.OnMouseUpAsButton();
+            else throw new TimeoutException("Main Button Not become clickable");
+
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         protected IEnumerator WaitToClick(Card card)

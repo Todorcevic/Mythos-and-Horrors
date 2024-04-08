@@ -39,17 +39,23 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (string.IsNullOrEmpty(memberName)) throw new ArgumentNullException("memberName cant be null or empty");
 
             Type objectType = objectTarget.GetType();
-            FieldInfo field = null;
+            FieldInfo field;
+            PropertyInfo property;
 
-            while (objectType != null && field == null)
+            while (objectType != null)
             {
                 field = objectType.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
                                   .FirstOrDefault(fieldInfo => fieldInfo.Name == memberName && fieldInfo.FieldType == typeof(T));
+                if (field != null) return (T)field.GetValue(objectTarget);
+
+                property = objectType.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                               .FirstOrDefault(propertyInfo => propertyInfo.Name == memberName && propertyInfo.PropertyType == typeof(T));
+                if (property != null) return (T)property.GetValue(objectTarget);
 
                 objectType = objectType.BaseType;
             }
 
-            return (T)field.GetValue(objectTarget);
+            throw new ArgumentNullException("Private member not found: " + objectTarget.GetType().Name + " - " + memberName);
         }
 
         public static IEnumerator AsCoroutine(this Task task)

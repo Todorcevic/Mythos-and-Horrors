@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -77,10 +77,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay2, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First)).AsCoroutine();
+
+            OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = new(_investigatorsProvider.First);
+            _ = _gameActionsProvider.Create(oneInvestigatorTurnGameAction);
+
+            if (!DEBUG_MODE) yield return WaitToClick(place);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(true);
+            Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(2));
         }
 
 
