@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         public Stat Stat { get; init; }
         public int InitialDifficultValue { get; init; }
         public string ChallengeName { get; init; }
-        public Func<Task> SuccesEffect { get; init; }
-        public Func<Task> FailEffect { get; init; }
+        public List<Func<Task>> SuccesEffects { get; init; } = new();
+        public List<Func<Task>> FailEffects { get; init; } = new();
         public Card CardToChallenge { get; init; }
 
         public bool? IsSuccessful { get; set; }
@@ -46,8 +46,8 @@ namespace MythosAndHorrors.GameRules
             Stat = stat;
             InitialDifficultValue = difficultValue;
             ChallengeName = name;
-            SuccesEffect = succesEffect;
-            FailEffect = failEffect;
+            SuccesEffects.Add(succesEffect);
+            FailEffects.Add(failEffect);
             CardToChallenge = cardToChallenge;
         }
 

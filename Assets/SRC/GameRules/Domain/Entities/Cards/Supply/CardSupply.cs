@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class CardSupply : Card, IPlayableFromHand, ICommitable
     {
         public Stat ResourceCost { get; private set; }
-        public Stat TurnsCost { get; private set; }
+        public Stat TurnsCost { get; protected set; }
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
 

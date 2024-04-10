@@ -101,7 +101,7 @@ namespace MythosAndHorrors.GameView
                 .Join(transform.DOScale(initialScale, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
 
         private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
-                .Join(transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Insert(ViewValues.SLOW_TIME_ANIMATION, transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
                 .SetEase(Ease.InOutCubic);
     }

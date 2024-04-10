@@ -21,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         Investigator = 1 << 11,
         InvestigatorDiscard = 1 << 12,
         InvestigatorDeck = 1 << 13,
-        Own = 1 << 14
+        Own = 1 << 14,
+        PlayZone = Aid | Danger | Investigator | Place | Limbo | Plot | Goal | Own
     }
 }

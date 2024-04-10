@@ -7,7 +7,6 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class MoveCreatureGameActionTests : TestBase
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

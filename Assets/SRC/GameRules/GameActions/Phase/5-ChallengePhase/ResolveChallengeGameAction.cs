@@ -5,23 +5,31 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResolveChallengeGameAction : GameAction
     {
-        public Func<Task> SuccesEffect { get; init; }
-        public Func<Task> FailEffect { get; init; }
-        public bool IsSuccessful { get; init; }
+        public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
 
         /*******************************************************************/
         public ResolveChallengeGameAction(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            IsSuccessful = (bool)challengePhaseGameAction.IsSuccessful;
-            SuccesEffect = challengePhaseGameAction.SuccesEffect;
-            FailEffect = challengePhaseGameAction.FailEffect;
+            ChallengePhaseGameAction = challengePhaseGameAction;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (IsSuccessful && SuccesEffect != null) await SuccesEffect.Invoke();
-            else if (!IsSuccessful && FailEffect != null) await FailEffect.Invoke();
+            if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Count > 0)
+            {
+                foreach (Func<Task> succesEffect in ChallengePhaseGameAction.SuccesEffects)
+                {
+                    await succesEffect.Invoke();
+                }
+            }
+            else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Count > 0)
+            {
+                foreach (Func<Task> failEffect in ChallengePhaseGameAction.FailEffects)
+                {
+                    await failEffect.Invoke();
+                }
+            }
         }
     }
 }

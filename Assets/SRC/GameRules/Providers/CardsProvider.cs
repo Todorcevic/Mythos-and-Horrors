@@ -19,7 +19,6 @@ namespace MythosAndHorrors.GameRules
 
         public T GetCard<T>(string code) where T : Card => (T)AllCards.First(card => card.Info.Code == code);
 
-
         public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
 
         public IEnumerable<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>

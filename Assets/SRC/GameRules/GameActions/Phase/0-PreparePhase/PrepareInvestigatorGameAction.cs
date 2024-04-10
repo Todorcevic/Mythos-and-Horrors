@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -26,7 +25,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await PositionateInvestigatorCard();
-            await ApplyStats();
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
@@ -38,18 +36,6 @@ namespace MythosAndHorrors.GameRules
         private async Task PositionateInvestigatorCard()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
-        }
-
-        private async Task ApplyStats()
-        {
-            Dictionary<Stat, int> stats = new()
-            {
-                { ActiveInvestigator.Health, ActiveInvestigator.Health.Value - ActiveInvestigator.Injury.Value },
-                { ActiveInvestigator.Sanity,  ActiveInvestigator.Sanity.Value - ActiveInvestigator.Shock.Value },
-                { ActiveInvestigator.CurrentTurns, ActiveInvestigator.MaxTurns.Value }
-            };
-
-            await _gameActionsProvider.Create(new UpdateStatGameAction(stats));
         }
 
         private async Task PositionateDeck()

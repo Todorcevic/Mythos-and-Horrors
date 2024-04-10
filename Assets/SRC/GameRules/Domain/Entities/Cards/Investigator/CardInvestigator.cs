@@ -4,10 +4,8 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardInvestigator : Card
+    public abstract class CardInvestigator : Card
     {
-        public int RealHealth => Info.Health ?? 0 - Injury.Value;
-        public int RealSanity => Info.Sanity ?? 0 - Shock.Value;
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat Strength { get; private set; }
@@ -23,15 +21,15 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxTurns { get; private set; }
         public Stat MaxHandSize { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
-        public Stat ResourceTurnsCost { get; private set; }
+        public Stat TurnsCost { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            Health = new Stat(RealHealth);
-            Sanity = new Stat(RealSanity);
+            Health = new Stat(Info.Health ?? 0 - Injury.Value);
+            Sanity = new Stat(Info.Sanity ?? 0 - Shock.Value);
             Strength = new Stat(Info.Strength ?? 0);
             Agility = new Stat(Info.Agility ?? 0);
             Intelligence = new Stat(Info.Intelligence ?? 0);
@@ -45,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
-            ResourceTurnsCost = new Stat(1);
+            TurnsCost = new Stat(1);
         }
 
         /*******************************************************************/
@@ -62,8 +60,8 @@ namespace MythosAndHorrors.GameRules
                 || stat == Hints
                 || stat == CurrentTurns;
 
-        public virtual async Task StarEffect() => await Task.CompletedTask; //TODO: must be abstract
+        public abstract Task StarEffect();
 
-        public virtual int StarValue() => 0; //TODO: must be abstract
+        public abstract int StarValue();
     }
 }

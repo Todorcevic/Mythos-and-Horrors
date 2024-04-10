@@ -7,17 +7,19 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsProvider
     {
-        [Inject] GameActionsProvider _gameActionsProvider;
-        public List<Investigator> Investigators { get; private set; } = new();
-        public IEnumerable<Investigator> AllInvestigatorsInPlay => Investigators.FindAll(investigator => investigator.IsInPlay);
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        private readonly List<Investigator> _investigators = new();
+
+        public IReadOnlyList<Investigator> Investigators => _investigators;
+        public IEnumerable<Investigator> AllInvestigatorsInPlay => _investigators.FindAll(investigator => investigator.IsInPlay);
         public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable);
         public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate);
         public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.Where(investigator => investigator.CanBeHealed);
         public Investigator Leader => AllInvestigatorsInPlay.First();
-        public Investigator First => Investigators[0];
-        public Investigator Second => Investigators[1];
-        public Investigator Third => Investigators[2];
-        public Investigator Fourth => Investigators[3];
+        public Investigator First => _investigators[0];
+        public Investigator Second => _investigators[1];
+        public Investigator Third => _investigators[2];
+        public Investigator Fourth => _investigators[3];
         public Investigator GetTopInvestigatorsStrength =>
             AllInvestigatorsInPlay.OrderByDescending(investigator => investigator.Strength.Value).First();
         public Investigator ActiveInvestigator => _gameActionsProvider.CurrentPhase.ActiveInvestigator;
@@ -25,22 +27,22 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)
         {
-            if (Investigators.Contains(investigator)) throw new InvalidOperationException("Investigator already added");
-            Investigators.Add(investigator);
+            if (_investigators.Contains(investigator)) throw new InvalidOperationException("Investigator already added");
+            _investigators.Add(investigator);
         }
 
         /*******************************************************************/
         public int GetInvestigatorPosition(Investigator investigator)
-            => Investigators.IndexOf(investigator) + 1;
+            => _investigators.IndexOf(investigator) + 1;
 
         public Investigator GetInvestigatorWithThisZone(Zone zone)
-            => Investigators.FirstOrDefault(investigator => investigator.HasThisZone(zone));
+            => _investigators.FirstOrDefault(investigator => investigator.HasThisZone(zone));
 
         public Investigator GetInvestigatorWithThisCard(Card card)
-            => Investigators.FirstOrDefault(investigator => investigator.HasThisCard(card));
+            => _investigators.FirstOrDefault(investigator => investigator.HasThisCard(card));
 
         public Investigator GetInvestigatorWithThisStat(Stat stat)
-            => Investigators.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
+            => _investigators.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
 
         public IEnumerable<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
             => AllInvestigatorsInPlay.Where(investigator => investigator.CurrentPlace == cardPlace);

@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -21,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareGame()
         {
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Investigators.Count, Is.EqualTo(4));
+            Assert.That(_investigatorsProvider.Investigators.Count(), Is.EqualTo(4));
             Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));
             Assert.That(_chaptersProvide.CurrentScene.Info.Name, Is.EqualTo("El encuentro"));
             yield return null;

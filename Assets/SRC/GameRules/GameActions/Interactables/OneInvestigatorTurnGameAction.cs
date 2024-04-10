@@ -215,12 +215,9 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task PlayFromHand()
-                {
-                    await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, playableFromHand.TurnsCost.Value));
-                    await _gameActionsProvider.Create(new PayResourceGameAction(ActiveInvestigator, playableFromHand.ResourceCost.Value));
-                    await _gameActionsProvider.Create(new DiscardGameAction(playableFromHand as Card));
-                }
+                async Task PlayFromHand() =>
+                    await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
+
             }
         }
 
@@ -261,13 +258,13 @@ namespace MythosAndHorrors.GameRules
 
         private bool CanTakeResource()
         {
-            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.ResourceTurnsCost.Value) return false;
+            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.TurnsCost.Value) return false;
             return true;
         }
 
         private async Task TakeResource()
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.ResourceTurnsCost.Value));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.TurnsCost.Value));
             await _gameActionsProvider.Create(new GainResourceGameAction(ActiveInvestigator, 1));
         }
     }

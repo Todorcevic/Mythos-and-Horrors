@@ -39,13 +39,13 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            DangerDeckZone = _zonesProvider.Create();
-            DangerDiscardZone = _zonesProvider.Create();
-            GoalZone = _zonesProvider.Create();
-            PlotZone = _zonesProvider.Create();
-            VictoryZone = _zonesProvider.Create();
-            LimboZone = _zonesProvider.Create();
-            OutZone = _zonesProvider.Create();
+            DangerDeckZone = _zonesProvider.Create(ZoneType.DangerDeck);
+            DangerDiscardZone = _zonesProvider.Create(ZoneType.DangerDiscard);
+            GoalZone = _zonesProvider.Create(ZoneType.Goal);
+            PlotZone = _zonesProvider.Create(ZoneType.Plot);
+            VictoryZone = _zonesProvider.Create(ZoneType.Victory);
+            LimboZone = _zonesProvider.Create(ZoneType.Limbo);
+            OutZone = _zonesProvider.Create(ZoneType.Out);
             InitializePlaceZones();
             PileAmount = new Stat(int.MaxValue);
             PrepareChallengeTokens();
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
             {
                 for (int j = 0; j < PlaceZone.GetLength(1); j++)
                 {
-                    PlaceZone[i, j] = _zonesProvider.Create();
+                    PlaceZone[i, j] = _zonesProvider.Create(ZoneType.Place);
                 }
             }
         }
@@ -79,19 +79,6 @@ namespace MythosAndHorrors.GameRules
                 _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
                 await Task.CompletedTask;
             }
-        }
-
-        /*******************************************************************/
-        public bool HasThisZone(Zone zone)
-        {
-            return zone == DangerDeckZone
-                || zone == DangerDiscardZone
-                || zone == GoalZone
-                || zone == PlotZone
-                || zone == VictoryZone
-                || zone == LimboZone
-                || zone == OutZone
-                || PlaceZone.Cast<Zone>().Contains(zone);
         }
     }
 }

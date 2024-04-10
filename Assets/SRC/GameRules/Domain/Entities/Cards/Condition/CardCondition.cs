@@ -1,12 +1,16 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class CardCondition : Card, IPlayableFromHand, ICommitable
     {
         public Stat ResourceCost { get; private set; }
         public Stat TurnsCost { get; private set; }
+        public Func<Task> ConditionEffect { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -15,6 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
             TurnsCost = new Stat(1);
+            ConditionEffect = ExecuteConditionEffect;
         }
 
         /*******************************************************************/
@@ -26,6 +31,11 @@ namespace MythosAndHorrors.GameRules
             if (challengeType == ChallengeType.Intelligence) return amount + Info.Intelligence ?? 0;
             if (challengeType == ChallengeType.Power) return amount + Info.Power ?? 0;
             return amount;
+        }
+
+        public virtual async Task ExecuteConditionEffect() //TODO: must be abstract
+        {
+            await Task.CompletedTask;
         }
     }
 }

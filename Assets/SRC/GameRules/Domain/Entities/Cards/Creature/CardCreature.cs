@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             get
             {
                 Investigator investigator = _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone);
-                return investigator?.DangerZone == CurrentZone ? investigator : null;
+                return CurrentZone == investigator?.DangerZone ? investigator : null;
             }
         }
 

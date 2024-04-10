@@ -11,15 +11,13 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Zone> _zones = new();
 
         /*******************************************************************/
-        public Zone Create()
+        public Zone Create(ZoneType zoneType)
         {
-            Zone newZone = _diContainer.Instantiate<Zone>();
+            Zone newZone = _diContainer.Instantiate<Zone>(new object[] { zoneType });
             _zones.Add(newZone);
             return newZone;
         }
         /*******************************************************************/
-
-        public bool IsSceneZone(Zone zone) => _chaptersProvider.CurrentScene.HasThisZone(zone);
 
         public Zone GetZoneWithThisCard(Card card) => _zones.Find(zone => zone.Cards.Contains(card));
 

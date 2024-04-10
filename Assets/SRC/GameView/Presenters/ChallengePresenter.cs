@@ -35,7 +35,6 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<ResultChallengeGameAction>.PlayAnimationWith(ResultChallengeGameAction resultChallengeGameAction)
         {
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-            await Task.Delay(1000);
             await _challengeComponent.Hide();
         }
 

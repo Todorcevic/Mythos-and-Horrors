@@ -26,21 +26,26 @@ namespace MythosAndHorrors.GameRules
         public SlotsCollection SlotsCollection { get; } = new();
 
         /*******************************************************************/
-        public bool CanBeHealed => Health.Value < RealHealth;
+        public bool CanBeHealed => Health.Value < InitialHealth;
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
         public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
         public int Position => _investigatorsProvider.GetInvestigatorPosition(this);
-        public int RealHealth => InvestigatorCard.RealHealth;
-        public int RealSanity => InvestigatorCard.RealSanity;
+        public int DefaultHealth => InvestigatorCard.Info.Health ?? 0;
+        public int DefaultSanity => InvestigatorCard.Info.Sanity ?? 0;
+        public int InitialHealth => DefaultHealth - Injury.Value;
+        public int InitialSanity => DefaultSanity - Shock.Value;
+        public int DamageRecived => InitialHealth - Health.Value;
+        public int FearRecived => InitialSanity - Sanity.Value;
         public int HandSize => HandZone.Cards.Count;
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
         public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
+        public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType));
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
-          .Where(creature => creature.CurrentPlace == CurrentPlace);
+          .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
         public Stat Strength => InvestigatorCard.Strength;
@@ -56,7 +61,7 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxTurns => InvestigatorCard.MaxTurns;
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
-        public Stat ResourceTurnsCost => InvestigatorCard.ResourceTurnsCost;
+        public Stat TurnsCost => InvestigatorCard.TurnsCost;
         public Investigator NextInvestigator => _investigatorsProvider.Investigators.NextElementFor(this);
         public Investigator NextInvestigatorInPlay => _investigatorsProvider.AllInvestigatorsInPlay.NextElementFor(this);
 
@@ -65,12 +70,12 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            HandZone = _zonesProvider.Create();
-            DeckZone = _zonesProvider.Create();
-            DiscardZone = _zonesProvider.Create();
-            AidZone = _zonesProvider.Create();
-            DangerZone = _zonesProvider.Create();
-            InvestigatorZone = _zonesProvider.Create();
+            HandZone = _zonesProvider.Create(ZoneType.Hand);
+            DeckZone = _zonesProvider.Create(ZoneType.InvestigatorDeck);
+            DiscardZone = _zonesProvider.Create(ZoneType.InvestigatorDiscard);
+            AidZone = _zonesProvider.Create(ZoneType.Aid);
+            DangerZone = _zonesProvider.Create(ZoneType.Danger);
+            InvestigatorZone = _zonesProvider.Create(ZoneType.Investigator);
         }
 
         /*******************************************************************/

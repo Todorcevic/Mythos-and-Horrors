@@ -10,16 +10,24 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Card> _cards = new();
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+        public ZoneType ZoneType { get; }
+
         public IReadOnlyList<Card> Cards => _cards;
         public Card TopCard => _cards.Last();
         public Card BottomCard => _cards.First();
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
-        public bool IsHandZone => Owner?.HandZone == this;
-        public bool IsDeckZone => Owner?.DeckZone == this;
-        public bool IsDiscardZone => Owner?.DiscardZone == this;
-        public bool IsAidZone => Owner?.AidZone == this;
-        public bool IsDangerZone => Owner?.DangerZone == this;
-        public bool IsInvestigatorZone => Owner?.InvestigatorZone == this;
+        public bool IsHandZone => ZoneType == ZoneType.Hand;
+        public bool IsDeckZone => ZoneType == ZoneType.InvestigatorDeck;
+        public bool IsDiscardZone => ZoneType == ZoneType.InvestigatorDiscard;
+        public bool IsAidZone => ZoneType == ZoneType.Aid;
+        public bool IsDangerZone => ZoneType == ZoneType.Danger;
+        public bool IsInvestigatorZone => ZoneType == ZoneType.Investigator;
+
+        /*******************************************************************/
+        public Zone(ZoneType zoneType)
+        {
+            ZoneType = zoneType;
+        }
 
         /*******************************************************************/
         public void AddCard(Card card)

@@ -27,14 +27,16 @@ namespace MythosAndHorrors.GameRules
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<Effect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
-        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisCard(this);
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone) ??
+            _investigatorsProvider.GetInvestigatorWithThisCard(this);
+        public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            OwnZone = _zonesProvider.Create();
+            OwnZone = _zonesProvider.Create(ZoneType.Own);
             FaceDown = new State(false);
             Exausted = new State(false);
 
