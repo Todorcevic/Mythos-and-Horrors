@@ -8,10 +8,10 @@ namespace MythosAndHorrors.GameRules
     public class UpdateStatGameAction : GameAction
     {
         protected Dictionary<Stat, int> _statsWithOldValue;
-        [Inject] private readonly IPresenter<UpdateStatGameAction> _StatsPresenter;
+        [Inject] private readonly IPresenter<UpdateStatGameAction> _statsPresenter;
 
         public Dictionary<Stat, int> StatsWithValue { get; }
-        public IEnumerable<Stat> AllStats => StatsWithValue.Keys.ToList();
+        public List<Stat> AllStatsUpdated => StatsWithValue.Keys.ToList();
 
         public override bool CanBeExecuted => StatsWithValue.Count > 0;
 
@@ -20,23 +20,23 @@ namespace MythosAndHorrors.GameRules
 
         public UpdateStatGameAction(Dictionary<Stat, int> statsWithValues)
         {
-            StatsWithValue = statsWithValues;
+            StatsWithValue = statsWithValues.Where(kv => kv.Key.Value != kv.Value).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
         /*******************************************************************/
-        public bool HasStat(Stat stat) => StatsWithValue.ContainsKey(stat);
+        public bool HasStat(Stat stat) => AllStatsUpdated.Contains(stat);
 
         protected override async Task ExecuteThisLogic()
         {
             _statsWithOldValue = StatsWithValue.ToDictionary(statNewValues => statNewValues.Key, kvp => kvp.Key.Value);
             StatsWithValue.ForEach(statNewValues => statNewValues.Key.UpdateValue(statNewValues.Value));
-            await _StatsPresenter.PlayAnimationWith(this);
+            await _statsPresenter.PlayAnimationWith(this);
         }
 
         public override async Task Undo()
         {
             StatsWithValue.ForEach(statNewValues => statNewValues.Key.UpdateValue(_statsWithOldValue[statNewValues.Key]));
-            await _StatsPresenter.PlayAnimationWith(this);
+            await _statsPresenter.PlayAnimationWith(this);
         }
     }
 }

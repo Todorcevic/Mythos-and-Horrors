@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly IPresenter<ChooseInvestigatorGameAction> _startingAnimationPresenter;
 
         public IEnumerable<Investigator> InvestigatorsToSelect { get; }
         public Investigator InvestigatorSelected { get; private set; }
@@ -39,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                 async Task ChooseInvestigator()
                 {
                     InvestigatorSelected = investigator;
-                    await _startingAnimationPresenter.PlayAnimationWith(this);
+                    await Task.CompletedTask;
                 };
             }
 

@@ -27,7 +27,7 @@
 
 
 
-        public string DEFAULT_VOID_TEXT => "<color=red>VOID TEXT</color>";
+        public string DEFAULT_VOID_TEXT => "<color=red>VOID TEXT </color> ";
 
     }
 }

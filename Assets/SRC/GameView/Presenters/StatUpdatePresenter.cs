@@ -14,27 +14,48 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly TokenMoverHandler _tokenMoverHandler;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
         async Task IPresenter<UpdateStatGameAction>.PlayAnimationWith(UpdateStatGameAction updateStatGameAction)
         {
-            Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStats).ToDictionary(statView => statView, _ => false);
+            Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated)
+                .ToDictionary(statView => statView, _ => false);
             await SpecialAnimations(updateStatGameAction, statablesUpdated);
-            Update(_statsViewsManager.GetAll(updateStatGameAction.AllStats), statablesUpdated);
+            Update(_statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated), statablesUpdated);
         }
 
         /*******************************************************************/
         private async Task SpecialAnimations(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
         {
-            if (updateStatGameAction.AllStats.Contains(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
-            {
-                await _moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
-                await Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch), statablesUpdated).AsyncWaitForCompletion();
-                await _moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot).AsyncWaitForCompletion();
-            }
-
+            await CheckEldritch(updateStatGameAction, statablesUpdated).AsyncWaitForCompletion();
             await CheckResources(updateStatGameAction).AsyncWaitForCompletion();
             await CheckHints(updateStatGameAction, statablesUpdated).AsyncWaitForCompletion();
+            await CheckHarm(updateStatGameAction, statablesUpdated).AsyncWaitForCompletion();
+        }
+
+        private Tween CheckEldritch(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
+        {
+            Sequence eldritchSequence = DOTween.Sequence();
+
+            if (updateStatGameAction.HasStat(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
+            {
+                eldritchSequence.Append(_moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot))
+                    .Append(Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch), statablesUpdated))
+                    .Append(_moveCardHandler.ReturnCard(_chaptersProvider.CurrentScene.CurrentPlot));
+            }
+
+            return eldritchSequence;
+        }
+
+        private Tween CheckHarm(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
+        {
+            Sequence harmSequence = DOTween.Sequence();
+            _cardsProvider.AllCards.OfType<IDamageable>().Where(damagable => updateStatGameAction.HasStat(damagable.Health))
+               .ForEach(damagableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(damagableCard.Health), statablesUpdated)));
+            _cardsProvider.AllCards.OfType<IFearable>().Where(damagable => updateStatGameAction.HasStat(damagable.Sanity))
+             .ForEach(fearableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(fearableCard.Sanity), statablesUpdated)));
+            return harmSequence;
         }
 
         private Tween CheckResources(UpdateStatGameAction updateStatGameAction)
@@ -42,7 +63,7 @@ namespace MythosAndHorrors.GameView
             Sequence payResourceSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                        .Where(investigator => updateStatGameAction.AllStats.Contains(investigator.Resources)))
+                        .Where(investigator => updateStatGameAction.HasStat(investigator.Resources)))
             {
                 int amount = investigator.Resources.Value - investigator.Resources.ValueBeforeUpdate;
                 if (amount > 0) payResourceSequence.Append(_tokenMoverHandler.GainResourceAnimation(investigator, amount));
@@ -57,10 +78,10 @@ namespace MythosAndHorrors.GameView
             Sequence hintsSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                       .Where(investigator => updateStatGameAction.AllStats.Contains(investigator.Hints)))
+                       .Where(investigator => updateStatGameAction.HasStat(investigator.Hints)))
             {
                 int amount = investigator.Hints.Value - investigator.Hints.ValueBeforeUpdate;
-                Stat locationHint = updateStatGameAction.AllStats.Except(new[] { investigator.Hints }).Unique();
+                Stat locationHint = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Hints }).Unique();
 
                 if (amount > 0)
                 {

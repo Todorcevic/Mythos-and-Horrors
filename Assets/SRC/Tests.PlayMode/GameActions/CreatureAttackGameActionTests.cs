@@ -1,5 +1,4 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -8,7 +7,6 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class CreatureAttackGameActionTests : TestBase
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

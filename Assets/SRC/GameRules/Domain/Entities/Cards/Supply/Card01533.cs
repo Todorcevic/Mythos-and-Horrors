@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01533 : CardSupply
+    public class Card01533 : CardSupply, IDamageable, IFearable
     {
 
     }

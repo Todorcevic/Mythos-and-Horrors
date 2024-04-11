@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         public async Task RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
-            await _gameActionsProvider.Create(new RevealPlotGameAction(this));
+            await CompleteEffect();
             await _gameActionsProvider.Create(new DiscardGameAction(this));
             await _gameActionsProvider.Create(new PlacePlotGameAction(NextCardPlot));
         }

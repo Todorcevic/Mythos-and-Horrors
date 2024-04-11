@@ -65,8 +65,8 @@ namespace MythosAndHorrors.GameView
             if (Card is CardSupply cardSupply)
             {
                 _cost.SetStat(cardSupply.ResourceCost);
-                if (Card.Info.Health != null) _health.SetStat(cardSupply.Health);
-                if (Card.Info.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
+                if (cardSupply.Health != null) _health.SetStat(cardSupply.Health);
+                if (cardSupply.Sanity != null) _sanity.SetStat(cardSupply.Sanity);
             }
             else if (Card is CardCondition cardCondition)
             {

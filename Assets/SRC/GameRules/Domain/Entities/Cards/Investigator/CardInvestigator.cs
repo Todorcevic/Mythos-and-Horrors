@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardInvestigator : Card
+    public abstract class CardInvestigator : Card, IDamageable, IFearable
     {
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }

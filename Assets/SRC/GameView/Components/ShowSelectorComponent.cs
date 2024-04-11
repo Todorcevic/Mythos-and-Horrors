@@ -47,8 +47,11 @@ namespace MythosAndHorrors.GameView
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
-            CardViewsOrdered.Except(new CardView[] { exceptThisPlayable as CardView })
+
+            CardView cardViewSelected = exceptThisPlayable as CardView;
+            CardViewsOrdered.Except(new CardView[] { cardViewSelected })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
+            returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine));
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }

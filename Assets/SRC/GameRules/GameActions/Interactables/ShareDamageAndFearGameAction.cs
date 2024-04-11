@@ -1,0 +1,64 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Zenject;
+
+namespace MythosAndHorrors.GameRules
+{
+    public class ShareDamageAndFearGameAction : GameAction
+    {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+
+        public Investigator Investigator { get; }
+        public int AmountDamage { get; private set; }
+        public int AmountFear { get; private set; }
+
+        IEnumerable<IDamageable> SuppliesCanDamage => Investigator.CardsInPlay.OfType<IDamageable>();
+        IEnumerable<IFearable> SuppliesCanFear => Investigator.CardsInPlay.OfType<IFearable>();
+
+        public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
+
+        /*******************************************************************/
+        public ShareDamageAndFearGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0)
+        {
+            Investigator = investigator;
+            AmountDamage = amountDamage;
+            AmountFear = amountFear;
+        }
+
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            InteractableGameAction interactableGameAction = new(isUndable: true);
+            List<Card> allSelectables = new();
+
+            if (AmountDamage > 0)
+                allSelectables.AddRange(Investigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
+
+            if (AmountFear > 0)
+                allSelectables.AddRange(Investigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
+
+
+            foreach (Card cardSelectable in allSelectables)
+            {
+                interactableGameAction.Create()
+                    .SetCard(cardSelectable)
+                    .SetInvestigator(cardSelectable.Owner)
+                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DoDamageAndFear))
+                    .SetLogic(DoDamageAndFear);
+
+                /*******************************************************************/
+                async Task DoDamageAndFear()
+                {
+                    HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, AmountDamage, AmountFear));
+                    AmountDamage -= harm.TotalDamageApply;
+                    AmountFear -= harm.TotalFearApply;
+                }
+            }
+
+            await _gameActionsProvider.Create(interactableGameAction);
+            await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(Investigator, AmountDamage, AmountFear));
+        }
+    }
+}

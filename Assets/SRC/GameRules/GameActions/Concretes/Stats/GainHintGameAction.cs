@@ -4,6 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class GainHintGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

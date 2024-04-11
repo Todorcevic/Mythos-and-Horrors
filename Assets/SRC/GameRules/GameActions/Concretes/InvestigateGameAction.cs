@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class InvestigateGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly IPresenter<InvestigateGameAction> _startingAnimationPresenter;
 
         public Investigator Investigator { get; }
         public CardPlace CardPlace { get; }
@@ -21,7 +20,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _startingAnimationPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new ChallengePhaseGameAction(
                 Investigator.Intelligence,
                 CardPlace.Enigma.Value,

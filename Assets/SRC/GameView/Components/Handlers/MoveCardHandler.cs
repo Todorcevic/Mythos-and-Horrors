@@ -56,6 +56,13 @@ namespace MythosAndHorrors.GameView
 
         public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
 
+        public Tween ReturnCardFromCenter(Card card)
+        {
+            CardView cardView = _cardViewsManager.GetCardView(card);
+            if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone) return MoveCardWithPreviewToZone(card, card.CurrentZone);
+            return DOTween.Sequence();
+        }
+
         public Tween MoveCardsToCurrentZones(IEnumerable<Card> cards, float delay = 0f)
         {
             Dictionary<CardView, ZoneView> cardViewsWithZones = cards.ToDictionary(card => _cardViewsManager.GetCardView(card), card => _zonesViewManager.Get(card.CurrentZone));

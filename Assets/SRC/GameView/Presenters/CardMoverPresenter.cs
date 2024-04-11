@@ -5,8 +5,7 @@ using DG.Tweening;
 
 namespace MythosAndHorrors.GameView
 {
-    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>,
-        IPresenter<ChooseInvestigatorGameAction>, IPresenter<InvestigateGameAction>
+    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>, IPresenter<PlayEffectGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 
@@ -33,16 +32,10 @@ namespace MythosAndHorrors.GameView
             _ = _moveCardHandler.ReturnCard(gameAction.Creature);
         }
 
-        async Task IPresenter<ChooseInvestigatorGameAction>.PlayAnimationWith(ChooseInvestigatorGameAction playEffectGA)
+        async Task IPresenter<PlayEffectGameAction>.PlayAnimationWith(PlayEffectGameAction playEffectGA)
         {
-            await _moveCardHandler.ReturnCard(playEffectGA.InvestigatorSelected.AvatarCard).AsyncWaitForCompletion();
+            if (playEffectGA.Effect.CardAffected == null) return;
+            await _moveCardHandler.ReturnCardFromCenter(playEffectGA.Effect.CardAffected).AsyncWaitForCompletion();
         }
-
-        async Task IPresenter<InvestigateGameAction>.PlayAnimationWith(InvestigateGameAction playEffectGA)
-        {
-            await _moveCardHandler.ReturnCard(playEffectGA.CardPlace).AsyncWaitForCompletion();
-        }
-
-        /*******************************************************************/
     }
 }
