@@ -51,7 +51,10 @@ namespace MythosAndHorrors.GameView
             CardView cardViewSelected = exceptThisPlayable as CardView;
             CardViewsOrdered.Except(new CardView[] { cardViewSelected })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
-            returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine));
+            if (cardViewSelected != null)
+                returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine))
+                    .Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
+
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountDamage: 6, amountFear: 6)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountDamage: 5, amountFear: 1)).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
