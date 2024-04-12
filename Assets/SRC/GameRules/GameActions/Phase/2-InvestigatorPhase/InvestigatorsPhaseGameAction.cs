@@ -22,9 +22,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStartTurn));
-            ActiveInvestigator = chooseInvestigatorGA.InvestigatorSelected;
-
-            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(chooseInvestigatorGA.InvestigatorSelected));
             await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
         }
     }

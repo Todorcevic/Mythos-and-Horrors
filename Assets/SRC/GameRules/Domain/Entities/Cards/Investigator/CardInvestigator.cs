@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
             Shock = new Stat(0);
             Resources = new Stat(0);
             Hints = new Stat(0);
-            CurrentTurns = new Stat(0);
+            CurrentTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);

@@ -28,6 +28,7 @@ namespace MythosAndHorrors.GameRules
         public InteractableGameAction(bool isUndable, string description)
         {
             IsUndable = isUndable;
+            Description = description;
         }
 
         /*******************************************************************/
@@ -69,7 +70,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task RealUndoEffect()
             {
-                _gameActionsProvider.CurrentPlayPhaseInvestigator?.Stop();
+                _gameActionsProvider.CurrentPlayInvestigatorPhaseInvestigator?.Stop();
                 await _gameActionsProvider.UndoLastInteractable();
                 await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorProvider.ActiveInvestigator));
             }

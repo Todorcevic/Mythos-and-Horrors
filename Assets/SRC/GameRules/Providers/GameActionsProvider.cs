@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
-        public PlayInvestigatorGameAction CurrentPlayPhaseInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
+        public PlayInvestigatorGameAction CurrentPlayInvestigatorPhaseInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
         public PhaseGameAction CurrentPhase => GetRealLastActive<PhaseGameAction>();
 
         /*******************************************************************/
@@ -56,7 +56,8 @@ namespace MythosAndHorrors.GameRules
         public bool CanUndo()
         {
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
-            if (lastInteractableToUndo?.GetUniqueEffect() != null) return false;
+            if (lastInteractableToUndo == null) return false;
+            if (lastInteractableToUndo.GetUniqueEffect() != null) return false;
 
             foreach (GameAction gameAction in _allGameActionsExecuted)
             {

@@ -32,12 +32,12 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Discard()
         {
-
+            await Task.CompletedTask;
         }
 
         private async Task Damage()
         {
-
+            await Task.CompletedTask;
         }
     }
 }

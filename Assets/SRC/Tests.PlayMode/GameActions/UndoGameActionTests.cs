@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly UndoGameActionButton _undoGameActionButton;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -112,6 +112,20 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (!DEBUG_MODE) yield return WaitToClick(cardToPlay);
             Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(true));
+        }
+
+        [UnityTest]
+        public IEnumerator UndoChoosInvestigatorActionTest()
+        {
+            yield return PlayAllInvestigators();
+
+            yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
+
+            //yield return _gameActionsProvider.Rewind().AsCoroutine();
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
         }
     }
 }
