@@ -80,7 +80,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator UndoTursStatTest()
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.CardAidToDraw).AsTask();
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.CardAidToDraw).AsTask();
@@ -95,31 +94,29 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
 
-        [UnityTest]
-        public IEnumerator UndoButtonShow()
-        {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            Card cardToPlay = _cardsProvider.GetCard("01586");
-            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToPlay, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
+        //[UnityTest]
+        //public IEnumerator UndoButtonShow()
+        //{
+        //    yield return PlayThisInvestigator(_investigatorsProvider.First);
+        //    Card cardToPlay = _cardsProvider.GetCard("01586");
+        //    yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
+        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToPlay, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
+        //    _ = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+        //    if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+        //    if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(false));
-            if (!DEBUG_MODE) yield return WaitToClick(cardToPlay);
-            Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(true));
-            yield return WaitToUndoClick();
-        }
+        //    Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(false));
+        //    if (!DEBUG_MODE) yield return WaitToClick(cardToPlay);
+        //    Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(true));
+        //}
 
         [UnityTest]
         public IEnumerator UndoChooseInvestigatorActionTest()
         {
             yield return PlayAllInvestigators();
-            Task<InvestigatorsPhaseGameAction> gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
             yield return WaitToUndoClick();

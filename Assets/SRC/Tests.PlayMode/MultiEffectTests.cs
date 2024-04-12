@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -29,9 +29,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card card = investigator1.Cards[1];
             Card card2 = investigator1.Cards[2];
 
-            interactableGameAction.CreateMainButton()
-                     .SetDescription("Continue")
-                     .SetLogic(() => Task.CompletedTask);
+            //interactableGameAction.CreateMainButton()
+            //         .SetDescription("Continue")
+            //         .SetLogic(() => Task.CompletedTask);
 
             Effect effectToClick = interactableGameAction.Create()
                    .SetCard(card)

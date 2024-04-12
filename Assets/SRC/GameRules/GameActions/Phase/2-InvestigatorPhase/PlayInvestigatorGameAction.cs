@@ -24,10 +24,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (CanBeExecuted)
-            {
-                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
-            }
+            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
         }
 
         public void Stop()

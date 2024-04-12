@@ -32,37 +32,35 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            while (CanBeExecuted)
+            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
+            List<Card> allSelectables = new();
+
+            if (AmountDamage > 0)
+                allSelectables.AddRange(Investigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
+
+            if (AmountFear > 0)
+                allSelectables.AddRange(Investigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
+
+            foreach (Card cardSelectable in allSelectables)
             {
-                InteractableGameAction interactableGameAction = new(isUndable: true, Description);
-                List<Card> allSelectables = new();
+                interactableGameAction.Create()
+                    .SetCard(cardSelectable)
+                    .SetInvestigator(cardSelectable.Owner)
+                    .SetCardAffected(FromCard)
+                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DoDamageAndFear))
+                    .SetLogic(DoDamageAndFear);
 
-                if (AmountDamage > 0)
-                    allSelectables.AddRange(Investigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
-
-                if (AmountFear > 0)
-                    allSelectables.AddRange(Investigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
-
-                foreach (Card cardSelectable in allSelectables)
+                /*******************************************************************/
+                async Task DoDamageAndFear()
                 {
-                    interactableGameAction.Create()
-                        .SetCard(cardSelectable)
-                        .SetInvestigator(cardSelectable.Owner)
-                        .SetCardAffected(FromCard)
-                        .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DoDamageAndFear))
-                        .SetLogic(DoDamageAndFear);
-
-                    /*******************************************************************/
-                    async Task DoDamageAndFear()
-                    {
-                        HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, AmountDamage, AmountFear));
-                        AmountDamage -= harm.TotalDamageApply;
-                        AmountFear -= harm.TotalFearApply;
-                    }
+                    HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, AmountDamage, AmountFear));
+                    AmountDamage -= harm.TotalDamageApply;
+                    AmountFear -= harm.TotalFearApply;
                 }
-
-                await _gameActionsProvider.Create(interactableGameAction);
             }
+
+            await _gameActionsProvider.Create(interactableGameAction);
+            await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(Investigator, AmountDamage, AmountFear));
         }
     }
 }

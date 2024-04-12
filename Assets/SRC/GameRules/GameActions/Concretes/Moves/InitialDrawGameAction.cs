@@ -21,18 +21,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            while (CanBeExecuted)
+            Card nextDraw = Investigator.DeckZone.Cards.Last();
+            if (nextDraw is IFlaw)
             {
-                Card nextDraw = Investigator.DeckZone.Cards.Last();
-                if (nextDraw is IFlaw)
-                {
-                    await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));
-                    await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
-                    return;
-                }
-
-                await _gameActionsProvider.Create(new DrawAidGameAction(Investigator));
+                await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));
+                await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
+                return;
             }
+
+            await _gameActionsProvider.Create(new DrawAidGameAction(Investigator));
+            await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
         }
     }
 }

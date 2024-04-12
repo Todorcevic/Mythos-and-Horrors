@@ -43,10 +43,17 @@ namespace MythosAndHorrors.GameRules
             return -1;
         }
 
-        public static T NextElementFor<T>(this IEnumerable<T> creatures, T currentAttacker)
+        public static T NextElementFor<T>(this IEnumerable<T> source, T item)
         {
-            if (creatures == null || currentAttacker == null) return default;
-            return creatures.ElementAtOrDefault(creatures.IndexOf(currentAttacker) + 1);
+            if (source == null || item == null) return default;
+            return source.ElementAtOrDefault(source.IndexOf(item) + 1);
+        }
+
+        public static T Rand<T>(this IEnumerable<T> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            T[] array = source.ToArray();
+            return array.Length == 0 ? default : array[new Random().Next(0, array.Length)];
         }
     }
 }

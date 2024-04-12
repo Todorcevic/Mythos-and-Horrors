@@ -7,6 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class Card01501Tests : TestBase
     {
         private int valueToken;
