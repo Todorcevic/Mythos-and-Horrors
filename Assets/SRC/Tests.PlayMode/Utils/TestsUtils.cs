@@ -8,7 +8,6 @@ using System.Collections;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public static class TestsUtils
     {
         public static string GetTextFromThis(this Transform parentTransform, string gameObjectName)

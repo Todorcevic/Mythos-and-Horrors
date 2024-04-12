@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: true);
+            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
             PreparePassEffect(interactableGameAction);
             PrepareInvestigateEffect(interactableGameAction);
             PrepareMoveEffect(interactableGameAction);

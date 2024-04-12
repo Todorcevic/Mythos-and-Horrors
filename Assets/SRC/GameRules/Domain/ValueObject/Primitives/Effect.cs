@@ -6,12 +6,12 @@ namespace MythosAndHorrors.GameRules
     public record Effect : IViewEffect
     {
         private Investigator _investigator;
-        private Investigator _investigatorAffected;
+        private Card _cardAffected;
         public Card CardAffected { get; private set; }
         public Func<Task> Logic { get; private set; }
         public string CardCode => _investigator?.Code;
         public string Description { get; private set; }
-        public string CardCodeSecundary => _investigatorAffected?.Code;
+        public string CardCodeSecundary => _cardAffected?.Info.Code;
 
         /*******************************************************************/
         public Effect SetCard(Card cardAffected)
@@ -26,9 +26,9 @@ namespace MythosAndHorrors.GameRules
             return this;
         }
 
-        public Effect SetInvestigatorAffected(Investigator investigatorAffected)
+        public Effect SetCardAffected(Card cardAffected)
         {
-            _investigatorAffected = investigatorAffected;
+            _cardAffected = cardAffected;
             return this;
         }
 

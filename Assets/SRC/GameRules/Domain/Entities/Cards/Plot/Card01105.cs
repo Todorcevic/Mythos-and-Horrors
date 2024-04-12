@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override async Task CompleteEffect()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: false);
+            InteractableGameAction interactableGameAction = new(isUndable: false, "Select One Effect");
 
             interactableGameAction.Create()
                 .SetCard(this)

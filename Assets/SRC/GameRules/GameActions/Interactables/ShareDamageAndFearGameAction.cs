@@ -11,18 +11,20 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
 
         public Investigator Investigator { get; }
+        public Card FromCard { get; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
         IEnumerable<IDamageable> SuppliesCanDamage => Investigator.CardsInPlay.OfType<IDamageable>();
         IEnumerable<IFearable> SuppliesCanFear => Investigator.CardsInPlay.OfType<IFearable>();
-
         public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
+        public string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/
-        public ShareDamageAndFearGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0)
+        public ShareDamageAndFearGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0, Card fromCard = null)
         {
             Investigator = investigator;
+            FromCard = fromCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
         }
@@ -30,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: true);
+            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
             List<Card> allSelectables = new();
 
             if (AmountDamage > 0)
@@ -39,12 +41,12 @@ namespace MythosAndHorrors.GameRules
             if (AmountFear > 0)
                 allSelectables.AddRange(Investigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
 
-
             foreach (Card cardSelectable in allSelectables)
             {
                 interactableGameAction.Create()
                     .SetCard(cardSelectable)
                     .SetInvestigator(cardSelectable.Owner)
+                    .SetCardAffected(FromCard)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DoDamageAndFear))
                     .SetLogic(DoDamageAndFear);
 

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: true);
+            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
             Create(interactableGameAction);
             await _gameActionsProvider.Create(interactableGameAction);
             await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));

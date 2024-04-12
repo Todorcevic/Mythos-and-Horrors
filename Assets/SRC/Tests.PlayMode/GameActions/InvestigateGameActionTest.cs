@@ -35,13 +35,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay2, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
 
-            Task<OneInvestigatorTurnGameAction> taskInvestigator =
+            Task<OneInvestigatorTurnGameAction> gameActionTask =
                 _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First));
 
             if (!DEBUG_MODE) yield return WaitToClick(place);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!taskInvestigator.IsCompleted) yield return null;
+            while (!gameActionTask.IsCompleted) yield return null;
 
             Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(2));
             Assert.That(_investigatorsProvider.First.Hints.Value, Is.EqualTo(1));

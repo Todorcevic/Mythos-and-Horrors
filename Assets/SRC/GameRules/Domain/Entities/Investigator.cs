@@ -43,7 +43,8 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
         public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
-        public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType));
+        public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
+            .Union(AidZone.Cards);
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         public Stat Health => InvestigatorCard.Health;

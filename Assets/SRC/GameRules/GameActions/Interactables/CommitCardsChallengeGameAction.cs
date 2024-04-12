@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : PhaseGameAction
+    public class CommitCardsChallengeGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -15,20 +15,16 @@ namespace MythosAndHorrors.GameRules
 
         public Effect ButtonEffect { get; private set; }
 
-        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(CurrentChallenge.Stat);
+        public Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(CurrentChallenge.Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
         public ChallengePhaseGameAction CurrentChallenge => (ChallengePhaseGameAction)Parent;
+        public string Description => "Commit cards";
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CommitCardsChallengeGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CommitCardsChallengeGameAction);
-        public override Phase MainPhase => Phase.Challenge;
-
-        /*******************************************************************/
-        protected override async Task ExecuteThisPhaseLogic()
+        protected override async Task ExecuteThisLogic()
         {
             await _commitPresenter.PlayAnimationWith(this);
-            InteractableGameAction interactableGameAction = new(isUndable: false);
+            InteractableGameAction interactableGameAction = new(isUndable: false, Description);
             ButtonEffect = interactableGameAction.CreateMainButton()
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Drop")
                 .SetLogic(() => Task.CompletedTask);
@@ -42,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.Create()
                     .SetCard(commitableCard)
                     .SetInvestigator(commitableCard.Owner)
-                    .SetInvestigatorAffected(ActiveInvestigator)
+                    .SetCardAffected(CurrentChallenge.CardToChallenge)
                     .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Commit))
                     .SetLogic(Commit);
 

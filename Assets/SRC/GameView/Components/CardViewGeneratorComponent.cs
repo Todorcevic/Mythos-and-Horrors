@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void BuildAllCardViews() => _cardProvider.AllCards.ForEach(card => BuildCardView(card));
 
-        private CardView BuildCardView(Card card)
+        public CardView BuildCardView(Card card)
         {
             CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(GetPrefab(card), transform);
             newCardview.Init(card);

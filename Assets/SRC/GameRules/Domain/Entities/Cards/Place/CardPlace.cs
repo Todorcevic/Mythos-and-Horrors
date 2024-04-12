@@ -21,7 +21,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public IEnumerable<CardPlace> ConnectedPlacesToMove =>
-            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?.Select(code => _cardsProvider.GetCard<CardPlace>(code));
+            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
+            .Select(code => _cardsProvider.GetCard<CardPlace>(code)).Where(card => card.IsInPlay);
         public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/

@@ -2,7 +2,6 @@
 
 namespace MythosAndHorrors.GameRules
 {
-
     [Flags]
     public enum ZoneType
     {

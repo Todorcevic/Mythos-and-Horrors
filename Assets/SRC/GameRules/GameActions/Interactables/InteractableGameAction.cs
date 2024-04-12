@@ -12,7 +12,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
-        public bool IsUndable { get; init; }
+        public bool IsUndable { get; }
+        public string Description { get; }
 
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
@@ -22,8 +23,9 @@ namespace MythosAndHorrors.GameRules
         private bool NoEffect => IsManadatary && _allEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null;
 
+
         /*******************************************************************/
-        public InteractableGameAction(bool isUndable)
+        public InteractableGameAction(bool isUndable, string description)
         {
             IsUndable = isUndable;
         }

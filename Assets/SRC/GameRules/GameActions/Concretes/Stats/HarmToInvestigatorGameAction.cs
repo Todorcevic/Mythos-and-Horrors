@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,6 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
+        public Card FromCard { get; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
         public bool IsDirect { get; }
@@ -16,9 +16,10 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
 
         /*******************************************************************/
-        public HarmToInvestigatorGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0, bool isDirect = false)
+        public HarmToInvestigatorGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0, bool isDirect = false, Card fromCard = null)
         {
             Investigator = investigator;
+            FromCard = fromCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
             IsDirect = isDirect;

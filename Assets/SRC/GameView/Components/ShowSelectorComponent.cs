@@ -1,9 +1,10 @@
 ﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,7 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SelectorBlockController _selectorBlockController;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _buttonPosition;
+        [SerializeField, Required, SceneObjectsOnly] private TextMeshProUGUI _title;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly TokensPileComponent _tokensPileComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
@@ -31,7 +33,7 @@ namespace MythosAndHorrors.GameView
         public async Task ShowPlayables()
         {
             _cardViews = _cardViewsManager.GetAllCanPlay();
-            await Animation();
+            await ShowUp();
         }
 
         public async Task ReturnPlayableWithActivation()
@@ -43,7 +45,7 @@ namespace MythosAndHorrors.GameView
         public async Task CheckIfIsInSelectorAndReturnPlayables(IPlayable exceptThisPlayable = null)
         {
             if (!IsShowing) return;
-            await Shutdown();
+            await ShowDown();
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
@@ -51,6 +53,7 @@ namespace MythosAndHorrors.GameView
             CardView cardViewSelected = exceptThisPlayable as CardView;
             CardViewsOrdered.Except(new CardView[] { cardViewSelected })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
+
             if (cardViewSelected != null)
                 returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine))
                     .Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
@@ -63,12 +66,12 @@ namespace MythosAndHorrors.GameView
         public async Task ShowMultiEffects(List<CardView> cardViews)
         {
             _cardViews = cardViews;
-            await Animation();
+            await ShowUp();
         }
 
         public async Task ReturnClones()
         {
-            await Shutdown();
+            await ShowDown();
             Sequence returnClonesSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
@@ -83,7 +86,7 @@ namespace MythosAndHorrors.GameView
 
         public async Task DestroyClones(CardView cardViewSelected)
         {
-            await Shutdown();
+            await ShowDown();
             (OriginalCardView.transform.position, cardViewSelected.transform.position) = (cardViewSelected.transform.position, OriginalCardView.transform.position);
             Sequence sequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
@@ -96,13 +99,14 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private async Task Shutdown()
+        private async Task ShowDown()
         {
             await _ioActivatorComponent.DeactivateCardSensors();
             _selectorBlockController.DeactivateSelector();
+            DeactiveTitle();
         }
 
-        private async Task Animation()
+        private async Task ShowUp()
         {
             await _ioActivatorComponent.DeactivateCardSensors();
             Sequence showCenterSequence = DOTween.Sequence()
@@ -112,6 +116,22 @@ namespace MythosAndHorrors.GameView
             CardViewsOrdered.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
+            ActivateTitle();
+        }
+        /*******************************************************************/
+
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
+        private void ActivateTitle()
+        {
+            _title.text = _gameActionsProvider.CurrentInteractable.Description;
+            _title.gameObject.SetActive(true);
+        }
+
+        private void DeactiveTitle()
+        {
+            _title.gameObject.SetActive(false);
+            _title.text = string.Empty;
         }
     }
 }
