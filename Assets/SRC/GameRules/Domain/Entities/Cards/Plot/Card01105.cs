@@ -9,9 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public Effect DiscardEffect { get; private set; }
-        public Effect DamageEffect { get; private set; }
-
         /*******************************************************************/
         public override async Task CompleteEffect()
         {
@@ -20,25 +17,25 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.Create()
                 .SetCard(this)
                 .SetInvestigator(_investigatorProvider.Leader)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DiscardEffect))
-                .SetLogic(async () => await _gameActionsProvider.Create(new DiscardGameAction(this)));
+                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
+                .SetLogic(Discard);
 
             interactableGameAction.Create()
               .SetCard(this)
               .SetInvestigator(_investigatorProvider.Leader)
-              .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DamageEffect))
-              .SetLogic(async () => await _gameActionsProvider.Create(new DiscardGameAction(this)));
+              .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Damage))
+              .SetLogic(Damage);
 
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
-        private void Discard()
+        private async Task Discard()
         {
 
         }
 
-        private void Damage()
+        private async Task Damage()
         {
 
         }

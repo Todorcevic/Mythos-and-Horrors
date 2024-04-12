@@ -11,11 +11,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly BuffsProvider _buffsProvider;
 
         /*******************************************************************/
-        [Inject]
-        public void Init()
-        {
-
-        }
 
         public override async Task StarEffect() => await Task.CompletedTask;
 
