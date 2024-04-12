@@ -3,6 +3,7 @@ using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Zenject;
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly UndoGameActionButton _undoGameActionButton;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -103,29 +104,29 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToPlay, _investigatorsProvider.Leader.DeckZone)).AsCoroutine();
 
-            _ = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.CardAidToDraw);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
             Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(false));
-
             if (!DEBUG_MODE) yield return WaitToClick(cardToPlay);
             Assert.That(((IPlayable)_undoGameActionButton).CanBePlayed, Is.EqualTo(true));
+            yield return WaitToUndoClick();
         }
 
         [UnityTest]
-        public IEnumerator UndoChoosInvestigatorActionTest()
+        public IEnumerator UndoChooseInvestigatorActionTest()
         {
             yield return PlayAllInvestigators();
+            Task<InvestigatorsPhaseGameAction> gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
-            yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
-
-            //yield return _gameActionsProvider.Rewind().AsCoroutine();
+            yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
+            yield return WaitToUndoClick();
+            yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
-            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
+            Assert.That(_investigatorsProvider.ActiveInvestigator, Is.EqualTo(_investigatorsProvider.Second));
         }
     }
 }

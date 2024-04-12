@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly UndoGameActionButton _undoGameActionButton;
         [Inject] private readonly ReactionableControl _reactionableControl;
 
         protected virtual bool DEBUG_MODE => false;
@@ -107,6 +108,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             while (!_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
 
             if (_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) _mainButtonComponent.OnMouseUpAsButton();
+            else throw new TimeoutException("Main Button Not become clickable");
+
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+        }
+
+        protected IEnumerator WaitToUndoClick()
+        {
+            while (!_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) yield return null;
+
+            if (_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) _undoGameActionButton.OnPointerClick(null);
             else throw new TimeoutException("Main Button Not become clickable");
 
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
