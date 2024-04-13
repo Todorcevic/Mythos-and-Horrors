@@ -22,7 +22,9 @@ namespace MythosAndHorrors.GameView
             originalCardView = cardViewWithMultiEffecs;
             cardViewClones = CreateCardViewClones();
             await _showSelectorComponent.ShowMultiEffects(cardViewClones.Cast<CardView>().ToList());
+
             _showCardHandler.ActiavatePlayables(cardViewClones);
+
             IPlayable playableSelected = await _clickHandler.WaitingClick();
             return await FinishMultiEffect(playableSelected);
         }
@@ -31,7 +33,7 @@ namespace MythosAndHorrors.GameView
         {
             await _showCardHandler.DeactivatePlayables(cardViewClones);
 
-            if (playableSelected is MainButtonComponent)
+            if (playableSelected is MainButtonComponent || playableSelected is ShowCardsInCenterButton)
             {
                 await _showSelectorComponent.ReturnClones();
                 originalCardView.ClearCloneEffect();

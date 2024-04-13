@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +9,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ShowCardsInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class ShowCardsInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPlayable
     {
         private bool _isPlayable;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
@@ -15,13 +17,15 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
+        IEnumerable<Effect> IPlayable.EffectsSelected => new[] { new Effect() };
+
         /*******************************************************************/
-        public async void OnPointerClick(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
             if (!_isPlayable) return;
-            if (_showSelectorComponent.IsMultiEffect) _interactionHandler.Clicked(_mainButtonComponent);
-            else if (_showSelectorComponent.IsShowing) await _showSelectorComponent.ReturnPlayableWithActivation();
-            else await _showSelectorComponent.ShowPlayables();
+            _interactionHandler.Clicked(this);
+            //if (_showSelectorComponent.IsShowing) await _showSelectorComponent.ReturnPlayableWithActivation();
+            //else await _showSelectorComponent.ShowPlayables();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -46,6 +50,16 @@ namespace MythosAndHorrors.GameView
         {
             _isPlayable = false;
             return _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
+        }
+
+        void IPlayable.ActivateToClick()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IPlayable.DeactivateToClick()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
