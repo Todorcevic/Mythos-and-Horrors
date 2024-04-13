@@ -13,9 +13,7 @@ namespace MythosAndHorrors.GameView
     {
         private bool _isPlayable;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
-        [Inject] private readonly ShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
-        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         IEnumerable<Effect> IPlayable.EffectsSelected => new[] { new Effect() };
 
@@ -24,8 +22,6 @@ namespace MythosAndHorrors.GameView
         {
             if (!_isPlayable) return;
             _interactionHandler.Clicked(this);
-            //if (_showSelectorComponent.IsShowing) await _showSelectorComponent.ReturnPlayableWithActivation();
-            //else await _showSelectorComponent.ShowPlayables();
         }
 
         public void OnPointerEnter(PointerEventData eventData)

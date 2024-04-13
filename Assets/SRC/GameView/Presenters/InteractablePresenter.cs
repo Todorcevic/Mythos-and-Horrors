@@ -17,35 +17,34 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
-            if (gamAction is InteractableGameAction interactableGameAction)
-            {
-                mustShowInCenter = interactableGameAction.IsManadatary;
-                return await Initial(interactableGameAction);
-            }
-            return default;
+            if (gamAction is not InteractableGameAction interactableGameAction) return default;
+            mustShowInCenter = interactableGameAction.IsManadatary;
+            return await Initial(interactableGameAction);
         }
 
         /*******************************************************************/
         public async Task<Effect> Initial(InteractableGameAction interactableGameAction)
         {
+            await DotweenExtension.WaitForMoveToZoneComplete();
+
             if (interactableGameAction.IsUniqueCard && mustShowInCenter)
             {
                 return await InteractWithMultiEfefct(interactableGameAction, _cardViewManager.GetCardView(interactableGameAction.UniqueCard));
             }
-            else if (interactableGameAction.IsManadatary && mustShowInCenter)
+            else if (mustShowInCenter)
             {
-                return await InteractWithShowCenter(interactableGameAction);
+                await _showSelectorComponent.ShowPlayables();
+                return await Interact(interactableGameAction);
             }
             else
             {
-                return await InteractSingle(interactableGameAction);
+                await _showSelectorComponent.ReturnPlayableWithActivation();
+                return await Interact(interactableGameAction);
             }
         }
 
-        private async Task<Effect> InteractSingle(InteractableGameAction interactableGameAction)
+        private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
         {
-            await DotweenExtension.WaitForMoveToZoneComplete();
-            await _showSelectorComponent.ReturnPlayableWithActivation();
             _showCardHandler.ActiavatePlayables();
 
             IPlayable playableChoose = await _clickHandler.WaitingClick();
@@ -60,31 +59,7 @@ namespace MythosAndHorrors.GameView
             await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThisPlayable: playableChoose);
             if (playableChoose.IsMultiEffect)
             {
-                return await InteractWithMultiEfefct(interactableGameAction, playableChoose as CardView);
-            }
-
-            return playableChoose.EffectsSelected.FirstOrDefault();
-        }
-
-        private async Task<Effect> InteractWithShowCenter(InteractableGameAction interactableGameAction)
-        {
-            await DotweenExtension.WaitForMoveToZoneComplete();
-            await _showSelectorComponent.ShowPlayables();
-            _showCardHandler.ActiavatePlayables();
-
-            IPlayable playableChoose = await _clickHandler.WaitingClick();
-
-            await _showCardHandler.DeactivatePlayables();
-            if (playableChoose is ShowCardsInCenterButton)
-            {
-                mustShowInCenter = !mustShowInCenter;
-                return await Initial(interactableGameAction);
-            }
-
-            await _showSelectorComponent.CheckIfIsInSelectorAndReturnPlayables(exceptThisPlayable: playableChoose);
-            if (playableChoose.IsMultiEffect)
-            {
-                return await InteractWithMultiEfefct(interactableGameAction, playableChoose as CardView);
+                return await InteractWithMultiEfefct(interactableGameAction, (CardView)playableChoose);
             }
 
             return playableChoose.EffectsSelected.FirstOrDefault();
@@ -92,13 +67,8 @@ namespace MythosAndHorrors.GameView
 
         private async Task<Effect> InteractWithMultiEfefct(InteractableGameAction interactableGameAction, CardView multiEffectCardView)
         {
-            Effect effect = await _multiEffectHandler.ShowMultiEffects(multiEffectCardView);
-            if (effect != null)
-            {
-                return effect;
-            }
             mustShowInCenter = false;
-            return await Initial(interactableGameAction);
+            return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView) ?? await Initial(interactableGameAction);
         }
     }
 }
