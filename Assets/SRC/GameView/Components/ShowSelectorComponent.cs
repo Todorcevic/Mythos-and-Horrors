@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Android;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -24,7 +25,7 @@ namespace MythosAndHorrors.GameView
         private List<CardView> _cardViews = new();
 
         private CardView OriginalCardView => _cardViews[0];
-        private List<CardView> CardViewsOrdered => _cardViews.OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count)
+        private List<CardView> CardViewsOrdered => _cardViews.OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count())
             .ThenBy(cardView => cardView.DeckPosition).ToList();
         public bool IsShowing => _selectorBlockController.IsActivated;
         public bool IsMultiEffect => _cardViews.Count > 1 && _cardViews.All(cardView => cardView.Card == _cardViews[0].Card);
@@ -79,6 +80,7 @@ namespace MythosAndHorrors.GameView
             CardViewsOrdered.Except(new[] { OriginalCardView })
                 .ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
                     .OnComplete(() => Destroy(clone.gameObject))));
+
             await returnClonesSequence
                 .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
                 .AsyncWaitForCompletion();
@@ -95,8 +97,13 @@ namespace MythosAndHorrors.GameView
             CardViewsOrdered.Except(new[] { OriginalCardView })
                 .ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                     .OnComplete(() => Destroy(clone.gameObject)));
-            _cardViews.Clear();
+
+            //TODO: Revisar
+            //await sequence
+            //    .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
+            //    .AsyncWaitForCompletion();
             await sequence.AsyncWaitForCompletion();
+            _cardViews.Clear();
         }
 
         /*******************************************************************/

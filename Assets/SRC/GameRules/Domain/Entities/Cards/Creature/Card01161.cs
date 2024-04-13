@@ -1,8 +1,8 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01161 : CardCreature
+    public class Card01161 : CardCreature, IGhoul, ITarget
     {
-
+        public Investigator Investigator => throw new System.NotImplementedException();
     }
 
 }

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
-        public override bool CanBeExecuted => Investigator.HandZone.Cards.Count < GameValues.INITIAL_DRAW_SIZE;
+        public override bool CanBeExecuted => Investigator.HandZone.Cards.Count() < GameValues.INITIAL_DRAW_SIZE;
         public override bool CanUndo => false;
 
         /*******************************************************************/

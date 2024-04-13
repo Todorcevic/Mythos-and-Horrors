@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01599 : CardAdversity
+    public class Card01599 : CardAdversity, IFlaw
     {
 
     }

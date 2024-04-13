@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01542 : CardSupply, ITome
+    public interface IGhoul
     {
 
     }

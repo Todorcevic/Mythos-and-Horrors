@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01172 : CardCreature
+    public class Card01172 : CardCreature, IStalker
     {
 
     }

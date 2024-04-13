@@ -32,8 +32,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.First.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.Second.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards[1]).AsTask();
-            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards[2]).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards.ElementAt(1)).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards.ElementAt(2)).AsTask();
             yield return _gameActionsProvider.Create(new RestorePhaseGameAction()).AsCoroutine();
 
             yield return new WaitForSeconds(1);

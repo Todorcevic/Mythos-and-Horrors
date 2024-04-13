@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         public int InitialSanity => DefaultSanity - Shock.Value;
         public int DamageRecived => InitialHealth - Health.Value;
         public int FearRecived => InitialSanity - Sanity.Value;
-        public int HandSize => HandZone.Cards.Count;
+        public int HandSize => HandZone.Cards.Count();
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
