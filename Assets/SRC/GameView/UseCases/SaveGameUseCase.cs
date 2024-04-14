@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
 
         /*******************************************************************/
         public void Execute() =>
-            _jsonService.SaveFileFromData(_investigatorProvider.Investigators, _filesPath.JSON_INVESTIGATORS_PATH);
+            _jsonService.SaveFileFromData(_investigatorProvider.AllInvestigators, _filesPath.JSON_INVESTIGATORS_PATH);
 
     }
 }

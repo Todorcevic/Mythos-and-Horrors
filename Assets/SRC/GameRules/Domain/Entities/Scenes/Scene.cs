@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -46,8 +48,8 @@ namespace MythosAndHorrors.GameRules
             VictoryZone = _zonesProvider.Create(ZoneType.Victory);
             LimboZone = _zonesProvider.Create(ZoneType.Limbo);
             OutZone = _zonesProvider.Create(ZoneType.Out);
-            InitializePlaceZones();
             PileAmount = new Stat(int.MaxValue);
+            InitializePlaceZones();
             PrepareChallengeTokens();
         }
 
@@ -65,7 +67,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public abstract Task PrepareScene();
 
-        public virtual void PrepareChallengeTokens()
+        protected virtual void PrepareChallengeTokens()
         {
             StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue);
             FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
@@ -80,5 +82,15 @@ namespace MythosAndHorrors.GameRules
                 await Task.CompletedTask;
             }
         }
+
+        /*******************************************************************/
+        public virtual async Task Resolution0() => await Task.CompletedTask;
+        public virtual async Task Resolution1() => await Task.CompletedTask;
+        public virtual async Task Resolution2() => await Task.CompletedTask;
+        public virtual async Task Resolution3() => await Task.CompletedTask;
+        public virtual async Task Resolution4() => await Task.CompletedTask;
+        public virtual async Task Resolution5() => await Task.CompletedTask;
+        public virtual async Task Resolution6() => await Task.CompletedTask;
+        public virtual async Task Resolution7() => await Task.CompletedTask;
     }
 }

@@ -12,10 +12,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class CardGeneratorComponentTests : TestBase
     {
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -58,7 +54,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
-            CardTalent card = _cardsProvider.GetCard<CardTalent>("01525");
+            CardTalent card = _cardsProvider.GetCard<Card01525>();
 
             CardView result = _cardViewsManager.GetCardView(card);
             SkillIconView skillIcon = result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentInChildren<SkillIconView>();
@@ -79,7 +75,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
         {
-            CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
+            CardSupply card = _cardsProvider.GetCard<Card01516>();
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
             result.SetBulletsIcons(3);
@@ -95,7 +91,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Slot()
         {
-            CardSupply card = _cardsProvider.GetCard<CardSupply>("01516");
+            CardSupply card = _cardsProvider.GetCard<Card01516>();
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
 
@@ -109,7 +105,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Support()
         {
-            CardSupply card = _cardsProvider.GetCard<CardSupply>("01518");
+            CardSupply card = _cardsProvider.GetCard<Card01518>();
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
 
@@ -127,7 +123,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_Place()
         {
-            Card card = _cardsProvider.GetCard("01112");
+            Card card = _cardsProvider.GetCard<Card01112>();
 
             PlaceCardView result = (PlaceCardView)_cardViewsManager.GetCardView(card);
 
@@ -140,7 +136,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_CreatureCard()
         {
-            CardCreature card = _cardsProvider.GetCard<CardCreature>("01118");
+            CardCreature card = _cardsProvider.GetCard<Card01118>();
 
             CreatureCardView result = (CreatureCardView)_cardViewsManager.GetCardView(card);
             SkillIconsController skillPlacer = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
@@ -157,7 +153,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_AdversityCard()
         {
-            CardAdversity card = _cardsProvider.GetCard<CardAdversity>("01167");
+            CardAdversity card = _cardsProvider.GetCard<Card01167>();
 
             AdversityCardView result = (AdversityCardView)_cardViewsManager.GetCardView(card);
 
@@ -171,7 +167,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_PlotCard()
         {
-            Card card = _cardsProvider.GetCard("01105");
+            Card card = _cardsProvider.GetCard<Card01105>();
 
             PlotCardView result = (PlotCardView)_cardViewsManager.GetCardView(card);
 
@@ -185,7 +181,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_GoalCard()
         {
-            Card card = _cardsProvider.GetCard("01108");
+            Card card = _cardsProvider.GetCard<Card01108>();
 
             GoalCardView result = (GoalCardView)_cardViewsManager.GetCardView(card);
 

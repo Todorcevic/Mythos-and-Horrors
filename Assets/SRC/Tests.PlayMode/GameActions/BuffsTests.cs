@@ -3,26 +3,20 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class BuffsTests : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator BuffTest()
         {
-            Card cardWithBuff = _cardsProvider.GetCard("01530");
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return PlayThisInvestigator(_investigatorsProvider.Second);
+            Card cardWithBuff = _cardsProvider.GetCard<Card01530>();
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardWithBuff, _investigatorsProvider.First.AidZone)).AsCoroutine();
 

@@ -5,26 +5,27 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardsProvider
     {
-        public List<Card> AllCards { get; } = new();
+        private readonly List<Card> _allCards = new();
 
-        public IEnumerable<CardCreature> AttackerCreatures => AllCards.OfType<CardCreature>()
+        public List<Card> AllCards => _allCards.ToList();
+        public IEnumerable<CardCreature> AttackerCreatures => _allCards.OfType<CardCreature>()
                   .Where(creature => creature.IsConfronted && !creature.Exausted.IsActive)
                   .OrderBy(creature => creature.ConfrontedInvestigator.Position);
-        public IEnumerable<IStalker> StalkersInPlay => AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
+        public IEnumerable<IStalker> StalkersInPlay => _allCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
         /*******************************************************************/
-        public void AddCard(Card objectCard) => AllCards.Add(objectCard);
+        public void AddCard(Card objectCard) => _allCards.Add(objectCard);
 
-        public Card GetCard(string code) => AllCards.First(card => card.Info.Code == code);
+        public T GetCard<T>() where T : Card => _allCards.OfType<T>().First();
 
-        public T GetCard<T>(string code) where T : Card => (T)AllCards.First(card => card.Info.Code == code);
+        public Card GetCardByCode(string code) => _allCards.First(card => card.Info.Code == code);
 
-        public Card GetCardWithThisZone(Zone zone) => AllCards.Find(card => card.OwnZone == zone);
+        public Card GetCardWithThisZone(Zone zone) => _allCards.Find(card => card.OwnZone == zone);
 
         public IEnumerable<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>
-            AllCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace));
+            _allCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace));
 
-        public IEnumerable<Card> GetCardsExhausted() => AllCards.FindAll(card => card.Exausted.IsActive);
+        public IEnumerable<Card> GetCardsExhausted() => _allCards.FindAll(card => card.Exausted.IsActive);
 
 
     }

@@ -1,29 +1,21 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class UndoGameActionTests : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly UndoGameActionButton _undoGameActionButton;
-        [Inject] private readonly CardsProvider _cardsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator UndoMoveMulticardsTest()
         {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
 
@@ -37,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator UndoOneCardTest()
         {
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
             MoveCardsGameAction moveCardGameAction = new(cardTomove, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardGameAction).AsCoroutine();
@@ -51,7 +43,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
-            yield return PlayAllInvestigators();
+            yield return _preparationScene.PlayAllInvestigators();
             AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new(_investigatorsProvider.Leader);
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
@@ -59,13 +51,13 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
-            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count == 0), Is.True);
         }
 
         [UnityTest]
         public IEnumerator UndoRestorePhaseGameActionTest()
         {
-            yield return PlayAllInvestigators();
+            yield return _preparationScene.PlayAllInvestigators();
             RestorePhaseGameAction restorePhaseGameAction = new();
             yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
 
@@ -73,14 +65,13 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
-            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 0), Is.True);
+            Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count == 0), Is.True);
         }
 
         [UnityTest]
         public IEnumerator UndoTursStatTest()
         {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.CardAidToDraw).AsTask();
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.CardAidToDraw).AsTask();
             if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.CardAidToDraw).AsTask();
@@ -115,7 +106,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoChooseInvestigatorActionTest()
         {
-            yield return PlayAllInvestigators();
+            yield return _preparationScene.PlayAllInvestigators();
             _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             yield return WaitToClick(_investigatorsProvider.First.AvatarCard);

@@ -9,23 +9,18 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class MoveToPlaceGameActionTest : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chapterProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator MoveToPlaceTest()
         {
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
-            CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01113");
+            CardPlace place = _cardsProvider.GetCard<Card01112>();
+            CardPlace place2 = _cardsProvider.GetCard<Card01113>();
 
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 
             if (!DEBUG_MODE) WaitToClick(place2).AsTask();
@@ -39,12 +34,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveToCard01115PlaceTest()
         {
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
-            CardPlace place2 = _cardsProvider.GetCard<CardPlace>("01115");
+            CardPlace place = _cardsProvider.GetCard<Card01112>();
+            CardPlace place2 = _cardsProvider.GetCard<Card01115>();
 
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             yield return _gameActionsProvider.Create(new RevealGameAction(place2)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();

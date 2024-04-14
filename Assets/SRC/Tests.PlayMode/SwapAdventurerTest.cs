@@ -14,8 +14,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class SwapInvestigatorTest : TestBase
     {
         [Inject] private readonly SwapInvestigatorComponent _sut;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         //protected override bool DEBUG_MODE => true;
 

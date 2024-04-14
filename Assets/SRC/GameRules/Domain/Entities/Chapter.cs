@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MythosAndHorrors.GameRules
@@ -10,7 +11,13 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Description")] public History Description { get; init; }
         [JsonProperty("Investigators")] public List<string> Investigators { get; init; }
         [JsonProperty("Scenes")] public List<string> Scenes { get; init; }
+        [JsonProperty("Register")] public Dictionary<int, bool> Register { get; init; } = new();
 
+        /*******************************************************************/
         public bool HasThisScene(string sceneCode) => Scenes.Contains(sceneCode);
+
+        public void CampaignRegister<T>(T position, bool state) where T : Enum => Register[position.GetHashCode()] = state;
+
+        public bool IsRegistered<T>(T position) where T : Enum => Register[position.GetHashCode()];
     }
 }

@@ -4,17 +4,11 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class EludeEffectTests : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public IEnumerable<CardPlace> ConnectedPlacesToMove =>
             _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
-            .Select(code => _cardsProvider.GetCard<CardPlace>(code)).Where(card => card.IsInPlay);
+            .Select(code => _cardsProvider.GetCardByCode(code)).Where(card => card.IsInPlay).OfType<CardPlace>();
         public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/

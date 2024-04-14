@@ -23,7 +23,7 @@ namespace MythosAndHorrors.EditMode.Tests
             _cardLoaderUseCase.Execute("01501");
             _cardLoaderUseCase.Execute("01603");
 
-            Assert.That(_sut.GetCard("01501").Info.Name, Is.EqualTo("Roland Banks"));
+            Assert.That(_sut.GetCard<Card01501>().Info.Name, Is.EqualTo("Roland Banks"));
             Assert.That(_sut.AllCards.Count, Is.EqualTo(2));
         }
     }

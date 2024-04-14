@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
-using Zenject;
 using System.Collections;
 using NUnit.Framework;
 
@@ -9,12 +8,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01502Tests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly ReactionableControl _reactionableControl;
-        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -22,13 +15,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Investigator2StarToken()
         {
             _reactionableControl.SubscribeAtStart(RevealStarToken);
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01114"); //Enigma:4, Hints: 2
-            Card tomeCard = _cardsProvider.GetCard("01531");
-            Card tomeCard2 = _cardsProvider.GetCard("01535");
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<CardInvestigator>("01502");
+            CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
+            Card tomeCard = _cardsProvider.GetCard<Card01531>();
+            Card tomeCard2 = _cardsProvider.GetCard<Card01535>();
+            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01502>();
             Investigator investigatorToTest = cardInvestigator.Owner;
 
-            yield return PlayThisInvestigator(investigatorToTest);
+            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();

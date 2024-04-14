@@ -5,32 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ChooseInvestigatorGameActionTest : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chapterProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator ChooseInvestigatorTest()
         {
-            yield return PlayAllInvestigators();
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
+            yield return _preparationScene.PlayAllInvestigators();
+            CardPlace place = _cardsProvider.GetCard<Card01111>();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
                 yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigator.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             }
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
             IEnumerable<Card> allAvatars = _investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.AvatarCard).Cast<Card>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(allAvatars, place.OwnZone)).AsCoroutine();
 

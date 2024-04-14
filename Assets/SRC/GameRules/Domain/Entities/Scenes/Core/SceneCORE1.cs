@@ -12,11 +12,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        private CardPlace Studio => _cardsProvider.GetCard<CardPlace>("01111");
+        private Card01111 Studio => _cardsProvider.GetCard<Card01111>();
         private CardPlot FirstPlot => Info.PlotCards.First();
         private CardGoal FirstGoal => Info.GoalCards.First();
-        private Card Lita => _cardsProvider.GetCard("01117");
-        private Card GhoulPriest => _cardsProvider.GetCard("01116");
+        private Card Lita => _cardsProvider.GetCard<Card01117>();
+        private Card GhoulPriest => _cardsProvider.GetCard<Card01116>();
         private IEnumerable<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Studio));
         }
 
-        public override void PrepareChallengeTokens()
+        protected override void PrepareChallengeTokens()
         {
             base.PrepareChallengeTokens();
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
@@ -51,6 +51,42 @@ namespace MythosAndHorrors.GameRules
         {
             _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
             await Task.CompletedTask;
+        }
+
+        /*******************************************************************/
+        public override async Task Resolution0()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[0]));
+
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
+
+            //TODO: continue
+        }
+
+        public override async Task Resolution1()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[1]));
+
+            //TODO: continue
+        }
+
+        public override async Task Resolution2()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[2]));
+
+            //TODO: continue
+        }
+
+        public override async Task Resolution3()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[3]));
+
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.LitaGoAway, true);
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
+
+            //TODO: continue
         }
     }
 }

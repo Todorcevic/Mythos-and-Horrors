@@ -7,16 +7,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ChallengeTests : TestBase
     {
-        [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -24,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PushTokenTest()
         {
             ChallengeToken challengeToken = new(ChallengeTokenType.Ancient, () => -2);
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
 
             do
             {

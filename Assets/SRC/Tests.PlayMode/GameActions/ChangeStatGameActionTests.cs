@@ -12,13 +12,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ChangeStatGameActionTests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-        [Inject] private readonly CardsProvider _cardsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -78,7 +71,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Full_Hint_Stats()
         {
             CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01112");
+            CardPlace place = _cardsProvider.GetCard<Card01112>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();

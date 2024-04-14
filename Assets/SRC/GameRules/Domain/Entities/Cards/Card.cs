@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<Effect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
-        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone) ??
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
 

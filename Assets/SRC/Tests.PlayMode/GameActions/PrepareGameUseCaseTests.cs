@@ -11,10 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class PrepareGameUseCaseTests : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvide;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -22,9 +18,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareGame()
         {
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.Investigators.Count(), Is.EqualTo(4));
-            Assert.That(_cardsProvider.GetCard("01160").Info.Code, Is.EqualTo("01160"));
-            Assert.That(_chaptersProvide.CurrentScene.Info.Name, Is.EqualTo("El encuentro"));
+            Assert.That(_investigatorsProvider.AllInvestigators.Count(), Is.EqualTo(4));
+            Assert.That(_cardsProvider.GetCard<Card01160>().Info.Code, Is.EqualTo("01160"));
+            Assert.That(_chaptersProvider.CurrentScene.Info.Name, Is.EqualTo("El encuentro"));
             yield return null;
         }
     }

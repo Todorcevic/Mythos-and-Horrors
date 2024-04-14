@@ -4,14 +4,14 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DieSupplyGameAction : GameAction
+    public class DefeatSupplyGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardSupply CardSupply { get; }
 
         /*******************************************************************/
-        public DieSupplyGameAction(CardSupply cardSupply)
+        public DefeatSupplyGameAction(CardSupply cardSupply)
         {
             CardSupply = cardSupply;
         }

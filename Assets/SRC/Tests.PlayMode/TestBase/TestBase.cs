@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -17,16 +16,32 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         private static bool _hasLoadedScene;
         private const float TIMEOUT = 3f;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly TokensPileComponent tokensPileComponent;
-        [Inject] private readonly MultiEffectHandler _multiEffectHandler;
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly UndoGameActionButton _undoGameActionButton;
-        [Inject] private readonly ReactionableControl _reactionableControl;
+        [Inject] protected readonly GameActionsProvider _gameActionsProvider;
+        [Inject] protected readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] protected readonly ChaptersProvider _chaptersProvider;
+        [Inject] protected readonly ChallengeTokensProvider _challengeTokensProvider;
+        [Inject] protected readonly CardsProvider _cardsProvider;
+
+        [Inject] protected readonly CardViewsManager _cardViewsManager;
+        [Inject] protected readonly AvatarViewsManager _avatarViewsManager;
+        [Inject] protected readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] protected readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
+
+        [Inject] protected readonly ShowHistoryComponent _showHistoryComponent;
+        [Inject] protected readonly TokensPileComponent tokensPileComponent;
+        [Inject] protected readonly MainButtonComponent _mainButtonComponent;
+        [Inject] protected readonly IOActivatorComponent _ioActivatorComponent;
+        [Inject] protected readonly ChallengeBagComponent _challengeBagComponent;
+        [Inject] protected readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
+
+        [Inject] protected readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
+        [Inject] protected readonly MultiEffectHandler _multiEffectHandler;
+        [Inject] protected readonly PrepareGameUseCase _prepareGameUseCase;
+        [Inject] protected readonly CardLoaderUseCase _cardLoaderUseCase;
+        [Inject] protected readonly UndoGameActionButton _undoGameActionButton;
+
+        [Inject] protected readonly ReactionableControl _reactionableControl;
+        [Inject] protected readonly PreparationScene _preparationScene;
 
         protected virtual bool DEBUG_MODE => false;
 
@@ -70,19 +85,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         private void InstallerToTests()
         {
             SceneContainer.Bind<ReactionableControl>().AsSingle();
-        }
-
-        /*******************************************************************/
-        protected IEnumerator PlayThisInvestigator(Investigator investigator)
-        {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck, investigator.DeckZone, isFaceDown: true)).AsCoroutine();
-        }
-
-        protected IEnumerator PlayAllInvestigators()
-        {
-            foreach (Investigator investigator in _investigatorsProvider.Investigators)
-                yield return PlayThisInvestigator(investigator);
+            SceneContainer.Bind<PreparationScene>().AsSingle();
         }
 
         /*******************************************************************/

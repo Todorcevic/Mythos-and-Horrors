@@ -4,17 +4,12 @@ using NUnit.Framework;
 using System.Collections;
 using System.Linq;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class ShuffleGameActionTests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ZoneViewsManager zoneViewsManager;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -22,13 +17,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Shuffle_Zone()
         {
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DeckZone)).AsCoroutine();
-            CardView[] allCardViews = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
+            CardView[] allCardViews = _zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             do
             {
                 yield return _gameActionsProvider.Create(new ShuffleGameAction(_investigatorsProvider.First.DeckZone)).AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
-            CardView[] allCardViewsShuffled = zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
+            CardView[] allCardViewsShuffled = _zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             Assert.That(!allCardViews.SequenceEqual(allCardViewsShuffled));
         }
     }

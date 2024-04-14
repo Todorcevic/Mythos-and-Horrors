@@ -9,9 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class CreatureAttackGameActionTests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -19,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CreatureAttackTest()
         {
-            CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
+            CardCreature cardCreature = _cardsProvider.GetCard<Card01119>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
@@ -39,7 +36,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CreatureAttackOtherInvestigatorTest()
         {
-            CardCreature cardCreature = _cardsProvider.GetCard<CardCreature>("01119");
+            CardCreature cardCreature = _cardsProvider.GetCard<Card01119>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.InvestigatorCard, _investigatorsProvider.Second.InvestigatorZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, _investigatorsProvider.First.DangerZone)).AsCoroutine();

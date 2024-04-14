@@ -22,6 +22,8 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize { get; private set; }
         public Stat DrawTurnsCost { get; private set; }
         public Stat TurnsCost { get; private set; }
+        public State Resign { get; private set; }
+        public State Defeated { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -44,6 +46,8 @@ namespace MythosAndHorrors.GameRules
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             DrawTurnsCost = new Stat(1);
             TurnsCost = new Stat(1);
+            Resign = new State(false);
+            Defeated = new State(false);
         }
 
         /*******************************************************************/

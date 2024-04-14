@@ -9,12 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class InvestigateGameActionTest : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ReactionableControl _reactionableControl;
-        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         //protected override bool DEBUG_MODE => true;
 
@@ -24,10 +18,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _reactionableControl.SubscribeAtStart(RevealMinus1Token);
 
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            Card toPlay = _cardsProvider.GetCard("01538");
-            Card toPlay2 = _cardsProvider.GetCard("01522");
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01113");
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            Card toPlay = _cardsProvider.GetCard<Card01538>();
+            Card toPlay2 = _cardsProvider.GetCard<Card01522>();
+            CardPlace place = _cardsProvider.GetCard<Card01113>();
 
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();

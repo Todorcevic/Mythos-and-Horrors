@@ -3,18 +3,13 @@ using NUnit.Framework;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01504Tests : TestBase
     {
         private int valueToken;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly ReactionableControl _reactionableControl;
-        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
+
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -22,10 +17,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Investigator4StarToken()
         {
             _reactionableControl.SubscribeAtStart(RevealStarToken);
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01114"); //Enigma:4, Hints: 2
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<CardInvestigator>("01504");
+            CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
+            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01504>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            yield return PlayThisInvestigator(investigatorToTest);
+            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();

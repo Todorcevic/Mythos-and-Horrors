@@ -1,7 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-
-    public class Card01519 : CardSupply
+    public class Card01117 : CardSupply
     {
 
     }

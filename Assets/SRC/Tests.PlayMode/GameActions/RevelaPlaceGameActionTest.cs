@@ -10,20 +10,14 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class RevelaPlaceGameActionTest : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly ChaptersProvider _chapterProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator RevealPlaceTest()
         {
-            CardPlace place = _cardsProvider.GetCard<CardPlace>("01111");
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chapterProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
+            CardPlace place = _cardsProvider.GetCard<Card01111>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 

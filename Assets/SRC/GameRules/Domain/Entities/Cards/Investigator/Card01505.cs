@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        private Card AmuletoDeWendy => _cardsProvider.GetCard("01514"); //TODO: Poner nombre real de la carta
+        private Card AmuletoDeWendy => _cardsProvider.GetCard<Card01514>(); //TODO: Poner nombre real de la carta
 
         /*******************************************************************/
         public override async Task StarEffect()

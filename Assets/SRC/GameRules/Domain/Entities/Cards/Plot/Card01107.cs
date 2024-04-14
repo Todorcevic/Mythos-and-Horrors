@@ -1,12 +1,86 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01107 : CardPlot
     {
-        public override Task CompleteEffect()
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+
+        public Reaction MoveGhoulReaction { get; private set; }
+        public Reaction PlaceEldritch { get; private set; }
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
+        private void Init()
         {
-            throw new System.NotImplementedException();
+            MoveGhoulReaction = new Reaction(MoveGhoulCondition, MoveGhoulLogic);
+            PlaceEldritch = new Reaction(PlaceEldritchCondition, PlaceEldritchLogic);
+        }
+
+        /*******************************************************************/
+        public override async Task CompleteEffect()
+        {
+            if (_chaptersProvider.CurrentScene.CurrentGoal is not Card01110)
+                await _chaptersProvider.CurrentScene.Resolution3();
+            else
+            {
+                foreach (var investigator in _investigatorsProvider.AllInvestigators)
+                {
+                    if (investigator.Resign.IsActive) continue;
+                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Injury, 1));
+                }
+            }
+        }
+
+        /*******************************************************************/
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await MoveGhoulReaction.Check(gameAction);
+            await PlaceEldritch.Check(gameAction);
+        }
+
+        /*******************************************************************/
+        private bool MoveGhoulCondition(GameAction gameAction)
+        {
+            if (gameAction is not CreaturePhaseGameAction) return false;
+            if (!IsInPlay) return false;
+            return true;
+        }
+
+        private async Task MoveGhoulLogic()
+        {
+            Card01115 parlor = _cardsProvider.GetCard<Card01115>();
+            foreach (CardCreature ghoul in _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>())
+            {
+                if (!ghoul.IsInPlay || ghoul.IsConfronted) continue;
+                await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
+            }
+        }
+
+        /*******************************************************************/
+        private bool PlaceEldritchCondition(GameAction gameAction)
+        {
+            if (gameAction is not RestorePhaseGameAction) return false;
+            if (!IsInPlay) return false;
+            return true;
+        }
+
+        private async Task PlaceEldritchLogic()
+        {
+            CardPlace parlor = _cardsProvider.GetCard<Card01115>();
+            CardPlace hallway = _cardsProvider.GetCard<Card01112>();
+            int amountEldritch = _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>()
+                  .Where(creature => creature.CurrentPlace == parlor || creature.CurrentPlace == hallway).Count();
+
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Eldritch, amountEldritch));
         }
     }
 }

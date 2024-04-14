@@ -23,7 +23,7 @@ namespace MythosAndHorrors.EditMode.Tests
             _sut.AddInvestigator(_doc2);
             _sut.AddInvestigator(_doc3);
 
-            Assert.That(_sut.Investigators.Count(), Is.EqualTo(3));
+            Assert.That(_sut.AllInvestigators.Count(), Is.EqualTo(3));
             Assert.That(_sut.First, Is.EqualTo(_doc1));
             Assert.That(_doc1.Position, Is.EqualTo(1));
             Assert.That(_doc2.Position, Is.EqualTo(2));

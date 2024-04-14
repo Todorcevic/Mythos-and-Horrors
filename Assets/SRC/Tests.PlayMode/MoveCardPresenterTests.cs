@@ -5,20 +5,12 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class MoveCardPresenterTests : TestBase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/

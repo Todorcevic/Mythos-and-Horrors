@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public ZoneType ZoneType { get; }
 
-        public IEnumerable<Card> Cards => _cards.ToList();
+        public List<Card> Cards => _cards.ToList();
         public Card TopCard => _cards.Last();
         public Card BottomCard => _cards.First();
         public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);

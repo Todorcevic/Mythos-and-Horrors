@@ -13,13 +13,6 @@ namespace MythosAndHorrors.PlayMode.Tests
     [TestFixture]
     public class ZonesBehaviourTests : TestBase
     {
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/

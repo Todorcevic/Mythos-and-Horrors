@@ -1,22 +1,15 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class DoDamageAndFearGameActionTests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly CardLoaderUseCase _cardLoaderUseCase;
-        [Inject] private readonly CardViewGeneratorComponent _cardViewGeneratorComponent;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
@@ -28,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.First;
             Card damageableCard = investigator.AllCards.First(card => card.Info.Code == "01521");
             Card damageableCard2 = investigator.AllCards.First(card => card.Info.Code == "01521" && card != damageableCard);
-            yield return PlayThisInvestigator(investigator);
+            yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();

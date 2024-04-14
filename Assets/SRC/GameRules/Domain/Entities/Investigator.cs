@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         public int InitialSanity => DefaultSanity - Shock.Value;
         public int DamageRecived => InitialHealth - Health.Value;
         public int FearRecived => InitialSanity - Sanity.Value;
-        public int HandSize => HandZone.Cards.Count();
+        public int HandSize => HandZone.Cards.Count;
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
@@ -63,7 +63,9 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
         public Stat TurnsCost => InvestigatorCard.TurnsCost;
-        public Investigator NextInvestigator => _investigatorsProvider.Investigators.NextElementFor(this);
+        public State Resign => InvestigatorCard.Resign;
+        public State Defeated => InvestigatorCard.Defeated;
+        public Investigator NextInvestigator => _investigatorsProvider.AllInvestigators.NextElementFor(this);
         public Investigator NextInvestigatorInPlay => _investigatorsProvider.AllInvestigatorsInPlay.NextElementFor(this);
 
         /*******************************************************************/
@@ -87,6 +89,14 @@ namespace MythosAndHorrors.GameRules
             zone == AidZone || AidZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
             zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
             zone == InvestigatorZone || InvestigatorZone.Cards.Select(card => card.OwnZone).Contains(zone);
+
+        public bool HasThisOwnerZone(Zone zone) =>
+          zone == HandZone ||
+          zone == DeckZone ||
+          zone == DiscardZone ||
+          zone == AidZone ||
+          //zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
+          zone == InvestigatorZone;
 
         public bool HasThisCard(Card card) => AllCards.Contains(card);
 

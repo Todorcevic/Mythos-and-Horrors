@@ -4,22 +4,18 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class RestorePhaseTests : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator RestorePhaseTest()
         {
-            yield return PlayAllInvestigators();
+            yield return _preparationScene.PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9).ToList(), _investigatorsProvider.First.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3).ToList(), _investigatorsProvider.Second.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
@@ -32,8 +28,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.First.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.Second.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
 
-            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards.ElementAt(1)).AsTask();
-            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards.ElementAt(2)).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards[1]).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_investigatorsProvider.First.HandZone.Cards[2]).AsTask();
             yield return _gameActionsProvider.Create(new RestorePhaseGameAction()).AsCoroutine();
 
             yield return new WaitForSeconds(1);

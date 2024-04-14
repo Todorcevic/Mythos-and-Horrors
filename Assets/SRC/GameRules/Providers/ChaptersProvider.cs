@@ -33,6 +33,5 @@ namespace MythosAndHorrors.GameRules
         {
             CurrentScene = scene ?? throw new ArgumentNullException(nameof(scene) + " scene cant be null");
         }
-
     }
 }

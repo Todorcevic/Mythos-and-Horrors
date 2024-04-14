@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return;
             if (!DieByDamage() && !DieByFear()) return;
 
-            await _gameActionsProvider.Create(new DieSupplyGameAction(this));
+            await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
 
 
             bool DieByDamage()

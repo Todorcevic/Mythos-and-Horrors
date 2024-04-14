@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Investigator> _investigators = new();
 
-        public IReadOnlyList<Investigator> Investigators => _investigators;
+        public List<Investigator> AllInvestigators => _investigators.ToList();
         public IEnumerable<Investigator> AllInvestigatorsInPlay => _investigators.FindAll(investigator => investigator.IsInPlay);
         public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable);
         public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate);
@@ -37,6 +37,9 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator GetInvestigatorWithThisZone(Zone zone)
             => _investigators.FirstOrDefault(investigator => investigator.HasThisZone(zone));
+
+        public Investigator GetInvestigatorOwnerWithThisZone(Zone zone)
+          => _investigators.FirstOrDefault(investigator => investigator.HasThisOwnerZone(zone));
 
         public Investigator GetInvestigatorWithThisCard(Card card)
             => _investigators.FirstOrDefault(investigator => investigator.HasThisCard(card));

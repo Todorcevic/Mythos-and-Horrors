@@ -4,17 +4,12 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class AvatarTest : TestBase
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/

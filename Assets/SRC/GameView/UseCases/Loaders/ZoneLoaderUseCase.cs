@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Execute()
         {
-            _areaInvestigatorViewsManager.Init(_investigatorsProvider.Investigators);
+            _areaInvestigatorViewsManager.Init(_investigatorsProvider.AllInvestigators);
             _sceneArea.Init();
             _placesArea.Init();
         }

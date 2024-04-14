@@ -1,20 +1,15 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using TMPro;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
     public class ShowHistoryests : TestBase
     {
-        [Inject] private readonly ShowHistoryComponent _showHistoryComponent;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
