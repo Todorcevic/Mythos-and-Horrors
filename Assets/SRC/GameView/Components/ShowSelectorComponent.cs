@@ -98,11 +98,10 @@ namespace MythosAndHorrors.GameView
                 .ForEach(clone => sequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
                     .OnComplete(() => Destroy(clone.gameObject)));
 
-            //TODO: Revisar
-            //await sequence
-            //    .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
-            //    .AsyncWaitForCompletion();
-            await sequence.AsyncWaitForCompletion();
+            await sequence
+                .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
+                .AsyncWaitForCompletion();
+            //await sequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }
 

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
 
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -30,25 +30,21 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card card2 = investigator1.Cards[2];
 
             interactableGameAction.CreateMainButton()
-                     .SetDescription("Continue")
                      .SetLogic(() => Task.CompletedTask);
 
             Effect effectToClick = interactableGameAction.Create()
                    .SetCard(card)
                    .SetInvestigator(investigator1)
-                   .SetDescription("EffectOne")
                    .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
 
             interactableGameAction.Create()
                 .SetCard(card)
                 .SetInvestigator(investigator1)
-                .SetDescription("EffectTwo")
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
 
             interactableGameAction.Create()
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
-                .SetDescription("EffectOne")
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();

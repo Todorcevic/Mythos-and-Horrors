@@ -32,16 +32,15 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(isUndable: false, Description);
             ButtonEffect = interactableGameAction.CreateMainButton()
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + "Continue")
-                    .SetLogic(() => Task.CompletedTask);
-
+                    .SetLogic(Continue);
+            /*******************************************************************/
+            async Task Continue() => await Task.CompletedTask;
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
                 DiscardEffects.Add(interactableGameAction.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT1)
                     .SetLogic(Discard));
 
                 /*******************************************************************/
@@ -55,7 +54,6 @@ namespace MythosAndHorrors.GameRules
                 RestoreEffects.Add(interactableGameAction.Create()
                     .SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.MULLIGAN_EFFECT2)
                     .SetLogic(Restore));
 
                 /*******************************************************************/

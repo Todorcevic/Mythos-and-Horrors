@@ -11,25 +11,21 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
-        public Effect DamageEffect { get; private set; }
-        public Effect DiscardAllInvestigatorsEffect { get; private set; }
-
         /*******************************************************************/
         public override async Task CompleteEffect()
         {
             InteractableGameAction interactableGameAction = new(isUndable: false, "Select One Effect");
 
-            DiscardAllInvestigatorsEffect = interactableGameAction.Create()
-                .SetCard(this)
-                .SetInvestigator(_investigatorProvider.Leader)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DiscardAllInvestigators))
-                .SetLogic(DiscardAllInvestigators);
+            interactableGameAction.Create()
+               .SetCard(this)
+               .SetInvestigator(_investigatorProvider.Leader)
+               .SetLogic(DiscardAllInvestigators);
 
-            DamageEffect = interactableGameAction.Create()
-              .SetCard(this)
-              .SetInvestigator(_investigatorProvider.Leader)
-              .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Damage))
-              .SetLogic(Damage);
+            interactableGameAction.Create()
+               .SetCard(this)
+               .SetInvestigator(_investigatorProvider.Leader)
+               .SetCardAffected(_investigatorProvider.Leader.InvestigatorCard)
+               .SetLogic(Damage);
 
 
             await _gameActionsProvider.Create(interactableGameAction);

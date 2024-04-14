@@ -38,7 +38,6 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.Create()
                .SetCard(card)
                .SetInvestigator(ActiveInvestigator)
-               .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Discard))
                .SetLogic(Discard);
 
                 /*******************************************************************/

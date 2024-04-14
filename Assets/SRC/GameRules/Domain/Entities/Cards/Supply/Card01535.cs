@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Stat HealthActivationTurnsCost { get; private set; }
-        public Effect ActivateEffect { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -39,8 +38,7 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.Create()
                 .SetCard(this)
                 .SetInvestigator(oneInvestigatorTurnGA.ActiveInvestigator)
-                .SetLogic(HealthActivation)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(HealthActivation));
+                .SetLogic(HealthActivation);
 
             async Task HealthActivation()
             {

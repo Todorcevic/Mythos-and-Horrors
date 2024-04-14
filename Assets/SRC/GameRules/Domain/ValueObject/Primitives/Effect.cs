@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -10,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardAffected { get; private set; }
         public Func<Task> Logic { get; private set; }
         public string CardCode => _investigator?.Code;
-        public string Description { get; private set; }
+        public string Description => Logic.GetInvocationList().First().Method.Name;
         public string CardCodeSecundary => _cardAffected?.Info.Code;
 
         /*******************************************************************/
@@ -38,10 +39,10 @@ namespace MythosAndHorrors.GameRules
             return this;
         }
 
-        public Effect SetDescription(string description)
-        {
-            Description = description;
-            return this;
-        }
+        //public Effect SetDescription(string description)
+        //{
+        //    Description = description;
+        //    return this;
+        //}
     }
 }

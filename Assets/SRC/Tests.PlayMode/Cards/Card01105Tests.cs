@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -34,8 +35,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
-            while (cardPlot.DiscardAllInvestigatorsEffect == null) yield return null;
-            if (!DEBUG_MODE) yield return WaitToCloneClick(cardPlot.DiscardAllInvestigatorsEffect);
+            while (_gameActionsProvider.CurrentInteractable == null) yield return null;
+            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allEffects");
+            if (!DEBUG_MODE) yield return WaitToCloneClick(allEffects[0]);
             while (!taskGameAction.IsCompleted) yield return null;
 
             Assert.That(_investigatorProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count() == 4), Is.True);
@@ -50,8 +52,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
-            while (cardPlot.DamageEffect == null) yield return null;
-            if (!DEBUG_MODE) yield return WaitToCloneClick(cardPlot.DamageEffect);
+            while (_gameActionsProvider.CurrentInteractable == null) yield return null;
+            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allEffects");
+            if (!DEBUG_MODE) yield return WaitToCloneClick(allEffects[1]);
             while (!taskGameAction.IsCompleted) yield return null;
 
             Assert.That(_investigatorProvider.Leader.Sanity.Value, Is.EqualTo(3));

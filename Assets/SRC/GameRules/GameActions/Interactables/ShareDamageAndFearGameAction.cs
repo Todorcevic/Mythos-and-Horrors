@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     public class ShareDamageAndFearGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
 
         public Investigator Investigator { get; }
         public Card FromCard { get; }
@@ -47,7 +46,6 @@ namespace MythosAndHorrors.GameRules
                     .SetCard(cardSelectable)
                     .SetInvestigator(cardSelectable.Owner)
                     .SetCardAffected(FromCard)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(DoDamageAndFear))
                     .SetLogic(DoDamageAndFear);
 
                 /*******************************************************************/

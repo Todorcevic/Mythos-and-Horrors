@@ -52,7 +52,6 @@ namespace MythosAndHorrors.GameRules
         private void PreparePassEffect(InteractableGameAction interactableGameAction)
         {
             interactableGameAction.CreateMainButton()
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PassTurn))
                 .SetLogic(PassTurn);
 
             async Task PassTurn() =>
@@ -67,7 +66,6 @@ namespace MythosAndHorrors.GameRules
             InvestigateEffect = interactableGameAction.Create()
                 .SetCard(ActiveInvestigator.CurrentPlace)
                 .SetInvestigator(ActiveInvestigator)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Investigate))
                 .SetLogic(Investigate);
 
             bool CanInvestigate()
@@ -94,7 +92,6 @@ namespace MythosAndHorrors.GameRules
                 MoveEffects.Add(interactableGameAction.Create()
                     .SetCard(cardPlace)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Move))
                     .SetLogic(Move));
 
                 bool CanMove()
@@ -121,7 +118,6 @@ namespace MythosAndHorrors.GameRules
                 InvestigatorAttackEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorAttack))
                     .SetLogic(InvestigatorAttack));
 
                 bool CanInvestigatorAttack()
@@ -148,7 +144,6 @@ namespace MythosAndHorrors.GameRules
                 InvestigatorConfrontEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorConfront))
                     .SetLogic(InvestigatorConfront));
 
                 bool CanInvestigatorConfront()
@@ -176,7 +171,6 @@ namespace MythosAndHorrors.GameRules
                 InvestigatorEludeEffects.Add(interactableGameAction.Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(InvestigatorElude))
                     .SetLogic(InvestigatorElude));
 
                 bool CanInvestigatorElude()
@@ -205,7 +199,6 @@ namespace MythosAndHorrors.GameRules
                 PlayFromHandEffects.Add(interactableGameAction.Create()
                     .SetCard(playableFromHand as Card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(PlayFromHand))
                     .SetLogic(PlayFromHand));
 
                 bool CanPlayFromHand()
@@ -229,8 +222,7 @@ namespace MythosAndHorrors.GameRules
             DrawEffect = interactableGameAction.Create()
                   .SetCard(ActiveInvestigator.CardAidToDraw)
                   .SetInvestigator(ActiveInvestigator)
-                  .SetLogic(Draw)
-                  .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Draw));
+                  .SetLogic(Draw);
         }
 
         private bool CanDraw()
@@ -251,7 +243,6 @@ namespace MythosAndHorrors.GameRules
             if (!CanTakeResource()) return;
 
             TakeResourceEffect = interactableGameAction.Create()
-               .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(TakeResource))
                .SetInvestigator(ActiveInvestigator)
                .SetLogic(TakeResource);
         }
