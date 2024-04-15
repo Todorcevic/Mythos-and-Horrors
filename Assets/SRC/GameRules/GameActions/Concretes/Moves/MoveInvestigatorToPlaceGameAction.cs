@@ -30,7 +30,6 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard);
             await _gameActionsProvider.Create(new MoveCardsGameAction(allAvatars, CardPlace.OwnZone));
-            await _gameActionsProvider.Create(new CheckRevealPlaceGameAction(CardPlace));
         }
     }
 }

@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameRules
             {
                 foreach (Func<Task> succesEffect in ChallengePhaseGameAction.SuccesEffects)
                 {
-                    await succesEffect.Invoke();
+                    await succesEffect?.Invoke();
                 }
             }
             else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Count > 0)
             {
                 foreach (Func<Task> failEffect in ChallengePhaseGameAction.FailEffects)
                 {
-                    await failEffect.Invoke();
+                    await failEffect?.Invoke();
                 }
             }
         }

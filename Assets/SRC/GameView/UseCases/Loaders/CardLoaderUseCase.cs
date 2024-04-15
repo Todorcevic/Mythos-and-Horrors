@@ -27,8 +27,7 @@ namespace MythosAndHorrors.GameView
             CardInfo cardInfo = _allCardInfo.First(cardInfo => cardInfo.Code == cardCode);
             CardExtraInfo cardExtraInfo = _allCardExtraInfo.Find(cardExtraInfo => cardExtraInfo.Code == cardCode);
 
-            Type type = (Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code)
-                ?? Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.CardType.ToString()))
+            Type type = Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code)
                 ?? throw new InvalidOperationException("Card not found" + cardInfo.Code + " Type: " + cardInfo.CardType.ToString());
 
             object[] parameters = cardExtraInfo != null ? new object[] { cardInfo, cardExtraInfo } : new object[] { cardInfo };

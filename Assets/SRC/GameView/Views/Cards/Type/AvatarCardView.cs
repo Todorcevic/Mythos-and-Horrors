@@ -8,6 +8,8 @@ namespace MythosAndHorrors.GameView
     {
         [Title(nameof(AvatarCardView))]
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _resource;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _hint;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
         public Investigator Investigator => Card.Owner;
@@ -16,6 +18,8 @@ namespace MythosAndHorrors.GameView
         protected override void SetSpecific()
         {
             _health.SetStat(Investigator.Health);
+            _resource.SetStat(Investigator.Resources);
+            _hint.SetStat(Investigator.Hints);
             _sanity.SetStat(Investigator.Sanity);
         }
     }

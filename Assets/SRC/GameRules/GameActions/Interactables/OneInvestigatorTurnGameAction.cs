@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> InvestigatorConfrontEffects { get; } = new();
         public List<Effect> InvestigatorEludeEffects { get; } = new();
         public List<Effect> PlayFromHandEffects { get; } = new();
+        public List<Effect> PlayFastEffects { get; } = new();
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(OneInvestigatorTurnGameAction);
@@ -35,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
+            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: false, Description);
             PreparePassEffect(interactableGameAction);
             PrepareInvestigateEffect(interactableGameAction);
             PrepareMoveEffect(interactableGameAction);
@@ -43,6 +44,7 @@ namespace MythosAndHorrors.GameRules
             PrepareInvestigatorConfrontEffect(interactableGameAction);
             PrepareInvestigatorEludeEffect(interactableGameAction);
             PreparePlayFromHandEffect(interactableGameAction);
+            PreparePlayFast(interactableGameAction);
             PrepareDraw(interactableGameAction);
             PrepareTakeResource(interactableGameAction);
             await _gameActionsProvider.Create(interactableGameAction);
@@ -190,27 +192,31 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        private void PreparePlayFast(InteractableGameAction interactableGameAction)
+        {
+            foreach (IPlayableFast playableFast in _cardsProvider.AllCards.OfType<IPlayableFast>()
+                .Where(playableFast => playableFast.CanPlayFast()))
+            {
+                PlayFastEffects.Add(interactableGameAction.Create()
+                    .SetCard(playableFast as Card)
+                    .SetInvestigator(ActiveInvestigator)
+                    .SetLogic(playableFast.PlayFast));
+            }
+        }
+
+        /*******************************************************************/
         private void PreparePlayFromHandEffect(InteractableGameAction interactableGameAction)
         {
-            foreach (IPlayableFromHand playableFromHand in ActiveInvestigator.HandZone.Cards.OfType<IPlayableFromHand>())
+            foreach (IPlayableFromHand playableFromHand in ActiveInvestigator.HandZone.Cards.OfType<IPlayableFromHand>()
+                .Where(playableFromHand => playableFromHand.CanPlayFromHand()))
             {
-                if (!CanPlayFromHand()) continue;
-
                 PlayFromHandEffects.Add(interactableGameAction.Create()
                     .SetCard(playableFromHand as Card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(PlayFromHand));
 
-                bool CanPlayFromHand()
-                {
-                    if (ActiveInvestigator.Resources.Value < playableFromHand.ResourceCost.Value) return false;
-                    if (ActiveInvestigator.CurrentTurns.Value < playableFromHand.TurnsCost.Value) return false;
-                    return true;
-                }
-
                 async Task PlayFromHand() =>
                     await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
-
             }
         }
 

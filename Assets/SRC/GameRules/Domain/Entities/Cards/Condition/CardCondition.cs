@@ -1,16 +1,16 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
-    public class CardCondition : Card, IPlayableFromHand, ICommitable
+    public abstract class CardCondition : Card, IPlayableFromHand, ICommitable
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+
         public Stat ResourceCost { get; private set; }
         public Stat TurnsCost { get; private set; }
-        public Func<Task> ConditionEffect { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -19,7 +19,6 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
             TurnsCost = new Stat(1);
-            ConditionEffect = ExecuteConditionEffect;
         }
 
         /*******************************************************************/
@@ -33,9 +32,22 @@ namespace MythosAndHorrors.GameRules
             return amount;
         }
 
-        public virtual async Task ExecuteConditionEffect() //TODO: must be abstract
+        /*******************************************************************/
+        public async Task PlayFromHand()
         {
-            await Task.CompletedTask;
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
+            await ExecuteConditionEffect();
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
+
+        public bool CanPlayFromHand()
+        {
+            if (CurrentZone != Owner.HandZone) return false;
+            if (Owner.Resources.Value < ResourceCost.Value) return false;
+            if (Owner.CurrentTurns.Value < TurnsCost.Value) return false;
+            return true;
+        }
+
+        public abstract Task ExecuteConditionEffect();
     }
 }

@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected sealed override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: false, Description);
+            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: false, Description);
             ButtonEffect = interactableGameAction.CreateMainButton()
                     .SetLogic(Continue);
             /*******************************************************************/

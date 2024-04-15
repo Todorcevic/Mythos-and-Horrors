@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            InteractableGameAction interactableGameAction = new(isUndable: true, Description);
+            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: true, Description);
             List<Card> allSelectables = new();
 
             if (AmountDamage > 0)

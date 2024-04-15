@@ -12,6 +12,16 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
+        public CardPlace Study => _cardsProvider.GetCard<Card01111>();
+        public CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
+        public CardPlace Attic => _cardsProvider.GetCard<Card01113>();
+        public CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
+        public CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
+
+        public CardCreature GhoulSecuaz => _cardsProvider.GetCard<Card01160>();
+        public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
+
+        /*******************************************************************/
         public IEnumerator PlaceAllPlaceCards()
         {
             CardPlace place1 = _cardsProvider.GetCard<Card01111>();

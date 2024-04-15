@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost { get; protected set; }
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
+        public Reaction Defeat { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -20,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
             TurnsCost = new Stat(1);
+            Defeat = new Reaction(DefeatCondition, DefeatLogic);
             if (this is IDamageable) Health = new Stat(Info.Health ?? 0);
             if (this is IFearable) Sanity = new Stat(Info.Sanity ?? 0);
         }
@@ -35,14 +37,19 @@ namespace MythosAndHorrors.GameRules
             return amount;
         }
 
+        /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            if (gameAction is not UpdateStatGameAction) return;
-            if (!IsInPlay) return;
-            if (!DieByDamage() && !DieByFear()) return;
+            await Defeat.Check(gameAction);
+        }
 
-            await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
-
+        /*******************************************************************/
+        private bool DefeatCondition(GameAction gameAction)
+        {
+            if (gameAction is not UpdateStatGameAction) return false;
+            if (!IsInPlay) return false;
+            if (!DieByDamage() && !DieByFear()) return false;
+            return true;
 
             bool DieByDamage()
             {
@@ -57,6 +64,22 @@ namespace MythosAndHorrors.GameRules
                 if (Sanity.Value > 0) return false;
                 return true;
             }
+        }
+
+        private async Task DefeatLogic() => await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
+
+        /*******************************************************************/
+        public async Task PlayFromHand()
+        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, Owner.AidZone));
+        }
+
+        public bool CanPlayFromHand()
+        {
+            if (CurrentZone != Owner.HandZone) return false;
+            if (Owner.Resources.Value < ResourceCost.Value) return false;
+            if (Owner.CurrentTurns.Value < TurnsCost.Value) return false;
+            return true;
         }
     }
 }

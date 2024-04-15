@@ -5,15 +5,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardGoal : Card, IRevealable
+    public abstract class CardGoal : Card, IRevealable, IPlayableFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
+        public Reaction Reveal { get; private set; }
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
-        public bool IsComplete => Hints.Value <= 0;
+
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -24,8 +26,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Hints = new Stat(Info.Hints ?? 0);
+            Hints = new Stat((Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count);
             Revealed = new State(false);
+            Reveal = new Reaction(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -38,5 +41,57 @@ namespace MythosAndHorrors.GameRules
         }
 
         public abstract Task CompleteEffect();
+
+        /*******************************************************************/
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await Reveal.Check(gameAction);
+        }
+        /*******************************************************************/
+
+        private bool RevealCondition(GameAction gameAction)
+        {
+            if (gameAction is not UpdateStatGameAction updateStatGameAction) return false;
+            if (!updateStatGameAction.HasStat(Hints)) return false;
+            if (Revealed.IsActive) return false;
+            if (Hints.Value > 0) return false;
+
+            return true;
+        }
+
+        private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
+
+        /*******************************************************************/
+        public async Task PlayFast()
+        {
+            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: true, "Select Investigator to pay");
+            //interactableGameAction.CreateMainButton().SetLogic(Undo);
+            //async Task Undo() => await interactableGameAction.UndoEffect.Logic.Invoke();
+
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
+                .Where(investigator => investigator.Hints.Value > 0))
+            {
+                interactableGameAction.Create()
+                    .SetCard(investigator.AvatarCard)
+                    .SetInvestigator(investigator)
+                    .SetCardAffected(this)
+                    .SetLogic(PayHint);
+
+                /*******************************************************************/
+                async Task PayHint() => await _gameActionsProvider.Create(new PayHintGameAction(investigator, Hints, 1));
+            }
+
+            await _gameActionsProvider.Create(interactableGameAction);
+            if (Revealed.IsActive) return;
+            await PlayFast();
+        }
+
+        public bool CanPlayFast()
+        {
+            if (!IsInPlay) return false;
+            if (Revealed.IsActive) return false;
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+            return true;
+        }
     }
 }

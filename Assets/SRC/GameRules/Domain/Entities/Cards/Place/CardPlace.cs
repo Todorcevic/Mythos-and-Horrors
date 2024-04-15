@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
+        public Reaction Reveal { get; private set; }
 
         /*******************************************************************/
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -35,6 +36,7 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = new Stat(1);
             MoveTurnsCost = new Stat(1);
             Revealed = new State(false);
+            Reveal = new Reaction(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -42,5 +44,23 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
         }
+
+        /*******************************************************************/
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await Reveal.Check(gameAction);
+        }
+        /*******************************************************************/
+
+        private bool RevealCondition(GameAction gameAction)
+        {
+            if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
+            if (Revealed.IsActive) return false;
+            if (!OwnZone.Cards.Any(card => card is CardAvatar)) return false;
+
+            return true;
+        }
+
+        private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
     }
 }

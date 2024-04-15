@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-
-
     public class Reaction
     {
         public Func<GameAction, bool> Condition { get; init; }
