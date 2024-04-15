@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class UpdateStatGameAction : GameAction
     {
-        protected Dictionary<Stat, int> _statsWithOldValue;
+        private Dictionary<Stat, int> _statsWithOldValue;
         [Inject] private readonly IPresenter<UpdateStatGameAction> _statsPresenter;
 
         public Dictionary<Stat, int> StatsWithValue { get; }

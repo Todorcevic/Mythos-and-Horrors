@@ -31,6 +31,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        /*******************************************************************/
         public void Stop()
         {
             isStop = true;

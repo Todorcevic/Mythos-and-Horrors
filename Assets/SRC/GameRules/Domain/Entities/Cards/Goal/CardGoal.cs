@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardGoal : Card, IRevealable
+    public abstract class CardGoal : Card, IRevealable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
@@ -32,8 +32,11 @@ namespace MythosAndHorrors.GameRules
         public virtual async Task RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await CompleteEffect();
             await _gameActionsProvider.Create(new DiscardGameAction(this));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
         }
+
+        public abstract Task CompleteEffect();
     }
 }

@@ -7,32 +7,35 @@ namespace MythosAndHorrors.GameRules
 {
     public class UpdateStatesGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
         private Dictionary<State, bool> _statesWithOldValue;
+        [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
 
-        public IEnumerable<State> States { get; }
-        public bool Value { get; }
+        public Dictionary<State, bool> StatesDictionary { get; }
+        public List<State> States => StatesDictionary.Keys.ToList();
 
         /*******************************************************************/
-        public UpdateStatesGameAction(State state, bool value) : this(new[] { state }, value) { }
+        public UpdateStatesGameAction(State state, bool value) : this(new Dictionary<State, bool> { { state, value } })
+        { }
 
-        public UpdateStatesGameAction(IEnumerable<State> states, bool value)
+        public UpdateStatesGameAction(IEnumerable<State> states, bool value) : this(states.ToDictionary(state => state, state => value))
+        { }
+
+        public UpdateStatesGameAction(Dictionary<State, bool> states)
         {
-            States = states;
-            Value = value;
+            StatesDictionary = states.Where(kvp => kvp.Key.IsActive != kvp.Value).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _statesWithOldValue = States.ToDictionary(kvp => kvp, kvp => kvp.IsActive);
-            States.ForEach(state => state.UpdateValueTo(Value));
+            _statesWithOldValue = StatesDictionary.ToDictionary(kvp => kvp.Key, kvp => kvp.Key.IsActive);
+            StatesDictionary.ForEach(kvp => kvp.Key.UpdateValueTo(kvp.Value));
             await _updateStatesPresenters.PlayAnimationWith(this);
         }
 
         public override async Task Undo()
         {
-            States.ForEach(state => state.UpdateValueTo(_statesWithOldValue[state]));
+            StatesDictionary.ForEach(kvp => kvp.Key.UpdateValueTo(_statesWithOldValue[kvp.Key]));
             await _updateStatesPresenters.PlayAnimationWith(this);
         }
     }
