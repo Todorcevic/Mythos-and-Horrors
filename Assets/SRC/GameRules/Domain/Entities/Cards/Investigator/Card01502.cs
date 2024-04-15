@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -19,11 +20,10 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawCards()
         {
-            int amount = Owner.CardsInPlay.OfType<ITome>().Count();
-            for (int i = 0; i < amount; i++)
-            {
-                await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
-            }
+            await new SafeForeach<ITome>(DrawAid, GetTomes).Execute();
+
+            async Task DrawAid(ITome tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
+            IEnumerable<ITome> GetTomes() => Owner.CardsInPlay.OfType<ITome>();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlayInvestigatorGameAction : PhaseGameAction
     {
+        private bool isStop;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -24,13 +25,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
-            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(ActiveInvestigator));
+            while (CanBeExecuted && !isStop)
+            {
+                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
+            }
         }
 
         public void Stop()
         {
-            ActiveInvestigator = null;
+            isStop = true;
         }
     }
 }

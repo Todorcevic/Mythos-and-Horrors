@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -13,19 +14,17 @@ namespace MythosAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(AllInvestigatorsCheckHandSize);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(AllInvestigatorsCheckHandSize);
         public override Phase MainPhase => Phase.Restore;
-        public override bool CanBeExecuted => ActiveInvestigator != null;
-
-        /*******************************************************************/
-        public AllInvestigatorsCheckHandSize(Investigator investigator)
-        {
-            ActiveInvestigator = investigator;
-        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
-            await _gameActionsProvider.Create(new AllInvestigatorsCheckHandSize(ActiveInvestigator.NextInvestigatorInPlay));
+            await new SafeForeach<Investigator>(CheckHandSize, GetInvestigators).Execute();
         }
+
+        /*******************************************************************/
+        IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay;
+
+        private async Task CheckHandSize(Investigator investigator) =>
+             await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(investigator));
     }
 }

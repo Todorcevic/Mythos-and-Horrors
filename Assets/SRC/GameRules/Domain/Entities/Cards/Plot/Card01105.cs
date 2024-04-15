@@ -27,27 +27,22 @@ namespace MythosAndHorrors.GameRules
                .SetCardAffected(_investigatorProvider.Leader.InvestigatorCard)
                .SetLogic(Damage);
 
-
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
-        IEnumerable<Investigator> InvestigatorsWithCards => _investigatorProvider.AllInvestigatorsInPlay
-            .Where(investigator => investigator.HandZone.Cards.Any());
-
         private async Task DiscardAllInvestigators()
         {
-            Investigator investigator = InvestigatorsWithCards.FirstOrDefault();
-            while (investigator != null)
-            {
-                await Discard(investigator);
-                investigator = InvestigatorsWithCards.NextElementFor(investigator);
-            }
-        }
+            await new SafeForeach<Investigator>(Discard, InvestigatorsWithCards).Execute();
 
-        private async Task Discard(Investigator investigator)
-        {
-            Card cardToDiscard = investigator.HandZone.Cards.Rand();
-            await _gameActionsProvider.Create(new DiscardGameAction(cardToDiscard));
+            /*******************************************************************/
+            IEnumerable<Investigator> InvestigatorsWithCards() => _investigatorProvider.AllInvestigatorsInPlay
+                .Where(investigator => investigator.HandZone.Cards.Any());
+
+            async Task Discard(Investigator investigator)
+            {
+                Card cardToDiscard = investigator.HandZone.Cards.Rand();
+                await _gameActionsProvider.Create(new DiscardGameAction(cardToDiscard));
+            }
         }
 
         private async Task Damage()

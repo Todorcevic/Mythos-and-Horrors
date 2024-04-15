@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card nextDraw = Investigator.DeckZone.Cards.Last();
+            Card nextDraw = Investigator.CardAidToDraw;
             if (nextDraw is IFlaw)
             {
                 await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));

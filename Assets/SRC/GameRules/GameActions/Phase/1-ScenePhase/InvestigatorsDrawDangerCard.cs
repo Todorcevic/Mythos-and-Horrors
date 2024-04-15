@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -13,19 +14,14 @@ namespace MythosAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(InvestigatorsDrawDangerCard);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(InvestigatorsDrawDangerCard);
         public override Phase MainPhase => Phase.Scene;
-        public override bool CanBeExecuted => ActiveInvestigator != null;
-
-        /*******************************************************************/
-        public InvestigatorsDrawDangerCard(Investigator investigator)
-        {
-            ActiveInvestigator = investigator;
-        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new DrawDangerGameAction(ActiveInvestigator));
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(ActiveInvestigator.NextInvestigatorInPlay));
+            await new SafeForeach<Investigator>(DrawDangerCard, GetInvestigatorsInPlay).Execute();
+            async Task DrawDangerCard(Investigator investigator) =>
+                     await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
+            IEnumerable<Investigator> GetInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
         }
     }
 }

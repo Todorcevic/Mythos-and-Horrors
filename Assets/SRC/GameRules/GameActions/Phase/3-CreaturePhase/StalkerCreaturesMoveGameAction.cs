@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -13,24 +13,20 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public IStalker StalkerToMove { get; private set; }
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(StalkerCreaturesMoveGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(StalkerCreaturesMoveGameAction);
         public override Phase MainPhase => Phase.Creature;
-        public IStalker NextStalker => _cardsProvider.StalkersInPlay.NextElementFor(StalkerToMove);
-        public override bool CanBeExecuted => StalkerToMove != null;
-
-        /*******************************************************************/
-        public StalkerCreaturesMoveGameAction(IStalker stalker)
-        {
-            StalkerToMove = stalker;
-        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new MoveCreatureGameAction(StalkerToMove));
-            await _gameActionsProvider.Create(new StalkerCreaturesMoveGameAction(NextStalker));
+            await new SafeForeach<IStalker>(Move, GetStalkers).Execute();
         }
+
+        /*******************************************************************/
+        private IEnumerable<IStalker> GetStalkers() => _cardsProvider.StalkersInPlay;
+
+        private async Task Move(IStalker stalker) =>
+            await _gameActionsProvider.Create(new MoveCreatureGameAction(stalker));
     }
 }

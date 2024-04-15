@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -23,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             //1.3	Check doom threshold.
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             //1.4	Each investigator draws 1 encounter card.
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard(_investigatorsProvider.Leader));
+            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard());
         }
         //1.5	Mythos phase ends.
     }

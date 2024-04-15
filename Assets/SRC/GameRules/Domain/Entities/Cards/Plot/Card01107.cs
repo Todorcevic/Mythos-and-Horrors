@@ -30,14 +30,14 @@ namespace MythosAndHorrors.GameRules
         {
             if (_chaptersProvider.CurrentScene.CurrentGoal is not Card01110)
                 await _chaptersProvider.CurrentScene.Resolution3();
-            else
-            {
-                foreach (var investigator in _investigatorsProvider.AllInvestigators)
-                {
-                    if (investigator.Resign.IsActive) continue;
-                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Injury, 1));
-                }
-            }
+            else await new SafeForeach<Investigator>(SufferInjury, GetInvestigators).Execute();
+
+            /*******************************************************************/
+            IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigators
+                   .Where(investigator => !investigator.Resign.IsActive);
+
+            async Task SufferInjury(Investigator investigator) =>
+                await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Injury, 1));
         }
 
         /*******************************************************************/
@@ -58,11 +58,14 @@ namespace MythosAndHorrors.GameRules
         private async Task MoveGhoulLogic()
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
-            foreach (CardCreature ghoul in _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>())
-            {
-                if (!ghoul.IsInPlay || ghoul.IsConfronted) continue;
+            await new SafeForeach<CardCreature>(MoveCreature, GetGhouls).Execute();
+
+            /*******************************************************************/
+            async Task MoveCreature(CardCreature ghoul) =>
                 await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
-            }
+
+            IEnumerable<CardCreature> GetGhouls() => _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>()
+                    .Where(creature => creature.IsInPlay && !creature.IsConfronted);
         }
 
         /*******************************************************************/

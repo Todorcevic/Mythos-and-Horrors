@@ -57,9 +57,9 @@ namespace MythosAndHorrors.GameRules
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction());
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
-            await _gameActionsProvider.Create(new ResolveAllTokensGameAction(_challengeTokensProvider.ChallengeTokensRevealed.FirstOrDefault()));
+            await _gameActionsProvider.Create(new ResolveAllTokensGameAction());
             await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
-            await _gameActionsProvider.Create(new RestoreAllChallengeTokens(_challengeTokensProvider.ChallengeTokensRevealed.FirstOrDefault()));
+            await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());

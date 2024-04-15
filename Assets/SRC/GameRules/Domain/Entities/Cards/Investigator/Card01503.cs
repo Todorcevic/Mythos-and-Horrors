@@ -19,9 +19,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawResources()
         {
-
             await _gameActionsProvider.Create(new GainResourceGameAction(Owner, 2));
-
         }
     }
 }

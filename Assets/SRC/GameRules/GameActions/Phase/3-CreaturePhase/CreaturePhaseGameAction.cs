@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
 
         public override Phase MainPhase => Phase.Creature;
         public override string Name => _textsProvider.GameText.CREATURE_PHASE_NAME;
@@ -19,9 +17,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             //3.2	Hunter enemies move.
-            await _gameActionsProvider.Create(new StalkerCreaturesMoveGameAction(_cardsProvider.StalkersInPlay.FirstOrDefault()));
+            await _gameActionsProvider.Create(new StalkerCreaturesMoveGameAction());
             //3.3	Next investigator resolves engaged enemy attacks.
-            await _gameActionsProvider.Create(new CreatureConfrontAttackGameAction(_cardsProvider.AttackerCreatures.FirstOrDefault()));
+            await _gameActionsProvider.Create(new CreatureConfrontAttackGameAction());
         }
         //3.4	Enemy phase ends.
     }

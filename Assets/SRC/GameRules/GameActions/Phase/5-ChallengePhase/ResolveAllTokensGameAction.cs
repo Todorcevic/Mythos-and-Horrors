@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,20 +9,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        ChallengeToken TokenToResolve { get; init; }
-        public override bool CanBeExecuted => TokenToResolve != null;
-
-        /*******************************************************************/
-        public ResolveAllTokensGameAction(ChallengeToken tokenToResolve)
-        {
-            TokenToResolve = tokenToResolve;
-        }
-
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new ResolveSingleChallengeTokenGameAction(TokenToResolve));
-            await _gameActionsProvider.Create(new ResolveAllTokensGameAction(_challengeTokensProvider.ChallengeTokensRevealed.NextElementFor(TokenToResolve)));
+            await new SafeForeach<ChallengeToken>(Resolve, GetTokensToResolve).Execute();
         }
+
+        /*******************************************************************/
+        private IEnumerable<ChallengeToken> GetTokensToResolve() => _challengeTokensProvider.ChallengeTokensRevealed;
+
+        private async Task Resolve(ChallengeToken challengeToken) =>
+            await _gameActionsProvider.Create(new ResolveSingleChallengeTokenGameAction(challengeToken));
     }
 }

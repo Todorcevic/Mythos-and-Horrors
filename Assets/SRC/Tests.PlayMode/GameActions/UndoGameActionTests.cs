@@ -44,7 +44,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
             yield return _preparationScene.PlayAllInvestigators();
-            AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new(_investigatorsProvider.Leader);
+            AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
             yield return _gameActionsProvider.Rewind().AsCoroutine();
@@ -109,9 +109,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlayAllInvestigators();
             _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
-            yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
-            yield return WaitToUndoClick();
-            yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.ActiveInvestigator, Is.EqualTo(_investigatorsProvider.Second));

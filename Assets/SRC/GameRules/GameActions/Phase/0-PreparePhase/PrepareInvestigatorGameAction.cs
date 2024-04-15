@@ -29,7 +29,6 @@ namespace MythosAndHorrors.GameRules
             await DrawInitialHand();
             await Mulligan();
             await DrawInitialHand();
-            await _gameActionsProvider.Create(new PrepareInvestigatorGameAction(ActiveInvestigator.NextInvestigator));
         }
 
         private async Task PositionateInvestigatorCard()

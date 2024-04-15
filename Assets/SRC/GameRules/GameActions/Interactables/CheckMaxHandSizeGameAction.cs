@@ -24,12 +24,12 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             InteractableGameAction interactableGameAction = new(isUndable: true, Description);
-            Create(interactableGameAction);
+            CreateGameActions(interactableGameAction);
             await _gameActionsProvider.Create(interactableGameAction);
             await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
         }
 
-        private void Create(InteractableGameAction interactableGameAction)
+        private void CreateGameActions(InteractableGameAction interactableGameAction)
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
