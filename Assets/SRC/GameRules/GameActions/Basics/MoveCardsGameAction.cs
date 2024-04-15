@@ -7,48 +7,57 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
-        private readonly bool _isFaceDown;
-        private readonly IEnumerable<Card> _cards;
         private Dictionary<Card, (Zone zone, bool faceDown)> _cardsWithUndoState;
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
-        public IEnumerable<Card> Cards => _cards.ToList();
-        public Card Card => Cards.First();
-        public Zone ToZone { get; }
+        public Dictionary<Card, (Zone zone, bool faceDown)> AllMoves { get; }
+
+        public IEnumerable<Card> Cards => AllMoves.Keys.ToList();
+        public Card SingleCard => Cards.Unique();
         public bool IsSingleMove => Cards.Count() == 1;
         public override bool CanBeExecuted => Cards.Count() > 0;
 
         /*******************************************************************/
-        public MoveCardsGameAction(IEnumerable<Card> cards, Zone zone, bool isFaceDown = false)
-        {
-            ToZone = zone;
-            _cards = cards;
-            _isFaceDown = isFaceDown;
-        }
+        public MoveCardsGameAction(Card card, Zone zone, bool isFaceDown = false) :
+            this(new Dictionary<Card, (Zone zone, bool faceDown)> { { card, (zone, isFaceDown) } })
+        { }
 
-        public MoveCardsGameAction(Card card, Zone zone, bool isFaceDown = false) : this(new[] { card }, zone, isFaceDown) { }
+        public MoveCardsGameAction(IEnumerable<Card> cards, Zone zone, bool isFaceDown = false) :
+            this(cards.ToDictionary(card => card, card => (zone, isFaceDown)))
+        { }
+
+        public MoveCardsGameAction(Dictionary<Card, Zone> allMoves) :
+            this(allMoves.ToDictionary(kv => kv.Key, kv => (kv.Value, false)))
+        { }
+
+        public MoveCardsGameAction(Dictionary<Card, (Zone zone, bool faceDown)> allMoves)
+        {
+            AllMoves = allMoves;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _cardsWithUndoState = _cards.ToDictionary(card => card, card => (card.CurrentZone, card.FaceDown.IsActive));
-            foreach (Card card in Cards)
+            _cardsWithUndoState = AllMoves.Keys.ToDictionary(card => card, card => (card.CurrentZone, card.FaceDown.IsActive));
+
+            foreach (KeyValuePair<Card, (Zone zone, bool faceDown)> move in AllMoves)
             {
-                card.FaceDown.UpdateValueTo(_isFaceDown);
-                card.CurrentZone?.RemoveCard(card);
-                ToZone.AddCard(card);
+                move.Key.FaceDown.UpdateValueTo(move.Value.faceDown);
+                move.Key.CurrentZone?.RemoveCard(move.Key);
+                move.Value.zone.AddCard(move.Key);
             }
 
             await _moveCardPresenter.PlayAnimationWith(this);
         }
 
+        /*******************************************************************/
         public override async Task Undo()
         {
-            foreach (Card card in Cards)
+            foreach (KeyValuePair<Card, (Zone zone, bool faceDown)> move in _cardsWithUndoState)
             {
-                card.FaceDown.UpdateValueTo(_cardsWithUndoState[card].faceDown);
-                ToZone.RemoveCard(card);
-                _cardsWithUndoState[card].zone.AddCard(card);
+                move.Key.FaceDown.UpdateValueTo(move.Value.faceDown);
+                move.Key.CurrentZone?.RemoveCard(move.Key);
+                move.Value.zone.AddCard(move.Key);
             }
 
             await _moveCardPresenter.PlayAnimationWith(this);

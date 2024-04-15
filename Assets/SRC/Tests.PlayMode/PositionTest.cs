@@ -47,30 +47,23 @@ namespace MythosAndHorrors.PlayMode.Tests
                     {_chaptersProvider.CurrentScene.Info.Cards[30], _chaptersProvider.CurrentScene.PlotZone},
                     {_chaptersProvider.CurrentScene.Info.Cards[31], _chaptersProvider.CurrentScene.GoalZone},
                     {_chaptersProvider.CurrentScene.Info.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[24], _chaptersProvider.CurrentScene.DangerDiscardZone}
-            }; //TODO: MoveCardsAction with Dictionary<Card, Zone> as parameter
+                    {_chaptersProvider.CurrentScene.Info.Cards[26], _chaptersProvider.CurrentScene.DangerDiscardZone},
+                    {_chaptersProvider.CurrentScene.Info.Cards[32], _chaptersProvider.CurrentScene.LimboZone},
+            };
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.InvestigatorCard, investigator1.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards[1], investigator1.DiscardZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards[2], investigator1.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(3, 5), investigator1.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(9, 5), investigator1.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(15, 8), investigator1.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.GetRange(24, 4), investigator1.DiscardZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[30], _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[31], _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[32], _chaptersProvider.CurrentScene.LimboZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards.GetRange(24, 4), _chaptersProvider.CurrentScene.DangerDiscardZone)).AsCoroutine();
+
 
             int k = 0;
             for (int i = 0; i < _chaptersProvider.CurrentScene.PlaceZone.GetLength(0); i++)
             {
                 for (int j = 0; j < _chaptersProvider.CurrentScene.PlaceZone.GetLength(1); j++)
                 {
-                    yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j])).AsCoroutine();
+                    cardsWithZone.Add(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j]);
                 }
             }
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardsWithZone)).AsCoroutine();
+
 
             if (DEBUG_MODE) yield return PressAnyKey();
 

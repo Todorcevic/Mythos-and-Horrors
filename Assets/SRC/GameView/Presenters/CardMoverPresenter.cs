@@ -20,10 +20,10 @@ namespace MythosAndHorrors.GameView
 
             if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
             {
-                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.Card, moveCardsGameAction.Card.CurrentZone).AsyncWaitForCompletion();
+                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
                 return;
             }
-            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.Card, moveCardsGameAction.Card.CurrentZone).AsyncWaitForCompletion();
+            await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
         }
 
         async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
