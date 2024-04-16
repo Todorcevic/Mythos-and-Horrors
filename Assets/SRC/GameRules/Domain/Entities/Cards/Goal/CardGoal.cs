@@ -62,29 +62,7 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        public async Task PlayFast()
-        {
-            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: true, "Select Investigator to pay");
-            //interactableGameAction.CreateMainButton().SetLogic(Undo);
-            //async Task Undo() => await interactableGameAction.UndoEffect.Logic.Invoke();
-
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                .Where(investigator => investigator.Hints.Value > 0))
-            {
-                interactableGameAction.Create()
-                    .SetCard(investigator.AvatarCard)
-                    .SetInvestigator(investigator)
-                    .SetCardAffected(this)
-                    .SetLogic(PayHint);
-
-                /*******************************************************************/
-                async Task PayHint() => await _gameActionsProvider.Create(new PayHintGameAction(investigator, Hints, 1));
-            }
-
-            await _gameActionsProvider.Create(interactableGameAction);
-            if (Revealed.IsActive) return;
-            await PlayFast();
-        }
+        public async Task PlayFast() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction());
 
         public bool CanPlayFast()
         {

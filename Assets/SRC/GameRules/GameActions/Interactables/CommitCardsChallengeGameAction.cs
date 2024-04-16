@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _commitPresenter.PlayAnimationWith(this);
-            InteractableGameAction interactableGameAction = new(canBackToThisGameAction: false, Description);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: false, Description);
             ButtonEffect = interactableGameAction.CreateMainButton()
                 .SetLogic(Drop);
 

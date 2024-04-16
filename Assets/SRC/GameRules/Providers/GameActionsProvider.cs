@@ -70,7 +70,7 @@ namespace MythosAndHorrors.GameRules
 
         private InteractableGameAction GetInteractableToUndo() =>
              _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1)
-            .Where(interactableGameAction => interactableGameAction.CanBackToThisGameAction)
+            .Where(interactableGameAction => interactableGameAction.CanBackToThisInteractable)
             .FirstOrDefault();
     }
 }

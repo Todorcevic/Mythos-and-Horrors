@@ -56,10 +56,11 @@ namespace MythosAndHorrors.GameView
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
 
             if (cardViewSelected != null)
+            {
                 returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine));
-            if (!exceptThisPlayable?.IsMultiEffect ?? false)
-                returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
-
+                if (!exceptThisPlayable?.IsMultiEffect ?? false)
+                    returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
+            }
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }

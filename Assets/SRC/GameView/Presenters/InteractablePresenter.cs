@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
             if (gamAction is not InteractableGameAction interactableGameAction) return default;
-            mustShowInCenter = interactableGameAction.IsManadatary;
+            mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await Initial(interactableGameAction);
         }
 
