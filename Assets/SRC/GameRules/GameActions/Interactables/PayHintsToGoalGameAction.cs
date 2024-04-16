@@ -11,8 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override bool CanBeExecuted =>
-          !_chaptersProvider.CurrentScene.CurrentGoal.Revealed.IsActive;
+        public override bool CanBeExecuted => !_chaptersProvider.CurrentScene.CurrentGoal.Revealed.IsActive;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

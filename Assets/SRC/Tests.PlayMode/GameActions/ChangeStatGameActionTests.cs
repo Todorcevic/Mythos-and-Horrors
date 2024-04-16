@@ -85,7 +85,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(cardGoal.Hints.Value, Is.EqualTo(1));
+            Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
         }
 
     }

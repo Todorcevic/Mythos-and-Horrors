@@ -66,10 +66,17 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
+        public Effect CreateUndoButton()
+        {
+            Effect effect = new();
+            UndoEffect = effect;
+            return effect;
+        }
+
         private void WithUndoButton()
         {
-            if (!_gameActionsProvider.CanUndo()) return;
-            UndoEffect = new Effect().SetLogic(RealUndoEffect);
+            if (!_gameActionsProvider.CanUndo()) UndoEffect = null;
+            else UndoEffect ??= new Effect().SetLogic(RealUndoEffect);
 
             async Task RealUndoEffect()
             {

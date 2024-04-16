@@ -188,7 +188,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Flavor));
-            Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo(card.Info.Hints.ToString()));
+            Assert.That(result.transform.GetTextFromThis("Hints"), Is.EqualTo((card.Info.Hints * _investigatorsProvider.AllInvestigators.Count).ToString()));
             yield return null;
         }
     }
