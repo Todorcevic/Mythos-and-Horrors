@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameRules
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
         public PlayInvestigatorGameAction CurrentPlayInvestigatorPhaseInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
         public PhaseGameAction CurrentPhase => GetRealLastActive<PhaseGameAction>();
+        public PhaseGameAction LastPhasePlayed => _allGameActionsExecuted.OfType<PhaseGameAction>().First();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction

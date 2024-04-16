@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            WithUndoButton();
+            SetUndoButton();
             if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
@@ -73,17 +73,9 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        private void WithUndoButton()
+        private void SetUndoButton()
         {
             if (!_gameActionsProvider.CanUndo()) UndoEffect = null;
-            else UndoEffect ??= new Effect().SetLogic(RealUndoEffect);
-
-            async Task RealUndoEffect()
-            {
-                _gameActionsProvider.CurrentPlayInvestigatorPhaseInvestigator?.Stop();
-                await _gameActionsProvider.UndoLastInteractable();
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorProvider.ActiveInvestigator));
-            }
         }
 
         public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);

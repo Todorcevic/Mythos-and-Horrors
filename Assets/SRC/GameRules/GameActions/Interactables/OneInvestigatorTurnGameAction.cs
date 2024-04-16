@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Effect InvestigateEffect { get; private set; }
         public Effect DrawEffect { get; private set; }
@@ -53,11 +54,18 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PreparePassEffect(InteractableGameAction interactableGameAction)
         {
-            interactableGameAction.CreateMainButton()
-                .SetLogic(PassTurn);
+            interactableGameAction.CreateMainButton().SetLogic(PassTurn);
+            interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
+
+            async Task UndoEffect()
+            {
+                _gameActionsProvider.CurrentPlayInvestigatorPhaseInvestigator?.Stop();
+                await _gameActionsProvider.UndoLastInteractable();
+                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.LastPhasePlayed.ActiveInvestigator));
+            }
         }
 
         /*******************************************************************/

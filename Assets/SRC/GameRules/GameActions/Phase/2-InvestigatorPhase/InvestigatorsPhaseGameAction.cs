@@ -23,10 +23,10 @@ namespace MythosAndHorrors.GameRules
         {
             //while (CanBeExecuted && !_isStop)
             //{
-            ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStartTurn));
-            await _gameActionsProvider.Create(new PlayInvestigatorGameAction(chooseInvestigatorGA.InvestigatorSelected));
-            await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            //ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.GetInvestigatorsCanStartTurn));
+            //  await _gameActionsProvider.Create(new PlayInvestigatorGameAction(chooseInvestigatorGA.InvestigatorSelected));
+            await _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
             //}
-        }    
+        }
     }
 }
