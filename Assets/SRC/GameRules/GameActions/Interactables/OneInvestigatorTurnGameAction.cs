@@ -23,6 +23,9 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> PlayFromHandEffects { get; } = new();
         public List<Effect> PlayFastEffects { get; } = new();
 
+
+        public override bool CanBeExecuted => ActiveInvestigator?.HasTurnsAvailable ?? false;
+
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(OneInvestigatorTurnGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(OneInvestigatorTurnGameAction);
@@ -62,9 +65,11 @@ namespace MythosAndHorrors.GameRules
 
             async Task UndoEffect()
             {
-                _gameActionsProvider.CurrentPlayInvestigatorPhaseInvestigator?.Stop();
-                await _gameActionsProvider.UndoLastInteractable();
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.LastPhasePlayed.ActiveInvestigator));
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                if (lastInteractable.Parent is ChooseInvestigatorGameAction chooseInvestigator)
+                    ExitLoop();
+
+                void ExitLoop() => ((PlayInvestigatorLoopGameAction)Parent).Stop();
             }
         }
 

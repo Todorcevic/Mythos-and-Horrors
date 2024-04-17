@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,14 +9,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        //public IEnumerable<Investigator> InvestigatorsToSelect { get; }
-        public Investigator InvestigatorSelected { get; private set; }
-
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChooseInvestigatorGameAction);
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ChooseInvestigatorGameAction);
         public override Phase MainPhase => Phase.Investigator;
-
-        public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
@@ -27,8 +21,9 @@ namespace MythosAndHorrors.GameRules
 
             async Task UndoEffect()
             {
-                await _gameActionsProvider.UndoLastInteractable();
-                await _gameActionsProvider.Create(new PlayInvestigatorGameAction(_gameActionsProvider.LastPhasePlayed.ActiveInvestigator));
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                if (lastInteractable.Parent is OneInvestigatorTurnGameAction oneInvestigator)
+                    await _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(oneInvestigator.ActiveInvestigator));
             }
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
@@ -41,12 +36,11 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task PlayInvestigator()
                 {
-                    await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+                    await _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(investigator));
                 };
             }
 
             await _gameActionsProvider.Create(interactableGameAction);
-            await _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
         }
     }
 }

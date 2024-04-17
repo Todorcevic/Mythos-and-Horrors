@@ -17,9 +17,8 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
-        public PlayInvestigatorGameAction CurrentPlayInvestigatorPhaseInvestigator => GetRealLastActive<PlayInvestigatorGameAction>();
+        public PlayInvestigatorLoopGameAction CurrentPlayInvestigatorPhaseInvestigator => GetRealLastActive<PlayInvestigatorLoopGameAction>();
         public PhaseGameAction CurrentPhase => GetRealLastActive<PhaseGameAction>();
-        public PhaseGameAction LastPhasePlayed => _allGameActionsExecuted.OfType<PhaseGameAction>().First();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction
@@ -41,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             if (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
         }
 
-        public async Task UndoLastInteractable()
+        public async Task<InteractableGameAction> UndoLastInteractable()
         {
             if (!CanUndo()) throw new Exception("Can't undo last interactable");
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
@@ -52,6 +51,8 @@ namespace MythosAndHorrors.GameRules
                 await lastGameAction.Undo();
                 if (lastGameAction == lastInteractableToUndo) break;
             }
+
+            return lastInteractableToUndo;
         }
 
         public bool CanUndo()
