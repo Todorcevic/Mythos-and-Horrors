@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
                 if (lastInteractable.Parent is OneInvestigatorTurnGameAction oneInvestigator)
-                    await _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(oneInvestigator.ActiveInvestigator));
+                    await _gameActionsProvider.Create(oneInvestigator.Parent);
             }
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
