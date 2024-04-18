@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -16,14 +17,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             yield return _preparationScene.PlayAllInvestigators();
             CardPlace place = _cardsProvider.GetCard<Card01111>();
-            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, place)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 1)).AsCoroutine(); yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, place)).AsCoroutine();
 
-            _ = _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
+            Task<ChooseInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
-
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_gameActionsProvider.CurrentPlayInvestigatorPhaseInvestigator.ActiveInvestigator, Is.EqualTo(_investigatorsProvider.Second));
+
+            while (!gameActionTask.IsCompleted) yield return null;
+            Assert.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(0));
         }
     }
 }

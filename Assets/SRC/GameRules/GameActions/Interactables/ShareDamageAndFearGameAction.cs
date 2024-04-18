@@ -14,8 +14,6 @@ namespace MythosAndHorrors.GameRules
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
-        IEnumerable<IDamageable> SuppliesCanDamage => Investigator.CardsInPlay.OfType<IDamageable>();
-        IEnumerable<IFearable> SuppliesCanFear => Investigator.CardsInPlay.OfType<IFearable>();
         public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
         public string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 

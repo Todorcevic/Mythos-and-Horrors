@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -27,12 +28,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
 
-            _ = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Second));
             if (!DEBUG_MODE) yield return WaitToClick(aidCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            while (!taskGameAction.IsCompleted) yield return null;
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));
         }

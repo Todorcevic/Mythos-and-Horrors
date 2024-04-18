@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
             async Task UndoEffect()
             {
-                await Task.CompletedTask;
+                await _gameActionsProvider.UndoLastInteractable();
             }
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)

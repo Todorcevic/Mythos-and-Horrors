@@ -19,10 +19,10 @@ namespace MythosAndHorrors.GameRules
             while (CanBeExecuted && !_isCancel)
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
-                interactableGameAction.CreateMainButton().SetLogic(Undo);
+                interactableGameAction.CreateUndoButton().SetLogic(Undo);
                 async Task Undo()
                 {
-                    await interactableGameAction.UndoEffect.Logic.Invoke();
+                    await _gameActionsProvider.UndoLastInteractable();
                     _isCancel = true;
                 }
 

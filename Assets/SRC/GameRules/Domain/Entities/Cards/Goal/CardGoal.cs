@@ -71,11 +71,5 @@ namespace MythosAndHorrors.GameRules
             if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
             return true;
         }
-
-        public bool CommonCondition(Investigator investigator)
-        {
-            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
-            return true;
-        }
     }
 }

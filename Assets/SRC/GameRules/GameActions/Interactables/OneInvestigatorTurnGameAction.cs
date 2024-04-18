@@ -216,17 +216,16 @@ namespace MythosAndHorrors.GameRules
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(PlayFromHand));
 
-                async Task PlayFromHand() =>
-                    await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
+                async Task PlayFromHand() => await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
             }
 
             bool DefaultCondition(IPlayableFromHand playableFromHand)
             {
-                if (playableFromHand.SpecificConditionToPlayFormHand()) return true;
                 if (playableFromHand is not Card card) return false;
                 if (card.CurrentZone != ActiveInvestigator.HandZone) return false;
                 if (playableFromHand.ResourceCost.Value > ActiveInvestigator.Resources.Value) return false;
                 if (playableFromHand.PlayFromHandTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
+                if (!playableFromHand.SpecificConditionToPlayFormHand()) return false;
                 return true;
             }
         }
@@ -239,15 +238,17 @@ namespace MythosAndHorrors.GameRules
                 PlayFastEffects.Add(interactableGameAction.Create()
                     .SetCard(activable as Card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(activable.Activate));
+                    .SetLogic(Activate));
+
+                async Task Activate() => await _gameActionsProvider.Create(new ActivateCardGameAction(activable, ActiveInvestigator));
             }
 
             bool DefaultCondition(IActivable activable)
             {
-                if (activable.SpecificConditionToActivate()) return true;
                 if (activable is not Card card) return false;
                 if (!card.IsInPlay) return false;
                 if (activable.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
+                if (!activable.SpecificConditionToActivate()) return false;
                 return true;
             }
         }
