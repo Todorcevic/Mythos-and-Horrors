@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, PlayableCard.TurnsCost.Value));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, PlayableCard.PlayFromHandTurnsCost.Value));
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, PlayableCard.ResourceCost.Value));
             await PlayableCard.PlayFromHand();
         }

@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Stat ResourceCost { get; private set; }
-        public Stat TurnsCost { get; private set; }
+        public Stat PlayFromHandTurnsCost { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
-            TurnsCost = new Stat(1);
+            PlayFromHandTurnsCost = new Stat(1);
         }
 
         /*******************************************************************/
@@ -38,14 +38,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             await ExecuteConditionEffect();
             await _gameActionsProvider.Create(new DiscardGameAction(this));
-        }
-
-        public bool CanPlayFromHand()
-        {
-            if (CurrentZone != Owner.HandZone) return false;
-            if (Owner.Resources.Value < ResourceCost.Value) return false;
-            if (Owner.CurrentTurns.Value < TurnsCost.Value) return false;
-            return true;
         }
 
         public abstract Task ExecuteConditionEffect();

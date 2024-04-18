@@ -1,57 +1,53 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01535 : CardSupply, ITome
+    public class Card01535 : CardSupply, ITome, IActivable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
-        public Stat HealthActivationTurnsCost { get; private set; }
+        public Stat ActivateTurnsCost { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            HealthActivationTurnsCost = new Stat(1);
-        }
-
-        /*******************************************************************/
-        protected override async Task WhenBegin(GameAction gameAction)
-        {
-            await base.WhenBegin(gameAction);
-            CheckHealthActivation(gameAction);
+            ActivateTurnsCost = new Stat(1);
         }
 
         /************************ HEALTH ACTIVATION ******************************/
-        private void CheckHealthActivation(GameAction gameAction)
+        public async Task Activate()
         {
-            //if (gameAction is not InteractableGameAction interactableGameAction) return;
-            //if (interactableGameAction.Parent is not OneInvestigatorTurnGameAction oneInvestigatorTurnGA) return;
-            //if (CurrentZone != oneInvestigatorTurnGA.ActiveInvestigator.AidZone) return;
-            //if (oneInvestigatorTurnGA.ActiveInvestigator.CurrentTurns.Value < HealthActivationTurnsCost.Value) return;
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
+            interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
+            async Task UndoEffect()
+            {
+                await Task.CompletedTask;
+            }
 
-            //interactableGameAction.Create()
-            //    .SetCard(this)
-            //    .SetInvestigator(oneInvestigatorTurnGA.ActiveInvestigator)
-            //    .SetLogic(HealthActivation);
+            IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
+                .Where(investigator => investigator.CanBeHealed);
+            foreach (Investigator investigator in investigators)
+            {
+                interactableGameAction.Create()
+                .SetCard(investigator.AvatarCard)
+                .SetInvestigator(investigator)
+                .SetLogic(HealthInvestigator);
 
-            //async Task HealthActivation()
-            //{
-            //    IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(oneInvestigatorTurnGA.ActiveInvestigator.CurrentPlace);
+                /*******************************************************************/
+                async Task HealthInvestigator()
+                {
+                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
+                };
+            }
 
-            //    //TODO: Choose dont work here
-            //    ChooseInvestigatorGameAction chooseInvestigatorGA = await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(investigators));
-
-            //    if (!chooseInvestigatorGA.InvestigatorSelected.CanBeHealed) return;
-            //    await _gameActionsProvider.Create(new IncrementStatGameAction(chooseInvestigatorGA.InvestigatorSelected.Health, 1));
-            //}
+            await _gameActionsProvider.Create(interactableGameAction);
         }
     }
 }

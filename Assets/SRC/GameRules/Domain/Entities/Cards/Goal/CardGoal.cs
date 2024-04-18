@@ -5,17 +5,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardGoal : Card, IRevealable, IPlayableFast
+    public abstract class CardGoal : Card, IRevealable, IActivable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat Hints { get; private set; }
+        public Stat ActivateTurnsCost { get; private set; }
         public State Revealed { get; private set; }
         public Reaction Reveal { get; private set; }
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
-
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Hints = new Stat((Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count);
+            ActivateTurnsCost = new Stat(0);
             Revealed = new State(false);
             Reveal = new Reaction(RevealCondition, RevealLogic);
         }
@@ -62,13 +63,18 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        public async Task PlayFast() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction());
+        public async Task Activate() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction());
 
-        public bool CanPlayFast()
+        public bool SpecificConditionToActivate()
         {
-            if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+            return true;
+        }
+
+        public bool CommonCondition(Investigator investigator)
+        {
+            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
             return true;
         }
     }

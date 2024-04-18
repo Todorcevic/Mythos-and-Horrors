@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -48,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             PrepareInvestigatorConfrontEffect(interactableGameAction);
             PrepareInvestigatorEludeEffect(interactableGameAction);
             PreparePlayFromHandEffect(interactableGameAction);
-            PreparePlayFast(interactableGameAction);
+            PrepareActivables(interactableGameAction);
             PrepareDraw(interactableGameAction);
             PrepareTakeResource(interactableGameAction);
             await _gameActionsProvider.Create(interactableGameAction);
@@ -205,23 +206,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PreparePlayFast(InteractableGameAction interactableGameAction)
-        {
-            foreach (IPlayableFast playableFast in _cardsProvider.AllCards.OfType<IPlayableFast>()
-                .Where(playableFast => playableFast.CanPlayFast()))
-            {
-                PlayFastEffects.Add(interactableGameAction.Create()
-                    .SetCard(playableFast as Card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(playableFast.PlayFast));
-            }
-        }
-
-        /*******************************************************************/
         private void PreparePlayFromHandEffect(InteractableGameAction interactableGameAction)
         {
-            foreach (IPlayableFromHand playableFromHand in ActiveInvestigator.HandZone.Cards.OfType<IPlayableFromHand>()
-                .Where(playableFromHand => playableFromHand.CanPlayFromHand()))
+            foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
+                .Where(playableFromHand => DefaultCondition(playableFromHand)))
             {
                 PlayFromHandEffects.Add(interactableGameAction.Create()
                     .SetCard(playableFromHand as Card)
@@ -230,6 +218,37 @@ namespace MythosAndHorrors.GameRules
 
                 async Task PlayFromHand() =>
                     await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
+            }
+
+            bool DefaultCondition(IPlayableFromHand playableFromHand)
+            {
+                if (playableFromHand.SpecificConditionToPlayFormHand()) return true;
+                if (playableFromHand is not Card card) return false;
+                if (card.CurrentZone != ActiveInvestigator.HandZone) return false;
+                if (playableFromHand.ResourceCost.Value > ActiveInvestigator.Resources.Value) return false;
+                if (playableFromHand.PlayFromHandTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
+                return true;
+            }
+        }
+
+        /*******************************************************************/
+        private void PrepareActivables(InteractableGameAction interactableGameAction)
+        {
+            foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>().Where(activable => DefaultCondition(activable)))
+            {
+                PlayFastEffects.Add(interactableGameAction.Create()
+                    .SetCard(activable as Card)
+                    .SetInvestigator(ActiveInvestigator)
+                    .SetLogic(activable.Activate));
+            }
+
+            bool DefaultCondition(IActivable activable)
+            {
+                if (activable.SpecificConditionToActivate()) return true;
+                if (activable is not Card card) return false;
+                if (!card.IsInPlay) return false;
+                if (activable.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
+                return true;
             }
         }
 

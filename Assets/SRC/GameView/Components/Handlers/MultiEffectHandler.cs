@@ -33,18 +33,18 @@ namespace MythosAndHorrors.GameView
         {
             await _showCardHandler.DeactivatePlayables(cardViewClones);
 
-            if (playableSelected is MainButtonComponent || playableSelected is ShowCardsInCenterButton)
+            if (playableSelected is CardView cardView)
+            {
+                Effect effectSelected = playableSelected.EffectsSelected.Single();
+                originalCardView.ClearCloneEffect();
+                await _showSelectorComponent.DestroyClones(cardViewSelected: cardView);
+                return effectSelected;
+            }
+            else
             {
                 await _showSelectorComponent.ReturnClones();
                 originalCardView.ClearCloneEffect();
                 return null;
-            }
-            else
-            {
-                Effect effectSelected = playableSelected.EffectsSelected.Single();
-                originalCardView.ClearCloneEffect();
-                await _showSelectorComponent.DestroyClones((CardView)playableSelected);
-                return effectSelected;
             }
         }
 

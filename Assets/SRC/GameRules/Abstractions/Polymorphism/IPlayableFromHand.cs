@@ -2,13 +2,12 @@
 
 namespace MythosAndHorrors.GameRules
 {
-
     public interface IPlayableFromHand
     {
         Stat ResourceCost { get; }
-        Stat TurnsCost { get; }
+        Stat PlayFromHandTurnsCost { get; }
 
         Task PlayFromHand();
-        bool CanPlayFromHand();
+        bool SpecificConditionToPlayFormHand() => false;
     }
 }

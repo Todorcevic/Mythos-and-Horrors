@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsUniqueCard => _allEffects.All(effect => effect.CardAffected == _allEffects.First().CardAffected);
         public Card UniqueCard => _allEffects.Select(effect => effect.CardAffected).Unique();
         private bool NoEffect => IsManadatary && _allEffects.Count() == 0;
-        public bool IsManadatary => MainButtonEffect == null;
+        public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
 
         /*******************************************************************/
         public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
