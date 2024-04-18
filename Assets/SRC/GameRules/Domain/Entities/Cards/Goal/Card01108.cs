@@ -12,11 +12,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        CardPlace Study => _cardsProvider.GetCard<Card01111>();
-        CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
-        CardPlace Attic => _cardsProvider.GetCard<Card01113>();
-        CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
-        CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
+        private CardPlace Study => _cardsProvider.GetCard<Card01111>();
+        private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
+        private CardPlace Attic => _cardsProvider.GetCard<Card01113>();
+        private CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
+        private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
 
         /*******************************************************************/
         public override async Task CompleteEffect()

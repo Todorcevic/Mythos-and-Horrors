@@ -109,7 +109,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator WaitToMainButtonClick()
         {
-            while (!_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
+            float startTime = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
 
             if (_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) _mainButtonComponent.OnMouseUpAsButton();
             else throw new TimeoutException("Main Button Not become clickable");

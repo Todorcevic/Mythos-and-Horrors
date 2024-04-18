@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -9,10 +10,20 @@ namespace MythosAndHorrors.GameRules
         private bool _isCancel;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override bool CanBeExecuted => !_chaptersProvider.CurrentScene.CurrentGoal.Revealed.IsActive;
+        public CardGoal CardGoal { get; }
+        public IEnumerable<Investigator> SpecificInvestigators { get; }
 
+        private IEnumerable<Investigator> DefaultsInvestigators =>
+            _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0);
+        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive;
+
+        /*******************************************************************/
+        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> specificInvestigators = null)
+        {
+            CardGoal = cardGoal;
+            SpecificInvestigators = specificInvestigators;
+        }
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
@@ -26,24 +37,34 @@ namespace MythosAndHorrors.GameRules
                     _isCancel = true;
                 }
 
-                foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                    .Where(investigator => investigator.Hints.Value > 0))
+                interactableGameAction.CreateMainButton().SetLogic(Continue);
+                async Task Continue()
+                {
+                    _isCancel = true;
+                    await Task.CompletedTask;
+                }
+
+
+                foreach (Investigator investigator in SpecificInvestigators ?? DefaultsInvestigators)
                 {
                     interactableGameAction.Create()
                         .SetCard(investigator.AvatarCard)
                         .SetInvestigator(investigator)
-                        .SetCardAffected(_chaptersProvider.CurrentScene.CurrentGoal)
+                        .SetCardAffected(CardGoal)
                         .SetLogic(PayHint);
 
                     /*******************************************************************/
                     async Task PayHint()
                     {
-                        await _gameActionsProvider.Create(new PayHintGameAction(investigator, _chaptersProvider.CurrentScene.CurrentGoal.Hints, 1));
+                        await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, 1));
                     }
                 }
 
                 await _gameActionsProvider.Create(interactableGameAction);
             }
         }
+
+
+
     }
 }

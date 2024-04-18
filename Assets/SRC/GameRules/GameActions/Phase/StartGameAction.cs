@@ -17,16 +17,7 @@ namespace MythosAndHorrors.GameRules
             await new SafeForeach<Investigator>(Prepare, GetInvestigators).Execute();
             await _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
 
-            await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
-            await _gameActionsProvider.Create(new CreaturePhaseGameAction());
-            await _gameActionsProvider.Create(new RestorePhaseGameAction());
-            while (true)
-            {
-                await _gameActionsProvider.Create(new ScenePhaseGameAction());
-                await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
-                await _gameActionsProvider.Create(new CreaturePhaseGameAction());
-                await _gameActionsProvider.Create(new RestorePhaseGameAction());
-            };
+            while (true) await _gameActionsProvider.Create(new RoundGameAction());
         }
 
         private async Task Prepare(Investigator investigator) =>

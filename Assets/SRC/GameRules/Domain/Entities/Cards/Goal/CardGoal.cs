@@ -63,9 +63,9 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        public async Task Activate() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction());
+        public async Task Activate() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this));
 
-        public bool SpecificConditionToActivate()
+        public virtual bool SpecificConditionToActivate()
         {
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;

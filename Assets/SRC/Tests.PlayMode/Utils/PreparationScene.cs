@@ -18,8 +18,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         public CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
         public CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
 
+        public CardSupply Lita => _cardsProvider.GetCard<Card01117>();
+
         public CardCreature GhoulSecuaz => _cardsProvider.GetCard<Card01160>();
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
+        public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
         /*******************************************************************/
         public IEnumerator PlaceAllPlaceCards()
@@ -39,7 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlayLeadInvestigator()
         {
-            yield return PlayThisInvestigator(_investigatorsProvider.Leader);
+            yield return PlayThisInvestigator(_investigatorsProvider.First);
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator)
