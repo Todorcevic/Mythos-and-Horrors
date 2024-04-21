@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01108Tests : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -44,17 +44,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.Study.Hints, 3)).AsCoroutine();
 
-            Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Leader));
+            Task<PlayInvestigatorLoopGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(_investigatorsProvider.Leader));
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
-
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             while (!taskGameAction.IsCompleted) yield return null;
 

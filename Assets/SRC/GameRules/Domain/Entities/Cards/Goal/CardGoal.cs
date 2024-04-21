@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
         public virtual bool SpecificConditionToActivate()
         {
             if (Revealed.IsActive) return false;
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < 0) return false;
             return true;
         }
     }

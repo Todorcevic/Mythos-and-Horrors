@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         private IEnumerable<Investigator> DefaultsInvestigators =>
             _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0);
-        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive;
+        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive || (SpecificInvestigators ?? DefaultsInvestigators).Count() > 0;
 
         /*******************************************************************/
         public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> specificInvestigators = null)
@@ -44,7 +44,6 @@ namespace MythosAndHorrors.GameRules
                     await Task.CompletedTask;
                 }
 
-
                 foreach (Investigator investigator in SpecificInvestigators ?? DefaultsInvestigators)
                 {
                     interactableGameAction.Create()
@@ -56,15 +55,13 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     async Task PayHint()
                     {
-                        await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, 1));
+                        int amountHitsToPay = CardGoal.Hints.Value < investigator.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
+                        await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, investigator.Hints.Value));
                     }
                 }
 
                 await _gameActionsProvider.Create(interactableGameAction);
             }
         }
-
-
-
     }
 }
