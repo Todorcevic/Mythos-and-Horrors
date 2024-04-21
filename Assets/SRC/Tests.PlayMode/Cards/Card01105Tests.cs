@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allEffects");
+            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allCardEffects");
             if (!DEBUG_MODE) yield return WaitToCloneClick(allEffects[0]);
             while (!taskGameAction.IsCompleted) yield return null;
 
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allEffects");
+            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allCardEffects");
             if (!DEBUG_MODE) yield return WaitToCloneClick(allEffects[1]);
             while (!taskGameAction.IsCompleted) yield return null;
 

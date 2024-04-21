@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> InvestigatorConfrontEffects { get; } = new();
         public List<Effect> InvestigatorEludeEffects { get; } = new();
         public List<Effect> PlayFromHandEffects { get; } = new();
-        public List<Effect> PlayFastEffects { get; } = new();
+        public List<Effect> PlayActivableEffects { get; } = new();
 
 
         public override bool CanBeExecuted => ActiveInvestigator?.HasTurnsAvailable ?? false;
@@ -235,7 +235,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>().Where(activable => DefaultCondition(activable)))
             {
-                PlayFastEffects.Add(interactableGameAction.Create()
+                PlayActivableEffects.Add(interactableGameAction.Create()
                     .SetCard(activable as Card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(Activate));

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         private IEnumerable<Investigator> DefaultsInvestigators =>
             _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0);
-        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive || (SpecificInvestigators ?? DefaultsInvestigators).Count() > 0;
+        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive && (SpecificInvestigators ?? DefaultsInvestigators).Count() > 0;
 
         /*******************************************************************/
         public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> specificInvestigators = null)

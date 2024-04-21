@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction
     {
-        private readonly List<Effect> _allEffects = new();
+        private readonly List<Effect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
@@ -19,11 +19,11 @@ namespace MythosAndHorrors.GameRules
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
-        private Effect UniqueEffect => _allEffects.Single();
-        public bool IsUniqueEffect => _allEffects.Count() == 1;
-        public bool IsUniqueCard => _allEffects.All(effect => effect.CardAffected == _allEffects.First().CardAffected);
-        public Card UniqueCard => _allEffects.Select(effect => effect.CardAffected).Unique();
-        private bool NoEffect => IsManadatary && _allEffects.Count() == 0;
+        private Effect UniqueEffect => _allCardEffects.Single();
+        public bool IsUniqueEffect => _allCardEffects.Count() == 1;
+        public bool IsUniqueCard => _allCardEffects.All(effect => effect.CardAffected == _allCardEffects.First().CardAffected);
+        public Card UniqueCard => _allCardEffects.Select(effect => effect.CardAffected).Unique();
+        private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
 
         /*******************************************************************/
@@ -50,12 +50,12 @@ namespace MythosAndHorrors.GameRules
             return null;
         }
         /*******************************************************************/
-        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allEffects.FindAll(effect => effect.CardAffected == cardAffected);
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardAffected == cardAffected);
 
         public Effect Create()
         {
             Effect effect = new();
-            _allEffects.Add(effect);
+            _allCardEffects.Add(effect);
             return effect;
         }
 
@@ -78,6 +78,6 @@ namespace MythosAndHorrors.GameRules
             if (!_gameActionsProvider.CanUndo()) UndoEffect = null;
         }
 
-        public void RemoveEffect(Effect effect) => _allEffects.Remove(effect);
+        public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
     }
 }

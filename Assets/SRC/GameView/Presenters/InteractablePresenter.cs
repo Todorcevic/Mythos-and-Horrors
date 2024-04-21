@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
         {
             await DotweenExtension.WaitForMoveToZoneComplete();
 
-            if (interactableGameAction.IsUniqueCard && mustShowInCenter)
+            if ((interactableGameAction.IsUniqueCard && !interactableGameAction.IsUniqueEffect) && mustShowInCenter)
             {
                 return await InteractWithMultiEfefct(interactableGameAction, _cardViewManager.GetCardView(interactableGameAction.UniqueCard));
             }
