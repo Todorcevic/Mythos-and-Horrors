@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.Hallway, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, _preparationScene.Hallway));
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, _preparationScene.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardGoal.Hints, cardGoal.Hints.Value)).AsCoroutine();
