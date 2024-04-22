@@ -19,12 +19,13 @@ namespace MythosAndHorrors.GameRules
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
-        private Effect UniqueEffect => _allCardEffects.Single();
+        private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.All(effect => effect.CardAffected == _allCardEffects.First().CardAffected);
         public Card UniqueCard => _allCardEffects.Select(effect => effect.CardAffected).Unique();
         private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
+        public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
 
         /*******************************************************************/
         public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
@@ -46,8 +47,8 @@ namespace MythosAndHorrors.GameRules
         public Effect GetUniqueEffect()
         {
             if (!IsManadatary) return null;
-            if (IsUniqueEffect) return UniqueEffect;
-            return null;
+            if (!IsUniqueEffect) return null;
+            return UniqueEffect;
         }
         /*******************************************************************/
         public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardAffected == cardAffected);

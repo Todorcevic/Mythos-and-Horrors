@@ -18,12 +18,11 @@ namespace MythosAndHorrors.GameRules
 
         public override int StarValue() => 0;
 
-        private async Task DrawCards()
-        {
-            await new SafeForeach<ITome>(DrawAid, GetTomes).Execute();
+        /*******************************************************************/
+        private async Task DrawCards() => await new SafeForeach<ITome>(DrawAid, GetTomes).Execute();
 
-            async Task DrawAid(ITome tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
-            IEnumerable<ITome> GetTomes() => Owner.CardsInPlay.OfType<ITome>();
-        }
+        private async Task DrawAid(ITome tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
+
+        private IEnumerable<ITome> GetTomes() => Owner.CardsInPlay.OfType<ITome>();
     }
 }
