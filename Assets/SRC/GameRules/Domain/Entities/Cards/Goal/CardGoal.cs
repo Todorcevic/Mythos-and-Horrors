@@ -16,6 +16,7 @@ namespace MythosAndHorrors.GameRules
         public State Revealed { get; private set; }
         public Reaction Reveal { get; private set; }
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
+        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -26,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Hints = new Stat((Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count);
+            Hints = new Stat(MaxHints);
             ActivateTurnsCost = new Stat(0);
             Revealed = new State(false);
             Reveal = new Reaction(RevealCondition, RevealLogic);
@@ -68,7 +69,7 @@ namespace MythosAndHorrors.GameRules
         public virtual bool SpecificConditionToActivate()
         {
             if (Revealed.IsActive) return false;
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < 0) return false;
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
             return true;
         }
     }

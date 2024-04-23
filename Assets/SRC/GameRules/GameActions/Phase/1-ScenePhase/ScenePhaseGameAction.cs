@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override Phase MainPhase => Phase.Scene;
         public override string Name => _textsProvider.GameText.SCENE_PHASE_NAME;

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01109Tests : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -35,14 +35,18 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PayHintTest()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01109>();
-            yield return _preparationScene.PlayLeadInvestigator();
+            yield return _preparationScene.PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.Hallway, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.Hallway));
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, _preparationScene.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Third, _preparationScene.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationScene.Hallway.Hints, cardGoal.Hints.Value)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.Hallway.Hints, 12)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.Hallway.Hints, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.Hallway.Hints, 4)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Third, _preparationScene.Hallway.Hints, 5)).AsCoroutine();
 
             Task<RoundGameAction> taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             if (!DEBUG_MODE) yield return WaitToTokenClick();
@@ -51,8 +55,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            //if (DEBUG_MODE) yield return new WaitForSeconds(230);
             while (!taskGameAction.IsCompleted) yield return null;
+            yield return _gameActionsProvider.Create(new InvestigatorsPhaseGameAction()).AsCoroutine();
 
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(0));
