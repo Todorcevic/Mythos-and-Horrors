@@ -2,18 +2,19 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ActiveCardGameActionTest : TestBase
+    public class Card01519Tests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator ActivateCardGameActionTest()
+        public IEnumerator ActivateHealTest()
         {
             yield return _preparationScene.StartingScene();
 
@@ -23,8 +24,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 { _investigatorsProvider.First.Health, 4},
                 { _investigatorsProvider.First.Sanity, 2},
-                { _investigatorsProvider.Second.Health, 2 },
-                { _investigatorsProvider.Second.Sanity, 2 },
+                { _investigatorsProvider.Second.Health, 2},
+                { _investigatorsProvider.Second.Sanity, 2},
                 { _investigatorsProvider.Third.Sanity, 1},
                 { _investigatorsProvider.Fourth.Health, 1}
             };
@@ -33,6 +34,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(aidCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(_investigatorsProvider.Second.AvatarCard.PlayableEffects.First());
 
             while (!taskGameAction.IsCompleted) yield return null;
             if (DEBUG_MODE) yield return PressAnyKey();

@@ -30,24 +30,13 @@ namespace MythosAndHorrors.GameRules
         {
             while (CanBeExecuted && !_isCancel)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Select Investigator to pay");
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
+                interactableGameAction.CreateMainButton().SetLogic(Cancel);
 
-                interactableGameAction.CreateUndoButton().SetLogic(Undo);
-                async Task Undo()
+                async Task Cancel()
                 {
-                    if (CardGoal.Hints.Value == CardGoal.MaxHints) _isCancel = true;
+                    _isCancel = true;
                     await _gameActionsProvider.UndoLastInteractable();
-                }
-
-                if (CardGoal.Hints.Value == CardGoal.MaxHints)
-                {
-                    interactableGameAction.CreateMainButton().SetLogic(Cancel);
-
-                    async Task Cancel()
-                    {
-                        _isCancel = true;
-                        await Task.CompletedTask;
-                    }
                 }
 
                 foreach (Investigator investigator in InvestigatorsToPay)

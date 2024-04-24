@@ -233,7 +233,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareActivables(InteractableGameAction interactableGameAction)
         {
-            foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>().Where(activable => DefaultCondition(activable)))
+            foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>()
+                .Where(activable => activable.ConditionToActivate(ActiveInvestigator)))
             {
                 PlayActivableEffects.Add(interactableGameAction.Create()
                     .SetCard(activable as Card)
@@ -241,16 +242,6 @@ namespace MythosAndHorrors.GameRules
                     .SetLogic(Activate));
 
                 async Task Activate() => await _gameActionsProvider.Create(new ActivateCardGameAction(activable, ActiveInvestigator));
-            }
-
-            bool DefaultCondition(IActivable activable)
-            {
-                if (activable is not Card card) return false;
-                if (!card.IsInPlay) return false;
-                if (card.Owner != ActiveInvestigator) return false;
-                if (activable.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
-                if (!activable.SpecificConditionToActivate()) return false;
-                return true;
             }
         }
 

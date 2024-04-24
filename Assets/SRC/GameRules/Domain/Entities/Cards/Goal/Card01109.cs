@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override bool SpecificConditionToActivate() => false;
+        public override bool ConditionToActivate(Investigator investigator) => false;
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)

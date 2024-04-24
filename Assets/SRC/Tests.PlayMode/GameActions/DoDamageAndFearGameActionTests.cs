@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class DoDamageAndFearGameActionTests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -29,7 +29,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountDamage: 2, amountFear: 1));
 
             if (!DEBUG_MODE) yield return WaitToClick(bulletProof);

@@ -66,8 +66,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Activate() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this));
 
-        public virtual bool SpecificConditionToActivate()
+        public virtual bool ConditionToActivate(Investigator investigator)
         {
+            if (!IsInPlay) return false;
+            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
             return true;

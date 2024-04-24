@@ -6,6 +6,6 @@ namespace MythosAndHorrors.GameRules
     {
         Stat ActivateTurnsCost { get; }
         Task Activate();
-        bool SpecificConditionToActivate() => true;
+        bool ConditionToActivate(Investigator investigator);
     }
 }

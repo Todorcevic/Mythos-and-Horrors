@@ -43,7 +43,6 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-
         private void SetChargesIcons()
         {
             if (Card is not CardSupply cardSupply) return;

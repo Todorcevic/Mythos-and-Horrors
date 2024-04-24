@@ -35,11 +35,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PayHintTest()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
-            yield return _preparationScene.PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, _preparationScene.SceneCORE1.Study)).AsCoroutine();
+            yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationScene.SceneCORE1.Study.Hints, cardGoal.Hints.Value)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Study.Hints, 3)).AsCoroutine();
@@ -56,6 +53,32 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(0));
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator CancelPayHintTest()
+        {
+            CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationScene.SceneCORE1.Study.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Study.Hints, 5)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Study.Hints, 3)).AsCoroutine();
+
+            Task<PlayInvestigatorLoopGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(_investigatorsProvider.Leader));
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
+            if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            while (!taskGameAction.IsCompleted) yield return null;
+
+            Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(5));
+            Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(3));
+            Assert.That(cardGoal.Hints.Value, Is.EqualTo(8));
+            Assert.That(cardGoal.Revealed.IsActive, Is.False);
+            Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(6));
         }
     }
 }

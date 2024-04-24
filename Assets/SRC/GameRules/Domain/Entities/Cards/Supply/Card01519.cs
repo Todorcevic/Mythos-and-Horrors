@@ -69,5 +69,13 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
+
+        public bool ConditionToActivate(Investigator investigator)
+        {
+            if (!IsInPlay) return false;
+            if (Owner != investigator) return false;
+            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
+            return true;
+        }
     }
 }

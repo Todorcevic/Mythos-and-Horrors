@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task<Effect> InteractWithMultiEfefct(InteractableGameAction interactableGameAction, CardView multiEffectCardView)
         {
-            mustShowInCenter = false;
+            mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView) ?? await Initial(interactableGameAction);
         }
     }
