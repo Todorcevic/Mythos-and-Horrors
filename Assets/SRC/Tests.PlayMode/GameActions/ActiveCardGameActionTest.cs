@@ -23,8 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Dictionary<Stat, int> stats = new()
             {
                 { _investigatorsProvider.Second.Health, 2 },
-                { _investigatorsProvider.First.Health, 4},
-                { _investigatorsProvider.Second.CurrentTurns, _investigatorsProvider.Second.MaxTurns.Value }
+                { _investigatorsProvider.First.Health, 4}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
 

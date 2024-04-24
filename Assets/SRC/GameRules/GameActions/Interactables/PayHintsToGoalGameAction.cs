@@ -30,11 +30,12 @@ namespace MythosAndHorrors.GameRules
         {
             while (CanBeExecuted && !_isCancel)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Select Investigator to pay");
 
                 interactableGameAction.CreateUndoButton().SetLogic(Undo);
                 async Task Undo()
                 {
+                    if (CardGoal.Hints.Value == CardGoal.MaxHints) _isCancel = true;
                     await _gameActionsProvider.UndoLastInteractable();
                 }
 

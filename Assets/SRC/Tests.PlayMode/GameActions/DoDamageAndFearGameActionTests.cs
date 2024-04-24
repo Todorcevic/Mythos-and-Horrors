@@ -18,15 +18,20 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Card bulletProof = _cardLoaderUseCase.Execute("01594");
             _cardViewGeneratorComponent.BuildCardView(bulletProof);
+
             Investigator investigator = _investigatorsProvider.First;
             Card damageableCard = investigator.AllCards.First(card => card.Info.Code == "01521");
             Card damageableCard2 = investigator.AllCards.First(card => card.Info.Code == "01521" && card != damageableCard);
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationScene.StartingScene();
+
+
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
 
-            Task<HarmToInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountDamage: 2, amountFear: 1));
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Hallway));
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(investigator));
+
             if (!DEBUG_MODE) yield return WaitToClick(bulletProof);
             if (!DEBUG_MODE) yield return WaitToClick(damageableCard);
             while (!gameActionTask.IsCompleted) yield return null;

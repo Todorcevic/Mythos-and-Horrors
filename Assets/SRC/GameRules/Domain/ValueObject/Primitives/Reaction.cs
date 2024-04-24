@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Reaction
+    public class Reaction<T> where T : GameAction
     {
-        public Func<GameAction, bool> Condition { get; init; }
-        public Func<Task> Logic { get; init; }
+        public Func<T, bool> Condition { get; init; }
+        public Func<T, Task> Logic { get; init; }
 
         /*******************************************************************/
-        public Reaction(Func<GameAction, bool> reaction, Func<Task> logic)
+        public Reaction(Func<T, bool> reaction, Func<T, Task> logic)
         {
             Condition = reaction;
             Logic = logic;
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Check(GameAction gameAction)
         {
-            if (Condition.Invoke(gameAction)) await Logic.Invoke();
+            if (gameAction is T action && Condition.Invoke(action)) await Logic.Invoke(action);
         }
     }
 }

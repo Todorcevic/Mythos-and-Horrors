@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
-        public Reaction Defeat { get; private set; }
+        public Reaction<UpdateStatGameAction> Defeat { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = new Stat(1);
-            Defeat = new Reaction(DefeatCondition, DefeatLogic);
+            Defeat = new Reaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
             if (this is IDamageable) Health = new Stat(Info.Health ?? 0);
             if (this is IFearable) Sanity = new Stat(Info.Sanity ?? 0);
         }
@@ -46,7 +46,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool DefeatCondition(GameAction gameAction)
         {
-            if (gameAction is not UpdateStatGameAction) return false;
             if (!IsInPlay) return false;
             if (!DieByDamage() && !DieByFear()) return false;
             return true;
@@ -66,7 +65,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private async Task DefeatLogic() => await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
+        private async Task DefeatLogic(GameAction gameAction) => await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
 
         /*******************************************************************/
         public async Task PlayFromHand()

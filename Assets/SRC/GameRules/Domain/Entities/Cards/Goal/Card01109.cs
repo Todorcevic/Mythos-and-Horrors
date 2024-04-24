@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Reaction PayHints { get; private set; }
+        public Reaction<RoundGameAction> PayHints { get; private set; }
 
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            PayHints = new Reaction(PayHintsCondition, PayHintsLogic);
+            PayHints = new Reaction<RoundGameAction>(PayHintsCondition, PayHintsLogic);
         }
 
         /*******************************************************************/
@@ -48,7 +48,6 @@ namespace MythosAndHorrors.GameRules
 
         private bool PayHintsCondition(GameAction gameAction)
         {
-            if (gameAction is not RoundGameAction roundGameAction) return false;
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay
@@ -56,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task PayHintsLogic()
+        private async Task PayHintsLogic(GameAction gameAction)
         {
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);

@@ -1,6 +1,9 @@
 ﻿using MythosAndHorrors.GameRules;
 using Zenject;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using MythosAndHorrors.GameView;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -12,49 +15,78 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public CardPlace Study => _cardsProvider.GetCard<Card01111>();
-        public CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
-        public CardPlace Attic => _cardsProvider.GetCard<Card01113>();
-        public CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
-        public CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
-
-        public CardSupply Lita => _cardsProvider.GetCard<Card01117>();
-
-        public CardCreature GhoulSecuaz => _cardsProvider.GetCard<Card01160>();
-        public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
-        public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
+        public SceneCORE1 SceneCORE1 => (SceneCORE1)_chaptersProvider.CurrentScene;
 
         /*******************************************************************/
-        public IEnumerator PlaceAllPlaceCards()
+        private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesInvestigator(Investigator investigator)
         {
-            CardPlace place1 = _cardsProvider.GetCard<Card01111>();
-            CardPlace place2 = _cardsProvider.GetCard<Card01112>();
-            CardPlace place3 = _cardsProvider.GetCard<Card01113>();
-            CardPlace place4 = _cardsProvider.GetCard<Card01114>();
-            CardPlace place5 = _cardsProvider.GetCard<Card01115>();
+            Dictionary<Card, (Zone zone, bool faceDown)> moveInvestigatorCards = new()
+            {
+                { investigator.InvestigatorCard, (investigator.InvestigatorZone, false) }
+            };
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place1, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place3, _chaptersProvider.CurrentScene.PlaceZone[2, 4])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place4, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place5, _chaptersProvider.CurrentScene.PlaceZone[1, 4])).AsCoroutine();
+            investigator.FullDeck.Take(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.HandZone, false)));
+            investigator.FullDeck.Skip(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.DeckZone, true)));
+            return moveInvestigatorCards;
         }
 
-        public IEnumerator PlayLeadInvestigator()
+        private Dictionary<Card, Zone> GetCardZonesPlaces()
         {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            return new()
+            {
+                { SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3] },
+                { SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[1, 3] },
+                { SceneCORE1.Attic, _chaptersProvider.CurrentScene.PlaceZone[2, 4] },
+                { SceneCORE1.Cellar, _chaptersProvider.CurrentScene.PlaceZone[0, 4] },
+                { SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 4] }
+            };
+        }
+
+        private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesScene()
+        {
+            Dictionary<Card, (Zone zone, bool faceDown)> moveSceneCards = new()
+            {
+                { SceneCORE1.Info.PlotCards.First(), (SceneCORE1.PlotZone, false )},
+                { SceneCORE1.Info.GoalCards.First(), (SceneCORE1.GoalZone, false)}
+            };
+            SceneCORE1.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE1.DangerDeckZone, true)));
+
+            return moveSceneCards;
+        }
+
+        public IEnumerator PlaceAllPlaceCards()
+        {
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesPlaces()));
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator)
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.InvestigatorCard, investigator.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck, investigator.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator)));
+            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study));
+
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         public IEnumerator PlayAllInvestigators()
         {
+            Dictionary<Card, (Zone zone, bool faceDown)> toMoveAllInvestigators = new();
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
+            {
                 yield return PlayThisInvestigator(investigator);
+            }
+        }
+
+        public IEnumerator PlaceAllSceneCards()
+        {
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesScene()));
+        }
+
+        public IEnumerator StartingScene()
+        {
+            yield return PlaceAllSceneCards();
+            yield return PlaceAllPlaceCards();
+            yield return PlayAllInvestigators();
         }
     }
 }

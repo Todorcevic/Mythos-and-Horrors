@@ -13,16 +13,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Reaction MoveGhoulReaction { get; private set; }
-        public Reaction PlaceEldritch { get; private set; }
+        public Reaction<CreaturePhaseGameAction> MoveGhoulReaction { get; private set; }
+        public Reaction<RestorePhaseGameAction> PlaceEldritch { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            MoveGhoulReaction = new Reaction(MoveGhoulCondition, MoveGhoulLogic);
-            PlaceEldritch = new Reaction(PlaceEldritchCondition, PlaceEldritchLogic);
+            MoveGhoulReaction = new Reaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic);
+            PlaceEldritch = new Reaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic);
         }
 
         /*******************************************************************/
@@ -50,12 +50,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool MoveGhoulCondition(GameAction gameAction)
         {
-            if (gameAction is not CreaturePhaseGameAction) return false;
             if (!IsInPlay) return false;
             return true;
         }
 
-        private async Task MoveGhoulLogic()
+        private async Task MoveGhoulLogic(GameAction gameAction)
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
             await new SafeForeach<CardCreature>(MoveCreature, GetGhouls).Execute();
@@ -71,12 +70,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool PlaceEldritchCondition(GameAction gameAction)
         {
-            if (gameAction is not RestorePhaseGameAction) return false;
             if (!IsInPlay) return false;
             return true;
         }
 
-        private async Task PlaceEldritchLogic()
+        private async Task PlaceEldritchLogic(GameAction gameAction)
         {
             CardPlace parlor = _cardsProvider.GetCard<Card01115>();
             CardPlace hallway = _cardsProvider.GetCard<Card01112>();

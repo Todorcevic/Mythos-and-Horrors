@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; private set; }
         public Stat ActivateTurnsCost { get; private set; }
         public State Revealed { get; private set; }
-        public Reaction Reveal { get; private set; }
+        public Reaction<UpdateStatGameAction> Reveal { get; private set; }
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
 
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             Hints = new Stat(MaxHints);
             ActivateTurnsCost = new Stat(0);
             Revealed = new State(false);
-            Reveal = new Reaction(RevealCondition, RevealLogic);
+            Reveal = new Reaction<UpdateStatGameAction>(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -51,9 +51,8 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
 
-        private bool RevealCondition(GameAction gameAction)
+        private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (gameAction is not UpdateStatGameAction updateStatGameAction) return false;
             if (!updateStatGameAction.HasStat(Hints)) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
@@ -61,7 +60,8 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task RevealLogic() => await _gameActionsProvider.Create(new RevealGameAction(this));
+        private async Task RevealLogic(UpdateStatGameAction updateStatGameAction)
+            => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
         public async Task Activate() => await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this));
