@@ -247,6 +247,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (activable is not Card card) return false;
                 if (!card.IsInPlay) return false;
+                if (card.Owner != ActiveInvestigator) return false;
                 if (activable.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
                 if (!activable.SpecificConditionToActivate()) return false;
                 return true;

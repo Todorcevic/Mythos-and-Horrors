@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public bool CanBeHealed => Health.Value < InitialHealth;
+        public bool CanBeRestoreSanity => Sanity.Value < InitialSanity;
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
         public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);

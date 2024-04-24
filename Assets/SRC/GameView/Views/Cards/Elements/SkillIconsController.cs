@@ -21,18 +21,18 @@ namespace MythosAndHorrors.GameView
             }
         }
 
-        public void SetResourceIconView(int amount, Sprite icon, Sprite holder)
-        {
-            ClearAll();
-            AddSkillIconView(amount, icon, holder);
-        }
+        //public void SetResourceIconView(int amount, Sprite icon, Sprite holder)
+        //{
+        //    ClearAll();
+        //    AddSkillIconView(amount, icon, holder);
+        //}
 
-        private void ClearAll()
-        {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        //private void ClearAll()
+        //{
+        //    foreach (Transform child in transform)
+        //    {
+        //        Destroy(child.gameObject);
+        //    }
+        //}
     }
 }

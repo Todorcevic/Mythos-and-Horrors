@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ActiveCardGameActionTest : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -17,16 +17,20 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             yield return _preparationScene.StartingScene();
 
-            CardSupply aidCard = _cardsProvider.GetCard<Card01535>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.Second.AidZone)).AsCoroutine();
+            CardSupply aidCard = _cardsProvider.GetCard<Card01519>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
+                { _investigatorsProvider.First.Health, 4},
+                { _investigatorsProvider.First.Sanity, 2},
                 { _investigatorsProvider.Second.Health, 2 },
-                { _investigatorsProvider.First.Health, 4}
+                { _investigatorsProvider.Second.Sanity, 2 },
+                { _investigatorsProvider.Third.Sanity, 1},
+                { _investigatorsProvider.Fourth.Health, 1}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
 
-            Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.Second));
+            Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(aidCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 

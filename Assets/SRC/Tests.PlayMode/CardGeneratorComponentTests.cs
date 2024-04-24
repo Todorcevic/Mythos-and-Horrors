@@ -75,16 +75,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard_With_Resources()
         {
-            CardSupply card = _cardsProvider.GetCard<Card01516>();
+            CardSupply card = _cardsProvider.GetCard<Card01519>();
 
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
-            result.SetBulletsIcons(3);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            SkillIconsController resourceIconsController = result.GetPrivateMember<SkillIconsController>("_resourceIconsController");
+            ChargesIconsController resourceIconsController = result.GetPrivateMember<ChargesIconsController>("_resourceIconsController");
             SkillIconView skillIcon = resourceIconsController.GetComponentInChildren<SkillIconView>();
             Assert.That(resourceIconsController.GetComponentsInChildren<SkillIconView>().Length, Is.EqualTo(3));
-            Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_resourceBulletIcon")));
+            Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_resourceSupplyIcon")));
             yield return null;
         }
 

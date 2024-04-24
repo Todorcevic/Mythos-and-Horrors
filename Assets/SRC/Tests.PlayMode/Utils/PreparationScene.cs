@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MythosAndHorrors.GameView;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -18,15 +19,18 @@ namespace MythosAndHorrors.PlayMode.Tests
         public SceneCORE1 SceneCORE1 => (SceneCORE1)_chaptersProvider.CurrentScene;
 
         /*******************************************************************/
-        private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesInvestigator(Investigator investigator)
+        private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesInvestigator(Investigator investigator, bool withCards)
         {
             Dictionary<Card, (Zone zone, bool faceDown)> moveInvestigatorCards = new()
             {
                 { investigator.InvestigatorCard, (investigator.InvestigatorZone, false) }
             };
 
-            investigator.FullDeck.Take(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.HandZone, false)));
-            investigator.FullDeck.Skip(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.DeckZone, true)));
+            if (withCards)
+            {
+                investigator.FullDeck.Take(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.HandZone, false)));
+                investigator.FullDeck.Skip(5).ForEach(card => moveInvestigatorCards.Add(card, (investigator.DeckZone, true)));
+            }
             return moveInvestigatorCards;
         }
 
@@ -59,13 +63,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesPlaces())).AsCoroutine();
         }
 
-        public IEnumerator PlayThisInvestigator(Investigator investigator)
+        public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator))).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study)).AsCoroutine();
-
-            //yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, withCards))).AsCoroutine();
+            if (withResources)
+                yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
+            if (withAvatar)
+                yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study)).AsCoroutine();
         }
 
         public IEnumerator PlayAllInvestigators()
@@ -83,9 +87,12 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator StartingScene()
         {
+            float currentTimeScale = Time.timeScale;
+            Time.timeScale = 64;
             yield return PlaceAllSceneCards();
             yield return PlaceAllPlaceCards();
             yield return PlayAllInvestigators();
+            Time.timeScale = currentTimeScale;
         }
     }
 }

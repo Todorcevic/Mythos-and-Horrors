@@ -17,8 +17,9 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _skillWildIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _resourceBulletIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _resourceChargeIcon;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceSupplyIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
-        [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _resourceIconsController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChargesIconsController _resourceIconsController;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotController _slotController;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
@@ -37,18 +38,18 @@ namespace MythosAndHorrors.GameView
             SetSlots();
             SetStat();
             SetSkillIcons(currentFaction);
+            SetChargesIcons();
             SetRenderers(currentFaction);
         }
 
         /*******************************************************************/
-        public void SetBulletsIcons(int amount)
-        {
-            _resourceIconsController.SetResourceIconView(amount, _resourceBulletIcon, null);
-        }
 
-        public void SetChargesIcons(int amount)
+        private void SetChargesIcons()
         {
-            _resourceIconsController.SetResourceIconView(amount, _resourceChargeIcon, null);
+            if (Card is not CardSupply cardSupply) return;
+            if (cardSupply.AmountBullets != null) _resourceIconsController.IntialSet(cardSupply.AmountBullets, _resourceBulletIcon, null);
+            else if (cardSupply.AmountCharges != null) _resourceIconsController.IntialSet(cardSupply.AmountCharges, _resourceChargeIcon, null);
+            else if (cardSupply.AmountSupplies != null) _resourceIconsController.IntialSet(cardSupply.AmountSupplies, _resourceSupplyIcon, null);
         }
 
         private FactionDeckSO SetCurrent(Faction faction) =>

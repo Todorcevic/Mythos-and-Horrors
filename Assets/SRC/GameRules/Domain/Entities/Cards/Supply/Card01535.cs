@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task HealthInvestigator()
                 {
-                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
+                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1)); //TODO must be a challenge
                 };
             }
 
