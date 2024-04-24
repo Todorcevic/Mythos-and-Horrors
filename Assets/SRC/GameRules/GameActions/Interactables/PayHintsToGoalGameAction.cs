@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Cancel()
                 {
                     _isCancel = true;
-                    await _gameActionsProvider.UndoLastInteractable();
+                    await _gameActionsProvider.UndoUntil(this);
                 }
 
                 foreach (Investigator investigator in InvestigatorsToPay)

@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Effect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public bool CanBackToThisInteractable { get; }
         public bool MustShowInCenter { get; }
@@ -19,10 +18,11 @@ namespace MythosAndHorrors.GameRules
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
+        public List<Effect> AllEffects => _allCardEffects.ToList();
         private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
-        public bool IsUniqueCard => _allCardEffects.All(effect => effect.CardAffected == _allCardEffects.First().CardAffected);
-        public Card UniqueCard => _allCardEffects.Select(effect => effect.CardAffected).Unique();
+        public bool IsUniqueCard => _allCardEffects.All(effect => effect.Card == _allCardEffects.First().Card);
+        public Card UniqueCard => _allCardEffects.Select(effect => effect.Card).Unique();
         private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
             return UniqueEffect;
         }
         /*******************************************************************/
-        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardAffected == cardAffected);
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.Card == cardAffected);
 
         public Effect Create()
         {

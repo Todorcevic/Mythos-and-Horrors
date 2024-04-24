@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = new(_investigatorsProvider.First);
             _ = _gameActionsProvider.Create(oneInvestigatorTurnGameAction);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorAttackEffects.Find(effect => effect.CardAffected == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorAttackEffects.Find(effect => effect.Card == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _ = _gameActionsProvider.Create(oiGA);
 
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorAttackEffects.Find(effect => effect.CardAffected == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorAttackEffects.Find(effect => effect.Card == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _ = _gameActionsProvider.Create(oiGA);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(!oiGA.InvestigatorAttackEffects.Exists(effect => effect.CardAffected == creature));
+            Assert.That(!oiGA.InvestigatorAttackEffects.Exists(effect => effect.Card == creature));
         }
     }
 }

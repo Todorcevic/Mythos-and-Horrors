@@ -141,6 +141,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
+        protected IEnumerator WaitToCloneClick(int clonePosition)
+        {
+            while (_gameActionsProvider.CurrentInteractable == null) yield return null;
+            yield return WaitToCloneClick(_gameActionsProvider.CurrentInteractable.AllEffects[clonePosition]);
+        }
+
         protected IEnumerator WaitToCloneClick(Effect effect)
         {
             float startTime = Time.realtimeSinceStartup;

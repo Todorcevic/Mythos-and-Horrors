@@ -94,5 +94,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return PlayAllInvestigators();
             Time.timeScale = currentTimeScale;
         }
+
+        public IEnumerator WasteTurnsInvestigator(Investigator investigator)
+        {
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigator.CurrentTurns, 0)).AsCoroutine();
+        }
+
+        public IEnumerator WasteAllTurns()
+        {
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.AllInvestigatorsInPlay
+                               .ToDictionary(investigator => investigator.CurrentTurns, investigator => 0))).AsCoroutine();
+        }
     }
 }

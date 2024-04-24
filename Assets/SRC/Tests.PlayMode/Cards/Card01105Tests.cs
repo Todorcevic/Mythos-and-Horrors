@@ -27,8 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-            List<Effect> allEffects = _gameActionsProvider.CurrentInteractable.GetPrivateMember<List<Effect>>("_allCardEffects");
-            if (!DEBUG_MODE) yield return WaitToCloneClick(allEffects[0]);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(cardPlot.PlayableEffects.First());
             while (!taskGameAction.IsCompleted) yield return null;
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count == 4), Is.True);

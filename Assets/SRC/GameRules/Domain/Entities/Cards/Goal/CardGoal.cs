@@ -49,14 +49,14 @@ namespace MythosAndHorrors.GameRules
         {
             await Reveal.Check(gameAction);
         }
-        /*******************************************************************/
 
+        /*******************************************************************/
         private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
+            if (!IsInPlay) return false;
             if (!updateStatGameAction.HasStat(Hints)) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
-
             return true;
         }
 

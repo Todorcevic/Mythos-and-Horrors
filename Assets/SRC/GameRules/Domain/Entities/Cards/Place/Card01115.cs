@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is InteractableGameAction interactableGameAction
                 && interactableGameAction.Parent is OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
             {
-                Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.CardAffected == this);
+                Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.Card == this);
                 if (!CanMove()) interactableGameAction.RemoveEffect(moveEffect);
             }
         }

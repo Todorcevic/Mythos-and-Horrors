@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         private Investigator _investigator;
         private Card _cardAffected;
-        public Card CardAffected { get; private set; }
+        public Card Card { get; private set; }
         public Func<Task> Logic { get; private set; }
         public string CardCode => _investigator?.Code;
         public string Description => Logic.GetInvocationList().First().Method.Name;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public Effect SetCard(Card cardAffected)
         {
-            CardAffected = cardAffected;
+            Card = cardAffected;
             return this;
         }
 

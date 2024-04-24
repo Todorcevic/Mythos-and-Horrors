@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
 
-        private bool PayHintsCondition(GameAction gameAction)
+        private bool PayHintsCondition(RoundGameAction gameAction)
         {
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task PayHintsLogic(GameAction gameAction)
+        private async Task PayHintsLogic(RoundGameAction gameAction)
         {
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);

@@ -69,22 +69,32 @@ namespace MythosAndHorrors.GameRules
 
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
-
-            //TODO: continue
+            _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
+            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
+            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
         }
 
         public override async Task Resolution1()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[1]));
-
-            //TODO: continue
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, false);
+            _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
+            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
+            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
         }
 
         public override async Task Resolution2()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[2]));
+            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Xp, 1));
+            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
+            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
 
-            //TODO: continue
         }
 
         public override async Task Resolution3()

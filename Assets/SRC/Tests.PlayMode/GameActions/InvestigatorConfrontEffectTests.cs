@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             OneInvestigatorTurnGameAction oiGA = new(_investigatorsProvider.First);
             _ = _gameActionsProvider.Create(oiGA);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorConfrontEffects.Find(effect => effect.CardAffected == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oiGA.InvestigatorConfrontEffects.Find(effect => effect.Card == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.DangerZone));

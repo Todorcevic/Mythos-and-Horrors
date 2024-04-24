@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private async Task DefeatLogic(GameAction gameAction) => await _gameActionsProvider.Create(new DefeatSupplyGameAction(this));
+        private async Task DefeatLogic(GameAction gameAction) => await _gameActionsProvider.Create(new DefeatCardGameAction(this));
 
         /*******************************************************************/
         public async Task PlayFromHand()

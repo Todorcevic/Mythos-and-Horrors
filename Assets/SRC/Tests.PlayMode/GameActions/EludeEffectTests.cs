@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = new(_investigatorsProvider.First);
             _ = _gameActionsProvider.Create(oneInvestigatorTurnGameAction);
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorEludeEffects.Find(effect => effect.CardAffected == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorEludeEffects.Find(effect => effect.Card == creature));
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(creature.Exausted.IsActive);

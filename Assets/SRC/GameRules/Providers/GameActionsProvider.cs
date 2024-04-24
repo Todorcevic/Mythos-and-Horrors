@@ -40,6 +40,16 @@ namespace MythosAndHorrors.GameRules
             if (_allGameActionsExecuted.Count > 0) await _allGameActionsExecuted.Pop().Undo();
         }
 
+        public async Task UndoUntil(GameAction gameAction)
+        {
+            while (_allGameActionsExecuted.Count > 0)
+            {
+                GameAction lastGameAction = _allGameActionsExecuted.Pop();
+                await lastGameAction.Undo();
+                if (lastGameAction == gameAction) break;
+            }
+        }
+
         public async Task<InteractableGameAction> UndoLastInteractable()
         {
             if (!CanUndo()) throw new Exception("Can't undo last interactable");

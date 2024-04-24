@@ -4,25 +4,25 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DefeatSupplyGameAction : GameAction
+    public class DefeatCardGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public CardSupply CardSupply { get; }
+        public Card Card { get; }
 
         /*******************************************************************/
-        public DefeatSupplyGameAction(CardSupply cardSupply)
+        public DefeatCardGameAction(Card card)
         {
-            CardSupply = cardSupply;
+            Card = card;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(CardSupply));
+            await _gameActionsProvider.Create(new DiscardGameAction(Card));
             Dictionary<Stat, int> statsWithValues = new();
-            if (CardSupply is IDamageable damageable) statsWithValues.Add(damageable.Health, CardSupply.Info.Health ?? 0);
-            if (CardSupply is IFearable fearable) statsWithValues.Add(fearable.Sanity, CardSupply.Info.Sanity ?? 0);
+            if (Card is IDamageable damageable) statsWithValues.Add(damageable.Health, Card.Info.Health ?? 0);
+            if (Card is IFearable fearable) statsWithValues.Add(fearable.Sanity, Card.Info.Sanity ?? 0);
             await _gameActionsProvider.Create(new UpdateStatGameAction(statsWithValues));
         }
     }
