@@ -13,8 +13,8 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Card> _currentCardsAffected = new();
 
         public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
-        public Func<Card, Task> ActivationLogic { get; private set; }
-        public Func<Card, Task> DeactivationLogic { get; private set; }
+        public Func<IEnumerable<Card>, Task> ActivationLogic { get; private set; }
+        public Func<IEnumerable<Card>, Task> DeactivationLogic { get; private set; }
 
         string IViewEffect.CardCode => _cardMaster.Info.Code;
         string IViewEffect.Description => _description;
@@ -26,20 +26,15 @@ namespace MythosAndHorrors.GameRules
             if (_isBuffing) return;
             _isBuffing = true;
             IEnumerable<Card> cardsAffected = CardsToBuff.Invoke();
-            List<Card> cardsToActivate = cardsAffected.Except(_currentCardsAffected).ToList();
-            List<Card> cardsToDeactivate = _currentCardsAffected.Except(cardsAffected).ToList();
+            IEnumerable<Card> cardsToActivate = cardsAffected.Except(_currentCardsAffected);
+            IEnumerable<Card> cardsToDeactivate = _currentCardsAffected.Except(cardsAffected);
 
-            foreach (Card card in cardsToActivate)
-            {
-                _currentCardsAffected.Add(card);
-                await ActivationLogic.Invoke(card);
-            }
+            await ActivationLogic.Invoke(cardsToActivate);
+            _currentCardsAffected.AddRange(cardsToActivate);
 
-            foreach (Card card in cardsToDeactivate)
-            {
-                _currentCardsAffected.Remove(card);
-                await DeactivationLogic.Invoke(card);
-            }
+            await DeactivationLogic.Invoke(cardsToDeactivate);
+            _currentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
+
             _isBuffing = false;
         }
         /*******************************************************************/
@@ -62,13 +57,13 @@ namespace MythosAndHorrors.GameRules
             return this;
         }
 
-        public Buff SetAddBuff(Func<Card, Task> activationLogic)
+        public Buff SetAddBuff(Func<IEnumerable<Card>, Task> activationLogic)
         {
             ActivationLogic = activationLogic;
             return this;
         }
 
-        public Buff SetRemoveBuff(Func<Card, Task> deactivationLogic)
+        public Buff SetRemoveBuff(Func<IEnumerable<Card>, Task> deactivationLogic)
         {
             DeactivationLogic = deactivationLogic;
             return this;

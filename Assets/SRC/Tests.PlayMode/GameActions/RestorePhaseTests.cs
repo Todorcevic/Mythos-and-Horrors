@@ -16,8 +16,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator RestorePhaseTest()
         {
             yield return _preparationScene.PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9).ToList(), _investigatorsProvider.First.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3).ToList(), _investigatorsProvider.Second.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.HandZone.Cards, _investigatorsProvider.Second.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9), _investigatorsProvider.First.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3), _investigatorsProvider.Second.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 0)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.MaxTurns, 4)).AsCoroutine();
@@ -38,8 +40,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Count, Is.EqualTo(8));
             Assert.That(_investigatorsProvider.Second.HandZone.Cards.Count, Is.EqualTo(4));
-            Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.Second.Resources.Value, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(6));
+            Assert.That(_investigatorsProvider.Second.Resources.Value, Is.EqualTo(6));
             Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(4));
             Assert.That(_investigatorsProvider.First.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);

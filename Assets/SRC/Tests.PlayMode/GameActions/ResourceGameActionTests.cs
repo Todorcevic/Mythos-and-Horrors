@@ -1,4 +1,5 @@
 ﻿using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
@@ -16,15 +17,16 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Full_Take_Resource()
         {
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-
-            if (!DEBUG_MODE) WaitToTokenClick().AsTask();
+            //yield return new WaitForSeconds(10);
+            WaitToTokenClick().AsTask();
             yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(1));
+            //while (!gameActionTask.IsCompleted) yield return null;
+            if (DEBUG_MODE) yield return PressAnyKey();
+
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(6));
+            Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(6));
         }
 
         [UnityTest]
@@ -37,7 +39,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(5));
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(10));
         }
 
         [UnityTest]
@@ -53,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(3));
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(8));
         }
 
         [UnityTest]
@@ -67,7 +69,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.Second, 5)).AsCoroutine();
 
-            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));
+            Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(10));
         }
     }
 }

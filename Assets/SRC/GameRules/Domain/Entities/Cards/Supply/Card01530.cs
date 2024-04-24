@@ -32,21 +32,21 @@ namespace MythosAndHorrors.GameRules
         {
             if (!BuffActivation()) return Enumerable.Empty<Card>();
             return _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
-                  .Select(investigator => investigator.InvestigatorCard).Cast<Card>();
+                  .Select(investigator => investigator.InvestigatorCard);
 
             bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;
         }
 
-        private async Task AddIntelligenceBuff(Card card)
+        private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
-            if (card is not CardInvestigator cardInvestigator) return;
-            await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Intelligence, 1));
+            Dictionary<Stat, int> map = cards.ToDictionary(card => ((CardInvestigator)card).Intelligence, card => 1);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(map));
         }
 
-        private async Task RemoveIntelligenceBuff(Card card)
+        private async Task RemoveIntelligenceBuff(IEnumerable<Card> cards)
         {
-            if (card is not CardInvestigator cardInvestigator) return;
-            await _gameActionsProvider.Create(new DecrementStatGameAction(cardInvestigator.Intelligence, 1));
+            Dictionary<Stat, int> map = cards.ToDictionary(card => ((CardInvestigator)card).Intelligence, card => 1);
+            await _gameActionsProvider.Create(new DecrementStatGameAction(map));
         }
     }
 }

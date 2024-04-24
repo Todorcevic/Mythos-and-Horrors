@@ -66,6 +66,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTearDown]
         public override IEnumerator TearDown()
         {
+            if (DEBUG_MODE) yield break;
             yield return _gameActionsProvider.Rewind().AsCoroutine();
             _reactionableControl.ClearAllSubscriptions();
         }

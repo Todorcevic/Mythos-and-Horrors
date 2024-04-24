@@ -15,27 +15,21 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Investigator2StarToken()
         {
             _reactionableControl.SubscribeAtStart(RevealStarToken);
-            CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
             Card tomeCard = _cardsProvider.GetCard<Card01531>();
             Card tomeCard2 = _cardsProvider.GetCard<Card01535>();
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01502>();
-            Investigator investigatorToTest = cardInvestigator.Owner;
-
-            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            Investigator investigatorToTest = _investigatorsProvider.Second;
+            yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard2, investigatorToTest.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
+            int resultExpected = investigatorToTest.HandSize + 2;
 
-
-            Task<OneInvestigatorTurnGameAction> taskInvestigator =
-             _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
-            if (!DEBUG_MODE) yield return WaitToClick(place);
+            Task<OneInvestigatorTurnGameAction> taskInvestigator = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Cellar);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskInvestigator.IsCompleted) yield return null;
-            Assert.That(investigatorToTest.HandSize, Is.EqualTo(2));
+            Assert.That(investigatorToTest.HandSize, Is.EqualTo(resultExpected));
         }
 
         private async Task RevealStarToken(GameAction gameAction)

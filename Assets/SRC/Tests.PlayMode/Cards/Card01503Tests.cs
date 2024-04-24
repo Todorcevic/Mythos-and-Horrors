@@ -16,22 +16,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Investigator3StarToken()
         {
             _reactionableControl.SubscribeAtStart(RevealStarToken);
-            CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01503>();
-            Investigator investigatorToTest = cardInvestigator.Owner;
+            Investigator investigatorToTest = _investigatorsProvider.Third;
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
+            int resutlExpected = investigatorToTest.Resources.Value + 2;
 
-            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
-
-            Task<OneInvestigatorTurnGameAction> taskInvestigator =
-                _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
-            if (!DEBUG_MODE) yield return WaitToClick(place);
+            Task<OneInvestigatorTurnGameAction> taskInvestigator = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Cellar);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskInvestigator.IsCompleted) yield return null;
-            Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(2));
+            Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(resutlExpected));
         }
 
         private async Task RevealStarToken(GameAction gameAction)

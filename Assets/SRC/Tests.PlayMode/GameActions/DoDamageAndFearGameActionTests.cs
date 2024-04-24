@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Hallway));
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountDamage: 2, amountFear: 1));
 
             if (!DEBUG_MODE) yield return WaitToClick(bulletProof);
             if (!DEBUG_MODE) yield return WaitToClick(damageableCard);

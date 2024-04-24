@@ -15,41 +15,30 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveToPlaceTest()
         {
-            CardPlace place = _cardsProvider.GetCard<Card01112>();
-            CardPlace place2 = _cardsProvider.GetCard<Card01113>();
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
-
-            if (!DEBUG_MODE) WaitToClick(place2).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_preparationScene.SceneCORE1.Attic).AsTask();
             yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - place.MoveTurnsCost.Value));
-            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(place2));
+            Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - _preparationScene.SceneCORE1.Attic.MoveTurnsCost.Value));
+            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Attic));
         }
 
         [UnityTest]
         public IEnumerator MoveToCard01115PlaceTest()
         {
-            CardPlace place = _cardsProvider.GetCard<Card01112>();
-            CardPlace place2 = _cardsProvider.GetCard<Card01115>();
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new RevealGameAction(_preparationScene.SceneCORE1.Parlor)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place2, _chaptersProvider.CurrentScene.PlaceZone[0, 4])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new RevealGameAction(place2)).AsCoroutine();
-
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
-
-            if (!DEBUG_MODE) WaitToClick(place2).AsTask();
+            if (!DEBUG_MODE) WaitToClick(_preparationScene.SceneCORE1.Parlor).AsTask();
             yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - place.MoveTurnsCost.Value));
-            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(place2));
+            Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - _preparationScene.SceneCORE1.Parlor.MoveTurnsCost.Value));
+            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Parlor));
         }
     }
 }

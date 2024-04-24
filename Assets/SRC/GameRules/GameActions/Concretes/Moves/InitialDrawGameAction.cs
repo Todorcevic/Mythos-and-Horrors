@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Card nextDraw = Investigator.CardAidToDraw;
+            Card nextDraw = Investigator.CardAidToDraw ?? throw new System.Exception("No card to draw"); //TODO must shuffle deck with discard
             if (nextDraw is IFlaw)
             {
                 await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));

@@ -3,7 +3,6 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
@@ -16,8 +15,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ActivateCardGameActionTest()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
+            yield return _preparationScene.StartingScene();
+
             CardSupply aidCard = _cardsProvider.GetCard<Card01535>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.Second.AidZone)).AsCoroutine();
             Dictionary<Stat, int> stats = new()
@@ -31,8 +30,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(aidCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             while (!taskGameAction.IsCompleted) yield return null;
+            if (DEBUG_MODE) yield return PressAnyKey();
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));
         }

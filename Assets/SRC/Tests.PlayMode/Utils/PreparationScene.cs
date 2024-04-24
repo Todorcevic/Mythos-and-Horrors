@@ -56,21 +56,20 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlaceAllPlaceCards()
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesPlaces()));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesPlaces())).AsCoroutine();
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator)
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator)));
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator))).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study)).AsCoroutine();
 
-            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            //yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
         public IEnumerator PlayAllInvestigators()
         {
-            Dictionary<Card, (Zone zone, bool faceDown)> toMoveAllInvestigators = new();
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
                 yield return PlayThisInvestigator(investigator);
@@ -79,7 +78,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlaceAllSceneCards()
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesScene()));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesScene())).AsCoroutine();
         }
 
         public IEnumerator StartingScene()

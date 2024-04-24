@@ -78,7 +78,6 @@ namespace MythosAndHorrors.GameView
 
         private List<TokenView> GetActiveTokens(int amount)
         {
-
             List<TokenView> activeTokens = new();
             for (int i = 0; i < amount; i++)
             {

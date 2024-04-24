@@ -16,6 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator UndoMoveMulticardsTest()
         {
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
 
