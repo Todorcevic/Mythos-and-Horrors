@@ -58,7 +58,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             LoadSceneSettings();
             InstallerToScene();
             yield return LoadScene("GamePlay", InstallerToTests);
-            _prepareGameUseCase.Execute();
             AlwaysHistoryPanelClick().AsTask();
             _reactionableControl.Init();
         }

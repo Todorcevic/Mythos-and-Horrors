@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class SafeForeach<T>
     {
-        private readonly List<T> _elementsExecuted = new();
         public Func<T, Task> Logic { get; }
         public Func<IEnumerable<T>> Collection { get; }
 
@@ -21,12 +20,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Execute()
         {
+            List<T> elementsExecuted = new();
             T element = Collection.Invoke().FirstOrDefault();
             while (element != null)
             {
                 await Logic.Invoke(element);
-                _elementsExecuted.Add(element);
-                element = Collection.Invoke().Except(_elementsExecuted).FirstOrDefault();
+                elementsExecuted.Add(element);
+                element = Collection.Invoke().Except(elementsExecuted).FirstOrDefault();
             }
         }
     }

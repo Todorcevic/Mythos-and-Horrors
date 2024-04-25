@@ -11,17 +11,15 @@ namespace MythosAndHorrors.GameView
         [InjectOptional] private readonly bool _mustBeLoaded = true;
         [Inject] private readonly PrepareGameUseCase _loadGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
         private async void Start()
         {
-            if (!_mustBeLoaded) return;
             await IntialState();
             _loadGameUseCase.Execute();
-
+            if (!_mustBeLoaded) return;
             await _gameActionsProvider.Create(new StartGameAction());
         }
 

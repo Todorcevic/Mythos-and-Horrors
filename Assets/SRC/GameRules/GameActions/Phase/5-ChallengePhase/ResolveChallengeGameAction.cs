@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModestTree.Util;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -18,17 +20,17 @@ namespace MythosAndHorrors.GameRules
         {
             if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Count > 0)
             {
-                foreach (Func<Task> succesEffect in ChallengePhaseGameAction.SuccesEffects)
-                {
-                    await succesEffect?.Invoke();
-                }
+                await new SafeForeach<Func<Task>>(ExecuteEffect, AllSuccessEffects).Execute();
+
+                async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
+                IEnumerable<Func<Task>> AllSuccessEffects() => ChallengePhaseGameAction.SuccesEffects;
             }
             else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Count > 0)
             {
-                foreach (Func<Task> failEffect in ChallengePhaseGameAction.FailEffects)
-                {
-                    await failEffect?.Invoke();
-                }
+                await new SafeForeach<Func<Task>>(ExecuteEffect, AllFailEffects).Execute();
+
+                async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
+                IEnumerable<Func<Task>> AllFailEffects() => ChallengePhaseGameAction.FailEffects;
             }
         }
     }

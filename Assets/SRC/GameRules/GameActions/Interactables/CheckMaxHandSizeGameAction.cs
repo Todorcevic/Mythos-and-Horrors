@@ -5,6 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : PhaseGameAction
     {
+        private bool _isCancel;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -23,10 +24,33 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, Description);
-            CreateGameActions(interactableGameAction);
-            await _gameActionsProvider.Create(interactableGameAction);
-            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
+            while (!_isCancel)
+            {
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, Description);
+                interactableGameAction.CreateUndoButton().SetLogic(Undo);
+
+                Effect buttonEffect = null;
+                if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value)
+                {
+                    buttonEffect = interactableGameAction.CreateMainButton()
+                          .SetLogic(Continue);
+                }
+                else CreateGameActions(interactableGameAction);
+
+                await _gameActionsProvider.Create(interactableGameAction);
+
+                /*******************************************************************/
+                async Task Undo()
+                {
+                    await _gameActionsProvider.UndoLastInteractable();
+                }
+
+                async Task Continue()
+                {
+                    _isCancel = true;
+                    await Task.CompletedTask;
+                }
+            }
         }
 
         private void CreateGameActions(InteractableGameAction interactableGameAction)

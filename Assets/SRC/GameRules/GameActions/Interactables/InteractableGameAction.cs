@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> AllEffects => _allCardEffects.ToList();
         private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
-        public bool IsUniqueCard => _allCardEffects.All(effect => effect.Card == _allCardEffects.First().Card);
+        public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
         public Card UniqueCard => _allCardEffects.Select(effect => effect.Card).Unique();
         private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
