@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
 
         /*******************************************************************/
-        public HarmToInvestigatorGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0, bool isDirect = false, Card fromCard = null)
+        public HarmToInvestigatorGameAction(Investigator investigator, Card fromCard, int amountDamage = 0, int amountFear = 0, bool isDirect = false)
         {
             Investigator = investigator;
             FromCard = fromCard;
@@ -28,8 +28,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (IsDirect) await _gameActionsProvider.Create(new HarmToCardGameAction(Investigator.InvestigatorCard, AmountDamage, AmountFear));
-            else await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(Investigator, AmountDamage, AmountFear));
+            if (IsDirect) await _gameActionsProvider.Create(new HarmToCardGameAction(Investigator.InvestigatorCard, FromCard, AmountDamage, AmountFear));
+            else await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(Investigator, FromCard, AmountDamage, AmountFear));
         }
     }
 }

@@ -6,6 +6,8 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class CardInvestigator : Card, IDamageable, IFearable
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat Strength { get; private set; }
@@ -24,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
+        public Reaction<UpdateStatGameAction> Defeat { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -48,6 +51,7 @@ namespace MythosAndHorrors.GameRules
             TurnsCost = new Stat(1);
             Resign = new State(false);
             Defeated = new State(false);
+            Defeat = new Reaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/
@@ -67,5 +71,37 @@ namespace MythosAndHorrors.GameRules
         public abstract Task StarEffect();
 
         public abstract int StarValue();
+
+        /*******************************************************************/
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await Defeat.Check(gameAction);
+        }
+
+        /*******************************************************************/
+        private bool DefeatCondition(UpdateStatGameAction gameAction)
+        {
+            if (!IsInPlay) return false;
+            if (!DieByDamage() && !DieByFear()) return false;
+            return true;
+
+            bool DieByDamage()
+            {
+                if (this is not IDamageable damageable) return false;
+                if (damageable.Health.Value > 0) return false;
+                return true; ;
+            }
+
+            bool DieByFear()
+            {
+                if (this is not IFearable fearable) return false;
+                if (fearable.Sanity.Value > 0) return false;
+                return true;
+            }
+        }
+
+        private async Task DefeatLogic(UpdateStatGameAction gameAction) => await _gameActionsProvider.Create(new DefeatCardGameAction(this));
+
+        /*******************************************************************/
     }
 }

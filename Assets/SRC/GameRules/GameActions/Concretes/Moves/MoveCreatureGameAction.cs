@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveCreatureGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public CardCreature Creature { get; }
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardPlace realPlaceToMove = Destiny == null ? StalkerMove() : InitializePathFinder(Creature.CurrentPlace, Destiny).path;
-            await _gameActionProvider.Create(new MoveCardsGameAction(Creature, realPlaceToMove.OwnZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, realPlaceToMove.OwnZone));
         }
 
         private CardPlace StalkerMove()

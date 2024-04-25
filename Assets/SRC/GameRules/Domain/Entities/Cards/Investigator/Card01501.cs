@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class Card01501 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionProvider;
@@ -11,13 +10,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly BuffsProvider _buffsProvider;
 
         /*******************************************************************/
-
         public override async Task StarEffect() => await Task.CompletedTask;
 
         public override int StarValue() => Owner.CurrentPlace.Hints.Value;
 
 
         /*******************************************************************/
+        //protected override async Task WhenFinish(GameAction gameAction)
+        //{
+        //    await base.WhenFinish(gameAction);
+        //}
 
     }
 }

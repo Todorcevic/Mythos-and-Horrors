@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool DefeatCondition(GameAction gameAction)
+        private bool DefeatCondition(UpdateStatGameAction gameAction)
         {
             if (!IsInPlay) return false;
             if (!DieByDamage() && !DieByFear()) return false;
@@ -55,20 +55,20 @@ namespace MythosAndHorrors.GameRules
 
             bool DieByDamage()
             {
-                if (this is not IDamageable) return false;
-                if (Health.Value > 0) return false;
+                if (this is not IDamageable damageable) return false;
+                if (damageable.Health.Value > 0) return false;
                 return true; ;
             }
 
             bool DieByFear()
             {
-                if (this is not IFearable) return false;
-                if (Sanity.Value > 0) return false;
+                if (this is not IFearable fearable) return false;
+                if (fearable.Sanity.Value > 0) return false;
                 return true;
             }
         }
 
-        private async Task DefeatLogic(GameAction gameAction) => await _gameActionsProvider.Create(new DefeatCardGameAction(this));
+        private async Task DefeatLogic(UpdateStatGameAction gameAction) => await _gameActionsProvider.Create(new DefeatCardGameAction(this));
 
         /*******************************************************************/
         public async Task PlayFromHand()

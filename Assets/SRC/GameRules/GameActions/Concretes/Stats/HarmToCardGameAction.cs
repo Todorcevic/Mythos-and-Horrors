@@ -9,15 +9,17 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Card Card { get; }
+        public Card ByThisCard { get; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
         public int TotalDamageApply { get; private set; }
         public int TotalFearApply { get; private set; }
 
         /*******************************************************************/
-        public HarmToCardGameAction(Card card, int amountDamage = 0, int amountFear = 0)
+        public HarmToCardGameAction(Card card, Card byThisCard, int amountDamage = 0, int amountFear = 0)
         {
             Card = card;
+            ByThisCard = byThisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
         }

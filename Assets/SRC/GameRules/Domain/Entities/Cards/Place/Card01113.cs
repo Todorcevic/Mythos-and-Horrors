@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> Investigators() => moveInvestigatorToPlaceGameAction.Investigators;
 
             async Task TekeFear(Investigator investigator) =>
-                await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountFear: 1, fromCard: this));
+                await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountFear: 1, bythisCard: this));
         }
 
         private bool TakeFearCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)

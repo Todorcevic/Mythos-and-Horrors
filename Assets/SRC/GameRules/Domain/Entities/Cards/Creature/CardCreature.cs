@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool DefeatCondition(GameAction gameAction)
+        private bool DefeatCondition(UpdateStatGameAction gameAction)
         {
             if (!IsInPlay) return false;
             if (Health.Value > 0) return false;

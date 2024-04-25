@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
-        public Card FromCard { get; }
+        public Card ByThisCard { get; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
@@ -18,10 +18,10 @@ namespace MythosAndHorrors.GameRules
         public string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/
-        public ShareDamageAndFearGameAction(Investigator investigator, int amountDamage = 0, int amountFear = 0, Card fromCard = null)
+        public ShareDamageAndFearGameAction(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
             Investigator = investigator;
-            FromCard = fromCard;
+            ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
         }
@@ -45,13 +45,13 @@ namespace MythosAndHorrors.GameRules
                     interactableGameAction.Create()
                         .SetCard(cardSelectable)
                         .SetInvestigator(cardSelectable.Owner)
-                        .SetCardAffected(FromCard)
+                        .SetCardAffected(ByThisCard)
                         .SetLogic(DoDamageAndFear);
 
                     /*******************************************************************/
                     async Task DoDamageAndFear()
                     {
-                        HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, AmountDamage, AmountFear));
+                        HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, ByThisCard, AmountDamage, AmountFear));
                         AmountDamage -= harm.TotalDamageApply;
                         AmountFear -= harm.TotalFearApply;
                     }

@@ -48,6 +48,7 @@ namespace MythosAndHorrors.GameRules
             .Union(AidZone.Cards);
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
+        public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>();
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
         public Stat Strength => InvestigatorCard.Strength;
