@@ -11,9 +11,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public bool CanBackToThisInteractable { get; }
-        public bool MustShowInCenter { get; }
-        public string Description { get; }
+        public bool CanBackToThisInteractable { get; protected set; }
+        public bool MustShowInCenter { get; protected set; }
+        public string Description { get; protected set; }
 
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
@@ -28,6 +28,12 @@ namespace MythosAndHorrors.GameRules
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
 
         /*******************************************************************/
+
+        public InteractableGameAction()
+        {
+
+        }
+
         public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
@@ -80,5 +86,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
+
+        public void ClearEffects() => _allCardEffects.Clear();
     }
 }

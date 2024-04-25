@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -18,11 +19,18 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await new SafeForeach<Investigator>(CheckHandSize, GetInvestigators).Execute();
+            //await new SafeForeach<Investigator>(CheckHandSize, GetInvestigators).Execute();
+
+            while (GetInvestigatorsMustDiscard().Any())
+            {
+                Investigator investigator = GetInvestigatorsMustDiscard().First();
+                await CheckHandSize(investigator);
+            }
         }
 
         /*******************************************************************/
-        IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay;
+        IEnumerable<Investigator> GetInvestigatorsMustDiscard() => _investigatorsProvider.AllInvestigatorsInPlay
+            .Where(investigator => investigator.HandSize > investigator.MaxHandSize.Value);
 
         private async Task CheckHandSize(Investigator investigator) =>
              await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(investigator));

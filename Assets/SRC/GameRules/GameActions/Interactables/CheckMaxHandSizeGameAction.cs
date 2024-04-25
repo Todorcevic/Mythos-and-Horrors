@@ -3,63 +3,63 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckMaxHandSizeGameAction : PhaseGameAction
+    public class CheckMaxHandSizeGameAction : InteractableGameAction
     {
-        private bool _isCancel;
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
-        public override Phase MainPhase => Phase.Restore;
+        //public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
+        //public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
+        //public override Phase MainPhase => Phase.Restore;
+        public Investigator ActiveInvestigator { get; }
 
-        public override bool CanBeExecuted => ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
+        //public override bool CanBeExecuted => ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
 
         /*******************************************************************/
         public CheckMaxHandSizeGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
+            CanBackToThisInteractable = true;
+            MustShowInCenter = false;
+            Description = nameof(CheckMaxHandSizeGameAction);
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisPhaseLogic()
+        protected override async Task ExecuteThisLogic()
         {
-            while (!_isCancel)
+            CreateUndoButton().SetLogic(Undo);
+
+            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, Description);
-                interactableGameAction.CreateUndoButton().SetLogic(Undo);
-
-                Effect buttonEffect = null;
-                if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value)
-                {
-                    buttonEffect = interactableGameAction.CreateMainButton()
-                          .SetLogic(Continue);
-                }
-                else CreateGameActions(interactableGameAction);
-
-                await _gameActionsProvider.Create(interactableGameAction);
-
-                /*******************************************************************/
-                async Task Undo()
-                {
-                    await _gameActionsProvider.UndoLastInteractable();
-                }
-
-                async Task Continue()
-                {
-                    _isCancel = true;
-                    await Task.CompletedTask;
-                }
+                CreateMainButton().SetLogic(Continue);
             }
+            else CreateGameActions();
+
+            await base.ExecuteThisLogic();
+
+            if (EffectSelected == MainButtonEffect || EffectSelected == UndoEffect) return;
+            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
+
+            /*******************************************************************/
+
+            async Task Undo()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
+            }
+
+            async Task Continue() => await Task.CompletedTask;
+
         }
 
-        private void CreateGameActions(InteractableGameAction interactableGameAction)
+        private void CreateGameActions()
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
                 if (!CanChoose()) continue;
 
-                interactableGameAction.Create()
+                Create()
                .SetCard(card)
                .SetInvestigator(ActiveInvestigator)
                .SetLogic(Discard);
