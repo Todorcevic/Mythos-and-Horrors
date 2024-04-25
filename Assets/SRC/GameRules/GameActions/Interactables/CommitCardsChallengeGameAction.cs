@@ -5,60 +5,63 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : GameAction
+    public class CommitCardsChallengeGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
         public Effect ButtonEffect { get; private set; }
 
-        public Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(CurrentChallenge.Stat);
+        public ChallengePhaseGameAction CurrentChallenge { get; }
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
-        public ChallengePhaseGameAction CurrentChallenge => (ChallengePhaseGameAction)Parent;
-        public string Description => "Commit cards";
+
+        IEnumerable<ICommitable> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
+             .SelectMany(investigator => investigator.HandZone.Cards)
+             .OfType<ICommitable>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
+
+        /*******************************************************************/
+        public CommitCardsChallengeGameAction(Investigator investigator, ChallengePhaseGameAction challenge) :
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards")
+        {
+            ActiveInvestigator = investigator;
+            CurrentChallenge = challenge;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _commitPresenter.PlayAnimationWith(this);
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: false, Description);
-            ButtonEffect = interactableGameAction.CreateMainButton()
-                .SetLogic(Drop);
+            CreateMainButton().SetLogic(Continue);
+            CreateUndoButton().SetLogic(UndoButtoneEffect);
 
-            async Task Drop() => await Task.CompletedTask;
-
-            /*******************************************************************/
-            IEnumerable<ICommitable> allCommitableCards = _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
-                .SelectMany(investigator => investigator.HandZone.Cards)
-                .OfType<ICommitable>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
-
-            foreach (Card commitableCard in allCommitableCards.Cast<Card>())
+            foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {
-                interactableGameAction.Create()
+                Create()
                     .SetCard(commitableCard)
                     .SetInvestigator(commitableCard.Owner)
                     .SetCardAffected(CurrentChallenge.CardToChallenge)
                     .SetLogic(Commit);
 
-                async Task Commit() => await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
+                async Task Commit()
+                {
+                    await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
+                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, CurrentChallenge));
+                }
             }
+
+            await base.ExecuteThisLogic();
 
             /*******************************************************************/
-            foreach (Card card in _chaptersProvider.CurrentScene.LimboZone.Cards.Where(card => card is ICommitable))
+
+            async Task Continue() => await CurrentChallenge.ContinueChallenge();
+
+            async Task UndoButtoneEffect()
             {
-                interactableGameAction.Create()
-                    .SetCard(card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(Uncommit);
-
-                async Task Uncommit() => await _gameActionsProvider.Create(new MoveCardsGameAction(card, card.Owner.HandZone));
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
             }
-
-            await _gameActionsProvider.Create(interactableGameAction);
-            if (interactableGameAction.EffectSelected == ButtonEffect) return;
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction());
         }
 
         public override async Task Undo()

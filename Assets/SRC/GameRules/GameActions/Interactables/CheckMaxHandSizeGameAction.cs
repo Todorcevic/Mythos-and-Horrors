@@ -8,19 +8,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        //public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
-        //public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
-        //public override Phase MainPhase => Phase.Restore;
-
-        //public override bool CanBeExecuted => ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
-
         /*******************************************************************/
-        public CheckMaxHandSizeGameAction(Investigator investigator)
+        public CheckMaxHandSizeGameAction(Investigator investigator) :
+            base(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction))
         {
             ActiveInvestigator = investigator;
-            CanBackToThisInteractable = true;
-            MustShowInCenter = false;
-            Description = nameof(CheckMaxHandSizeGameAction);
         }
 
         /*******************************************************************/
@@ -28,16 +20,10 @@ namespace MythosAndHorrors.GameRules
         {
             CreateUndoButton().SetLogic(Undo);
 
-            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value)
-            {
-                CreateMainButton().SetLogic(Continue);
-            }
+            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateMainButton().SetLogic(Continue);
             else CreateGameActions();
 
             await base.ExecuteThisLogic();
-
-            if (EffectSelected == MainButtonEffect || EffectSelected == UndoEffect) return;
-            await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
 
             /*******************************************************************/
 
@@ -49,7 +35,6 @@ namespace MythosAndHorrors.GameRules
             }
 
             async Task Continue() => await Task.CompletedTask;
-
         }
 
         private void CreateGameActions()
@@ -67,6 +52,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
                 };
 
                 bool CanChoose()

@@ -55,14 +55,18 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction());
+            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
+            await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
+        }
+
+        public async Task ContinueChallenge()
+        {
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
             await _gameActionsProvider.Create(new ResolveAllTokensGameAction());
             await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());
-            await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
         }
 
         public bool IsUndo { get; private set; }
