@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
@@ -20,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         public Reaction<MoveCardsGameAction> Reveal { get; private set; }
 
         /*******************************************************************/
+        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public IEnumerable<CardPlace> ConnectedPlacesToMove =>
             _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
@@ -31,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Hints = new Stat(Info.Hints ?? 0);
+            Hints = new Stat(MaxHints);
             Enigma = new Stat(Info.Enigma ?? 0);
             InvestigationTurnsCost = new Stat(1);
             MoveTurnsCost = new Stat(1);

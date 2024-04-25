@@ -8,7 +8,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class EliminateInvestigatorGameActionTests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -20,11 +20,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversity, investigator.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, _preparationScene.SceneCORE1.Attic.Hints, 2));
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, ghoulSecuaz, amountFear: 8));
+            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, _preparationScene.SceneCORE1.Attic.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, ghoulSecuaz, amountFear: 8)).AsCoroutine();
 
-
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            //if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(investigator.Defeated.IsActive, Is.True);
             Assert.That(adversity.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.DangerDiscardZone));
             Assert.That(ghoulSecuaz.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Study));

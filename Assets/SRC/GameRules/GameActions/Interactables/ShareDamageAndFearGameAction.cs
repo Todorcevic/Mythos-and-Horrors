@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
-        public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
+        public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && Investigator.IsInPlay;
         public string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/

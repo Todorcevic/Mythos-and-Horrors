@@ -22,9 +22,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardPlace currentPlace = Investigator.CurrentPlace;
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.AllCards, _chaptersProvider.CurrentScene.OutZone));
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, Investigator.Resources.Value));
-            await _gameActionsProvider.Create(new PayHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
+            await _gameActionsProvider.Create(new DropHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.AllCards, _chaptersProvider.CurrentScene.OutZone));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.CreaturesEnganged, currentPlace.OwnZone));
             await new SafeForeach<Card>(Discard, CardsInDangerZone).Execute();
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
