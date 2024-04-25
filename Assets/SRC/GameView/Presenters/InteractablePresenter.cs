@@ -1,4 +1,5 @@
-﻿using MythosAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -13,11 +14,13 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly CardViewsManager _cardViewManager;
+        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
             if (gamAction is not InteractableGameAction interactableGameAction) return default;
+            await _swapInvestigatorHandler.Select(interactableGameAction.ActiveInvestigator).AsyncWaitForCompletion();
             mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await Initial(interactableGameAction);
         }

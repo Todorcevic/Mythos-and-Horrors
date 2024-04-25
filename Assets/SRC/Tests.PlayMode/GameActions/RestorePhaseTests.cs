@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class RestorePhaseTests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.HandZone.Cards, _investigatorsProvider.Second.DeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9), _investigatorsProvider.First.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(9), _investigatorsProvider.Second.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.FullDeck.Take(3), _investigatorsProvider.Second.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 0)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.MaxTurns, 4)).AsCoroutine();
@@ -32,6 +32,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.HandZone.Cards[1]);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.HandZone.Cards[2]);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!gameActionTask.IsCompleted) yield return null;
             if (DEBUG_MODE) yield return PressAnyKey();

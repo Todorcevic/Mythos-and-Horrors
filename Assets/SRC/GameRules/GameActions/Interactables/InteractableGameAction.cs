@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public bool MustShowInCenter { get; protected set; }
         public string Description { get; protected set; }
 
+        public Investigator ActiveInvestigator { get; protected set; }
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }

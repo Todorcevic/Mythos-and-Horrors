@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
         //public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CheckMaxHandSizeGameAction);
         //public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CheckMaxHandSizeGameAction);
         //public override Phase MainPhase => Phase.Restore;
-        public Investigator ActiveInvestigator { get; }
 
         //public override bool CanBeExecuted => ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
 

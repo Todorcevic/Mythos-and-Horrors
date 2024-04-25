@@ -19,8 +19,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            //await new SafeForeach<Investigator>(CheckHandSize, GetInvestigators).Execute();
-
             while (GetInvestigatorsMustDiscard().Any())
             {
                 Investigator investigator = GetInvestigatorsMustDiscard().First();

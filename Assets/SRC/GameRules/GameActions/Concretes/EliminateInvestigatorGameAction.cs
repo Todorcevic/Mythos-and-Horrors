@@ -33,5 +33,10 @@ namespace MythosAndHorrors.GameRules
         private async Task Discard(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
 
         private IEnumerable<Card> CardsInDangerZone() => Investigator.DangerZone.Cards;
+
+        public override async Task Undo()
+        {
+            await eliminateInvestigatorPresenter.PlayAnimationWith(this);
+        }
     }
 }

@@ -38,12 +38,14 @@ namespace MythosAndHorrors.GameView
                 Effect effectSelected = playableSelected.EffectsSelected.Single();
                 originalCardView.ClearCloneEffect();
                 await _showSelectorComponent.DestroyClones(cardViewSelected: cardView);
+                cardViewClones = null;
                 return effectSelected;
             }
             else
             {
                 await _showSelectorComponent.ReturnClones();
                 originalCardView.ClearCloneEffect();
+                cardViewClones = null;
                 return null;
             }
         }

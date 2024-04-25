@@ -22,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         public Investigator Fourth => _investigators[3];
         public Investigator GetTopInvestigatorsStrength =>
             AllInvestigatorsInPlay.OrderByDescending(investigator => investigator.Strength.Value).First();
-        public Investigator ActiveInvestigator => _gameActionsProvider.CurrentPhase.ActiveInvestigator;
 
         /*******************************************************************/
         public void AddInvestigator(Investigator investigator)

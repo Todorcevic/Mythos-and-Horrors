@@ -11,7 +11,8 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<EliminateInvestigatorGameAction>.PlayAnimationWith(EliminateInvestigatorGameAction eliminateInvestigatorGameAction)
         {
-            _avatarViewsManager.Get(eliminateInvestigatorGameAction.Investigator).gameObject.SetActive(false);
+            AvatarView avatar = _avatarViewsManager.Get(eliminateInvestigatorGameAction.Investigator);
+            avatar.gameObject.SetActive(!avatar.gameObject.activeSelf);
             await Task.CompletedTask;
         }
         /*******************************************************************/
