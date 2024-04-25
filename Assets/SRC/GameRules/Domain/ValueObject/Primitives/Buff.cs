@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         string IViewEffect.CardCodeSecundary => _cardMaster.Owner.Code;
 
         /*******************************************************************/
-        public async Task Check()
+        public async Task Execute()
         {
             if (_isBuffing) return;
             _isBuffing = true;

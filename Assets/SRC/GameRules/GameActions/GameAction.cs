@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
             await ExecuteThisLogic();
 
-            await _buffsProvider.CheckAllBuffs(this);
+            await _buffsProvider.ExecuteAllBuffs();
             await _reactionablesProvider.WhenFinish(this);
             FinishSet();
         }
