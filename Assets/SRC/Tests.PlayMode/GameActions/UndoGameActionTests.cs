@@ -84,5 +84,25 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Rewind().AsCoroutine();
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
+
+        [UnityTest]
+        public IEnumerator FullUndoTest()
+        {
+            yield return _preparationScene.StartingScene();
+            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Third.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Fourth.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (!gameActionTask.IsCompleted) yield return null;
+            yield return _gameActionsProvider.Rewind().AsCoroutine();
+            Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
+        }
     }
 }

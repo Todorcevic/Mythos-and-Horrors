@@ -2,17 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : PhaseGameAction
+    public class OneInvestigatorTurnGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly ChaptersProvider _chapterProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public Effect InvestigateEffect { get; private set; }
         public Effect DrawEffect { get; private set; }
@@ -24,42 +20,38 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> PlayFromHandEffects { get; } = new();
         public List<Effect> PlayActivableEffects { get; } = new();
 
-
-        public override bool CanBeExecuted => ActiveInvestigator?.HasTurnsAvailable ?? false;
-
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(OneInvestigatorTurnGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(OneInvestigatorTurnGameAction);
-        public override Phase MainPhase => Phase.Investigator;
-
-        /*******************************************************************/
-        public OneInvestigatorTurnGameAction(Investigator investigator)
+        public OneInvestigatorTurnGameAction(Investigator investigator) :
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
         {
             ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisPhaseLogic()
+        protected override async Task ExecuteThisLogic()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, Description);
-            PreparePassEffect(interactableGameAction);
-            PrepareInvestigateEffect(interactableGameAction);
-            PrepareMoveEffect(interactableGameAction);
-            PrepareInvestigatorAttackEffect(interactableGameAction);
-            PrepareInvestigatorConfrontEffect(interactableGameAction);
-            PrepareInvestigatorEludeEffect(interactableGameAction);
-            PreparePlayFromHandEffect(interactableGameAction);
-            PrepareActivables(interactableGameAction);
-            PrepareDraw(interactableGameAction);
-            PrepareTakeResource(interactableGameAction);
-            await _gameActionsProvider.Create(interactableGameAction);
+            PreparePassEffect();
+            PrepareInvestigateEffect();
+            PrepareMoveEffect();
+            PrepareInvestigatorAttackEffect();
+            PrepareInvestigatorConfrontEffect();
+            PrepareInvestigatorEludeEffect();
+            PreparePlayFromHandEffect();
+            PrepareActivables();
+            PrepareDraw();
+            PrepareTakeResource();
+
+            await base.ExecuteThisLogic();
+
+            if (ActiveInvestigator.HasTurnsAvailable && EffectSelected != UndoEffect)
+                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
         }
 
         /*******************************************************************/
-        private void PreparePassEffect(InteractableGameAction interactableGameAction)
+        private void PreparePassEffect()
         {
-            interactableGameAction.CreateMainButton().SetLogic(PassTurn);
-            interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
+            CreateMainButton().SetLogic(PassTurn);
+            CreateUndoButton().SetLogic(UndoEffect);
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
@@ -67,19 +59,17 @@ namespace MythosAndHorrors.GameRules
             async Task UndoEffect()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                if (lastInteractable.Parent is ChooseInvestigatorGameAction chooseInvestigator)
-                    ExitLoop();
-
-                void ExitLoop() => ((PlayInvestigatorLoopGameAction)Parent).Stop();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
             }
         }
 
         /*******************************************************************/
-        private void PrepareInvestigateEffect(InteractableGameAction interactableGameAction)
+        private void PrepareInvestigateEffect()
         {
             if (!CanInvestigate()) return;
 
-            InvestigateEffect = interactableGameAction.Create()
+            InvestigateEffect = Create()
                 .SetCard(ActiveInvestigator.CurrentPlace)
                 .SetInvestigator(ActiveInvestigator)
                 .SetLogic(Investigate);
@@ -98,14 +88,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareMoveEffect(InteractableGameAction interactableGameAction)
+        private void PrepareMoveEffect()
         {
             if (ActiveInvestigator.CurrentPlace == null) return;
             foreach (CardPlace cardPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
             {
                 if (!CanMove()) continue;
 
-                MoveEffects.Add(interactableGameAction.Create()
+                MoveEffects.Add(Create()
                     .SetCard(cardPlace)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(Move));
@@ -125,13 +115,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorAttackEffect(InteractableGameAction interactableGameAction)
+        private void PrepareInvestigatorAttackEffect()
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorAttack()) continue;
 
-                InvestigatorAttackEffects.Add(interactableGameAction.Create()
+                InvestigatorAttackEffects.Add(Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(InvestigatorAttack));
@@ -151,13 +141,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorConfrontEffect(InteractableGameAction interactableGameAction)
+        private void PrepareInvestigatorConfrontEffect()
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorConfront()) continue;
 
-                InvestigatorConfrontEffects.Add(interactableGameAction.Create()
+                InvestigatorConfrontEffects.Add(Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(InvestigatorConfront));
@@ -178,13 +168,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareInvestigatorEludeEffect(InteractableGameAction interactableGameAction)
+        private void PrepareInvestigatorEludeEffect()
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
                 if (!CanInvestigatorElude()) continue;
 
-                InvestigatorEludeEffects.Add(interactableGameAction.Create()
+                InvestigatorEludeEffects.Add(Create()
                     .SetCard(cardCreature)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(InvestigatorElude));
@@ -206,12 +196,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PreparePlayFromHandEffect(InteractableGameAction interactableGameAction)
+        private void PreparePlayFromHandEffect()
         {
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
                 .Where(playableFromHand => DefaultCondition(playableFromHand)))
             {
-                PlayFromHandEffects.Add(interactableGameAction.Create()
+                PlayFromHandEffects.Add(Create()
                     .SetCard(playableFromHand as Card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(PlayFromHand));
@@ -231,12 +221,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareActivables(InteractableGameAction interactableGameAction)
+        private void PrepareActivables()
         {
             foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>()
                 .Where(activable => activable.ConditionToActivate(ActiveInvestigator)))
             {
-                PlayActivableEffects.Add(interactableGameAction.Create()
+                PlayActivableEffects.Add(Create()
                     .SetCard(activable as Card)
                     .SetInvestigator(ActiveInvestigator)
                     .SetLogic(Activate));
@@ -246,11 +236,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareDraw(InteractableGameAction interactableGameAction)
+        private void PrepareDraw()
         {
             if (!CanDraw()) return;
 
-            DrawEffect = interactableGameAction.Create()
+            DrawEffect = Create()
                   .SetCard(ActiveInvestigator.CardAidToDraw)
                   .SetInvestigator(ActiveInvestigator)
                   .SetLogic(Draw);
@@ -269,11 +259,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void PrepareTakeResource(InteractableGameAction interactableGameAction)
+        private void PrepareTakeResource()
         {
             if (!CanTakeResource()) return;
 
-            TakeResourceEffect = interactableGameAction.Create()
+            TakeResourceEffect = Create()
                .SetInvestigator(ActiveInvestigator)
                .SetLogic(TakeResource);
         }

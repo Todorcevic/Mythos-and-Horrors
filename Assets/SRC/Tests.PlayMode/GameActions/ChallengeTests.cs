@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class ChallengeTests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]

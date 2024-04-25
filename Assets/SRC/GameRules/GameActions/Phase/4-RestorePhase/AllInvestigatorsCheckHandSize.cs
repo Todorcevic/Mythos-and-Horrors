@@ -22,15 +22,12 @@ namespace MythosAndHorrors.GameRules
             while (GetInvestigatorsMustDiscard().Any())
             {
                 Investigator investigator = GetInvestigatorsMustDiscard().First();
-                await CheckHandSize(investigator);
+                await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(investigator));
             }
         }
 
         /*******************************************************************/
         IEnumerable<Investigator> GetInvestigatorsMustDiscard() => _investigatorsProvider.AllInvestigatorsInPlay
             .Where(investigator => investigator.HandSize > investigator.MaxHandSize.Value);
-
-        private async Task CheckHandSize(Investigator investigator) =>
-             await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(investigator));
     }
 }

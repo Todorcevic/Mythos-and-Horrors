@@ -3,33 +3,29 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ChooseInvestigatorGameAction : PhaseGameAction
+    public class ChooseInvestigatorGameAction : InteractableGameAction
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChooseInvestigatorGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ChooseInvestigatorGameAction);
-        public override Phase MainPhase => Phase.Investigator;
+        /*******************************************************************/
+        public ChooseInvestigatorGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator") { }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisPhaseLogic()
+        protected override async Task ExecuteThisLogic()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, Description);
-            interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
+            CreateUndoButton().SetLogic(UndoEffect);
 
             async Task UndoEffect()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                if (lastInteractable.Parent is OneInvestigatorTurnGameAction oneInvestigator)
-                    await _gameActionsProvider.Create(oneInvestigator.Parent);
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
             }
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
-                interactableGameAction.Create()
-                    .SetCard(investigator.AvatarCard)
+                Create().SetCard(investigator.AvatarCard)
                     .SetInvestigator(investigator)
                     .SetLogic(PlayInvestigator);
 
@@ -40,7 +36,7 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await base.ExecuteThisLogic();
         }
     }
 }

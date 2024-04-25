@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(PlayInvestigatorLoopGameAction);
         public override Phase MainPhase => Phase.Investigator;
 
-        public override bool CanBeExecuted => (ActiveInvestigator?.HasTurnsAvailable ?? false) && !_isStop;
+        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
 
         /*******************************************************************/
         public PlayInvestigatorLoopGameAction(Investigator investigator)
@@ -24,18 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (CanBeExecuted)
-            {
-                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
-            }
-        }
-
-        /*******************************************************************/
-        public bool _isStop;
-
-        public void Stop()
-        {
-            _isStop = true;
+            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
         }
     }
 }
