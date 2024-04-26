@@ -1,74 +1,53 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MulliganGameAction : PhaseGameAction
+    public class MulliganGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-
-        public List<Effect> DiscardEffects { get; } = new();
-        public List<Effect> RestoreEffects { get; } = new();
-        public Effect ButtonEffect { get; private set; }
 
         /*******************************************************************/
-        public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GameText.MULLIGAN_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.MULLIGAN_PHASE_DESCRIPTION;
-
-        /*******************************************************************/
-        public override bool CanBeExecuted => ActiveInvestigator != null;
-
-        /*******************************************************************/
-        public MulliganGameAction(Investigator investigator)
+        public MulliganGameAction(Investigator investigator) :
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Choose Investigator")
         {
             ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
-        protected sealed override async Task ExecuteThisPhaseLogic()
+        protected sealed override async Task ExecuteThisLogic()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: false, Description);
-            ButtonEffect = interactableGameAction.CreateMainButton()
-                    .SetLogic(Continue);
-            /*******************************************************************/
-            async Task Continue() => await Task.CompletedTask;
+            CreateMainButton().SetLogic(Continue);
+            CreateUndoButton().SetLogic(UndoEffect);
+
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                DiscardEffects.Add(interactableGameAction.Create()
-                    .SetCard(card)
+                Create().SetCard(card)
                     .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(Discard));
+                    .SetLogic(Discard);
 
                 /*******************************************************************/
-                async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(card));
-            }
-
-            foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
-            {
-                if (!CanRestore()) continue;
-
-                RestoreEffects.Add(interactableGameAction.Create()
-                    .SetCard(card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(Restore));
-
-                /*******************************************************************/
-                async Task Restore() => await _gameActionsProvider.Create(new MoveCardsGameAction(card, ActiveInvestigator.HandZone));
-
-                bool CanRestore()
+                async Task Discard()
                 {
-                    if (card is IFlaw) return false;
-                    return true;
+                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
                 }
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
-            if (interactableGameAction.EffectSelected == ButtonEffect) return;
-            await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
+
+            await base.ExecuteThisLogic();
+
+            /*******************************************************************/
+
+            async Task Continue() => await Task.CompletedTask;
+
+            async Task UndoEffect()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
+            }
         }
     }
 }

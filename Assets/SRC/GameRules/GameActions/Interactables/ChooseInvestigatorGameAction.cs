@@ -16,13 +16,6 @@ namespace MythosAndHorrors.GameRules
         {
             CreateUndoButton().SetLogic(UndoEffect);
 
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
-
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
                 Create().SetCard(investigator.AvatarCard)
@@ -32,11 +25,19 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task PlayInvestigator()
                 {
-                    await _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(investigator));
+                    await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
                 };
             }
 
             await base.ExecuteThisLogic();
+
+            /*******************************************************************/
+            async Task UndoEffect()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
+            }
         }
     }
 }

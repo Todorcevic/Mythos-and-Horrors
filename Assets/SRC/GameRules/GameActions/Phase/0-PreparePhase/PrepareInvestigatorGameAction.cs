@@ -12,8 +12,6 @@ namespace MythosAndHorrors.GameRules
         public override string Name => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_NAME;
         public override string Description => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_DESCRIPTION;
 
-        public override bool CanBeExecuted => ActiveInvestigator != null;
-
         /*******************************************************************/
         public PrepareInvestigatorGameAction(Investigator investigator)
         {

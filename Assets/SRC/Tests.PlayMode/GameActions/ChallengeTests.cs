@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay2, _investigatorsProvider.Leader.HandZone)).AsCoroutine();
 
-            Task<PlayInvestigatorLoopGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(_investigatorsProvider.First));
+            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();

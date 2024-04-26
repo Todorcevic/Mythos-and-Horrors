@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Study.Hints, 3)).AsCoroutine();
 
-            Task<PlayInvestigatorLoopGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(_investigatorsProvider.Leader));
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Study.Hints, 3)).AsCoroutine();
 
-            Task<PlayInvestigatorLoopGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorLoopGameAction(_investigatorsProvider.Leader));
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);

@@ -8,11 +8,10 @@ namespace MythosAndHorrors.GameRules
         {
             await base.WhenBegin(gameAction);
 
-            if (gameAction is InteractableGameAction interactableGameAction
-                && interactableGameAction.Parent is OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+            if (gameAction is OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
             {
                 Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.Card == this);
-                if (!CanMove()) interactableGameAction.RemoveEffect(moveEffect);
+                if (!CanMove()) oneInvestigatorTurnGameAction.RemoveEffect(moveEffect);
             }
         }
 

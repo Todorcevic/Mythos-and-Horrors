@@ -3,20 +3,20 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PlayInvestigatorLoopGameAction : PhaseGameAction
+    public class PlayInvestigatorGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(PlayInvestigatorLoopGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(PlayInvestigatorLoopGameAction);
+        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(PlayInvestigatorGameAction);
+        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(PlayInvestigatorGameAction);
         public override Phase MainPhase => Phase.Investigator;
 
         public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
 
         /*******************************************************************/
-        public PlayInvestigatorLoopGameAction(Investigator investigator)
+        public PlayInvestigatorGameAction(Investigator investigator)
         {
             ActiveInvestigator = investigator;
         }
