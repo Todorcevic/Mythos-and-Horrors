@@ -44,8 +44,8 @@ namespace MythosAndHorrors.GameRules
             await base.WhenFinish(gameAction);
             await PayHints.Check(gameAction);
         }
-        /*******************************************************************/
 
+        /*******************************************************************/
         private bool PayHintsCondition(RoundGameAction gameAction)
         {
             if (!IsInPlay) return false;
@@ -59,7 +59,13 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
-            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, specificInvestigators));
+
+            PayHintsToGoalGameAction payHintsGoalGameAction = new(this, specificInvestigators);
+            payHintsGoalGameAction.CreateMainButton().SetLogic(Continue).SetDescription(nameof(Continue));
+            await _gameActionsProvider.Create(payHintsGoalGameAction);
+
+            /*******************************************************************/
+            static async Task Continue() => await Task.CompletedTask;
         }
     }
 }

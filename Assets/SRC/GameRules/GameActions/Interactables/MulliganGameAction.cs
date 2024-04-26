@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Choose Investigator")
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Mulligan")
         {
             ActiveInvestigator = investigator;
         }

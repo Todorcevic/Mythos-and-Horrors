@@ -5,57 +5,51 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintsToGoalGameAction : GameAction
+    public class PayHintsToGoalGameAction : InteractableGameAction
     {
-        private bool _isCancel;
-        private IEnumerable<Investigator> _specificInvestigators;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public CardGoal CardGoal { get; }
-
-        private IEnumerable<Investigator> DefaultsInvestigators =>
-            _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0);
-        public IEnumerable<Investigator> InvestigatorsToPay => _specificInvestigators ?? DefaultsInvestigators;
-        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive && InvestigatorsToPay.Sum(investigator => investigator.Hints.Value) >= CardGoal.Hints.Value;
+        public IEnumerable<Investigator> InvestigatorsToPay { get; }
+        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive &&
+            InvestigatorsToPay.Sum(investigator => investigator.Hints.Value) >= CardGoal.Hints.Value;
 
         /*******************************************************************/
-        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> specificInvestigators = null)
+        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
+            base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Investigator to pay")
         {
             CardGoal = cardGoal;
-            _specificInvestigators = specificInvestigators;
+            InvestigatorsToPay = investigatorsToPay;
         }
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            while (CanBeExecuted && !_isCancel)
+            CreateUndoButton().SetLogic(Undo);
+
+            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
-                interactableGameAction.CreateMainButton().SetLogic(Cancel);
+                Create().SetCard(investigator.AvatarCard)
+                    .SetInvestigator(investigator)
+                    .SetCardAffected(CardGoal)
+                    .SetLogic(PayHint);
 
-                async Task Cancel()
+                /*******************************************************************/
+                async Task PayHint()
                 {
-                    _isCancel = true;
-                    await _gameActionsProvider.UndoUntil(this);
+                    int amountHitsToPay = CardGoal.Hints.Value < investigator.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
+                    await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, investigator.Hints.Value));
+                    await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
                 }
+            }
 
-                foreach (Investigator investigator in InvestigatorsToPay)
-                {
-                    interactableGameAction.Create()
-                        .SetCard(investigator.AvatarCard)
-                        .SetInvestigator(investigator)
-                        .SetCardAffected(CardGoal)
-                        .SetLogic(PayHint);
+            await base.ExecuteThisLogic();
 
-                    /*******************************************************************/
-                    async Task PayHint()
-                    {
-                        int amountHitsToPay = CardGoal.Hints.Value < investigator.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
-                        await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, investigator.Hints.Value));
-                    }
-                }
-
-                await _gameActionsProvider.Create(interactableGameAction);
+            /*******************************************************************/
+            async Task Undo()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
             }
         }
     }

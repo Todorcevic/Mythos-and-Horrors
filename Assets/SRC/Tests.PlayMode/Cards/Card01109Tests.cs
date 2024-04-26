@@ -1,14 +1,12 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class Card01109Tests : TestBase
     {
         //protected override bool DEBUG_MODE => true;
@@ -74,6 +72,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
+            Assert.That(_mainButtonComponent.GetPrivateMember<bool>("IsActivated"), Is.False);
+
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskGameAction.IsCompleted) yield return null;

@@ -69,11 +69,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            while (!taskGameAction.IsCompleted) yield return null;
 
+            while (!taskGameAction.IsCompleted) yield return null;
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(5));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(3));
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(8));
