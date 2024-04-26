@@ -1,8 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
-using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
@@ -17,12 +16,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Full_Take_Resource()
         {
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            //yield return new WaitForSeconds(10);
-            WaitToTokenClick().AsTask();
-            yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
 
-
-            //while (!gameActionTask.IsCompleted) yield return null;
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (DEBUG_MODE) yield return PressAnyKey();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(6));

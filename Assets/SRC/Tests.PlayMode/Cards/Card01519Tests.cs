@@ -31,10 +31,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
 
-            Task<OneInvestigatorTurnGameAction> taskGameAction = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First));
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(aidCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToCloneClick(_investigatorsProvider.Second.AvatarCard.PlayableEffects.First());
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskGameAction.IsCompleted) yield return null;
             if (DEBUG_MODE) yield return PressAnyKey();

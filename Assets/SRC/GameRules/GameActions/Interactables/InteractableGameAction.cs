@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool CanBackToThisInteractable { get; protected set; }
         public bool MustShowInCenter { get; protected set; }
-        public string Description { get; protected set; }
+        public virtual string Description { get; protected set; }
 
         public Investigator ActiveInvestigator { get; protected set; }
         public Effect EffectSelected { get; private set; }

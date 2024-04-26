@@ -5,22 +5,22 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ShareDamageAndFearGameAction : GameAction
+    public class ShareDamageAndFearGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Investigator Investigator { get; }
         public Card ByThisCard { get; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
-        public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && Investigator.IsInPlay;
-        public string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
+        public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && ActiveInvestigator.IsInPlay;
+        public override string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/
-        public ShareDamageAndFearGameAction(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
+        public ShareDamageAndFearGameAction(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0) :
+            base(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm")
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
@@ -29,35 +29,40 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            while (CanBeExecuted)
+            CreateUndoButton().SetLogic(UndoEffect);
+
+            List<Card> allSelectables = new();
+
+            if (AmountDamage > 0)
+                allSelectables.AddRange(ActiveInvestigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
+
+            if (AmountFear > 0)
+                allSelectables.AddRange(ActiveInvestigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
+
+            foreach (Card cardSelectable in allSelectables)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, Description);
-                List<Card> allSelectables = new();
+                Create()
+                    .SetCard(cardSelectable)
+                    .SetInvestigator(cardSelectable.Owner)
+                    .SetCardAffected(ByThisCard)
+                    .SetLogic(DoDamageAndFear);
 
-                if (AmountDamage > 0)
-                    allSelectables.AddRange(Investigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
-
-                if (AmountFear > 0)
-                    allSelectables.AddRange(Investigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
-
-                foreach (Card cardSelectable in allSelectables)
+                /*******************************************************************/
+                async Task DoDamageAndFear()
                 {
-                    interactableGameAction.Create()
-                        .SetCard(cardSelectable)
-                        .SetInvestigator(cardSelectable.Owner)
-                        .SetCardAffected(ByThisCard)
-                        .SetLogic(DoDamageAndFear);
-
-                    /*******************************************************************/
-                    async Task DoDamageAndFear()
-                    {
-                        HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, ByThisCard, AmountDamage, AmountFear));
-                        AmountDamage -= harm.TotalDamageApply;
-                        AmountFear -= harm.TotalFearApply;
-                    }
+                    HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, ByThisCard, AmountDamage, AmountFear));
+                    await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(ActiveInvestigator, ByThisCard, AmountDamage - harm.TotalDamageApply, AmountFear - harm.TotalFearApply));
                 }
+            }
 
-                await _gameActionsProvider.Create(interactableGameAction);
+            await base.ExecuteThisLogic();
+
+            /*******************************************************************/
+            async Task UndoEffect()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
             }
         }
     }

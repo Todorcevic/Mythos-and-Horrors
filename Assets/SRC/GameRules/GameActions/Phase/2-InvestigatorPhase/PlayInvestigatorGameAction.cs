@@ -14,17 +14,18 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Investigator;
 
         public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
+        public static Investigator PlayActiveInvestigator { get; private set; }
 
         /*******************************************************************/
         public PlayInvestigatorGameAction(Investigator investigator)
         {
-            ActiveInvestigator = investigator;
+            PlayActiveInvestigator = ActiveInvestigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
         }
     }
 }

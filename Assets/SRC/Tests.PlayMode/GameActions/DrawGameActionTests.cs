@@ -2,9 +2,8 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
-using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -16,16 +15,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator DrawTest()
         {
-            Card cardToDraw = _investigatorsProvider.First.FullDeck.First();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToDraw, _investigatorsProvider.First.DeckZone)).AsCoroutine();
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            Card cardToDraw = _investigatorsProvider.First.CardAidToDraw;
 
-            if (!DEBUG_MODE) WaitToClick(cardToDraw).AsTask();
-            yield return _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(_investigatorsProvider.First)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            if (!DEBUG_MODE) yield return WaitToClick(cardToDraw);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
-            Assert.That(_investigatorsProvider.First.HandZone.Cards.First(), Is.EqualTo(cardToDraw));
+            while (!gameActionTask.IsCompleted) yield return null;
+            Assert.That(_investigatorsProvider.First.HandZone.Cards.Contains(cardToDraw), Is.True);
         }
     }
 }

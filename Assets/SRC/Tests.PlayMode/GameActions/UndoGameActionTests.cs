@@ -89,6 +89,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator FullUndoTest()
         {
             yield return _preparationScene.StartingScene();
+
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.AvatarCard);

@@ -1,8 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
-using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
@@ -15,21 +14,19 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator EludeEffectTest()
         {
-            CardCreature creature = _cardsProvider.AllCards.OfType<CardCreature>().First();
-            CardPlace place = _cardsProvider.AllCards.OfType<CardPlace>().First();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place.OwnZone)).AsCoroutine();
+            CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
+
+            yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
-            OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = new(_investigatorsProvider.First);
-            _ = _gameActionsProvider.Create(oneInvestigatorTurnGameAction);
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(creature);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(oneInvestigatorTurnGameAction.InvestigatorEludeEffects.Find(effect => effect.Card == creature));
+            if (!DEBUG_MODE) yield return WaitToCloneClick(1);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(creature.Exausted.IsActive);
-            Assert.That(creature.CurrentPlace, Is.EqualTo(place));
+            while (!gameActionTask.IsCompleted) yield return null;
+            Assert.That(creature.Exausted.IsActive, Is.True);
+            Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.CurrentPlace.OwnZone));
         }
     }
 }

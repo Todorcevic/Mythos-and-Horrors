@@ -3,7 +3,6 @@ using NUnit.Framework;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
-using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -21,8 +20,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
             int resutlExpected = investigatorToTest.Resources.Value + 2;
 
-            Task<OneInvestigatorTurnGameAction> taskInvestigator = _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
+            Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Cellar);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskInvestigator.IsCompleted) yield return null;

@@ -142,8 +142,19 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator WaitToCloneClick(int clonePosition)
         {
+            float startTime = Time.realtimeSinceStartup;
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-            yield return WaitToCloneClick(_gameActionsProvider.CurrentInteractable.AllEffects[clonePosition]);
+            while (_multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
+
+            CardView cardView = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones")[clonePosition] as CardView;
+            CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
+
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+
+            if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+            else throw new TimeoutException($"Clone position: {clonePosition} Not become clickable");
+            yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+
         }
 
         protected IEnumerator WaitToCloneClick(Effect effect)
@@ -154,6 +165,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             List<IPlayable> clones = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones");
             CardView cardView = clones.Find(playable => playable.EffectsSelected.Contains(effect)) as CardView;
+
             CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
 
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;

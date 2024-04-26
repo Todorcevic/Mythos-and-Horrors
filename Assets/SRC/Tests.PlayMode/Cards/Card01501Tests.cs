@@ -27,9 +27,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
 
-            Task<OneInvestigatorTurnGameAction> taskInvestigator =
-             _gameActionsProvider.Create(new OneInvestigatorTurnGameAction(investigatorToTest));
+            Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(place);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskInvestigator.IsCompleted) yield return null;
