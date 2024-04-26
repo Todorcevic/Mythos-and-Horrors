@@ -51,6 +51,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        protected override async Task WhenFinish(GameAction gameAction)
+        {
+            await base.WhenFinish(gameAction);
+            await Defeat.Check(gameAction);
+        }
+
+        /*******************************************************************/
         private bool DefeatCondition(UpdateStatGameAction gameAction)
         {
             if (!IsInPlay) return false;

@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     {
         private int valueToken;
 
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -33,6 +33,18 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             while (!taskInvestigator.IsCompleted) yield return null;
             Assert.That(valueToken, Is.EqualTo(valueTokenExpected));
+        }
+
+        [UnityTest]
+        public IEnumerator Investigator1DiscoverClue()
+        {
+            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
+            Investigator investigatorToTest = cardInvestigator.Owner;
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5)).AsCoroutine();
+
+            Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
         }
 
         private async Task RevealStarToken(GameAction gameAction)

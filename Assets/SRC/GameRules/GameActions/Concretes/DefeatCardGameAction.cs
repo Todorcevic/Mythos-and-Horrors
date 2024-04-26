@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public Card Card { get; }
         public Card ByThisCard => _byThisCard ?? GetFromCard();
+        public Investigator ByThisInvestigator => ByThisCard?.Owner;
 
         /*******************************************************************/
         public DefeatCardGameAction(Card card, Card byThisCard = null)
@@ -37,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private Card GetFromCard()
         {
-            if (Parent is UpdateStatesGameAction updateGameAction && updateGameAction.Parent is HarmToCardGameAction harmToCardGameAction)
+            if (Parent is DecrementStatGameAction updateGameAction && updateGameAction.Parent is HarmToCardGameAction harmToCardGameAction)
                 return harmToCardGameAction.ByThisCard;
 
             return default;

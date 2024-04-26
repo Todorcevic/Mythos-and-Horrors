@@ -128,7 +128,7 @@ namespace MythosAndHorrors.GameRules
                 async Task InvestigatorAttack()
                 {
                     await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorAttackTurnsCost.Value));
-                    await _gameActionsProvider.Create(new DecrementStatGameAction(cardCreature.Health, 1));
+                    await _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: 1));
                 }
             }
         }
