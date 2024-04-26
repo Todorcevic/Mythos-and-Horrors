@@ -29,8 +29,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CreateUndoButton().SetLogic(UndoEffect);
-
             List<Card> allSelectables = new();
 
             if (AmountDamage > 0)
@@ -56,14 +54,6 @@ namespace MythosAndHorrors.GameRules
             }
 
             await base.ExecuteThisLogic();
-
-            /*******************************************************************/
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
         }
     }
 }

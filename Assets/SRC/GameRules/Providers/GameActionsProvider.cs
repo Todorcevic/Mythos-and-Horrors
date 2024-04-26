@@ -59,7 +59,6 @@ namespace MythosAndHorrors.GameRules
                 await lastGameAction.Undo();
                 if (lastGameAction == lastInteractableToUndo) break;
             }
-
             return lastInteractableToUndo;
         }
 

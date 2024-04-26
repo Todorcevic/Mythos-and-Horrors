@@ -18,8 +18,6 @@ namespace MythosAndHorrors.GameRules
         protected sealed override async Task ExecuteThisLogic()
         {
             CreateMainButton().SetLogic(Continue);
-            CreateUndoButton().SetLogic(UndoEffect);
-
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
@@ -41,13 +39,6 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
 
             async Task Continue() => await Task.CompletedTask;
-
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
         }
     }
 }

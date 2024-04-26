@@ -52,17 +52,9 @@ namespace MythosAndHorrors.GameRules
         private void PreparePassEffect()
         {
             CreateMainButton().SetLogic(PassTurn);
-            CreateUndoButton().SetLogic(UndoEffect);
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
-
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
         }
 
         /*******************************************************************/

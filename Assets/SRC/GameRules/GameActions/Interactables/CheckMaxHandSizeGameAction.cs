@@ -18,21 +18,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CreateUndoButton().SetLogic(Undo);
-
             if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateMainButton().SetLogic(Continue);
             else CreateGameActions();
 
             await base.ExecuteThisLogic();
 
             /*******************************************************************/
-
-            async Task Undo()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
 
             async Task Continue() => await Task.CompletedTask;
         }

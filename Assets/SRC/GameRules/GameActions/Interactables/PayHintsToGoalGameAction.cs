@@ -24,8 +24,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CreateUndoButton().SetLogic(UndoEffect);
-
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {
                 Create().SetCard(investigator.AvatarCard)
@@ -43,14 +41,6 @@ namespace MythosAndHorrors.GameRules
             }
 
             await base.ExecuteThisLogic();
-
-            /*******************************************************************/
-            async Task UndoEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
         }
     }
 }

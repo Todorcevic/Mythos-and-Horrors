@@ -33,7 +33,6 @@ namespace MythosAndHorrors.GameRules
         {
             await _commitPresenter.PlayAnimationWith(this);
             CreateMainButton().SetLogic(Continue);
-            CreateUndoButton().SetLogic(UndoButtoneEffect);
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {
@@ -55,13 +54,6 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
 
             async Task Continue() => await CurrentChallenge.ContinueChallenge();
-
-            async Task UndoButtoneEffect()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
         }
 
         public override async Task Undo()

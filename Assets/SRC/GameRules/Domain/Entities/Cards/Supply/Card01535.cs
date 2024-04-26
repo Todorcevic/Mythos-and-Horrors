@@ -25,11 +25,6 @@ namespace MythosAndHorrors.GameRules
         public async Task Activate()
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
-            interactableGameAction.CreateUndoButton().SetLogic(UndoEffect);
-            async Task UndoEffect()
-            {
-                await _gameActionsProvider.UndoLastInteractable();
-            }
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
                 .Where(investigator => investigator.CanBeHealed);

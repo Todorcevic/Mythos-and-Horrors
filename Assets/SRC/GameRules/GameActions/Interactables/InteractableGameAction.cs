@@ -68,16 +68,16 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public Effect CreateUndoButton()
-        {
-            Effect effect = new();
-            UndoEffect = effect;
-            return effect;
-        }
-
         private void SetUndoButton()
         {
-            if (!_gameActionsProvider.CanUndo()) UndoEffect = null;
+            UndoEffect = _gameActionsProvider.CanUndo() ? new Effect().SetLogic(UndoLogic) : null;
+
+            async Task UndoLogic()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                lastInteractable.ClearEffects();
+                await _gameActionsProvider.Create(lastInteractable);
+            }
         }
 
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
