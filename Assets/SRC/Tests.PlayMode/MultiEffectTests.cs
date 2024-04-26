@@ -1,10 +1,8 @@
 ﻿using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
@@ -26,10 +24,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             interactableGameAction.CreateMainButton()
                      .SetLogic(() => Task.CompletedTask);
 
-            Effect effectToClick = interactableGameAction.Create()
-                   .SetCard(card)
-                   .SetInvestigator(investigator1)
-                   .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
+            interactableGameAction.Create()
+                  .SetCard(card)
+                  .SetInvestigator(investigator1)
+                  .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
 
             interactableGameAction.Create()
                 .SetCard(card)
@@ -40,22 +38,25 @@ namespace MythosAndHorrors.PlayMode.Tests
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
-
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
-            if (!DEBUG_MODE) WaitToClick2(card).AsTask();
-            yield return _gameActionsProvider.Create(interactableGameAction).AsCoroutine();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Task gameActionTask = _gameActionsProvider.Create(interactableGameAction);
+
+            if (!DEBUG_MODE) yield return WaitToClick(card);
+            if (!DEBUG_MODE) yield return WaitToCloneClick(0);
+
+            while (!gameActionTask.IsCompleted) yield return null;
+
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));
         }
 
-        private IEnumerator WaitToClick2(Card card)
-        {
-            CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
-            yield return new WaitUntil(() => cardSensor.IsClickable);
-            cardSensor.OnMouseUpAsButton();
-            yield return new WaitUntil(() => cardSensor.IsClickable && _zoneViewsManager.SelectorZone.GetComponentsInChildren<CardView>().Length > 0);
-            cardSensor.OnMouseUpAsButton();
-        }
+        //private IEnumerator WaitToClick2(Card card)
+        //{
+        //    CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetComponentInChildren<CardSensorController>();
+        //    yield return new WaitUntil(() => cardSensor.IsClickable);
+        //    cardSensor.OnMouseUpAsButton();
+        //    yield return new WaitUntil(() => cardSensor.IsClickable && _zoneViewsManager.SelectorZone.GetComponentsInChildren<CardView>().Length > 0);
+        //    cardSensor.OnMouseUpAsButton();
+        //}
     }
 }

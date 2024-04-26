@@ -89,10 +89,20 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator FullUndoTest()
         {
             yield return _preparationScene.StartingScene();
-
+            yield return _gameActionsProvider.Create(new RevealGameAction(_preparationScene.SceneCORE1.Attic)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Attic);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
+            Assert.That(_investigatorsProvider.First.Sanity.Value, Is.EqualTo(4));
+
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
+            if (!DEBUG_MODE) yield return WaitToUndoClick();
+            Assert.That(_investigatorsProvider.First.Sanity.Value, Is.EqualTo(5));
+            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Hallway));
+
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();

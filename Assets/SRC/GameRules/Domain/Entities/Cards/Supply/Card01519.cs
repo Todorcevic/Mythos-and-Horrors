@@ -28,12 +28,14 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
-            interactableGameAction.CreateMainButton().SetLogic(CancelEffect);
+            //interactableGameAction.CreateUndoButton().SetLogic(CancelEffect);
 
-            async Task CancelEffect()
-            {
-                await _gameActionsProvider.UndoLastInteractable();
-            }
+            //async Task CancelEffect()
+            //{
+            //    InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+            //    lastInteractable.ClearEffects();
+            //    await _gameActionsProvider.Create(lastInteractable);
+            //}
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
                 .Where(investigator => investigator.CanBeHealed))
