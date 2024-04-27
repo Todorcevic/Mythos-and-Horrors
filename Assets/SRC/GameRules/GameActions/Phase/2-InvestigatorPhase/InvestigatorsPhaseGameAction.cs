@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigatorsPhaseGameAction : PhaseGameAction
+    public class InvestigatorsPhaseGameAction : PhaseGameAction, IPhase
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

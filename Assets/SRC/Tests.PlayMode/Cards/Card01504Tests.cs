@@ -35,6 +35,21 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(valueToken, Is.EqualTo(investigatorToTest.FearRecived));
         }
 
+        [UnityTest]
+        public IEnumerator HarmCreatureWithSanityTest()
+        {
+            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01504>();
+            Investigator investigatorToTest = cardInvestigator.Owner;
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
+            Task<HarmToInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, _preparationScene.SceneCORE1.GhoulSecuaz, amountFear: 3, isDirect: true));
+
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.GhoulSecuaz);
+
+            while (!taskGameAction.IsCompleted) yield return null;
+            Assert.That(_preparationScene.SceneCORE1.GhoulSecuaz.Health.Value, Is.EqualTo(1));
+        }
+
         private async Task RevealStarToken(GameAction gameAction)
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;

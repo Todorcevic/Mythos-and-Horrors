@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class RestorePhaseGameAction : PhaseGameAction
+    public class RestorePhaseGameAction : PhaseGameAction, IPhase
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

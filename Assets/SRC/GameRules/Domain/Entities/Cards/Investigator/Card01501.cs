@@ -44,8 +44,23 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
-            await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Harm Creature");
+            interactableGameAction.CreateMainButton().SetLogic(Continue);
+            interactableGameAction.Create().SetCard(this)
+                .SetInvestigator(Owner)
+                .SetLogic(HarmCreature);
+
+            /*******************************************************************/
+            async Task HarmCreature()
+            {
+                await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
+                await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+            };
+
+            await _gameActionsProvider.Create(interactableGameAction);
+
+            /*******************************************************************/
+            async Task Continue() => await Task.CompletedTask;
         }
 
         private bool DiscoverHintCondition(DefeatCardGameAction defeatCardGameAction)

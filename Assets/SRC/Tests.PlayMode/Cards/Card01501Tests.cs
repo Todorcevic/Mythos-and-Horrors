@@ -42,8 +42,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigatorToTest = cardInvestigator.Owner;
             yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5)).AsCoroutine();
+            Task<HarmToCardGameAction> taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5));
+            if (!DEBUG_MODE) yield return WaitToClick(cardInvestigator);
 
+            while (!taskGameAction.IsCompleted) yield return null;
             Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
         }
 
