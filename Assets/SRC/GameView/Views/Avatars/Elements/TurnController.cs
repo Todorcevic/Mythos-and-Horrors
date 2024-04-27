@@ -55,7 +55,6 @@ namespace MythosAndHorrors.GameView
         private void CheckMaxTurn(int realAmount)
         {
             int amount = (_maxTurns.Value > realAmount ? _maxTurns.Value : realAmount) - _turnViews.Count;
-
             if (amount < 0)
             {
                 for (int i = 0; i < -amount; i++)

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             if (_isBuffing) return;
             _isBuffing = true;
 
-            List<Card> cardsAffected = CardsToBuff.Invoke().ToList();
+            IEnumerable<Card> cardsAffected = CardsToBuff.Invoke().ToList();
             IEnumerable<Card> cardsToActivate = cardsAffected.Except(CurrentCardsAffected);
             IEnumerable<Card> cardsToDeactivate = CurrentCardsAffected.Except(cardsAffected);
 
