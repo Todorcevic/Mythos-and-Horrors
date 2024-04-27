@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,17 +26,18 @@ namespace MythosAndHorrors.GameRules
         {
             if (_isBuffing) return;
             _isBuffing = true;
-            IEnumerable<Card> cardsAffected = CardsToBuff.Invoke().ToList();
+
+            List<Card> cardsAffected = CardsToBuff.Invoke().ToList();
             IEnumerable<Card> cardsToActivate = cardsAffected.Except(CurrentCardsAffected);
             IEnumerable<Card> cardsToDeactivate = CurrentCardsAffected.Except(cardsAffected);
 
-            if (cardsToActivate.Count() > 0)
+            if (cardsToActivate.Any())
             {
                 await ActivationLogic.Invoke(cardsToActivate);
                 CurrentCardsAffected.AddRange(cardsToActivate);
             }
 
-            if (cardsToDeactivate.Count() > 0)
+            if (cardsToDeactivate.Any())
             {
                 await DeactivationLogic.Invoke(cardsToDeactivate);
                 CurrentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));

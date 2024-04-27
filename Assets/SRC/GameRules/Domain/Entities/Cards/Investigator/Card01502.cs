@@ -44,6 +44,7 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<Card> CardsToBuff()
         {
             if (BuffActivation()) return _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome)
+                && card.Owner == Owner
                 && card.IsInPlay
                 && card is IActivable activable
                 && activable.ActivateTurnsCost.Value > 0);
