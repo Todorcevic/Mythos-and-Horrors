@@ -11,9 +11,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
-        private bool _isReactionUsed;
 
         public Buff ExtraTurnBuff { get; private set; }
+        public State AbilityUsed { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
                         .SetCardsToBuff(CardsToBuff)
                         .SetAddBuff(AddExtraTurnBuff)
                         .SetRemoveBuff(RemoveExtraTurnBuff);
+            AbilityUsed = new State(false);
         }
 
         /*******************************************************************/
@@ -46,40 +47,38 @@ namespace MythosAndHorrors.GameRules
             if (BuffActivation()) return _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome)
                 && card.Owner == Owner
                 && card.IsInPlay
-                && card is IActivable activable
-                && activable.ActivateTurnsCost.Value > 0);
+                && card is IActivable activable);
 
             return Enumerable.Empty<Card>();
 
             bool BuffActivation()
             {
-                if (_isReactionUsed) return false;
+                if (AbilityUsed.IsActive) return false;
                 if (!IsInPlay) return false;
                 return true;
             }
         }
 
-
         /*******************************************************************/
         protected override async Task WhenBegin(GameAction gameAction)
         {
             await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) _isReactionUsed = false;
+            if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
         }
 
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            UseExtraTurnCondition(gameAction);
+            await UseExtraTurnCondition(gameAction);
 
-            void UseExtraTurnCondition(GameAction gameAction)
+            async Task UseExtraTurnCondition(GameAction gameAction)
             {
                 if (gameAction is not ActivateCardGameAction activateCardGameAction) return;
-                if (_isReactionUsed) return;
+                if (AbilityUsed.IsActive) return;
                 if (!IsInPlay) return;
                 if (activateCardGameAction.Investigator != Owner) return;
                 if (!((Card)activateCardGameAction.ActivableCard).Tags.Contains(Tag.Tome)) return;
-                _isReactionUsed = true;
+                await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
             }
         }
 

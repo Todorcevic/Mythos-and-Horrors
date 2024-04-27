@@ -8,7 +8,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01502Tests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -39,7 +39,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card tomeCard = _cardsProvider.GetCard<Card01535>();
             Investigator investigatorToTest = _investigatorsProvider.Second;
             yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, null, amountDamage: 2, isDirect: true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
