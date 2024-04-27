@@ -8,8 +8,9 @@ namespace MythosAndHorrors.GameRules
     public class Card01501 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        private bool _isReactionUsed;
+        //private bool _isReactionUsed;
 
+        public State AbilityUsed { get; private set; }
         public Reaction<DefeatCardGameAction> DiscoverHint { get; private set; }
 
         /*******************************************************************/
@@ -17,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
+            AbilityUsed = new State(false);
             DiscoverHint = new Reaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic);
         }
         /*******************************************************************/
@@ -36,13 +38,13 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenBegin(GameAction gameAction)
         {
             await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) _isReactionUsed = false;
+            if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
         }
 
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
         {
-            _isReactionUsed = true;
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
             await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
         }
 
@@ -51,7 +53,7 @@ namespace MythosAndHorrors.GameRules
             if (defeatCardGameAction.ByThisInvestigator != Owner) return false;
             if (!IsInPlay) return false;
             if (Owner.CurrentPlace.Hints.Value < 1) return false;
-            if (_isReactionUsed) return false;
+            if (AbilityUsed.IsActive) return false;
             return true;
         }
     }

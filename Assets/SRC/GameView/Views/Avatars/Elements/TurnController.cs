@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
         private Tween TurnOn()
         {
             int amount = Stat.Value;
-            CheckMaxTurn();
+            CheckMaxTurn(amount);
             int amountToAdd = amount - ActiveTurnsCount;
 
             Sequence turningSequence = DOTween.Sequence();
@@ -52,9 +52,9 @@ namespace MythosAndHorrors.GameView
             return turningSequence;
         }
 
-        private void CheckMaxTurn()
+        private void CheckMaxTurn(int realAmount)
         {
-            int amount = _maxTurns.Value - _turnViews.Count;
+            int amount = (_maxTurns.Value > realAmount ? _maxTurns.Value : realAmount) - _turnViews.Count;
 
             if (amount < 0)
             {
