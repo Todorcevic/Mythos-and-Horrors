@@ -8,7 +8,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01502Tests : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -31,6 +31,29 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             while (!taskInvestigator.IsCompleted) yield return null;
             Assert.That(investigatorToTest.HandSize, Is.EqualTo(resultExpected));
+        }
+
+        [UnityTest]
+        public IEnumerator ExtraTurnToTomeTest()
+        {
+            Card tomeCard = _cardsProvider.GetCard<Card01535>();
+            Investigator investigatorToTest = _investigatorsProvider.Second;
+            yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, null, amountDamage: 2, isDirect: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
+
+            Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
+            if (!DEBUG_MODE) yield return WaitToClick(tomeCard);
+            if (!DEBUG_MODE) yield return WaitToClick(investigatorToTest.AvatarCard);
+
+            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
+
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
+            if (!DEBUG_MODE) yield return WaitToTokenClick();
+            while (!taskInvestigator.IsCompleted) yield return null;
+
+            Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(8));
         }
 
         private async Task RevealStarToken(GameAction gameAction)

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Card nextDraw = Investigator.CardAidToDraw ?? throw new System.Exception("No card to draw"); //TODO must shuffle deck with discard
-            if (nextDraw is IFlaw)
+            if (nextDraw.Tags.Contains(Tag.Flaw))
             {
                 await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));
                 await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));

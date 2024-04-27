@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.GameRules
                 _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(_chaptersProvider.CurrentScene.DangerDeckZone));
 
-            while (_chaptersProvider.CurrentScene.DangerDeckZone.TopCard is not IGhoul)
+            while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Ghoul))
                 await _gameActionsProvider.Create(new DiscardGameAction(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard));
 
             await _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorProvider.Leader));

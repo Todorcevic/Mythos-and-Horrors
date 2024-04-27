@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -48,7 +49,7 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanChoose()
                 {
-                    if (card is IFlaw) return false;
+                    if (card.Tags.Contains(Tag.Flaw)) return false;
                     return true;
                 }
             }

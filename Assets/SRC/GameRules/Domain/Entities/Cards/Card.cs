@@ -23,6 +23,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
+        public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);

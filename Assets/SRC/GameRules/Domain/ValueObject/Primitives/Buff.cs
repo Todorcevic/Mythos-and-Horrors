@@ -10,11 +10,11 @@ namespace MythosAndHorrors.GameRules
         private bool _isBuffing;
         private string _description;
         private Card _cardMaster;
-        private readonly List<Card> _currentCardsAffected = new();
 
         public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
         public Func<IEnumerable<Card>, Task> ActivationLogic { get; private set; }
         public Func<IEnumerable<Card>, Task> DeactivationLogic { get; private set; }
+        public List<Card> CurrentCardsAffected { get; private set; } = new();
 
         string IViewEffect.CardCode => _cardMaster.Info.Code;
         string IViewEffect.Description => _description;
@@ -25,15 +25,21 @@ namespace MythosAndHorrors.GameRules
         {
             if (_isBuffing) return;
             _isBuffing = true;
-            IEnumerable<Card> cardsAffected = CardsToBuff.Invoke();
-            IEnumerable<Card> cardsToActivate = cardsAffected.Except(_currentCardsAffected);
-            IEnumerable<Card> cardsToDeactivate = _currentCardsAffected.Except(cardsAffected);
+            IEnumerable<Card> cardsAffected = CardsToBuff.Invoke().ToList();
+            IEnumerable<Card> cardsToActivate = cardsAffected.Except(CurrentCardsAffected);
+            IEnumerable<Card> cardsToDeactivate = CurrentCardsAffected.Except(cardsAffected);
 
-            await ActivationLogic.Invoke(cardsToActivate);
-            _currentCardsAffected.AddRange(cardsToActivate);
+            if (cardsToActivate.Count() > 0)
+            {
+                await ActivationLogic.Invoke(cardsToActivate);
+                CurrentCardsAffected.AddRange(cardsToActivate);
+            }
 
-            await DeactivationLogic.Invoke(cardsToDeactivate);
-            _currentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
+            if (cardsToDeactivate.Count() > 0)
+            {
+                await DeactivationLogic.Invoke(cardsToDeactivate);
+                CurrentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
+            }
 
             _isBuffing = false;
         }

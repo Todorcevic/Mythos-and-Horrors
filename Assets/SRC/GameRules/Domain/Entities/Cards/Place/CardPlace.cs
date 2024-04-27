@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
 
-        private bool RevealCondition(GameAction gameAction)
+        private bool RevealCondition(MoveCardsGameAction gameAction)
         {
             if (Revealed.IsActive) return false;
             if (!OwnZone.Cards.Any(card => card is CardAvatar)) return false;
@@ -62,6 +62,6 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task RevealLogic(GameAction gameAction) => await _gameActionsProvider.Create(new RevealGameAction(this));
+        private async Task RevealLogic(MoveCardsGameAction gameAction) => await _gameActionsProvider.Create(new RevealGameAction(this));
     }
 }

@@ -100,7 +100,13 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private async Task DefeatLogic(UpdateStatGameAction gameAction) => await _gameActionsProvider.Create(new DefeatCardGameAction(this));
+        private async Task DefeatLogic(UpdateStatGameAction gameAction)
+        {
+            Card byThisCard = null;
+            if (gameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;
+
+            await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
+        }
 
         /*******************************************************************/
     }

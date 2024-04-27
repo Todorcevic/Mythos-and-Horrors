@@ -6,12 +6,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01535 : CardSupply, ITome, IActivable
+    public class Card01535 : CardSupply, IActivable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat ActivateTurnsCost { get; private set; }
+        public override IEnumerable<Tag> Tags => new[] { Tag.Tome };
 
         /*******************************************************************/
         [Inject]
@@ -26,8 +27,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
 
-            IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
-                .Where(investigator => investigator.CanBeHealed);
+            IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace);
             foreach (Investigator investigator in investigators)
             {
                 interactableGameAction.Create()
@@ -50,6 +50,7 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (Owner != investigator) return false;
             if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
+            //if (!_investigatorsProvider.AllInvestigatorsInPlay.Any(investigator => investigator.CanBeHealed)) return false;
             return true;
         }
     }

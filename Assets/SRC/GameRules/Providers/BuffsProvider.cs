@@ -23,6 +23,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         public IEnumerable<Buff> GetBuffsForThisCard(Card cardAffected) =>
-            _allBuffs.FindAll(buff => buff.CardsToBuff.Invoke().Contains(cardAffected));
+            _allBuffs.FindAll(buff => buff.CurrentCardsAffected.Contains(cardAffected));
     }
 }

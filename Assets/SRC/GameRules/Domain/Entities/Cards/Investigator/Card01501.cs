@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     public class Card01501 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        private bool _reactionUsed;
+        private bool _isReactionUsed;
 
         public Reaction<DefeatCardGameAction> DiscoverHint { get; private set; }
 
@@ -36,13 +36,13 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenBegin(GameAction gameAction)
         {
             await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) _reactionUsed = false;
+            if (gameAction is RoundGameAction) _isReactionUsed = false;
         }
 
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
         {
-            _reactionUsed = true;
+            _isReactionUsed = true;
             await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
         }
 
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
             if (defeatCardGameAction.ByThisInvestigator != Owner) return false;
             if (!IsInPlay) return false;
             if (Owner.CurrentPlace.Hints.Value < 1) return false;
-            if (_reactionUsed) return false;
+            if (_isReactionUsed) return false;
             return true;
         }
     }

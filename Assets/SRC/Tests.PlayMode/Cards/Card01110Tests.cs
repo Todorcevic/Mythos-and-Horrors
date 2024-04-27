@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulPriest, _preparationScene.SceneCORE1.Hallway.OwnZone)).AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(_preparationScene.SceneCORE1.GhoulPriest));
+            Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(_preparationScene.SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard));
             if (!DEBUG_MODE) yield return WaitToCloneClick(1);
 
             while (!taskGameAction.IsCompleted) yield return null;

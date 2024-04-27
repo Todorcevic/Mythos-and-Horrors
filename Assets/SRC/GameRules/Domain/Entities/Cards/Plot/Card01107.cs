@@ -63,8 +63,8 @@ namespace MythosAndHorrors.GameRules
             async Task MoveCreature(CardCreature ghoul) =>
                 await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
 
-            IEnumerable<CardCreature> GetGhouls() => _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>()
-                    .Where(creature => creature.IsInPlay && !creature.IsConfronted);
+            IEnumerable<CardCreature> GetGhouls() => _cardsProvider.AllCards.OfType<CardCreature>()
+                    .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
         }
 
         /*******************************************************************/
@@ -78,8 +78,8 @@ namespace MythosAndHorrors.GameRules
         {
             CardPlace parlor = _cardsProvider.GetCard<Card01115>();
             CardPlace hallway = _cardsProvider.GetCard<Card01112>();
-            int amountEldritch = _cardsProvider.AllCards.OfType<IGhoul>().OfType<CardCreature>()
-                  .Where(creature => creature.CurrentPlace == parlor || creature.CurrentPlace == hallway).Count();
+            int amountEldritch = _cardsProvider.AllCards.OfType<CardCreature>()
+                  .Where(creature => creature.Tags.Contains(Tag.Ghoul) && (creature.CurrentPlace == parlor || creature.CurrentPlace == hallway)).Count();
 
             await _gameActionsProvider.Create(new DecrementStatGameAction(Eldritch, amountEldritch));
         }

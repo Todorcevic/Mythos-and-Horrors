@@ -1,8 +1,11 @@
-﻿namespace MythosAndHorrors.GameRules
+﻿using System.Collections.Generic;
+
+namespace MythosAndHorrors.GameRules
 {
-    public class Card01161 : CardCreature, IGhoul, ITarget
+    public class Card01161 : CardCreature, ITarget
     {
         public Investigator Investigator => throw new System.NotImplementedException();
+        public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul };
     }
 
 }
