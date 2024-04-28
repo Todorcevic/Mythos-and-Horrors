@@ -44,6 +44,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
             Task<HarmToInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, _preparationScene.SceneCORE1.GhoulSecuaz, amountFear: 3, isDirect: true));
 
+            if (!DEBUG_MODE) yield return WaitToClick(cardInvestigator);
             if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.GhoulSecuaz);
 
             while (!taskGameAction.IsCompleted) yield return null;

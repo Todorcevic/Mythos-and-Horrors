@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             while (!gameActionTask.IsCompleted) yield return null;
 
-            yield return _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, DrawDangerCard)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, Discard)).AsCoroutine();
 
 
             if (DEBUG_MODE) yield return PressAnyKey();
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             while (!gameActionTask.IsCompleted) yield return null;
 
-            gameActionTask = _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, DrawDangerCard2));
+            gameActionTask = _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, DiscardSelection));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.HandZone.Cards.First());
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.HandZone.Cards.First());
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Third.HandZone.Cards.First());
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator SafeForeach3()
+        public IEnumerator SafeForeachUndo()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
             yield return _preparationScene.StartingScene();
@@ -83,7 +83,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             while (!gameActionTask.IsCompleted) yield return null;
 
-            gameActionTask = _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, DrawDangerCard2));
+            gameActionTask = _gameActionsProvider.Create(new SafeForeach<Investigator>(allInvestigators, DiscardSelection));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.HandZone.Cards.First());
             if (!DEBUG_MODE) yield return WaitToUndoClick();
             if (!DEBUG_MODE) yield return WaitToTokenClick();
@@ -93,13 +93,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.First.HandSize, Is.EqualTo(5));
         }
 
-        private async Task DrawDangerCard(Investigator investigator)
+        private async Task Discard(Investigator investigator)
         {
             await _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First()));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, _preparationScene.SceneCORE1.Study));
         }
 
-        private async Task DrawDangerCard2(Investigator investigator)
+        private async Task DiscardSelection(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome", investigator);
 

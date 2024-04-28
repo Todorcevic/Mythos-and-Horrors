@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public Reaction<UpdateStatGameAction> DamageBySanity { get; private set; }
+        //public Reaction<UpdateStatGameAction> DamageBySanity { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DamageBySanity = new Reaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic);
+            //DamageBySanity = new Reaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic);
         }
 
         /*******************************************************************/
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await DamageBySanity.CheckToReact(gameAction);
+            await OptativeReaction<UpdateStatGameAction>(gameAction, DamageBySanityCondition, DamageBySanityLogic);
         }
 
         /*******************************************************************/
@@ -42,9 +42,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DamageBySanityLogic(UpdateStatGameAction updateStatGameAction)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Harm Creature");
-            interactableGameAction.CreateMainButton().SetLogic(Continue);
-
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Harm Creature");
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
                 interactableGameAction.Create()
@@ -61,9 +59,6 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(interactableGameAction);
-
-            /*******************************************************************/
-            async Task Continue() => await Task.CompletedTask;
         }
 
         private bool DamageBySanityCondition(UpdateStatGameAction updateStatGameAction)

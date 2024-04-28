@@ -46,6 +46,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.WasteAllTurns();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
@@ -71,6 +72,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.WasteAllTurns();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
             Assert.That(_mainButtonComponent.GetPrivateMember<bool>("IsActivated"), Is.False);
 

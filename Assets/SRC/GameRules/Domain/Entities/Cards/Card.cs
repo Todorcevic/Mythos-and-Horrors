@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -50,5 +51,28 @@ namespace MythosAndHorrors.GameRules
         protected virtual Task WhenFinish(GameAction gameAction) => Task.CompletedTask;
 
         /*******************************************************************/
+        protected async Task Reaction<T>(GameAction gameAction, Func<T, bool> condition, Func<T, Task> logic) where T : GameAction
+        {
+            if (gameAction is not T realGameAction) return;
+            if (!condition.Invoke(realGameAction)) return;
+
+            await logic.Invoke(realGameAction);
+        }
+
+        protected async Task OptativeReaction<T>(GameAction gameAction, Func<T, bool> condition, Func<T, Task> logic)
+            where T : GameAction
+        {
+            if (gameAction is not T realGameAction) return;
+            if (!condition.Invoke(realGameAction)) return;
+
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
+            interactableGameAction.CreateMainButton().SetLogic(Continue);
+            interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic);
+            await _gameActionsProvider.Create(interactableGameAction);
+
+            /*******************************************************************/
+            async Task Continue() => await Task.CompletedTask;
+            async Task FullLogic() => await logic.Invoke(realGameAction);
+        }
     }
 }

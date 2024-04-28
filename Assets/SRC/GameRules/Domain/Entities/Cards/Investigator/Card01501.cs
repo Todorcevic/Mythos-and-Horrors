@@ -8,10 +8,8 @@ namespace MythosAndHorrors.GameRules
     public class Card01501 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        //private bool _isReactionUsed;
 
         public State AbilityUsed { get; private set; }
-        public Reaction<DefeatCardGameAction> DiscoverHint { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -19,20 +17,18 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DiscoverHint = new Reaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic);
         }
-        /*******************************************************************/
 
+        /*******************************************************************/
         public override async Task StarEffect() => await Task.CompletedTask;
 
         public override int StarValue() => Owner.CurrentPlace.Hints.Value;
-
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await DiscoverHint.CheckToReact(gameAction);
+            await OptativeReaction<DefeatCardGameAction>(gameAction, DiscoverHintCondition, DiscoverHintLogic);
         }
 
         protected override async Task WhenBegin(GameAction gameAction)
@@ -44,23 +40,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Harm Creature");
-            interactableGameAction.CreateMainButton().SetLogic(Continue);
-            interactableGameAction.Create().SetCard(this)
-                .SetInvestigator(Owner)
-                .SetLogic(HarmCreature);
-
-            /*******************************************************************/
-            async Task HarmCreature()
-            {
-                await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
-            };
-
-            await _gameActionsProvider.Create(interactableGameAction);
-
-            /*******************************************************************/
-            async Task Continue() => await Task.CompletedTask;
+            await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
         }
 
         private bool DiscoverHintCondition(DefeatCardGameAction defeatCardGameAction)

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -12,20 +11,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Reaction<RoundGameAction> PayHints { get; private set; }
-
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
         private Card Lita => _cardsProvider.GetCard<Card01117>();
         private Card GhoulPriest => _cardsProvider.GetCard<Card01116>();
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init()
-        {
-            PayHints = new Reaction<RoundGameAction>(PayHintsCondition, PayHintsLogic);
-        }
 
         /*******************************************************************/
         public override async Task CompleteEffect()
@@ -42,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await PayHints.CheckToReact(gameAction);
+            await OptativeReaction<RoundGameAction>(gameAction, PayHintsCondition, PayHintsLogic);
         }
 
         /*******************************************************************/
