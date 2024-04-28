@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Defeat.Check(gameAction);
+            await Defeat.CheckToReact(gameAction);
         }
 
         /*******************************************************************/

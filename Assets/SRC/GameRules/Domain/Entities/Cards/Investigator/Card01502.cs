@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,57 +7,58 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01502 : CardInvestigator
+    public class Card01502 : CardInvestigator, IActivable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly BuffsProvider _buffsProvider;
 
-        public Buff ExtraTurnBuff { get; private set; }
         public State AbilityUsed { get; private set; }
+        public List<Activation> Activations { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ExtraTurnBuff = _buffsProvider.Create()
-                        .SetCard(this)
-                        .SetDescription(nameof(AddExtraTurnBuff))
-                        .SetCardsToBuff(CardsToBuff)
-                        .SetAddBuff(AddExtraTurnBuff)
-                        .SetRemoveBuff(RemoveExtraTurnBuff);
             AbilityUsed = new State(false);
+            Activations = new() { new(new Stat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate) };
         }
 
         /*******************************************************************/
-        private async Task AddExtraTurnBuff(IEnumerable<Card> allTomes)
+        public async Task FreeTomeActivationActivate(Investigator activeInvestigator)
         {
-            Dictionary<Stat, int> allStat = allTomes.Cast<IActivable>().ToDictionary(tome => tome.ActivateTurnsCost, tome => 1);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(allStat));
-        }
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
 
-        private async Task RemoveExtraTurnBuff(IEnumerable<Card> allTomes)
-        {
-            Dictionary<Stat, int> allStat = allTomes.Cast<IActivable>().ToDictionary(tome => tome.ActivateTurnsCost, tome => 1);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(allStat));
-        }
-
-        private IEnumerable<Card> CardsToBuff()
-        {
-            if (BuffActivation()) return _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome)
-                && card.Owner == Owner
-                && card.IsInPlay
-                && card is IActivable activable);
-
-            return Enumerable.Empty<Card>();
-
-            bool BuffActivation()
+            foreach (IActivable activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay).OfType<IActivable>())
             {
-                if (AbilityUsed.IsActive) return false;
-                if (!IsInPlay) return false;
-                return true;
+                foreach (Activation activation in activable.Activations)
+                {
+                    interactableGameAction.Create()
+                        .SetCard(activable as Card)
+                        .SetInvestigator(activeInvestigator)
+                        .SetLogic(Activate);
+
+                    /*******************************************************************/
+                    async Task Activate()
+                    {
+                        int realTurnsCost = activation.ActivateTurnsCost.Value;
+                        await _gameActionsProvider.Create(new DecrementStatGameAction(activation.ActivateTurnsCost, 1));
+                        await _gameActionsProvider.Create(new ActivateCardGameAction(activation, activeInvestigator));
+                        await _gameActionsProvider.Create(new UpdateStatGameAction(activation.ActivateTurnsCost, realTurnsCost));
+                        await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+                    }
+                }
             }
+            await _gameActionsProvider.Create(interactableGameAction);
+        }
+
+        public bool FreeTomeActivationConditionToActivate(Investigator activeInvestigator)
+        {
+            if (AbilityUsed.IsActive) return false;
+            if (!IsInPlay) return false;
+            if (Owner != activeInvestigator) return false;
+            if (!_cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay).OfType<IActivable>().Any()) return false;
+            return true;
         }
 
         /*******************************************************************/
@@ -64,22 +66,6 @@ namespace MythosAndHorrors.GameRules
         {
             await base.WhenBegin(gameAction);
             if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
-        }
-
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await base.WhenFinish(gameAction);
-            await UseExtraTurnCondition(gameAction);
-
-            async Task UseExtraTurnCondition(GameAction gameAction)
-            {
-                if (gameAction is not ActivateCardGameAction activateCardGameAction) return;
-                if (AbilityUsed.IsActive) return;
-                if (!IsInPlay) return;
-                if (activateCardGameAction.Investigator != Owner) return;
-                if (!((Card)activateCardGameAction.ActivableCard).Tags.Contains(Tag.Tome)) return;
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
-            }
         }
 
         /*******************************************************************/

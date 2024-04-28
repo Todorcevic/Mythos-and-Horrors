@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await DamageBySanity.Check(gameAction);
+            await DamageBySanity.CheckToReact(gameAction);
         }
 
         /*******************************************************************/

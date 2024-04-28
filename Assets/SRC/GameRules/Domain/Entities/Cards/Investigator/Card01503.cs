@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public Stat ActivateTurnsCost { get; private set; }
+        public List<Activation> Activations { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            ActivateTurnsCost = new Stat(0);
+            Activations = new() { new(new Stat(0), GainTurnActivate, GainTurnConditionToActivate) };
         }
 
         /*******************************************************************/
@@ -43,19 +43,19 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async Task Activate()
+        public async Task GainTurnActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new PayResourceGameAction(Owner, 2));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Owner.CurrentTurns, 1));
+            await _gameActionsProvider.Create(new PayResourceGameAction(activeInvestigator, 2));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(activeInvestigator.CurrentTurns, 1));
             await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
         }
 
-        public bool ConditionToActivate(Investigator investigator)
+        public bool GainTurnConditionToActivate(Investigator activeInvestigator)
         {
             if (AbilityUsed.IsActive) return false;
             if (!IsInPlay) return false;
-            if (Owner != investigator) return false;
-            if (Owner.Resources.Value < 2) return false;
+            if (Owner != activeInvestigator) return false;
+            if (activeInvestigator.Resources.Value < 2) return false;
             return true;
         }
     }

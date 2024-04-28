@@ -3,25 +3,25 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ActivateCardGameAction : GameAction
+    public class ActivateCardGameAction : GameAction //Esta gameAction es sobretodo para la Animacion
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public IActivable ActivableCard { get; init; }
-        public Investigator Investigator { get; init; }
+        public Activation ActivationCard { get; }
+        public Investigator Investigator { get; }
 
         /*******************************************************************/
-        public ActivateCardGameAction(IActivable playableCard, Investigator investigator)
+        public ActivateCardGameAction(Activation playableCard, Investigator investigator)
         {
-            ActivableCard = playableCard;
+            ActivationCard = playableCard;
             Investigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, ActivableCard.ActivateTurnsCost.Value));
-            await ActivableCard.Activate();
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, ActivationCard.ActivateTurnsCost.Value));
+            await ActivationCard.Logic.Invoke(Investigator);
         }
     }
 }

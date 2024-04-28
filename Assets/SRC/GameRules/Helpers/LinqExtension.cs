@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ModestTree;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -54,6 +56,18 @@ namespace MythosAndHorrors.GameRules
             if (source == null) throw new ArgumentNullException(nameof(source));
             T[] array = source.ToArray();
             return array.Length == 0 ? default : array[new Random().Next(0, array.Length)];
+        }
+
+        public static async Task SafeForeach<T>(this IEnumerable<T> source, Func<T, Task> logic)
+        {
+            List<T> elementsExecuted = new();
+            T element = source.FirstOrDefault();
+            while (element != null)
+            {
+                await logic.Invoke(element);
+                elementsExecuted.Add(element);
+                element = source.Except(elementsExecuted).FirstOrDefault();
+            }
         }
     }
 }

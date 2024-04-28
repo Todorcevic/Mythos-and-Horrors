@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await DiscoverHint.Check(gameAction);
+            await DiscoverHint.CheckToReact(gameAction);
         }
 
         protected override async Task WhenBegin(GameAction gameAction)

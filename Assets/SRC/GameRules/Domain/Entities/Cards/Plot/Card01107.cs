@@ -43,8 +43,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await MoveGhoulReaction.Check(gameAction);
-            await PlaceEldritch.Check(gameAction);
+            await MoveGhoulReaction.CheckToReact(gameAction);
+            await PlaceEldritch.CheckToReact(gameAction);
         }
 
         /*******************************************************************/

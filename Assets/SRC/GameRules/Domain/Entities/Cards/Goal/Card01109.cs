@@ -36,13 +36,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override bool ConditionToActivate(Investigator investigator) => false;
+        public override bool PayHintsConditionToActivate(Investigator investigator) => false;
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await PayHints.Check(gameAction);
+            await PayHints.CheckToReact(gameAction);
         }
 
         /*******************************************************************/

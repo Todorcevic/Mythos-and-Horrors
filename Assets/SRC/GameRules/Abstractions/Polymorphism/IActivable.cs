@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
     public interface IActivable
     {
-        Stat ActivateTurnsCost { get; }
-        Task Activate();
-        bool ConditionToActivate(Investigator investigator);
+        //Stat ActivateTurnsCost { get; }
+        List<Activation> Activations { get; }
+        //Task Activate();
+        //bool ConditionToActivate(Investigator investigator);
     }
 }

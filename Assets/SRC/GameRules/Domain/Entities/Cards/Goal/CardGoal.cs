@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -12,9 +13,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public Stat Hints { get; private set; }
-        public Stat ActivateTurnsCost { get; private set; }
         public State Revealed { get; private set; }
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
+        public List<Activation> Activations { get; private set; }
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
 
@@ -27,8 +28,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
+            Activations = new() { new(new Stat(0), PayHintsActivate, PayHintsConditionToActivate) };
             Hints = new Stat(MaxHints);
-            ActivateTurnsCost = new Stat(0);
             Revealed = new State(false);
             Reveal = new Reaction<UpdateStatGameAction>(RevealCondition, RevealLogic);
         }
@@ -47,7 +48,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Reveal.Check(gameAction);
+            await Reveal.CheckToReact(gameAction);
         }
 
         /*******************************************************************/
@@ -64,14 +65,13 @@ namespace MythosAndHorrors.GameRules
             => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        public async Task Activate() =>
+        public async Task PayHintsActivate(Investigator activeInvestigator) =>
             await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.Hints.Value > 0)));
 
-        public virtual bool ConditionToActivate(Investigator investigator)
+        public virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {
             if (!IsInPlay) return false;
-            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
             return true;

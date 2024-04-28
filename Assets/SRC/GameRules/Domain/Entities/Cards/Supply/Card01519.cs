@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public int InitialSupplies => 3;
-        public Stat ActivateTurnsCost { get; private set; }
+        public List<Activation> Activations { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -19,64 +20,49 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = new Stat(InitialSupplies);
-            ActivateTurnsCost = new Stat(1);
+            Activations = new() { new(new Stat(1), HealActivate, HealConditionToActivate) };
         }
 
         /*******************************************************************/
-        public async Task Activate()
+        public async Task HealActivate(Investigator activeInvestigator)
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
-            //interactableGameAction.CreateUndoButton().SetLogic(CancelEffect);
 
-            //async Task CancelEffect()
-            //{
-            //    InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-            //    lastInteractable.ClearEffects();
-            //    await _gameActionsProvider.Create(lastInteractable);
-            //}
-
-            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
+            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
                 .Where(investigator => investigator.CanBeHealed))
             {
                 interactableGameAction.Create()
                     .SetCard(investigator.AvatarCard)
-                    .SetInvestigator(Owner)
+                    .SetInvestigator(activeInvestigator)
                     .SetCardAffected(investigator.InvestigatorCard)
                     .SetLogic(RestoreHealthInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreHealthInvestigator()
-                {
-                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
-                };
+                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
             }
 
-            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(Owner.CurrentPlace)
+            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
                 .Where(investigator => investigator.CanBeRestoreSanity))
             {
                 interactableGameAction.Create()
                     .SetCard(investigator.AvatarCard)
-                    .SetInvestigator(Owner)
+                    .SetInvestigator(activeInvestigator)
                     .SetCardAffected(investigator.InvestigatorCard)
                     .SetLogic(RestoreSanityInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreSanityInvestigator()
-                {
-                    await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Sanity, 1));
-                };
+                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Sanity, 1));
             }
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
-        public bool ConditionToActivate(Investigator investigator)
+        public bool HealConditionToActivate(Investigator activeInvestigator)
         {
             if (!IsInPlay) return false;
-            if (Owner != investigator) return false;
-            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
+            if (Owner != activeInvestigator) return false;
             return true;
         }
     }

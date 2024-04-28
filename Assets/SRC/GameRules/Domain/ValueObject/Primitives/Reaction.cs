@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class Reaction<T> where T : GameAction
     {
         public Func<T, bool> Condition { get; init; }
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async Task Check(GameAction gameAction)
+        public async Task CheckToReact(GameAction gameAction)
         {
             if (gameAction is T action && Condition.Invoke(action)) await Logic.Invoke(action);
         }
