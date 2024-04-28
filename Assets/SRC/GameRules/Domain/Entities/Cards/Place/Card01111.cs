@@ -1,10 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01111 : CardPlace
-    {
-
-
-    }
+    public class Card01111 : CardPlace { }
 }

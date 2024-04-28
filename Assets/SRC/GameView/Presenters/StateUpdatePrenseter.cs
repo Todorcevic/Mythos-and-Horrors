@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<UpdateStatesGameAction>.PlayAnimationWith(UpdateStatesGameAction updateStatesGameAction)
         {
             await CheckIfCardIsExhausted(updateStatesGameAction.States).AsyncWaitForCompletion();
-            await CheckIfCardIsRevelaed(updateStatesGameAction.States).AsyncWaitForCompletion();
+            await CheckIfCardIsRevealed(updateStatesGameAction.States).AsyncWaitForCompletion();
         }
 
         private Tween CheckIfCardIsExhausted(IEnumerable<State> states)
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameView
             return readySequence;
         }
 
-        private Tween CheckIfCardIsRevelaed(IEnumerable<State> states)
+        private Tween CheckIfCardIsRevealed(IEnumerable<State> states)
         {
             IEnumerable<IRevealable> cardsUpdated = _cardsProvider.AllCards.OfType<IRevealable>().Where(revelable => states.Contains(revelable.Revealed));
             Sequence readySequence = DOTween.Sequence()

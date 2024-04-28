@@ -58,7 +58,6 @@ namespace MythosAndHorrors.GameRules
         {
             if (Revealed.IsActive) return false;
             if (!OwnZone.Cards.Any(card => card is CardAvatar)) return false;
-
             return true;
         }
 

@@ -1,7 +1,4 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class Card01112 : CardPlace
-    {
-
-    }
+    public class Card01112 : CardPlace { }
 }
