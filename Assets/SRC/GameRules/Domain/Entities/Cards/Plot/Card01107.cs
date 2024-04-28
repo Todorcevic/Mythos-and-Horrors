@@ -15,6 +15,11 @@ namespace MythosAndHorrors.GameRules
 
         public Reaction<CreaturePhaseGameAction> MoveGhoulReaction { get; private set; }
         public Reaction<RestorePhaseGameAction> PlaceEldritch { get; private set; }
+        IEnumerable<CardCreature> GhoulsToMove => _cardsProvider.AllCards.OfType<CardCreature>()
+              .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
+
+        IEnumerable<Investigator> InvestigatorsUnresignes => _investigatorsProvider.AllInvestigators
+              .Where(investigator => !investigator.Resign.IsActive);
 
         /*******************************************************************/
         [Inject]
@@ -30,11 +35,8 @@ namespace MythosAndHorrors.GameRules
         {
             if (_chaptersProvider.CurrentScene.CurrentGoal is not Card01110)
                 await _chaptersProvider.CurrentScene.Resolution3();
-            else await new SafeForeach<Investigator>(SufferInjury, GetInvestigators).Execute();
-
+            else await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsUnresignes, SufferInjury));
             /*******************************************************************/
-            IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigators
-                   .Where(investigator => !investigator.Resign.IsActive);
 
             async Task SufferInjury(Investigator investigator) =>
                 await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Injury, 1));
@@ -57,14 +59,11 @@ namespace MythosAndHorrors.GameRules
         private async Task MoveGhoulLogic(GameAction gameAction)
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
-            await new SafeForeach<CardCreature>(MoveCreature, GetGhouls).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(GhoulsToMove, MoveCreature));
 
             /*******************************************************************/
             async Task MoveCreature(CardCreature ghoul) =>
                 await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
-
-            IEnumerable<CardCreature> GetGhouls() => _cardsProvider.AllCards.OfType<CardCreature>()
-                    .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
         }
 
         /*******************************************************************/

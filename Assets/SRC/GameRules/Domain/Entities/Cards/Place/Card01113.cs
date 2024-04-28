@@ -29,9 +29,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await new SafeForeach<Investigator>(TekeFear, Investigators).Execute();
-
-            IEnumerable<Investigator> Investigators() => moveInvestigatorToPlaceGameAction.Investigators;
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(moveInvestigatorToPlaceGameAction.Investigators, TekeFear));
 
             async Task TekeFear(Investigator investigator) =>
                 await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountFear: 1, bythisCard: this));

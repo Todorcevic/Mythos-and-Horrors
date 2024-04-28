@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
 
         /*******************************************************************/
-        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description, Investigator activeInvestigator = null)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;

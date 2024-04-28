@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -14,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
-            await new SafeForeach<Investigator>(Prepare, GetInvestigators).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(_investigatorsProvider.AllInvestigators, Prepare));
             await _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
 
             while (true) await _gameActionsProvider.Create(new RoundGameAction());
@@ -22,7 +21,5 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Prepare(Investigator investigator) =>
             await _gameActionsProvider.Create(new PrepareInvestigatorGameAction(investigator));
-
-        private IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigators;
     }
 }

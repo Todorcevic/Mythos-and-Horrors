@@ -29,9 +29,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDamageLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await new SafeForeach<Investigator>(TekeDamage, Investigators).Execute();
-
-            IEnumerable<Investigator> Investigators() => moveInvestigatorToPlaceGameAction.Investigators;
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(moveInvestigatorToPlaceGameAction.Investigators, TekeDamage));
 
             async Task TekeDamage(Investigator investigator) =>
                 await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountDamage: 1, bythisCard: this));
@@ -42,7 +40,5 @@ namespace MythosAndHorrors.GameRules
             if (moveInvestigatorToPlaceGameAction.CardPlace != this) return false;
             return true;
         }
-
-
     }
 }

@@ -17,6 +17,8 @@ namespace MythosAndHorrors.GameRules
         private CardPlace Attic => _cardsProvider.GetCard<Card01113>();
         private CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
+        private IEnumerable<CardCreature> CreaturesInStudy => _cardsProvider.AllCards.OfType<CardCreature>()
+          .Where(cardCreature => cardCreature.CurrentPlace == Study);
 
         /*******************************************************************/
         public override async Task CompleteEffect()
@@ -30,13 +32,10 @@ namespace MythosAndHorrors.GameRules
             };
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
-            await new SafeForeach<CardCreature>(DiscardCreature, GetCreatures).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(CreaturesInStudy, DiscardCreature));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Hallway));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, _chaptersProvider.CurrentScene.OutZone));
         }
-
-        private IEnumerable<CardCreature> GetCreatures() => _cardsProvider.AllCards.OfType<CardCreature>()
-            .Where(cardCreature => cardCreature.CurrentPlace == Study);
 
         private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create(new DiscardGameAction(creature));
     }

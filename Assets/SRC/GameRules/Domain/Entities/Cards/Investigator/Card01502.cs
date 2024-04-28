@@ -15,6 +15,8 @@ namespace MythosAndHorrors.GameRules
         public State AbilityUsed { get; private set; }
         public List<Activation> Activations { get; private set; }
 
+        private IEnumerable<Card> TomesInPlay => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
@@ -77,10 +79,8 @@ namespace MythosAndHorrors.GameRules
 
         public override int StarValue() => 0;
 
-        private async Task DrawCards() => await new SafeForeach<Card>(DrawAid, GetTomes).Execute();
+        private async Task DrawCards() => await _gameActionsProvider.Create(new SafeForeach<Card>(TomesInPlay, DrawAid));
 
         private async Task DrawAid(Card tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
-
-        private IEnumerable<Card> GetTomes() => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
     }
 }

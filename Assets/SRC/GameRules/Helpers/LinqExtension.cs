@@ -57,17 +57,5 @@ namespace MythosAndHorrors.GameRules
             T[] array = source.ToArray();
             return array.Length == 0 ? default : array[new Random().Next(0, array.Length)];
         }
-
-        public static async Task SafeForeach<T>(this IEnumerable<T> source, Func<T, Task> logic)
-        {
-            List<T> elementsExecuted = new();
-            T element = source.FirstOrDefault();
-            while (element != null)
-            {
-                await logic.Invoke(element);
-                elementsExecuted.Add(element);
-                element = source.Except(elementsExecuted).FirstOrDefault();
-            }
-        }
     }
 }

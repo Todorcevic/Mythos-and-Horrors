@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -20,12 +19,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await new SafeForeach<IStalker>(Move, GetStalkers).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<IStalker>(_cardsProvider.StalkersInPlay, Move));
         }
 
         /*******************************************************************/
-        private IEnumerable<IStalker> GetStalkers() => _cardsProvider.StalkersInPlay;
-
         private async Task Move(IStalker stalker) =>
             await _gameActionsProvider.Create(new MoveCreatureGameAction(stalker));
     }

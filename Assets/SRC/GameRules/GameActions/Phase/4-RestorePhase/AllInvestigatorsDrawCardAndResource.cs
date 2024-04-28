@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -18,12 +17,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await new SafeForeach<Investigator>(DrawAndGainResource, GetInvestigators).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(_investigatorsProvider.AllInvestigatorsInPlay, DrawAndGainResource));
         }
 
         /*******************************************************************/
-        private IEnumerable<Investigator> GetInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay;
-
         private async Task DrawAndGainResource(Investigator investigator)
         {
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));

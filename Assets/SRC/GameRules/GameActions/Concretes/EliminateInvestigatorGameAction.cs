@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -26,13 +25,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DropHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.AllCards, _chaptersProvider.CurrentScene.OutZone));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.CreaturesEnganged, currentPlace.OwnZone));
-            await new SafeForeach<Card>(Discard, CardsInDangerZone).Execute();
+            await _gameActionsProvider.Create(new SafeForeach<Card>(Investigator.DangerZone.Cards, Discard));
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
         }
 
         private async Task Discard(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
-
-        private IEnumerable<Card> CardsInDangerZone() => Investigator.DangerZone.Cards;
 
         public override async Task Undo()
         {
