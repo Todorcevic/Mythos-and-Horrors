@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -11,21 +10,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public new Reaction<DefeatCardGameAction> Reveal { get; private set; }
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init()
-        {
-            Reveal = new Reaction<DefeatCardGameAction>(RevealCondition, RevealLogic);
-        }
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Reveal.CheckToReact(gameAction);
+            await Reaction<DefeatCardGameAction>(gameAction, RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -65,7 +55,5 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
-
-        /*******************************************************************/
     }
 }

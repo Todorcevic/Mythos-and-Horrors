@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorAttackTurnsCost { get; private set; }
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
-        public Reaction<UpdateStatGameAction> Defeat { get; private set; }
 
         /*******************************************************************/
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
@@ -47,14 +46,13 @@ namespace MythosAndHorrors.GameRules
             InvestigatorAttackTurnsCost = new Stat(1);
             InvestigatorConfronTurnsCost = new Stat(1);
             EludeTurnsCost = new Stat(1);
-            Defeat = new Reaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await Defeat.CheckToReact(gameAction);
+            await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/

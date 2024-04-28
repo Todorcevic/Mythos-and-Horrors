@@ -26,7 +26,6 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
-        public Reaction<UpdateStatGameAction> Defeat { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -46,12 +45,11 @@ namespace MythosAndHorrors.GameRules
             Hints = new Stat(0);
             MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
             CurrentTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
-            MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);  
+            MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);
             DrawTurnsCost = new Stat(1);
             TurnsCost = new Stat(1);
             Resign = new State(false);
             Defeated = new State(false);
-            Defeat = new Reaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/
@@ -75,7 +73,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Defeat.CheckToReact(gameAction);
+            await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/

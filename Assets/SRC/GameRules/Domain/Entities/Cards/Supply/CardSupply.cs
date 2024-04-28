@@ -15,7 +15,6 @@ namespace MythosAndHorrors.GameRules
         public Stat AmountSupplies { get; protected set; }
         public Stat AmountBullets { get; protected set; }
         public Stat AmountCharges { get; protected set; }
-        public Reaction<UpdateStatGameAction> Defeat { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -24,7 +23,6 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = new Stat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = new Stat(1);
-            Defeat = new Reaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
             if (this is IDamageable) Health = new Stat(Info.Health ?? 0);
             if (this is IFearable) Sanity = new Stat(Info.Sanity ?? 0);
         }
@@ -43,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Defeat.CheckToReact(gameAction);
+            await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/

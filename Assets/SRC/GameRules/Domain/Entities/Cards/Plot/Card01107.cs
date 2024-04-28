@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -13,22 +12,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Reaction<CreaturePhaseGameAction> MoveGhoulReaction { get; private set; }
-        public Reaction<RestorePhaseGameAction> PlaceEldritch { get; private set; }
         IEnumerable<CardCreature> GhoulsToMove => _cardsProvider.AllCards.OfType<CardCreature>()
               .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
-
         IEnumerable<Investigator> InvestigatorsUnresignes => _investigatorsProvider.AllInvestigators
               .Where(investigator => !investigator.Resign.IsActive);
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
-        private void Init()
-        {
-            MoveGhoulReaction = new Reaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic);
-            PlaceEldritch = new Reaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic);
-        }
 
         /*******************************************************************/
         public override async Task CompleteEffect()
@@ -45,8 +32,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await MoveGhoulReaction.CheckToReact(gameAction);
-            await PlaceEldritch.CheckToReact(gameAction);
+            await Reaction<CreaturePhaseGameAction>(gameAction, MoveGhoulCondition, MoveGhoulLogic);
+            await Reaction<RestorePhaseGameAction>(gameAction, PlaceEldritchCondition, PlaceEldritchLogic);
         }
 
         /*******************************************************************/

@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
-        public Reaction<MoveCardsGameAction> Reveal { get; private set; }
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
@@ -38,7 +37,6 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = new Stat(1);
             MoveTurnsCost = new Stat(1);
             Revealed = new State(false);
-            Reveal = new Reaction<MoveCardsGameAction>(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -50,7 +48,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
-            await Reveal.CheckToReact(gameAction);
+            await Reaction<MoveCardsGameAction>(gameAction, RevealCondition, RevealLogic);
         }
         /*******************************************************************/
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,21 +7,11 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Reaction<MoveInvestigatorToPlaceGameAction> TakeFear { get; private set; }
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            TakeFear = new Reaction<MoveInvestigatorToPlaceGameAction>(TakeFearCondition, TakeFearLogic);
-        }
-
         /*******************************************************************/
         protected override async Task WhenFinish(GameAction gameAction)
         {
             await base.WhenFinish(gameAction);
-            await TakeFear.CheckToReact(gameAction);
+            await Reaction<MoveInvestigatorToPlaceGameAction>(gameAction, TakeFearCondition, TakeFearLogic);
         }
 
         /*******************************************************************/
