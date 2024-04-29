@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        //public Reaction<UpdateStatGameAction> DamageBySanity { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,7 +17,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            //DamageBySanity = new Reaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic);
         }
 
         /*******************************************************************/

@@ -27,8 +27,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task RevealLogic(DefeatCardGameAction updateStatGameAction)
-            => await _gameActionsProvider.Create(new RevealGameAction(this));
+        protected async Task RevealLogic(DefeatCardGameAction updateStatGameAction) => await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
         public override async Task CompleteEffect()

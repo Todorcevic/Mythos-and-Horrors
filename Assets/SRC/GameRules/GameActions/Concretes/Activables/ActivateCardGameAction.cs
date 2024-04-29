@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class ActivateCardGameAction : GameAction //Esta gameAction es sobretodo para la Animacion
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

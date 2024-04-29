@@ -7,7 +7,11 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01115 : CardPlace, IActivable
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
+
         public List<Activation> Activations { get; private set; }
+        private CardSupply Lita => _cardsProvider.GetCard<Card01117>();
 
         /*******************************************************************/
         [Inject]
@@ -16,34 +20,41 @@ namespace MythosAndHorrors.GameRules
         {
             Activations = new()
             {
-                new(new Stat(1), ResignActivate, ResignConditionToActivate),
-                new(new Stat(1), ParleyActivate, ParleyConditionToActivate)
+                new(CreateStat(1), ResignActivate, ResignConditionToActivate),
+                new(CreateStat(1), ParleyActivate, ParleyConditionToActivate)
             };
         }
 
         /*******************************************************************/
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            //throw new System.NotImplementedException();
-            await Task.CompletedTask;
+            await _gameActionsProvider.Create(new ResignGameAction(activeInvestigator));
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)
         {
-            //throw new System.NotImplementedException();
-            return false;
+            if (!IsInPlay) return false;
+            if (activeInvestigator.CurrentPlace != this) return false;
+            return true;
         }
 
         private async Task ParleyActivate(Investigator activeInvestigator)
         {
-            //throw new System.NotImplementedException();
-            await Task.CompletedTask;
+            await _gameActionsProvider.Create(new ParleyGameAction(TakeLita));
+
+            /*******************************************************************/
+            async Task TakeLita() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(
+                    activeInvestigator.Intelligence, 4, "Parley with Lita", ParleySucceed, null, Lita));
+
+            async Task ParleySucceed() => await _gameActionsProvider.Create(new MoveCardsGameAction(Lita, activeInvestigator.AidZone));
         }
 
         private bool ParleyConditionToActivate(Investigator activeInvestigator)
         {
-            //throw new System.NotImplementedException();
-            return false;
+            if (!IsInPlay) return false;
+            if (activeInvestigator.CurrentPlace != this) return false;
+            if (Lita.CurrentZone != OwnZone) return false;
+            return true;
         }
 
         /*******************************************************************/

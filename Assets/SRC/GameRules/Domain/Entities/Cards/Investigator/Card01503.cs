@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            Activations = new() { new(new Stat(0), GainTurnActivate, GainTurnConditionToActivate) };
+            Activations = new() { new(CreateStat(0), GainTurnActivate, GainTurnConditionToActivate) };
         }
 
         /*******************************************************************/

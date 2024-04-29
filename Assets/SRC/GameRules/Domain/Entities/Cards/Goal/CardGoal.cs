@@ -59,8 +59,8 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task RevealLogic(UpdateStatGameAction updateStatGameAction)
-            => await _gameActionsProvider.Create(new RevealGameAction(this));
+        private async Task RevealLogic(UpdateStatGameAction updateStatGameAction) =>
+            await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
         public async Task PayHintsActivate(Investigator activeInvestigator) =>

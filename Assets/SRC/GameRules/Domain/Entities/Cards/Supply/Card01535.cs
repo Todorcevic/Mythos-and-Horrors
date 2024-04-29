@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Activations = new() { new(new Stat(1), HealthActivate, HealtConditionConditionToActivate) };
+            Activations = new() { new(CreateStat(1), HealthActivate, HealtConditionConditionToActivate) };
         }
 
         /************************ HEALTH ACTIVATION ******************************/

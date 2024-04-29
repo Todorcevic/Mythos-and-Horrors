@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -184,8 +185,10 @@ namespace MythosAndHorrors.GameView
 
         public CardView CloneToMultiEffect(Transform parent)
         {
+            Transform realParent = _ownZoneCardView.transform.parent;
+            _ownZoneCardView.transform.SetParent(transform.parent);
             CardView clone = _diContainer.InstantiatePrefabForComponent<CardView>(this, parent);
-            Destroy(clone._ownZoneCardView.gameObject);
+            _ownZoneCardView.transform.SetParent(realParent);
             clone._ownZoneCardView = null;
             clone.Card = Card;
             return clone;
