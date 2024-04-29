@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Eldritch = new Stat(Info.Eldritch ?? 0);
+            Eldritch = CreateStat(Info.Eldritch ?? 0);
             Revealed = new State(false);
         }
 

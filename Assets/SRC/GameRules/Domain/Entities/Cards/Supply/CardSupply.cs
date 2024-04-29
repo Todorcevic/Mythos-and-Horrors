@@ -21,10 +21,10 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ResourceCost = new Stat(Info.Cost ?? 0);
-            PlayFromHandTurnsCost = new Stat(1);
-            if (this is IDamageable) Health = new Stat(Info.Health ?? 0);
-            if (this is IFearable) Sanity = new Stat(Info.Sanity ?? 0);
+            ResourceCost = CreateStat(Info.Cost ?? 0);
+            PlayFromHandTurnsCost = CreateStat(1);
+            if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
+            if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
         }
 
         /*******************************************************************/

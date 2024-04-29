@@ -32,10 +32,10 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Hints = new Stat(MaxHints);
-            Enigma = new Stat(Info.Enigma ?? 0);
-            InvestigationTurnsCost = new Stat(1);
-            MoveTurnsCost = new Stat(1);
+            Hints = CreateStat(MaxHints);
+            Enigma = CreateStat(Info.Enigma ?? 0);
+            InvestigationTurnsCost = CreateStat(1);
+            MoveTurnsCost = CreateStat(1);
             Revealed = new State(false);
         }
 

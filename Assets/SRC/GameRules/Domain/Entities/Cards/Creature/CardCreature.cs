@@ -38,14 +38,14 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Health = new Stat(Info.Health ?? 0);
-            Strength = new Stat(Info.Strength ?? 0);
-            Agility = new Stat(Info.Agility ?? 0);
-            Damage = new Stat(Info.CreatureDamage ?? 0);
-            Fear = new Stat(Info.CreatureFear ?? 0);
-            InvestigatorAttackTurnsCost = new Stat(1);
-            InvestigatorConfronTurnsCost = new Stat(1);
-            EludeTurnsCost = new Stat(1);
+            Health = CreateStat(Info.Health ?? 0);
+            Strength = CreateStat(Info.Strength ?? 0);
+            Agility = CreateStat(Info.Agility ?? 0);
+            Damage = CreateStat(Info.CreatureDamage ?? 0);
+            Fear = CreateStat(Info.CreatureFear ?? 0);
+            InvestigatorAttackTurnsCost = CreateStat(1);
+            InvestigatorConfronTurnsCost = CreateStat(1);
+            EludeTurnsCost = CreateStat(1);
         }
 
         /*******************************************************************/

@@ -32,40 +32,27 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            Health = new Stat(Info.Health ?? 0 - Injury.Value);
-            Sanity = new Stat(Info.Sanity ?? 0 - Shock.Value);
-            Strength = new Stat(Info.Strength ?? 0);
-            Agility = new Stat(Info.Agility ?? 0);
-            Intelligence = new Stat(Info.Intelligence ?? 0);
-            Power = new Stat(Info.Power ?? 0);
-            Xp = new Stat(0);
-            Injury = new Stat(0);
-            Shock = new Stat(0);
-            Resources = new Stat(0);
-            Hints = new Stat(0);
-            MaxTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
-            CurrentTurns = new Stat(GameValues.DEFAULT_TURNS_AMOUNT);
-            MaxHandSize = new Stat(GameValues.MAX_HAND_SIZE);
-            DrawTurnsCost = new Stat(1);
-            TurnsCost = new Stat(1);
+            Health = CreateStat(Info.Health ?? 0 - Injury.Value);
+            Sanity = CreateStat(Info.Sanity ?? 0 - Shock.Value);
+            Strength = CreateStat(Info.Strength ?? 0);
+            Agility = CreateStat(Info.Agility ?? 0);
+            Intelligence = CreateStat(Info.Intelligence ?? 0);
+            Power = CreateStat(Info.Power ?? 0);
+            Xp = CreateStat(0);
+            Injury = CreateStat(0);
+            Shock = CreateStat(0);
+            Resources = CreateStat(0);
+            Hints = CreateStat(0);
+            MaxTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
+            CurrentTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
+            MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
+            DrawTurnsCost = CreateStat(1);
+            TurnsCost = CreateStat(1);
             Resign = new State(false);
             Defeated = new State(false);
         }
 
         /*******************************************************************/
-        public bool HasThisStat(Stat stat) => stat == Health
-                || stat == Sanity
-                || stat == Strength
-                || stat == Agility
-                || stat == Intelligence
-                || stat == Power
-                || stat == Xp
-                || stat == Injury
-                || stat == Shock
-                || stat == Resources
-                || stat == Hints
-                || stat == CurrentTurns;
-
         public abstract Task StarEffect();
 
         public abstract int StarValue();

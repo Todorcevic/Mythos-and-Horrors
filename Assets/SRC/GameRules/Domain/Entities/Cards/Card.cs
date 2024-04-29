@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEditor.Playables;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -16,6 +19,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        private readonly List<Stat> _allStats = new();
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
@@ -74,5 +78,15 @@ namespace MythosAndHorrors.GameRules
             async Task Continue() => await Task.CompletedTask;
             async Task FullLogic() => await logic.Invoke(realGameAction);
         }
+
+        /*******************************************************************/
+        protected Stat CreateStat(int value)
+        {
+            Stat newSAtat = new(value);
+            _allStats.Add(newSAtat);
+            return newSAtat;
+        }
+
+        public bool HasThisStat(Stat stat) => _allStats.Contains(stat);
     }
 }

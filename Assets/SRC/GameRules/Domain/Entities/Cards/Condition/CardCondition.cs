@@ -17,8 +17,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ResourceCost = new Stat(Info.Cost ?? 0);
-            PlayFromHandTurnsCost = new Stat(1);
+            ResourceCost = CreateStat(Info.Cost ?? 0);
+            PlayFromHandTurnsCost = CreateStat(1);
         }
 
         /*******************************************************************/
