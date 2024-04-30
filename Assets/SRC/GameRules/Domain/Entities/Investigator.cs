@@ -67,8 +67,6 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost => InvestigatorCard.TurnsCost;
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
-        public Investigator NextInvestigator => _investigatorsProvider.AllInvestigators.NextElementFor(this);
-        public Investigator NextInvestigatorInPlay => _investigatorsProvider.AllInvestigatorsInPlay.NextElementFor(this);
 
         /*******************************************************************/
         [Inject]

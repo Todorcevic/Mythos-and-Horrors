@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsProvider
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Investigator> _investigators = new();
 
         public List<Investigator> AllInvestigators => _investigators.ToList();
