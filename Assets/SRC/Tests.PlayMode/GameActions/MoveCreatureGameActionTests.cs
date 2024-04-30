@@ -9,7 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class MoveCreatureGameActionTests : TestBase
     {
-
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/

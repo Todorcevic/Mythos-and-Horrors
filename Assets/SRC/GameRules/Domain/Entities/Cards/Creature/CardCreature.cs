@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -53,6 +56,8 @@ namespace MythosAndHorrors.GameRules
         {
             await base.WhenFinish(gameAction);
             await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
+            await Reaction<MoveCardsGameAction>(gameAction, ConfrontCondition, ConfrontLogic);
+            await Reaction<UpdateStatesGameAction>(gameAction, ConfrontCondition, ConfrontLogic);
         }
 
         /*******************************************************************/
@@ -71,5 +76,18 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        private bool ConfrontCondition(GameAction gameAction)
+        {
+            if (!IsInPlay) return false;
+            if (Exausted.IsActive) return false;
+            if (IsConfronted) return false;
+            if (_investigatorProvider.GetInvestigatorsInThisPlace(CurrentPlace).Count() < 1) return false;
+            return true;
+        }
+
+        private async Task ConfrontLogic(GameAction gameAction)
+        {
+            await _gameActionsProvider.Create(new ConfrontCreatureGameAction(this));
+        }
     }
 }
