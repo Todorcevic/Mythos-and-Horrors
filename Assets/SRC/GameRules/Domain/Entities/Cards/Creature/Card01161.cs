@@ -4,7 +4,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01161 : CardCreature, ITarget
     {
-        public Investigator Investigator => throw new System.NotImplementedException();
+        public Investigator TargetInvestigator => throw new System.NotImplementedException();
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul };
     }
 

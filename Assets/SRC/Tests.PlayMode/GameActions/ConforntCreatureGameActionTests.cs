@@ -33,5 +33,19 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new ReadyAllCardsGameAction()).AsCoroutine();
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.DangerZone));
         }
+
+        [UnityTest]
+        public IEnumerator NoConfrontCratureTest()
+        {
+            yield return _preparationScene.StartingScene();
+            CardCreature creature = _cardsProvider.GetCard<Card01601>();
+            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new EliminateInvestigatorGameAction(_investigatorsProvider.Third)).AsCoroutine();
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Study.OwnZone));
+            yield return _gameActionsProvider.Create(new ReadyAllCardsGameAction()).AsCoroutine();
+            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Study.OwnZone));
+        }
     }
 }

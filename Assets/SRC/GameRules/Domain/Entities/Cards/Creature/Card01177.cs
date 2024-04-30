@@ -2,7 +2,7 @@
 {
     public class Card01177 : CardCreature, ITarget
     {
-        public Investigator Investigator => throw new System.NotImplementedException();
+        public Investigator TargetInvestigator => throw new System.NotImplementedException();
     }
 
 }

@@ -23,7 +23,8 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Investigator> investigators = _investigatorProvider.GetInvestigatorsInThisPlace(Creature.CurrentPlace);
             Investigator investigator = investigators.First();
-            if (Creature is ITarget target && investigators.Contains(target.Investigator)) investigator = target.Investigator;
+
+            if (Creature is ITarget target && investigators.Contains(target.TargetInvestigator)) investigator = target.TargetInvestigator;
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, investigator.DangerZone));
         }

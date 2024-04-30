@@ -82,6 +82,7 @@ namespace MythosAndHorrors.GameRules
             if (Exausted.IsActive) return false;
             if (IsConfronted) return false;
             if (_investigatorProvider.GetInvestigatorsInThisPlace(CurrentPlace).Count() < 1) return false;
+            if (this is ITarget target && target.IsOnlyOneTarget && target.TargetInvestigator.CurrentPlace != CurrentPlace) return false;
             return true;
         }
 

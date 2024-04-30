@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        Investigator ITarget.Investigator => _investigatorsProvider.GetTopInvestigatorsStrength;
+        Investigator ITarget.TargetInvestigator => _investigatorsProvider.GetTopInvestigatorsStrength;
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul };
     }
 }

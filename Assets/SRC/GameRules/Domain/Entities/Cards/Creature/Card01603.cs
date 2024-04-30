@@ -2,6 +2,6 @@
 {
     public class Card01603 : CardCreature, IStalker, ITarget
     {
-        public Investigator Investigator => Owner;
+        public Investigator TargetInvestigator => Owner;
     }
 }

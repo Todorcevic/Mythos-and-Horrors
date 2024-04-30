@@ -29,11 +29,16 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardPlace realPlaceToMove = Destiny == null ? StalkerMove() : InitializePathFinder(Creature.CurrentPlace, Destiny).path;
+            if (realPlaceToMove == Creature.CurrentPlace) return;
             await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, realPlaceToMove.OwnZone));
         }
 
         private CardPlace StalkerMove()
         {
+            if (Creature is ITarget target && target.IsOnlyOneTarget) return target.TargetInvestigator.IsInPlay ?
+                    InitializePathFinder(Creature.CurrentPlace, target.TargetInvestigator.CurrentPlace).path :
+                    Creature.CurrentPlace;
+
             Dictionary<Investigator, CardPlace> finalResult = new();
             (CardPlace path, int distance) winner = (default, int.MaxValue);
 
@@ -49,7 +54,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            if (Creature is ITarget target && finalResult.TryGetValue(target.Investigator, out CardPlace place))
+            if (Creature is ITarget targetCreature && finalResult.TryGetValue(targetCreature.TargetInvestigator, out CardPlace place))
                 return place;
 
             return finalResult.First().Value;
