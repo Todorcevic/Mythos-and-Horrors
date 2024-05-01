@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task StarEffect()
+        protected override async Task StarEffect()
         {
             _gameActionsProvider.CurrentChallenge.SuccesEffects.Add(DrawResources);
             await Task.CompletedTask;
         }
 
-        public override int StarValue() => 2;
+        protected override int StarValue() => 2;
 
         private async Task DrawResources()
         {

@@ -16,12 +16,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        private readonly List<Activation> _activations = new();
         private readonly List<Stat> _stats = new();
+        private readonly List<Activation> _activations = new();
         private readonly List<IReaction> _reactions = new();
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
+        public State Blancked { get; private set; }
         public Zone OwnZone { get; private set; }
 
 
@@ -29,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
         public IEnumerable<Activation> AllActivations => _activations.ToList();
-        public IEnumerable<Buff> Buffs => _buffsProvider.GetBuffsForThisCard(this);
+        public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
@@ -47,6 +48,7 @@ namespace MythosAndHorrors.GameRules
             OwnZone = _zonesProvider.Create(ZoneType.Own);
             FaceDown = new State(false);
             Exausted = new State(false);
+            Blancked = new State(false, BlankState);
 
             _reactionablesProvider.SubscribeAtStart(WhenBegin);
             _reactionablesProvider.SubscribeAtEnd(WhenFinish);
@@ -68,16 +70,18 @@ namespace MythosAndHorrors.GameRules
         protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
             _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
 
-        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
+            where T : GameAction
         {
-            Reaction<T> newReaction = new(condition, logic, isAtStart);
+            Reaction<T> newReaction = new(condition, logic, isAtStart, isBase);
             _reactions.Add(newReaction);
             return newReaction;
         }
 
-        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
+        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
+            where T : GameAction
         {
-            Reaction<T> newReaction = new(condition, RealLogic, isAtStart);
+            Reaction<T> newReaction = new(condition, RealLogic, isAtStart, isBase);
             _reactions.Add(newReaction);
             return newReaction;
 
@@ -110,5 +114,32 @@ namespace MythosAndHorrors.GameRules
         }
 
         public bool HasThisStat(Stat stat) => _stats.Contains(stat);
+
+        /*******************************************************************/
+        private List<Activation> _activationsBlanked = new();
+        private List<IReaction> _reactionsBlanked = new();
+        private List<Buff> _buffsCreatedBlanked = new();
+
+        protected virtual void BlankState(bool isActive)
+        {
+            if (isActive)
+            {
+                _activationsBlanked = _activations.FindAll(activation => !activation.IsBase).ToList();
+                _activations.Clear();
+                _reactionsBlanked = _reactions.FindAll(reaction => !reaction.IsBase).ToList();
+                _reactions.Clear();
+                _buffsCreatedBlanked = _buffsProvider.GetBuffsForThisCardMaster(this).ToList();
+                _buffsProvider.Remove(_buffsCreatedBlanked);
+            }
+            else
+            {
+                _activations.AddRange(_activationsBlanked);
+                _activationsBlanked.Clear();
+                _reactions.AddRange(_reactionsBlanked);
+                _reactionsBlanked.Clear();
+                _buffsProvider.Add(_buffsCreatedBlanked);
+                _buffsCreatedBlanked.Clear();
+            }
+        }
     }
 }

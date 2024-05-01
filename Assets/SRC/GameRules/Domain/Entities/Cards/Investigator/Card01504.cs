@@ -24,9 +24,9 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task StarEffect() => await Task.CompletedTask;
+        protected override async Task StarEffect() => await Task.CompletedTask;
 
-        public override int StarValue() => Owner.FearRecived;
+        protected override int StarValue() => Owner.FearRecived;
 
         /*******************************************************************/
         private async Task DamageBySanityLogic(UpdateStatGameAction updateStatGameAction)

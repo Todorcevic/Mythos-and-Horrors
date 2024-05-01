@@ -11,13 +11,13 @@ namespace MythosAndHorrors.GameRules
         private Card AmuletoDeWendy => _cardsProvider.GetCard<Card01514>(); //TODO: Poner nombre real de la carta
 
         /*******************************************************************/
-        public override async Task StarEffect()
+        protected override async Task StarEffect()
         {
             if (!AmuletoDeWendy.IsInPlay) return;
             _gameActionsProvider.CurrentChallenge.IsAutoSucceed = true;
             await Task.CompletedTask;
         }
 
-        public override int StarValue() => 0;
+        protected override int StarValue() => 0;
     }
 }

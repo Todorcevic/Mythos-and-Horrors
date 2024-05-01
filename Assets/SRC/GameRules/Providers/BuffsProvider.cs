@@ -16,13 +16,26 @@ namespace MythosAndHorrors.GameRules
             return buff;
         }
 
+        public void Add(IEnumerable<Buff> buffs)
+        {
+            _allBuffs.AddRange(buffs);
+        }
+
+        public void Remove(IEnumerable<Buff> buffs)
+        {
+            foreach (Buff buffToRemove in buffs) _allBuffs.Remove(buffToRemove);
+        }
+
         /*******************************************************************/
         public async Task ExecuteAllBuffs()
         {
-            foreach (Buff buff in _allBuffs) await buff.Execute();
+            foreach (Buff buff in _allBuffs.ToList()) await buff.Execute();
         }
 
-        public IEnumerable<Buff> GetBuffsForThisCard(Card cardAffected) =>
+        public IEnumerable<Buff> GetBuffsAffectToThisCard(Card cardAffected) =>
             _allBuffs.FindAll(buff => buff.CurrentCardsAffected.Contains(cardAffected));
+
+        public IEnumerable<Buff> GetBuffsForThisCardMaster(Card cardMaster) =>
+            _allBuffs.FindAll(buff => buff.CardMaster == cardMaster);
     }
 }

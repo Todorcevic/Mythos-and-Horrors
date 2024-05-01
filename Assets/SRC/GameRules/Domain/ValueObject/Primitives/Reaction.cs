@@ -8,13 +8,15 @@ namespace MythosAndHorrors.GameRules
         public Func<T, bool> Condition { get; }
         public Func<T, Task> Logic { get; }
         public bool IsAtStart { get; }
+        public bool IsBase { get; }
 
         /*******************************************************************/
-        public Reaction(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart)
+        public Reaction(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isbase)
         {
             Condition = condition;
             Logic = logic;
             IsAtStart = isAtStart;
+            IsBase = isbase;
         }
         /*******************************************************************/
         public async Task React(GameAction gameAction)

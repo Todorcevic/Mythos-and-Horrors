@@ -10,16 +10,16 @@ namespace MythosAndHorrors.GameRules
     {
         private bool _isBuffing;
         private string _description;
-        private Card _cardMaster;
 
+        public Card CardMaster { get; private set; }
         public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
         public Func<IEnumerable<Card>, Task> ActivationLogic { get; private set; }
         public Func<IEnumerable<Card>, Task> DeactivationLogic { get; private set; }
         public List<Card> CurrentCardsAffected { get; private set; } = new();
 
-        string IViewEffect.CardCode => _cardMaster.Info.Code;
+        string IViewEffect.CardCode => CardMaster.Info.Code;
         string IViewEffect.Description => _description;
-        string IViewEffect.CardCodeSecundary => _cardMaster.Owner.Code;
+        string IViewEffect.CardCodeSecundary => CardMaster.Owner.Code;
 
         /*******************************************************************/
         public async Task Execute()
@@ -45,11 +45,11 @@ namespace MythosAndHorrors.GameRules
 
             _isBuffing = false;
         }
-        /*******************************************************************/
 
+        /*******************************************************************/
         public Buff SetCard(Card cardMaster)
         {
-            _cardMaster = cardMaster;
+            CardMaster = cardMaster;
             return this;
         }
 

@@ -79,13 +79,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task StarEffect()
+        protected override async Task StarEffect()
         {
             _gameActionsProvider.CurrentChallenge.SuccesEffects.Add(DrawCards);
             await Task.CompletedTask;
         }
 
-        public override int StarValue() => 0;
+        protected override int StarValue() => 0;
 
         private async Task DrawCards() => await _gameActionsProvider.Create(new SafeForeach<Card>(TomesInPlay, DrawAid));
 

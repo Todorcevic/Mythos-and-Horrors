@@ -23,9 +23,9 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task StarEffect() => await Task.CompletedTask;
+        protected override async Task StarEffect() => await Task.CompletedTask;
 
-        public override int StarValue() => Owner.CurrentPlace.Hints.Value;
+        protected override int StarValue() => Owner.CurrentPlace.Hints.Value;
 
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)

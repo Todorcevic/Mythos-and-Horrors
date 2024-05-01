@@ -160,8 +160,8 @@ namespace MythosAndHorrors.GameView
 
         public void AddBuffs()
         {
-            if (Card.Buffs == null || Card.Buffs.Count() < 1) return;
-            _buffController.AddEffects(Card.Buffs);
+            if (Card.AffectedByThisBuffs == null || Card.AffectedByThisBuffs.Count() < 1) return;
+            _buffController.AddEffects(Card.AffectedByThisBuffs);
         }
 
         public void RemoveBuffs() => _buffController.Clear();

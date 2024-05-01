@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public IReaction PayHintReaction { get; private set; }
+        public IReaction PayHintReaction => FindReactionByLogic<RoundGameAction>(PayHintsLogic);
 
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            PayHintReaction = CreateOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic, true);
+            CreateOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic, true);
         }
 
         /*******************************************************************/
