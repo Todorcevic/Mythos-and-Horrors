@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_preparationScene.SceneCORE1.Parlor.Revealed.IsActive, Is.True);
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
             Assert.That(_preparationScene.SceneCORE1.Lita.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Parlor.OwnZone));
-            Assert.That(_preparationScene.SceneCORE1.GhoulPriest.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Hallway.OwnZone));
+            Assert.That(_preparationScene.SceneCORE1.GhoulPriest.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Hallway));
         }
 
         [UnityTest]

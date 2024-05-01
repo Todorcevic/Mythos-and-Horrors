@@ -16,6 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
             yield return _preparationScene.StartingScene();
+            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.CurrentPlace.OwnZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));

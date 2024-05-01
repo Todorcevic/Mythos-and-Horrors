@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
+        public IReaction DiscoverHintReaction { get; private set; }
+        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -16,25 +18,14 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
+            DiscoverHintReaction = CreateFinishOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic);
+            RestartAbilityReaction = CreateBeginReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic);
         }
 
         /*******************************************************************/
         public override async Task StarEffect() => await Task.CompletedTask;
 
         public override int StarValue() => Owner.CurrentPlace.Hints.Value;
-
-        /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await base.WhenFinish(gameAction);
-            await OptativeReaction<DefeatCardGameAction>(gameAction, DiscoverHintCondition, DiscoverHintLogic);
-        }
-
-        protected override async Task WhenBegin(GameAction gameAction)
-        {
-            await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
-        }
 
         /*******************************************************************/
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
@@ -49,6 +40,18 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (Owner.CurrentPlace.Hints.Value < 1) return false;
             if (AbilityUsed.IsActive) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private async Task RestartAbilityLogic(RoundGameAction roundGameAction)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+        }
+
+        private bool RestartAbilityCondition(RoundGameAction roundGameAction)
+        {
+            if (!AbilityUsed.IsActive) return false;
             return true;
         }
     }

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardGoal : Card, IRevealable, IActivable
+    public abstract class CardGoal : Card, IRevealable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
@@ -14,7 +13,8 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
-        public List<Activation> Activations { get; private set; }
+        public IReaction RevealReaction { get; protected set; }
+
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
 
@@ -27,9 +27,10 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Activations = new() { new(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate) };
+            CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             Hints = CreateStat(MaxHints);
             Revealed = new State(false);
+            RevealReaction = CreateFinishReaction<UpdateStatGameAction>(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -44,16 +45,10 @@ namespace MythosAndHorrors.GameRules
         public abstract Task CompleteEffect();
 
         /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await Reaction<UpdateStatGameAction>(gameAction, RevealCondition, RevealLogic);
-        }
-
-        /*******************************************************************/
         private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!IsInPlay) return false;
             if (!updateStatGameAction.HasStat(Hints)) return false;
+            if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
             return true;
@@ -67,7 +62,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.Hints.Value > 0)));
 
-        public virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
+        protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;

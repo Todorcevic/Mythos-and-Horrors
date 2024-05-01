@@ -5,12 +5,11 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01601 : CardCreature, IStalker, ITarget, IActivable
+    public class Card01601 : CardCreature, IStalker, ITarget
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public bool IsOnlyOneTarget => true;
-        public List<Activation> Activations { get; private set; }
         public Investigator TargetInvestigator => Owner;
 
         /*******************************************************************/
@@ -18,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Activations = new() { new(CreateStat(1), ParleyActivate, ParleyConditionToActivate) };
+            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
         }
 
         /*******************************************************************/

@@ -7,13 +7,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01502 : CardInvestigator, IActivable
+    public class Card01502 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public State AbilityUsed { get; private set; }
-        public List<Activation> Activations { get; private set; }
+        public IReaction RestartAbilityReaction { get; private set; }
 
         private IEnumerable<Card> TomesInPlay => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
 
@@ -23,7 +23,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            Activations = new() { new(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate) };
+            CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
+            RestartAbilityReaction = CreateBeginReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic);
         }
 
         /*******************************************************************/
@@ -31,12 +32,13 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
 
-            foreach (IActivable activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay).OfType<IActivable>())
+            foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))
             {
-                foreach (Activation activation in activable.Activations)
+                foreach (Activation activation in activable.AllActivations)
                 {
-                    interactableGameAction.Create()
-                        .SetCard(activable as Card)
+                    if (activation.Condition(activeInvestigator))
+                        interactableGameAction.Create()
+                        .SetCard(activable)
                         .SetInvestigator(activeInvestigator)
                         .SetLogic(Activate);
 
@@ -59,15 +61,21 @@ namespace MythosAndHorrors.GameRules
             if (AbilityUsed.IsActive) return false;
             if (!IsInPlay) return false;
             if (Owner != activeInvestigator) return false;
-            if (!_cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay).OfType<IActivable>().Any()) return false;
+            if (!_cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable).Any()) return false;
             return true;
         }
 
         /*******************************************************************/
-        protected override async Task WhenBegin(GameAction gameAction)
+        private async Task RestartAbilityLogic(RoundGameAction gameAction)
         {
-            await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+        }
+
+        private bool RestartAbilityCondition(RoundGameAction gameAction)
+        {
+            if (gameAction is not RoundGameAction) return false;
+            if (!AbilityUsed.IsActive) return false;
+            return true;
         }
 
         /*******************************************************************/

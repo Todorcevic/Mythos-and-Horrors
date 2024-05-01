@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -21,6 +19,9 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorAttackTurnsCost { get; private set; }
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
+        public IReaction DefeatReaction { get; private set; }
+        public IReaction ConfrontReaction { get; private set; }
+        public IReaction ConfrontReaction2 { get; private set; }
 
         /*******************************************************************/
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
@@ -49,15 +50,9 @@ namespace MythosAndHorrors.GameRules
             InvestigatorAttackTurnsCost = CreateStat(1);
             InvestigatorConfronTurnsCost = CreateStat(1);
             EludeTurnsCost = CreateStat(1);
-        }
-
-        /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await base.WhenFinish(gameAction);
-            await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
-            await Reaction<MoveCardsGameAction>(gameAction, ConfrontCondition, ConfrontLogic);
-            await Reaction<UpdateStatesGameAction>(gameAction, ConfrontCondition, ConfrontLogic);
+            DefeatReaction = CreateFinishReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
+            ConfrontReaction = CreateFinishReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic);
+            ConfrontReaction2 = CreateFinishReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic);
         }
 
         /*******************************************************************/
@@ -68,7 +63,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task DefeatLogic(UpdateStatGameAction gameAction)
+        private async Task DefeatLogic(GameAction gameAction)
         {
             Card byThisCard = null;
             if (gameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;

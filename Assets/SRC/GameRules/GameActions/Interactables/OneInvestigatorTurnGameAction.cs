@@ -216,9 +216,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareActivables()
         {
-            foreach (IActivable activable in _cardsProvider.AllCards.OfType<IActivable>())
+            foreach (Card activable in _cardsProvider.AllCards.FindAll(card => card.IsActivable))
             {
-                foreach (Activation activation in activable.Activations)
+                foreach (Activation activation in activable.AllActivations)
                 {
                     if (activation.FullCondition(ActiveInvestigator))
                         PlayActivableEffects.Add(Create()

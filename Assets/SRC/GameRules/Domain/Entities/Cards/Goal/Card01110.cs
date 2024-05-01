@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -13,21 +14,24 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
         /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
+        private void Init()
         {
-            await Reaction<DefeatCardGameAction>(gameAction, RevealCondition, RevealLogic);
+            RevealReaction = CreateFinishReaction<DefeatCardGameAction>(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
         protected bool RevealCondition(DefeatCardGameAction updateStatGameAction)
         {
-            if (!IsInPlay) return false;
-            if (Revealed.IsActive) return false;
             if (updateStatGameAction.Card != GhoulPriest) return false;
+            if (Revealed.IsActive) return false;
+            if (!IsInPlay) return false;
             return true;
         }
 
-        protected async Task RevealLogic(DefeatCardGameAction updateStatGameAction) => await _gameActionsProvider.Create(new RevealGameAction(this));
+        protected async Task RevealLogic(DefeatCardGameAction updateStatGameAction) =>
+            await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
         public override async Task CompleteEffect()

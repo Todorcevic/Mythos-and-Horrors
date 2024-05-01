@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardInvestigator : Card, IDamageable, IFearable
+    public class CardInvestigator : Card, IDamageable, IFearable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
+        public IReaction DefeatReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -50,18 +51,13 @@ namespace MythosAndHorrors.GameRules
             TurnsCost = CreateStat(1);
             Resign = new State(false);
             Defeated = new State(false);
+            DefeatReaction = CreateFinishReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
         }
 
         /*******************************************************************/
-        public abstract Task StarEffect();
+        public virtual Task StarEffect() => Task.CompletedTask;
 
-        public abstract int StarValue();
-
-        /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await Reaction<UpdateStatGameAction>(gameAction, DefeatCondition, DefeatLogic);
-        }
+        public virtual int StarValue() => 0;
 
         /*******************************************************************/
         private bool DefeatCondition(UpdateStatGameAction gameAction)
@@ -92,7 +88,5 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
         }
-
-        /*******************************************************************/
     }
 }

@@ -5,20 +5,19 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01535 : CardSupply, IActivable
+    public class Card01535 : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tome };
-        public List<Activation> Activations { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Activations = new() { new(CreateStat(1), HealthActivate, HealtConditionConditionToActivate) };
+            CreateActivation(CreateStat(1), HealthActivate, HealtConditionConditionToActivate);
         }
 
         /************************ HEALTH ACTIVATION ******************************/

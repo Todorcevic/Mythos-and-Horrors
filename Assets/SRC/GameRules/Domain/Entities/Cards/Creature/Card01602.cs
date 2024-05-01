@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,13 +9,17 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
+        public IReaction PutEldritchReaction { get; private set; }
+
         public bool IsOnlyOneTarget => true;
         public Investigator TargetInvestigator => Owner;
 
         /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
         {
-            await Reaction<CreatureAttackGameAction>(gameAction, PutEldritchCondition, PutEldritchLogic); //TODO test
+            PutEldritchReaction = CreateFinishReaction<CreatureAttackGameAction>(PutEldritchCondition, PutEldritchLogic);
         }
 
         /*******************************************************************/

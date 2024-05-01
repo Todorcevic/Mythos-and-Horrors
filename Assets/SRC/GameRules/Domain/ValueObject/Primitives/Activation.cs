@@ -8,13 +8,15 @@ namespace MythosAndHorrors.GameRules
         public Stat ActivateTurnsCost { get; }
         public Func<Investigator, Task> Logic { get; }
         public Func<Investigator, bool> Condition { get; }
+        public bool IsBase { get; }
 
         /*******************************************************************/
-        public Activation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition)
+        public Activation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
         {
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;
             Condition = condition;
+            IsBase = isBase;
         }
 
         /*******************************************************************/

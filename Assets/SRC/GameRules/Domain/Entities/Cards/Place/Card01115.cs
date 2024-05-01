@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01115 : CardPlace, IActivable
+    public class Card01115 : CardPlace
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public List<Activation> Activations { get; private set; }
+        public IReaction AvoidMoveReaction { get; private set; }
+
         private CardSupply Lita => _cardsProvider.GetCard<Card01117>();
 
         /*******************************************************************/
@@ -18,11 +18,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Activations = new()
-            {
-                new(CreateStat(1), ResignActivate, ResignConditionToActivate),
-                new(CreateStat(1), ParleyActivate, ParleyConditionToActivate)
-            };
+            CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate);
+            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
+            AvoidMoveReaction = CreateBeginReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic);
         }
 
         /*******************************************************************/
@@ -58,20 +56,16 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task WhenBegin(GameAction gameAction)
+        private async Task AvoidMoveLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
         {
-            await base.WhenBegin(gameAction);
-
-            if (gameAction is OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
-            {
-                Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.Card == this);
-                if (!CanMove()) oneInvestigatorTurnGameAction.RemoveEffect(moveEffect);
-            }
+            Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.Card == this);
+            oneInvestigatorTurnGameAction.RemoveEffect(moveEffect);
+            await Task.CompletedTask;
         }
-        /*******************************************************************/
-        private bool CanMove()
+
+        private bool AvoidMoveCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
         {
-            if (!Revealed.IsActive) return false;
+            if (Revealed.IsActive) return false;
             return true;
         }
     }

@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01503 : CardInvestigator, IActivable
+    public class Card01503 : CardInvestigator
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public List<Activation> Activations { get; private set; }
+        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,14 +17,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            Activations = new() { new(CreateStat(0), GainTurnActivate, GainTurnConditionToActivate) };
-        }
-
-        /*******************************************************************/
-        protected override async Task WhenBegin(GameAction gameAction)
-        {
-            await base.WhenBegin(gameAction);
-            if (gameAction is RoundGameAction) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            CreateActivation(CreateStat(0), GainTurnActivate, GainTurnConditionToActivate);
+            RestartAbilityReaction = CreateBeginReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic);
         }
 
         /*******************************************************************/
@@ -56,6 +49,18 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (Owner != activeInvestigator) return false;
             if (activeInvestigator.Resources.Value < 2) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+        }
+
+        private bool RestartAbilityCondition(RoundGameAction roudnGameAction)
+        {
+            if (!AbilityUsed.IsActive) return false;
             return true;
         }
     }

@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
+        public IReaction RevealReaction { get; private set; }
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
@@ -37,6 +38,7 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = CreateStat(1);
             MoveTurnsCost = CreateStat(1);
             Revealed = new State(false);
+            RevealReaction = CreateFinishReaction<MoveCardsGameAction>(RevealCondition, RevealLogic);
         }
 
         /*******************************************************************/
@@ -46,19 +48,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await Reaction<MoveCardsGameAction>(gameAction, RevealCondition, RevealLogic);
-        }
-        /*******************************************************************/
-
-        private bool RevealCondition(MoveCardsGameAction gameAction)
+        private bool RevealCondition(MoveCardsGameAction moveCardsGameAction)
         {
             if (Revealed.IsActive) return false;
             if (!OwnZone.Cards.Any(card => card is CardAvatar)) return false;
             return true;
         }
 
-        private async Task RevealLogic(MoveCardsGameAction gameAction) => await _gameActionsProvider.Create(new RevealGameAction(this));
+        private async Task RevealLogic(MoveCardsGameAction moveCardsGameAction) =>
+            await _gameActionsProvider.Create(new RevealGameAction(this));
     }
 }

@@ -10,6 +10,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
+        public IReaction DamageBySanityReaction { get; private set; }
+        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -17,19 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-        }
-
-        /*******************************************************************/
-        protected override async Task WhenBegin(GameAction gameAction)
-        {
-            await base.WhenBegin(gameAction);
-            if (gameAction is IPhase) await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
-        }
-
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await base.WhenFinish(gameAction);
-            await OptativeReaction<UpdateStatGameAction>(gameAction, DamageBySanityCondition, DamageBySanityLogic);
+            DamageBySanityReaction = CreateFinishOptativeReaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic);
+            RestartAbilityReaction = CreateBeginReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic);
         }
 
         /*******************************************************************/
@@ -61,11 +52,23 @@ namespace MythosAndHorrors.GameRules
 
         private bool DamageBySanityCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (AbilityUsed.IsActive) return false;
             if (!updateStatGameAction.HasStat(Owner.Sanity)) return false;
+            if (AbilityUsed.IsActive) return false;
             if (Owner.Sanity.Value >= Owner.Sanity.ValueBeforeUpdate) return false;
             if (!IsInPlay) return false;
             if (!Owner.CreaturesInSamePlace.Any()) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private async Task RestartAbilityLogic(PhaseGameAction phaseGameAction)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+        }
+
+        private bool RestartAbilityCondition(PhaseGameAction phaseGameAction)
+        {
+            if (!AbilityUsed.IsActive) return false;
             return true;
         }
     }

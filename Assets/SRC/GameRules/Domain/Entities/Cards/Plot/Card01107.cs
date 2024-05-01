@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -12,10 +13,22 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+        public IReaction MoveGhoulReaction { get; private set; }
+        public IReaction PlaceEldritchReaction { get; private set; }
+
         IEnumerable<CardCreature> GhoulsToMove => _cardsProvider.AllCards.OfType<CardCreature>()
               .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
         IEnumerable<Investigator> InvestigatorsUnresignes => _investigatorsProvider.AllInvestigators
               .Where(investigator => !investigator.Resign.IsActive);
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            MoveGhoulReaction = CreateFinishReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic);
+            PlaceEldritchReaction = CreateFinishReaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic);
+        }
 
         /*******************************************************************/
         public override async Task CompleteEffect()
@@ -30,20 +43,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await Reaction<CreaturePhaseGameAction>(gameAction, MoveGhoulCondition, MoveGhoulLogic);
-            await Reaction<RestorePhaseGameAction>(gameAction, PlaceEldritchCondition, PlaceEldritchLogic);
-        }
-
-        /*******************************************************************/
-        private bool MoveGhoulCondition(GameAction gameAction)
+        private bool MoveGhoulCondition(CreaturePhaseGameAction gameAction)
         {
             if (!IsInPlay) return false;
             return true;
         }
 
-        private async Task MoveGhoulLogic(GameAction gameAction)
+        private async Task MoveGhoulLogic(CreaturePhaseGameAction gameAction)
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
             await _gameActionsProvider.Create(new SafeForeach<CardCreature>(GhoulsToMove, MoveCreature));
@@ -54,13 +60,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool PlaceEldritchCondition(GameAction gameAction)
+        private bool PlaceEldritchCondition(RestorePhaseGameAction gameAction)
         {
             if (!IsInPlay) return false;
             return true;
         }
 
-        private async Task PlaceEldritchLogic(GameAction gameAction)
+        private async Task PlaceEldritchLogic(RestorePhaseGameAction gameAction)
         {
             CardPlace parlor = _cardsProvider.GetCard<Card01115>();
             CardPlace hallway = _cardsProvider.GetCard<Card01112>();

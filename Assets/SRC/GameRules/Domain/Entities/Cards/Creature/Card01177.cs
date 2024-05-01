@@ -1,8 +1,15 @@
-﻿namespace MythosAndHorrors.GameRules
+﻿using System.Linq;
+using Zenject;
+
+namespace MythosAndHorrors.GameRules
 {
     public class Card01177 : CardCreature, ITarget
     {
-        public Investigator TargetInvestigator => throw new System.NotImplementedException();
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+
+        /*******************************************************************/
+        public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
+            .OrderBy(investigator => investigator.HandSize).First();
     }
 
 }

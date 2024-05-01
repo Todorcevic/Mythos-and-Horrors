@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,10 +12,20 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+        public IReaction PayHintReaction { get; private set; }
+
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
         private Card Lita => _cardsProvider.GetCard<Card01117>();
         private Card GhoulPriest => _cardsProvider.GetCard<Card01116>();
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
+        private void Init()
+        {
+            PayHintReaction = CreateBeginOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic);
+        }
 
         /*******************************************************************/
         public override async Task CompleteEffect()
@@ -25,17 +36,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override bool PayHintsConditionToActivate(Investigator investigator) => false;
-
-        /*******************************************************************/
-        protected override async Task WhenFinish(GameAction gameAction)
-        {
-            await base.WhenFinish(gameAction);
-            await OptativeReaction<RoundGameAction>(gameAction, PayHintsCondition, PayHintsLogic);
-        }
-
-        /*******************************************************************/
-        private bool PayHintsCondition(RoundGameAction gameAction)
+        private bool PayHintsCondition(RoundGameAction roundGameAction)
         {
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
@@ -44,7 +45,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task PayHintsLogic(RoundGameAction gameAction)
+        private async Task PayHintsLogic(RoundGameAction roundGameAction)
         {
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
@@ -56,5 +57,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             static async Task Continue() => await Task.CompletedTask;
         }
+
+        protected override bool PayHintsConditionToActivate(Investigator investigator) => false;
     }
 }

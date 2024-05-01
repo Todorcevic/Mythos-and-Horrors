@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01519 : CardSupply, IActivable
+    public class Card01519 : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public int InitialSupplies => 3;
-        public List<Activation> Activations { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -20,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(InitialSupplies);
-            Activations = new() { new(CreateStat(1), HealActivate, HealConditionToActivate) };
+            CreateActivation(CreateStat(1), HealActivate, HealConditionToActivate);
         }
 
         /*******************************************************************/
