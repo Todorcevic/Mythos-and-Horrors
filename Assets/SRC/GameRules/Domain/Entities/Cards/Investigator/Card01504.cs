@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DamageBySanityReaction = CreateFinishOptativeReaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic);
-            RestartAbilityReaction = CreateBeginReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic);
+            DamageBySanityReaction = CreateOptativeReaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic, false);
+            RestartAbilityReaction = CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

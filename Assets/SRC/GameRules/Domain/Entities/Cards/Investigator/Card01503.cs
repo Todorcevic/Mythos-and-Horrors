@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = new State(false);
             CreateActivation(CreateStat(0), GainTurnActivate, GainTurnConditionToActivate);
-            RestartAbilityReaction = CreateBeginReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic);
+            RestartAbilityReaction = CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

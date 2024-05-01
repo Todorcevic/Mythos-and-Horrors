@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
 
-            TakeDamageReaction = CreateFinishReaction<MoveInvestigatorToPlaceGameAction>(TakeDamageCondition, TakeDamageLogic);
+            TakeDamageReaction = CreateReaction<MoveInvestigatorToPlaceGameAction>(TakeDamageCondition, TakeDamageLogic, false);
         }
 
         /*******************************************************************/

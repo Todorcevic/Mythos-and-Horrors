@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate);
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
-            AvoidMoveReaction = CreateBeginReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic);
+            AvoidMoveReaction = CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, true);
         }
 
         /*******************************************************************/

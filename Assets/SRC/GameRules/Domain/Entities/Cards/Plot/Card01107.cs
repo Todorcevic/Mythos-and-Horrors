@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            MoveGhoulReaction = CreateFinishReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic);
-            PlaceEldritchReaction = CreateFinishReaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic);
+            MoveGhoulReaction = CreateReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic, false);
+            PlaceEldritchReaction = CreateReaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, false);
         }
 
         /*******************************************************************/
@@ -55,8 +55,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new SafeForeach<CardCreature>(GhoulsToMove, MoveCreature));
 
             /*******************************************************************/
-            async Task MoveCreature(CardCreature ghoul) =>
-                await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
+            async Task MoveCreature(CardCreature ghoul) => await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, parlor));
         }
 
         /*******************************************************************/

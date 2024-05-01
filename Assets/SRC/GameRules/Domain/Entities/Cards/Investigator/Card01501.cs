@@ -18,8 +18,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DiscoverHintReaction = CreateFinishOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic);
-            RestartAbilityReaction = CreateBeginReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic);
+            DiscoverHintReaction = CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, false);
+            RestartAbilityReaction = CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

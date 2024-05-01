@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             Hints = CreateStat(MaxHints);
             Revealed = new State(false);
-            RevealReaction = CreateFinishReaction<UpdateStatGameAction>(RevealCondition, RevealLogic);
+            RevealReaction = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/

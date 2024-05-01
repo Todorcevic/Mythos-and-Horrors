@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
 
-            TakeFearReaction = CreateFinishReaction<MoveInvestigatorToPlaceGameAction>(TakeFearCondition, TakeFearLogic);
+            TakeFearReaction = CreateReaction<MoveInvestigatorToPlaceGameAction>(TakeFearCondition, TakeFearLogic, false);
         }
 
         /*******************************************************************/

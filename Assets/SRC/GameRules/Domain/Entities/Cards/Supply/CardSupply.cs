@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
             if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
-            DefeatReaction = CreateFinishReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
+            DefeatReaction = CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/

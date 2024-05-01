@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            PayHintReaction = CreateBeginOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic);
+            PayHintReaction = CreateOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic, true);
         }
 
         /*******************************************************************/

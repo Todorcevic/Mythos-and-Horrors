@@ -18,8 +18,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Activation> _activations = new();
         private readonly List<Stat> _stats = new();
-        private readonly List<IReaction> _beginReactions = new();
-        private readonly List<IReaction> _finishReactions = new();
+        private readonly List<IReaction> _reactions = new();
 
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
@@ -55,66 +54,43 @@ namespace MythosAndHorrors.GameRules
 
         private async Task WhenBegin(GameAction gameAction)
         {
-            foreach (IReaction reaction in _beginReactions)
+            foreach (IReaction reaction in _reactions.FindAll(reaction => reaction.IsAtStart))
                 await reaction.React(gameAction);
         }
 
         private async Task WhenFinish(GameAction gameAction)
         {
-            foreach (IReaction reaction in _finishReactions)
+            foreach (IReaction reaction in _reactions.FindAll(reaction => !reaction.IsAtStart))
                 await reaction.React(gameAction);
         }
 
         /*******************************************************************/
-        protected Reaction<T> CreateBeginReaction<T>(Func<T, bool> condition, Func<T, Task> logic) where T : GameAction
+        protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
+            _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
+
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
-            Reaction<T> newReaction = new(condition, logic);
-            _beginReactions.Add(newReaction);
+            Reaction<T> newReaction = new(condition, logic, isAtStart);
+            _reactions.Add(newReaction);
             return newReaction;
         }
 
-        protected Reaction<T> CreateFinishReaction<T>(Func<T, bool> condition, Func<T, Task> logic) where T : GameAction
+        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
-            Reaction<T> newReaction = new(condition, logic);
-            _finishReactions.Add(newReaction);
-            return newReaction;
-        }
-
-        protected Reaction<T> CreateBeginOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic) where T : GameAction
-        {
-            Reaction<T> newReaction = new(condition, RealLogic);
-            _beginReactions.Add(newReaction);
+            Reaction<T> newReaction = new(condition, RealLogic, isAtStart);
+            _reactions.Add(newReaction);
             return newReaction;
 
-            async Task RealLogic(GameAction gameAction)
+            async Task RealLogic(T gameAction)
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
                 interactableGameAction.CreateMainButton().SetLogic(Continue);
-                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(() => FullLogic(gameAction));
+                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/
                 async Task Continue() => await Task.CompletedTask;
-                async Task FullLogic(GameAction gameAction) => await logic.Invoke((T)gameAction);
-            }
-        }
-
-        protected Reaction<T> CreateFinishOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic) where T : GameAction
-        {
-            Reaction<T> newReaction = new(condition, RealLogic);
-            _finishReactions.Add(newReaction);
-            return newReaction;
-
-            async Task RealLogic(GameAction gameAction)
-            {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
-                interactableGameAction.CreateMainButton().SetLogic(Continue);
-                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(() => FullLogic(gameAction));
-                await _gameActionsProvider.Create(interactableGameAction);
-
-                /*******************************************************************/
-                async Task Continue() => await Task.CompletedTask;
-                async Task FullLogic(GameAction gameAction) => await logic.Invoke((T)gameAction);
+                async Task FullLogic() => await logic.Invoke(gameAction);
             }
         }
 

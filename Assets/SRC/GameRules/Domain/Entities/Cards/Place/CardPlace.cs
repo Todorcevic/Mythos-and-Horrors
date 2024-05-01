@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = CreateStat(1);
             MoveTurnsCost = CreateStat(1);
             Revealed = new State(false);
-            RevealReaction = CreateFinishReaction<MoveCardsGameAction>(RevealCondition, RevealLogic);
+            RevealReaction = CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/

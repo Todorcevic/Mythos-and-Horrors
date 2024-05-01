@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
             TurnsCost = CreateStat(1);
             Resign = new State(false);
             Defeated = new State(false);
-            DefeatReaction = CreateFinishReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic);
+            DefeatReaction = CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/

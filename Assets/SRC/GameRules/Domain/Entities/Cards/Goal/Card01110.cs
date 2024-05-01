@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            RevealReaction = CreateFinishReaction<DefeatCardGameAction>(RevealCondition, RevealLogic);
+            RevealReaction = CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/

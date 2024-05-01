@@ -3,21 +3,18 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public interface IReaction
-    {
-        Task React(GameAction gameAction);
-    }
-
     public class Reaction<T> : IReaction where T : GameAction
     {
         public Func<T, bool> Condition { get; }
         public Func<T, Task> Logic { get; }
+        public bool IsAtStart { get; }
 
         /*******************************************************************/
-        public Reaction(Func<T, bool> condition, Func<T, Task> logic)
+        public Reaction(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart)
         {
             Condition = condition;
             Logic = logic;
+            IsAtStart = isAtStart;
         }
         /*******************************************************************/
         public async Task React(GameAction gameAction)
