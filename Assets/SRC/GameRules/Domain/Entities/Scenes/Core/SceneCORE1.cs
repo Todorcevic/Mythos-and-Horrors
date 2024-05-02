@@ -43,21 +43,60 @@ namespace MythosAndHorrors.GameRules
         protected override void PrepareChallengeTokens()
         {
             base.PrepareChallengeTokens();
-            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
             {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureNormalValue, effect: CreatureNormalEffect, description: Info.CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistNormalValue, effect: CultistNormalEffect, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerNormalValue, effect: DangerNormalEffect, description: Info.DangerTokenDescriptionNormal);
-            }
-            else if (_chaptersProvider.CurrentDificulty == Dificulty.Hard || _chaptersProvider.CurrentDificulty == Dificulty.Expert)
-            {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureHardValue, effect: CreatureHardEffect, description: Info.CreatureTokenDescriptionHard);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistHardValue, effect: CultistHardEffect, description: Info.CultistTokenDescriptionHard);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerHardValue, effect: DangerHardEffect, description: Info.DangerTokenDescriptionHard);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
             }
         }
 
-        private int CreatureNormalValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Count();
+        private int CreatureValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CreatureNormalValue();
+            else
+                return CreatureHardValue();
+        }
+
+        private async Task CreatureEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CreatureNormalEffect();
+            else
+                await CreatureHardEffect();
+        }
+
+        private int CultistValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CultistNormalValue();
+            else return CultistHardValue();
+        }
+
+        private async Task CultistEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CultistNormalEffect();
+            else await CultistHardEffect();
+        }
+
+        private int DangerValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return DangerNormalValue();
+            else return DangerHardValue();
+        }
+
+        private async Task DangerEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await DangerNormalEffect();
+            else await DangerHardEffect();
+        }
+
+
+        private int CreatureNormalValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+            .Where(creature => creature.Tags.Contains(Tag.Ghoul)).Count() * -1;
         private async Task CreatureNormalEffect() => await Task.CompletedTask;
 
         private int CultistNormalValue() => -1;

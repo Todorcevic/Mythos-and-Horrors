@@ -46,8 +46,8 @@ namespace MythosAndHorrors.GameRules
             Stat = stat;
             InitialDifficultValue = difficultValue;
             ChallengeName = name;
-            SuccesEffects.Add(succesEffect);
-            FailEffects.Add(failEffect);
+            if (succesEffect != null) SuccesEffects.Add(succesEffect);
+            if (failEffect != null) FailEffects.Add(failEffect);
             CardToChallenge = cardToChallenge;
         }
 

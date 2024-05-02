@@ -1,0 +1,177 @@
+﻿using MythosAndHorrors.GameRules;
+using NUnit.Framework;
+using System.Collections;
+using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine.TestTools;
+
+namespace MythosAndHorrors.PlayMode.Tests
+{
+    public class ChallengeTokenTests : TestBase
+    {
+        //protected override bool DEBUG_MODE => true;
+
+        /*******************************************************************/
+        [UnityTest]
+        public IEnumerator NormalCreatureTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-1));
+        }
+
+        [UnityTest]
+        public IEnumerator HardCreatureTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-2));
+            Assert.That(investigator.DangerZone.Cards.Count(), Is.EqualTo(2));
+            Assert.That(investigator.DangerZone.Cards.OfType<CardCreature>().All(creature => creature.Tags.Contains(Tag.Ghoul)), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator NormalCultistTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator HardCultistTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
+            Assert.That(challengeValue, Is.EqualTo(0));
+            _reactionableControl.ClearAllSubscriptions();
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Value_1));
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
+            challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+        }
+
+        [UnityTest]
+        public IEnumerator NormalDangerTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-2));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator HardDangerTokenTest()
+        {
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
+            yield return _preparationScene.PlaceAllSceneCards();
+            yield return _preparationScene.PlaceAllPlaceCards();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
+
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            while (!gameActionTask.IsCompleted) yield return null;
+
+            Assert.That(challengeValue, Is.EqualTo(-4));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+        }
+
+        private async Task RevealSpecificToken(GameAction gameAction, ChallengeTokenType tokenType)
+        {
+            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
+            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
+                .Find(challengeToken => challengeToken.TokenType == tokenType);
+            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
+
+            await Task.CompletedTask;
+        }
+    }
+}
