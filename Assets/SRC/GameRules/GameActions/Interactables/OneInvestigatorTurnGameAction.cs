@@ -128,7 +128,7 @@ namespace MythosAndHorrors.GameRules
                 async Task InvestigatorAttack()
                 {
                     await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, cardCreature.InvestigatorAttackTurnsCost.Value));
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: 1));
+                    await _gameActionsProvider.Create(new AttackGameAction(ActiveInvestigator, cardCreature, 1));
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace MythosAndHorrors.GameRules
                 bool CanInvestigatorElude()
                 {
                     if (ActiveInvestigator.CurrentTurns.Value < cardCreature.EludeTurnsCost.Value) return false;
-                    if (ActiveInvestigator != cardCreature.ConfrontedInvestigator) return false;
+                    if (cardCreature.ConfrontedInvestigator != ActiveInvestigator) return false;
                     return true;
                 }
 
@@ -222,7 +222,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     if (activation.FullCondition(ActiveInvestigator))
                         PlayActivableEffects.Add(Create()
-                           .SetCard(activable as Card)
+                           .SetCard(activable)
                            .SetInvestigator(ActiveInvestigator)
                            .SetLogic(Activate));
 

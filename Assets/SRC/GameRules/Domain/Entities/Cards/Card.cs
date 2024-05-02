@@ -49,7 +49,6 @@ namespace MythosAndHorrors.GameRules
             FaceDown = new State(false);
             Exausted = new State(false);
             Blancked = new State(false, BlankState);
-
             _reactionablesProvider.SubscribeAtStart(WhenBegin);
             _reactionablesProvider.SubscribeAtEnd(WhenFinish);
         }

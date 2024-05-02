@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         [JsonProperty("InvestigatorCard")] public CardInvestigator InvestigatorCard { get; init; }
         [JsonProperty("AvatarCard")] public CardAvatar AvatarCard { get; init; }
@@ -41,6 +42,7 @@ namespace MythosAndHorrors.GameRules
         public int HandSize => HandZone.Cards.Count;
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
+        public Card CardDangerToDraw => _chaptersProvider.CurrentScene.CardDangerToDraw;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
         public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });

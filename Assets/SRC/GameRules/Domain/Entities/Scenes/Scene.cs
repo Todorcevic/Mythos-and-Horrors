@@ -10,7 +10,9 @@ namespace MythosAndHorrors.GameRules
     public abstract class Scene
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
+        private readonly List<IReaction> _reactions = new();
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -51,6 +53,8 @@ namespace MythosAndHorrors.GameRules
             PileAmount = new Stat(int.MaxValue);
             InitializePlaceZones();
             PrepareChallengeTokens();
+            _reactionablesProvider.SubscribeAtStart(WhenBegin);
+            _reactionablesProvider.SubscribeAtEnd(WhenFinish);
         }
 
         private void InitializePlaceZones()
@@ -81,6 +85,33 @@ namespace MythosAndHorrors.GameRules
                 _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
                 await Task.CompletedTask;
             }
+        }
+
+        /*******************************************************************/
+        protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
+           _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
+
+        protected void RemoveReaction<T>(Func<T, Task> logic) where T : GameAction =>
+            _reactions.RemoveAll(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic);
+
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
+           where T : GameAction
+        {
+            Reaction<T> newReaction = new(condition, logic, isAtStart, isBase);
+            _reactions.Add(newReaction);
+            return newReaction;
+        }
+
+        private async Task WhenBegin(GameAction gameAction)
+        {
+            foreach (IReaction reaction in _reactions.FindAll(reaction => reaction.IsAtStart))
+                await reaction.React(gameAction);
+        }
+
+        private async Task WhenFinish(GameAction gameAction)
+        {
+            foreach (IReaction reaction in _reactions.FindAll(reaction => !reaction.IsAtStart))
+                await reaction.React(gameAction);
         }
 
         /*******************************************************************/

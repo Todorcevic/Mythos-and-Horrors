@@ -3,32 +3,36 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigateGameAction : GameAction
+    public class EludeGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
-        public CardPlace CardPlace { get; }
+        public CardCreature CardCreature { get; }
 
         /*******************************************************************/
-        public InvestigateGameAction(Investigator investigator, CardPlace cardPlace)
+        public EludeGameAction(Investigator investigator, CardCreature creature)
         {
             Investigator = investigator;
-            CardPlace = cardPlace;
+            CardCreature = creature;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new ChallengePhaseGameAction(
-                Investigator.Intelligence,
-                CardPlace.Enigma.Value,
-                "Investigate" + CardPlace.Info.Name,
+                Investigator.Agility,
+                CardCreature.Agility.Value,
+                "Elude " + CardCreature.Info.Name,
                 succesEffect: SuccesEffet,
-                cardToChallenge: CardPlace));
+                cardToChallenge: CardCreature));
 
             /*******************************************************************/
-            async Task SuccesEffet() => await _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
+            async Task SuccesEffet()
+            {
+                await _gameActionsProvider.Create(new UpdateStatesGameAction(CardCreature.Exausted, true));
+                await _gameActionsProvider.Create(new MoveCardsGameAction(CardCreature, CardCreature.CurrentPlace.OwnZone));
+            }
         }
     }
 }

@@ -21,9 +21,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task React(GameAction gameAction)
         {
-            if (gameAction is not T t) return;
-            if (!Condition.Invoke(t)) return;
-            await Logic.Invoke(t);
+            if (gameAction is not T realGameAction) return;
+            if (!Condition.Invoke(realGameAction)) return;
+            await Logic.Invoke(realGameAction);
         }
     }
 }

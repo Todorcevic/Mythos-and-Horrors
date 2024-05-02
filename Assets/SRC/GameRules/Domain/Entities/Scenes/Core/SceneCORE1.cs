@@ -39,27 +39,99 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
         }
 
+        /*******************************************************************/
         protected override void PrepareChallengeTokens()
         {
             base.PrepareChallengeTokens();
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
             {
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionNormal);
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureNormalValue, effect: CreatureNormalEffect, description: Info.CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistNormalValue, effect: CultistNormalEffect, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerNormalValue, effect: DangerNormalEffect, description: Info.DangerTokenDescriptionNormal);
             }
             else if (_chaptersProvider.CurrentDificulty == Dificulty.Hard || _chaptersProvider.CurrentDificulty == Dificulty.Expert)
             {
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, effect: FailEffect, description: Info.CultistTokenDescriptionHard);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, effect: FailEffect, description: Info.DangerTokenDescriptionHard);
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, effect: FailEffect, description: Info.CreatureTokenDescriptionHard);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureHardValue, effect: CreatureHardEffect, description: Info.CreatureTokenDescriptionHard);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistHardValue, effect: CultistHardEffect, description: Info.CultistTokenDescriptionHard);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerHardValue, effect: DangerHardEffect, description: Info.DangerTokenDescriptionHard);
             }
         }
 
-        private async Task FailEffect() // TODO: Test Effect, must be change
+        private int CreatureNormalValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Count();
+        private async Task CreatureNormalEffect() => await Task.CompletedTask;
+
+        private int CultistNormalValue() => -1;
+        private async Task CultistNormalEffect()
         {
-            _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
+            _gameActionsProvider.CurrentChallenge.FailEffects.Add(TakeOneFear);
             await Task.CompletedTask;
+
+            /*******************************************************************/
+            async Task TakeOneFear() =>
+            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+                _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                _gameActionsProvider.CurrentChallenge.CardToChallenge,
+                amountFear: 1));
+        }
+
+        private int DangerNormalValue() => -2;
+        private async Task DangerNormalEffect()
+        {
+            if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+                .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
+
+            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+            _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+            _gameActionsProvider.CurrentChallenge.CardToChallenge,
+            amountDamage: 1));
+        }
+
+        private int CreatureHardValue() => -2;
+        private async Task CreatureHardEffect()
+        {
+            CreateReaction<ChallengePhaseGameAction>(condition: DrawGhoulCondition, logic: DrawGhoul, isAtStart: false);
+            await Task.CompletedTask;
+
+            /*******************************************************************/
+            async Task DrawGhoul(ChallengePhaseGameAction challengePhaseGameAction)
+            {
+                Card ghoul = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Ghoul));
+
+                await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul));
+                await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+            }
+
+            bool DrawGhoulCondition(ChallengePhaseGameAction challengePhaseGameAction)
+            {
+                RemoveReaction<ChallengePhaseGameAction>(DrawGhoul);
+                if (challengePhaseGameAction.IsSuccessful ?? true) return false;
+                return true;
+            }
+        }
+
+        private int CultistHardValue() => 0;
+        private async Task CultistHardEffect()
+        {
+            _gameActionsProvider.CurrentChallenge.FailEffects.Add(TakeTwoFear);
+            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+
+            /*******************************************************************/
+            async Task TakeTwoFear() =>
+            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+                _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                _gameActionsProvider.CurrentChallenge.CardToChallenge,
+                amountFear: 2));
+        }
+
+        private int DangerHardValue() => -4;
+        private async Task DangerHardEffect()
+        {
+            if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+               .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
+            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+            _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+            _gameActionsProvider.CurrentChallenge.CardToChallenge,
+            amountDamage: 1, amountFear: 1));
         }
 
         /*******************************************************************/
