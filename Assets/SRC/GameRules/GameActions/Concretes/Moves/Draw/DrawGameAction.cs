@@ -1,34 +1,36 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class DrawGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionRepository;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; }
-        public Card Card { get; }
+        public Card CardDrawed { get; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public DrawGameAction(Investigator investigator, Card SpecificCard)
+        public DrawGameAction(Investigator investigator, Card cardDrawed)
         {
             Investigator = investigator;
-            Card = SpecificCard;
+            CardDrawed = cardDrawed;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionRepository.Create(new MoveCardsGameAction(Card, GetDrawZone()));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, GetZone()));
         }
 
-        private Zone GetDrawZone()
+        private Zone GetZone()
         {
-            if (_chaptersProvider.CurrentScene.Info.DangerCards.Contains(Card)) return Investigator.DangerZone;
+            if (CardDrawed is ISpawnable spawnable) return spawnable.SpawnPlace.OwnZone;
+            if (CardDrawed is CardCreature) return Investigator.DangerZone;
+            if (CardDrawed is CardAdversity) return _chaptersProvider.CurrentScene.LimboZone;
+
             return Investigator.HandZone;
         }
     }
