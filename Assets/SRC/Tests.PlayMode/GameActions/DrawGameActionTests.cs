@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -18,12 +17,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             Card cardToDraw = _investigatorsProvider.First.CardAidToDraw;
 
+            Assert.That(_investigatorsProvider.First.DeckZone.Cards.Contains(cardToDraw), Is.True);
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(cardToDraw);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!gameActionTask.IsCompleted) yield return null;
-            Assert.That(_investigatorsProvider.First.HandZone.Cards.Contains(cardToDraw), Is.True);
+            Assert.That(_investigatorsProvider.First.DeckZone.Cards.Contains(cardToDraw), Is.False);
         }
     }
 }

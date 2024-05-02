@@ -28,6 +28,6 @@ namespace MythosAndHorrors.GameRules
 
         public IEnumerable<Card> GetCardsExhausted() => _allCards.Where(card => card.Exausted.IsActive);
 
-
+        public IEnumerable<Card> GetCardsInPlay() => _allCards.Where(card => card.IsInPlay);
     }
 }

@@ -40,6 +40,7 @@ namespace MythosAndHorrors.GameRules
         public int DamageRecived => InitialHealth - Health.Value;
         public int FearRecived => InitialSanity - Sanity.Value;
         public int HandSize => HandZone.Cards.Count;
+        public int AmountCardsInPlay => CardsInPlay.Count();
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public Card CardDangerToDraw => _chaptersProvider.CurrentScene.CardDangerToDraw;
@@ -47,7 +48,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
         public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
         public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
-            .Union(AidZone.Cards);
+            .Union(AidZone.Cards); //But Cards not Owner how Lita
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>();

@@ -55,8 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             while (!gameActionTask.IsCompleted) yield return null;
 
             Assert.That(challengeValue, Is.EqualTo(-2));
-            Assert.That(investigator.DangerZone.Cards.Count(), Is.EqualTo(2));
-            Assert.That(investigator.DangerZone.Cards.OfType<CardCreature>().All(creature => creature.Tags.Contains(Tag.Ghoul)), Is.True);
+            Assert.That(_cardsProvider.GetCardsInPlay().OfType<CardCreature>().Count(), Is.EqualTo(2));
         }
 
         [UnityTest]

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard2, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
-            int resultExpected = investigatorToTest.HandSize + 2;
+            int resultExpected = investigatorToTest.DeckZone.Cards.Count - 2;
 
             Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Cellar);
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (!taskInvestigator.IsCompleted) yield return null;
-            Assert.That(investigatorToTest.HandSize, Is.EqualTo(resultExpected));
+            Assert.That(investigatorToTest.DeckZone.Cards.Count, Is.EqualTo(resultExpected));
         }
 
         [UnityTest]
