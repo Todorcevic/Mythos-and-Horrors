@@ -93,7 +93,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlaceAllPlaceCards();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
@@ -103,7 +102,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
             Assert.That(challengeValue, Is.EqualTo(0));
             _reactionableControl.ClearAllSubscriptions();
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Value_1));
+            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
             challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
@@ -111,8 +110,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             while (!gameActionTask.IsCompleted) yield return null;
 
-            Assert.That(challengeValue, Is.EqualTo(-1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+            Assert.That(challengeValue, Is.EqualTo(-4));
+            Assert.That(investigator.FearRecived, Is.EqualTo(3));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
         }
 
         [UnityTest]

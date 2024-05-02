@@ -19,18 +19,20 @@ namespace MythosAndHorrors.GameView
         {
             await CheckIfCardIsExhausted(updateStatesGameAction.States).AsyncWaitForCompletion();
             await CheckIfCardIsRevealed(updateStatesGameAction.States).AsyncWaitForCompletion();
+            await CheckIfCardIsBlanked(updateStatesGameAction.States).AsyncWaitForCompletion();
         }
 
         private Tween CheckIfCardIsExhausted(IEnumerable<State> states)
         {
             IEnumerable<Card> cardsUpdated = _cardsProvider.AllCards.Where(card => states.Contains(card.Exausted));
+            if (!cardsUpdated.Any()) return DOTween.Sequence();
             Sequence readySequence = DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(cardsUpdated.Select(card => card.Owner).UniqueOrDefault()));
             readySequence.Append(DOTween.Sequence());
             foreach (Card card in cardsUpdated)
             {
                 CardView cardView = _cardViewsManager.GetCardView(card);
-                readySequence.Join(card.Exausted.IsActive ? cardView.Exhaust() : cardView.Ready());
+                readySequence.Join(cardView.CheckExhaust());
             }
             return readySequence;
         }
@@ -38,6 +40,7 @@ namespace MythosAndHorrors.GameView
         private Tween CheckIfCardIsRevealed(IEnumerable<State> states)
         {
             IEnumerable<IRevealable> cardsUpdated = _cardsProvider.AllCards.OfType<IRevealable>().Where(revelable => states.Contains(revelable.Revealed));
+            if (!cardsUpdated.Any()) return DOTween.Sequence();
             Sequence readySequence = DOTween.Sequence()
                 .Append(_swapInvestigatorPresenter.Select(cardsUpdated.FilterCast<Card>().Select(revelable => revelable.Owner).UniqueOrDefault()));
             readySequence.Append(DOTween.Sequence());
@@ -45,6 +48,21 @@ namespace MythosAndHorrors.GameView
             {
                 CardView cardView = _cardViewsManager.GetCardView(card);
                 readySequence.Join(cardView.RevealAnimation());
+            }
+            return readySequence;
+        }
+
+        private Tween CheckIfCardIsBlanked(IEnumerable<State> states)
+        {
+            IEnumerable<Card> cardsUpdated = _cardsProvider.AllCards.Where(card => states.Contains(card.Blancked));
+            if (!cardsUpdated.Any()) return DOTween.Sequence();
+            Sequence readySequence = DOTween.Sequence()
+                .Append(_swapInvestigatorPresenter.Select(cardsUpdated.Select(card => card.Owner).UniqueOrDefault()));
+            readySequence.Append(DOTween.Sequence());
+            foreach (Card card in cardsUpdated)
+            {
+                CardView cardView = _cardViewsManager.GetCardView(card);
+                readySequence.Join(cardView.CheckBlancked());
             }
             return readySequence;
         }
