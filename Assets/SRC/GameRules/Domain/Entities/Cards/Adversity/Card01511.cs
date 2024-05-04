@@ -7,6 +7,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01511 : CardAdversity, IVictoriable
     {
+        private const int AMOUNT_RESOURCE_NEEDED = 6;
+
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
@@ -22,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateStat(0);
-            Resources = CreateStat(0);
+            Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
             Victory = CreateStat(-2, canBeNegative: true);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
@@ -34,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         private bool VictoryCondition(FinalizeGameAction finalizeGameAction)
         {
             if (!IsInPlay) return false;
-            if (Resources.Value > 5) return false;
+            if (Resources.Value < 1) return false;
             return true;
         }
 
@@ -60,13 +62,19 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (AbilityUsed.Value > 1) return false;
+            if (investigator.Resources.Value < 1) return false;
+            if (Resources.Value < 1) return false;
             return true;
         }
 
         private async Task PayResourceActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new PayResourceGameAction(investigator, 1));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Resources, 1));
+            Dictionary<Stat, int> resources = new()
+            {
+                { investigator.Resources, 1 },
+                { Resources, 1 }
+            };
+            await _gameActionsProvider.Create(new DecrementStatGameAction(resources));
             await _gameActionsProvider.Create(new IncrementStatGameAction(AbilityUsed, 1));
         }
 

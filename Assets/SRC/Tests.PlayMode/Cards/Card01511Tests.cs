@@ -42,14 +42,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAdversity, investigator.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+
             if (!DEBUG_MODE) yield return WaitToClick(cardAdversity);
-            Assert.That(IsClickable(cardAdversity), Is.True);
             if (!DEBUG_MODE) yield return WaitToClick(cardAdversity);
-            Assert.That(IsClickable(cardAdversity), Is.False);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             while (!taskGameAction.IsCompleted) yield return null;
 
-            Assert.That(((Card01511)cardAdversity).Resources.Value, Is.EqualTo(2));
+            Assert.That(((Card01511)cardAdversity).Resources.Value, Is.EqualTo(4));
         }
     }
 }

@@ -6,6 +6,5 @@ namespace MythosAndHorrors.GameView
     {
         [Title(nameof(AdversityCardView))]
         protected override void SetSpecific() { }
-
     }
 }

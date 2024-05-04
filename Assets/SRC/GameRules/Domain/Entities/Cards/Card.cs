@@ -20,11 +20,11 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Activation> _activations = new();
         private readonly List<IReaction> _reactions = new();
 
+        public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public State Blancked { get; private set; }
         public Zone OwnZone { get; private set; }
-
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;

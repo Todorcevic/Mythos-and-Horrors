@@ -503,7 +503,19 @@ MonoBehaviour:
   _effectController: {fileID: 59569994945036181}
   _buffController: {fileID: 8050058498281757052}
   _cloneComponent: {fileID: 1467218788831893198}
+  _extraStat: {fileID: 4396556126208187546}
   _eldritch: {fileID: 8432757924129616535}
+--- !u!114 &4396556126208187546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5943285455016316630, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 8032590091954852428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba97c45bc897484496d9c4e2bae3986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5493573126717618492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2541272115549055856, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

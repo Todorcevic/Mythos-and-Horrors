@@ -1716,6 +1716,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
   m_PrefabInstance: {fileID: 7177322550284085519}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3593927980481193945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5943285455016316630, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 7177322550284085519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba97c45bc897484496d9c4e2bae3986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3993909956141485441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6122589975459456142, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
@@ -1743,6 +1754,7 @@ MonoBehaviour:
   _effectController: {fileID: 878241973791065302}
   _buffController: {fileID: 7157358325647876671}
   _cloneComponent: {fileID: 1783176149808278925}
+  _extraStat: {fileID: 3593927980481193945}
   _factions:
   - {fileID: 11400000, guid: 5339cb7aa64ead9458a2e9647cc9c5fd, type: 2}
   - {fileID: 11400000, guid: 718b229d1d745154490881fb66fb844b, type: 2}

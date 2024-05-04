@@ -633,6 +633,7 @@ MonoBehaviour:
   _effectController: {fileID: 5439946156936142475}
   _buffController: {fileID: 2601599683950590050}
   _cloneComponent: {fileID: 6913495037968709584}
+  _extraStat: {fileID: 8551918074773814660}
   _skillDamageIcon: {fileID: 21300000, guid: dc93a5ac16a26d544b056d3b4f7aabbf, type: 3}
   _skillFearIcon: {fileID: 21300000, guid: 467454ac83d219d4ebe0ad39cb9ab114, type: 3}
   _skillHolder: {fileID: 21300000, guid: f5f6b314861eb2244a36caad856d2f37, type: 3}
@@ -640,6 +641,17 @@ MonoBehaviour:
   _health: {fileID: 6551472642867990308}
   _strength: {fileID: 3672650554263246494}
   _agility: {fileID: 3491014799247257641}
+--- !u!114 &8551918074773814660 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5943285455016316630, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2653832444634788690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba97c45bc897484496d9c4e2bae3986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8707396170960952463 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}

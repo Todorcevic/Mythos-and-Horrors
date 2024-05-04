@@ -28,20 +28,20 @@ namespace MythosAndHorrors.GameView
                     .Pay(amount, _statableManager.Get(toStat).StatTransform));
         }
 
-        public Tween GainResourceAnimation(Investigator investigator, int amount)
+        public Tween GainResourceAnimation(Investigator investigator, int amount, Stat fromStat = null)
         {
             return DOTween.Sequence()
                .Append(_swapInvestigatorPresenter.Select(investigator))
                .Append(_areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController
-                   .Gain(amount, _statableManager.Get(_chaptersProvider.CurrentScene.PileAmount).StatTransform));
+                   .Gain(amount, _statableManager.Get(fromStat ?? _chaptersProvider.CurrentScene.PileAmount).StatTransform));
         }
 
-        public Tween PayResourceAnimation(Investigator investigator, int amount)
+        public Tween PayResourceAnimation(Investigator investigator, int amount, Stat toStat = null)
         {
             return DOTween.Sequence()
               .Append(_swapInvestigatorPresenter.Select(investigator))
               .Append(_areaInvestigatorViewsManager.Get(investigator).ResourcesTokenController
-                    .Pay(amount, _statableManager.Get(_chaptersProvider.CurrentScene.PileAmount).StatTransform));
+                    .Pay(amount, _statableManager.Get(toStat ?? _chaptersProvider.CurrentScene.PileAmount).StatTransform));
         }
     }
 }

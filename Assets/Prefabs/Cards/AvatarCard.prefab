@@ -404,10 +404,22 @@ MonoBehaviour:
   _effectController: {fileID: 8302026588544928113}
   _buffController: {fileID: 2040858679273271192}
   _cloneComponent: {fileID: 7474145916525699114}
+  _extraStat: {fileID: 5685424177819757182}
   _health: {fileID: 7877986371455117712}
   _resource: {fileID: 2839079472237612468}
   _hint: {fileID: 5759991433611029206}
   _sanity: {fileID: 8373926479102835428}
+--- !u!114 &5685424177819757182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5943285455016316630, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
+  m_PrefabInstance: {fileID: 2061634377852609704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba97c45bc897484496d9c4e2bae3986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &7201643117783309138 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9182001577571860474, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
