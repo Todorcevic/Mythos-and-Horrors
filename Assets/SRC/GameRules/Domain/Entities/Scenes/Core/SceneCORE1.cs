@@ -190,7 +190,7 @@ namespace MythosAndHorrors.GameRules
         {
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
-            _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
+            await _gameActionsProvider.Create(new AddRequerimentCardGameAction(_investigatorsProvider.Leader, Lita));
             await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
@@ -198,7 +198,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task Resolution1()
         {
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, false);
-            _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
+            await _gameActionsProvider.Create(new AddRequerimentCardGameAction(_investigatorsProvider.Leader, Lita));
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
             await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());

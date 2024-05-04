@@ -3,7 +3,6 @@ using Zenject;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MythosAndHorrors.GameView;
 using UnityEngine;
 
 namespace MythosAndHorrors.PlayMode.Tests

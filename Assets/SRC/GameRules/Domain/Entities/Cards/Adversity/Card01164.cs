@@ -2,13 +2,13 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01164: CardAdversity
+    public class Card01164 : CardAdversity
     {
-        public override Zone ZoneToMove => throw new System.NotImplementedException();
+        public override Zone ZoneToMove => Owner.DangerZone;
 
-        protected override Task ObligationLogic()
+        protected override async Task ObligationLogic()
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }
