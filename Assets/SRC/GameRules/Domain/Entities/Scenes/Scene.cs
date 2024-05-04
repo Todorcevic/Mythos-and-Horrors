@@ -38,6 +38,9 @@ namespace MythosAndHorrors.GameRules
         /************************** RESOURCES *****************************/
         public Stat PileAmount { get; private set; }
 
+        /************************* RESOLUTIONS ****************************/
+        public List<Resolution> Resolutions { get; } = new();
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
@@ -50,9 +53,10 @@ namespace MythosAndHorrors.GameRules
             VictoryZone = _zonesProvider.Create(ZoneType.Victory);
             LimboZone = _zonesProvider.Create(ZoneType.Limbo);
             OutZone = _zonesProvider.Create(ZoneType.Out);
-            PileAmount = new Stat(int.MaxValue);
+            PileAmount = new Stat(int.MaxValue, canBeNegative: false);
             InitializePlaceZones();
             PrepareChallengeTokens();
+            PrepareResolutions();
             _reactionablesProvider.SubscribeAtStart(WhenBegin);
             _reactionablesProvider.SubscribeAtEnd(WhenFinish);
         }
@@ -87,6 +91,14 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        private void PrepareResolutions()
+        {
+            for (int i = 0; i < Info.Resolutions.Count; i++)
+            {
+                Resolutions.Add(new Resolution(Info.Resolutions[i], GetResolution(i)));
+            }
+        }
+
         /*******************************************************************/
         protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
            _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
@@ -115,13 +127,26 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task Resolution0() => await Task.CompletedTask;
-        public virtual async Task Resolution1() => await Task.CompletedTask;
-        public virtual async Task Resolution2() => await Task.CompletedTask;
-        public virtual async Task Resolution3() => await Task.CompletedTask;
-        public virtual async Task Resolution4() => await Task.CompletedTask;
-        public virtual async Task Resolution5() => await Task.CompletedTask;
-        public virtual async Task Resolution6() => await Task.CompletedTask;
-        public virtual async Task Resolution7() => await Task.CompletedTask;
+        protected virtual async Task Resolution0() => await Task.CompletedTask;
+        protected virtual async Task Resolution1() => await Task.CompletedTask;
+        protected virtual async Task Resolution2() => await Task.CompletedTask;
+        protected virtual async Task Resolution3() => await Task.CompletedTask;
+        protected virtual async Task Resolution4() => await Task.CompletedTask;
+        protected virtual async Task Resolution5() => await Task.CompletedTask;
+        protected virtual async Task Resolution6() => await Task.CompletedTask;
+        protected virtual async Task Resolution7() => await Task.CompletedTask;
+
+        private Func<Task> GetResolution(int index) => index switch
+        {
+            0 => Resolution0,
+            1 => Resolution1,
+            2 => Resolution2,
+            3 => Resolution3,
+            4 => Resolution4,
+            5 => Resolution5,
+            6 => Resolution6,
+            7 => Resolution7,
+            _ => throw new ArgumentOutOfRangeException(nameof(index), "Index out range."),
+        };
     }
 }

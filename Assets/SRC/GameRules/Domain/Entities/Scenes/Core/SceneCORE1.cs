@@ -31,12 +31,24 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
+            CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Description));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
             await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
+        }
+
+        private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
+        {
+            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
+        }
+
+        private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)
+        {
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 0) return false;
+            return true;
         }
 
         /*******************************************************************/
@@ -174,48 +186,38 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task Resolution0()
+        protected override async Task Resolution0()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[0]));
-
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
             _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
-            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
-            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
+            await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
-        public override async Task Resolution1()
+        protected override async Task Resolution1()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[1]));
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, false);
             _investigatorsProvider.Leader.RequerimentCard.Add(Lita);
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
-            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
-            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
+            await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
-        public override async Task Resolution2()
+        protected override async Task Resolution2()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[2]));
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Xp, 1));
-            int amountXp = VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0 + 2;
-            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
-
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
+            await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
-        public override async Task Resolution3()
+        protected override async Task Resolution3()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Resolutions[3]));
-
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.LitaGoAway, true);
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
             _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
-
+            await Task.CompletedTask;
             //TODO: continue
         }
     }

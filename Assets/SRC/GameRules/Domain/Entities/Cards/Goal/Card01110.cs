@@ -1,10 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01110 : CardGoal
+    public class Card01110 : CardGoal, IVictoriable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -12,12 +13,15 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
+        public Stat Victory { get; private set; }
+        public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
+            Victory = CreateStat(2);
             RevealReaction = CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 
@@ -51,12 +55,12 @@ namespace MythosAndHorrors.GameRules
                        .SetCardAffected(this)
                        .SetLogic(NoBurn);
 
-            /*******************************************************************/
-            async Task BurnIt() => await _chaptersProvider.CurrentScene.Resolution1();
-
-            async Task NoBurn() => await _chaptersProvider.CurrentScene.Resolution2();
-
             await _gameActionsProvider.Create(interactableGameAction);
+
+            /*******************************************************************/
+            async Task BurnIt() => await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[1]));
+
+            async Task NoBurn() => await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
         }
     }
 }

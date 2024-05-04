@@ -2,13 +2,15 @@
 {
     public class Stat
     {
+        private bool _canBeNegative;
         public int Value { get; private set; }
         public int ValueBeforeUpdate { get; private set; }
 
         /*******************************************************************/
-        public Stat(int value)
+        public Stat(int value, bool canBeNegative)
         {
             Value = value;
+            _canBeNegative = canBeNegative;
         }
 
         /*******************************************************************/
@@ -16,7 +18,7 @@
         {
             ValueBeforeUpdate = Value;
             Value = value;
-            if (Value < 0) Value = 0;
+            if (!_canBeNegative && Value < 0) Value = 0;
         }
     }
 }

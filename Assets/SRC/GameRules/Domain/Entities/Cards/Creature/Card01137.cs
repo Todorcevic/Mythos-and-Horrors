@@ -2,7 +2,6 @@
 {
     public class Card01137 : CardCreature
     {
-
     }
 
 }

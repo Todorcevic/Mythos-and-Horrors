@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            PlayFromHandTurnsCost = new Stat(0);
+            PlayFromHandTurnsCost = CreateStat(0);
             AddIntelligence = _buffsProvider.Create()
                 .SetCard(this)
                 .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(AddIntelligenceBuff))

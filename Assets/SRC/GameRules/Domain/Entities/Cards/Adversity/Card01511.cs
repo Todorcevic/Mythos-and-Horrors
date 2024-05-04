@@ -1,7 +1,77 @@
-﻿namespace MythosAndHorrors.GameRules
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Zenject;
+
+namespace MythosAndHorrors.GameRules
 {
-    public class Card01511 : CardAdversity
+    public class Card01511 : CardAdversity, IVictoriable
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+
+        public Stat AbilityUsed { get; private set; }
+        public Stat Resources { get; private set; }
+        public Stat Victory { get; private set; }
+        public IEnumerable<Investigator> InvestigatorsVictoryAffected => new[] { Owner };
+        public override Zone ZoneToMove => Owner.DangerZone;
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
+        private void Init()
+        {
+            AbilityUsed = CreateStat(0);
+            Resources = CreateStat(0);
+            Victory = CreateStat(-2, canBeNegative: true);
+            CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
+            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
+
+            CreateReaction<FinalizeGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
+        }
+
+        /*******************************************************************/
+        private bool VictoryCondition(FinalizeGameAction finalizeGameAction)
+        {
+            if (!IsInPlay) return false;
+            if (Resources.Value > 5) return false;
+            return true;
+        }
+
+        private async Task VictoryLogic(FinalizeGameAction finalizeGameAction)
+        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
+        }
+
+        /*******************************************************************/
+        private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)
+        {
+            await _gameActionsProvider.Create(new UpdateStatGameAction(AbilityUsed, 0));
+        }
+
+        private bool RestartAbilityCondition(RoundGameAction roudnGameAction)
+        {
+            if (AbilityUsed.Value < 2) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private bool PayResourceConditionToActivate(Investigator investigator)
+        {
+            if (!IsInPlay) return false;
+            if (AbilityUsed.Value > 1) return false;
+            return true;
+        }
+
+        private async Task PayResourceActivate(Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new PayResourceGameAction(investigator, 1));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Resources, 1));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(AbilityUsed, 1));
+        }
+
+        /*******************************************************************/
+        protected override async Task ObligationLogic() => await Task.CompletedTask;
 
     }
 }

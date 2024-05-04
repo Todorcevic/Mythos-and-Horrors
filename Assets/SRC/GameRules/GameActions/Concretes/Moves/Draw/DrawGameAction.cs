@@ -23,15 +23,15 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, GetZone()));
+            if (CardDrawed is IObligate obligateCard) await obligateCard.Obligation();
         }
 
-        private Zone GetZone()
+        private Zone GetZone() => CardDrawed switch
         {
-            if (CardDrawed is ISpawnable spawnable) return spawnable.SpawnPlace.OwnZone;
-            if (CardDrawed is CardCreature) return Investigator.DangerZone;
-            if (CardDrawed is CardAdversity) return _chaptersProvider.CurrentScene.LimboZone;
-
-            return Investigator.HandZone;
-        }
+            IObligate obligateCard => obligateCard.ZoneToMove,
+            ISpawnable spawnable => spawnable.SpawnPlace.OwnZone,
+            CardCreature => Investigator.DangerZone,
+            _ => Investigator.HandZone
+        };
     }
 }

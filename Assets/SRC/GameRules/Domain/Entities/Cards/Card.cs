@@ -39,6 +39,8 @@ namespace MythosAndHorrors.GameRules
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
         public bool IsActivable => _activations.Count > 0;
+        public bool CanDiscard => !Tags.Contains(Tag.Flaw);
+        public bool IsVictory => Info.Victory != null;
 
         /*******************************************************************/
         [Inject]
@@ -105,9 +107,9 @@ namespace MythosAndHorrors.GameRules
             return newActivation;
         }
 
-        protected Stat CreateStat(int value)
+        protected Stat CreateStat(int value, bool canBeNegative = false)
         {
-            Stat newSAtat = new(value);
+            Stat newSAtat = new(value, canBeNegative);
             _stats.Add(newSAtat);
             return newSAtat;
         }

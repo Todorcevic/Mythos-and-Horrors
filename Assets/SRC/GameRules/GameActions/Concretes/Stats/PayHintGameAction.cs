@@ -4,6 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class PayHintGameAction : GameAction
     {
         private readonly int _amount;

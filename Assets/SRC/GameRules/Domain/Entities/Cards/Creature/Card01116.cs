@@ -10,5 +10,6 @@ namespace MythosAndHorrors.GameRules
 
         Investigator ITarget.TargetInvestigator => _investigatorsProvider.GetTopInvestigatorsStrength;
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul };
+
     }
 }

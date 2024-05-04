@@ -89,6 +89,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
+        protected bool IsClickable(Card card) =>
+            _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor").IsClickable;
+
         protected IEnumerator WaitLoadImages() => new WaitUntil(ImageExtension.IsAllDone);
 
         protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);

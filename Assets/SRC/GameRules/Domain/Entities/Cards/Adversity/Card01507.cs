@@ -10,5 +10,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Flaw };
+
+        public override Zone ZoneToMove => throw new System.NotImplementedException();
+
+        protected override Task ObligationLogic()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

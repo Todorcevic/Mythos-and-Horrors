@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = new State(false);
             CreateActivation(CreateStat(0), GainTurnActivate, GainTurnConditionToActivate);
-            RestartAbilityReaction = CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

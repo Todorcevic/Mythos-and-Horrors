@@ -9,5 +9,6 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul };
         public CardPlace SpawnPlace => _cardsProvider.GetCard<Card01113>();
+
     }
 }

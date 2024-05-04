@@ -10,6 +10,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
             .OrderBy(investigator => investigator.Sanity.Value).First();
-    }
 
+    }
 }
