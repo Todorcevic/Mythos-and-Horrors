@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class RevealGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

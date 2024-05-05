@@ -188,8 +188,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task Resolution0()
         {
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.HouseUp, true));
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.PriestGhoulLive, true));
             await _gameActionsProvider.Create(new AddRequerimentCardGameAction(_investigatorsProvider.Leader, Lita));
             await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
@@ -197,7 +197,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution1()
         {
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, false);
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.HouseUp, false));
             await _gameActionsProvider.Create(new AddRequerimentCardGameAction(_investigatorsProvider.Leader, Lita));
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
             await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
@@ -206,7 +206,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution2()
         {
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.HouseUp, true));
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Xp, 1));
             await _gameActionsProvider.Create(new MoveCardsGameAction(CurrentGoal, _chaptersProvider.CurrentScene.VictoryZone));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
@@ -214,9 +214,9 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution3()
         {
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.LitaGoAway, true);
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.HouseUp, true);
-            _chaptersProvider.CurrentChapter.CampaignRegister(CORERegister.PriestGhoulLive, true);
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.LitaGoAway, true));
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.HouseUp, true));
+            await _gameActionsProvider.Create(new RegisterCampaignGameAction(CORERegister.PriestGhoulLive, true));
             await Task.CompletedTask;
             //TODO: continue
         }

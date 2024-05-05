@@ -33,6 +33,7 @@ namespace MythosAndHorrors.GameRules
             await _updateStatesPresenters.PlayAnimationWith(this);
         }
 
+        /*******************************************************************/
         public override async Task Undo()
         {
             StatesDictionary.ForEach(kvp => kvp.Key.UpdateValueTo(_statesWithOldValue[kvp.Key]));

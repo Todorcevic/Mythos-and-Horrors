@@ -18,6 +18,10 @@ namespace MythosAndHorrors.GameRules
 
         public void CampaignRegister<T>(T position, bool state) where T : Enum => Register[position.GetHashCode()] = state;
 
-        public bool IsRegistered<T>(T position) where T : Enum => Register[position.GetHashCode()];
+        public bool IsRegistered<T>(T position) where T : Enum
+        {
+            Register.TryGetValue(position.GetHashCode(), out bool isRegistered);
+            return isRegistered;
+        }
     }
 }

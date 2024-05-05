@@ -24,6 +24,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway), Is.True);
+            Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp), Is.True);
+            Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive), Is.True);
         }
 
         [UnityTest]
