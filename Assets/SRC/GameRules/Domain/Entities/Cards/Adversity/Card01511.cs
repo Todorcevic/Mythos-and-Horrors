@@ -28,7 +28,6 @@ namespace MythosAndHorrors.GameRules
             Victory = CreateStat(-2, canBeNegative: true);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
-
             CreateReaction<FinalizeGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
         }
 

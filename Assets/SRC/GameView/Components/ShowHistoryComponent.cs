@@ -31,6 +31,7 @@ namespace MythosAndHorrors.GameView
         {
             initialScale = transform.localScale;
             _button.onClick.AddListener(Clicked);
+            _button.interactable = false;
         }
 
         /*******************************************************************/

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class RegisterCampaignGameAction : GameAction
+    public class RegisterChapterGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         private bool _oldRegister;
@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public bool State { get; }
 
         /*******************************************************************/
-        public RegisterCampaignGameAction(Enum position, bool state)
+        public RegisterChapterGameAction(Enum position, bool state)
         {
             Position = position;
             State = state;
@@ -23,14 +23,14 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             _oldRegister = _chaptersProvider.CurrentChapter.IsRegistered(Position);
-            _chaptersProvider.CurrentChapter.CampaignRegister(Position, State);
+            _chaptersProvider.CurrentChapter.ChapterRegister(Position, State);
             await Task.CompletedTask;
         }
 
         /*******************************************************************/
         public override async Task Undo()
         {
-            _chaptersProvider.CurrentChapter.CampaignRegister(Position, _oldRegister);
+            _chaptersProvider.CurrentChapter.ChapterRegister(Position, _oldRegister);
             await Task.CompletedTask;
         }
     }

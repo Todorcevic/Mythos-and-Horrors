@@ -28,6 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
 
         [Inject] protected readonly ShowHistoryComponent _showHistoryComponent;
+        [Inject] protected readonly RegisterChapterComponent _registerChapterComponent;
         [Inject] protected readonly TokensPileComponent tokensPileComponent;
         [Inject] protected readonly MainButtonComponent _mainButtonComponent;
         [Inject] protected readonly IOActivatorComponent _ioActivatorComponent;
@@ -59,6 +60,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return LoadScene("GamePlay", InstallerToTests);
             LoadSceneSettings();
             AlwaysHistoryPanelClick().AsTask();
+            AlwaysRegisterPanelClick().AsTask();
             _reactionableControl.Init();
         }
 
@@ -99,15 +101,25 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected IEnumerator AlwaysHistoryPanelClick()
         {
             Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
-
             while (!historyButton.interactable) yield return null;
 
             if (historyButton.interactable) historyButton.onClick.Invoke();
             else throw new TimeoutException("History Button Not become clickable");
 
             while (historyButton.interactable) yield return null;
-
             yield return AlwaysHistoryPanelClick();
+        }
+
+        protected IEnumerator AlwaysRegisterPanelClick()
+        {
+            Button registerButton = _registerChapterComponent.GetPrivateMember<Button>("_button");
+            while (!registerButton.interactable) yield return null;
+
+            if (registerButton.interactable) registerButton.onClick.Invoke();
+            else throw new TimeoutException("Register Button Not become clickable");
+
+            while (registerButton.interactable) yield return null;
+            yield return AlwaysRegisterPanelClick();
         }
 
         protected IEnumerator WaitToMainButtonClick()

@@ -14,9 +14,11 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Register")] public Dictionary<int, bool> Register { get; init; } = new();
 
         /*******************************************************************/
+        public Type RegisterEnum => Type.GetType($"{GetType().Namespace}.{Code}{nameof(Register)}");
+
         public bool HasThisScene(string sceneCode) => Scenes.Contains(sceneCode);
 
-        public void CampaignRegister<T>(T position, bool state) where T : Enum => Register[position.GetHashCode()] = state;
+        public void ChapterRegister<T>(T position, bool state) where T : Enum => Register[position.GetHashCode()] = state;
 
         public bool IsRegistered<T>(T position) where T : Enum
         {

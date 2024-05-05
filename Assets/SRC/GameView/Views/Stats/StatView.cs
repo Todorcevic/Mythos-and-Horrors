@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
     public class StatView : MonoBehaviour, IStatable
     {
         private const float GLOW_INTENSITY = 0.4f;
-        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _value;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _holder;
         [Inject] private readonly StatableManager _statableManager;
 
