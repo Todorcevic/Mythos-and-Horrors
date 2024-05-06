@@ -11,10 +11,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
+        private IEnumerable<CardPlace> PlaceCardsWithXP => _chaptersProvider.CurrentScene.Info.PlaceCards
+         .Where(cardPlace => cardPlace.IsVictory && cardPlace.IsInPlay && cardPlace.Revealed.IsActive && cardPlace.Hints.Value < 1);
+
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            int amountXp = _chaptersProvider.CurrentScene.VictoryZone.Cards.Sum(card => card.Info.Victory) ?? 0;
+            int amountXp = _chaptersProvider.CurrentScene.VictoryZone.Cards.Concat(PlaceCardsWithXP).Sum(card => card.Info.Victory) ?? 0;
             Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigators.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
 
             foreach (var investigator in _investigatorsProvider.AllInvestigators)

@@ -13,9 +13,6 @@ namespace MythosAndHorrors.GameRules
 
         public Resolution Resolution { get; }
 
-        private IEnumerable<CardPlace> PlaceCardsWithXP => _chaptersProvider.CurrentScene.Info.PlaceCards
-            .Where(cardPlace => cardPlace.IsVictory && cardPlace.IsInPlay && cardPlace.Revealed.IsActive && cardPlace.Hints.Value < 1);
-
         /*******************************************************************/
         public FinalizeGameAction(Resolution resolution)
         {
@@ -25,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(PlaceCardsWithXP, _chaptersProvider.CurrentScene.VictoryZone));
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Resolution.History));
             await Resolution.Logic.Invoke();
             await _finalizePresenter.PlayAnimationWith(this);
