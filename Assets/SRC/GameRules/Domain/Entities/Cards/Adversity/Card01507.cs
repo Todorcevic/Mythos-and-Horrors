@@ -13,9 +13,6 @@ namespace MythosAndHorrors.GameRules
 
         public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
-        protected override async Task ObligationLogic()
-        {
-            await Task.CompletedTask;
-        }
+
     }
 }

@@ -28,7 +28,6 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new EliminateInvestigatorGameAction(cardInvestigator.Owner));
                 await _gameActionsProvider.Create(new UpdateStatesGameAction(cardInvestigator.Defeated, true));
             }
-            else if (Card.IsVictory) await _gameActionsProvider.Create(new MoveCardsGameAction(Card, _chaptersProvider.CurrentScene.VictoryZone));
             else await _gameActionsProvider.Create(new DiscardGameAction(Card));
 
             Dictionary<Stat, int> statsWithValues = new();

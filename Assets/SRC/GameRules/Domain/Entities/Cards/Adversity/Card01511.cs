@@ -76,9 +76,5 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DecrementStatGameAction(resources));
             await _gameActionsProvider.Create(new IncrementStatGameAction(AbilityUsed, 1));
         }
-
-        /*******************************************************************/
-        protected override async Task ObligationLogic() => await Task.CompletedTask;
-
     }
 }

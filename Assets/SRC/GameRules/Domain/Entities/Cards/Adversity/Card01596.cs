@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01596 : CardAdversity
+    public class Card01596 : CardAdversityLimbo
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Flaw };
-        public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
         /*******************************************************************/
         protected override async Task ObligationLogic()

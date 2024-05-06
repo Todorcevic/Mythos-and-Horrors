@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class DrawGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; }
         public Card CardDrawed { get; }
@@ -23,12 +22,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, GetZone()));
-            if (CardDrawed is IObligate obligateCard) await obligateCard.Obligation();
         }
 
         private Zone GetZone() => CardDrawed switch
         {
-            IObligate obligateCard => obligateCard.ZoneToMove,
+            CardAdversity cardAdversity => cardAdversity.ZoneToMove,
             ISpawnable spawnable => spawnable.SpawnPlace.OwnZone,
             CardCreature => Investigator.DangerZone,
             _ => Investigator.HandZone

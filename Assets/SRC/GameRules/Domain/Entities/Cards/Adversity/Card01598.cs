@@ -9,9 +9,6 @@ namespace MythosAndHorrors.GameRules
 
         public override Zone ZoneToMove => Owner.DangerZone;
 
-        protected override async Task ObligationLogic()
-        {
-            await Task.CompletedTask;
-        }
+
     }
 }

@@ -20,7 +20,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
+            if (Card.IsVictory)
+                await _gameActionsProvider.Create(new MoveCardsGameAction(Card, _chaptersProvider.CurrentScene.VictoryZone));
+            else
+                await _gameActionsProvider.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
         }
 
         private Zone GetDiscardZone()

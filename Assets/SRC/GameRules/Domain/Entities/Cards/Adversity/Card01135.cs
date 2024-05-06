@@ -10,9 +10,6 @@ namespace MythosAndHorrors.GameRules
 
         public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
-        protected override Task ObligationLogic()
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }
