@@ -8,7 +8,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01511Tests : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]

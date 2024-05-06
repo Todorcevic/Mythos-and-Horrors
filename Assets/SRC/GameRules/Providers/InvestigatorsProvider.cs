@@ -45,6 +45,6 @@ namespace MythosAndHorrors.GameRules
             => _investigators.FirstOrDefault(investigator => investigator.InvestigatorCard.HasThisStat(stat));
 
         public IEnumerable<Investigator> GetInvestigatorsInThisPlace(CardPlace cardPlace)
-            => AllInvestigatorsInPlay.Where(investigator => investigator.CurrentPlace == cardPlace);
+            => AllInvestigatorsInPlay.Where(investigator => cardPlace != null && investigator.CurrentPlace == cardPlace);
     }
 }

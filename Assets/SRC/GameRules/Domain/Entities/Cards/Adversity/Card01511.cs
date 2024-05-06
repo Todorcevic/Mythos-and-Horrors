@@ -29,17 +29,19 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
             CreateReaction<FinalizeGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
+            CreateReaction<EliminateInvestigatorGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
         }
 
         /*******************************************************************/
-        private bool VictoryCondition(FinalizeGameAction finalizeGameAction)
+        private bool VictoryCondition(GameAction gameAction)
         {
             if (!IsInPlay) return false;
             if (Resources.Value < 1) return false;
+            if (gameAction is EliminateInvestigatorGameAction eliminate && eliminate.Investigator != Owner) return false;
             return true;
         }
 
-        private async Task VictoryLogic(FinalizeGameAction finalizeGameAction)
+        private async Task VictoryLogic(GameAction gameAction)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
         }
