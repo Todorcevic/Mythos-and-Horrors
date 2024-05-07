@@ -62,6 +62,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             AlwaysHistoryPanelClick().AsTask();
             AlwaysRegisterPanelClick().AsTask();
             _reactionableControl.Init();
+
         }
 
         [UnityTearDown]

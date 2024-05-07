@@ -4,7 +4,7 @@ namespace MythosAndHorrors.GameView
 {
     public class FilesPath
     {
-        [Inject] private readonly DataSaveLoaderUseCase _saveDataLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _saveDataLoaderUseCase;
 
         private Languaje Languaje => _saveDataLoaderUseCase.DataSave.LanguajeSelected;
         public string JSON_CARDINFO_PATH => $"Assets/Data/Base/{Languaje}/CardsInfo.json";

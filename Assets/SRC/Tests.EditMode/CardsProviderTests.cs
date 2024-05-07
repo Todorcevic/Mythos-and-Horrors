@@ -9,7 +9,7 @@ namespace MythosAndHorrors.EditMode.Tests
     public class CardsProviderTests : SetupAutoInject
     {
         [Inject] private readonly CardsProvider _sut;
-        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
         [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
         [Inject] private readonly CardLoaderUseCase _cardLoaderUseCase;
 
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.EditMode.Tests
         [Test]
         public void GetAllCards()
         {
-            _dataSaveLoaderUseCase.Execute();
+            _dataSaveLoaderUseCase.Load();
             _textsLoaderUseCase.LoadGameTexts();
 
             _cardLoaderUseCase.Execute("01501");

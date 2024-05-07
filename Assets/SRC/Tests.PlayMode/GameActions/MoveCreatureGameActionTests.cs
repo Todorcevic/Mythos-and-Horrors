@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CantMoveTargetCratureTest()
         {
-            yield return _preparationScene.PlaceAllScene();
+            yield return _preparationScene.PlaceAllSceneCORE1();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
             CardCreature creature = _cardsProvider.GetCard<Card01601>();

@@ -9,7 +9,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class PreparationScene
     {
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -33,38 +32,34 @@ namespace MythosAndHorrors.PlayMode.Tests
             return moveInvestigatorCards;
         }
 
-        private Dictionary<Card, Zone> GetCardZonesPlaces()
+        public IEnumerator PlaceAllSceneCORE1()
         {
-            return new()
-            {
-                { SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3] },
-                { SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[1, 3] },
-                { SceneCORE1.Attic, _chaptersProvider.CurrentScene.PlaceZone[2, 4] },
-                { SceneCORE1.Cellar, _chaptersProvider.CurrentScene.PlaceZone[0, 4] },
-                { SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 4] }
-            };
-        }
-
-        private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesScene()
-        {
-            Dictionary<Card, (Zone zone, bool faceDown)> moveSceneCards = new()
-            {
-                { SceneCORE1.Info.PlotCards.First(), (SceneCORE1.PlotZone, false )},
-                { SceneCORE1.Info.GoalCards.First(), (SceneCORE1.GoalZone, false)}
-            };
-            SceneCORE1.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE1.DangerDeckZone, true)));
-
-            return moveSceneCards;
-        }
-
-        public IEnumerator PlaceAllScene()
-        {
-            Dictionary<Card, (Zone zone, bool faceDown)> all = new();
-
-            all = GetCardZonesPlaces().ToDictionary(pair => pair.Key, pair => (pair.Value, false))
-                .Concat(GetCardZonesScene()).ToDictionary(pair => pair.Key, pair => pair.Value);
+            Dictionary<Card, (Zone zone, bool faceDown)> all = GetCardZonesPlacesCORE1().ToDictionary(pair => pair.Key, pair => (pair.Value, false))
+                .Concat(GetCardZonesSceneCORE1()).ToDictionary(pair => pair.Key, pair => pair.Value);
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(all)).AsCoroutine();
+
+            Dictionary<Card, Zone> GetCardZonesPlacesCORE1() => new()
+            {
+                    { SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3] },
+                    { SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[1, 3] },
+                    { SceneCORE1.Attic, _chaptersProvider.CurrentScene.PlaceZone[2, 4] },
+                    { SceneCORE1.Cellar, _chaptersProvider.CurrentScene.PlaceZone[0, 4] },
+                    { SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 4] }
+            };
+
+
+            Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesSceneCORE1()
+            {
+                Dictionary<Card, (Zone zone, bool faceDown)> moveSceneCards = new()
+                    {
+                        { SceneCORE1.Info.PlotCards.First(), (SceneCORE1.PlotZone, false )},
+                        { SceneCORE1.Info.GoalCards.First(), (SceneCORE1.GoalZone, false)}
+                    };
+                SceneCORE1.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE1.DangerDeckZone, true)));
+
+                return moveSceneCards;
+            }
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
@@ -88,8 +83,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             float currentTimeScale = Time.timeScale;
             Time.timeScale = 64;
-            //yield return PlaceAllSceneCards();
-            yield return PlaceAllScene();
+            yield return PlaceAllSceneCORE1();
             yield return PlayAllInvestigators();
             Time.timeScale = currentTimeScale;
         }

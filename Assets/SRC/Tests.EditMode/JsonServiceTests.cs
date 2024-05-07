@@ -12,13 +12,13 @@ namespace MythosAndHorrors.EditMode.Tests
     {
         [Inject] private readonly JsonService _sut;
         [Inject] private readonly FilesPath _filesPath;
-        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
 
         /*******************************************************************/
         [SetUp]
         public void SetUp()
         {
-            _dataSaveLoaderUseCase.Execute();
+            _dataSaveLoaderUseCase.Load();
         }
 
         [Test]

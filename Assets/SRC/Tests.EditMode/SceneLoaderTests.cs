@@ -11,13 +11,13 @@ namespace MythosAndHorrors.EditMode.Tests
     {
         [Inject] private readonly SceneLoaderUseCase _sut;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly DataSaveLoaderUseCase _dataSaveLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
 
         /*******************************************************************/
         [Test]
         public void LoadScene()
         {
-            _dataSaveLoaderUseCase.Execute();
+            _dataSaveLoaderUseCase.Load();
 
             _sut.Execute();
 

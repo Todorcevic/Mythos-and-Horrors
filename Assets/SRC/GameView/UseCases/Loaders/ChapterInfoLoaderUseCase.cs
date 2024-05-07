@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
     public class ChapterInfoLoaderUseCase
     {
         [Inject] private readonly FilesPath _filesPath;
-        [Inject] private readonly DataSaveLoaderUseCase _saveDataLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _saveDataLoaderUseCase;
         [Inject] private readonly ChaptersProvider chaptersProvider;
 
         /*******************************************************************/

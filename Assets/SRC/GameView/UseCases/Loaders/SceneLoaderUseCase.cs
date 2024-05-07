@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly FilesPath _filesPath;
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly DiContainer _diContainer;
-        [Inject] private readonly DataSaveLoaderUseCase _saveDataLoaderUseCase;
+        [Inject] private readonly DataSaveUseCase _saveDataLoaderUseCase;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 

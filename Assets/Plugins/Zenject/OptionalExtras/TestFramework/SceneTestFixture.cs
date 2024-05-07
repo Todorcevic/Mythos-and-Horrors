@@ -17,16 +17,16 @@ namespace Zenject
 
         protected static DiContainer SceneContainer { get; private set; }
 
-        public IEnumerator LoadScene(string sceneName, Action actionInstaller = null)
+        public IEnumerator LoadScene(string unitySceneName, Action actionInstaller = null)
         {
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
             _hasLoadedScene = true;
             ZenjectTestUtil.DestroyEverythingExceptTestRunner(false);
-            Assert.That(Application.CanStreamedLevelBeLoaded(sceneName),
-                $"Cannot load scene {sceneName} for test {GetType()}. The scenes used by SceneTestFixture derived classes must be added to the build settings for the test to work");
-            yield return RealLoadScene(sceneName);
-            Assert.That(ProjectContext.HasInstance, $"{sceneName} has not ProjectContext");
-            Scene scene = SceneManager.GetSceneByName(sceneName);
+            Assert.That(Application.CanStreamedLevelBeLoaded(unitySceneName),
+                $"Cannot load scene {unitySceneName} for test {GetType()}. The scenes used by SceneTestFixture derived classes must be added to the build settings for the test to work");
+            yield return RealLoadScene(unitySceneName);
+            Assert.That(ProjectContext.HasInstance, $"{unitySceneName} has not ProjectContext");
+            Scene scene = SceneManager.GetSceneByName(unitySceneName);
             SceneContainer = ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
                 .TryGetSceneContextForScene(scene).Container;
             actionInstaller?.Invoke();

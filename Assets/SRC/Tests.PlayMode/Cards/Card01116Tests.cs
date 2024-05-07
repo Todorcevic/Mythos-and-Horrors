@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator RetiliateTest()
         {
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Value_3));
-            yield return _preparationScene.PlaceAllScene();
+            yield return _preparationScene.PlaceAllSceneCORE1();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulPriest, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
