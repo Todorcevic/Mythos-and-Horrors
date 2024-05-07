@@ -57,9 +57,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             return moveSceneCards;
         }
 
-        public IEnumerator PlaceAllPlaceCards()
+        public IEnumerator PlaceAllScene()
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesPlaces())).AsCoroutine();
+            Dictionary<Card, (Zone zone, bool faceDown)> all = new();
+
+            all = GetCardZonesPlaces().ToDictionary(pair => pair.Key, pair => (pair.Value, false))
+                .Concat(GetCardZonesScene()).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(all)).AsCoroutine();
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
@@ -79,17 +84,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             }
         }
 
-        public IEnumerator PlaceAllSceneCards()
-        {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesScene())).AsCoroutine();
-        }
-
         public IEnumerator StartingScene()
         {
             float currentTimeScale = Time.timeScale;
             Time.timeScale = 64;
-            yield return PlaceAllSceneCards();
-            yield return PlaceAllPlaceCards();
+            //yield return PlaceAllSceneCards();
+            yield return PlaceAllScene();
             yield return PlayAllInvestigators();
             Time.timeScale = currentTimeScale;
         }

@@ -54,8 +54,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature ghoul = _cardsProvider.GetCard<Card01119>();
             CardCreature noGhoul = _cardsProvider.GetCard<Card01603>();
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
-            yield return _preparationScene.PlayAllInvestigators();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.StartingScene();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place4.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place3.OwnZone)).AsCoroutine();
@@ -74,8 +73,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature ghoul = _cardsProvider.GetCard<Card01119>();
             CardCreature noGhoul = _cardsProvider.GetCard<Card01603>();
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
-            yield return _preparationScene.PlayAllInvestigators();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.StartingScene();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place.OwnZone)).AsCoroutine();

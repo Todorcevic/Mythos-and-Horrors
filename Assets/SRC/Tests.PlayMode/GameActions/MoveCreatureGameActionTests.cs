@@ -13,8 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveCratureTest()
         {
-            yield return _preparationScene.PlaceAllPlaceCards();
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationScene.StartingScene();
             CardPlace place2 = _cardsProvider.GetCard<Card01112>();
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();
@@ -32,7 +31,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CantMoveTargetCratureTest()
         {
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
@@ -49,8 +48,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveTargetCratureTest()
         {
-            yield return _preparationScene.PlaceAllPlaceCards();
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationScene.StartingScene();
             CardPlace place2 = _cardsProvider.GetCard<Card01112>();
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();

@@ -17,8 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
@@ -39,8 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
@@ -63,8 +61,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
@@ -88,8 +85,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
@@ -119,8 +115,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
@@ -143,8 +138,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
-            yield return _preparationScene.PlaceAllSceneCards();
-            yield return _preparationScene.PlaceAllPlaceCards();
+            yield return _preparationScene.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
