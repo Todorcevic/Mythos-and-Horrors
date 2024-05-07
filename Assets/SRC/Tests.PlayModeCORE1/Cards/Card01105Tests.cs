@@ -7,6 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class Card01105Tests : TestBase
     {
         //protected override bool DEBUG_MODE => true;

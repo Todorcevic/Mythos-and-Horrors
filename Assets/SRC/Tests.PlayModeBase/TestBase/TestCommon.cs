@@ -12,7 +12,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class TestBase : SceneTestFixture
+    public abstract class TestCommon : SceneTestFixture
     {
         private static bool _hasLoadedScene;
         private const float TIMEOUT = 3f;
@@ -45,6 +45,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly PreparationScene _preparationScene;
 
         protected virtual bool DEBUG_MODE => false;
+        protected abstract string SCENE_NAME { get; }
+        protected abstract string JSON_SAVE_DATA_PATH { get; }
 
         /*******************************************************************/
         [UnitySetUp]
@@ -57,7 +59,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             }
 
             InstallerToScene();
-            yield return LoadScene("GamePlay", InstallerToTests);
+            yield return LoadScene(SCENE_NAME, InstallerToTests);
             LoadSceneSettings();
             AlwaysHistoryPanelClick().AsTask();
             AlwaysRegisterPanelClick().AsTask();
@@ -82,6 +84,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private void InstallerToScene()
         {
+            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
             StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
         }
 
@@ -170,7 +173,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
             else throw new TimeoutException($"Clone position: {clonePosition} Not become clickable");
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
-
         }
 
         protected IEnumerator WaitToCloneClick(Effect effect)
