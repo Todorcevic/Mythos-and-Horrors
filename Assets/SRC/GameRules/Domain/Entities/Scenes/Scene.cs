@@ -25,6 +25,8 @@ namespace MythosAndHorrors.GameRules
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.LastOrDefault() as CardPlot;
         public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
+        public CardPlot FirstPlot => Info.PlotCards.First();
+        public CardGoal FirstGoal => Info.GoalCards.First();
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
 
         /************************** TOKENS *****************************/

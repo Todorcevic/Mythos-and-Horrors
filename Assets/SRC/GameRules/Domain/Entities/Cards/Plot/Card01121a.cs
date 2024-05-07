@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01121 : CardPlot
+    public class Card01121a : CardPlot
     {
         public override Task CompleteEffect()
         {

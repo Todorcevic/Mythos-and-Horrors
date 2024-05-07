@@ -23,23 +23,22 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
-        public CardPlot FirstPlot => Info.PlotCards.First();
-        public CardGoal FirstGoal => Info.GoalCards.First();
-
         public IEnumerable<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
         public async override Task PrepareScene()
         {
             CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Description));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
         }
 
+        /*******************************************************************/
         private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
         {
             await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
