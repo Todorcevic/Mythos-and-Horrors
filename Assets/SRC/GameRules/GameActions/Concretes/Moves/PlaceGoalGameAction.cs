@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public CardGoal CardGoal { get; }
+        public override bool CanBeExecuted => CardGoal != null;
 
         /*******************************************************************/
         public PlaceGoalGameAction(CardGoal cardGoal)

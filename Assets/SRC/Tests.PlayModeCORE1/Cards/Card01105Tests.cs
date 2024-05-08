@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             if (!DEBUG_MODE) yield return WaitToCloneClick(0);
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HandZone.Cards.Count == 4), Is.True);
         }
 
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             if (!DEBUG_MODE) yield return WaitToCloneClick(1);
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.Leader.Sanity.Value, Is.EqualTo(3));
         }
     }

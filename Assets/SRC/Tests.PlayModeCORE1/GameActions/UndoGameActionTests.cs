@@ -80,7 +80,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
@@ -111,7 +111,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Fourth.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }

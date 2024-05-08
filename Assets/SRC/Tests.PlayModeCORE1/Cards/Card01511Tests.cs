@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(_preparationScene.SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard));
             if (!DEBUG_MODE) yield return WaitToCloneClick(0);
 
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
 
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
             Assert.That(_investigatorsProvider.Third.Xp.Value, Is.EqualTo(2));
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(cardAdversity);
             if (!DEBUG_MODE) yield return WaitToClick(cardAdversity);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
 
             Assert.That(((Card01511)cardAdversity).Resources.Value, Is.EqualTo(4));
         }

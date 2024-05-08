@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - _preparationScene.SceneCORE1.Attic.MoveTurnsCost.Value));
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Attic));
         }
 
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - _preparationScene.SceneCORE1.Parlor.MoveTurnsCost.Value));
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Parlor));
         }
     }

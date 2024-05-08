@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToCloneClick(_investigatorsProvider.Second.AvatarCard.PlayableEffects.First());
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));

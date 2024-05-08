@@ -22,6 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (DEBUG_MODE) yield return PressAnyKey();
 
+            yield return gameActionTask.AsCoroutine();
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(6));
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(6));
         }

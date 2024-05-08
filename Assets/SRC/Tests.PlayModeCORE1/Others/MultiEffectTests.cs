@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(card);
             if (!DEBUG_MODE) yield return WaitToCloneClick(0);
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator1.DangerZone.TopCard, Is.EqualTo(card));
         }

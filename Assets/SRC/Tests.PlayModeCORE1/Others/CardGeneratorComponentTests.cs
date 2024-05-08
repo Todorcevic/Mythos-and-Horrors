@@ -153,7 +153,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_AdversityCard()
         {
             CardAdversity card = _cardsProvider.GetCard<Card01167>();
-
             AdversityCardView result = (AdversityCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -167,7 +166,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_PlotCard()
         {
             Card card = _cardsProvider.GetCard<Card01105>();
-
             PlotCardView result = (PlotCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -181,7 +179,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CardGeneratorComponent_Generate_GoalCard()
         {
             Card card = _cardsProvider.GetCard<Card01108>();
-
             GoalCardView result = (GoalCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

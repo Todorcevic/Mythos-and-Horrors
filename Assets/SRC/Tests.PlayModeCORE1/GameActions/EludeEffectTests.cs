@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToCloneClick(1);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             Assert.That(creature.Exausted.IsActive, Is.True);
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.CurrentPlace.OwnZone));
         }

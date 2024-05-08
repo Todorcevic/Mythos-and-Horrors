@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MythosAndHorrors.GameRules
 {
     public interface IVictoriable
     {
-        Stat Victory { get; }
+        int Victory { get; }
+        bool IsVictoryComplete { get; }
         IEnumerable<Investigator> InvestigatorsVictoryAffected { get; }
     }
 }

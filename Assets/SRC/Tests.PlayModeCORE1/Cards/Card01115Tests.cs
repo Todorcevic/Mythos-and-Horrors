@@ -20,11 +20,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Parlor)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(Parlor);
             if (!DEBUG_MODE) yield return WaitToCloneClick(1);
 
-            while (!gameActionTask.IsCompleted) yield return null;
+
+            yield return taskGameAction.AsCoroutine();
             Assert.That(investigator.Resign.IsActive, Is.True);
             Assert.That(investigator.InvestigatorCard.IsInPlay, Is.False);
         }
@@ -40,14 +41,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.Lita, Parlor.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Parlor)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(Parlor);
             if (!DEBUG_MODE) yield return WaitToCloneClick(2);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
-            //if (gameActionTask.IsFaulted) Assert.Fail(gameActionTask.Exception.Message);
+            yield return taskGameAction.AsCoroutine();
             Assert.That(investigator.AidZone.Cards.Contains(_preparationScene.SceneCORE1.Lita), Is.True);
         }
 

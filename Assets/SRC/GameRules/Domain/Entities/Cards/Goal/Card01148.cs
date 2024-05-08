@@ -11,16 +11,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Stat Victory { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
+        int IVictoriable.Victory => 5;
+        bool IVictoriable.IsVictoryComplete => Revealed.IsActive;
 
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            Victory = CreateStat(5);
-        }
         /*******************************************************************/
         public override async Task CompleteEffect()
         {

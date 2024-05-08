@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (!DEBUG_MODE) yield return WaitToClick(bulletProof);
             if (!DEBUG_MODE) yield return WaitToClick(damageableCard);
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(2));
             Assert.That(((IDamageable)bulletProof).Health.Value, Is.EqualTo(2));
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(3));
             Assert.That(investigator.Sanity.Value, Is.EqualTo(4));

@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.HandZone.Cards[2]);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Count, Is.EqualTo(8));
             Assert.That(_investigatorsProvider.Second.HandZone.Cards.Count, Is.EqualTo(8));

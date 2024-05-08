@@ -26,12 +26,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskInvestigator = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(place);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!taskInvestigator.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(valueToken, Is.EqualTo(valueTokenExpected));
         }
 
@@ -42,10 +42,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigatorToTest = cardInvestigator.Owner;
             yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.DangerZone)).AsCoroutine();
-            Task<HarmToCardGameAction> taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5));
+            Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5));
             if (!DEBUG_MODE) yield return WaitToClick(cardInvestigator);
 
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
         }
 

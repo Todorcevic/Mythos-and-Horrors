@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         private IEnumerable<CardPlace> PlaceCardsWithXP => _chaptersProvider.CurrentScene.Info.PlaceCards
@@ -18,15 +19,14 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             int amountXp = _chaptersProvider.CurrentScene.VictoryZone.Cards.Concat(PlaceCardsWithXP).Sum(card => card.Info.Victory) ?? 0;
-            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigators.ToDictionary(investigator => investigator.Xp, investigator => amountXp);
+            Dictionary<Stat, int> xp = _investigatorsProvider.AllInvestigators
+                .ToDictionary(investigator => investigator.Xp, investigator => amountXp);
 
-            foreach (var investigator in _investigatorsProvider.AllInvestigators)
+            foreach (IVictoriable victoriable in _cardsProvider.AllCards.OfType<IVictoriable>()
+                .Where(victoriable => victoriable.IsVictoryComplete))
             {
-                int individualAmountXp = _chaptersProvider.CurrentScene.VictoryZone.Cards.OfType<IVictoriable>()
-                    .Where(victoriable => victoriable.InvestigatorsVictoryAffected.Contains(investigator)).Sum(victoriable => victoriable.Victory.Value);
-                xp[investigator.Xp] += individualAmountXp;
+                victoriable.InvestigatorsVictoryAffected.ForEach(investigator => xp[investigator.Xp] += victoriable.Victory);
             }
-
             await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
         }
     }

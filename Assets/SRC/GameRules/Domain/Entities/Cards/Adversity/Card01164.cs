@@ -1,11 +1,14 @@
 ﻿using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01164 : CardAdversity
     {
-        public override Zone ZoneToMove => Owner.DangerZone;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
- 
+        public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
+
+
     }
 }

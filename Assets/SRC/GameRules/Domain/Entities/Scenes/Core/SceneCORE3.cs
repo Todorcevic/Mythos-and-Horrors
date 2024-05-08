@@ -191,7 +191,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task TakeFlaw()
             {
-                await Task.CompletedTask; //TODO: Implement this method
+                await Task.CompletedTask; //TODO: Implement this method Una carta IFlaw a diseñar (LitaSacrifice) para todos los investigadores
             }
         }
     }

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(cardToDraw);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             Assert.That(_investigatorsProvider.First.DeckZone.Cards.Contains(cardToDraw), Is.False);
         }
     }

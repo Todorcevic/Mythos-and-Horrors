@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
 
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
             Assert.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(0));
         }
     }

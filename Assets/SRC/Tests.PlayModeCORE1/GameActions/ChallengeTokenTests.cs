@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlaceAllSceneCORE1();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-1));
         }
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-2));
             Assert.That(_cardsProvider.GetCardsInPlay().OfType<CardCreature>().Count(), Is.EqualTo(2));
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-1));
             Assert.That(investigator.FearRecived, Is.EqualTo(1));
@@ -103,7 +103,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-4));
             Assert.That(investigator.FearRecived, Is.EqualTo(3));
@@ -127,7 +127,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-2));
             Assert.That(investigator.DamageRecived, Is.EqualTo(1));
@@ -150,7 +150,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value.Invoke();
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-            while (!gameActionTask.IsCompleted) yield return null;
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-4));
             Assert.That(investigator.DamageRecived, Is.EqualTo(1));

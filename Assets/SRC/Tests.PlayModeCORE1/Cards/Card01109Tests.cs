@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
 
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(0));
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
@@ -79,7 +79,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToUndoClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (!taskGameAction.IsCompleted) yield return null;
+            yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(9));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(3));
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(12));

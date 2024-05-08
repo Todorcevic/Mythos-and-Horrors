@@ -14,9 +14,11 @@ namespace MythosAndHorrors.GameRules
 
         public Stat AbilityUsed { get; private set; }
         public Stat Resources { get; private set; }
-        public Stat Victory { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => new[] { Owner };
         public override Zone ZoneToMove => Owner.DangerZone;
+
+        int IVictoriable.Victory => -2;
+        bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;
 
         /*******************************************************************/
         [Inject]
@@ -25,25 +27,8 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = CreateStat(0);
             Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
-            Victory = CreateStat(-2, canBeNegative: true);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
-            CreateReaction<FinalizeGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
-            CreateReaction<EliminateInvestigatorGameAction>(VictoryCondition, VictoryLogic, isAtStart: true);
-        }
-
-        /*******************************************************************/
-        private bool VictoryCondition(GameAction gameAction)
-        {
-            if (!IsInPlay) return false;
-            if (Resources.Value < 1) return false;
-            if (gameAction is EliminateInvestigatorGameAction eliminate && eliminate.Investigator != Owner) return false;
-            return true;
-        }
-
-        private async Task VictoryLogic(GameAction gameAction)
-        {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
         }
 
         /*******************************************************************/

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,16 +7,11 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Stat Victory { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
 
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            Victory = CreateStat(10);
-        }
+        int IVictoriable.Victory => 10;
+        bool IVictoriable.IsVictoryComplete => Health.Value <= 0; //TODO: revisar el reseteo cuando se descarta
+
         /*******************************************************************/
     }
 }

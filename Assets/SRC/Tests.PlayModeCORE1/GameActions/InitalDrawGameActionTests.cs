@@ -17,9 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
-
             yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
-
             yield return _gameActionsProvider.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -32,10 +30,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
-
             Card weaknessCard = _cardsProvider.GetCard<Card01507>();
             Card normalCard = _cardsProvider.GetCard<Card01517>();
-
             yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(new[] { normalCard, weaknessCard }, investigator.DeckZone)).AsCoroutine();
 

@@ -13,15 +13,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
-        public Stat Victory { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
+
+        int IVictoriable.Victory => 2;
+        bool IVictoriable.IsVictoryComplete => Revealed.IsActive;
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Victory = CreateStat(2);
             RevealReaction = CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 
@@ -60,13 +61,11 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task BurnIt()
             {
-                await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
                 await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[1]));
             }
 
             async Task NoBurn()
             {
-                await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
                 await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
             }
         }

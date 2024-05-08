@@ -21,15 +21,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _preparationScene.PlaceAllSceneCORE1();
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, adversity)).AsCoroutine();
-
             Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanDiscard);
-
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
+            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
 
             if (!DEBUG_MODE) yield return WaitToClick(cardToMaintan);
 
-            while (!gameActionTask.IsCompleted) yield return null;
-
+            yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Count, Is.EqualTo(1));
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Unique(), Is.EqualTo(cardToMaintan));
             investigator.RequerimentCard.Remove(adversity);
