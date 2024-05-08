@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public CardPlace Study => _cardsProvider.GetCard<Card01111>();
         public CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
@@ -126,7 +127,7 @@ namespace MythosAndHorrors.GameRules
         private int CreatureHardValue() => -2;
         private async Task CreatureHardEffect()
         {
-            CreateReaction<ChallengePhaseGameAction>(condition: DrawGhoulCondition, logic: DrawGhoul, isAtStart: false);
+            _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(null, condition: DrawGhoulCondition, logic: DrawGhoul, isAtStart: false);
             await Task.CompletedTask;
 
             /*******************************************************************/
@@ -140,7 +141,7 @@ namespace MythosAndHorrors.GameRules
 
             bool DrawGhoulCondition(ChallengePhaseGameAction challengePhaseGameAction)
             {
-                RemoveReaction<ChallengePhaseGameAction>(DrawGhoul);
+                _reactionablesProvider.RemoveReaction<ChallengePhaseGameAction>(DrawGhoul);
                 if (challengePhaseGameAction.IsSuccessful ?? true) return false;
                 return true;
             }

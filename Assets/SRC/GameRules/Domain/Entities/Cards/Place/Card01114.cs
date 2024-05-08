@@ -8,15 +8,12 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public IReaction TakeDamageReaction { get; private set; }
-
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-
-            TakeDamageReaction = CreateReaction<MoveInvestigatorToPlaceGameAction>(TakeDamageCondition, TakeDamageLogic, false);
+            _reactionablesProvider.CreateReaction<MoveInvestigatorToPlaceGameAction>(this, TakeDamageCondition, TakeDamageLogic, false);
         }
 
         /*******************************************************************/

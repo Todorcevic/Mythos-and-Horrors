@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         private const int AMOUNT_RESOURCE_NEEDED = 6;
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Stat AbilityUsed { get; private set; }
         public Stat Resources { get; private set; }
@@ -28,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             AbilityUsed = CreateStat(0);
             Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate);
-            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
+            _reactionablesProvider.CreateReaction<RoundGameAction>(this, RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
         }
 
         /*******************************************************************/

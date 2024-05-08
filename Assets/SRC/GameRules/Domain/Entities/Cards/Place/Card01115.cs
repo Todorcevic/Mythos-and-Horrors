@@ -9,8 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public IReaction AvoidMoveReaction { get; private set; }
-
         private CardSupply Lita => _cardsProvider.GetCard<Card01117>();
 
         /*******************************************************************/
@@ -20,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate);
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
-            AvoidMoveReaction = CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, true);
+            _reactionablesProvider.CreateReaction<OneInvestigatorTurnGameAction>(this, AvoidMoveCondition, AvoidMoveLogic, true);
         }
 
         /*******************************************************************/

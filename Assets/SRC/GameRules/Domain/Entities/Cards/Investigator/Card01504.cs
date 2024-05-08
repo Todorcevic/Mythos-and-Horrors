@@ -10,8 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public IReaction DamageBySanityReaction { get; private set; }
-        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -19,8 +17,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DamageBySanityReaction = CreateOptativeReaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic, false);
-            RestartAbilityReaction = CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            _reactionablesProvider.CreateOptativeReaction<UpdateStatGameAction>(this, DamageBySanityCondition, DamageBySanityLogic, Owner, false);
+            _reactionablesProvider.CreateReaction<PhaseGameAction>(this, RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

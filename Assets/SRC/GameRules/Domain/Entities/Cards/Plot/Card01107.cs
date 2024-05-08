@@ -13,9 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public IReaction MoveGhoulReaction { get; private set; }
-        public IReaction PlaceEldritchReaction { get; private set; }
-
         IEnumerable<CardCreature> GhoulsToMove => _cardsProvider.AllCards.OfType<CardCreature>()
               .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
         IEnumerable<Investigator> InvestigatorsUnresignes => _investigatorsProvider.AllInvestigators
@@ -26,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            MoveGhoulReaction = CreateReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic, false);
-            PlaceEldritchReaction = CreateReaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, false);
+            _reactionablesProvider.CreateReaction<CreaturePhaseGameAction>(this, MoveGhoulCondition, MoveGhoulLogic, false);
+            _reactionablesProvider.CreateReaction<RestorePhaseGameAction>(this, PlaceEldritchCondition, PlaceEldritchLogic, false);
         }
 
         /*******************************************************************/

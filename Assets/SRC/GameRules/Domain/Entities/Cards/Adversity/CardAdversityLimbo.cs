@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Reaction<DrawGameAction> Play => FindReactionByLogic<DrawGameAction>(PlayLogic);
+        public Reaction<DrawGameAction> Play => _reactionablesProvider.FindReactionByLogic<DrawGameAction>(PlayLogic);
         public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
         /*******************************************************************/
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<DrawGameAction>(PlayCondition, PlayLogic, false);
+            _reactionablesProvider.CreateReaction<DrawGameAction>(this, PlayCondition, PlayLogic, false);
         }
 
         /*******************************************************************/

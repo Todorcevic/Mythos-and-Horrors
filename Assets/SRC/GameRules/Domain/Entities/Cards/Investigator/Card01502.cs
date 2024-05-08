@@ -13,7 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public State AbilityUsed { get; private set; }
-        public IReaction RestartAbilityReaction { get; private set; }
 
         private IEnumerable<Card> TomesInPlay => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
 
@@ -24,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = new State(false);
             CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
-            RestartAbilityReaction = CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            _reactionablesProvider.CreateReaction<RoundGameAction>(this, RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

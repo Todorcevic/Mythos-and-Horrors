@@ -3,6 +3,7 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using System;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -33,7 +34,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Parley()
         {
-            _reactionableControl.SubscribeAtStart(RevealMinus1Token);
+            RevealToken(ChallengeTokenType.Value_1);
             CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
             Investigator investigator = _investigatorsProvider.Second;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -49,16 +50,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return taskGameAction.AsCoroutine();
             Assert.That(investigator.AidZone.Cards.Contains(_preparationScene.SceneCORE1.Lita), Is.True);
-        }
-
-        private async Task RevealMinus1Token(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Value_1);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
         }
     }
 }

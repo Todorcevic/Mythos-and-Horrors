@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ChallengeWithCommitsTests()
         {
-            _reactionableControl.SubscribeAtStart(RevealMinus1Token);
+            RevealToken(ChallengeTokenType.Value_1);
             yield return _preparationScene.StartingScene();
             Card toPlay = _cardsProvider.GetCard<Card01538>();
             Card toPlay2 = _cardsProvider.GetCard<Card01522>();
@@ -55,26 +55,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return taskGameAction.AsCoroutine();
             Assert.That(_investigatorsProvider.First.CurrentTurns.Value, Is.EqualTo(0));
             Assert.That(_investigatorsProvider.First.Hints.Value, Is.EqualTo(1));
-        }
-
-        private async Task RevealMinus1Token(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Value_1);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
-        }
-
-        private async Task SuccessEffect()
-        {
-            await _gameActionsProvider.Create(new DrawAidGameAction(_investigatorsProvider.Leader));
-        }
-
-        private async Task FailEffect()
-        {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(_investigatorsProvider.Leader.Health, 1));
         }
     }
 }

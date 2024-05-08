@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Investigator1StarToken()
         {
-            _reactionableControl.SubscribeAtStart(RevealStarToken);
+            RevealToken(ChallengeTokenType.Star);
             CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
             int valueTokenExpected = place.Hints.Value;
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
@@ -29,6 +30,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(place);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+
+            while (_gameActionsProvider.CurrentChallenge == null) yield return null;
+            int valueToken = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value();
+
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             yield return taskGameAction.AsCoroutine();
@@ -47,17 +52,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return taskGameAction.AsCoroutine();
             Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
-        }
-
-        private async Task RevealStarToken(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken starToken = _challengeTokensProvider.ChallengeTokensInBag
-               .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Star);
-            revealChallengeTokenGameAction.SetChallengeToken(starToken);
-            valueToken = starToken.Value.Invoke();
-
-            await Task.CompletedTask;
         }
     }
 }

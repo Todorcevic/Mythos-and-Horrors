@@ -13,12 +13,11 @@ namespace MythosAndHorrors.GameRules
         [InjectOptional] private readonly CardExtraInfo _extraInfo;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
         private readonly List<Activation> _activations = new();
-        private readonly List<IReaction> _reactions = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
@@ -51,52 +50,6 @@ namespace MythosAndHorrors.GameRules
             FaceDown = new State(false);
             Exausted = new State(false);
             Blancked = new State(false, BlankState);
-            _reactionablesProvider.SubscribeAtStart(WhenBegin);
-            _reactionablesProvider.SubscribeAtEnd(WhenFinish);
-        }
-
-        private async Task WhenBegin(GameAction gameAction)
-        {
-            foreach (IReaction reaction in _reactions.FindAll(reaction => reaction.IsAtStart))
-                await reaction.React(gameAction);
-        }
-
-        private async Task WhenFinish(GameAction gameAction)
-        {
-            foreach (IReaction reaction in _reactions.FindAll(reaction => !reaction.IsAtStart))
-                await reaction.React(gameAction);
-        }
-
-        /*******************************************************************/
-        protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
-            _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
-
-        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
-            where T : GameAction
-        {
-            Reaction<T> newReaction = new(condition, logic, isAtStart, isBase);
-            _reactions.Add(newReaction);
-            return newReaction;
-        }
-
-        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
-            where T : GameAction
-        {
-            Reaction<T> newReaction = new(condition, RealLogic, isAtStart, isBase);
-            _reactions.Add(newReaction);
-            return newReaction;
-
-            async Task RealLogic(T gameAction)
-            {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
-                interactableGameAction.CreateMainButton().SetLogic(Continue);
-                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic);
-                await _gameActionsProvider.Create(interactableGameAction);
-
-                /*******************************************************************/
-                async Task Continue() => await Task.CompletedTask;
-                async Task FullLogic() => await logic.Invoke(gameAction);
-            }
         }
 
         /*******************************************************************/
@@ -127,8 +80,8 @@ namespace MythosAndHorrors.GameRules
             {
                 _activationsBlanked = _activations.FindAll(activation => !activation.IsBase).ToList();
                 _activations.Clear();
-                _reactionsBlanked = _reactions.FindAll(reaction => !reaction.IsBase).ToList();
-                _reactions.Clear();
+                _reactionsBlanked = _reactionablesProvider.FindReactionsByCard(this).ToList();
+                _reactionablesProvider.RemoveAllReactionsForThis(_reactionsBlanked);
                 _buffsCreatedBlanked = _buffsProvider.GetBuffsForThisCardMaster(this).ToList();
                 _buffsProvider.Remove(_buffsCreatedBlanked);
             }
@@ -136,7 +89,7 @@ namespace MythosAndHorrors.GameRules
             {
                 _activations.AddRange(_activationsBlanked);
                 _activationsBlanked.Clear();
-                _reactions.AddRange(_reactionsBlanked);
+                _reactionablesProvider.AddRangeReactions(_reactionsBlanked);
                 _reactionsBlanked.Clear();
                 _buffsProvider.Add(_buffsCreatedBlanked);
                 _buffsCreatedBlanked.Clear();

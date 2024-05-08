@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Investigator3StarTokenTest()
         {
-            _reactionableControl.SubscribeAtStart(RevealStarToken);
+            RevealToken(ChallengeTokenType.Star);
             Investigator investigatorToTest = _investigatorsProvider.Third;
             yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
@@ -43,16 +43,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             yield return taskGameAction.AsCoroutine();
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));
-        }
-
-        private async Task RevealStarToken(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken starToken = _challengeTokensProvider.ChallengeTokensInBag
-               .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Star);
-            revealChallengeTokenGameAction.SetChallengeToken(starToken);
-
-            await Task.CompletedTask;
         }
     }
 }

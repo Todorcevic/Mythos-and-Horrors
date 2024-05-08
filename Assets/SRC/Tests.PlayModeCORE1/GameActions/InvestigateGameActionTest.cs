@@ -14,8 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatePlace()
         {
-            _reactionableControl.SubscribeAtStart(RevealMinus1Token);
-
+            RevealToken(ChallengeTokenType.Value_1);
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             Card toPlay = _cardsProvider.GetCard<Card01538>();
             Card toPlay2 = _cardsProvider.GetCard<Card01522>();
@@ -36,16 +35,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Hints.Value, Is.EqualTo(1));
-        }
-
-        private async Task RevealMinus1Token(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Value_1);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
         }
     }
 }

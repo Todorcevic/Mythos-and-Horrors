@@ -13,7 +13,6 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
-        public IReaction RevealReaction { get; protected set; }
 
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
@@ -30,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             Hints = CreateStat(MaxHints);
             Revealed = new State(false);
-            RevealReaction = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
+            _reactionablesProvider.CreateReaction<UpdateStatGameAction>(this, RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/
@@ -54,7 +53,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task RevealLogic(UpdateStatGameAction updateStatGameAction) =>
+        protected async Task RevealLogic(UpdateStatGameAction updateStatGameAction) =>
             await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/

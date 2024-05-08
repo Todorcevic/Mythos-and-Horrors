@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
+        public GameAction CurrentGameAction => _allGameActionsExecuted.Peek();
 
         /*******************************************************************/
         public async Task<T> Create<T>(T gameAction) where T : GameAction

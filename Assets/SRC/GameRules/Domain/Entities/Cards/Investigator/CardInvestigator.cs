@@ -27,7 +27,6 @@ namespace MythosAndHorrors.GameRules
         public Stat TurnsCost { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
-        public IReaction DefeatReaction { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
 
@@ -54,9 +53,9 @@ namespace MythosAndHorrors.GameRules
             TurnsCost = CreateStat(1);
             Resign = new State(false);
             Defeated = new State(false);
-            DefeatReaction = CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
+            _reactionablesProvider.CreateReaction<UpdateStatGameAction>(this, DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/

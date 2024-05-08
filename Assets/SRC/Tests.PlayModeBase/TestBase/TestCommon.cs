@@ -22,6 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly ChaptersProvider _chaptersProvider;
         [Inject] protected readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] protected readonly CardsProvider _cardsProvider;
+        [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
 
         [Inject] protected readonly CardViewsManager _cardViewsManager;
         [Inject] protected readonly AvatarViewsManager _avatarViewsManager;
@@ -42,7 +43,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly CardLoaderUseCase _cardLoaderUseCase;
         [Inject] protected readonly UndoGameActionButton _undoGameActionButton;
 
-        [Inject] protected readonly ReactionableControl _reactionableControl;
         [Inject] protected readonly PreparationScene _preparationScene;
 
         protected virtual bool DEBUG_MODE => false;
@@ -64,8 +64,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             LoadSceneSettings();
             AlwaysHistoryPanelClick().AsTask();
             AlwaysRegisterPanelClick().AsTask();
-            _reactionableControl.Init();
-
         }
 
         [UnityTearDown]
@@ -73,7 +71,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             if (DEBUG_MODE) yield break;
             yield return _gameActionsProvider.Rewind().AsCoroutine();
-            _reactionableControl.ClearAllSubscriptions();
         }
 
         private void LoadSceneSettings()
@@ -91,7 +88,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private void InstallerToTests()
         {
-            SceneContainer.Bind<ReactionableControl>().AsSingle();
             SceneContainer.Bind<PreparationScene>().AsSingle();
         }
 
@@ -203,6 +199,21 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
             else throw new TimeoutException($"Tokenpile Not become clickable");
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+        }
+
+        public void RevealToken(ChallengeTokenType tokenType)
+        {
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(null, (_) => true, Reveal, true);
+
+            async Task Reveal(GameAction gameAction)
+            {
+                if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
+                ChallengeToken token = _challengeTokensProvider.ChallengeTokensInBag
+                    .Find(challengeToken => challengeToken.TokenType == tokenType);
+                revealChallengeTokenGameAction.SetChallengeToken(token);
+                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Reveal);
+                await Task.CompletedTask;
+            }
         }
     }
 }

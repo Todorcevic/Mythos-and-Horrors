@@ -9,8 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State AbilityUsed { get; private set; }
-        public IReaction DiscoverHintReaction { get; private set; }
-        public IReaction RestartAbilityReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -18,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            DiscoverHintReaction = CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, false);
-            RestartAbilityReaction = CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            _reactionablesProvider.CreateOptativeReaction<DefeatCardGameAction>(this, DiscoverHintCondition, DiscoverHintLogic, Owner, false);
+            _reactionablesProvider.CreateReaction<RoundGameAction>(this, RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

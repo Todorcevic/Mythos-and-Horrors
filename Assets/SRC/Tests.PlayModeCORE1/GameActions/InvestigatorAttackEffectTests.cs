@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInDangerZoneTest()
         {
-            _reactionableControl.SubscribeAtStart(RevealPlus1Token);
+            RevealToken(ChallengeTokenType.Value1);
             CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
 
             yield return _preparationScene.StartingScene();
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInPlaceZoneTest()
         {
-            _reactionableControl.SubscribeAtStart(RevealPlus1Token);
+            RevealToken(ChallengeTokenType.Value1);
             CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
             yield return _preparationScene.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.CurrentPlace.OwnZone)).AsCoroutine();
@@ -46,16 +46,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return gameActionTask.AsCoroutine();
             Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
-        }
-
-        private async Task RevealPlus1Token(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Value1);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
         }
     }
 }

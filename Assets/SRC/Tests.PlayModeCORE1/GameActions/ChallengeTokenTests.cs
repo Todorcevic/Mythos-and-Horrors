@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalCreatureTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
+            RevealToken(ChallengeTokenType.Creature);
             yield return _preparationScene.PlaceAllSceneCORE1();
             yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardCreatureTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Creature));
+            RevealToken(ChallengeTokenType.Creature);
             yield return _preparationScene.PlaceAllSceneCORE1();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
+            RevealToken(ChallengeTokenType.Cultist);
             yield return _preparationScene.PlaceAllSceneCORE1();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -84,7 +84,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardCultistTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Cultist));
+            RevealToken(ChallengeTokenType.Cultist);
             yield return _preparationScene.PlaceAllSceneCORE1();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -96,8 +96,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
             Assert.That(challengeValue, Is.EqualTo(0));
-            _reactionableControl.ClearAllSubscriptions();
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
+            RevealToken(ChallengeTokenType.Danger);
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
             challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
@@ -114,7 +113,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
+            RevealToken(ChallengeTokenType.Danger);
             yield return _preparationScene.PlaceAllSceneCORE1();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -137,7 +136,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardDangerTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            _reactionableControl.SubscribeAtStart((gameAction) => RevealSpecificToken(gameAction, ChallengeTokenType.Danger));
+            RevealToken(ChallengeTokenType.Danger);
             yield return _preparationScene.PlaceAllSceneCORE1();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
@@ -155,16 +154,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(challengeValue, Is.EqualTo(-4));
             Assert.That(investigator.DamageRecived, Is.EqualTo(1));
             Assert.That(investigator.FearRecived, Is.EqualTo(1));
-        }
-
-        private async Task RevealSpecificToken(GameAction gameAction, ChallengeTokenType tokenType)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == tokenType);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
         }
     }
 }

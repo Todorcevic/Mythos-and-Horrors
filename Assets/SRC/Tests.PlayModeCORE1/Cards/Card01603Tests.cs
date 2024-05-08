@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator BlankCratureStarTokenBuffTest()
         {
-            _reactionableControl.SubscribeAtStart(RevealStarToken);
+            RevealToken(ChallengeTokenType.Star);
             yield return _preparationScene.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
@@ -53,6 +53,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Assert.That(challengeValue, Is.EqualTo(0));
 
+            RevealToken(ChallengeTokenType.Star);
             yield return _gameActionsProvider.Create(new DefeatCardGameAction(creature, _investigatorsProvider.Third.InvestigatorCard)).AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));
@@ -69,16 +70,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(2));
-        }
-
-        private async Task RevealStarToken(GameAction gameAction)
-        {
-            if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            ChallengeToken minus1Token = _challengeTokensProvider.ChallengeTokensInBag
-                .Find(challengeToken => challengeToken.TokenType == ChallengeTokenType.Star);
-            revealChallengeTokenGameAction.SetChallengeToken(minus1Token);
-
-            await Task.CompletedTask;
         }
     }
 }
