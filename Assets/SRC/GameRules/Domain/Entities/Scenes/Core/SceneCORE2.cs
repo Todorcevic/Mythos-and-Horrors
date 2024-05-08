@@ -41,7 +41,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override async Task PrepareScene()
         {
-            CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
             SelectRandoms();
             await ShowHistory();
             await PlacePlaces();
@@ -49,18 +48,6 @@ namespace MythosAndHorrors.GameRules
             await PlaceDangerDeck();
             await PlacePlotAndGoal();
             await PlaceInvestigators();
-        }
-
-        /*******************************************************************/
-        private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
-        {
-            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
-        }
-
-        private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)
-        {
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 0) return false;
-            return true;
         }
 
         /*******************************************************************/
@@ -80,16 +67,23 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlacePlaces()
         {
+            Dictionary<Card, Zone> allPlaces = new()
+            {
+                { South, PlaceZone[0, 3] },
+                { Hospital, PlaceZone[0, 2] },
+                { Graveyard, PlaceZone[1, 4] },
+                { Fluvial, PlaceZone[1, 3] },
+                { University, PlaceZone[1, 2] },
+                { West, PlaceZone[2, 4] },
+                { Center, PlaceZone[2, 3] },
+                { North, PlaceZone[2, 2] }
+            };
+
+
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
-                await _gameActionsProvider.Create(new MoveCardsGameAction(Home, PlaceZone[0, 4]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(South, PlaceZone[0, 3]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Hospital, PlaceZone[0, 2]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Graveyard, PlaceZone[1, 4]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Fluvial, PlaceZone[1, 3]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(University, PlaceZone[1, 2]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(West, PlaceZone[2, 4]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Center, PlaceZone[2, 3]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(North, PlaceZone[2, 2]));
+                allPlaces.Add(Home, PlaceZone[0, 4]);
+
+            await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
         }
 
         private async Task PlaceAcolits()
@@ -104,7 +98,6 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlaceDangerDeck()
         {
-
             await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
@@ -156,5 +149,4 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, false));
         }
     }
-
 }

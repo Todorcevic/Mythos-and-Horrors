@@ -6,22 +6,35 @@ using System.Linq;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class Card01113Tests : TestBase
     {
         //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
-        public IEnumerator TakeFearTest()
+        public IEnumerator TakeFearOneInvestigatorTest()
         {
             CardPlace Attick = _cardsProvider.GetCard<Card01113>();
-            Investigator investigator = _investigatorsProvider.AllInvestigators.First();
+            Investigator investigator = _investigatorsProvider.First;
             yield return _preparationScene.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Attick, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Attick)).AsCoroutine();
 
             Assert.That(investigator.FearRecived, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator TakeFearAllInvestigatorTest()
+        {
+            CardPlace Attick = _cardsProvider.GetCard<Card01113>();
+            yield return _preparationScene.PlayAllInvestigators();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Attick, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Attick)).AsCoroutine();
+
+            Assert.That(_investigatorsProvider.First.FearRecived, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Second.FearRecived, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Third.FearRecived, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Fourth.FearRecived, Is.EqualTo(1));
         }
     }
 }

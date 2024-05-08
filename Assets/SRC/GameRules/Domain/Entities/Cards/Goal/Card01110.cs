@@ -58,9 +58,17 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(interactableGameAction);
 
             /*******************************************************************/
-            async Task BurnIt() => await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[1]));
+            async Task BurnIt()
+            {
+                await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
+                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[1]));
+            }
 
-            async Task NoBurn() => await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
+            async Task NoBurn()
+            {
+                await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
+                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
+            }
         }
     }
 }

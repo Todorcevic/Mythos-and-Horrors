@@ -28,7 +28,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
@@ -36,18 +35,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
-        }
-
-        /*******************************************************************/
-        private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
-        {
-            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
-        }
-
-        private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)
-        {
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 0) return false;
-            return true;
         }
 
         /*******************************************************************/

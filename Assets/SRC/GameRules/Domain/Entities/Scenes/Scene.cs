@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
         private readonly List<IReaction> _reactions = new();
 
@@ -61,6 +62,7 @@ namespace MythosAndHorrors.GameRules
             PrepareResolutions();
             _reactionablesProvider.SubscribeAtStart(WhenBegin);
             _reactionablesProvider.SubscribeAtEnd(WhenFinish);
+            CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
         }
 
         private void InitializePlaceZones()
@@ -72,6 +74,18 @@ namespace MythosAndHorrors.GameRules
                     PlaceZone[i, j] = _zonesProvider.Create(ZoneType.Place);
                 }
             }
+        }
+
+        /*******************************************************************/
+        private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
+        {
+            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
+        }
+
+        private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)
+        {
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 0) return false;
+            return true;
         }
 
         /*******************************************************************/

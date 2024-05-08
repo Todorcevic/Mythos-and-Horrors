@@ -34,11 +34,15 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlaceAllSceneCORE1()
         {
+            float currentTimeScale = Time.timeScale;
+            Time.timeScale = 64;
             Dictionary<Card, (Zone zone, bool faceDown)> all = GetCardZonesPlacesCORE1().ToDictionary(pair => pair.Key, pair => (pair.Value, false))
                 .Concat(GetCardZonesSceneCORE1()).ToDictionary(pair => pair.Key, pair => pair.Value);
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(all)).AsCoroutine();
+            Time.timeScale = currentTimeScale;
 
+            /*******************************************************************/
             Dictionary<Card, Zone> GetCardZonesPlacesCORE1() => new()
             {
                     { SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3] },
@@ -64,11 +68,14 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
+            float currentTimeScale = Time.timeScale;
+            Time.timeScale = 64;
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, withCards))).AsCoroutine();
             if (withResources)
                 yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
             if (withAvatar)
                 yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Study)).AsCoroutine();
+            Time.timeScale = currentTimeScale;
         }
 
         public IEnumerator PlayAllInvestigators()
@@ -81,11 +88,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator StartingScene()
         {
-            float currentTimeScale = Time.timeScale;
-            Time.timeScale = 64;
             yield return PlaceAllSceneCORE1();
             yield return PlayAllInvestigators();
-            Time.timeScale = currentTimeScale;
         }
 
         public IEnumerator WasteTurnsInvestigator(Investigator investigator)

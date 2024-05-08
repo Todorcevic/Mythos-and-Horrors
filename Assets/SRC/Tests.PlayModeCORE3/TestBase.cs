@@ -2,7 +2,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class TestBase : TestCommon
     {
-        protected override string SCENE_NAME => "GamePlayCORE2";
-        protected override string JSON_SAVE_DATA_PATH => "Assets/SRC/Tests.PlayModeCORE2/SaveDataCORE2.json";
+        protected override string SCENE_NAME => "GamePlayCORE3";
+        protected override string JSON_SAVE_DATA_PATH => "Assets/SRC/Tests.PlayModeCORE3/SaveDataCORE3.json";
     }
 }

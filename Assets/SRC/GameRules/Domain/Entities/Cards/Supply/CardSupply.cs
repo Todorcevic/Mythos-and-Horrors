@@ -15,7 +15,6 @@ namespace MythosAndHorrors.GameRules
         public Stat AmountSupplies { get; protected set; }
         public Stat AmountBullets { get; protected set; }
         public Stat AmountCharges { get; protected set; }
-        public IReaction DefeatReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -26,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
             if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
-            DefeatReaction = CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
+            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/

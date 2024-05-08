@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
 
         IEnumerable<Investigator> InvestigatorsWithCards => _investigatorProvider.AllInvestigatorsInPlay
         .Where(investigator => investigator.HandZone.Cards.Any());

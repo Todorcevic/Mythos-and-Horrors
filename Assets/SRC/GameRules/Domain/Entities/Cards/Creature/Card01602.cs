@@ -9,8 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public IReaction PutEldritchReaction { get; private set; }
-
         public bool IsOnlyOneTarget => true;
         public Investigator TargetInvestigator => Owner;
 
@@ -19,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PutEldritchReaction = CreateReaction<CreatureAttackGameAction>(PutEldritchCondition, PutEldritchLogic, false);
+            CreateReaction<CreatureAttackGameAction>(PutEldritchCondition, PutEldritchLogic, false);
         }
 
         /*******************************************************************/

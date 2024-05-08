@@ -57,5 +57,12 @@ namespace MythosAndHorrors.GameRules
             T[] array = source.ToArray();
             return array.Length == 0 ? default : array[new Random().Next(0, array.Length)];
         }
+
+        public static IEnumerable<T> Rand<T>(this IEnumerable<T> source, int amount)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount));
+            return source.OrderBy(element => Guid.NewGuid()).Take(amount);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameRules
         public void AddCard(Card objectCard) => _allCards.Add(objectCard);
 
         public T GetCard<T>() where T : Card => _allCards.OfType<T>().First();
+        public IEnumerable<T> GetCards<T>() where T : Card => _allCards.OfType<T>();
 
         public Card GetCardByCode(string code) => _allCards.First(card => card.Info.Code == code);
 
