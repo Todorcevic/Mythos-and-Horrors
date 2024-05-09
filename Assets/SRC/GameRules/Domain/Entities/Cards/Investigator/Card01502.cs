@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AbilityUsed = new State(false);
+            AbilityUsed = CreateState(false);
             CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }

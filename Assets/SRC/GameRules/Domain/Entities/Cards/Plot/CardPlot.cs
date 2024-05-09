@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Eldritch = CreateStat(Info.Eldritch ?? 0);
-            Revealed = new State(false);
+            Revealed = CreateState(false);
         }
 
         /*******************************************************************/

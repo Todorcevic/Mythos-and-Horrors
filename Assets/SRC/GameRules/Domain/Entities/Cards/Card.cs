@@ -18,7 +18,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
-        private readonly List<Activation> _activations = new();
+        private readonly List<State> _states = new();
+        private readonly List<Activation> _baseActivations = new();
+        private readonly List<Activation> _specificActivations = new();
         private readonly List<IReaction> _baseReactions = new();
         private readonly List<IReaction> _specificReactions = new();
 
@@ -31,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
-        public IEnumerable<Activation> AllActivations => _activations.ToList();
+        public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
@@ -40,7 +42,7 @@ namespace MythosAndHorrors.GameRules
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
-        public bool IsActivable => _activations.Count > 0;
+        public bool IsActivable => AllActivations.Count() > 0;
         public bool CanDiscard => !Tags.Contains(Tag.Flaw);
         public bool IsVictory => Info.Victory != null;
 
@@ -50,9 +52,9 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             OwnZone = _zonesProvider.Create(ZoneType.Own);
-            FaceDown = new State(false);
-            Exausted = new State(false);
-            Blancked = new State(false, BlankState);
+            FaceDown = CreateState(false);
+            Exausted = CreateState(false);
+            Blancked = CreateState(false, BlankState);
         }
         /*******************************************************************/
         protected void CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
@@ -75,44 +77,46 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        /*******************************************************************/
         protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
         {
-            Activation newActivation = new(activateTurnsCost, logic, condition, isBase);
-            _activations.Add(newActivation);
+            Activation newActivation = new(activateTurnsCost, logic, condition);
+            if (isBase) _baseActivations.Add(newActivation);
+            else _specificActivations.Add(newActivation);
             return newActivation;
         }
 
         protected Stat CreateStat(int value, bool canBeNegative = false)
         {
-            Stat newSAtat = new(value, canBeNegative);
-            _stats.Add(newSAtat);
-            return newSAtat;
+            Stat newStat = new(value, canBeNegative);
+            _stats.Add(newStat);
+            return newStat;
         }
 
         public bool HasThisStat(Stat stat) => _stats.Contains(stat);
 
-        /*******************************************************************/
-        private List<Activation> _activationsBlanked = new();
-        private List<Buff> _buffsCreatedBlanked = new();
+        protected State CreateState(bool value, Action<bool> action = null)
+        {
+            State newState = new(value, action);
+            _states.Add(newState);
+            return newState;
+        }
 
+        public bool HasThisState(State state) => _states.Contains(state);
+
+        /*******************************************************************/
         protected virtual void BlankState(bool isActive)
         {
             if (isActive)
             {
-                _activationsBlanked = _activations.FindAll(activation => !activation.IsBase).ToList();
-                _activations.Clear();
+                _specificActivations.ForEach(activation => activation.Disable());
                 _specificReactions.ForEach(reaction => reaction.Disable());
-                _buffsCreatedBlanked = _buffsProvider.GetBuffsForThisCardMaster(this).ToList();
-                _buffsProvider.Remove(_buffsCreatedBlanked);
+                _buffsProvider.GetBuffsForThisCardMaster(this).ForEach(buff => buff.Disable());
             }
             else
             {
-                _activations.AddRange(_activationsBlanked);
-                _activationsBlanked.Clear();
+                _specificActivations.ForEach(activation => activation.Enable());
                 _specificReactions.ForEach(reaction => reaction.Enable());
-                _buffsProvider.Add(_buffsCreatedBlanked);
-                _buffsCreatedBlanked.Clear();
+                _buffsProvider.GetBuffsForThisCardMaster(this).ForEach(buff => buff.Enable());
             }
         }
     }

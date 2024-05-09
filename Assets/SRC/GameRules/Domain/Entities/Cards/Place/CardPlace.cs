@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
             Enigma = CreateStat(Info.Enigma ?? 0);
             InvestigationTurnsCost = CreateStat(1);
             MoveTurnsCost = CreateStat(1);
-            Revealed = new State(false);
+            Revealed = CreateState(false);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, false);
         }
 

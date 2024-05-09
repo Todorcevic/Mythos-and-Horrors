@@ -51,8 +51,8 @@ namespace MythosAndHorrors.GameRules
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
             DrawTurnsCost = CreateStat(1);
             TurnsCost = CreateStat(1);
-            Resign = new State(false);
-            Defeated = new State(false);
+            Resign = CreateState(false);
+            Defeated = CreateState(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);

@@ -16,6 +16,7 @@ namespace MythosAndHorrors.GameRules
         public Func<IEnumerable<Card>, Task> ActivationLogic { get; private set; }
         public Func<IEnumerable<Card>, Task> DeactivationLogic { get; private set; }
         public List<Card> CurrentCardsAffected { get; private set; } = new();
+        public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
         string IViewEffect.Description => _description;
@@ -27,6 +28,21 @@ namespace MythosAndHorrors.GameRules
             if (_isBuffing) return;
             _isBuffing = true;
 
+            if (IsDisabled) await Deactive();
+            else await Apply();
+
+            _isBuffing = false;
+        }
+
+        private async Task Deactive()
+        {
+            if (CurrentCardsAffected.Count < 1) return;
+            await DeactivationLogic.Invoke(CurrentCardsAffected);
+            CurrentCardsAffected.Clear();
+        }
+
+        private async Task Apply()
+        {
             IEnumerable<Card> cardsAffected = CardsToBuff.Invoke().ToList();
             IEnumerable<Card> cardsToActivate = cardsAffected.Except(CurrentCardsAffected);
             IEnumerable<Card> cardsToDeactivate = CurrentCardsAffected.Except(cardsAffected);
@@ -42,8 +58,6 @@ namespace MythosAndHorrors.GameRules
                 await DeactivationLogic.Invoke(cardsToDeactivate);
                 CurrentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
             }
-
-            _isBuffing = false;
         }
 
         /*******************************************************************/
@@ -76,5 +90,9 @@ namespace MythosAndHorrors.GameRules
             DeactivationLogic = deactivationLogic;
             return this;
         }
+
+        public void Enable() => IsDisabled = false;
+
+        public void Disable() => IsDisabled = true;
     }
 }

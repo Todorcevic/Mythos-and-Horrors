@@ -15,13 +15,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
         {
-            foreach (IReaction reaction in _startReactions.ToArray())
+            foreach (IReaction reaction in _startReactions.ToList())
                 await reaction.React(gameAction);
         }
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            foreach (IReaction reaction in _endReactions.ToArray())
+            foreach (IReaction reaction in _endReactions.ToList())
                 await reaction.React(gameAction);
         }
 
@@ -29,8 +29,7 @@ namespace MythosAndHorrors.GameRules
         public Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
             Reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
 
-        public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart)
-            where T : GameAction
+        public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
             Reaction<T> newReaction = new(condition, logic);
             if (isAtStart) _startReactions.Add(newReaction);

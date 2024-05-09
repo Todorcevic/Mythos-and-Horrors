@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            AbilityUsed = new State(false);
+            AbilityUsed = CreateState(false);
             CreateReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, isAtStart: false, isOptative: true);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }

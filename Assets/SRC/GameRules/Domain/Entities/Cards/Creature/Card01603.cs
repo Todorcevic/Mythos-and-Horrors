@@ -11,8 +11,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
-        public Buff BlankCardBuff { get; private set; }
-
         public bool IsOnlyOneTarget => true;
         public Investigator TargetInvestigator => Owner;
 
@@ -20,9 +18,9 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            BlankCardBuff = _buffsProvider.Create()
+            _buffsProvider.Create()
                 .SetCard(this)
-                .SetDescription(nameof(BlankCardBuff))
+                .SetDescription(nameof(AddBlankBuff))
                 .SetCardsToBuff(CardsToBuff)
                 .SetAddBuff(AddBlankBuff)
                 .SetRemoveBuff(RemoveBlankBuff);

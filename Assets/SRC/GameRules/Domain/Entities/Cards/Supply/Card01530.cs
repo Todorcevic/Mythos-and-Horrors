@@ -12,19 +12,17 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
-        public Buff AddIntelligence { get; private set; }
-
         /*******************************************************************/
         [Inject]
         public void Init()
         {
             PlayFromHandTurnsCost = CreateStat(0);
-            AddIntelligence = _buffsProvider.Create()
-                .SetCard(this)
-                .SetDescription(_textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(AddIntelligenceBuff))
-                .SetCardsToBuff(CardsToBuff)
-                .SetAddBuff(AddIntelligenceBuff)
-                .SetRemoveBuff(RemoveIntelligenceBuff);
+            _buffsProvider.Create()
+               .SetCard(this)
+               .SetDescription(nameof(AddIntelligenceBuff))
+               .SetCardsToBuff(CardsToBuff)
+               .SetAddBuff(AddIntelligenceBuff)
+               .SetRemoveBuff(RemoveIntelligenceBuff);
 
         }
         /*******************************************************************/

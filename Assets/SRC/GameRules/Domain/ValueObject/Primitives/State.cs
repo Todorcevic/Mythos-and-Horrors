@@ -8,14 +8,14 @@ namespace MythosAndHorrors.GameRules
         public Action<bool> OnChange { get; }
 
         /*******************************************************************/
-        internal State(bool isActive, Action<bool> action = null)
+        public State(bool isActive, Action<bool> action = null)
         {
             IsActive = isActive;
             OnChange = action;
         }
 
         /*******************************************************************/
-        internal void UpdateValueTo(bool isActive)
+        public void UpdateValueTo(bool isActive)
         {
             IsActive = isActive;
             OnChange?.Invoke(isActive);
