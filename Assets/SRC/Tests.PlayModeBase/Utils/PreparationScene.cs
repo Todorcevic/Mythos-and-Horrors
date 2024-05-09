@@ -52,7 +52,6 @@ namespace MythosAndHorrors.PlayMode.Tests
                     { SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 4] }
             };
 
-
             Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesSceneCORE1()
             {
                 Dictionary<Card, (Zone zone, bool faceDown)> moveSceneCards = new()
@@ -60,8 +59,8 @@ namespace MythosAndHorrors.PlayMode.Tests
                         { SceneCORE1.Info.PlotCards.First(), (SceneCORE1.PlotZone, false )},
                         { SceneCORE1.Info.GoalCards.First(), (SceneCORE1.GoalZone, false)}
                     };
-                SceneCORE1.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE1.DangerDeckZone, true)));
 
+                SceneCORE1.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE1.DangerDeckZone, true)));
                 return moveSceneCards;
             }
         }
@@ -80,10 +79,15 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlayAllInvestigators()
         {
+            float currentTimeScale = Time.timeScale;
+            Time.timeScale = 64;
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
-                yield return PlayThisInvestigator(investigator);
+                yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, true))).AsCoroutine();
+                yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
             }
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, SceneCORE1.Study)).AsCoroutine();
+            Time.timeScale = currentTimeScale;
         }
 
         public IEnumerator StartingScene()

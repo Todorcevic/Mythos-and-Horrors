@@ -35,6 +35,7 @@ namespace MythosAndHorrors.GameRules
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
         public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
+        public IEnumerable<Buff> Buffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
