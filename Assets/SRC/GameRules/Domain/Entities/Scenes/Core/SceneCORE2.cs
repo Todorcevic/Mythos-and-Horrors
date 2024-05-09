@@ -113,7 +113,7 @@ namespace MythosAndHorrors.GameRules
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
                 await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Home));
             else
-                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Home));
+                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Fluvial));
         }
 
         /*******************************************************************/

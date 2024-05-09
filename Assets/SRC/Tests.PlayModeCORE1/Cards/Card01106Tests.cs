@@ -2,11 +2,11 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class Card01106Tests : TestBase
     {
         //protected override bool DEBUG_MODE => true;
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
 
-            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            if (DEBUG_MODE) yield return PressAnyKey();
             Assert.That(_chaptersProvider.CurrentScene.Info.DangerCards.Any(card => card.Tags.Contains(Tag.Ghoul) && card.IsInPlay), Is.True);
         }
     }

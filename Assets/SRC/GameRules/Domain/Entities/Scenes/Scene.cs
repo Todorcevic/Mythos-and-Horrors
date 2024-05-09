@@ -13,7 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        //private readonly List<IReaction> _reactions = new();
 
         [Inject] public SceneInfo Info { get; }
         public Zone DangerDeckZone { get; private set; }
@@ -63,6 +62,7 @@ namespace MythosAndHorrors.GameRules
             _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
         }
 
+        /*******************************************************************/
         private void InitializePlaceZones()
         {
             for (int i = 0; i < PlaceZone.GetLength(0); i++)
@@ -77,7 +77,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0])); //TODO: Debe ser corregido, la resolucion esta mal diseñada
+            await _gameActionsProvider.Create(new FinalizeGameAction(Resolutions[0]));
         }
 
         private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)
@@ -112,33 +112,6 @@ namespace MythosAndHorrors.GameRules
                 Resolutions.Add(new Resolution(Info.Resolutions[i], GetResolution(i)));
             }
         }
-
-        /*******************************************************************/
-        //protected Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
-        //   _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
-
-        //protected void RemoveReaction<T>(Func<T, Task> logic) where T : GameAction =>
-        //    _reactions.RemoveAll(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic);
-
-        //protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
-        //   where T : GameAction
-        //{
-        //    Reaction<T> newReaction = new(condition, logic, isAtStart, isBase);
-        //    _reactions.Add(newReaction);
-        //    return newReaction;
-        //}
-
-        //private async Task WhenBegin(GameAction gameAction)
-        //{
-        //    foreach (IReaction reaction in _reactions.FindAll(reaction => reaction.IsAtStart))
-        //        await reaction.React(gameAction);
-        //}
-
-        //private async Task WhenFinish(GameAction gameAction)
-        //{
-        //    foreach (IReaction reaction in _reactions.FindAll(reaction => !reaction.IsAtStart))
-        //        await reaction.React(gameAction);
-        //}
 
         /*******************************************************************/
         protected virtual async Task Resolution0() => await Task.CompletedTask;

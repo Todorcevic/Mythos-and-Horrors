@@ -77,16 +77,19 @@ namespace MythosAndHorrors.PlayMode.Tests
             Time.timeScale = currentTimeScale;
         }
 
-        public IEnumerator PlayAllInvestigators()
+        public IEnumerator PlayAllInvestigators(bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
             float currentTimeScale = Time.timeScale;
             Time.timeScale = 64;
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
-                yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, true))).AsCoroutine();
-                yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
+                if (withCards)
+                    yield return _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, true))).AsCoroutine();
+                if (withResources)
+                    yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5)).AsCoroutine();
             }
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, SceneCORE1.Study)).AsCoroutine();
+            if (withAvatar)
+                yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, SceneCORE1.Study)).AsCoroutine();
             Time.timeScale = currentTimeScale;
         }
 
