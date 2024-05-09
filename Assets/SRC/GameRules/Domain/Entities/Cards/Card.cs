@@ -1,3 +1,4 @@
+using ModestTree;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,6 +19,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
         private readonly List<Activation> _activations = new();
+        private readonly List<IReaction> _baseReactions = new();
+        private readonly List<IReaction> _specificReactions = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
@@ -51,6 +54,26 @@ namespace MythosAndHorrors.GameRules
             Exausted = new State(false);
             Blancked = new State(false, BlankState);
         }
+        /*******************************************************************/
+        protected void CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
+            bool isBase = false, bool isOptative = false) where T : GameAction
+        {
+            IReaction newReaction = _reactionablesProvider.CreateReaction(condition, isOptative ? OptativeLogic : logic, isAtStart);
+            if (isBase) _baseReactions.Add(newReaction);
+            else _specificReactions.Add(newReaction);
+
+            async Task OptativeLogic(T gameAction)
+            {
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
+                interactableGameAction.CreateMainButton().SetLogic(Continue);
+                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic);
+                await _gameActionsProvider.Create(interactableGameAction);
+
+                /*******************************************************************/
+                async Task Continue() => await Task.CompletedTask;
+                async Task FullLogic() => await logic.Invoke(gameAction);
+            }
+        }
 
         /*******************************************************************/
         protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
@@ -71,7 +94,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private List<Activation> _activationsBlanked = new();
-        private List<IReaction> _reactionsBlanked = new();
         private List<Buff> _buffsCreatedBlanked = new();
 
         protected virtual void BlankState(bool isActive)
@@ -80,8 +102,7 @@ namespace MythosAndHorrors.GameRules
             {
                 _activationsBlanked = _activations.FindAll(activation => !activation.IsBase).ToList();
                 _activations.Clear();
-                _reactionsBlanked = _reactionablesProvider.FindReactionsByCard(this).ToList();
-                _reactionablesProvider.RemoveAllReactionsForThis(_reactionsBlanked);
+                _specificReactions.ForEach(reaction => reaction.Disable());
                 _buffsCreatedBlanked = _buffsProvider.GetBuffsForThisCardMaster(this).ToList();
                 _buffsProvider.Remove(_buffsCreatedBlanked);
             }
@@ -89,8 +110,7 @@ namespace MythosAndHorrors.GameRules
             {
                 _activations.AddRange(_activationsBlanked);
                 _activationsBlanked.Clear();
-                _reactionablesProvider.AddRangeReactions(_reactionsBlanked);
-                _reactionsBlanked.Clear();
+                _specificReactions.ForEach(reaction => reaction.Enable());
                 _buffsProvider.Add(_buffsCreatedBlanked);
                 _buffsCreatedBlanked.Clear();
             }

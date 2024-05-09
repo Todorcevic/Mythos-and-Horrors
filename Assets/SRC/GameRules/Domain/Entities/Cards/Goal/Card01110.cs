@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _reactionablesProvider.RemoveReaction<UpdateStatGameAction>(RevealLogic);
-            _reactionablesProvider.CreateReaction<DefeatCardGameAction>(this, RevealCondition, RevealLogic, false);
+            CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/

@@ -16,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = new State(false);
-            _reactionablesProvider.CreateOptativeReaction<DefeatCardGameAction>(this, DiscoverHintCondition, DiscoverHintLogic, Owner, false);
-            _reactionablesProvider.CreateReaction<RoundGameAction>(this, RestartAbilityCondition, RestartAbilityLogic, true);
+            CreateReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, isAtStart: false, isOptative: true);
+            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/

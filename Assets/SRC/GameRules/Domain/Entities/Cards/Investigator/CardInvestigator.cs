@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             Defeated = new State(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
-            _reactionablesProvider.CreateReaction<UpdateStatGameAction>(this, DefeatCondition, DefeatLogic, false);
+            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/

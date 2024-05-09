@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
             InitializePlaceZones();
             PrepareChallengeTokens();
             PrepareResolutions();
-            _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(null, InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
+            _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
         }
 
         private void InitializePlaceZones()

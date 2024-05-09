@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate);
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
-            _reactionablesProvider.CreateReaction<OneInvestigatorTurnGameAction>(this, AvoidMoveCondition, AvoidMoveLogic, true);
+            CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, true);
         }
 
         /*******************************************************************/

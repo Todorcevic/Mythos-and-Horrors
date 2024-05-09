@@ -2,74 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ReactionablesProvider
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        private readonly List<IReaction> _reactions = new();
+        private readonly List<IReaction> _startReactions = new();
+        private readonly List<IReaction> _endReactions = new();
 
-        public List<IReaction> Reactions => _reactions.ToList();
+        public List<IReaction> Reactions => _startReactions.Concat(_endReactions).ToList();
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
         {
-            foreach (IReaction reaction in _reactions.FindAll(reaction => reaction.IsAtStart))
+            foreach (IReaction reaction in _startReactions.ToArray())
                 await reaction.React(gameAction);
         }
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            foreach (IReaction reaction in _reactions.FindAll(reaction => !reaction.IsAtStart))
+            foreach (IReaction reaction in _endReactions.ToArray())
                 await reaction.React(gameAction);
         }
 
         /*******************************************************************/
-        public IEnumerable<IReaction> FindReactionsByCard(Card card) => _reactions.FindAll(reaction => reaction.Card == card);
-
         public Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
-            _reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
+            Reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
 
-        public void CreateReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false)
+        public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart)
             where T : GameAction
         {
-            Reaction<T> newReaction = new(card, condition, logic, isAtStart, isBase);
-            _reactions.Add(newReaction);
+            Reaction<T> newReaction = new(condition, logic);
+            if (isAtStart) _startReactions.Add(newReaction);
+            else _endReactions.Add(newReaction);
+            return newReaction;
         }
 
-        public void CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, Investigator investigator, bool isAtStart, bool isBase = false)
-            where T : GameAction
+        public void RemoveReaction<T>(Func<T, Task> logic) where T : GameAction
         {
-            Reaction<T> newReaction = new(card, condition, RealLogic, isAtStart, isBase);
-            _reactions.Add(newReaction);
-
-            async Task RealLogic(T gameAction)
-            {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
-                interactableGameAction.CreateMainButton().SetLogic(Continue);
-                interactableGameAction.Create().SetCard(card).SetInvestigator(investigator).SetLogic(FullLogic);
-                await _gameActionsProvider.Create(interactableGameAction);
-
-                /*******************************************************************/
-                async Task Continue() => await Task.CompletedTask;
-                async Task FullLogic() => await logic.Invoke(gameAction);
-            }
-        }
-
-        public void AddRangeReactions(IEnumerable<IReaction> reactions)
-        {
-            _reactions.AddRange(reactions);
-        }
-
-        public void RemoveReaction<T>(Func<T, Task> logic) where T : GameAction =>
-            _reactions.RemoveAll(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic);
-
-        public void RemoveAllReactionsForThis(IEnumerable<IReaction> reactions)
-        {
-            foreach (IReaction reaction in reactions)
-                _reactions.Remove(reaction);
+            IReaction reaction = FindReactionByLogic(logic);
+            _startReactions.Remove(reaction);
+            _endReactions.Remove(reaction);
         }
     }
 }

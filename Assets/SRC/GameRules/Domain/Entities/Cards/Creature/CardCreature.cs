@@ -50,9 +50,9 @@ namespace MythosAndHorrors.GameRules
             InvestigatorAttackTurnsCost = CreateStat(1);
             InvestigatorConfronTurnsCost = CreateStat(1);
             EludeTurnsCost = CreateStat(1);
-            _reactionablesProvider.CreateReaction<UpdateStatGameAction>(this, DefeatCondition, DefeatLogic, false);
-            _reactionablesProvider.CreateReaction<MoveCardsGameAction>(this, ConfrontCondition, ConfrontLogic, false);
-            _reactionablesProvider.CreateReaction<UpdateStatesGameAction>(this, ConfrontCondition, ConfrontLogic, false);
+            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
+            CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, false);
+            CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, false);
         }
 
         /*******************************************************************/

@@ -203,7 +203,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public void RevealToken(ChallengeTokenType tokenType)
         {
-            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(null, (_) => true, Reveal, true);
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, true);
 
             async Task Reveal(GameAction gameAction)
             {

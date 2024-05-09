@@ -5,27 +5,27 @@ namespace MythosAndHorrors.GameRules
 {
     public class Reaction<T> : IReaction where T : GameAction
     {
-        public Card Card { get; }
         public Func<T, bool> Condition { get; }
         public Func<T, Task> Logic { get; }
-        public bool IsAtStart { get; }
-        public bool IsBase { get; }
+        public bool IsDisable { get; private set; }
 
         /*******************************************************************/
-        public Reaction(Card card, Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isbase)
+        public Reaction( Func<T, bool> condition, Func<T, Task> logic)
         {
-            Card = card;
             Condition = condition;
             Logic = logic;
-            IsAtStart = isAtStart;
-            IsBase = isbase;
         }
         /*******************************************************************/
         public async Task React(GameAction gameAction)
         {
+            if (IsDisable) return;
             if (gameAction is not T realGameAction) return;
             if (!Condition.Invoke(realGameAction)) return;
             await Logic.Invoke(realGameAction);
         }
+
+        public void Disable() => IsDisable = true;
+
+        public void Enable() => IsDisable = false;
     }
 }

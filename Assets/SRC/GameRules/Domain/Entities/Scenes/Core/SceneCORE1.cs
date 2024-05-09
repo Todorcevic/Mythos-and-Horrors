@@ -127,7 +127,7 @@ namespace MythosAndHorrors.GameRules
         private int CreatureHardValue() => -2;
         private async Task CreatureHardEffect()
         {
-            _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(null, condition: DrawGhoulCondition, logic: DrawGhoul, isAtStart: false);
+            _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(condition: DrawGhoulCondition, logic: DrawGhoul, isAtStart: false);
             await Task.CompletedTask;
 
             /*******************************************************************/
