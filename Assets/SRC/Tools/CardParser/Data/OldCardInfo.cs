@@ -289,10 +289,10 @@ namespace MythosAndHorrors.Tools
         [JsonProperty("victory")]
         public int? Victory { get; set; }
 
-        //[BoxGroup("Split/right")]
-        //[SerializeField]
-        //[JsonProperty("linked_card")]
-        //public OldCardInfo LinkedCard { get; set; }
+        [BoxGroup("Split/right")]
+        [SerializeField]
+        [JsonProperty("linked_card")]
+        public OldCardInfo LinkedCard { get; set; }
 
         [BoxGroup("Split/right")]
         [SerializeField]

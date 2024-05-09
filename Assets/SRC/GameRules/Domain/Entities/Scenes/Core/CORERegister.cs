@@ -4,7 +4,6 @@
     {
         HouseUp,
         PriestGhoulLive,
-        HouseBurn,
         LitaGoAway,
         DrewInterrogate,
         HermanInterrogate,

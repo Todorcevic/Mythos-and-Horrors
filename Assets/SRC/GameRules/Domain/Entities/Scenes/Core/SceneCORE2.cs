@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace South { get; private set; }
         public CardPlace Center { get; private set; }
 
-        public IEnumerable<Card> RealDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
+        public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
                      Info.DangerCards.Except(Secta) :
                      Info.DangerCards.Except(Secta).Except(new[] { GhoulPriest });
 
@@ -44,8 +44,8 @@ namespace MythosAndHorrors.GameRules
             SelectRandoms();
             await ShowHistory();
             await PlacePlaces();
-            await PlaceAcolits();
             await PlaceDangerDeck();
+            await PlaceAcolits();
             await PlacePlotAndGoal();
             await PlaceInvestigators();
         }
@@ -88,17 +88,17 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlaceAcolits()
         {
-            if (_investigatorsProvider.AllInvestigators.Count > 1)
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 1)
                 await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(0), South.OwnZone));
-            if (_investigatorsProvider.AllInvestigators.Count > 2)
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 2)
                 await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(1), Center.OwnZone));
-            if (_investigatorsProvider.AllInvestigators.Count > 3)
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 3)
                 await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(2), Graveyard.OwnZone));
         }
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
 

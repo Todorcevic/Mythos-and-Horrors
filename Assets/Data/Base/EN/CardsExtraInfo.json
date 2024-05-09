@@ -170,5 +170,56 @@
         "ConnectedPlaces": [
             "01112"
         ]
+    },
+    {
+        "Code": "01121a",
+        "Histories": [
+            {
+                "Code": "01121a",
+                "Title": "El Guardián de la Cueva",
+                "Description": "Dentro de la cavernosa salita, más allá de la barrera ahora destruida, los investigadores se encuentran con una figura imponente. Un hombre de mirada severa y ojos que arden con un brillo de odio se enfrenta a ellos, sosteniendo una antorcha que ilumina su rostro marcado por la vida en las profundidades. “¿Qué le habéis hecho a mi barrera?” interroga con voz temblorosa de furia.\n Antes de que los investigadores puedan formular una respuesta, un alarido escalofriante resuena detrás de ellos. Girándose, ven una aparición espectacular: una criatura envuelta en una túnica, con una máscara hecha del cráneo de un ciervo, emerge de la pared de la cueva como si fuera un fantasma, moviéndose con una gracia inquietante hacia ellos.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01121b",
+                "Title": "",
+                "Description": "",
+                "Image": "01110b"
+            }
+        ]
+    },
+    {
+        "Code": "01122",
+        "Histories": [
+            {
+                "Code": "01122",
+                "Title": "El Guardián de la Cueva",
+                "Description": "Dentro de la cavernosa salita, más allá de la barrera ahora destruida, los investigadores se encuentran con una figura imponente. Un hombre de mirada severa y ojos que arden con un brillo de odio se enfrenta a ellos, sosteniendo una antorcha que ilumina su rostro marcado por la vida en las profundidades. “¿Qué le habéis hecho a mi barrera?” interroga con voz temblorosa de furia.\n Antes de que los investigadores puedan formular una respuesta, un alarido escalofriante resuena detrás de ellos. Girándose, ven una aparición espectacular: una criatura envuelta en una túnica, con una máscara hecha del cráneo de un ciervo, emerge de la pared de la cueva como si fuera un fantasma, moviéndose con una gracia inquietante hacia ellos.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01122b",
+                "Title": "",
+                "Description": "",
+                "Image": "01110b"
+            }
+        ]
+    },
+    {
+        "Code": "01123",
+        "Histories": [
+            {
+                "Code": "01123",
+                "Title": "El Guardián de la Cueva",
+                "Description": "Dentro de la cavernosa salita, más allá de la barrera ahora destruida, los investigadores se encuentran con una figura imponente. Un hombre de mirada severa y ojos que arden con un brillo de odio se enfrenta a ellos, sosteniendo una antorcha que ilumina su rostro marcado por la vida en las profundidades. “¿Qué le habéis hecho a mi barrera?” interroga con voz temblorosa de furia.\n Antes de que los investigadores puedan formular una respuesta, un alarido escalofriante resuena detrás de ellos. Girándose, ven una aparición espectacular: una criatura envuelta en una túnica, con una máscara hecha del cráneo de un ciervo, emerge de la pared de la cueva como si fuera un fantasma, moviéndose con una gracia inquietante hacia ellos.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01123b",
+                "Title": "",
+                "Description": "",
+                "Image": "01110b"
+            }
+        ]
     }
 ]

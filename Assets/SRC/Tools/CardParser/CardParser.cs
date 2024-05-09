@@ -2,9 +2,11 @@
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using UnityEditor;
 using UnityEngine;
@@ -157,6 +159,9 @@ namespace MythosAndHorrors.Tools
             {
                 List<CardInfo> allNewCards = new();
                 allCardData.ForEach(oldCardInfo => allNewCards.Add(new CardInfo().CreateWith(oldCardInfo)));
+                allCardData.Where(oldCardInfo => oldCardInfo.LinkedCard != null).Select(oldCardInfo => oldCardInfo.LinkedCard)
+                    .ForEach(oldCardInfo => allNewCards.Add(new CardInfo().CreateWith(oldCardInfo)));
+
                 return JsonConvert.SerializeObject(allNewCards, Formatting.Indented, jsonSettings);
             }
         }
@@ -165,7 +170,7 @@ namespace MythosAndHorrors.Tools
         {
             try
             {
-                string directory = System.IO.Path.GetDirectoryName(path);
+                string directory = Path.GetDirectoryName(path);
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);

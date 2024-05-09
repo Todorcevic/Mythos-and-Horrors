@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
-        public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
+        public History RevealHistory => ExtraInfo?.Histories.ElementAtOrDefault(0) ?? new History();
         public IEnumerable<CardPlace> ConnectedPlacesToMove =>
             _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
             .Select(code => _cardsProvider.GetCardByCode(code)).Where(card => card.IsInPlay).OfType<CardPlace>();
