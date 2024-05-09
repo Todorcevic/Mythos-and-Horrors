@@ -49,9 +49,12 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
         public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
             .Union(AidZone.Cards); //But Cards not Owner how Lita
-        public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.AllCards.OfType<CardCreature>()
+        public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>();
+        public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>()
+            .OrderBy(creature => creature.CurrentPlace?.DistanceTo(CurrentPlace));
+
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
         public Stat Strength => InvestigatorCard.Strength;

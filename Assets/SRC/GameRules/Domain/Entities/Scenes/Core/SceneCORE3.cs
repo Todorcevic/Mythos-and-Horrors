@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
             (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.MaskedHunterInterrogate) ? 1 : 0);
 
         public List<CardPlace> Forests => new() { Forest1, Forest2, Forest3, Forest4, Forest5, Forest6 };
-        public IEnumerable<CardPlace> ForestsToPlace { get; private set; }
+        public List<CardPlace> ForestsToPlace { get; private set; }
         public IEnumerable<Card> AgentSelected { get; private set; }
 
         /*******************************************************************/
@@ -59,8 +59,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void SelectRandoms()
         {
-            ForestsToPlace = Forests.Rand(4);
-            AgentSelected = new List<IEnumerable<Card>> { Hastur, Yog, Shub, Cthulhu }.Rand();
+            ForestsToPlace = Forests.Rand(4).ToList();
+            AgentSelected = new List<IEnumerable<Card>> { Hastur, Yog, Shub, Cthulhu }.Rand().ToList();
         }
 
         private async Task ShowHistory()
@@ -73,10 +73,10 @@ namespace MythosAndHorrors.GameRules
             Dictionary<Card, Zone> allPlaces = new()
             {
                 { MainPath, PlaceZone[1, 3] },
-                { ForestsToPlace.ElementAt(0), PlaceZone[0, 2] },
-                { ForestsToPlace.ElementAt(1), PlaceZone[0, 4] },
-                { ForestsToPlace.ElementAt(2), PlaceZone[2, 2] },
-                { ForestsToPlace.ElementAt(3), PlaceZone[2, 4] },
+                { ForestsToPlace[0], PlaceZone[0, 2] },
+                { ForestsToPlace[1], PlaceZone[0, 4] },
+                { ForestsToPlace[2], PlaceZone[2, 2] },
+                { ForestsToPlace[3], PlaceZone[2, 4] },
             };
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
@@ -193,6 +193,11 @@ namespace MythosAndHorrors.GameRules
             {
                 await Task.CompletedTask; //TODO: Implement this method Una carta IFlaw a diseñar (LitaSacrifice) para todos los investigadores
             }
+        }
+
+        protected override void PrepareChallengeTokens()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

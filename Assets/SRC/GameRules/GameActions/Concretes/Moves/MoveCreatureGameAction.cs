@@ -80,7 +80,7 @@ namespace MythosAndHorrors.GameRules
                 }
                 distance++;
                 if (listToCheck.Count > 0) return FindPath(listToCheck, moveToLocation);
-                return (currentPath[0], 99);
+                return (currentPath[0], int.MaxValue);
             }
         }
     }

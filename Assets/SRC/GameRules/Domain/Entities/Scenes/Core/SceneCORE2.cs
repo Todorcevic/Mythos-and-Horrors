@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public CardCreature Drew => _cardsProvider.GetCard<Card01137>();
         public CardCreature Herman => _cardsProvider.GetCard<Card01138>();
@@ -147,6 +148,121 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.MaskedHunterInterrogate, true));
             if (GhoulPriest.CurrentZone == VictoryZone)
                 await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, false));
+        }
+
+        /*******************************************************************/
+        protected override void PrepareChallengeTokens()
+        {
+            {
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
+            }
+        }
+
+        private int CreatureValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CreatureNormalValue();
+            else return CreatureHardValue();
+
+            /*******************************************************************/
+            int CreatureNormalValue() => _cardsProvider.GetCards<CardCreature>()
+                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
+                .OfType<IEldritchable>().Select(eldritchable => eldritchable.Eldritch.Value)
+                .OrderByDescending(eldritch => eldritch).FirstOrDefault();
+            int CreatureHardValue() => CurrentPlot.Eldritch.Value - (CurrentPlot.Info.Eldritch ?? 0);
+        }
+
+        private async Task CreatureEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CreatureNormalEffect();
+            else await CreatureHardEffect();
+
+            /*******************************************************************/
+            async Task CreatureNormalEffect() => await Task.CompletedTask;
+            async Task CreatureHardEffect() => await Task.CompletedTask;
+        }
+
+        private int CultistValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CultistNormalValue();
+            else return CultistHardValue();
+
+            /*******************************************************************/
+            int CultistNormalValue() => -2;
+            int CultistHardValue() => -2;
+        }
+
+        private async Task CultistEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CultistNormalEffect();
+            else await CultistHardEffect();
+
+            /*******************************************************************/
+            async Task CultistNormalEffect()
+            {
+                IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
+                    .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();
+
+                await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
+            }
+
+            async Task CultistHardEffect()
+            {
+                Dictionary<Stat, int> allEldrichableStats = _cardsProvider.GetCards<CardCreature>()
+                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
+                        .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
+
+                await _gameActionsProvider.Create(new IncrementStatGameAction(allEldrichableStats));
+            }
+        }
+
+        private int DangerValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return DangerNormalValue();
+            else return DangerHardValue();
+
+            /*******************************************************************/
+            int DangerNormalValue() => -3;
+            int DangerHardValue() => -4;
+        }
+
+        private async Task DangerEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await DangerNormalEffect();
+            else await DangerHardEffect();
+
+            /*******************************************************************/
+            async Task DangerNormalEffect()
+            {
+                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropHint);
+                await Task.CompletedTask;
+
+                /*******************************************************************/
+                async Task DropHint() =>
+                await _gameActionsProvider.Create(new DropHintGameAction(
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1));
+            }
+
+            async Task DangerHardEffect()
+            {
+                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropHints);
+                await Task.CompletedTask;
+
+                /*******************************************************************/
+                async Task DropHints() =>
+                await _gameActionsProvider.Create(new DropHintGameAction(
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
+                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value));
+            }
         }
     }
 }

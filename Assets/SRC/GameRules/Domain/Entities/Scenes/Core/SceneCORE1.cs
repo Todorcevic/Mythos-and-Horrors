@@ -41,7 +41,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override void PrepareChallengeTokens()
         {
-            base.PrepareChallengeTokens();
             {
                 CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
                 CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);

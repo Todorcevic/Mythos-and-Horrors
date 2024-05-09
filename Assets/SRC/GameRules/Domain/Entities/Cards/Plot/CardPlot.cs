@@ -9,10 +9,10 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
-        public bool IsComplete => Eldritch.Value <= 0;
         public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.Info.PlotCards.NextElementFor(this);
 
         /*******************************************************************/

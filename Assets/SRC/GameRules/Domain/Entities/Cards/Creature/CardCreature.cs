@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardCreature : Card, IDamageable
+    public class CardCreature : Card, IDamageable, IEldritchable
     {
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorAttackTurnsCost { get; private set; }
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
+        public Stat Eldritch { get; private set; }
         public IReaction DefeatReaction => _reactionablesProvider.FindReactionByLogic<UpdateStatGameAction>(DefeatLogic);
         public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByLogic<MoveCardsGameAction>(ConfrontLogic);
         public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByLogic<UpdateStatesGameAction>(ConfrontLogic);
@@ -47,6 +48,7 @@ namespace MythosAndHorrors.GameRules
             Agility = CreateStat(Info.Agility ?? 0);
             Damage = CreateStat(Info.CreatureDamage ?? 0);
             Fear = CreateStat(Info.CreatureFear ?? 0);
+            Eldritch = CreateStat(0);
             InvestigatorAttackTurnsCost = CreateStat(1);
             InvestigatorConfronTurnsCost = CreateStat(1);
             EludeTurnsCost = CreateStat(1);

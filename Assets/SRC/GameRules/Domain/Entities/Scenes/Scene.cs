@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
             OutZone = _zonesProvider.Create(ZoneType.Out);
             PileAmount = new Stat(int.MaxValue, canBeNegative: false);
             InitializePlaceZones();
-            PrepareChallengeTokens();
+            PrepareDefaultChallengeTokens();
             PrepareResolutions();
             _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, isAtStart: false);
         }
@@ -88,12 +88,15 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public abstract Task PrepareScene();
+        protected abstract void PrepareChallengeTokens();
 
-        protected virtual void PrepareChallengeTokens()
+        private void PrepareDefaultChallengeTokens()
         {
+            PrepareChallengeTokens();
             StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue);
             FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
 
+            /*******************************************************************/
             async Task StarEffect() => await _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarTokenEffect();
 
             int StarValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarTokenValue();

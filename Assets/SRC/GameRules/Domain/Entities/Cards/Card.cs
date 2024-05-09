@@ -46,6 +46,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsActivable => AllActivations.Count() > 0;
         public bool CanDiscard => !Tags.Contains(Tag.Flaw);
         public bool IsVictory => Info.Victory != null;
+        public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 
         /*******************************************************************/
         [Inject]
