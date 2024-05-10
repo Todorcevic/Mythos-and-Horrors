@@ -63,7 +63,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardPlot.Eldritch.Value, Is.EqualTo(2));
-            Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<StatView>("_eldritch").Stat.Value, Is.EqualTo(2));
+            Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<EldritchStatView>("_eldritch").Stat.Value, Is.EqualTo(2));
         }
 
 

@@ -197,7 +197,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override void PrepareChallengeTokens()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

@@ -4,24 +4,28 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
+using MythosAndHorrors.GameView;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01169Tests : TestBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator GainEldritch()
         {
             yield return _preparationSceneCORE2.PlaceAllScene();
+            PlotCardView plotCardView = (PlotCardView)_cardViewsManager.GetCardView(_preparationSceneCORE2.SceneCORE2.CurrentPlot);
             CardCreature acolit = _preparationSceneCORE2.SceneCORE2.Acolits.First();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, _preparationSceneCORE2.SceneCORE2.Fluvial.OwnZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(acolit.Eldritch.Value, Is.EqualTo(1));
+            Assert.That(_preparationSceneCORE2.SceneCORE2.CurrentPlot.Eldritch.Value, Is.EqualTo(6));
+            Assert.That(plotCardView.GetPrivateMember<EldritchStatView>("_eldritch").TotalValue, Is.EqualTo(5));
         }
 
         [UnityTest]

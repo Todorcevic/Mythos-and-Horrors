@@ -22,7 +22,9 @@ namespace MythosAndHorrors.GameView
             Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated)
                 .ToDictionary(statView => statView, _ => false);
             await SpecialAnimations(updateStatGameAction, statablesUpdated);
-            Update(_statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated), statablesUpdated);
+
+            var adasd = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated);
+            Update(adasd, statablesUpdated);
         }
 
         /*******************************************************************/
