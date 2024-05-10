@@ -15,7 +15,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public abstract class TestCommon : SceneTestFixture
     {
-        private static bool _hasLoadedScene;
         private const float TIMEOUT = 3f;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
         [Inject] protected readonly InvestigatorsProvider _investigatorsProvider;
@@ -43,6 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly PrepareGameUseCase _prepareGameUseCase;
         [Inject] protected readonly CardLoaderUseCase _cardLoaderUseCase;
         [Inject] protected readonly UndoGameActionButton _undoGameActionButton;
+        private static string currentSceneName;
 
         protected virtual bool DEBUG_MODE => false;
         protected abstract string SCENE_NAME { get; }
@@ -52,12 +52,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            if (_hasLoadedScene)
+            if (currentSceneName == SCENE_NAME)
             {
                 SceneContainer?.Inject(this);
                 yield break;
             }
-
+            yield return base.TearDown();
             InstallerToScene();
             yield return LoadScene(SCENE_NAME, InstallerToTests);
             LoadSceneSettings();
@@ -76,7 +76,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             if (!DEBUG_MODE) Time.timeScale = 64;
             DOTween.SetTweensCapacity(1250, 312);
-            _hasLoadedScene = true;
+            currentSceneName = SCENE_NAME;
         }
 
         private void InstallerToScene()

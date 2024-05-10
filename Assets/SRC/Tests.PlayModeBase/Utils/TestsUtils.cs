@@ -68,7 +68,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         public static Task AsTask(this IEnumerator coroutine)
         {
             TaskCompletionSource<bool> taskCompletionSource = new();
-            (coroutineCreator ??= new GameObject(nameof(JustForCoroutine)).AddComponent<JustForCoroutine>()).StartCoroutine(RunCoroutine(coroutine, taskCompletionSource));
+            if (coroutineCreator == null) coroutineCreator = new GameObject(nameof(JustForCoroutine)).AddComponent<JustForCoroutine>();
+            coroutineCreator.StartCoroutine(RunCoroutine(coroutine, taskCompletionSource));
             return taskCompletionSource.Task;
 
             static IEnumerator RunCoroutine(IEnumerator coroutine, TaskCompletionSource<bool> taskCompletionSource)
