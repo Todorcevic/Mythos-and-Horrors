@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }

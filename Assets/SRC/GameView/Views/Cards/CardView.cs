@@ -23,7 +23,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _extraStat;
         [Inject] private readonly DiContainer _diContainer;
 
         public Card Card { get; private set; }
@@ -90,12 +89,6 @@ namespace MythosAndHorrors.GameView
             _ownZoneCardView.Init(Card.OwnZone);
             _title.text = Card.Info.Name;
             SetDescription(Card.Info.Description ?? Card.Info.Flavor);
-
-            if (Card.ExtraStat != null)
-            {
-                _extraStat.gameObject.SetActive(true);
-                _extraStat.SetStat(Card.ExtraStat);
-            }
         }
 
         protected void SetDescription(string description)

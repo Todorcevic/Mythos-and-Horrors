@@ -3,12 +3,13 @@ using System.Linq;
 using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class Card01169Tests : TestBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -19,7 +20,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, _preparationSceneCORE2.SceneCORE2.Fluvial.OwnZone)).AsCoroutine();
 
-            if (DEBUG_MODE) yield return PressAnyKey();
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(acolit.Eldritch.Value, Is.EqualTo(1));
         }
 
