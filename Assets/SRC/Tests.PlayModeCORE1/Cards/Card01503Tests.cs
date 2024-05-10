@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Investigator3StarTokenTest()
         {
-            RevealToken(ChallengeTokenType.Star);
+            MustBeRevealedThisToken(ChallengeTokenType.Star);
             Investigator investigatorToTest = _investigatorsProvider.Third;
             yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, _preparationSceneCORE1.SceneCORE1.Cellar)).AsCoroutine();

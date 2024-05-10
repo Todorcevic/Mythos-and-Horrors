@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Parley()
         {
-            RevealToken(ChallengeTokenType.Value_1);
+            MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
             Investigator investigator = _investigatorsProvider.Second;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);

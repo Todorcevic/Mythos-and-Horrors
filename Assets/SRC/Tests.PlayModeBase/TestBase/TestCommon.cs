@@ -202,7 +202,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
-        public void RevealToken(ChallengeTokenType tokenType)
+        public void MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
             _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, true);
 

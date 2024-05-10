@@ -7,6 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class ChallengeTokenTests : TestBase
     {
         //protected override bool DEBUG_MODE => true;
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalCreatureTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            RevealToken(ChallengeTokenType.Creature);
+            MustBeRevealedThisToken(ChallengeTokenType.Creature);
             yield return _preparationSceneCORE1.PlaceAllScene();
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
@@ -37,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardCreatureTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            RevealToken(ChallengeTokenType.Creature);
+            MustBeRevealedThisToken(ChallengeTokenType.Creature);
             yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
@@ -60,7 +61,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            RevealToken(ChallengeTokenType.Cultist);
+            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
             yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
@@ -84,7 +85,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardCultistTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            RevealToken(ChallengeTokenType.Cultist);
+            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
             yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
@@ -96,7 +97,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
             Assert.That(challengeValue, Is.EqualTo(0));
-            RevealToken(ChallengeTokenType.Danger);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
             challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
@@ -113,7 +114,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            RevealToken(ChallengeTokenType.Danger);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
             yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
@@ -136,7 +137,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator HardDangerTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            RevealToken(ChallengeTokenType.Danger);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
             yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);

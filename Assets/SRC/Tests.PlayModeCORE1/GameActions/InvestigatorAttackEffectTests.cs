@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInDangerZoneTest()
         {
-            RevealToken(ChallengeTokenType.Value1);
+            MustBeRevealedThisToken(ChallengeTokenType.Value1);
             CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
 
             yield return _preparationSceneCORE1.StartingScene();
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorAttackInPlaceZoneTest()
         {
-            RevealToken(ChallengeTokenType.Value1);
+            MustBeRevealedThisToken(ChallengeTokenType.Value1);
             CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
             yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.CurrentPlace.OwnZone)).AsCoroutine();

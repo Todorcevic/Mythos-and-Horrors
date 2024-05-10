@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Investigator1StarToken()
         {
-            RevealToken(ChallengeTokenType.Star);
+            MustBeRevealedThisToken(ChallengeTokenType.Star);
             CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
             int valueTokenExpected = place.Hints.Value;
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();

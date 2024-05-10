@@ -169,8 +169,11 @@ namespace MythosAndHorrors.GameRules
             int CreatureNormalValue() => _cardsProvider.GetCards<CardCreature>()
                 .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
                 .OfType<IEldritchable>().Select(eldritchable => eldritchable.Eldritch.Value)
-                .OrderByDescending(eldritch => eldritch).FirstOrDefault();
-            int CreatureHardValue() => CurrentPlot.Eldritch.Value - (CurrentPlot.Info.Eldritch ?? 0);
+                .OrderByDescending(eldritch => eldritch).FirstOrDefault() * -1;
+
+            int CreatureHardValue() => ((CurrentPlot.Info.Eldritch ?? 0) - CurrentPlot.Eldritch.Value +
+                _cardsProvider.AllCards.OfType<IEldritchable>().Sum(eldrichable => eldrichable.Eldritch.Value))
+                * -1;
         }
 
         private async Task CreatureEffect()
@@ -216,7 +219,8 @@ namespace MythosAndHorrors.GameRules
                     .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
-                await _gameActionsProvider.Create(new IncrementStatGameAction(allEldrichableStats));
+                if (allEldrichableStats.Any()) await _gameActionsProvider.Create(new IncrementStatGameAction(allEldrichableStats));
+                else await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
             }
         }
 

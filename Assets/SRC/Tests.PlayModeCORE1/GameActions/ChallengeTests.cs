@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ChallengeWithCommitsTests()
         {
-            RevealToken(ChallengeTokenType.Value_1);
+            MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return _preparationSceneCORE1.StartingScene();
             Card toPlay = _cardsProvider.GetCard<Card01538>();
             Card toPlay2 = _cardsProvider.GetCard<Card01522>();

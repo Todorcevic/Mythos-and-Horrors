@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -14,6 +15,8 @@ namespace MythosAndHorrors.GameRules
 
         public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.Info.PlaceCards
             .FirstOrDefault(place => place.IsInPlay && place.IsAlone);
+
+        public override IEnumerable<Tag> Tags => new[] { Tag.Cultist };
 
         /*******************************************************************/
         [Inject]

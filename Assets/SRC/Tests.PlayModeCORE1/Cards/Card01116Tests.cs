@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator RetiliateTest()
         {
-            RevealToken(ChallengeTokenType.Value_3);
+            MustBeRevealedThisToken(ChallengeTokenType.Value_3);
             yield return _preparationSceneCORE1.PlaceAllScene();
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulPriest, _investigatorsProvider.First.DangerZone)).AsCoroutine();

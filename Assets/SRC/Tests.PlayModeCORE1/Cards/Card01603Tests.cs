@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator BlankCratureStarTokenBuffTest()
         {
-            RevealToken(ChallengeTokenType.Star);
+            MustBeRevealedThisToken(ChallengeTokenType.Star);
             yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Assert.That(challengeValue, Is.EqualTo(0));
 
-            RevealToken(ChallengeTokenType.Star);
+            MustBeRevealedThisToken(ChallengeTokenType.Star);
             yield return _gameActionsProvider.Create(new DefeatCardGameAction(creature, _investigatorsProvider.Third.InvestigatorCard)).AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));

@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>();
-        public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>()
+        public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay)
             .OrderBy(creature => creature.CurrentPlace?.DistanceTo(CurrentPlace));
 
         public Stat Health => InvestigatorCard.Health;
