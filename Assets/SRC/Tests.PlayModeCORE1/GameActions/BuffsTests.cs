@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _buffsProvider.Remove(originalBuffs);
             CreateBuff(cardWithBuff);
 
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardWithBuff, _investigatorsProvider.First.AidZone)).AsCoroutine();
 
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             _buffsProvider.Remove(originalCreatureBuffs);
             CreateCreatureBuff(creatureWithBuff);
 
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardWithBuff, _investigatorsProvider.First.AidZone)).AsCoroutine();
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(_investigatorsProvider.First.InvestigatorCard.Info.Intelligence + 1));

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoMoveMulticardsTest()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator UndoOneCardTest()
         {
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
             MoveCardsGameAction moveCardGameAction = new(cardTomove, _investigatorsProvider.First.DiscardZone);
             yield return _gameActionsProvider.Create(moveCardGameAction).AsCoroutine();
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationSceneCORE1.PlayAllInvestigators();
             AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
             yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
 
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoRestorePhaseGameActionTest()
         {
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationSceneCORE1.PlayAllInvestigators();
             RestorePhaseGameAction restorePhaseGameAction = new();
             yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
 
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator UndoTursStatTest()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
@@ -88,20 +88,20 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator FullUndoTest()
         {
-            yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new RevealGameAction(_preparationScene.SceneCORE1.Attic)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _preparationSceneCORE1.StartingScene();
+            yield return _gameActionsProvider.Create(new RevealGameAction(_preparationSceneCORE1.SceneCORE1.Attic)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Attic);
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationSceneCORE1.SceneCORE1.Attic);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             Assert.That(_investigatorsProvider.First.Sanity.Value, Is.EqualTo(4));
 
             if (!DEBUG_MODE) yield return WaitToUndoClick();
             if (!DEBUG_MODE) yield return WaitToUndoClick();
             Assert.That(_investigatorsProvider.First.Sanity.Value, Is.EqualTo(5));
-            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Hallway));
+            Assert.That(_investigatorsProvider.First.CurrentPlace, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Hallway));
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);

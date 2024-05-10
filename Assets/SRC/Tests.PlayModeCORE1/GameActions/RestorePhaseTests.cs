@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator RestorePhaseTest()
         {
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationSceneCORE1.PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.HandZone.Cards, _investigatorsProvider.Second.DeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.FullDeck.Take(9), _investigatorsProvider.First.HandZone)).AsCoroutine();

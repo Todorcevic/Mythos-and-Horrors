@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Full_Take_Resource()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToTokenClick();
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_To_Investigator()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             do
             {
                 yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_To_Pile()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             do
             {
                 yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
@@ -59,8 +59,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Move_Resource_Swaping()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.Second);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.Cards[0], _investigatorsProvider.First.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.Cards[0], _investigatorsProvider.Second.AidZone)).AsCoroutine();
 

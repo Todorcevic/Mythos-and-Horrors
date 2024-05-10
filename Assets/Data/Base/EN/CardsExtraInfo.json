@@ -172,6 +172,311 @@
         ]
     },
     {
+        "Code": "01124",
+        "Histories": [
+            {
+                "Code": "01124",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01125"
+        ]
+    },
+    {
+        "Code": "01125",
+        "Histories": [
+            {
+                "Code": "01125",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01124",
+            "01126",
+            "01127",
+            "01129",
+            "01132",
+            "01133"
+        ]
+    },
+    {
+        "Code": "01126",
+        "Histories": [
+            {
+                "Code": "01126",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01125",
+            "01128",
+            "01129"
+        ]
+    },
+    {
+        "Code": "01127",
+        "Histories": [
+            {
+                "Code": "01127",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01125",
+            "01128",
+            "01129"
+        ]
+    },
+    {
+        "Code": "01128",
+        "Histories": [
+            {
+                "Code": "01128",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01129",
+            "01126",
+            "01127"
+        ]
+    },
+    {
+        "Code": "01129",
+        "Histories": [
+            {
+                "Code": "01129",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01126",
+            "01127",
+            "01128",
+            "01125",
+            "01134"
+        ]
+    },
+    {
+        "Code": "01130",
+        "Histories": [
+            {
+                "Code": "01130",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01132",
+            "01134"
+        ]
+    },
+    {
+        "Code": "01131",
+        "Histories": [
+            {
+                "Code": "01131",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01132",
+            "01134"
+        ]
+    },
+    {
+        "Code": "01132",
+        "Histories": [
+            {
+                "Code": "01132",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01130",
+            "01131",
+            "01125"
+        ]
+    },
+    {
+        "Code": "01133",
+        "Histories": [
+            {
+                "Code": "01133",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01125"
+        ]
+    },
+    {
+        "Code": "01134",
+        "Histories": [
+            {
+                "Code": "01134",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01130",
+            "01131",
+            "01129"
+        ]
+    },
+    {
+        "Code": "01149",
+        "Histories": [
+            {
+                "Code": "01149",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01150",
+            "01151",
+            "01152",
+            "01153",
+            "01154",
+            "01155",
+            "01156"
+        ]
+    },
+    {
+        "Code": "01156",
+        "Histories": [
+            {
+                "Code": "01156",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149"
+        ]
+    },
+    {
+        "Code": "01150",
+        "Histories": [
+            {
+                "Code": "01150",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01152",
+            "01153"
+        ]
+    },
+    {
+        "Code": "01151",
+        "Histories": [
+            {
+                "Code": "01151",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01152",
+            "01154"
+        ]
+    },
+    {
+        "Code": "01152",
+        "Histories": [
+            {
+                "Code": "01152",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01150",
+            "01151"
+        ]
+    },
+    {
+        "Code": "01153",
+        "Histories": [
+            {
+                "Code": "01153",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01155",
+            "01150"
+        ]
+    },
+    {
+        "Code": "01154",
+        "Histories": [
+            {
+                "Code": "01154",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01155",
+            "01151"
+        ]
+    },
+    {
+        "Code": "01155",
+        "Histories": [
+            {
+                "Code": "01155",
+                "Title": "Vestíbulo de la Barrera Mística",
+                "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01149",
+            "01154",
+            "01153"
+        ]
+    },
+    {
         "Code": "01121a",
         "Histories": [
             {

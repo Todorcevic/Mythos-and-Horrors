@@ -44,8 +44,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly CardLoaderUseCase _cardLoaderUseCase;
         [Inject] protected readonly UndoGameActionButton _undoGameActionButton;
 
-        [Inject] protected readonly PreparationScene _preparationScene;
-
         protected virtual bool DEBUG_MODE => false;
         protected abstract string SCENE_NAME { get; }
         protected abstract string JSON_SAVE_DATA_PATH { get; }
@@ -89,7 +87,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private void InstallerToTests()
         {
-            SceneContainer.Bind<PreparationScene>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE1>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE2>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE3>().AsSingle();
         }
 
         /*******************************************************************/

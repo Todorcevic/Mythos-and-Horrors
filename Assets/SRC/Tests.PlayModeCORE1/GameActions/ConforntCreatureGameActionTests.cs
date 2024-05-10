@@ -13,10 +13,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveConfrontCratureTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
 
             CardCreature creature = _cardsProvider.GetCard<Card01116>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
 
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.DangerZone));
         }
@@ -24,12 +24,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ExhaustConfrontCratureTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01116>();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
-            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Study.OwnZone));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Study.OwnZone));
             yield return _gameActionsProvider.Create(new ReadyAllCardsGameAction()).AsCoroutine();
             Assert.That(creature.CurrentZone, Is.EqualTo(_investigatorsProvider.First.DangerZone));
         }
@@ -37,15 +37,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator NoConfrontCratureTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new EliminateInvestigatorGameAction(_investigatorsProvider.Third)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
-            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Study.OwnZone));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Study.OwnZone));
             yield return _gameActionsProvider.Create(new ReadyAllCardsGameAction()).AsCoroutine();
-            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Study.OwnZone));
+            Assert.That(creature.CurrentZone, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Study.OwnZone));
         }
     }
 }

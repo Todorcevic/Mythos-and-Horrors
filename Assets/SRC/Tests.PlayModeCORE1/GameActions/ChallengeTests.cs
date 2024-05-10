@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PushTokenTest()
         {
             ChallengeToken challengeToken = new(ChallengeTokenType.Ancient, () => -2);
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
 
             do
             {
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator ChallengeWithCommitsTests()
         {
             RevealToken(ChallengeTokenType.Value_1);
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             Card toPlay = _cardsProvider.GetCard<Card01538>();
             Card toPlay2 = _cardsProvider.GetCard<Card01522>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(toPlay, _investigatorsProvider.Leader.HandZone)).AsCoroutine();

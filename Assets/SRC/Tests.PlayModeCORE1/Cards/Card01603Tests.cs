@@ -15,9 +15,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator BlankCratureBuffTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
             Assert.That(_investigatorsProvider.Third.InvestigatorCard.CanBePlayed, Is.False);
@@ -34,11 +34,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator BlankCratureStarTokenBuffTest()
         {
             RevealToken(ChallengeTokenType.Star);
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));
-            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Study);
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationSceneCORE1.SceneCORE1.Study);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             int? challengeValue = null;
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new DefeatCardGameAction(creature, _investigatorsProvider.Third.InvestigatorCard)).AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));
-            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.Study);
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationSceneCORE1.SceneCORE1.Study);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             challengeValue = null;

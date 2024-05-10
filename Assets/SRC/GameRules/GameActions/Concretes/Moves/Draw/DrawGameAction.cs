@@ -21,13 +21,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, GetZone()));
+            Zone zone = GetZone();
+            if (zone == null) await _gameActionsProvider.Create(new DiscardGameAction(CardDrawed));
+            else await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, zone));
         }
 
         private Zone GetZone() => CardDrawed switch
         {
             CardAdversity cardAdversity => cardAdversity.ZoneToMove,
-            ISpawnable spawnable => spawnable.SpawnPlace.OwnZone,
+            ISpawnable spawnable => spawnable.SpawnPlace?.OwnZone,
             CardCreature => Investigator.DangerZone,
             _ => Investigator.HandZone
         };

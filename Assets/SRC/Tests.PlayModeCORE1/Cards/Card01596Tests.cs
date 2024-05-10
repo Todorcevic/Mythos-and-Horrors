@@ -18,8 +18,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             Card adversity = _cardLoaderUseCase.Execute("01596");
             _cardViewGeneratorComponent.BuildCardView(adversity);
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlaceAllSceneCORE1();
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, adversity)).AsCoroutine();
             Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanDiscard);
             Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));

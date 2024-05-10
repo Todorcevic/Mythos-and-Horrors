@@ -16,34 +16,34 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator RevealTest()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01109>();
-            yield return _preparationScene.PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayAllInvestigators();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardGoal.Hints, cardGoal.Hints.Value)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_preparationScene.SceneCORE1.Parlor.Revealed.IsActive, Is.True);
+            Assert.That(_preparationSceneCORE1.SceneCORE1.Parlor.Revealed.IsActive, Is.True);
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
-            Assert.That(_preparationScene.SceneCORE1.Lita.CurrentZone, Is.EqualTo(_preparationScene.SceneCORE1.Parlor.OwnZone));
-            Assert.That(_preparationScene.SceneCORE1.GhoulPriest.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Hallway));
+            Assert.That(_preparationSceneCORE1.SceneCORE1.Lita.CurrentZone, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Parlor.OwnZone));
+            Assert.That(_preparationSceneCORE1.SceneCORE1.GhoulPriest.CurrentPlace, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Hallway));
         }
 
         [UnityTest]
         public IEnumerator PayHintTest()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01109>();
-            yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationScene.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Hallway.Hints, 3)).AsCoroutine();
-            yield return _preparationScene.WasteAllTurns();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationSceneCORE1.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationSceneCORE1.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationSceneCORE1.SceneCORE1.Hallway.Hints, 3)).AsCoroutine();
+            yield return _preparationSceneCORE1.WasteAllTurns();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
@@ -61,15 +61,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator CancelPayHintTest()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01109>();
-            yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, _preparationSceneCORE1.SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationScene.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationScene.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationScene.SceneCORE1.Hallway.Hints, 3)).AsCoroutine();
-            yield return _preparationScene.WasteAllTurns();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(_preparationSceneCORE1.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, _preparationSceneCORE1.SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _preparationSceneCORE1.SceneCORE1.Hallway.Hints, 3)).AsCoroutine();
+            yield return _preparationSceneCORE1.WasteAllTurns();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);

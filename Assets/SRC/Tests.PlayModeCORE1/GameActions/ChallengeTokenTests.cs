@@ -17,9 +17,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             RevealToken(ChallengeTokenType.Creature);
-            yield return _preparationScene.PlaceAllSceneCORE1();
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -38,10 +38,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             RevealToken(ChallengeTokenType.Creature);
-            yield return _preparationScene.PlaceAllSceneCORE1();
+            yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -61,11 +61,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             RevealToken(ChallengeTokenType.Cultist);
-            yield return _preparationScene.PlaceAllSceneCORE1();
+            yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationScene.SceneCORE1.Cellar)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, _preparationSceneCORE1.SceneCORE1.Cellar)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -85,10 +85,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             RevealToken(ChallengeTokenType.Cultist);
-            yield return _preparationScene.PlaceAllSceneCORE1();
+            yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -114,10 +114,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             RevealToken(ChallengeTokenType.Danger);
-            yield return _preparationScene.PlaceAllSceneCORE1();
+            yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -137,10 +137,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
             RevealToken(ChallengeTokenType.Danger);
-            yield return _preparationScene.PlaceAllSceneCORE1();
+            yield return _preparationSceneCORE1.PlaceAllScene();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();

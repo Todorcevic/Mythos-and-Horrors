@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator DrawTest()
         {
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             Card cardToDraw = _investigatorsProvider.First.CardAidToDraw;
 
             Assert.That(_investigatorsProvider.First.DeckZone.Cards.Contains(cardToDraw), Is.True);

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareSceneTest()
         {
             SceneCORE3 scene = (SceneCORE3)_chaptersProvider.CurrentScene;
-            yield return _preparationScene.PlayAllInvestigators(withAvatar: false);
+            yield return _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false);
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 

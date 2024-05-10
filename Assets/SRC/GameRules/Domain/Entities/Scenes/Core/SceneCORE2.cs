@@ -29,7 +29,6 @@ namespace MythosAndHorrors.GameRules
         public CardPlace West => _cardsProvider.GetCard<Card01132>();
         public CardPlace Graveyard => _cardsProvider.GetCard<Card01133>();
         public CardPlace North => _cardsProvider.GetCard<Card01134>();
-
         public CardPlace South { get; private set; }
         public CardPlace Center { get; private set; }
 

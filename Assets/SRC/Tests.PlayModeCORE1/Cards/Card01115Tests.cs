@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Parlor)).AsCoroutine();
 
@@ -37,9 +37,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             RevealToken(ChallengeTokenType.Value_1);
             CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
             Investigator investigator = _investigatorsProvider.Second;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.Lita, Parlor.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.Lita, Parlor.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Parlor)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             yield return taskGameAction.AsCoroutine();
-            Assert.That(investigator.AidZone.Cards.Contains(_preparationScene.SceneCORE1.Lita), Is.True);
+            Assert.That(investigator.AidZone.Cards.Contains(_preparationSceneCORE1.SceneCORE1.Lita), Is.True);
         }
     }
 }

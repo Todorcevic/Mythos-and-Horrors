@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator DiscardAll()
         {
             Card01105 cardPlot = _cardsProvider.GetCard<Card01105>();
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator TakeDamage()
         {
             Card01105 cardPlot = _cardsProvider.GetCard<Card01105>();
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());

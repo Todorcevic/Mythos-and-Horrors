@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator InitialDrawGameAction()
         {
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
             yield return _gameActionsProvider.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator InitialDrawWeaknessGameAction()
         {
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationScene.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             Card weaknessCard = _cardsProvider.GetCard<Card01507>();
             Card normalCard = _cardsProvider.GetCard<Card01517>();
             yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();

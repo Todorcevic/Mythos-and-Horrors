@@ -14,9 +14,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator EludeEffectTest()
         {
-            CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
+            CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
 
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));

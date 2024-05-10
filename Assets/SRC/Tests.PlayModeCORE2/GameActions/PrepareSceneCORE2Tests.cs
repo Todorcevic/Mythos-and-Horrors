@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareSceneTest()
         {
             SceneCORE2 scene = (SceneCORE2)_chaptersProvider.CurrentScene;
-            yield return _preparationScene.PlayAllInvestigators(withAvatar: false);
+            yield return _preparationSceneCORE2.PlayAllInvestigators(withAvatar: false);
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
@@ -31,8 +31,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareScene2Test()
         {
             SceneCORE2 scene = (SceneCORE2)_chaptersProvider.CurrentScene;
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First, withAvatar: false);
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second, withAvatar: false);
+            yield return _preparationSceneCORE2.PlayThisInvestigator(_investigatorsProvider.First, withAvatar: false);
+            yield return _preparationSceneCORE2.PlayThisInvestigator(_investigatorsProvider.Second, withAvatar: false);
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
 

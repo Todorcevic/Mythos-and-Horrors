@@ -14,8 +14,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatorConfrontTest()
         {
-            CardCreature creature = _preparationScene.SceneCORE1.GhoulSecuaz;
-            yield return _preparationScene.StartingScene();
+            CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.CurrentPlace.OwnZone)).AsCoroutine();
 

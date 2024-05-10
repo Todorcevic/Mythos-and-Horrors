@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01504>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
@@ -41,15 +41,15 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01504>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, _preparationScene.SceneCORE1.GhoulSecuaz, amountFear: 3, isDirect: true));
+            yield return _preparationSceneCORE1.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, _preparationSceneCORE1.SceneCORE1.GhoulSecuaz, amountFear: 3, isDirect: true));
 
             if (!DEBUG_MODE) yield return WaitToClick(cardInvestigator);
-            if (!DEBUG_MODE) yield return WaitToClick(_preparationScene.SceneCORE1.GhoulSecuaz);
+            if (!DEBUG_MODE) yield return WaitToClick(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz);
 
             yield return taskGameAction.AsCoroutine();
-            Assert.That(_preparationScene.SceneCORE1.GhoulSecuaz.Health.Value, Is.EqualTo(1));
+            Assert.That(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz.Health.Value, Is.EqualTo(1));
         }
     }
 }

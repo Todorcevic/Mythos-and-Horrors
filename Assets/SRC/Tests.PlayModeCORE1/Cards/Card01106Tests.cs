@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator DrawGhoul()
         {
             Card01106 cardPlot = _cardsProvider.GetCard<Card01106>();
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.DangerCards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.Info.DangerCards.Take(10), _chaptersProvider.CurrentScene.DangerDiscardZone, isFaceDown: false)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();

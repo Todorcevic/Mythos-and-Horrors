@@ -5,7 +5,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class MoveCardsGameAction : GameAction
     {
         private Dictionary<Card, (Zone zone, bool faceDown)> _cardsWithUndoState;
@@ -17,6 +16,15 @@ namespace MythosAndHorrors.GameRules
         public Card SingleCard => Cards.Unique();
         public bool IsSingleMove => Cards.Count() == 1;
         public override bool CanBeExecuted => Cards.Count() > 0;
+
+        public IEnumerable<Card> EnterPlayCardsAfter => Cards.Where(card => !ZoneType.PlayZone.HasFlag(_cardsWithUndoState[card].zone.ZoneType)
+            && ZoneType.PlayZone.HasFlag(AllMoves[card].zone.ZoneType));
+        public IEnumerable<Card> ExitPlayCardsAfter => Cards.Where(card => ZoneType.PlayZone.HasFlag(_cardsWithUndoState[card].zone.ZoneType)
+            && !ZoneType.PlayZone.HasFlag(AllMoves[card].zone.ZoneType));
+        public IEnumerable<Card> EnterPlayCardsBefore => Cards.Where(card => !ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType)
+            && ZoneType.PlayZone.HasFlag(AllMoves[card].zone.ZoneType));
+        public IEnumerable<Card> ExitPlayCardsBefore => Cards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType)
+            && !ZoneType.PlayZone.HasFlag(AllMoves[card].zone.ZoneType));
 
         /*******************************************************************/
         public MoveCardsGameAction(Card card, Zone zone, bool isFaceDown = false) :

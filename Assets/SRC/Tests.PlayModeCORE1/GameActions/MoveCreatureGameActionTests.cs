@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator MoveCratureTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardPlace place2 = _cardsProvider.GetCard<Card01112>();
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();
@@ -31,24 +31,24 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator CantMoveTargetCratureTest()
         {
-            yield return _preparationScene.PlaceAllSceneCORE1();
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _preparationScene.PlayThisInvestigator(_investigatorsProvider.Second);
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.Second);
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationScene.SceneCORE1.Hallway.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, _preparationScene.SceneCORE1.Attic.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, _preparationScene.SceneCORE1.Cellar.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Hallway.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, _preparationSceneCORE1.SceneCORE1.Attic.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, _preparationSceneCORE1.SceneCORE1.Cellar.OwnZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();
 
             if (DEBUG_MODE) yield return PressAnyKey();
-            Assert.That(creature.CurrentPlace, Is.EqualTo(_preparationScene.SceneCORE1.Hallway));
+            Assert.That(creature.CurrentPlace, Is.EqualTo(_preparationSceneCORE1.SceneCORE1.Hallway));
         }
 
         [UnityTest]
         public IEnumerator MoveTargetCratureTest()
         {
-            yield return _preparationScene.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene();
             CardPlace place2 = _cardsProvider.GetCard<Card01112>();
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();

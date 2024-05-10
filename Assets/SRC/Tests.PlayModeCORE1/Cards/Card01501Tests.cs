@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             int valueTokenExpected = place.Hints.Value;
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            yield return _preparationScene.PlayThisInvestigator(investigatorToTest);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigatorToTest.CurrentTurns, GameValues.DEFAULT_TURNS_AMOUNT)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
@@ -45,9 +45,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            yield return _preparationScene.StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.DangerZone)).AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(_preparationScene.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5));
+            yield return _preparationSceneCORE1.StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigatorToTest.DangerZone)).AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigatorToTest.InvestigatorCard, amountDamage: 5));
             if (!DEBUG_MODE) yield return WaitToClick(cardInvestigator);
 
             yield return taskGameAction.AsCoroutine();

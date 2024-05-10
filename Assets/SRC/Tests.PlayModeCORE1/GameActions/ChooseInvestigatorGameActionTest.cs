@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ChooseInvestigatorTest()
         {
-            yield return _preparationScene.PlayAllInvestigators();
+            yield return _preparationSceneCORE1.PlayAllInvestigators();
             CardPlace place = _cardsProvider.GetCard<Card01111>();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 1)).AsCoroutine(); yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, place)).AsCoroutine();
 
