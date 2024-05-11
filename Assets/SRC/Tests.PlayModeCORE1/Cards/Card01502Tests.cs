@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             if (!DEBUG_MODE) yield return WaitToTokenClick();
             yield return taskGameAction.AsCoroutine();
-            Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));
         }
     }
 }

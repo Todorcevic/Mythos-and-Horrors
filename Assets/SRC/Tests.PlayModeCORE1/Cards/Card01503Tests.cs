@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator Investigator3GainTurnTest()
         {
             Investigator investigatorToTest = _investigatorsProvider.Third;
-            yield return _preparationSceneCORE1.StartingScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: true);
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             if (!DEBUG_MODE) yield return WaitToClick(investigatorToTest.InvestigatorCard);

@@ -14,7 +14,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator PayCratureTest()
         {
-            yield return _preparationSceneCORE1.StartingScene();
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.Third, withResources: true);
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
 

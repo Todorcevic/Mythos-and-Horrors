@@ -6,6 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
 {
+
     [TestFixture]
     public class SceneLoaderTests : SetupAutoInject
     {

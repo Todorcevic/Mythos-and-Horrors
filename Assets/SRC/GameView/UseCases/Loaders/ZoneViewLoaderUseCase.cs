@@ -1,11 +1,9 @@
-﻿using MythosAndHorrors.GameRules;
-using Zenject;
+﻿using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ZoneLoaderUseCase
+    public class ZoneViewLoaderUseCase
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly AreaInvestigatorViewsManager _areaInvestigatorViewsManager;
         [Inject] private readonly AreaSceneView _sceneArea;
         [Inject] private readonly AreaPlacesView _placesArea;
@@ -13,7 +11,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Execute()
         {
-            _areaInvestigatorViewsManager.Init(_investigatorsProvider.AllInvestigators);
+            _areaInvestigatorViewsManager.Init();
             _sceneArea.Init();
             _placesArea.Init();
         }

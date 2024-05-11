@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         public abstract IEnumerator PlaceAllScene();
 
-        public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
+        public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = false, bool withAvatar = true)
         {
             float currentTimeScale = Time.timeScale;
             Time.timeScale = 64;
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Time.timeScale = currentTimeScale;
         }
 
-        public IEnumerator PlayAllInvestigators(bool withCards = true, bool withResources = true, bool withAvatar = true)
+        public IEnumerator PlayAllInvestigators(bool withCards = true, bool withResources = false, bool withAvatar = true)
         {
             float currentTimeScale = Time.timeScale;
             Time.timeScale = 64;
@@ -71,10 +71,10 @@ namespace MythosAndHorrors.PlayMode.Tests
                                .ToDictionary(investigator => investigator.CurrentTurns, investigator => 0))).AsCoroutine();
         }
 
-        public IEnumerator StartingScene()
+        public IEnumerator StartingScene(bool withResources = false, bool withAvatar = true)
         {
             yield return PlaceAllScene();
-            yield return PlayAllInvestigators();
+            yield return PlayAllInvestigators(withResources: withResources, withAvatar: withAvatar);
         }
     }
 }

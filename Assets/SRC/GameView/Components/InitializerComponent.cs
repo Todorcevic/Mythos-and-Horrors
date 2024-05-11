@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
     public class InitializerComponent : MonoBehaviour
     {
         [InjectOptional] private readonly bool _executedByTests = true;
-        [Inject] private readonly PrepareGameUseCase _prepareGameUseCase;
+        [Inject] private readonly PrepareAllUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;

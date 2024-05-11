@@ -1,28 +1,21 @@
-using Zenject;
+﻿using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class PrepareGameUseCase
+    public class PrepareGameRulesUseCase
     {
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
-        [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
-        [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
         [Inject] private readonly ChapterInfoLoaderUseCase _chapterInfoLoaderUseCase;
         [Inject] private readonly SceneLoaderUseCase _sceneLoaderUseCase;
-        [Inject] private readonly ZoneLoaderUseCase _zoneLoaderUseCase;
-        [Inject] private readonly CardViewGeneratorComponent _cardGeneratorComponent;
+        [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
 
         /*******************************************************************/
         public void Execute()
         {
             _dataSaveLoaderUseCase.Load();
-            _textsLoaderUseCase.LoadGameTexts();
-            _textsLoaderUseCase.LoadViewTexts();
             _investigatorLoaderUseCase.Execute();
             _chapterInfoLoaderUseCase.Execute();
             _sceneLoaderUseCase.Execute();
-            _zoneLoaderUseCase.Execute();
-            _cardGeneratorComponent.BuildAllCardViews();
         }
     }
 }

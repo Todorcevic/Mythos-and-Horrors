@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly DataSaveUseCase _saveDataLoaderUseCase;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
         public void Execute()
@@ -21,7 +20,6 @@ namespace MythosAndHorrors.GameView
 
                 _diContainer.Inject(newInvestigator);
                 _investigatorsProvider.AddInvestigator(newInvestigator);
-                _avatarViewsManager.GetVoid().Init(newInvestigator);
             }
         }
     }

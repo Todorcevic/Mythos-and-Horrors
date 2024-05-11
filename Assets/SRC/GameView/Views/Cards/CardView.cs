@@ -32,18 +32,19 @@ namespace MythosAndHorrors.GameView
         public IEnumerable<Effect> EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
 
         /*******************************************************************/
-        public void Init(Card card)
+        public void Init(Card card, ZoneView currentZoneView)
         {
             Card = card;
             SetPicture();
             SetCommon();
             SetSpecific();
+            SetInitialCurrentZoneView(currentZoneView);
+            Off();
         }
 
         /*******************************************************************/
-        public void SetInitialCurrentZoneView(ZoneView zoneView)
+        private void SetInitialCurrentZoneView(ZoneView zoneView)
         {
-            zoneView.Zone.AddCard(Card);
             CurrentZoneView = zoneView;
             transform.SetParent(zoneView.transform);
         }

@@ -8,12 +8,14 @@ namespace MythosAndHorrors.GameView
     public class AreaInvestigatorViewsManager
     {
         [Inject] private readonly List<AreaInvestigatorView> _allAreaInvestigatorViews;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public void Init(IEnumerable<Investigator> investigators)
+        public void Init()
         {
-            investigators.ForEach(investigator =>
-            _allAreaInvestigatorViews.OrderBy(areaInvestigatorView => areaInvestigatorView.name).First(area => area.IsFree).Init(investigator));
+            _investigatorsProvider.AllInvestigators.ForEach(investigator =>
+            _allAreaInvestigatorViews.OrderBy(areaInvestigatorView => areaInvestigatorView.name).
+            First(area => area.IsFree).Init(investigator));
         }
 
         /*******************************************************************/

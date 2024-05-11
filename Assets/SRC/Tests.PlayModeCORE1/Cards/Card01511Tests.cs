@@ -37,9 +37,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator Pay()
         {
-            CardAdversity cardAdversity = _cardsProvider.GetCard<Card01511>();
+            Card01511 cardAdversity = _cardsProvider.GetCard<Card01511>();
             Investigator investigator = _investigatorsProvider.Third;
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator, withResources: true);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAdversity, investigator.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
 
@@ -48,7 +48,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(((Card01511)cardAdversity).Resources.Value, Is.EqualTo(4));
+            Assert.That(cardAdversity.Resources.Value, Is.EqualTo(4));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(3));
         }
     }
 }

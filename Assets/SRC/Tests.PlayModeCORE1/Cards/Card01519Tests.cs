@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator ActivateHealTest()
         {
-            yield return _preparationSceneCORE1.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene(withResources: true);
 
             CardSupply aidCard = _cardsProvider.GetCard<Card01519>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.First.AidZone)).AsCoroutine();

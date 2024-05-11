@@ -80,7 +80,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(3));
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(8));
             Assert.That(cardGoal.Revealed.IsActive, Is.False);
-            Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(6));
+            Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(1));
         }
     }
 }

@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         [Inject] protected readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] protected readonly MultiEffectHandler _multiEffectHandler;
-        [Inject] protected readonly PrepareGameUseCase _prepareGameUseCase;
+        [Inject] protected readonly PrepareAllUseCase _prepareGameUseCase;
         [Inject] protected readonly CardLoaderUseCase _cardLoaderUseCase;
         [Inject] protected readonly UndoGameActionButton _undoGameActionButton;
         private static string currentSceneName;

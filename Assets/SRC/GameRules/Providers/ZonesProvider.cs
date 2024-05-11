@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Zenject;
 
@@ -7,8 +8,17 @@ namespace MythosAndHorrors.GameRules
     public class ZonesProvider
     {
         [Inject] private readonly DiContainer _diContainer;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         private readonly List<Zone> _zones = new();
+
+        public Zone OutZone { get; private set; }
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            OutZone = Create(ZoneType.Out);
+        }
 
         /*******************************************************************/
         public Zone Create(ZoneType zoneType)
@@ -19,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
 
-        public Zone GetZoneWithThisCard(Card card) => _zones.Find(zone => zone.Cards.Contains(card));
+        public Zone GetZoneWithThisCard(Card card) => _zones.First(zone => zone.Cards.Contains(card));
 
     }
 }

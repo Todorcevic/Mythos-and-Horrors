@@ -1,4 +1,3 @@
-using ModestTree;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,6 +16,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         private readonly List<Stat> _stats = new();
         private readonly List<State> _states = new();
         private readonly List<Activation> _baseActivations = new();
@@ -54,6 +54,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             OwnZone = _zonesProvider.Create(ZoneType.Own);
+            _zonesProvider.OutZone.AddCard(this);
             FaceDown = CreateState(false);
             Exausted = CreateState(false);
             Blancked = CreateState(false, BlankState);

@@ -13,6 +13,7 @@ namespace MythosAndHorrors.EditMode.Tests
         {
             Container = new();
             Container.Install<InjectionService>();
+            Container.Install<InjectionServiceToTest>();
             Container.Inject(this);
         }
 

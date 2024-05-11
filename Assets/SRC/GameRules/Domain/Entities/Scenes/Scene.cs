@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public Zone PlotZone { get; private set; }
         public Zone VictoryZone { get; private set; }
         public Zone LimboZone { get; private set; }
-        public Zone OutZone { get; private set; }
+        public Zone OutZone => _zonesProvider.OutZone;
         public Zone[,] PlaceZone { get; } = new Zone[3, 7];
         public CardPlot CurrentPlot => PlotZone.Cards.LastOrDefault() as CardPlot;
         public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
@@ -54,7 +54,6 @@ namespace MythosAndHorrors.GameRules
             PlotZone = _zonesProvider.Create(ZoneType.Plot);
             VictoryZone = _zonesProvider.Create(ZoneType.Victory);
             LimboZone = _zonesProvider.Create(ZoneType.Limbo);
-            OutZone = _zonesProvider.Create(ZoneType.Out);
             PileAmount = new Stat(int.MaxValue, canBeNegative: false);
             InitializePlaceZones();
             PrepareDefaultChallengeTokens();
