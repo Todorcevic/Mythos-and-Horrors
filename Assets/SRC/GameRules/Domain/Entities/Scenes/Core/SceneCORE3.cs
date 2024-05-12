@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> Shub => _cardsProvider.GetCards<Card01179>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01180>());
         public IEnumerable<Card> Cthulhu => _cardsProvider.GetCards<Card01181>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01182>());
         public IEnumerable<Card> AllAgents => Hastur.Concat(Yog).Concat(Shub).Concat(Cthulhu);
-        public IEnumerable<Card> RealDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
+        public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
             Info.DangerCards.Except(AllAgents.Except(AgentSelected)) :
             Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(new[] { GhoulPriest });
 
@@ -84,7 +84,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
 

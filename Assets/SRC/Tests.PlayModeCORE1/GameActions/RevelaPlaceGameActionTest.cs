@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class RevelaPlaceGameActionTest : TestBase
+    public class RevelaPlaceGameActionTest : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

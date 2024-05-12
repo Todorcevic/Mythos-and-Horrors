@@ -10,7 +10,7 @@ using Zenject;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class ChangeStatGameActionTests : TestBase
+    public class ChangeStatGameActionTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

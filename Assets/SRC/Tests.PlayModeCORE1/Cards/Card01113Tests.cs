@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01113Tests : TestBase
+    public class Card01113Tests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

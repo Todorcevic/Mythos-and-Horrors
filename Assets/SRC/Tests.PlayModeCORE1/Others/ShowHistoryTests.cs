@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class ShowHistoryests : TestBase
+    public class ShowHistoryests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

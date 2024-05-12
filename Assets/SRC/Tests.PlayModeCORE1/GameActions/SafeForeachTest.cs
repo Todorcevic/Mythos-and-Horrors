@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class SafeForeachTest : TestBase
+    public class SafeForeachTest : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -5,7 +5,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ConforntCreatureGameActionTests : TestBase
+    public class ConforntCreatureGameActionTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

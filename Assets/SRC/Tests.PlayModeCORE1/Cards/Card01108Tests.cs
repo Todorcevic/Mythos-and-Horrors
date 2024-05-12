@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 namespace MythosAndHorrors.PlayMode.Tests
 {
 
-    public class Card01108Tests : TestBase
+    public class Card01108Tests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -41,7 +41,7 @@ namespace MythosAndHorrors.EditMode.Tests
                         { SceneCORE3.Info.GoalCards.First(), (SceneCORE3.GoalZone, false)}
                     };
 
-                SceneCORE3.RealDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE3.DangerDeckZone, true)));
+                SceneCORE3.StartDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE3.DangerDeckZone, true)));
                 return moveSceneCards;
             }
         }

@@ -8,7 +8,7 @@ using Zenject;
 namespace MythosAndHorrors.PlayMode.Tests
 {
 
-    public class ExhaustGameActionTests : TestBase
+    public class ExhaustGameActionTests : TestCORE1PlayModeBase
     {
 
 

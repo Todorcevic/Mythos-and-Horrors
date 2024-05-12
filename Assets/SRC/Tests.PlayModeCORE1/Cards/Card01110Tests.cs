@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01110Tests : TestBase
+    public class Card01110Tests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

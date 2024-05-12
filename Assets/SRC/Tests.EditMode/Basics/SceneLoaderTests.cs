@@ -6,12 +6,10 @@ using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
 {
-
     [TestFixture]
     public class SceneLoaderTests : SetupAutoInject
     {
         [Inject] private readonly SceneLoaderUseCase _sut;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
 
         /*******************************************************************/

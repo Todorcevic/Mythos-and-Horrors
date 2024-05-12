@@ -11,7 +11,7 @@ using Zenject;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class SwapInvestigatorTest : TestBase
+    public class SwapInvestigatorTest : TestCORE1PlayModeBase
     {
         [Inject] private readonly SwapInvestigatorComponent _sut;
 

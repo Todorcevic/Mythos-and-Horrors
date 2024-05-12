@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class MoveCardPresenterTests : TestBase
+    public class MoveCardPresenterTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

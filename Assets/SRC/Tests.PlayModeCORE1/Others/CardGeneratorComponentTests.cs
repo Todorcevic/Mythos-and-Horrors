@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class CardGeneratorComponentTests : TestBase
+    public class CardGeneratorComponentTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

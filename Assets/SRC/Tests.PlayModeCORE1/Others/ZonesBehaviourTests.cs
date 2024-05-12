@@ -11,7 +11,7 @@ using Zenject;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class ZonesBehaviourTests : TestBase
+    public class ZonesBehaviourTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

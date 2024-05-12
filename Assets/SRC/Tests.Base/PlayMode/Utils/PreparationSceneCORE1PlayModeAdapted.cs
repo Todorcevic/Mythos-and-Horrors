@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class PreparationScene1PlayModeAdapted : PreparationScenePlayModeAdapted
+    public class PreparationSceneCORE1PlayModeAdapted : PreparationScenePlayModeAdapted
     {
         [Inject] private readonly PreparationSceneCORE1 _preparationSceneCORE1;
 

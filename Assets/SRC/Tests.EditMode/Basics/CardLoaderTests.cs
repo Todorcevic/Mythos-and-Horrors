@@ -9,7 +9,6 @@ namespace MythosAndHorrors.EditMode.Tests
     public class CardLoaderTests : SetupAutoInject
     {
         [Inject] private readonly CardLoaderUseCase _sut;
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
         [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
 

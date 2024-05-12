@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class CreatureAttackGameActionTests : TestBase
+    public class CreatureAttackGameActionTests : TestCORE1PlayModeBase
     {
 
         //protected override bool DEBUG_MODE => true;

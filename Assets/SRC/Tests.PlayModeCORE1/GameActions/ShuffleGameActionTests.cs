@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class ShuffleGameActionTests : TestBase
+    public class ShuffleGameActionTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

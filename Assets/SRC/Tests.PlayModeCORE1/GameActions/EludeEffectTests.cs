@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class EludeEffectTests : TestBase
+    public class EludeEffectTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

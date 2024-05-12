@@ -7,7 +7,7 @@ using System;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01115Tests : TestBase
+    public class Card01115Tests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -24,14 +24,14 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
-        public IEnumerable<Card> RealDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
+        public IEnumerable<Card> StartDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
         public async override Task PrepareScene()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(RealDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));

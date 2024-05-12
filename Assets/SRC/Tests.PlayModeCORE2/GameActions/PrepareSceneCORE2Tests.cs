@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class PrepareSceneCORE2Tests : TestBase
+    public class PrepareSceneCORE2Tests : TestCORE2PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -91,9 +91,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             SceneContainer.Bind<PreparationSceneCORE1>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE2>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE3>().AsSingle();
-            SceneContainer.Bind<PreparationScene1PlayModeAdapted>().AsSingle();
-            SceneContainer.Bind<PreparationScene2PlayModeAdapted>().AsSingle();
-            SceneContainer.Bind<PreparationScene3PlayModeAdapted>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE1PlayModeAdapted>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE2PlayModeAdapted>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE3PlayModeAdapted>().AsSingle();
         }
 
         /*******************************************************************/

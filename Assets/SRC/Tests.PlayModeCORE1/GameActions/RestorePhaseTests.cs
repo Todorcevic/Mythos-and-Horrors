@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class RestorePhaseTests : TestBase
+    public class RestorePhaseTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -8,7 +8,7 @@ using MythosAndHorrors.GameView;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01169Tests : TestBase
+    public class Card01169Tests : TestCORE2PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class MultiEffectTests : TestBase
+    public class MultiEffectTests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

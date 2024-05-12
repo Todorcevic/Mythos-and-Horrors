@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ChooseInvestigatorGameActionTest : TestBase
+    public class ChooseInvestigatorGameActionTest : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

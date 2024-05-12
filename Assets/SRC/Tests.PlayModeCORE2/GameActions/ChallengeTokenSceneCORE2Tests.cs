@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ChallengeTokenSceneCORE2Tests : TestBase
+    public class ChallengeTokenSceneCORE2Tests : TestCORE2PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

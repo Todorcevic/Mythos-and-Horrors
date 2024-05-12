@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class PrepareSceneCORE1Tests : TestBase
+    public class PrepareSceneCORE1Tests : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Is.EqualTo(scene.Study));
             Assert.That(scene.GoalZone.Cards.Unique(), Is.EqualTo(scene.FirstGoal));
             Assert.That(scene.PlotZone.Cards.Unique(), Is.EqualTo(scene.FirstPlot));
-            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.RealDangerCards.Count()));
+            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.StartDangerCards.Count()));
         }
     }
 }

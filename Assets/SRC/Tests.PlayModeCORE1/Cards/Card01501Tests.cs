@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01501Tests : TestBase
+    public class Card01501Tests : TestCORE1PlayModeBase
     {
         private int valueToken;
 
