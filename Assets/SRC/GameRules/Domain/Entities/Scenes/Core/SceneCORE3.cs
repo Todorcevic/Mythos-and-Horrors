@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public CardPlace MainPath => _cardsProvider.GetCard<Card01149>();
         public CardPlace Forest1 => _cardsProvider.GetCard<Card01150>();
@@ -41,13 +43,17 @@ namespace MythosAndHorrors.GameRules
             (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.MaskedHunterInterrogate) ? 1 : 0);
 
         public List<CardPlace> Forests => new() { Forest1, Forest2, Forest3, Forest4, Forest5, Forest6 };
-        public List<CardPlace> ForestsToPlace { get; private set; }
-        public IEnumerable<Card> AgentSelected { get; private set; }
+
+        private List<CardPlace> _forestsToPlace;
+        public List<CardPlace> ForestsToPlace => _forestsToPlace ??= Forests.Rand(4).ToList();
+
+        private IEnumerable<Card> _agentSelected;
+        public IEnumerable<Card> AgentSelected => _agentSelected ??= new List<IEnumerable<Card>> { Hastur, Yog, Shub, Cthulhu }.Rand().ToList();
+
 
         /*******************************************************************/
         public override async Task PrepareScene()
         {
-            SelectRandoms();
             await ShowHistory();
             await PlacePlaces();
             await PlaceDangerDeck();
@@ -57,12 +63,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void SelectRandoms()
-        {
-            ForestsToPlace = Forests.Rand(4).ToList();
-            AgentSelected = new List<IEnumerable<Card>> { Hastur, Yog, Shub, Cthulhu }.Rand().ToList();
-        }
-
         private async Task ShowHistory()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
@@ -195,9 +195,162 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        /*******************************************************************/
         protected override void PrepareChallengeTokens()
         {
+            {
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
+                AncientToken = new ChallengeToken(ChallengeTokenType.Ancient, value: AncientValue, effect: AncientEffect, description: Info.DangerTokenDescriptionNormal);
+            }
+        }
 
+        private int CreatureValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CreatureNormalValue();
+            else return CreatureHardValue();
+
+            /*******************************************************************/
+            int CreatureNormalValue() => _cardsProvider.GetCards<CardCreature>()
+                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Count() * -1
+;
+
+            int CreatureHardValue() => -3;
+        }
+
+        private async Task CreatureEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CreatureNormalEffect();
+            else await CreatureHardEffect();
+
+            /*******************************************************************/
+            async Task CreatureNormalEffect() => await Task.CompletedTask;
+            async Task CreatureHardEffect()
+            {
+                _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(condition: DrawMonsterCondition, logic: DrawMonster, isAtStart: false);
+                await Task.CompletedTask;
+
+                /*******************************************************************/
+                async Task DrawMonster(ChallengePhaseGameAction challengePhaseGameAction)
+                {
+                    Card monster = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Monster));
+
+                    await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster));
+                    await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+                }
+
+                bool DrawMonsterCondition(ChallengePhaseGameAction challengePhaseGameAction)
+                {
+                    _reactionablesProvider.RemoveReaction<ChallengePhaseGameAction>(DrawMonster);
+                    if (challengePhaseGameAction.IsSuccessful ?? true) return false;
+                    return true;
+                }
+            }
+        }
+
+        private int CultistValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CultistNormalValue();
+            else return CultistHardValue();
+
+            /*******************************************************************/
+            int CultistNormalValue() => -2;
+            int CultistHardValue() => -4;
+        }
+
+        private async Task CultistEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await CultistNormalEffect();
+            else await CultistHardEffect();
+
+            /*******************************************************************/
+            async Task CultistNormalEffect()
+            {
+                IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
+                    .OfType<IEldritchable>().FirstOrDefault();
+                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
+            }
+
+            async Task CultistHardEffect()
+            {
+                IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
+                  .OfType<IEldritchable>().FirstOrDefault();
+                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 2));
+            }
+        }
+
+        private int DangerValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return DangerNormalValue();
+            else return DangerHardValue();
+
+            /*******************************************************************/
+            int DangerNormalValue() => -3;
+            int DangerHardValue() => -5;
+        }
+
+        private async Task DangerEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await DangerNormalEffect();
+            else await DangerHardEffect();
+
+            /*******************************************************************/
+            async Task DangerNormalEffect()
+            {
+                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
+                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                     _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1));
+            }
+
+            async Task DangerHardEffect()
+            {
+                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
+                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                     _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1));
+            }
+        }
+
+        private int AncientValue()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return AncientNormalValue();
+            else return AncientHardValue();
+
+            /*******************************************************************/
+            int AncientNormalValue() => -5;
+
+            int AncientHardValue() => -7;
+        }
+
+        private Task AncientEffect()
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return AncientNormalEffect();
+            else return AncientHardEffect();
+
+            /*******************************************************************/
+            async Task AncientNormalEffect()
+            {
+                if (!_cardsProvider.GetCards<CardCreature>()
+                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
+                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+            }
+
+            async Task AncientHardEffect()
+            {
+                if (!_cardsProvider.GetCards<CardCreature>()
+                   .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
+                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+            }
         }
     }
 }

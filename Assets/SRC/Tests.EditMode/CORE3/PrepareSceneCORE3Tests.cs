@@ -8,13 +8,12 @@ namespace MythosAndHorrors.EditMode.Tests
     [TestFixture]
     public class PrepareSceneCORE3Tests : TestCORE3Base
     {
-
         [Test]
-        public async void PrepareSceneCORE3()
+        public void PrepareSceneCORE3()
         {
-            await _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false);
+            _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false).Wait();
 
-            await _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
+            _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene)).Wait();
 
             Assert.That(SceneCORE3.GoalZone.Cards.Unique(), Is.EqualTo(SceneCORE3.FirstGoal));
             Assert.That(SceneCORE3.PlotZone.Cards.Unique(), Is.EqualTo(SceneCORE3.FirstPlot));

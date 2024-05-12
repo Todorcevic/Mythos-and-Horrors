@@ -5,11 +5,19 @@ namespace MythosAndHorrors.EditMode.Tests
 {
     public class FakeInteractablePresenter : IInteractablePresenter
     {
-        public Effect EffectSelected { get; set; }
+        private TaskCompletionSource<Effect> waitForClicked = new();
 
-        public Task<Effect> SelectWith(GameAction gamAction)
+        public void ClickedIn(Effect effectSelected)
         {
-            return Task.FromResult(EffectSelected);
+            waitForClicked.SetResult(effectSelected);
+        }
+
+        public async Task<Effect> SelectWith(GameAction gamAction)
+        {
+            await waitForClicked.Task;
+            Effect effectToSend = waitForClicked.Task.Result;
+            waitForClicked = new();
+            return effectToSend;
         }
     }
 }

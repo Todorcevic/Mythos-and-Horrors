@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,6 +11,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
             .OrderBy(investigator => investigator.Sanity.Value).First();
+
+        public override IEnumerable<Tag> Tags => new[] { Tag.Monster };
 
     }
 }

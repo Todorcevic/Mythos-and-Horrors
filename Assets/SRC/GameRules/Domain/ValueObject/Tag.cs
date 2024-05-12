@@ -5,6 +5,8 @@
         Flaw,
         Ghoul,
         Tome,
-        Cultist
+        Cultist,
+        Monster,
+        AncientOne
     }
 }

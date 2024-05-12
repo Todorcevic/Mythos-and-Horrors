@@ -1,8 +1,6 @@
-﻿using ModestTree;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -54,8 +52,7 @@ namespace MythosAndHorrors.GameRules
         public static T Rand<T>(this IEnumerable<T> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
-            T[] array = source.ToArray();
-            return array.Length == 0 ? default : array[new Random().Next(0, array.Length)];
+            return source.OrderBy(element => Guid.NewGuid()).FirstOrDefault();
         }
 
         public static IEnumerable<T> Rand<T>(this IEnumerable<T> source, int amount)

@@ -29,8 +29,12 @@ namespace MythosAndHorrors.GameRules
         public CardPlace West => _cardsProvider.GetCard<Card01132>();
         public CardPlace Graveyard => _cardsProvider.GetCard<Card01133>();
         public CardPlace North => _cardsProvider.GetCard<Card01134>();
-        public CardPlace South { get; private set; }
-        public CardPlace Center { get; private set; }
+
+        private CardPlace _south;
+        public CardPlace South => _south ??= new List<CardPlace> { _cardsProvider.GetCard<Card01126>(), _cardsProvider.GetCard<Card01127>() }.Rand();
+
+        private CardPlace _center;
+        public CardPlace Center => _center ??= new List<CardPlace> { _cardsProvider.GetCard<Card01130>(), _cardsProvider.GetCard<Card01131>() }.Rand();
 
         public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
                      Info.DangerCards.Except(Secta) :
@@ -41,7 +45,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override async Task PrepareScene()
         {
-            SelectRandoms();
             await ShowHistory();
             await PlacePlaces();
             await PlaceDangerDeck();
@@ -51,12 +54,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private void SelectRandoms()
-        {
-            South = new List<CardPlace> { _cardsProvider.GetCard<Card01126>(), _cardsProvider.GetCard<Card01127>() }.Rand();
-            Center = new List<CardPlace> { _cardsProvider.GetCard<Card01130>(), _cardsProvider.GetCard<Card01131>() }.Rand();
-        }
-
         private async Task ShowHistory()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway))
@@ -210,7 +207,7 @@ namespace MythosAndHorrors.GameRules
                 IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
                     .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();
 
-                await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
+                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
             }
 
             async Task CultistHardEffect()

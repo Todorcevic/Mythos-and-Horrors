@@ -15,7 +15,13 @@ namespace MythosAndHorrors.EditMode.Tests
         [Inject] protected readonly ChaptersProvider _chaptersProvider;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
         [Inject] protected readonly CardsProvider _cardsProvider;
+        [Inject] protected readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] protected readonly BuffsProvider _buffsProvider;
+        [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] protected readonly ChallengeTokensProvider _challengeTokensProvider;
+        [Inject] private readonly IInteractablePresenter interactablePresenter;
 
+        protected FakeInteractablePresenter InteractablePresenter => (FakeInteractablePresenter)interactablePresenter;
         protected DiContainer Container { get; private set; }
 
         /*******************************************************************/
@@ -43,7 +49,7 @@ namespace MythosAndHorrors.EditMode.Tests
         private void BindAllFakePresenters()
         {
             IEnumerable<Type> gameActionTypes = typeof(GameAction).Assembly.GetTypes()
-                .Where(type => type.IsClass && type.BaseType == typeof(GameAction));
+                .Where(type => type.IsClass && (type.BaseType == typeof(GameAction)));
 
             foreach (Type type in gameActionTypes)
             {

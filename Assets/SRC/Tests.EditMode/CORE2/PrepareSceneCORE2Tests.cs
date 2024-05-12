@@ -8,15 +8,15 @@ namespace MythosAndHorrors.EditMode.Tests
     public class PrepareSceneCORE2Tests : TestCORE2Base
     {
         [Test]
-        public async void PrepareSceneCORE2()
+        public void PrepareSceneCORE2()
         {
-            await _preparationSceneCORE2.PlayAllInvestigators(withAvatar: false);
+            _preparationSceneCORE2.PlayAllInvestigators(withAvatar: false).Wait();
 
-            await _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
+            _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene)).Wait();
 
             Assert.That(SceneCORE2.GoalZone.Cards.Unique(), Is.EqualTo(SceneCORE2.FirstGoal));
             Assert.That(SceneCORE2.PlotZone.Cards.Unique(), Is.EqualTo(SceneCORE2.FirstPlot));
-            Assert.That(SceneCORE2.DangerDeckZone.Cards.Count(), Is.EqualTo(SceneCORE2.StartDangerCards.Count() - 2));  // -2 because acolitcs for 4 Investigators InPlay
+            Assert.That(SceneCORE2.DangerDeckZone.Cards.Count(), Is.EqualTo(SceneCORE2.StartDangerCards.Count() - 3));  // -3 because acolitcs for 4 Investigators InPlay
         }
     }
 }
