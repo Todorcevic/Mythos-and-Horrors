@@ -11,7 +11,10 @@ namespace MythosAndHorrors.EditMode.Tests
     {
         public override void InstallBindings()
         {
-            //Container.Bind<PrepareGameToTest>().AsSingle();
+            Container.Bind<PreparationSceneCORE1>().AsSingle();
+            Container.Bind<PreparationSceneCORE2>().AsSingle();
+            Container.Bind<PreparationSceneCORE3>().AsSingle();
+            Container.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
             BindAllFakePresenters();
         }
 
@@ -30,9 +33,8 @@ namespace MythosAndHorrors.EditMode.Tests
                     if (campo.FieldType.IsGenericType &&
                         campo.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>) && campo.FieldType.GetGenericArguments()[0] == type)
                     {
-                        Type genericToBind = typeof(FakeMoveCardsGamePresenter<>).MakeGenericType(type);
-                        Container.Unbind(campo.FieldType);
-                        Container.Bind(campo.FieldType).To(genericToBind).AsCached();
+                        Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
+                        Container.Rebind(campo.FieldType).To(genericToBind).AsCached();
                     }
                 }
             }

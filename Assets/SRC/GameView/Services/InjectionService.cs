@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameView
         {
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
             Container.Bind(typeof(ClickHandler<>)).AsSingle();
-            Container.Bind<IInteractablePresenter>().To<InteractablePresenter>().AsSingle();
+            Container.Bind<IInteractablePresenter>().To<InteractablePresenter>().AsCached();
         }
 
         private void InstallGenericPresenterBindings(Type interfaceT)
