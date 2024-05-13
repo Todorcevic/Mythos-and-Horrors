@@ -3,12 +3,17 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using System.Linq;
+using System;
+using Zenject;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class PrepareSceneCORE3Tests : TestCORE3PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
+
+        [Inject] private readonly InvestigatorsProvider _sut;
+        [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
         [UnityTest]
