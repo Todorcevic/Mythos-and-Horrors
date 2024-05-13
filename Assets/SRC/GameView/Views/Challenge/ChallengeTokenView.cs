@@ -51,10 +51,10 @@ namespace MythosAndHorrors.GameView
             return transform.DOShakePosition(ViewValues.SLOW_TIME_ANIMATION, 1f, 10, 90, false, true);
         }
 
-        public void SetValue(ChallengeToken challengeToken)
+        public void SetValue(ChallengeToken challengeToken, Investigator investigator)
         {
             ChallengeToken = challengeToken;
-            _value.text = challengeToken.Value().ToString();
+            _value.text = challengeToken.Value(investigator).ToString();
             if (!IsValueToken) _value.DOFade(0, 0);
             else _value.DOFade(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine);
         }

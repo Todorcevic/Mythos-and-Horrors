@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
                 ChallengeTokenType.Cultist => _chaptersProvider.CurrentScene.CultistToken,
                 ChallengeTokenType.Fail => _chaptersProvider.CurrentScene.FailToken,
                 ChallengeTokenType.Star => _chaptersProvider.CurrentScene.StarToken,
-                _ => new ChallengeToken(token, () => (int)token)
+                _ => new ChallengeToken(token, (_) => (int)token)
             };
         }
     }

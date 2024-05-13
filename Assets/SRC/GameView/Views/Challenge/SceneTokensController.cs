@@ -26,13 +26,13 @@ namespace MythosAndHorrors.GameView
             _cultistSceneTokensView.SetToken(_chaptersProvider.CurrentScene.CultistToken);
         }
 
-        public void UpdateValues()
+        public void UpdateValues(Investigator investigator)
         {
             SetTokens();
-            _ancientSceneTokensView.UpdateValue();
-            _creatureSceneTokensView.UpdateValue();
-            _dangerSceneTokensView.UpdateValue();
-            _cultistSceneTokensView.UpdateValue();
+            _ancientSceneTokensView.UpdateValue(investigator);
+            _creatureSceneTokensView.UpdateValue(investigator);
+            _dangerSceneTokensView.UpdateValue(investigator);
+            _cultistSceneTokensView.UpdateValue(investigator);
         }
     }
 }

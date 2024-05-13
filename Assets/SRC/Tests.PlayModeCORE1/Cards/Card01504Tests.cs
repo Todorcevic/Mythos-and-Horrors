@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(place);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             while (_gameActionsProvider.CurrentChallenge == null) yield return null;
-            int valueToken = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value();
+            int valueToken = _gameActionsProvider.CurrentChallenge.TokensRevealed.First().Value(investigatorToTest);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             yield return taskGameAction.AsCoroutine();

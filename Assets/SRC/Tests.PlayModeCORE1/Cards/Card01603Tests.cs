@@ -36,15 +36,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             MustBeRevealedThisToken(ChallengeTokenType.Star);
             yield return _preparationSceneCORE1.StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
+            Investigator investigator = _investigatorsProvider.Third;
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _preparationSceneCORE1.SceneCORE1.Study.OwnZone)).AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Third));
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(_preparationSceneCORE1.SceneCORE1.Study);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             int? challengeValue = null;
             while (challengeValue == null)
             {
-                challengeValue ??= _gameActionsProvider.CurrentChallenge?.TokensRevealed.First().Value.Invoke();
+                challengeValue ??= _gameActionsProvider.CurrentChallenge?.TokensRevealed.First().Value.Invoke(investigator);
                 yield return null;
             }
 
@@ -63,7 +64,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             challengeValue = null;
             while (challengeValue == null)
             {
-                challengeValue ??= _gameActionsProvider.CurrentChallenge?.TokensRevealed.First().Value.Invoke();
+                challengeValue ??= _gameActionsProvider.CurrentChallenge?.TokensRevealed.First().Value.Invoke(investigator);
                 yield return null;
             }
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();

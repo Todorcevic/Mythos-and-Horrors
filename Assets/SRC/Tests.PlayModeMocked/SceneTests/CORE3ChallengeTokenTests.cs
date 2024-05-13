@@ -7,27 +7,28 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class ChallengeTokenSceneCORE3OOOTests : TestCORE3PlayModeBase
+    public class CORE3ChallengeTokenTests : TestCORE3PlayModeBase
     {
         [UnityTest]
         public IEnumerator NormalCreatureTokenTest()
         {
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
             MustBeRevealedThisToken(ChallengeTokenType.Creature);
+
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             Investigator investigator = _investigatorsProvider.First;
+            Task<(ChallengeToken token, int tokenValue)> captureTokenTask = CaptureToken(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
-            Task<(ChallengeToken token, int value)> captureTokenTask = CaptureToken();
             FakeInteractablePresenter.ClickedMainButton();
             FakeInteractablePresenter.ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(captureTokenTask.Result.value, Is.EqualTo(-1));
+            Assert.That(captureTokenTask.Result.tokenValue, Is.EqualTo(-1));
         }
 
         //[UnityTest]

@@ -20,12 +20,12 @@ namespace MythosAndHorrors.GameView
         public ChallengeToken Token { get; private set; }
 
         /*******************************************************************/
-        public Tween SetToken(ChallengeToken challengeToken, Sprite tokenSprite)
+        public Tween SetToken(ChallengeToken challengeToken, Sprite tokenSprite, Investigator investigator)
         {
             if (Card != null || Token != null) return DOTween.Sequence();
             Token = challengeToken;
             _cardImage.sprite = tokenSprite;
-            _value.text = challengeToken.Value().ToString();
+            _value.text = challengeToken.Value(investigator).ToString();
             transform.localScale = Vector3.zero;
             return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
               .OnStart(() => gameObject.SetActive(true));

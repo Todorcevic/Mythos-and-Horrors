@@ -15,8 +15,8 @@ namespace MythosAndHorrors.GameView
             ?? CreateCardChallenge();
 
         /*******************************************************************/
-        public void ShowToken(ChallengeToken challengeToken) =>
-            GetFreeCardChallenge.SetToken(challengeToken, _challengeTokensManager.GetToken(challengeToken.TokenType).Image);
+        public void ShowToken(ChallengeToken challengeToken, Investigator investigator) =>
+            GetFreeCardChallenge.SetToken(challengeToken, _challengeTokensManager.GetToken(challengeToken.TokenType).Image, investigator);
 
         public void RestoreToken(ChallengeToken challengeToken) =>
             _cardChallenges.Find(cardChallenge => cardChallenge.Token == challengeToken)?.Disable();

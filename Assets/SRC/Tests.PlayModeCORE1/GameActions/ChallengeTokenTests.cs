@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(_investigatorsProvider.First)) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -94,13 +94,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
+            int challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke(investigator));
             Assert.That(challengeValue, Is.EqualTo(0));
             MustBeRevealedThisToken(ChallengeTokenType.Danger);
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
-            challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke());
+            challengeValue = _gameActionsProvider.CurrentChallenge.TokensRevealed.Sum(token => token.Value.Invoke(investigator));
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             yield return gameActionTask.AsCoroutine();
@@ -123,7 +123,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
@@ -146,7 +146,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
-            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
+            while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
             int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
 
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();

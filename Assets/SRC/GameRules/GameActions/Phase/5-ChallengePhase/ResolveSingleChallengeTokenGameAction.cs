@@ -8,11 +8,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<ResolveSingleChallengeTokenGameAction> _solveTokenPresenter;
 
         public ChallengeToken ChallengeTokenToResolve { get; private set; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public ResolveSingleChallengeTokenGameAction(ChallengeToken challengeTokenToResolve)
+        public ResolveSingleChallengeTokenGameAction(ChallengeToken challengeTokenToResolve, Investigator investigator)
         {
             ChallengeTokenToResolve = challengeTokenToResolve;
+            Investigator = investigator;
         }
 
         /*******************************************************************/
@@ -21,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             if (ChallengeTokenToResolve.Effect != null)
             {
                 await _solveTokenPresenter.PlayAnimationWith(this);
-                await ChallengeTokenToResolve.Effect?.Invoke();
+                await ChallengeTokenToResolve.Effect?.Invoke(Investigator);
             }
         }
     }

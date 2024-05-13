@@ -96,11 +96,11 @@ namespace MythosAndHorrors.GameRules
             FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
 
             /*******************************************************************/
-            async Task StarEffect() => await _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarTokenEffect();
+            async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect();
 
-            int StarValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.InvestigatorCard.StarTokenValue();
+            int StarValue(Investigator investigator) => investigator.InvestigatorCard.StarTokenValue();
 
-            async Task FailEffect()
+            async Task FailEffect(Investigator investigator)
             {
                 _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
                 await Task.CompletedTask;

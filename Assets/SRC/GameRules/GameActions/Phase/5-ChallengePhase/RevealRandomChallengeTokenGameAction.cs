@@ -9,12 +9,19 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public ChallengeToken ChallengeTokenRevealed { get; private set; }
+        public Investigator Investigator { get; }
+
+        /*******************************************************************/
+        public RevealRandomChallengeTokenGameAction(Investigator investigator)
+        {
+            Investigator = investigator;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             ChallengeTokenRevealed = _challengeTokensProvider.GetRandomToken();
-            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(ChallengeTokenRevealed));
+            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(ChallengeTokenRevealed, Investigator));
         }
     }
 }

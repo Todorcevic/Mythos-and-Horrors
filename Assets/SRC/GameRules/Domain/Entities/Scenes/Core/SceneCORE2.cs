@@ -156,7 +156,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private int CreatureValue()
+        private int CreatureValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return CreatureNormalValue();
@@ -173,7 +173,7 @@ namespace MythosAndHorrors.GameRules
                 * -1;
         }
 
-        private async Task CreatureEffect()
+        private async Task CreatureEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await CreatureNormalEffect();
@@ -184,7 +184,7 @@ namespace MythosAndHorrors.GameRules
             async Task CreatureHardEffect() => await Task.CompletedTask;
         }
 
-        private int CultistValue()
+        private int CultistValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return CultistNormalValue();
@@ -195,7 +195,7 @@ namespace MythosAndHorrors.GameRules
             int CultistHardValue() => -2;
         }
 
-        private async Task CultistEffect()
+        private async Task CultistEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await CultistNormalEffect();
@@ -217,11 +217,11 @@ namespace MythosAndHorrors.GameRules
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
                 if (allEldrichableStats.Any()) await _gameActionsProvider.Create(new IncrementStatGameAction(allEldrichableStats));
-                else await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+                else await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
             }
         }
 
-        private int DangerValue()
+        private int DangerValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return DangerNormalValue();
@@ -232,7 +232,7 @@ namespace MythosAndHorrors.GameRules
             int DangerHardValue() => -4;
         }
 
-        private async Task DangerEffect()
+        private async Task DangerEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await DangerNormalEffect();

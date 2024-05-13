@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private int CreatureValue()
+        private int CreatureValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return CreatureNormalValue();
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
             int CreatureHardValue() => -2;
         }
 
-        private async Task CreatureEffect()
+        private async Task CreatureEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await CreatureNormalEffect();
@@ -91,7 +91,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private int CultistValue()
+        private int CultistValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return CultistNormalValue();
@@ -102,7 +102,7 @@ namespace MythosAndHorrors.GameRules
             int CultistHardValue() => 0;
         }
 
-        private async Task CultistEffect()
+        private async Task CultistEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await CultistNormalEffect();
@@ -124,7 +124,7 @@ namespace MythosAndHorrors.GameRules
             async Task CultistHardEffect()
             {
                 _gameActionsProvider.CurrentChallenge.FailEffects.Add(TakeTwoFear);
-                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
+                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
 
                 /*******************************************************************/
                 async Task TakeTwoFear() =>
@@ -135,7 +135,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private int DangerValue()
+        private int DangerValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return DangerNormalValue();
@@ -146,7 +146,7 @@ namespace MythosAndHorrors.GameRules
             int DangerHardValue() => -4;
         }
 
-        private async Task DangerEffect()
+        private async Task DangerEffect(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 await DangerNormalEffect();

@@ -9,12 +9,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<RevealChallengeTokenGameAction> _revealTokenPresenter;
 
         public ChallengeToken ChallengeTokenRevealed { get; private set; }
+        public Investigator Investigator { get; private set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public RevealChallengeTokenGameAction(ChallengeToken challengeToken)
+        public RevealChallengeTokenGameAction(ChallengeToken challengeToken, Investigator investigator)
         {
             ChallengeTokenRevealed = challengeToken;
+            Investigator = investigator;
         }
 
         /*******************************************************************/

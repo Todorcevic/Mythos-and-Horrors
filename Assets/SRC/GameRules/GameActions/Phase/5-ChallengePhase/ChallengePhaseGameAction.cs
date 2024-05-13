@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
-        public int TotalTokenRevealed => TokensRevealed.Sum(token => token.Value());
+        public int TotalTokenRevealed => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
         public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenRevealed + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
 
@@ -61,8 +61,8 @@ namespace MythosAndHorrors.GameRules
 
         public async Task ContinueChallenge()
         {
-            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction());
-            await _gameActionsProvider.Create(new ResolveAllTokensGameAction());
+            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create(new ResolveAllTokensGameAction(ActiveInvestigator));
             await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));

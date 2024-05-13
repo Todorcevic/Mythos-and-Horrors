@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
-            _sceneTokenController.UpdateValues();
+            _sceneTokenController.UpdateValues(ChallengePhaseGameAction.ActiveInvestigator);
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(ChallengePhaseGameAction);
             _totalChallenge.text = ChallengePhaseGameAction.TotalChallengeValue.ToString();
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameView
             return UpdateResult(ChallengePhaseGameAction);
         }
 
-        public void SetToken(ChallengeToken token) => _commitCardController.ShowToken(token);
+        public void SetToken(ChallengeToken token, Investigator investigator) => _commitCardController.ShowToken(token, investigator);
 
         public void RestoreToken(ChallengeToken token) => _commitCardController.RestoreToken(token);
 

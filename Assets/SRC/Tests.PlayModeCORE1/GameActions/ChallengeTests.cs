@@ -18,14 +18,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator PushTokenTest()
         {
-            ChallengeToken challengeToken = new(ChallengeTokenType.Ancient, () => -2);
+            ChallengeToken challengeToken = new(ChallengeTokenType.Ancient, (_) => -2);
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
 
             do
             {
                 if (DEBUG_MODE) yield return PressAnyKey();
 
-                yield return _challengeBagComponent.DropToken(challengeToken).AsCoroutine();
+                yield return _challengeBagComponent.DropToken(challengeToken, _investigatorsProvider.First).AsCoroutine();
             } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

@@ -20,10 +20,10 @@ namespace MythosAndHorrors.GameView
             _description.text = _challengeToken.Description;
         }
 
-        public void UpdateValue()
+        public void UpdateValue(Investigator investigator)
         {
             if (_challengeToken == null) return;
-            _value.text = (_challengeToken.Value?.Invoke() ?? 0).ToString();
+            _value.text = (_challengeToken.Value?.Invoke(investigator) ?? 0).ToString();
         }
     }
 }

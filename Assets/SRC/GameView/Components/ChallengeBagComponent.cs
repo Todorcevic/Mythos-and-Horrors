@@ -17,10 +17,10 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private List<ChallengeTokenView> _tokensPool;
 
         /*******************************************************************/
-        public async Task DropToken(ChallengeToken realToken)
+        public async Task DropToken(ChallengeToken realToken, Investigator investigator)
         {
             ChallengeTokenView tokenView = GetTokenView(realToken);
-            tokenView.SetValue(realToken);
+            tokenView.SetValue(realToken, investigator);
             tokenView.gameObject.SetActive(true);
             _allTokensDrop.Add(tokenView);
             await tokenView.PushUp();
