@@ -3,30 +3,23 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using System.Linq;
-using System;
-using Zenject;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class PrepareSceneCORE3OOOOOOOTests : TestCORE1PlayModeBase
     {
-        [Inject] private readonly IInteractablePresenter _interactablePresenter;
-
-        //protected override bool DEBUG_MODE => true;
-
-        /*******************************************************************/
         [UnityTest]
         public IEnumerator PrepareSceneOOOOTest()
         {
             SceneCORE1 scene = _preparationSceneCORE1.SceneCORE1;
-            yield return _preparationSceneCORE1.PlayAllInvestigators(withAvatar: false);
+            yield return _preparationSceneCORE1.PlayAllInvestigators(withAvatar: false).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
             Assert.That(scene.Info.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(1));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
-           Is.EqualTo(scene.Study));
+                Is.EqualTo(scene.Study));
         }
 
         [UnityTest]
@@ -35,7 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
             CardCreature cardCreature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
-            yield return _preparationSceneCORE1.StartingScene();
+            yield return _preparationSceneCORE1.StartingScene().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, investigatorToTest.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, investigatorToTest.InvestigatorCard, amountDamage: 5));
 
@@ -48,7 +41,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator InvestigatePlaceOOO()
         {
             MustBeRevealedThisToken(ChallengeTokenType.Value_1);
-            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First).AsCoroutine();
             CardPlace place = _cardsProvider.GetCard<Card01113>();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();

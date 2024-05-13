@@ -14,6 +14,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public abstract class TestFixtureBase : SceneTestFixture
     {
+        [Inject] protected readonly PrepareGameRulesUseCase _prepareGameRulesUseCase;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
         [Inject] protected readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] protected readonly ChaptersProvider _chaptersProvider;
@@ -27,20 +28,28 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected abstract string SCENE_NAME { get; }
         protected abstract string JSON_SAVE_DATA_PATH { get; }
         protected FakeInteractablePresenter FakeInteractablePresenter => (FakeInteractablePresenter)_interactablePresenter;
+        protected static new DiContainer SceneContainer { get; private set; }
 
         /*******************************************************************/
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            if (currentSceneName == SCENE_NAME)
+            if (currentSceneName != SCENE_NAME)
             {
-                SceneContainer?.Inject(this);
-                yield break;
+                currentSceneName = SCENE_NAME;
+                LoadContainer();
+                _prepareGameRulesUseCase.Execute();
             }
-            yield return base.TearDown();
-            InstallerToScene();
-            yield return LoadScene(SCENE_NAME, InstallerToTests);
-            LoadSceneSettings();
+            else SceneContainer?.Inject(this);
+            yield return null;
+        }
+
+        private void LoadContainer()
+        {
+            SceneContainer = new();
+            SceneContainer.Install<InjectionService>();
+            InstallerToTests();
+            SceneContainer?.Inject(this);
         }
 
         [UnityTearDown]
@@ -49,25 +58,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Rewind().AsCoroutine();
         }
 
-        private void LoadSceneSettings()
-        {
-            currentSceneName = SCENE_NAME;
-        }
-
-        private void InstallerToScene()
-        {
-            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-        }
-
         private void InstallerToTests()
         {
+            SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
+            SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
             SceneContainer.Bind<PreparationSceneCORE1>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE2>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE3>().AsSingle();
-            SceneContainer.Bind<PreparationSceneCORE1PlayModeAdapted>().AsSingle();
-            SceneContainer.Bind<PreparationSceneCORE2PlayModeAdapted>().AsSingle();
-            SceneContainer.Bind<PreparationSceneCORE3PlayModeAdapted>().AsSingle();
             SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
             BindAllFakePresenters();
 
