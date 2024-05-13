@@ -93,14 +93,33 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         protected void MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
-            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, true);
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, isAtStart: true);
 
+            /*******************************************************************/
             async Task Reveal(GameAction gameAction)
             {
                 if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
                 ChallengeToken token = _challengeTokensProvider.ChallengeTokensInBag
                     .Find(challengeToken => challengeToken.TokenType == tokenType);
                 revealChallengeTokenGameAction.SetChallengeToken(token);
+                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Reveal);
+                await Task.CompletedTask;
+            }
+        }
+
+        protected async Task<(ChallengeToken token, int value)> CaptureToken()
+        {
+            TaskCompletionSource<ChallengeToken> waitForReaction = new();
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, isAtStart: false);
+            await Task.WhenAny(waitForReaction.Task, Task.Delay(100));
+            return (waitForReaction.Task.Result, waitForReaction.Task.Result.Value());
+
+            /*******************************************************************/
+            async Task Reveal(GameAction gameAction)
+            {
+                if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
+
+                waitForReaction.SetResult(revealChallengeTokenGameAction.ChallengeTokenRevealed);
                 _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Reveal);
                 await Task.CompletedTask;
             }

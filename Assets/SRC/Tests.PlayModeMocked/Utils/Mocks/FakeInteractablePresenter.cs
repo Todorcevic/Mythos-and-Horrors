@@ -13,12 +13,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         private TaskCompletionSource<Effect> waitForClicked = new();
 
         /*******************************************************************/
-        public void ClickUndoButton()
+        public void ClickedUndoButton()
         {
             waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.UndoEffect);
         }
 
-        public void ClickMainButton()
+        public void ClickedMainButton()
         {
             waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.MainButtonEffect);
         }
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public async Task<Effect> SelectWith(GameAction gamAction)
         {
-            await Task.WhenAny(waitForClicked.Task, Task.Delay(1000));
+            await Task.WhenAny(waitForClicked.Task, Task.Delay(100));
 
             if (!waitForClicked.Task.IsCompleted)
                 throw new TimeoutException("The operation has exceeded. Timeout.");

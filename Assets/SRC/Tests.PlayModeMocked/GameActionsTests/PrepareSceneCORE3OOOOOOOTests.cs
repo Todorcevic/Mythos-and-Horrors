@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class PrepareSceneCORE3OOOOOOOTests : TestCORE1PlayModeBase
     {
         [UnityTest]
-        public IEnumerator PrepareSceneOOOOTest()
+        public IEnumerator PrepareSceneTest()
         {
             SceneCORE1 scene = _preparationSceneCORE1.SceneCORE1;
             yield return _preparationSceneCORE1.PlayAllInvestigators(withAvatar: false).AsCoroutine();
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator Investigator1DiscoverClueOOOOOOOO()
+        public IEnumerator Investigator1DiscoverClue()
         {
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator InvestigatePlaceOOO()
+        public IEnumerator InvestigatePlace()
         {
             MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First).AsCoroutine();
@@ -49,8 +49,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             FakeInteractablePresenter.ClickedIn(place);
-            FakeInteractablePresenter.ClickMainButton();
-            FakeInteractablePresenter.ClickMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
 
