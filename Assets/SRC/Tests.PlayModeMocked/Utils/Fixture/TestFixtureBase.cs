@@ -112,6 +112,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             TaskCompletionSource<ChallengeToken> waitForReaction = new();
             _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, isAtStart: false);
             await Task.WhenAny(waitForReaction.Task, Task.Delay(100));
+            if (!waitForReaction.Task.IsCompleted) throw new TimeoutException("The operation has exceeded. Timeout.");
             return (waitForReaction.Task.Result, waitForReaction.Task.Result.Value());
 
             /*******************************************************************/

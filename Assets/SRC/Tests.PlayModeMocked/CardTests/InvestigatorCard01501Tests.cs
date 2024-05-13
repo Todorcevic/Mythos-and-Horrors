@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator StarChallengeTokenRevealed()
         {
             MustBeRevealedThisToken(ChallengeTokenType.Star);
-            CardPlace place = _cardsProvider.GetCard<Card01114>(); //Enigma:4, Hints: 2
+            CardPlace place = _cardsProvider.GetCard<Card01114>();
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withAvatar: false).AsCoroutine();
@@ -23,10 +23,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             FakeInteractablePresenter.ClickedIn(place);
             Task<(ChallengeToken token, int value)> captureTokenTask = CaptureToken();
             FakeInteractablePresenter.ClickedMainButton();
-
             FakeInteractablePresenter.ClickedMainButton();
-
             yield return taskGameAction.AsCoroutine();
+
             Assert.That(captureTokenTask.Result.value, Is.EqualTo(8));
         }
 
