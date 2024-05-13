@@ -12,12 +12,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator NormalCreatureTokenTest()
         {
-            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            MustBeRevealedThisToken(ChallengeTokenType.Creature);
-
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             Investigator investigator = _investigatorsProvider.First;
-            Task<(ChallengeToken token, int tokenValue)> captureTokenTask = CaptureToken(investigator);
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            MustBeRevealedThisToken(ChallengeTokenType.Creature);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
@@ -28,212 +27,196 @@ namespace MythosAndHorrors.PlayMode.Tests
             FakeInteractablePresenter.ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(captureTokenTask.Result.tokenValue, Is.EqualTo(-1));
+            Assert.That(tokenValue.Result, Is.EqualTo(-1));
         }
 
-        //[UnityTest]
-        //public IEnumerator HardCreatureTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Creature);
+        [UnityTest]
+        public IEnumerator HardCreatureTokenTest()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            MustBeRevealedThisToken(ChallengeTokenType.Creature);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
 
-        //    Investigator investigator = _investigatorsProvider.First;
+            Assert.That(_cardsProvider.GetCards<CardCreature>()
+            .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.False);
 
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    Assert.That(_cardsProvider.GetCards<CardCreature>()
-        //    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.False);
+            Assert.That(tokenValue.Result, Is.EqualTo(-3));
+            Assert.That(_cardsProvider.GetCards<CardCreature>()
+                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.True);
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+        }
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
+        [UnityTest]
+        public IEnumerator NormalCultistTokenTest()
+        {
+            CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
+            Investigator investigator = _investigatorsProvider.First;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
 
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
 
-        //    Assert.That(challengeValue, Is.EqualTo(-3));
-        //    Assert.That(_cardsProvider.GetCards<CardCreature>()
-        //        .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.True);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //}
+            Assert.That(investigator.NearestCreatures.First(), Is.EqualTo(monster));
+            Assert.That(tokenValue.Result, Is.EqualTo(-2));
+            Assert.That(monster.Eldritch.Value, Is.EqualTo(4));
+        }
 
-        //[UnityTest]
-        //public IEnumerator NormalCultistTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Cultist);
-        //    CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
-        //    yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
+        [UnityTest]
+        public IEnumerator HardCultistTokenTest()
+        {
+            CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
+            Investigator investigator = _investigatorsProvider.First;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    Assert.That(investigator.NearestCreatures.First(), Is.EqualTo(monster));
-        //    Assert.That(challengeValue, Is.EqualTo(-2));
-        //    Assert.That(monster.Eldritch.Value, Is.EqualTo(4));
-        //}
+            Assert.That(investigator.NearestCreatures.First(), Is.EqualTo(monster));
+            Assert.That(tokenValue.Result, Is.EqualTo(-4));
+            Assert.That(monster.Eldritch.Value, Is.EqualTo(5));
+        }
 
-        //[UnityTest]
-        //public IEnumerator HardCultistTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Cultist);
-        //    CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
-        //    yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
+        [UnityTest]
+        public IEnumerator HardCultistTokenTestWithoutAcolits()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
+            Assert.That(tokenValue.Result, Is.EqualTo(-4));
+        }
 
-        //    Assert.That(investigator.NearestCreatures.First(), Is.EqualTo(monster));
-        //    Assert.That(challengeValue, Is.EqualTo(-4));
-        //    Assert.That(monster.Eldritch.Value, Is.EqualTo(5));
-        //}
+        [UnityTest]
+        public IEnumerator NormalDangerTokenTest()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
 
-        //[UnityTest]
-        //public IEnumerator HardCultistTokenTestWithoutAcolits()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Cultist);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            Assert.That(tokenValue.Result, Is.EqualTo(-3));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+        }
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
+        [UnityTest]
+        public IEnumerator HardDangerTokenTest()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
 
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
-        //    Assert.That(challengeValue, Is.EqualTo(-4));
-        //}
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //[UnityTest]
-        //public IEnumerator NormalDangerTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Danger);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
+            Assert.That(tokenValue.Result, Is.EqualTo(-5));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+        }
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+        [UnityTest]
+        public IEnumerator HardDangerTokenTestNoMonster()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    Assert.That(challengeValue, Is.EqualTo(-3));
-        //    Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-        //}
+            Assert.That(tokenValue.Result, Is.EqualTo(-5));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(0));
+            Assert.That(investigator.FearRecived, Is.EqualTo(0));
+        }
 
-        //[UnityTest]
-        //public IEnumerator HardDangerTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Danger);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
+        [UnityTest]
+        public IEnumerator NormalAncientTokenTest()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            CardCreature ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
+            MustBeRevealedThisToken(ChallengeTokenType.Ancient);
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
+            FakeInteractablePresenter.ClickedMainButton();
 
-        //    Assert.That(challengeValue, Is.EqualTo(-5));
-        //    Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-        //    Assert.That(investigator.FearRecived, Is.EqualTo(1));
-        //}
+            MustBeRevealedThisToken(ChallengeTokenType.Value_2);
+            Task<int> tokenValue2 = CaptureTokenValue(investigator);
 
-        //[UnityTest]
-        //public IEnumerator HardDangerTokenTestNoMonster()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Danger);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            Assert.That(tokenValue.Result, Is.EqualTo(-5));
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
-
-        //    Assert.That(challengeValue, Is.EqualTo(-5));
-        //    Assert.That(investigator.DamageRecived, Is.EqualTo(0));
-        //    Assert.That(investigator.FearRecived, Is.EqualTo(0));
-        //}
-
-        //[UnityTest]
-        //public IEnumerator NormalAncientTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Ancient);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    CardCreature ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
-
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    Assert.That(challengeValue, Is.EqualTo(-5));
-
-        //    MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
-        //    challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
-
-        //    Assert.That(challengeValue, Is.EqualTo(-7));
-        //}
+            Assert.That(tokenValue2.Result, Is.EqualTo(-7));
+        }
 
         //[UnityTest]
         //public IEnumerator HardAncientTokenTest()

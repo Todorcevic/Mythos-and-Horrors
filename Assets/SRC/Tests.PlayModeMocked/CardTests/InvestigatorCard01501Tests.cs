@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardPlace place = _cardsProvider.GetCard<Card01114>();
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
             Investigator investigatorToTest = cardInvestigator.Owner;
-            Task<(ChallengeToken token, int tokenValue)> captureTokenTask = CaptureToken(investigatorToTest);
+            Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withAvatar: false).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             FakeInteractablePresenter.ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(captureTokenTask.Result.tokenValue, Is.EqualTo(8));
+            Assert.That(tokenValue.Result, Is.EqualTo(8));
         }
 
         [UnityTest]
