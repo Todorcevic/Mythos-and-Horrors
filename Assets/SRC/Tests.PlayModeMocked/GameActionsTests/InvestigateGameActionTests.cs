@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator InvestigatePlace()
         {
-            MustBeRevealedThisToken(ChallengeTokenType.Value_1);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First).AsCoroutine();
             CardPlace place = _cardsProvider.GetCard<Card01113>();
 

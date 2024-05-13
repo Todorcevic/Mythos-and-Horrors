@@ -31,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
-        public int TotalTokenRevealed => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
-        public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenRevealed + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
+        public int TotalTokenValue => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
+        public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenValue + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
 
         /*******************************************************************/

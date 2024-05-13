@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            MustBeRevealedThisToken(ChallengeTokenType.Creature);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Creature);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            MustBeRevealedThisToken(ChallengeTokenType.Creature);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Creature);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Cultist);
             Task<int> tokenValue = CaptureTokenValue(investigator);
 
             yield return _preparationSceneCORE3.PlaceAllScene();
@@ -86,7 +86,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Cultist);
             Task<int> tokenValue = CaptureTokenValue(investigator);
 
             yield return _preparationSceneCORE3.PlaceAllScene();
@@ -110,7 +110,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            MustBeRevealedThisToken(ChallengeTokenType.Cultist);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Cultist);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -130,7 +130,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Danger);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -152,7 +152,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardCreature monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Danger);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -174,7 +174,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-            MustBeRevealedThisToken(ChallengeTokenType.Danger);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Danger);
             Task<int> tokenValue = CaptureTokenValue(investigator);
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
@@ -196,55 +196,48 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardCreature ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
             _chaptersProvider.SetCurrentDificulty(Dificulty.Normal);
-            MustBeRevealedThisToken(ChallengeTokenType.Ancient);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Ancient)
+                .ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             Task<int> tokenValue = CaptureTokenValue(investigator);
+            Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
             yield return _preparationSceneCORE3.PlaceAllScene();
             yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
-
             FakeInteractablePresenter.ClickedMainButton();
-
-            MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-            Task<int> tokenValue2 = CaptureTokenValue(investigator);
-
-            Assert.That(tokenValue.Result, Is.EqualTo(-5));
-
             FakeInteractablePresenter.ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(tokenValue2.Result, Is.EqualTo(-7));
+            Assert.That(tokenValue.Result, Is.EqualTo(-5));
+            Assert.That(totalTokensRevealed.Result.totalTokenAmount, Is.EqualTo(2));
+            Assert.That(totalTokensRevealed.Result.totalTokenValue, Is.EqualTo(-7));
         }
 
-        //[UnityTest]
-        //public IEnumerator HardAncientTokenTest()
-        //{
-        //    _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
-        //    MustBeRevealedThisToken(ChallengeTokenType.Ancient);
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    CardCreature ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
-        //    yield return _preparationSceneCORE3.PlaceAllScene();
-        //    yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+        [UnityTest]
+        public IEnumerator HardAncientTokenTest()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            CardCreature ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
+            _chaptersProvider.SetCurrentDificulty(Dificulty.Hard);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Ancient)
+                .ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
+            Task<int> tokenValue = CaptureTokenValue(investigator);
+            Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, _preparationSceneCORE3.SceneCORE3.Forest2.OwnZone)).AsCoroutine();
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke()) == null) yield return null;
-        //    int challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    Assert.That(challengeValue, Is.EqualTo(-7));
-
-        //    MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-
-        //    while (_gameActionsProvider.CurrentChallenge?.TokensRevealed.Count() < 2) yield return null;
-        //    challengeValue = _gameActionsProvider.CurrentChallenge.TotalTokenRevealed;
-        //    if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-        //    yield return taskGameAction.AsCoroutine();
-
-        //    Assert.That(challengeValue, Is.EqualTo(-9));
-        //}
+            Assert.That(tokenValue.Result, Is.EqualTo(-7));
+            Assert.That(totalTokensRevealed.Result.totalTokenAmount, Is.EqualTo(2));
+            Assert.That(totalTokensRevealed.Result.totalTokenValue, Is.EqualTo(-9));
+        }
     }
 }
