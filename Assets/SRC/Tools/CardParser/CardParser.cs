@@ -14,7 +14,6 @@ using FilePathAttribute = Sirenix.OdinInspector.FilePathAttribute;
 
 namespace MythosAndHorrors.Tools
 {
-
     public class CardParser : OdinEditorWindow
     {
         private const string DATA_PATH = "Assets/Data/";
@@ -177,12 +176,12 @@ namespace MythosAndHorrors.Tools
                 }
 
                 File.WriteAllText(path, jsonData);
-                Debug.Log($"Datos guardados en: {path}");
+                Debug.Log($"Data saved in: {path}");
                 AssetDatabase.Refresh();
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Error al guardar el archivo: {ex.Message}");
+                Debug.LogError($"Error save file: {ex.Message}");
             }
         }
     }
