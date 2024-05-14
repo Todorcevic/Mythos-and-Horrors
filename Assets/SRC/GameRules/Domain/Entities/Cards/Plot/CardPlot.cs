@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
         public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.Info.PlotCards.NextElementFor(this);
+        public int AmountOfEldritch => (Info.Eldritch ?? 0) - Eldritch.Value;
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
