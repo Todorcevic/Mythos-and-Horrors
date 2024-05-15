@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -9,8 +12,52 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        private Card AmuletoDeWendy => _cardsProvider.GetCard<Card01514>(); //TODO: Poner nombre real de la carta
+        public State AbilityUsed { get; private set; }
+        private Card AmuletoDeWendy => _cardsProvider.GetCard<Card01514>();
         public override IEnumerable<Tag> Tags => new[] { Tag.Drifter };
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
+        private void Init()
+        {
+            AbilityUsed = CreateState(false);
+            CreateReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, isAtStart: false, isOptative: true);
+            CreateReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+        }
+
+        /*******************************************************************/
+        private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
+        {
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
+
+            foreach (Card card in Owner.HandZone.Cards.Where(card => card.CanBeDiscarded))
+            {
+                interactableGameAction.Create()
+                    .SetCard(card)
+                    .SetInvestigator(Owner)
+                    .SetLogic(Discard);
+
+                /*******************************************************************/
+                async Task Discard()
+                {
+                    await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new RestoreChallengeToken(revealChallengeToken.ChallengeTokenRevealed));
+                    await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(Owner));
+                }
+            }
+
+            await _gameActionsProvider.Create(interactableGameAction);
+        }
+
+        private bool RevealNewTokenCondition(RevealChallengeTokenGameAction action)
+        {
+            if (!IsInPlay) return false;
+            if (!Owner.HandZone.Cards.Any(card => card.CanBeDiscarded)) return false;
+            if (AbilityUsed.IsActive) return false;
+            return true;
+        }
 
         /*******************************************************************/
         protected override async Task StarEffect()
@@ -21,5 +68,17 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected override int StarValue() => 0;
+
+        /*******************************************************************/
+        private async Task RestartAbilityLogic(ChallengePhaseGameAction challengePhaseGameAction)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+        }
+
+        private bool RestartAbilityCondition(ChallengePhaseGameAction challengePhaseGameAction)
+        {
+            if (!AbilityUsed.IsActive) return false;
+            return true;
+        }
     }
 }

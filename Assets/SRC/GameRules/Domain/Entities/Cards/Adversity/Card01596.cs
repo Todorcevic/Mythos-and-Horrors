@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic()
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Card");
-            foreach (Card card in Owner.HandZone.Cards.Where(card => card.CanDiscard))
+            foreach (Card card in Owner.HandZone.Cards.Where(card => card.CanBeDiscarded))
             {
                 interactableGameAction.Create()
                             .SetCard(card)
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Discard()
                 {
-                    await _gameActionsProvider.Create(new SafeForeach<Card>(() => Owner.HandZone.Cards.Where(card => card.CanDiscard).Except(new[] { card }), Logic));
+                    await _gameActionsProvider.Create(new SafeForeach<Card>(() => Owner.HandZone.Cards.Where(card => card.CanBeDiscarded).Except(new[] { card }), Logic));
 
                     async Task Logic(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
                 }

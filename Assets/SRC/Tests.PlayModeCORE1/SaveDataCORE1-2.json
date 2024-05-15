@@ -1,0 +1,12 @@
+{
+    "ChapterSelected": "CORE",
+    "SceneSelected": "CORE1",
+    "DificultySelected": 1,
+    "InvestigatorsSelected": [
+        "01501",
+        "01502",
+        "01503",
+        "01505"
+    ],
+    "LanguajeSelected": 0
+}

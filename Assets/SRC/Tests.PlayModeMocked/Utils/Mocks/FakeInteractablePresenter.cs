@@ -29,6 +29,15 @@ namespace MythosAndHorrors.PlayMode.Tests
             waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.MainButtonEffect);
         }
 
+        public void ClickedTokenButton()
+        {
+            if (_gameActionsProvider.CurrentInteractable is not OneInvestigatorTurnGameAction oneTurnGameAction)
+                throw new InvalidOperationException("Not interactableGameAction");
+            if (oneTurnGameAction.TakeResourceEffect == null)
+                throw new InvalidOperationException("TakeResourceEffect is null");
+            waitForClicked.SetResult(oneTurnGameAction.TakeResourceEffect);
+        }
+
         public void ClickedIn(Card cardSelected)
         {
             Effect effect = cardSelected.PlayableEffects.FirstOrDefault() ?? throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");

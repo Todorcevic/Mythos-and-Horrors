@@ -11,11 +11,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()
         {
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
-
             CardPlace place = _cardsProvider.GetCard<Card01114>();
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
-            Investigator investigatorToTest = cardInvestigator.Owner;
+            Investigator investigatorToTest = _investigatorsProvider.First;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withAvatar: false).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
@@ -33,8 +31,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTest]
         public IEnumerator DiscoverClueWhenDefeatCreature()
         {
-            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01501>();
-            Investigator investigatorToTest = cardInvestigator.Owner;
+            Investigator investigatorToTest = _investigatorsProvider.First;
             CardCreature cardCreature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
             yield return _preparationSceneCORE1.StartingScene().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, investigatorToTest.DangerZone)).AsCoroutine();
