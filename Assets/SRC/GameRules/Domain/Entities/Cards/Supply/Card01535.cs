@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Tome };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item };
 
         /*******************************************************************/
         [Inject]

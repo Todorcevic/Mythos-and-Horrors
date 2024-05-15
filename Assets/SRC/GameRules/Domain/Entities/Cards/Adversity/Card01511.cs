@@ -18,6 +18,8 @@ namespace MythosAndHorrors.GameRules
 
         int IVictoriable.Victory => -2;
         bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
+
 
         /*******************************************************************/
         [Inject]

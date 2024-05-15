@@ -4,6 +4,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01542 : CardSupply
     {
-        public override IEnumerable<Tag> Tags => new[] { Tag.Tome };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item };
     }
 }

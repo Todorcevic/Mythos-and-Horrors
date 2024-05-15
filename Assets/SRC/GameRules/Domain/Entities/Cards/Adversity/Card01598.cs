@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01598 : CardAdversity
     {
-        public override IEnumerable<Tag> Tags => new[] { Tag.Flaw };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Curse };
 
         public override Zone ZoneToMove => Owner.DangerZone;
 

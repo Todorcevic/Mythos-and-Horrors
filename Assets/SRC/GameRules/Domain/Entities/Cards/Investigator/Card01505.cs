@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         private Card AmuletoDeWendy => _cardsProvider.GetCard<Card01514>(); //TODO: Poner nombre real de la carta
+        public override IEnumerable<Tag> Tags => new[] { Tag.Drifter };
 
         /*******************************************************************/
         protected override async Task StarEffect()

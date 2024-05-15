@@ -12,6 +12,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
+        public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tool };
+
         /*******************************************************************/
         [Inject]
         public void Init()

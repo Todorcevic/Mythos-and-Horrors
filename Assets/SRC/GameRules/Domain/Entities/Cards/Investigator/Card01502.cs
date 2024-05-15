@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public State AbilityUsed { get; private set; }
 
         private IEnumerable<Card> TomesInPlay => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
+        public override IEnumerable<Tag> Tags => new[] { Tag.Miskatonic };
 
         /*******************************************************************/
         [Inject]

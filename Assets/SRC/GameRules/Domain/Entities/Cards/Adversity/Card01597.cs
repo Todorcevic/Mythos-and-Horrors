@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionRepository;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Flaw };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Madness };
 
         public override Zone ZoneToMove => Owner.DangerZone;
 

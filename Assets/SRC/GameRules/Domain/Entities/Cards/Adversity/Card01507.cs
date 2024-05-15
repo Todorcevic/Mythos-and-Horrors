@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Flaw };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
 
         public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 

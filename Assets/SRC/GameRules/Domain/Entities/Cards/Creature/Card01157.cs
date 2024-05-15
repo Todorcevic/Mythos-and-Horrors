@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         int IVictoriable.Victory => 10;
         bool IVictoriable.IsVictoryComplete => Health.Value <= 0; //TODO: revisar el reseteo cuando se descarta
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne };
+        public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
 
         /*******************************************************************/
     }

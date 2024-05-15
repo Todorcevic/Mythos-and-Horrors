@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanChoose()
                 {
-                    if (card.Tags.Contains(Tag.Flaw)) return false;
+                    if (card.Tags.Contains(Tag.Weakness)) return false;
                     return true;
                 }
             }

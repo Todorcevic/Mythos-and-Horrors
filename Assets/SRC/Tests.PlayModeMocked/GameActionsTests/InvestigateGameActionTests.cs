@@ -13,8 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First).AsCoroutine();
-            CardPlace place = _cardsProvider.GetCard<Card01113>();
-
+            CardPlace place = _cardsProvider.GetCard<Card01111>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -12,6 +13,9 @@ namespace MythosAndHorrors.GameRules
             .OrderByDescending(investigator => investigator.Hints.Value).First();
 
         public CardPlace SpawnPlace => TargetInvestigator.CurrentPlace;
+
+        public override IEnumerable<Tag> Tags => new[] { Tag.Humanoid, Tag.Cultist, Tag.Elite };
+
     }
 
 }

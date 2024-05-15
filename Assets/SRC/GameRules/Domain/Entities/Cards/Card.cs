@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
         public bool IsActivable => AllActivations.Count() > 0;
-        public bool CanDiscard => !Tags.Contains(Tag.Flaw);
+        public bool CanDiscard => !Tags.Contains(Tag.Weakness);
         public bool IsVictory => Info.Victory != null;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 

@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         Investigator ITarget.TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
             .OrderBy(investigator => investigator.Strength.Value).First();
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Monster };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Monster, Tag.Humanoid, Tag.DeepOne };
     }
 
 }

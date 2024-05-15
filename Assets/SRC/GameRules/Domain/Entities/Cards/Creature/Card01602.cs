@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -11,6 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsOnlyOneTarget => true;
         public Investigator TargetInvestigator => Owner;
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Humanoid, Tag.Cultist, Tag.SilverTwilight };
 
         /*******************************************************************/
         [Inject]

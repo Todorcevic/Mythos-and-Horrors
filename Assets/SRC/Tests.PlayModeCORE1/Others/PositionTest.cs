@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 namespace MythosAndHorrors.PlayMode.Tests
 {
     [TestFixture]
-    public class PositionTest : TestCORE2PlayModeBase
+    public class PositionTest : TestCORE1PlayModeBase
     {
         //protected override bool DEBUG_MODE => true;
 

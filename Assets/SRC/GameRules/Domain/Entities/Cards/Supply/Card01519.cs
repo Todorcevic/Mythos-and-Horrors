@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public int InitialSupplies => 3;
+        public override IEnumerable<Tag> Tags => new[] { Tag.Talent, Tag.Science };
 
         /*******************************************************************/
         [Inject]

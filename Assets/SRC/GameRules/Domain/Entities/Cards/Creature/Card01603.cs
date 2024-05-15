@@ -14,6 +14,8 @@ namespace MythosAndHorrors.GameRules
         public bool IsOnlyOneTarget => true;
         public Investigator TargetInvestigator => Owner;
 
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Humanoid, Tag.Detective };
+
         /*******************************************************************/
         [Inject]
         public void Init()

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.Info.PlaceCards
             .FirstOrDefault(place => place.IsInPlay && place.IsAlone);
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Cultist };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Cultist, Tag.Humanoid };
 
         /*******************************************************************/
         [Inject]

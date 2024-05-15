@@ -4,7 +4,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01180 : CardCreature, IStalker, ICounterAttackable
     {
-        public override IEnumerable<Tag> Tags => new[] { Tag.Monster };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Monster, Tag.Humanoid };
     }
 
 }

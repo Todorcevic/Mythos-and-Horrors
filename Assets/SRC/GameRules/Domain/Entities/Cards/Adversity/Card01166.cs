@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
+        public override IEnumerable<Tag> Tags => new[] { Tag.Omen };
 
     }
 }
