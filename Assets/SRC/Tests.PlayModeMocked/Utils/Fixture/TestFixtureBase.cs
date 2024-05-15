@@ -28,6 +28,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private static string currentSceneName;
         protected abstract string JSON_SAVE_DATA_PATH { get; }
+        protected virtual bool DEBUG_MODE => false;
         protected FakeInteractablePresenter FakeInteractablePresenter => (FakeInteractablePresenter)_interactablePresenter;
         protected static new DiContainer SceneContainer { get; private set; }
 
@@ -39,7 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 currentSceneName = JSON_SAVE_DATA_PATH;
                 LoadContainer();
-                Initialize();
+                if (DEBUG_MODE) InitializeTextForConsole();
                 _prepareGameRulesUseCase.Execute();
             }
             else SceneContainer?.Inject(this);
@@ -156,7 +157,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             return (challenge.TokensRevealed.Count(), challenge.TotalTokenValue);
         });
 
-        private void Initialize()
+        private void InitializeTextForConsole()
         {
             ShowCurrentGameActionInConsole();
             ShowCurrentEffectInConsole();
