@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DropHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.AllCards, _chaptersProvider.CurrentScene.OutZone));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.CreaturesEnganged, currentPlace.OwnZone));
-            await _gameActionsProvider.Create(new SafeForeach<Card>(Investigator.DangerZone.Cards, Discard));
+            await _gameActionsProvider.Create(new SafeForeach<Card>(() => Investigator.DangerZone.Cards, Discard));
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
         }
 

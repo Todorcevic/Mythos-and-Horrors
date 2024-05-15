@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<IStalker>(_cardsProvider.StalkersInPlay, Move));
+            await _gameActionsProvider.Create(new SafeForeach<IStalker>(() => _cardsProvider.StalkersInPlay, Move));
         }
 
         /*******************************************************************/

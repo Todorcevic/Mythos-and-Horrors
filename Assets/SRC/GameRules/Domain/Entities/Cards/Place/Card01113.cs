@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -13,13 +14,14 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<MoveInvestigatorToPlaceGameAction>(TakeFearCondition, TakeFearLogic, false);
+            CreateReaction<MoveInvestigatorToPlaceGameAction>(TakeFearCondition, TakeFearLogic, isAtStart: false);
         }
 
         /*******************************************************************/
         private async Task TakeFearLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(moveInvestigatorToPlaceGameAction.Investigators, TekeFear));
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => moveInvestigatorToPlaceGameAction.Investigators
+            .Where(investigator => investigator.CurrentPlace == this), TekeFear));
 
             async Task TekeFear(Investigator investigator) =>
                 await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountFear: 1, bythisCard: this));

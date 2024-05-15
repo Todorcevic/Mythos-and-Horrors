@@ -9,6 +9,8 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
+using System.Drawing;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -25,7 +27,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
         private static string currentSceneName;
-        protected abstract string SCENE_NAME { get; }
         protected abstract string JSON_SAVE_DATA_PATH { get; }
         protected FakeInteractablePresenter FakeInteractablePresenter => (FakeInteractablePresenter)_interactablePresenter;
         protected static new DiContainer SceneContainer { get; private set; }
@@ -34,10 +35,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
-            if (currentSceneName != SCENE_NAME)
+            if (currentSceneName != JSON_SAVE_DATA_PATH)
             {
-                currentSceneName = SCENE_NAME;
+                currentSceneName = JSON_SAVE_DATA_PATH;
                 LoadContainer();
+                Initialize();
                 _prepareGameRulesUseCase.Execute();
             }
             else SceneContainer?.Inject(this);
@@ -153,5 +155,43 @@ namespace MythosAndHorrors.PlayMode.Tests
             ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
             return (challenge.TokensRevealed.Count(), challenge.TotalTokenValue);
         });
+
+        private void Initialize()
+        {
+            ShowCurrentGameActionInConsole();
+            ShowCurrentEffectInConsole();
+        }
+
+        private void ShowCurrentGameActionInConsole()
+        {
+            _reactionablesProvider.CreateReaction<GameAction>((_) => true, ShowMesaggeInConsole, isAtStart: true);
+
+            /*******************************************************************/
+            static async Task ShowMesaggeInConsole(GameAction action)
+            {
+                Debug.Log("<color=#FFA500>* GameAction: " + action.GetType().Name + "\n</color>");
+                await Task.CompletedTask;
+            }
+        }
+
+        private void ShowCurrentEffectInConsole()
+        {
+            _reactionablesProvider.CreateReaction<PlayEffectGameAction>((_) => true, ShowMesaggeInConsole, isAtStart: true);
+
+            /*******************************************************************/
+            static async Task ShowMesaggeInConsole(PlayEffectGameAction playEffectGameAction)
+            {
+                InteractableGameAction interactable = (InteractableGameAction)playEffectGameAction.Parent;
+                Debug.Log("<color=cyan>** All Effects: \n</color>");
+                foreach (Effect effect in interactable.AllEffects
+                    .Append(interactable.UndoEffect).Append(interactable.MainButtonEffect))
+                {
+                    Debug.Log("<color=cyan>---- " + effect?.Description + "\n</color>");
+                }
+
+                Debug.Log("<color=yellow>**** EffectPressed: " + playEffectGameAction.Effect.Description + "\n</color>");
+                await Task.CompletedTask;
+            }
+        }
     }
 }

@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class ResignGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

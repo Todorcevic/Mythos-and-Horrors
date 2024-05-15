@@ -45,6 +45,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return taskGameAction.AsCoroutine();
         }
 
+        private IEnumerator ExecuteChallengeWithOpportunityAttack()
+        {
+            taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
+            FakeInteractablePresenter.ClickedMainButton();
+            FakeInteractablePresenter.ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+        }
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator NormalCreatureTokenTest()
@@ -116,10 +126,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
 
-            yield return ExecuteChallenge();
+            yield return ExecuteChallengeWithOpportunityAttack();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-3));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -128,11 +138,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
 
-            yield return ExecuteChallenge();
+            yield return ExecuteChallengeWithOpportunityAttack();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-5));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived, Is.EqualTo(3));
         }
 
         [UnityTest]

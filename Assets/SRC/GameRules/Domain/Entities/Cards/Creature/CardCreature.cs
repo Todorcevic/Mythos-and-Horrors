@@ -27,14 +27,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
         public bool IsConfronted => ConfrontedInvestigator != null;
-        public Investigator ConfrontedInvestigator
-        {
-            get
-            {
-                Investigator investigator = _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone);
-                return CurrentZone == investigator?.DangerZone ? investigator : null;
-            }
-        }
+        public Investigator ConfrontedInvestigator =>
+            CurrentZone.ZoneType == ZoneType.Danger ? _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone) : null;
 
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(CurrentZone) as CardPlace ?? ConfrontedInvestigator?.CurrentPlace;
 

@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
                 interactableGameAction.CreateMainButton().SetLogic(Continue);
-                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic);
+                interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic).SetDescription(logic.Method.Name);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/
@@ -80,9 +80,10 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
+        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition,
+            bool isBase = false, bool withOpportunityAttck = true)
         {
-            Activation newActivation = new(activateTurnsCost, logic, condition);
+            Activation newActivation = new(activateTurnsCost, logic, condition, withOpportunityAttck);
             if (isBase) _baseActivations.Add(newActivation);
             else _specificActivations.Add(newActivation);
             return newActivation;

@@ -10,12 +10,12 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public IEnumerable<T> Collection { get; }
+        public Func<IEnumerable<T>> Collection { get; }
         public Func<T, Task> Logic { get; }
         public State Initilized { get; }
 
         /*******************************************************************/
-        public SafeForeach(IEnumerable<T> collection, Func<T, Task> logic)
+        public SafeForeach(Func<IEnumerable<T>> collection, Func<T, Task> logic)
         {
             Logic = logic;
             Collection = collection;
@@ -27,12 +27,12 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Initilized, true));
             List<T> elementsExecuted = new();
-            T element = Collection.FirstOrDefault();
+            T element = Collection().FirstOrDefault();
             while (element != null && Initilized.IsActive)
             {
                 await Logic.Invoke(element);
                 elementsExecuted.Add(element);
-                element = Collection.Except(elementsExecuted).FirstOrDefault();
+                element = Collection().Except(elementsExecuted).FirstOrDefault();
             }
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Initilized, false));
         }

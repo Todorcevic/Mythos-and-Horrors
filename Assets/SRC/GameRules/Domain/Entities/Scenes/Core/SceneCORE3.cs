@@ -103,7 +103,7 @@ namespace MythosAndHorrors.GameRules
         private async Task CheckDiscard()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.IsMidknigh))
-                await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsWithCards(), Discard));
+                await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsWithCards, Discard));
 
             IEnumerable<Investigator> InvestigatorsWithCards() => _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.HandZone.Cards.Any());
@@ -128,7 +128,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task Resolution0()
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.UmordhothWin, true));
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(_investigatorsProvider.AllInvestigatorsInPlay, Defeated));
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => _investigatorsProvider.AllInvestigatorsInPlay, Defeated));
 
             async Task Defeated(Investigator investigator)
             {

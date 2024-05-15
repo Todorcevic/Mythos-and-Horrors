@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -19,7 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDamageLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(moveInvestigatorToPlaceGameAction.Investigators, TekeDamage));
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => moveInvestigatorToPlaceGameAction.Investigators
+            .Where(investigator => investigator.CurrentPlace == this), TekeDamage));
 
             async Task TekeDamage(Investigator investigator) =>
                 await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountDamage: 1, bythisCard: this));

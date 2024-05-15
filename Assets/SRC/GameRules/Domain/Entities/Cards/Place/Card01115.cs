@@ -16,9 +16,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate);
-            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate);
-            CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, true);
+            CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate, withOpportunityAttck: false);
+            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, withOpportunityAttck: false);
+            CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, isAtStart: true);
         }
 
         /*******************************************************************/

@@ -9,13 +9,15 @@ namespace MythosAndHorrors.GameRules
         public Func<Investigator, Task> Logic { get; }
         public Func<Investigator, bool> Condition { get; }
         public bool IsDisable { get; private set; }
+        public bool WithOportunityAttack { get; }
 
         /*******************************************************************/
-        public Activation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition)
+        public Activation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool withOportunityAttack = true)
         {
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;
             Condition = condition;
+            WithOportunityAttack = activateTurnsCost.Value > 0 && withOportunityAttack;
         }
 
         /*******************************************************************/

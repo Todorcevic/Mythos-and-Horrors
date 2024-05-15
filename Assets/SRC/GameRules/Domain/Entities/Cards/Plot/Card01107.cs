@@ -13,9 +13,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        IEnumerable<CardCreature> GhoulsToMove => _cardsProvider.AllCards.OfType<CardCreature>()
+        IEnumerable<CardCreature> GhoulsToMove() => _cardsProvider.AllCards.OfType<CardCreature>()
               .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
-        IEnumerable<Investigator> InvestigatorsUnresignes => _investigatorsProvider.AllInvestigators
+        IEnumerable<Investigator> InvestigatorsUnresignes() => _investigatorsProvider.AllInvestigators
               .Where(investigator => !investigator.Resign.IsActive);
 
         /*******************************************************************/

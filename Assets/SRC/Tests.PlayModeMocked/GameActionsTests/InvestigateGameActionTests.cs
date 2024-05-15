@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class InvestigateGameActionTests : TestCORE1PlayModeBase
+    public class GameActionInvestigateTests : TestCORE1PlayModeBase
     {
         [UnityTest]
         public IEnumerator InvestigatePlace()
         {
+            CardPlace place = _preparationSceneCORE1.SceneCORE1.Study;
+            Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
-            yield return _preparationSceneCORE1.PlayThisInvestigator(_investigatorsProvider.First).AsCoroutine();
-            CardPlace place = _cardsProvider.GetCard<Card01111>();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, place)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, place)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             FakeInteractablePresenter.ClickedIn(place);

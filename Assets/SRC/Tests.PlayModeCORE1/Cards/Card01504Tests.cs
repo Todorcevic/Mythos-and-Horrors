@@ -51,5 +51,33 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return taskGameAction.AsCoroutine();
             Assert.That(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz.Health.Value, Is.EqualTo(1));
         }
+
+        [UnityTest]
+        public IEnumerator OpportunityAttackAnyCreatureWithSafeForeachAndEliminate()
+        {
+            CardPlace place = _cardsProvider.GetCard<Card01111>();
+            Investigator investigator = _investigatorsProvider.Fourth;
+            CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
+            CardCreature creature2 = _preparationSceneCORE1.SceneCORE1.GhoulVoraz;
+            MustBeRevealedThisToken(ChallengeTokenType.Value1);
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, place)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature2, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToCardGameAction(creature2, investigator.InvestigatorCard, amountDamage: 2)).AsCoroutine();
+
+            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            if (!DEBUG_MODE) yield return WaitToClick(place);
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.InvestigatorCard);
+            if (!DEBUG_MODE) yield return WaitToClick(investigator.InvestigatorCard);
+            if (!DEBUG_MODE) yield return WaitToClick(creature2);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+        }
     }
 }

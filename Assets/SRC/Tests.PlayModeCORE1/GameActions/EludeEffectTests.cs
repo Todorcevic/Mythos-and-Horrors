@@ -15,13 +15,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator EludeEffectTest()
         {
             CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
-
+            MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(creature);
             if (!DEBUG_MODE) yield return WaitToCloneClick(1);
+            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             yield return gameActionTask.AsCoroutine();

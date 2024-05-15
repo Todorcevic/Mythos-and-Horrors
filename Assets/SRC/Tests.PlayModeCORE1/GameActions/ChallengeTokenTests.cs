@@ -23,6 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, _investigatorsProvider.First.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(_investigatorsProvider.First)) == null) yield return null;
@@ -45,6 +46,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
@@ -69,6 +71,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
@@ -78,7 +81,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -92,6 +95,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
@@ -106,8 +110,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-4));
-            Assert.That(investigator.FearRecived, Is.EqualTo(3));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(4));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -121,6 +125,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
@@ -130,7 +135,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-2));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -144,6 +149,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_preparationSceneCORE1.SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             if (!DEBUG_MODE) yield return WaitToClick(investigator.CurrentPlace);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToMainButtonClick();
 
             while (_gameActionsProvider.CurrentChallenge?.TokensRevealed?.Sum(token => token.Value.Invoke(investigator)) == null) yield return null;
@@ -153,8 +159,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengeValue, Is.EqualTo(-4));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
         }
     }
 }

@@ -8,9 +8,10 @@ namespace MythosAndHorrors.GameRules
         public Func<T, bool> Condition { get; }
         public Func<T, Task> Logic { get; }
         public bool IsDisable { get; private set; }
+        public string Description => Logic.Method.Name;
 
         /*******************************************************************/
-        public Reaction( Func<T, bool> condition, Func<T, Task> logic)
+        public Reaction(Func<T, bool> condition, Func<T, Task> logic)
         {
             Condition = condition;
             Logic = logic;

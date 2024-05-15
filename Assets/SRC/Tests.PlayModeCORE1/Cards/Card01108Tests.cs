@@ -69,6 +69,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             if (!DEBUG_MODE) yield return WaitToTokenClick();
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Leader.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToClick(cardGoal);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
             if (!DEBUG_MODE) yield return WaitToUndoClick();

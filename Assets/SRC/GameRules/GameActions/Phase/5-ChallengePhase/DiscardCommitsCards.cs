@@ -10,9 +10,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        private IEnumerable<Card> AllCommitableCards => _chaptersProvider.CurrentScene.LimboZone.Cards
+        private IEnumerable<Card> AllCommitableCards() => _chaptersProvider.CurrentScene.LimboZone.Cards
             .OfType<ICommitable>().Cast<Card>();
-        public override bool CanBeExecuted => AllCommitableCards.Count() > 0;
+        public override bool CanBeExecuted => AllCommitableCards().Count() > 0;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

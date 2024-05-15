@@ -29,13 +29,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            List<Card> allSelectables = new();
+            List<Card> allSelectables = new() { ActiveInvestigator.InvestigatorCard };
 
             if (AmountDamage > 0)
-                allSelectables.AddRange(ActiveInvestigator.CardsInPlay.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
+                allSelectables.AddRange(ActiveInvestigator.AidZone.Cards.OfType<IDamageable>().Cast<Card>().Except(allSelectables));
 
             if (AmountFear > 0)
-                allSelectables.AddRange(ActiveInvestigator.CardsInPlay.OfType<IFearable>().Cast<Card>().Except(allSelectables));
+                allSelectables.AddRange(ActiveInvestigator.AidZone.Cards.OfType<IFearable>().Cast<Card>().Except(allSelectables));
 
             foreach (Card cardSelectable in allSelectables)
             {

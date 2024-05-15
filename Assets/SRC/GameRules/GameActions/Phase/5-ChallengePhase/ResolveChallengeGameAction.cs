@@ -20,13 +20,13 @@ namespace MythosAndHorrors.GameRules
         {
             if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Count > 0)
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(ChallengePhaseGameAction.SuccesEffects, ExecuteEffect));
+                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(() => ChallengePhaseGameAction.SuccesEffects, ExecuteEffect));
 
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }
             else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Count > 0)
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(ChallengePhaseGameAction.FailEffects, ExecuteEffect));
+                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(() => ChallengePhaseGameAction.FailEffects, ExecuteEffect));
 
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }

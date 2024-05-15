@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Discard()
                 {
-                    await _gameActionsProvider.Create(new SafeForeach<Card>(Owner.HandZone.Cards.Where(card => card.CanDiscard).Except(new[] { card }), Logic));
+                    await _gameActionsProvider.Create(new SafeForeach<Card>(() => Owner.HandZone.Cards.Where(card => card.CanDiscard).Except(new[] { card }), Logic));
 
                     async Task Logic(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
                 }

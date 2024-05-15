@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using UnityEngine;
+
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -15,21 +17,28 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         public void ClickedUndoButton()
         {
+            if (_gameActionsProvider.CurrentInteractable.UndoEffect == null)
+                throw new InvalidOperationException("UndoEffect is null");
             waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.UndoEffect);
         }
 
         public void ClickedMainButton()
         {
+            if (_gameActionsProvider.CurrentInteractable.MainButtonEffect == null)
+                throw new InvalidOperationException("MainButtonEffect is null");
             waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.MainButtonEffect);
         }
 
         public void ClickedIn(Card cardSelected)
         {
-            waitForClicked.SetResult(cardSelected.PlayableEffects.First());
+            Effect effect = cardSelected.PlayableEffects.FirstOrDefault() ?? throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
+            waitForClicked.SetResult(effect);
         }
 
         public void ClickedIn(Effect effectSelected)
         {
+            if (effectSelected == null)
+                throw new InvalidOperationException("Effect is null");
             waitForClicked.SetResult(effectSelected);
         }
 

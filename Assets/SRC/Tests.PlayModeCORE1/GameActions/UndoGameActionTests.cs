@@ -78,7 +78,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
             if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.CardAidToDraw);
+            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.First.InvestigatorCard);
 
             yield return gameActionTask.AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();

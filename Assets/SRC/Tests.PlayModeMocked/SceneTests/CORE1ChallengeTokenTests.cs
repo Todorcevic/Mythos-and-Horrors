@@ -39,6 +39,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
+            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
             FakeInteractablePresenter.ClickedMainButton();
             FakeInteractablePresenter.ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
@@ -78,7 +79,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -94,7 +95,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(tokenValue.Result, Is.EqualTo(0));
             Assert.That(totalTokensRevealed.Result.totalTokenAmount, Is.EqualTo(2));
             Assert.That(totalTokensRevealed.Result.totalTokenValue, Is.EqualTo(-2));
-            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -106,7 +107,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-2));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -118,8 +119,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-4));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
         }
     }
 }

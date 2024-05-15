@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         private CardPlace Attic => _cardsProvider.GetCard<Card01113>();
         private CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
-        private IEnumerable<CardCreature> CreaturesInStudy => _cardsProvider.AllCards.OfType<CardCreature>()
+        private IEnumerable<CardCreature> CreaturesInStudy() => _cardsProvider.AllCards.OfType<CardCreature>()
           .Where(cardCreature => cardCreature.CurrentPlace == Study);
 
         /*******************************************************************/

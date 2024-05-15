@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
 
         public State AbilityUsed { get; private set; }
 
-        private IEnumerable<Card> TomesInPlay => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
+        private IEnumerable<Card> TomesInPlay() => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
         public override IEnumerable<Tag> Tags => new[] { Tag.Miskatonic };
 
         /*******************************************************************/
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
                     {
                         int realTurnsCost = activation.ActivateTurnsCost.Value;
                         await _gameActionsProvider.Create(new DecrementStatGameAction(activation.ActivateTurnsCost, 1));
-                        await _gameActionsProvider.Create(new ActivateCardGameAction(activation, activeInvestigator));
+                        await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, activeInvestigator));
                         await _gameActionsProvider.Create(new UpdateStatGameAction(activation.ActivateTurnsCost, realTurnsCost));
                         await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
                     }

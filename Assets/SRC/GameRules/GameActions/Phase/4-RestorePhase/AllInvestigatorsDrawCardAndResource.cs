@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(_investigatorsProvider.AllInvestigatorsInPlay, DrawAndGainResource));
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => _investigatorsProvider.AllInvestigatorsInPlay, DrawAndGainResource));
         }
 
         /*******************************************************************/

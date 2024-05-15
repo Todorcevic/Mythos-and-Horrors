@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(_cardsProvider.AttackerCreatures, Attack));
+            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => _cardsProvider.AttackerCreatures, Attack));
 
             /*******************************************************************/
             async Task Attack(CardCreature cardCreature) =>
