@@ -18,14 +18,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01504>();
             Investigator investigatorToTest = cardInvestigator.Owner;
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
-            yield return _preparationSceneCORE1.PlaceAllScene().AsCoroutine();
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest).AsCoroutine();
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(investigatorToTest.Sanity, 3)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.CurrentPlace);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigatorToTest.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(tokenValue.Result, Is.EqualTo(3));
@@ -41,8 +41,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, creature, amountFear: 3, isDirect: true));
-            FakeInteractablePresenter.ClickedIn(cardInvestigator);
-            FakeInteractablePresenter.ClickedIn(creature);
+            yield return ClickedIn(cardInvestigator);
+            yield return ClickedIn(creature);
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(creature.Health.Value, Is.EqualTo(1));

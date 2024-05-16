@@ -15,7 +15,7 @@ namespace Zenject
     {
         private bool _hasLoadedScene;
 
-        protected static DiContainer SceneContainer { get; private set; }
+        protected static DiContainer SceneContainer { get; set; }
 
         public IEnumerator LoadScene(string unitySceneName, Action actionInstaller = null)
         {

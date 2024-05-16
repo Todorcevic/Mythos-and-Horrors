@@ -1,6 +1,5 @@
 ﻿using MythosAndHorrors.GameRules;
 using System.Collections;
-using UnityEngine;
 using MythosAndHorrors.EditMode.Tests;
 
 namespace MythosAndHorrors.PlayMode.Tests
@@ -12,26 +11,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         public IEnumerator PlaceAllScene()
         {
-            float currentTimeScale = Time.timeScale;
-            Time.timeScale = 64;
-            yield return Preparation.PlaceAllScene().AsCoroutine();
-            Time.timeScale = currentTimeScale;
+            yield return Preparation.PlaceAllScene().AsCoroutine().Fast();
         }
 
         public IEnumerator PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = false, bool withAvatar = true)
         {
-            float currentTimeScale = Time.timeScale;
-            Time.timeScale = 64;
-            yield return Preparation.PlayThisInvestigator(investigator, withCards, withResources, withAvatar).AsCoroutine();
-            Time.timeScale = currentTimeScale;
+            yield return Preparation.PlayThisInvestigator(investigator, withCards, withResources, withAvatar).AsCoroutine().Fast();
         }
 
         public IEnumerator PlayAllInvestigators(bool withCards = true, bool withResources = false, bool withAvatar = true)
         {
-            float currentTimeScale = Time.timeScale;
-            Time.timeScale = 64;
-            yield return Preparation.PlayAllInvestigators(withCards, withResources, withAvatar).AsCoroutine();
-            Time.timeScale = currentTimeScale;
+            yield return Preparation.PlayAllInvestigators(withCards, withResources, withAvatar).AsCoroutine().Fast();
         }
 
         public IEnumerator WasteTurnsInvestigator(Investigator investigator)

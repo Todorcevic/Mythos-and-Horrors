@@ -23,16 +23,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardPlace place = _preparationSceneCORE1.SceneCORE1.Cellar;
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             Task<ChallengePhaseGameAction> challengeResolved = CaptureResolvingChallenge();
-            yield return _preparationSceneCORE1.PlaceAllScene().AsCoroutine();
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: false).AsCoroutine();
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: false);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(AmuletoDeWendy, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.CurrentPlace);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigatorToTest.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(tokenValue.Result, Is.EqualTo(0));
@@ -48,15 +48,15 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01505>();
             Investigator investigatorToTest = cardInvestigator.Owner;
             Task<(int totalTokensAmount, int totalTokensValue)> challengeResolved = CaptureTotalTokensRevelaed();
-            yield return _preparationSceneCORE1.PlaceAllScene().AsCoroutine();
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: false).AsCoroutine();
+            yield return _preparationSceneCORE1.PlaceAllScene();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: false);
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.CurrentPlace);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedIn(cardInvestigator);
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.HandZone.Cards.First(card => card.CanBeDiscarded));
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigatorToTest.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedIn(cardInvestigator);
+            yield return ClickedIn(investigatorToTest.HandZone.Cards.First(card => card.CanBeDiscarded));
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(challengeResolved.Result.totalTokensValue, Is.EqualTo(1));

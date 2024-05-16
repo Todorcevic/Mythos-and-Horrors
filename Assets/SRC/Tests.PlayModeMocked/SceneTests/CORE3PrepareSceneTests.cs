@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareSceneTest()
         {
             SceneCORE3 scene = _preparationSceneCORE3.SceneCORE3;
-            yield return _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false).AsCoroutine();
+            yield return _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false);
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator PrepareSceneTest2()
         {
             SceneCORE3 scene = _preparationSceneCORE3.SceneCORE3;
-            yield return _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false).AsCoroutine();
+            yield return _preparationSceneCORE3.PlayAllInvestigators(withAvatar: false);
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.DrewInterrogate, true));
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.MaskedHunterInterrogate, true));

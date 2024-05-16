@@ -25,8 +25,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             monster = (CardCreature)_preparationSceneCORE3.SceneCORE3.Hastur.First();
             ancient = _preparationSceneCORE3.SceneCORE3.Urmodoth;
             tokenValue = CaptureTokenValue(investigator);
-            yield return _preparationSceneCORE3.PlaceAllScene().AsCoroutine();
-            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator).AsCoroutine();
+            yield return _preparationSceneCORE3.PlaceAllScene();
+            yield return _preparationSceneCORE3.PlayThisInvestigator(investigator);
         }
 
         /*******************************************************************/
@@ -39,19 +39,19 @@ namespace MythosAndHorrors.PlayMode.Tests
         private IEnumerator ExecuteChallenge()
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
         }
 
         private IEnumerator ExecuteChallengeWithOpportunityAttack()
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
-            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedIn(investigator.InvestigatorCard);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
         }
 

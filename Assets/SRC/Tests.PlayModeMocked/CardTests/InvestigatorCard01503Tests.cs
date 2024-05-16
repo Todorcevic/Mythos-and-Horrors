@@ -17,14 +17,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Investigator investigatorToTest = _investigatorsProvider.Third;
             CardPlace place = _preparationSceneCORE1.SceneCORE1.Cellar;
-            yield return _preparationSceneCORE1.StartingScene().AsCoroutine();
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
             int resutlExpected = investigatorToTest.Resources.Value + 2;
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(place);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(place);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(resutlExpected));
@@ -35,12 +35,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator GainExtraTurn()
         {
             Investigator investigatorToTest = _investigatorsProvider.Third;
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: true).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withResources: true);
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.InvestigatorCard);
+            yield return ClickedIn(investigatorToTest.InvestigatorCard);
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(4));
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));

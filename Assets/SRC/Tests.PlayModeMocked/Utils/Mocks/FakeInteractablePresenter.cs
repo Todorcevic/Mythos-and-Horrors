@@ -3,57 +3,70 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using System.Collections;
 using UnityEngine;
-
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
     public class FakeInteractablePresenter : IInteractablePresenter
     {
+        private const float TIMEOUT = 3f;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private TaskCompletionSource<Effect> waitForClicked = new();
 
         /*******************************************************************/
-        public void ClickedUndoButton()
+        public IEnumerator ClickedUndoButton()
         {
-            if (_gameActionsProvider.CurrentInteractable.UndoEffect == null)
-                throw new InvalidOperationException("UndoEffect is null");
-            waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.UndoEffect);
+            float startTime = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !UndoButtonIsEnable()) yield return null;
+            if (UndoButtonIsEnable()) waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.UndoEffect);
+            else throw new InvalidOperationException("CurrentInteractable is null");
+
+            bool UndoButtonIsEnable() => _gameActionsProvider.CurrentInteractable.UndoEffect != null;
         }
 
-        public void ClickedMainButton()
+        public IEnumerator ClickedMainButton()
         {
-            if (_gameActionsProvider.CurrentInteractable.MainButtonEffect == null)
-                throw new InvalidOperationException("MainButtonEffect is null");
-            waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.MainButtonEffect);
+            float startTime = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !MainButtonIsEnable()) yield return null;
+            if (MainButtonIsEnable()) waitForClicked.SetResult(_gameActionsProvider.CurrentInteractable.MainButtonEffect);
+            else throw new InvalidOperationException("MainButtonEffect is null");
+
+            bool MainButtonIsEnable() => _gameActionsProvider.CurrentInteractable.MainButtonEffect != null;
         }
 
-        public void ClickedTokenButton()
+        public IEnumerator ClickedTokenButton()
         {
-            if (_gameActionsProvider.CurrentInteractable is not OneInvestigatorTurnGameAction oneTurnGameAction)
-                throw new InvalidOperationException("Not interactableGameAction");
-            if (oneTurnGameAction.TakeResourceEffect == null)
-                throw new InvalidOperationException("TakeResourceEffect is null");
-            waitForClicked.SetResult(oneTurnGameAction.TakeResourceEffect);
+            float startTime = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !TakeResourceIsEnable()) yield return null;
+            if (_gameActionsProvider.CurrentInteractable is OneInvestigatorTurnGameAction oneTurn && TakeResourceIsEnable())
+                waitForClicked.SetResult(oneTurn.TakeResourceEffect);
+            else throw new InvalidOperationException("TakeResourceEffect is null");
+
+            bool TakeResourceIsEnable() => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect != null;
         }
 
-        public void ClickedIn(Card cardSelected)
+        public IEnumerator ClickedIn(Card cardSelected)
         {
-            Effect effect = cardSelected.PlayableEffects.FirstOrDefault() ?? throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
+            float startTime = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - startTime < TIMEOUT && !AnyEffectInCard()) yield return null;
+            Effect effect = cardSelected.PlayableEffects?.FirstOrDefault() ?? throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
             waitForClicked.SetResult(effect);
+
+            bool AnyEffectInCard() => cardSelected.PlayableEffects?.Any() ?? false;
         }
 
-        public void ClickedIn(Effect effectSelected)
-        {
-            if (effectSelected == null)
-                throw new InvalidOperationException("Effect is null");
-            waitForClicked.SetResult(effectSelected);
-        }
+        //public void ClickedIn(Effect effectSelected)
+        //{
+        //    if (effectSelected == null)
+        //        throw new InvalidOperationException("Effect is null");
+        //    waitForClicked.SetResult(effectSelected);
+        //}
 
         public async Task<Effect> SelectWith(GameAction gamAction)
         {
-            await Task.WhenAny(waitForClicked.Task, Task.Delay(100));
+            await Task.WhenAny(waitForClicked.Task, Task.Delay(3000));
 
             if (!waitForClicked.Task.IsCompleted)
                 throw new TimeoutException("The operation has exceeded. Timeout.");

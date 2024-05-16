@@ -8,6 +8,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class InvestigatorCard01501Tests : TestCORE1PlayModeBase
     {
+        protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()
         {
@@ -15,14 +17,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigatorToTest = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withAvatar: false).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigatorToTest, withAvatar: false);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
-            FakeInteractablePresenter.ClickedIn(place);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(place);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(tokenValue.Result, Is.EqualTo(8));
@@ -33,11 +35,11 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             Investigator investigatorToTest = _investigatorsProvider.First;
             CardCreature cardCreature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
-            yield return _preparationSceneCORE1.StartingScene().AsCoroutine();
+            yield return _preparationSceneCORE1.StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, investigatorToTest.DangerZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, investigatorToTest.InvestigatorCard, amountDamage: 5));
-            FakeInteractablePresenter.ClickedIn(investigatorToTest.InvestigatorCard);
+            yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));

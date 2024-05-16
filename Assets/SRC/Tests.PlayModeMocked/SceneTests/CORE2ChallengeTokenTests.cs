@@ -26,8 +26,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             acolit = _preparationSceneCORE2.SceneCORE2.Acolits.ElementAt(0);
             acolit2 = _preparationSceneCORE2.SceneCORE2.Acolits.ElementAt(1);
             tokenValue = CaptureTokenValue(investigator);
-            yield return _preparationSceneCORE2.PlaceAllScene().AsCoroutine();
-            yield return _preparationSceneCORE2.PlayThisInvestigator(investigator).AsCoroutine();
+            yield return _preparationSceneCORE2.PlaceAllScene();
+            yield return _preparationSceneCORE2.PlayThisInvestigator(investigator);
         }
 
         /*******************************************************************/
@@ -40,9 +40,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         private IEnumerator ExecuteChallenge()
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            FakeInteractablePresenter.ClickedIn(investigator.CurrentPlace);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
         }
 

@@ -9,8 +9,8 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Reflection;
+using UnityEngine.UI;
 using UnityEngine;
-using System.Drawing;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -24,13 +24,14 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly CardsProvider _cardsProvider;
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
+        [Inject] protected readonly ShowHistoryComponent _showHistoryComponent;
+        [Inject] protected readonly RegisterChapterComponent _registerChapterComponent;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
         private static string currentSceneName;
         protected abstract string JSON_SAVE_DATA_PATH { get; }
-        protected virtual bool DEBUG_MODE => false;
-        protected FakeInteractablePresenter FakeInteractablePresenter => (FakeInteractablePresenter)_interactablePresenter;
-        protected static new DiContainer SceneContainer { get; private set; }
+        protected virtual string SCENE_NAME => "GamePlayCORE1";
+        protected virtual TestsType TestsType => TestsType.Debug;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -39,11 +40,21 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (currentSceneName != JSON_SAVE_DATA_PATH)
             {
                 currentSceneName = JSON_SAVE_DATA_PATH;
-                LoadContainer();
-                if (DEBUG_MODE) InitializeTextForConsole();
-                _prepareGameRulesUseCase.Execute();
+                if (TestsType == TestsType.Debug)
+                {
+                    InstallerToScene();
+                    yield return LoadScene(SCENE_NAME, InstallerToTests);
+                }
+                else
+                {
+                    LoadContainer();
+                    _prepareGameRulesUseCase.Execute();
+                }
+                AlwaysHistoryPanelClick().AsTask();
+                AlwaysRegisterPanelClick().AsTask();
             }
             else SceneContainer?.Inject(this);
+
             yield return null;
         }
 
@@ -58,18 +69,30 @@ namespace MythosAndHorrors.PlayMode.Tests
         [UnityTearDown]
         public override IEnumerator TearDown()
         {
-            yield return _gameActionsProvider.Rewind().AsCoroutine();
+            yield return _gameActionsProvider.Rewind().AsCoroutine().Fast();
+        }
+
+        private void InstallerToScene()
+        {
+            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
+            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
         }
 
         private void InstallerToTests()
         {
-            SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-            SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
             SceneContainer.Bind<PreparationSceneCORE1>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE2>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE3>().AsSingle();
-            SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
-            BindAllFakePresenters();
+            SceneContainer.Bind<PreparationSceneCORE1PlayModeAdapted>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE2PlayModeAdapted>().AsSingle();
+            SceneContainer.Bind<PreparationSceneCORE3PlayModeAdapted>().AsSingle();
+            if (TestsType != TestsType.Debug)
+            {
+                SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
+                SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+                SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
+                BindAllFakePresenters();
+            }
 
             static void BindAllFakePresenters()
             {
@@ -157,42 +180,54 @@ namespace MythosAndHorrors.PlayMode.Tests
             return (challenge.TokensRevealed.Count(), challenge.TotalTokenValue);
         });
 
-        private void InitializeTextForConsole()
+        /*******************************************************************/
+        protected IEnumerator ClickedIn(Card card)
         {
-            ShowCurrentGameActionInConsole();
-            ShowCurrentEffectInConsole();
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                yield return fakeInteractable.ClickedIn(card);
         }
 
-        private void ShowCurrentGameActionInConsole()
+        protected IEnumerator ClickedMainButton()
         {
-            _reactionablesProvider.CreateReaction<GameAction>((_) => true, ShowMesaggeInConsole, isAtStart: true);
-
-            /*******************************************************************/
-            static async Task ShowMesaggeInConsole(GameAction action)
-            {
-                Debug.Log("<color=#FFA500>* GameAction: " + action.GetType().Name + "\n</color>");
-                await Task.CompletedTask;
-            }
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                yield return fakeInteractable.ClickedMainButton();
         }
 
-        private void ShowCurrentEffectInConsole()
+        protected IEnumerator ClickedTokenButton()
         {
-            _reactionablesProvider.CreateReaction<PlayEffectGameAction>((_) => true, ShowMesaggeInConsole, isAtStart: true);
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                yield return fakeInteractable.ClickedTokenButton();
+        }
 
-            /*******************************************************************/
-            static async Task ShowMesaggeInConsole(PlayEffectGameAction playEffectGameAction)
-            {
-                InteractableGameAction interactable = (InteractableGameAction)playEffectGameAction.Parent;
-                Debug.Log("<color=cyan>** All Effects: \n</color>");
-                foreach (Effect effect in interactable.AllEffects
-                    .Append(interactable.UndoEffect).Append(interactable.MainButtonEffect))
-                {
-                    Debug.Log("<color=cyan>---- " + effect?.Description + "\n</color>");
-                }
+        protected IEnumerator ClickedUndoButton()
+        {
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                yield return fakeInteractable.ClickedUndoButton();
+        }
 
-                Debug.Log("<color=yellow>**** EffectPressed: " + playEffectGameAction.Effect.Description + "\n</color>");
-                await Task.CompletedTask;
-            }
+        /*******************************************************************/
+        protected IEnumerator AlwaysHistoryPanelClick()
+        {
+            Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
+            while (!historyButton.interactable) yield return null;
+
+            if (historyButton.interactable) historyButton.onClick.Invoke();
+            else throw new TimeoutException("History Button Not become clickable");
+
+            while (historyButton.interactable) yield return null;
+            yield return AlwaysHistoryPanelClick();
+        }
+
+        protected IEnumerator AlwaysRegisterPanelClick()
+        {
+            Button registerButton = _registerChapterComponent.GetPrivateMember<Button>("_button");
+            while (!registerButton.interactable) yield return null;
+
+            if (registerButton.interactable) registerButton.onClick.Invoke();
+            else throw new TimeoutException("Register Button Not become clickable");
+
+            while (registerButton.interactable) yield return null;
+            yield return AlwaysRegisterPanelClick();
         }
     }
 }

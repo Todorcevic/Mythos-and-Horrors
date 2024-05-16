@@ -18,7 +18,6 @@ namespace MythosAndHorrors.EditMode.Tests
 
         public async Task PlayThisInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
-
             await _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, withCards)));
             if (withResources)
                 await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));

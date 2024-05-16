@@ -80,5 +80,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         private class JustForCoroutine : MonoBehaviour { }
+
+        public static IEnumerator Fast(this IEnumerator coroutine)
+        {
+            float currentTimeScale = Time.timeScale;
+            Time.timeScale = 64;
+            yield return coroutine;
+            Time.timeScale = currentTimeScale;
+        }
     }
 }

@@ -16,16 +16,16 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature creature = _preparationSceneCORE1.SceneCORE1.GhoulSecuaz;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
 
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, place)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            FakeInteractablePresenter.ClickedIn(place);
-            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(place);
+            yield return ClickedIn(investigator.InvestigatorCard);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
 
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardCreature creature2 = _preparationSceneCORE1.SceneCORE1.GhoulVoraz;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
 
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator).AsCoroutine();
+            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, place)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
@@ -50,12 +50,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return _gameActionsProvider.Create(new HarmToCardGameAction(creature2, investigator.InvestigatorCard, amountDamage: 2)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            FakeInteractablePresenter.ClickedIn(place);
-            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
-            FakeInteractablePresenter.ClickedIn(investigator.InvestigatorCard);
-            FakeInteractablePresenter.ClickedIn(creature2);
-            FakeInteractablePresenter.ClickedMainButton();
-            FakeInteractablePresenter.ClickedMainButton();
+            yield return ClickedIn(place);
+            yield return ClickedIn(investigator.InvestigatorCard);
+            yield return ClickedIn(investigator.InvestigatorCard);
+            yield return ClickedIn(creature2);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
 
