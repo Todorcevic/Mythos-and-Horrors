@@ -8,8 +8,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class InvestigatorCard01501Tests : TestCORE1PlayModeBase
     {
-        protected override TestsType TestsType => TestsType.Debug;
-
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()
         {

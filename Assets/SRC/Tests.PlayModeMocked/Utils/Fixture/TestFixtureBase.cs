@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Reflection;
 using UnityEngine.UI;
+using System.Threading;
 using UnityEngine;
+using DG.Tweening;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -24,14 +26,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly CardsProvider _cardsProvider;
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
-        [Inject] protected readonly ShowHistoryComponent _showHistoryComponent;
-        [Inject] protected readonly RegisterChapterComponent _registerChapterComponent;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
         private static string currentSceneName;
         protected abstract string JSON_SAVE_DATA_PATH { get; }
         protected virtual string SCENE_NAME => "GamePlayCORE1";
-        protected virtual TestsType TestsType => TestsType.Debug;
+        protected virtual TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         [UnitySetUp]
@@ -40,42 +40,33 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (currentSceneName != JSON_SAVE_DATA_PATH)
             {
                 currentSceneName = JSON_SAVE_DATA_PATH;
-                if (TestsType == TestsType.Debug)
+                if (TestsType == TestsType.Unit)
                 {
-                    InstallerToScene();
-                    yield return LoadScene(SCENE_NAME, InstallerToTests);
+                    SceneContainer = new();
+                    SceneContainer.Install<InjectionService>();
+                    InstallerToTests();
+                    InstallerToSceneInUnitMode();
+                    InstallFakes();
+                    SceneContainer?.Inject(this);
+                    _prepareGameRulesUseCase.Execute();
                 }
                 else
                 {
-                    LoadContainer();
-                    _prepareGameRulesUseCase.Execute();
+                    if (TestsType == TestsType.Integration)
+                    {
+                        Time.timeScale = 64;
+                        DOTween.SetTweensCapacity(1250, 312);
+                    }
+                    yield return base.TearDown();
+                    InstallerToSceneInDebugMode();
+                    yield return LoadScene(SCENE_NAME, InstallerToTests);
+                    AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
+                    AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
                 }
-                AlwaysHistoryPanelClick().AsTask();
-                AlwaysRegisterPanelClick().AsTask();
             }
             else SceneContainer?.Inject(this);
 
             yield return null;
-        }
-
-        private void LoadContainer()
-        {
-            SceneContainer = new();
-            SceneContainer.Install<InjectionService>();
-            InstallerToTests();
-            SceneContainer?.Inject(this);
-        }
-
-        [UnityTearDown]
-        public override IEnumerator TearDown()
-        {
-            yield return _gameActionsProvider.Rewind().AsCoroutine().Fast();
-        }
-
-        private void InstallerToScene()
-        {
-            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
         }
 
         private void InstallerToTests()
@@ -86,13 +77,24 @@ namespace MythosAndHorrors.PlayMode.Tests
             SceneContainer.Bind<PreparationSceneCORE1PlayModeAdapted>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE2PlayModeAdapted>().AsSingle();
             SceneContainer.Bind<PreparationSceneCORE3PlayModeAdapted>().AsSingle();
-            if (TestsType != TestsType.Debug)
-            {
-                SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-                SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-                SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
-                BindAllFakePresenters();
-            }
+        }
+
+        private void InstallerToSceneInDebugMode()
+        {
+            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
+            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+        }
+
+        private void InstallerToSceneInUnitMode()
+        {
+            SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
+            SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+        }
+
+        private void InstallFakes()
+        {
+            SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
+            BindAllFakePresenters();
 
             static void BindAllFakePresenters()
             {
@@ -114,6 +116,13 @@ namespace MythosAndHorrors.PlayMode.Tests
                     }
                 }
             }
+        }
+
+
+        [UnityTearDown]
+        public override IEnumerator TearDown()
+        {
+            yield return _gameActionsProvider.Rewind().AsCoroutine().Fast();
         }
 
         /*******************************************************************/
@@ -181,32 +190,79 @@ namespace MythosAndHorrors.PlayMode.Tests
         });
 
         /*******************************************************************/
+        private const float TIMEOUT = 3f;
         protected IEnumerator ClickedIn(Card card)
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 yield return fakeInteractable.ClickedIn(card);
+            else if (TestsType == TestsType.Integration)
+            {
+                CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
+                float startTime = Time.realtimeSinceStartup;
+                CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
+
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+
+                if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+                else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
         }
 
         protected IEnumerator ClickedMainButton()
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 yield return fakeInteractable.ClickedMainButton();
+            else if (TestsType == TestsType.Integration)
+            {
+                MainButtonComponent _mainButtonComponent = SceneContainer.Resolve<MainButtonComponent>();
+                float startTime = Time.realtimeSinceStartup;
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
+
+                if (_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) _mainButtonComponent.OnMouseUpAsButton();
+                else throw new TimeoutException("Main Button Not become clickable");
+
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
         }
 
         protected IEnumerator ClickedTokenButton()
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 yield return fakeInteractable.ClickedTokenButton();
+            else if (TestsType == TestsType.Integration)
+            {
+                TokensPileComponent tokensPileComponent = SceneContainer.Resolve<TokensPileComponent>();
+                float startTime = Time.realtimeSinceStartup;
+
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !tokensPileComponent.GetPrivateMember<bool>("_isClickable")) yield return null;
+
+                if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
+                else throw new TimeoutException($"Tokenpile Not become clickable");
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
         }
 
         protected IEnumerator ClickedUndoButton()
         {
+
+
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 yield return fakeInteractable.ClickedUndoButton();
+            else if (TestsType == TestsType.Integration)
+            {
+                UndoGameActionButton _undoGameActionButton = SceneContainer.Resolve<UndoGameActionButton>();
+                while (!_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) yield return null;
+
+                if (_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) _undoGameActionButton.OnPointerClick(null);
+                else throw new TimeoutException("Main Button Not become clickable");
+
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
         }
 
         /*******************************************************************/
-        protected IEnumerator AlwaysHistoryPanelClick()
+        protected IEnumerator AlwaysHistoryPanelClick(ShowHistoryComponent _showHistoryComponent)
         {
             Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
             while (!historyButton.interactable) yield return null;
@@ -215,10 +271,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             else throw new TimeoutException("History Button Not become clickable");
 
             while (historyButton.interactable) yield return null;
-            yield return AlwaysHistoryPanelClick();
+            yield return AlwaysHistoryPanelClick(_showHistoryComponent);
         }
 
-        protected IEnumerator AlwaysRegisterPanelClick()
+        protected IEnumerator AlwaysRegisterPanelClick(RegisterChapterComponent _registerChapterComponent)
         {
             Button registerButton = _registerChapterComponent.GetPrivateMember<Button>("_button");
             while (!registerButton.interactable) yield return null;
@@ -227,7 +283,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             else throw new TimeoutException("Register Button Not become clickable");
 
             while (registerButton.interactable) yield return null;
-            yield return AlwaysRegisterPanelClick();
+            yield return AlwaysRegisterPanelClick(_registerChapterComponent);
         }
     }
 }
