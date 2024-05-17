@@ -58,12 +58,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             bool TakeResourceIsEnable() => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect != null;
         }
 
-        public IEnumerator ClickedIn(Card cardSelected)
+        public IEnumerator ClickedIn(Card cardSelected, int position = 0)
         {
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !AnyEffectInCard()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            Effect effect = cardSelected.PlayableEffects?.FirstOrDefault() ??
+            Effect effect = cardSelected.PlayableEffects?.ElementAtOrDefault(position) ??
                 throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable) yield return null;

@@ -49,16 +49,16 @@ namespace MythosAndHorrors.PlayMode.Tests
                 }
                 else
                 {
-                    if (TestsType == TestsType.Integration)
-                    {
-                        Time.timeScale = 64;
-                        DOTween.SetTweensCapacity(1250, 312);
-                    }
                     ClearContainer();
                     InstallerToSceneInDebugMode();
                     yield return LoadScene(SCENE_NAME);
                     AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
                     AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
+                    if (TestsType == TestsType.Integration)
+                    {
+                        Time.timeScale = 64;
+                        DOTween.SetTweensCapacity(1250, 312);
+                    }
                 }
             }
             else SceneContainer?.Inject(this);
@@ -89,17 +89,13 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 foreach (Type type in gameActionTypes)
                 {
-                    BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-                    FieldInfo[] campos = type.GetFields(flags);
-
-                    foreach (FieldInfo campo in campos)
+                    foreach (FieldInfo campo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                        .Where(campo => campo.FieldType.IsGenericType
+                            && campo.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>)
+                            && campo.FieldType.GetGenericArguments()[0] == type))
                     {
-                        if (campo.FieldType.IsGenericType &&
-                            campo.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>) && campo.FieldType.GetGenericArguments()[0] == type)
-                        {
-                            Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
-                            SceneContainer.Rebind(campo.FieldType).To(genericToBind).AsCached();
-                        }
+                        Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
+                        SceneContainer.Rebind(campo.FieldType).To(genericToBind).AsCached();
                     }
                 }
             }
@@ -176,6 +172,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             return (challenge.TokensRevealed.Count(), challenge.TotalTokenValue);
         });
 
+        protected Task<int> CaptureTotalChallengeValue() => Task.Run(async () =>
+        {
+            ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
+            return challenge.TotalChallengeValue;
+        });
+
         /*******************************************************************/
         private const float TIMEOUT = 3f;
         protected IEnumerator ClickedIn(Card card)
@@ -192,6 +194,29 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
                 else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
+        }
+
+        protected IEnumerator ClickedClone(Card card, int position)
+        {
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                yield return fakeInteractable.ClickedIn(card, position);
+            else if (TestsType == TestsType.Integration)
+            {
+                yield return ClickedIn(card);
+                MultiEffectHandler _multiEffectHandler = SceneContainer.Resolve<MultiEffectHandler>();
+                float startTime = Time.realtimeSinceStartup;
+                while (_gameActionsProvider.CurrentInteractable == null) yield return null;
+                while (_multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
+
+                CardView cardView = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones")[position] as CardView;
+                CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
+
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+
+                if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+                else throw new TimeoutException($"Clone position: {position} Not become clickable");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
         }
@@ -269,6 +294,16 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             while (registerButton.interactable) yield return null;
             yield return AlwaysRegisterPanelClick(_registerChapterComponent);
+        }
+
+        /*******************************************************************/
+
+        protected Card BuilCard(string cardCode)
+        {
+            Card bulletProof = SceneContainer.Resolve<CardLoaderUseCase>().Execute("01594");
+            if (TestsType != TestsType.Unit)
+                SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(bulletProof);
+            return bulletProof;
         }
     }
 }
