@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
+            CreateFreeActivation(PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
             CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);

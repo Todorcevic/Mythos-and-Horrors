@@ -55,5 +55,25 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
         }
+
+        [UnityTest]
+        public IEnumerator CancelFreeTurnToActivateTome()
+        {
+            Card tomeCard = _cardsProvider.GetCard<Card01535>();
+            Investigator investigatorToTest = _investigatorsProvider.Second;
+            yield return StartingScene();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
+            yield return ClickedIn(investigatorToTest.InvestigatorCard);
+            yield return ClickedUndoButton();
+
+            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
+
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+        }
     }
 }

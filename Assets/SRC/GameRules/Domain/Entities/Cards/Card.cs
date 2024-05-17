@@ -89,6 +89,11 @@ namespace MythosAndHorrors.GameRules
             return newActivation;
         }
 
+        protected Activation CreateFreeActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
+        {
+            return CreateActivation(CreateStat(0), logic, condition, isBase: isBase, withOpportunityAttck: false);
+        }
+
         protected Stat CreateStat(int value, bool canBeNegative = false)
         {
             Stat newStat = new(value, canBeNegative);

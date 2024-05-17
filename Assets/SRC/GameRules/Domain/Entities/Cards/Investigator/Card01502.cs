@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
+            CreateFreeActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
@@ -31,10 +31,11 @@ namespace MythosAndHorrors.GameRules
         public async Task FreeTomeActivationActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Owner.CurrentTurns, 1));
 
             foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))
             {
-                foreach (Activation activation in activable.AllActivations)
+                foreach (Activation activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition(activeInvestigator))
                         interactableGameAction.Create()
@@ -45,10 +46,10 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     async Task Activate()
                     {
-                        int realTurnsCost = activation.ActivateTurnsCost.Value;
-                        await _gameActionsProvider.Create(new DecrementStatGameAction(activation.ActivateTurnsCost, 1));
+                        //int realTurnsCost = activation.ActivateTurnsCost.Value;
+
                         await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, activeInvestigator));
-                        await _gameActionsProvider.Create(new UpdateStatGameAction(activation.ActivateTurnsCost, realTurnsCost));
+                        //await _gameActionsProvider.Create(new UpdateStatGameAction(activation.ActivateTurnsCost, realTurnsCost));
                         await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
                     }
                 }

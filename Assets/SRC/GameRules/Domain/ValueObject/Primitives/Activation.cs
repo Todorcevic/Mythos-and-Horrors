@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         public Func<Investigator, bool> Condition { get; }
         public bool IsDisable { get; private set; }
         public bool WithOportunityAttack { get; }
+        public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
         public Activation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool withOportunityAttack = true)
@@ -17,7 +18,7 @@ namespace MythosAndHorrors.GameRules
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;
             Condition = condition;
-            WithOportunityAttack = activateTurnsCost.Value > 0 && withOportunityAttack;
+            WithOportunityAttack = withOportunityAttack;
         }
 
         /*******************************************************************/

@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class BuffsTests : TestCORE1Preparation
     {
         [UnityTest]
-        public IEnumerator BuffTest()
+        public IEnumerator ApplyBuffTest()
         {
             Card cardWithBuff = _cardsProvider.GetCard<Card01530>();
             Investigator investigator = _investigatorsProvider.First;
