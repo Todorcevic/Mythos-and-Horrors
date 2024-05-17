@@ -64,5 +64,28 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(cardPlot.Eldritch.Value, Is.EqualTo(2));
             Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<EldritchStatView>("_eldritch").Stat.Value, Is.EqualTo(2));
         }
+
+
+        [UnityTest]
+        public IEnumerator Full_Hint_Stats()
+        {
+            CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
+            CardPlace place = _cardsProvider.GetCard<Card01112>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.PlaceZone[2, 2])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
+
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            yield return _gameActionsProvider.Create(new PayHintGameAction(_investigatorsProvider.First, cardGoal.Hints, 1)).AsCoroutine();
+
+
+            if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
+        }
+
     }
 }
