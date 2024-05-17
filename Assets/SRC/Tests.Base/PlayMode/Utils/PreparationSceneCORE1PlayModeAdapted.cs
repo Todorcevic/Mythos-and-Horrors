@@ -11,6 +11,6 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         public SceneCORE1 SceneCORE1 => _preparationSceneCORE1.SceneCORE1;
 
-        protected override Preparation Preparation => _preparationSceneCORE1;
+        protected override MythosAndHorrors.EditMode.Tests.Preparation Preparation => _preparationSceneCORE1;
     }
 }

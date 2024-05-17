@@ -6,7 +6,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public abstract class PreparationScenePlayModeAdapted
     {
-        protected abstract Preparation Preparation { get; }
+        protected abstract MythosAndHorrors.EditMode.Tests.Preparation Preparation { get; }
 
         /*******************************************************************/
         public IEnumerator PlaceAllScene()

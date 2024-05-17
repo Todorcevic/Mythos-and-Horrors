@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools;
 using Zenject.Internal;
 using Assert = ModestTree.Assert;
 
@@ -39,26 +38,12 @@ namespace Zenject
             while (!loader.isDone) yield return null;
         }
 
-        [UnitySetUp]
-        public virtual IEnumerator SetUp()
+        public virtual void ClearContainer()
         {
-            SetMemberDefaults();
-            yield return null;
-        }
-
-        void SetMemberDefaults()
-        {
+            ZenjectTestUtil.DestroyEverythingExceptTestRunner(true);
             StaticContext.Clear();
             _hasLoadedScene = false;
             SceneContainer = null;
-        }
-
-        [UnityTearDown]
-        public virtual IEnumerator TearDown()
-        {
-            ZenjectTestUtil.DestroyEverythingExceptTestRunner(true);
-            SetMemberDefaults();
-            yield return null;
         }
     }
 }

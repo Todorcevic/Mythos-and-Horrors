@@ -51,14 +51,14 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         /*******************************************************************/
         [UnitySetUp]
-        public override IEnumerator SetUp()
+        public IEnumerator SetUp()
         {
             if (currentSceneName == SCENE_NAME)
             {
                 SceneContainer?.Inject(this);
                 yield break;
             }
-            yield return base.TearDown();
+            ClearContainer();
             InstallerToScene();
             yield return LoadScene(SCENE_NAME, InstallerToTests);
             LoadSceneSettings();
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTearDown]
-        public override IEnumerator TearDown()
+        public IEnumerator TierDown()
         {
             if (DEBUG_MODE) yield break;
             yield return _gameActionsProvider.Rewind().AsCoroutine();
