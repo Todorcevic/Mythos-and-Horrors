@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -164,13 +164,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             }
         }
 
-        protected IEnumerator ClickedClone(Card card, int position)
+        protected IEnumerator ClickedClone(Card card, int position, bool isReaction = false)
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 yield return fakeInteractable.ClickedIn(card, position);
             else if (TestsType == TestsType.Integration)
             {
-                yield return ClickedIn(card);
+                if (!isReaction) yield return ClickedIn(card);
                 MultiEffectHandler _multiEffectHandler = SceneContainer.Resolve<MultiEffectHandler>();
                 float startTime = Time.realtimeSinceStartup;
                 while (_gameActionsProvider.CurrentInteractable == null) yield return null;

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic, false);
-            CreateReaction<RestorePhaseGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, false);
+            CreateReaction<RoundGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, false);
         }
 
         /*******************************************************************/
@@ -60,13 +60,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool PlaceEldritchCondition(RestorePhaseGameAction gameAction)
+        private bool PlaceEldritchCondition(RoundGameAction gameAction)
         {
             if (!IsInPlay) return false;
             return true;
         }
 
-        private async Task PlaceEldritchLogic(RestorePhaseGameAction gameAction)
+        private async Task PlaceEldritchLogic(RoundGameAction gameAction)
         {
             CardPlace parlor = _cardsProvider.GetCard<Card01115>();
             CardPlace hallway = _cardsProvider.GetCard<Card01112>();
