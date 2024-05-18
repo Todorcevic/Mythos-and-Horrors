@@ -2,23 +2,19 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01519Tests : TestCORE1PlayModeBase
+    public class CardSupply01519Tests : TestCORE1Preparation
     {
-        //protected override bool DEBUG_MODE => true;
-
-        /*******************************************************************/
         [UnityTest]
-        public IEnumerator ActivateHealTest()
+        public IEnumerator ActivateToHealInvestigator()
         {
-            yield return _preparationSceneCORE1.StartingScene(withResources: true);
+            yield return StartingScene(withResources: true);
 
-            CardSupply aidCard = _cardsProvider.GetCard<Card01519>();
+            Card01519 aidCard = _cardsProvider.GetCard<Card01519>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
@@ -30,17 +26,16 @@ namespace MythosAndHorrors.PlayMode.Tests
                 { _investigatorsProvider.Fourth.Health, 1}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
+            Assert.That(aidCard.AmountSupplies.Value, Is.EqualTo(3));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
-            if (!DEBUG_MODE) yield return WaitToClick(aidCard);
-            if (!DEBUG_MODE) yield return WaitToClick(_investigatorsProvider.Second.AvatarCard);
-            if (!DEBUG_MODE) yield return WaitToCloneClick(_investigatorsProvider.Second.AvatarCard.PlayableEffects.First());
-            if (!DEBUG_MODE) yield return WaitToMainButtonClick();
-
+            yield return ClickedIn(aidCard);
+            yield return ClickedClone(_investigatorsProvider.Second.AvatarCard, 0);
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
-            if (DEBUG_MODE) yield return PressAnyKey();
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));
+            Assert.That(aidCard.AmountSupplies.Value, Is.EqualTo(2));
         }
     }
 }

@@ -7,30 +7,27 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class Card01596Tests : TestCORE1PlayModeBase
+    public class CardAdversity01596Tests : TestCORE1Preparation
     {
-        //protected override bool DEBUG_MODE => true;
+        //protected override TestsType TestsType => TestsType.Debug;
 
-        /*******************************************************************/
         [UnityTest]
-        public IEnumerator ObligationTest()
+        public IEnumerator ObligationDiscardAllButOne()
         {
-            Card adversity = _cardLoaderUseCase.Execute("01596");
-            _cardViewGeneratorComponent.BuildCardView(adversity);
+            Card adversity = BuilCard("01596");
             Investigator investigator = _investigatorsProvider.First;
-            yield return _preparationSceneCORE1.PlaceAllScene();
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, adversity)).AsCoroutine();
             Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanBeDiscarded);
+
             Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
-
-            if (!DEBUG_MODE) yield return WaitToClick(cardToMaintan);
-
+            yield return ClickedIn(cardToMaintan);
             yield return taskGameAction.AsCoroutine();
+
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Count, Is.EqualTo(1));
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Unique(), Is.EqualTo(cardToMaintan));
             investigator.RequerimentCard.Remove(adversity);
         }
-
     }
 }

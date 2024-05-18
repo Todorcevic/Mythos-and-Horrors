@@ -6,18 +6,14 @@ using System.Linq;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
-    public class Card01114Tests : TestCORE1PlayModeBase
+    public class CardPlace01114Tests : TestCORE1Preparation
     {
-        //protected override bool DEBUG_MODE => true;
-
-        /*******************************************************************/
         [UnityTest]
-        public IEnumerator TakeDamageTest()
+        public IEnumerator TakeDamageInvestigatorWhenEnter()
         {
             CardPlace Cellar = _cardsProvider.GetCard<Card01114>();
             Investigator investigator = _investigatorsProvider.AllInvestigators.First();
-            yield return _preparationSceneCORE1.PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Cellar, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Cellar)).AsCoroutine();
 

@@ -173,9 +173,10 @@ namespace MythosAndHorrors.PlayMode.Tests
                 if (!isReaction) yield return ClickedIn(card);
                 MultiEffectHandler _multiEffectHandler = SceneContainer.Resolve<MultiEffectHandler>();
                 float startTime = Time.realtimeSinceStartup;
-                while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-                while (_multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
-
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && _gameActionsProvider.CurrentInteractable == null) yield return null;
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
+                if (_gameActionsProvider.CurrentInteractable == null || _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null)
+                    throw new TimeoutException($"Clone position: {position} Not become clickable");
                 CardView cardView = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones")[position] as CardView;
                 CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
 
@@ -239,10 +240,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         /*******************************************************************/
         protected Card BuilCard(string cardCode)
         {
-            Card bulletProof = SceneContainer.Resolve<CardLoaderUseCase>().Execute("01594");
+            Card cardCreated = SceneContainer.Resolve<CardLoaderUseCase>().Execute(cardCode);
             if (TestsType != TestsType.Unit)
-                SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(bulletProof);
-            return bulletProof;
+                SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
+            return cardCreated;
         }
     }
 }
