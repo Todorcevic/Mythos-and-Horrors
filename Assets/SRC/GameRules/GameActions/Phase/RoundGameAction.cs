@@ -17,5 +17,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new CreaturePhaseGameAction());
             await _gameActionsProvider.Create(new RestorePhaseGameAction());
         }
+
+        public override async Task Undo()
+        {
+            Round--;
+            await Task.CompletedTask;
+        }
     }
 }
