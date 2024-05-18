@@ -7,11 +7,8 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class InvestigatorCard01505Tests : TestCORE1Preparation
+    public class InvestigatorCard01505Tests : TestCORE2Preparation
     {
-        protected override string JSON_SAVE_DATA_PATH => "Assets/SRC/Tests.Base.New/Tests.PlayModeCORE1/SaveDataCORE1-2.json";
-
-        /*******************************************************************/
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()
         {
@@ -19,7 +16,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01505>();
             Investigator investigatorToTest = cardInvestigator.Owner;
             CardSupply AmuletoDeWendy = _cardsProvider.GetCard<Card01514>();
-            CardPlace place = SceneCORE1.Cellar;
+            CardPlace place = SceneCORE2.Fluvial;
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             Task<ChallengePhaseGameAction> challengeResolved = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
