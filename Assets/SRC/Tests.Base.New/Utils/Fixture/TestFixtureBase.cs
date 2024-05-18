@@ -7,14 +7,13 @@ using Zenject;
 using System.Collections;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Reflection;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public abstract class TestFixtureBase : SceneTestFixture
+    public abstract class TestFixtureBase : SceneTestLoader
     {
         [Inject] protected readonly PrepareGameRulesUseCase _prepareGameRulesUseCase;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
@@ -26,81 +25,21 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        private static string currentSceneName;
-        protected abstract string JSON_SAVE_DATA_PATH { get; }
-        protected virtual string SCENE_NAME => "GamePlayCORE1";
-        protected virtual TestsType TestsType => TestsType.Integration;
-
         /*******************************************************************/
-        [UnitySetUp]
-        public virtual IEnumerator SetUp()
+        protected override void PrepareUnitTests()
         {
-            if (currentSceneName != JSON_SAVE_DATA_PATH)
-            {
-                currentSceneName = JSON_SAVE_DATA_PATH;
-                if (TestsType == TestsType.Unit)
-                {
-                    SceneContainer = new();
-                    SceneContainer.Install<InjectionService>();
-                    InstallerToSceneInUnitMode();
-                    InstallFakes();
-                    SceneContainer?.Inject(this);
-                    _prepareGameRulesUseCase.Execute();
-                }
-                else
-                {
-                    ClearContainer();
-                    InstallerToSceneInDebugMode();
-                    yield return LoadScene(SCENE_NAME);
-                    AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
-                    AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
-                    if (TestsType == TestsType.Integration)
-                    {
-                        Time.timeScale = 64;
-                        DOTween.SetTweensCapacity(1250, 312);
-                    }
-                }
-            }
-            else SceneContainer?.Inject(this);
-
-            yield return null;
+            base.PrepareUnitTests();
+            _prepareGameRulesUseCase.Execute();
         }
 
-        private void InstallerToSceneInDebugMode()
+        protected override IEnumerator PrepareIntegrationTests()
         {
-            StaticContext.Container.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-            StaticContext.Container.BindInstance(false).WhenInjectedInto<InitializerComponent>();
+            yield return base.PrepareIntegrationTests();
+            Time.timeScale = TestsType == TestsType.Debug ? 1 : 64;
+            DOTween.SetTweensCapacity(1250, 312);
+            AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
+            AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
         }
-
-        private void InstallerToSceneInUnitMode()
-        {
-            SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-            SceneContainer.BindInstance(false).WhenInjectedInto<InitializerComponent>();
-        }
-
-        private void InstallFakes()
-        {
-            SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
-            BindAllFakePresenters();
-
-            static void BindAllFakePresenters()
-            {
-                IEnumerable<Type> gameActionTypes = typeof(GameAction).Assembly.GetTypes().Where(type => type.IsClass);
-
-                foreach (Type type in gameActionTypes)
-                {
-                    foreach (FieldInfo campo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                        .Where(campo => campo.FieldType.IsGenericType
-                            && campo.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>)
-                            && campo.FieldType.GetGenericArguments()[0] == type))
-                    {
-                        Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
-                        SceneContainer.Rebind(campo.FieldType).To(genericToBind).AsCached();
-                    }
-                }
-            }
-        }
-
 
         [UnityTearDown]
         public IEnumerator TierDown()

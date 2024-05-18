@@ -8,6 +8,7 @@ namespace MythosAndHorrors.PlayMode.Tests
     public class TestCORE2Preparation : Preparation
     {
         protected override string JSON_SAVE_DATA_PATH => "Assets/SRC/Tests.Base.New/Tests.PlayModeCORE2/SaveDataCORE2.json";
+        protected override string SCENE_NAME => "GamePlayCORE2";
         public SceneCORE2 SceneCORE2 => (SceneCORE2)_chaptersProvider.CurrentScene;
         public override CardPlace StartingPlace => SceneCORE2.Fluvial;
 
