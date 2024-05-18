@@ -19,7 +19,6 @@ namespace MythosAndHorrors.GameRules
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
-        public List<Effect> AllEffects => _allCardEffects.ToList();
         private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
