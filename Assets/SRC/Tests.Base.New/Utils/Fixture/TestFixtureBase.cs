@@ -25,6 +25,8 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
+        protected override TestsType TestsType => TestsType.Unit;
+
         /*******************************************************************/
         protected override void PrepareUnitTests()
         {
@@ -39,6 +41,31 @@ namespace MythosAndHorrors.PlayMode.Tests
             DOTween.SetTweensCapacity(1250, 312);
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
             AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
+
+            /*******************************************************************/
+            IEnumerator AlwaysHistoryPanelClick(ShowHistoryComponent _showHistoryComponent)
+            {
+                Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
+                while (!historyButton.interactable) yield return null;
+
+                if (historyButton.interactable) historyButton.onClick.Invoke();
+                else throw new TimeoutException("History Button Not become clickable");
+
+                while (historyButton.interactable) yield return null;
+                yield return AlwaysHistoryPanelClick(_showHistoryComponent);
+            }
+
+            IEnumerator AlwaysRegisterPanelClick(RegisterChapterComponent _registerChapterComponent)
+            {
+                Button registerButton = _registerChapterComponent.GetPrivateMember<Button>("_button");
+                while (!registerButton.interactable) yield return null;
+
+                if (registerButton.interactable) registerButton.onClick.Invoke();
+                else throw new TimeoutException("Register Button Not become clickable");
+
+                while (registerButton.interactable) yield return null;
+                yield return AlwaysRegisterPanelClick(_registerChapterComponent);
+            }
         }
 
         [UnityTearDown]
@@ -209,34 +236,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
         }
-
         /*******************************************************************/
-        protected IEnumerator AlwaysHistoryPanelClick(ShowHistoryComponent _showHistoryComponent)
-        {
-            Button historyButton = _showHistoryComponent.GetPrivateMember<Button>("_button");
-            while (!historyButton.interactable) yield return null;
-
-            if (historyButton.interactable) historyButton.onClick.Invoke();
-            else throw new TimeoutException("History Button Not become clickable");
-
-            while (historyButton.interactable) yield return null;
-            yield return AlwaysHistoryPanelClick(_showHistoryComponent);
-        }
-
-        protected IEnumerator AlwaysRegisterPanelClick(RegisterChapterComponent _registerChapterComponent)
-        {
-            Button registerButton = _registerChapterComponent.GetPrivateMember<Button>("_button");
-            while (!registerButton.interactable) yield return null;
-
-            if (registerButton.interactable) registerButton.onClick.Invoke();
-            else throw new TimeoutException("Register Button Not become clickable");
-
-            while (registerButton.interactable) yield return null;
-            yield return AlwaysRegisterPanelClick(_registerChapterComponent);
-        }
-
-        /*******************************************************************/
-
         protected Card BuilCard(string cardCode)
         {
             Card bulletProof = SceneContainer.Resolve<CardLoaderUseCase>().Execute("01594");

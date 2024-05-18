@@ -11,6 +11,7 @@ using MythosAndHorrors.GameView;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using UnityEditor;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -24,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected static DiContainer SceneContainer { get; set; }
         protected abstract string JSON_SAVE_DATA_PATH { get; }
         protected abstract string SCENE_NAME { get; }
-        protected virtual TestsType TestsType => TestsType.Unit;
+        protected abstract TestsType TestsType { get; }
         private bool IsDifferentScene =>
             currentFileLoaded != JSON_SAVE_DATA_PATH || currentSceneName != SCENE_NAME || currentTestType != TestsType;
 
@@ -69,17 +70,18 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 static void BindAllFakePresenters()
                 {
-                    IEnumerable<Type> gameActionTypes = typeof(GameAction).Assembly.GetTypes().Where(type => type.IsClass);
-
+                    IEnumerable<Type> gameActionTypes = TypeCache.GetTypesDerivedFrom<GameAction>();
                     foreach (Type type in gameActionTypes)
                     {
-                        foreach (FieldInfo campo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                            .Where(campo => campo.FieldType.IsGenericType
-                                && campo.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>)
-                                && campo.FieldType.GetGenericArguments()[0] == type))
+                        IEnumerable<FieldInfo> fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                            .Where(field => field.FieldType.IsGenericType
+                                && field.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>)
+                                && field.FieldType.GetGenericArguments()[0] == type);
+
+                        foreach (FieldInfo field in fields)
                         {
                             Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
-                            SceneContainer.Rebind(campo.FieldType).To(genericToBind).AsCached();
+                            SceneContainer.Rebind(field.FieldType).To(genericToBind).AsCached();
                         }
                     }
                 }
