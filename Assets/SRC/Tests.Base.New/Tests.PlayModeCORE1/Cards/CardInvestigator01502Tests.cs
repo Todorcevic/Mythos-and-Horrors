@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class InvestigatorCard01502Tests : TestCORE1Preparation
+    public class CardInvestigator01502Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 

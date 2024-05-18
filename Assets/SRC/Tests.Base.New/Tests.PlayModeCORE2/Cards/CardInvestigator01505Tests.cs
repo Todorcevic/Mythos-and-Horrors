@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class InvestigatorCard01505Tests : TestCORE2Preparation
+    public class CardInvestigator01505Tests : TestCORE2Preparation
     {
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()

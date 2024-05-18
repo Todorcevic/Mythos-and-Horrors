@@ -1,14 +1,12 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class SupplyCard01530Tests : TestCORE1Preparation
+    public class CardSupply01530Tests : TestCORE1Preparation
     {
         [UnityTest]
         public IEnumerator PlayFormHandFreeCost()
