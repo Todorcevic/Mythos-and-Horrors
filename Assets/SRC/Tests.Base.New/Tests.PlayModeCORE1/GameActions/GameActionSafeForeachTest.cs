@@ -62,8 +62,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(investigator.HandSize, Is.EqualTo(4));
         }
 
-        protected override TestsType TestsType => TestsType.Debug;
-
         [UnityTest]
         public IEnumerator SafeForeachUndo()
         {
@@ -76,13 +74,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
-            yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
             yield return ClickedUndoButton();
-            yield return ClickedUndoButton();
-            //Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
+            Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedTokenButton();
-            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(5));
