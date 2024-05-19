@@ -33,6 +33,7 @@ namespace MythosAndHorrors.GameRules
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
             Description = description;
+            ActiveInvestigator = activeInvestigator;
         }
 
         /*******************************************************************/

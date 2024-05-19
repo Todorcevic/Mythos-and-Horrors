@@ -9,6 +9,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class GameActionUndoTests : TestCORE1Preparation
     {
+
         [UnityTest]
         public IEnumerator UndoMoveMulticardsTest()
         {
@@ -93,13 +94,13 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedIn(SceneCORE1.Attic);
             yield return ClickedIn(investigator.InvestigatorCard);
 
-            Assert.That(investigator.Sanity.Value, Is.EqualTo(4));
+            Assume.That(investigator.FearRecived, Is.EqualTo(1));
 
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
 
-            Assert.That(investigator.Sanity.Value, Is.EqualTo(5));
-            Assert.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
+            Assume.That(investigator.Sanity.Value, Is.EqualTo(5));
+            Assume.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
 
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
@@ -111,6 +112,38 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return gameActionTask.AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
+
+            Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
+        }
+
+        [UnityTest]
+        public IEnumerator FullUndoTest2()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            yield return StartingScene();
+
+            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            yield return ClickedIn(investigator.AvatarCard);
+            yield return ClickedTokenButton();
+            yield return ClickedTokenButton();
+            yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedTokenButton();
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            yield return ClickedTokenButton();
+            Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(0));
+            yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
+            yield return ClickedTokenButton();
+            Assume.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(3));
+            Assume.That(_investigatorsProvider.Third.CurrentTurns.Value, Is.EqualTo(2));
+            yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
 
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }

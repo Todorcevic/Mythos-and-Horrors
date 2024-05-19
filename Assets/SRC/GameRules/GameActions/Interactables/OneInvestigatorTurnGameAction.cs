@@ -23,8 +23,7 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable && ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
-        public OneInvestigatorTurnGameAction() :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
+        public OneInvestigatorTurnGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
         {
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
         }
@@ -44,7 +43,6 @@ namespace MythosAndHorrors.GameRules
             PrepareTakeResource();
 
             await base.ExecuteThisLogic();
-
             if (ActiveInvestigator.HasTurnsAvailable) await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
         }
 

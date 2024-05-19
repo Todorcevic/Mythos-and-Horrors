@@ -37,6 +37,7 @@ namespace MythosAndHorrors.GameRules
             if (AmountFear > 0)
                 allSelectables.AddRange(ActiveInvestigator.AidZone.Cards.OfType<IFearable>().Cast<Card>().Except(allSelectables));
 
+
             foreach (Card cardSelectable in allSelectables)
             {
                 Create()

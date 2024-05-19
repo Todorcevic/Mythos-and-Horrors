@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator UndoHarmeTest()
+        public IEnumerator UndoHarmTest()
         {
             Card bulletProof = BuilCard("01594");
             Investigator investigator = _investigatorsProvider.First;
