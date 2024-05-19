@@ -74,10 +74,14 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(5));
@@ -108,7 +112,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private async Task DiscardSelectionAndMoveInvestigatorToStudy(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome", investigator);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Select Tome", investigator);
 
             foreach (Card card in investigator.HandZone.Cards)
             {

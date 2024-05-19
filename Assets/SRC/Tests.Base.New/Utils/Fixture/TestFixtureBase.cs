@@ -245,5 +245,11 @@ namespace MythosAndHorrors.PlayMode.Tests
                 SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
             return cardCreated;
         }
+
+        public void Warn(bool condition, string message = null)
+        {
+            if (!condition) Debug.LogWarning(message ?? "Warn! Condition fail");
+
+        }
     }
 }

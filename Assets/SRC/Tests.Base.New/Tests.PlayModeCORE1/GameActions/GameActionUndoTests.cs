@@ -64,7 +64,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator UndoTursStatTest()
+        public IEnumerator UndoTurnsStatTest()
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return PlayThisInvestigator(investigator);
@@ -74,8 +74,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(investigator.CardAidToDraw);
             yield return ClickedIn(investigator.InvestigatorCard);
-
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
+
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
@@ -99,7 +100,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
 
-            Assume.That(investigator.Sanity.Value, Is.EqualTo(5));
+            Assume.That(investigator.FearRecived, Is.EqualTo(0));
             Assume.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
 
             yield return ClickedMainButton();
@@ -116,6 +117,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
 
+        //protected override TestsType TestsType => TestsType.Debug;
         [UnityTest]
         public IEnumerator FullUndoTest2()
         {
@@ -133,6 +135,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(0));
             yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
             yield return ClickedTokenButton();

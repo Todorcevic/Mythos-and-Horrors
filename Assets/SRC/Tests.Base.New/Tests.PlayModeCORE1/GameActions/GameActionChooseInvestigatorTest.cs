@@ -17,6 +17,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task<ChooseInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(0));

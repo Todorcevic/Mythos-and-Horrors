@@ -50,6 +50,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));

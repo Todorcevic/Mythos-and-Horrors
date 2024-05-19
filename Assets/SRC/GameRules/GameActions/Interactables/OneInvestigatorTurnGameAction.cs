@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         public List<Effect> PlayFromHandEffects { get; } = new();
         public List<Effect> PlayActivableEffects { get; } = new();
 
-        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable && ActiveInvestigator.IsInPlay;
+        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
         public OneInvestigatorTurnGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
@@ -43,7 +43,9 @@ namespace MythosAndHorrors.GameRules
             PrepareTakeResource();
 
             await base.ExecuteThisLogic();
-            if (ActiveInvestigator.HasTurnsAvailable) await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
+            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
+                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
+                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
         }
 
         /*******************************************************************/
