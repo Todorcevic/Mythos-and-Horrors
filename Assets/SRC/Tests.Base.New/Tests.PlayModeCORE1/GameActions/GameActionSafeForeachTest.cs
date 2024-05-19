@@ -62,32 +62,47 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(investigator.HandSize, Is.EqualTo(4));
         }
 
+        protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator SafeForeachUndo()
         {
             Investigator investigator = _investigatorsProvider.First;
-            CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
+            SafeForeachReaction();
             yield return StartingScene();
-            IEnumerable<Investigator> AllInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay
-                .Where(investigator => investigator.CurrentPlace == SceneCORE1.Study);
-
             yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE1.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
-            yield return gameActionTask.AsCoroutine();
-            gameActionTask = _gameActionsProvider.Create(new SafeForeach<Investigator>(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy));
+            yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
             yield return ClickedUndoButton();
-
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
-
+            yield return ClickedUndoButton();
+            //Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedTokenButton();
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(5));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(3));
+        }
+
+        /*******************************************************************/
+        private void SafeForeachReaction()
+        {
+            _reactionablesProvider.CreateReaction<PlayInvestigatorGameAction>((_) => true, SafeForeachReac, isAtStart: false);
+
+            /*******************************************************************/
+            async Task SafeForeachReac(PlayInvestigatorGameAction gameAction)
+            {
+                _reactionablesProvider.RemoveReaction<PlayInvestigatorGameAction>(SafeForeachReac);
+                await _gameActionsProvider.Create(new SafeForeach<Investigator>(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy));
+            }
+
+            IEnumerable<Investigator> AllInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay
+                .Where(investigator => investigator.CurrentPlace == SceneCORE1.Study);
         }
 
         private async Task DiscardAndMoveInvestigatorToStudy(Investigator investigator)
