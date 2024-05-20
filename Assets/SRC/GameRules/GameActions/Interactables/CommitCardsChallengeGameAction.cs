@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : InteractableGameAction
+    public class CommitCardsChallengeGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -29,9 +29,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
-            await _commitPresenter.PlayAnimationWith(this);
             CreateMainButton().SetLogic(Continue);
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
@@ -49,11 +48,14 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await base.ExecuteThisLogic();
-
             /*******************************************************************/
-
             async Task Continue() => await CurrentChallenge.ContinueChallenge();
+        }
+
+        protected override async Task ExecuteThisLogic()
+        {
+            await _commitPresenter.PlayAnimationWith(this);
+            await base.ExecuteThisLogic();
         }
 
         public override async Task Undo()

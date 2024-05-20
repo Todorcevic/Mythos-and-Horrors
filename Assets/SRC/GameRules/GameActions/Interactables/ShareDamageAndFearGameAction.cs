@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ShareDamageAndFearGameAction : InteractableGameAction
+    public class ShareDamageAndFearGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
             List<Card> allSelectables = new() { ActiveInvestigator.InvestigatorCard };
 
@@ -53,8 +53,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(ActiveInvestigator, ByThisCard, AmountDamage - harm.TotalDamageApply, AmountFear - harm.TotalFearApply));
                 }
             }
-
-            await base.ExecuteThisLogic();
         }
     }
 }

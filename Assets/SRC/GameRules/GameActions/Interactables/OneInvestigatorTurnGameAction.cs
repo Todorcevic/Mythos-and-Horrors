@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : InteractableGameAction
+    public class OneInvestigatorTurnGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -31,6 +31,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await base.ExecuteThisLogic();
+            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
+                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
+                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
+        }
+
+        /*******************************************************************/
+        public void ExecuteSpecificInitialization()
+        {
             PreparePassEffect();
             PrepareInvestigateEffect();
             PrepareMoveEffect();
@@ -41,14 +50,8 @@ namespace MythosAndHorrors.GameRules
             PrepareActivables();
             PrepareDraw();
             PrepareTakeResource();
-
-            await base.ExecuteThisLogic();
-            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
-                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
-                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
         }
 
-        /*******************************************************************/
         private void PreparePassEffect()
         {
             CreateMainButton().SetLogic(PassTurn);

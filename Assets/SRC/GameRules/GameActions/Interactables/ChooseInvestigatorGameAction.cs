@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ChooseInvestigatorGameAction : InteractableGameAction
+    public class ChooseInvestigatorGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public ChooseInvestigatorGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator") { }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
@@ -26,8 +26,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
                 };
             }
-
-            await base.ExecuteThisLogic();
         }
     }
 }

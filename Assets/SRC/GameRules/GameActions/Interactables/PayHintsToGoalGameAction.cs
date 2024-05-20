@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintsToGoalGameAction : InteractableGameAction
+    public class PayHintsToGoalGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             InvestigatorsToPay = investigatorsToPay;
         }
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {
@@ -39,8 +39,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
                 }
             }
-
-            await base.ExecuteThisLogic();
         }
     }
 }

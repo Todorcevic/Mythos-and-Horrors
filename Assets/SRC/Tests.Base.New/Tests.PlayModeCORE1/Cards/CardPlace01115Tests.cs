@@ -44,5 +44,40 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             Assert.That(investigator.AidZone.Cards.Contains(SceneCORE1.Lita), Is.True);
         }
+
+        //protected override TestsType TestsType => TestsType.Debug;
+        [UnityTest]
+        public IEnumerator CantMoveIntoWhenNotIsRevealed()
+        {
+            CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Assume.That(IsClickable(Parlor), Is.False);
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
+        }
+
+        [UnityTest]
+        public IEnumerator CanMoveIntoIfIsRevealed()
+        {
+            CardPlace Parlor = _cardsProvider.GetCard<Card01115>();
+            Investigator investigator = _investigatorsProvider.First;
+            yield return StartingScene();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new RevealGameAction(Parlor)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Assume.That(IsClickable(Parlor), Is.True);
+            yield return ClickedIn(Parlor);
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.CurrentPlace, Is.EqualTo(Parlor));
+        }
     }
 }

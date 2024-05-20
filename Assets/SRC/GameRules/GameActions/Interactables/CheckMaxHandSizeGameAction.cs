@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckMaxHandSizeGameAction : InteractableGameAction
+    public class CheckMaxHandSizeGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -16,19 +16,16 @@ namespace MythosAndHorrors.GameRules
             ActiveInvestigator = investigator;
         }
 
-        /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
             if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateMainButton().SetLogic(Continue);
             else CreateGameActions();
 
-            await base.ExecuteThisLogic();
-
             /*******************************************************************/
-
             async Task Continue() => await Task.CompletedTask;
         }
 
+        /*******************************************************************/
         private void CreateGameActions()
         {
             foreach (Card card in ActiveInvestigator.HandZone.Cards)

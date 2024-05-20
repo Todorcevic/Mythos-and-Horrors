@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public bool IsActive { get; private set; }
+        public bool IsCancel { get; private set; }
         public GameAction Parent { get; private set; }
         public virtual bool CanBeExecuted => true;
         public virtual bool CanUndo => true;
@@ -18,10 +19,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Start()
         {
-            if (!CanBeExecuted) return;
+            if (!CanBeExecuted || IsCancel) return;
             InitialSet();
             await _reactionablesProvider.WhenBegin(this);
-            if (!CanBeExecuted) return;
+            if (!CanBeExecuted || IsCancel)
+            {
+                FinishSet();
+                return;
+            }
             _gameActionsProvider.AddUndo(this);
 
             await ExecuteThisLogic();
@@ -32,6 +37,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         public virtual async Task Undo() => await Task.CompletedTask;
+
+        public void Cancel() => IsCancel = true;
 
         protected abstract Task ExecuteThisLogic();
 

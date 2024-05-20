@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MulliganGameAction : InteractableGameAction
+    public class MulliganGameAction : InteractableGameAction, IInitializable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected sealed override async Task ExecuteThisLogic()
+        public void ExecuteSpecificInitialization()
         {
             CreateMainButton().SetLogic(Continue);
 
@@ -33,11 +33,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-
-            await base.ExecuteThisLogic();
-
             /*******************************************************************/
-
             async Task Continue() => await Task.CompletedTask;
         }
     }

@@ -237,6 +237,20 @@ namespace MythosAndHorrors.PlayMode.Tests
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
         }
+
+        protected bool IsClickable(Card card)
+        {
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                return fakeInteractable.IsClickable(card);
+            else if (TestsType == TestsType.Integration)
+            {
+                CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
+                CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
+                return cardSensor.IsClickable;
+            }
+            return false;
+        }
+
         /*******************************************************************/
         protected Card BuilCard(string cardCode)
         {
@@ -244,12 +258,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (TestsType != TestsType.Unit)
                 SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
             return cardCreated;
-        }
-
-        public void Warn(bool condition, string message = null)
-        {
-            if (!condition) Debug.LogWarning(message ?? "Warn! Condition fail");
-
         }
     }
 }
