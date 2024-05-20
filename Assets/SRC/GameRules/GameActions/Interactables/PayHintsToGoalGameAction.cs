@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Investigator> InvestigatorsToPay { get; }
         public override bool CanBeExecuted => !CardGoal.Revealed.IsActive &&
             InvestigatorsToPay.Sum(investigator => investigator.Hints.Value) >= CardGoal.Hints.Value;
+        public List<Effect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
         public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
@@ -26,10 +27,10 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {
-                Create().SetCard(investigator.AvatarCard)
+                EffectsToPay.Add(Create().SetCard(investigator.AvatarCard)
                     .SetInvestigator(investigator)
                     .SetCardAffected(CardGoal)
-                    .SetLogic(PayHint);
+                    .SetLogic(PayHint));
 
                 /*******************************************************************/
                 async Task PayHint()

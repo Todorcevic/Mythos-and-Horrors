@@ -51,9 +51,10 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
-        private bool RevealNewTokenCondition(RevealChallengeTokenGameAction action)
+        private bool RevealNewTokenCondition(RevealChallengeTokenGameAction revealChallengeTokenGameAction)
         {
             if (!IsInPlay) return false;
+            if (revealChallengeTokenGameAction.Investigator != Owner) return false;
             if (!Owner.HandZone.Cards.Any(card => card.CanBeDiscarded)) return false;
             if (AbilityUsed.IsActive) return false;
             return true;

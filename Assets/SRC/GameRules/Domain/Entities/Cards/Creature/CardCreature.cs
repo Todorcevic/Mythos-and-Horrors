@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Stat Health { get; private set; }
+        public Stat Health { get; protected set; }
         public Stat Strength { get; private set; }
         public Stat Agility { get; private set; }
         public Stat Damage { get; private set; }
