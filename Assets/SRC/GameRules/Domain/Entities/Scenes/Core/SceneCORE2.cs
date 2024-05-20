@@ -21,7 +21,8 @@ namespace MythosAndHorrors.GameRules
         public CardCreature Ruth => _cardsProvider.GetCard<Card01141>();
         public CardCreature MaskedHunter => _cardsProvider.GetCard<Card01121b>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
-        public List<Card> Secta => new() { Drew, Herman, Peter, Victoria, Ruth };
+        public List<Card> Cultists => new() { Drew, Herman, Peter, Victoria, Ruth };
+        public List<Card> AllCultists => new() { Drew, Herman, Peter, Victoria, Ruth, MaskedHunter };
         public CardPlace Home => _cardsProvider.GetCard<Card01124>();
         public CardPlace Fluvial => _cardsProvider.GetCard<Card01125>();
         public CardPlace Hospital => _cardsProvider.GetCard<Card01128>();
@@ -37,8 +38,8 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Center => _center ??= new List<CardPlace> { _cardsProvider.GetCard<Card01130>(), _cardsProvider.GetCard<Card01131>() }.Rand();
 
         public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
-                     Info.DangerCards.Except(Secta) :
-                     Info.DangerCards.Except(Secta).Except(new[] { GhoulPriest });
+                     Info.DangerCards.Except(Cultists) :
+                     Info.DangerCards.Except(Cultists).Except(new[] { GhoulPriest });
 
         public IEnumerable<CardCreature> Acolits => _cardsProvider.AllCards.OfType<Card01169>();
 
@@ -116,12 +117,17 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task Resolution0()
         {
+            await Resolution1();
+        }
+
+        protected override async Task Resolution1()
+        {
             await Interrogates();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
 
         }
 
-        protected override async Task Resolution1()
+        protected override async Task Resolution2()
         {
             await Interrogates();
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.IsMidknigh, true));

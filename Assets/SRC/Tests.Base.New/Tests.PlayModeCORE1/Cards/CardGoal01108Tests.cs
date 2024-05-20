@@ -40,6 +40,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
@@ -49,6 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
         }
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator CancelPayHint()

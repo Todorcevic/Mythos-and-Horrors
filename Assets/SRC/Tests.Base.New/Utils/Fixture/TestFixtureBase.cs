@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Integration;
+        protected override TestsType TestsType => TestsType.Unit;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()

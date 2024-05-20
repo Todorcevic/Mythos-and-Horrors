@@ -11,11 +11,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public IReaction EnterPlayReaction { get; private set; }
-
+        public IReaction EnterPlayReaction => _reactionablesProvider.FindReactionByLogic<MoveCardsGameAction>(EnterPlayLogic);
         public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.Info.PlaceCards
             .FirstOrDefault(place => place.IsInPlay && place.IsAlone);
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Cultist, Tag.Humanoid };
 
         /*******************************************************************/

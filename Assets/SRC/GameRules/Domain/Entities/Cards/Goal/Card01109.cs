@@ -13,7 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public IReaction PayHintReaction => _reactionablesProvider.FindReactionByLogic<RoundGameAction>(PayHintsLogic);
-
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
         private Card Lita => _cardsProvider.GetCard<Card01117>();
