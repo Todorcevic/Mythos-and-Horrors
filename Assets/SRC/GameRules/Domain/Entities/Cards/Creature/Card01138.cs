@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01138 : CardCreature
+    public class Card01138 : CardCreature, ISpawnable
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

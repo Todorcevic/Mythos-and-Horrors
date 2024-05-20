@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _strength;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _agility;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritchableStat;
-
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _extraStat;
         /*******************************************************************/
         protected override void SetSpecific()
         {
@@ -45,6 +45,12 @@ namespace MythosAndHorrors.GameView
             {
                 _eldritchableStat.gameObject.SetActive(true);
                 _eldritchableStat.SetStat(eldritchable.Eldritch);
+            }
+
+            if (Card.ExtraStat != null)
+            {
+                _extraStat.gameObject.SetActive(true);
+                _extraStat.SetStat(Card.ExtraStat);
             }
         }
     }

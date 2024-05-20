@@ -789,6 +789,7 @@ MonoBehaviour:
   _strength: {fileID: 3672650554263246494}
   _agility: {fileID: 3491014799247257641}
   _eldritchableStat: {fileID: 252467707738283387}
+  _extraStat: {fileID: 0}
 --- !u!4 &8707396170960952463 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6630050868628926429, guid: 5354ac94df4982841b9ab950b7d1d282, type: 3}
