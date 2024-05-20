@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -236,19 +236,6 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
-        }
-
-        protected bool IsClickable(Card card)
-        {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
-                return fakeInteractable.IsClickable(card);
-            else if (TestsType == TestsType.Integration)
-            {
-                CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
-                CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
-                return cardSensor.IsClickable;
-            }
-            return false;
         }
 
         /*******************************************************************/
