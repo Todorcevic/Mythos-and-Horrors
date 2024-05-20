@@ -46,5 +46,36 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(investigator.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
             Assert.That(investigator2.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
         }
+
+        //protected override TestsType TestsType => TestsType.Debug;
+        [UnityTest]
+        public IEnumerator CheckMaxHandSizeUndo()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator2 = _investigatorsProvider.Second;
+            yield return PlayAllInvestigators(withResources: true, withAvatar: false);
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.DeckZone.Cards.Take(5), investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone)).AsCoroutine();
+
+            Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedMainButton();
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            Assume.That(investigator.HandZone.Cards.Count, Is.EqualTo(9));
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedMainButton();
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedMainButton();
+
+            yield return gameActionTask.AsCoroutine();
+            Assert.That(investigator.HandZone.Cards.Count, Is.EqualTo(8));
+            Assert.That(investigator2.HandZone.Cards.Count, Is.EqualTo(8));
+        }
     }
 }

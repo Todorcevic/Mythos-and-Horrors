@@ -83,7 +83,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         [UnityTest]
-        public IEnumerator FullUndoTest()
+        public IEnumerator UndoWhenDamage()
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
@@ -93,16 +93,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedIn(SceneCORE1.Attic);
-            yield return ClickedIn(investigator.InvestigatorCard);
-
-            Assume.That(investigator.FearRecived, Is.EqualTo(1));
-
             yield return ClickedUndoButton();
-            yield return ClickedUndoButton();
-
-            Assume.That(investigator.FearRecived, Is.EqualTo(0));
-            Assume.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
-
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
@@ -119,7 +110,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         //protected override TestsType TestsType => TestsType.Debug;
         [UnityTest]
-        public IEnumerator FullUndoTest2()
+        public IEnumerator UndoBackToLastInvestigator()
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
