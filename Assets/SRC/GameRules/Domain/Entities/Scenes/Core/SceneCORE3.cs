@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Ritual => _cardsProvider.GetCard<Card01156>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
         public CardCreature Urmodoth => _cardsProvider.GetCard<Card01157>();
-
+        public CardSupply Lita => _cardsProvider.GetCardOrDefault<Card01117>();
         public IEnumerable<Card> Haunteds => _cardsProvider.GetCards<Card01598>();
         public IEnumerable<Card> Hastur => _cardsProvider.GetCards<Card01175>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01176>());
         public IEnumerable<Card> Yog => _cardsProvider.GetCards<Card01177>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01178>());

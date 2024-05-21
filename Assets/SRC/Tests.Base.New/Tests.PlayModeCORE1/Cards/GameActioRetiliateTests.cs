@@ -8,6 +8,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class GameActioRetiliateTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator GhoulPriestRetiliate()
         {

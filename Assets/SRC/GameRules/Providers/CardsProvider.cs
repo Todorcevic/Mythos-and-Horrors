@@ -10,13 +10,14 @@ namespace MythosAndHorrors.GameRules
         public List<Card> AllCards => _allCards.ToList();
         public IEnumerable<CardCreature> AttackerCreatures => _allCards.OfType<CardCreature>()
                   .Where(creature => creature.IsConfronted && !creature.Exausted.IsActive)
-                  .OrderBy(creature => creature.ConfrontedInvestigator.Position);
+                  .OrderBy(creature => creature.ConfrontedInvestigator?.Position);
         public IEnumerable<IStalker> StalkersInPlay => _allCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
         /*******************************************************************/
         public void AddCard(Card objectCard) => _allCards.Add(objectCard);
 
         public T GetCard<T>() where T : Card => _allCards.OfType<T>().First();
+        public T GetCardOrDefault<T>() where T : Card => _allCards.OfType<T>().FirstOrDefault();
         public IEnumerable<T> GetCards<T>() where T : Card => _allCards.OfType<T>();
 
         public Card GetCardByCode(string code) => _allCards.First(card => card.Info.Code == code);

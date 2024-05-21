@@ -5,6 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class CardCreature : Card, IDamageable, IEldritchable
     {
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -26,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
-        public bool IsConfronted => ConfrontedInvestigator != null;
+        public virtual bool IsConfronted => ConfrontedInvestigator != null;
         public Investigator ConfrontedInvestigator =>
             CurrentZone.ZoneType == ZoneType.Danger ? _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone) : null;
 

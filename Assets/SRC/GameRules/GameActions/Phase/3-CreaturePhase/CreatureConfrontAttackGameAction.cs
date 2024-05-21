@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -17,11 +18,18 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+
+            var asda = _cardsProvider.AttackerCreatures.ToList();
             await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => _cardsProvider.AttackerCreatures, Attack));
 
             /*******************************************************************/
-            async Task Attack(CardCreature cardCreature) =>
-                await _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, cardCreature.ConfrontedInvestigator));
+            async Task Attack(CardCreature cardCreature)
+            {
+                if (cardCreature is CardColosus colosus)
+                    await _gameActionsProvider.Create(new ColosusAttackGameAction(colosus));
+                else await _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, cardCreature.ConfrontedInvestigator));
+                await _gameActionsProvider.Create(new UpdateStatesGameAction(cardCreature.Exausted, true));
+            }
         }
     }
 }

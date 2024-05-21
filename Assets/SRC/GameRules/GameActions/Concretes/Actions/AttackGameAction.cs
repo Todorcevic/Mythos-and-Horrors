@@ -27,12 +27,19 @@ namespace MythosAndHorrors.GameRules
                 CardCreature.Strength.Value,
                 "Attack " + CardCreature.Info.Name,
                 succesEffect: SuccesEffet,
+                failEffect: FailEffet,
                 cardToChallenge: CardCreature));
 
             await CheckCounterAttack(challenge);
 
             /*******************************************************************/
             async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature, Investigator.InvestigatorCard, amountDamage: AmountDamage));
+
+            async Task FailEffet()
+            {
+                if (CardCreature.IsConfronted && CardCreature.ConfrontedInvestigator != Investigator)
+                    await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature.ConfrontedInvestigator.InvestigatorCard, Investigator.InvestigatorCard, amountDamage: AmountDamage));
+            }
         }
 
         private async Task CheckCounterAttack(ChallengePhaseGameAction challenge)
