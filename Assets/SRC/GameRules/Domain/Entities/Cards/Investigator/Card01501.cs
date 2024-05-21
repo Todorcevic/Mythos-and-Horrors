@@ -37,6 +37,7 @@ namespace MythosAndHorrors.GameRules
         private bool DiscoverHintCondition(DefeatCardGameAction defeatCardGameAction)
         {
             if (defeatCardGameAction.ByThisInvestigator != Owner) return false;
+            if (defeatCardGameAction.Card is not CardCreature) return false;
             if (!IsInPlay) return false;
             if (Owner.CurrentPlace.Hints.Value < 1) return false;
             if (AbilityUsed.IsActive) return false;

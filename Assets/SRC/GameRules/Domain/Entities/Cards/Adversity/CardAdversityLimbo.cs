@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PlayLogic(DrawGameAction drawGameAction)
         {
             await ObligationLogic();
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create(new DefeatCardGameAction(this, drawGameAction.Investigator.InvestigatorCard));
         }
 
         private bool PlayCondition(DrawGameAction drawGameAction)

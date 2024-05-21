@@ -57,7 +57,8 @@ namespace MythosAndHorrors.GameRules
                     {
                         await _gameActionsProvider.Create(new DiscardGameAction(card));
                         await _gameActionsProvider.Create(new IncrementStatGameAction(_amountDiscarded, 1));
-                        if (_amountDiscarded.Value == 4) await _gameActionsProvider.Create(new DiscardGameAction(this));
+                        if (_amountDiscarded.Value == 4)
+                            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
                         else await PayCreature();
                     }
                 }

@@ -9,6 +9,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 {
     public class CardGoal01123Tests : TestCORE2Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator RevealWhenCultistsDefeat()
         {
@@ -28,10 +30,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE2.North)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(SceneCORE2.Fluvial.Hints, 16)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 8)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator2, investigator2.CurrentPlace.Hints, 4)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator2, SceneCORE2.West.Hints, 4)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator2, investigator2.CurrentPlace.Hints, 8)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(goal);
@@ -43,9 +44,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
-            //Assert.That(SceneCORE2.Cultists.Count(cultis => cultis.CurrentZone != SceneCORE2.OutZone), Is.EqualTo(1));
+            Assert.That(SceneCORE2.Cultists.Count(cultis => cultis.CurrentZone != SceneCORE2.OutZone), Is.EqualTo(1));
             yield return ClickedIn(goal);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
