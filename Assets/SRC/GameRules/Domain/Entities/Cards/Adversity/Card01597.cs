@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Madness };
 
-        public override Zone ZoneToMove => Owner.DangerZone;
 
 
     }

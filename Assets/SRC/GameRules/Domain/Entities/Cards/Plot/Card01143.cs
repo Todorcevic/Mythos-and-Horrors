@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
+        private SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
 
         /*******************************************************************/
         public override async Task CompleteEffect()

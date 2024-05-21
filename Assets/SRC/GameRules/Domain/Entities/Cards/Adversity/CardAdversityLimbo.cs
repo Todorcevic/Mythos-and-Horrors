@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,28 +8,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Reaction<DrawGameAction> Play => _reactionablesProvider.FindReactionByLogic<DrawGameAction>(PlayLogic);
-        public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
+        public override async Task PlayLogicFor(Investigator investigator)
         {
-            CreateReaction<DrawGameAction>(PlayCondition, PlayLogic, false);
-        }
-
-        /*******************************************************************/
-        private async Task PlayLogic(DrawGameAction drawGameAction)
-        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             await ObligationLogic();
-            await _gameActionsProvider.Create(new DefeatCardGameAction(this, drawGameAction.Investigator.InvestigatorCard));
-        }
-
-        private bool PlayCondition(DrawGameAction drawGameAction)
-        {
-            if (drawGameAction.CardDrawed != this) return false;
-            return true;
+            await _gameActionsProvider.Create(new DefeatCardGameAction(this, investigator.InvestigatorCard));
         }
 
         /*******************************************************************/

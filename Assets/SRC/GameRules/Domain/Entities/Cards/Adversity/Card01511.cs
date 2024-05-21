@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameRules
         public Stat AbilityUsed { get; private set; }
         public Stat Resources { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => new[] { Owner };
-        public override Zone ZoneToMove => Owner.DangerZone;
 
         int IVictoriable.Victory => -2;
         bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;

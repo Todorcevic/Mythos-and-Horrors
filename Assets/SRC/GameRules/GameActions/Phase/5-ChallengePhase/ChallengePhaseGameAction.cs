@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
-            await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase());
+            await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
         }
 
         public async Task ContinueChallenge()

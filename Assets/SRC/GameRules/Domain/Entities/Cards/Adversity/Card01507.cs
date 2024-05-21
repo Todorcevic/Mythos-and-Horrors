@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
 
-        public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
 
     }

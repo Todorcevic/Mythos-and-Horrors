@@ -1,9 +1,16 @@
-﻿using Zenject;
+﻿using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public abstract class CardAdversity : Card
     {
-        public abstract Zone ZoneToMove { get; }
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
+        public virtual async Task PlayLogicFor(Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.DangerZone));
+
+        }
     }
 }

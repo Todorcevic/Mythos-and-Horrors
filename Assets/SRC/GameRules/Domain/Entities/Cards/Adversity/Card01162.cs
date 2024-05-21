@@ -8,9 +8,9 @@ namespace MythosAndHorrors.GameRules
     {
 
         [Inject] private readonly ChaptersProvider _chaptersProvider; 
-        public override Zone ZoneToMove => _chaptersProvider.CurrentScene.LimboZone;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Hazard };
+
 
 
     }

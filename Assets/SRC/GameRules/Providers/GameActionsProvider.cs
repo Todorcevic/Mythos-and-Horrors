@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
 
         private T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
         public PhaseGameAction GetRealCurrentPhase() => _allGameActionsExecuted.OfType<PhaseGameAction>()
-            .First(phaseGameAction => phaseGameAction.IsActive && phaseGameAction is not ChallengePhaseGameAction);
+            .FirstOrDefault(phaseGameAction => phaseGameAction.IsActive && phaseGameAction is not ChallengePhaseGameAction);
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();

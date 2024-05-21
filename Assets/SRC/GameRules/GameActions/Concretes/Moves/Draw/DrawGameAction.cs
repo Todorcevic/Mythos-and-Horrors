@@ -3,7 +3,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class DrawGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -25,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             switch (CardDrawed)
             {
                 case CardAdversity cardAdversity:
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(cardAdversity, cardAdversity.ZoneToMove));
+                    await cardAdversity.PlayLogicFor(Investigator);
                     break;
                 case ISpawnable spawnable:
                     await _gameActionsProvider.Create(new SpawnCreatureGameAction(spawnable));

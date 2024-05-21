@@ -25,14 +25,15 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
         public CardCreature Urmodoth => _cardsProvider.GetCard<Card01157>();
 
+        public IEnumerable<Card> Haunteds => _cardsProvider.GetCards<Card01598>();
         public IEnumerable<Card> Hastur => _cardsProvider.GetCards<Card01175>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01176>());
         public IEnumerable<Card> Yog => _cardsProvider.GetCards<Card01177>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01178>());
         public IEnumerable<Card> Shub => _cardsProvider.GetCards<Card01179>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01180>());
         public IEnumerable<Card> Cthulhu => _cardsProvider.GetCards<Card01181>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01182>());
         public IEnumerable<Card> AllAgents => Hastur.Concat(Yog).Concat(Shub).Concat(Cthulhu);
         public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)) :
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(new[] { GhoulPriest });
+            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds) :
+            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(new[] { GhoulPriest });
 
         public int AmountInterrogate =>
             (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.DrewInterrogate) ? 1 : 0) +
