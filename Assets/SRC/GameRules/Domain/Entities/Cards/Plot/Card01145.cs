@@ -1,12 +1,74 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01145 : CardPlot
     {
-        public override Task CompleteEffect()
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
+
+        private SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
+        private void Init()
         {
-            throw new System.NotImplementedException();
+            CreateReaction<DefeatCardGameAction>(DefeatUrmodotCondition, DefeatUrmodotLogic, isAtStart: false);
+        }
+
+        /*******************************************************************/
+        private async Task DefeatUrmodotLogic(DefeatCardGameAction defeatGameAction)
+        {
+            await CompleteEffect();
+        }
+
+        private bool DefeatUrmodotCondition(DefeatCardGameAction defeatGameAction)
+        {
+            if (defeatGameAction.Card != SceneCORE3.Urmodoth) return false;
+            if (!Revealed.IsActive) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        public override async Task RevealEffect()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+
+            if (SceneCORE3.CurrentGoal == SceneCORE3.Info.GoalCards.ElementAt(0))
+            {
+                await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.PlaceZone[1, 4]));
+            }
+            else
+            {
+                await _gameActionsProvider.Create(new SafeForeach<CardCreature>(CreaturesInRitual, Discard));
+
+                /*******************************************************************/
+                async Task Discard(CardCreature creature)
+                {
+                    await _gameActionsProvider.Create(new DiscardGameAction(creature));
+                }
+
+                IEnumerable<CardCreature> CreaturesInRitual()
+                {
+                    return _cardsProvider.GetCardsInPlay().OfType<CardCreature>().Where(card => card.CurrentPlace == SceneCORE3.Ritual);
+                }
+            }
+
+            await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentGoal, SceneCORE3.OutZone));
+            await _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.Ritual));
+        }
+
+        public override async Task CompleteEffect()
+        {
+            await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
+
         }
     }
 }

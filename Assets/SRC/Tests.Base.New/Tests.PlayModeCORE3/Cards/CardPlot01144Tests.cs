@@ -8,7 +8,6 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-
     public class CardPlot01144Tests : TestCORE3Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;

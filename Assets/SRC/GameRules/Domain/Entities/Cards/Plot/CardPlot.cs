@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async Task RevealEffect()
+        public virtual async Task RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();
