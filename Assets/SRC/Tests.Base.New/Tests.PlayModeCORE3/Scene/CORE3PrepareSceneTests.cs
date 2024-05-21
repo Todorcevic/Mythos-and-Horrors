@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Is.EqualTo(scene.MainPath));
             Assert.That(scene.GoalZone.Cards.Unique(), Is.EqualTo(scene.FirstGoal));
             Assert.That(scene.PlotZone.Cards.Unique(), Is.EqualTo(scene.FirstPlot));
-            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.StartDangerCards.Count()));
+            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.StartDeckDangerCards.Count()));
             Assert.That(scene.DangerDeckZone.Cards, Does.Not.Contains(scene.GhoulPriest));
         }
 

@@ -24,14 +24,14 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
-        public IEnumerable<Card> StartDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
+        public override IEnumerable<Card> StartDeckDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
         public async override Task PrepareScene()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
@@ -179,14 +179,14 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
-            if (Lita.Owner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.Owner, Lita));
+            if (Lita.ControlOwner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.ControlOwner, Lita));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
         protected override async Task Resolution1()
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, false));
-            if (Lita.Owner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.Owner, Lita));
+            if (Lita.ControlOwner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.ControlOwner, Lita));
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }

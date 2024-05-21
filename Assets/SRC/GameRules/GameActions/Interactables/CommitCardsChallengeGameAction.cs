@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
             {
                 Create()
                     .SetCard(commitableCard)
-                    .SetInvestigator(commitableCard.Owner)
+                    .SetInvestigator(commitableCard.ControlOwner)
                     .SetCardAffected(CurrentChallenge.CardToChallenge)
                     .SetLogic(Commit);
 

@@ -8,6 +8,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
+
     public class CardPlot01144Tests : TestCORE3Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -40,7 +41,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public IEnumerator BuffMonsters()
         {
             Card01144 cardPlot = _cardsProvider.GetCard<Card01144>();
-            CardCreature creature = SceneCORE3.AgentSelected.OfType<CardCreature>().First();
+            CardCreature creature = _cardsProvider.GetCard<Card01169>();
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, SceneCORE3.PlotZone)).AsCoroutine();

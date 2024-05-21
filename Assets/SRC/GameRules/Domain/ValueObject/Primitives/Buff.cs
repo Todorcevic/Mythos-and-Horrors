@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
         string IViewEffect.Description => _description;
-        string IViewEffect.CardCodeSecundary => CardMaster.Owner?.Code;
+        string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
 
         /*******************************************************************/
         public async Task Execute()

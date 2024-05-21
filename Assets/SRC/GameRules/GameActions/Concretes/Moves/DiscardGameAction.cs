@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
         private Zone GetDiscardZone()
         {
-            if (_chaptersProvider.CurrentScene.Info.DangerCards.Contains(Card))
+            if (_chaptersProvider.CurrentScene.StartDeckDangerCards.Contains(Card))
                 return _chaptersProvider.CurrentScene.DangerDiscardZone;
 
             return Card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;

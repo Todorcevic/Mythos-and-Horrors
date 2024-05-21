@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 Is.EqualTo(scene.Fluvial));
             Assert.That(scene.GoalZone.Cards.Unique(), Is.EqualTo(scene.FirstGoal));
             Assert.That(scene.PlotZone.Cards.Unique(), Is.EqualTo(scene.FirstPlot));
-            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.StartDangerCards.Count() - 3)); //-3 Acolics
+            Assert.That(scene.DangerDeckZone.Cards.Count(), Is.EqualTo(scene.StartDeckDangerCards.Count() - 3)); //-3 Acolics
             Assert.That(scene.Acolits.Count(acolic => acolic.IsInPlay), Is.EqualTo(3));
             Assert.That(scene.DangerDeckZone.Cards, Does.Not.Contains(scene.GhoulPriest));
         }

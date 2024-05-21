@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         private CardPlace _center;
         public CardPlace Center => _center ??= new List<CardPlace> { _cardsProvider.GetCard<Card01130>(), _cardsProvider.GetCard<Card01131>() }.Rand();
 
-        public IEnumerable<Card> StartDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
+        public override IEnumerable<Card> StartDeckDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
                      Info.DangerCards.Except(Cultists) :
                      Info.DangerCards.Except(Cultists).Except(new[] { GhoulPriest });
 
@@ -96,7 +96,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
 

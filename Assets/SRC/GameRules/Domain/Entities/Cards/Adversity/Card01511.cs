@@ -47,6 +47,7 @@ namespace MythosAndHorrors.GameRules
         private bool PayResourceConditionToActivate(Investigator investigator)
         {
             if (!IsInPlay) return false;
+            if (Owner.CurrentPlace != investigator.CurrentPlace) return false;
             if (AbilityUsed.Value > 1) return false;
             if (investigator.Resources.Value < 1) return false;
             if (Resources.Value < 1) return false;

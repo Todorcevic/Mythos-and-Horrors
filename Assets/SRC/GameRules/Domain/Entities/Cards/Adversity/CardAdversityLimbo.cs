@@ -10,14 +10,14 @@ namespace MythosAndHorrors.GameRules
 
 
         /*******************************************************************/
-        public override async Task PlayLogicFor(Investigator investigator)
+        public override async Task PlayAdversityFor(Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
-            await ObligationLogic();
+            await ObligationLogic(investigator);
             await _gameActionsProvider.Create(new DefeatCardGameAction(this, investigator.InvestigatorCard));
         }
 
         /*******************************************************************/
-        protected abstract Task ObligationLogic();
+        protected abstract Task ObligationLogic(Investigator investigator);
     }
 }

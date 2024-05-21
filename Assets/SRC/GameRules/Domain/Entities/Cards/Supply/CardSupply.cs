@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task PlayFromHand()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, Owner.AidZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, ControlOwner.AidZone));
         }
     }
 }

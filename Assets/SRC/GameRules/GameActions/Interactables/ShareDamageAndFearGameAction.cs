@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             {
                 Create()
                     .SetCard(cardSelectable)
-                    .SetInvestigator(cardSelectable.Owner)
+                    .SetInvestigator(cardSelectable.ControlOwner)
                     .SetCardAffected(ByThisCard)
                     .SetLogic(DoDamageAndFear);
 

@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         private SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]

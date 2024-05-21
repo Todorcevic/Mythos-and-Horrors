@@ -28,6 +28,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlot FirstPlot => Info.PlotCards.First();
         public CardGoal FirstGoal => Info.GoalCards.First();
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
+        public abstract IEnumerable<Card> StartDeckDangerCards { get; }
 
         /************************** TOKENS *****************************/
         public ChallengeToken StarToken { get; protected set; }
