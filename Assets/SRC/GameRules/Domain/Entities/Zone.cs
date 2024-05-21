@@ -69,5 +69,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public bool HasThisCard(Card card) => _cards.Contains(card);
+
+        public override string ToString() => ZoneType.ToString();
     }
 }

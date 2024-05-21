@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         public IEnumerator PlayAllInvestigators(bool withCards = true, bool withResources = false, bool withAvatar = true)
         {
-            yield return PlayAllInvestigators2(withCards, withResources, withAvatar).AsCoroutine().Fast();
+            yield return PlayAllInvestigatorsAsync(withCards, withResources, withAvatar).AsCoroutine().Fast();
         }
 
         public IEnumerator WasteTurnsInvestigator(Investigator investigator)
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, StartingPlace));
         }
 
-        private async Task PlayAllInvestigators2(bool withCards = true, bool withResources = true, bool withAvatar = true)
+        private async Task PlayAllInvestigatorsAsync(bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
