@@ -24,6 +24,10 @@ namespace MythosAndHorrors.GameRules
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
         public bool IsAlone => !OwnZone.Cards.Any(card => card is CardAvatar || card is CardCreature);
         public History RevealHistory => ExtraInfo?.Histories.ElementAtOrDefault(0) ?? new History();
+        public IEnumerable<CardCreature> CreaturesInThisPlace => _cardsProvider.GetCardsInPlay().OfType<CardCreature>()
+            .Where(creature => creature.CurrentPlace == this);
+        public IEnumerable<Investigator> InvestigatorsInThisPlace => _investigatorsProvider.AllInvestigatorsInPlay
+            .Where(investigator => investigator.CurrentPlace == this);
         public IEnumerable<CardPlace> ConnectedPlacesToMove =>
             _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
             .Select(code => _cardsProvider.GetCardByCode(code)).Where(card => card.IsInPlay).OfType<CardPlace>();

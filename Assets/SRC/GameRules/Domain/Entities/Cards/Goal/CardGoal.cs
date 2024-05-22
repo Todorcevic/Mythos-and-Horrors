@@ -38,17 +38,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task RevealEffect()
-        {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
-            await CompleteEffect();
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-            await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
-        }
-
-        public abstract Task CompleteEffect();
-
-        /*******************************************************************/
         private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!updateStatGameAction.HasStat(Hints)) return false;
@@ -62,7 +51,19 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        public async Task PayHintsActivate(Investigator activeInvestigator) =>
+        async Task IRevealable.RevealEffect()
+        {
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await CompleteEffect();
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
+        }
+
+        public abstract Task CompleteEffect();
+
+
+        /*******************************************************************/
+        public virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
             await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.Hints.Value > 0)));
 
