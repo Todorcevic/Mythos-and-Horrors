@@ -76,5 +76,29 @@ namespace MythosAndHorrors.PlayMode.Tests
             Assert.That(_investigatorsProvider.Third.Injury.Value, Is.EqualTo(2));
             Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaSacrifice), Is.True);
         }
+
+        [UnityTest]
+        public IEnumerator ThrowLitaWithLitaCard()
+        {
+            CardSupply Lita = _cardsProvider.GetCard<Card01117>();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return PlayThisInvestigator(_investigatorsProvider.Second);
+            yield return PlayThisInvestigator(_investigatorsProvider.Third);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Lita, _investigatorsProvider.Second.AidZone));
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+
+
+            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
+            yield return ClickedIn(Lita);
+            yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(_investigatorsProvider.First.Injury.Value, Is.EqualTo(2));
+            Assert.That(_investigatorsProvider.Second.Injury.Value, Is.EqualTo(2));
+            Assert.That(_investigatorsProvider.Third.Injury.Value, Is.EqualTo(2));
+            Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaSacrifice), Is.True);
+        }
     }
 }
