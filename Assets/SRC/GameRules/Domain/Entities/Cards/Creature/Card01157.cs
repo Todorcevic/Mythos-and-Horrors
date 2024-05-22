@@ -10,12 +10,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
         int IVictoriable.Victory => 10;
         bool IVictoriable.IsVictoryComplete => Health.Value <= 0; //TODO: revisar el reseteo cuando se descarta
         public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
-        private SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
+        public CardSupply Lita => _cardsProvider.TryGetCard<Card01117>();
 
         /*******************************************************************/
         [Inject]
@@ -31,8 +32,8 @@ namespace MythosAndHorrors.GameRules
         private bool ThrowLitaConditionToActivate(Investigator investigator)
         {
             if (!IsInPlay) return false;
-            if (!SceneCORE3.Lita?.IsInPlay ?? true) return false;
-            if (SceneCORE3.Lita?.ControlOwner.CurrentPlace != CurrentPlace) return false;
+            if (!Lita?.IsInPlay ?? true) return false;
+            if (Lita?.ControlOwner.CurrentPlace != CurrentPlace) return false;
             if (CurrentPlace != investigator.CurrentPlace) return false;
             return true;
         }

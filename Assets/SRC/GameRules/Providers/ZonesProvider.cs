@@ -30,6 +30,5 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
 
         public Zone GetZoneWithThisCard(Card card) => _zones.First(zone => zone.Cards.Contains(card));
-
     }
 }

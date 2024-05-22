@@ -39,6 +39,5 @@ namespace MythosAndHorrors.GameView
 
             _challengeTokensProvider.CreateTokens(challengeTokens);
         }
-
     }
 }
