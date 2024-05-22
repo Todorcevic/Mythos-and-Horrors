@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
 
         private CardPlace StalkerMove()
         {
-            if (Creature is ITarget target && target.IsOnlyOneTarget) return target.TargetInvestigator.IsInPlay ?
+            if (Creature is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
                     InitializePathFinder(Creature.CurrentPlace, target.TargetInvestigator.CurrentPlace).path :
                     Creature.CurrentPlace;
 

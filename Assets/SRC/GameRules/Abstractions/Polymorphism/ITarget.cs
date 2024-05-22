@@ -3,7 +3,7 @@
 
     public interface ITarget
     {
-        bool IsOnlyOneTarget => false;
+        bool IsUniqueTarget => false;
         Investigator TargetInvestigator { get; }
     }
 }

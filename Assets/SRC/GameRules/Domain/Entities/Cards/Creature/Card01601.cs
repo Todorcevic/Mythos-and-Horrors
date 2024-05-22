@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public bool IsOnlyOneTarget => true;
+        public bool IsUniqueTarget => true;
         public Investigator TargetInvestigator => Owner;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Humanoid, Tag.Criminal };

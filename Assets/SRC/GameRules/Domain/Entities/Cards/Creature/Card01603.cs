@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
 
-        public bool IsOnlyOneTarget => true;
+        public bool IsUniqueTarget => true;
         public Investigator TargetInvestigator => Owner;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Humanoid, Tag.Detective };
