@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Func<Task> succesEffect = null, Func<Task> failEffect = null, Card cardToChallenge = null)
+        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
         {
             Stat = stat;
             InitialDifficultValue = difficultValue;
@@ -73,6 +73,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task Undo()
         {
             IsUndo = true;
+            await base.Undo();
             await _challengerPresenter.PlayAnimationWith(this);
         }
     }

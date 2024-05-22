@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public Stat AmountSupplies { get; protected set; }
         public Stat AmountBullets { get; protected set; }
         public Stat AmountCharges { get; protected set; }
+        public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace :  null;
 
         /*******************************************************************/
         [Inject]

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 if (DEBUG_MODE) yield return PressAnyKey();
 
-                yield return _challengeBagComponent.DropToken(challengeToken, _investigatorsProvider.First).AsCoroutine();
+                yield return _challengeBagComponent.DropToken(challengeToken, _investigatorsProvider.First).WaitForCompletion();
             } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

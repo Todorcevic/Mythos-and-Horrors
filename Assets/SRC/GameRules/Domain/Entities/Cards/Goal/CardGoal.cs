@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public Stat Hints { get; protected set; }
         public State Revealed { get; private set; }

@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public IReaction EnterPlayReaction => _reactionablesProvider.FindReactionByLogic<MoveCardsGameAction>(EnterPlayLogic);
         public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.Info.PlaceCards

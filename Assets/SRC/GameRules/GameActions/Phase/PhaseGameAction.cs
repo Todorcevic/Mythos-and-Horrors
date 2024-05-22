@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task Undo()
         {
+            await base.Undo();
             await _changePhasePresenter.PlayAnimationWith(this);
         }
     }

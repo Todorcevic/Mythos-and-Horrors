@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task Undo()
         {
             _chaptersProvider.CurrentChapter.ChapterRegister(Position, _oldRegister);
-            await Task.CompletedTask;
+            await base.Undo();
         }
     }
 }

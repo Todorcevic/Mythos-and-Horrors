@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
            .OrderByDescending(investigator => investigator.Hints.Value).First();

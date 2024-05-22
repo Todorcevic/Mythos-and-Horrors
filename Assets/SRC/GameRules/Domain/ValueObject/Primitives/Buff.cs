@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public async Task Execute()
         {
             if (_isBuffing) return;
+            _undoCardsAfeccted.Push(CurrentCardsAffected.ToList());
             _isBuffing = true;
 
             if (IsDisabled) await Deactive();
@@ -34,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             _isBuffing = false;
         }
 
-        private async Task Deactive()
+        public async Task Deactive()
         {
             if (CurrentCardsAffected.Count < 1) return;
             await DeactivationLogic.Invoke(CurrentCardsAffected);
@@ -58,6 +59,14 @@ namespace MythosAndHorrors.GameRules
                 await DeactivationLogic.Invoke(cardsToDeactivate);
                 CurrentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
             }
+        }
+
+        private readonly Stack<List<Card>> _undoCardsAfeccted = new();
+
+        public void Undo()
+        {
+            if (_undoCardsAfeccted.Count < 1) return;
+            CurrentCardsAffected = _undoCardsAfeccted.Pop().ToList();
         }
 
         /*******************************************************************/

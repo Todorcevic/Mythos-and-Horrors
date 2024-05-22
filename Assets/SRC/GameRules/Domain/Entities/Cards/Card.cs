@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         [InjectOptional] private readonly CardExtraInfo _extraInfo;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();

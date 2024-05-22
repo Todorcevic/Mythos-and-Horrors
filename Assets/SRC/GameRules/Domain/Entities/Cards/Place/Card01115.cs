@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(
-                    activeInvestigator.Intelligence, 4, "Parley with Lita", ParleySucceed, null, Lita));
+                    activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: Lita, succesEffect: ParleySucceed, failEffect: null));
 
             async Task ParleySucceed() => await _gameActionsProvider.Create(new MoveCardsGameAction(Lita, activeInvestigator.AidZone));
         }

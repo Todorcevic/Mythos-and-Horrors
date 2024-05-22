@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -36,7 +37,11 @@ namespace MythosAndHorrors.GameRules
             FinishSet();
         }
 
-        public virtual async Task Undo() => await Task.CompletedTask;
+        public virtual async Task Undo()
+        {
+            _buffsProvider.UndoAllBuffs();
+            await Task.CompletedTask;
+        }
 
         public void Cancel() => IsCancel = true;
 

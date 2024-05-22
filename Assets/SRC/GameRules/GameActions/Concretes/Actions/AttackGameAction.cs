@@ -3,52 +3,50 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class AttackGameAction : GameAction
+    public class AttackGameAction : ChallengePhaseGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Investigator Investigator { get; }
         public CardCreature CardCreature { get; }
         public int AmountDamage { get; }
 
         /*******************************************************************/
         public AttackGameAction(Investigator investigator, CardCreature creature, int amountDamage)
+            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature)
         {
-            Investigator = investigator;
+            ActiveInvestigator = investigator;
             CardCreature = creature;
             AmountDamage = amountDamage;
+            SuccesEffects.Add(SuccesEffet);
+            FailEffects.Add(FailEffet);
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        private async Task SuccesEffet() =>
+            await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage));
+
+        private async Task FailEffet()
         {
-            ChallengePhaseGameAction challenge = await _gameActionsProvider.Create(new ChallengePhaseGameAction(
-                Investigator.Strength,
-                CardCreature.Strength.Value,
-                "Attack " + CardCreature.Info.Name,
-                succesEffect: SuccesEffet,
-                failEffect: FailEffet,
-                cardToChallenge: CardCreature));
-
-            await CheckCounterAttack(challenge);
-
-            /*******************************************************************/
-            async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature, Investigator.InvestigatorCard, amountDamage: AmountDamage));
-
-            async Task FailEffet()
-            {
-                if (CardCreature.IsConfronted && CardCreature.ConfrontedInvestigator != Investigator)
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature.ConfrontedInvestigator.InvestigatorCard, Investigator.InvestigatorCard, amountDamage: AmountDamage));
-            }
+            if (CardCreature.IsConfronted && CardCreature.ConfrontedInvestigator != ActiveInvestigator)
+                await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature.ConfrontedInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage));
         }
 
-        private async Task CheckCounterAttack(ChallengePhaseGameAction challenge)
+        protected override async Task ExecuteThisPhaseLogic()
+        {
+            await base.ExecuteThisPhaseLogic();
+            await CheckCounterAttack();
+
+            /*******************************************************************/
+
+        }
+
+        private async Task CheckCounterAttack()
         {
             if (CardCreature is not ICounterAttackable) return;
             if (CardCreature.Exausted.IsActive) return;
-            if (challenge.IsSuccessful ?? true) return;
+            if (IsSuccessful ?? true) return;
 
-            await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, Investigator));
+            await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }
     }
 }

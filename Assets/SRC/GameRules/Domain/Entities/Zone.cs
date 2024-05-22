@@ -22,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsAidZone => ZoneType == ZoneType.Aid;
         public bool IsDangerZone => ZoneType == ZoneType.Danger;
         public bool IsInvestigatorZone => ZoneType == ZoneType.Investigator;
+        public bool IsPlaceZone => ZoneType == ZoneType.Place;
 
         /*******************************************************************/
         public Zone(ZoneType zoneType)

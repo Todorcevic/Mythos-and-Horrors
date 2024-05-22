@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() =>
             BuffActivation() ?
-            new List<Card> { _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).InvestigatorCard } :
+            new [] { _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).InvestigatorCard } :
             Enumerable.Empty<Card>();
 
         private bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;

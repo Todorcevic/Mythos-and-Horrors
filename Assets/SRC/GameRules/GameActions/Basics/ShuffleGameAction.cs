@@ -30,6 +30,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task Undo()
         {
             ZoneToShuffle.ReorderCardsWith(_cards);
+            await base.Undo();
             await _shufllePresenter.PlayAnimationWith(this);
         }
     }

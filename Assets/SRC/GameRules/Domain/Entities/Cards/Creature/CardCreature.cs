@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public Stat Health { get; protected set; }
         public Stat Strength { get; private set; }
@@ -21,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
         public Stat Eldritch { get; private set; }
+        public int DamageRecived => (Info.Health ?? 0) - Health.Value;
         public IReaction DefeatReaction => _reactionablesProvider.FindReactionByLogic<UpdateStatGameAction>(DefeatLogic);
         public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByLogic<MoveCardsGameAction>(ConfrontLogic);
         public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByLogic<UpdateStatesGameAction>(ConfrontLogic);

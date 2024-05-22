@@ -21,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task Undo()
         {
             Round--;
+            await base.Undo();
             await Task.CompletedTask;
         }
     }

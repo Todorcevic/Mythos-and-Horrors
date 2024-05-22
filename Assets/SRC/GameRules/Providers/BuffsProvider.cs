@@ -32,6 +32,16 @@ namespace MythosAndHorrors.GameRules
             foreach (Buff buff in _allBuffs.ToList()) await buff.Execute();
         }
 
+        public async Task DeactiveAllBuffs()
+        {
+            foreach (Buff buff in _allBuffs.ToList()) await buff.Deactive();
+        }
+
+        public void UndoAllBuffs()
+        {
+            foreach (Buff buff in _allBuffs) buff.Undo();
+        }
+
         public IEnumerable<Buff> GetBuffsAffectToThisCard(Card cardAffected) =>
             _allBuffs.FindAll(buff => buff.CurrentCardsAffected.Contains(cardAffected));
 

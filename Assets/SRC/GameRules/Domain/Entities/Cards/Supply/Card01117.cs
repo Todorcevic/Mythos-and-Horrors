@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -10,6 +12,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Ally };
         public CardCreature Urmodoth => _cardsProvider.TryGetCard<Card01157>();
@@ -21,6 +25,53 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, withOpportunityAttck: false);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate);
+            CreateReaction<AttackGameAction>(AttackCondition, AttackLogic, isAtStart: true);
+            _buffsProvider.Create()
+              .SetCard(this)
+              .SetDescription(nameof(GainStrength))
+              .SetCardsToBuff(CardsToBuff)
+              .SetAddBuff(GainStrength)
+              .SetRemoveBuff(RemoveGainStrenghtBuff);
+        }
+
+        /*******************************************************************/
+        private async Task AttackLogic(AttackGameAction attackGameAction)
+        {
+            attackGameAction.SuccesEffects.Add(AttackSucceed);
+            await Task.CompletedTask;
+
+            async Task AttackSucceed()
+            {
+                await _gameActionsProvider.Create(new HarmToCardGameAction(attackGameAction.CardCreature, this, amountDamage: 1));
+            }
+        }
+
+        private bool AttackCondition(AttackGameAction attackGameAction)
+        {
+            if (!IsInPlay) return false;
+            if (attackGameAction.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
+            if (!attackGameAction.CardCreature.HasThisTag(Tag.Monster)) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private async Task GainStrength(IEnumerable<Card> cards)
+        {
+            Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
+            await _gameActionsProvider.Create(new IncrementStatGameAction(map));
+        }
+
+        private async Task RemoveGainStrenghtBuff(IEnumerable<Card> cards)
+        {
+            Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
+            await _gameActionsProvider.Create(new DecrementStatGameAction(map));
+        }
+
+        private IEnumerable<Card> CardsToBuff()
+        {
+            return IsInPlay ? _investigatorProvider.AllInvestigatorsInPlay
+                .Where(investigator => investigator.CurrentPlace == CurrentPlace).Select(investigator => investigator.InvestigatorCard) :
+                Enumerable.Empty<Card>();
         }
 
         /*******************************************************************/
@@ -29,7 +80,7 @@ namespace MythosAndHorrors.GameRules
             if (_chaptersProvider.CurrentScene is not SceneCORE3) return false;
             if (!IsInPlay) return false;
             if (!Urmodoth?.IsInPlay ?? true) return false;
-            if (ControlOwner.CurrentPlace != Urmodoth.CurrentPlace) return false;
+            if (CurrentPlace != Urmodoth.CurrentPlace) return false;
             if (investigator.CurrentPlace != Urmodoth.CurrentPlace) return false;
             return true;
         }
@@ -46,7 +97,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(
-                    activeInvestigator.Intelligence, 4, "Parley with Lita", ParleySucceed, null, this));
+                    activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: this, ParleySucceed, null));
 
             async Task ParleySucceed() => await _gameActionsProvider.Create(new MoveCardsGameAction(this, activeInvestigator.AidZone));
         }

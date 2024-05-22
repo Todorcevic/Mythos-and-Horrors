@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
                 move.Key.CurrentZone?.RemoveCard(move.Key);
                 move.Value.zone.AddCard(move.Key);
             }
-
+            await base.Undo();
             await _moveCardPresenter.PlayAnimationWith(this);
         }
     }

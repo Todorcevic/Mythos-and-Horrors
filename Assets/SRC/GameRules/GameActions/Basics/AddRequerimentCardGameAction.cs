@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task Undo()
         {
             Investigator.RequerimentCard.Remove(Card);
-            await Task.CompletedTask;
+            await base.Undo();
         }
     }
 }

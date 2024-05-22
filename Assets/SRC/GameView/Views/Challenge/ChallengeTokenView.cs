@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -18,12 +19,12 @@ namespace MythosAndHorrors.GameView
         public bool IsValueToken => (int)_type < 10;
 
         /*******************************************************************/
-        public async Task PushUp()
+        public Tween PushUp()
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(transform.up * Random.Range(100f, 200f), ForceMode.Impulse);
             _rigidBody.AddTorque(new Vector3(10, 20, 50), ForceMode.Impulse);
-            await Task.Delay(1000);
+            return DotweenExtension.Wait(ViewValues.DEFAULT_TIME_ANIMATION * 2);
         }
 
         public Tween Restore(Transform centerShow, Transform ChallengeBag)

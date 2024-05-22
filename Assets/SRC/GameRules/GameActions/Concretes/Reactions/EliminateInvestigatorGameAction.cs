@@ -33,6 +33,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task Undo()
         {
+            await base.Undo();
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
         }
     }
