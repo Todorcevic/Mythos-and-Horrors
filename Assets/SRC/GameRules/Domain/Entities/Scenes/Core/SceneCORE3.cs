@@ -14,6 +14,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
+        public CardCreature Drew => _cardsProvider.GetCard<Card01137>();
+        public CardCreature Herman => _cardsProvider.GetCard<Card01138>();
+        public CardCreature Peter => _cardsProvider.GetCard<Card01139>();
+        public CardCreature Victoria => _cardsProvider.GetCard<Card01140>();
+        public CardCreature Ruth => _cardsProvider.GetCard<Card01141>();
+        public CardCreature MaskedHunter => _cardsProvider.GetCard<Card01121b>();
+        public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
+        public List<Card> Cultists => new() { Drew, Herman, Peter, Victoria, Ruth, MaskedHunter };
         public CardPlace MainPath => _cardsProvider.GetCard<Card01149>();
         public CardPlace Forest1 => _cardsProvider.GetCard<Card01150>();
         public CardPlace Forest2 => _cardsProvider.GetCard<Card01151>();
@@ -22,7 +30,6 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Forest5 => _cardsProvider.GetCard<Card01154>();
         public CardPlace Forest6 => _cardsProvider.GetCard<Card01155>();
         public CardPlace Ritual => _cardsProvider.GetCard<Card01156>();
-        public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
         public CardCreature Urmodoth => _cardsProvider.GetCard<Card01157>();
         public IEnumerable<Card> Haunteds => _cardsProvider.GetCards<Card01598>();
         public IEnumerable<Card> Hastur => _cardsProvider.GetCards<Card01175>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01176>());
@@ -31,16 +38,22 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> Cthulhu => _cardsProvider.GetCards<Card01181>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01182>());
         public IEnumerable<Card> AllAgents => Hastur.Concat(Yog).Concat(Shub).Concat(Cthulhu);
         public override IEnumerable<Card> StartDeckDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds) :
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(new[] { GhoulPriest });
+            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists) :
+            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists).Except(new[] { GhoulPriest });
 
-        public int AmountInterrogate =>
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.DrewInterrogate) ? 1 : 0) +
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HermanInterrogate) ? 1 : 0) +
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PeterInterrogate) ? 1 : 0) +
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.RuthInterrogate) ? 1 : 0) +
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.VictoriaInterrogate) ? 1 : 0) +
-            (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.MaskedHunterInterrogate) ? 1 : 0);
+        public List<CardCreature> CultistsNotInterrogate()
+        {
+            List<CardCreature> creatures = new();
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.DrewInterrogate)) creatures.Add(Drew);
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HermanInterrogate)) creatures.Add(Herman);
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PeterInterrogate)) creatures.Add(Peter);
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.RuthInterrogate)) creatures.Add(Ruth);
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.VictoriaInterrogate)) creatures.Add(Victoria);
+            if (!_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.MaskedHunterInterrogate)) creatures.Add(MaskedHunter);
+            return creatures;
+        }
+
+        public int AmountInterrogate => 6 - CultistsNotInterrogate().Count;
 
         public List<CardPlace> Forests => new() { Forest1, Forest2, Forest3, Forest4, Forest5, Forest6 };
 
