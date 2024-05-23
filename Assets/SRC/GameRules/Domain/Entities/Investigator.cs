@@ -6,24 +6,28 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Investigator
+    public class Investigator : Owner
     {
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        [JsonProperty("InvestigatorCard")] public CardInvestigator InvestigatorCard { get; init; }
-        [JsonProperty("AvatarCard")] public CardAvatar AvatarCard { get; init; }
-        [JsonProperty("Cards")] public List<Card> Cards { get; init; }
-        [JsonProperty("RequerimentCard")] public List<Card> RequerimentCard { get; init; }
+        //[JsonProperty("Cards")] public  List<Card> Cards { get; init; }
+        //*[JsonProperty("Zones")]*/
+        //public  List<Zone> Zones { get; init; } = new();
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
-        public Zone HandZone { get; private set; }
-        public Zone DeckZone { get; private set; }
-        public Zone DiscardZone { get; private set; }
-        public Zone AidZone { get; private set; }
-        public Zone DangerZone { get; private set; }
-        public Zone InvestigatorZone { get; private set; }
+
+        public CardInvestigator InvestigatorCard => Cards.OfType<CardInvestigator>().First();
+        public CardAvatar AvatarCard => Cards.OfType<CardAvatar>().First();
+        public List<Card> RequerimentCard => Cards.FindAll(card => card.ExtraInfo?.IsRequired ?? false);
+        public List<Card> FullDeck => Cards.FindAll(card => card is not CardAvatar && card is not CardInvestigator);
+        public Zone HandZone => Zones.First(zone => zone.ZoneType == ZoneType.Hand);
+        public Zone DeckZone => Zones.First(zone => zone.ZoneType == ZoneType.InvestigatorDeck);
+        public Zone DiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.InvestigatorDiscard);
+        public Zone AidZone => Zones.First(zone => zone.ZoneType == ZoneType.Aid);
+        public Zone DangerZone => Zones.First(zone => zone.ZoneType == ZoneType.Danger);
+        public Zone InvestigatorZone => Zones.First(zone => zone.ZoneType == ZoneType.Investigator);
         public SlotsCollection SlotsCollection { get; } = new();
 
         /*******************************************************************/
@@ -45,9 +49,7 @@ namespace MythosAndHorrors.GameRules
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public Card CardDangerToDraw => _chaptersProvider.CurrentScene.CardDangerToDraw;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
-        public IEnumerable<Card> FullDeck => Cards.Concat(RequerimentCard);
-        public IEnumerable<Card> AllCards => FullDeck.Concat(new[] { InvestigatorCard }).Concat(new[] { AvatarCard });
-        public IEnumerable<Card> CardsInPlay => AllCards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
+        public IEnumerable<Card> CardsInPlay => Cards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
             .Union(AidZone.Cards); //But Cards not Owner how Lita
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
@@ -77,17 +79,19 @@ namespace MythosAndHorrors.GameRules
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
 
+
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            HandZone = _zonesProvider.Create(ZoneType.Hand);
-            DeckZone = _zonesProvider.Create(ZoneType.InvestigatorDeck);
-            DiscardZone = _zonesProvider.Create(ZoneType.InvestigatorDiscard);
-            AidZone = _zonesProvider.Create(ZoneType.Aid);
-            DangerZone = _zonesProvider.Create(ZoneType.Danger);
-            InvestigatorZone = _zonesProvider.Create(ZoneType.Investigator);
+            Zones.Add(_zonesProvider.Create(ZoneType.Hand));
+            Zones.Add(_zonesProvider.Create(ZoneType.InvestigatorDeck));
+            Zones.Add(_zonesProvider.Create(ZoneType.InvestigatorDiscard));
+            Zones.Add(_zonesProvider.Create(ZoneType.Aid));
+            Zones.Add(_zonesProvider.Create(ZoneType.Danger));
+            Zones.Add(_zonesProvider.Create(ZoneType.Investigator));
         }
 
         /*******************************************************************/
@@ -104,10 +108,9 @@ namespace MythosAndHorrors.GameRules
           zone == DeckZone ||
           zone == DiscardZone ||
           zone == AidZone ||
-          //zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
           zone == InvestigatorZone;
 
-        public bool HasThisCard(Card card) => AllCards.Contains(card);
+        public bool HasThisCard(Card card) => Cards.Contains(card);
 
         public ChallengeType GetChallengeType(Stat stat)
         {

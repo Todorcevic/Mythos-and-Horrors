@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        private IEnumerable<CardPlace> PlaceCardsWithXP => _chaptersProvider.CurrentScene.Info.PlaceCards
+        private IEnumerable<CardPlace> PlaceCardsWithXP => _chaptersProvider.CurrentScene.PlaceCards
          .Where(cardPlace => cardPlace.IsVictory && cardPlace.IsInPlay && cardPlace.Revealed.IsActive && cardPlace.Hints.Value < 1);
 
         /*******************************************************************/

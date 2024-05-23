@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             Investigator investigator1 = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
-            Card card = investigator1.Cards[1];
+            Card card = investigator1.FullDeck[1];
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator2.DangerZone)).AsCoroutine();
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Move_AvatarCard()
         {
             Investigator investigator1 = _investigatorsProvider.First;
-            CardPlace cardPlace = _chaptersProvider.CurrentScene.Info.PlaceCards.First();
+            CardPlace cardPlace = _chaptersProvider.CurrentScene.PlaceCards.First();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, cardPlace)).AsCoroutine();

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; protected set; }
         public State Revealed { get; private set; }
 
-        public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.Info.GoalCards.NextElementFor(this);
+        public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
         public int AmountOfHints => MaxHints - Hints.Value;
         public Activation PayHints => AllActivations.First(activation => activation.Logic == PayHintsActivate);

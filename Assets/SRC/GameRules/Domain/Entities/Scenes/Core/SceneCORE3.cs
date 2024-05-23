@@ -38,8 +38,8 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> Cthulhu => _cardsProvider.GetCards<Card01181>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01182>());
         public IEnumerable<Card> AllAgents => Hastur.Concat(Yog).Concat(Shub).Concat(Cthulhu);
         public override IEnumerable<Card> StartDeckDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists) :
-            Info.DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists).Except(new[] { GhoulPriest });
+            DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists) :
+            DangerCards.Except(AllAgents.Except(AgentSelected)).Except(Haunteds).Except(Cultists).Except(new[] { GhoulPriest });
 
         public List<CardCreature> CultistsNotInterrogate()
         {
@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ShowHistory()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
         }
 
         private async Task PlacePlaces()
@@ -212,10 +212,10 @@ namespace MythosAndHorrors.GameRules
         protected override void PrepareChallengeTokens()
         {
             {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
-                AncientToken = new ChallengeToken(ChallengeTokenType.Ancient, value: AncientValue, effect: AncientEffect, description: Info.DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
+                AncientToken = new ChallengeToken(ChallengeTokenType.Ancient, value: AncientValue, effect: AncientEffect, description: DangerTokenDescriptionNormal);
             }
         }
 

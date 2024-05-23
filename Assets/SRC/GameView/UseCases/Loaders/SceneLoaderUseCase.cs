@@ -18,12 +18,13 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Execute()
         {
-            SceneInfo sceneInfo = _jsonService.CreateDataFromFile<SceneInfo>(_filesPath.JSON_SCENE_PATH(_saveDataLoaderUseCase.DataSave.SceneSelected));
-            Type type = (Assembly.GetAssembly(typeof(Scene)).GetType(typeof(Scene) + sceneInfo.Code)
-               ?? throw new InvalidOperationException("Scene not found" + sceneInfo.Code));
-            Scene currentScene = (Scene)_diContainer.Instantiate(type, new object[] { sceneInfo });
-            _chaptersProvider.SetCurrentScene(currentScene);
-            CreateTokens(sceneInfo);
+            string sceneSelected = _saveDataLoaderUseCase.DataSave.SceneSelected;
+            Type type = (Assembly.GetAssembly(typeof(Scene)).GetType(typeof(Scene) + sceneSelected)
+                ?? throw new InvalidOperationException("Scene not found " + sceneSelected));
+            object scene = _jsonService.CreateDataFromFile(type, _filesPath.JSON_SCENE_PATH(sceneSelected));
+            _diContainer.Inject(scene);
+            _chaptersProvider.SetCurrentScene((Scene)scene);
+            CreateTokens((Scene)scene);
         }
 
         private void CreateTokens(SceneInfo sceneInfo)

@@ -17,14 +17,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Investigator.RequerimentCard.Add(Card);
+            Investigator.Cards.Add(Card);
             await Task.CompletedTask;
         }
 
         /*******************************************************************/
         public override async Task Undo()
         {
-            Investigator.RequerimentCard.Remove(Card);
+            Investigator.Cards.Remove(Card);
             await base.Undo();
         }
     }

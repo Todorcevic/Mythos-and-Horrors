@@ -63,12 +63,12 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task BurnIt()
             {
-                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[1]));
+                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[1]));
             }
 
             async Task NoBurn()
             {
-                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
+                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[2]));
             }
         }
     }

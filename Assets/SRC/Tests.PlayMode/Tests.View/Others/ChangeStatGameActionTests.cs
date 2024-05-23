@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Move_Resource_From_Card()
         {
-            CardSupply cardSupply = _investigatorsProvider.First.Cards[0] as CardSupply;
+            CardSupply cardSupply = _investigatorsProvider.First.FullDeck.OfType<CardSupply>().First();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Update_Eldritch_Stats()
         {
-            CardPlot cardPlot = _chaptersProvider.CurrentScene.Info.PlotCards.First();
+            CardPlot cardPlot = _chaptersProvider.CurrentScene.PlotCards.First();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             do
@@ -70,7 +70,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Full_Hint_Stats()
         {
-            CardGoal cardGoal = _chaptersProvider.CurrentScene.Info.GoalCards.First();
+            CardGoal cardGoal = _chaptersProvider.CurrentScene.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<Card01112>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();

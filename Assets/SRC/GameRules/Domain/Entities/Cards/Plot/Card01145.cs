@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
 
-            if (SceneCORE3.CurrentGoal == SceneCORE3.Info.GoalCards.ElementAt(0))
+            if (SceneCORE3.CurrentGoal == SceneCORE3.GoalCards.ElementAt(0))
             {
                 await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.PlaceZone[1, 4]));
             }
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.Resolutions[2]));
+            await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[2]));
 
         }
     }

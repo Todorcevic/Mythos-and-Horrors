@@ -4,14 +4,13 @@ using Newtonsoft.Json;
 
 namespace MythosAndHorrors.GameRules
 {
-    public record SceneInfo
+    public class SceneInfo : Owner
     {
         [JsonProperty("Code")] public string Code { get; init; }
         [JsonProperty("Position")] public int Position { get; init; }
         [JsonProperty("Name")] public string Name { get; init; }
         [JsonProperty("Descriptions")] public List<History> Descriptions { get; init; }
         [JsonProperty("Resolutions")] public List<History> Resolutions { get; init; }
-        [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         [JsonProperty("NextScene")] public string NextScene { get; init; }
         [JsonProperty("ChallengeTokensEasy")] public List<ChallengeTokenType> ChallengeTokensEasy { get; init; }
         [JsonProperty("ChallengeTokensNormal")] public List<ChallengeTokenType> ChallengeTokensNormal { get; init; }

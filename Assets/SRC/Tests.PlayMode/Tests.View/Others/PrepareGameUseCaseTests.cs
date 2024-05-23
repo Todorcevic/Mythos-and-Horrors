@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_investigatorsProvider.AllInvestigators.Count(), Is.EqualTo(4));
             Assert.That(_cardsProvider.GetCard<Card01160>().Info.Code, Is.EqualTo("01160"));
-            Assert.That(_chaptersProvider.CurrentScene.Info.Name, Is.EqualTo("El encuentro"));
+            Assert.That(_chaptersProvider.CurrentScene.Name, Is.EqualTo("El encuentro"));
             yield return null;
         }
     }

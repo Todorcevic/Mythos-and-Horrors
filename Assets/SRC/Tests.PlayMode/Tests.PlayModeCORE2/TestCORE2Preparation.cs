@@ -39,8 +39,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             {
                 Dictionary<Card, (Zone zone, bool faceDown)> moveSceneCards = new()
                     {
-                        { SceneCORE2.Info.PlotCards.First(), (SceneCORE2.PlotZone, false )},
-                        { SceneCORE2.Info.GoalCards.First(), (SceneCORE2.GoalZone, false)}
+                        { SceneCORE2.PlotCards.First(), (SceneCORE2.PlotZone, false )},
+                        { SceneCORE2.GoalCards.First(), (SceneCORE2.GoalZone, false)}
                     };
 
                 SceneCORE2.StartDeckDangerCards.ForEach(card => moveSceneCards.Add(card, (SceneCORE2.DangerDeckZone, true)));

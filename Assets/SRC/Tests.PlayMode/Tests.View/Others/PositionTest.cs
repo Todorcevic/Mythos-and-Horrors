@@ -45,11 +45,11 @@ namespace MythosAndHorrors.PlayModeView.Tests
                     {investigator1.Cards[22], investigator1.DiscardZone},
                     {investigator1.Cards[23], investigator1.DiscardZone},
                     {investigator1.Cards[24], investigator1.DiscardZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[30], _chaptersProvider.CurrentScene.PlotZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[31], _chaptersProvider.CurrentScene.GoalZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[26], _chaptersProvider.CurrentScene.DangerDiscardZone},
-                    {_chaptersProvider.CurrentScene.Info.Cards[32], _chaptersProvider.CurrentScene.LimboZone},
+                    {_chaptersProvider.CurrentScene.Cards[30], _chaptersProvider.CurrentScene.PlotZone},
+                    {_chaptersProvider.CurrentScene.Cards[31], _chaptersProvider.CurrentScene.GoalZone},
+                    {_chaptersProvider.CurrentScene.Cards[3], _chaptersProvider.CurrentScene.DangerDeckZone},
+                    {_chaptersProvider.CurrentScene.Cards[26], _chaptersProvider.CurrentScene.DangerDiscardZone},
+                    {_chaptersProvider.CurrentScene.Cards[32], _chaptersProvider.CurrentScene.LimboZone},
             };
 
 
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             {
                 for (int j = 0; j < _chaptersProvider.CurrentScene.PlaceZone.GetLength(1); j++)
                 {
-                    cardsWithZone.Add(_chaptersProvider.CurrentScene.Info.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j]);
+                    cardsWithZone.Add(_chaptersProvider.CurrentScene.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j]);
                 }
             }
 

@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
-            Assert.That(scene.Info.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(5));
+            Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(5));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
                 Is.EqualTo(scene.MainPath));
             Assert.That(scene.GoalZone.Cards.Unique(), Is.EqualTo(scene.FirstGoal));

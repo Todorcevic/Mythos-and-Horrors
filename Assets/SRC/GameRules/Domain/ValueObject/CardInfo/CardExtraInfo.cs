@@ -8,5 +8,6 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Code")] public string Code { get; init; }
         [JsonProperty("Histories")] public List<History> Histories { get; init; }
         [JsonProperty("ConnectedPlaces")] public string[] ConnectedPlaces { get; init; }
+        [JsonProperty("IsRequired")] public bool IsRequired { get; init; }
     }
 }

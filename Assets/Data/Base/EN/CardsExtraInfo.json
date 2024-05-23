@@ -628,5 +628,81 @@
                 "Image": "01110b"
             }
         ]
+    },
+    {
+        "Code": "01506",
+        "IsRequired": true
+    },
+    {
+        "Code": "01507",
+        "IsRequired": true
+    },
+    {
+        "Code": "01508",
+        "IsRequired": true
+    },
+    {
+        "Code": "01509",
+        "IsRequired": true
+    },
+    {
+        "Code": "01510",
+        "IsRequired": true
+    },
+    {
+        "Code": "01511",
+        "IsRequired": true
+    },
+    {
+        "Code": "01512",
+        "IsRequired": true
+    },
+    {
+        "Code": "01513",
+        "IsRequired": true
+    },
+    {
+        "Code": "01514",
+        "IsRequired": true
+    },
+    {
+        "Code": "01515",
+        "IsRequired": true
+    },
+    {
+        "Code": "01596",
+        "IsRequired": true
+    },
+    {
+        "Code": "01597",
+        "IsRequired": true
+    },
+    {
+        "Code": "01598",
+        "IsRequired": true
+    },
+    {
+        "Code": "01599",
+        "IsRequired": true
+    },
+    {
+        "Code": "01600",
+        "IsRequired": true
+    },
+    {
+        "Code": "01601",
+        "IsRequired": true
+    },
+    {
+        "Code": "01602",
+        "IsRequired": true
+    },
+    {
+        "Code": "01603",
+        "IsRequired": true
+    },
+    {
+        "Code": "01117",
+        "IsRequired": true
     }
 ]

@@ -38,8 +38,8 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Center => _center ??= new List<CardPlace> { _cardsProvider.GetCard<Card01130>(), _cardsProvider.GetCard<Card01131>() }.Rand();
 
         public override IEnumerable<Card> StartDeckDangerCards => _chaptersProvider.CurrentChapter.IsRegistered(CORERegister.PriestGhoulLive) ?
-                     Info.DangerCards.Except(Cultists) :
-                     Info.DangerCards.Except(Cultists).Except(new[] { GhoulPriest });
+                     DangerCards.Except(Cultists) :
+                     DangerCards.Except(Cultists).Except(new[] { GhoulPriest });
 
         public IEnumerable<CardCreature> Acolits => _cardsProvider.AllCards.OfType<Card01169>();
 
@@ -58,9 +58,9 @@ namespace MythosAndHorrors.GameRules
         private async Task ShowHistory()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway))
-                await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
-            else await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[1]));
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[2]));
+                await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
+            else await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[1]));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[2]));
         }
 
         private async Task PlacePlaces()
@@ -156,9 +156,9 @@ namespace MythosAndHorrors.GameRules
         protected override void PrepareChallengeTokens()
         {
             {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
             }
         }
 

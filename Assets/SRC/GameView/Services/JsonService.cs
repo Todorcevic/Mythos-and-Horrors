@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
@@ -23,6 +24,12 @@ namespace MythosAndHorrors.GameView
         {
             TextAsset jsonData = Resources.Load<TextAsset>(pathAndNameJsonFile);
             return JsonConvert.DeserializeObject<T>(jsonData.text, _converters);
+        }
+
+        public object CreateDataFromFile(Type type, string pathAndNameJsonFile)
+        {
+            string jsonData = File.ReadAllText(pathAndNameJsonFile);
+            return JsonConvert.DeserializeObject(jsonData, type, _converters);
         }
 
         public T CreateDataFromFile<T>(string pathAndNameJsonFile)

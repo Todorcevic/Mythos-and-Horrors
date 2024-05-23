@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public record History
+    public class History
     {
         [JsonProperty("Code")] public string Code { get; init; }
         [JsonProperty("Title")] public string Title { get; init; }

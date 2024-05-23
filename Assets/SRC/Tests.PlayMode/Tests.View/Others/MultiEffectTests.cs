@@ -19,8 +19,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Multieffect test");
             Investigator investigator1 = _investigatorsProvider.First;
-            Card card = investigator1.Cards[1];
-            Card card2 = investigator1.Cards[2];
+            Card card = investigator1.FullDeck[1];
+            Card card2 = investigator1.FullDeck[2];
 
             interactableGameAction.CreateMainButton()
                      .SetLogic(() => Task.CompletedTask);
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 .SetCard(card2)
                 .SetInvestigator(investigator1)
                 .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.Cards.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(interactableGameAction);
 

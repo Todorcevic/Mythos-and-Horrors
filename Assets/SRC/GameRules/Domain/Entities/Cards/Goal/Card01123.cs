@@ -59,7 +59,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE2.Resolutions[1]));
+            await _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE2.FullResolutions[1]));
 
         }
     }

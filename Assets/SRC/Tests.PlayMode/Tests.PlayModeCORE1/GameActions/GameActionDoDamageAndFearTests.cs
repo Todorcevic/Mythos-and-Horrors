@@ -15,8 +15,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card bulletProof = BuilCard("01594");
             Investigator investigator = _investigatorsProvider.First;
-            Card damageableCard = investigator.AllCards.First(card => card.Info.Code == "01521");
-            Card damageableCard2 = investigator.AllCards.First(card => card.Info.Code == "01521" && card != damageableCard);
+            Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
+            Card damageableCard2 = investigator.Cards.First(card => card.Info.Code == "01521" && card != damageableCard);
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();
@@ -37,8 +37,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card bulletProof = BuilCard("01594");
             Investigator investigator = _investigatorsProvider.First;
-            Card damageableCard = investigator.AllCards.First(card => card.Info.Code == "01521");
-            Card damageableCard2 = investigator.AllCards.First(card => card.Info.Code == "01521" && card != damageableCard);
+            Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
+            Card damageableCard2 = investigator.Cards.First(card => card.Info.Code == "01521" && card != damageableCard);
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard2, investigator.AidZone)).AsCoroutine();

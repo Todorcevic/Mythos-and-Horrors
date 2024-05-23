@@ -26,9 +26,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(cardToMaintan);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.HandZone.Cards.Count, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.First.HandZone.Cards.Count(), Is.EqualTo(1));
             Assert.That(_investigatorsProvider.First.HandZone.Cards.Unique(), Is.EqualTo(cardToMaintan));
-            investigator.RequerimentCard.Remove(adversity);
         }
     }
 }

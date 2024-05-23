@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
-            Assert.That(scene.Info.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(8));
+            Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(8));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
                 Is.EqualTo(scene.Fluvial));
             Assert.That(scene.GoalZone.Cards.Unique(), Is.EqualTo(scene.FirstGoal));
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
-            Assert.That(scene.Info.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(9));
+            Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(9));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
                 Is.EqualTo(scene.Home));
             Assert.That(scene.DangerDeckZone.Cards, Contains.Item(scene.GhoulPriest));

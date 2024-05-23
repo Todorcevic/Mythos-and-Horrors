@@ -24,12 +24,12 @@ namespace MythosAndHorrors.GameRules
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
-        public override IEnumerable<Card> StartDeckDangerCards => Info.DangerCards.Except(new Card[] { Lita, GhoulPriest });
+        public override IEnumerable<Card> StartDeckDangerCards => DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Info.Descriptions[0]));
+            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
             await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
@@ -42,9 +42,9 @@ namespace MythosAndHorrors.GameRules
         protected override void PrepareChallengeTokens()
         {
             {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: Info.CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: Info.CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: Info.DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
             }
         }
 

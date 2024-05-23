@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         private List<Chapter> _chapters = new();
 
-        public Chapter CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Info.Code));
+        public Chapter CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Code));
         public Scene CurrentScene { get; private set; }
         public Dificulty CurrentDificulty { get; private set; }
 
