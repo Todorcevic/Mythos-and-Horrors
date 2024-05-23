@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly JsonService _jsonService;
         [Inject] private readonly FilesPath _filesPath;
-        [Inject] private readonly CardsProvider _cardProvider;
         [Inject] private readonly DiContainer _diContainer;
         private List<CardInfo> _allCardInfo;
         private List<CardExtraInfo> _allCardExtraInfo;
@@ -32,7 +31,6 @@ namespace MythosAndHorrors.GameView
 
             object[] parameters = cardExtraInfo != null ? new object[] { cardInfo, cardExtraInfo } : new object[] { cardInfo };
             Card newCard = _diContainer.Instantiate(type, parameters) as Card;
-            _cardProvider.AddCard(newCard);
             return newCard;
         }
     }

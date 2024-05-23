@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -17,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         public State Revealed { get; private set; }
 
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
-        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
+        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
         public Activation PayHints => AllActivations.First(activation => activation.Logic == PayHintsActivate);
         public IReaction Reveal => _reactionablesProvider.FindReactionByLogic<UpdateStatGameAction>(RevealLogic);

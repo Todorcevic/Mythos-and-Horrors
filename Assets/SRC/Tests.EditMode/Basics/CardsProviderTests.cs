@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
@@ -24,7 +25,7 @@ namespace MythosAndHorrors.EditMode.Tests
             _cardLoaderUseCase.Execute("01603");
 
             Assert.That(_sut.GetCard<Card01501>().Info.Name, Is.EqualTo("Roland Banks"));
-            Assert.That(_sut.AllCards.Count, Is.EqualTo(2));
+            Assert.That(_sut.AllCards.Count(), Is.EqualTo(2));
         }
     }
 }

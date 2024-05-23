@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ChaptersProvider
     {
+        [Inject] private readonly OwnersProvider _ownersProvider;
         private List<Chapter> _chapters = new();
 
         public Chapter CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Code));
-        public Scene CurrentScene { get; private set; }
+        public Scene CurrentScene => (Scene)_ownersProvider.AllOwners.First(owner => owner is Scene);
         public Dificulty CurrentDificulty { get; private set; }
 
         /*******************************************************************/
@@ -27,11 +29,6 @@ namespace MythosAndHorrors.GameRules
         public void SetCurrentDificulty(Dificulty dificulty)
         {
             CurrentDificulty = dificulty;
-        }
-
-        public void SetCurrentScene(Scene scene)
-        {
-            CurrentScene = scene ?? throw new ArgumentNullException(nameof(scene) + " scene cant be null");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
@@ -29,7 +30,7 @@ namespace MythosAndHorrors.EditMode.Tests
             Assert.That(result, Is.TypeOf<Card01501>());
             Assert.That(result.Info.Code, Is.EqualTo("01501"));
             Assert.That(result, Is.EqualTo(_cardsProvider.GetCard<Card01501>()));
-            Assert.That(_cardsProvider.AllCards.Count, Is.EqualTo(2));
+            Assert.That(_cardsProvider.AllCards.Count(), Is.EqualTo(2));
         }
 
         [Test]

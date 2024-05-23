@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Reveal.Disable();
             PayHints.Disable();
-            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count * 2);
+            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             CreateActivation(CreateStat(1), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, isAtStart: false);
             CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, isAtStart: false);
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             Card cultist = SceneCORE2.Cultists.Where(cultist => cultist.CurrentZone == SceneCORE2.OutZone).Rand();
             await _gameActionsProvider.Create(new DrawGameAction(_investigatorsProvider.Leader, cultist));
-            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, _investigatorsProvider.AllInvestigators.Count * 2));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, _investigatorsProvider.AllInvestigators.Count() * 2));
         }
 
         private bool DrawCultistCondition(PayHintsToGoalGameAction payHintGameActionn)

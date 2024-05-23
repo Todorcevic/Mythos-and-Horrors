@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -20,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count * 2);
+            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.Disable();
             CreateActivation(CreateStat(1), PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, isBase: true);
         }

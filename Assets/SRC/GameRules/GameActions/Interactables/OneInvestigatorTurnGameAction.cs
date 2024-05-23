@@ -202,7 +202,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareActivables()
         {
-            foreach (Card activable in _cardsProvider.AllCards.FindAll(card => card.IsActivable))
+            foreach (Card activable in _cardsProvider.AllCards.Where(card => card.IsActivable))
             {
                 foreach (Activation activation in activable.AllActivations)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -44,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                          SceneCORE3.DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(SceneCORE3.DangerDeckZone));
             await SpawnCreature();
-            if (_investigatorsProvider.AllInvestigators.Count > 2) await SpawnCreature();
+            if (_investigatorsProvider.AllInvestigators.Count() > 2) await SpawnCreature();
         }
 
         private async Task SpawnCreature()

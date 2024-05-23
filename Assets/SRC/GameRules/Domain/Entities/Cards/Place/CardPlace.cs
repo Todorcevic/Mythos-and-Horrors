@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public IReaction RevealReaction { get; private set; }
 
         /*******************************************************************/
-        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count;
+        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public bool IsAlone => !OwnZone.Cards.Any(card => card is CardAvatar || card is CardCreature);
         public History RevealHistory => ExtraInfo?.Histories.ElementAtOrDefault(0) ?? new History();
         public IEnumerable<CardCreature> CreaturesInThisPlace => _cardsProvider.GetCardsInPlay().OfType<CardCreature>()

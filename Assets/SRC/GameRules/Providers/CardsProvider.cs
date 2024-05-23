@@ -1,35 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CardsProvider
     {
-        private readonly List<Card> _allCards = new();
+        [Inject] private readonly OwnersProvider _ownersProvider;
 
-        public List<Card> AllCards => _allCards.ToList();
-        public IEnumerable<CardCreature> AttackerCreatures => _allCards.OfType<CardCreature>()
+        public IEnumerable<Card> AllCards => _ownersProvider.AllOwners.SelectMany(owner => owner.Cards);
+        public IEnumerable<CardCreature> AttackerCreatures => AllCards.OfType<CardCreature>()
                   .Where(creature => creature.IsConfronted && !creature.Exausted.IsActive)
                   .OrderBy(creature => creature.ConfrontedInvestigator?.Position);
-        public IEnumerable<IStalker> StalkersInPlay => _allCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
+        public IEnumerable<IStalker> StalkersInPlay => AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
         /*******************************************************************/
-        public void AddCard(Card objectCard) => _allCards.Add(objectCard);
+        public T GetCard<T>() where T : Card => AllCards.OfType<T>().First();
+        public T TryGetCard<T>() where T : Card => AllCards.OfType<T>().FirstOrDefault();
+        public IEnumerable<T> GetCards<T>() where T : Card => AllCards.OfType<T>();
 
-        public T GetCard<T>() where T : Card => _allCards.OfType<T>().First();
-        public T TryGetCard<T>() where T : Card => _allCards.OfType<T>().FirstOrDefault();
-        public IEnumerable<T> GetCards<T>() where T : Card => _allCards.OfType<T>();
+        public Card GetCardByCode(string code) => AllCards.First(card => card.Info.Code == code);
 
-        public Card GetCardByCode(string code) => _allCards.First(card => card.Info.Code == code);
-
-        public Card GetCardWithThisZone(Zone zone) => _allCards.Find(card => card.OwnZone == zone);
-        public Card GetCardWithThisStat(Stat stat) => _allCards.Find(card => card.HasThisStat(stat));
+        public Card GetCardWithThisZone(Zone zone) => AllCards.FirstOrDefault(card => card.OwnZone == zone);
+        public Card GetCardWithThisStat(Stat stat) => AllCards.FirstOrDefault(card => card.HasThisStat(stat));
 
         public IEnumerable<CardPlace> GetCardsThatCanMoveTo(CardPlace cardPlace) =>
-            _allCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace));
+            AllCards.OfType<CardPlace>().Where(place => place.ConnectedPlacesToMove.Contains(cardPlace));
 
-        public IEnumerable<Card> GetCardsExhausted() => _allCards.Where(card => card.Exausted.IsActive);
+        public IEnumerable<Card> GetCardsExhausted() => AllCards.Where(card => card.Exausted.IsActive);
 
-        public IEnumerable<Card> GetCardsInPlay() => _allCards.Where(card => card.IsInPlay);
+        public IEnumerable<Card> GetCardsInPlay() => AllCards.Where(card => card.IsInPlay);
     }
 }
