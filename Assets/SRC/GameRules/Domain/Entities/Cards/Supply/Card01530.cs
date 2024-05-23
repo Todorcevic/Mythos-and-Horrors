@@ -19,18 +19,12 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             PlayFromHandTurnsCost = CreateStat(0);
-            _buffsProvider.Create()
-               .SetCard(this)
-               .SetDescription(nameof(AddIntelligenceBuff))
-               .SetCardsToBuff(CardsToBuff)
-               .SetAddBuff(AddIntelligenceBuff)
-               .SetRemoveBuff(RemoveIntelligenceBuff);
-
+            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
         }
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() =>
             BuffActivation() ?
-            new [] { _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).InvestigatorCard } :
+            new[] { _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).InvestigatorCard } :
             Enumerable.Empty<Card>();
 
         private bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;

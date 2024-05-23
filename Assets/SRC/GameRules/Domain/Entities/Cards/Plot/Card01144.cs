@@ -21,12 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            _buffsProvider.Create()
-                .SetCard(this)
-                .SetDescription(nameof(AddStrenghAndAgilityBuff))
-                .SetCardsToBuff(CardsToBuff)
-                .SetAddBuff(AddStrenghAndAgilityBuff)
-                .SetRemoveBuff(RemoveAddStrenghAndAgilityBlankBuff);
+            CreateBuff(CardsToBuff, AddStrenghAndAgilityBuff, RemoveAddStrenghAndAgilityBlankBuff);
         }
 
         /*******************************************************************/

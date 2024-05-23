@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,12 +25,7 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, withOpportunityAttck: false);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate);
             CreateReaction<AttackGameAction>(AttackCondition, AttackLogic, isAtStart: true);
-            _buffsProvider.Create()
-              .SetCard(this)
-              .SetDescription(nameof(GainStrength))
-              .SetCardsToBuff(CardsToBuff)
-              .SetAddBuff(GainStrength)
-              .SetRemoveBuff(RemoveGainStrenghtBuff);
+            CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
         }
 
         /*******************************************************************/

@@ -57,6 +57,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         [UnityTest]
         public IEnumerator ThrowLita()
         {
+            yield return BuilCard("01117", _investigatorsProvider.Second);
             CardSupply Lita = _cardsProvider.GetCard<Card01117>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
@@ -81,6 +82,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         [UnityTest]
         public IEnumerator ThrowLitaWithLitaCard()
         {
+            yield return BuilCard("01117", _investigatorsProvider.Second);
             CardSupply Lita = _cardsProvider.GetCard<Card01117>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(_investigatorsProvider.First);

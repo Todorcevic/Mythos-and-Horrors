@@ -1,4 +1,5 @@
-﻿using Sirenix.Utilities;
+﻿using ModestTree;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,18 @@ namespace MythosAndHorrors.GameRules
         public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
-        string IViewEffect.Description => _description;
+        string IViewEffect.Description => _description ?? ActivationLogic.GetInvocationList().First().Method.Name;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
+
+        /*******************************************************************/
+        public Buff(Card card, Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
+            Func<IEnumerable<Card>, Task> deactivationLogic)
+        {
+            CardMaster = card;
+            CardsToBuff = cardsToBuff;
+            ActivationLogic = activationLogic;
+            DeactivationLogic = deactivationLogic;
+        }
 
         /*******************************************************************/
         public async Task Execute()
@@ -33,13 +44,6 @@ namespace MythosAndHorrors.GameRules
             else await Apply();
 
             _isBuffing = false;
-        }
-
-        public async Task Deactive()
-        {
-            if (CurrentCardsAffected.Count < 1) return;
-            await DeactivationLogic.Invoke(CurrentCardsAffected);
-            CurrentCardsAffected.Clear();
         }
 
         private async Task Apply()
@@ -61,6 +65,13 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        public async Task Deactive()
+        {
+            if (CurrentCardsAffected.Count < 1) return;
+            await DeactivationLogic.Invoke(CurrentCardsAffected);
+            CurrentCardsAffected.Clear();
+        }
+
         private readonly Stack<List<Card>> _undoCardsAfeccted = new();
 
         public void Undo()
@@ -70,36 +81,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public Buff SetCard(Card cardMaster)
-        {
-            CardMaster = cardMaster;
-            return this;
-        }
-
-        public Buff SetDescription(string description)
-        {
-            _description = description;
-            return this;
-        }
-
-        public Buff SetCardsToBuff(Func<IEnumerable<Card>> cardsToBuff)
-        {
-            CardsToBuff = cardsToBuff;
-            return this;
-        }
-
-        public Buff SetAddBuff(Func<IEnumerable<Card>, Task> activationLogic)
-        {
-            ActivationLogic = activationLogic;
-            return this;
-        }
-
-        public Buff SetRemoveBuff(Func<IEnumerable<Card>, Task> deactivationLogic)
-        {
-            DeactivationLogic = deactivationLogic;
-            return this;
-        }
-
         public void Enable() => IsDisabled = false;
 
         public void Disable() => IsDisabled = true;

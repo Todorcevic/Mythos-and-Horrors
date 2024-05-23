@@ -1,51 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class BuffsProvider
     {
-        private readonly List<Buff> _allBuffs = new();
+        [Inject] private readonly CardsProvider _cardsProvider;
 
-        /*******************************************************************/
-        public Buff Create()
-        {
-            Buff buff = new();
-            _allBuffs.Add(buff);
-            return buff;
-        }
-
-        public void Add(IEnumerable<Buff> buffs)
-        {
-            _allBuffs.AddRange(buffs);
-        }
-
-        public void Remove(IEnumerable<Buff> buffs)
-        {
-            foreach (Buff buffToRemove in buffs) _allBuffs.Remove(buffToRemove);
-        }
+        private IEnumerable<Buff> AllBuffs => _cardsProvider.AllCards.SelectMany(card => card.AllBuffs);
 
         /*******************************************************************/
         public async Task ExecuteAllBuffs()
         {
-            foreach (Buff buff in _allBuffs.ToList()) await buff.Execute();
-        }
-
-        public async Task DeactiveAllBuffs()
-        {
-            foreach (Buff buff in _allBuffs.ToList()) await buff.Deactive();
+            foreach (Buff buff in AllBuffs) await buff.Execute();
         }
 
         public void UndoAllBuffs()
         {
-            foreach (Buff buff in _allBuffs) buff.Undo();
+            foreach (Buff buff in AllBuffs) buff.Undo();
         }
 
         public IEnumerable<Buff> GetBuffsAffectToThisCard(Card cardAffected) =>
-            _allBuffs.FindAll(buff => buff.CurrentCardsAffected.Contains(cardAffected));
+            AllBuffs.Where(buff => buff.CurrentCardsAffected.Contains(cardAffected));
 
         public IEnumerable<Buff> GetBuffsForThisCardMaster(Card cardMaster) =>
-            _allBuffs.FindAll(buff => buff.CardMaster == cardMaster);
+            AllBuffs.Where(buff => buff.CardMaster == cardMaster);
     }
 }

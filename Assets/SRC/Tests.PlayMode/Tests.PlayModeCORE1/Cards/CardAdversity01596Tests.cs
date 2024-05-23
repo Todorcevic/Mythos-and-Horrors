@@ -15,13 +15,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator ObligationDiscardAllButOne()
         {
-            Card adversity = BuilCard("01596");
             Investigator investigator = _investigatorsProvider.First;
+            yield return BuilCard("01596", investigator);
+            Card adversity = _cardsProvider.GetCard<Card01596>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, adversity)).AsCoroutine();
             Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanBeDiscarded);
-
             Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
             yield return ClickedIn(cardToMaintan);
             yield return taskGameAction.AsCoroutine();

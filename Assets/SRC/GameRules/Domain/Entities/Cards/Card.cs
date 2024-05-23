@@ -22,6 +22,8 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Activation> _specificActivations = new();
         private readonly List<IReaction> _baseReactions = new();
         private readonly List<IReaction> _specificReactions = new();
+        private readonly List<Buff> _baseBuffs = new();
+        private readonly List<Buff> _specificBuffss = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
@@ -33,8 +35,9 @@ namespace MythosAndHorrors.GameRules
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
         public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
+        public IEnumerable<IReaction> AllReactions => _baseReactions.Concat(_specificReactions);
+        public IEnumerable<Buff> AllBuffs => _baseBuffs.Concat(_specificBuffss);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
-        public IEnumerable<Buff> Buffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
@@ -59,7 +62,8 @@ namespace MythosAndHorrors.GameRules
             Exausted = CreateState(false);
             Blancked = CreateState(false, BlankState);
         }
-        /*******************************************************************/
+
+        /************************** REACTIONS ******************************/
         protected void CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
             bool isBase = false, bool isOptative = false) where T : GameAction
         {
@@ -80,6 +84,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        /***************************** ACTIVATIONS *****************************/
         protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition,
             bool isBase = false, bool withOpportunityAttck = true)
         {
@@ -94,6 +99,17 @@ namespace MythosAndHorrors.GameRules
             return CreateActivation(CreateStat(0), logic, condition, isBase: isBase, withOpportunityAttck: false);
         }
 
+        /***************************** BUFFS *****************************/
+        public Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
+            Func<IEnumerable<Card>, Task> deactivationLogic, bool isBase = false)
+        {
+            Buff newBuff = new(this, cardsToBuff, activationLogic, deactivationLogic);
+            if (isBase) _baseBuffs.Add(newBuff);
+            else _specificBuffss.Add(newBuff);
+            return newBuff;
+        }
+
+        /*************************** STAT *********************************/
         protected Stat CreateStat(int value, bool canBeNegative = false)
         {
             Stat newStat = new(value, canBeNegative);
@@ -103,6 +119,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool HasThisStat(Stat stat) => _stats.Contains(stat);
 
+        /************************** STATE ********************************/
         protected State CreateState(bool value, Action<bool> action = null)
         {
             State newState = new(value, action);
@@ -112,7 +129,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool HasThisState(State state) => _states.Contains(state);
 
-        /*******************************************************************/
+        /*************************** LOGIC *******************************/
         protected virtual void BlankState(bool isActive)
         {
             if (isActive)

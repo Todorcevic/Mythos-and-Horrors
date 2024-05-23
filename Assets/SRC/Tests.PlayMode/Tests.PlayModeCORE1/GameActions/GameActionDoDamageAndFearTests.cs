@@ -13,8 +13,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator HarmTest()
         {
-            Card bulletProof = BuilCard("01594");
             Investigator investigator = _investigatorsProvider.First;
+            yield return BuilCard("01594", investigator);
+            Card bulletProof = _cardsProvider.GetCard<Card01594>();
+
             Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
             Card damageableCard2 = investigator.Cards.First(card => card.Info.Code == "01521" && card != damageableCard);
             yield return StartingScene();
@@ -35,8 +37,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator UndoHarmTest()
         {
-            Card bulletProof = BuilCard("01594");
             Investigator investigator = _investigatorsProvider.First;
+            yield return BuilCard("01594", investigator);
+            Card bulletProof = _cardsProvider.GetCard<Card01594>();
             Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
             Card damageableCard2 = investigator.Cards.First(card => card.Info.Code == "01521" && card != damageableCard);
             yield return StartingScene();

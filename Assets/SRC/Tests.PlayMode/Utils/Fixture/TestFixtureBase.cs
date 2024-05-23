@@ -239,14 +239,12 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
-        private List<Card> _cardsCreated = new();
-        protected Card BuilCard(string cardCode)
+        protected IEnumerator BuilCard(string cardCode, Investigator investigator)
         {
             Card cardCreated = SceneContainer.Resolve<CardLoaderUseCase>().Execute(cardCode);
             if (TestsType != TestsType.Unit)
                 SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
-            _cardsCreated.Add(cardCreated);
-            return cardCreated;
+            yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, cardCreated)).AsCoroutine();
         }
     }
 }

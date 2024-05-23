@@ -20,14 +20,9 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            _buffsProvider.Create()
-                .SetCard(this)
-                .SetDescription(nameof(AddBlankBuff))
-                .SetCardsToBuff(CardsToBuff)
-                .SetAddBuff(AddBlankBuff)
-                .SetRemoveBuff(RemoveBlankBuff);
-
+            CreateBuff(CardsToBuff, AddBlankBuff, RemoveBlankBuff);
         }
+
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff()
         {

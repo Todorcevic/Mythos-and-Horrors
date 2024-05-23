@@ -19,12 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(CreateStat(2), DiscardActivate, DiscardConditionToActivate);
-            _buffsProvider.Create()
-                        .SetCard(this)
-                        .SetDescription(nameof(DecrementStatBuff))
-                        .SetCardsToBuff(CardsToBuff)
-                        .SetAddBuff(DecrementStatBuff)
-                        .SetRemoveBuff(RemoveDecrementStatBuff);
+            CreateBuff(CardsToBuff, DecrementStatBuff, RemoveDecrementStatBuff);
         }
 
         /*******************************************************************/

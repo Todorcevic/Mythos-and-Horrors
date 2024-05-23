@@ -1,6 +1,5 @@
 ﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,18 +14,6 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public override CardPlace StartingPlace => SceneCORE3.MainPath;
 
         /*******************************************************************/
-        protected override void PrepareUnitTests()
-        {
-            base.PrepareUnitTests();
-            BuilCard("01117");
-        }
-
-        protected override IEnumerator PrepareIntegrationTests()
-        {
-            yield return base.PrepareIntegrationTests();
-            BuilCard("01117");
-        }
-
         protected override async Task PlaceScene()
         {
             Dictionary<Card, (Zone zone, bool faceDown)> all = GetCardZonesPlacesCORE3().ToDictionary(pair => pair.Key, pair => (pair.Value, false))

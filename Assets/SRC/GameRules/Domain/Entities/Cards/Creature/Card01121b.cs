@@ -26,12 +26,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
-            _buffsProvider.Create()
-               .SetCard(this)
-               .SetDescription(nameof(CantGainAndPayHintsBuff))
-               .SetCardsToBuff(CardsToBuff)
-               .SetAddBuff(CantGainAndPayHintsBuff)
-               .SetRemoveBuff(RemoveCantGainAndPayHintsBuff);
+            CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff);
         }
 
         /*******************************************************************/
