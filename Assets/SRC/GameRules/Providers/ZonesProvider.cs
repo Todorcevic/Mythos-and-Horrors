@@ -7,28 +7,20 @@ namespace MythosAndHorrors.GameRules
 {
     public class ZonesProvider
     {
-        [Inject] private readonly DiContainer _diContainer;
-        private readonly List<Zone> _zones = new();
+        [Inject] private readonly OwnersProvider _ownersProvider;
 
         public Zone OutZone { get; private set; }
+        private IEnumerable<Zone> Zones => _ownersProvider.AllOwners.SelectMany(owner => owner.FullZones).Append(OutZone);
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            OutZone = Create(ZoneType.Out);
+            OutZone = new(ZoneType.Out);
         }
 
         /*******************************************************************/
-        public Zone Create(ZoneType zoneType)
-        {
-            Zone newZone = _diContainer.Instantiate<Zone>(new object[] { zoneType });
-            _zones.Add(newZone);
-            return newZone;
-        }
-        /*******************************************************************/
-
-        public Zone GetZoneWithThisCard(Card card) => _zones.First(zone => zone.Cards.Contains(card));
+        public Zone GetZoneWithThisCard(Card card) => Zones.First(zone => zone.Cards.Contains(card));
     }
 }

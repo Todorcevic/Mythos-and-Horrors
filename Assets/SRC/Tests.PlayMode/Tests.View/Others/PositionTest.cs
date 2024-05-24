@@ -55,11 +55,11 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
 
             int k = 0;
-            for (int i = 0; i < _chaptersProvider.CurrentScene.PlaceZone.GetLength(0); i++)
+            for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; j < _chaptersProvider.CurrentScene.PlaceZone.GetLength(1); j++)
+                for (int j = 0; j < 7; j++)
                 {
-                    cardsWithZone.Add(_chaptersProvider.CurrentScene.Cards[5 + k++], _chaptersProvider.CurrentScene.PlaceZone[i, j]);
+                    cardsWithZone.Add(_chaptersProvider.CurrentScene.Cards[5 + k++], _chaptersProvider.CurrentScene.GetPlaceZone(i, j));
                 }
             }
 

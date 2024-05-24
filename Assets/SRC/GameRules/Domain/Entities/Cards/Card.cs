@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            OwnZone = _zonesProvider.Create(ZoneType.Own);
+            OwnZone = new(ZoneType.Own);
             _zonesProvider.OutZone.AddCard(this);
             FaceDown = CreateState(false);
             Exausted = CreateState(false);

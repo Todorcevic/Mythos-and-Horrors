@@ -1,21 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Zone
     {
         private readonly List<Card> _cards = new();
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public ZoneType ZoneType { get; }
 
         public List<Card> Cards => _cards.ToList();
         public Card TopCard => _cards.Last();
         public Card BottomCard => _cards.First();
-        //public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
         public bool IsHandZone => ZoneType == ZoneType.Hand;
         public bool IsDeckZone => ZoneType == ZoneType.InvestigatorDeck;
         public bool IsDiscardZone => ZoneType == ZoneType.InvestigatorDiscard;

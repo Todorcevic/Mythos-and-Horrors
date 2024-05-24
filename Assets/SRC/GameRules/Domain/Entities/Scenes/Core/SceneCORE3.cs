@@ -85,11 +85,11 @@ namespace MythosAndHorrors.GameRules
         {
             Dictionary<Card, Zone> allPlaces = new()
             {
-                { MainPath, PlaceZone[1, 3] },
-                { ForestsToPlace[0], PlaceZone[0, 2] },
-                { ForestsToPlace[1], PlaceZone[0, 4] },
-                { ForestsToPlace[2], PlaceZone[2, 2] },
-                { ForestsToPlace[3], PlaceZone[2, 4] },
+                { MainPath, GetPlaceZone(1, 3) },
+                { ForestsToPlace[0], GetPlaceZone(0, 2) },
+                { ForestsToPlace[1], GetPlaceZone(0, 4) },
+                { ForestsToPlace[2], GetPlaceZone(2, 2) },
+                { ForestsToPlace[3], GetPlaceZone(2, 4) },
             };
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));

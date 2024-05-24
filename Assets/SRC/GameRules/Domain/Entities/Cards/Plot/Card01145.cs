@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
             if (SceneCORE3.CurrentGoal == SceneCORE3.GoalCards.ElementAt(0))
             {
-                await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.PlaceZone[1, 4]));
+                await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)));
             }
             else
             {

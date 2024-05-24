@@ -24,15 +24,15 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             /*******************************************************************/
             Dictionary<Card, Zone> GetCardZonesPlacesCORE2() => new()
             {
-                { SceneCORE2.South, SceneCORE2.PlaceZone[0, 3] },
-                { SceneCORE2.Hospital, SceneCORE2.PlaceZone[0, 2] },
-                { SceneCORE2.Graveyard, SceneCORE2.PlaceZone[1, 4] },
-                { SceneCORE2.Fluvial, SceneCORE2.PlaceZone[1, 3] },
-                { SceneCORE2.University, SceneCORE2.PlaceZone[1, 2] },
-                { SceneCORE2.West, SceneCORE2.PlaceZone[2, 4] },
-                { SceneCORE2.Center, SceneCORE2.PlaceZone[2, 3] },
-                { SceneCORE2.North, SceneCORE2.PlaceZone[2, 2] },
-                { SceneCORE2.Home, SceneCORE2.PlaceZone[0, 4] }
+                { SceneCORE2.South, SceneCORE2.GetPlaceZone(0, 3) },
+                { SceneCORE2.Hospital, SceneCORE2.GetPlaceZone(0, 2) },
+                { SceneCORE2.Graveyard, SceneCORE2.GetPlaceZone(1, 4) },
+                { SceneCORE2.Fluvial, SceneCORE2.GetPlaceZone(1, 3) },
+                { SceneCORE2.University, SceneCORE2.GetPlaceZone(1, 2) },
+                { SceneCORE2.West, SceneCORE2.GetPlaceZone(2, 4) },
+                { SceneCORE2.Center, SceneCORE2.GetPlaceZone(2, 3) },
+                { SceneCORE2.North, SceneCORE2.GetPlaceZone(2, 2) },
+                { SceneCORE2.Home, SceneCORE2.GetPlaceZone(0, 4) }
             };
 
             Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesSceneCORE2()

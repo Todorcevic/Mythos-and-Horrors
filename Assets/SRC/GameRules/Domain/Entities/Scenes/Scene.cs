@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Scene : SceneInfo
+    public abstract class Scene : SceneInfo
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
@@ -21,13 +21,13 @@ namespace MythosAndHorrors.GameRules
         public Zone VictoryZone => Zones.First(zone => zone.ZoneType == ZoneType.Victory);
         public Zone LimboZone => Zones.First(zone => zone.ZoneType == ZoneType.Limbo);
         public Zone OutZone => _zonesProvider.OutZone;
-        public Zone[,] PlaceZone { get; } = new Zone[3, 7];
+        public Zone GetPlaceZone(int row, int column) => Zones.FindAll(zone => zone.ZoneType == ZoneType.Place)[row * 7 + column];
         public CardPlot CurrentPlot => PlotZone.Cards.LastOrDefault() as CardPlot;
         public CardGoal CurrentGoal => GoalZone.Cards.LastOrDefault() as CardGoal;
         public CardPlot FirstPlot => PlotCards.First();
         public CardGoal FirstGoal => GoalCards.First();
         public Card CardDangerToDraw => DangerDeckZone.Cards.LastOrDefault();
-        public virtual IEnumerable<Card> StartDeckDangerCards { get; }
+        public abstract IEnumerable<Card> StartDeckDangerCards { get; }
 
         /************************** TOKENS *****************************/
         public ChallengeToken StarToken { get; protected set; }
@@ -48,13 +48,13 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Zones.Add(_zonesProvider.Create(ZoneType.DangerDeck));
-            Zones.Add(_zonesProvider.Create(ZoneType.DangerDiscard));
-            Zones.Add(_zonesProvider.Create(ZoneType.Goal));
-            Zones.Add(_zonesProvider.Create(ZoneType.Plot));
-            Zones.Add(_zonesProvider.Create(ZoneType.Victory));
-            Zones.Add(_zonesProvider.Create(ZoneType.Limbo));
             PileAmount = new Stat(int.MaxValue, canBeNegative: false);
+            Zones.Add(new(ZoneType.DangerDeck));
+            Zones.Add(new(ZoneType.DangerDiscard));
+            Zones.Add(new(ZoneType.Goal));
+            Zones.Add(new(ZoneType.Plot));
+            Zones.Add(new(ZoneType.Victory));
+            Zones.Add(new(ZoneType.Limbo));
             InitializePlaceZones();
             PrepareDefaultChallengeTokens();
             PrepareResolutions();
@@ -64,12 +64,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void InitializePlaceZones()
         {
-            for (int i = 0; i < PlaceZone.GetLength(0); i++)
+            const int AMOUNT_PLACES = 21;
+            for (int i = 0; i < AMOUNT_PLACES; i++)
             {
-                for (int j = 0; j < PlaceZone.GetLength(1); j++)
-                {
-                    PlaceZone[i, j] = _zonesProvider.Create(ZoneType.Place);
-                }
+                Zones.Add(new(ZoneType.Place));
             }
         }
 
@@ -86,8 +84,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task PrepareScene() { await Task.CompletedTask; }
-        protected virtual void PrepareChallengeTokens() { }
+        public abstract Task PrepareScene();
+        protected abstract void PrepareChallengeTokens();
 
         private void PrepareDefaultChallengeTokens()
         {
@@ -109,9 +107,9 @@ namespace MythosAndHorrors.GameRules
 
         private void PrepareResolutions()
         {
-            for (int i = 0; i < Resolutions.Count; i++)
+            for (int i = 0; i < ResolutionHistories.Count; i++)
             {
-                FullResolutions.Add(new Resolution(Resolutions[i], GetResolution(i)));
+                FullResolutions.Add(new Resolution(ResolutionHistories[i], GetResolution(i)));
             }
         }
 

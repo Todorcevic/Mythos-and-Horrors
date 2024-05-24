@@ -22,13 +22,13 @@ namespace MythosAndHorrors.PlayModeView.Tests
             CardView sut = _cardViewsManager.GetCardView(_investigatorsProvider.First.InvestigatorCard);
             CardView sut2 = _cardViewsManager.GetCardView(_investigatorsProvider.First.FullDeck.First());
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.Card, _chaptersProvider.CurrentScene.GetPlaceZone(0, 2))).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3))).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 2]));
+            Assert.That(sut.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.GetPlaceZone(0, 2)));
             Assert.That(sut.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut));
-            Assert.That(sut2.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.PlaceZone[0, 3]));
+            Assert.That(sut2.CurrentZoneView.Zone, Is.EqualTo(_chaptersProvider.CurrentScene.GetPlaceZone(0, 3)));
             Assert.That(sut2.CurrentZoneView.GetComponentsInChildren<CardView>(), Contains.Item(sut2));
         }
 
@@ -189,7 +189,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             CardView sut2 = _cardViewsManager.GetCardView(_investigatorsProvider.First.InvestigatorCard);
             CardView[] sut = _investigatorsProvider.First.FullDeck.Take(4).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.PlaceZone[0, 2])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut2.Card, _chaptersProvider.CurrentScene.GetPlaceZone(0, 2))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.First().Card, _chaptersProvider.CurrentScene.OutZone)).AsCoroutine();
 

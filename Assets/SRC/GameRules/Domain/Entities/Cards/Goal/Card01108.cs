@@ -25,10 +25,10 @@ namespace MythosAndHorrors.GameRules
         {
             Dictionary<Card, Zone> allPlaces = new()
             {
-                { Hallway, _chaptersProvider.CurrentScene.PlaceZone[1, 3] },
-                { Cellar, _chaptersProvider.CurrentScene.PlaceZone[0, 4] },
-                { Attic, _chaptersProvider.CurrentScene.PlaceZone[2, 4] },
-                { Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 4] }
+                { Hallway, _chaptersProvider.CurrentScene.GetPlaceZone(1, 3) },
+                { Cellar, _chaptersProvider.CurrentScene.GetPlaceZone(0, 4) },
+                { Attic, _chaptersProvider.CurrentScene.GetPlaceZone(2, 4) },
+                { Parlor, _chaptersProvider.CurrentScene.GetPlaceZone(1, 4) }
             };
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));

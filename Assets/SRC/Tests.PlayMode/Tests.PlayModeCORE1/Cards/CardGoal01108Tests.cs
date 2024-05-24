@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
             yield return PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Study, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Study, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, SceneCORE1.Study));
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, SceneCORE1.Study.OwnZone)).AsCoroutine();

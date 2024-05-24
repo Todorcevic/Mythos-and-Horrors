@@ -24,11 +24,11 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             /*******************************************************************/
             Dictionary<Card, Zone> GetCardZonesPlacesCORE1() => new()
             {
-                    { SceneCORE1.Study, SceneCORE1.PlaceZone[0, 3] },
-                    { SceneCORE1.Hallway, SceneCORE1.PlaceZone[1, 3] },
-                    { SceneCORE1.Attic, SceneCORE1.PlaceZone[2, 4] },
-                    { SceneCORE1.Cellar, SceneCORE1.PlaceZone[0, 4] },
-                    { SceneCORE1.Parlor, SceneCORE1.PlaceZone[1, 4] }
+                    { SceneCORE1.Study, SceneCORE1.GetPlaceZone(0, 3) },
+                    { SceneCORE1.Hallway, SceneCORE1.GetPlaceZone(1, 3) },
+                    { SceneCORE1.Attic, SceneCORE1.GetPlaceZone(2, 4) },
+                    { SceneCORE1.Cellar, SceneCORE1.GetPlaceZone(0, 4) },
+                    { SceneCORE1.Parlor, SceneCORE1.GetPlaceZone(1, 4) }
             };
 
             Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesSceneCORE1()

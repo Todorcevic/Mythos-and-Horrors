@@ -24,11 +24,11 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             /*******************************************************************/
             Dictionary<Card, Zone> GetCardZonesPlacesCORE3() => new()
             {
-                { SceneCORE3.MainPath, SceneCORE3.PlaceZone[1, 3] },
-                { SceneCORE3.Forests[0], SceneCORE3.PlaceZone[0, 2] },
-                { SceneCORE3.Forests[1], SceneCORE3.PlaceZone[0, 4] },
-                { SceneCORE3.Forests[2], SceneCORE3.PlaceZone[2, 2] },
-                { SceneCORE3.Forests[3], SceneCORE3.PlaceZone[2, 4] },
+                { SceneCORE3.MainPath, SceneCORE3.GetPlaceZone(1, 3) },
+                { SceneCORE3.Forests[0], SceneCORE3.GetPlaceZone(0, 2) },
+                { SceneCORE3.Forests[1], SceneCORE3.GetPlaceZone(0, 4) },
+                { SceneCORE3.Forests[2], SceneCORE3.GetPlaceZone(2, 2) },
+                { SceneCORE3.Forests[3], SceneCORE3.GetPlaceZone(2, 4) },
             };
 
             Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesSceneCORE3()

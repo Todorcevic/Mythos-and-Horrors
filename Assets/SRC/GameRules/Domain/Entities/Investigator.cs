@@ -13,11 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        //[JsonProperty("Cards")] public  List<Card> Cards { get; init; }
-        //*[JsonProperty("Zones")]*/
-        //public  List<Zone> Zones { get; init; } = new();
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
-
         public CardInvestigator InvestigatorCard => Cards.OfType<CardInvestigator>().First();
         public CardAvatar AvatarCard => Cards.OfType<CardAvatar>().First();
         public List<Card> RequerimentCard => Cards.FindAll(card => card.ExtraInfo?.IsRequired ?? false);
@@ -79,38 +75,26 @@ namespace MythosAndHorrors.GameRules
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
 
-
-
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            Zones.Add(_zonesProvider.Create(ZoneType.Hand));
-            Zones.Add(_zonesProvider.Create(ZoneType.InvestigatorDeck));
-            Zones.Add(_zonesProvider.Create(ZoneType.InvestigatorDiscard));
-            Zones.Add(_zonesProvider.Create(ZoneType.Aid));
-            Zones.Add(_zonesProvider.Create(ZoneType.Danger));
-            Zones.Add(_zonesProvider.Create(ZoneType.Investigator));
+            Zones.Add(new(ZoneType.Hand));
+            Zones.Add(new(ZoneType.InvestigatorDeck));
+            Zones.Add(new(ZoneType.InvestigatorDiscard));
+            Zones.Add(new(ZoneType.Aid));
+            Zones.Add(new(ZoneType.Danger));
+            Zones.Add(new(ZoneType.Investigator));
         }
 
         /*******************************************************************/
-        public bool HasThisZone(Zone zone) =>
-            zone == HandZone || HandZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
-            zone == DeckZone || DeckZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
-            zone == DiscardZone || DiscardZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
-            zone == AidZone || AidZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
-            zone == DangerZone || DangerZone.Cards.Select(card => card.OwnZone).Contains(zone) ||
-            zone == InvestigatorZone || InvestigatorZone.Cards.Select(card => card.OwnZone).Contains(zone);
-
         public bool HasThisOwnerZone(Zone zone) =>
           zone == HandZone ||
           zone == DeckZone ||
           zone == DiscardZone ||
           zone == AidZone ||
           zone == InvestigatorZone;
-
-        public bool HasThisCard(Card card) => Cards.Contains(card);
 
         public ChallengeType GetChallengeType(Stat stat)
         {

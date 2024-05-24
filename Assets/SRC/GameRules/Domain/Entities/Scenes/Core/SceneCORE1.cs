@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         public async override Task PrepareScene()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, PlaceZone[0, 3]));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, GetPlaceZone(0, 3)));
             await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));

@@ -67,19 +67,19 @@ namespace MythosAndHorrors.GameRules
         {
             Dictionary<Card, Zone> allPlaces = new()
             {
-                { South, PlaceZone[0, 3] },
-                { Hospital, PlaceZone[0, 2] },
-                { Graveyard, PlaceZone[1, 4] },
-                { Fluvial, PlaceZone[1, 3] },
-                { University, PlaceZone[1, 2] },
-                { West, PlaceZone[2, 4] },
-                { Center, PlaceZone[2, 3] },
-                { North, PlaceZone[2, 2] }
+                { South, GetPlaceZone(0, 3) },
+                { Hospital, GetPlaceZone(0, 2) },
+                { Graveyard, GetPlaceZone(1, 4) },
+                { Fluvial, GetPlaceZone(1, 3) },
+                { University, GetPlaceZone(1, 2) },
+                { West, GetPlaceZone(2, 4) },
+                { Center, GetPlaceZone(2, 3) },
+                { North, GetPlaceZone(2, 2) }
             };
 
 
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
-                allPlaces.Add(Home, PlaceZone[0, 4]);
+                allPlaces.Add(Home, GetPlaceZone(0, 4));
 
             await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
         }

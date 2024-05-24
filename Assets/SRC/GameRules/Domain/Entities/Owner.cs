@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -8,9 +9,11 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Cards")] public List<Card> Cards { get; init; }
         public List<Zone> Zones { get; init; } = new();
 
-        /*******************************************************************/
-        //public bool HasThisZone(Zone zone) => Zones.Contains(zone);
+        public IEnumerable<Zone> FullZones => Zones.Concat(Cards.Select(card => card.OwnZone));
 
-        //public bool HasThisCard(Card card) => Cards.Contains(card);
+        /*******************************************************************/
+        public bool HasThisZone(Zone zone) => FullZones.Contains(zone);
+
+        public bool HasThisCard(Card card) => Cards.Contains(card);
     }
 }

@@ -15,8 +15,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardGoal cardGoal = _cardsProvider.GetCard<Card01110>();
             CardAdversity cardAdversity = _cardsProvider.GetCard<Card01511>();
             yield return PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Hallway, _chaptersProvider.CurrentScene.PlaceZone[0, 3])).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Parlor, _chaptersProvider.CurrentScene.PlaceZone[1, 3])).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Hallway, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3))).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.Parlor, _chaptersProvider.CurrentScene.GetPlaceZone(1, 3))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, SceneCORE1.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAdversity, _investigatorsProvider.Third.DangerZone)).AsCoroutine();

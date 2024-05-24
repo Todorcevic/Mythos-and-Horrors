@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Position")] public int Position { get; init; }
         [JsonProperty("Name")] public string Name { get; init; }
         [JsonProperty("Descriptions")] public List<History> Descriptions { get; init; }
-        [JsonProperty("Resolutions")] public List<History> Resolutions { get; init; }
+        [JsonProperty("Resolutions")] public List<History> ResolutionHistories { get; init; }
         [JsonProperty("NextScene")] public string NextScene { get; init; }
         [JsonProperty("ChallengeTokensEasy")] public List<ChallengeTokenType> ChallengeTokensEasy { get; init; }
         [JsonProperty("ChallengeTokensNormal")] public List<ChallengeTokenType> ChallengeTokensNormal { get; init; }
