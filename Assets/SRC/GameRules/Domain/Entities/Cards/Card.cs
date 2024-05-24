@@ -35,7 +35,6 @@ namespace MythosAndHorrors.GameRules
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
         public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
-        public IEnumerable<IReaction> AllReactions => _baseReactions.Concat(_specificReactions);
         public IEnumerable<Buff> AllBuffs => _baseBuffs.Concat(_specificBuffss);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;

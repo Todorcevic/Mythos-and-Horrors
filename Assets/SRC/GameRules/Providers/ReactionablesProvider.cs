@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         private readonly List<IReaction> _startReactions = new();
         private readonly List<IReaction> _endReactions = new();
 
-        public List<IReaction> Reactions => _startReactions.Concat(_endReactions).ToList();
+        private IEnumerable<IReaction> Reactions => _startReactions.Concat(_endReactions);
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
-            Reactions.Find(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
+            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
 
         public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
