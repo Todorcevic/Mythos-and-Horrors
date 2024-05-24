@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         public List<Card> Cards => _cards.ToList();
         public Card TopCard => _cards.Last();
         public Card BottomCard => _cards.First();
-        public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
+        //public Investigator Owner => _investigatorsProvider.GetInvestigatorWithThisZone(this);
         public bool IsHandZone => ZoneType == ZoneType.Hand;
         public bool IsDeckZone => ZoneType == ZoneType.InvestigatorDeck;
         public bool IsDiscardZone => ZoneType == ZoneType.InvestigatorDiscard;

@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
         public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
@@ -76,7 +77,7 @@ namespace MythosAndHorrors.GameView
             Sequence sequence = DOTween.Sequence();
             cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value)));
 
-            Investigator owner = cardViewsWithZones.Select(cardView => cardView.Value.Zone.Owner).UniqueOrDefault() ??
+            Investigator owner = cardViewsWithZones.Select(cardView => _investigatorsProvider.GetInvestigatorWithThisZone(cardView.Value.Zone)).UniqueOrDefault() ??
                 cardViewsWithZones.Select(cardView => cardView.Key.Card.Owner).UniqueOrDefault();
 
             return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(owner)).Append(sequence);
