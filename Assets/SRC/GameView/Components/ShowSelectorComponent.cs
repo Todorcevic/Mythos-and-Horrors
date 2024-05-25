@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Android;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class ShowSelectorComponent : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SelectorBlockController _selectorBlockController;
@@ -51,6 +51,8 @@ namespace MythosAndHorrors.GameView
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
 
+
+
             CardView cardViewSelected = exceptThisPlayable as CardView;
             CardViewsOrdered.Except(new CardView[] { cardViewSelected })
                 .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
@@ -61,6 +63,9 @@ namespace MythosAndHorrors.GameView
                 if (!exceptThisPlayable?.IsMultiEffect ?? false)
                     returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
             }
+
+
+
             await returnSequence.AsyncWaitForCompletion();
             _cardViews.Clear();
         }
@@ -78,13 +83,18 @@ namespace MythosAndHorrors.GameView
             Sequence returnClonesSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
+
+
+
             CardViewsOrdered.Except(new[] { OriginalCardView })
                 .ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
                     .OnComplete(() => Destroy(clone.gameObject))));
-
             await returnClonesSequence
                 .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
                 .AsyncWaitForCompletion();
+
+
+
             _cardViews.Clear();
         }
 
@@ -95,14 +105,17 @@ namespace MythosAndHorrors.GameView
             Sequence destroyClonesSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition());
+
+
+
             CardViewsOrdered.Except(new[] { OriginalCardView })
                 .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
-                    .OnComplete(() => Destroy(clone.gameObject)));
-
+                   .OnComplete(() => Destroy(clone.gameObject)));
             await destroyClonesSequence
                 .Join(_moveCardHandler.MoveCardViewWithPreviewToZone(OriginalCardView, _zoneViewsManager.Get(OriginalCardView.Card.CurrentZone)))
                 .AsyncWaitForCompletion();
-            //await sequence.AsyncWaitForCompletion();
+
+
             _cardViews.Clear();
         }
 

@@ -16,15 +16,13 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GameText.INVESTIGATOR_PHASE_DESCRIPTION;
 
         /*******************************************************************/
-        public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Count() > 0;
+        public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Any();
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (CanBeExecuted)
-            {
-                await _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
-            }
+            await _gameActionsProvider.Create(new ChooseInvestigatorGameAction());
+            await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
         }
     }
 }

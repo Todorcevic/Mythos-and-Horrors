@@ -62,9 +62,9 @@ namespace MythosAndHorrors.GameRules
 
         async Task CantPayHintsLogic(PayHintsToGoalGameAction payHintToGoalGameAction)
         {
-            Effect payHintEffect = payHintToGoalGameAction.EffectsToPay.Find(effect => effect.Card == ConfrontedInvestigator.AvatarCard);
-            payHintToGoalGameAction.RemoveEffect(payHintEffect);
-            await Task.CompletedTask;
+            payHintToGoalGameAction.Cancel();
+            IEnumerable<Investigator> investigatorsToPay = payHintToGoalGameAction.InvestigatorsToPay.Except(new[] { ConfrontedInvestigator });
+            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(payHintToGoalGameAction.CardGoal, investigatorsToPay));
         }
 
         /*******************************************************************/

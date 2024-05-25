@@ -50,12 +50,12 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
 
-            PayHintsToGoalGameAction payHintsGoalGameAction = new(this, specificInvestigators);
-            payHintsGoalGameAction.CreateMainButton().SetLogic(Continue).SetDescription(nameof(Continue));
-            await _gameActionsProvider.Create(payHintsGoalGameAction);
+            //PayHintsToGoalGameAction payHintsGoalGameAction = new(this, specificInvestigators);
+            //payHintsGoalGameAction.CreateMainButton().SetLogic(Continue).SetDescription(nameof(Continue));
+            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, specificInvestigators));
 
             /*******************************************************************/
-            static async Task Continue() => await Task.CompletedTask;
+            //static async Task Continue() => await Task.CompletedTask;
         }
 
         protected override bool PayHintsConditionToActivate(Investigator investigator) => false;

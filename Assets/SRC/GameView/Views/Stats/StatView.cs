@@ -7,6 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class StatView : MonoBehaviour, IStatable
     {
         private const float GLOW_INTENSITY = 0.4f;

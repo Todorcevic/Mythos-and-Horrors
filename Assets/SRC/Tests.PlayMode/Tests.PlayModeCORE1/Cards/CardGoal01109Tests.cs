@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardGoal01109Tests : TestCORE1Preparation
     {
-           //protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Reveal()
@@ -85,6 +85,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(_gameActionsProvider.CurrentInteractable.MainButtonEffect, Is.Null);
 
+            yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
 

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         public Investigator GetInvestigatorWithThisZone(Zone zone)
             => AllInvestigators.FirstOrDefault(investigator => investigator.HasThisZone(zone));
 
-        public Investigator GetInvestigatorOwnerWithThisZone(Zone zone)
+        public Investigator GetInvestigatorOnlyZonesOwnerWithThisZone(Zone zone)
           => AllInvestigators.FirstOrDefault(investigator => investigator.HasThisOwnerZone(zone));
 
         public Investigator GetInvestigatorWithThisCard(Card card)

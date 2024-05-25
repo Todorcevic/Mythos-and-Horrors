@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -28,13 +29,17 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Initilized, true));
             List<T> elementsExecuted = new();
             T element = Collection().FirstOrDefault();
-            while (element != null && Initilized.IsActive)
+            await ResolveLogic();
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Initilized, false));
+
+            async Task ResolveLogic()
             {
+                if (element == null || !Initilized.IsActive) return;
                 await Logic.Invoke(element);
                 elementsExecuted.Add(element);
                 element = Collection().Except(elementsExecuted).FirstOrDefault();
+                await ResolveLogic();
             }
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Initilized, false));
         }
     }
 }

@@ -7,10 +7,10 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        /*******************************************************************/
         public virtual async Task PlayAdversityFor(Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.DangerZone));
-
         }
     }
 }

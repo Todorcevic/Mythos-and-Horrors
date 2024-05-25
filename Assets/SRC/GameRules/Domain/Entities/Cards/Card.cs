@@ -41,12 +41,12 @@ namespace MythosAndHorrors.GameRules
         public bool CanBePlayed => PlayableEffects.Count() > 0;
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<Effect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
-        public Investigator Owner => _investigatorsProvider.GetInvestigatorOwnerWithThisZone(CurrentZone) ??
+        public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
         public bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
         public bool IsActivable => AllActivations.Count() > 0;
-        public bool CanBeDiscarded => !Tags.Contains(Tag.Weakness);
+        public bool CanBeDiscarded => !HasThisTag(Tag.Weakness);
         public bool IsVictory => Info.Victory != null;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 

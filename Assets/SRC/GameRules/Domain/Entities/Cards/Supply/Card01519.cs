@@ -6,13 +6,15 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01519 : CardSupply
+    public class Card01519 : CardSupply, ISupplietable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public int InitialSupplies => 3;
         public override IEnumerable<Tag> Tags => new[] { Tag.Talent, Tag.Science };
+
+        public Stat AmountSupplies { get; private set; }
 
         /*******************************************************************/
         [Inject]

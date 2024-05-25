@@ -1035,7 +1035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 141937760}
-  - component: {fileID: 141937763}
+  - component: {fileID: 141937765}
   - component: {fileID: 141937764}
   m_Layer: 0
   m_Name: ShowSelectorComponent
@@ -1062,21 +1062,6 @@ Transform:
   - {fileID: 930184493}
   m_Father: {fileID: 963194228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &141937763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141937759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46616759aa9ba6d41bb7cf532ffbe7ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectorBlockController: {fileID: 930184496}
-  _buttonPosition: {fileID: 725642696}
-  _title: {fileID: 1986029120}
 --- !u!114 &141937764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,11 +1075,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 141937763}
+  - {fileID: 141937765}
   _bindId: 0
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
+--- !u!114 &141937765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141937759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694d37bfb2f4754438b48aeca030cae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonPosition: {fileID: 725642696}
+  _selectorBlockController: {fileID: 930184496}
+  _title: {fileID: 1986029120}
 --- !u!1001 &149675761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7788,7 +7788,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.256982
   m_NumberOfSteps: 0
   m_OnValueChanged:

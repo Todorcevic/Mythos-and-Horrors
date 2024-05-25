@@ -10,6 +10,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardGoal01108Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
+
         [UnityTest]
         public IEnumerator Reveal()
         {
@@ -56,7 +59,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
             Assert.That(cardGoal.Revealed.IsActive, Is.True);
         }
-        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator CancelPayHint()
