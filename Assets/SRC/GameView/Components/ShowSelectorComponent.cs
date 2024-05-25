@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameView
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-        public async Task CheckIfIsInSelectorAndReturnPlayables(IPlayable exceptThisPlayable = null)
+        private async Task CheckIfIsInSelectorAndReturnPlayables(IPlayable exceptThisPlayable = null)
         {
             if (!IsShowing) return;
             await ShowDown();

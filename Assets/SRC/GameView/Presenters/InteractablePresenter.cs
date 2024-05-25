@@ -61,7 +61,6 @@ namespace MythosAndHorrors.GameView
             _showCardHandler.ActiavatePlayables();
 
             IPlayable playableChoose = await _clickHandler.WaitingClick();
-
             await _showCardHandler.DeactivatePlayables();
             if (playableChoose is ShowCardsInCenterButton)
             {

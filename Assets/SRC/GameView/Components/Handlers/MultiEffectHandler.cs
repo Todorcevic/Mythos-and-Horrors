@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs, string title)
         {
+            await DotweenExtension.WaitForAnimationsComplete();
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
             cardViewClones = CreateCardViewClones();
+
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
-
             _showCardHandler.ActiavatePlayables(cardViewClones);
-
             IPlayable playableSelected = await _clickHandler.WaitingClick();
             return await FinishMultiEffect(playableSelected);
         }

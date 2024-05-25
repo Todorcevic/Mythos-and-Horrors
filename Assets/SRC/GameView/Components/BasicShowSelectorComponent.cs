@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         private List<CardView> _cardViews;
         private bool IsShowing => _selectorBlockController.IsActivated;
-        private List<CardView> CardViewsOrdered(List<CardView> originalCards) =>
+        public List<CardView> CardViewsOrdered(List<CardView> originalCards) =>
             originalCards.OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count())
           .ThenBy(cardView => cardView.DeckPosition).ToList();
 
         /*******************************************************************/
         public async Task ShowCards(List<CardView> cardViews, string title)
         {
-            _cardViews = CardViewsOrdered(cardViews);
+            _cardViews = cardViews;
             await ShowUp(title);
         }
 
