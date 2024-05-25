@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
     [TestFixture]
     public class MultiEffectTests : PlayModeTestsBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]

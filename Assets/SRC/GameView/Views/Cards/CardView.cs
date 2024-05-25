@@ -130,6 +130,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
+            if (newZoneView == CurrentZoneView) return DOTween.Sequence();
             Sequence moveSequence = DOTween.Sequence().SetId(nameof(CardView))
                  .OnStart(() => transform.SetParent(newZoneView.transform))
                  .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
@@ -149,8 +150,6 @@ namespace MythosAndHorrors.GameView
 
         /*******************************************************************/
         public void SetCloneEffect(Effect effect) => _cloneEffect = effect;
-
-        public void ClearCloneEffect() => _cloneEffect = null;
 
         public void AddBuffs()
         {

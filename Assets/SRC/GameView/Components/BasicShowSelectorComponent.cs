@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly TokensPileComponent _tokensPileComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         private List<CardView> _cardViews;
-        private bool IsShowing => _selectorBlockController.IsActivated;
+        public bool IsShowing => _selectorBlockController.IsActivated;
         public List<CardView> CardViewsOrdered(List<CardView> originalCards) =>
             originalCards.OrderBy(cardView => cardView.Card.CurrentZone.Cards.Count())
           .ThenBy(cardView => cardView.DeckPosition).ToList();

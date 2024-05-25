@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
@@ -45,13 +46,7 @@ namespace MythosAndHorrors.GameView
             }
             else
             {
-                /*********************/
-                List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                Sequence returnSequence = DOTween.Sequence();
-                cardsToShow.ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
-                /*********************/
-
-                await _showSelectorComponent.ShowDown(returnSequence, withActivation: true);
+                await CenterShowDown();
                 return await Interact(interactableGameAction);
             }
         }
@@ -67,23 +62,7 @@ namespace MythosAndHorrors.GameView
                 mustShowInCenter = !mustShowInCenter;
                 return await Initial(interactableGameAction, interactableGameAction.Description);
             }
-
-            /*********************/
-            List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-            CardView cardViewSelected = playableChoose as CardView;
-            Sequence returnSequence = DOTween.Sequence();
-            cardsToShow.Except(new CardView[] { cardViewSelected })
-                .ForEach(cardView => returnSequence.Join(cardView.MoveToZone(_zoneViewsManager.Get(cardView.Card.CurrentZone), Ease.InSine)));
-
-            if (cardViewSelected != null)
-            {
-                returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine));
-                if (!playableChoose?.IsMultiEffect ?? false)
-                    returnSequence.Append(cardViewSelected.MoveToZone(_zoneViewsManager.Get(cardViewSelected.Card.CurrentZone), Ease.InSine));
-            }
-            /*********************/
-
-            await _showSelectorComponent.ShowDown(returnSequence, withActivation: false);
+            await CenterShowDown();
 
             if (playableChoose.IsMultiEffect)
             {
@@ -98,6 +77,16 @@ namespace MythosAndHorrors.GameView
             mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, interactableGameAction.Description)
                 ?? await Initial(interactableGameAction, interactableGameAction.Description);
+        }
+
+        private async Task CenterShowDown()
+        {
+            if (_showSelectorComponent.IsShowing)
+            {
+                List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
+                Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card));
+                await _showSelectorComponent.ShowDown(returnSequence, withActivation: false);
+            }
         }
     }
 }

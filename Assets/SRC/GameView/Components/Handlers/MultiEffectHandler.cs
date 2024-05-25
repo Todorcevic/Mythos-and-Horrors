@@ -22,11 +22,11 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs, string title)
         {
-            await DotweenExtension.WaitForAnimationsComplete();
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
+            await originalCardView.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine).AsyncWaitForCompletion();
             cardViewClones = CreateCardViewClones();
-
+            originalCardView.gameObject.SetActive(false);
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
             _showCardHandler.ActiavatePlayables(cardViewClones);
             IPlayable playableSelected = await _clickHandler.WaitingClick();
@@ -35,45 +35,24 @@ namespace MythosAndHorrors.GameView
 
         private async Task<Effect> FinishMultiEffect(IPlayable playableSelected)
         {
+            Effect effectSelected = playableSelected is CardView cardView ? playableSelected.EffectsSelected.Single() : null;
             await _showCardHandler.DeactivatePlayables(cardViewClones);
-
-            if (playableSelected is CardView cardView)
-            {
-                Effect effectSelected = playableSelected.EffectsSelected.Single();
-                originalCardView.ClearCloneEffect();
-                (originalCardView.transform.position, cardView.transform.position) = (cardView.transform.position, originalCardView.transform.position);
-
-                Sequence destroyClonesSequence = DOTween.Sequence();
-                cardViewClones.Cast<CardView>().Except(new[] { originalCardView })
-                    .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.OutZone, Ease.InSine))
-                        .OnComplete(() => GameObject.Destroy(clone.gameObject)));
-                destroyClonesSequence.Join(_moveCardHandler.MoveCardViewWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone)));
-
-                await _showSelectorComponent.ShowDown(destroyClonesSequence, withActivation: false);
-                cardViewClones = null;
-                return effectSelected;
-            }
-            else
-            {
-                Sequence returnClonesSequence = DOTween.Sequence();
-                cardViewClones.Cast<CardView>().Except(new[] { originalCardView })
-                .ForEach(clone => returnClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine)
-                    .OnComplete(() => GameObject.Destroy(clone.gameObject))));
-                returnClonesSequence.Join(_moveCardHandler.MoveCardViewWithPreviewToZone(originalCardView, _zoneViewsManager.Get(originalCardView.Card.CurrentZone)));
-
-                await _showSelectorComponent.ShowDown(returnClonesSequence, withActivation: false);
-                originalCardView.ClearCloneEffect();
-                cardViewClones = null;
-                return null;
-            }
+            Sequence destroyClonesSequence = DOTween.Sequence();
+            cardViewClones.Cast<CardView>()
+                .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine).OnComplete(() => GameObject.Destroy(clone.gameObject))));
+            destroyClonesSequence.Append(_moveCardHandler.MoveCardsToCurrentZones(new[] { originalCardView.Card })
+                .OnStart(() => originalCardView.gameObject.SetActive(true)));
+            await _showSelectorComponent.ShowDown(destroyClonesSequence, withActivation: false);
+            cardViewClones = null;
+            originalCardView = null;
+            return effectSelected;
         }
 
         private List<IPlayable> CreateCardViewClones()
         {
             List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
-            originalCardView.SetCloneEffect(effects.First());
-            List<IPlayable> newClonesCardView = new() { originalCardView };
-            foreach (Effect effect in effects.Skip(1))
+            List<IPlayable> newClonesCardView = new();
+            foreach (Effect effect in effects)
             {
                 CardView cloneCardView = originalCardView.CloneToMultiEffect(originalCardView.CurrentZoneView.transform);
                 cloneCardView.SetCloneEffect(effect);

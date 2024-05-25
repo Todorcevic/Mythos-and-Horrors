@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
         async Task IPresenter<ChallengePhaseGameAction>.PlayAnimationWith(ChallengePhaseGameAction challengePhaseGameAction)

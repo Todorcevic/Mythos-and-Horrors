@@ -10,6 +10,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardCreature01138Tests : TestCORE2Preparation
     {
+        protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator Parley()
         {
