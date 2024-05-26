@@ -19,11 +19,13 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
         async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
             if (gamAction is not InteractableGameAction interactableGameAction) return default;
+            _mainButtonComponent.MainButtonEffect = interactableGameAction.MainButtonEffect;
             await _swapInvestigatorHandler.Select(interactableGameAction.ActiveInvestigator).AsyncWaitForCompletion();
             mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await Initial(interactableGameAction, interactableGameAction.Description);
@@ -84,7 +86,7 @@ namespace MythosAndHorrors.GameView
             if (_showSelectorComponent.IsShowing)
             {
                 List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card));
+                Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card), ease: Ease.OutSine);
                 await _showSelectorComponent.ShowDown(returnSequence, withActivation: false);
             }
         }

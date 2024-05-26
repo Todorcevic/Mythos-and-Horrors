@@ -10,6 +10,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
     [TestFixture]
     public class GameActionPayGainResourceTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator Full_Take_Resource()
         {

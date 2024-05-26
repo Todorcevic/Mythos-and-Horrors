@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _deactivateColor;
 
         private bool IsActivated => _collider.enabled;
-        private Effect MainButtonEffect => _gameActionsProvider.CurrentInteractable?.MainButtonEffect;
+        public Effect MainButtonEffect { get; set; }
         IEnumerable<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/
         public void ActivateToClick()
         {
-            if (IsActivated) return;
+            //if (IsActivated) return;
             _message.text = MainButtonEffect?.Description;
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
@@ -39,13 +39,23 @@ namespace MythosAndHorrors.GameView
 
         public void DeactivateToClick()
         {
-            if (!IsActivated) return;
+            //if (!IsActivated) return;
             _collider.enabled = false;
             _buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);
             _message.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION);
             _message.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
             _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
+        }
+
+        public void ActivateToCancelClick()
+        {
+            _message.text = MainButtonEffect?.Description;
+            _collider.enabled = true;
+            _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
+            _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);
+            _message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f);
+            _message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public Tween MoveToShowSelector(Transform scenePoint)

@@ -164,6 +164,23 @@ namespace MythosAndHorrors.PlayMode.Tests
             }
         }
 
+        protected IEnumerator ClickAvatarUpDown(Investigator investigator, bool isUp)
+        {
+            if (TestsType == TestsType.Integration)
+            {
+                CardViewsManager cardViewManager = SceneContainer.Resolve<CardViewsManager>();
+                AvatarCardView avatar = (AvatarCardView)cardViewManager.GetCardView(investigator.AvatarCard);
+
+                float startTime = Time.realtimeSinceStartup;
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT
+                    && !avatar.PayAsGroupController.GetPrivateMember<ButtonAsGroup>(isUp ? "_buttonUp" : "_buttonDown").gameObject.activeInHierarchy) yield return null;
+                if (!avatar.PayAsGroupController.GetPrivateMember<ButtonAsGroup>(isUp ? "_buttonUp" : "_buttonDown").gameObject.activeInHierarchy)
+                    throw new TimeoutException("Avatar Not become clickable");
+
+                avatar.PayAsGroupController.GetPrivateMember<ButtonAsGroup>(isUp ? "_buttonUp" : "_buttonDown").OnMouseUpAsButton();
+            }
+        }
+
         protected IEnumerator ClickedClone(Card card, int position, bool isReaction = false)
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)

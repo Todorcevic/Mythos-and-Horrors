@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
 
+
         /*******************************************************************/
         public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description, Investigator activeInvestigator = null)
         {

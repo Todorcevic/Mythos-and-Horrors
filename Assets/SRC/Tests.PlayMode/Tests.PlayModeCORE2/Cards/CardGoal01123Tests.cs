@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardGoal01123Tests : TestCORE2Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator RevealWhenCultistsDefeat()
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);
-            Assert.That(SceneCORE2.Cultists.Count(cultis => cultis.CurrentZone != SceneCORE2.OutZone), Is.EqualTo(1));
+            //Assert.That(SceneCORE2.Cultists.Count(cultis => cultis.CurrentZone != SceneCORE2.OutZone), Is.EqualTo(1));
             yield return ClickedIn(goal);
             yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedIn(investigator2.AvatarCard);

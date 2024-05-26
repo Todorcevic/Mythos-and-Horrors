@@ -5,39 +5,41 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintsToGoalGameAction : InteractableGameAction, IInitializable
+    public class PayHintsToGoalGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly IAsGroupPresenter _asGroupPresenter;
 
+        public bool ButtonCanUndo => _gameActionsProvider.CanUndo(realLast: true);
         public CardGoal CardGoal { get; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; }
         public override bool CanBeExecuted => !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
-        public List<Effect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
-        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
-            base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Investigator to pay")
+        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
         }
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        protected override async Task ExecuteThisLogic()
         {
-            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
-            {
-                EffectsToPay.Add(Create().SetCard(investigator.AvatarCard)
-                    .SetInvestigator(investigator)
-                    .SetCardAffected(CardGoal)
-                    .SetLogic(PayHint));
+            Dictionary<Card, int> result = await _asGroupPresenter.SelectWith(this);
+            if (result == null) await UndoLogic();
+            await _gameActionsProvider.Create(new SafeForeach<CardAvatar>(() => result.Keys.OfType<CardAvatar>(), Logic));
 
-                /*******************************************************************/
-                async Task PayHint()
-                {
-                    await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, 1));
-                    await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
-                }
-            }
+            /*******************************************************************/
+            async Task Logic(CardAvatar AvatarCard) =>
+                await _gameActionsProvider.Create(new PayHintGameAction(AvatarCard.Owner, CardGoal.Hints, result[AvatarCard]));
         }
+
+
+        private async Task UndoLogic()
+        {
+            InteractableGameAction lastInteractable = await _gameActionsProvider.CancelInteractable();
+            if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
+            await _gameActionsProvider.Create(lastInteractable);
+        }
+
     }
 }

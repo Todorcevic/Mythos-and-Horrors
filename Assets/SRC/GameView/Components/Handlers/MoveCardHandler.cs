@@ -65,17 +65,17 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence();
         }
 
-        public Tween MoveCardsToCurrentZones(IEnumerable<Card> cards, float delay = 0f)
+        public Tween MoveCardsToCurrentZones(IEnumerable<Card> cards, float delay = 0f, Ease ease = Ease.InOutCubic)
         {
             Dictionary<CardView, ZoneView> cardViewsWithZones = cards.ToDictionary(card => _cardViewsManager.GetCardView(card), card => _zonesViewManager.Get(card.CurrentZone));
             return MoveCardViewsToZones(cardViewsWithZones, delay);
         }
 
-        private Tween MoveCardViewsToZones(Dictionary<CardView, ZoneView> cardViewsWithZones, float delay)
+        public Tween MoveCardViewsToZones(Dictionary<CardView, ZoneView> cardViewsWithZones, float delay, Ease ease = Ease.InOutCubic)
         {
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
-            cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value)));
+            cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value, ease)));
 
             Investigator owner = cardViewsWithZones.Select(cardView => _investigatorsProvider.GetInvestigatorWithThisZone(cardView.Value.Zone)).UniqueOrDefault() ??
                 cardViewsWithZones.Select(cardView => cardView.Key.Card.Owner).UniqueOrDefault();

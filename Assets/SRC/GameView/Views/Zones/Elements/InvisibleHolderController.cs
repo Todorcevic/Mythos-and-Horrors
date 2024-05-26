@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameView
             repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             if (AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * layoutAmount);
-            return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true));
+            return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true, avoidSelected: true));
         }
 
         public Tween ResetLayout(CardView cardView)
@@ -51,16 +51,17 @@ namespace MythosAndHorrors.GameView
             return Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);
         }
 
-        private Tween Repositionate(int selectedCardPosition, bool withFast)
+        private Tween Repositionate(int selectedCardPosition, bool withFast, bool avoidSelected = false)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             repositionSequence = DOTween.Sequence();
 
             for (int i = 0; i < AmountOfCards; i++)
             {
+                if (avoidSelected && i == selectedCardPosition) continue;
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;
-              //  float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.FAST_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
-                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, ViewValues.FAST_TIME_ANIMATION));
+                float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.FAST_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
+                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, animationTime));
             }
 
             return repositionSequence;

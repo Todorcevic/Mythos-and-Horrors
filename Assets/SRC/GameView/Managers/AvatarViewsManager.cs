@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
 
         public AvatarView Get(Investigator investigator) => AllAvatars.Find(avatarView => avatarView.Investigator == investigator);
 
-        public List<AvatarView> AvatarsPlayabled() => AllAvatars.FindAll((System.Predicate<AvatarView>)(avatar => Enumerable.Any<Card>(avatar.Investigator.Cards, (System.Func<Card, bool>)(card => card.CanBePlayed))));
+        public List<AvatarView> AvatarsPlayabled() => AllAvatars.FindAll(avatar => Enumerable.Any(avatar.Investigator.Cards, (card => card.CanBePlayed)));
 
         public AvatarView GetByCode(string code) => AllAvatars.Find(avatarView => avatarView.Investigator.Code == code);
     }

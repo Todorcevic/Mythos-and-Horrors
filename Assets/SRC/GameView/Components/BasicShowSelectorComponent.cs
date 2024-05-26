@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly TokensPileComponent _tokensPileComponent;
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly MoveCardHandler _moveCardHandler;
         private List<CardView> _cardViews;
         public bool IsShowing => _selectorBlockController.IsActivated;
         public List<CardView> CardViewsOrdered(List<CardView> originalCards) =>
@@ -54,12 +55,14 @@ namespace MythosAndHorrors.GameView
                .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
                .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition))
                .Join(_selectorBlockController.ActivateSelector());
-            _cardViews.ForEach(cardView => showCenterSequence.Join(cardView.MoveToZone(_zoneViewsManager.SelectorZone, Ease.InSine)));
+
+            Dictionary<CardView, ZoneView> cardViewToTween = _cardViews.ToDictionary(cardView => cardView, cardView => (ZoneView)_zoneViewsManager.SelectorZone);
+            showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0, Ease.InSine));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-        private void ActivateTitle(string title)
+        public void ActivateTitle(string title)
         {
             _title.text = title;
             _title.gameObject.SetActive(true);

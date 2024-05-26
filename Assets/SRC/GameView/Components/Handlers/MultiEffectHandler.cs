@@ -39,7 +39,8 @@ namespace MythosAndHorrors.GameView
             await _showCardHandler.DeactivatePlayables(cardViewClones);
             Sequence destroyClonesSequence = DOTween.Sequence();
             cardViewClones.Cast<CardView>()
-                .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine).OnComplete(() => GameObject.Destroy(clone.gameObject))));
+                .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
+                .OnComplete(() => GameObject.Destroy(clone.gameObject))));
             destroyClonesSequence.Append(_moveCardHandler.MoveCardsToCurrentZones(new[] { originalCardView.Card })
                 .OnStart(() => originalCardView.gameObject.SetActive(true)));
             await _showSelectorComponent.ShowDown(destroyClonesSequence, withActivation: false);

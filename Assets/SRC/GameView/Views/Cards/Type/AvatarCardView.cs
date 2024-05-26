@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private PayAsGroupController _payAsGroupController;
 
         public Investigator Investigator => Card.Owner;
-        public int PayAsGroupValue => _payAsGroupController.CurrentValue;
+        public PayAsGroupController PayAsGroupController => _payAsGroupController;
 
         /*******************************************************************/
         protected override void SetSpecific()

@@ -49,23 +49,27 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        public async Task<InteractableGameAction> CancelInteractable()
+        {
+            if (!CanUndo(realLast: true)) throw new Exception("Can't undo last interactable");
+            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo(realLast: true);
+
+            await UndoUntil(lastInteractableToUndo);
+            return lastInteractableToUndo;
+        }
+
         public async Task<InteractableGameAction> UndoLastInteractable()
         {
             if (!CanUndo()) throw new Exception("Can't undo last interactable");
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
 
-            while (_allGameActionsExecuted.Count > 0)
-            {
-                GameAction lastGameAction = _allGameActionsExecuted.Pop();
-                await lastGameAction.Undo();
-                if (lastGameAction == lastInteractableToUndo) break;
-            }
+            await UndoUntil(lastInteractableToUndo);
             return lastInteractableToUndo;
         }
 
-        public bool CanUndo()
+        public bool CanUndo(bool realLast = false)
         {
-            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
+            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo(realLast);
             if (lastInteractableToUndo == null) return false;
             if (lastInteractableToUndo.GetUniqueEffect() != null) return false;
 
@@ -78,8 +82,8 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private InteractableGameAction GetInteractableToUndo() =>
-             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1)
+        public InteractableGameAction GetInteractableToUndo(bool realLast = false) =>
+             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(realLast ? 0 : 1)
             .Where(interactableGameAction => interactableGameAction.CanBackToThisInteractable)
             .FirstOrDefault();
     }
