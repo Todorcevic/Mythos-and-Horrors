@@ -25,7 +25,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Dictionary<Card, int> result = await _asGroupPresenter.SelectWith(this);
-            if (result == null) await UndoLogic();
+            if (result == null)
+            {
+                await UndoLogic();
+                return;
+            }
             await _gameActionsProvider.Create(new SafeForeach<CardAvatar>(() => result.Keys.OfType<CardAvatar>(), Logic));
 
             /*******************************************************************/

@@ -38,7 +38,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Effect effect = _gameActionsProvider.CurrentInteractable?.MainButtonEffect ??
                 throw new InvalidOperationException("MainButtonEffect is null");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable) yield return null;
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)
+            {
+                yield return null;
+            }
 
             /*******************************************************************/
             bool MainButtonIsEnable() => _gameActionsProvider.CurrentInteractable?.MainButtonEffect != null;
@@ -52,7 +55,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             Effect effect = (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect ??
                 throw new InvalidOperationException("TakeResourceEffect is null");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable) yield return null;
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)
+            {
+                yield return null;
+            }
 
             /*******************************************************************/
             bool TakeResourceIsEnable() => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect != null;
@@ -66,7 +72,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             Effect effect = cardSelected.PlayableEffects?.ElementAtOrDefault(position) ??
                 throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable) yield return null;
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)
+            {
+                yield return null;
+            }
+
 
             /*******************************************************************/
             bool AnyEffectInCard() => cardSelected.PlayableEffects?.Any() ?? false;

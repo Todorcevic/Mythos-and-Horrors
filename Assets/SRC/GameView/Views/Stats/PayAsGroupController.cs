@@ -14,11 +14,7 @@ namespace MythosAndHorrors.GameView
 
         private AvatarCardView _avatarCardView;
         private AvatarCardView AvatarCardView => _avatarCardView ??= GetComponentInParent<AvatarCardView>();
-
         public int CurrentValue { get; private set; }
-
-        public int InvestigatorAmountHints => AvatarCardView.Investigator.Hints.Value;
-
         public int InvestigatorHintsLeft => AvatarCardView.Investigator.Hints.Value - CurrentValue;
 
         /*******************************************************************/
@@ -31,8 +27,10 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Show()
         {
+            CurrentValue = 0;
             Refresh();
             gameObject.SetActive(true);
+
         }
 
         public void Hide()

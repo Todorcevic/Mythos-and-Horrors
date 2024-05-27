@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardGoal01109Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Reveal()
@@ -45,18 +45,19 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardGoal);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
+            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
+            yield return ClickedMainButonPayHint();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));
@@ -81,12 +82,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardGoal);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-
-            Assert.That(_gameActionsProvider.CurrentInteractable.MainButtonEffect, Is.Null);
-
-            yield return ClickedUndoButton();
-            yield return ClickedUndoButton();
+            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
+            yield return CancelMainButonPayHint();
             yield return ClickedMainButton();
 
             yield return taskGameAction.AsCoroutine();

@@ -24,8 +24,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
+        [Inject] private readonly IAsGroupPresenter _asGroupPresenter;
 
-        protected override TestsType TestsType => TestsType.Integration;
+        protected override TestsType TestsType => TestsType.Unit;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -166,7 +167,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator ClickAvatarUpDown(Investigator investigator, bool isUp)
         {
-            if (TestsType == TestsType.Integration)
+            if (_asGroupPresenter is FakePayAsGroupPresenter fakePayAsGroupPresenter)
+                yield return fakePayAsGroupPresenter.ClickAvatarUpDown(investigator, isUp);
+            else if (TestsType == TestsType.Integration)
             {
                 CardViewsManager cardViewManager = SceneContainer.Resolve<CardViewsManager>();
                 AvatarCardView avatar = (AvatarCardView)cardViewManager.GetCardView(investigator.AvatarCard);
@@ -203,6 +206,18 @@ namespace MythosAndHorrors.PlayMode.Tests
                 else throw new TimeoutException($"Clone position: {position} Not become clickable");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
+        }
+
+        protected IEnumerator CancelMainButonPayHint()
+        {
+            if (_asGroupPresenter is FakePayAsGroupPresenter fakeInteractable) yield return fakeInteractable.CancelMainButton();
+            else yield return ClickedMainButton();
+        }
+
+        protected IEnumerator ClickedMainButonPayHint()
+        {
+            if (_asGroupPresenter is FakePayAsGroupPresenter fakeInteractable) yield return fakeInteractable.ClickedMainButonPayHint();
+            else yield return ClickedMainButton();
         }
 
         protected IEnumerator ClickedMainButton()
