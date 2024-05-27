@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -16,8 +17,7 @@ namespace MythosAndHorrors.GameView
         public bool IsClickable { get; set; }
 
         private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
-        public Tween OnMouseExitAnimation { get; private set; }
-        public Tween OnMouseEnterAnimation { get; private set; }
+
 
         /*******************************************************************/
         public void ColliderUp(float amount)
@@ -36,18 +36,20 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
-            OnMouseEnterAnimation = CardView.CurrentZoneView.MouseEnter(CardView);
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            CardView.CurrentZoneView.MouseEnter(CardView);
             _cardShowerComponent.ShowCard(CardView);
         }
 
         public void OnMouseExit()
         {
-            OnMouseExitAnimation = CardView.CurrentZoneView.MouseExit(CardView);
+            CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
         }
 
         public void OnMouseUpAsButton()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             if (!IsClickable) return;
             _clickHandler.Clicked(CardView);
         }

@@ -11,8 +11,8 @@ namespace MythosAndHorrors.GameRules
         public int AmountDamage { get; }
 
         /*******************************************************************/
-        public AttackGameAction(Investigator investigator, CardCreature creature, int amountDamage)
-            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature)
+        public AttackGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
+            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature, statModifier: strengModifier)
         {
             ActiveInvestigator = investigator;
             CardCreature = creature;
@@ -35,9 +35,6 @@ namespace MythosAndHorrors.GameRules
         {
             await base.ExecuteThisPhaseLogic();
             await CheckCounterAttack();
-
-            /*******************************************************************/
-
         }
 
         private async Task CheckCounterAttack()

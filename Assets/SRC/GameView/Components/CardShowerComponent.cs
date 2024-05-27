@@ -24,7 +24,8 @@ namespace MythosAndHorrors.GameView
             if (MustNotShowFilter(cardView)) return;
 
             _showcardSequence?.Kill();
-            Destroy(_currentShowCard.gameObject);
+            if (_currentShowCard != null)
+                Destroy(_currentShowCard.gameObject);
         }
 
         private Vector3 GetPosition(Transform cardTransform) =>

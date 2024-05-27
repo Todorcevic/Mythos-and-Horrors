@@ -15,8 +15,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return StartingScene(withResources: true);
 
-            Card01519 aidCard = _cardsProvider.GetCard<Card01519>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(aidCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
+            Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
                 { _investigatorsProvider.First.Health, 4},
@@ -27,16 +27,16 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Fourth.Health, 1}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
-            Assert.That(aidCard.AmountSupplies.Value, Is.EqualTo(3));
+            Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(3));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
-            yield return ClickedIn(aidCard);
+            yield return ClickedIn(supplyCard);
             yield return ClickedClone(_investigatorsProvider.Second.AvatarCard, 0);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));
-            Assert.That(aidCard.AmountSupplies.Value, Is.EqualTo(2));
+            Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(2));
         }
     }
 }

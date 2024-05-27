@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Stat { get; init; }
         public int InitialDifficultValue { get; init; }
+        public int StatModifier { get; init; }
         public string ChallengeName { get; init; }
         public List<Func<Task>> SuccesEffects { get; init; } = new();
         public List<Func<Task>> FailEffects { get; init; } = new();
@@ -41,7 +42,7 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
+        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null, int statModifier = 0)
         {
             Stat = stat;
             InitialDifficultValue = difficultValue;
@@ -49,14 +50,18 @@ namespace MythosAndHorrors.GameRules
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
             CardToChallenge = cardToChallenge;
+            StatModifier = statModifier;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier));
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier));
+
         }
 
         public async Task ContinueChallenge()

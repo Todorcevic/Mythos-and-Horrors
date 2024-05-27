@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -122,7 +123,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayAttackGameAction(ActiveInvestigator, cardCreature));
-            }
+            }    
         }
 
         /*******************************************************************/
