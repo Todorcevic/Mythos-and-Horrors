@@ -7,9 +7,10 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
+
     public class CardSupply01506Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Attack()

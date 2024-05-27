@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -80,10 +81,21 @@ namespace MythosAndHorrors.GameView
             .SetEase(Ease.InOutSine);
 
         /*******************************************************************/
-        public void OnMouseEnter() => _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
+        public void OnMouseEnter()
+        {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
+        }
 
-        public void OnMouseExit() => _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
+        public void OnMouseExit()
+        {
+            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
+        }
 
-        public void OnMouseUpAsButton() => _clickHandler.Clicked(this);
+        public void OnMouseUpAsButton()
+        {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            _clickHandler.Clicked(this);
+        }
     }
 }

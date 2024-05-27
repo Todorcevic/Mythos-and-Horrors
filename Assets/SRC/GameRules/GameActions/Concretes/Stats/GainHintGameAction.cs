@@ -9,8 +9,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
-        public Stat FromStat { get; }
-        public int Amount { get; }
+        public Stat FromStat { get; private set; }
+        public int Amount { get; private set; }
         public override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
@@ -31,6 +31,11 @@ namespace MythosAndHorrors.GameRules
             };
 
             await _gameActionsProvider.Create(new UpdateStatGameAction(statablesUpdated));
+        }
+
+        public void SetNewAmount(int newAmount)
+        {
+            Amount = newAmount;
         }
     }
 }

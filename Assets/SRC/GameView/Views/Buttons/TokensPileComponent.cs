@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -47,6 +48,8 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void OnMouseEnter()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
             DOTween.Sequence()
                 .Join(_showToken.DOLocalMoveY(Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_showToken.DOLocalMoveZ(Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
@@ -61,6 +64,7 @@ namespace MythosAndHorrors.GameView
 
         public void OnMouseUpAsButton()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
             if (!_isClickable) return;
             _clickHandler.Clicked(this);
         }
