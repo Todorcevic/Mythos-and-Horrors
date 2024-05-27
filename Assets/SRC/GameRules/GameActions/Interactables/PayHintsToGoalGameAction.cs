@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
-            base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Investigator to pay")
+            base(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay")
         {
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
@@ -34,7 +34,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task PayHint()
                 {
-                    await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, 1));
+                    int amoutToPay = investigator.Hints.Value > CardGoal.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
+                    await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, amoutToPay));
                     await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
                 }
             }

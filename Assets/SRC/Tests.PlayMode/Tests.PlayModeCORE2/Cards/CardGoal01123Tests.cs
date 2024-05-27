@@ -38,23 +38,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(goal);
             yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
+
             Assert.That(SceneCORE2.Cultists.Count(cultis => cultis.CurrentZone != SceneCORE2.OutZone), Is.EqualTo(1));
             yield return ClickedIn(goal);
             yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator2.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

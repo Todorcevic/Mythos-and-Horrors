@@ -46,16 +46,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return taskGameAction.AsCoroutine();
 
@@ -85,7 +75,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(_gameActionsProvider.CurrentInteractable.MainButtonEffect, Is.Null);
 
-            yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
 
