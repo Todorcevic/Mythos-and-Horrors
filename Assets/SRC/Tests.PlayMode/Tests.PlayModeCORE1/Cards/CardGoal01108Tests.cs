@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
-using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardGoal01108Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
+
 
         [UnityTest]
         public IEnumerator Reveal()
@@ -43,15 +43,14 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             yield return ClickedIn(cardGoal);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Leader, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
-            yield return ClickedMainButonPayHint();
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
@@ -75,8 +74,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedTokenButton();
             yield return ClickedIn(_investigatorsProvider.Leader.InvestigatorCard);
             yield return ClickedIn(cardGoal);
-            yield return ClickAvatarUpDown(_investigatorsProvider.Second, isUp: true);
-            yield return CancelMainButonPayHint();
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

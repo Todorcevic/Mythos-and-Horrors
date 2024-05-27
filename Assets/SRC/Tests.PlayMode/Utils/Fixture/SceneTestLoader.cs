@@ -66,7 +66,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             void InstallFakes()
             {
                 SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
-                SceneContainer.Rebind<IAsGroupPresenter>().To<FakePayAsGroupPresenter>().AsCached();
                 BindAllFakePresenters();
 
                 static void BindAllFakePresenters()
