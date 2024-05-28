@@ -5,39 +5,31 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckSlotsGameAction : GameAction
+    public class CheckSlotsGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Investigator Investigator { get; }
-
-        public override bool CanBeExecuted => Investigator.HasSlotsExeded;
+        public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
-        public CheckSlotsGameAction(Investigator investigator)
-        {
-            Investigator = investigator;
-        }
+        public CheckSlotsGameAction(Investigator investigator) :
+            base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard", investigator)
+        { }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public override void ExecuteSpecificInitialization()
         {
-            if (CanBeExecuted)
+            IEnumerable<CardSupply> cards = ActiveInvestigator.CardsInPlay.OfType<CardSupply>()
+                .Where(card => card.HasAnyOfThisSlots(ActiveInvestigator.GetAllSlotsExeded()));
+            foreach (CardSupply card in cards)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard", Investigator);
-                IEnumerable<CardSupply> cards = Investigator.CardsInPlay.OfType<CardSupply>().Where(card => card.HasAnyOfThisSlots(Investigator.GetAllSlotsExeded()));
-                foreach (CardSupply card in cards)
+                Create().SetCard(card).SetDescription("Discard").SetLogic(Discard).SetInvestigator(ActiveInvestigator);
+
+                async Task Discard()
                 {
-                    interactableGameAction.Create().SetCard(card).SetDescription("Discard").SetLogic(Discard).SetInvestigator(Investigator);
-
-                    async Task Discard()
-                    {
-                        await _gameActionsProvider.Create(new DiscardGameAction(card));
-                        await _gameActionsProvider.Create(new CheckSlotsGameAction(Investigator));
-                    }
+                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create(new CheckSlotsGameAction(ActiveInvestigator));
                 }
-
-                await _gameActionsProvider.Create(interactableGameAction);
             }
         }
     }

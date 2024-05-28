@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DamageBySanityCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!updateStatGameAction.HasStat(Owner.Sanity)) return false;
+            if (!updateStatGameAction.HasThisStat(Owner.Sanity)) return false;
             if (AbilityUsed.IsActive) return false;
             if (Owner.Sanity.Value >= Owner.Sanity.ValueBeforeUpdate) return false;
             if (!IsInPlay) return false;

@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ChooseInvestigatorGameAction : InteractableGameAction, IInitializable
+    public class ChooseInvestigatorGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public ChooseInvestigatorGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator") { }
 
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {

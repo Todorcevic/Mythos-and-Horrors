@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InteractableGameAction : GameAction
+    public class InteractableGameAction : GameAction, IInitializable
     {
         private readonly List<Effect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         public bool MustShowInCenter { get; protected set; }
         public virtual string Description { get; protected set; }
 
-        public Investigator ActiveInvestigator { get; protected set; }
+        public Investigator ActiveInvestigator { get; }
         public Effect EffectSelected { get; private set; }
         public Effect MainButtonEffect { get; private set; }
         public Effect UndoEffect { get; private set; }
@@ -84,5 +84,7 @@ namespace MythosAndHorrors.GameRules
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
 
         public void ClearEffects() => _allCardEffects.Clear();
+
+        public virtual void ExecuteSpecificInitialization() { }
     }
 }

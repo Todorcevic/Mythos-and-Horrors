@@ -3,19 +3,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MulliganGameAction : InteractableGameAction, IInitializable
+    public class MulliganGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
         public MulliganGameAction(Investigator investigator) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Mulligan")
-        {
-            ActiveInvestigator = investigator;
-        }
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Mulligan", investigator)
+        { }
 
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             CreateMainButton().SetLogic(Continue);
 

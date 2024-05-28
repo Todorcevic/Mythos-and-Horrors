@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ShareDamageAndFearGameAction : InteractableGameAction, IInitializable
+    public class ShareDamageAndFearGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -18,16 +18,15 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public ShareDamageAndFearGameAction(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0) :
-            base(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm")
+            base(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm", investigator)
         {
-            ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
         }
 
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             List<Card> allSelectables = new() { ActiveInvestigator.InvestigatorCard };
 

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameView
         {
             Sequence eldritchSequence = DOTween.Sequence();
 
-            if (updateStatGameAction.HasStat(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
+            if (updateStatGameAction.HasThisStat(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch))
             {
                 eldritchSequence.Append(_moveCardHandler.MoveCardtoCenter(_chaptersProvider.CurrentScene.CurrentPlot))
                     .Append(Update(_statsViewsManager.GetAll(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch), statablesUpdated))
@@ -53,9 +53,9 @@ namespace MythosAndHorrors.GameView
         private Tween CheckHarm(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
         {
             Sequence harmSequence = DOTween.Sequence();
-            _cardsProvider.AllCards.OfType<IDamageable>().Where(damagable => updateStatGameAction.HasStat(damagable.Health))
+            _cardsProvider.AllCards.OfType<IDamageable>().Where(damagable => updateStatGameAction.HasThisStat(damagable.Health))
                .ForEach(damagableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(damagableCard.Health), statablesUpdated)));
-            _cardsProvider.AllCards.OfType<IFearable>().Where(damagable => updateStatGameAction.HasStat(damagable.Sanity))
+            _cardsProvider.AllCards.OfType<IFearable>().Where(damagable => updateStatGameAction.HasThisStat(damagable.Sanity))
              .ForEach(fearableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(fearableCard.Sanity), statablesUpdated)));
             return harmSequence;
         }
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameView
             Sequence payResourceSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                        .Where(investigator => updateStatGameAction.HasStat(investigator.Resources)))
+                        .Where(investigator => updateStatGameAction.HasThisStat(investigator.Resources)))
             {
                 int amount = investigator.Resources.Value - investigator.Resources.ValueBeforeUpdate;
                 Stat cardResoursable = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Resources }).UniqueOrDefault();
@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameView
             Sequence hintsSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                       .Where(investigator => updateStatGameAction.HasStat(investigator.Hints)))
+                       .Where(investigator => updateStatGameAction.HasThisStat(investigator.Hints)))
             {
                 int amount = investigator.Hints.Value - investigator.Hints.ValueBeforeUpdate;
                 Stat locationHint = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Hints }).Unique();

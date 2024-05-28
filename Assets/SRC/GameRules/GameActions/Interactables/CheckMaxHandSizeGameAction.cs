@@ -4,19 +4,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckMaxHandSizeGameAction : InteractableGameAction, IInitializable
+    public class CheckMaxHandSizeGameAction : InteractableGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
         public CheckMaxHandSizeGameAction(Investigator investigator) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction))
-        {
-            ActiveInvestigator = investigator;
-        }
+            base(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction), investigator)
+        { }
 
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateMainButton().SetLogic(Continue);
             else CreateGameActions();

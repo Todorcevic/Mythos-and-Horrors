@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : InteractableGameAction, IInitializable
+    public class CommitCardsChallengeGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -22,14 +22,13 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public CommitCardsChallengeGameAction(Investigator investigator, ChallengePhaseGameAction challenge) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards")
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards", investigator)
         {
-            ActiveInvestigator = investigator;
             CurrentChallenge = challenge;
         }
 
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             CreateMainButton().SetLogic(Continue);
 

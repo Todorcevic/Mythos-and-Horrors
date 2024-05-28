@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : InteractableGameAction, IInitializable
+    public class OneInvestigatorTurnGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -24,10 +24,9 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
-        public OneInvestigatorTurnGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
-        {
-            ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
-        }
+        public OneInvestigatorTurnGameAction() :
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn", PlayInvestigatorGameAction.PlayActiveInvestigator)
+        { }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
@@ -39,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             PreparePassEffect();
             PrepareInvestigateEffect();
@@ -123,7 +122,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayAttackGameAction(ActiveInvestigator, cardCreature));
-            }    
+            }
         }
 
         /*******************************************************************/

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintsToGoalGameAction : InteractableGameAction, IInitializable
+    public class PayHintsToGoalGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             InvestigatorsToPay = investigatorsToPay;
         }
         /*******************************************************************/
-        public void ExecuteSpecificInitialization()
+        public override void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {

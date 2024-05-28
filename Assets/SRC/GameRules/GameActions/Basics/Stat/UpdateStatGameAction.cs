@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public bool HasStat(Stat stat) => AllStatsUpdated.Contains(stat);
+        public bool HasThisStat(Stat stat) => AllStatsUpdated.Contains(stat);
 
         protected override async Task ExecuteThisLogic()
         {

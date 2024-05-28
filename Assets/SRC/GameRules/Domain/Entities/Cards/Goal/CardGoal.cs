@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!updateStatGameAction.HasStat(Hints)) return false;
+            if (!updateStatGameAction.HasThisStat(Hints)) return false;
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
