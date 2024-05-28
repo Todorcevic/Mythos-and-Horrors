@@ -8,9 +8,9 @@ namespace MythosAndHorrors.GameRules
         public Slot Slot { get; }
 
         /*******************************************************************/
-        public RemoveSlotGameAction(Investigator cardSupply, Slot slot)
+        public RemoveSlotGameAction(Investigator investigator, Slot slot)
         {
-            Investigator = cardSupply;
+            Investigator = investigator;
             Slot = slot;
         }
 

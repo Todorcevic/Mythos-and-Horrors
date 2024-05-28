@@ -25,6 +25,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override async Task PlayAdversityFor(Investigator investigator)
+        {
+            await base.PlayAdversityFor(investigator);
+            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, 3));
+        }
+
+        /*******************************************************************/
         private async Task TakeShockLogic(FinalizeGameAction finalizeGameAction)
         {
             await _gameActionsProvider.Create(new IncrementStatGameAction(ControlOwner.Shock, 1));
@@ -50,13 +57,5 @@ namespace MythosAndHorrors.GameRules
             if (Hints.Value <= 0) return false;
             return true;
         }
-
-        /*******************************************************************/
-        public override async Task PlayAdversityFor(Investigator investigator)
-        {
-            await base.PlayAdversityFor(investigator);
-            await _gameActionsProvider.Create(new UpdateStatGameAction(investigator.Hints, 3));
-        }
-
     }
 }

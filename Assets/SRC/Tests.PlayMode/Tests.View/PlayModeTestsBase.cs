@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
         /*******************************************************************/
         [UnitySetUp]
-        public IEnumerator SetUp()
+        public virtual IEnumerator SetUp()
         {
             if (currentSceneName == SCENE_NAME)
             {

@@ -9,6 +9,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardPlot01107Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator GotoResolution3()
         {
@@ -70,11 +72,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardCreature ghoul = _cardsProvider.GetCard<Card01119>();
             CardCreature noGhoul = _cardsProvider.GetCard<Card01603>();
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
+            Card01506 cardToDraw = _cardsProvider.GetCard<Card01506>();
             Investigator investigator = _investigatorsProvider.First;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToDraw, investigator.DeckZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());

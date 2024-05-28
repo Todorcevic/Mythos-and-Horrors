@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using System.Linq;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {
@@ -17,6 +18,13 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator All_Zones_With_Cards()
         {
             Investigator investigator1 = _investigatorsProvider.First;
+            foreach (Slot slot in investigator1.SlotsCollection.Slots.ToList())
+            {
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+            }
 
             Dictionary<Card, Zone> cardsWithZone = new()
             {
@@ -51,8 +59,6 @@ namespace MythosAndHorrors.PlayModeView.Tests
                     {_chaptersProvider.CurrentScene.Cards[26], _chaptersProvider.CurrentScene.DangerDiscardZone},
                     {_chaptersProvider.CurrentScene.Cards[32], _chaptersProvider.CurrentScene.LimboZone},
             };
-
-
 
             int k = 0;
             for (int i = 0; i < 3; i++)

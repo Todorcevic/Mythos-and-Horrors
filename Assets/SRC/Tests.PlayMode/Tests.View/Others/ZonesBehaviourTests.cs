@@ -15,6 +15,20 @@ namespace MythosAndHorrors.PlayModeView.Tests
     {
         //protected override bool DEBUG_MODE => true;
 
+        [UnitySetUp]
+        public override IEnumerator SetUp()
+        {
+            yield return base.SetUp();
+            Investigator investigator1 = _investigatorsProvider.First;
+            foreach (Slot slot in investigator1.SlotsCollection.Slots.ToList())
+            {
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+                yield return _gameActionsProvider.Create(new AddSlotGameAction(investigator1, slot)).AsCoroutine();
+            }
+        }
+
         /*******************************************************************/
         [UnityTest]
         public IEnumerator Move_Card_In_Two_Zones()
@@ -176,7 +190,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             CardView[] sut = _investigatorsProvider.First.FullDeck.Take(4).Select(card => _cardViewsManager.GetCardView(card)).ToArray();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut2.Card, _investigatorsProvider.First.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card).ToList(), sut2.Card.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(sut.Select(cardView => cardView.Card), sut2.Card.OwnZone)).AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(sut.First().CurrentZoneView.Zone, Is.EqualTo(sut2.Card.OwnZone));
