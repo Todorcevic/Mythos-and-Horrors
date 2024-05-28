@@ -19,5 +19,6 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<SlotType> AllSlotsType => Slots.Where(slot => slot.IsEfective).Select(slot => slot.Type);
 
         public void AddSlot(Slot slot) => Slots.Add(slot);
+        public void RemoveSlot(Slot slot) => Slots.Remove(slot);
     }
 }

@@ -58,16 +58,6 @@ namespace MythosAndHorrors.GameRules
             StarTokenEffect = StarEffect;
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
             CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false);
-
-
-
-            Owner.SlotsCollection.AddSlot(new Slot(SlotType.Item, SlotCondition));
-
-            bool SlotCondition()
-            {
-                if (!Owner.CardsInPlay.Any(card => card.HasThisTag(Tag.Tome))) return false;
-                return true;
-            }
         }
 
         /*******************************************************************/

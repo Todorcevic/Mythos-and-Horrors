@@ -32,6 +32,7 @@ namespace MythosAndHorrors.GameRules
             List<SlotType> freeSlots = SlotsCollection.AllSlotsType.ToList();
             foreach (SlotType slot in AllSlotsInPlay)
             {
+                if (slot == SlotType.None) continue;
                 if (freeSlots.Contains(slot)) freeSlots.Remove(slot);
                 else slots.Add(slot);
             }
