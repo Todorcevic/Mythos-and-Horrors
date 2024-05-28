@@ -16,10 +16,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card tomeCard = _cardsProvider.GetCard<Card01531>();
             Card tomeCard2 = _cardsProvider.GetCard<Card01535>();
+            Card01509 necro = _cardsProvider.GetCard<Card01509>();
             CardPlace place = SceneCORE1.Cellar;
             Investigator investigatorToTest = _investigatorsProvider.Second;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
-            yield return StartingScene();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigatorToTest);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(necro, SceneCORE1.OutZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard2, investigatorToTest.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
