@@ -5,6 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class ShuffleGameAction : GameAction
     {
         private List<Card> _cards;

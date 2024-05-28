@@ -116,7 +116,7 @@ namespace MythosAndHorrors.GameView
             if (!HasSlot) return;
             if (Card.CurrentZone == Card.Owner?.AidZone) _slotController.Active(2);
             else if (Card.CurrentZone != Card.Owner?.HandZone) _slotController.Default();
-            else _slotController.Active(Card.Owner.SlotsCollection.GetFreeSlotFor(Card).Count);
+            else _slotController.Active(Card.Info.Slots.Count());
         }
     }
 }

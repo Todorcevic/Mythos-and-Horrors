@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -56,6 +57,17 @@ namespace MythosAndHorrors.GameRules
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
+            CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false);
+
+
+
+            Owner.SlotsCollection.AddSlot(new Slot(SlotType.Item, SlotCondition));
+
+            bool SlotCondition()
+            {
+                if (!Owner.CardsInPlay.Any(card => card.HasThisTag(Tag.Tome))) return false;
+                return true;
+            }
         }
 
         /*******************************************************************/
@@ -91,6 +103,18 @@ namespace MythosAndHorrors.GameRules
             if (gameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;
 
             await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
+        }
+
+        /*******************************************************************/
+        private bool CheckSlotsCondition(MoveCardsGameAction action)
+        {
+            if (!Owner.HasSlotsExeded) return false;
+            return true;
+        }
+
+        private async Task CheckSlotsLogic(MoveCardsGameAction action)
+        {
+            await _gameActionsProvider.Create(new CheckSlotsGameAction(Owner));
         }
 
         /*******************************************************************/

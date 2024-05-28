@@ -25,6 +25,20 @@ namespace MythosAndHorrors.GameRules
         public Zone DangerZone => Zones.First(zone => zone.ZoneType == ZoneType.Danger);
         public Zone InvestigatorZone => Zones.First(zone => zone.ZoneType == ZoneType.Investigator);
         public SlotsCollection SlotsCollection { get; } = new();
+        public IEnumerable<SlotType> AllSlotsInPlay => CardsInPlay.OfType<CardSupply>().SelectMany(card => card.Info.Slots);
+        public IEnumerable<SlotType> GetAllSlotsExeded()
+        {
+            List<SlotType> slots = new();
+            List<SlotType> freeSlots = SlotsCollection.AllSlotsType.ToList();
+            foreach (SlotType slot in AllSlotsInPlay)
+            {
+                if (freeSlots.Contains(slot)) freeSlots.Remove(slot);
+                else slots.Add(slot);
+            }
+            return slots;
+        }
+
+        public bool HasSlotsExeded => GetAllSlotsExeded().Any();
 
         /*******************************************************************/
         public bool CanBeHealed => Health.Value < InitialHealth;
@@ -86,6 +100,7 @@ namespace MythosAndHorrors.GameRules
             Zones.Add(new(ZoneType.Aid));
             Zones.Add(new(ZoneType.Danger));
             Zones.Add(new(ZoneType.Investigator));
+            //SlotsCollection = new(this);
         }
 
         /*******************************************************************/

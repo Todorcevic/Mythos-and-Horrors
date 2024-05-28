@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -13,6 +15,8 @@ namespace MythosAndHorrors.GameRules
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
+
+        public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
         /*******************************************************************/
         [Inject]
