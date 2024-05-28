@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         private bool TakeShockCondition(FinalizeGameAction finalizeGameAction)
         {
             if (!IsInPlay) return false;
-            if (Hints.Value > 0) return false;
+            if (Hints.Value <= 0) return false;
             return true;
         }
 
