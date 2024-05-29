@@ -46,6 +46,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));

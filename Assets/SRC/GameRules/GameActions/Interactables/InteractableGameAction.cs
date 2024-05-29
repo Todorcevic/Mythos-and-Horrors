@@ -42,16 +42,16 @@ namespace MythosAndHorrors.GameRules
         {
             SetUndoButton();
             if (NoEffect) return;
-            EffectSelected = AutoPlay() ?? await _interactablePresenter.SelectWith(this);
+            EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
         }
 
-        public Effect AutoPlay()
-        {
-            if (MainButtonEffect != null) return null;
-            if (!IsUniqueEffect) return null;
-            return UniqueEffect;
-        }
+        //public Effect AutoPlay()
+        //{
+        //    if (MainButtonEffect != null) return null;
+        //    if (!IsUniqueEffect) return null;
+        //    return UniqueEffect;
+        //}
 
         public Effect GetUniqueEffect()
         {
@@ -77,13 +77,9 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        private bool withCreateCancelMainButton;
-        public void CreateCancelMainButton() => withCreateCancelMainButton = true;
-
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new Effect().SetLogic(UndoLogic).SetDescription("Back") : null;
-            if (withCreateCancelMainButton) MainButtonEffect = UndoEffect;
 
             async Task UndoLogic()
             {

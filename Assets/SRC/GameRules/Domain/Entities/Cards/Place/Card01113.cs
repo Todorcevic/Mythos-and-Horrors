@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             .Where(investigator => investigator.CurrentPlace == this), TekeFear));
 
             async Task TekeFear(Investigator investigator) =>
-                await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(investigator, amountFear: 1, bythisCard: this));
+                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountFear: 1, fromCard: this));
         }
 
         private bool TakeFearCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)

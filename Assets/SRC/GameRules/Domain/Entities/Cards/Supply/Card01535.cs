@@ -24,8 +24,6 @@ namespace MythosAndHorrors.GameRules
         public async Task HealthActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
-            interactableGameAction.CreateCancelMainButton();
-
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
