@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PlayAttackGameAction : GameAction
+    public class PlayBasicAttackGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public int StrengModifier { get; }
 
         /*******************************************************************/
-        public PlayAttackGameAction(Investigator investigator, CardCreature cardCreature, int amountDamage = 1, int strengModifier = 0)
+        public PlayBasicAttackGameAction(Investigator investigator, CardCreature cardCreature, int amountDamage = 1, int strengModifier = 0)
         {
             Investigator = investigator;
             CardCreature = cardCreature;

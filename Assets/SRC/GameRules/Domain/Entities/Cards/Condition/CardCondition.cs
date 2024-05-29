@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Stat ResourceCost { get; private set; }
-        public Stat PlayFromHandTurnsCost { get; private set; }
+        public Stat PlayFromHandTurnsCost { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -39,6 +39,7 @@ namespace MythosAndHorrors.GameRules
             await ExecuteConditionEffect();
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
+        public virtual bool SpecificConditionToPlayFromHand() => true;
 
         public abstract Task ExecuteConditionEffect();
     }

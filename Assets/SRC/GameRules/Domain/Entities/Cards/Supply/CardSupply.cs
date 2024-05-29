@@ -75,5 +75,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, ControlOwner.AidZone));
         }
+
+        public virtual bool SpecificConditionToPlayFromHand() => true;
     }
 }

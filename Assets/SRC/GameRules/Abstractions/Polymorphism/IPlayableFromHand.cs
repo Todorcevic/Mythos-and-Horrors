@@ -8,6 +8,6 @@ namespace MythosAndHorrors.GameRules
         Stat PlayFromHandTurnsCost { get; }
 
         Task PlayFromHand();
-        bool SpecificConditionToPlayFormHand() => true;
+        bool SpecificConditionToPlayFromHand();
     }
 }

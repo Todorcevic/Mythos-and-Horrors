@@ -121,7 +121,7 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayAttackGameAction(ActiveInvestigator, cardCreature));
+                async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayBasicAttackGameAction(ActiveInvestigator, cardCreature));
             }
         }
 
@@ -194,7 +194,7 @@ namespace MythosAndHorrors.GameRules
                 if (card.CurrentZone != ActiveInvestigator.HandZone) return false;
                 if (playableFromHand.ResourceCost.Value > ActiveInvestigator.Resources.Value) return false;
                 if (playableFromHand.PlayFromHandTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
-                if (!playableFromHand.SpecificConditionToPlayFormHand()) return false;
+                if (!playableFromHand.SpecificConditionToPlayFromHand()) return false;
                 return true;
             }
         }

@@ -46,10 +46,7 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     async Task Activate()
                     {
-                        //int realTurnsCost = activation.ActivateTurnsCost.Value;
-
                         await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, activeInvestigator));
-                        //await _gameActionsProvider.Create(new UpdateStatGameAction(activation.ActivateTurnsCost, realTurnsCost));
                         await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
                     }
                 }
