@@ -24,7 +24,6 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedIn(_investigatorsProvider.Second.CurrentPlace);
-            yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedMainButton();
 
             Assume.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(2));

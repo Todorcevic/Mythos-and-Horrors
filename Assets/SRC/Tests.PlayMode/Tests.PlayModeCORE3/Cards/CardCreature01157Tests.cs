@@ -41,7 +41,6 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedIn(SceneCORE3.Forests.First());
-            yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -69,7 +68,6 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedClone(SceneCORE3.Urmodoth, 2);
-            yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -94,7 +92,6 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedIn(Lita);
-            yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

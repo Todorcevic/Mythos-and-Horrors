@@ -57,13 +57,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(Necronomicon);
-            yield return ClickedIn(investigator.InvestigatorCard);
-            //Assert.That(investigator.FearRecived, Is.EqualTo(1));
-            //Assert.That(Necronomicon.Fear.Value, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(Necronomicon.Fear.Value, Is.EqualTo(2));
             yield return ClickedIn(Necronomicon);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(Necronomicon);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

@@ -12,7 +12,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
-
         [UnityTest]
         public IEnumerator Reveal()
         {
@@ -44,7 +43,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
@@ -63,10 +61,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(SceneCORE1.Study.Hints, cardGoal.Hints.Value)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Third, SceneCORE1.Study.Hints, 1)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
             yield return ClickedTokenButton();
-            yield return ClickedIn(_investigatorsProvider.Leader.InvestigatorCard);
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedUndoButton();

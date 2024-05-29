@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardInvestigator01504Tests : TestCORE1Preparation
     {
-        //protected override bool DEBUG_MODE => true;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         /*******************************************************************/
         [UnityTest]
@@ -43,7 +43,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, creature, amountFear: 3, isDirect: true));
             yield return ClickedIn(cardInvestigator);
-            yield return ClickedIn(creature);
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(creature.Health.Value, Is.EqualTo(1));

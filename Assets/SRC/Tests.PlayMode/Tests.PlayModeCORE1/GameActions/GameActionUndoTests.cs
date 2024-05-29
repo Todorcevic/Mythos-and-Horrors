@@ -72,9 +72,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
             yield return ClickedIn(investigator.CardAidToDraw);
             yield return ClickedIn(investigator.CardAidToDraw);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(investigator.CardAidToDraw);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -87,11 +85,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator UndoWhenDamage()
         {
             Investigator investigator = _investigatorsProvider.First;
+            Card01518 ally = _cardsProvider.GetCard<Card01518>();
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE1.Attic)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Leader, SceneCORE1.Hallway)).AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ally, investigator.AidZone)).AsCoroutine();
 
+            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
             yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedIn(SceneCORE1.Attic);
             yield return ClickedUndoButton();
@@ -100,7 +100,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
             yield return ClickedMainButton();
-            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
             yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
@@ -136,7 +135,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
-            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

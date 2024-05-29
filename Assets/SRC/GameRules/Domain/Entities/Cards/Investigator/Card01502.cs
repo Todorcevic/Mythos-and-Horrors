@@ -31,6 +31,8 @@ namespace MythosAndHorrors.GameRules
         public async Task FreeTomeActivationActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
+            interactableGameAction.CreateCancelMainButton();
+
             await _gameActionsProvider.Create(new IncrementStatGameAction(Owner.CurrentTurns, 1));
 
             foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))

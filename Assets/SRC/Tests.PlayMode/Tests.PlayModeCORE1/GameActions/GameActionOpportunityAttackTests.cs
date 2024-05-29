@@ -24,7 +24,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(place);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
 
@@ -52,7 +51,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(place);
-            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedIn(creature2);
             yield return ClickedMainButton();

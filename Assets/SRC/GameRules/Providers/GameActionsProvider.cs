@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo(realLast);
             if (lastInteractableToUndo == null) return false;
-            if (lastInteractableToUndo.GetUniqueEffect() != null) return false;
+            if (lastInteractableToUndo.AutoPlay() != null) return false;
 
             foreach (GameAction gameAction in _allGameActionsExecuted)
             {
