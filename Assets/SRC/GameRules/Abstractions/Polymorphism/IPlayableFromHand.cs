@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using ModestTree;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -8,6 +9,5 @@ namespace MythosAndHorrors.GameRules
         Stat PlayFromHandTurnsCost { get; }
 
         Task PlayFromHand();
-        bool SpecificConditionToPlayFromHand();
     }
 }

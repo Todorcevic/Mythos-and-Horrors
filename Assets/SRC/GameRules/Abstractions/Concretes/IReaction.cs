@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -7,5 +8,6 @@ namespace MythosAndHorrors.GameRules
         Task React(GameAction gameAction);
         void Disable();
         void Enable();
+        void NewCondition(Func<GameAction, bool> condition);
     }
 }

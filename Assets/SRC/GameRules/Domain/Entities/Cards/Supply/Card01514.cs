@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
 
-            cardCondition.PlayFromHandReaction.Condition = ConditionToPlayFromHand;
+            cardCondition.PlayFromHandReaction.NewCondition(ConditionToPlayFromHand);
             await Task.CompletedTask;
 
             bool ConditionToPlayFromHand(GameAction gameAction)
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            cardCondition.PlayFromHandReaction.Condition = cardCondition.ConditionToPlayFromHand;
+            cardCondition.PlayFromHandReaction.NewCondition(cardCondition.ConditionToPlayFromHand);
             await Task.CompletedTask;
         }
 

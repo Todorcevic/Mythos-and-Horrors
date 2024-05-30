@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
             PlayFromHandReaction.Disable();
-            PlayFromHandReaction = CreateReaction<GameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true, isOptative: true);
+            PlayFromHandReaction = CreateReaction<PlayInvestigatorGameAction>(ConditionToPlayFromHand, AddCardToOneInvestigatorTurn, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task PlayFromHand(GameAction gameAction)
+        public override async Task AddCardToOneInvestigatorTurn(GameAction gameAction)
         {
             if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return;
             await _gameActionsProvider.Create(new PlayFromHandGameAction(this, playInvestigatorGameAction.ActiveInvestigator));

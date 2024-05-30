@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -12,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public Reaction<GameAction> PlayFromHandReaction { get; protected set; }
+        public IReaction PlayFromHandReaction { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandReaction = CreateReaction<GameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true);
+            PlayFromHandReaction = CreateReaction<OneInvestigatorTurnGameAction>(ConditionToPlayFromHand, AddCardToOneInvestigatorTurn, isAtStart: true, isBase: true);
         }
 
         /*******************************************************************/
@@ -36,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task PlayFromHand(GameAction gameAction)
+        public async virtual Task AddCardToOneInvestigatorTurn(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return;
             oneInvestigatorTurnGameAction.Create().SetCard(this)
@@ -60,16 +59,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public abstract Task ExecuteConditionEffect();
-
-        public async Task PlayFromHand()
+        async Task IPlayableFromHand.PlayFromHand()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             await ExecuteConditionEffect();
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
-        public virtual bool SpecificConditionToPlayFromHand() => false;
-
+        public abstract Task ExecuteConditionEffect();
     }
 }

@@ -28,5 +28,10 @@ namespace MythosAndHorrors.GameRules
         public void Disable() => IsDisable = true;
 
         public void Enable() => IsDisable = false;
+
+        public void NewCondition(Func<GameAction, bool> condition)
+        {
+            Condition = condition;
+        }
     }
 }

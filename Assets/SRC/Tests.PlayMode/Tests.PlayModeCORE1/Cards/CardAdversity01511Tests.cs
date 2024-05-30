@@ -9,6 +9,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardAdversity01511Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator NoPay()
         {

@@ -46,7 +46,6 @@ namespace MythosAndHorrors.GameRules
             PrepareInvestigatorAttackEffect();
             PrepareInvestigatorConfrontEffect();
             PrepareInvestigatorEludeEffect();
-            PreparePlayFromHandEffect();
             PrepareActivables();
             PrepareDraw();
             PrepareTakeResource();
@@ -170,32 +169,6 @@ namespace MythosAndHorrors.GameRules
 
                 async Task InvestigatorElude() =>
                     await _gameActionsProvider.Create(new PlayEludeGameAction(ActiveInvestigator, cardCreature));
-            }
-        }
-
-        /*******************************************************************/
-        private void PreparePlayFromHandEffect()
-        {
-            foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
-                .Where(playableFromHand => DefaultCondition(playableFromHand)))
-            {
-                PlayFromHandEffects.Add(Create()
-                    .SetCard(playableFromHand as Card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(PlayFromHand));
-
-                async Task PlayFromHand() =>
-                    await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
-            }
-
-            bool DefaultCondition(IPlayableFromHand playableFromHand)
-            {
-                if (playableFromHand is not Card card) return false;
-                if (card.CurrentZone != ActiveInvestigator.HandZone) return false;
-                if (playableFromHand.ResourceCost.Value > ActiveInvestigator.Resources.Value) return false;
-                if (playableFromHand.PlayFromHandTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) return false;
-                if (!playableFromHand.SpecificConditionToPlayFromHand()) return false;
-                return true;
             }
         }
 

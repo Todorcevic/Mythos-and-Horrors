@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
+        public IReaction PlayFromHandReaction { get; protected set; }
 
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
@@ -27,6 +28,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
             if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
+            PlayFromHandReaction = CreateReaction<OneInvestigatorTurnGameAction>(ConditionToPlayFromHand, AddCardToOneInvestigatorTurn, isAtStart: true);
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
@@ -71,11 +73,32 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async Task PlayFromHand()
+        public async Task AddCardToOneInvestigatorTurn(OneInvestigatorTurnGameAction gameAction)
+        {
+            if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return;
+            oneInvestigatorTurnGameAction.Create().SetCard(this)
+                .SetInvestigator(oneInvestigatorTurnGameAction.ActiveInvestigator)
+                .SetLogic(OneInvestigatorPlayFromHand);
+            await Task.CompletedTask;
+
+            /*******************************************************************/
+            async Task OneInvestigatorPlayFromHand() =>
+                 await _gameActionsProvider.Create(new PlayFromHandGameAction(this, oneInvestigatorTurnGameAction.ActiveInvestigator));
+        }
+
+        public bool ConditionToPlayFromHand(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        {
+            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
+            if (ControlOwner != oneInvestigatorTurnGameAction.ActiveInvestigator) return false;
+            if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
+            if (PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        async Task IPlayableFromHand.PlayFromHand()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, ControlOwner.AidZone));
         }
-
-        public virtual bool SpecificConditionToPlayFromHand() => true;
     }
 }
