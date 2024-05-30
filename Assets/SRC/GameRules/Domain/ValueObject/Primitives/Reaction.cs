@@ -5,8 +5,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class Reaction<T> : IReaction where T : GameAction
     {
-        public Func<T, bool> Condition { get; }
-        public Func<T, Task> Logic { get; }
+        public Func<T, bool> Condition { get; set; }
+        public Func<T, Task> Logic { get; set; }
         public bool IsDisable { get; private set; }
         public string Description => Logic.Method.Name;
 

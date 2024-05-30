@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,48 +16,51 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<DiscardGameAction>(PlayConditionCondition, PlayConditionLogic, true);
-            CreateReaction<OneInvestigatorTurnGameAction>(PlayTopDiscardCondition, PlayTopDiscardLogic, true);
-        }
-
-        private async Task PlayTopDiscardLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
-        {
-            oneInvestigatorTurnGameAction.Create().SetCard(this)
-                    .SetInvestigator(oneInvestigatorTurnGameAction.ActiveInvestigator)
-                    .SetLogic(PlayFromHand);
-            await Task.CompletedTask;
-
-            /*******************************************************************/
-            async Task PlayFromHand() =>
-                await _gameActionsProvider.Create(new PlayFromHandGameAction(this, oneInvestigatorTurnGameAction.ActiveInvestigator));
-        }
-
-        private bool PlayTopDiscardCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
-        {
-            if (!IsInPlay) return false;
-            if (oneInvestigatorTurnGameAction.ActiveInvestigator != ControlOwner) return false;
-            if (ControlOwner.DiscardZone.Cards.LastOrDefault() is not CardCondition cardCondition) return false;
-            if (cardCondition is not IPlayableFromHand playableFromHand) return false;
-            return DefaultCondition(playableFromHand);
-
-            bool DefaultCondition(IPlayableFromHand playableFromHand)
-            {
-                if (playableFromHand.ResourceCost.Value > ControlOwner.Resources.Value) return false;
-                if (playableFromHand.PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
-                if (!playableFromHand.SpecificConditionToPlayFromHand()) return false;
-                return true;
-            }
+            CreateReaction<DiscardGameAction>(MoveToDeckCondition, MoveToDeckConditionLogic, true);
+            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
 
         /*******************************************************************/
-        private async Task PlayConditionLogic(DiscardGameAction discardGameAction)
+        private async Task ActivationBuff(IEnumerable<Card> enumerable)
+        {
+            if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
+            cardCondition.PlayFromHandReaction.Condition = ConditionToPlayFromHand;
+            await Task.CompletedTask;
+
+            bool ConditionToPlayFromHand(GameAction gameAction)
+            {
+                Zone discardZone = cardCondition.CurrentZone;
+                Zone handZone = cardCondition.ControlOwner.HandZone;
+                discardZone.RemoveCard(cardCondition);
+                handZone.AddCard(cardCondition);
+                bool result = cardCondition.ConditionToPlayFromHand(gameAction);
+                handZone.RemoveCard(cardCondition);
+                discardZone.AddCard(cardCondition);
+                return result;
+            }
+        }
+
+        private async Task DeactivationBuff(IEnumerable<Card> enumerable)
+        {
+            if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
+            cardCondition.PlayFromHandReaction.Condition = cardCondition.ConditionToPlayFromHand;
+            await Task.CompletedTask;
+        }
+
+        private IEnumerable<Card> CardsToBuff()
+        {
+            return IsInPlay ? new List<Card>() { ControlOwner.DiscardZone.Cards.LastOrDefault() } : Enumerable.Empty<Card>();
+        }
+
+        /*******************************************************************/
+        private async Task MoveToDeckConditionLogic(DiscardGameAction discardGameAction)
         {
             discardGameAction.Cancel();
             await _gameActionsProvider.Create(new MoveCardsGameAction(discardGameAction.Card, ControlOwner.DeckZone, isFaceDown: true));
             await _gameActionsProvider.Create(new ShuffleGameAction(ControlOwner.DeckZone)); //Original card is move to last position
         }
 
-        private bool PlayConditionCondition(DiscardGameAction discardGameAction)
+        private bool MoveToDeckCondition(DiscardGameAction discardGameAction)
         {
             if (!IsInPlay) return false;
             if (discardGameAction.Parent is not PlayFromHandGameAction playFromHandGameAction) return false;
@@ -66,7 +68,5 @@ namespace MythosAndHorrors.GameRules
             if (playFromHandGameAction.Card is not CardCondition) return false;
             return true;
         }
-
-        /*******************************************************************/
     }
 }

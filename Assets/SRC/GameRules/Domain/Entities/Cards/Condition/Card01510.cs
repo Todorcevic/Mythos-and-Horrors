@@ -20,7 +20,9 @@ namespace MythosAndHorrors.GameRules
         {
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
-            CreateReaction<PlayInvestigatorGameAction>(PlayCondition, PlayLogic, isAtStart: true, isOptative: true);
+            PlayFromHandReaction.Disable();
+
+            CreateReaction<PlayInvestigatorGameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
@@ -68,13 +70,15 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task PlayLogic(PlayInvestigatorGameAction playInvestigatorGameAction)
+        public override async Task PlayFromHand(GameAction gameAction)
         {
+            if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return;
             await _gameActionsProvider.Create(new PlayFromHandGameAction(this, playInvestigatorGameAction.ActiveInvestigator));
         }
 
-        private bool PlayCondition(PlayInvestigatorGameAction playInvestigatorGameAction)
+        public override bool ConditionToPlayFromHand(GameAction gameAction)
         {
+            if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
             if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner.Resources.Value < ResourceCost.Value) return false;
@@ -82,8 +86,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override bool SpecificConditionToPlayFromHand() => false;
-
         public override async Task ExecuteConditionEffect()
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Protected, true));
