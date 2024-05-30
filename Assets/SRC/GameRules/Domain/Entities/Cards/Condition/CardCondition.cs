@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public Reaction<GameAction> PlayFromHandReaction => AllReactions.OfType<Reaction<GameAction>>().First(r => r.Logic == PlayFromHand && !r.IsDisable);
+        public Reaction<GameAction> PlayFromHandReaction { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            CreateReaction<GameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true);
+            PlayFromHandReaction = CreateReaction<GameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true);
         }
 
         /*******************************************************************/

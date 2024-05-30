@@ -21,8 +21,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
             PlayFromHandReaction.Disable();
-
-            CreateReaction<PlayInvestigatorGameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true, isOptative: true);
+            PlayFromHandReaction = CreateReaction<GameAction>(ConditionToPlayFromHand, PlayFromHand, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);

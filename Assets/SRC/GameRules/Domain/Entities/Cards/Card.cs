@@ -64,12 +64,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected void CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
             bool isBase = false, bool isOptative = false) where T : GameAction
         {
             IReaction newReaction = _reactionablesProvider.CreateReaction(condition, isOptative ? OptativeLogic : logic, isAtStart);
             if (isBase) _baseReactions.Add(newReaction);
             else _specificReactions.Add(newReaction);
+            return newReaction as Reaction<T>;
 
             async Task OptativeLogic(T gameAction)
             {

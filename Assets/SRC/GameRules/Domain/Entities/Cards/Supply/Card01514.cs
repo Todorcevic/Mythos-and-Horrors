@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
+
             cardCondition.PlayFromHandReaction.Condition = ConditionToPlayFromHand;
             await Task.CompletedTask;
 
