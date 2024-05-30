@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandReaction = CreateReaction<OneInvestigatorTurnGameAction>(ConditionToPlayFromHand, AddCardToOneInvestigatorTurn, isAtStart: true, isBase: true);
+            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isBase: true);
         }
 
         /*******************************************************************/
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async virtual Task AddCardToOneInvestigatorTurn(GameAction gameAction)
+        public async virtual Task PlayFromHandLogic(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return;
             oneInvestigatorTurnGameAction.Create().SetCard(this)
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
                  await _gameActionsProvider.Create(new PlayFromHandGameAction(this, oneInvestigatorTurnGameAction.ActiveInvestigator));
         }
 
-        public virtual bool ConditionToPlayFromHand(GameAction gameAction)
+        public virtual bool PlayFromHandCondition(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;

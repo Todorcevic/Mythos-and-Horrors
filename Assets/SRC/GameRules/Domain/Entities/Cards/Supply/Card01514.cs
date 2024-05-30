@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                 Zone handZone = cardCondition.ControlOwner.HandZone;
                 discardZone.RemoveCard(cardCondition);
                 handZone.AddCard(cardCondition);
-                bool result = cardCondition.ConditionToPlayFromHand(gameAction);
+                bool result = cardCondition.PlayFromHandCondition(gameAction);
                 handZone.RemoveCard(cardCondition);
                 discardZone.AddCard(cardCondition);
                 return result;
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            cardCondition.PlayFromHandReaction.NewCondition(cardCondition.ConditionToPlayFromHand);
+            cardCondition.PlayFromHandReaction.NewCondition(cardCondition.PlayFromHandCondition);
             await Task.CompletedTask;
         }
 
