@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public IPlayableFromHand PlayableFromHandCard { get; init; }
         public Investigator Investigator { get; init; }
+        public Card Card => (Card)PlayableFromHandCard;
 
         /*******************************************************************/
         public PlayFromHandGameAction(IPlayableFromHand playableCard, Investigator investigator)

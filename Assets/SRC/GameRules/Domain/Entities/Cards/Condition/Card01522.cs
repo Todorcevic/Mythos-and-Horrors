@@ -8,9 +8,9 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight, Tag.Criminal };
 
 
-        public override Task ExecuteConditionEffect()
+        public override async Task ExecuteConditionEffect()
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }
