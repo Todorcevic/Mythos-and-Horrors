@@ -70,8 +70,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
-            _reactionablesProvider.RemoveReaction<GainHintGameAction>(CantGainHintsLogic);
-            _reactionablesProvider.RemoveReaction<PayHintsToGoalGameAction>(CantPayHintsLogic);
+            _reactionablesProvider.RemoveReaction<GainHintGameAction>(CantGainHintsCondition);
+            _reactionablesProvider.RemoveReaction<PayHintsToGoalGameAction>(CantPayHintsCondition);
             await Task.CompletedTask;
         }
     }

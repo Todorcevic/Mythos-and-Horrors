@@ -23,9 +23,8 @@ namespace MythosAndHorrors.GameRules
         public Stat EludeTurnsCost { get; private set; }
         public Stat Eldritch { get; private set; }
         public int DamageRecived => (Info.Health ?? 0) - Health.Value;
-        public IReaction DefeatReaction => _reactionablesProvider.FindReactionByLogic<UpdateStatGameAction>(DefeatLogic);
-        public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByLogic<MoveCardsGameAction>(ConfrontLogic);
-        public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByLogic<UpdateStatesGameAction>(ConfrontLogic);
+        public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByCondition<MoveCardsGameAction>(ConfrontCondition);
+        public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByCondition<UpdateStatesGameAction>(ConfrontCondition);
 
         /*******************************************************************/
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);

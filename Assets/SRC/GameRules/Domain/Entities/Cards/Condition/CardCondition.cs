@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -11,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public IReaction PlayFromHandReaction { get; protected set; }
+
 
         /*******************************************************************/
         [Inject]
@@ -20,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isBase: true);
+            CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isBase: true);
         }
 
         /*******************************************************************/

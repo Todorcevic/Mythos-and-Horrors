@@ -92,12 +92,14 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         /*******************************************************************/
         private void SafeForeachReaction()
         {
-            _reactionablesProvider.CreateReaction<PlayInvestigatorGameAction>((_) => true, SafeForeachReac, isAtStart: false);
+            _reactionablesProvider.CreateReaction<PlayInvestigatorGameAction>(Condition, SafeForeachReac, isAtStart: false);
+
+            bool Condition(GameAction _) => true;
 
             /*******************************************************************/
             async Task SafeForeachReac(PlayInvestigatorGameAction gameAction)
             {
-                _reactionablesProvider.RemoveReaction<PlayInvestigatorGameAction>(SafeForeachReac);
+                _reactionablesProvider.RemoveReaction<PlayInvestigatorGameAction>(Condition);
                 await _gameActionsProvider.Create(new SafeForeach<Investigator>(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy));
             }
 

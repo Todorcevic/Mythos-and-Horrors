@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -24,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            _reactionablesProvider.RemoveReaction<UpdateStatGameAction>(RevealLogic);
+            _reactionablesProvider.RemoveReaction<UpdateStatGameAction>(RevealCondition);
             CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 

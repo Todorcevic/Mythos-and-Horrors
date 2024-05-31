@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
         public Activation PayHints => AllActivations.First(activation => activation.Logic == PayHintsActivate);
-        public IReaction Reveal => _reactionablesProvider.FindReactionByLogic<UpdateStatGameAction>(RevealLogic);
+        public IReaction Reveal => _reactionablesProvider.FindReactionByCondition<UpdateStatGameAction>(RevealCondition);
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool RevealCondition(UpdateStatGameAction updateStatGameAction)
+        protected bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!updateStatGameAction.HasThisStat(Hints)) return false;
             if (!IsInPlay) return false;

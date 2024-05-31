@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class Card01510 : CardCondition
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
@@ -20,8 +21,8 @@ namespace MythosAndHorrors.GameRules
         {
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
-            PlayFromHandReaction.Disable();
-            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isOptative: true);
+            _reactionablesProvider.RemoveReaction<GameAction>(PlayFromHandCondition);
+            CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);

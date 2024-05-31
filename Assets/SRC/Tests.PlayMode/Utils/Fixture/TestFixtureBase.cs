@@ -78,8 +78,10 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
             TaskCompletionSource<ChallengeToken> waitForReaction = new();
-            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, isAtStart: true);
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, isAtStart: true);
             await waitForReaction.Task;
+
+            bool Condition(GameAction _) => true;
 
             /*******************************************************************/
             async Task Reveal(GameAction gameAction)
@@ -89,7 +91,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                     .Find(challengeToken => challengeToken.TokenType == tokenType);
                 revealChallengeTokenGameAction.SetChallengeToken(token);
                 waitForReaction.SetResult(revealChallengeTokenGameAction.ChallengeTokenRevealed);
-                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Reveal);
+                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Condition);
                 await Task.CompletedTask;
             }
         }
@@ -97,15 +99,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task<ChallengeToken> CaptureTokenWhenReveled()
         {
             TaskCompletionSource<ChallengeToken> waitForReaction = new();
-            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>((_) => true, Reveal, isAtStart: false);
+            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, isAtStart: false);
             return await waitForReaction.Task;
+
+            bool Condition(GameAction _) => true;
 
             /*******************************************************************/
             async Task Reveal(GameAction gameAction)
             {
                 if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
                 waitForReaction.SetResult(revealChallengeTokenGameAction.ChallengeTokenRevealed);
-                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Reveal);
+                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Condition);
                 await Task.CompletedTask;
             }
         }
@@ -119,15 +123,17 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task<ChallengePhaseGameAction> CaptureResolvingChallenge()
         {
             TaskCompletionSource<ChallengePhaseGameAction> waitForReaction = new();
-            _reactionablesProvider.CreateReaction<ResultChallengeGameAction>((_) => true, ResolveChallenge, isAtStart: false);
+            _reactionablesProvider.CreateReaction<ResultChallengeGameAction>(Condition, ResolveChallenge, isAtStart: false);
             return await waitForReaction.Task;
+
+            bool Condition(GameAction _) => true;
 
             /*******************************************************************/
             async Task ResolveChallenge(GameAction gameAction)
             {
                 if (gameAction is not ResultChallengeGameAction resolveChallengeGameAction) return;
                 waitForReaction.SetResult(resolveChallengeGameAction.ChallengePhaseGameAction);
-                _reactionablesProvider.RemoveReaction<ResultChallengeGameAction>(ResolveChallenge);
+                _reactionablesProvider.RemoveReaction<ResultChallengeGameAction>(Condition);
                 await Task.CompletedTask;
             }
         }

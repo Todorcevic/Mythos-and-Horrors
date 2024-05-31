@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public Reaction<T> FindReactionByLogic<T>(Func<T, Task> logic) where T : GameAction =>
-            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Logic == logic) as Reaction<T>;
+        public Reaction<T> FindReactionByCondition<T>(Func<T, bool> condition) where T : GameAction =>
+            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Condition == condition) as Reaction<T>;
 
         public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
@@ -37,9 +37,9 @@ namespace MythosAndHorrors.GameRules
             return newReaction;
         }
 
-        public void RemoveReaction<T>(Func<T, Task> logic) where T : GameAction
+        public void RemoveReaction<T>(Func<T, bool> condition) where T : GameAction
         {
-            IReaction reaction = FindReactionByLogic(logic);
+            IReaction reaction = FindReactionByCondition(condition);
             _startReactions.Remove(reaction);
             _endReactions.Remove(reaction);
         }
