@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task SpendClue()
             {
-                await _gameActionsProvider.Create(new PayHintGameAction(investigator, ExtraStat, 1));
+                await _gameActionsProvider.Create(new DropHintGameAction(investigator, ExtraStat, 1));
             }
 
             async Task TakeDamage()

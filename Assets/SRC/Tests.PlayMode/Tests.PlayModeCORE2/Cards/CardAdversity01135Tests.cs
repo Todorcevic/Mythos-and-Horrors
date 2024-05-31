@@ -3,7 +3,6 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -25,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Assert.That(investigator.Hints.Value, Is.EqualTo(2));
 
             Task<DrawDangerGameAction> drawTask = _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
-            yield return ClickedClone(adversityCard, 0);
+            yield return ClickedClone(adversityCard, 0, isReaction: true);
             yield return drawTask.AsCoroutine();
 
             Assert.That(investigator.Hints.Value, Is.EqualTo(1));
@@ -42,7 +41,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true)).AsCoroutine();
 
             Task<DrawDangerGameAction> drawTask = _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
-            yield return ClickedClone(adversityCard, 1);
+            yield return ClickedClone(adversityCard, 1, isReaction: true);
             yield return drawTask.AsCoroutine();
 
             Assert.That(investigator.DamageRecived, Is.EqualTo(2));
