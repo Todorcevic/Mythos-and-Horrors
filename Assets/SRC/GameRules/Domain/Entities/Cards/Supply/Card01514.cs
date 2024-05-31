@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
-        IReaction playFromHandReaction;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Relic };
 
@@ -27,12 +26,10 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-
-            playFromHandReaction = _reactionablesProvider.FindReactionByCondition<GameAction>(cardCondition.PlayFromHandCondition);
-            playFromHandReaction.NewCondition(ConditionToPlayFromHand);
-
+            cardCondition.PlayFromHandReaction.NewCondition(ConditionToPlayFromHand);
             await Task.CompletedTask;
 
+            /*******************************************************************/
             bool ConditionToPlayFromHand(GameAction gameAction)
             {
                 Zone discardZone = cardCondition.CurrentZone;
@@ -49,15 +46,12 @@ namespace MythosAndHorrors.GameRules
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            playFromHandReaction.NewCondition(cardCondition.PlayFromHandCondition);
-
+            cardCondition.PlayFromHandReaction.NewCondition(cardCondition.PlayFromHandCondition);
             await Task.CompletedTask;
         }
 
-        private IEnumerable<Card> CardsToBuff()
-        {
-            return IsInPlay ? new List<Card>() { ControlOwner.DiscardZone.Cards.LastOrDefault() } : Enumerable.Empty<Card>();
-        }
+        private IEnumerable<Card> CardsToBuff() =>
+            IsInPlay ? new List<Card>() { ControlOwner.DiscardZone.Cards.LastOrDefault() } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
         private async Task MoveToDeckConditionLogic(DiscardGameAction discardGameAction)

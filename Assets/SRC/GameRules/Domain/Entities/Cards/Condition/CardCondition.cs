@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -12,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-
+        public IReaction PlayFromHandReaction { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isBase: true);
+            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandReactionLogic, isAtStart: true, isBase: true);
         }
 
         /*******************************************************************/
@@ -36,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async virtual Task PlayFromHandLogic(GameAction gameAction)
+        public async virtual Task PlayFromHandReactionLogic(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return;
             oneInvestigatorTurnGameAction.Create().SetCard(this)

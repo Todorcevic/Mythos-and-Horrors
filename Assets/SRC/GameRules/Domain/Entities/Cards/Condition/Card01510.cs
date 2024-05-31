@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
             _reactionablesProvider.RemoveReaction<GameAction>(PlayFromHandCondition);
-            CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandLogic, isAtStart: true, isOptative: true);
+            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
@@ -70,7 +70,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task PlayFromHandLogic(GameAction gameAction)
+        public override async Task PlayFromHandReactionLogic(GameAction gameAction)
         {
             if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return;
             await _gameActionsProvider.Create(new PlayFromHandGameAction(this, playInvestigatorGameAction.ActiveInvestigator));
