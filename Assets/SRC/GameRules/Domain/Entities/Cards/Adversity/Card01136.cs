@@ -3,9 +3,26 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01136 : CardAdversity
+    public class Card01136 : CardAdversityLimbo
     {
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        /*******************************************************************/
+        protected override async Task ObligationLogic(Investigator investigator)
+        {
+            if (investigator.Hints.Value < 1)
+                await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
+            else
+            {
+                ChallengePhaseGameAction challengeGameAction = null;
+                challengeGameAction = new(investigator.Intelligence, 4, "Pista false", this, failEffect: DropHints);
+                await _gameActionsProvider.Create(challengeGameAction);
+
+                async Task DropHints()
+                {
+                    await _gameActionsProvider.Create(new DropHintGameAction(investigator, investigator.CurrentPlace.Hints, challengeGameAction.TotalDifferenceValue * -1));
+                }
+            }
+        }
     }
 }

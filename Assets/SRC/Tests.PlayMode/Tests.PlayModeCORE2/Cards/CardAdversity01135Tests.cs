@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator PayClue()
+        public IEnumerator PayHint()
         {
             Investigator investigator = _investigatorsProvider.Fourth;
             yield return PlaceOnlyScene();
@@ -40,9 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true)).AsCoroutine();
 
-            Task<DrawDangerGameAction> drawTask = _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
-            yield return ClickedClone(adversityCard, 1, isReaction: true);
-            yield return drawTask.AsCoroutine();
+            yield return _gameActionsProvider.Create(new DrawDangerGameAction(investigator)).AsCoroutine();
 
             Assert.That(investigator.DamageRecived, Is.EqualTo(2));
             Assert.That(adversityCard.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));

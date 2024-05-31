@@ -35,6 +35,7 @@ namespace MythosAndHorrors.GameRules
         public int TotalTokenValue => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
         public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenValue + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
+        public int TotalDifferenceValue => TotalChallengeValue - DifficultValue;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);

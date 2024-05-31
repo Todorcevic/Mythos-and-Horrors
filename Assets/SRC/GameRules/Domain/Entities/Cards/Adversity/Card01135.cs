@@ -23,7 +23,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
-            interactableGameAction.Create().SetCard(this).SetLogic(SpendClue).SetDescription("Spend Clue").SetInvestigator(investigator);
+            if (investigator.Hints.Value > 0)
+                interactableGameAction.Create().SetCard(this).SetLogic(SpendClue).SetDescription("Spend Clue").SetInvestigator(investigator);
             interactableGameAction.Create().SetCard(this).SetLogic(TakeDamage).SetDescription("Take Fear").SetInvestigator(investigator);
             await _gameActionsProvider.Create(interactableGameAction);
 
@@ -37,7 +38,5 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountDamage: 2));
             }
         }
-
-
     }
 }
