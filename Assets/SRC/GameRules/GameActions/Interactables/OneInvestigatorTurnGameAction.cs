@@ -46,6 +46,7 @@ namespace MythosAndHorrors.GameRules
             PrepareInvestigatorAttackEffect();
             PrepareInvestigatorConfrontEffect();
             PrepareInvestigatorEludeEffect();
+            PreparePlayFromHandEffect();
             PrepareActivables();
             PrepareDraw();
             PrepareTakeResource();
@@ -57,6 +58,22 @@ namespace MythosAndHorrors.GameRules
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
+        }
+
+        /*******************************************************************/
+        private void PreparePlayFromHandEffect()
+        {
+            foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
+                .Where(playableFromHand => playableFromHand.PlayFromHandCondition.Result(this)))
+            {
+                PlayFromHandEffects.Add(Create()
+                    .SetCard(playableFromHand as Card)
+                    .SetInvestigator(ActiveInvestigator)
+                    .SetLogic(PlayFromHand));
+
+                async Task PlayFromHand() =>
+                    await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
+            }
         }
 
         /*******************************************************************/

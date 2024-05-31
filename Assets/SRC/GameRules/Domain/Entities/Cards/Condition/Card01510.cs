@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01510 : CardCondition
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
@@ -21,8 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             PlayFromHandTurnsCost = CreateStat(0);
             Protected = CreateState(false);
-            _reactionablesProvider.RemoveReaction<GameAction>(PlayFromHandCondition);
-            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
+            CreateReaction<PlayInvestigatorGameAction>(PlayFromHandCondition.Result, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
@@ -70,13 +68,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task PlayFromHandReactionLogic(GameAction gameAction)
+        public async Task PlayFromHandReactionLogic(GameAction gameAction)
         {
-            if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return;
-            await _gameActionsProvider.Create(new PlayFromHandGameAction(this, playInvestigatorGameAction.ActiveInvestigator));
+            await _gameActionsProvider.Create(new PlayFromHandGameAction(this, ControlOwner));
         }
 
-        public override bool PlayFromHandCondition(GameAction gameAction)
+        public override bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
             if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;

@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public IReaction PlayFromHandReaction { get; protected set; }
+        public Condition<GameAction> PlayFromHandCondition { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandReaction = CreateReaction<GameAction>(PlayFromHandCondition, PlayFromHandReactionLogic, isAtStart: true, isBase: true);
+            PlayFromHandCondition = new Condition<GameAction>(CanPlayFromHandWith);
         }
 
         /*******************************************************************/
@@ -35,20 +35,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async virtual Task PlayFromHandReactionLogic(GameAction gameAction)
-        {
-            if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return;
-            oneInvestigatorTurnGameAction.Create().SetCard(this)
-                .SetInvestigator(oneInvestigatorTurnGameAction.ActiveInvestigator)
-                .SetLogic(OneInvestigatorPlayFromHand);
-            await Task.CompletedTask;
-
-            /*******************************************************************/
-            async Task OneInvestigatorPlayFromHand() =>
-                 await _gameActionsProvider.Create(new PlayFromHandGameAction(this, oneInvestigatorTurnGameAction.ActiveInvestigator));
-        }
-
-        public virtual bool PlayFromHandCondition(GameAction gameAction)
+        public virtual bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
@@ -58,7 +45,6 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        /*******************************************************************/
         async Task IPlayableFromHand.PlayFromHand()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));

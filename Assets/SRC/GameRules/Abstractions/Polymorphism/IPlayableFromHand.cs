@@ -8,5 +8,7 @@ namespace MythosAndHorrors.GameRules
         Stat ResourceCost { get; }
         Stat PlayFromHandTurnsCost { get; }
         Task PlayFromHand();
+
+        Condition<GameAction> PlayFromHandCondition { get; }
     }
 }
