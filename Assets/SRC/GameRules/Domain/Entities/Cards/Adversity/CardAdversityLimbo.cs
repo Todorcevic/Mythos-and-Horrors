@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
-        public override async Task PlayAdversityFor(Investigator investigator)
+        protected override async Task PlayAdversityFor(Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             await ObligationLogic(investigator);

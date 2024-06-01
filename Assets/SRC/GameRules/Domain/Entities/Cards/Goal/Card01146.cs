@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         private SceneCORE3 SceneCORE3 => (SceneCORE3)_chapterProvider.CurrentScene;
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             if (!SceneCORE3.Ritual.IsInPlay)
                 await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, _chapterProvider.CurrentScene.GetPlaceZone(1, 4)));

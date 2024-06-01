@@ -8,6 +8,5 @@ namespace MythosAndHorrors.GameRules
         Task React(GameAction gameAction);
         void Disable();
         void Enable();
-        void NewCondition(Func<GameAction, bool> condition);
     }
 }

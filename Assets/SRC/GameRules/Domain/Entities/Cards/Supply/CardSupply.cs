@@ -14,7 +14,9 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
-        public Condition<GameAction> PlayFromHandCondition { get; protected set; }
+
+        /*******************************************************************/
+        public GameCondition<GameAction> PlayFromHandCondition { get; protected set; }
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
@@ -25,14 +27,14 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandCondition = new Condition<GameAction>(ConditionToPlayFromHand);
+            PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
             if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
             if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/
-        public int GetChallengeValue(ChallengeType challengeType)
+        int ICommitable.GetChallengeValue(ChallengeType challengeType)
         {
             int amount = Info.Wild ?? 0;
             if (challengeType == ChallengeType.Strength) return amount + Info.Strength ?? 0;
@@ -72,7 +74,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public bool ConditionToPlayFromHand(GameAction gameAction)
+        private bool ConditionToPlayFromHand(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;

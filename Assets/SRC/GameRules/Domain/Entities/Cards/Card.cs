@@ -89,7 +89,7 @@ namespace MythosAndHorrors.GameRules
         protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition,
             bool isBase = false, bool withOpportunityAttck = true)
         {
-            Activation newActivation = new(activateTurnsCost, logic, condition, withOpportunityAttck);
+            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameCondition<Investigator>(condition), withOpportunityAttck);
             if (isBase) _baseActivations.Add(newActivation);
             else _specificActivations.Add(newActivation);
             return newActivation;
@@ -101,10 +101,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** BUFFS *****************************/
-        public Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
+        protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
             Func<IEnumerable<Card>, Task> deactivationLogic, bool isBase = false)
         {
-            Buff newBuff = new(this, cardsToBuff, activationLogic, deactivationLogic);
+            Buff newBuff = new(this, cardsToBuff, new GameCommand<IEnumerable<Card>>(activationLogic), new GameCommand<IEnumerable<Card>>(deactivationLogic));
             if (isBase) _baseBuffs.Add(newBuff);
             else _specificBuffss.Add(newBuff);
             return newBuff;
@@ -137,13 +137,13 @@ namespace MythosAndHorrors.GameRules
             {
                 _specificActivations.ForEach(activation => activation.Disable());
                 _specificReactions.ForEach(reaction => reaction.Disable());
-                _buffsProvider.GetBuffsForThisCardMaster(this).ForEach(buff => buff.Disable());
+                _specificBuffss.ForEach(buff => buff.Disable());
             }
             else
             {
                 _specificActivations.ForEach(activation => activation.Enable());
                 _specificReactions.ForEach(reaction => reaction.Enable());
-                _buffsProvider.GetBuffsForThisCardMaster(this).ForEach(buff => buff.Enable());
+                _specificBuffss.ForEach(buff => buff.Enable());
             }
         }
     }

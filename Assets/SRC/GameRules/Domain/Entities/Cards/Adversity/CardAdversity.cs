@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -7,8 +8,18 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public GameCommand<Investigator> PlayFromDraw { get; private set; }
+
         /*******************************************************************/
-        public virtual async Task PlayAdversityFor(Investigator investigator)
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            PlayFromDraw = new(PlayAdversityFor);
+        }
+
+        /*******************************************************************/
+        protected virtual async Task PlayAdversityFor(Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.DangerZone));
         }

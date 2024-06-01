@@ -14,23 +14,23 @@ namespace MythosAndHorrors.GameRules
 
         public Card CardMaster { get; private set; }
         public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
-        public Func<IEnumerable<Card>, Task> ActivationLogic { get; private set; }
-        public Func<IEnumerable<Card>, Task> DeactivationLogic { get; private set; }
+        public GameCommand<IEnumerable<Card>> BuffOnLogic { get; private set; }
+        public GameCommand<IEnumerable<Card>> BuffOffLogic { get; private set; }
         public List<Card> CurrentCardsAffected { get; private set; } = new();
         public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
-        string IViewEffect.Description => _description ?? ActivationLogic.GetInvocationList().First().Method.Name;
+        string IViewEffect.Description => _description ?? BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
 
         /*******************************************************************/
-        public Buff(Card card, Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
-            Func<IEnumerable<Card>, Task> deactivationLogic)
+        public Buff(Card card, Func<IEnumerable<Card>> cardsToBuff, GameCommand<IEnumerable<Card>> buffOnLogic,
+            GameCommand<IEnumerable<Card>> buffOffLogic)
         {
             CardMaster = card;
             CardsToBuff = cardsToBuff;
-            ActivationLogic = activationLogic;
-            DeactivationLogic = deactivationLogic;
+            BuffOnLogic = buffOnLogic;
+            BuffOffLogic = buffOffLogic;
         }
 
         /*******************************************************************/
@@ -54,13 +54,13 @@ namespace MythosAndHorrors.GameRules
 
             if (cardsToActivate.Any())
             {
-                await ActivationLogic.Invoke(cardsToActivate);
+                await BuffOnLogic.RunWith(cardsToActivate);
                 CurrentCardsAffected.AddRange(cardsToActivate);
             }
 
             if (cardsToDeactivate.Any())
             {
-                await DeactivationLogic.Invoke(cardsToDeactivate);
+                await BuffOffLogic.RunWith(cardsToDeactivate);
                 CurrentCardsAffected.RemoveAll(card => cardsToDeactivate.Contains(card));
             }
         }
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
         public async Task Deactive()
         {
             if (CurrentCardsAffected.Count < 1) return;
-            await DeactivationLogic.Invoke(CurrentCardsAffected);
+            await BuffOffLogic.RunWith(CurrentCardsAffected);
             CurrentCardsAffected.Clear();
         }
 

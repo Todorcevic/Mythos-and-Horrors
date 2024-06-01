@@ -22,17 +22,16 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
         public Stat Eldritch { get; private set; }
-        public int DamageRecived => (Info.Health ?? 0) - Health.Value;
-        public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByCondition<MoveCardsGameAction>(ConfrontCondition);
-        public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByCondition<UpdateStatesGameAction>(ConfrontCondition);
 
         /*******************************************************************/
+        public int DamageRecived => (Info.Health ?? 0) - Health.Value;
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
         public virtual bool IsConfronted => ConfrontedInvestigator != null;
         public Investigator ConfrontedInvestigator =>
             CurrentZone.ZoneType == ZoneType.Danger ? _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone) : null;
-
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(CurrentZone) as CardPlace ?? ConfrontedInvestigator?.CurrentPlace;
+        public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByCondition<MoveCardsGameAction>(ConfrontCondition);
+        public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByCondition<UpdateStatesGameAction>(ConfrontCondition);
 
         /*******************************************************************/
         [Inject]

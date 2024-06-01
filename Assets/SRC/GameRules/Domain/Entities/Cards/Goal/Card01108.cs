@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
           .Where(cardCreature => cardCreature.CurrentPlace == Study);
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             Dictionary<Card, Zone> allPlaces = new()
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +27,9 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            cardCondition.PlayFromHandCondition.NewCondition(ConditionToPlayFromHand);
+
+            Func<GameAction, bool> originalCondition = cardCondition.PlayFromHandCondition.ConditionLogic;
+            cardCondition.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
             await Task.CompletedTask;
 
             /*******************************************************************/
@@ -36,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 Zone handZone = cardCondition.ControlOwner.HandZone;
                 discardZone.RemoveCard(cardCondition);
                 handZone.AddCard(cardCondition);
-                bool result = cardCondition.CanPlayFromHandWith(gameAction);
+                bool result = originalCondition.Invoke(gameAction);
                 handZone.RemoveCard(cardCondition);
                 discardZone.AddCard(cardCondition);
                 return result;
@@ -46,7 +49,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            cardCondition.PlayFromHandCondition.NewCondition(cardCondition.CanPlayFromHandWith);
+            cardCondition.PlayFromHandCondition.Reset();
             await Task.CompletedTask;
         }
 

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01145 : CardPlot
+    public class Card01145 : CardPlot, IRevealable
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task RevealEffect()
+        async Task IRevealable.RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
 
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.Ritual));
         }
 
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[2]));
 

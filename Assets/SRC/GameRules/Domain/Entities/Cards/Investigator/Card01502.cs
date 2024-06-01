@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
             {
                 foreach (Activation activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
-                    if (activation.Condition(activeInvestigator))
+                    if (activation.Condition.IsTrueWith(activeInvestigator))
                         interactableGameAction.Create()
                         .SetCard(activable)
                         .SetInvestigator(activeInvestigator)

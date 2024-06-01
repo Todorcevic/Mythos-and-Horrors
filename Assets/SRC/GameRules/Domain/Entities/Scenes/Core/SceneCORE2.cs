@@ -210,7 +210,9 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task CultistNormalEffect()
             {
-                IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
+                var nearest = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures.ToList();
+
+                IEldritchable nearestCreature = nearest
                     .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();
 
                 if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));

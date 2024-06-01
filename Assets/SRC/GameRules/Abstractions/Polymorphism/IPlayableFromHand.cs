@@ -9,6 +9,6 @@ namespace MythosAndHorrors.GameRules
         Stat PlayFromHandTurnsCost { get; }
         Task PlayFromHand();
 
-        Condition<GameAction> PlayFromHandCondition { get; }
+        GameCondition<GameAction> PlayFromHandCondition { get; }
     }
 }

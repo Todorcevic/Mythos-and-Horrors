@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace MythosAndHorrors.GameRules
 {
-    public static class LinqExtension
+
+    public static class LinqExtensions
     {
         public static T Unique<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer = null)
         {

@@ -69,7 +69,7 @@ namespace MythosAndHorrors.GameRules
             .Where(creature => creature.CurrentPlace == CurrentPlace && !creature.Exausted.IsActive).OfType<CardColosus>();
         public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>().Concat(ColosusConfronted.Cast<CardCreature>());
         public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay)
-            .OrderBy(creature => creature.CurrentPlace?.DistanceTo(CurrentPlace));
+            .OrderBy(creature => creature.CurrentPlace.DistanceTo(CurrentPlace).distance);
 
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;

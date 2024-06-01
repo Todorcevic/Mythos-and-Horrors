@@ -14,14 +14,14 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; protected set; }
         public State Revealed { get; private set; }
+        public Activation PayHints { get; private set; }
 
+        /*******************************************************************/
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
-        public Activation PayHints => AllActivations.First(activation => activation.Logic == PayHintsActivate);
-        public IReaction Reveal => _reactionablesProvider.FindReactionByCondition<UpdateStatGameAction>(RevealCondition);
 
-        /*******************************************************************/
+        public IReaction Reveal => _reactionablesProvider.FindReactionByCondition<UpdateStatGameAction>(RevealCondition);
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateFreeActivation(PayHintsActivate, PayHintsConditionToActivate, isBase: true);
+            PayHints = CreateFreeActivation(PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
             CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
@@ -58,11 +58,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
         }
 
-        public abstract Task CompleteEffect();
+        protected abstract Task CompleteEffect();
 
 
         /*******************************************************************/
-        public virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
+        protected virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
             await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.Hints.Value > 0)));
 

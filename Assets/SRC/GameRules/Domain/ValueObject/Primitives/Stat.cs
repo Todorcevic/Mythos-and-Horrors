@@ -1,5 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
+
     public class Stat
     {
         private readonly bool _canBeNegative;

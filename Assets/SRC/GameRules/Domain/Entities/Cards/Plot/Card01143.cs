@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         private SceneCORE3 SceneCORE3 => (SceneCORE3)_chaptersProvider.CurrentScene;
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards,
                            _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true));

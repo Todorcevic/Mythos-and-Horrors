@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
 
-        public override async Task ExecuteConditionEffect()
+        protected override async Task ExecuteConditionEffect()
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());

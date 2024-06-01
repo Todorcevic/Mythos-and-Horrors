@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public Condition<GameAction> PlayFromHandCondition { get; protected set; }
+        public GameCondition<GameAction> PlayFromHandCondition { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -20,22 +20,25 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandCondition = new Condition<GameAction>(CanPlayFromHandWith);
+            PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
         }
 
         /*******************************************************************/
         int ICommitable.GetChallengeValue(ChallengeType challengeType)
         {
             int amount = Info.Wild ?? 0;
-            if (challengeType == ChallengeType.Strength) return amount + Info.Strength ?? 0;
-            if (challengeType == ChallengeType.Agility) return amount + Info.Agility ?? 0;
-            if (challengeType == ChallengeType.Intelligence) return amount + Info.Intelligence ?? 0;
-            if (challengeType == ChallengeType.Power) return amount + Info.Power ?? 0;
-            return amount;
+            return challengeType switch
+            {
+                ChallengeType.Strength => amount + Info.Strength ?? 0,
+                ChallengeType.Agility => amount + Info.Agility ?? 0,
+                ChallengeType.Intelligence => amount + Info.Intelligence ?? 0,
+                ChallengeType.Power => amount + Info.Power ?? 0,
+                _ => amount
+            };
         }
 
         /*******************************************************************/
-        public virtual bool CanPlayFromHandWith(GameAction gameAction)
+        protected virtual bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
@@ -52,6 +55,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
-        public abstract Task ExecuteConditionEffect();
+        protected abstract Task ExecuteConditionEffect();
     }
 }

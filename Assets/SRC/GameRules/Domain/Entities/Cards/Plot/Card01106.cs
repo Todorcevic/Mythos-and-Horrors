@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards,
                 _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true));

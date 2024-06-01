@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         .Where(investigator => investigator.HandZone.Cards.Any());
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select One Effect");
 

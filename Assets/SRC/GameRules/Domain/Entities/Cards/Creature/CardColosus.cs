@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public override bool IsConfronted => MassiveInvestigatorsConfronted.Any();
-
         public IEnumerable<Investigator> MassiveInvestigatorsConfronted => Exausted.IsActive ? Enumerable.Empty<Investigator>() :
             _investigatorProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CurrentPlace == CurrentPlace);
 

@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task RevealEffect()
+        async Task IRevealable.RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();
@@ -37,6 +37,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlacePlotGameAction(NextCardPlot));
         }
 
-        public abstract Task CompleteEffect();
+        protected abstract Task CompleteEffect();
     }
 }

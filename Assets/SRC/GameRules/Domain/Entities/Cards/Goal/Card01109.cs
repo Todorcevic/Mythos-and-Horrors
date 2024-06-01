@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task CompleteEffect()
+        protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create(new RevealGameAction(Parlor));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Lita, Parlor.OwnZone));

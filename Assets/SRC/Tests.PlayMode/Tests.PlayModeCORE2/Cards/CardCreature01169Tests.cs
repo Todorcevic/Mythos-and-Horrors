@@ -37,14 +37,14 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(acolit.IsInPlay, Is.True);
             Assert.That(acolit.CurrentZone.ZoneType, Is.Not.EqualTo(ZoneType.Danger));
-            Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace), Is.EqualTo(2));
+            Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace).distance, Is.EqualTo(2));
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, SceneCORE2.North)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorsProvider.First)).AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace), Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace).distance, Is.EqualTo(1));
             Assert.That(acolit.CurrentPlace, Is.EqualTo(SceneCORE2.Fluvial));
         }
     }

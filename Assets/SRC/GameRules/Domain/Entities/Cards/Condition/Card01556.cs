@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Insight };
 
-        public override Task ExecuteConditionEffect()
+        protected override Task ExecuteConditionEffect()
         {
             throw new System.NotImplementedException();
         }

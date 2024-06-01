@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01507 : CardAdversity
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
         public Stat Hints { get; private set; }
@@ -25,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override async Task PlayAdversityFor(Investigator investigator)
+        protected override async Task PlayAdversityFor(Investigator investigator)
         {
             await base.PlayAdversityFor(investigator);
             await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, 3));

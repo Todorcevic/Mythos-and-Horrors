@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CardPlace realPlaceToMove = Destiny == null ? StalkerMove() : InitializePathFinder(Creature.CurrentPlace, Destiny).path;
+            CardPlace realPlaceToMove = Destiny == null ? StalkerMove() : Creature.CurrentPlace.DistanceTo(Destiny).path;
             if (realPlaceToMove == Creature.CurrentPlace) return;
             await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, realPlaceToMove.OwnZone));
         }
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         private CardPlace StalkerMove()
         {
             if (Creature is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
-                    InitializePathFinder(Creature.CurrentPlace, target.TargetInvestigator.CurrentPlace).path :
+                    Creature.CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
                     Creature.CurrentPlace;
 
             Dictionary<Investigator, CardPlace> finalResult = new();
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
             {
-                (CardPlace path, int distance) result = InitializePathFinder(Creature.CurrentPlace, investigator.CurrentPlace);
+                (CardPlace path, int distance) result = Creature.CurrentPlace.DistanceTo(investigator.CurrentPlace);
                 if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
                 else if (result.distance < winner.distance)
                 {
@@ -58,30 +58,6 @@ namespace MythosAndHorrors.GameRules
                 return place;
 
             return finalResult.First().Value;
-        }
-
-        private (CardPlace path, int distance) InitializePathFinder(CardPlace startingLocation, CardPlace moveToLocation)
-        {
-            CardPlace[] currentPath = new CardPlace[12];
-            List<CardPlace> locationsCheck = new();
-            int distance = 0;
-            return FindPath(new[] { startingLocation }, moveToLocation);
-
-            (CardPlace path, int distance) FindPath(IEnumerable<CardPlace> listLocation, CardPlace moveToLocation)
-            {
-                List<CardPlace> listToCheck = new();
-                foreach (CardPlace location in listLocation)
-                {
-                    currentPath[distance] = location;
-                    if (location == moveToLocation) return (currentPath[1] ?? currentPath[0], distance);
-                    locationsCheck.Add(location);
-                    listToCheck.AddRange(location.ConnectedPlacesToMove
-                        .Where(cardPlace => !locationsCheck.Contains(cardPlace) && !listToCheck.Contains(cardPlace)));
-                }
-                distance++;
-                if (listToCheck.Count > 0) return FindPath(listToCheck, moveToLocation);
-                return (currentPath[0], int.MaxValue);
-            }
         }
     }
 }

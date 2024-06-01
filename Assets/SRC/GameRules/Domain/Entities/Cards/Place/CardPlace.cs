@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
-        public IReaction RevealReaction { get; private set; }
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
@@ -47,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual async Task RevealEffect()
+        async Task IRevealable.RevealEffect()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
         }
@@ -63,26 +62,5 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealLogic(MoveCardsGameAction moveCardsGameAction) =>
             await _gameActionsProvider.Create(new RevealGameAction(this));
 
-        public int DistanceTo(CardPlace cardPlace)
-        {
-            List<CardPlace> locationsCheck = new();
-            int distance = 0;
-            return FindPath(new[] { this }, cardPlace);
-
-            int FindPath(IEnumerable<CardPlace> listLocation, CardPlace moveToLocation)
-            {
-                List<CardPlace> listToCheck = new();
-                foreach (CardPlace location in listLocation)
-                {
-                    if (location == moveToLocation) return distance;
-                    locationsCheck.Add(location);
-                    listToCheck.AddRange(location.ConnectedPlacesToMove
-                        .Where(cardPlace => !locationsCheck.Contains(cardPlace) && !listToCheck.Contains(cardPlace)));
-                }
-                distance++;
-                if (listToCheck.Count > 0) return FindPath(listToCheck, moveToLocation);
-                return int.MaxValue;
-            }
-        }
     }
 }

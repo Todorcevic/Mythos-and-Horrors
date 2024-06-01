@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
         private void PreparePlayFromHandEffect()
         {
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
-                .Where(playableFromHand => playableFromHand.PlayFromHandCondition.Result(this)))
+                .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(this)))
             {
                 PlayFromHandEffects.Add(Create()
                     .SetCard(playableFromHand as Card)

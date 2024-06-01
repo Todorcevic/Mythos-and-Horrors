@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             switch (CardDrawed)
             {
                 case CardAdversity cardAdversity:
-                    await cardAdversity.PlayAdversityFor(Investigator);
+                    await cardAdversity.PlayFromDraw.RunWith(Investigator);
                     break;
                 case ISpawnable spawnable:
                     await _gameActionsProvider.Create(new SpawnCreatureGameAction(spawnable));

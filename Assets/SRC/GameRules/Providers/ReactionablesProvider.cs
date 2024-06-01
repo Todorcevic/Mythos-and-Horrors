@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class ReactionablesProvider
     {
         private readonly List<IReaction> _startReactions = new();
@@ -27,11 +28,11 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Reaction<T> FindReactionByCondition<T>(Func<T, bool> condition) where T : GameAction =>
-            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Condition == condition) as Reaction<T>;
+            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Condition.ConditionLogic == condition) as Reaction<T>;
 
         public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
-            Reaction<T> newReaction = new(condition, logic);
+            Reaction<T> newReaction = new(new GameCondition<T>(condition), new GameCommand<T>(logic));
             if (isAtStart) _startReactions.Add(newReaction);
             else _endReactions.Add(newReaction);
             return newReaction;
