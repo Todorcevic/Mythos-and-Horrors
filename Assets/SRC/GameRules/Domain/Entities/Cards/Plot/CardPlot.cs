@@ -12,12 +12,13 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
-        public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.PlotCards.NextElementFor(this);
-        public int AmountOfEldritch => (Info.Eldritch ?? 0) - Eldritch.Value;
+        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
+        public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.PlotCards.NextElementFor(this);
+        public int AmountOfEldritch => (Info.Eldritch ?? 0) - Eldritch.Value;
 
         /*******************************************************************/
         [Inject]
@@ -26,10 +27,11 @@ namespace MythosAndHorrors.GameRules
         {
             Eldritch = CreateStat(Info.Eldritch ?? 0);
             Revealed = CreateState(false);
+            RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
         }
 
         /*******************************************************************/
-        async Task IRevealable.RevealEffect()
+        protected virtual async Task RevealEffect(RevealGameAction revealGameAction)
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();

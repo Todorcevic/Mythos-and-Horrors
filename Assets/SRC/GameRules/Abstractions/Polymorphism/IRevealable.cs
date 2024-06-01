@@ -1,11 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
-
     public interface IRevealable
     {
         State Revealed { get; }
-        Task RevealEffect();
+        GameCommand<RevealGameAction> RevealCommand { get; }
     }
 }

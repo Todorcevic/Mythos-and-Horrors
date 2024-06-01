@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Hints { get; protected set; }
         public State Revealed { get; private set; }
         public Activation PayHints { get; private set; }
+        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
 
         /*******************************************************************/
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
@@ -31,6 +32,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             PayHints = CreateFreeActivation(PayHintsActivate, PayHintsConditionToActivate, isBase: true);
+            RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
             CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
@@ -50,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RevealGameAction(this));
 
         /*******************************************************************/
-        async Task IRevealable.RevealEffect()
+        private async Task RevealEffect(RevealGameAction revealGameAction)
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();

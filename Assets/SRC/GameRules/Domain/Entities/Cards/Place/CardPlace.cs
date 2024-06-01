@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
+        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
@@ -42,11 +43,12 @@ namespace MythosAndHorrors.GameRules
             InvestigationTurnsCost = CreateStat(1);
             MoveTurnsCost = CreateStat(1);
             Revealed = CreateState(false);
+            RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/
-        async Task IRevealable.RevealEffect()
+        private async Task RevealEffect(RevealGameAction revealGameAction)
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
         }

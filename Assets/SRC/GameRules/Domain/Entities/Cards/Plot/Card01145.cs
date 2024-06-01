@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        async Task IRevealable.RevealEffect()
+        protected override async Task RevealEffect(RevealGameAction revealGameAction)
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
 

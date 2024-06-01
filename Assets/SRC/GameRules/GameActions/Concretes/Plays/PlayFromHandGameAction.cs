@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, PlayableFromHandCard.ResourceCost.Value));
             if (PlayableFromHandCard.PlayFromHandTurnsCost.Value > 0)
                 await _gameActionsProvider.Create(new OpportunityAttackGameAction(Investigator));
-            await PlayableFromHandCard.PlayFromHand();
+            await PlayableFromHandCard.PlayFromHandCommand.RunWith(this);
         }
     }
 }

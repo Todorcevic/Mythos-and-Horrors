@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameCondition<GameAction> PlayFromHandCondition { get; protected set; }
+        public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -21,19 +22,20 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
             PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
+            PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
         }
 
         /*******************************************************************/
         int ICommitable.GetChallengeValue(ChallengeType challengeType)
         {
-            int amount = Info.Wild ?? 0;
+            int wildAmount = Info.Wild ?? 0;
             return challengeType switch
             {
-                ChallengeType.Strength => amount + Info.Strength ?? 0,
-                ChallengeType.Agility => amount + Info.Agility ?? 0,
-                ChallengeType.Intelligence => amount + Info.Intelligence ?? 0,
-                ChallengeType.Power => amount + Info.Power ?? 0,
-                _ => amount
+                ChallengeType.Strength => wildAmount + Info.Strength ?? 0,
+                ChallengeType.Agility => wildAmount + Info.Agility ?? 0,
+                ChallengeType.Intelligence => wildAmount + Info.Intelligence ?? 0,
+                ChallengeType.Power => wildAmount + Info.Power ?? 0,
+                _ => wildAmount
             };
         }
 
@@ -48,7 +50,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        async Task IPlayableFromHand.PlayFromHand()
+        private async Task PlayFromHand(PlayFromHandGameAction playFromHandGameAction)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             await ExecuteConditionEffect();

@@ -21,13 +21,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override bool AttackCondition(Investigator investigator)
+        protected override bool AttackCondition(Investigator investigator)
         {
             if (AmountBullets.Value <= 0) return false;
             return base.AttackCondition(investigator);
         }
 
-        public override async Task AttackEnemy(CardCreature creature)
+        protected override async Task AttackEnemy(CardCreature creature)
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountBullets, 1));
             int strengtIncrement = ControlOwner.CurrentPlace.Hints.Value > 0 ? 3 : 1;

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(RevellableCard.Revealed, true));
-            await RevellableCard.RevealEffect();
+            await RevellableCard.RevealCommand.RunWith(this);
         }
     }
 }

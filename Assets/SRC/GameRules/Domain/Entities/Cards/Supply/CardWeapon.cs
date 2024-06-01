@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public virtual bool AttackCondition(Investigator investigator)
+        protected virtual bool AttackCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
             if (investigator != ControlOwner) return false;
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(chooseEnemy);
         }
 
-        public virtual async Task AttackEnemy(CardCreature creature) =>
+        protected virtual async Task AttackEnemy(CardCreature creature) =>
             await _gameActionsProvider.Create(new AttackGameAction(ControlOwner, creature, 2));
 
     }

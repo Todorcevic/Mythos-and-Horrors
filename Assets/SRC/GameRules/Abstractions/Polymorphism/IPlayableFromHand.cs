@@ -1,14 +1,10 @@
-﻿using ModestTree;
-using System.Threading.Tasks;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
     public interface IPlayableFromHand
     {
         Stat ResourceCost { get; }
         Stat PlayFromHandTurnsCost { get; }
-        Task PlayFromHand();
-
+        GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; }
         GameCondition<GameAction> PlayFromHandCondition { get; }
     }
 }

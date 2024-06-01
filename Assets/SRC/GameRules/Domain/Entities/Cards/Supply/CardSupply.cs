@@ -14,9 +14,10 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
+        public GameCondition<GameAction> PlayFromHandCondition { get; protected set; }
+        public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; protected set; }
 
         /*******************************************************************/
-        public GameCondition<GameAction> PlayFromHandCondition { get; protected set; }
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
@@ -28,6 +29,7 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
             PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
+            PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
             if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
             if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
@@ -36,12 +38,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         int ICommitable.GetChallengeValue(ChallengeType challengeType)
         {
-            int amount = Info.Wild ?? 0;
-            if (challengeType == ChallengeType.Strength) return amount + Info.Strength ?? 0;
-            if (challengeType == ChallengeType.Agility) return amount + Info.Agility ?? 0;
-            if (challengeType == ChallengeType.Intelligence) return amount + Info.Intelligence ?? 0;
-            if (challengeType == ChallengeType.Power) return amount + Info.Power ?? 0;
-            return amount;
+            int wildAmount = Info.Wild ?? 0;
+            if (challengeType == ChallengeType.Strength) return wildAmount + Info.Strength ?? 0;
+            if (challengeType == ChallengeType.Agility) return wildAmount + Info.Agility ?? 0;
+            if (challengeType == ChallengeType.Intelligence) return wildAmount + Info.Intelligence ?? 0;
+            if (challengeType == ChallengeType.Power) return wildAmount + Info.Power ?? 0;
+            return wildAmount;
         }
 
         /*******************************************************************/
@@ -84,9 +86,9 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        async Task IPlayableFromHand.PlayFromHand()
+        private async Task PlayFromHand(PlayFromHandGameAction playFromHandGameAction)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, ControlOwner.AidZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, playFromHandGameAction.Investigator.AidZone));
         }
     }
 }
