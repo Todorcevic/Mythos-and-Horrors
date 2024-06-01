@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             Reveal.Disable();
             PayHints.Disable();
-            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
+            Hints.UpdateValue(_investigatorsProvider.AllInvestigators.Count() * 2);
             CreateActivation(CreateStat(1), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, isAtStart: false);
             CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, isAtStart: false);

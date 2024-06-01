@@ -22,6 +22,8 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigatorConfronTurnsCost { get; private set; }
         public Stat EludeTurnsCost { get; private set; }
         public Stat Eldritch { get; private set; }
+        public Reaction<MoveCardsGameAction> ConfrontWhenMoveReaction { get; private set; }
+        public Reaction<UpdateStatesGameAction> ConfrontWhenReadyReaction { get; private set; }
 
         /*******************************************************************/
         public int DamageRecived => (Info.Health ?? 0) - Health.Value;
@@ -30,8 +32,6 @@ namespace MythosAndHorrors.GameRules
         public Investigator ConfrontedInvestigator =>
             CurrentZone.ZoneType == ZoneType.Danger ? _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone) : null;
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(CurrentZone) as CardPlace ?? ConfrontedInvestigator?.CurrentPlace;
-        public IReaction ConfrontReaction => _reactionablesProvider.FindReactionByCondition<MoveCardsGameAction>(ConfrontCondition);
-        public IReaction ConfrontReaction2 => _reactionablesProvider.FindReactionByCondition<UpdateStatesGameAction>(ConfrontCondition);
 
         /*******************************************************************/
         [Inject]
@@ -47,9 +47,9 @@ namespace MythosAndHorrors.GameRules
             InvestigatorAttackTurnsCost = CreateStat(1);
             InvestigatorConfronTurnsCost = CreateStat(1);
             EludeTurnsCost = CreateStat(1);
+            ConfrontWhenMoveReaction = CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, false);
+            ConfrontWhenReadyReaction = CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, false);
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
-            CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, false);
-            CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, false);
         }
 
         /*******************************************************************/

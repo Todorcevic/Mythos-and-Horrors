@@ -11,13 +11,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+
+        public IReaction AvoidPayHintReaction { get; private set; }
+        public IReaction AvoidGainHintReaction { get; private set; }
 
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
            .OrderByDescending(investigator => investigator.Hints.Value).First();
-
         public CardPlace SpawnPlace => TargetInvestigator.CurrentPlace;
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Humanoid, Tag.Cultist, Tag.Elite };
 
         /*******************************************************************/
@@ -27,6 +27,10 @@ namespace MythosAndHorrors.GameRules
         {
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
             CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff);
+            AvoidGainHintReaction = CreateReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, isAtStart: true);
+            AvoidGainHintReaction.Disable();
+            AvoidPayHintReaction = CreateReaction<PayHintsToGoalGameAction>(CantPayHintsCondition, CantPayHintsLogic, isAtStart: true);
+            AvoidPayHintReaction.Disable();
         }
 
         /*******************************************************************/
@@ -35,10 +39,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task CantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
-            _reactionablesProvider.CreateReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, isAtStart: true);
-            await Task.CompletedTask;
-
-            _reactionablesProvider.CreateReaction<PayHintsToGoalGameAction>(CantPayHintsCondition, CantPayHintsLogic, isAtStart: true);
+            AvoidGainHintReaction.Enable();
+            AvoidPayHintReaction.Enable();
             await Task.CompletedTask;
         }
 
@@ -70,8 +72,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
-            _reactionablesProvider.RemoveReaction<GainHintGameAction>(CantGainHintsCondition);
-            _reactionablesProvider.RemoveReaction<PayHintsToGoalGameAction>(CantPayHintsCondition);
+            AvoidGainHintReaction.Disable();
+            AvoidPayHintReaction.Disable();
             await Task.CompletedTask;
         }
     }

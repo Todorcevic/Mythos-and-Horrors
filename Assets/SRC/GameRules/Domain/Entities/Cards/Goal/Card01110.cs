@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
@@ -25,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            _reactionablesProvider.RemoveReaction<UpdateStatGameAction>(RevealCondition);
+            Reveal.Disable();
             CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
         }
 

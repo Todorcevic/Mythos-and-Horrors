@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHandTurnsCost = CreateStat(0);
+            PlayFromHandTurnsCost.UpdateValue(0);
             Protected = CreateState(false);
             CreateReaction<PlayInvestigatorGameAction>(PlayFromHandCondition.IsTrueWith, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);

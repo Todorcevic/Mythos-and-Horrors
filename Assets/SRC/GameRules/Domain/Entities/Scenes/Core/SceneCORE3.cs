@@ -243,7 +243,8 @@ namespace MythosAndHorrors.GameRules
             async Task CreatureNormalEffect() => await Task.CompletedTask;
             async Task CreatureHardEffect()
             {
-                _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(condition: DrawMonsterCondition, logic: DrawMonster, isAtStart: false);
+                Reaction<ChallengePhaseGameAction> drawGhouReaction = null;
+                drawGhouReaction = _reactionablesProvider.CreateReaction<ChallengePhaseGameAction>(condition: DrawMonsterCondition, logic: DrawMonster, isAtStart: false);
                 await Task.CompletedTask;
 
                 /*******************************************************************/
@@ -257,7 +258,7 @@ namespace MythosAndHorrors.GameRules
 
                 bool DrawMonsterCondition(ChallengePhaseGameAction challengePhaseGameAction)
                 {
-                    _reactionablesProvider.RemoveReaction<ChallengePhaseGameAction>(DrawMonsterCondition);
+                    _reactionablesProvider.RemoveReaction(drawGhouReaction);
                     if (challengePhaseGameAction.IsSuccessful ?? true) return false;
                     return true;
                 }

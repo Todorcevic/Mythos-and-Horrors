@@ -199,7 +199,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
         public void MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
-            _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, true);
+            Reaction<RevealChallengeTokenGameAction> revealTokenReaction = null;
+            revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, true);
 
             bool Condition(GameAction _) => true;
 
@@ -209,7 +210,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 ChallengeToken token = _challengeTokensProvider.ChallengeTokensInBag
                     .First(challengeToken => challengeToken.TokenType == tokenType);
                 revealChallengeTokenGameAction.SetChallengeToken(token);
-                _reactionablesProvider.RemoveReaction<RevealChallengeTokenGameAction>(Condition);
+                _reactionablesProvider.RemoveReaction(revealTokenReaction);
                 await Task.CompletedTask;
             }
         }

@@ -37,7 +37,6 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
         public IEnumerable<Buff> AllBuffs => _baseBuffs.Concat(_specificBuffss);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
-        public IEnumerable<IReaction> AllReactions => _baseReactions.Concat(_specificReactions);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Any();
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
@@ -67,10 +66,10 @@ namespace MythosAndHorrors.GameRules
         protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
             bool isBase = false, bool isOptative = false) where T : GameAction
         {
-            IReaction newReaction = _reactionablesProvider.CreateReaction(condition, isOptative ? OptativeLogic : logic, isAtStart);
+            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, isOptative ? OptativeLogic : logic, isAtStart);
             if (isBase) _baseReactions.Add(newReaction);
             else _specificReactions.Add(newReaction);
-            return newReaction as Reaction<T>;
+            return newReaction;
 
             async Task OptativeLogic(T gameAction)
             {

@@ -12,17 +12,16 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
-        public Stat Hints { get; protected set; }
+        public Stat Hints { get; private set; }
         public State Revealed { get; private set; }
         public Activation PayHints { get; private set; }
-        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
+        public GameCommand<RevealGameAction> RevealCommand { get; private set; }
+        public Reaction<UpdateStatGameAction> Reveal { get; private set; }
 
         /*******************************************************************/
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
-
-        public IReaction Reveal => _reactionablesProvider.FindReactionByCondition<UpdateStatGameAction>(RevealCondition);
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 
@@ -35,7 +34,7 @@ namespace MythosAndHorrors.GameRules
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
-            CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
+            Reveal = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
         }
 
         /*******************************************************************/

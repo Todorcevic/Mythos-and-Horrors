@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class ReactionablesProvider
     {
         private readonly List<IReaction> _startReactions = new();
         private readonly List<IReaction> _endReactions = new();
-
-        private IEnumerable<IReaction> Reactions => _startReactions.Concat(_endReactions);
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
@@ -27,10 +24,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public Reaction<T> FindReactionByCondition<T>(Func<T, bool> condition) where T : GameAction =>
-            Reactions.FirstOrDefault(reaction => reaction is Reaction<T> reactionT && reactionT.Condition.ConditionLogic == condition) as Reaction<T>;
-
-        public IReaction CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
+        public Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
             Reaction<T> newReaction = new(new GameCondition<T>(condition), new GameCommand<T>(logic));
             if (isAtStart) _startReactions.Add(newReaction);
@@ -38,9 +32,8 @@ namespace MythosAndHorrors.GameRules
             return newReaction;
         }
 
-        public void RemoveReaction<T>(Func<T, bool> condition) where T : GameAction
+        public void RemoveReaction<T>(Reaction<T> reaction) where T : GameAction
         {
-            IReaction reaction = FindReactionByCondition(condition);
             _startReactions.Remove(reaction);
             _endReactions.Remove(reaction);
         }

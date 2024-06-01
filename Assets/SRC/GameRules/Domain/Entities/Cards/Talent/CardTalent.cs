@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-
+﻿
 namespace MythosAndHorrors.GameRules
 {
     public class CardTalent : Card
