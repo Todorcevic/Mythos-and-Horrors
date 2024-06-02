@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
         public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
+        public IEnumerable<Effect> AllEffects => _allCardEffects.ToList();
 
 
         /*******************************************************************/
@@ -90,6 +91,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
+
+        //public void RemoveEffects(IEnumerable<Effect> effects) => _allCardEffects.RemoveAll(effect => effects.Contains(effect));
 
         public void ClearEffects() => _allCardEffects.Clear();
 

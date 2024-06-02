@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class GameActionsProvider
     {
         [Inject] private readonly DiContainer _container;
+        //Ojo!! GameAction que ha pasado por ExecuteThisLogic, no los que se han creado o estan en _reactionablesProvider.WhenBegin
         private readonly Stack<GameAction> _allGameActionsExecuted = new();
 
         private T GetRealLastActive<T>() where T : GameAction => _allGameActionsExecuted.OfType<T>().FirstOrDefault(gameAction => gameAction.IsActive);
