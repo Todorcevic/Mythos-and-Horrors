@@ -19,9 +19,10 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Reveal.Disable();
-            PayHints.Disable();
+            //PayHints.Disable();
             Hints.UpdateValue(_investigatorsProvider.AllInvestigators.Count() * 2);
-            CreateActivation(CreateStat(1), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
+            PayHints.ActivateTurnsCost.UpdateValue(1);
+            //CreateActivation(CreateStat(1), PayHintsActivate, PayHintsConditionToActivate, isBase: true);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, isAtStart: false);
             CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, isAtStart: false);
         }
@@ -59,7 +60,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE2.FullResolutions[1]));
-
         }
     }
 }

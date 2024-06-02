@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
         public Card UniqueCard => _allCardEffects.Select(effect => effect.Card).Unique();
-        private bool NoEffect => IsManadatary && _allCardEffects.Count() == 0;
-        public bool IsManadatary => MainButtonEffect == null && UndoEffect == null;
+        private bool NoEffect => MainButtonEffect == null && _allCardEffects.Count() == 0;
+        public bool IsManadatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public IEnumerable<Effect> AllEffects => _allCardEffects.ToList();
 
@@ -78,21 +78,24 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
+        public void CreateCancelMainButton()
+        {
+            MainButtonEffect = new Effect().SetLogic(UndoLogic).SetDescription("Cancel");
+        }
+
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new Effect().SetLogic(UndoLogic).SetDescription("Back") : null;
+        }
 
-            async Task UndoLogic()
-            {
-                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
-                await _gameActionsProvider.Create(lastInteractable);
-            }
+        async Task UndoLogic()
+        {
+            InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+            if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
+            await _gameActionsProvider.Create(lastInteractable);
         }
 
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
-
-        //public void RemoveEffects(IEnumerable<Effect> effects) => _allCardEffects.RemoveAll(effect => effects.Contains(effect));
 
         public void ClearEffects() => _allCardEffects.Clear();
 

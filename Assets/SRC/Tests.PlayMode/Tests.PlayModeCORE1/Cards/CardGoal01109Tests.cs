@@ -75,9 +75,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
-
-            Assert.That(_gameActionsProvider.CurrentInteractable.MainButtonEffect, Is.Null);
-
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
 

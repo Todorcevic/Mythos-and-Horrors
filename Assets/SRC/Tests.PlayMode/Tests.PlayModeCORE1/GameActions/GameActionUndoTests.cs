@@ -100,7 +100,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
             yield return ClickedMainButton();
-            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
             yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
@@ -136,7 +135,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
-            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
