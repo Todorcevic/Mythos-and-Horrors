@@ -32,22 +32,23 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         }
 
 
-        //[UnityTest]
-        //public IEnumerator CantPlaySupplyAndConditionWithOptianalReaction()
-        //{
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    Card01165 cardAdversity = _cardsProvider.GetCard<Card01165>();
-        //    Card01510 condition = _cardsProvider.GetCard<Card01510>();
-        //    yield return StartingScene(withResources: true);
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(condition, investigator.HandZone)).AsCoroutine();
-        //    yield return _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity)).AsCoroutine();
+        [UnityTest]
+        public IEnumerator CantPlaySupplyAndConditionWithOptianalReaction()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Card01165 cardAdversity = _cardsProvider.GetCard<Card01165>();
+            Card01510 condition = _cardsProvider.GetCard<Card01510>();
+            yield return StartingScene(withResources: true);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(condition, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity)).AsCoroutine();
 
-        //    Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
-        //    yield return ClickedIn(investigator.AvatarCard);
-        //    yield return ClickedMainButton();
-        //    yield return taskGameAction.AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            yield return ClickedIn(investigator.AvatarCard);
+            yield return WasteAllTurns();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-        //    Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
-        //}
+            Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+        }
     }
 }

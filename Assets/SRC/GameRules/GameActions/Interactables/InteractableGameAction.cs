@@ -23,7 +23,8 @@ namespace MythosAndHorrors.GameRules
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
         public Card UniqueCard => _allCardEffects.Select(effect => effect.Card).Unique();
-        private bool NoEffect => MainButtonEffect == null && _allCardEffects.Count() == 0;
+        private bool NoEffect => MainButtonEffect == null && !_allCardEffects.Any();
+        private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
         public bool IsManadatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public IEnumerable<Effect> AllEffects => _allCardEffects.ToList();
@@ -43,23 +44,12 @@ namespace MythosAndHorrors.GameRules
         {
             SetUndoButton();
             if (NoEffect) return;
-            EffectSelected = GetUniqueEffect() ?? await _interactablePresenter.SelectWith(this);
+            EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
         }
 
-        //public Effect AutoPlay()
-        //{
-        //    if (MainButtonEffect != null) return null;
-        //    if (!IsUniqueEffect) return null;
-        //    return UniqueEffect;
-        //}
-
-        public Effect GetUniqueEffect()
-        {
-            if (!IsManadatary) return null;
-            if (!IsUniqueEffect) return null;
-            return UniqueEffect;
-        }
+        public Effect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
+        public Effect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
         public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.Card == cardAffected);
