@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountBullets, 1));
             int strengtIncrement = ControlOwner.CurrentPlace.Hints.Value > 0 ? 3 : 1;
-            await _gameActionsProvider.Create(new AttackGameAction(ControlOwner, creature, 2, strengModifier: strengtIncrement));
+            await _gameActionsProvider.Create(new PlayAttackGameAction(ControlOwner, creature, 2, strengModifier: strengtIncrement));
         }
     }
 }

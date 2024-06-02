@@ -137,7 +137,7 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayBasicAttackGameAction(ActiveInvestigator, cardCreature));
+                async Task InvestigatorAttack() => await _gameActionsProvider.Create(new PlayAttackGameAction(ActiveInvestigator, cardCreature));
             }
         }
 

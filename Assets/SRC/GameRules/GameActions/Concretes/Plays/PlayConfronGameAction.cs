@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, CardCreature.InvestigatorConfronTurnsCost.Value));
             await _gameActionsProvider.Create(new OpportunityAttackGameAction(Investigator));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(CardCreature, Investigator.DangerZone));
+            await _gameActionsProvider.Create(new InvestigatorConfrontGameAction(Investigator, CardCreature));
         }
     }
 }

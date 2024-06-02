@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class ParleyGameAction : GameAction
     {
         public Func<Task> ParleyLogic { get; }

@@ -31,8 +31,8 @@ namespace MythosAndHorrors.GameRules
             _gameActionsProvider.AddUndo(this);
 
             await ExecuteThisLogic();
-
             await _buffsProvider.ExecuteAllBuffs();
+
             await _reactionablesProvider.WhenFinish(this);
             FinishSet();
         }
