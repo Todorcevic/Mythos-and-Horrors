@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
+            Health.UpdateValue((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             CreateReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, false);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate);
         }

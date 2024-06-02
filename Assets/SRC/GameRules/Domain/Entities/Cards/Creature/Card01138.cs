@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (CurrentPlace != investigator.CurrentPlace) return false;
-            if (investigator.HandZone.Cards.Count(card => card.CanBeDiscarded) < 4) return false;
+            if (investigator.DiscardableCardsInHand.Count() < 4) return false;
             return true;
         }
 

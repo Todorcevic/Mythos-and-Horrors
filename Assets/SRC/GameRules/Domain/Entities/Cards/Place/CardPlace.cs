@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
-        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
+        public GameCommand<RevealGameAction> RevealCommand { get; private set; }
 
         /*******************************************************************/
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();

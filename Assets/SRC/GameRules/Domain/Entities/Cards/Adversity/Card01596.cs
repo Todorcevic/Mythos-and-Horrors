@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Card");
-            foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
+            foreach (Card card in investigator.DiscardableCardsInHand)
             {
                 interactableGameAction.Create()
                             .SetCard(card)

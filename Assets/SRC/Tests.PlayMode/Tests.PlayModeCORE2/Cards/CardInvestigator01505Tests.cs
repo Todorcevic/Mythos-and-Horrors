@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(investigatorToTest.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(cardInvestigator);
-            yield return ClickedIn(investigatorToTest.HandZone.Cards.First(card => card.CanBeDiscarded));
+            yield return ClickedIn(investigatorToTest.DiscardableCardsInHand.First());
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

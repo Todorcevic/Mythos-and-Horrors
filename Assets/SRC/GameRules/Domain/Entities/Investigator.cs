@@ -62,6 +62,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public IEnumerable<Card> CardsInPlay => Cards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
             .Union(AidZone.Cards); //But Cards not Owner how Lita
+        public IEnumerable<Card> DiscardableCardsInHand => HandZone.Cards.Where(card => card.CanBeDiscarded);
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
 

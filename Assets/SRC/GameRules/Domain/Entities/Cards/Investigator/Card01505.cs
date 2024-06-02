@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
 
-            foreach (Card card in Owner.HandZone.Cards.Where(card => card.CanBeDiscarded))
+            foreach (Card card in Owner.DiscardableCardsInHand)
             {
                 interactableGameAction.Create()
                     .SetCard(card)

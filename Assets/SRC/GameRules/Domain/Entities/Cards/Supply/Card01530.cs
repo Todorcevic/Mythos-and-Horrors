@@ -9,8 +9,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly BuffsProvider _buffsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tool };
 
@@ -18,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            PlayFromHandTurnsCost = CreateStat(0);
+            PlayFromHandTurnsCost.UpdateValue(0);
             CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
         }
         /*******************************************************************/

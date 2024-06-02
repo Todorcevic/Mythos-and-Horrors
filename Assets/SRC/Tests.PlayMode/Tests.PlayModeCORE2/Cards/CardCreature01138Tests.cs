@@ -22,10 +22,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cultist, 2);
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarded));
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarded));
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarded));
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarded));
+            yield return ClickedIn(investigator.DiscardableCardsInHand.First());
+            yield return ClickedIn(investigator.DiscardableCardsInHand.First());
+            yield return ClickedIn(investigator.DiscardableCardsInHand.First());
+            yield return ClickedIn(investigator.DiscardableCardsInHand.First());
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

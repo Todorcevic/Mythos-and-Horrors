@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
-        public GameCommand<RevealGameAction> RevealCommand { get; protected set; }
+        public GameCommand<RevealGameAction> RevealCommand { get; private set; }
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
