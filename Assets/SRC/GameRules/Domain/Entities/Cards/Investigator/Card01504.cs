@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.CreateCancelMainButton();
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
-                interactableGameAction.Create(creature, HarmCreature, PlayActionType.None, Owner);
+                interactableGameAction.Create(creature, HarmCreature, PlayActionType.Choose, Owner);
 
                 /*******************************************************************/
                 async Task HarmCreature()

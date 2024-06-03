@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card cardSelectable in allSelectables)
             {
-                Create(cardSelectable, DoDamageAndFear, PlayActionType.None, cardSelectable.ControlOwner, cardAffected: ByThisCard);
+                Create(cardSelectable, DoDamageAndFear, PlayActionType.Choose, cardSelectable.ControlOwner, cardAffected: ByThisCard);
 
                 /*******************************************************************/
                 async Task DoDamageAndFear()

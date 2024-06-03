@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(CreateStat(1), TryOpenLogic, TryOpenCondition);
+            CreateActivation(CreateStat(1), TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
             //CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
 
@@ -46,8 +46,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction choose = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge", investigator);
             choose.CreateCancelMainButton();
-            choose.Create(this, StrengthChallenge, PlayActionType.None, investigator: investigator);
-            choose.Create(this, AgilityChallenge, PlayActionType.None, investigator: investigator);
+            choose.Create(this, StrengthChallenge, PlayActionType.Choose, investigator: investigator);
+            choose.Create(this, AgilityChallenge, PlayActionType.Choose, investigator: investigator);
             await _gameActionsProvider.Create(choose);
 
             /*******************************************************************/

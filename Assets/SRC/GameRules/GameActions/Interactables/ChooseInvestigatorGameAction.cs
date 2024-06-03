@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
-                Create(investigator.AvatarCard, PlayInvestigator, PlayActionType.None, investigator);
+                Create(investigator.AvatarCard, PlayInvestigator, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
                 async Task PlayInvestigator()

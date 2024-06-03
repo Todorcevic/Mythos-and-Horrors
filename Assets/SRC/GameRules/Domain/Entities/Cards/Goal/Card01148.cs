@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         {
             Hints.UpdateValue(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.Disable();
-            CreateActivation(CreateStat(1), PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, isBase: true);
+            CreateActivation(CreateStat(1), PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate, isBase: true);
         }
 
         /*******************************************************************/

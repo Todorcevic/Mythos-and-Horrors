@@ -100,7 +100,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             /*******************************************************************/
             async Task SafeForeachReac(PlayInvestigatorGameAction gameAction)
             {
-                _reactionablesProvider.RemoveReaction<PlayInvestigatorGameAction>(reaction);
+                _reactionablesProvider.RemoveReaction(reaction);
                 await _gameActionsProvider.Create(new SafeForeach<Investigator>(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy));
             }
 
@@ -120,7 +120,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             foreach (Card card in investigator.HandZone.Cards)
             {
-                interactableGameAction.Create(card, Activate, PlayActionType.None, investigator);
+                interactableGameAction.Create(card, Activate, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
                 async Task Activate()

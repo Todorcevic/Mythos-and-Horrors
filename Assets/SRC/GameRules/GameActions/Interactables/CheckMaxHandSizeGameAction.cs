@@ -23,11 +23,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void CreateGameActions()
         {
-            foreach (Card card in ActiveInvestigator.HandZone.Cards)
+            foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
                 if (!CanChoose()) continue;
 
-                Create(card, Discard, PlayActionType.None, ActiveInvestigator);
+                Create(card, Discard, PlayActionType.Choose, ActiveInvestigator);
 
                 /*******************************************************************/
                 async Task Discard()

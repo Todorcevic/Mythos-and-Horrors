@@ -62,27 +62,27 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public Effect CreateMainButton(Func<Task> logic, string description)
+        public BaseEffect CreateMainButton(Func<Task> logic, string description)
         {
-            Effect effect = new(null, logic, PlayActionType.None, description: description);
+            BaseEffect effect = new(logic, description: description);
             MainButtonEffect = effect;
             return effect;
         }
 
         public void CreateCancelMainButton()
         {
-            MainButtonEffect = new Effect(null, UndoLogic, PlayActionType.None, description: "Cancel");
+            MainButtonEffect = new BaseEffect(UndoLogic, description: "Cancel");
         }
 
         public void CreateContinueMainButton()
         {
-            MainButtonEffect = new Effect(null, Continue, PlayActionType.None, description: "Continue");
+            MainButtonEffect = new BaseEffect(Continue, description: "Continue");
             static async Task Continue() => await Task.CompletedTask;
         }
 
         private void SetUndoButton()
         {
-            UndoEffect = _gameActionsProvider.CanUndo() ? new Effect(null, UndoLogic, PlayActionType.None, description: "Back") : null;
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(UndoLogic, description: "Back") : null;
         }
 
         async Task UndoLogic()

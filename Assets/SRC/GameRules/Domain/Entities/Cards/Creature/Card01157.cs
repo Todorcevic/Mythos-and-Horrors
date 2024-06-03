@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         {
             Health.UpdateValue((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             CreateReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, false);
-            CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate);
+            CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
         }
 
         /*******************************************************************/

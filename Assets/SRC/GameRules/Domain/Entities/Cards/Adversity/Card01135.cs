@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
             if (investigator.Hints.Value > 0)
-                interactableGameAction.Create(this, SpendClue, PlayActionType.None, investigator: investigator);
-            interactableGameAction.Create(this, TakeDamage, PlayActionType.None, investigator: investigator);
+                interactableGameAction.Create(this, SpendClue, PlayActionType.Choose, investigator: investigator);
+            interactableGameAction.Create(this, TakeDamage, PlayActionType.Choose, investigator: investigator);
             await _gameActionsProvider.Create(interactableGameAction);
 
             async Task SpendClue()

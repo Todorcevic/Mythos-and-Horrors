@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateFreeActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate);
+            CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate);
             CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
-                        interactableGameAction.Create(activable, Activate, PlayActionType.None, investigator: activeInvestigator);
+                        interactableGameAction.Create(activable, Activate, PlayActionType.Activate, investigator: activeInvestigator);
 
                     /*******************************************************************/
                     async Task Activate()

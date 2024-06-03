@@ -2,17 +2,17 @@
 {
     public enum PlayActionType
     {
-        None,
-        Investigate,
         Attack,
+        Elude,
+        Parley,
+        Resign,
+        Choose,
+        Investigate,
         Move,
         Activate,
         Draw,
         Resource,
-        Fight,
         Confront,
-        Evade,
-        Parley,
-        Resign
+        PlayFromHand
     }
 }

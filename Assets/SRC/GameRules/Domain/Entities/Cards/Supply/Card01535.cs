@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(CreateStat(1), HealthActivate, HealtConditionConditionToActivate);
+            CreateActivation(CreateStat(1), HealthActivate, HealtConditionConditionToActivate, PlayActionType.Activate);
         }
 
         /************************ HEALTH ACTIVATION ******************************/
@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
-                interactableGameAction.Create(investigatorToSelect.AvatarCard, HealthInvestigator, PlayActionType.None, activeInvestigator);
+                interactableGameAction.Create(investigatorToSelect.AvatarCard, HealthInvestigator, PlayActionType.Choose, activeInvestigator);
 
                 /*******************************************************************/
                 async Task HealthInvestigator()

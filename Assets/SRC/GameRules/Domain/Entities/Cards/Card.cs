@@ -75,7 +75,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.Create(this, FullLogic, PlayActionType.None, investigator: Owner);
+                interactableGameAction.Create(this, FullLogic, PlayActionType.Choose, investigator: Owner);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/
@@ -84,18 +84,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition,
-            bool isBase = false, bool withOpportunityAttck = true)
+        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType,
+            bool isBase = false)
         {
-            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameCondition<Investigator>(condition), withOpportunityAttck);
+            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameCondition<Investigator>(condition), playActionType);
             if (isBase) _baseActivations.Add(newActivation);
             else _specificActivations.Add(newActivation);
             return newActivation;
-        }
-
-        protected Activation CreateFreeActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, bool isBase = false)
-        {
-            return CreateActivation(CreateStat(0), logic, condition, isBase: isBase, withOpportunityAttck: false);
         }
 
         /***************************** BUFFS *****************************/

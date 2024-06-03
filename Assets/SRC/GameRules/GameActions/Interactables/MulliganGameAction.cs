@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                Create(card, Discard, PlayActionType.None, ActiveInvestigator);
+                Create(card, Discard, PlayActionType.Choose, ActiveInvestigator);
 
                 /*******************************************************************/
                 async Task Discard()

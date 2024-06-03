@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             ExtraStat = Fear = CreateStat(3);
             CreateReaction<MoveCardsGameAction>(PrepareCondition, PrepareLogic, true);
             CreateReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, false);
-            CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition);
+            CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
             CreateReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, false);
         }
 

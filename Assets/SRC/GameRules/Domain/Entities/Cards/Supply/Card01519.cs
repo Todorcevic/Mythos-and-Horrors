@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(InitialSupplies);
-            CreateActivation(CreateStat(1), HealActivate, HealConditionToActivate);
+            CreateActivation(CreateStat(1), HealActivate, HealConditionToActivate, PlayActionType.Activate);
         }
 
         /*******************************************************************/
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
                 .Where(investigator => investigator.CanBeHealed))
             {
-                interactableGameAction.Create(investigator.AvatarCard, RestoreHealthInvestigator, PlayActionType.None, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
+                interactableGameAction.Create(investigator.AvatarCard, RestoreHealthInvestigator, PlayActionType.Choose, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
 
                 /*******************************************************************/
                 async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
                 .Where(investigator => investigator.CanBeRestoreSanity))
             {
-                interactableGameAction.Create(investigator.AvatarCard, RestoreSanityInvestigator, PlayActionType.None, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
+                interactableGameAction.Create(investigator.AvatarCard, RestoreSanityInvestigator, PlayActionType.Choose, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
 
                 /*******************************************************************/
                 async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Sanity, 1));

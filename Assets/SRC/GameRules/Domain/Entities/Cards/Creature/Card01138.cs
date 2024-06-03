@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, withOpportunityAttck: false);
+            CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
         }
 
         /*******************************************************************/
@@ -44,9 +44,9 @@ namespace MythosAndHorrors.GameRules
             async Task PayCreature()
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay", investigator);
-                foreach (Card card in investigator.HandZone.Cards)
+                foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
                 {
-                    interactableGameAction.Create(card, Discard, PlayActionType.None, investigator: investigator, cardAffected: this);
+                    interactableGameAction.Create(card, Discard, PlayActionType.Choose, investigator: investigator, cardAffected: this);
 
                     /*******************************************************************/
                     async Task Discard()
