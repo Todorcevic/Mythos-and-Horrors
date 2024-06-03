@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -18,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate, PlayActionType.Resign);
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            CreateReaction<OneInvestigatorTurnGameAction>(AvoidMoveCondition, AvoidMoveLogic, isAtStart: true);
+            CreateReaction<InteractableGameAction>(AvoidMoveCondition, AvoidMoveLogic, isAtStart: true);
         }
 
         /*******************************************************************/
@@ -54,14 +56,17 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task AvoidMoveLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        private async Task AvoidMoveLogic(InteractableGameAction interactableGameAction)
         {
-            Effect moveEffect = oneInvestigatorTurnGameAction.MoveEffects.Find(effect => effect.Card == this);
-            oneInvestigatorTurnGameAction.RemoveEffect(moveEffect);
+            IEnumerable<Effect> moveEffects = interactableGameAction.AllEffects
+                .Where(effects => 
+                effects.PlayActionType == PlayActionType.Move
+                && (effects.Card == this || effects.CardAffected == this));
+            interactableGameAction.RemoveEffects(moveEffects);
             await Task.CompletedTask;
         }
 
-        private bool AvoidMoveCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        private bool AvoidMoveCondition(InteractableGameAction oneInvestigatorTurnGameAction)
         {
             if (Revealed.IsActive) return false;
             return true;

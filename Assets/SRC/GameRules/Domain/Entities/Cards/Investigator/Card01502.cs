@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
-                        interactableGameAction.Create(activable, Activate, PlayActionType.Activate, investigator: activeInvestigator);
+                        interactableGameAction.Create(activable, Activate, activation.PlayActionType, investigator: activeInvestigator);
 
                     /*******************************************************************/
                     async Task Activate()
