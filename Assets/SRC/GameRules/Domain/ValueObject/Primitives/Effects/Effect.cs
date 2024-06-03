@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -12,8 +11,8 @@ namespace MythosAndHorrors.GameRules
         public Card Card { get; private set; }
         public PlayActionType PlayActionType { get; private set; }
 
-        public override string CardCode => _investigator?.Code;
-        public override string CardCodeSecundary => _cardAffected?.Info.Code;
+        public string CardCode => _investigator?.Code;
+        public string CardCodeSecundary => _cardAffected?.Info.Code;
 
         /*******************************************************************/
         public Effect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator = null, Card cardAffected = null, string description = null)

@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameView
             if (_cardSensor.IsClickable) return;
             _cardSensor.IsClickable = true;
             _glowComponent.SetGreenGlow();
-            _effectController.AddEffects(((IPlayable)this).EffectsSelected);
+            _effectController.AddEffects(((IEnumerable<IViewEffect>)((IPlayable)this).EffectsSelected));
         }
 
         public void DeactivateToClick()

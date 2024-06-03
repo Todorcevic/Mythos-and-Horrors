@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
-        string IViewEffect.Description => _description ?? BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
+        string IViewEffectDescription.Description => _description ?? BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
 
         /*******************************************************************/
