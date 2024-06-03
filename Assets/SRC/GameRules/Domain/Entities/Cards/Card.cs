@@ -74,12 +74,11 @@ namespace MythosAndHorrors.GameRules
             async Task OptativeLogic(T gameAction)
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
-                interactableGameAction.CreateMainButton().SetLogic(Continue);
+                interactableGameAction.CreateContinueMainButton();
                 interactableGameAction.Create().SetCard(this).SetInvestigator(Owner).SetLogic(FullLogic).SetDescription(logic.Method.Name);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/
-                async Task Continue() => await Task.CompletedTask;
                 async Task FullLogic() => await logic.Invoke(gameAction);
             }
         }

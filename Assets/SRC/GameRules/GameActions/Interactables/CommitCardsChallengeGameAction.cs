@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
-            CreateMainButton().SetLogic(Continue);
+            CreateMainButton().SetLogic(CurrentChallenge.ContinueChallenge);
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {
@@ -46,9 +46,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, CurrentChallenge));
                 }
             }
-
-            /*******************************************************************/
-            async Task Continue() => await CurrentChallenge.ContinueChallenge();
         }
 
         protected override async Task ExecuteThisLogic()

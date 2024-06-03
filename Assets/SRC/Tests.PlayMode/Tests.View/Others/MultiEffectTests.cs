@@ -22,8 +22,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Card card = investigator1.FullDeck[1];
             Card card2 = investigator1.FullDeck[2];
 
-            interactableGameAction.CreateMainButton()
-                     .SetLogic(() => Task.CompletedTask);
+            interactableGameAction.CreateContinueMainButton();
 
             interactableGameAction.Create()
                   .SetCard(card)

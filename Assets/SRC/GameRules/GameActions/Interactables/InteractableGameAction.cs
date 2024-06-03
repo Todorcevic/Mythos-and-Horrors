@@ -73,6 +73,13 @@ namespace MythosAndHorrors.GameRules
             MainButtonEffect = new Effect().SetLogic(UndoLogic).SetDescription("Cancel");
         }
 
+        public void CreateContinueMainButton()
+        {
+            MainButtonEffect = new Effect().SetLogic(Continue).SetDescription("Continue");
+
+            static async Task Continue() => await Task.CompletedTask;
+        }
+
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new Effect().SetLogic(UndoLogic).SetDescription("Back") : null;

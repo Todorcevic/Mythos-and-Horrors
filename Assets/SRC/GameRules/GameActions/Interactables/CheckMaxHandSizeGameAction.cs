@@ -16,11 +16,8 @@ namespace MythosAndHorrors.GameRules
 
         public override void ExecuteSpecificInitialization()
         {
-            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateMainButton().SetLogic(Continue);
+            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateContinueMainButton();
             else CreateGameActions();
-
-            /*******************************************************************/
-            async Task Continue() => await Task.CompletedTask;
         }
 
         /*******************************************************************/

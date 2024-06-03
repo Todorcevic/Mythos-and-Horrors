@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
-            CreateMainButton().SetLogic(Continue);
+            CreateContinueMainButton();
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
@@ -30,9 +30,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
                 }
             }
-
-            /*******************************************************************/
-            async Task Continue() => await Task.CompletedTask;
         }
     }
 }
