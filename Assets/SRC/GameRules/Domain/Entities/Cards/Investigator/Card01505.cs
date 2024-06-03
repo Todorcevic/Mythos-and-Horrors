@@ -33,10 +33,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {
-                interactableGameAction.Create()
-                    .SetCard(card)
-                    .SetInvestigator(Owner)
-                    .SetLogic(Discard);
+                interactableGameAction.Create(card, Discard, PlayActionType.None, investigator: Owner);
 
                 /*******************************************************************/
                 async Task Discard()

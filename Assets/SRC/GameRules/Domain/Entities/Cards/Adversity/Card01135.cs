@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01135 : CardAdversityLimbo
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Curse };
 
@@ -24,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
             if (investigator.Hints.Value > 0)
-                interactableGameAction.Create().SetCard(this).SetLogic(SpendClue).SetDescription("Spend Clue").SetInvestigator(investigator);
-            interactableGameAction.Create().SetCard(this).SetLogic(TakeDamage).SetDescription("Take Fear").SetInvestigator(investigator);
+                interactableGameAction.Create(this, SpendClue, PlayActionType.None, investigator: investigator);
+            interactableGameAction.Create(this, TakeDamage, PlayActionType.None, investigator: investigator);
             await _gameActionsProvider.Create(interactableGameAction);
 
             async Task SpendClue()

@@ -66,10 +66,7 @@ namespace MythosAndHorrors.GameRules
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(this)))
             {
-                PlayFromHandEffects.Add(Create()
-                    .SetCard(playableFromHand as Card)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(PlayFromHand));
+                PlayFromHandEffects.Add(Create((Card)playableFromHand, PlayFromHand, PlayActionType.None, investigator: ActiveInvestigator));
 
                 async Task PlayFromHand() =>
                     await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
@@ -81,10 +78,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanInvestigate()) return;
 
-            InvestigateEffect = Create()
-                .SetCard(ActiveInvestigator.CurrentPlace)
-                .SetInvestigator(ActiveInvestigator)
-                .SetLogic(Investigate);
+            InvestigateEffect = Create(ActiveInvestigator.CurrentPlace, Investigate, PlayActionType.Investigate, investigator: ActiveInvestigator);
 
             bool CanInvestigate()
             {
@@ -104,10 +98,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanMove()) continue;
 
-                MoveEffects.Add(Create()
-                    .SetCard(cardPlace)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(Move));
+                MoveEffects.Add(Create(cardPlace, Move, PlayActionType.Move, ActiveInvestigator));
 
                 bool CanMove()
                 {
@@ -126,10 +117,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorAttack()) continue;
 
-                InvestigatorAttackEffects.Add(Create()
-                    .SetCard(cardCreature)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(InvestigatorAttack));
+                InvestigatorAttackEffects.Add(Create(cardCreature, InvestigatorAttack, PlayActionType.Attack, ActiveInvestigator));
 
                 bool CanInvestigatorAttack()
                 {
@@ -148,10 +136,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorConfront()) continue;
 
-                InvestigatorConfrontEffects.Add(Create()
-                    .SetCard(cardCreature)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(InvestigatorConfront));
+                InvestigatorConfrontEffects.Add(Create(cardCreature, InvestigatorConfront, PlayActionType.None, ActiveInvestigator));
 
                 bool CanInvestigatorConfront()
                 {
@@ -172,10 +157,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorElude()) continue;
 
-                InvestigatorEludeEffects.Add(Create()
-                    .SetCard(cardCreature)
-                    .SetInvestigator(ActiveInvestigator)
-                    .SetLogic(InvestigatorElude));
+                InvestigatorEludeEffects.Add(Create(cardCreature, InvestigatorElude, PlayActionType.None, ActiveInvestigator));
 
                 bool CanInvestigatorElude()
                 {
@@ -197,10 +179,7 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation activation in activable.AllActivations)
                 {
                     if (activation.FullCondition(ActiveInvestigator))
-                        PlayActivableEffects.Add(Create()
-                           .SetCard(activable)
-                           .SetInvestigator(ActiveInvestigator)
-                           .SetLogic(Activate));
+                        PlayActivableEffects.Add(Create(activable, Activate, PlayActionType.None, ActiveInvestigator));
 
                     async Task Activate() => await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, ActiveInvestigator));
                 }
@@ -212,10 +191,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanDraw()) return;
 
-            DrawEffect = Create()
-                  .SetCard(ActiveInvestigator.CardAidToDraw)
-                  .SetInvestigator(ActiveInvestigator)
-                  .SetLogic(Draw);
+            DrawEffect = Create(ActiveInvestigator.CardAidToDraw, Draw, PlayActionType.None, ActiveInvestigator);
         }
 
         private bool CanDraw()
@@ -231,9 +207,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanTakeResource()) return;
 
-            TakeResourceEffect = Create()
-               .SetInvestigator(ActiveInvestigator)
-               .SetLogic(TakeResource);
+            TakeResourceEffect = Create(null, TakeResource, PlayActionType.None, ActiveInvestigator);
         }
 
         private bool CanTakeResource()

@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
         public ZoneView CurrentZoneView { get; private set; }
         public CardSensorController CardSensor => _cardSensor;
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
-        public IEnumerable<Effect> EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
+        public IEnumerable<BaseEffect> EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
 
         /*******************************************************************/
         public void Init(Card card, ZoneView currentZoneView)

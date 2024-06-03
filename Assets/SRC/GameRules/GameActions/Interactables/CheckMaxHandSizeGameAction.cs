@@ -27,10 +27,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanChoose()) continue;
 
-                Create()
-               .SetCard(card)
-               .SetInvestigator(ActiveInvestigator)
-               .SetLogic(Discard);
+                Create(card, Discard, PlayActionType.None, ActiveInvestigator);
 
                 /*******************************************************************/
                 async Task Discard()

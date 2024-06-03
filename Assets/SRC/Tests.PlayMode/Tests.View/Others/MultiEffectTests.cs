@@ -23,21 +23,9 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Card card2 = investigator1.FullDeck[2];
 
             interactableGameAction.CreateContinueMainButton();
-
-            interactableGameAction.Create()
-                  .SetCard(card)
-                  .SetInvestigator(investigator1)
-                  .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)));
-
-            interactableGameAction.Create()
-                .SetCard(card)
-                .SetInvestigator(investigator1)
-                .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)));
-
-            interactableGameAction.Create()
-                .SetCard(card2)
-                .SetInvestigator(investigator1)
-                .SetLogic(() => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)));
+            interactableGameAction.Create(card, () => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)), PlayActionType.None, investigator1);
+            interactableGameAction.Create(card, () => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)), PlayActionType.None, investigator1);
+            interactableGameAction.Create(card2, () => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)), PlayActionType.None, investigator1);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(interactableGameAction);

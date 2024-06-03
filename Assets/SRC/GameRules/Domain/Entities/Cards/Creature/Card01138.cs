@@ -46,11 +46,7 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay", investigator);
                 foreach (Card card in investigator.HandZone.Cards)
                 {
-                    interactableGameAction.Create()
-                        .SetCard(card)
-                        .SetInvestigator(investigator)
-                        .SetCardAffected(this)
-                        .SetLogic(Discard);
+                    interactableGameAction.Create(card, Discard, PlayActionType.None, investigator: investigator, cardAffected: this);
 
                     /*******************************************************************/
                     async Task Discard()

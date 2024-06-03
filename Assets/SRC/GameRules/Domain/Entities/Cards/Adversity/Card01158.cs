@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -29,17 +28,11 @@ namespace MythosAndHorrors.GameRules
                     async Task FailEffect()
                     {
                         InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, $"Choose: {challengeGameAction.TotalDifferenceValue * -1 - i} left", investigator);
-                        interactableGameAction.Create().SetCard(investigator.InvestigatorCard)
-                            .SetLogic(TakeDamageAndFear)
-                            .SetDescription("Take Damage and Fear")
-                            .SetInvestigator(investigator);
+                        interactableGameAction.Create(investigator.InvestigatorCard, TakeDamageAndFear, PlayActionType.None, investigator: investigator);
 
                         foreach (Card card in investigator.DiscardableCardsInHand)
                         {
-                            interactableGameAction.Create().SetCard(card)
-                                .SetLogic(Discard)
-                                .SetDescription("Discard")
-                                .SetInvestigator(investigator);
+                            interactableGameAction.Create(card, Discard, PlayActionType.None, investigator: investigator);
 
                             async Task Discard()
                             {

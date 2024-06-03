@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         private List<IPlayable> cardViewClones;
 
         /*******************************************************************/
-        public async Task<Effect> ShowMultiEffects(CardView cardViewWithMultiEffecs, string title)
+        public async Task<BaseEffect> ShowMultiEffects(CardView cardViewWithMultiEffecs, string title)
         {
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
@@ -33,9 +33,9 @@ namespace MythosAndHorrors.GameView
             return await FinishMultiEffect(playableSelected);
         }
 
-        private async Task<Effect> FinishMultiEffect(IPlayable playableSelected)
+        private async Task<BaseEffect> FinishMultiEffect(IPlayable playableSelected)
         {
-            Effect effectSelected = playableSelected is CardView cardView ? playableSelected.EffectsSelected.Single() : null;
+            BaseEffect effectSelected = playableSelected is CardView cardView ? playableSelected.EffectsSelected.Single() : null;
             await _showCardHandler.DeactivatePlayables(cardViewClones);
             Sequence destroyClonesSequence = DOTween.Sequence();
             cardViewClones.Cast<CardView>()

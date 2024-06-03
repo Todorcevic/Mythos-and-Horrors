@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
         private Effect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect;
-        IEnumerable<Effect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<Effect>() : new[] { TakeResourceEffect };
+        IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<Effect>() : new[] { TakeResourceEffect };
 
         /*******************************************************************/
         Transform IStatable.StatTransform => _showToken;

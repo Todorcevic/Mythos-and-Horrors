@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
 
         /*******************************************************************/
-        async Task<Effect> IInteractablePresenter.SelectWith(GameAction gamAction)
+        async Task<BaseEffect> IInteractablePresenter.SelectWith(GameAction gamAction)
         {
             if (gamAction is not InteractableGameAction interactableGameAction) return default;
             _mainButtonComponent.MainButtonEffect = interactableGameAction.MainButtonEffect;
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task<Effect> Initial(InteractableGameAction interactableGameAction, string title)
+        public async Task<BaseEffect> Initial(InteractableGameAction interactableGameAction, string title)
         {
             await DotweenExtension.WaitForMoveToZoneComplete();
 
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameView
             }
         }
 
-        private async Task<Effect> Interact(InteractableGameAction interactableGameAction)
+        private async Task<BaseEffect> Interact(InteractableGameAction interactableGameAction)
         {
             _showCardHandler.ActiavatePlayables();
 
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameView
             return playableChoose.EffectsSelected.FirstOrDefault();
         }
 
-        private async Task<Effect> InteractWithMultiEfefct(InteractableGameAction interactableGameAction, CardView multiEffectCardView)
+        private async Task<BaseEffect> InteractWithMultiEfefct(InteractableGameAction interactableGameAction, CardView multiEffectCardView)
         {
             mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, interactableGameAction.Description)

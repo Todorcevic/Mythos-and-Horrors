@@ -17,9 +17,9 @@ namespace MythosAndHorrors.GameRules
         public virtual string Description { get; protected set; }
 
         public Investigator ActiveInvestigator { get; }
-        public Effect EffectSelected { get; private set; }
-        public Effect MainButtonEffect { get; private set; }
-        public Effect UndoEffect { get; private set; }
+        public BaseEffect EffectSelected { get; private set; }
+        public BaseEffect MainButtonEffect { get; private set; }
+        public BaseEffect UndoEffect { get; private set; }
         private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
@@ -50,14 +50,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         public Effect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
-        public Effect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
+        public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
         public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.Card == cardAffected);
 
-        public Effect Create()
+        public Effect Create(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator = null, Card cardAffected = null)
         {
-            Effect effect = new();
+            Effect effect = new(card, logic, playActionType, investigator, cardAffected);
             _allCardEffects.Add(effect);
             return effect;
         }

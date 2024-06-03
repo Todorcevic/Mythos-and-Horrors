@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _deactivateColor;
 
         private bool IsActivated => _collider.enabled;
-        public Effect MainButtonEffect { get; set; }
-        IEnumerable<Effect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
+        public BaseEffect MainButtonEffect { get; set; }
+        IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<Effect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/
         public void ActivateToClick()

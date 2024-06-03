@@ -17,18 +17,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select One Effect");
-
-            interactableGameAction.Create()
-               .SetCard(this)
-               .SetInvestigator(_investigatorProvider.Leader)
-               .SetLogic(DiscardAllInvestigators);
-
-            interactableGameAction.Create()
-               .SetCard(this)
-               .SetInvestigator(_investigatorProvider.Leader)
-               .SetCardAffected(_investigatorProvider.Leader.InvestigatorCard)
-               .SetLogic(Damage);
-
+            interactableGameAction.Create(this, DiscardAllInvestigators, PlayActionType.None, investigator: _investigatorProvider.Leader);
+            interactableGameAction.Create(this, Damage, PlayActionType.None, investigator: _investigatorProvider.Leader, cardAffected: _investigatorProvider.Leader.InvestigatorCard);
             await _gameActionsProvider.Create(interactableGameAction);
         }
 

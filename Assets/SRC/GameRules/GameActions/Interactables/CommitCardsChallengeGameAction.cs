@@ -34,11 +34,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {
-                Create()
-                    .SetCard(commitableCard)
-                    .SetInvestigator(commitableCard.ControlOwner)
-                    .SetCardAffected(CurrentChallenge.CardToChallenge)
-                    .SetLogic(Commit);
+                Create(commitableCard, Commit, PlayActionType.None, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
 
                 async Task Commit()
                 {

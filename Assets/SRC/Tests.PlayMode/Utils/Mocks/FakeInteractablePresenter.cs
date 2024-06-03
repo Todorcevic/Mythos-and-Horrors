@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         private const float TIMEOUT = 3f;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        private TaskCompletionSource<Effect> waitForClicked = new();
+        private TaskCompletionSource<BaseEffect> waitForClicked = new();
 
         /*******************************************************************/
         public IEnumerator ClickedUndoButton()
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !UndoButtonIsEnable()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            Effect effect = _gameActionsProvider.CurrentInteractable?.UndoEffect ??
+            BaseEffect effect = _gameActionsProvider.CurrentInteractable?.UndoEffect ??
                 throw new InvalidOperationException("UndoEffect is null");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable) yield return null;
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !MainButtonIsEnable()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            Effect effect = _gameActionsProvider.CurrentInteractable?.MainButtonEffect ??
+            BaseEffect effect = _gameActionsProvider.CurrentInteractable?.MainButtonEffect ??
                 throw new InvalidOperationException("MainButtonEffect is null");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !AnyEffectInCard()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            Effect effect = cardSelected.PlayableEffects?.ElementAtOrDefault(position) ??
+            BaseEffect effect = cardSelected.PlayableEffects?.ElementAtOrDefault(position) ??
                 throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)
@@ -86,15 +86,15 @@ namespace MythosAndHorrors.PlayMode.Tests
 
 
         /*******************************************************************/
-        public async Task<Effect> SelectWith(GameAction gamAction)
+        public async Task<BaseEffect> SelectWith(GameAction gamAction)
         {
             await Task.WhenAny(waitForClicked.Task, Task.Delay(3000));
 
             if (!waitForClicked.Task.IsCompleted)
                 throw new TimeoutException("The operation has exceeded. Timeout.");
 
-            Effect effectToSend = waitForClicked.Task.Result;
-            waitForClicked = new TaskCompletionSource<Effect>();
+            BaseEffect effectToSend = waitForClicked.Task.Result;
+            waitForClicked = new TaskCompletionSource<BaseEffect>();
             return effectToSend;
         }
     }

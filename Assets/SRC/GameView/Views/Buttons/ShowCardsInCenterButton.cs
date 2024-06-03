@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
 
-        IEnumerable<Effect> IPlayable.EffectsSelected => new[] { new Effect() };
+        IEnumerable<BaseEffect> IPlayable.EffectsSelected => new[] { new Effect(null, null, PlayActionType.None) };
 
         /*******************************************************************/
         public void OnPointerClick(PointerEventData eventData)

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
                 .Where(card => card.HasAnyOfThisSlots(ActiveInvestigator.GetAllSlotsExeded()));
             foreach (CardSupply card in cards)
             {
-                Create().SetCard(card).SetDescription("Discard").SetLogic(Discard).SetInvestigator(ActiveInvestigator);
+                Create(card, Discard, PlayActionType.None, ActiveInvestigator);
 
                 async Task Discard()
                 {

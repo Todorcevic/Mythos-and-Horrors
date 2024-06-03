@@ -5,10 +5,10 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlayEffectGameAction : GameAction
     {
-        public Effect Effect { get; }
+        public BaseEffect Effect { get; }
 
         /*******************************************************************/
-        public PlayEffectGameAction(Effect effect)
+        public PlayEffectGameAction(BaseEffect effect)
         {
             Effect = effect ?? throw new ArgumentNullException("Effect cant be null");
         }

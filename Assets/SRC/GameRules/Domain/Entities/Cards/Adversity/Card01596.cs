@@ -17,11 +17,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Card");
             foreach (Card card in investigator.DiscardableCardsInHand)
             {
-                interactableGameAction.Create()
-                            .SetCard(card)
-                            .SetInvestigator(investigator)
-                            .SetCardAffected(this)
-                            .SetLogic(Discard);
+                interactableGameAction.Create(card, Discard, PlayActionType.None, investigator: investigator);
 
                 async Task Discard()
                 {

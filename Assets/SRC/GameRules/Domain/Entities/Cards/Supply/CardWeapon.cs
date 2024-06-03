@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
-                chooseEnemy.Create().SetCard(creature).SetDescription("Choose " + creature.Info.Name).SetLogic(() => AttackEnemy(creature));
+                chooseEnemy.Create(creature, () => AttackEnemy(creature), PlayActionType.None, investigator);
             }
 
             await _gameActionsProvider.Create(chooseEnemy);
