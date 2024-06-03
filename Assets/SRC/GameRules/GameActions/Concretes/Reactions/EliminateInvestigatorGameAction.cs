@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -22,15 +20,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            CardPlace currentPlace = Investigator.CurrentPlace;
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, Investigator.Resources.Value));
-            await _gameActionsProvider.Create(new DropHintGameAction(Investigator, Investigator.CurrentPlace.Hints, Investigator.Hints.Value));
-
-            Dictionary<Card, Zone> moveAndDisconfront = Investigator.BasicCreaturesConfronted
-                .ToDictionary(creature => (Card)creature, creature => creature.CurrentPlace.OwnZone);
-            moveAndDisconfront.Concat(Investigator.Cards.ToDictionary(card => card, card => _chaptersProvider.CurrentScene.OutZone));
-
-            await _gameActionsProvider.Create(new MoveCardsGameAction(moveAndDisconfront));
-
+            await _gameActionsProvider.Create(new DropHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone));
             await _gameActionsProvider.Create(new SafeForeach<Card>(() => Investigator.DangerZone.Cards, Discard));
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
         }
