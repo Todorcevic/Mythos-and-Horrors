@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
         public int TotalDifferenceValue => Result.TotalDifferenceValue;
-        public bool? IsSuccessful => Result.IsSuccessful;
+        public bool? IsSuccessful => Result?.IsSuccessful;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);

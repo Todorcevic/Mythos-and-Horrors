@@ -94,6 +94,8 @@ namespace MythosAndHorrors.GameRules
 
         public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
 
+        public void RemoveEffects(IEnumerable<Effect> effects) => effects.ForEach(effect => _allCardEffects.Remove(effect));
+
         public void ClearEffects() => _allCardEffects.Clear();
 
         public virtual void ExecuteSpecificInitialization() { }

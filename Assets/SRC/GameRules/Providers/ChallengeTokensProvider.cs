@@ -22,11 +22,13 @@ namespace MythosAndHorrors.GameRules
         public void RestoreSingleToken(ChallengeToken token)
         {
             ChallengeTokensInBag.Add(token);
+            if (!ChallengeTokensRevealed.Contains(token)) throw new InvalidOperationException("Token not exist");
             ChallengeTokensRevealed.Remove(token);
         }
 
         public void RevealToken(ChallengeToken token)
         {
+            if (!ChallengeTokensInBag.Contains(token)) throw new InvalidOperationException("Token not exist");
             ChallengeTokensInBag.Remove(token);
             ChallengeTokensRevealed.Add(token);
         }

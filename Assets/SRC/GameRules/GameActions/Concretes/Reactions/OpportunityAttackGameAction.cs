@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator Investigator { get; }
 
-        public override bool CanBeExecuted => Investigator.CreaturesEnganged.Any();
+        public override bool CanBeExecuted => Investigator.AllTypeCreaturesConfronted.Any();
 
         /*******************************************************************/
         public OpportunityAttackGameAction(Investigator investigator)
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => Investigator.CreaturesEnganged, CreatureAttack));
+            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => Investigator.AllTypeCreaturesConfronted, CreatureAttack));
 
             async Task CreatureAttack(CardCreature creature) =>
                 await _gameActionsProvider.Create(new CreatureAttackGameAction(creature, Investigator));

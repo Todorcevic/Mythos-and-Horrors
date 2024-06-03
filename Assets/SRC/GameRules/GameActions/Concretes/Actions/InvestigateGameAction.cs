@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator Investigator { get; }
         public CardPlace CardPlace { get; }
+        public ChallengePhaseGameAction Challenge { get; private set; }
 
         /*******************************************************************/
         public InvestigateGameAction(Investigator investigator, CardPlace cardPlace)
@@ -20,12 +21,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new ChallengePhaseGameAction(
+            Challenge = new ChallengePhaseGameAction(
                 Investigator.Intelligence,
                 CardPlace.Enigma.Value,
                 "Investigate" + CardPlace.Info.Name,
                 succesEffect: SuccesEffet,
-                cardToChallenge: CardPlace));
+                cardToChallenge: CardPlace);
+            await _gameActionsProvider.Create(Challenge);
 
             /*******************************************************************/
             async Task SuccesEffet() => await _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));

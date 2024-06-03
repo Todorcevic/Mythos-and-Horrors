@@ -65,10 +65,10 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> DiscardableCardsInHand => HandZone.Cards.Where(card => card.CanBeDiscarded);
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
-
         private IEnumerable<CardColosus> ColosusConfronted => _cardsProvider.GetCards<CardCreature>()
             .Where(creature => creature.CurrentPlace == CurrentPlace && !creature.Exausted.IsActive).OfType<CardColosus>();
-        public IEnumerable<CardCreature> CreaturesEnganged => DangerZone.Cards.OfType<CardCreature>().Concat(ColosusConfronted.Cast<CardCreature>());
+        public IEnumerable<CardCreature> AllTypeCreaturesConfronted => BasicCreaturesConfronted.Concat(ColosusConfronted.Cast<CardCreature>());
+        public IEnumerable<CardCreature> BasicCreaturesConfronted => DangerZone.Cards.OfType<CardCreature>();
         public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay)
             .OrderBy(creature => creature.CurrentPlace.DistanceTo(CurrentPlace).distance);
 

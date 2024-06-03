@@ -20,14 +20,16 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateReaction<RoundGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogicLogic, isAtStart: true);
+            CreateReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogic, isAtStart: true);
         }
 
-        private async Task CantPlayLogicLogic(InteractableGameAction interactableGameAction)
+        /*******************************************************************/
+        private async Task CantPlayLogic(InteractableGameAction interactableGameAction)
         {
-            interactableGameAction.AllEffects.Where(effect => ControlOwner.HandZone.Cards
-                .Where(card => card is CardSupply || card is CardCondition).Contains(effect.Card))
-                .ForEach(effect => interactableGameAction.RemoveEffect(effect));
+            IEnumerable<Effect> effectesToRemove = interactableGameAction.AllEffects.Where(effect => ControlOwner.HandZone.Cards
+                  .Where(card => card is CardSupply || card is CardCondition).Contains(effect.Card));
+
+            interactableGameAction.RemoveEffects(effectesToRemove);
             await Task.CompletedTask;
         }
 

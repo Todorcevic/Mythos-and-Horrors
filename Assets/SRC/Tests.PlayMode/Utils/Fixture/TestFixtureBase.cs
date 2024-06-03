@@ -89,7 +89,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
                 ChallengeToken token = _challengeTokensProvider.ChallengeTokensInBag
-                    .Find(challengeToken => challengeToken.TokenType == tokenType);
+                    .First(challengeToken => challengeToken.TokenType == tokenType);
                 revealChallengeTokenGameAction.SetChallengeToken(token);
                 waitForReaction.SetResult(revealChallengeTokenGameAction.ChallengeTokenRevealed);
                 await Task.CompletedTask;
