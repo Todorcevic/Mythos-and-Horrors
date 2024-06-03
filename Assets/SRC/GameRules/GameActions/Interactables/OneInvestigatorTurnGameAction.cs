@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
 
         private void PreparePassEffect()
         {
-            CreateMainButton().SetLogic(PassTurn).SetDescription("Finish");
+            CreateMainButton(PassTurn, "Finish");
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));

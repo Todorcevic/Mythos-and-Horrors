@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
-            CreateMainButton().SetLogic(CurrentChallenge.ContinueChallenge);
+            CreateMainButton(CurrentChallenge.ContinueChallenge, "Drop");
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {

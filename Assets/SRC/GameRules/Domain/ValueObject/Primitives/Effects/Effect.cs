@@ -12,14 +12,34 @@ namespace MythosAndHorrors.GameRules
 
         public Card Card { get; private set; }
         public Func<Task> Logic { get; private set; }
+        public PlayActionType PlayActionType { get; private set; }
+
         public string CardCode => _investigator?.Code;
         public string Description => _description ?? Logic.GetInvocationList().First().Method.Name;
         public string CardCodeSecundary => _cardAffected?.Info.Code;
 
         /*******************************************************************/
-        public Effect SetCard(Card cardAffected)
+        public Effect()
         {
-            Card = cardAffected;
+        }
+
+
+        public Effect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator = null, Card cardAffected = null, string description = null)
+        {
+            Card = card;
+            Logic = logic;
+            PlayActionType = playActionType;
+            _investigator = investigator;
+            _cardAffected = cardAffected;
+            _description = description;
+        }
+
+        /*******************************************************************/
+
+
+        public Effect SetCard(Card card)
+        {
+            Card = card;
             return this;
         }
 
