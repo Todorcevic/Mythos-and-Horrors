@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
         {
             discardGameAction.Cancel();
             await _gameActionsProvider.Create(new MoveCardsGameAction(discardGameAction.Card, ControlOwner.DeckZone, isFaceDown: true));
-            await _gameActionsProvider.Create(new ShuffleGameAction(ControlOwner.DeckZone)); //Original card is move to last position
+            await _gameActionsProvider.Create(new ChangeCardPositionGameAction(discardGameAction.Card, 0));
         }
 
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)

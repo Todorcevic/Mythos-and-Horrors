@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
         private List<CardView> _allCards = new();
-        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
+        private float YOffSet => (_allCards.Count - 1) * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView)
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameView
                 DOTween.Sequence().Join(_allCards[i].transform.DOShakeRotation(ViewValues.DEFAULT_TIME_ANIMATION + 0.001f)) // + 0.001f to avoid warning
                 .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX(Random.value - 0.25f, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
                 .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f)))
-                .Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * (i + 1), ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION))
                 );
             }
 
@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameView
 
             for (int i = 0; i < _allCards.Count; i++)
             {
-                ChangePositionSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * (i + 1), ViewValues.DEFAULT_TIME_ANIMATION));
+                ChangePositionSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION));
             }
 
             ChangePositionSequence.Append(cardViewToChane.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION));

@@ -84,8 +84,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01510 cardCondition = _cardsProvider.GetCard<Card01510>();
+            Card01580 basicCard = _cardsProvider.GetCard<Card01580>();
 
             yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(basicCard, investigator.DeckZone, isFaceDown: true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator.DiscardZone)).AsCoroutine();
 
