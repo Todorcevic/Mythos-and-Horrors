@@ -27,12 +27,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => _investigatorsProvider.AllInvestigatorsInPlay, ChallengePower));
+            await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsToChallenge, ChallengePower));
 
             /*******************************************************************/
+
+            IEnumerable<Investigator> InvestigatorsToChallenge() => _investigatorsProvider.AllInvestigatorsInPlay;
+
             async Task ChallengePower(Investigator investigator)
             {
-                await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power, 6, "Power Challenge", failEffect: AddMadness, cardToChallenge: this));
+                await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power, 6, $"{investigator.InvestigatorCard.Info.Name} Power Challenge", failEffect: AddMadness, cardToChallenge: this));
 
                 /*******************************************************************/
                 async Task AddMadness()

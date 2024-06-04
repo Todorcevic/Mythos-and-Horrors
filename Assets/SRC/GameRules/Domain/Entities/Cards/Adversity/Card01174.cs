@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             Card placeAffected = _cardsProvider.GetCardWithThisZone(CurrentZone);
             IEnumerable<Effect> investigateEffects = interactableGameAction.AllEffects
                .Where(effects => effects.PlayActionType == PlayActionType.Investigate &&
-               (effects.Card == placeAffected || effects.CardAffected == placeAffected));
+               (effects.CardOwner == placeAffected || effects.CardAffected == placeAffected));
             interactableGameAction.RemoveEffects(investigateEffects);
             await Task.CompletedTask;
         }

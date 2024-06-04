@@ -66,7 +66,7 @@ namespace MythosAndHorrors.GameRules
         {
             payHintToGoalGameAction.Cancel();
             IEnumerable<Investigator> investigatorsToPay = payHintToGoalGameAction.InvestigatorsToPay.Except(new[] { ConfrontedInvestigator });
-            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(payHintToGoalGameAction.CardGoal, investigatorsToPay));
+            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(payHintToGoalGameAction.CardGoal, investigatorsToPay, payHintToGoalGameAction.ActiveInvestigator));
         }
 
         /*******************************************************************/

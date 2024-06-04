@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Effect> moveEffects = interactableGameAction.AllEffects
                 .Where(effects => 
                 effects.PlayActionType == PlayActionType.Move
-                && (effects.Card == this || effects.CardAffected == this));
+                && (effects.CardOwner == this || effects.CardAffected == this));
             interactableGameAction.RemoveEffects(moveEffects);
             await Task.CompletedTask;
         }

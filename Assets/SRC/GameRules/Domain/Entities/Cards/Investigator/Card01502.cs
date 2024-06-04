@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task FreeTomeActivationActivate(Investigator activeInvestigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome", Owner);
             await _gameActionsProvider.Create(new IncrementStatGameAction(Owner.CurrentTurns, 1));
             interactableGameAction.CreateCancelMainButton();
 

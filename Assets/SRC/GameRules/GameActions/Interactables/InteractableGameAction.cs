@@ -22,8 +22,8 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect UndoEffect { get; private set; }
         private Effect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
-        public bool IsUniqueCard => _allCardEffects.Select(effect => effect.Card).UniqueOrDefault() != null;
-        public Card UniqueCard => _allCardEffects.Select(effect => effect.Card).Unique();
+        public bool IsUniqueCard => _allCardEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
+        public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
         private bool NoEffect => MainButtonEffect == null && !_allCardEffects.Any();
         private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
         public bool IsManadatary => MainButtonEffect == null;
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
 
         /*******************************************************************/
-        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description, Investigator activeInvestigator = null)
+        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description, Investigator activeInvestigator)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
@@ -53,12 +53,12 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
-        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.Card == cardAffected);
+        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
 
-        public Effect Create(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator = null, Card cardAffected = null)
+        public Effect Create(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator, Card cardAffected = null)
         {
             Effect effect = new(card, logic, playActionType, investigator, cardAffected);
-            _allCardEffects.Add(effect);
+            if (!ActiveInvestigator.Isolated.IsActive || investigator == ActiveInvestigator) _allCardEffects.Add(effect);
             return effect;
         }
 

@@ -91,6 +91,7 @@ namespace MythosAndHorrors.GameRules
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
+        public State Isolated => InvestigatorCard.Isolated;
 
         /*******************************************************************/
         [Inject]

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
 
-        private float YOffSet => (_allCards.Count - 1) * ViewValues.CARD_THICKNESS;
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
         public int LastIndex => _allCards.Count - 1;
 
         /*******************************************************************/

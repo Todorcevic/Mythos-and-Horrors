@@ -74,6 +74,9 @@ namespace MythosAndHorrors.GameView
         public async Task Hide()
         {
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
+            _investigatorCardController.Disable();
+            _challengeCardController.Disable();
+            _sceneTokenController.Disable();
             _commitCardController.ClearAll();
         }
 

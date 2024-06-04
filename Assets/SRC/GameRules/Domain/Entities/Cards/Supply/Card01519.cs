@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
 
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator", activeInvestigator);
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
                 .Where(investigator => investigator.CanBeHealed))

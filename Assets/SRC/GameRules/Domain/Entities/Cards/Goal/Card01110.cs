@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using UnityEngine.UIElements;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -43,7 +42,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Take decision");
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Take decision", _investigatorsProvider.Leader);
             interactableGameAction.Create(this, BurnIt, PlayActionType.Choose, investigator: _investigatorsProvider.Leader);
             interactableGameAction.Create(this, NoBurn, PlayActionType.Choose, investigator: _investigatorsProvider.Leader);
 

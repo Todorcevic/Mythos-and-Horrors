@@ -34,6 +34,11 @@ namespace MythosAndHorrors.GameView
             _dangerSceneTokensView.UpdateValue(investigator);
             _cultistSceneTokensView.UpdateValue(investigator);
         }
+
+        public void Disable()
+        {
+            isInitialized = false;
+        }
     }
 }
 

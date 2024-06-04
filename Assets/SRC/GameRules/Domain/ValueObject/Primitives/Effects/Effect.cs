@@ -5,22 +5,21 @@ namespace MythosAndHorrors.GameRules
 {
     public record Effect : BaseEffect, IViewEffect
     {
-        private readonly Investigator _investigator;
+        public Card CardOwner { get; }
+        public PlayActionType PlayActionType { get; }
+        public Investigator Investigator { get; }
+        public Card CardAffected { get; }
 
-        public Card Card { get; private set; }
-        public PlayActionType PlayActionType { get; private set; }
-        public Card CardAffected { get; private set; }
-
-        public string CardCode => _investigator?.Code;
+        public string CardCode => Investigator?.Code;
         public string CardCodeSecundary => CardAffected?.Info.Code;
 
         /*******************************************************************/
-        public Effect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator investigator = null, Card cardAffected = null, string description = null)
+        public Effect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Card cardAffected = null, string description = null)
             : base(logic, description)
         {
-            Card = card;
+            CardOwner = card;
             PlayActionType = playActionType;
-            _investigator = investigator;
+            Investigator = playedBy;
             CardAffected = cardAffected;
         }
     }

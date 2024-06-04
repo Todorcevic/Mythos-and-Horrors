@@ -73,9 +73,9 @@ namespace MythosAndHorrors.GameRules
 
             async Task OptativeLogic(T gameAction)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction");
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction", ControlOwner ?? _investigatorsProvider.Leader);
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.Create(this, FullLogic, PlayActionType.Choose, investigator: Owner);
+                interactableGameAction.Create(this, FullLogic, PlayActionType.Choose, investigator: ControlOwner ?? _investigatorsProvider.Leader);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/

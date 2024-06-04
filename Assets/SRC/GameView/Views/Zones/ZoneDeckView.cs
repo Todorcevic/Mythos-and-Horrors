@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
         private List<CardView> _allCards = new();
-        private float YOffSet => (_allCards.Count - 1) * ViewValues.CARD_THICKNESS;
+        private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
         /*******************************************************************/
         public override Tween EnterZone(CardView cardView)

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using System.Linq;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
@@ -43,6 +44,30 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigator.FearRecived, Is.EqualTo(2));
+        }
+
+        [UnityTest]
+        public IEnumerator Peril()
+        {
+            Investigator investigator = _investigatorsProvider.Second;
+            Card01178 cardAdversity = _cardsProvider.GetCard<Card01178>();
+            CardPlot plot = SceneCORE3.PlotCards.ElementAt(1);
+            yield return StartingScene();
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(plot, SceneCORE3.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new DecrementStatGameAction(plot.Eldritch, 4)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            yield return ClickedClone(cardAdversity, 0, isReaction: true);
+            yield return ClickedMainButton();
+            Assert.That(investigator.Isolated.IsActive, Is.True);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.Isolated.IsActive, Is.False);
         }
     }
 }

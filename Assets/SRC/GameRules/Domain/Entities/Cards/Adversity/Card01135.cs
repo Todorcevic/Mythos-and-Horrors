@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Curse };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Curse, Tag.Isolate };
 
         /*******************************************************************/
         [Inject]

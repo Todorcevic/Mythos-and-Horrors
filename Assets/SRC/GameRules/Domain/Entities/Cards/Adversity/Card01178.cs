@@ -8,13 +8,12 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        public override IEnumerable<Tag> Tags => new[] { Tag.Pact };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Pact, Tag.Isolate };
 
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
-
             interactableGameAction.Create(this, DrawAndEldritch, PlayActionType.Choose, investigator: investigator);
             interactableGameAction.Create(this, TakeFear, PlayActionType.Choose, investigator: investigator);
             await _gameActionsProvider.Create(interactableGameAction);

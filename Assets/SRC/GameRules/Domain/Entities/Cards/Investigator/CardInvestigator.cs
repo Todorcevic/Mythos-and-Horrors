@@ -28,6 +28,7 @@ namespace MythosAndHorrors.GameRules
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
         public State IsPlaying { get; private set; }
+        public State Isolated { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
 
@@ -55,6 +56,7 @@ namespace MythosAndHorrors.GameRules
             Resign = CreateState(false);
             Defeated = CreateState(false);
             IsPlaying = CreateState(false);
+            Isolated = CreateState(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
