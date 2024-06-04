@@ -1,0 +1,48 @@
+﻿using MythosAndHorrors.GameRules;
+using NUnit.Framework;
+using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine.TestTools;
+using MythosAndHorrors.PlayMode.Tests;
+
+namespace MythosAndHorrors.PlayModeCORE3.Tests
+{
+    public class CardAdversity01178Tests : TestCORE3Preparation
+    {
+        //protected override TestsType TestsType => TestsType.Debug;
+
+        [UnityTest]
+        public IEnumerator ChooseDrawCards()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Card01178 cardAdversity = _cardsProvider.GetCard<Card01178>();
+
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+
+            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            int currentDeckSize = investigator.DeckZone.Cards.Count;
+            yield return ClickedClone(cardAdversity, 0, isReaction: true);
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(SceneCORE3.CurrentPlot.AmountOfEldritch, Is.EqualTo(2));
+            Assert.That(investigator.DeckZone.Cards.Count, Is.EqualTo(currentDeckSize - 2));
+        }
+
+        [UnityTest]
+        public IEnumerator ChooseTakeFear()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Card01178 cardAdversity = _cardsProvider.GetCard<Card01178>();
+
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+
+            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            yield return ClickedClone(cardAdversity, 1, isReaction: true);
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+        }
+    }
+}

@@ -4,13 +4,33 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01178 : CardAdversity
+    public class Card01178 : CardAdversityLimbo
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Pact };
 
+        /*******************************************************************/
+        protected override async Task ObligationLogic(Investigator investigator)
+        {
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
 
+            interactableGameAction.Create(this, DrawAndEldritch, PlayActionType.Choose, investigator: investigator);
+            interactableGameAction.Create(this, TakeFear, PlayActionType.Choose, investigator: investigator);
+            await _gameActionsProvider.Create(interactableGameAction);
+
+            async Task DrawAndEldritch()
+            {
+                await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
+                await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
+                await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 2));
+                await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            }
+
+            async Task TakeFear()
+            {
+                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 2));
+            }
+        }
     }
 }
