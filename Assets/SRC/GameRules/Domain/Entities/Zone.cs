@@ -44,6 +44,16 @@ namespace MythosAndHorrors.GameRules
             _cards.Remove(card);
         }
 
+        public void ChangePositionOf(Card card, int position)
+        {
+            if (card == null) throw new ArgumentNullException(nameof(card));
+            if (!_cards.Contains(card)) throw new ArgumentException("Card not in zone", card.Info.Code);
+            if (position < 0 || position >= _cards.Count) throw new ArgumentOutOfRangeException(nameof(position));
+
+            _cards.Remove(card);
+            _cards.Insert(position, card);
+        }
+
         public void ReorderCardsWith(IEnumerable<Card> cards)
         {
             if (cards == null) throw new ArgumentNullException(nameof(cards));

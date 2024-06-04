@@ -8,6 +8,7 @@ using MythosAndHorrors.PlayMode.Tests;
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
 
+
     public class CardAdversity01598Tests : TestCORE3Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;

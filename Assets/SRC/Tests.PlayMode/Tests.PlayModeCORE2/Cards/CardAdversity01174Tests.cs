@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardAdversity01174Tests : TestCORE2Preparation
     {
-        //protected override TestsType TestsType => TestsType.Integration;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator SolvingChallenge()

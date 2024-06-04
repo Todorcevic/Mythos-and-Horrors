@@ -32,5 +32,7 @@ namespace MythosAndHorrors.GameView
         public abstract Tween MouseExit(CardView cardView);
 
         public virtual Tween Shuffle() => DOTween.Sequence();
+
+        public virtual Tween UpdatePosition(Card card) => DOTween.Sequence();
     }
 }
