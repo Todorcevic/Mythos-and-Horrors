@@ -26,7 +26,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool DiscardCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (CurrentZone.ZoneType != ZoneType.Danger) return false;
+            if ((investigator.CurrentPlace != ControlOwner.CurrentPlace)) return false;
             return true;
         }
 

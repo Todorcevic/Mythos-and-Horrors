@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
     public abstract class CardAdversity : Card
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public GameCommand<Investigator> PlayFromDraw { get; private set; }
 
