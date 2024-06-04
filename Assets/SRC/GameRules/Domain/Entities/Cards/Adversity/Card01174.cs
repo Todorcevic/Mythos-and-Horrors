@@ -21,19 +21,24 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(CreateStat(1), TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
-            //CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
+            CreateReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, isAtStart: true);
         }
 
-        /*******************************************************************/
-        //private async Task ActivationBuff(IEnumerable<Card> enumerable)
-        //{
-        //    await _gameActionsProvider.Create(new IncrementStatGameAction(enumerable.Cast<CardPlace>().Unique().Enigma, 10));
-        //}
+        private async Task AvoidInvestigateLogic(InteractableGameAction interactableGameAction)
+        {
+            Card placeAffected = _cardsProvider.GetCardWithThisZone(CurrentZone);
+            IEnumerable<Effect> investigateEffects = interactableGameAction.AllEffects
+               .Where(effects => effects.PlayActionType == PlayActionType.Investigate &&
+               (effects.Card == placeAffected || effects.CardAffected == placeAffected));
+            interactableGameAction.RemoveEffects(investigateEffects);
+            await Task.CompletedTask;
+        }
 
-        //private async Task DeactivationBuff(IEnumerable<Card> enumerable)
-        //{
-        //    await _gameActionsProvider.Create(new DecrementStatGameAction(enumerable.Cast<CardPlace>().Unique().Enigma, 10));
-        //}
+        private bool AvoidInvestigateCondition(InteractableGameAction interactableGameAction)
+        {
+            if (!IsInPlay) return false;
+            return true;
+        }
 
         private IEnumerable<Card> CardsToBuff()
         {
