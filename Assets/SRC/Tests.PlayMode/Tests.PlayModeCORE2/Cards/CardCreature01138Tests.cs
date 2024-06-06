@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cultist.CurrentZone, Is.EqualTo(SceneCORE2.VictoryZone));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(0));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));
         }
     }
 }

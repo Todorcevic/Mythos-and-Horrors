@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(1));
-            Assert.That(((IDamageable)bulletProof).Health.Value, Is.EqualTo(2));
+            Assert.That(((IDamageable)bulletProof).HealthLeft, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(2));
-            Assert.That(investigator.Sanity.Value, Is.EqualTo(4));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
     }
 }

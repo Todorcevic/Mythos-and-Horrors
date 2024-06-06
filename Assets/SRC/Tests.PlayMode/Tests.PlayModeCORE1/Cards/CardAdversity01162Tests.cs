@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
         }
     }
 }

@@ -20,12 +20,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
-                { _investigatorsProvider.First.Health, 4},
-                { _investigatorsProvider.First.Sanity, 2},
-                { _investigatorsProvider.Second.Health, 2},
-                { _investigatorsProvider.Second.Sanity, 2},
-                { _investigatorsProvider.Third.Sanity, 1},
-                { _investigatorsProvider.Fourth.Health, 1}
+                { _investigatorsProvider.First.DamageRecived, 4},
+                { _investigatorsProvider.First.FearRecived, 2},
+                { _investigatorsProvider.Second.DamageRecived, 2},
+                { _investigatorsProvider.Second.FearRecived, 2},
+                { _investigatorsProvider.Third.DamageRecived, 1},
+                { _investigatorsProvider.Fourth.FearRecived, 1}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(3));
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.Second.Health.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(2));
         }
     }

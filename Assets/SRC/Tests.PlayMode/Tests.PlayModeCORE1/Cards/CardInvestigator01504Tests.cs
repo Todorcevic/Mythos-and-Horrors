@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(investigatorToTest.Sanity, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigatorToTest.FearRecived, 3)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             yield return ClickedIn(investigatorToTest.CurrentPlace);
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(creature);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(creature.Health.Value, Is.EqualTo(1));
+            Assert.That(creature.HealthLeft, Is.EqualTo(1));
         }
     }
 }

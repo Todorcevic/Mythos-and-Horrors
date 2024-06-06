@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Cellar, _chaptersProvider.CurrentScene.GetPlaceZone(1, 3))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Cellar)).AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
         }
     }
 }

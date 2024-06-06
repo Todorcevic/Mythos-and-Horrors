@@ -42,8 +42,8 @@ namespace MythosAndHorrors.GameRules
         public bool HasSlotsExeded => GetAllSlotsExeded().Any();
 
         /*******************************************************************/
-        public bool CanBeHealed => Health.Value < InitialHealth;
-        public bool CanBeRestoreSanity => Sanity.Value < InitialSanity;
+        public bool CanBeHealed => DamageRecived.Value > 0;
+        public bool CanBeRestoreSanity => FearRecived.Value > 0;
         public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
         public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
@@ -52,8 +52,8 @@ namespace MythosAndHorrors.GameRules
         public int DefaultSanity => InvestigatorCard.Info.Sanity ?? 0;
         public int InitialHealth => DefaultHealth - Injury.Value;
         public int InitialSanity => DefaultSanity - Shock.Value;
-        public int DamageRecived => InitialHealth - Health.Value;
-        public int FearRecived => InitialSanity - Sanity.Value;
+        public int HealthLeft => InvestigatorCard.Health.Value - DamageRecived.Value;
+        public int SanityLeft => InvestigatorCard.Sanity.Value - FearRecived.Value;
         public int HandSize => HandZone.Cards.Count;
         public int AmountCardsInPlay => CardsInPlay.Count();
         public string Code => InvestigatorCard.Info.Code;
@@ -74,6 +74,8 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Health => InvestigatorCard.Health;
         public Stat Sanity => InvestigatorCard.Sanity;
+        public Stat DamageRecived => InvestigatorCard.DamageRecived;
+        public Stat FearRecived => InvestigatorCard.FearRecived;
         public Stat Strength => InvestigatorCard.Strength;
         public Stat Agility => InvestigatorCard.Agility;
         public Stat Intelligence => InvestigatorCard.Intelligence;

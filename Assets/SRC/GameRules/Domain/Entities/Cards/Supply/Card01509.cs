@@ -14,14 +14,14 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item, Tag.Weakness };
 
-        public Stat Fear { get; private set; }
+        public Stat ChargeFear { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ExtraStat = Fear = CreateStat(3);
+            ExtraStat = ChargeFear = CreateStat(3);
             CreateReaction<MoveCardsGameAction>(PrepareCondition, PrepareLogic, true);
             CreateReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, false);
             CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!IsInPlay) return false;
-            if (Fear.Value > 0) return false;
+            if (ChargeFear.Value > 0) return false;
             return true;
         }
 
@@ -45,14 +45,14 @@ namespace MythosAndHorrors.GameRules
         private bool TakeFearCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
-            if (Fear.Value < 1) return false;
+            if (ChargeFear.Value < 1) return false;
             return true;
         }
 
         private async Task TakeFearLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Fear, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(ChargeFear, 1));
         }
 
         /*******************************************************************/
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PrepareLogic(MoveCardsGameAction moveCardGameAction)
         {
             moveCardGameAction.AllMoves[this] = new(ControlOwner.DangerZone, false);
-            await _gameActionsProvider.Create(new UpdateStatGameAction(Fear, 3));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(ChargeFear, 3));
         }
 
         private bool PrepareCondition(MoveCardsGameAction moveCardGameAction)

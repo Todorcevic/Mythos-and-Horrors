@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(SceneCORE3.CurrentGoal.Hints, 0)).AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(2));
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            Assert.That(cardGoal.IsComplete, Is.True);
         }
     }
 }

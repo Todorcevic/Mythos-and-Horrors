@@ -29,8 +29,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -58,8 +58,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
     }
 }

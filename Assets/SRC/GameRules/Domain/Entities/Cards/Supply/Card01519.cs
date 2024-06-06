@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.Create(investigator.AvatarCard, RestoreHealthInvestigator, PlayActionType.Choose, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
 
                 /*******************************************************************/
-                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Health, 1));
+                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create(new RetrieveGameAction(investigator.InvestigatorCard, amountDamageToRecovery: 1));
             }
 
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.Create(investigator.AvatarCard, RestoreSanityInvestigator, PlayActionType.Choose, investigator: activeInvestigator, cardAffected: investigator.InvestigatorCard);
 
                 /*******************************************************************/
-                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Sanity, 1));
+                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new RetrieveGameAction(investigator.InvestigatorCard, amountFearToRecovery: 1));
             }
 
             await _gameActionsProvider.Create(interactableGameAction);

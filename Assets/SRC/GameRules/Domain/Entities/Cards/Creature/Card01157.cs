@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
 
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
         int IVictoriable.Victory => 10;
-        bool IVictoriable.IsVictoryComplete => Health.Value <= 0; //TODO: revisar el reseteo cuando se descarta
+        bool IVictoriable.IsVictoryComplete => HealthLeft <= 0;
         public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
         public CardSupply Lita => _cardsProvider.TryGetCard<Card01117>();
 

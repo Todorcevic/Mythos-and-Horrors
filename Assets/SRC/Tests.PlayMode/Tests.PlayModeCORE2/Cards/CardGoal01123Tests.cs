@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.AllCultists, SceneCORE2.VictoryZone)).AsCoroutine();
 
-            Assert.That(goal.Revealed.IsActive, Is.True);
+            Assert.That(goal.IsComplete, Is.True);
         }
 
         [UnityTest]

@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell, Tag.Spirit };
 
-        protected override Task ExecuteConditionEffect()
+        protected override Task ExecuteConditionEffect(Investigator investigator)
         {
             throw new System.NotImplementedException();
         }

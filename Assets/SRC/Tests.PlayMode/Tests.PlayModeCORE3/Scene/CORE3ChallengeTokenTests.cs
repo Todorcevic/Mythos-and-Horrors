@@ -129,7 +129,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ExecuteChallengeWithOpportunityAttack();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-3));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -141,8 +141,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ExecuteChallengeWithOpportunityAttack();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-5));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
-            Assert.That(investigator.FearRecived, Is.EqualTo(3));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -153,8 +153,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-5));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(0));
-            Assert.That(investigator.FearRecived, Is.EqualTo(0));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(0));
         }
 
         [UnityTest]

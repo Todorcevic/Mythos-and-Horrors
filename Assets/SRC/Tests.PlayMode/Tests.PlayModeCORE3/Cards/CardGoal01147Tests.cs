@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, SceneCORE3.Ritual)).AsCoroutine();
 
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            Assert.That(cardGoal.IsComplete, Is.True);
             Assert.That(SceneCORE3.Ritual.CreaturesInThisPlace.Count(), Is.EqualTo(2));
         }
     }

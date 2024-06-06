@@ -19,9 +19,11 @@ namespace MythosAndHorrors.GameRules
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
 
         /*******************************************************************/
+        public int Position => _chaptersProviders.CurrentScene.GoalCards.IndexOf(this);
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
+        public bool IsComplete => Revealed.StateBeforeUpdate;
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 

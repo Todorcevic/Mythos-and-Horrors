@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new DrawAidGameAction(investigator)).AsCoroutine();
 
             Assert.That(investigator.DiscardZone.Cards.Count(), Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));
         }
     }
 }

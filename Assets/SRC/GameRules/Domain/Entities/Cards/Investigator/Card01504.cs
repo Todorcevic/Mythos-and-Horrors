@@ -19,17 +19,17 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateReaction<UpdateStatGameAction>(DamageBySanityCondition, DamageBySanityLogic, isAtStart: false, isOptative: true);
+            CreateReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, isAtStart: false, isOptative: true);
             CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
         /*******************************************************************/
         protected override async Task StarEffect() => await Task.CompletedTask;
 
-        protected override int StarValue() => Owner.FearRecived;
+        protected override int StarValue() => Owner.FearRecived.Value;
 
         /*******************************************************************/
-        private async Task DamageBySanityLogic(UpdateStatGameAction updateStatGameAction)
+        private async Task DamageBySanityLogic(HarmToCardGameAction harmToCardGameAction)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Harm Creature", Owner);
             interactableGameAction.CreateCancelMainButton();
@@ -48,11 +48,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(interactableGameAction);
         }
 
-        private bool DamageBySanityCondition(UpdateStatGameAction updateStatGameAction)
+        private bool DamageBySanityCondition(HarmToCardGameAction harmToCardGameAction)
         {
-            if (!updateStatGameAction.HasThisStat(Owner.Sanity)) return false;
+            if (harmToCardGameAction.Card != this) return false;
+            if (harmToCardGameAction.TotalFearApply <= 0) return false;
             if (AbilityUsed.IsActive) return false;
-            if (Owner.Sanity.Value >= Owner.Sanity.ValueBeforeUpdate) return false;
             if (!IsInPlay) return false;
             if (!Owner.CreaturesInSamePlace.Any()) return false;
             return true;

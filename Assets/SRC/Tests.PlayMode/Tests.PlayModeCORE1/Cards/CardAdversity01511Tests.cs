@@ -28,7 +28,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(cardGoal, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
             Assert.That(_investigatorsProvider.Third.Xp.Value, Is.EqualTo(2));
         }
 

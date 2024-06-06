@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return _gameActionsProvider.Create(new DrawDangerGameAction(investigator)).AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(adversityCard.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
         }
     }

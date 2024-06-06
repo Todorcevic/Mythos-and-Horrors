@@ -23,8 +23,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new DrawGameAction(investigator, adversity)).AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, adversity, amountDamage: 1, isDirect: true)).AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(adversity);

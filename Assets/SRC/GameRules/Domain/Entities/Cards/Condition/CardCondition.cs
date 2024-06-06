@@ -53,10 +53,10 @@ namespace MythosAndHorrors.GameRules
         private async Task PlayFromHand(PlayFromHandGameAction playFromHandGameAction)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
-            await ExecuteConditionEffect();
+            await ExecuteConditionEffect(playFromHandGameAction.Investigator);
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
-        protected abstract Task ExecuteConditionEffect();
+        protected abstract Task ExecuteConditionEffect(Investigator investigator);
     }
 }

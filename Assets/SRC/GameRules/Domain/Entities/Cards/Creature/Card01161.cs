@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
-            .OrderBy(investigator => investigator.Health.Value).First();
+            .OrderByDescending(investigator => investigator.HealthLeft).First();
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul, Tag.Humanoid, Tag.Monster };
     }
 

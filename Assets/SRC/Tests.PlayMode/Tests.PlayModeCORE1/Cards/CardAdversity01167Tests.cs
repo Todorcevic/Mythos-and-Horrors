@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task drawTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
         }
 
         [UnityTest]

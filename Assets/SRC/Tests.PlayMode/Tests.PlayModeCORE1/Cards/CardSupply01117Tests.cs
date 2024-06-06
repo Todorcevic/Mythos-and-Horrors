@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulVoraz.DamageRecived, Is.EqualTo(2));
+            Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(investigator.Strength.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Strength + 1));
             Assert.That(_investigatorsProvider.Second.Strength.Value, Is.EqualTo(_investigatorsProvider.Second.InvestigatorCard.Info.Strength + 1));
         }

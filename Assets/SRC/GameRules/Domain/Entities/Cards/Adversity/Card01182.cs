@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             {
                 { card.Power, 1 }
             };
-            if (card.Sanity.Value == card.Info.Sanity) stats.Add(card.Sanity, 1); //TODO: Debe ser con el Stat MaxSanity
+            if (card.Sanity.Value == card.Info.Sanity) stats.Add(card.Sanity, 1);
 
             await _gameActionsProvider.Create(new DecrementStatGameAction(stats));
         }

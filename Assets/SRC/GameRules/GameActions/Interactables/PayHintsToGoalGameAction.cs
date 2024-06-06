@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public CardGoal CardGoal { get; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; }
-        public override bool CanBeExecuted => !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
+        public override bool CanBeExecuted => CardGoal.IsInPlay && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
         public List<Effect> EffectsToPay { get; } = new();
 
         /*******************************************************************/

@@ -31,16 +31,16 @@ namespace MythosAndHorrors.GameRules
 
             if (Card is IDamageable damageable)
             {
-                TotalDamageApply = AmountDamage < damageable.Health.Value ? AmountDamage : damageable.Health.Value;
-                statsWithValues.Add(damageable.Health, TotalDamageApply);
+                TotalDamageApply = AmountDamage < damageable.HealthLeft ? AmountDamage : damageable.HealthLeft;
+                statsWithValues.Add(damageable.DamageRecived, TotalDamageApply);
             }
 
             if (Card is IFearable fearable)
             {
-                TotalFearApply = AmountFear < fearable.Sanity.Value ? AmountFear : fearable.Sanity.Value;
-                statsWithValues.Add(fearable.Sanity, TotalFearApply);
+                TotalFearApply = AmountFear < fearable.SanityLeft ? AmountFear : fearable.SanityLeft;
+                statsWithValues.Add(fearable.FearRecived, TotalFearApply);
             }
-            await _gameActionsProvider.Create(new DecrementStatGameAction(statsWithValues));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(statsWithValues));
         }
     }
 }

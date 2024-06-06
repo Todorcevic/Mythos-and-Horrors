@@ -18,11 +18,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new HarmToCardGameAction(cultist, investigator.InvestigatorCard, amountDamage: 2)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cultist, _investigatorsProvider.First)).AsCoroutine();
-            Assert.That(cultist.Health.Value, Is.EqualTo(3));
+            Assert.That(cultist.HealthLeft, Is.EqualTo(3));
             yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cultist, _investigatorsProvider.First)).AsCoroutine();
-            Assert.That(cultist.Health.Value, Is.EqualTo(4));
+            Assert.That(cultist.HealthLeft, Is.EqualTo(4));
             yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cultist, _investigatorsProvider.First)).AsCoroutine();
-            Assert.That(cultist.Health.Value, Is.EqualTo(4));
+            Assert.That(cultist.HealthLeft, Is.EqualTo(4));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(cardGoal, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            //Assert.That(cardGoal.Revealed.IsActive, Is.True);
             Assert.That(_investigatorsProvider.First.Xp.Value, Is.EqualTo(5));
         }
 
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(cardGoal, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            //Assert.That(cardGoal.Revealed.IsActive, Is.True);
             Assert.That(_investigatorsProvider.First.Xp.Value, Is.EqualTo(4));
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(1));
         }

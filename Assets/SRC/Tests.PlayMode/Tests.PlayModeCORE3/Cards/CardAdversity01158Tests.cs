@@ -28,8 +28,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return drawTask.AsCoroutine();
 
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
             Assert.That(investigator.DiscardZone.Cards.Count(), Is.EqualTo(1));
         }
     }

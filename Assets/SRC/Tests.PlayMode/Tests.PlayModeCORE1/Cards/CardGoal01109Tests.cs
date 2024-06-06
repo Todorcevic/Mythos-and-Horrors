@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardGoal.Hints, cardGoal.Hints.Value)).AsCoroutine();
 
             Assert.That(SceneCORE1.Parlor.Revealed.IsActive, Is.True);
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            Assert.That(cardGoal.IsComplete, Is.True);
             Assert.That(SceneCORE1.Lita.CurrentZone, Is.EqualTo(SceneCORE1.Parlor.OwnZone));
             Assert.That(SceneCORE1.GhoulPriest.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
         }
@@ -51,8 +51,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(0));
-            Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            Assert.That(cardGoal.IsComplete, Is.True);
         }
 
         [UnityTest]

@@ -49,8 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(_investigatorsProvider.Leader.Hints.Value, Is.EqualTo(0));
             Assert.That(_investigatorsProvider.Second.Hints.Value, Is.EqualTo(0));
-            Assert.That(cardGoal.Hints.Value, Is.EqualTo(0));
-            Assert.That(cardGoal.Revealed.IsActive, Is.True);
+            Assert.That(cardGoal.IsComplete, Is.True);
         }
 
         [UnityTest]

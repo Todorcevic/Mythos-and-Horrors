@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(cardPlot, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.Leader.FearRecived, Is.EqualTo(2));
+            Assert.That(_investigatorsProvider.Leader.FearRecived.Value, Is.EqualTo(2));
         }
     }
 }

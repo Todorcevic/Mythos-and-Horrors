@@ -12,8 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; private set; }
-        public Stat Health { get; private set; }
-        public Stat Sanity { get; private set; }
+
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }
 
@@ -30,8 +29,6 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
-            if (this is IDamageable) Health = CreateStat(Info.Health ?? 0);
-            if (this is IFearable) Sanity = CreateStat(Info.Sanity ?? 0);
             CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
@@ -56,14 +53,14 @@ namespace MythosAndHorrors.GameRules
             bool DieByDamage()
             {
                 if (this is not IDamageable damageable) return false;
-                if (damageable.Health.Value > 0) return false;
+                if (damageable.HealthLeft > 0) return false;
                 return true; ;
             }
 
             bool DieByFear()
             {
                 if (this is not IFearable fearable) return false;
-                if (fearable.Sanity.Value > 0) return false;
+                if (fearable.SanityLeft > 0) return false;
                 return true;
             }
         }

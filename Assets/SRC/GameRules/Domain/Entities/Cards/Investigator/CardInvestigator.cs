@@ -11,6 +11,8 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Health { get; private set; }
         public Stat Sanity { get; private set; }
+        public Stat DamageRecived { get; private set; }
+        public Stat FearRecived { get; private set; }
         public Stat Strength { get; private set; }
         public Stat Agility { get; private set; }
         public Stat Intelligence { get; private set; }
@@ -39,6 +41,8 @@ namespace MythosAndHorrors.GameRules
         {
             Health = CreateStat(Info.Health ?? 0 - Injury.Value);
             Sanity = CreateStat(Info.Sanity ?? 0 - Shock.Value);
+            DamageRecived = CreateStat(0);
+            FearRecived = CreateStat(0);
             Strength = CreateStat(Info.Strength ?? 0);
             Agility = CreateStat(Info.Agility ?? 0);
             Intelligence = CreateStat(Info.Intelligence ?? 0);
@@ -78,14 +82,14 @@ namespace MythosAndHorrors.GameRules
             bool DieByDamage()
             {
                 if (this is not IDamageable damageable) return false;
-                if (damageable.Health.Value > 0) return false;
+                if (damageable.HealthLeft > 0) return false;
                 return true; ;
             }
 
             bool DieByFear()
             {
                 if (this is not IFearable fearable) return false;
-                if (fearable.Sanity.Value > 0) return false;
+                if (fearable.SanityLeft > 0) return false;
                 return true;
             }
         }

@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public Stat Health { get; private set; }
+        public Stat DamageRecived { get; private set; }
         public Stat Strength { get; private set; }
         public Stat Agility { get; private set; }
         public Stat Damage { get; private set; }
@@ -25,8 +26,8 @@ namespace MythosAndHorrors.GameRules
         public Reaction<UpdateStatesGameAction> ConfrontWhenReadyReaction { get; private set; }
 
         /*******************************************************************/
-        public int DamageRecived => (Info.Health ?? 0) - Health.Value;
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
+        public int HealthLeft => Health.Value - DamageRecived.Value;
         public virtual bool IsConfronted => ConfrontedInvestigator != null;
         public Investigator ConfrontedInvestigator =>
             CurrentZone.ZoneType == ZoneType.Danger ? _investigatorProvider.GetInvestigatorWithThisZone(CurrentZone) : null;
@@ -38,6 +39,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Health = CreateStat(Info.Health ?? 0);
+            DamageRecived = CreateStat(0);
             Strength = CreateStat(Info.Strength ?? 0);
             Agility = CreateStat(Info.Agility ?? 0);
             Damage = CreateStat(Info.CreatureDamage ?? 0);
@@ -55,7 +57,7 @@ namespace MythosAndHorrors.GameRules
         private bool DefeatCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!IsInPlay) return false;
-            if (Health.Value > 0) return false;
+            if (HealthLeft > 0) return false;
             return true;
         }
 

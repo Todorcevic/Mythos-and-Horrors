@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             PlayFromHandTurnsCost.UpdateValue(0);
-            Protected = CreateState(false);
+            Protected = new State(false);
             CreateReaction<PlayInvestigatorGameAction>(PlayFromHandCondition.IsTrueWith, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
@@ -83,7 +83,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect()
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Protected, true));
         }

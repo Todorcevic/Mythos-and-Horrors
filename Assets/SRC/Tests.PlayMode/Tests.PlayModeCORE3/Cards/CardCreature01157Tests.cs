@@ -22,12 +22,12 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
             yield return _gameActionsProvider.Create(new CreatureConfrontAttackGameAction()).AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.DamageRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Second.DamageRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Third.DamageRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.First.FearRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Second.FearRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Third.FearRecived, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.First.DamageRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Third.DamageRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.First.FearRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Second.FearRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Third.FearRecived.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -44,12 +44,12 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.DamageRecived, Is.EqualTo(0));
-            Assert.That(_investigatorsProvider.Second.DamageRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Third.DamageRecived, Is.EqualTo(0));
-            Assert.That(_investigatorsProvider.First.FearRecived, Is.EqualTo(0));
-            Assert.That(_investigatorsProvider.Second.FearRecived, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Third.FearRecived, Is.EqualTo(0));
+            Assert.That(_investigatorsProvider.First.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Third.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(_investigatorsProvider.First.FearRecived.Value, Is.EqualTo(0));
+            Assert.That(_investigatorsProvider.Second.FearRecived.Value, Is.EqualTo(3));
+            Assert.That(_investigatorsProvider.Third.FearRecived.Value, Is.EqualTo(0));
             Assert.That(SceneCORE3.Urmodoth.CurrentPlace, Is.EqualTo(SceneCORE3.MainPath));
         }
 

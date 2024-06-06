@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new DrawDangerGameAction(investigator)).AsCoroutine();
 
             Assert.That(adversityCard2.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(2));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
         }
 
         [UnityTest]

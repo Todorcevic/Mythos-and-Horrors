@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
-            .OrderBy(investigator => investigator.Sanity.Value).First();
+            .OrderByDescending(investigator => investigator.FearRecived.Value).First();
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Monster, Tag.Byakhee };
 

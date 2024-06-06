@@ -62,6 +62,12 @@ namespace MythosAndHorrors.GameRules
             Blancked = CreateState(false, BlankState);
         }
 
+        public async Task Restart()
+        {
+            await _gameActionsProvider.Create(new ResetStatGameAction(_stats));
+            await _gameActionsProvider.Create(new ResetStatesGameAction(_states));
+        }
+
         /************************** REACTIONS ******************************/
         protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
             bool isBase = false, bool isOptative = false) where T : GameAction

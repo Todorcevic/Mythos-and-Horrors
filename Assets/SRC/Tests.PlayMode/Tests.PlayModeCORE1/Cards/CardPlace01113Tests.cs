@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Attick)).AsCoroutine();
 
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -30,10 +30,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Attick)).AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.FearRecived, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.Second.FearRecived, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.Third.FearRecived, Is.EqualTo(1));
-            Assert.That(_investigatorsProvider.Fourth.FearRecived, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.First.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Second.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Third.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(_investigatorsProvider.Fourth.FearRecived.Value, Is.EqualTo(1));
         }
     }
 }

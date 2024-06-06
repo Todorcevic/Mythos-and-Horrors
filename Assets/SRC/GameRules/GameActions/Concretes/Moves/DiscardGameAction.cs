@@ -21,19 +21,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Card, GetDiscardZone()));
-            await ResetStats();
-        }
-
-        private async Task ResetStats()
-        {
-            List<Stat> statsWithValues = new();
-            if (Card is IDamageable damageable) statsWithValues.Add(damageable.Health);
-            if (Card is IFearable fearable) statsWithValues.Add(fearable.Sanity);
-            if (Card is IChargeable chargeable) statsWithValues.Add(chargeable.AmountCharges);
-            if (Card is IBulletable bulletable) statsWithValues.Add(bulletable.AmountBullets);
-            if (Card is ISupplietable supplietable) statsWithValues.Add(supplietable.AmountSupplies);
-            await _gameActionsProvider.Create(new ResetStatGameAction(statsWithValues));
+            Zone zoneToMove = GetDiscardZone();
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Card, zoneToMove));
+            if (zoneToMove != _chaptersProvider.CurrentScene.VictoryZone) await Card.Restart();
         }
 
         private Zone GetDiscardZone()

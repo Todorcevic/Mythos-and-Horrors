@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulVoraz.Health.Value, Is.EqualTo(1));
+            Assert.That(SceneCORE1.GhoulVoraz.HealthLeft, Is.EqualTo(1));
             Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(3));
         }
 

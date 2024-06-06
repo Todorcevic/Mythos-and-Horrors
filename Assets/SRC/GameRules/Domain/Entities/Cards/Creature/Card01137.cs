@@ -20,21 +20,20 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<CreatureAttackGameAction>(HealCondition, HealtLogic, isAtStart: false);
+            CreateReaction<CreatureAttackGameAction>(HealCondition, HealLogic, isAtStart: false);
         }
 
         /*******************************************************************/
-        private async Task HealtLogic(CreatureAttackGameAction creatureAttackGameAction)
+        private async Task HealLogic(CreatureAttackGameAction creatureAttackGameAction)
         {
-            if (Health.Value < Info.Health)
-                await _gameActionsProvider.Create(new IncrementStatGameAction(Health, 1));
+            await _gameActionsProvider.Create(new RetrieveGameAction(this, amountDamageToRecovery: 1));
         }
 
         private bool HealCondition(CreatureAttackGameAction creatureAttackGameAction)
         {
             if (creatureAttackGameAction.Creature != this) return false;
             if (!IsInPlay) return false;
-            if (Health.Value >= Info.Health) return false;
+            if (DamageRecived.Value <= 0) return false;
             return true;
         }
 

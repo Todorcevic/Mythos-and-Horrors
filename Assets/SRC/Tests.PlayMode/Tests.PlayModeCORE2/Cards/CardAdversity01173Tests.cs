@@ -27,8 +27,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE2.Center));
             Assert.That(SceneCORE2.Drew.CurrentPlace, Is.EqualTo(SceneCORE2.Fluvial));
-            Assert.That(investigator.DamageRecived, Is.EqualTo(1));
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
     }
 }

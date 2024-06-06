@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ClickedClone(cardAdversity, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));
         }
 
         [UnityTest]

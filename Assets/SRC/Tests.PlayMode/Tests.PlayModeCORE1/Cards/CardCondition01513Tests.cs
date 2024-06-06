@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedMainButton();
 
-            Assert.That(investigator.FearRecived, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));
         }
     }
 }

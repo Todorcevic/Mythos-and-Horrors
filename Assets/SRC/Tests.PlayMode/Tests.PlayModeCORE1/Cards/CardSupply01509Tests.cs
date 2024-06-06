@@ -57,15 +57,15 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(Necronomicon);
-            Assert.That(investigator.FearRecived, Is.EqualTo(1));
-            Assert.That(Necronomicon.Fear.Value, Is.EqualTo(2));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(Necronomicon.ChargeFear.Value, Is.EqualTo(2));
             yield return ClickedIn(Necronomicon);
             yield return ClickedIn(Necronomicon);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(Necronomicon.CurrentZone, Is.EqualTo(Necronomicon.Owner.DiscardZone));
-            Assert.That(investigator.FearRecived, Is.EqualTo(3));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(3));
         }
     }
 }

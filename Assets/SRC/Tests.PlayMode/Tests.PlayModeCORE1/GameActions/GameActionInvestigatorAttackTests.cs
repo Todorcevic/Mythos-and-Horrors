@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
+            Assert.That(creature.HealthLeft, Is.EqualTo(creature.Info.Health - 1));
         }
 
         [UnityTest]
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health - 1));
+            Assert.That(creature.HealthLeft, Is.EqualTo(creature.Info.Health - 1));
         }
 
         [UnityTest]
@@ -57,8 +57,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(creature.Health.Value, Is.EqualTo(creature.Info.Health));
-            Assert.That(_investigatorsProvider.First.DamageRecived, Is.EqualTo(1));
+            Assert.That(creature.HealthLeft, Is.EqualTo(creature.Info.Health));
+            Assert.That(_investigatorsProvider.First.DamageRecived.Value, Is.EqualTo(1));
         }
     }
 }
