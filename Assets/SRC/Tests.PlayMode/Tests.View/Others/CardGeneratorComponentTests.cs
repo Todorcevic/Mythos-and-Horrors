@@ -66,7 +66,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Assert.That(result is DeckCardView);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
-            Assert.That(result.GetPrivateMember<StatView>("_health").gameObject.activeInHierarchy, Is.False);
+            Assert.That(result.GetPrivateMember<MultiStatView>("_health").gameObject.activeInHierarchy, Is.False);
             Assert.That(result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentsInChildren<SkillIconView>().Length,
                 Is.EqualTo(card.TotalChallengePoints));
             Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_skillStrengthIcon")));
@@ -110,7 +110,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             DeckCardView result = (DeckCardView)_cardViewsManager.GetCardView(card);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            StatView healthStat = result.GetPrivateMember<StatView>("_health");
+            StatView healthStat = result.GetPrivateMember<MultiStatView>("_health");
             SkillIconsController skillIconsController = result.GetPrivateMember<SkillIconsController>("_skillIconsController");
             Assert.That(result.transform.GetTextFromThis("Cost"), Is.EqualTo(card.Info.Cost.ToString()));
             Assert.That(result.transform.GetTextFromThis("Health"), Is.EqualTo(card.Info.Health.ToString()));
@@ -172,7 +172,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Flavor));
-            Assert.That(result.transform.GetTextFromThis("Eldritch"), Is.EqualTo(card.Info.Eldritch.ToString()));
+            Assert.That(result.transform.GetTextFromThis("EldritchStat"), Is.EqualTo(card.Info.Eldritch.ToString()));
             yield return null;
         }
 

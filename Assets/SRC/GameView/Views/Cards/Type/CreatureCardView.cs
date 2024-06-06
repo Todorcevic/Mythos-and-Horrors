@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -12,7 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _skillFearIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _skillHolder;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _strength;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _agility;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritchableStat;
@@ -37,6 +38,7 @@ namespace MythosAndHorrors.GameView
             if (Card is CardCreature _creature)
             {
                 _health.SetStat(_creature.Health);
+                _health.SetMultiStats(new List<Stat> { _creature.DamageRecived });
                 _strength.SetStat(_creature.Strength);
                 _agility.SetStat(_creature.Agility);
             }

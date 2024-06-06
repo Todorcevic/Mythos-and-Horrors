@@ -11,8 +11,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private List<FactionInvestigatorSO> _factions;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _template;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
+        [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _sanity;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _strength;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _agility;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _intelligence;
@@ -38,6 +38,8 @@ namespace MythosAndHorrors.GameView
             {
                 _health.SetStat(_cardInvestigator.Health);
                 _sanity.SetStat(_cardInvestigator.Sanity);
+                _health.SetMultiStats(new List<Stat> { _cardInvestigator.DamageRecived });
+                _sanity.SetMultiStats(new List<Stat> { _cardInvestigator.FearRecived });
                 _strength.SetStat(_cardInvestigator.Strength, holderImage);
                 _agility.SetStat(_cardInvestigator.Agility, holderImage);
                 _intelligence.SetStat(_cardInvestigator.Intelligence, holderImage);

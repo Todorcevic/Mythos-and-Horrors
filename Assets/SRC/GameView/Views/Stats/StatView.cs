@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
         public bool IsActive => Stat != null;
+        public virtual string ValueToShow => Stat.Value.ToString();
 
         /*******************************************************************/
         public void SetStat(Stat stat, Sprite holderImage = null)
@@ -32,7 +33,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         Tween IStatable.UpdateValue() => DOTween.Sequence()
                   .Append(_value.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InCubic))
-                  .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = Stat.Value.ToString())
+                  .InsertCallback(ViewValues.FAST_TIME_ANIMATION, () => _value.text = ValueToShow)
                   .Append(_value.transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION * 0.75f).SetEase(Ease.OutBack, 3f));
 
 

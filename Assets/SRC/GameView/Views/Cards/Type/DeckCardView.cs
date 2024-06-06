@@ -25,8 +25,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _titleHolder;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
+        [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _health;
+        [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _sanity;
 
         private bool HasCost => _cost.IsActive;
         private bool HasSlot => Card.Info.Slots.Count() > 0;
@@ -65,8 +65,16 @@ namespace MythosAndHorrors.GameView
             if (Card is CardSupply cardSupply)
             {
                 _cost.SetStat(cardSupply.ResourceCost);
-                if (cardSupply is IDamageable damageable) _health.SetStat(damageable.Health);
-                if (cardSupply is IFearable fearable) _sanity.SetStat(fearable.Sanity);
+                if (cardSupply is IDamageable damageable)
+                {
+                    _health.SetStat(damageable.Health);
+                    _health.SetMultiStats(new List<Stat> { damageable.DamageRecived });
+                }
+                if (cardSupply is IFearable fearable)
+                {
+                    _sanity.SetStat(fearable.Sanity);
+                    _sanity.SetMultiStats(new List<Stat> { fearable.FearRecived });
+                }
             }
             else if (Card is CardCondition cardCondition)
             {
