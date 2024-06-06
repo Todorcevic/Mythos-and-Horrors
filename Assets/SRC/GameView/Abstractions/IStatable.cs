@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
+
     public interface IStatable
     {
-        List<Stat> MultiStat => new();
+        //List<Stat> MultiStat => new();
         Stat Stat { get; }
         Transform StatTransform { get; }
         Tween UpdateValue();

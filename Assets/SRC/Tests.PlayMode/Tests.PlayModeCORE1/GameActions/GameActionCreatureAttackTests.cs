@@ -8,6 +8,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionCreatureAttackTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator CreatureAttackTest()
         {

@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameView
                 .ToDictionary(statView => statView, _ => false);
             await SpecialAnimations(updateStatGameAction, statablesUpdated);
 
-            var adasd = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated);
-            Update(adasd, statablesUpdated);
+            IEnumerable<IStatable> allStatables = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated);
+            Update(allStatables, statablesUpdated);
         }
 
         /*******************************************************************/
@@ -53,10 +53,11 @@ namespace MythosAndHorrors.GameView
         private Tween CheckHarm(UpdateStatGameAction updateStatGameAction, Dictionary<IStatable, bool> statablesUpdated)
         {
             Sequence harmSequence = DOTween.Sequence();
-            _cardsProvider.AllCards.OfType<IDamageable>().Where(damagable => updateStatGameAction.HasThisStat(damagable.Health))
-               .ForEach(damagableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(damagableCard.Health), statablesUpdated)));
-            _cardsProvider.AllCards.OfType<IFearable>().Where(damagable => updateStatGameAction.HasThisStat(damagable.Sanity))
-             .ForEach(fearableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(fearableCard.Sanity), statablesUpdated)));
+            var asdasd = _cardsProvider.AllCards.OfType<IDamageable>()
+                  .Where(damagable => updateStatGameAction.HasThisStat(damagable.DamageRecived)).ToList();
+            asdasd.ForEach(damagableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(damagableCard.DamageRecived), statablesUpdated)));
+            _cardsProvider.AllCards.OfType<IFearable>().Where(fearable => updateStatGameAction.HasThisStat(fearable.FearRecived))
+             .ForEach(fearableCard => harmSequence.Join(Update(_statsViewsManager.GetAll(fearableCard.FearRecived), statablesUpdated)));
             return harmSequence;
         }
 
