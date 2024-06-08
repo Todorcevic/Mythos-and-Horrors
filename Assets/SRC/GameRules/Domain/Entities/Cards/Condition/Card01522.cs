@@ -21,9 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not DefeatCardGameAction defeatCardGameAction) return false;
             if (defeatCardGameAction.Card is not CardCreature) return false;
-            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (defeatCardGameAction.ByThisCard != ControlOwner.InvestigatorCard) return false;
-            if (ControlOwner.Resources.Value < ResourceCost.Value) return false;
             if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
             return true;
         }

@@ -26,7 +26,12 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlayFromHandGameAction(this, ControlOwner));
         }
 
-        protected override bool CanPlayFromHandWith(GameAction gameAction) => CanPlayFromHandOverride(gameAction);
+        protected override bool CanPlayFromHandWith(GameAction gameAction)
+        {
+            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
+            if (ControlOwner?.Resources.Value < ResourceCost.Value) return false;
+            return CanPlayFromHandOverride(gameAction);
+        }
         protected abstract bool CanPlayFromHandOverride(GameAction gameAction);
 
         /*******************************************************************/

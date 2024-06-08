@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay", investigator);
                 foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
                 {
-                    interactableGameAction.Create(card, Discard, PlayActionType.Choose, investigator: investigator, cardAffected: this);
+                    interactableGameAction.Create(card, Discard, PlayActionType.Choose, playedBy: investigator, cardAffected: this);
 
                     /*******************************************************************/
                     async Task Discard()

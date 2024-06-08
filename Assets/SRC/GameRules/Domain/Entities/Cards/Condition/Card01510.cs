@@ -71,8 +71,6 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
             if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;
-            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
-            if (ControlOwner.Resources.Value < ResourceCost.Value) return false;
             return true;
         }
 

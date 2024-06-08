@@ -14,8 +14,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
-            interactableGameAction.Create(this, DrawAndEldritch, PlayActionType.Choose, investigator: investigator);
-            interactableGameAction.Create(this, TakeFear, PlayActionType.Choose, investigator: investigator);
+            interactableGameAction.Create(this, DrawAndEldritch, PlayActionType.Choose, playedBy: investigator);
+            interactableGameAction.Create(this, TakeFear, PlayActionType.Choose, playedBy: investigator);
             await _gameActionsProvider.Create(interactableGameAction);
 
             async Task DrawAndEldritch()

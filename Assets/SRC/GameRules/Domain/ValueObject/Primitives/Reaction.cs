@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
         public async Task React(GameAction gameAction)
         {
             if (IsDisable) return;
+            if (gameAction.IsCancel) return;
             if (gameAction is not T realGameAction) return;
             if (!Condition.IsTrueWith(realGameAction)) return;
             await Command.RunWith(realGameAction);

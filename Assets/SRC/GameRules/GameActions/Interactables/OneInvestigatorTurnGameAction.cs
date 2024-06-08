@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(this)))
             {
-                Create((Card)playableFromHand, PlayFromHand, PlayActionType.PlayFromHand, investigator: ActiveInvestigator);
+                Create((Card)playableFromHand, PlayFromHand, PlayActionType.PlayFromHand, playedBy: ActiveInvestigator);
 
                 async Task PlayFromHand() =>
                     await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanInvestigate()) return;
 
-            Create(ActiveInvestigator.CurrentPlace, Investigate, PlayActionType.Investigate, investigator: ActiveInvestigator);
+            Create(ActiveInvestigator.CurrentPlace, Investigate, PlayActionType.Investigate, playedBy: ActiveInvestigator);
 
             bool CanInvestigate()
             {
