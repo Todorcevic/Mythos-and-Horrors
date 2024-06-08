@@ -7,7 +7,6 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardCondition01526Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;

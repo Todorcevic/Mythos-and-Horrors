@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
-        public Stat Stat { get; init; }
+        public Stat Stat { get; private set; }
         public int InitialDifficultValue { get; init; }
         public int StatModifier { get; init; }
         public string ChallengeName { get; init; }
@@ -83,6 +83,11 @@ namespace MythosAndHorrors.GameRules
             IsUndo = true;
             await base.Undo();
             await _challengerPresenter.PlayAnimationWith(this);
+        }
+
+        public void ChangeStat(Stat stat)
+        {
+            Stat = stat;
         }
     }
 }
