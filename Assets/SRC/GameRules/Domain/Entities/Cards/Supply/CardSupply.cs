@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Stat ResourceCost { get; private set; }
-        public Stat PlayFromHandTurnsCost { get; private set; }
+        public Stat PlayFromHandTurnsCost { get; protected set; }
 
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }

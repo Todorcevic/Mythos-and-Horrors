@@ -25,7 +25,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Health.UpdateValue((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
+            RemoveStat(Health);
+            Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
             CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff);
             AvoidGainHintReaction = CreateReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, isAtStart: true);
             AvoidGainHintReaction.Disable();

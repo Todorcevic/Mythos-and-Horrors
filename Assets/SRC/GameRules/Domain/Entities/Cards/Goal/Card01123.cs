@@ -19,7 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Reveal.Disable();
-            Hints.UpdateValue(_investigatorsProvider.AllInvestigators.Count() * 2);
+            RemoveStat(Hints);
+            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.ActivateTurnsCost.UpdateValue(1);
             CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, isAtStart: false);
             CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, isAtStart: false);

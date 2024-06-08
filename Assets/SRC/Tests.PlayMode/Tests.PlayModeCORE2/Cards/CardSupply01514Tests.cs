@@ -99,5 +99,25 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
             Assert.That(investigator.Resources.Value, Is.EqualTo(14));
         }
+
+        [UnityTest]
+        public IEnumerator PlayFromDiscardPileOptativeDiscoverHint()
+        {
+            Investigator investigator = _investigatorsProvider.Fourth;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
+            Card01522 cardCondition = _cardsProvider.GetCard<Card01522>();
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator.DiscardZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.Drew, investigator.DangerZone)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE2.Drew, investigator.InvestigatorCard));
+            yield return ClickedIn(cardCondition);
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+        }
     }
 }

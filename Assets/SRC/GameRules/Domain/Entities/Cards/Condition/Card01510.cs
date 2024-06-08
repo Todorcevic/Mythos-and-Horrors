@@ -6,21 +6,20 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01510 : CardCondition
+    public class Card01510 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
+        protected override bool FastReactionAtStart => true;
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHandTurnsCost.UpdateValue(0);
             Protected = new State(false);
-            CreateReaction<PlayInvestigatorGameAction>(PlayFromHandCondition.IsTrueWith, PlayFromHandReactionLogic, isAtStart: true, isOptative: true);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
@@ -68,12 +67,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task PlayFromHandReactionLogic(GameAction gameAction)
-        {
-            await _gameActionsProvider.Create(new PlayFromHandGameAction(this, ControlOwner));
-        }
-
-        protected override bool CanPlayFromHandWith(GameAction gameAction)
+        protected override bool CanPlayFromHandOverride(GameAction gameAction)
         {
             if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
             if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;

@@ -16,7 +16,8 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            PlayFromHandTurnsCost.UpdateValue(0);
+            RemoveStat(PlayFromHandTurnsCost);
+            PlayFromHandTurnsCost = CreateStat(0);
             CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
         }
         /*******************************************************************/
