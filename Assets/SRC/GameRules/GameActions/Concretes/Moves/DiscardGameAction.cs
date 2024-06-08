@@ -5,6 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class DiscardGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
@@ -23,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         {
             Zone zoneToMove = GetDiscardZone();
             await _gameActionsProvider.Create(new MoveCardsGameAction(Card, zoneToMove));
-            if (zoneToMove != _chaptersProvider.CurrentScene.VictoryZone) await Card.Restart();
+            await _gameActionsProvider.Create(new ResetCardGameAction(Card));
         }
 
         private Zone GetDiscardZone()

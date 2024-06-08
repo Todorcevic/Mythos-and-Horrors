@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(adversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
             Assert.That(ghoulSecuaz.CurrentPlace, Is.EqualTo(SceneCORE1.Study));
             Assert.That(SceneCORE1.Study.Hints.Value, Is.EqualTo(10));
+            Assert.That(investigator.Defeated.IsActive, Is.True);
         }
     }
 }

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01511 : CardAdversity, IVictoriable
+    public class Card01511 : CardAdversity, IVictoriable, IResetable
     {
         private const int AMOUNT_RESOURCE_NEEDED = 6;
 
@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         int IVictoriable.Victory => -2;
         bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
-
 
         /*******************************************************************/
         [Inject]
@@ -63,6 +62,11 @@ namespace MythosAndHorrors.GameRules
             };
             await _gameActionsProvider.Create(new DecrementStatGameAction(resources));
             await _gameActionsProvider.Create(new IncrementStatGameAction(AbilityUsed, 1));
+        }
+
+        public async Task Reset()
+        {
+            await _gameActionsProvider.Create(new UpdateStatGameAction(Resources, Resources.InitialValue));
         }
     }
 }

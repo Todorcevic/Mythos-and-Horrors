@@ -62,12 +62,6 @@ namespace MythosAndHorrors.GameRules
             Blancked = CreateState(false, BlankState);
         }
 
-        public async Task Restart()
-        {
-            await _gameActionsProvider.Create(new ResetStatGameAction(_stats));
-            await _gameActionsProvider.Create(new ResetStatesGameAction(_states));
-        }
-
         /************************** REACTIONS ******************************/
         protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
             bool isBase = false, bool isOptative = false) where T : GameAction
@@ -117,10 +111,15 @@ namespace MythosAndHorrors.GameRules
             return newStat;
         }
 
+        protected void RemoveStat(Stat stat)
+        {
+            _stats.Remove(stat);
+        }
+
         public bool HasThisStat(Stat stat) => _stats.Contains(stat);
 
         /************************** STATE ********************************/
-        protected State CreateState(bool value, Action<bool> action = null)
+        protected State CreateState(bool value, Action<bool> action = null, bool isReseteable = true)
         {
             State newState = new(value, action);
             _states.Add(newState);

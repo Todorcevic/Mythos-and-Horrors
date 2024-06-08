@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01507 : CardAdversity
+    public class Card01507 : CardAdversity, IResetable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -21,13 +21,6 @@ namespace MythosAndHorrors.GameRules
             ExtraStat = Hints = CreateStat(3);
             CreateReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, isAtStart: false, isOptative: true);
             CreateReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, isAtStart: true);
-        }
-
-        /*******************************************************************/
-        protected override async Task PlayAdversityFor(Investigator investigator)
-        {
-            await base.PlayAdversityFor(investigator);
-            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, 3));
         }
 
         /*******************************************************************/
@@ -55,6 +48,11 @@ namespace MythosAndHorrors.GameRules
             if (gainHintGameAction.Investigator.CurrentPlace != ControlOwner.CurrentPlace) return false;
             if (Hints.Value <= 0) return false;
             return true;
+        }
+
+        public async Task Reset()
+        {
+            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, Hints.InitialValue));
         }
     }
 }

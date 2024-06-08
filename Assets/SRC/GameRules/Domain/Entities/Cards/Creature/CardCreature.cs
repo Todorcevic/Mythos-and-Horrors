@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
-        public Stat Health { get; private set; }
+        public Stat Health { get; protected set; }
         public Stat DamageRecived { get; private set; }
         public Stat Strength { get; private set; }
         public Stat Agility { get; private set; }
@@ -50,22 +50,6 @@ namespace MythosAndHorrors.GameRules
             EludeTurnsCost = CreateStat(1);
             ConfrontWhenMoveReaction = CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, false);
             ConfrontWhenReadyReaction = CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, false);
-            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
-        }
-
-        /*******************************************************************/
-        private bool DefeatCondition(UpdateStatGameAction updateStatGameAction)
-        {
-            if (!IsInPlay) return false;
-            if (HealthLeft > 0) return false;
-            return true;
-        }
-
-        private async Task DefeatLogic(UpdateStatGameAction updateStatGameAction)
-        {
-            Card byThisCard = null;
-            if (updateStatGameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;
-            await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
         }
 
         /*******************************************************************/

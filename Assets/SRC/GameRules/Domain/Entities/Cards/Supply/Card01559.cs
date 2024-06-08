@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01559 : CardSupply, IFearable
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public Stat Sanity { get; private set; }
         public Stat FearRecived { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Charm };

@@ -29,7 +29,6 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
-            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
         }
 
         /*******************************************************************/
@@ -41,35 +40,6 @@ namespace MythosAndHorrors.GameRules
             if (challengeType == ChallengeType.Intelligence) return wildAmount + Info.Intelligence ?? 0;
             if (challengeType == ChallengeType.Power) return wildAmount + Info.Power ?? 0;
             return wildAmount;
-        }
-
-        /*******************************************************************/
-        private bool DefeatCondition(UpdateStatGameAction gameAction)
-        {
-            if (!IsInPlay) return false;
-            if (!DieByDamage() && !DieByFear()) return false;
-            return true;
-
-            bool DieByDamage()
-            {
-                if (this is not IDamageable damageable) return false;
-                if (damageable.HealthLeft > 0) return false;
-                return true; ;
-            }
-
-            bool DieByFear()
-            {
-                if (this is not IFearable fearable) return false;
-                if (fearable.SanityLeft > 0) return false;
-                return true;
-            }
-        }
-
-        private async Task DefeatLogic(UpdateStatGameAction updateStatGameAction)
-        {
-            Card byThisCard = null;
-            if (updateStatGameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;
-            await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
         }
 
         /*******************************************************************/

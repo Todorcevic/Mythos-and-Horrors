@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
@@ -99,6 +100,22 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Assert.That(_investigatorsProvider.Second.Injury.Value, Is.EqualTo(2));
             Assert.That(_investigatorsProvider.Third.Injury.Value, Is.EqualTo(2));
             Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaSacrifice), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator Defeated()
+        {
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(_investigatorsProvider.First);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.PlotCards.ElementAt(2), SceneCORE3.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE3.PlotCards.ElementAt(2))).AsCoroutine();
+
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToCardGameAction(SceneCORE3.Urmodoth, _investigatorsProvider.First.InvestigatorCard, amountDamage: SceneCORE3.Urmodoth.Health.Value)).AsCoroutine();
+
+            Assert.That(SceneCORE3.Urmodoth.Defeated.IsActive, Is.True);
+            Assert.That(_investigatorsProvider.First.Xp.Value, Is.GreaterThanOrEqualTo(10));
         }
     }
 }

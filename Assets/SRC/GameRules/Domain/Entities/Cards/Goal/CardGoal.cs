@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
         public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfHints => MaxHints - Hints.Value;
-        public bool IsComplete => Revealed.StateBeforeUpdate;
+        public bool IsComplete => Revealed.IsActive;
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
 

@@ -57,50 +57,18 @@ namespace MythosAndHorrors.GameRules
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
             DrawTurnsCost = CreateStat(1);
             TurnsCost = CreateStat(1);
-            Resign = CreateState(false);
-            Defeated = CreateState(false);
+            Resign = CreateState(false, isReseteable: false);
+            Defeated = CreateState(false, isReseteable: false);
             IsPlaying = CreateState(false);
             Isolated = CreateState(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
-            CreateReaction<UpdateStatGameAction>(DefeatCondition, DefeatLogic, false);
             CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false);
         }
 
         /*******************************************************************/
         protected virtual Task StarEffect() => Task.CompletedTask;
-
         protected virtual int StarValue() => 0;
-
-        /*******************************************************************/
-        private bool DefeatCondition(UpdateStatGameAction gameAction)
-        {
-            if (!IsInPlay) return false;
-            if (!DieByDamage() && !DieByFear()) return false;
-            return true;
-
-            bool DieByDamage()
-            {
-                if (this is not IDamageable damageable) return false;
-                if (damageable.HealthLeft > 0) return false;
-                return true; ;
-            }
-
-            bool DieByFear()
-            {
-                if (this is not IFearable fearable) return false;
-                if (fearable.SanityLeft > 0) return false;
-                return true;
-            }
-        }
-
-        private async Task DefeatLogic(UpdateStatGameAction gameAction)
-        {
-            Card byThisCard = null;
-            if (gameAction.Parent is HarmToCardGameAction harmToCardGameAction) byThisCard = harmToCardGameAction.ByThisCard;
-
-            await _gameActionsProvider.Create(new DefeatCardGameAction(this, byThisCard));
-        }
 
         /*******************************************************************/
         private bool CheckSlotsCondition(MoveCardsGameAction action)
@@ -128,6 +96,13 @@ namespace MythosAndHorrors.GameRules
                 StarTokenValue = StarValue;
                 StarTokenEffect = StarEffect;
             }
+        }
+
+        /*******************************************************************/
+        public async Task Reset()
+        {
+            await _gameActionsProvider.Create(new UpdateStatGameAction(DamageRecived, DamageRecived.InitialValue));
+            await _gameActionsProvider.Create(new UpdateStatGameAction(FearRecived, FearRecived.InitialValue));
         }
     }
 }

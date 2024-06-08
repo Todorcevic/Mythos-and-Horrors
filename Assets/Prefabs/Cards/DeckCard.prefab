@@ -1058,6 +1058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sanity
       objectReference: {fileID: 0}
+    - target: {fileID: 8397700754147102556, guid: 7495938ee64ac4b4cbf70fef2f16ab24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 7495938ee64ac4b4cbf70fef2f16ab24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -1733,6 +1737,10 @@ PrefabInstance:
     - target: {fileID: 8397700754147102556, guid: 7495938ee64ac4b4cbf70fef2f16ab24, type: 3}
       propertyPath: m_Name
       value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397700754147102556, guid: 7495938ee64ac4b4cbf70fef2f16ab24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8473775195063153283, guid: 7495938ee64ac4b4cbf70fef2f16ab24, type: 3}
       propertyPath: m_LocalPosition.x

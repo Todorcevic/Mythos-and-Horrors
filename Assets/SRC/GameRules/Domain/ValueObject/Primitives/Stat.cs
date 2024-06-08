@@ -10,6 +10,7 @@
         public int Value => !_canBeNegative && _value < 0 ? 0 : _value;
         public int ValueBeforeUpdate { get; private set; }
 
+
         /*******************************************************************/
         public Stat(int value, bool canBeNegative)
         {

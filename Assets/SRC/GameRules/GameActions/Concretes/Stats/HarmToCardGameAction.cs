@@ -41,6 +41,21 @@ namespace MythosAndHorrors.GameRules
                 statsWithValues.Add(fearable.FearRecived, TotalFearApply);
             }
             await _gameActionsProvider.Create(new IncrementStatGameAction(statsWithValues));
+
+            if (Card is IDamageable damageableAfter)
+            {
+                if (damageableAfter.HealthLeft <= 0)
+                {
+                    await _gameActionsProvider.Create(new DefeatCardGameAction(Card, ByThisCard));
+                }
+            }
+            if (Card is IFearable fearableAfter)
+            {
+                if (fearableAfter.SanityLeft <= 0)
+                {
+                    await _gameActionsProvider.Create(new DefeatCardGameAction(Card, ByThisCard));
+                }
+            }
         }
     }
 }

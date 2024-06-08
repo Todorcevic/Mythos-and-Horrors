@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class DefeatCardGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Card Card { get; }
         public Card ByThisCard { get; }
@@ -24,6 +23,9 @@ namespace MythosAndHorrors.GameRules
         {
             if (Card is CardInvestigator cardInvestigator)
             {
+                if (cardInvestigator.Owner.HealthLeft < 0) await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Injury, 1));
+                if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Shock, 1));
+
                 await _gameActionsProvider.Create(new EliminateInvestigatorGameAction(cardInvestigator.Owner));
                 await _gameActionsProvider.Create(new UpdateStatesGameAction(cardInvestigator.Defeated, true));
             }

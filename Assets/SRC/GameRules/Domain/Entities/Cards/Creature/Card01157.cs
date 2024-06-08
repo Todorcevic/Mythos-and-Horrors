@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01157 : CardColosus, IStalker, IVictoriable
+    public class Card01157 : CardColosus, IStalker, IVictoriable, IResetable
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -15,16 +15,19 @@ namespace MythosAndHorrors.GameRules
 
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
         int IVictoriable.Victory => 10;
-        bool IVictoriable.IsVictoryComplete => HealthLeft <= 0;
+        bool IVictoriable.IsVictoryComplete => Defeated.IsActive;
         public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
         public CardSupply Lita => _cardsProvider.TryGetCard<Card01117>();
+        public State Defeated { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Health.UpdateValue((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
+            RemoveStat(Health);
+            Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
+            Defeated = CreateState(false);
             CreateReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, false);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
         }
@@ -55,6 +58,11 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (!Exausted.IsActive) return false;
             return true;
+        }
+
+        public async Task Reset()
+        {
+            if (HealthLeft < 1) await _gameActionsProvider.Create(new UpdateStatesGameAction(Defeated, true));
         }
     }
 }
