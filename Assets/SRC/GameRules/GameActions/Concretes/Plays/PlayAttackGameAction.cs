@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         public CardCreature CardCreature { get; }
         public int AmountDamage { get; }
         public int StrengModifier { get; }
+        public AttackGameAction InteractableAttack { get; }
 
         /*******************************************************************/
         public PlayAttackGameAction(Investigator investigator, CardCreature cardCreature, int amountDamage = 1, int strengModifier = 0)
@@ -19,13 +20,14 @@ namespace MythosAndHorrors.GameRules
             CardCreature = cardCreature;
             AmountDamage = amountDamage;
             StrengModifier = strengModifier;
+            InteractableAttack = new AttackGameAction(investigator, cardCreature, amountDamage, strengModifier);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, CardCreature.InvestigatorAttackTurnsCost.Value));
-            await _gameActionsProvider.Create(new AttackGameAction(Investigator, CardCreature, AmountDamage, StrengModifier));
+            await _gameActionsProvider.Create(InteractableAttack);
         }
     }
 }

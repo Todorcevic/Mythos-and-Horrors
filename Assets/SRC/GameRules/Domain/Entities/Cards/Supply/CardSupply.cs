@@ -16,6 +16,8 @@ namespace MythosAndHorrors.GameRules
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }
 
+        public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
+
         /*******************************************************************/
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();

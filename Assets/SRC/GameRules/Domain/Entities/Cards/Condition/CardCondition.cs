@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameRules
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }
         protected abstract bool IsFast { get; }
+        public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
         /*******************************************************************/
         [Inject]

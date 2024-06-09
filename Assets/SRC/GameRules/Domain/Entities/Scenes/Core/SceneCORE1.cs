@@ -22,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         public CardSupply Lita => _cardsProvider.GetCard<Card01117>();
         public CardCreature GhoulSecuaz => _cardsProvider.GetCard<Card01160>();
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
+        public CardCreature GhoulGelid => _cardsProvider.GetCard<Card01119>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
         public override IEnumerable<Card> StartDeckDangerCards => DangerCards.Except(new Card[] { Lita, GhoulPriest });
