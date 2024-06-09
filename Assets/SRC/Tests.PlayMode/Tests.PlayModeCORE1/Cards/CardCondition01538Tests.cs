@@ -66,5 +66,28 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(SceneCORE1.GhoulSecuaz.CurrentPlace, Is.EqualTo(SceneCORE1.Attic));
         }
+
+        [UnityTest]
+        public IEnumerator BlockingConfrontedWheneCreatureInto()
+        {
+            Investigator investigator = _investigatorsProvider.Second;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            Card01538 conditionCard = _cardsProvider.GetCard<Card01538>();
+
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Attic)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, SceneCORE1.Hallway.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulSecuaz, SceneCORE1.Attic)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulVoraz, SceneCORE1.Hallway)).AsCoroutine();
+
+
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(SceneCORE1.Hallway);
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(SceneCORE1.GhoulSecuaz.CurrentPlace, Is.EqualTo(SceneCORE1.Attic));
+            Assert.That(SceneCORE1.GhoulVoraz.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
+        }
     }
 }

@@ -15,9 +15,8 @@ namespace MythosAndHorrors.GameRules
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandWith(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
-            if (!base.CanPlayFromHandWith(gameAction)) return false;
             if (!Firearms.Any()) return false;
             return true;
         }

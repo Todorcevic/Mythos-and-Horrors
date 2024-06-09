@@ -29,9 +29,8 @@ namespace MythosAndHorrors.GameRules
         {
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner?.Resources.Value < ResourceCost.Value) return false;
-            return CanPlayFromHandOverride(gameAction);
+            return CanPlayFromHandSpecific(gameAction);
         }
-        protected abstract bool CanPlayFromHandOverride(GameAction gameAction);
 
         /*******************************************************************/
 

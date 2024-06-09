@@ -13,5 +13,8 @@ namespace MythosAndHorrors.GameRules
         {
             await Task.CompletedTask;
         }
+
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+
     }
 }

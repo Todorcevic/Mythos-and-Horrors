@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         protected override bool FastReactionAtStart => true;
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandOverride(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
             if (gameAction is not CreatureAttackGameAction creatureAttackGameAction) return false;
             if (!ControlOwner.CurrentPlace.InvestigatorsInThisPlace.Contains(creatureAttackGameAction.Investigator)) return false;

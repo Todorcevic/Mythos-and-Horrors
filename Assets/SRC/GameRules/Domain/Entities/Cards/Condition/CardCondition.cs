@@ -48,8 +48,10 @@ namespace MythosAndHorrors.GameRules
             if (ControlOwner != oneInvestigatorTurnGameAction.ActiveInvestigator) return false;
             if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
             if (PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
-            return true;
+            return CanPlayFromHandSpecific(gameAction);
         }
+
+        protected abstract bool CanPlayFromHandSpecific(GameAction gameAction);
 
         private async Task PlayFromHand(PlayFromHandGameAction playFromHandGameAction)
         {

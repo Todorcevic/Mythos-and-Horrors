@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, amount: 1));
         }
 
-        protected override bool CanPlayFromHandOverride(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
             if (gameAction is not DefeatCardGameAction defeatCardGameAction) return false;
             if (defeatCardGameAction.Card is not CardCreature) return false;

@@ -41,5 +41,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
         }
+
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
     }
 }

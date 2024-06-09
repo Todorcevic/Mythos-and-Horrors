@@ -33,5 +33,8 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactable);
         }
+
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+
     }
 }

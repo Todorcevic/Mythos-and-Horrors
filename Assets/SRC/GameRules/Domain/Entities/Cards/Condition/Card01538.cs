@@ -23,16 +23,18 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateReaction<MoveInvestigatorToPlaceGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConforntCantMoveCondition, ConfrontCantMoveLogic, isAtStart: false);
+            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConforntCantMoveCondition, ConfrontCantMoveLogic, isAtStart: true);
             CreateReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, isAtStart: true);
         }
 
         /*******************************************************************/
         private async Task ConfrontCantMoveLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
         {
-            IEnumerable<CardCreature> allCreatures = moveInvestigatorGameAction.Investigators.SelectMany(investigator => investigator.BasicCreaturesConfronted);
-            Dictionary<Card, Zone> allMoves = allCreatures.ToDictionary(creature => (Card)creature, creature => moveInvestigatorGameAction.From[creature.ConfrontedInvestigator].OwnZone);
-            await _gameActionsProvider.Create(new MoveCardsGameAction(allMoves));
+            if (moveInvestigatorGameAction is not MoveInvestigatorAndUnconfront)
+            {
+                moveInvestigatorGameAction.Cancel();
+                await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfront(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace));
+            }
         }
 
         private bool ConforntCantMoveCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
@@ -76,5 +78,8 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.CurrentPlace.OwnZone));
         }
+
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+
     }
 }
