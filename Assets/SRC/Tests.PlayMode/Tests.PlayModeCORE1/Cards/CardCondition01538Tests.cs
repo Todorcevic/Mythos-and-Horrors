@@ -39,7 +39,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.CurrentPlace.OwnZone)).AsCoroutine();
 
-
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(SceneCORE1.Attic);
             yield return ClickedMainButton();

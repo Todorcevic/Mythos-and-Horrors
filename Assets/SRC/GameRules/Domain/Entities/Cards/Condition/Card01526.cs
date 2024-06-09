@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            var Firearms = investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
+            IEnumerable<CardWeapon> Firearms = investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 
             InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm", investigator);
