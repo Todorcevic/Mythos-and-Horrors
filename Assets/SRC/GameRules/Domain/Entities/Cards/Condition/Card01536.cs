@@ -53,19 +53,15 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task DeactivationBuff(IEnumerable<Card> enumerable)
-        {
-            await Task.CompletedTask;
-        }
+        /*******************************************************************/
+        private async Task DeactivationBuff(IEnumerable<Card> enumerable) => await Task.CompletedTask;
 
-        private async Task ActivationBuff(IEnumerable<Card> enumerable)
-        {
-            await Task.CompletedTask;
-        }
+        private async Task ActivationBuff(IEnumerable<Card> enumerable) => await Task.CompletedTask;
 
         private IEnumerable<Card> CardsToBuff() =>
             Swaped.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
 
+        /*******************************************************************/
         protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Swaped, true));

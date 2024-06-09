@@ -6,13 +6,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01510 : CardConditionFast
+    public class Card01510 : CardCondition
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
-        protected override bool FastReactionAtStart => true;
 
         /*******************************************************************/
         [Inject]
@@ -20,24 +19,12 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Protected = new State(false);
+            RemoveStat(PlayFromHandTurnsCost);
+            PlayFromHandTurnsCost = CreateStat(0);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
-
-        /*******************************************************************/
-        private async Task DeactivationBuff(IEnumerable<Card> enumerable)
-        {
-            await Task.CompletedTask;
-        }
-
-        private async Task ActivationBuff(IEnumerable<Card> enumerable)
-        {
-            await Task.CompletedTask;
-        }
-
-        private IEnumerable<Card> CardsToBuff() =>
-            Protected.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
         private async Task CancelAttackCreaturePlayedLogic(CreatureAttackGameAction creatureAttackGameAction)
@@ -67,12 +54,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandOverride(GameAction gameAction)
-        {
-            if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
-            if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;
-            return true;
-        }
+        private async Task DeactivationBuff(IEnumerable<Card> enumerable) => await Task.CompletedTask;
+
+        private async Task ActivationBuff(IEnumerable<Card> enumerable) => await Task.CompletedTask;
+
+        private IEnumerable<Card> CardsToBuff() =>
+            Protected.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(Investigator investigator)
