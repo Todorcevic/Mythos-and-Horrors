@@ -4,19 +4,18 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardConditionFast : CardCondition
+    public abstract class CardConditionTrigged : CardCondition
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         protected abstract bool FastReactionAtStart { get; }
+        protected override bool IsFast => true;
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            RemoveStat(PlayFromHandTurnsCost);
-            PlayFromHandTurnsCost = CreateStat(0);
             CreateReaction<GameAction>(PlayFromHandCondition.IsTrueWith, PlayFromHandReactionLogic, isAtStart: FastReactionAtStart, isOptative: true);
         }
 

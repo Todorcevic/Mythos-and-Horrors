@@ -21,18 +21,18 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateReaction<MoveCardsGameAction>(EnterPlayCondition, EnterPlayLogic, isAtStart: false);
+            CreateReaction<SpawnCreatureGameAction>(EnterPlayCondition, EnterPlayLogic, isAtStart: false);
         }
 
         /*******************************************************************/
-        private async Task EnterPlayLogic(MoveCardsGameAction creatureAttackGameAction)
+        private async Task EnterPlayLogic(SpawnCreatureGameAction spawnCreatureGameAction)
         {
             await _gameActionsProvider.Create(new IncrementStatGameAction(Eldritch, 1));
         }
 
-        private bool EnterPlayCondition(MoveCardsGameAction moveCardGameAction)
+        private bool EnterPlayCondition(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            if (!moveCardGameAction.EnterPlayCardsAfter.Contains(this)) return false;
+            if (spawnCreatureGameAction.Creature != this) return false;
             if (!IsInPlay) return false;
             return true;
         }

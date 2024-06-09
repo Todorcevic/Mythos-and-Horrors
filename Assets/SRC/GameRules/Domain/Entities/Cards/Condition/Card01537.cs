@@ -1,15 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01537 : CardCondition
     {
-        public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
+        protected override bool IsFast => true;
+
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            throw new System.NotImplementedException();
+            await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 1));
+        }
+
+        protected override bool CanPlayFromHandWith(GameAction gameAction)
+        {
+            if (!base.CanPlayFromHandWith(gameAction)) return false;
+            if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
+            return true;
         }
     }
 }

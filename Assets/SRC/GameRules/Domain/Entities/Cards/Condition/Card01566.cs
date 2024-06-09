@@ -7,6 +7,8 @@ namespace MythosAndHorrors.GameRules
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
 
+        protected override bool IsFast => false;
+
         protected override Task ExecuteConditionEffect(Investigator investigator)
         {
             throw new System.NotImplementedException();

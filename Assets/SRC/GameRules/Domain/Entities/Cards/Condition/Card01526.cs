@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Supply };
-
+        protected override bool IsFast => false;
         private IEnumerable<CardWeapon> Firearms => ControlOwner.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 

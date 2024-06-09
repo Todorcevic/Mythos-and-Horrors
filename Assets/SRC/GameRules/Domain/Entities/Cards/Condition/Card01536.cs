@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
         public State Swaped { get; private set; }
+        protected override bool IsFast => true;
 
         /*******************************************************************/
         [Inject]
@@ -18,8 +19,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Swaped = new State(false);
-            RemoveStat(PlayFromHandTurnsCost);
-            PlayFromHandTurnsCost = CreateStat(0);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: false);
             CreateReaction<ChallengePhaseGameAction>(ChangeChallengerCondition, ChangeChallengerReaction, isAtStart: true, isOptative: true);

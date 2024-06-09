@@ -7,16 +7,15 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-
     public class CardCreature01169Tests : TestCORE2Preparation
     {
         [UnityTest]
         public IEnumerator GainEldritch()
         {
             yield return PlaceOnlyScene();
-            CardCreature acolit = SceneCORE2.Acolits.First();
+            Card01169 acolit = SceneCORE2.Acolits.First();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.Fluvial.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(acolit)).AsCoroutine();
 
             Assert.That(acolit.Eldritch.Value, Is.EqualTo(1));
             Assert.That(SceneCORE2.CurrentPlot.Eldritch.Value, Is.EqualTo(6));

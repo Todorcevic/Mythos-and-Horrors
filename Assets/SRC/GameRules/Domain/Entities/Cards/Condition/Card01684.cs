@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
 
+        protected override bool IsFast => false;
 
         protected override Task ExecuteConditionEffect(Investigator investigator)
         {

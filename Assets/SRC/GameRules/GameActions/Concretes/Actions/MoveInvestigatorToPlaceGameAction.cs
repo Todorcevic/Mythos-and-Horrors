@@ -10,17 +10,20 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IEnumerable<Investigator> Investigators { get; }
+        public Dictionary<Investigator, CardPlace> From { get; }
         public CardPlace CardPlace { get; }
 
         /*******************************************************************/
         public MoveInvestigatorToPlaceGameAction(Investigator investigator, CardPlace cardPlace)
         {
+            From = new Dictionary<Investigator, CardPlace> { { investigator, investigator.CurrentPlace } };
             Investigators = new[] { investigator };
             CardPlace = cardPlace;
         }
 
         public MoveInvestigatorToPlaceGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace)
         {
+            From = investigators.ToDictionary(investigator => investigator, investigator => investigator.CurrentPlace);
             Investigators = investigators;
             CardPlace = cardPlace;
         }

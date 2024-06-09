@@ -58,7 +58,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return ExecuteChallenge();
 
-            Assert.That(tokenValue.Result, Is.EqualTo(-4));
+            Assert.That(tokenValue.Result, Is.EqualTo(-3));
         }
 
         [UnityTest]
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return ExecuteChallenge();
 
-            Assert.That(tokenValue.Result, Is.EqualTo(-8));
+            Assert.That(tokenValue.Result, Is.EqualTo(-6));
         }
 
         [UnityTest]
@@ -89,8 +89,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(investigator.NearestCreatures.First(), Is.EqualTo(acolit2));
             Assert.That(tokenValue.Result, Is.EqualTo(-2));
-            Assert.That(acolit2.Eldritch.Value, Is.EqualTo(3)); //+1 for spawn +1 for increment +1 for challenge
-            Assert.That(acolit.Eldritch.Value, Is.EqualTo(4));
+            Assert.That(acolit2.Eldritch.Value, Is.EqualTo(2)); // +1 for increment +1 for challenge
+            Assert.That(acolit.Eldritch.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -105,8 +105,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-2));
-            Assert.That(acolit2.Eldritch.Value, Is.EqualTo(3)); //+1 for spawn +1 for increment +1 for challenge
-            Assert.That(acolit.Eldritch.Value, Is.EqualTo(5));
+            Assert.That(acolit2.Eldritch.Value, Is.EqualTo(2)); //+1 for increment +1 for challenge
+            Assert.That(acolit.Eldritch.Value, Is.EqualTo(4));
         }
 
         [UnityTest]

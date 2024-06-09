@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
                      DangerCards.Except(Cultists) :
                      DangerCards.Except(Cultists).Except(new[] { GhoulPriest });
 
-        public IEnumerable<CardCreature> Acolits => _cardsProvider.AllCards.OfType<Card01169>();
+        public IEnumerable<Card01169> Acolits => _cardsProvider.AllCards.OfType<Card01169>();
 
         /*******************************************************************/
         public override async Task PrepareScene()

@@ -7,6 +7,8 @@ namespace MythosAndHorrors.GameRules
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
 
+        protected override bool IsFast => false;
+
         protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
             await Task.CompletedTask;

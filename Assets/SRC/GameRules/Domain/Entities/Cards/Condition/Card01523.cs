@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01523 : CardConditionFast
+    public class Card01523 : CardConditionTrigged
     {
         private CreatureAttackGameAction _currentCreatureAttackGameAction;
 

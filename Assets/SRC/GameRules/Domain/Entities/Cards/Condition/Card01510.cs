@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
+        protected override bool IsFast => true;
 
         /*******************************************************************/
         [Inject]
@@ -19,8 +20,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Protected = new State(false);
-            RemoveStat(PlayFromHandTurnsCost);
-            PlayFromHandTurnsCost = CreateStat(0);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: true);
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);

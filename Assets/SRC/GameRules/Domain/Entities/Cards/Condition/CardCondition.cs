@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }
+        protected abstract bool IsFast { get; }
 
         /*******************************************************************/
         [Inject]
@@ -20,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
-            PlayFromHandTurnsCost = CreateStat(1);
+            PlayFromHandTurnsCost = CreateStat(IsFast ? 0 : 1);
             PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
             PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
         }

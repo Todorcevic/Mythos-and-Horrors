@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -23,41 +21,14 @@ namespace MythosAndHorrors.GameRules
         public MoveCreatureGameAction(IStalker creature)
         {
             Creature = (CardCreature)creature;
+            Destiny = Creature.GetPlaceToStalkerMove();
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            CardPlace realPlaceToMove = Destiny == null ? StalkerMove() : Creature.CurrentPlace.DistanceTo(Destiny).path;
-            if (realPlaceToMove == Creature.CurrentPlace) return;
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, realPlaceToMove.OwnZone));
-        }
-
-        private CardPlace StalkerMove()
-        {
-            if (Creature is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
-                    Creature.CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
-                    Creature.CurrentPlace;
-
-            Dictionary<Investigator, CardPlace> finalResult = new();
-            (CardPlace path, int distance) winner = (default, int.MaxValue);
-
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
-            {
-                (CardPlace path, int distance) result = Creature.CurrentPlace.DistanceTo(investigator.CurrentPlace);
-                if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
-                else if (result.distance < winner.distance)
-                {
-                    finalResult.Clear();
-                    finalResult.Add(investigator, result.path);
-                    winner = result;
-                }
-            }
-
-            if (Creature is ITarget targetCreature && finalResult.TryGetValue(targetCreature.TargetInvestigator, out CardPlace place))
-                return place;
-
-            return finalResult.First().Value;
+            if (Destiny == Creature.CurrentPlace) return;
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Destiny.OwnZone));
         }
     }
 }

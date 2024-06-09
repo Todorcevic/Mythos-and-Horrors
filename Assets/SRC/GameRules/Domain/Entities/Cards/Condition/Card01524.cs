@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
+        protected override bool IsFast => false;
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(Investigator investigator)
