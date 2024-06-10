@@ -89,7 +89,7 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxTurns => InvestigatorCard.MaxTurns;
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
-        public Stat TurnsCost => InvestigatorCard.TurnsCost;
+        public Stat BasicActionTurnsCost => InvestigatorCard.TurnsCost;
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;

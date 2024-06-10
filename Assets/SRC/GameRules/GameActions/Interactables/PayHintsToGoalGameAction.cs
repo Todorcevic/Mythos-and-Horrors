@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {
-                EffectsToPay.Add(Create(investigator.AvatarCard, PayHint, PlayActionType.Choose, playedBy: investigator));
+                EffectsToPay.Add(CreateEffect(investigator.AvatarCard, PayHint, PlayActionType.Choose, playedBy: investigator));
 
                 /*******************************************************************/
                 async Task PayHint()

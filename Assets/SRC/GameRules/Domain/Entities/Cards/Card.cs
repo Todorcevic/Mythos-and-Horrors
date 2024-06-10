@@ -75,7 +75,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction", ControlOwner ?? _investigatorsProvider.Leader);
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.Create(this, FullLogic, PlayActionType.Choose, playedBy: ControlOwner ?? _investigatorsProvider.Leader);
+                interactableGameAction.CreateEffect(this, FullLogic, PlayActionType.Choose, playedBy: ControlOwner ?? _investigatorsProvider.Leader);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/

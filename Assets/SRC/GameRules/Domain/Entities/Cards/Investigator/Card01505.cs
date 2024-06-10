@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {
-                interactableGameAction.Create(card, Discard, PlayActionType.Choose, playedBy: Owner);
+                interactableGameAction.CreateEffect(card, Discard, PlayActionType.Choose, playedBy: Owner);
 
                 /*******************************************************************/
                 async Task Discard()

@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
 
-        public Effect Create(Card card, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Card cardAffected = null)
+        public Effect CreateEffect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Card cardAffected = null)
         {
             Effect effect = new(card, logic, playActionType, playedBy, cardAffected);
             if (!ActiveInvestigator.Isolated.IsActive || playedBy == ActiveInvestigator) _allCardEffects.Add(effect);

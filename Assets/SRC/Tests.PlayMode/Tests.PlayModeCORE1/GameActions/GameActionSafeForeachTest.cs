@@ -120,7 +120,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             foreach (Card card in investigator.HandZone.Cards)
             {
-                interactableGameAction.Create(card, Activate, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(card, Activate, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
                 async Task Activate()

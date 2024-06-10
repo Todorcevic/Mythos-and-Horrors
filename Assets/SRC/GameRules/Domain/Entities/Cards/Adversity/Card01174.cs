@@ -51,8 +51,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction choose = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge", investigator);
             choose.CreateCancelMainButton();
-            choose.Create(this, StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
-            choose.Create(this, AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
+            choose.CreateEffect(this, StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
+            choose.CreateEffect(this, AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
             await _gameActionsProvider.Create(choose);
 
             /*******************************************************************/

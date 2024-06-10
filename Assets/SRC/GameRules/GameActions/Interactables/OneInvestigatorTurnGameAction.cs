@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(this)))
             {
-                Create((Card)playableFromHand, PlayFromHand, PlayActionType.PlayFromHand, playedBy: ActiveInvestigator);
+                CreateEffect((Card)playableFromHand, PlayFromHand, PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType, playedBy: ActiveInvestigator);
 
                 async Task PlayFromHand() =>
                     await _gameActionsProvider.Create(new PlayFromHandGameAction(playableFromHand, ActiveInvestigator));
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanInvestigate()) return;
 
-            Create(ActiveInvestigator.CurrentPlace, Investigate, PlayActionType.Investigate, playedBy: ActiveInvestigator);
+            CreateEffect(ActiveInvestigator.CurrentPlace, Investigate, PlayActionType.Investigate, playedBy: ActiveInvestigator);
 
             bool CanInvestigate()
             {
@@ -87,7 +87,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanMove()) continue;
 
-                Create(cardPlace, Move, PlayActionType.Move, ActiveInvestigator);
+                CreateEffect(cardPlace, Move, PlayActionType.Move, ActiveInvestigator);
 
                 bool CanMove()
                 {
@@ -106,7 +106,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorAttack()) continue;
 
-                Create(cardCreature, InvestigatorAttack, PlayActionType.Attack, ActiveInvestigator);
+                CreateEffect(cardCreature, InvestigatorAttack, PlayActionType.Attack, ActiveInvestigator);
 
                 bool CanInvestigatorAttack()
                 {
@@ -125,7 +125,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorConfront()) continue;
 
-                Create(cardCreature, InvestigatorConfront, PlayActionType.Confront, ActiveInvestigator);
+                CreateEffect(cardCreature, InvestigatorConfront, PlayActionType.Confront, ActiveInvestigator);
 
                 bool CanInvestigatorConfront()
                 {
@@ -146,7 +146,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorElude()) continue;
 
-                Create(cardCreature, InvestigatorElude, PlayActionType.Elude, ActiveInvestigator);
+                CreateEffect(cardCreature, InvestigatorElude, PlayActionType.Elude, ActiveInvestigator);
 
                 bool CanInvestigatorElude()
                 {
@@ -168,7 +168,7 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation activation in activable.AllActivations)
                 {
                     if (activation.FullCondition(ActiveInvestigator))
-                        Create(activable, Activate, activation.PlayActionType, ActiveInvestigator);
+                        CreateEffect(activable, Activate, PlayActionType.Activate | activation.PlayActionType, ActiveInvestigator);
 
                     async Task Activate() => await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, ActiveInvestigator));
                 }
@@ -180,7 +180,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanDraw()) return;
 
-            Create(ActiveInvestigator.CardAidToDraw, Draw, PlayActionType.Draw, ActiveInvestigator);
+            CreateEffect(ActiveInvestigator.CardAidToDraw, Draw, PlayActionType.Draw, ActiveInvestigator);
         }
 
         private bool CanDraw()
@@ -195,16 +195,17 @@ namespace MythosAndHorrors.GameRules
         private void PrepareTakeResource()
         {
             if (!CanTakeResource()) return;
+            TakeResourceEffect = CreateEffect(null, TakeResource, PlayActionType.TakeResource, ActiveInvestigator);
 
-            TakeResourceEffect = Create(null, TakeResource, PlayActionType.Resource, ActiveInvestigator);
+            /*******************************************************************/
+            async Task TakeResource() => await _gameActionsProvider.Create(new PlayTakeResourceGameAction(ActiveInvestigator));
         }
 
         private bool CanTakeResource()
         {
-            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.TurnsCost.Value) return false;
+            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.BasicActionTurnsCost.Value) return false;
             return true;
         }
 
-        private async Task TakeResource() => await _gameActionsProvider.Create(new PlayTakeResourceGameAction(ActiveInvestigator));
     }
 }

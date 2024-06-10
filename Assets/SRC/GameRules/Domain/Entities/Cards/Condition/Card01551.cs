@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
-        protected override bool IsFast => true;
+        protected override bool IsFast => false;
         public override PlayActionType PlayFromHandActionType => PlayActionType.Attack;
 
         /*******************************************************************/
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseEnemy.Create(creature, AttackEnemy, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, AttackEnemy, PlayActionType.Choose, investigator);
 
                 async Task AttackEnemy()
                 {

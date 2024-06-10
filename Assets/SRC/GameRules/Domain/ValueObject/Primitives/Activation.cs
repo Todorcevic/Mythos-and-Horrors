@@ -9,12 +9,10 @@ namespace MythosAndHorrors.GameRules
         public GameCondition<Investigator> Condition { get; }
         public PlayActionType PlayActionType { get; }
         public bool IsDisable { get; private set; }
-        public bool WithOportunityAttack => !IsFreeActivation && (PlayActionType != PlayActionType.Attack
-            && PlayActionType != PlayActionType.Elude
-            && PlayActionType != PlayActionType.Parley
-            && PlayActionType != PlayActionType.Resign
-            && PlayActionType != PlayActionType.Choose);
+        public bool WithOppotunityAttack => !IsFreeActivation && (PlayActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
+        public bool IsJustActivation => PlayActionType == PlayActionType.Activate;
+
 
         /*******************************************************************/
         public Activation(Stat activateTurnsCost, GameCommand<Investigator> logic, GameCondition<Investigator> condition, PlayActionType playActionType)

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace))
             {
                 interactable.CreateCancelMainButton();
-                interactable.Create(place, Explote, PlayActionType.Choose, investigator);
+                interactable.CreateEffect(place, Explote, PlayActionType.Choose, investigator);
 
                 async Task Explote()
                 {

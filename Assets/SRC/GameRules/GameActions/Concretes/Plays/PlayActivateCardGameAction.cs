@@ -20,8 +20,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, ActivationCard.ActivateTurnsCost.Value));
-            if (ActivationCard.WithOportunityAttack) await _gameActionsProvider.Create(new OpportunityAttackGameAction(Investigator));
+            if (ActivationCard.IsJustActivation)
+            {
+                await _gameActionsProvider.Create(new DecrementStatGameAction(Investigator.CurrentTurns, ActivationCard.ActivateTurnsCost.Value));
+            }
+
+            if (ActivationCard.WithOppotunityAttack)
+            {
+                await _gameActionsProvider.Create(new OpportunityAttackGameAction(Investigator));
+            }
+
             await ActivationCard.PlayFor(Investigator);
         }
     }
