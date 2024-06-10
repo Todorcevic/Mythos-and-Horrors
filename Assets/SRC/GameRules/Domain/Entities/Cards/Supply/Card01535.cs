@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
-                interactableGameAction.CreateEffect(investigatorToSelect.AvatarCard, HealthInvestigator, PlayActionType.Choose, activeInvestigator);
+                interactableGameAction.CreateEffect(investigatorToSelect.AvatarCard, new Stat(0, false), HealthInvestigator, PlayActionType.Choose, activeInvestigator);
 
                 /*******************************************************************/
                 async Task HealthInvestigator()

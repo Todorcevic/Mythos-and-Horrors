@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public async Task<T> Create<T>(T gameAction) where T : GameAction
         {
             _container.Inject(gameAction);
-            if (gameAction is IInitializable initializable) initializable.ExecuteSpecificInitialization();
+            //if (gameAction is IInitializable initializable) initializable.ExecuteSpecificInitialization();
             await gameAction.Start();
             return gameAction;
         }

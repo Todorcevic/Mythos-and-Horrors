@@ -9,10 +9,7 @@ namespace MythosAndHorrors.GameRules
         public GameCondition<Investigator> Condition { get; }
         public PlayActionType PlayActionType { get; }
         public bool IsDisable { get; private set; }
-        public bool WithOppotunityAttack => !IsFreeActivation && (PlayActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
-        public bool IsJustActivation => PlayActionType == PlayActionType.Activate;
-
 
         /*******************************************************************/
         public Activation(Stat activateTurnsCost, GameCommand<Investigator> logic, GameCondition<Investigator> condition, PlayActionType playActionType)
@@ -20,7 +17,7 @@ namespace MythosAndHorrors.GameRules
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;
             Condition = condition;
-            PlayActionType = playActionType;
+            PlayActionType = PlayActionType.Activate | playActionType;
         }
 
         /*******************************************************************/

@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Weapon, Tag.Firearm };
         public Stat AmountBullets { get; private set; }
 
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
@@ -31,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountBullets, 1));
             int strengtIncrement = ControlOwner.CurrentPlace.Hints.Value > 0 ? 3 : 1;
-            await _gameActionsProvider.Create(new PlayAttackGameAction(ControlOwner, creature, 2, strengModifier: strengtIncrement));
+            await _gameActionsProvider.Create(new AttackGameAction(ControlOwner, creature, amountDamage: 2, strengModifier: strengtIncrement));
         }
     }
 }

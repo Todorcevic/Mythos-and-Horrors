@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private BaseEffect UndoEffect => _gameActionsProvider.CurrentInteractable?.UndoEffect;
-        IEnumerable<BaseEffect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<Effect>() : new[] { UndoEffect };
+        IEnumerable<BaseEffect> IPlayable.EffectsSelected => UndoEffect == null ? Enumerable.Empty<CardEffect>() : new[] { UndoEffect };
 
         /*******************************************************************/
         public void OnPointerClick(PointerEventData eventData)

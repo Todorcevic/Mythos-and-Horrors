@@ -168,7 +168,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 
-        protected IEnumerator WaitToCloneClick(Effect effect)
+        protected IEnumerator WaitToCloneClick(CardEffect effect)
         {
             float startTime = Time.realtimeSinceStartup;
 

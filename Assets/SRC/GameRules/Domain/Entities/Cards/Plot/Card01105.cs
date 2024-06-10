@@ -17,8 +17,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select One Effect", _investigatorProvider.Leader);
-            interactableGameAction.CreateEffect(this, DiscardAllInvestigators, PlayActionType.Choose, playedBy: _investigatorProvider.Leader);
-            interactableGameAction.CreateEffect(this, Damage, PlayActionType.Choose, playedBy: _investigatorProvider.Leader, cardAffected: _investigatorProvider.Leader.InvestigatorCard);
+            interactableGameAction.CreateEffect(this, new Stat(0, false), DiscardAllInvestigators, PlayActionType.Choose, playedBy: _investigatorProvider.Leader);
+            interactableGameAction.CreateEffect(this, new Stat(0, false), Damage, PlayActionType.Choose, playedBy: _investigatorProvider.Leader, cardAffected: _investigatorProvider.Leader.InvestigatorCard);
             await _gameActionsProvider.Create(interactableGameAction);
         }
 

@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
-        public Effect ButtonEffect { get; private set; }
+        public CardEffect ButtonEffect { get; private set; }
 
         public ChallengePhaseGameAction CurrentChallenge { get; }
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
             {
-                CreateEffect(commitableCard, Commit, PlayActionType.Commit, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
+                CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
 
                 async Task Commit()
                 {

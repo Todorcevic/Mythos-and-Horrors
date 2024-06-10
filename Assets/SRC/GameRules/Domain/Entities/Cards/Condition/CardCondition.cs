@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
-        public GameCommand<PlayFromHandGameAction> PlayFromHandCommand { get; private set; }
+        public GameCommand<Investigator> PlayFromHandCommand { get; private set; }
         protected abstract bool IsFast { get; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(IsFast ? 0 : 1);
             PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
-            PlayFromHandCommand = new GameCommand<PlayFromHandGameAction>(PlayFromHand);
+            PlayFromHandCommand = new GameCommand<Investigator>(PlayFromHand);
         }
 
         /*******************************************************************/
@@ -54,10 +54,10 @@ namespace MythosAndHorrors.GameRules
 
         protected abstract bool CanPlayFromHandSpecific(GameAction gameAction);
 
-        private async Task PlayFromHand(PlayFromHandGameAction playFromHandGameAction)
+        private async Task PlayFromHand(Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
-            await ExecuteConditionEffect(playFromHandGameAction.Investigator);
+            await ExecuteConditionEffect(investigator);
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 

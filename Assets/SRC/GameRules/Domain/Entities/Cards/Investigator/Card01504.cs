@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, isAtStart: false, isOptative: true);
+            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, isAtStart: false);
             CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
         }
 
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.CreateCancelMainButton();
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateEffect(creature, HarmCreature, PlayActionType.Choose, Owner);
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner);
 
                 /*******************************************************************/
                 async Task HarmCreature()

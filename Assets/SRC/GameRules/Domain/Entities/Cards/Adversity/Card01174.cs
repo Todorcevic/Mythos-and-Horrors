@@ -27,9 +27,8 @@ namespace MythosAndHorrors.GameRules
         private async Task AvoidInvestigateLogic(InteractableGameAction interactableGameAction)
         {
             Card placeAffected = _cardsProvider.GetCardWithThisZone(CurrentZone);
-            IEnumerable<Effect> investigateEffects = interactableGameAction.AllEffects
-               .Where(effects => effects.PlayActionType == PlayActionType.Investigate &&
-               (effects.CardOwner == placeAffected || effects.CardAffected == placeAffected));
+            IEnumerable<CardEffect> investigateEffects = interactableGameAction.AllEffects
+               .Where(effects => effects.IsActionType(PlayActionType.Investigate) && (effects.CardOwner == placeAffected || effects.CardAffected == placeAffected));
             interactableGameAction.RemoveEffects(investigateEffects);
             await Task.CompletedTask;
         }
@@ -51,8 +50,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction choose = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge", investigator);
             choose.CreateCancelMainButton();
-            choose.CreateEffect(this, StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
-            choose.CreateEffect(this, AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
+            choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
+            choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
             await _gameActionsProvider.Create(choose);
 
             /*******************************************************************/

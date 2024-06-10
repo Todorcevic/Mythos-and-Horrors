@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InteractableGameAction : GameAction, IInitializable
     {
-        private readonly List<Effect> _allCardEffects = new();
+        private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect EffectSelected { get; private set; }
         public BaseEffect MainButtonEffect { get; private set; }
         public BaseEffect UndoEffect { get; private set; }
-        private Effect UniqueEffect => _allCardEffects.Unique();
+        private CardEffect UniqueEffect => _allCardEffects.Unique();
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
         public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
         public bool IsManadatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
-        public IEnumerable<Effect> AllEffects => _allCardEffects.ToList();
+        public IEnumerable<CardEffect> AllEffects => _allCardEffects.ToList();
 
 
         /*******************************************************************/
@@ -49,40 +49,41 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
         }
 
-        public Effect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
+        public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
         public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
-        public IEnumerable<Effect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
+        public IEnumerable<CardEffect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
 
-        public Effect CreateEffect(Card card, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Card cardAffected = null)
+        public CardEffect CreateEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType,
+            Investigator playedBy, Card cardAffected = null, Stat resourceCost = null)
         {
-            Effect effect = new(card, logic, playActionType, playedBy, cardAffected);
+            CardEffect effect = new(card, activateTurnCost, logic, playActionType, playedBy, cardAffected, resourceCost: resourceCost);
             if (!ActiveInvestigator.Isolated.IsActive || playedBy == ActiveInvestigator) _allCardEffects.Add(effect);
             return effect;
         }
 
         public BaseEffect CreateMainButton(Func<Task> logic, string description)
         {
-            BaseEffect effect = new(logic, description: description);
+            BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, ActiveInvestigator, description: description);
             MainButtonEffect = effect;
             return effect;
         }
 
         public void CreateCancelMainButton()
         {
-            MainButtonEffect = new BaseEffect(UndoLogic, description: "Cancel");
+            MainButtonEffect = new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, ActiveInvestigator, description: "Cancel");
         }
 
         public void CreateContinueMainButton()
         {
-            MainButtonEffect = new BaseEffect(Continue, description: "Continue");
+            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, ActiveInvestigator, description: "Continue");
             static async Task Continue() => await Task.CompletedTask;
         }
 
         private void SetUndoButton()
         {
-            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(UndoLogic, description: "Back") : null;
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, ActiveInvestigator, description: "Back") : null;
         }
 
         async Task UndoLogic()
@@ -92,9 +93,9 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(lastInteractable);
         }
 
-        public void RemoveEffect(Effect effect) => _allCardEffects.Remove(effect);
+        public void RemoveEffect(CardEffect effect) => _allCardEffects.Remove(effect);
 
-        public void RemoveEffects(IEnumerable<Effect> effects) => effects.ForEach(effect => _allCardEffects.Remove(effect));
+        public void RemoveEffects(IEnumerable<CardEffect> effects) => effects.ForEach(effect => _allCardEffects.Remove(effect));
 
         public void ClearEffects() => _allCardEffects.Clear();
 

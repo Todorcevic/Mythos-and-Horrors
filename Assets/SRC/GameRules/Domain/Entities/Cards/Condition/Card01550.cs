@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in connectedPlacesToMove)
             {
-                interactable.CreateEffect(place, DeconfrontAndMove, PlayActionType.Choose, investigator);
+                interactable.CreateEffect(place, new Stat(0, false), DeconfrontAndMove, PlayActionType.Choose, investigator);
 
                 async Task DeconfrontAndMove() => await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfront(investigator, place));
             }

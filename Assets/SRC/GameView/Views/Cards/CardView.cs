@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
 {
     public abstract class CardView : MonoBehaviour, IPlayable
     {
-        private Effect _cloneEffect;
+        private CardEffect _cloneEffect;
         [Title(nameof(CardView))]
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
         [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
@@ -149,7 +149,7 @@ namespace MythosAndHorrors.GameView
                             .Append(EnableFromCenterShow());
 
         /*******************************************************************/
-        public void SetCloneEffect(Effect effect) => _cloneEffect = effect;
+        public void SetCloneEffect(CardEffect effect) => _cloneEffect = effect;
 
         public void AddBuffs()
         {

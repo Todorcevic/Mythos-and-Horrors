@@ -9,12 +9,15 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardSupply01530Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
-        public IEnumerator PlayFormHandFreeCost()
+        public IEnumerator PlayFromHandFreeCost()
         {
             Card01530 supply = _cardsProvider.GetCard<Card01530>();
             Investigator investigator = _investigatorsProvider.Second;
-            yield return PlayThisInvestigator(investigator, withAvatar: false);
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.HandZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

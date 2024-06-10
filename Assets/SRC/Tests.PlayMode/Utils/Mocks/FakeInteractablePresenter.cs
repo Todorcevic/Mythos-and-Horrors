@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !TakeResourceIsEnable()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            Effect effect = (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect ??
+            CardEffect effect = (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect ??
                 throw new InvalidOperationException("TakeResourceEffect is null");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayAsGroup == null)

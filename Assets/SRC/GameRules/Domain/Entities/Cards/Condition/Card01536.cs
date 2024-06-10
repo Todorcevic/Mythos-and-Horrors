@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             Swaped = new State(false);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
             CreateReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: false);
-            CreateReaction<ChallengePhaseGameAction>(ChangeChallengerCondition, ChangeChallengerReaction, isAtStart: true, isOptative: true);
+            CreateOptativeReaction<ChallengePhaseGameAction>(ChangeChallengerCondition, ChangeChallengerReaction, isAtStart: true);
         }
 
         /*******************************************************************/

@@ -39,12 +39,12 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
-                        interactableGameAction.CreateEffect(activable, Activate, activation.PlayActionType, playedBy: activeInvestigator);
+                        interactableGameAction.CreateEffect(activable, activation.ActivateTurnsCost, Activate, PlayActionType.Choose | activation.PlayActionType, playedBy: activeInvestigator);
 
                     /*******************************************************************/
                     async Task Activate()
                     {
-                        await _gameActionsProvider.Create(new PlayActivateCardGameAction(activation, activeInvestigator));
+                        await activation.PlayFor(activeInvestigator);
                         await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
                     }
                 }

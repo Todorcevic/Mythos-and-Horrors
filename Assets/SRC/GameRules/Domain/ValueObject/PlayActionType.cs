@@ -19,6 +19,6 @@ namespace MythosAndHorrors.GameRules
         Confront = 1 << 10,
         PlayFromHand = 1 << 11,
         Commit = 1 << 12,
-        WithoutOpportunityAttack = Attack | Elude | Parley | Resign | Choose
+        WithoutOpportunityAttack = Attack | Elude | Parley | Resign
     }
 }

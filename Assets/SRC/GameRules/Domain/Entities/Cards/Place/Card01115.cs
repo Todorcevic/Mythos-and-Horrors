@@ -58,10 +58,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task AvoidMoveLogic(InteractableGameAction interactableGameAction)
         {
-            IEnumerable<Effect> moveEffects = interactableGameAction.AllEffects
-                .Where(effects => 
-                effects.PlayActionType == PlayActionType.Move
-                && (effects.CardOwner == this || effects.CardAffected == this));
+            IEnumerable<CardEffect> moveEffects = interactableGameAction.AllEffects
+                .Where(effects => effects.IsActionType(PlayActionType.Move) && (effects.CardOwner == this || effects.CardAffected == this));
             interactableGameAction.RemoveEffects(moveEffects);
             await Task.CompletedTask;
         }

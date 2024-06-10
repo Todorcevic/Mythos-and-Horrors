@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Any();
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
-        public IEnumerable<Effect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
+        public IEnumerable<CardEffect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
@@ -63,24 +63,39 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart,
-            bool isBase = false, bool isOptative = false) where T : GameAction
+        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, Stat resourceCost = null,
+            PlayActionType playActionType = PlayActionType.Choose) where T : GameAction
         {
-            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, isOptative ? OptativeLogic : logic, isAtStart);
-            if (isBase) _baseReactions.Add(newReaction);
-            else _specificReactions.Add(newReaction);
+            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, OptativeLogic, isAtStart);
+            _specificReactions.Add(newReaction);
             return newReaction;
 
             async Task OptativeLogic(T gameAction)
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Optative Reaction", ControlOwner ?? _investigatorsProvider.Leader);
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true,
+                    mustShowInCenter: true,
+                    "Optative Reaction",
+                    ControlOwner ?? _investigatorsProvider.Leader);
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.CreateEffect(this, FullLogic, PlayActionType.Choose, playedBy: ControlOwner ?? _investigatorsProvider.Leader);
+                interactableGameAction.CreateEffect(this,
+                    new Stat(0, false),
+                    FullLogic,
+                    playActionType,
+                    playedBy: ControlOwner ?? _investigatorsProvider.Leader,
+                    resourceCost: resourceCost);
                 await _gameActionsProvider.Create(interactableGameAction);
 
                 /*******************************************************************/
                 async Task FullLogic() => await logic.Invoke(gameAction);
             }
+        }
+
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false) where T : GameAction
+        {
+            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, isAtStart);
+            if (isBase) _baseReactions.Add(newReaction);
+            else _specificReactions.Add(newReaction);
+            return newReaction;
         }
 
         /***************************** ACTIVATIONS *****************************/

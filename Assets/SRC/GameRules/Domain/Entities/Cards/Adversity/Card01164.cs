@@ -24,48 +24,21 @@ namespace MythosAndHorrors.GameRules
         {
             Wasted = CreateState(false);
             CreateReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<PlayMoveInvestigatorGameAction>(WastedByMoveCondition, WasteByMoveLogic, isAtStart: false);
-            CreateReaction<PlayAttackGameAction>(WastedByAttackCondition, WasteByAttackLogic, isAtStart: false);
-            CreateReaction<PlayConfronGameAction>(WastedByConforntCondition, WasteByConfrontLogic, isAtStart: false);
+            CreateReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, isAtStart: false);
             CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic);
         }
 
         /*******************************************************************/
-        private async Task WasteByConfrontLogic(PlayConfronGameAction confrontGameAction)
+        private async Task WasteLogic(PlayEffectGameAction action)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
         }
 
-        private bool WastedByConforntCondition(PlayConfronGameAction playConfrontGameAction)
+        private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {
             if (Wasted.IsActive) return false;
-            if (playConfrontGameAction.Investigator != InvestigatorAffected) return false;
-            return true;
-        }
-
-        /*******************************************************************/
-        private async Task WasteByAttackLogic(PlayAttackGameAction attackGameAction)
-        {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
-        }
-
-        private bool WastedByAttackCondition(PlayAttackGameAction playAttackGameAction)
-        {
-            if (Wasted.IsActive) return false;
-            if (playAttackGameAction.Investigator != InvestigatorAffected) return false;
-            return true;
-        }
-
-        /*******************************************************************/
-        private async Task WasteByMoveLogic(PlayMoveInvestigatorGameAction action)
-        {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
-        }
-
-        private bool WastedByMoveCondition(PlayMoveInvestigatorGameAction playMoveInvestigator)
-        {
-            if (Wasted.IsActive) return false;
-            if (playMoveInvestigator.Investigator != InvestigatorAffected) return false;
+            if ((playEffectGameAction.Effect.PlayActionType & (PlayActionType.Move | PlayActionType.Attack | PlayActionType.Confront)) == 0) return false;
+            if (playEffectGameAction.Effect.Investigator != InvestigatorAffected) return false;
             return true;
         }
 

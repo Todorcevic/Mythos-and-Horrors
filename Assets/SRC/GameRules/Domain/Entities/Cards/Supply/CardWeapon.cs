@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardWeapon : CardSupply
+    public abstract class CardWeapon : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -39,14 +39,13 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
-                chooseEnemy.CreateEffect(creature, () => AttackEnemy(creature), PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), () => AttackEnemy(creature), PlayActionType.Choose, investigator);
             }
 
             await _gameActionsProvider.Create(chooseEnemy);
         }
 
-        protected virtual async Task AttackEnemy(CardCreature creature) =>
-            await _gameActionsProvider.Create(new PlayAttackGameAction(ControlOwner, creature, 2));
+        protected abstract Task AttackEnemy(CardCreature creature);
 
     }
 }

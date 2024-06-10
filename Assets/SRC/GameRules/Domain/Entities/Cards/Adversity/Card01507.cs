@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = Hints = CreateStat(3);
-            CreateReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, isAtStart: false, isOptative: true);
+            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, isAtStart: false);
             CreateReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, isAtStart: true);
         }
 

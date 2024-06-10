@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             interactable.CreateCancelMainButton();
             foreach (CardWeapon firearm in Firearms)
             {
-                interactable.CreateEffect(firearm, Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);
+                interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);
 
                 async Task Reload() => await _gameActionsProvider.Create(new IncrementStatGameAction(((IBulletable)firearm).AmountBullets, 3));
             }

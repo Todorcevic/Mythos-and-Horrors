@@ -21,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         public async Task Start()
         {
             if (!CanBeExecuted || IsCancel) return;
+            if (this is IInitializable initializable) initializable.ExecuteSpecificInitialization();
             InitialSet();
             await _reactionablesProvider.WhenBegin(this);
             if (!CanBeExecuted || IsCancel)

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanChoose()) continue;
 
-                CreateEffect(card, Discard, PlayActionType.Choose, ActiveInvestigator);
+                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator);
 
                 /*******************************************************************/
                 async Task Discard()

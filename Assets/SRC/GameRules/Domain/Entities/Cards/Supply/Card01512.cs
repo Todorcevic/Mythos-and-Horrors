@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
@@ -17,20 +16,22 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<PlayFromHandGameAction>(DrawCondition, DrawLogic, false, isOptative: true);
+            CreateOptativeReaction<PlayEffectGameAction>(DrawCondition, DrawLogic, false);
         }
 
         /*******************************************************************/
-        private async Task DrawLogic(PlayFromHandGameAction action)
+        private async Task DrawLogic(PlayEffectGameAction playEffectGameAction)
         {
             await _gameActionsProvider.Create(new DrawAidGameAction(ControlOwner));
         }
 
-        private bool DrawCondition(PlayFromHandGameAction playFromHandGameAction)
+        private bool DrawCondition(PlayEffectGameAction playEffectGameAction)
         {
             if (!IsInPlay) return false;
-            if (playFromHandGameAction.Investigator != ControlOwner) return false;
-            if (!((Card)playFromHandGameAction.PlayableFromHandCard).HasThisTag(Tag.Spell)) return false;
+            if (playEffectGameAction.Effect is not CardEffect cardEffect) return false;
+            if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
+            if (!playEffectGameAction.Effect.IsActionType(PlayActionType.PlayFromHand)) return false;
+            if (!cardEffect.CardOwner.HasThisTag(Tag.Spell)) return false;
             return true;
         }
     }

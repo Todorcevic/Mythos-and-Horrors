@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         protected override bool IsFast => false;
-        public override PlayActionType PlayFromHandActionType => PlayActionType.Attack;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Attack;
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(Investigator investigator)
@@ -23,13 +23,13 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseEnemy.CreateEffect(creature, AttackEnemy, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), AttackEnemy, PlayActionType.Choose, investigator);
 
                 async Task AttackEnemy()
                 {
-                    PlayAttackGameAction playAttckGameAction = new(investigator, creature, amountDamage: 3);
-                    playAttckGameAction.InteractableAttack.ChangeStat(investigator.Agility);
-                    await _gameActionsProvider.Create(playAttckGameAction);
+                    AttackGameAction playAttackGameAction = new(investigator, creature, amountDamage: 3);
+                    playAttackGameAction.ChangeStat(investigator.Agility);
+                    await _gameActionsProvider.Create(playAttackGameAction);
                 }
             }
 

@@ -51,9 +51,9 @@ namespace MythosAndHorrors.GameView
 
         private List<IPlayable> CreateCardViewClones()
         {
-            List<Effect> effects = originalCardView.Card.PlayableEffects.ToList();
+            List<CardEffect> effects = originalCardView.Card.PlayableEffects.ToList();
             List<IPlayable> newClonesCardView = new();
-            foreach (Effect effect in effects)
+            foreach (CardEffect effect in effects)
             {
                 CardView cloneCardView = originalCardView.CloneToMultiEffect(originalCardView.CurrentZoneView.transform);
                 cloneCardView.SetCloneEffect(effect);

@@ -67,9 +67,11 @@ namespace MythosAndHorrors.GameRules
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)
         {
             if (!IsInPlay) return false;
-            if (discardGameAction.Parent is not PlayFromHandGameAction playFromHandGameAction) return false;
-            if (playFromHandGameAction.Investigator != ControlOwner) return false;
-            if (playFromHandGameAction.Card is not CardCondition) return false;
+            if (discardGameAction.Parent is not PlayEffectGameAction playEffectGameAction) return false;
+            if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
+            if (!playEffectGameAction.Effect.IsActionType(PlayActionType.PlayFromHand)) return false;
+            if (playEffectGameAction.Effect is not CardEffect cardEffect) return false;
+            if (cardEffect.CardOwner is not CardCondition) return false;
             return true;
         }
     }
