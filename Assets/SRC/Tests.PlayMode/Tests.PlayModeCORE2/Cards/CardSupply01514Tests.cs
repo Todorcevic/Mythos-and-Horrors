@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -118,6 +119,27 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator PlayFromDiscardPileOptativeSpecificCondition()
+        {
+            Investigator investigator = _investigatorsProvider.Fourth;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return BuilCard("01565", investigator);
+            Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
+            Card01565 cardCondition = _cardsProvider.GetCard<Card01565>();
+            Card01168 cardAdversity = _cardsProvider.GetCard<Card01168>();
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator.DiscardZone)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            yield return ClickedIn(cardCondition);
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.DangerZone.Cards.Any(), Is.False);
         }
     }
 }
