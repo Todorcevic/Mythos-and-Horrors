@@ -59,8 +59,15 @@ namespace MythosAndHorrors.GameRules
             Investigator playedBy, Card cardAffected = null, Stat resourceCost = null)
         {
             CardEffect effect = new(card, activateTurnCost, logic, playActionType, playedBy, cardAffected, resourceCost: resourceCost);
-            if (!ActiveInvestigator.Isolated.IsActive || playedBy == ActiveInvestigator) _allCardEffects.Add(effect);
+            if (CanBeAdded(effect)) _allCardEffects.Add(effect);
             return effect;
+
+            /*******************************************************************/
+            bool CanBeAdded(CardEffect effect)
+            {
+                if (ActiveInvestigator.Isolated.IsActive && effect.Investigator != ActiveInvestigator) return false;
+                return true;
+            }
         }
 
         public BaseEffect CreateMainButton(Func<Task> logic, string description)

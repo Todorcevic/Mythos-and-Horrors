@@ -12,14 +12,14 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-
+        public State Commited { get; private set; }
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<Investigator> PlayFromHandCommand { get; private set; }
-
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
         /*******************************************************************/
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
+
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
         /*******************************************************************/
@@ -29,6 +29,7 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
+            Commited = CreateState(false);
             PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<Investigator>(PlayFromHand);
         }

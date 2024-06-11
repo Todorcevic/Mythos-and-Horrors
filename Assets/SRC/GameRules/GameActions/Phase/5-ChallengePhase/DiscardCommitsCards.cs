@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private IEnumerable<Card> AllCommitableCards() => _chaptersProvider.CurrentScene.LimboZone.Cards
-            .OfType<ICommitable>().Cast<Card>();
+            .OfType<ICommitable>().Where(comiitable => comiitable.Commited.IsActive).Cast<Card>();
         public override bool CanBeExecuted => AllCommitableCards().Count() > 0;
 
         /*******************************************************************/
@@ -21,6 +21,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task Discard(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
+        private async Task Discard(Card card)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(((ICommitable)card).Commited, false));
+            await _gameActionsProvider.Create(new DiscardGameAction(card));
+        }
     }
 }

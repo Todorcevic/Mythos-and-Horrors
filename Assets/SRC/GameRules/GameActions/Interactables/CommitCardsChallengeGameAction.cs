@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
         public CardEffect ButtonEffect { get; private set; }
-
         public ChallengePhaseGameAction CurrentChallenge { get; }
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
 
@@ -38,12 +37,13 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Commit()
                 {
-                    await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
+                    await _gameActionsProvider.Create(new CommitGameAction((ICommitable)commitableCard));
                     await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, CurrentChallenge));
                 }
             }
         }
 
+        /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await _commitPresenter.PlayAnimationWith(this);

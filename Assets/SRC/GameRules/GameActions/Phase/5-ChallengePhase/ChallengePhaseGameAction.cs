@@ -27,17 +27,18 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
-        public ResultChallengeGameAction Result { get; private set; }
+        public ResultChallengeGameAction ResultChallenge { get; private set; }
 
         public IEnumerable<ChallengeToken> TokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
         public int TotalTokenValue => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
         public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenValue + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
-        public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>();
+        public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>()
+            .Where(comiitable => comiitable.Commited.IsActive);
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
-        public int TotalDifferenceValue => Result.TotalDifferenceValue;
-        public bool? IsSuccessful => Result?.IsSuccessful;
+        public int TotalDifferenceValue => ResultChallenge.TotalDifferenceValue;
+        public bool? IsSuccessful => ResultChallenge?.IsSuccessful;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);
@@ -71,7 +72,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ActiveInvestigator));
             await _gameActionsProvider.Create(new ResolveAllTokensGameAction(ActiveInvestigator));
-            Result = await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
+            ResultChallenge = await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());
