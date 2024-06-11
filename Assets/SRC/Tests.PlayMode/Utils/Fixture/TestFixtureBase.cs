@@ -254,19 +254,5 @@ namespace MythosAndHorrors.PlayMode.Tests
                 SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
             yield return _gameActionsProvider.Create(new AddRequerimentCardGameAction(investigator, cardCreated)).AsCoroutine();
         }
-
-        protected bool IsClickable(Card card)
-        {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
-            {
-                return card.CanBePlayed;
-            }
-            else if (TestsType == TestsType.Integration)
-            {
-                CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
-                return _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor").IsClickable;
-            }
-            return false;
-        }
     }
 }

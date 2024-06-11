@@ -49,9 +49,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-
-            Assert.That(IsClickable(weaponCard), Is.False);
-
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

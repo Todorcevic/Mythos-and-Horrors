@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         [UnityTest]
         public IEnumerator Peril()
         {
-            Investigator investigator = _investigatorsProvider.Second;
+            Investigator investigator = _investigatorsProvider.First;
             Card01178 cardAdversity = _cardsProvider.GetCard<Card01178>();
             CardPlot plot = SceneCORE3.PlotCards.ElementAt(1);
             yield return StartingScene();
@@ -60,8 +60,10 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
-            yield return ClickedMainButton();
             Assert.That(investigator.Isolated.IsActive, Is.True);
+            Assert.That(_gameActionsProvider.CurrentInteractable.AllEffects.All(cardEffect => cardEffect.Investigator == investigator), Is.True);
+
+            yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return ClickedMainButton();

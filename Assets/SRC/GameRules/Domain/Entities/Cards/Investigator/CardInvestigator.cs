@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -63,7 +64,7 @@ namespace MythosAndHorrors.GameRules
             Isolated = CreateState(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
-            CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false);
+            CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false, isBase: true);
         }
 
         /*******************************************************************/

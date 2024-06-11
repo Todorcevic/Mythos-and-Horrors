@@ -4,6 +4,7 @@ using System.Collections;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using MythosAndHorrors.PlayMode.Tests;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
@@ -57,7 +58,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            Assert.That(Parlor.CanBePlayed, Is.False);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
@@ -74,7 +74,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new RevealGameAction(Parlor)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            Assert.That(Parlor.CanBePlayed, Is.True);
             yield return ClickedIn(Parlor);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

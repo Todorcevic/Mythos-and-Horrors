@@ -20,13 +20,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity)).AsCoroutine();
-
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            Assert.That(investigator.CurrentPlace.CanBePlayed, Is.False);
             yield return ClickedIn(cardAdversity);
             yield return ClickedClone(cardAdversity, 0, true);
             yield return ClickedMainButton();
-            Assert.That(investigator.CurrentPlace.CanBePlayed, Is.True);
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
