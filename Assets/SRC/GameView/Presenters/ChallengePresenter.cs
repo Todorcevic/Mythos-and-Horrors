@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengePresenter : IPresenter<ChallengePhaseGameAction>, IPresenter<CommitCardsChallengeGameAction>,
         IPresenter<RevealChallengeTokenGameAction>, IPresenter<ResolveSingleChallengeTokenGameAction>,
-        IPresenter<RestoreChallengeToken>, IPresenter<ResultChallengeGameAction>
+        IPresenter<RestoreChallengeTokenGameAction>, IPresenter<ResultChallengeGameAction>
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameView
             await _challengeBagComponent.ShakeToken(resolveSingleChallengeGA.ChallengeTokenToResolve).AsyncWaitForCompletion();
         }
 
-        async Task IPresenter<RestoreChallengeToken>.PlayAnimationWith(RestoreChallengeToken restoreChallengeToken)
+        async Task IPresenter<RestoreChallengeTokenGameAction>.PlayAnimationWith(RestoreChallengeTokenGameAction restoreChallengeToken)
         {
             await _challengeBagComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore).AsyncWaitForCompletion();
             _challengeComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore);

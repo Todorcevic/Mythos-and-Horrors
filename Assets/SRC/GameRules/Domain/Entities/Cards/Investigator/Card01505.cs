@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new RestoreChallengeToken(revealChallengeToken.ChallengeTokenRevealed));
+                    await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(revealChallengeToken.ChallengeTokenRevealed));
                     await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(Owner));
                 }
             }

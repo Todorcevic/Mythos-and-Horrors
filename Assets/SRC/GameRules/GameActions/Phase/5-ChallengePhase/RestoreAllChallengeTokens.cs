@@ -16,6 +16,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private async Task Restore(ChallengeToken challengeToken) =>
-            await _gameActionsProvider.Create(new RestoreChallengeToken(challengeToken));
+            await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(challengeToken));
     }
 }

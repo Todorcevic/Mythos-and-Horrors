@@ -3,15 +3,15 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class RestoreChallengeToken : GameAction
+    public class RestoreChallengeTokenGameAction : GameAction
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly IPresenter<RestoreChallengeToken> _presenter;
+        [Inject] private readonly IPresenter<RestoreChallengeTokenGameAction> _presenter;
 
         public ChallengeToken ChallengeTokenToRestore { get; init; }
 
         /*******************************************************************/
-        public RestoreChallengeToken(ChallengeToken challengeTokenToRestore)
+        public RestoreChallengeTokenGameAction(ChallengeToken challengeTokenToRestore)
         {
             ChallengeTokenToRestore = challengeTokenToRestore;
         }
