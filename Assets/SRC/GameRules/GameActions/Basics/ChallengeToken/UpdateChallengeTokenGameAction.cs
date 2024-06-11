@@ -13,11 +13,6 @@ namespace MythosAndHorrors.GameRules
         public Func<Investigator, Task> NewEffect { get; }
 
         /*******************************************************************/
-        public UpdateChallengeTokenGameAction(ChallengeToken challengeToken)
-        {
-            ChallengeToken = challengeToken;
-        }
-
         public UpdateChallengeTokenGameAction(ChallengeToken challengeToken, Func<Investigator, int> newValue, Func<Investigator, Task> newEffect)
         {
             ChallengeToken = challengeToken;
@@ -30,9 +25,8 @@ namespace MythosAndHorrors.GameRules
         {
             _OldValue = ChallengeToken.Value;
             _OldEffect = ChallengeToken.Effect;
-            ChallengeToken.ResetToken();
-            if (NewValue != null) ChallengeToken.UpdateValue(NewValue);
-            if (NewEffect != null) ChallengeToken.UpdateEffect(NewEffect);
+            ChallengeToken.UpdateValue(NewValue);
+            ChallengeToken.UpdateEffect(NewEffect);
             await Task.CompletedTask;
         }
 
