@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
         public CardEffect ButtonEffect { get; private set; }

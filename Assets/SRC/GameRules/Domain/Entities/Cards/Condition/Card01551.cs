@@ -23,9 +23,9 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseEnemy.CreateEffect(creature, new Stat(0, false), AttackEnemy, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), AttackCreature, PlayActionType.Choose, investigator);
 
-                async Task AttackEnemy()
+                async Task AttackCreature()
                 {
                     AttackGameAction playAttackGameAction = new(investigator, creature, amountDamage: 3);
                     playAttackGameAction.ChangeStat(investigator.Agility);
