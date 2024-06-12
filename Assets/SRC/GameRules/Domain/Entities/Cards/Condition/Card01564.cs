@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         protected override bool IsFast => false;
 
         /*******************************************************************/
-
         protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
             await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));

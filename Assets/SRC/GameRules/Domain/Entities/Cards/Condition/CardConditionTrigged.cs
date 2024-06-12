@@ -9,14 +9,14 @@ namespace MythosAndHorrors.GameRules
         protected abstract bool FastReactionAtStart { get; }
         protected override bool IsFast => true;
 
-        public Reaction<GameAction> PlayFromHand { get; private set; }
+        public Reaction<GameAction> PlayFromHandReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHand = CreateOptativeReaction<GameAction>(PlayFromHandCondition.IsTrueWith,
+            PlayFromHandReaction = CreateOptativeReaction<GameAction>(PlayFromHandCondition.IsTrueWith,
                 PlayFromHandReactionLogic,
                 isAtStart: FastReactionAtStart,
                 ResourceCost,

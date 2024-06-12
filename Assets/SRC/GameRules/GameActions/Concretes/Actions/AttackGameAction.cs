@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameRules
         public AttackGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
             : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature, statModifier: strengModifier)
         {
-            ActiveInvestigator = investigator;
             CardCreature = creature;
             AmountDamage = amountDamage;
             SuccesEffects.Add(SuccesEffet);
@@ -37,11 +36,12 @@ namespace MythosAndHorrors.GameRules
             await CheckCounterAttack();
         }
 
+        /*******************************************************************/
         private async Task CheckCounterAttack()
         {
             if (CardCreature is not ICounterAttackable) return;
             if (CardCreature.Exausted.IsActive) return;
-            if (IsSuccessful ?? true) return;
+            if ((bool)IsSuccessful) return;
 
             await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }

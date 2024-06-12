@@ -3,34 +3,21 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigateGameAction : GameAction
+    public class InvestigateGameAction : ChallengePhaseGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Investigator Investigator { get; }
         public CardPlace CardPlace { get; }
-        public ChallengePhaseGameAction Challenge { get; private set; }
 
         /*******************************************************************/
-        public InvestigateGameAction(Investigator investigator, CardPlace cardPlace)
+        public InvestigateGameAction(Investigator investigator, CardPlace cardPlace, int intelligenceModifier = 0)
+            : base(investigator.Intelligence, cardPlace.Enigma.Value, "Investigate " + cardPlace.Info.Name, cardToChallenge: cardPlace, statModifier: intelligenceModifier)
         {
-            Investigator = investigator;
             CardPlace = cardPlace;
+            SuccesEffects.Add(SuccesEffet);
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
-        {
-            Challenge = new ChallengePhaseGameAction(
-                Investigator.Intelligence,
-                CardPlace.Enigma.Value,
-                "Investigate" + CardPlace.Info.Name,
-                succesEffect: SuccesEffet,
-                cardToChallenge: CardPlace);
-            await _gameActionsProvider.Create(Challenge);
-
-            /*******************************************************************/
-            async Task SuccesEffet() => await _gameActionsProvider.Create(new GainHintGameAction(Investigator, CardPlace.Hints, 1));
-        }
+        private async Task SuccesEffet() => await _gameActionsProvider.Create(new GainHintGameAction(ActiveInvestigator, CardPlace.Hints, 1));
     }
 }

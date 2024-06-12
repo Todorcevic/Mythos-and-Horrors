@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task MultiFailEffect()
             {
-                for (int i = 0; i < challengeGameAction.TotalDifferenceValue * -1; i++)
+                for (int i = 0; i < challengeGameAction.ResultChallenge.TotalDifferenceValue * -1; i++)
                 {
                     if (investigator.IsInPlay) await FailEffect();
 
                     /*******************************************************************/
                     async Task FailEffect()
                     {
-                        InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, $"Choose: {challengeGameAction.TotalDifferenceValue * -1 - i} left", investigator);
+                        InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, $"Choose: {challengeGameAction.ResultChallenge.TotalDifferenceValue * -1 - i} left", investigator);
                         interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator);
 
                         foreach (Card card in investigator.DiscardableCardsInHand)

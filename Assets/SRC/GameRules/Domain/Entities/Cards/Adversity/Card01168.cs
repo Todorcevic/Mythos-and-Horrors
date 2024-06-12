@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
         private bool FinishCondition(InvestigateGameAction investigateGameAction)
         {
             if (CurrentZone != investigateGameAction.CardPlace.OwnZone) return false;
-            if ((!investigateGameAction.Challenge.IsSuccessful) ?? true) return false;
+            if (!(bool)investigateGameAction.IsSuccessful) return false;
             return true;
         }
 

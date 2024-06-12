@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-    public class CardCondition01551Tests : TestCORE1Preparation
+    public class CardCondition01566Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator Attack()
+        public IEnumerator Evade()
         {
-            Investigator investigator = _investigatorsProvider.Third;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
+            Investigator investigator = _investigatorsProvider.Fourth;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuilCard("01551", investigator);
-            Card01551 conditionCard = _cardsProvider.GetCard<Card01551>();
+            Card01566 conditionCard = _cardsProvider.GetCard<Card01566>();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulGelid, investigator.CurrentPlace)).AsCoroutine();
@@ -28,35 +27,36 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(SceneCORE1.GhoulGelid);
             yield return ClickedMainButton();
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(2));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulGelid.DamageRecived.Value, Is.EqualTo(3));
-            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.True);
+
         }
 
         [UnityTest]
-        public IEnumerator CantAttack()
+        public IEnumerator Dazzle()
         {
-            Investigator investigator = _investigatorsProvider.Third;
+            Investigator investigator = _investigatorsProvider.Fourth;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuilCard("01551", investigator);
-            Card01551 conditionCard = _cardsProvider.GetCard<Card01551>();
+            Card01566 conditionCard = _cardsProvider.GetCard<Card01566>();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulGelid, SceneCORE1.Attic)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulGelid, investigator.CurrentPlace)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
-            yield return ClickedIn(SceneCORE1.Attic);
-            if (TestsType == TestsType.Unit) Assert.That(conditionCard.CanBePlayed, Is.False);
+            yield return ClickedIn(conditionCard);
+            yield return ClickedIn(SceneCORE1.GhoulGelid);
+            yield return ClickedMainButton();
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulGelid.CurrentZone, Is.EqualTo(investigator.DangerZone));
+            Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
+
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
-using static UnityEngine.Networking.UnityWebRequest;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -24,20 +23,19 @@ namespace MythosAndHorrors.GameRules
         public List<Func<Task>> SuccesEffects { get; init; } = new();
         public List<Func<Task>> FailEffects { get; init; } = new();
         public Card CardToChallenge { get; init; }
-
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
         public ResultChallengeGameAction ResultChallenge { get; private set; }
 
-        public IEnumerable<ChallengeToken> TokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
-        public int TotalTokenValue => TokensRevealed.Sum(token => token.Value(ActiveInvestigator));
-        public int TotalChallengeValue => IsAutoFail ? 0 : Stat.Value + TotalTokenValue + CommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
-        public IEnumerable<ICommitable> CommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>()
+
+        private IEnumerable<ChallengeToken> CurrentTokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
+        public int CurrentTotalTokenValue => CurrentTokensRevealed.Sum(token => token.Value(ActiveInvestigator));
+        public int CurrentTotalChallengeValue => IsAutoFail ? 0 : Stat.Value + CurrentTotalTokenValue + CurrentCommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
+        public IEnumerable<ICommitable> CurrentCommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>()
             .Where(comiitable => comiitable.Commited.IsActive);
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
-        public int TotalDifferenceValue => ResultChallenge.TotalDifferenceValue;
         public bool? IsSuccessful => ResultChallenge?.IsSuccessful;
 
         /*******************************************************************/
@@ -65,7 +63,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
             await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier));
-
         }
 
         public async Task ContinueChallenge()

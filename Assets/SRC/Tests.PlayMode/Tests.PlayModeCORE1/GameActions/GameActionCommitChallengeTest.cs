@@ -58,9 +58,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(SceneCORE1.GhoulGelid);
-            Assert.That(_gameActionsProvider.CurrentChallenge.CommitsCards.Any(), Is.False);
+            Assert.That(_gameActionsProvider.CurrentChallenge.CurrentCommitsCards.Any(), Is.False);
             yield return ClickedIn(toPlay);
-            Assert.That(_gameActionsProvider.CurrentChallenge.CommitsCards.Any(), Is.True);
+            Assert.That(_gameActionsProvider.CurrentChallenge.CurrentCommitsCards.Any(), Is.True);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

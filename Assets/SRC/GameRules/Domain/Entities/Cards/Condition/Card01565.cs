@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHand.Disable();
+            PlayFromHandReaction.Disable();
             CreateReaction<PlayRevelationAdversityGameAction>(PlayFromHandCondition.IsTrueWith, Choose, isAtStart: true);
         }
 

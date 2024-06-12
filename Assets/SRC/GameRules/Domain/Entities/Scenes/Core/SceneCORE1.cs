@@ -87,7 +87,7 @@ namespace MythosAndHorrors.GameRules
                 bool DrawGhoulCondition(ChallengePhaseGameAction challengePhaseGameAction)
                 {
                     _reactionablesProvider.RemoveReaction(DrawGhoulReaction);
-                    if (challengePhaseGameAction.IsSuccessful ?? true) return false;
+                    if ((bool)challengePhaseGameAction.IsSuccessful) return false;
                     return true;
                 }
             }

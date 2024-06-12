@@ -24,6 +24,16 @@ namespace MythosAndHorrors.GameRules
             CreateReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, isAtStart: true);
         }
 
+        /*******************************************************************/
+        protected override async Task PlayAdversityFor(Investigator investigator)
+        {
+            Zone destiny = _chaptersProvider.CurrentScene.PlaceCards.Where(place => !place.OwnZone.Cards.Exists(card => card is Card01174))
+                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone;
+            if (destiny == null) await _gameActionsProvider.Create(new DiscardGameAction(this));
+            else await _gameActionsProvider.Create(new MoveCardsGameAction(this, destiny));
+        }
+
+        /*******************************************************************/
         private async Task AvoidInvestigateLogic(InteractableGameAction interactableGameAction)
         {
             Card placeAffected = _cardsProvider.GetCardWithThisZone(CurrentZone);
@@ -70,16 +80,5 @@ namespace MythosAndHorrors.GameRules
             if (investigator.CurrentPlace.OwnZone != CurrentZone) return false;
             return true;
         }
-
-        /*******************************************************************/
-
-        protected override async Task PlayAdversityFor(Investigator investigator)
-        {
-            Zone destiny = _chaptersProvider.CurrentScene.PlaceCards.Where(place => !place.OwnZone.Cards.Exists(card => card is Card01174))
-                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone;
-            if (destiny == null) await _gameActionsProvider.Create(new DiscardGameAction(this));
-            else await _gameActionsProvider.Create(new MoveCardsGameAction(this, destiny));
-        }
-
     }
 }

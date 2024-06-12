@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -143,13 +143,13 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected Task<(int totalTokensAmount, int totalTokensValue)> CaptureTotalTokensRevelaed() => Task.Run(async () =>
         {
             ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
-            return (challenge.TokensRevealed.Count(), challenge.TotalTokenValue);
+            return (challenge.ResultChallenge.TokensRevealed.Count(), challenge.CurrentTotalTokenValue);
         });
 
         protected Task<int> CaptureTotalChallengeValue() => Task.Run(async () =>
         {
             ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
-            return challenge.TotalChallengeValue;
+            return challenge.CurrentTotalChallengeValue;
         });
 
         /*******************************************************************/

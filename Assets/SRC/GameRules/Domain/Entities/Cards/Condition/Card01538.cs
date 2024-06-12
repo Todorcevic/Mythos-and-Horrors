@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateReaction<MoveInvestigatorToPlaceGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConforntCantMoveCondition, ConfrontCantMoveLogic, isAtStart: true);
+            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConfrontCantMoveCondition, ConfrontCantMoveLogic, isAtStart: true);
             CreateReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, isAtStart: true);
         }
 
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private bool ConforntCantMoveCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
+        private bool ConfrontCantMoveCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
         {
             if (!IsInPlay) return false;
             if (moveInvestigatorGameAction.CardPlace != CurrentPlace) return false;

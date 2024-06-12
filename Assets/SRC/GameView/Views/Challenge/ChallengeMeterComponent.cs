@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
         {
             int amountWins = _challengeTokensProvider.ChallengeTokensInBag.Count(token =>
                 token.TokenType != ChallengeTokenType.Fail &&
-                challenge.TotalChallengeValue + token.Value(challenge.ActiveInvestigator) + mod >= challenge.DifficultValue);
+                challenge.CurrentTotalChallengeValue + token.Value(challenge.ActiveInvestigator) + mod >= challenge.DifficultValue);
 
             return Math.Round(((double)amountWins / _challengeTokensProvider.ChallengeTokensInBag.Count) * 100);
         }

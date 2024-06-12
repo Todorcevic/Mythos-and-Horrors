@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -11,10 +12,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(() => _challengeTokensProvider.ChallengeTokensRevealed, Restore));
+            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(TokensRevealed, Restore));
         }
 
         /*******************************************************************/
+        private IEnumerable<ChallengeToken> TokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed;
+
         private async Task Restore(ChallengeToken challengeToken) =>
             await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(challengeToken));
     }
