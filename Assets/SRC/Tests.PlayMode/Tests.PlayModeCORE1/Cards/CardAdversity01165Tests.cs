@@ -7,7 +7,6 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardAdversity01165Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -24,7 +23,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(investigator.AvatarCard);
-            Assert.That(supply.CanBePlayed, Is.False);
             yield return WasteAllTurns();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

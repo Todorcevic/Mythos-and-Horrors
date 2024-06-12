@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         {
             ShowCardsState();
             CheckActivesActivables(specificsCardViews);
-            CheckActivesAvatars();
+            CheckActivesAvatars(specificsCardViews);
             CheckActivesIOActivator();
 
             /*******************************************************************/
@@ -32,7 +32,8 @@ namespace MythosAndHorrors.GameView
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.AddBuffs());
             }
 
-            void CheckActivesAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.ActivateGlow());
+            void CheckActivesAvatars(List<IPlayable> specificsCardViews) => _avatarViewsManager
+                .AvatarsPlayabled(specificsCardViews ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.ActivateGlow());
 
             void CheckActivesIOActivator()
             {
@@ -55,7 +56,7 @@ namespace MythosAndHorrors.GameView
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
             }
 
-            void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled().ForEach(avatar => avatar.DeactivateGlow());
+            void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled(clones ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
 
             async Task CheckDeactivateIOActivator()
             {

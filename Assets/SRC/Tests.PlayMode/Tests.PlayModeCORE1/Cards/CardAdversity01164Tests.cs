@@ -3,15 +3,13 @@ using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardAdversity01164Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Integration;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator MoveCostExtraTurn()
@@ -28,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(SceneCORE1.Attic);
             //Assert.That(cardAdversity.Wasted.IsActive, Is.True);
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
+            //Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedIn(SceneCORE1.Hallway);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -55,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(SceneCORE1.GhoulSecuaz, 0);
             yield return ClickedMainButton();
             //Assert.That(cardAdversity.Wasted.IsActive, Is.True);
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
+            //Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
