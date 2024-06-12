@@ -1,20 +1,55 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01569 : CardCondition
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
-
         protected override bool IsFast => false;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Elude;
 
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            throw new System.NotImplementedException();
+            InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true,
+                description: "Choose Enemy", activeInvestigator: investigator);
+
+            chooseEnemy.CreateCancelMainButton();
+
+            foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
+            {
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), EludeCreature, PlayActionType.Choose, investigator);
+
+                async Task EludeCreature()
+                {
+                    EludeGameAction eludeGameAction = new(investigator, creature);
+                    eludeGameAction.ChangeStat(investigator.Power);
+                    eludeGameAction.SuccesEffects.Add(SuccesEffet);
+                    await _gameActionsProvider.Create(eludeGameAction);
+
+                    List<ChallengeTokenType> dazzle = new() { ChallengeTokenType.Ancient, ChallengeTokenType.Creature, ChallengeTokenType.Cultist, ChallengeTokenType.Danger, ChallengeTokenType.Fail };
+                    if (eludeGameAction.ResultChallenge.TokensRevealed.Any(token => dazzle.Contains(token.TokenType)))
+                    {
+                        await _gameActionsProvider.Create(new DecrementStatGameAction(investigator.CurrentTurns, 1));
+                        await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 1));
+                    }
+                }
+
+                async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(creature, this, amountDamage: 2));
+            }
+
+            await _gameActionsProvider.Create(chooseEnemy);
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
-
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
+            return true;
+        }
     }
 }

@@ -50,6 +50,5 @@ namespace MythosAndHorrors.GameRules
             if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
             return true;
         }
-
     }
 }
