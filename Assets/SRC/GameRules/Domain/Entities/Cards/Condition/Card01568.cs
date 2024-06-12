@@ -1,20 +1,59 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01568 : CardCondition
+    public class Card01568 : CardConditionTrigged
     {
+        private IPhase _phase;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
 
-        protected override bool IsFast => false;
+        protected override bool IsFast => true;
+        protected override bool FastReactionAtStart => true;
 
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            throw new System.NotImplementedException();
+            InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Creature", investigator);
+            interactable.CreateCancelMainButton();
+            foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)))
+            {
+                interactable.CreateCancelMainButton();
+                interactable.CreateEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator);
+
+                async Task RemoveText()
+                {
+                    await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, true));
+                    CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, isAtStart: false);
+
+                    /*******************************************************************/
+                    async Task RemoveEffecLogic(GameAction gameAction) =>
+                        await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, false));
+
+                    bool RemoveEffectCondition(GameAction gameAction)
+                    {
+                        if (gameAction != _phase) return false;
+                        return true;
+                    }
+                }
+            }
+
+            await _gameActionsProvider.Create(interactable);
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not IPhase phase) return false;
+            //List<CardCreature> dasdss = ControlOwner.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)).ToList();
+
+            if (!ControlOwner.CreaturesInSamePlace.Any(creature => !creature.HasThisTag(Tag.Elite))) return false;
+            _phase = phase;
+            return true;
+        }
 
     }
 }

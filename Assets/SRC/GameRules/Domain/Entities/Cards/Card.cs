@@ -90,6 +90,20 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false) where T : GameAction
+        {
+            Reaction<T> newReaction = null;
+            newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, isAtStart);
+            _specificReactions.Add(newReaction);
+            return newReaction;
+
+            async Task OneTimeLogic(T gameAction)
+            {
+                _specificReactions.Remove(newReaction);
+                await logic.Invoke(gameAction);
+            }
+        }
+
         protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false) where T : GameAction
         {
             Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, isAtStart);

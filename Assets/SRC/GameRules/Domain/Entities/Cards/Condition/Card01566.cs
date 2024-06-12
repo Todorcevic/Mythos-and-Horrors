@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
-using Zenject.ReflectionBaking.Mono.Cecil;
 
 namespace MythosAndHorrors.GameRules
 {
