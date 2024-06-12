@@ -29,7 +29,8 @@ namespace MythosAndHorrors.GameRules
             else if (ChallengePhaseGameAction.IsAutoFail) IsSuccessful = false;
             else IsSuccessful = ChallengePhaseGameAction.CurrentTotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
             TotalDifferenceValue = ChallengePhaseGameAction.CurrentTotalChallengeValue - ChallengePhaseGameAction.DifficultValue;
-            await _resultChallengePresent.PlayAnimationWith(this);
+            //await _resultChallengePresent.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
     }
 }

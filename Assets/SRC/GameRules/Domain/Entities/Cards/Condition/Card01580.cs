@@ -1,20 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01580 : CardCondition
+    public class Card01580 : CardConditionTrigged
     {
+        private ResultChallengeGameAction _resultChallengeGameAction;
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
+        protected override bool IsFast => true;
+        protected override bool FastReactionAtStart => false;
 
-        protected override bool IsFast => false;
-
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            throw new System.NotImplementedException();
+            await _gameActionsProvider.Create(new IncrementStatGameAction(_resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(_resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2));
+            await _gameActionsProvider.Create(_resultChallengeGameAction);
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not ResultChallengeGameAction resultChallengeGameAction) return false;
+            if (resultChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator != ControlOwner) return false;
+            if (resultChallengeGameAction.IsSuccessful ?? true) return false;
+            _resultChallengeGameAction = resultChallengeGameAction;
+            return true;
+        }
 
     }
 }

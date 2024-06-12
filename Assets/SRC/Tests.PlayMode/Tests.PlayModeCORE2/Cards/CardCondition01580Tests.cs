@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-    public class CardCondition01579Tests : TestCORE2Preparation
+    public class CardCondition01580Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator DiscoverClues()
+        public IEnumerator UpdateStatModifierChallenge()
         {
             Investigator investigator = _investigatorsProvider.Fourth;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_4);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            Card01579 conditionCard = _cardsProvider.GetCard<Card01579>();
+            Card01580 conditionCard = _cardsProvider.GetCard<Card01580>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
         }
     }
 }

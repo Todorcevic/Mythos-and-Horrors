@@ -14,11 +14,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
+        [Inject] private readonly IPresenter<ResultChallengeGameAction> _resultChallengePresent;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public Stat Stat { get; private set; }
         public int InitialDifficultValue { get; init; }
-        public int StatModifier { get; init; }
+        public Stat StatModifier { get; private set; }
         public string ChallengeName { get; init; }
         public List<Func<Task>> SuccesEffects { get; init; } = new();
         public List<Func<Task>> FailEffects { get; init; } = new();
@@ -52,17 +53,17 @@ namespace MythosAndHorrors.GameRules
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
             CardToChallenge = cardToChallenge;
-            StatModifier = statModifier;
+            StatModifier = new Stat(statModifier, true);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier.Value));
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier.Value));
         }
 
         public async Task ContinueChallenge()
@@ -70,6 +71,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ActiveInvestigator));
             await _gameActionsProvider.Create(new ResolveAllTokensGameAction(ActiveInvestigator));
             ResultChallenge = await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
+            await _resultChallengePresent.PlayAnimationWith(ResultChallenge);
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());

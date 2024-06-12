@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not InvestigateGameAction investigateGameAction) return false;
             if (investigateGameAction.ActiveInvestigator != ControlOwner) return false;
             if (investigateGameAction.IsSuccessful ?? true) return false;
-            if (investigateGameAction.CurrentTotalChallengeValue < -2) return false;
+            if (investigateGameAction.ResultChallenge.TotalDifferenceValue < -2) return false;
             if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
             return true;
         }
