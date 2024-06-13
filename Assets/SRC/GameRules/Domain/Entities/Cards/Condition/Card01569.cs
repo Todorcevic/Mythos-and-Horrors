@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task EludeCreature()
                 {
-                    EludeGameAction eludeGameAction = new(investigator, creature);
+                    EludeCreatureGameAction eludeGameAction = new(investigator, creature);
                     eludeGameAction.ChangeStat(investigator.Power);
                     eludeGameAction.SuccesEffects.Add(SuccesEffet);
                     await _gameActionsProvider.Create(eludeGameAction);

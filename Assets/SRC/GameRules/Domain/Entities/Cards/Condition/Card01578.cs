@@ -20,13 +20,9 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new SafeForeach<CardCreature>(AllCreatures, EvedaAction));
 
             /*******************************************************************/
-            async Task EvedaAction(CardCreature creature)
-            {
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true));
-                await _gameActionsProvider.Create(new MoveCardsGameAction(creature, creature.CurrentPlace.OwnZone));
-            }
 
             IEnumerable<CardCreature> AllCreatures() => investigator.CreaturesInSamePlace;
+            async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create(new EludeGameAction(creature));
         }
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

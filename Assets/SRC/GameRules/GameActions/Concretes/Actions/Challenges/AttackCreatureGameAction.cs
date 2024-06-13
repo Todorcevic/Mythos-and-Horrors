@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class AttackGameAction : ChallengePhaseGameAction
+    public class AttackCreatureGameAction : ChallengePhaseGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public int AmountDamage { get; }
 
         /*******************************************************************/
-        public AttackGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
+        public AttackCreatureGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
             : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature, statModifier: strengModifier)
         {
             CardCreature = creature;

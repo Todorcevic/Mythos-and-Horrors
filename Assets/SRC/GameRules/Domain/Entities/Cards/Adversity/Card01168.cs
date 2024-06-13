@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<InvestigateGameAction>(FinishCondition, FinishLogic, isAtStart: false);
+            CreateReaction<InvestigatePlaceGameAction>(FinishCondition, FinishLogic, isAtStart: false);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
 
@@ -42,12 +42,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task FinishLogic(InvestigateGameAction investigateGameAction)
+        private async Task FinishLogic(InvestigatePlaceGameAction investigateGameAction)
         {
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
-        private bool FinishCondition(InvestigateGameAction investigateGameAction)
+        private bool FinishCondition(InvestigatePlaceGameAction investigateGameAction)
         {
             if (CurrentZone != investigateGameAction.CardPlace.OwnZone) return false;
             if (!(bool)investigateGameAction.IsSuccessful) return false;

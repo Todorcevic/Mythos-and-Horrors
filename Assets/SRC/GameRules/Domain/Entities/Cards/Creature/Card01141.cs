@@ -19,16 +19,16 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<EludeGameAction>(EludeCondition, EludeLogic, isAtStart: false);
+            CreateReaction<EludeCreatureGameAction>(EludeCondition, EludeLogic, isAtStart: false);
         }
 
         /*******************************************************************/
-        private async Task EludeLogic(EludeGameAction eludeGameAction)
+        private async Task EludeLogic(EludeCreatureGameAction eludeGameAction)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
         }
 
-        private bool EludeCondition(EludeGameAction aludeGameAction)
+        private bool EludeCondition(EludeCreatureGameAction aludeGameAction)
         {
             if (aludeGameAction.CardCreature != this) return false;
             return true;

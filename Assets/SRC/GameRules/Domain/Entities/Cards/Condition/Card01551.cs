@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task AttackCreature()
                 {
-                    AttackGameAction playAttackGameAction = new(investigator, creature, amountDamage: 3);
+                    AttackCreatureGameAction playAttackGameAction = new(investigator, creature, amountDamage: 3);
                     playAttackGameAction.ChangeStat(investigator.Agility);
                     await _gameActionsProvider.Create(playAttackGameAction);
                 }

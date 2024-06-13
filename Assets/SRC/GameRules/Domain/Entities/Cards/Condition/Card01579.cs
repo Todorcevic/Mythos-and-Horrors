@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
-            if (gameAction is not InvestigateGameAction investigateGameAction) return false;
+            if (gameAction is not InvestigatePlaceGameAction investigateGameAction) return false;
             if (investigateGameAction.ActiveInvestigator != ControlOwner) return false;
             if (investigateGameAction.IsSuccessful ?? true) return false;
             if (investigateGameAction.ResultChallenge.TotalDifferenceValue < -2) return false;

@@ -20,11 +20,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
-            Card01579 cardCondition = _cardsProvider.GetCard<Card01579>();
+            Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
             yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.Drew, investigator.DangerZone)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardCondition);
@@ -63,11 +64,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
-            Card01579 cardCondition = _cardsProvider.GetCard<Card01579>();
+            Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
             yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator.DiscardZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.Drew, investigator.DangerZone)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardCondition);

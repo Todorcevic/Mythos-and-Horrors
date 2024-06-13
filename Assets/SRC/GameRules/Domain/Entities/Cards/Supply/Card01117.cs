@@ -24,12 +24,12 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
-            CreateReaction<AttackGameAction>(AttackCondition, AttackLogic, isAtStart: true);
+            CreateReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, isAtStart: true);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
         }
 
         /*******************************************************************/
-        private async Task AttackLogic(AttackGameAction attackGameAction)
+        private async Task AttackLogic(AttackCreatureGameAction attackGameAction)
         {
             attackGameAction.SuccesEffects.Add(AttackSucceed);
             await Task.CompletedTask;
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        private bool AttackCondition(AttackGameAction attackGameAction)
+        private bool AttackCondition(AttackCreatureGameAction attackGameAction)
         {
             if (!IsInPlay) return false;
             if (attackGameAction.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
