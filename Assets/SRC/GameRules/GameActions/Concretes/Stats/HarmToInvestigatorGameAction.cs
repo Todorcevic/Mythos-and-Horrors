@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -39,5 +40,10 @@ namespace MythosAndHorrors.GameRules
             if (IsDirect || !allSelectables.Any()) await _gameActionsProvider.Create(new HarmToCardGameAction(Investigator.InvestigatorCard, FromCard, AmountDamage, AmountFear));
             else await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(Investigator, FromCard, AmountDamage, AmountFear));
         }
+
+        public void AddAmountDamage(int amountDamage) => AmountDamage = Math.Max(0, AmountDamage + amountDamage);
+
+        public void AddAmountFear(int amountFear) => AmountFear = Math.Max(0, AmountFear + amountFear);
+
     }
 }

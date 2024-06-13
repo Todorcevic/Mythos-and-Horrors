@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             SetScene(Dificulty.Normal, ChallengeTokenType.Creature);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.North.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.West.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.East.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
 
             yield return ExecuteChallenge();
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             SetScene(Dificulty.Hard, ChallengeTokenType.Creature);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.North.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.West.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.East.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(SceneCORE2.CurrentPlot.Eldritch, 2)).AsCoroutine();
 
@@ -82,7 +82,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.North.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.West.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.East.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
 
             yield return ExecuteChallenge();
@@ -99,7 +99,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.North.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.West.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit2, SceneCORE2.East.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
 
             yield return ExecuteChallenge();

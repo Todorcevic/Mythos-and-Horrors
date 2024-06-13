@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1)); ;
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, SceneCORE2.North)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, SceneCORE2.West)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, SceneCORE2.East)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Third, SceneCORE2.University)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, _investigatorsProvider.Second.CurrentPlace.Hints, 2)).AsCoroutine();
             yield return _gameActionsProvider.Create(new DrawGameAction(_investigatorsProvider.First, SceneCORE2.MaskedHunter)).AsCoroutine();

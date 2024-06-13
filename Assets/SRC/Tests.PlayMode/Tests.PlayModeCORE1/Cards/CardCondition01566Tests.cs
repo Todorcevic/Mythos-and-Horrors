@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardCondition01566Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -33,7 +32,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.True);
-
         }
 
         [UnityTest]
@@ -57,7 +55,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
-
         }
     }
 }

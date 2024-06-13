@@ -1,20 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01684 : CardConditionPlayFromHand
+    public class Card01684 : CardConditionTrigged
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
-
         protected override bool IsFast => false;
+        protected override bool FastReactionAtStart => true;
 
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            throw new System.NotImplementedException();
+            if (gameAction is not HarmToInvestigatorGameAction harmToInvestigateGameAction) return;
+            int amountResourcesTogain = Math.Max(0, 5 - harmToInvestigateGameAction.AmountDamage) + Math.Max(0, 5 - harmToInvestigateGameAction.AmountFear);
+
+            harmToInvestigateGameAction.AddAmountDamage(-5);
+            harmToInvestigateGameAction.AddAmountFear(-5);
+
+            await _gameActionsProvider.Create(new GainResourceGameAction(investigator, amountResourcesTogain));
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not HarmToInvestigatorGameAction harmToInvestigateGameAction) return false;
+            if (harmToInvestigateGameAction.Investigator != ControlOwner) return false;
+            return true;
+        }
 
     }
 }

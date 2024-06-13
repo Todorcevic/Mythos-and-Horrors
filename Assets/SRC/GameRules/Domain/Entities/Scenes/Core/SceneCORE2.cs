@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Fluvial => _cardsProvider.GetCard<Card01125>();
         public CardPlace Hospital => _cardsProvider.GetCard<Card01128>();
         public CardPlace University => _cardsProvider.GetCard<Card01129>();
-        public CardPlace West => _cardsProvider.GetCard<Card01132>();
+        public CardPlace East => _cardsProvider.GetCard<Card01132>();
         public CardPlace Graveyard => _cardsProvider.GetCard<Card01133>();
         public CardPlace North => _cardsProvider.GetCard<Card01134>();
 
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
                 { Graveyard, GetPlaceZone(1, 4) },
                 { Fluvial, GetPlaceZone(1, 3) },
                 { University, GetPlaceZone(1, 2) },
-                { West, GetPlaceZone(2, 4) },
+                { East, GetPlaceZone(2, 4) },
                 { Center, GetPlaceZone(2, 3) },
                 { North, GetPlaceZone(2, 2) }
             };
