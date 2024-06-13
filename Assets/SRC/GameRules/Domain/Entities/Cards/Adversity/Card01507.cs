@@ -24,6 +24,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+
+        /*******************************************************************/
         private async Task TakeShockLogic(FinalizeGameAction finalizeGameAction)
         {
             await _gameActionsProvider.Create(new IncrementStatGameAction(ControlOwner.Shock, 1));

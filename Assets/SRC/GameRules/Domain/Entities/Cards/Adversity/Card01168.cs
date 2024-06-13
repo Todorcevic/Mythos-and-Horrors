@@ -24,6 +24,15 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.CurrentPlace.OwnZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator)
+        {
+            if (CurrentZone.Cards.Exists(card => card is Card01168 && card != this))
+                await _gameActionsProvider.Create(new DiscardGameAction(this));
+        }
+
+        /*******************************************************************/
         private async Task ActivationBuff(IEnumerable<Card> cards)
         {
             await _gameActionsProvider.Create(new IncrementStatGameAction(cards.Cast<CardPlace>().Unique().Enigma, 2));
@@ -54,13 +63,6 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        /*******************************************************************/
-        protected override async Task PlayAdversityFor(Investigator investigator)
-        {
-            Zone destiny = investigator.CurrentPlace.OwnZone;
-            if (destiny.Cards.Exists(card => card is Card01168))
-                await _gameActionsProvider.Create(new DiscardGameAction(this));
-            else await _gameActionsProvider.Create(new MoveCardsGameAction(this, destiny));
-        }
+
     }
 }

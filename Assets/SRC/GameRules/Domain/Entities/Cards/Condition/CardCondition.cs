@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public State Commited { get; private set; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
-
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
         protected abstract bool IsFast { get; }
 

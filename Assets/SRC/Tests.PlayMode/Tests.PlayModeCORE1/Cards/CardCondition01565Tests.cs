@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
-            yield return ClickedIn(cardAdversity);
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.DangerZone.Cards.Any(), Is.True);

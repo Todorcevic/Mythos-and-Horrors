@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -9,20 +8,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public GameCommand<Investigator> PlayFromDraw { get; private set; }
-
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            PlayFromDraw = new(PlayAdversityFor);
-        }
+        public abstract Zone ZoneToMoveWhenDraw(Investigator investigator);
 
-        /*******************************************************************/
-        protected virtual async Task PlayAdversityFor(Investigator investigator)
-        {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.DangerZone));
-        }
+        public abstract Task PlayAdversityFor(Investigator investigator);
     }
 }

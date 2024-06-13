@@ -20,7 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await CardAdversity.PlayFromDraw.RunWith(Investigator);
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CardAdversity, CardAdversity.ZoneToMoveWhenDraw(Investigator)));
+            await CardAdversity.PlayAdversityFor(Investigator);
         }
     }
 }

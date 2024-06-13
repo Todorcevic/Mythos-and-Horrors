@@ -23,6 +23,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+
+        /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         private async Task DecrementStatBuff(IEnumerable<Card> cards)

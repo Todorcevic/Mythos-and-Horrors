@@ -25,12 +25,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task PlayAdversityFor(Investigator investigator)
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.PlaceCards.Where(place => !place.OwnZone.Cards.Exists(card => card is Card01174))
+                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone
+                ?? _chaptersProvider.CurrentScene.LimboZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator)
         {
-            Zone destiny = _chaptersProvider.CurrentScene.PlaceCards.Where(place => !place.OwnZone.Cards.Exists(card => card is Card01174))
-                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone;
-            if (destiny == null) await _gameActionsProvider.Create(new DiscardGameAction(this));
-            else await _gameActionsProvider.Create(new MoveCardsGameAction(this, destiny));
+            if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
         /*******************************************************************/

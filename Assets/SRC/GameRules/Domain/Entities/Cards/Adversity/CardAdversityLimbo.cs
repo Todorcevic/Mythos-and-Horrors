@@ -9,9 +9,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         /*******************************************************************/
-        protected override async Task PlayAdversityFor(Investigator investigator)
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.LimboZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
             if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.Isolated, true));
             await ObligationLogic(investigator);
             if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.Isolated, false));

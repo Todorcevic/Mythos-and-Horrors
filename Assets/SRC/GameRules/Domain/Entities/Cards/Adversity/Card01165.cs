@@ -24,6 +24,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+
+        /*******************************************************************/
         private async Task CantPlayLogic(InteractableGameAction interactableGameAction)
         {
             IEnumerable<CardEffect> effectesToRemove = interactableGameAction.AllEffects.Where(effect => ControlOwner.HandZone.Cards
@@ -50,6 +55,8 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             return true;
         }
+
+
 
         /*******************************************************************/
 

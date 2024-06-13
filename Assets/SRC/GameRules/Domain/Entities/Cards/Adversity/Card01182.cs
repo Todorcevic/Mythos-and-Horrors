@@ -21,6 +21,12 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(CreateStat(1), ChallengeToDiscardLogic, ChallengeToDiscardCondition, PlayActionType.Activate);
             CreateBuff(CardsToBuff, ActivateBuff, DeactivateBuff);
         }
+
+        /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+
         /*******************************************************************/
         private async Task DeactivateBuff(IEnumerable<Card> cards)
         {

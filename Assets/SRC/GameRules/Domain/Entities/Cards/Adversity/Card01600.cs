@@ -24,6 +24,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+
+        /*******************************************************************/
         private bool DiscardCondition(Investigator investigator)
         {
             if (CurrentZone.ZoneType != ZoneType.Danger) return false;

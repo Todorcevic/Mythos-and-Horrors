@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
@@ -22,6 +21,11 @@ namespace MythosAndHorrors.GameRules
             CreateReaction<HarmToCardGameAction>(TakeDirectDamageConditionn, TakeDirectDamageLogic, isAtStart: false);
             CreateActivation(CreateStat(2), DiscardLogic, DiscardCondition, PlayActionType.Activate);
         }
+
+        /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
 
         /*******************************************************************/
         private bool DiscardCondition(Investigator investigator)

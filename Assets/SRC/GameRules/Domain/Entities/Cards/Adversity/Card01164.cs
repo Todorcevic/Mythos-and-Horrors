@@ -29,6 +29,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
+
+        public override async Task PlayAdversityFor(Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, false));
+        }
+
+        /*******************************************************************/
         private async Task WasteLogic(PlayEffectGameAction action)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
@@ -93,13 +101,6 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));
-        }
-
-        /*******************************************************************/
-        protected override async Task PlayAdversityFor(Investigator investigator)
-        {
-            await base.PlayAdversityFor(investigator);
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, false));
         }
     }
 }
