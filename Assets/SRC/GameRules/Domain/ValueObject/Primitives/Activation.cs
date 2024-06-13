@@ -6,13 +6,13 @@ namespace MythosAndHorrors.GameRules
     {
         public Stat ActivateTurnsCost { get; }
         public GameCommand<Investigator> Logic { get; }
-        public GameCondition<Investigator> Condition { get; }
+        public GameConditionWith<Investigator> Condition { get; }
         public PlayActionType PlayActionType { get; }
         public bool IsDisable { get; private set; }
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
-        public Activation(Stat activateTurnsCost, GameCommand<Investigator> logic, GameCondition<Investigator> condition, PlayActionType playActionType)
+        public Activation(Stat activateTurnsCost, GameCommand<Investigator> logic, GameConditionWith<Investigator> condition, PlayActionType playActionType)
         {
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;

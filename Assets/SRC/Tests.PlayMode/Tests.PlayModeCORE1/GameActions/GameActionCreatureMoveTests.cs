@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place3.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 
             Assert.That(creature.CurrentPlace, Is.EqualTo(place3));
         }
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, SceneCORE1.Attic.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, SceneCORE1.Cellar.OwnZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 
             Assert.That(creature.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
         }
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Third.AvatarCard, place5.OwnZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 
             Assert.That(creature.CurrentPlace, Is.EqualTo(place5));
         }

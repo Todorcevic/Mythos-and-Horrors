@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart) where T : GameAction
         {
-            Reaction<T> newReaction = new(new GameCondition<T>(condition), new GameCommand<T>(logic));
+            Reaction<T> newReaction = new(new GameConditionWith<T>(condition), new GameCommand<T>(logic));
             if (isAtStart) _startReactions.Add(newReaction);
             else _endReactions.Add(newReaction);
             return newReaction;

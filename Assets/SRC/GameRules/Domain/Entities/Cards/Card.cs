@@ -115,7 +115,7 @@ namespace MythosAndHorrors.GameRules
         protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType,
             bool isBase = false)
         {
-            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameCondition<Investigator>(condition), playActionType);
+            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameConditionWith<Investigator>(condition), playActionType);
             if (isBase) _baseActivations.Add(newActivation);
             else _specificActivations.Add(newActivation);
             return newActivation;

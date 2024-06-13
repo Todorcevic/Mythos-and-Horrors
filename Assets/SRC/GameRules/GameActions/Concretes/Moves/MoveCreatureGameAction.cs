@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -6,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class MoveCreatureGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public CardCreature Creature { get; }
         public CardPlace Destiny { get; }
@@ -18,10 +18,10 @@ namespace MythosAndHorrors.GameRules
             Destiny = destiny;
         }
 
-        public MoveCreatureGameAction(IStalker creature)
+        public MoveCreatureGameAction(IStalker creature, IEnumerable<Investigator> investigatorsInPlay)
         {
             Creature = (CardCreature)creature;
-            Destiny = Creature.GetPlaceToStalkerMove();
+            Destiny = creature.GetPlaceToStalkerMove(investigatorsInPlay);
         }
 
         /*******************************************************************/

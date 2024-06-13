@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         protected abstract bool CanPlayFromHandSpecific(GameAction gameAction);
 
         /*******************************************************************/
-        public override async Task PlayFromHand(GameAction gameAction)
+        protected override async Task PlayFromHand(GameAction gameAction)
         {
             Investigator currentInvestigator = ControlOwner;
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));

@@ -2,14 +2,14 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class GameCondition<T>
+    public class GameConditionWith<T>
     {
         private readonly Func<T, bool> _originalCondition;
 
         public Func<T, bool> ConditionLogic { get; private set; }
 
         /*******************************************************************/
-        public GameCondition(Func<T, bool> conditionLogic)
+        public GameConditionWith(Func<T, bool> conditionLogic)
         {
             _originalCondition = ConditionLogic = conditionLogic;
         }

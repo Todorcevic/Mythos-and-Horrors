@@ -7,8 +7,8 @@ namespace MythosAndHorrors.GameRules
         PlayActionType PlayFromHandActionType { get; }
         Stat ResourceCost { get; }
         Stat PlayFromHandTurnsCost { get; }
-        Task PlayFromHand(GameAction gameAction);
-        GameCondition<GameAction> PlayFromHandCondition { get; }
+        GameCommand<GameAction> PlayFromHandCommand { get; }
+        GameConditionWith<GameAction> PlayFromHandCondition { get; }
 
         bool IsFreeActivation => PlayFromHandTurnsCost.Value < 1;
         bool WithOppotunityAttack => !IsFreeActivation && (PlayFromHandActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;

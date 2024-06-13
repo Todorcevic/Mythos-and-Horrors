@@ -70,31 +70,31 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public CardPlace GetPlaceToStalkerMove()
-        {
-            if (this is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
-                    CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
-                    CurrentPlace;
+        //public CardPlace GetPlaceToStalkerMove()
+        //{
+        //    if (this is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
+        //            CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
+        //            CurrentPlace;
 
-            Dictionary<Investigator, CardPlace> finalResult = new();
-            (CardPlace path, int distance) winner = (default, int.MaxValue);
+        //    Dictionary<Investigator, CardPlace> finalResult = new();
+        //    (CardPlace path, int distance) winner = (default, int.MaxValue);
 
-            foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
-            {
-                (CardPlace path, int distance) result = CurrentPlace.DistanceTo(investigator.CurrentPlace);
-                if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
-                else if (result.distance < winner.distance)
-                {
-                    finalResult.Clear();
-                    finalResult.Add(investigator, result.path);
-                    winner = result;
-                }
-            }
+        //    foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay)
+        //    {
+        //        (CardPlace path, int distance) result = CurrentPlace.DistanceTo(investigator.CurrentPlace);
+        //        if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
+        //        else if (result.distance < winner.distance)
+        //        {
+        //            finalResult.Clear();
+        //            finalResult.Add(investigator, result.path);
+        //            winner = result;
+        //        }
+        //    }
 
-            if (this is ITarget targetCreature && finalResult.TryGetValue(targetCreature.TargetInvestigator, out CardPlace place))
-                return place;
+        //    if (this is ITarget targetCreature && finalResult.TryGetValue(targetCreature.TargetInvestigator, out CardPlace place))
+        //        return place;
 
-            return finalResult.First().Value;
-        }
+        //    return finalResult.First().Value;
+        //}
     }
 }

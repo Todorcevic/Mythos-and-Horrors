@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<CardCreature> AttackerCreatures => AllCards.OfType<CardCreature>()
                   .Where(creature => creature.IsConfronted && !creature.Exausted.IsActive)
                   .OrderBy(creature => creature.ConfrontedInvestigator?.Position);
-        public IEnumerable<IStalker> StalkersInPlay => AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
         /*******************************************************************/
         public T GetCard<T>() where T : Card => AllCards.OfType<T>().First();

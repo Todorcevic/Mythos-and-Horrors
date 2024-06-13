@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public State Commited { get; private set; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
-        public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
+        public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
         protected abstract bool IsFast { get; }
 
         /*******************************************************************/
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(IsFast ? 0 : 1);
             Commited = CreateState(false);
-            PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
+            PlayFromHandCondition = new GameConditionWith<GameAction>(CanPlayFromHandWith);
         }
 
         /*******************************************************************/
@@ -41,6 +41,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected abstract bool CanPlayFromHandWith(GameAction gameAction);
 
-        public abstract Task PlayFromHand(GameAction investigator);
+        protected abstract Task PlayFromHand(GameAction investigator);
     }
 }

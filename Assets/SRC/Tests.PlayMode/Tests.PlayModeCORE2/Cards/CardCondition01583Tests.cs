@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-
-    public class CardCondition01580Tests : TestCORE2Preparation
+    public class CardCondition01583Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
@@ -16,21 +15,25 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator UpdateStatModifierChallenge()
         {
             Investigator investigator = _investigatorsProvider.Fourth;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_4);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            Card01580 conditionCard = _cardsProvider.GetCard<Card01580>();
+            yield return BuilCard("01583", investigator);
+            Card01583 conditionCard = _cardsProvider.GetCard<Card01583>();
+            Card01578 conditionCard2 = _cardsProvider.GetCard<Card01578>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard2, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.Drew, investigator.DangerZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(investigator.CurrentPlace);
-            yield return ClickedMainButton();
-            yield return ClickedMainButton();
+            yield return ClickedIn(conditionCard2);
             yield return ClickedIn(conditionCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(SceneCORE2.Drew.CurrentZone, Is.EqualTo(SceneCORE2.DangerDeckZone));
+            Assert.That(SceneCORE2.Drew.Exausted.IsActive, Is.False);
+            Assert.That(SceneCORE2.Drew.FaceDown.IsActive, Is.True);
         }
     }
 }

@@ -7,19 +7,19 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public CardCreature CardCreature { get; }
+        public CardCreature Creature { get; }
 
         /*******************************************************************/
         public EludeGameAction(CardCreature creature)
         {
-            CardCreature = creature;
+            Creature = creature;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(CardCreature.Exausted, true));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(CardCreature, CardCreature.CurrentPlace.OwnZone));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Creature.Exausted, true));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Creature.CurrentPlace.OwnZone));
         }
     }
 }

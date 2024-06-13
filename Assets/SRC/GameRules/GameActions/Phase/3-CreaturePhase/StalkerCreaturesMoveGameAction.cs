@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -24,8 +25,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private IEnumerable<IStalker> StalkersInPlay() => _cardsProvider.StalkersInPlay;
+        private IEnumerable<IStalker> StalkersInPlay() => _cardsProvider.AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
-        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create(new MoveCreatureGameAction(stalker));
+        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create(new MoveCreatureGameAction(stalker, _investigatorsProvider.AllInvestigatorsInPlay));
     }
 }

@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public State Commited { get; private set; }
-        public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
+        public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
             Commited = CreateState(false);
-            PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
+            PlayFromHandCondition = new GameConditionWith<GameAction>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
         }
 

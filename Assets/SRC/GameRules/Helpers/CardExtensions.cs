@@ -6,20 +6,32 @@ namespace MythosAndHorrors.GameRules
 {
     public static class CardExtensions
     {
-        //public static void CreateReaction<T>(this Card card, Func<T, bool> condition, Action<T> logic, bool isPermanent = true) where T : GameAction
-        //{
-        //    card.Reactions.Add(new Reaction<T>(condition, logic, isPermanent));
-        //}
+        public static CardPlace GetPlaceToStalkerMove(this IStalker stalker, IEnumerable<Investigator> investigatorsInplay)
+        {
+            if (stalker is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
+                    stalker.CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
+                    stalker.CurrentPlace;
 
-        //public static Stat CreateStat(this Card card, int value)
-        //{
-        //    return new Stat(value, card);
-        //}
+            Dictionary<Investigator, CardPlace> finalResult = new();
+            (CardPlace path, int distance) winner = (default, int.MaxValue);
 
-        //public static State CreateState(this Card card, bool value)
-        //{
-        //    return new State(value, card);
-        //}
+            foreach (Investigator investigator in investigatorsInplay)
+            {
+                (CardPlace path, int distance) result = stalker.CurrentPlace.DistanceTo(investigator.CurrentPlace);
+                if (result.distance == winner.distance) finalResult.Add(investigator, result.path);
+                else if (result.distance < winner.distance)
+                {
+                    finalResult.Clear();
+                    finalResult.Add(investigator, result.path);
+                    winner = result;
+                }
+            }
+
+            if (stalker is ITarget targetCreature && finalResult.TryGetValue(targetCreature.TargetInvestigator, out CardPlace place))
+                return place;
+
+            return finalResult.First().Value;
+        }
 
         public static (CardPlace path, int distance) DistanceTo(this CardPlace origin, CardPlace cardPlace)
         {
