@@ -16,7 +16,15 @@ namespace MythosAndHorrors.GameRules
         protected override bool FastReactionAtStart => true;
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not IPhase phase) return false;
+            if (!ControlOwner.CreaturesInSamePlace.Any(creature => !creature.HasThisTag(Tag.Elite))) return false;
+            _phase = phase;
+            return true;
+        }
+
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Creature", investigator);
             interactable.CreateCancelMainButton();
@@ -31,29 +39,18 @@ namespace MythosAndHorrors.GameRules
                     CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, isAtStart: false);
 
                     /*******************************************************************/
-                    async Task RemoveEffecLogic(GameAction gameAction) =>
-                        await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, false));
-
                     bool RemoveEffectCondition(GameAction gameAction)
                     {
                         if (gameAction != _phase) return false;
                         return true;
                     }
+
+                    async Task RemoveEffecLogic(GameAction gameAction) =>
+                        await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, false));
                 }
             }
 
             await _gameActionsProvider.Create(interactable);
         }
-
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
-        {
-            if (gameAction is not IPhase phase) return false;
-            //List<CardCreature> dasdss = ControlOwner.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)).ToList();
-
-            if (!ControlOwner.CreaturesInSamePlace.Any(creature => !creature.HasThisTag(Tag.Elite))) return false;
-            _phase = phase;
-            return true;
-        }
-
     }
 }

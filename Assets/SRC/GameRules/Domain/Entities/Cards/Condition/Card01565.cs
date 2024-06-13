@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01565 : CardConditionTrigged
     {
-        private PlayRevelationAdversityGameAction _playRevelationAdversity;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell, Tag.Spirit };
@@ -20,7 +19,24 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             PlayFromHandReaction.Disable();
-            CreateReaction<PlayRevelationAdversityGameAction>(PlayFromHandCondition.IsTrueWith, Choose, isAtStart: true);
+            CreateReaction<PlayRevelationAdversityGameAction>(PlayFromHandCondition.IsTrueWith, Choose, isAtStart: FastReactionAtStart);
+        }
+
+        /*******************************************************************/
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not PlayRevelationAdversityGameAction playRevelationAdversity) return false;
+            if (playRevelationAdversity.Investigator != ControlOwner) return false;
+            if (playRevelationAdversity.CardAdversity.HasThisTag(Tag.Weakness)) return false;
+            return true;
+        }
+
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
+        {
+            if (gameAction is not PlayRevelationAdversityGameAction playRevelationAdversity) return;
+            playRevelationAdversity.Cancel();
+            await _gameActionsProvider.Create(new DiscardGameAction(playRevelationAdversity.CardAdversity));
+            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 1));
         }
 
         /*******************************************************************/
@@ -36,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.CreateEffect(this,
                 new Stat(0, false),
                 Cancel,
-                PlayActionType.Choose,
+                PlayActionType.PlayFromHand,
                 playedBy: playRevelationGameAction.Investigator);
 
 
@@ -50,24 +66,8 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(interactableGameAction);
 
             /*******************************************************************/
-            async Task Cancel() => await PlayFromHandCommand.RunWith(playRevelationGameAction.Investigator);
+            async Task Cancel() => await PlayFromHand(playRevelationGameAction);
             async Task Play() => await Task.CompletedTask;
-        }
-
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
-        {
-            if (gameAction is not PlayRevelationAdversityGameAction playRevelationAdversity) return false;
-            if (playRevelationAdversity.Investigator != ControlOwner) return false;
-            if (playRevelationAdversity.CardAdversity.HasThisTag(Tag.Weakness)) return false;
-            _playRevelationAdversity = playRevelationAdversity;
-            return true;
-        }
-
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
-        {
-            _playRevelationAdversity.Cancel();
-            await _gameActionsProvider.Create(new DiscardGameAction(_playRevelationAdversity.CardAdversity));
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 1));
         }
     }
 }

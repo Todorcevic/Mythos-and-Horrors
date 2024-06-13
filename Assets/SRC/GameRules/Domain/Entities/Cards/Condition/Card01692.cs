@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01692 : CardCondition
+    public class Card01692 : CardConditionPlayFromHand
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Blessed };
 

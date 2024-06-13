@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01538 : CardCondition
+    public class Card01538 : CardConditionPlayFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;

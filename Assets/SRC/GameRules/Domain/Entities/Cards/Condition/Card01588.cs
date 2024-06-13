@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01588 : CardCondition
+    public class Card01588 : CardConditionPlayFromHand
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Supply };
 

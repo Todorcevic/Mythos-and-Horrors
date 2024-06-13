@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01552 : CardCondition
+    public class Card01552 : CardConditionPlayFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };

@@ -13,11 +13,6 @@ namespace MythosAndHorrors.GameRules
         protected override bool FastReactionAtStart => false;
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
-        {
-            await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 2));
-        }
-
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
             if (gameAction is not InvestigatePlaceGameAction investigateGameAction) return false;
@@ -28,5 +23,9 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 2));
+        }
     }
 }

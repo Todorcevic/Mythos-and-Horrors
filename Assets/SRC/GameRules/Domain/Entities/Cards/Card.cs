@@ -94,12 +94,11 @@ namespace MythosAndHorrors.GameRules
         {
             Reaction<T> newReaction = null;
             newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, isAtStart);
-            _specificReactions.Add(newReaction);
             return newReaction;
 
             async Task OneTimeLogic(T gameAction)
             {
-                _specificReactions.Remove(newReaction);
+                _reactionablesProvider.RemoveReaction(newReaction);
                 await logic.Invoke(gameAction);
             }
         }

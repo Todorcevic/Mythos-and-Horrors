@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public State Commited { get; private set; }
         public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
-        public GameCommand<Investigator> PlayFromHandCommand { get; private set; }
+        public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
         /*******************************************************************/
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(1);
             Commited = CreateState(false);
             PlayFromHandCondition = new GameCondition<GameAction>(ConditionToPlayFromHand);
-            PlayFromHandCommand = new GameCommand<Investigator>(PlayFromHand);
+            PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
         }
 
         /*******************************************************************/
@@ -56,9 +56,9 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task PlayFromHand(Investigator investigator)
+        public async Task PlayFromHand(GameAction investigator)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.AidZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, ControlOwner.AidZone));
         }
     }
 }

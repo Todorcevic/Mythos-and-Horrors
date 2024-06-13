@@ -4,18 +4,15 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardCondition : Card, ICommitable, IPlayableFromHand
+    public abstract class CardCondition : Card, ICommitable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public State Commited { get; private set; }
-        public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
-        public GameCommand<Investigator> PlayFromHandCommand { get; private set; }
-        protected abstract bool IsFast { get; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
+
+        public GameCondition<GameAction> PlayFromHandCondition { get; private set; }
+        protected abstract bool IsFast { get; }
 
         /*******************************************************************/
         [Inject]
@@ -26,7 +23,6 @@ namespace MythosAndHorrors.GameRules
             PlayFromHandTurnsCost = CreateStat(IsFast ? 0 : 1);
             Commited = CreateState(false);
             PlayFromHandCondition = new GameCondition<GameAction>(CanPlayFromHandWith);
-            PlayFromHandCommand = new GameCommand<Investigator>(PlayFromHand);
         }
 
         /*******************************************************************/
@@ -44,25 +40,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected virtual bool CanPlayFromHandWith(GameAction gameAction)
-        {
-            if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
-            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
-            if (ControlOwner != oneInvestigatorTurnGameAction.ActiveInvestigator) return false;
-            if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
-            if (PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
-            return CanPlayFromHandSpecific(gameAction);
-        }
+        protected abstract bool CanPlayFromHandWith(GameAction gameAction);
 
-        protected abstract bool CanPlayFromHandSpecific(GameAction gameAction);
-
-        private async Task PlayFromHand(Investigator investigator)
-        {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
-            await ExecuteConditionEffect(investigator);
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-        }
-
-        protected abstract Task ExecuteConditionEffect(Investigator investigator);
+        public abstract Task PlayFromHand(GameAction investigator);
     }
 }

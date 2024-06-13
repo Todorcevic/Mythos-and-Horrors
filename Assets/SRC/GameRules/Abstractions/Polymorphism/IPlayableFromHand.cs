@@ -1,11 +1,13 @@
-﻿namespace MythosAndHorrors.GameRules
+﻿using System.Threading.Tasks;
+
+namespace MythosAndHorrors.GameRules
 {
     public interface IPlayableFromHand
     {
         PlayActionType PlayFromHandActionType { get; }
         Stat ResourceCost { get; }
         Stat PlayFromHandTurnsCost { get; }
-        GameCommand<Investigator> PlayFromHandCommand { get; }
+        Task PlayFromHand(GameAction gameAction);
         GameCondition<GameAction> PlayFromHandCondition { get; }
 
         bool IsFreeActivation => PlayFromHandTurnsCost.Value < 1;

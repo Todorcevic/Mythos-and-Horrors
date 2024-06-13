@@ -62,8 +62,7 @@ namespace MythosAndHorrors.GameRules
                     playedBy: ActiveInvestigator,
                     resourceCost: playableFromHand.ResourceCost);
 
-                async Task PlayFromHand() =>
-                    await playableFromHand.PlayFromHandCommand.RunWith(ActiveInvestigator);
+                async Task PlayFromHand() => await playableFromHand.PlayFromHand(this);
             }
         }
 

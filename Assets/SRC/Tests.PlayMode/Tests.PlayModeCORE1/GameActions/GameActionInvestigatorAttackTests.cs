@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2);
             CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.CurrentPlace.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, _investigatorsProvider.First.DangerZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedClone(creature, 0);

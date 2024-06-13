@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01510 : CardCondition
+    public class Card01510 : CardConditionPlayFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -24,6 +24,14 @@ namespace MythosAndHorrors.GameRules
             CreateReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, isAtStart: true);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
+
+        /*******************************************************************/
+        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Protected, true));
+        }
+
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
 
         /*******************************************************************/
         private async Task CancelAttackCreaturePlayedLogic(CreatureAttackGameAction creatureAttackGameAction)
@@ -59,13 +67,5 @@ namespace MythosAndHorrors.GameRules
 
         private IEnumerable<Card> CardsToBuff() =>
             Protected.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
-
-        /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
-        {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Protected, true));
-        }
-
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
     }
 }

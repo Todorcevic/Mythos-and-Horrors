@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01536 : CardCondition
+    public class Card01536 : CardConditionPlayFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };

@@ -6,8 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01523 : CardConditionTrigged
     {
-        private CreatureAttackGameAction _currentCreatureAttackGameAction;
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         protected override bool FastReactionAtStart => true;
 
@@ -16,14 +14,14 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not CreatureAttackGameAction creatureAttackGameAction) return false;
             if (!ControlOwner.CurrentPlace.InvestigatorsInThisPlace.Contains(creatureAttackGameAction.Investigator)) return false;
-            _currentCreatureAttackGameAction = creatureAttackGameAction;
             return true;
         }
 
-        protected override Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            _currentCreatureAttackGameAction.Cancel();
-            return Task.CompletedTask;
+            if (gameAction is not CreatureAttackGameAction creatureAttackGameAction) return;
+            creatureAttackGameAction.Cancel();
+            await Task.CompletedTask;
         }
     }
 }

@@ -6,9 +6,11 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class CardConditionTrigged : CardCondition
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+
         protected abstract bool FastReactionAtStart { get; }
         protected override bool IsFast => true;
-
         public Reaction<GameAction> PlayFromHandReaction { get; private set; }
 
         /*******************************************************************/
@@ -17,27 +19,31 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             PlayFromHandReaction = CreateOptativeReaction<GameAction>(PlayFromHandCondition.IsTrueWith,
-                PlayFromHandReactionLogic,
+                PlayFromHand,
                 isAtStart: FastReactionAtStart,
                 ResourceCost,
-                PlayActionType.PlayFromHand);
+                PlayFromHandActionType);
         }
 
         /*******************************************************************/
-        private async Task PlayFromHandReactionLogic(GameAction gameAction)
-        {
-            await PlayFromHandCommand.RunWith(ControlOwner);
-        }
-
-        protected override bool CanPlayFromHandWith(GameAction gameAction)
+        protected sealed override bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner?.Resources.Value < ResourceCost.Value) return false;
             return CanPlayFromHandSpecific(gameAction);
         }
 
-        /*******************************************************************/
+        protected abstract bool CanPlayFromHandSpecific(GameAction gameAction);
 
-        protected override abstract Task ExecuteConditionEffect(Investigator investigator);
+        /*******************************************************************/
+        public override async Task PlayFromHand(GameAction gameAction)
+        {
+            Investigator currentInvestigator = ControlOwner;
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
+            await ExecuteConditionEffect(gameAction, currentInvestigator);
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+        }
+
+        protected abstract Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator);
     }
 }
