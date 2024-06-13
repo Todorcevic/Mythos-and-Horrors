@@ -61,13 +61,9 @@ namespace MythosAndHorrors.GameRules
             Swaped.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
-        {
+        protected override async Task ExecuteConditionEffect(Investigator investigator) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Swaped, true));
 
-        }
-
         protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
-
     }
 }

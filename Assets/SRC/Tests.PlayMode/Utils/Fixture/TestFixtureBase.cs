@@ -247,7 +247,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
-        protected IEnumerator BuilCard(string cardCode, Investigator investigator)
+        protected IEnumerator BuildCard(string cardCode, Investigator investigator)
         {
             Card cardCreated = SceneContainer.Resolve<CardLoaderUseCase>().Execute(cardCode);
             if (TestsType != TestsType.Unit)

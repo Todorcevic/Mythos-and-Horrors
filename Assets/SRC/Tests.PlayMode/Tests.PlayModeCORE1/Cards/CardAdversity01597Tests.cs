@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator ObligationPayAllResources()
         {
             Investigator investigator = _investigatorsProvider.First;
-            yield return BuilCard("01597", investigator);
+            yield return BuildCard("01597", investigator);
             Card adversity = _cardsProvider.GetCard<Card01597>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator, withResources: true);

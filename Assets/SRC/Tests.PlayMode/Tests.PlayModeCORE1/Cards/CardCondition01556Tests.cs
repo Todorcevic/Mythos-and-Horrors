@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuilCard("01556", investigator);
+            yield return BuildCard("01556", investigator);
             Card01556 conditionCard = _cardsProvider.GetCard<Card01556>();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();

@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Third;
 
-            yield return BuilCard("01526", investigator2);
+            yield return BuildCard("01526", investigator2);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);

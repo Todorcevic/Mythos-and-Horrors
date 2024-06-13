@@ -129,7 +129,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator = _investigatorsProvider.Fourth;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuilCard("01565", investigator);
+            yield return BuildCard("01565", investigator);
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01565 cardCondition = _cardsProvider.GetCard<Card01565>();
             Card01168 cardAdversity = _cardsProvider.GetCard<Card01168>();

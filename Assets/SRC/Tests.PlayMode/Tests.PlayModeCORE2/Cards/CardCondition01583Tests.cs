@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator = _investigatorsProvider.Fourth;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuilCard("01583", investigator);
+            yield return BuildCard("01583", investigator);
             Card01583 conditionCard = _cardsProvider.GetCard<Card01583>();
             Card01578 conditionCard2 = _cardsProvider.GetCard<Card01578>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();

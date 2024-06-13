@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -19,11 +20,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(() => _challengeTokensProvider.ChallengeTokensRevealed, Resolve));
-        }
+            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(AllTokensRevealed, Resolve));
 
-        /*******************************************************************/
-        private async Task Resolve(ChallengeToken challengeToken) =>
-            await _gameActionsProvider.Create(new ResolveSingleChallengeTokenGameAction(challengeToken, Investigator));
+            /*******************************************************************/
+
+            IEnumerable<ChallengeToken> AllTokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed;
+
+            async Task Resolve(ChallengeToken challengeToken) =>
+                await _gameActionsProvider.Create(new ResolveSingleChallengeTokenGameAction(challengeToken, Investigator));
+        }
     }
 }

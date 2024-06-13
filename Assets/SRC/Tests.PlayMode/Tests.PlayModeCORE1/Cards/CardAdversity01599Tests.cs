@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator TakeDamageWhenTakeFearAndPayToDiscard()
         {
             Investigator investigator = _investigatorsProvider.First;
-            yield return BuilCard("01599", investigator);
+            yield return BuildCard("01599", investigator);
             Card adversity = _cardsProvider.GetCard<Card01599>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
