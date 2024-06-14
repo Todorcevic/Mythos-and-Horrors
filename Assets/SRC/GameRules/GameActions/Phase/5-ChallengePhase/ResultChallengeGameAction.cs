@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResultChallengeGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<ResultChallengeGameAction> _resultChallengePresent;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public bool? IsSuccessful { get; set; }
@@ -29,7 +28,6 @@ namespace MythosAndHorrors.GameRules
             else if (ChallengePhaseGameAction.IsAutoFail) IsSuccessful = false;
             else IsSuccessful = ChallengePhaseGameAction.CurrentTotalChallengeValue >= ChallengePhaseGameAction.DifficultValue;
             TotalDifferenceValue = ChallengePhaseGameAction.CurrentTotalChallengeValue - ChallengePhaseGameAction.DifficultValue;
-            //await _resultChallengePresent.PlayAnimationWith(this);
             await Task.CompletedTask;
         }
     }

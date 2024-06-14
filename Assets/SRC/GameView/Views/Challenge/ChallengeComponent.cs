@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,9 +44,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Tween UpdateInfo()
         {
-            ChallengePhaseGameAction ChallengePhaseGameAction = _gameActionsProvider.CurrentChallenge;
-            if (ChallengePhaseGameAction == null) return DOTween.Sequence();
-
+            ChallengePhaseGameAction ChallengePhaseGameAction = _gameActionsProvider.CurrentChallenge ?? throw new NullReferenceException("ChallengePhaseGameAction is null");
             _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.Stat.Value);
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -21,14 +22,16 @@ namespace MythosAndHorrors.GameRules
         {
             if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Any())
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(() => ChallengePhaseGameAction.SuccesEffects, ExecuteEffect));
+                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllSuccessEffects, ExecuteEffect));
 
+                IEnumerable<Func<Task>> AllSuccessEffects() => ChallengePhaseGameAction.SuccesEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }
             else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Any())
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(() => ChallengePhaseGameAction.FailEffects, ExecuteEffect));
+                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllFailEffects, ExecuteEffect));
 
+                IEnumerable<Func<Task>> AllFailEffects() => ChallengePhaseGameAction.FailEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }
         }

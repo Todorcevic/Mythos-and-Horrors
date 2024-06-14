@@ -50,12 +50,6 @@ namespace MythosAndHorrors.GameRules
             await _commitPresenter.PlayAnimationWith(this);
             await base.ExecuteThisLogic();
         }
-
-        public override async Task Undo()
-        {
-            await base.Undo();
-            await _commitPresenter.PlayAnimationWith(this);
-        }
     }
 }
 

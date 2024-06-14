@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
-        [Inject] private readonly IPresenter<ResultChallengeGameAction> _resultChallengePresent;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public Stat Stat { get; private set; }
@@ -71,7 +70,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ActiveInvestigator));
             await _gameActionsProvider.Create(new ResolveAllTokensGameAction(ActiveInvestigator));
             ResultChallenge = await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
-            await _resultChallengePresent.PlayAnimationWith(ResultChallenge);
+            await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
             await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
             await _gameActionsProvider.Create(new DiscardCommitsCards());

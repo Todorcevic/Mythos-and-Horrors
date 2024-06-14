@@ -8,12 +8,11 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengePresenter : IPresenter<ChallengePhaseGameAction>, IPresenter<CommitCardsChallengeGameAction>,
         IPresenter<RevealChallengeTokenGameAction>, IPresenter<ResolveSingleChallengeTokenGameAction>,
-        IPresenter<RestoreChallengeTokenGameAction>, IPresenter<ResultChallengeGameAction>
+        IPresenter<RestoreChallengeTokenGameAction>
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly MoveCardHandler _moveCardHandler;
 
         /*******************************************************************/
         async Task IPresenter<ChallengePhaseGameAction>.PlayAnimationWith(ChallengePhaseGameAction challengePhaseGameAction)
@@ -21,23 +20,24 @@ namespace MythosAndHorrors.GameView
             if (challengePhaseGameAction.IsUndo) await _challengeComponent.Hide();
             else
             {
-                await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-                Transform worldObject = challengePhaseGameAction.CardToChallenge == null ? null :
-                     _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
-                await _challengeComponent.Show(worldObject);
+                if (challengePhaseGameAction.ResultChallenge != null)
+                {
+                    await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
+                    await _challengeComponent.Hide();
+                }
+                else
+                {
+                    await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
+                    Transform worldObject = challengePhaseGameAction.CardToChallenge == null ? null :
+                         _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
+                    await _challengeComponent.Show(worldObject);
+                }
             }
         }
 
         async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
         {
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-        }
-
-        async Task IPresenter<ResultChallengeGameAction>.PlayAnimationWith(ResultChallengeGameAction resultChallengeGameAction)
-        {
-            await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-            // Must be a delay here
-            await _challengeComponent.Hide();
         }
 
         async Task IPresenter<RevealChallengeTokenGameAction>.PlayAnimationWith(RevealChallengeTokenGameAction revealChallengeTokenGA)
