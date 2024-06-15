@@ -4,7 +4,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
-using System;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
@@ -46,40 +46,24 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Assert.That(investigator.Hints.Value, Is.EqualTo(3));
         }
 
-        //[UnityTest]
-        //public IEnumerator HunterBuffCantPay()
-        //{
-        //    Investigator investigator = _investigatorsProvider.Second;
-        //    _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
-        //    yield return PlaceOnlyScene();
-        //    yield return PlayThisInvestigator(investigator);
-        //    yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 4)).AsCoroutine();
-        //    yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE2.East.Hints, 4)).AsCoroutine();
-        //    yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.MaskedHunter, investigator.DangerZone)).AsCoroutine();
-
-        //    Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-        //    yield return ClickedMainButton();
-        //    yield return gameActionTask.AsCoroutine();
-
-        //    Assert.That(investigator.Hints.Value, Is.EqualTo(8));
-        //}
-
-
         [UnityTest]
-        public IEnumerator HunterBuffComplex()
+        public IEnumerator HunterBuffCantPay()
         {
             Investigator investigator = _investigatorsProvider.Second;
-            Card01135 cardAdversity = _cardsProvider.GetCard<Card01135>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 2)).AsCoroutine();
+            yield return PlayThisInvestigator(_investigatorsProvider.Third);
+            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 4)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE2.East.Hints, 4)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.MaskedHunter, investigator.DangerZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
-            yield return ClickedClone(cardAdversity, 0, isReaction: true);
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return AssertThatIsNotClickable(SceneCORE2.CurrentGoal);
+            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(8));
         }
     }
 }

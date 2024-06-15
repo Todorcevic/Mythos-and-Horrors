@@ -24,6 +24,12 @@ namespace MythosAndHorrors.GameRules
             ConditionLogic = condition;
         }
 
+        public void AddCondition(Func<T, bool> condition)
+        {
+            Func<T, bool> originalCondition = ConditionLogic;
+            ConditionLogic = element => originalCondition.Invoke(element) && condition(element);
+        }
+
         public bool IsTrueWith(T element)
         {
             return ConditionLogic.Invoke(element);

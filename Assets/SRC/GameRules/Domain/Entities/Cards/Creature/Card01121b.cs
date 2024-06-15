@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -85,13 +86,13 @@ namespace MythosAndHorrors.GameRules
         void CantPayHintsLogic()
         {
             GameConditionWith<Investigator> payCondition = _chaptersProvider.CurrentScene.CurrentGoal.PayHints.Condition;
-            payCondition.UpdateWith(NewPayCondition);
+            payCondition.AddCondition(NewPayCondition);
 
             bool NewPayCondition(Investigator investigator)
             {
                 if (_investigatorsProvider.AllInvestigatorsInPlay.Except(new[] { ConfrontedInvestigator })
                     .Sum(investigator => investigator.Hints.Value) < _chaptersProvider.CurrentScene.CurrentGoal.Hints.Value) return false;
-                return payCondition.IsTrueWith(investigator);
+                return true;
             }
         }
 

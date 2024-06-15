@@ -10,6 +10,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using NUnit.Framework;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -25,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -153,7 +154,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         });
 
         /*******************************************************************/
-        private const float TIMEOUT = 5f;
+        private const float TIMEOUT = 3f;
         protected IEnumerator ClickedIn(Card card)
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
@@ -168,6 +169,28 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
                 else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
+                yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
+            }
+        }
+
+        protected IEnumerator AssertThatIsNotClickable(Card card)
+        {
+            yield return AssertThatIsClickable(card, false);
+        }
+
+        protected IEnumerator AssertThatIsClickable(Card card, bool isClickable = true)
+        {
+            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+                Assert.That(fakeInteractable.IsClickable(card) == isClickable);
+
+            else if (TestsType == TestsType.Integration)
+            {
+                CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
+                float startTime = Time.realtimeSinceStartup;
+                CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
+
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+                Assert.That(cardSensor.IsClickable == isClickable);
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
         }
