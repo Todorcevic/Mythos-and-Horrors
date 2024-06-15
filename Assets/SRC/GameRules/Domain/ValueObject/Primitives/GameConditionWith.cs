@@ -24,6 +24,9 @@ namespace MythosAndHorrors.GameRules
             ConditionLogic = condition;
         }
 
-        public bool IsTrueWith(T element) => ConditionLogic.Invoke(element);
+        public bool IsTrueWith(T element)
+        {
+            return ConditionLogic.Invoke(element);
+        }
     }
 }

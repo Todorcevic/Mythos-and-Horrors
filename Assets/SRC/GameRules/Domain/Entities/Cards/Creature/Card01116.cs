@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,6 +9,5 @@ namespace MythosAndHorrors.GameRules
 
         Investigator ITarget.TargetInvestigator => _investigatorsProvider.GetTopInvestigatorsStrength;
         public override IEnumerable<Tag> Tags => new[] { Tag.Ghoul, Tag.Humanoid, Tag.Monster, Tag.Elite };
-
     }
 }

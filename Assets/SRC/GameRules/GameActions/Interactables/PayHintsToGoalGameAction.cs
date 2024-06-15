@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardGoal CardGoal { get; }
-        public IEnumerable<Investigator> InvestigatorsToPay { get; }
+        public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
         public override bool CanBeExecuted => CardGoal.IsInPlay && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
         public List<CardEffect> EffectsToPay { get; } = new();
 
@@ -38,6 +38,16 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay, ActiveInvestigator));
                 }
             }
+        }
+
+        public void UpdateInvestigatorsToPay(IEnumerable<Investigator> investigatorsToPay)
+        {
+            InvestigatorsToPay = investigatorsToPay;
+            IEnumerable<CardEffect> effectsToRemove = EffectsToPay.Where(effect => !investigatorsToPay.Contains(effect.CardOwner.Owner));
+
+            RemoveEffects(effectsToRemove);
+            EffectsToPay.Clear();
+            EffectsToPay.AddRange(effectsToRemove);
         }
     }
 }

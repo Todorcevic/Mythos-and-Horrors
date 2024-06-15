@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public IReaction AvoidPayHintReaction { get; private set; }
         public IReaction AvoidGainHintReaction { get; private set; }
@@ -41,10 +42,20 @@ namespace MythosAndHorrors.GameRules
         private async Task CantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
             AvoidGainHintReaction.Enable();
+            CantPayHintsLogic();
             AvoidPayHintReaction.Enable();
             await Task.CompletedTask;
         }
 
+        private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
+        {
+            AvoidGainHintReaction.Disable();
+            DisableCantPayHintsLogic();
+            AvoidPayHintReaction.Disable();
+            await Task.CompletedTask;
+        }
+
+        /*******************************************************************/
         bool CantGainHintsCondition(GainHintGameAction gainHintGameAction)
         {
             if (gainHintGameAction.Investigator != ConfrontedInvestigator) return false;
@@ -65,17 +76,28 @@ namespace MythosAndHorrors.GameRules
 
         async Task CantPayHintsLogic(PayHintsToGoalGameAction payHintToGoalGameAction)
         {
-            payHintToGoalGameAction.Cancel();
             IEnumerable<Investigator> investigatorsToPay = payHintToGoalGameAction.InvestigatorsToPay.Except(new[] { ConfrontedInvestigator });
-            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(payHintToGoalGameAction.CardGoal, investigatorsToPay, payHintToGoalGameAction.ActiveInvestigator));
+            payHintToGoalGameAction.UpdateInvestigatorsToPay(investigatorsToPay);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
-        private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
+        void CantPayHintsLogic()
         {
-            AvoidGainHintReaction.Disable();
-            AvoidPayHintReaction.Disable();
-            await Task.CompletedTask;
+            GameConditionWith<Investigator> payCondition = _chaptersProvider.CurrentScene.CurrentGoal.PayHints.Condition;
+            payCondition.UpdateWith(NewPayCondition);
+
+            bool NewPayCondition(Investigator investigator)
+            {
+                if (_investigatorsProvider.AllInvestigatorsInPlay.Except(new[] { ConfrontedInvestigator })
+                    .Sum(investigator => investigator.Hints.Value) < _chaptersProvider.CurrentScene.CurrentGoal.Hints.Value) return false;
+                return payCondition.IsTrueWith(investigator);
+            }
+        }
+
+        void DisableCantPayHintsLogic()
+        {
+            _chaptersProvider.CurrentScene.CurrentGoal.PayHints.Condition.Reset();
         }
     }
 }
