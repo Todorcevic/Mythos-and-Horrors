@@ -7,6 +7,7 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
+
     public class CardCreature01169Tests : TestCORE2Preparation
     {
         [UnityTest]
