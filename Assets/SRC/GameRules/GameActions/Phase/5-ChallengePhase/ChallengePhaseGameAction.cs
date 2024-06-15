@@ -76,6 +76,9 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DiscardCommitsCards());
         }
 
+        public void ChangeStat(Stat stat) => Stat = stat;
+
+        /*******************************************************************/
         public bool IsUndo { get; private set; }
         public override async Task Undo()
         {
@@ -84,9 +87,6 @@ namespace MythosAndHorrors.GameRules
             await _challengerPresenter.PlayAnimationWith(this);
         }
 
-        public void ChangeStat(Stat stat)
-        {
-            Stat = stat;
-        }
+
     }
 }
