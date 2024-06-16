@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
-            Reveal = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, false);
+            Reveal = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

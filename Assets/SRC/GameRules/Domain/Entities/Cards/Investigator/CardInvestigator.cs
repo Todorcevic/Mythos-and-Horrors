@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
             Isolated = CreateState(false);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
-            CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, false, isBase: true);
+            CreateReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After, isBase: true);
         }
 
         /*******************************************************************/

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = CreateState(false);
             CreateActivation(CreateStat(0), FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate);
-            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

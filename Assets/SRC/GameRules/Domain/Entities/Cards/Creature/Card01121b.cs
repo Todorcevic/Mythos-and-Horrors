@@ -30,9 +30,9 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Health);
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
             CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff);
-            AvoidGainHintReaction = CreateReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, isAtStart: true);
+            AvoidGainHintReaction = CreateReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, GameActionTime.Before);
             AvoidGainHintReaction.Disable();
-            AvoidPayHintReaction = CreateReaction<PayHintsToGoalGameAction>(CantPayHintsCondition, CantPayHintsLogic, isAtStart: true);
+            AvoidPayHintReaction = CreateReaction<PayHintsToGoalGameAction>(CantPayHintsCondition, CantPayHintsLogic, GameActionTime.Before);
             AvoidPayHintReaction.Disable();
         }
 

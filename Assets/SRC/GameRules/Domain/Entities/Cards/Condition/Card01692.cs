@@ -4,14 +4,14 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01692 : CardConditionTrigged
+    public class Card01692 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Blessed };
         protected override bool IsFast => true;
-        protected override bool FastReactionAtStart => false;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)

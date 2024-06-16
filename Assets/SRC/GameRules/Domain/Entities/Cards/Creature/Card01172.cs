@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<RevealChallengeTokenGameAction>(DoubleModifierCondition, DoubleModifierLogic, false);
+            CreateReaction<RevealChallengeTokenGameAction>(DoubleModifierCondition, DoubleModifierLogic, GameActionTime.After);
         }
 
         /*******************************************************************/
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
             int DoubleModifier(Investigator investigator) => original.Invoke(investigator) * 2;
 
-            CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, isAtStart: false);
+            CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
             /*******************************************************************/
             bool RestoreCondition(RestoreChallengeTokenGameAction restoreChallengeToken)

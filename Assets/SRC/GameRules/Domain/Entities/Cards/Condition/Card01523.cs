@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01523 : CardConditionTrigged
+    public class Card01523 : CardConditionFast
     {
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
-        protected override bool FastReactionAtStart => true;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

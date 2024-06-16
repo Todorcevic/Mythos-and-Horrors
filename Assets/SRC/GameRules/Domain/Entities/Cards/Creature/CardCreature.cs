@@ -49,8 +49,8 @@ namespace MythosAndHorrors.GameRules
             InvestigatorAttackTurnsCost = CreateStat(1);
             InvestigatorConfronTurnsCost = CreateStat(1);
             EludeTurnsCost = CreateStat(1);
-            ConfrontWhenMoveReaction = CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, false);
-            ConfrontWhenReadyReaction = CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, false);
+            ConfrontWhenMoveReaction = CreateReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, GameActionTime.After);
+            ConfrontWhenReadyReaction = CreateReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

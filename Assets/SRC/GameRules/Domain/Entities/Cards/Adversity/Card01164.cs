@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Wasted = CreateState(false);
-            CreateReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, isAtStart: false);
+            CreateReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
             CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic);
         }
 

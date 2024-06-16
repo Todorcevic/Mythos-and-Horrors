@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, isAtStart: false);
-            CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            CreateRealReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After);
+            CreateReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

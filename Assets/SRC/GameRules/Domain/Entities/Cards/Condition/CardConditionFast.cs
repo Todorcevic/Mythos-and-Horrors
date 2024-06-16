@@ -1,28 +1,36 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using MythosAndHorrors.GameRules.News;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardConditionTrigged : CardCondition
+    public abstract class CardConditionFast : CardCondition
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
-        protected abstract bool FastReactionAtStart { get; }
+        protected abstract GameActionTime FastReactionAtStart { get; }
         protected override bool IsFast => true;
-        public Reaction<GameAction> PlayFromHandReaction { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHandReaction = CreateOptativeReaction<GameAction>(PlayFromHandCondition.IsTrueWith,
-                PlayFromHand,
-                isAtStart: FastReactionAtStart,
-                ResourceCost,
-                PlayFromHandActionType);
+            CreateFastPlayCondition<GameAction>();
+        }
+
+        /*******************************************************************/
+        private OptativeReaction<T> CreateFastPlayCondition<T>() where T : GameAction
+        {
+            Func<T, bool> condition = PlayFromHandCondition.IsTrueWith;
+            Func<T, Task> logic = PlayFromHand;
+
+            return CreateRealReaction(condition, logic, FastReactionAtStart, PlayFromHandActionType, isBase: true);
         }
 
         /*******************************************************************/

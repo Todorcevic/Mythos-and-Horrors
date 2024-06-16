@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01568 : CardConditionTrigged
+    public class Card01568 : CardConditionFast
     {
         private IPhase _phase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
 
         protected override bool IsFast => true;
-        protected override bool FastReactionAtStart => true;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
                 async Task RemoveText()
                 {
                     await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, true));
-                    CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, isAtStart: false);
+                    CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, GameActionTime.After);
 
                     /*******************************************************************/
                     bool RemoveEffectCondition(GameAction gameAction)

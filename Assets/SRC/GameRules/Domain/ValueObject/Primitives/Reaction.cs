@@ -8,13 +8,15 @@ namespace MythosAndHorrors.GameRules
         public GameConditionWith<T> Condition { get; set; }
         public GameCommand<T> Command { get; set; }
         public bool IsDisable { get; private set; }
+        public GameActionTime Time { get; }
         public string Description => Command.Logic.Method.Name;
 
         /*******************************************************************/
-        public Reaction(GameConditionWith<T> condition, GameCommand<T> logic)
+        public Reaction(GameConditionWith<T> condition, GameCommand<T> logic, GameActionTime time)
         {
             Condition = condition;
             Command = logic;
+            Time = time;
         }
         /*******************************************************************/
         public async Task React(GameAction gameAction)

@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         private static GameAction _current;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly OptativeReactionsProvider _optativeReactionsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -24,17 +25,20 @@ namespace MythosAndHorrors.GameRules
             if (this is IInitializable initializable) initializable.ExecuteSpecificInitialization();
             InitialSet();
             await _reactionablesProvider.WhenBegin(this);
+            await _optativeReactionsProvider.WhenBegin(this);
             if (!CanBeExecuted || IsCancel)
             {
                 FinishSet();
                 return;
             }
+
             _gameActionsProvider.AddUndo(this);
 
             await ExecuteThisLogic();
             await _buffsProvider.ExecuteAllBuffs();
 
             await _reactionablesProvider.WhenFinish(this);
+            await _optativeReactionsProvider.WhenFinish(this);
             FinishSet();
         }
 

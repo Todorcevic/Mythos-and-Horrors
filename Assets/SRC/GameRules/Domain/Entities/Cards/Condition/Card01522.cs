@@ -4,12 +4,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01522 : CardConditionTrigged
+    public class Card01522 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight, Tag.Criminal };
-        protected override bool FastReactionAtStart => false;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

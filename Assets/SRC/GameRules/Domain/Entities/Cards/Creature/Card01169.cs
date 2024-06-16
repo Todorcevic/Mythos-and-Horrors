@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateReaction<SpawnCreatureGameAction>(EnterPlayCondition, EnterPlayLogic, isAtStart: false);
+            CreateReaction<SpawnCreatureGameAction>(EnterPlayCondition, EnterPlayLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

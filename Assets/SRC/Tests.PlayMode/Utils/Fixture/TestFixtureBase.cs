@@ -79,7 +79,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
             TaskCompletionSource<ChallengeToken> waitForReaction = new();
-            Reaction<RevealChallengeTokenGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, isAtStart: true);
+            Reaction<RevealChallengeTokenGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, GameActionTime.Before);
             await waitForReaction.Task;
             _reactionablesProvider.RemoveReaction(revealTokenReaction);
 
@@ -100,7 +100,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task<ChallengeToken> CaptureTokenWhenReveled()
         {
             TaskCompletionSource<ChallengeToken> waitForReaction = new();
-            Reaction<RevealChallengeTokenGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, isAtStart: false);
+            Reaction<RevealChallengeTokenGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, GameActionTime.After);
             ChallengeToken result = await waitForReaction.Task;
             _reactionablesProvider.RemoveReaction(revealTokenReaction);
             return result;
@@ -125,7 +125,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected async Task<ChallengePhaseGameAction> CaptureResolvingChallenge()
         {
             TaskCompletionSource<ChallengePhaseGameAction> waitForReaction = new();
-            Reaction<ResultChallengeGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<ResultChallengeGameAction>(Condition, ResolveChallenge, isAtStart: false);
+            Reaction<ResultChallengeGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<ResultChallengeGameAction>(Condition, ResolveChallenge, GameActionTime.After);
             ChallengePhaseGameAction result = await waitForReaction.Task;
             _reactionablesProvider.RemoveReaction(revealTokenReaction);
             return result;

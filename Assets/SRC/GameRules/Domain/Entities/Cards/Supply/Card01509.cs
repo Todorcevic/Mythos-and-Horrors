@@ -22,10 +22,10 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = ChargeFear = CreateStat(3);
-            CreateReaction<MoveCardsGameAction>(PrepareCondition, PrepareLogic, true);
-            CreateReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, false);
+            CreateReaction<MoveCardsGameAction>(PrepareCondition, PrepareLogic, GameActionTime.Before);
+            CreateReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
             CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
-            CreateReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, false);
+            CreateReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

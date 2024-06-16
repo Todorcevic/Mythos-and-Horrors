@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<RoundGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogic, isAtStart: true);
+            CreateReaction<RoundGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

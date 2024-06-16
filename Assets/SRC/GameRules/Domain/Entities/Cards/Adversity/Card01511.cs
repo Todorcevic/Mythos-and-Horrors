@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             AbilityUsed = CreateStat(0);
             Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate);
-            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, isAtStart: true);
+            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

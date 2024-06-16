@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01556 : CardConditionTrigged
+    public class Card01556 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Insight };
         protected override bool IsFast => true;
-        protected override bool FastReactionAtStart => false;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
@@ -30,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeToken) return;
             ChallengeToken tokenUpdated = revealChallengeToken.ChallengeTokenRevealed;
             await _gameActionsProvider.Create(new UpdateChallengeTokenGameAction(tokenUpdated, (_) => Math.Abs((int)tokenUpdated.TokenType), tokenUpdated.Effect));
-            CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, isAtStart: false);
+            CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
             /*******************************************************************/
             bool RestoreCondition(RestoreChallengeTokenGameAction restoreChallengeTokenGameAction)

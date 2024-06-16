@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<CreatureAttackGameAction>(DiscardCondition, DiscardLogic, isAtStart: true);
+            CreateReaction<CreatureAttackGameAction>(DiscardCondition, DiscardLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
                     };
                 await _gameActionsProvider.Create(new IncrementStatGameAction(stats));
 
-                CreateOneTimeReaction<CreatureAttackGameAction>(RestoreCondition, RestoreLogic, isAtStart: false);
+                CreateOneTimeReaction<CreatureAttackGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
                 async Task RestoreLogic(CreatureAttackGameAction creatureAttackGameAction2)
                 {

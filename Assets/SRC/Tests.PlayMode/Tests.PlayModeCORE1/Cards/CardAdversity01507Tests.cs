@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return StartingScene();
-            int investigatorPlaceHintsExpected = investigator.CurrentPlace.Hints.Value - 1;
+            int investigatorPlaceHintsExpected = investigator.CurrentPlace.Hints.Value;
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, investigator.DangerZone)).AsCoroutine();
 

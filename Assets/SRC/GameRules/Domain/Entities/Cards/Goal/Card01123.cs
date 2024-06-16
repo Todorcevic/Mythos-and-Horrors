@@ -22,8 +22,8 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Hints);
             Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.ActivateTurnsCost.UpdateValue(1);
-            CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, isAtStart: false);
-            CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, isAtStart: false);
+            CreateReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
+            CreateReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

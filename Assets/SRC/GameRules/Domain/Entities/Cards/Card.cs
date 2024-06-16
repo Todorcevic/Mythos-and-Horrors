@@ -1,3 +1,5 @@
+using ModestTree;
+using MythosAndHorrors.GameRules.News;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,6 +16,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
+        [Inject] private readonly OptativeReactionsProvider _realReactionsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
@@ -63,34 +66,17 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected Reaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, Stat resourceCost = null,
-            PlayActionType playActionType = PlayActionType.Choose) where T : GameAction
+        protected OptativeReaction<T> CreateRealReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
+            PlayActionType playActionType = PlayActionType.None, bool isBase = false) where T : GameAction
         {
-            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, OptativeLogic, isAtStart);
-            _specificReactions.Add(newReaction);
-            return newReaction;
-
-            async Task OptativeLogic(T gameAction)
-            {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true,
-                    mustShowInCenter: true,
-                    "Optative Reaction",
-                    ControlOwner ?? _investigatorsProvider.Leader);
-                interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.CreateEffect(this,
-                    new Stat(0, false),
-                    FullLogic,
-                    playActionType,
-                    playedBy: ControlOwner ?? _investigatorsProvider.Leader,
-                    resourceCost: resourceCost);
-                await _gameActionsProvider.Create(interactableGameAction);
-
-                /*******************************************************************/
-                async Task FullLogic() => await logic.Invoke(gameAction);
-            }
+            OptativeReaction<T> realReaction = new(this, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time);
+            _realReactionsProvider.CreateReaction(realReaction);
+            if (isBase) _baseReactions.Add(realReaction);
+            else _specificReactions.Add(realReaction);
+            return realReaction;
         }
 
-        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false) where T : GameAction
+        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime isAtStart, bool isBase = false) where T : GameAction
         {
             Reaction<T> newReaction = null;
             newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, isAtStart);
@@ -103,7 +89,7 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, bool isAtStart, bool isBase = false) where T : GameAction
+        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime isAtStart, bool isBase = false) where T : GameAction
         {
             Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, isAtStart);
             if (isBase) _baseReactions.Add(newReaction);

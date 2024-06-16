@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01684 : CardConditionTrigged
+    public class Card01684 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
         protected override bool IsFast => false;
-        protected override bool FastReactionAtStart => true;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)

@@ -93,7 +93,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         private void SafeForeachReaction()
         {
             Reaction<PlayInvestigatorGameAction> reaction = null;
-            reaction = _reactionablesProvider.CreateReaction<PlayInvestigatorGameAction>(Condition, SafeForeachReac, isAtStart: false);
+            reaction = _reactionablesProvider.CreateReaction<PlayInvestigatorGameAction>(Condition, SafeForeachReac, GameActionTime.After);
 
             bool Condition(GameAction _) => true;
 

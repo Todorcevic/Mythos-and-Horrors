@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<RoundGameAction>(HealthCondition, HealtLogic, isAtStart: false);
+            CreateReaction<RoundGameAction>(HealthCondition, HealtLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

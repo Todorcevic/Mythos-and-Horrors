@@ -200,7 +200,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public void MustBeRevealedThisToken(ChallengeTokenType tokenType)
         {
             Reaction<RevealChallengeTokenGameAction> revealTokenReaction = null;
-            revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, true);
+            revealTokenReaction = _reactionablesProvider.CreateReaction<RevealChallengeTokenGameAction>(Condition, Reveal, GameActionTime.Before);
 
             bool Condition(GameAction _) => true;
 

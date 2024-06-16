@@ -22,8 +22,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, isAtStart: false);
-            CreateReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, true);
+            CreateRealReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After);
+            CreateReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

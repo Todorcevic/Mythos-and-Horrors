@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Health);
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             Defeated = CreateState(false);
-            CreateReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, false);
+            CreateReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, GameActionTime.After);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
         }
 

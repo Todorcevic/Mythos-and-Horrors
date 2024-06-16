@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Reveal.Disable();
-            CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, false);
+            CreateReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

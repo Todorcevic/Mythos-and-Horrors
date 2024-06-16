@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = Hints = CreateStat(3);
-            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, isAtStart: false);
-            CreateReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, isAtStart: true);
+            CreateRealReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before);
+            CreateReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
@@ -44,7 +44,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task PayHintLogic(GainHintGameAction gainHintGameAction)
         {
-            await _gameActionsProvider.Create(new PayHintGameAction(gainHintGameAction.Investigator, Hints, gainHintGameAction.Amount));
+            gainHintGameAction.Cancel();
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Hints, gainHintGameAction.Amount));
         }
 
         private bool PayHintCondition(GainHintGameAction gainHintGameAction)

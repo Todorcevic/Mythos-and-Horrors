@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<HarmToCardGameAction>(TakeDirectFearConditionn, TakeDirectFearLogic, isAtStart: false);
+            CreateReaction<HarmToCardGameAction>(TakeDirectFearConditionn, TakeDirectFearLogic, GameActionTime.After);
             CreateActivation(CreateStat(2), DiscardLogic, DiscardCondition, PlayActionType.Activate);
         }
 

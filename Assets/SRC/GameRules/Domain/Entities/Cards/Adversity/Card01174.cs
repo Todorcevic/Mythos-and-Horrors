@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(CreateStat(1), TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
-            CreateReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, isAtStart: true);
+            CreateReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +21,8 @@ namespace MythosAndHorrors.GameRules
         {
             Played = new State(false);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
-            CreateReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, isAtStart: false);
-            CreateReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenReaction, isAtStart: true);
+            CreateReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
+            CreateReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenReaction, GameActionTime.Before);
         }
 
         /*******************************************************************/

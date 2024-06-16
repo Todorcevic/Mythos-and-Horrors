@@ -22,9 +22,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<MoveInvestigatorToPlaceGameAction>(DiscardCondition, DiscardLogic, isAtStart: false);
-            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConfrontCantMoveCondition, ConfrontCantMoveLogic, isAtStart: true);
-            CreateReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, isAtStart: true);
+            CreateReaction<MoveInvestigatorToPlaceGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateReaction<MoveInvestigatorToPlaceGameAction>(ConfrontCantMoveCondition, ConfrontCantMoveLogic, GameActionTime.Before);
+            CreateReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
