@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -25,8 +24,6 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
-                if (!CanChoose()) continue;
-
                 CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator);
 
                 /*******************************************************************/
@@ -35,12 +32,6 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
                     await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
                 };
-
-                bool CanChoose()
-                {
-                    if (card.Tags.Contains(Tag.Weakness)) return false;
-                    return true;
-                }
             }
         }
     }
