@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             if (Place != null) await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Place.OwnZone));
-            else if (Investigator != null) await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Investigator.DangerZone));
+            else if (Investigator != null) await _gameActionsProvider.Create(new ConfrontCreatureGameAction(Creature, Investigator));
             else await _gameActionsProvider.Create(new DiscardGameAction(Creature));
         }
     }
