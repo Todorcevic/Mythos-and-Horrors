@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
+
     public class CardCreature01172Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
