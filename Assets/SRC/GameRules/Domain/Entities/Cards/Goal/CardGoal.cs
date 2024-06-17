@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
             await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, _investigatorsProvider.AllInvestigatorsInPlay
-                .Where(investigator => investigator.Hints.Value > 0), activeInvestigator));
+                .Where(investigator => investigator.Hints.Value > 0)));
 
         protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {

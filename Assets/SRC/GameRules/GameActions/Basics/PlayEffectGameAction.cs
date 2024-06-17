@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             }
             if (Effect is CardEffect cardEffec && cardEffec.ResourceCost.Value > 0)
             {
-                await _gameActionsProvider.Create(new DecrementStatGameAction(Effect.Investigator.Resources, cardEffec.ResourceCost.Value));
+                await _gameActionsProvider.Create(new DecrementStatGameAction(cardEffec.Investigator.Resources, cardEffec.ResourceCost.Value));
             }
             if (Effect.WithOpportunityAttack)
             {

@@ -4,18 +4,20 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : InteractableGameAction
+    public class OneInvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
+        public Investigator ActiveInvestigator { get; }
         public CardEffect TakeResourceEffect { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
-        public OneInvestigatorTurnGameAction() :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn", PlayInvestigatorGameAction.PlayActiveInvestigator)
-        { }
+        public OneInvestigatorTurnGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
+        {
+            ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

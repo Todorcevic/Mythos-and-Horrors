@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task PayCreature()
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay", investigator);
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay");
                 foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
                 {
                     interactableGameAction.CreateEffect(card,

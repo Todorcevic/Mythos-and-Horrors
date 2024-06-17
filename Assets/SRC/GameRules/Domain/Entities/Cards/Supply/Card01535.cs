@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /************************ HEALTH ACTIVATION ******************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health", activeInvestigator);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {

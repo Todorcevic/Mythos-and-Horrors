@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactableGameAction = new(
                    canBackToThisInteractable: true,
                    mustShowInCenter: true,
-                   "Play Reaction?", _gameActionsProvider.CurrentInteractable?.ActiveInvestigator ?? _investigatorsProvider.Leader);
+                   "Play Reaction?");
 
             foreach (IReaction reaction in optativeReactions)
             {

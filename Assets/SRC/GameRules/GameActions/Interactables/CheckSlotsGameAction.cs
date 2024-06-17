@@ -5,16 +5,18 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CheckSlotsGameAction : InteractableGameAction
+    public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public Investigator ActiveInvestigator { get; }
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
-        public CheckSlotsGameAction(Investigator investigator) :
-            base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard", investigator)
-        { }
+        public CheckSlotsGameAction(Investigator investigator) : base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard")
+        {
+            ActiveInvestigator = investigator;
+        }
 
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()

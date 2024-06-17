@@ -26,7 +26,11 @@ namespace MythosAndHorrors.GameView
         {
             if (gamAction is not InteractableGameAction interactableGameAction) return default;
             _mainButtonComponent.MainButtonEffect = interactableGameAction.MainButtonEffect;
-            await _swapInvestigatorHandler.Select(interactableGameAction.ActiveInvestigator).AsyncWaitForCompletion();
+            if (interactableGameAction is IPersonalInteractable personalInteractable)
+            {
+                await _swapInvestigatorHandler.Select(personalInteractable.ActiveInvestigator).AsyncWaitForCompletion();
+            }
+
             mustShowInCenter = interactableGameAction.MustShowInCenter;
             return await Initial(interactableGameAction, interactableGameAction.Description);
         }

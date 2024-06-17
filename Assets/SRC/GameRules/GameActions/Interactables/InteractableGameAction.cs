@@ -16,7 +16,6 @@ namespace MythosAndHorrors.GameRules
         public bool MustShowInCenter { get; protected set; }
         public virtual string Description { get; protected set; }
 
-        public Investigator ActiveInvestigator { get; }
         public BaseEffect EffectSelected { get; private set; }
         public BaseEffect MainButtonEffect { get; private set; }
         public BaseEffect UndoEffect { get; private set; }
@@ -32,12 +31,11 @@ namespace MythosAndHorrors.GameRules
 
 
         /*******************************************************************/
-        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description, Investigator activeInvestigator)
+        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
             Description = description;
-            ActiveInvestigator = activeInvestigator;
         }
 
         /*******************************************************************/
@@ -65,32 +63,33 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             bool CanBeAdded(CardEffect effect)
             {
-                if (ActiveInvestigator.Isolated.IsActive && effect.Investigator != ActiveInvestigator) return false;
+                if (this is not IPersonalInteractable personalInteractable) return true;
+                if (personalInteractable.ActiveInvestigator.Isolated.IsActive && effect.Investigator != personalInteractable.ActiveInvestigator) return false;
                 return true;
             }
         }
 
         public BaseEffect CreateMainButton(Func<Task> logic, string description)
         {
-            BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, ActiveInvestigator, description: description);
+            BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, null, description: description);
             MainButtonEffect = effect;
             return effect;
         }
 
         public void CreateCancelMainButton()
         {
-            MainButtonEffect = new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, ActiveInvestigator, description: "Cancel");
+            MainButtonEffect = new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Cancel");
         }
 
         public void CreateContinueMainButton()
         {
-            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, ActiveInvestigator, description: "Continue");
+            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, description: "Continue");
             static async Task Continue() => await Task.CompletedTask;
         }
 
         private void SetUndoButton()
         {
-            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, ActiveInvestigator, description: "Back") : null;
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
         }
 
         async Task UndoLogic()

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public ChooseInvestigatorGameAction(Investigator activeInvestigator) : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator", activeInvestigator) { }
+        public ChooseInvestigatorGameAction(Investigator activeInvestigator) : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator") { }
 
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()

@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
 
-            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, specificInvestigators, _investigatorsProvider.Leader));
+            await _gameActionsProvider.Create(new PayHintsToGoalGameAction(this, specificInvestigators));
         }
 
         protected override bool PayHintsConditionToActivate(Investigator investigator) => false;

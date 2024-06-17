@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (creatureAttackGameAction.Investigator.DiscardableCardsInHand.Any())
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, "Discard", creatureAttackGameAction.Investigator);
+                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: false, "Discard");
 
                 foreach (Card card in creatureAttackGameAction.Investigator.DiscardableCardsInHand)
                 {

@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<CardWeapon> Firearms = investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 
-            InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm", investigator);
+            InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
             interactable.CreateCancelMainButton();
             foreach (CardWeapon firearm in Firearms)
             {

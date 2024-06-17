@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose", investigator);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose");
             if (investigator.Hints.Value > 0)
                 interactableGameAction.CreateEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator);
             interactableGameAction.CreateEffect(this, new Stat(0, false), TakeDamage, PlayActionType.Choose, playedBy: investigator);

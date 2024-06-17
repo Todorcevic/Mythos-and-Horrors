@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard", Owner);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {

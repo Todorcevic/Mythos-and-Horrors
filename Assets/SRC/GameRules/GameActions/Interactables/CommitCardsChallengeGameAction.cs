@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : InteractableGameAction
+    public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
+        public Investigator ActiveInvestigator { get; }
         public CardEffect ButtonEffect { get; private set; }
         public ChallengePhaseGameAction CurrentChallenge { get; }
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
@@ -22,8 +22,9 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public CommitCardsChallengeGameAction(Investigator investigator, ChallengePhaseGameAction challenge) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards", investigator)
+            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards")
         {
+            ActiveInvestigator = investigator;
             CurrentChallenge = challenge;
         }
 

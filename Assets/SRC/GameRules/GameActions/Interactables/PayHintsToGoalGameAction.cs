@@ -15,8 +15,8 @@ namespace MythosAndHorrors.GameRules
         public List<CardEffect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
-        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay, Investigator activeInvestigator) :
-            base(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay", activeInvestigator)
+        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
+            base(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay")
         {
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     int amoutToPay = investigator.Hints.Value > CardGoal.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
                     await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, amoutToPay));
-                    await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay, ActiveInvestigator));
+                    await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
                 }
             }
         }

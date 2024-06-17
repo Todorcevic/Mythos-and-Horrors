@@ -16,8 +16,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(Investigator investigator)
         {
-            InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true,
-                description: "Choose Enemy", activeInvestigator: investigator);
+            InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
 
             chooseEnemy.CreateCancelMainButton();
 
