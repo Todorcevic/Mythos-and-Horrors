@@ -5,11 +5,10 @@ namespace MythosAndHorrors.GameRules
 {
     public class Reaction<T> : IReaction where T : GameAction
     {
-        public GameConditionWith<T> Condition { get; set; }
-        public GameCommand<T> Command { get; set; }
-        public bool IsDisable { get; private set; }
+        public GameConditionWith<T> Condition { get; }
+        public GameCommand<T> Command { get; }
         public GameActionTime Time { get; }
-        public string Description => Command.Logic.Method.Name;
+        public bool IsDisable { get; private set; }
 
         /*******************************************************************/
         public Reaction(GameConditionWith<T> condition, GameCommand<T> logic, GameActionTime time)
@@ -19,14 +18,17 @@ namespace MythosAndHorrors.GameRules
             Time = time;
         }
         /*******************************************************************/
-        public async Task React(GameAction gameAction)
+        public bool Check(GameAction gameAction, GameActionTime time)
         {
-            if (IsDisable) return;
-            if (gameAction.IsCancel) return;
-            if (gameAction is not T realGameAction) return;
-            if (!Condition.IsTrueWith(realGameAction)) return;
-            await Command.RunWith(realGameAction);
+            if (Time != time) return false;
+            if (gameAction is not T realGameAction) return false;
+            if (gameAction.IsCancel) return false;
+            if (IsDisable) return false;
+            if (!Condition.IsTrueWith(realGameAction)) return false;
+            return true;
         }
+
+        public async Task React(GameAction gameAction) => await Command.RunWith((T)gameAction);
 
         public void Disable() => IsDisable = true;
 

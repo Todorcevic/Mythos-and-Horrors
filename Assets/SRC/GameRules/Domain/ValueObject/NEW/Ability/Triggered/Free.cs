@@ -2,8 +2,14 @@
 {
     public class Free : Triggered
     {
-        public Free(PlayActionType playAction) : base(playAction)
+        public Card Card { get; }
+
+        public PlayActionType PlayAction { get; }
+
+        public Free(Card card, PlayActionType playAction)
         {
+            Card = card;
+            PlayAction = playAction;
         }
     }
 }

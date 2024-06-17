@@ -1,13 +1,8 @@
 ﻿namespace MythosAndHorrors.GameRules.News
 {
-
-    public class Triggered : Ability
+    public interface Triggered
     {
-        public Triggered(PlayActionType playAction)
-        {
-            PlayAction = playAction;
-        }
-
+        public Card Card { get; }
         public PlayActionType PlayAction { get; }
     }
 }

@@ -45,6 +45,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         }
 
         /*******************************************************************/
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator NormalCreatureTokenTest()
         {
@@ -87,6 +89,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
             revealToken.ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
+
+            //Task<ChallengePhaseGameAction> gdfgd = CaptureResolvingChallenge();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, investigator.DangerZone)).AsCoroutine();
 
             yield return ExecuteChallenge();

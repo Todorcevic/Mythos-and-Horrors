@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.Second;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
-            Task<ChallengePhaseGameAction> challenge = CaptureResolvingChallenge();
+            Task<ResultChallengeGameAction> challenge = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01536 conditionCard = _cardsProvider.GetCard<Card01536>();
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(challenge.Result.Stat, Is.EqualTo(investigator.Intelligence));
+            Assert.That(challenge.Result.ChallengePhaseGameAction.Stat, Is.EqualTo(investigator.Intelligence));
         }
     }
 }

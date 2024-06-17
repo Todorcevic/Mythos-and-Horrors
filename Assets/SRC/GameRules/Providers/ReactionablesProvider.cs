@@ -8,26 +8,24 @@ namespace MythosAndHorrors.GameRules
     public class ReactionablesProvider
     {
         private readonly List<IReaction> _reactions = new();
-        List<IReaction> Before => _reactions.Where(realReaction => realReaction.Time == GameActionTime.Before).ToList();
-        List<IReaction> After => _reactions.Where(realReaction => realReaction.Time == GameActionTime.After).ToList();
 
         /*******************************************************************/
         public async Task WhenBegin(GameAction gameAction)
         {
-            foreach (IReaction reaction in Before)
+            foreach (IReaction reaction in _reactions.Where(realReaction => realReaction.Check(gameAction, GameActionTime.Before)).ToList())
                 await reaction.React(gameAction);
         }
 
         public async Task WhenFinish(GameAction gameAction)
         {
-            foreach (IReaction reaction in After)
+            foreach (IReaction reaction in _reactions.Where(realReaction => realReaction.Check(gameAction, GameActionTime.After)).ToList())
                 await reaction.React(gameAction);
         }
 
         /*******************************************************************/
-        public Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime isAtStart) where T : GameAction
+        public Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time) where T : GameAction
         {
-            Reaction<T> newReaction = new(new GameConditionWith<T>(condition), new GameCommand<T>(logic), isAtStart);
+            Reaction<T> newReaction = new(new GameConditionWith<T>(condition), new GameCommand<T>(logic), time);
             _reactions.Add(newReaction);
             return newReaction;
         }

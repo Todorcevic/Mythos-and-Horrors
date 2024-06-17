@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules.News
 {
-    public class Keyword : Ability
+    public class Keyword
     {
 
     }

@@ -2,8 +2,14 @@
 {
     public class Action : Triggered
     {
-        public Action(PlayActionType playAction) : base(playAction)
+        public Card Card { get; }
+
+        public PlayActionType PlayAction { get; }
+
+        public Action(Card card, PlayActionType playAction)
         {
+            Card = card;
+            PlayAction = playAction;
         }
     }
 }

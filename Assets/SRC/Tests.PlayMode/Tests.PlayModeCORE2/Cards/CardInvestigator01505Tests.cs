@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             CardSupply AmuletoDeWendy = _cardsProvider.GetCard<Card01514>();
             CardPlace place = SceneCORE2.Fluvial;
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
-            Task<ChallengePhaseGameAction> challengeResolved = CaptureResolvingChallenge();
+            Task<ResultChallengeGameAction> challengeResolved = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest, withResources: false);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(AmuletoDeWendy, investigatorToTest.AidZone)).AsCoroutine();
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(tokenValue.Result, Is.EqualTo(0));
-            Assert.That(challengeResolved.Result.IsAutoSucceed, Is.True);
+            Assert.That(challengeResolved.Result.ChallengePhaseGameAction.IsAutoSucceed, Is.True);
             Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
         }
 

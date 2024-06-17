@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardSupply Necronomicon = _cardsProvider.GetCard<Card01509>();
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
-            Task<ChallengePhaseGameAction> challengePhase = CaptureResolvingChallenge();
+            Task<ResultChallengeGameAction> challengePhase = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(Necronomicon, investigator.DangerZone)).AsCoroutine();
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(challengePhase.Result.IsAutoFail, Is.True);
+            Assert.That(challengePhase.Result.ChallengePhaseGameAction.IsAutoFail, Is.True);
             Assert.That(investigator.Hints.Value, Is.EqualTo(0));
         }
 

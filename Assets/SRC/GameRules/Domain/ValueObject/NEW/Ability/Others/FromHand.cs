@@ -2,8 +2,14 @@
 {
     public class FromHand : Triggered
     {
-        public FromHand(PlayActionType playAction) : base(playAction)
+        public Card Card { get; }
+
+        public PlayActionType PlayAction { get; }
+
+        public FromHand(Card card, PlayActionType playAction)
         {
+            Card = card;
+            PlayAction = playAction;
         }
     }
 }

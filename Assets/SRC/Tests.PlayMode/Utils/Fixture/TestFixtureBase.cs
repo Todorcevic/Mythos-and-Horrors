@@ -122,12 +122,12 @@ namespace MythosAndHorrors.PlayMode.Tests
                 return token.Value(investigator);
             });
 
-        protected async Task<ChallengePhaseGameAction> CaptureResolvingChallenge()
+        protected async Task<ResultChallengeGameAction> CaptureResolvingChallenge()
         {
-            TaskCompletionSource<ChallengePhaseGameAction> waitForReaction = new();
-            Reaction<ResultChallengeGameAction> revealTokenReaction = _reactionablesProvider.CreateReaction<ResultChallengeGameAction>(Condition, ResolveChallenge, GameActionTime.After);
-            ChallengePhaseGameAction result = await waitForReaction.Task;
-            _reactionablesProvider.RemoveReaction(revealTokenReaction);
+            TaskCompletionSource<ResultChallengeGameAction> waitForReaction = new();
+            Reaction<ResultChallengeGameAction> revealTokenReaction = null;
+            revealTokenReaction = _reactionablesProvider.CreateReaction<ResultChallengeGameAction>(Condition, ResolveChallenge, GameActionTime.After);
+            ResultChallengeGameAction result = await waitForReaction.Task;
             return result;
 
             bool Condition(GameAction _) => true;
@@ -136,22 +136,23 @@ namespace MythosAndHorrors.PlayMode.Tests
             async Task ResolveChallenge(GameAction gameAction)
             {
                 if (gameAction is not ResultChallengeGameAction resolveChallengeGameAction) return;
-                waitForReaction.SetResult(resolveChallengeGameAction.ChallengePhaseGameAction);
+                waitForReaction.SetResult(resolveChallengeGameAction);
+                _reactionablesProvider.RemoveReaction(revealTokenReaction);
                 await Task.CompletedTask;
             }
         }
 
-        protected Task<(int totalTokensAmount, int totalTokensValue)> CaptureTotalTokensRevelaed() => Task.Run(async () =>
+        protected async Task<(int totalTokensAmount, int totalTokensValue)> CaptureTotalTokensRevelaed()
         {
-            ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
-            return (challenge.ResultChallenge.TokensRevealed.Count(), challenge.CurrentTotalTokenValue);
-        });
+            ResultChallengeGameAction resutlChallenge = await CaptureResolvingChallenge();
+            return (resutlChallenge.TokensRevealed.Count(), resutlChallenge.ChallengePhaseGameAction.CurrentTotalTokenValue);
+        }
 
-        protected Task<int> CaptureTotalChallengeValue() => Task.Run(async () =>
+        protected async Task<int> CaptureTotalChallengeValue()
         {
-            ChallengePhaseGameAction challenge = await CaptureResolvingChallenge();
-            return challenge.CurrentTotalChallengeValue;
-        });
+            ResultChallengeGameAction resutlChallenge = await CaptureResolvingChallenge();
+            return resutlChallenge.ChallengePhaseGameAction.CurrentTotalChallengeValue;
+        }
 
         /*******************************************************************/
         private const float TIMEOUT = 3f;

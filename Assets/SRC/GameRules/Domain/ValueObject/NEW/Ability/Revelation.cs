@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules.News
 {
-    public class Revelation : Ability
+    public class Revelation
     {
 
     }
