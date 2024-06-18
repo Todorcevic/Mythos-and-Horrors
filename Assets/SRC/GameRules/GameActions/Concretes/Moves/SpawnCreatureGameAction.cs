@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature Creature { get; }
-        public CardPlace Place { get; }
+        public CardPlace Place { get; private set; }
         public Investigator Investigator { get; }
 
         /*******************************************************************/
@@ -36,6 +36,12 @@ namespace MythosAndHorrors.GameRules
             if (Place != null) await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Place.OwnZone));
             else if (Investigator != null) await _gameActionsProvider.Create(new ConfrontCreatureGameAction(Creature, Investigator));
             else await _gameActionsProvider.Create(new DiscardGameAction(Creature));
+        }
+
+        /*******************************************************************/
+        public void UpdatePlace(CardPlace cardPlace)
+        {
+            Place = cardPlace;
         }
     }
 }

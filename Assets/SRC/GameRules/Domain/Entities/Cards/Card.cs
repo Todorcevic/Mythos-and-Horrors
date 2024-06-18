@@ -80,7 +80,7 @@ namespace MythosAndHorrors.GameRules
             return newReaction;
         }
 
-        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, bool isBase = false) where T : GameAction
+        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time) where T : GameAction
         {
             Reaction<T> newReaction = null;
             newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, time);
