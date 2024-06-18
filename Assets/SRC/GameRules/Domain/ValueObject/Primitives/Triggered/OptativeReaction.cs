@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Zenject;
-
-namespace MythosAndHorrors.GameRules.News
+﻿namespace MythosAndHorrors.GameRules
 {
     public class OptativeReaction<T> : Reaction<T>, Triggered where T : GameAction
     {

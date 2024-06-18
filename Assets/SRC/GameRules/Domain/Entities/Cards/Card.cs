@@ -1,5 +1,3 @@
-using ModestTree;
-using MythosAndHorrors.GameRules.News;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -27,6 +25,7 @@ namespace MythosAndHorrors.GameRules
         private readonly List<IReaction> _specificReactions = new();
         private readonly List<Buff> _baseBuffs = new();
         private readonly List<Buff> _specificBuffss = new();
+        private readonly List<IAbility> _abilities = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }

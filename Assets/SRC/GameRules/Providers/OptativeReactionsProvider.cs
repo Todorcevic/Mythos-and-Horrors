@@ -1,5 +1,4 @@
-﻿using MythosAndHorrors.GameRules.News;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;

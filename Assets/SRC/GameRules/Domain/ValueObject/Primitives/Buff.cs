@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Buff : IViewEffect
+    public class Buff : IViewEffect, IAbility
     {
         private bool _isBuffing;
-        private string _description;
 
         public Card CardMaster { get; private set; }
         public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
@@ -20,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
-        string IViewEffectDescription.Description => _description ?? BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
+        public string Description => BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
 
         /*******************************************************************/

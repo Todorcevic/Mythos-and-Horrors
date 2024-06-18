@@ -1,12 +1,12 @@
-﻿namespace MythosAndHorrors.GameRules.News
+﻿namespace MythosAndHorrors.GameRules
 {
-    public class Free : Triggered
+    public class Action : Triggered
     {
         public Card Card { get; }
 
         public PlayActionType PlayAction { get; }
 
-        public Free(Card card, PlayActionType playAction)
+        public Action(Card card, PlayActionType playAction)
         {
             Card = card;
             PlayAction = playAction;

@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Activation
+    public class Activation : IAbility
     {
         public Stat ActivateTurnsCost { get; }
         public GameCommand<Investigator> Logic { get; }
         public GameConditionWith<Investigator> Condition { get; }
         public PlayActionType PlayActionType { get; }
+        public string Description { get; }
         public bool IsDisable { get; private set; }
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 

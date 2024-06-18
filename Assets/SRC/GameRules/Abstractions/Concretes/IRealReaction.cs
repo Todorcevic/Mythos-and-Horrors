@@ -1,5 +1,4 @@
-﻿using MythosAndHorrors.GameRules.News;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {

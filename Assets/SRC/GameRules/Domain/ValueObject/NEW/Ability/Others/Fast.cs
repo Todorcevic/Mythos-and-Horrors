@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MythosAndHorrors.GameRules.News
+namespace MythosAndHorrors.GameRules
 {
     public class Fast<T> : IRealReaction where T : GameAction
     {

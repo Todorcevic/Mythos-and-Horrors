@@ -1,5 +1,4 @@
-﻿using MythosAndHorrors.GameRules.News;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;

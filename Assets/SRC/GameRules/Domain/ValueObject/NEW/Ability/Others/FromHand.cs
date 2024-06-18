@@ -1,4 +1,4 @@
-﻿namespace MythosAndHorrors.GameRules.News
+﻿namespace MythosAndHorrors.GameRules
 {
     public class FromHand : Triggered
     {
