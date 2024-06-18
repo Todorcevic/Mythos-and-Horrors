@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(CreateStat(1), TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
-            CreateReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, GameActionTime.Before);
+            CreateForceReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
                 .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone
                 ?? _chaptersProvider.CurrentScene.LimboZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator)
+        public override async Task PlayRevelationFor(Investigator investigator)
         {
             if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create(new DiscardGameAction(this));
         }

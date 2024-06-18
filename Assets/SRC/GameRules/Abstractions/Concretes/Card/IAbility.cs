@@ -3,5 +3,7 @@
     public interface IAbility
     {
         string Description { get; }
+        void Disable();
+        void Enable();
     }
 }

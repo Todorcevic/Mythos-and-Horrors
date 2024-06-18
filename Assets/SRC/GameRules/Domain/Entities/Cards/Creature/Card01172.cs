@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<RevealChallengeTokenGameAction>(DoubleModifierCondition, DoubleModifierLogic, GameActionTime.After);
+            CreateForceReaction<RevealChallengeTokenGameAction>(DoubleModifierCondition, DoubleModifierLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

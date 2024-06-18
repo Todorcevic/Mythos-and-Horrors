@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Hints);
             Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.Disable();
-            CreateActivation(CreateStat(1), PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate, isBase: true);
+            CreateActivation(CreateStat(1), PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate);
         }
 
         /*******************************************************************/

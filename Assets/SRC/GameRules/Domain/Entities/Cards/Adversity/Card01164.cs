@@ -23,24 +23,20 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Wasted = CreateState(false);
-            CreateReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
-            CreateReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
+            CreateForceReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateForceReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
             CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic);
         }
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator)
-        {
+        public override async Task PlayRevelationFor(Investigator investigator) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, false));
-        }
 
         /*******************************************************************/
-        private async Task WasteLogic(PlayEffectGameAction action)
-        {
+        private async Task WasteLogic(PlayEffectGameAction action) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
-        }
 
         private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {

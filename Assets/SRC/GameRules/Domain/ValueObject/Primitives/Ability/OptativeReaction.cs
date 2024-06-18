@@ -1,6 +1,6 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public class OptativeReaction<T> : Reaction<T>, Triggered where T : GameAction
+    public class OptativeReaction<T> : Reaction<T>, ITriggered where T : GameAction
     {
         public Card Card { get; }
         public PlayActionType PlayAction { get; }

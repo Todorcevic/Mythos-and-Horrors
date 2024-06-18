@@ -27,13 +27,13 @@ namespace MythosAndHorrors.GameRules
             AbilityUsed = CreateStat(0);
             Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
             CreateActivation(CreateStat(0), PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate);
-            CreateReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
+            CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+        public override async Task PlayRevelationFor(Investigator investigator) => await Task.CompletedTask;
 
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)

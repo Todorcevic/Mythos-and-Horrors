@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(CreateStat(1), ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
             CreateActivation(CreateStat(1), ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
-            CreateReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
+            CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
         }
 

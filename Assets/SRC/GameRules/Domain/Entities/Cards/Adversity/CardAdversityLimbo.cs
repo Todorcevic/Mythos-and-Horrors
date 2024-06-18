@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.LimboZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator)
+        public override async Task PlayRevelationFor(Investigator investigator)
         {
             if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.Isolated, true));
             await ObligationLogic(investigator);

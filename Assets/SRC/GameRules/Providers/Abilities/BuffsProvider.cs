@@ -1,15 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class BuffsProvider
     {
-        [Inject] private readonly CardsProvider _cardsProvider;
+        private readonly List<Buff> _buffs = new();
 
-        private IEnumerable<Buff> AllBuffs => _cardsProvider.AllCards.SelectMany(card => card.AllBuffs);
+        private IEnumerable<Buff> AllBuffs => _buffs.ToList();
+
+        /*******************************************************************/
+        public Buff CreateBuff(Card card, Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
+            Func<IEnumerable<Card>, Task> deactivationLogic)
+        {
+            Buff newBuff = new(card, cardsToBuff, new GameCommand<IEnumerable<Card>>(activationLogic), new GameCommand<IEnumerable<Card>>(deactivationLogic));
+            _buffs.Add(newBuff);
+            return newBuff;
+        }
 
         /*******************************************************************/
         public async Task ExecuteAllBuffs()

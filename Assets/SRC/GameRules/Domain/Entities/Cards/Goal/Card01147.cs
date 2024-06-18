@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Reveal.Disable();
             PayHints.Disable();
-            CreateReaction<RevealGameAction>(RevealRituaReactionCondition, RevealRituaReactionlLogic, GameActionTime.After);
+            CreateForceReaction<RevealGameAction>(RevealRituaReactionCondition, RevealRituaReactionlLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

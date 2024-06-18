@@ -32,11 +32,11 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            PayHints = CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, PlayActionType.Activate, isBase: true);
+            PayHints = CreateActivation(CreateStat(0), PayHintsActivate, PayHintsConditionToActivate, PlayActionType.Activate);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);
-            Reveal = CreateReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
+            Reveal = CreateBaseReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

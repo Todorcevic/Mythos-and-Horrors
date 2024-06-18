@@ -11,10 +11,10 @@ namespace MythosAndHorrors.GameRules
     {
         private bool _isBuffing;
 
-        public Card CardMaster { get; private set; }
-        public Func<IEnumerable<Card>> CardsToBuff { get; private set; }
-        public GameCommand<IEnumerable<Card>> BuffOnLogic { get; private set; }
-        public GameCommand<IEnumerable<Card>> BuffOffLogic { get; private set; }
+        public Card CardMaster { get; }
+        public Func<IEnumerable<Card>> CardsToBuff { get; }
+        public GameCommand<IEnumerable<Card>> BuffOnLogic { get; }
+        public GameCommand<IEnumerable<Card>> BuffOffLogic { get; }
         public List<Card> CurrentCardsAffected { get; private set; } = new();
         public bool IsDisabled { get; private set; }
 

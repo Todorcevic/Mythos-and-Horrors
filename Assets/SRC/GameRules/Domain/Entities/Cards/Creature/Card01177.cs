@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<CreatureAttackGameAction>(DiscardCondition, DiscardLogic, GameActionTime.Before);
+            CreateForceReaction<CreatureAttackGameAction>(DiscardCondition, DiscardLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

@@ -9,9 +9,8 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
+        public IReaction PlayFromHandReaction { get; private set; }
         protected abstract GameActionTime FastReactionAtStart { get; }
         protected override bool IsFast => true;
 
@@ -20,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateFastPlayCondition<GameAction>();
+            PlayFromHandReaction = CreateFastPlayCondition<GameAction>();
         }
 
         /*******************************************************************/
@@ -29,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             Func<T, bool> condition = PlayFromHandCondition.IsTrueWith;
             Func<T, Task> logic = PlayFromHand;
 
-            return CreateRealReaction(condition, logic, FastReactionAtStart, PlayFromHandActionType, isBase: true);
+            return CreateOptativeReaction(condition, logic, FastReactionAtStart, PlayFromHandActionType);
         }
 
         /*******************************************************************/

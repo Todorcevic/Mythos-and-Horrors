@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ModestTree;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -31,6 +33,14 @@ namespace MythosAndHorrors.GameRules
             _optativeReactions.Add(realReaction);
         }
 
+        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, PlayActionType playActionType = PlayActionType.None) where T : GameAction
+        {
+            OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time);
+            _optativeReactions.Add(optativeReaction);
+            return optativeReaction;
+        }
+
+        /*******************************************************************/
         private async Task CreateInteractable(GameAction gameAction, GameActionTime time)
         {
             IEnumerable<IReaction> optativeReactions = _optativeReactions.Where(realReaction => realReaction.Check(gameAction, time)).Except(_played);
@@ -43,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (IReaction reaction in optativeReactions)
             {
-                Triggered triggered = (Triggered)reaction;
+                ITriggered triggered = (ITriggered)reaction;
                 interactableGameAction.CreateEffect(
                     card: triggered.Card,
                     activateTurnCost: new Stat(0, false),

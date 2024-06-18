@@ -196,7 +196,7 @@ namespace MythosAndHorrors.GameRules
                         CreateEffect(activable,
                             activation.ActivateTurnsCost,
                             Activate,
-                            PlayActionType.Activate | activation.PlayActionType,
+                            PlayActionType.Activate | activation.PlayAction,
                             ActiveInvestigator);
 
                     async Task Activate() => await activation.PlayFor(ActiveInvestigator);

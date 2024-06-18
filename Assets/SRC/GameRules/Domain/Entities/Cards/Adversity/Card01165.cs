@@ -19,14 +19,14 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<RoundGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
-            CreateReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogic, GameActionTime.Before);
+            CreateForceReaction<RoundGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateForceReaction<InteractableGameAction>(CantPlayCondition, CantPlayLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+        public override async Task PlayRevelationFor(Investigator investigator) => await Task.CompletedTask;
 
         /*******************************************************************/
         private async Task CantPlayLogic(InteractableGameAction interactableGameAction)
@@ -55,10 +55,5 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             return true;
         }
-
-
-
-        /*******************************************************************/
-
     }
 }

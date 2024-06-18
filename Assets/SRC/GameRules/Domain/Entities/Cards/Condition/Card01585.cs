@@ -21,8 +21,8 @@ namespace MythosAndHorrors.GameRules
         {
             Played = new State(false);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
-            CreateReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
-            CreateReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenReaction, GameActionTime.Before);
+            CreateForceReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
+            CreateForceReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenReaction, GameActionTime.Before);
         }
 
         /*******************************************************************/

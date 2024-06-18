@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateReaction<DefeatCardGameAction>(DefeatUrmodotCondition, DefeatUrmodotLogic, GameActionTime.After);
+            CreateForceReaction<DefeatCardGameAction>(DefeatUrmodotCondition, DefeatUrmodotLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

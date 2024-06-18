@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01509 : CardSupply
+    public class Card01509 : CardSupply, IDrawActivable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
@@ -22,24 +20,15 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = ChargeFear = CreateStat(3);
-            CreateReaction<MoveCardsGameAction>(PrepareCondition, PrepareLogic, GameActionTime.Before);
-            CreateReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
             CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
-            CreateReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+            CreateForceReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
         }
 
         /*******************************************************************/
-        private async Task DiscardLogic(UpdateStatGameAction action)
-        {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-        }
+        public Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
-        private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
-        {
-            if (!IsInPlay) return false;
-            if (ChargeFear.Value > 0) return false;
-            return true;
-        }
+        public async Task PlayRevelationFor(Investigator investigator) =>
+            await _gameActionsProvider.Create(new UpdateStatGameAction(ChargeFear, 3));
 
         /*******************************************************************/
         private bool TakeFearCondition(Investigator investigator)
@@ -53,6 +42,21 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
             await _gameActionsProvider.Create(new DecrementStatGameAction(ChargeFear, 1));
+
+            if (DiscardCondition()) await DiscardLogic();
+
+            /*******************************************************************/
+            async Task DiscardLogic()
+            {
+                await _gameActionsProvider.Create(new DiscardGameAction(this));
+            }
+
+            bool DiscardCondition()
+            {
+                if (!IsInPlay) return false;
+                if (ChargeFear.Value > 0) return false;
+                return true;
+            }
         }
 
         /*******************************************************************/
@@ -67,20 +71,6 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (reavelChangeTokenGameAction.Investigator != ControlOwner) return false;
             if (reavelChangeTokenGameAction.ChallengeTokenRevealed != _chaptersProvider.CurrentScene.StarToken) return false;
-            return true;
-        }
-
-        /*******************************************************************/
-        private async Task PrepareLogic(MoveCardsGameAction moveCardGameAction)
-        {
-            moveCardGameAction.AllMoves[this] = new(ControlOwner.DangerZone, false);
-            await _gameActionsProvider.Create(new UpdateStatGameAction(ChargeFear, 3));
-        }
-
-        private bool PrepareCondition(MoveCardsGameAction moveCardGameAction)
-        {
-            if (!moveCardGameAction.Cards.Contains(this)) return false;
-            if (moveCardGameAction.AllMoves[this].zone.ZoneType != ZoneType.Hand) return false;
             return true;
         }
     }

@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic, GameActionTime.After);
-            CreateReaction<RoundGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, GameActionTime.After);
+            CreateForceReaction<CreaturePhaseGameAction>(MoveGhoulCondition, MoveGhoulLogic, GameActionTime.After);
+            CreateForceReaction<RoundGameAction>(PlaceEldritchCondition, PlaceEldritchLogic, GameActionTime.After);
         }
 
         /*******************************************************************/

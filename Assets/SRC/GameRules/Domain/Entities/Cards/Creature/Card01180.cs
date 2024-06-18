@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<DefeatCardGameAction>(TakeFearCondition, TakeFearLogic, GameActionTime.Before);
+            CreateForceReaction<DefeatCardGameAction>(TakeFearCondition, TakeFearLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/

@@ -1,25 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Activation : IAbility
+    public class Activation : ITriggered
     {
+        public Card Card { get; }
         public Stat ActivateTurnsCost { get; }
         public GameCommand<Investigator> Logic { get; }
         public GameConditionWith<Investigator> Condition { get; }
-        public PlayActionType PlayActionType { get; }
+        public PlayActionType PlayAction { get; }
         public string Description { get; }
         public bool IsDisable { get; private set; }
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
-        public Activation(Stat activateTurnsCost, GameCommand<Investigator> logic, GameConditionWith<Investigator> condition, PlayActionType playActionType)
+        public Activation(Card card, Stat activateTurnsCost, GameCommand<Investigator> logic, GameConditionWith<Investigator> condition, PlayActionType playActionType)
         {
+            Card = card;
             ActivateTurnsCost = activateTurnsCost;
             Logic = logic;
             Condition = condition;
-            PlayActionType = PlayActionType.Activate | playActionType;
+            PlayAction = PlayActionType.Activate | playActionType;
         }
 
         /*******************************************************************/

@@ -19,14 +19,14 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateReaction<InvestigatePlaceGameAction>(FinishCondition, FinishLogic, GameActionTime.After);
+            CreateForceReaction<InvestigatePlaceGameAction>(FinishCondition, FinishLogic, GameActionTime.After);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.CurrentPlace.OwnZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator)
+        public override async Task PlayRevelationFor(Investigator investigator)
         {
             if (CurrentZone.Cards.Exists(card => card is Card01168 && card != this))
                 await _gameActionsProvider.Create(new DiscardGameAction(this));

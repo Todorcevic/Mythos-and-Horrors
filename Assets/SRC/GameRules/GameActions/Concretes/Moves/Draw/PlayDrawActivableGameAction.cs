@@ -3,25 +3,25 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PlayRevelationAdversityGameAction : GameAction
+    public class PlayDrawActivableGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public CardAdversity CardAdversity { get; }
+        public IDrawActivable DrawActivable { get; }
         public Investigator Investigator { get; }
 
         /*******************************************************************/
-        public PlayRevelationAdversityGameAction(CardAdversity cardAdversity, Investigator investigator)
+        public PlayDrawActivableGameAction(IDrawActivable drawActivable, Investigator investigator)
         {
-            CardAdversity = cardAdversity;
+            DrawActivable = drawActivable;
             Investigator = investigator;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(CardAdversity, CardAdversity.ZoneToMoveWhenDraw(Investigator)));
-            await CardAdversity.PlayAdversityFor(Investigator);
+            await _gameActionsProvider.Create(new MoveCardsGameAction((Card)DrawActivable, DrawActivable.ZoneToMoveWhenDraw(Investigator)));
+            await DrawActivable.PlayRevelationFor(Investigator);
         }
     }
 }

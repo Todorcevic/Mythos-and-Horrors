@@ -16,16 +16,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly OptativeReactionsProvider _realReactionsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
+        [Inject] private readonly ActivationsProvider _activationsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
         private readonly List<State> _states = new();
-        private readonly List<Activation> _baseActivations = new();
-        private readonly List<Activation> _specificActivations = new();
-        private readonly List<IReaction> _baseReactions = new();
-        private readonly List<IReaction> _specificReactions = new();
-        private readonly List<Buff> _baseBuffs = new();
-        private readonly List<Buff> _specificBuffss = new();
-        private readonly List<IAbility> _abilities = new();
+        private readonly List<IAbility> _specificAbilities = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
@@ -36,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
-        public IEnumerable<Activation> AllActivations => _baseActivations.Concat(_specificActivations);
-        public IEnumerable<Buff> AllBuffs => _baseBuffs.Concat(_specificBuffss);
+        public IEnumerable<Activation> AllActivations => _activationsProvider.GetActivationsFor(this);
+        public IEnumerable<Buff> AllBuffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
         public bool CanBePlayed => PlayableEffects.Any();
@@ -65,20 +60,30 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected OptativeReaction<T> CreateRealReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
-            PlayActionType playActionType = PlayActionType.None, bool isBase = false) where T : GameAction
+        protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
-            OptativeReaction<T> realReaction = new(this, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time);
-            _realReactionsProvider.CreateReaction(realReaction);
-            if (isBase) _baseReactions.Add(realReaction);
-            else _specificReactions.Add(realReaction);
+            OptativeReaction<T> realReaction = _realReactionsProvider.CreateOptativeReaction(this, condition, logic, time, playActionType);
+            _specificAbilities.Add(realReaction);
             return realReaction;
         }
 
-        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime isAtStart, bool isBase = false) where T : GameAction
+        protected Reaction<T> CreateBaseReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time) where T : GameAction
+        {
+            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, time);
+            return newReaction;
+        }
+
+        protected Reaction<T> CreateForceReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, bool isBase = false) where T : GameAction
+        {
+            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, time);
+            if (!isBase) _specificAbilities.Add(newReaction);
+            return newReaction;
+        }
+
+        protected Reaction<T> CreateOneTimeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, bool isBase = false) where T : GameAction
         {
             Reaction<T> newReaction = null;
-            newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, isAtStart);
+            newReaction = _reactionablesProvider.CreateReaction(condition, OneTimeLogic, time);
             return newReaction;
 
             async Task OneTimeLogic(T gameAction)
@@ -88,31 +93,19 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        protected Reaction<T> CreateReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime isAtStart, bool isBase = false) where T : GameAction
-        {
-            Reaction<T> newReaction = _reactionablesProvider.CreateReaction(condition, logic, isAtStart);
-            if (isBase) _baseReactions.Add(newReaction);
-            else _specificReactions.Add(newReaction);
-            return newReaction;
-        }
-
         /***************************** ACTIVATIONS *****************************/
-        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType,
-            bool isBase = false)
+        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
         {
-            Activation newActivation = new(activateTurnsCost, new GameCommand<Investigator>(logic), new GameConditionWith<Investigator>(condition), playActionType);
-            if (isBase) _baseActivations.Add(newActivation);
-            else _specificActivations.Add(newActivation);
+            Activation newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost.Value, logic, condition, playActionType);
+            _specificAbilities.Add(newActivation);
             return newActivation;
         }
 
         /***************************** BUFFS *****************************/
-        protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
-            Func<IEnumerable<Card>, Task> deactivationLogic, bool isBase = false)
+        protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic, Func<IEnumerable<Card>, Task> deactivationLogic, bool isBase = false)
         {
-            Buff newBuff = new(this, cardsToBuff, new GameCommand<IEnumerable<Card>>(activationLogic), new GameCommand<IEnumerable<Card>>(deactivationLogic));
-            if (isBase) _baseBuffs.Add(newBuff);
-            else _specificBuffss.Add(newBuff);
+            Buff newBuff = _buffsProvider.CreateBuff(this, cardsToBuff, activationLogic, deactivationLogic);
+            _specificAbilities.Add(newBuff);
             return newBuff;
         }
 
@@ -144,18 +137,8 @@ namespace MythosAndHorrors.GameRules
         /*************************** LOGIC *******************************/
         protected virtual void BlankState(bool isActive)
         {
-            if (isActive)
-            {
-                _specificActivations.ForEach(activation => activation.Disable());
-                _specificReactions.ForEach(reaction => reaction.Disable());
-                _specificBuffss.ForEach(buff => buff.Disable());
-            }
-            else
-            {
-                _specificActivations.ForEach(activation => activation.Enable());
-                _specificReactions.ForEach(reaction => reaction.Enable());
-                _specificBuffss.ForEach(buff => buff.Enable());
-            }
+            if (isActive) _specificAbilities.ForEach(ability => ability.Disable());
+            else _specificAbilities.ForEach(ability => ability.Enable());
         }
     }
 }

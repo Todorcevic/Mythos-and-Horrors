@@ -16,18 +16,18 @@ namespace MythosAndHorrors.GameRules
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return false;
-            if (moveCardsGameAction.Parent is not PlayRevelationAdversityGameAction playRevelationAdversity) return false;
+            if (moveCardsGameAction.Parent is not PlayDrawActivableGameAction playRevelationAdversity) return false;
             if (playRevelationAdversity.Investigator != ControlOwner) return false;
-            if (playRevelationAdversity.CardAdversity.HasThisTag(Tag.Weakness)) return false;
+            if (((Card)playRevelationAdversity.DrawActivable).HasThisTag(Tag.Weakness)) return false;
             return true;
         }
 
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
-            if (moveCardsGameAction.Parent is not PlayRevelationAdversityGameAction playRevelationAdversity) return;
+            if (moveCardsGameAction.Parent is not PlayDrawActivableGameAction playRevelationAdversity) return;
             playRevelationAdversity.Cancel();
-            await _gameActionsProvider.Create(new DiscardGameAction(playRevelationAdversity.CardAdversity));
+            await _gameActionsProvider.Create(new DiscardGameAction((Card)playRevelationAdversity.DrawActivable));
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 1));
         }
     }

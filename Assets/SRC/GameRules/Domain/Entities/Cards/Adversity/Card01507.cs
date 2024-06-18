@@ -19,14 +19,14 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = Hints = CreateStat(3);
-            CreateRealReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before);
-            CreateReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
+            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before);
+            CreateForceReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
-        public override async Task PlayAdversityFor(Investigator investigator) => await Task.CompletedTask;
+        public override async Task PlayRevelationFor(Investigator investigator) => await Task.CompletedTask;
 
         /*******************************************************************/
         private async Task TakeShockLogic(FinalizeGameAction finalizeGameAction)
