@@ -23,13 +23,13 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateForceReaction<RoundGameAction>(HealthCondition, HealtLogic, GameActionTime.After);
+            CreateForceReaction<RoundGameAction>(HealthCondition, HealthLogic, GameActionTime.After);
         }
 
         /*******************************************************************/
-        private async Task HealtLogic(RoundGameAction action)
+        private async Task HealthLogic(RoundGameAction action)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(DamageRecived, 2));
+            await _gameActionsProvider.Create(new HealthGameAction(this, amountDamageToRecovery: 2));
         }
 
         private bool HealthCondition(RoundGameAction action)
