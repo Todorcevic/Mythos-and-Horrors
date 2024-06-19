@@ -35,7 +35,5 @@ namespace MythosAndHorrors.GameRules
             if (InvestigatorsUsed[investigator].IsActive) return false;
             return true;
         }
-
-        /*******************************************************************/
     }
 }

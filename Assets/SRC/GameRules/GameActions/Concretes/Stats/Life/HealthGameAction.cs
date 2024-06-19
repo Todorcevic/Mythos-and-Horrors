@@ -3,17 +3,16 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class RetrieveGameAction : GameAction
+    public class HealthGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
 
         public int AmountDamageToRecovery { get; }
         public int AmountFearToRecovery { get; }
         public Card CardAffected { get; }
 
         /*******************************************************************/
-        public RetrieveGameAction(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
+        public HealthGameAction(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
         {
             CardAffected = card;
             AmountDamageToRecovery = amountDamageToRecovery;
