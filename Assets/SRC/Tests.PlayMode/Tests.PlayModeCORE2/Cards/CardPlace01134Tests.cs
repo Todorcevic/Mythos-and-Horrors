@@ -15,7 +15,6 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         [UnityTest]
         public IEnumerator TakeResources()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
             Card01134 cardPlace = _cardsProvider.GetCard<Card01134>();
             yield return PlaceOnlyScene();
@@ -28,7 +27,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(0));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
+            Assert.That(cardPlace.Hints.Value, Is.EqualTo(8));
         }
     }
 }

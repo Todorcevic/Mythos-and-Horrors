@@ -30,10 +30,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ConfrontCantMoveLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
         {
-            if (moveInvestigatorGameAction is not MoveInvestigatorAndUnconfront)
+            if (moveInvestigatorGameAction is not MoveInvestigatorAndUnconfrontGameAction)
             {
                 moveInvestigatorGameAction.Cancel();
-                await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfront(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace));
+                await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace));
             }
         }
 

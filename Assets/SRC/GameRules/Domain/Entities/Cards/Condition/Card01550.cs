@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             {
                 interactable.CreateEffect(place, new Stat(0, false), DeconfrontAndMove, PlayActionType.Choose, investigator);
 
-                async Task DeconfrontAndMove() => await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfront(investigator, place));
+                async Task DeconfrontAndMove() => await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(investigator, place));
             }
 
             await _gameActionsProvider.Create(interactable);

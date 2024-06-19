@@ -8,7 +8,6 @@
         Arkham,
         Armor,
         Blessed,
-        Central,
         Byakhee,
         Cave,
         Charm,

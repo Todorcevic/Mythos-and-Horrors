@@ -5,12 +5,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class MoveInvestigatorAndUnconfront : MoveInvestigatorToPlaceGameAction
+    public class MoveInvestigatorAndUnconfrontGameAction : MoveInvestigatorToPlaceGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        public MoveInvestigatorAndUnconfront(Investigator investigator, CardPlace cardPlace) : base(investigator, cardPlace) { }
+        public MoveInvestigatorAndUnconfrontGameAction(Investigator investigator, CardPlace cardPlace) : base(investigator, cardPlace) { }
 
-        public MoveInvestigatorAndUnconfront(IEnumerable<Investigator> investigators, CardPlace cardPlace) : base(investigators, cardPlace) { }
+        public MoveInvestigatorAndUnconfrontGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace) : base(investigators, cardPlace) { }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
