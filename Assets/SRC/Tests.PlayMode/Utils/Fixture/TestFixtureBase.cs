@@ -264,7 +264,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 while (!_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) yield return null;
 
                 if (_undoGameActionButton.GetPrivateMember<bool>("_isPlayable")) _undoGameActionButton.OnPointerClick(null);
-                else throw new TimeoutException("Main Button Not become clickable");
+                else throw new TimeoutException("Undo Button Not become clickable");
 
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }

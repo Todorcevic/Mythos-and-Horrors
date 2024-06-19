@@ -11,11 +11,11 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
         public Dictionary<Card, (Zone zone, bool faceDown)> AllMoves { get; }
-
         public IEnumerable<Card> Cards => AllMoves.Keys.ToList();
         public Card SingleCard => Cards.Unique();
         public bool IsSingleMove => Cards.Count() == 1;
         public override bool CanBeExecuted => Cards.Count() > 0;
+        public override bool CanUndo => !Cards.Any(card => _cardsWithUndoState[card].faceDown && !AllMoves[card].faceDown);
 
         /*******************************************************************/
         public MoveCardsGameAction(Card card, Zone zone, bool isFaceDown = false) :

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,19 +26,20 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeSupportLogic(Investigator investigator)
         {
+            IEnumerable<CardSupply> supportsInDeck = investigator.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Ally));
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Take support");
-            //interactableGameAction.CreateCancelMainButton();
-
-            foreach (CardSupply cardSupply in investigator.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Ally)))
+            foreach (CardSupply cardSupply in supportsInDeck)
             {
                 interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator);
 
                 async Task Take()
                 {
                     await _gameActionsProvider.Create(new DrawGameAction(investigator, cardSupply));
+                    await _gameActionsProvider.Create(new HideCardsGameAction(supportsInDeck.Except(new[] { cardSupply })));
                 }
             }
 
+            await _gameActionsProvider.Create(new ShowCardsGameAction(supportsInDeck));
             await _gameActionsProvider.Create(interactableGameAction);
             await _gameActionsProvider.Create(new ShuffleGameAction(investigator.DeckZone));
             await _gameActionsProvider.Create(new UpdateStatesGameAction(InvestigatorsUsed[investigator], true));

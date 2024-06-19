@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator HealthFear()
         {
             Investigator investigator = _investigatorsProvider.First;
             Card01131 cardPlace = _cardsProvider.GetCard<Card01131>();

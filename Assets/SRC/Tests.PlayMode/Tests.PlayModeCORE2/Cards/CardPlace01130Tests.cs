@@ -9,6 +9,7 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
+
     public class CardPlace01130Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
