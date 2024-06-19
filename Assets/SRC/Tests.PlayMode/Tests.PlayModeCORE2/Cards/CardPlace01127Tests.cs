@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, SceneCORE2.GetPlaceZone(0, 3))).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
 
-            IEnumerable<Card> allSupport = investigator.DeckZone.Cards.Where(c => c.HasThisTag(Tag.Ally));
+            IEnumerable<Card> allSupport = investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Ally));
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(allSupport, SceneCORE2.OutZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

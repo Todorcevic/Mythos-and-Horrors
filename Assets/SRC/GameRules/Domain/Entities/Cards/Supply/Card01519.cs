@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(InitialSupplies);
-            CreateActivation(CreateStat(1), HealActivate, HealConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, HealActivate, HealConditionToActivate, PlayActionType.Activate);
         }
 
         /*******************************************************************/

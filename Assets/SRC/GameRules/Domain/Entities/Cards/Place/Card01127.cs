@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _investigatorsProvider.AllInvestigators.ForEach(investigator => InvestigatorsUsed.Add(investigator, CreateState(false)));
-            CreateActivation(CreateStat(1), TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate); ;
+            CreateActivation(1, TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/

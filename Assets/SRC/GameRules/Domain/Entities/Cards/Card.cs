@@ -94,11 +94,16 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        protected Activation CreateActivation(Stat activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
+        protected Activation CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
         {
-            Activation newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost.Value, logic, condition, playActionType);
+            Activation newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType);
             _specificAbilities.Add(newActivation);
             return newActivation;
+        }
+
+        protected Activation CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
+        {
+            return CreateActivation(0, logic, condition, playActionType);
         }
 
         /***************************** BUFFS *****************************/

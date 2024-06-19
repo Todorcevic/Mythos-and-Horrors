@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraStat = ChargeFear = CreateStat(3);
-            CreateActivation(CreateStat(1), TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
+            CreateActivation(1, TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
             CreateForceReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
         }
 

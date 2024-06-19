@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            CreateActivation(CreateStat(1), ResignActivate, ResignConditionToActivate, PlayActionType.Resign);
+            CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign);
         }
 
         /*******************************************************************/
