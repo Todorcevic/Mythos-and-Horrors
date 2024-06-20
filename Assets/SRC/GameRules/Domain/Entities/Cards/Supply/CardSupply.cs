@@ -6,13 +6,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardSupply : Card, IPlayableFromHand, ICommitable
+    public class CardSupply : CommitableCard, IPlayableFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public State Commited { get; private set; }
         public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
@@ -29,20 +28,8 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            Commited = CreateState(false);
             PlayFromHandCondition = new GameConditionWith<GameAction>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
-        }
-
-        /*******************************************************************/
-        int ICommitable.GetChallengeValue(ChallengeType challengeType)
-        {
-            int wildAmount = Info.Wild ?? 0;
-            if (challengeType == ChallengeType.Strength) return wildAmount + Info.Strength ?? 0;
-            if (challengeType == ChallengeType.Agility) return wildAmount + Info.Agility ?? 0;
-            if (challengeType == ChallengeType.Intelligence) return wildAmount + Info.Intelligence ?? 0;
-            if (challengeType == ChallengeType.Power) return wildAmount + Info.Power ?? 0;
-            return wildAmount;
         }
 
         /*******************************************************************/

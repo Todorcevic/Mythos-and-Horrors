@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
-using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
@@ -41,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
-            yield return ClickedIn(SceneCORE3.Forests.First());
+            yield return ClickedIn(SceneCORE3.Forest3);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

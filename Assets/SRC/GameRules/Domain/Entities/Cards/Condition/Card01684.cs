@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
-        protected override bool IsFast => false;
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
         /*******************************************************************/

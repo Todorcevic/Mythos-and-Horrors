@@ -10,11 +10,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
-        protected override bool IsFast => false;
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Attack;
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
 

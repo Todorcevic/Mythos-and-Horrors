@@ -11,10 +11,8 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
 
-        protected override bool IsFast => true;
-
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
             interactable.CreateCancelMainButton();

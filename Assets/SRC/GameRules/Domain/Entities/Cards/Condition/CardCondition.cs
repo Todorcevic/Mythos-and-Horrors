@@ -4,14 +4,15 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardCondition : Card, ICommitable
+    public abstract class CardCondition : CommitableCard
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+
         public Stat ResourceCost { get; private set; }
-        public Stat PlayFromHandTurnsCost { get; protected set; }
-        public State Commited { get; private set; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
         public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
-        protected abstract bool IsFast { get; }
+        public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
 
         /*******************************************************************/
         [Inject]
@@ -19,28 +20,22 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
-            PlayFromHandTurnsCost = CreateStat(IsFast ? 0 : 1);
-            Commited = CreateState(false);
             PlayFromHandCondition = new GameConditionWith<GameAction>(CanPlayFromHandWith);
-        }
-
-        /*******************************************************************/
-        int ICommitable.GetChallengeValue(ChallengeType challengeType)
-        {
-            int wildAmount = Info.Wild ?? 0;
-            return challengeType switch
-            {
-                ChallengeType.Strength => wildAmount + Info.Strength ?? 0,
-                ChallengeType.Agility => wildAmount + Info.Agility ?? 0,
-                ChallengeType.Intelligence => wildAmount + Info.Intelligence ?? 0,
-                ChallengeType.Power => wildAmount + Info.Power ?? 0,
-                _ => wildAmount
-            };
+            PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
         }
 
         /*******************************************************************/
         protected abstract bool CanPlayFromHandWith(GameAction gameAction);
 
-        protected abstract Task PlayFromHand(GameAction investigator);
+        protected abstract Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator);
+
+        /*******************************************************************/
+        private async Task PlayFromHand(GameAction gameAction)
+        {
+            Investigator currentInvestigator = ControlOwner; // Bcz when card go to Limbo ControlOwner==null
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
+            await ExecuteConditionEffect(gameAction, currentInvestigator);
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+        }
     }
 }

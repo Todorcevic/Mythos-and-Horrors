@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
-        protected override bool IsFast => true;
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
@@ -19,7 +18,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             IEnumerable<CardPlace> connectedPlacesToMove = investigator.CurrentPlace.ConnectedPlacesToMove.Where(place => !place.CreaturesInThisPlace.Any());
 

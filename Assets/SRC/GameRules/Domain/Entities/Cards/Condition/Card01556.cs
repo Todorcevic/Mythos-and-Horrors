@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Insight };
-        protected override bool IsFast => true;
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
         /*******************************************************************/

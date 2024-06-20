@@ -10,13 +10,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
-        protected override bool IsFast => false;
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Investigate;
         private IEnumerable<CardPlace> PlacesWithHints(Investigator investigator) =>
             investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace).Where(place => place.Hints.Value > 0);
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             int amoutHintsLeft = 2;
             InvestigatePlaceGameAction investigate = new(investigator, investigator.CurrentPlace);

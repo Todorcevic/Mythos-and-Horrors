@@ -28,12 +28,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public void CreateReaction(IReaction realReaction)
-        {
-            _optativeReactions.Add(realReaction);
-        }
-
-        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, PlayActionType playActionType = PlayActionType.None) where T : GameAction
+        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
+            PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
             OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time);
             _optativeReactions.Add(optativeReaction);
@@ -54,6 +50,7 @@ namespace MythosAndHorrors.GameRules
             foreach (IReaction reaction in optativeReactions)
             {
                 ITriggered triggered = (ITriggered)reaction;
+
                 interactableGameAction.CreateEffect(
                     card: triggered.Card,
                     activateTurnCost: new Stat(0, false),
@@ -64,11 +61,18 @@ namespace MythosAndHorrors.GameRules
                         await CreateInteractable(gameAction, time);
                     },
                     playActionType: triggered.PlayAction,
-                    playedBy: triggered.Card.ControlOwner ?? _investigatorsProvider.Leader);
+                    playedBy: triggered.Card.ControlOwner ?? _investigatorsProvider.Leader,
+                    resourceCost: GetResourceCostFor(triggered));
             }
 
             interactableGameAction.CreateContinueMainButton();
             await _gameActionsProvider.Create(interactableGameAction);
+        }
+
+        private Stat GetResourceCostFor(ITriggered triggered)
+        {
+            if (triggered.Card is CardConditionFast cardConditionFast) return cardConditionFast.ResourceCost;
+            return null;
         }
     }
 }

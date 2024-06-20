@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell, Tag.Weakness };
-        protected override bool IsFast => false;
 
         /*******************************************************************/
         [Inject]
@@ -22,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());

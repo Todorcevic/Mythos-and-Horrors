@@ -8,10 +8,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
 
-        public ICommitable CommitableCard { get; init; }
+        public CommitableCard CommitableCard { get; init; }
 
         /*******************************************************************/
-        public CommitGameAction(ICommitable card)
+        public CommitGameAction(CommitableCard card)
         {
             CommitableCard = card;
         }
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(CommitableCard.Commited, true));
-            await _gameActionsProvider.Create(new MoveCardsGameAction((Card)CommitableCard, _chapterProvider.CurrentScene.LimboZone));
+            await _gameActionsProvider.Create(new MoveCardsGameAction(CommitableCard, _chapterProvider.CurrentScene.LimboZone));
         }
     }
 }

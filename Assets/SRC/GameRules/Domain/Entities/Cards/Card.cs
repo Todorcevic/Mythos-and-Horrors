@@ -7,6 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class Card
     {
         [Inject] private readonly CardInfo _info;
@@ -60,7 +61,8 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, PlayActionType playActionType = PlayActionType.None) where T : GameAction
+        protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
+            PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
             OptativeReaction<T> realReaction = _realReactionsProvider.CreateOptativeReaction(this, condition, logic, time, playActionType);
             _specificAbilities.Add(realReaction);

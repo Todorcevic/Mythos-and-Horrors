@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Supply };
-        protected override bool IsFast => false;
         private IEnumerable<CardWeapon> Firearms => ControlOwner.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             IEnumerable<CardWeapon> Firearms = investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);

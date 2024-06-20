@@ -6,13 +6,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01510 : CardConditionPlayFromHand
+    public class Card01510 : CardConditionFast
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
-        protected override bool IsFast => true;
+        protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
         /*******************************************************************/
         [Inject]
@@ -26,12 +26,17 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Protected, true));
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        {
+            if (gameAction is not PlayInvestigatorGameAction playInvestigatorGameAction) return false;
+            if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;
+            return true;
+        }
 
         /*******************************************************************/
         private async Task CancelAttackCreaturePlayedLogic(CreatureAttackGameAction creatureAttackGameAction)

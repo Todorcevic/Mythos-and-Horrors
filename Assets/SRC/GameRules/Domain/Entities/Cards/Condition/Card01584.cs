@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
-        protected override bool IsFast => true;
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
         /*******************************************************************/

@@ -13,8 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic, Tag.Insight };
-
-        protected override bool IsFast => false;
         private CardPlace CurrentPlace => _cardsProvider.GetCards<CardPlace>().First(place => place.OwnZone == CurrentZone);
 
         /*******************************************************************/
@@ -74,7 +72,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.CurrentPlace.OwnZone));
         }

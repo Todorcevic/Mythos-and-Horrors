@@ -9,10 +9,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
-        protected override bool IsFast => true;
 
         /*******************************************************************/
-        protected override async Task ExecuteConditionEffect(Investigator investigator)
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 1));
         }

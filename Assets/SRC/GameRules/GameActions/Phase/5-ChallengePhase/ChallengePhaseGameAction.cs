@@ -33,8 +33,8 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<ChallengeToken> CurrentTokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
         public int CurrentTotalTokenValue => CurrentTokensRevealed.Sum(token => token.Value(ActiveInvestigator));
         public int CurrentTotalChallengeValue => IsAutoFail ? 0 : Stat.Value + CurrentTotalTokenValue + CurrentCommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
-        public IEnumerable<ICommitable> CurrentCommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<ICommitable>()
-            .Where(comiitable => comiitable.Commited.IsActive);
+        public IEnumerable<CommitableCard> CurrentCommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>()
+            .Where(comitableCard => comitableCard.Commited.IsActive);
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
         public bool? IsSuccessful => ResultChallenge?.IsSuccessful;
 

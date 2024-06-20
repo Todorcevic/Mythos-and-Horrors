@@ -23,14 +23,14 @@ namespace MythosAndHorrors.GameView
 
         public void ClearAll() => _cardChallenges.ForEach(cardChallenge => cardChallenge.Disable());
 
-        public void ShowAll(IEnumerable<ICommitable> commitCards, ChallengeType challengeType)
+        public void ShowAll(IEnumerable<CommitableCard> commitCards, ChallengeType challengeType)
         {
-            _cardChallenges.FindAll(cardChallengeView => !commitCards.OfType<Card>().Contains(cardChallengeView.Card) && cardChallengeView.Token == null)
+            _cardChallenges.FindAll(cardChallengeView => !commitCards.Contains(cardChallengeView.Card) && cardChallengeView.Token == null)
                 .ForEach(cardChallenge => cardChallenge.Disable());
 
-            foreach (Card commitCard in commitCards.OfType<Card>().Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))
+            foreach (CommitableCard commitCard in commitCards.Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))
             {
-                GetFreeCardChallenge.SetCard(commitCard, ((ICommitable)commitCard).GetChallengeValue(challengeType));
+                GetFreeCardChallenge.SetCard(commitCard, commitCard.GetChallengeValue(challengeType));
             }
         }
 

@@ -10,9 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
-        protected override bool IsFast => true;
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
-
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

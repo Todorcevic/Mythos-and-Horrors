@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
         public State Played { get; private set; }
-        protected override bool IsFast => false;
 
         /*******************************************************************/
         [Inject]
@@ -61,7 +60,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
 
-        protected override async Task ExecuteConditionEffect(Investigator investigator) =>
+        protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, true));
     }
 }

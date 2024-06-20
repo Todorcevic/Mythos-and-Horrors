@@ -16,9 +16,9 @@ namespace MythosAndHorrors.GameRules
         public ChallengePhaseGameAction CurrentChallenge { get; }
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
 
-        IEnumerable<ICommitable> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
-             .SelectMany(investigator => investigator.HandZone.Cards)
-             .OfType<ICommitable>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
+        private IEnumerable<CommitableCard> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
+              .SelectMany(investigator => investigator.HandZone.Cards)
+              .OfType<CommitableCard>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
 
         /*******************************************************************/
         public CommitCardsChallengeGameAction(Investigator investigator, ChallengePhaseGameAction challenge) :
@@ -33,13 +33,13 @@ namespace MythosAndHorrors.GameRules
         {
             CreateMainButton(CurrentChallenge.ContinueChallenge, "Drop");
 
-            foreach (Card commitableCard in AllCommitableCards.Cast<Card>())
+            foreach (CommitableCard commitableCard in AllCommitableCards)
             {
                 CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
 
                 async Task Commit()
                 {
-                    await _gameActionsProvider.Create(new CommitGameAction((ICommitable)commitableCard));
+                    await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
                     await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, CurrentChallenge));
                 }
             }

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsDisabled { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
-        public string Description => BuffOnLogic.Logic.GetInvocationList().First().Method.Name;
+        public string Description => "Buff from: " + CardMaster.Info.Name;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
 
         /*******************************************************************/
