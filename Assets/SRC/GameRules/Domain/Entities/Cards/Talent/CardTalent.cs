@@ -1,9 +1,42 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Zenject;
+
 namespace MythosAndHorrors.GameRules
 {
-    public class CardTalent : Card
+    public abstract class CardTalent : CommitableCard
     {
-        public int TotalChallengePoints => (Info.Strength ?? 0) + (Info.Agility ?? 0) + (Info.Intelligence ?? 0) + (Info.Power ?? 0) + (Info.Wild ?? 0);
+        public GameConditionWith<ChallengePhaseGameAction> Condition { get; private set; }
+        public GameCommand<ChallengePhaseGameAction> Logic { get; private set; }
 
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            Condition = new GameConditionWith<ChallengePhaseGameAction>(TalentCondition);
+            Logic = new GameCommand<ChallengePhaseGameAction>(TalentLogic);
+        }
+
+        /*******************************************************************/
+        public abstract bool TalentCondition(ChallengePhaseGameAction challengePhaseGameAction);
+
+        public abstract Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction);
+
+        protected override void BlankState(bool isActive)
+        {
+            base.BlankState(isActive);
+            if (isActive)
+            {
+                Condition.Disable();
+                Logic.Disable();
+            }
+            else
+            {
+                Condition.Enable();
+                Logic.Enable();
+            }
+        }
     }
 }

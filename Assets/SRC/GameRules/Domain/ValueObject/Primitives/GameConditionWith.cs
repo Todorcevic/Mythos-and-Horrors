@@ -6,6 +6,7 @@ namespace MythosAndHorrors.GameRules
     {
         private readonly Func<T, bool> _originalCondition;
 
+        public bool IsDisabled { get; private set; }
         public Func<T, bool> ConditionLogic { get; private set; }
 
         /*******************************************************************/
@@ -13,6 +14,13 @@ namespace MythosAndHorrors.GameRules
         {
             _originalCondition = ConditionLogic = conditionLogic;
         }
+        /*******************************************************************/
+        public bool IsTrueWith(T element)
+        {
+            if (IsDisabled) return false;
+            return ConditionLogic.Invoke(element);
+        }
+
         /*******************************************************************/
         public void Reset()
         {
@@ -30,9 +38,14 @@ namespace MythosAndHorrors.GameRules
             ConditionLogic = element => originalCondition.Invoke(element) && condition(element);
         }
 
-        public bool IsTrueWith(T element)
+        public void Enable()
         {
-            return ConditionLogic.Invoke(element);
+            IsDisabled = false;
+        }
+
+        public void Disable()
+        {
+            IsDisabled = true;
         }
     }
 }

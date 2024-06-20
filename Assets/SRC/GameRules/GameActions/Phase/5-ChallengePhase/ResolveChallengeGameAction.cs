@@ -20,6 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await ResolveTalentsCards();
+
             if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Any())
             {
                 await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllSuccessEffects, ExecuteEffect));
@@ -33,6 +35,15 @@ namespace MythosAndHorrors.GameRules
 
                 IEnumerable<Func<Task>> AllFailEffects() => ChallengePhaseGameAction.FailEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
+            }
+        }
+
+        private async Task ResolveTalentsCards()
+        {
+            foreach (CardTalent cardTalent in ChallengePhaseGameAction.CurrentCommitsCards.OfType<CardTalent>()
+                .Where(talent => talent.TalentCondition(ChallengePhaseGameAction)))
+            {
+                await cardTalent.TalentLogic(ChallengePhaseGameAction);
             }
         }
     }

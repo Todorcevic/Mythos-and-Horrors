@@ -52,10 +52,13 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return null;
         }
 
+
+
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_DeckCard()
         {
             CardTalent card = _cardsProvider.GetCard<Card01525>();
+            int TotalChallengePoints = (card.Info.Strength ?? 0) + (card.Info.Agility ?? 0) + (card.Info.Intelligence ?? 0) + (card.Info.Power ?? 0) + (card.Info.Wild ?? 0);
 
             CardView result = _cardViewsManager.GetCardView(card);
             SkillIconView skillIcon = result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentInChildren<SkillIconView>();
@@ -68,7 +71,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Assert.That(result.transform.GetTextFromThis("Description").Contains(card.Info.Description));
             Assert.That(result.GetPrivateMember<MultiStatView>("_health").gameObject.activeInHierarchy, Is.False);
             Assert.That(result.GetPrivateMember<SkillIconsController>("_skillIconsController").GetComponentsInChildren<SkillIconView>().Length,
-                Is.EqualTo(card.TotalChallengePoints));
+                Is.EqualTo(TotalChallengePoints));
             Assert.That(skillIcon.GetPrivateMember<SpriteRenderer>("_skillIcon").sprite, Is.EqualTo(result.GetPrivateMember<Sprite>("_skillStrengthIcon")));
             yield return null;
         }

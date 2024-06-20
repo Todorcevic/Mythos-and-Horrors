@@ -18,13 +18,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public int GetChallengeValue(ChallengeType challengeType)
         {
-            int wildAmount = Info.Wild ?? 0;
+            int wildAmount = (Info.Wild ?? 0);
             return challengeType switch
             {
-                ChallengeType.Strength => wildAmount + Info.Strength ?? 0,
-                ChallengeType.Agility => wildAmount + Info.Agility ?? 0,
-                ChallengeType.Intelligence => wildAmount + Info.Intelligence ?? 0,
-                ChallengeType.Power => wildAmount + Info.Power ?? 0,
+                ChallengeType.Strength => wildAmount + (Info.Strength ?? 0),
+                ChallengeType.Agility => wildAmount + (Info.Agility ?? 0),
+                ChallengeType.Intelligence => wildAmount + (Info.Intelligence ?? 0),
+                ChallengeType.Power => wildAmount + (Info.Power ?? 0),
                 _ => wildAmount
             };
         }

@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature CardCreature { get; }
-        public int AmountDamage { get; }
+        public int AmountDamage { get; private set; }
 
         /*******************************************************************/
         public AttackCreatureGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
@@ -45,5 +45,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }
+
+        public void UpdateAmountDamage(int newAmountDamage) => AmountDamage = newAmountDamage;
     }
 }

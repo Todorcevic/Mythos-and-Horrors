@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Investigator : Owner
     {
-        [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;

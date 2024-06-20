@@ -1,10 +1,51 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01553 : CardTalent
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Innate };
 
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            CreateForceReaction<CommitCardsChallengeGameAction>(OwnChallengeCondition, OwnChallengeLogic, GameActionTime.Before);
+        }
+
+        /*******************************************************************/
+        private async Task OwnChallengeLogic(CommitCardsChallengeGameAction challengePhaseGameAction)
+        {
+            CardEffect effectToRemove = challengePhaseGameAction.AllEffects.FirstOrDefault(effect => effect.CardOwner == this);
+            if (effectToRemove == null) return;
+            challengePhaseGameAction.RemoveEffect(effectToRemove);
+            await Task.CompletedTask;
+        }
+
+        private bool OwnChallengeCondition(CommitCardsChallengeGameAction commitCardChallengeGameAction)
+        {
+            if (commitCardChallengeGameAction.ActiveInvestigator == ControlOwner) return false;
+            if (CurrentZone.ZoneType != ZoneType.Hand) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        public override bool TalentCondition(ChallengePhaseGameAction challengePhaseGameAction)
+        {
+            if (challengePhaseGameAction.ResultChallenge.TotalDifferenceValue < 3) return false;
+            return true;
+        }
+
+        public override async Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction)
+        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(this, challengePhaseGameAction.ActiveInvestigator.HandZone));
+        }
     }
 }

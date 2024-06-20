@@ -7,12 +7,20 @@ namespace MythosAndHorrors.GameRules
     {
         private readonly Func<T, Task> _originalGameAction;
 
+        public bool IsDisabled { get; private set; }
         public Func<T, Task> Logic { get; private set; }
 
         /*******************************************************************/
         public GameCommand(Func<T, Task> gameAction)
         {
             _originalGameAction = Logic = gameAction;
+        }
+
+        /*******************************************************************/
+        public Task RunWith(T element)
+        {
+            if (IsDisabled) return Task.CompletedTask;
+            return Logic(element);
         }
 
         /*******************************************************************/
@@ -26,9 +34,14 @@ namespace MythosAndHorrors.GameRules
             Logic = gameAction;
         }
 
-        public Task RunWith(T element)
+        public void Enable()
         {
-            return Logic(element);
+            IsDisabled = false;
+        }
+
+        public void Disable()
+        {
+            IsDisabled = true;
         }
     }
 }
