@@ -13,22 +13,37 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator Health()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator2 = _investigatorsProvider.Second
+;
             Card01155 cardPlace = _cardsProvider.GetCard<Card01155>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(new[] { investigator, investigator2 }, cardPlace)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardPlace, amountDamage: 2, amountFear: 2));
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator2, cardPlace, amountDamage: 2, amountFear: 2));
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cardPlace, 1);
+            yield return ClickedIn(cardPlace);
+            yield return ClickedUndoButton();
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+            gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator2));
+            yield return ClickedClone(cardPlace, 2);
+            yield return ClickedIn(cardPlace);
+            yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));
+            Assert.That(investigator2.DamageRecived.Value, Is.EqualTo(2));
+            Assert.That(investigator2.FearRecived.Value, Is.EqualTo(1));
         }
     }
 }

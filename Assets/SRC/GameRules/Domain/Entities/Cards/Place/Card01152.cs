@@ -7,8 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01152 : CardPlace
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Woods };
 
         /*******************************************************************/
