@@ -21,11 +21,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task OwnChallengeLogic(CommitCardsChallengeGameAction challengePhaseGameAction)
+        private async Task OwnChallengeLogic(CommitCardsChallengeGameAction commitCardsChallenge)
         {
-            CardEffect effectToRemove = challengePhaseGameAction.AllEffects.FirstOrDefault(effect => effect.CardOwner == this);
+            CardEffect effectToRemove = commitCardsChallenge.AllEffects.FirstOrDefault(effect => effect.CardOwner == this);
             if (effectToRemove == null) return;
-            challengePhaseGameAction.RemoveEffect(effectToRemove);
+            commitCardsChallenge.RemoveEffect(effectToRemove);
             await Task.CompletedTask;
         }
 

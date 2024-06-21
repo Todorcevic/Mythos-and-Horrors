@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : InteractableGameAction
+    public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -17,6 +17,8 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<CommitableCard> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(CurrentChallenge.ActiveInvestigator.CurrentPlace)
               .SelectMany(investigator => investigator.HandZone.Cards)
               .OfType<CommitableCard>().Where(commitableCard => commitableCard.GetChallengeValue(CurrentChallenge.ChallengeType) > 0);
+
+        public Investigator ActiveInvestigator => CurrentChallenge.ActiveInvestigator;
 
         /*******************************************************************/
         public CommitCardsChallengeGameAction(ChallengePhaseGameAction challenge) :
