@@ -188,19 +188,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareActivables()
         {
-            foreach (Card activable in _cardsProvider.AllCards.Where(card => card.IsActivable))
+            foreach (Activation activation in _cardsProvider.AllCards.SelectMany(card => card.AllActivations)
+                .Where(activation => activation.FullCondition(ActiveInvestigator)))
             {
-                foreach (Activation activation in activable.AllActivations)
-                {
-                    if (activation.FullCondition(ActiveInvestigator))
-                        CreateEffect(activable,
-                            activation.ActivateTurnsCost,
-                            Activate,
-                            PlayActionType.Activate | activation.PlayAction,
-                            ActiveInvestigator);
+                CreateEffect(activation.Card,
+                    activation.ActivateTurnsCost,
+                    Activate,
+                    PlayActionType.Activate | activation.PlayAction,
+                    ActiveInvestigator);
 
-                    async Task Activate() => await activation.PlayFor(ActiveInvestigator);
-                }
+                async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }
         }
 

@@ -33,18 +33,23 @@ namespace MythosAndHorrors.GameRules
         private async Task ChooseEnemyLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
-
             chooseEnemy.CreateCancelMainButton();
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
-                chooseEnemy.CreateEffect(creature, new Stat(0, false), () => AttackEnemy(creature), PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), AttackCreature, PlayActionType.Choose, investigator);
+
+                async Task AttackCreature()
+                {
+                    AttackCreatureGameAction attackCreatureGameAction = new(ControlOwner, creature, amountDamage: 1);
+                    await ExtraAttackEnemyLogic(attackCreatureGameAction);
+                    await _gameActionsProvider.Create(attackCreatureGameAction);
+                }
             }
 
             await _gameActionsProvider.Create(chooseEnemy);
         }
 
-        protected abstract Task AttackEnemy(CardCreature creature);
-
+        protected abstract Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public int InitialSupplies => 3;
         public override IEnumerable<Tag> Tags => new[] { Tag.Talent, Tag.Science };
-
         public Stat AmountSupplies { get; private set; }
 
         /*******************************************************************/
@@ -21,8 +20,23 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountSupplies = CreateStat(InitialSupplies);
+            AmountSupplies = CreateStat(3);
             CreateActivation(1, HealActivate, HealConditionToActivate, PlayActionType.Activate);
+            CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+        }
+
+        /*******************************************************************/
+        private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
+        {
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+        }
+
+        private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
+        {
+            if (!IsInPlay) return false;
+            if (!updateStatGameAction.HasThisStat(AmountSupplies)) return false;
+            if (AmountSupplies.Value > 0) return false;
+            return true;
         }
 
         /*******************************************************************/

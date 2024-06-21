@@ -39,5 +39,28 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(2));
         }
+
+        [UnityTest]
+        public IEnumerator DiscardIfNotSupplies()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+
+            Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
+
+            yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigator.DamageRecived, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supplyCard.AmountSupplies, 1)).AsCoroutine();
+
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            yield return ClickedIn(supplyCard);
+            //yield return ClickedClone(investigator.AvatarCard, 0);
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(supplyCard.CurrentZone, Is.EqualTo(investigator.DiscardZone));
+        }
     }
 }

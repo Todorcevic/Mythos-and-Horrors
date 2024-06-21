@@ -7,7 +7,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class Card
     {
         [Inject] private readonly CardInfo _info;
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         private readonly List<Stat> _stats = new();
         private readonly List<State> _states = new();
-        private readonly List<IAbility> _specificAbilities = new();
+        protected readonly List<IAbility> _specificAbilities = new();
 
         public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }

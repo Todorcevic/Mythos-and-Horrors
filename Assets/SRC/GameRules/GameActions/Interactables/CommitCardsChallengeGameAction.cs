@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
+        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
@@ -39,6 +40,23 @@ namespace MythosAndHorrors.GameRules
                 async Task Commit()
                 {
                     await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
+                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(CurrentChallenge));
+                }
+            }
+
+            foreach (ChallengeActivation activation in _cardsProvider.AllCards.OfType<CardChallengeSupply>()
+                .SelectMany(cardChallengeSupply => cardChallengeSupply.AllCommitsActivations)
+                .Where(activation => activation.FullCondition(CurrentChallenge)))
+            {
+                CreateEffect(activation.Card,
+                   activation.ActivateTurnsCost,
+                   Activate,
+                   PlayActionType.Activate | activation.PlayAction,
+                   ActiveInvestigator);
+
+                async Task Activate()
+                {
+                    await activation.PlayFor(CurrentChallenge);
                     await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(CurrentChallenge));
                 }
             }

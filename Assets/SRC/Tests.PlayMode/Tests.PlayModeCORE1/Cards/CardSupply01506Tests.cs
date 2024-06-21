@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator Attack()
         {
             Investigator investigator = _investigatorsProvider.First;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_4);
             yield return StartingScene();
             Card01506 weaponCard = _cardsProvider.GetCard<Card01506>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulVoraz.HealthLeft, Is.EqualTo(1));
+            Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(3));
         }
 

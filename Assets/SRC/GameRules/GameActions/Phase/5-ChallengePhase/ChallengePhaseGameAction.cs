@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
         private IEnumerable<ChallengeToken> CurrentTokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;
         public int CurrentTotalTokenValue => CurrentTokensRevealed.Sum(token => token.Value(ActiveInvestigator));
-        public int CurrentTotalChallengeValue => IsAutoFail ? 0 : Stat.Value + CurrentTotalTokenValue + CurrentCommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
+        public int CurrentTotalChallengeValue => IsAutoFail ? 0 : Stat.Value + StatModifier.Value + CurrentTotalTokenValue + CurrentCommitsCards.Sum(commitableCard => commitableCard.GetChallengeValue(ChallengeType));
         public IEnumerable<CommitableCard> CurrentCommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>()
             .Where(comitableCard => comitableCard.Commited.IsActive);
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
@@ -44,25 +44,25 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null, int statModifier = 0)
+        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
         {
             Stat = stat;
+            StatModifier = new Stat(0, true);
             InitialDifficultValue = difficultValue;
+            CardToChallenge = cardToChallenge;
             ChallengeName = name;
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
-            CardToChallenge = cardToChallenge;
-            StatModifier = new Stat(statModifier, true);
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier.Value));
+            //await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier.Value));
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier.Value));
+            //await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier.Value));
         }
 
         public async Task ContinueChallenge()
@@ -86,7 +86,5 @@ namespace MythosAndHorrors.GameRules
             await base.Undo();
             await _challengerPresenter.PlayAnimationWith(this);
         }
-
-
     }
 }

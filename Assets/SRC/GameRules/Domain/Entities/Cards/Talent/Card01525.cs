@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01525 : CardTalent
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Practiced };
 
         /*******************************************************************/
@@ -18,8 +21,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
             if (challengePhaseGameAction is not AttackCreatureGameAction attackCreatureGameAction) return;
-            attackCreatureGameAction.UpdateAmountDamage(attackCreatureGameAction.AmountDamage + 1);
-            await Task.CompletedTask;
+            await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
         }
     }
 }

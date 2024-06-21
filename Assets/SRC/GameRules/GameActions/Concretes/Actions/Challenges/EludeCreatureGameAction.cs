@@ -10,8 +10,8 @@ namespace MythosAndHorrors.GameRules
         public CardCreature CardCreature { get; }
 
         /*******************************************************************/
-        public EludeCreatureGameAction(Investigator investigator, CardCreature creature, int agilityModifier = 0)
-            : base(investigator.Agility, creature.Agility.Value, "Elude " + creature.Info.Name, cardToChallenge: creature, statModifier: agilityModifier)
+        public EludeCreatureGameAction(Investigator investigator, CardCreature creature)
+            : base(investigator.Agility, creature.Agility.Value, "Elude " + creature.Info.Name, cardToChallenge: creature)
         {
             CardCreature = creature;
             SuccesEffects.Add(SuccesEffet);

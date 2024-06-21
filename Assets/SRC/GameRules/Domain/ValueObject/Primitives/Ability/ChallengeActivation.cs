@@ -2,21 +2,19 @@
 
 namespace MythosAndHorrors.GameRules
 {
-
-
-    public class Activation : ITriggered
+    public class ChallengeActivation : ITriggered
     {
         public Card Card { get; }
         public Stat ActivateTurnsCost { get; }
-        public GameCommand<Investigator> Logic { get; }
-        public GameConditionWith<Investigator> Condition { get; }
+        public GameCommand<ChallengePhaseGameAction> Logic { get; }
+        public GameConditionWith<ChallengePhaseGameAction> Condition { get; }
         public PlayActionType PlayAction { get; }
         public string Description { get; }
         public bool IsDisable { get; private set; }
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
-        public Activation(Card card, Stat activateTurnsCost, GameCommand<Investigator> logic, GameConditionWith<Investigator> condition, PlayActionType playActionType)
+        public ChallengeActivation(Card card, Stat activateTurnsCost, GameCommand<ChallengePhaseGameAction> logic, GameConditionWith<ChallengePhaseGameAction> condition, PlayActionType playActionType)
         {
             Card = card;
             ActivateTurnsCost = activateTurnsCost;
@@ -26,15 +24,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public bool FullCondition(Investigator investigator)
+        public bool FullCondition(ChallengePhaseGameAction challenge)
         {
             if (IsDisable) return false;
-            if (ActivateTurnsCost.Value > investigator.CurrentTurns.Value) return false;
-            if (!Condition.IsTrueWith(investigator)) return false;
+            if (!Condition.IsTrueWith(challenge)) return false;
             return true;
         }
 
-        public async Task PlayFor(Investigator investigator)
+        public async Task PlayFor(ChallengePhaseGameAction investigator)
         {
             await Logic.RunWith(investigator);
         }

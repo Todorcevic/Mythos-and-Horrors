@@ -8,26 +8,26 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature CardCreature { get; }
-        public int AmountDamage { get; private set; }
+        public Stat AmountDamage { get; private set; }
 
         /*******************************************************************/
-        public AttackCreatureGameAction(Investigator investigator, CardCreature creature, int amountDamage, int strengModifier = 0)
-            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature, statModifier: strengModifier)
+        public AttackCreatureGameAction(Investigator investigator, CardCreature creature, int amountDamage)
+            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature)
         {
             CardCreature = creature;
-            AmountDamage = amountDamage;
+            AmountDamage = new Stat(amountDamage, false);
             SuccesEffects.Add(SuccesEffet);
             FailEffects.Add(FailEffet);
         }
 
         /*******************************************************************/
         private async Task SuccesEffet() =>
-            await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage));
+            await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value));
 
         private async Task FailEffet()
         {
             if (CardCreature.IsConfronted && CardCreature.ConfrontedInvestigator != ActiveInvestigator)
-                await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature.ConfrontedInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage));
+                await _gameActionsProvider.Create(new HarmToCardGameAction(CardCreature.ConfrontedInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value));
         }
 
         protected override async Task ExecuteThisPhaseLogic()
@@ -46,6 +46,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }
 
-        public void UpdateAmountDamage(int newAmountDamage) => AmountDamage = newAmountDamage;
+        //public void UpdateAmountDamage(int newAmountDamage) => AmountDamage = newAmountDamage;
     }
 }

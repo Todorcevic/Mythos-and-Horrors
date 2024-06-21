@@ -11,8 +11,8 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CardPlace { get; }
 
         /*******************************************************************/
-        public InvestigatePlaceGameAction(Investigator investigator, CardPlace cardPlace, int intelligenceModifier = 0)
-            : base(investigator.Intelligence, cardPlace.Enigma.Value, "Investigate " + cardPlace.Info.Name, cardToChallenge: cardPlace, statModifier: intelligenceModifier)
+        public InvestigatePlaceGameAction(Investigator investigator, CardPlace cardPlace)
+            : base(investigator.Intelligence, cardPlace.Enigma.Value, "Investigate " + cardPlace.Info.Name, cardToChallenge: cardPlace)
         {
             AmountHints = 1;
             CardPlace = cardPlace;
