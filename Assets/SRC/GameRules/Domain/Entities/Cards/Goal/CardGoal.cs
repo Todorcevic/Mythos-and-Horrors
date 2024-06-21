@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; protected set; }
         public State Revealed { get; private set; }
-        public Activation PayHints { get; private set; }
+        public Activation<Investigator> PayHints { get; private set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
 

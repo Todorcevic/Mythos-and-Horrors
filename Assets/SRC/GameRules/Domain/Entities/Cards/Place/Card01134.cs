@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State Played { get; private set; }
-        public Activation GainHints { get; private set; }
+        public Activation<Investigator> GainHints { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Arkham };
 
         /*******************************************************************/

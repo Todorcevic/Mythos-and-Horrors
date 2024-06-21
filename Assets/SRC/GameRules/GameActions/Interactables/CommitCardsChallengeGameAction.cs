@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            foreach (ChallengeActivation activation in _cardsProvider.AllCards.OfType<CardChallengeSupply>()
+            foreach (Activation<ChallengePhaseGameAction> activation in _cardsProvider.AllCards.OfType<CardChallengeSupply>()
                 .SelectMany(cardChallengeSupply => cardChallengeSupply.AllCommitsActivations)
                 .Where(activation => activation.FullCondition(CurrentChallenge)))
             {

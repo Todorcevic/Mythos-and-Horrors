@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public virtual CardInfo Info => _info;
         public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
-        public IEnumerable<Activation> AllActivations => _activationsProvider.GetActivationsFor(this);
+        public IEnumerable<Activation<Investigator>> AllActivations => _activationsProvider.GetActivationsFor(this);
         public IEnumerable<Buff> AllBuffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
@@ -95,14 +95,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        protected Activation CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
+        protected Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
         {
-            Activation newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType);
+            Activation<Investigator> newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType);
             _specificAbilities.Add(newActivation);
             return newActivation;
         }
 
-        protected Activation CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
+        protected Activation<Investigator> CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
         {
             return CreateActivation(0, logic, condition, playActionType);
         }

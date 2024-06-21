@@ -188,9 +188,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareActivables()
         {
-            foreach (Activation activation in _cardsProvider.AllCards.SelectMany(card => card.AllActivations)
+            foreach (Activation<Investigator> activation in _cardsProvider.AllCards.SelectMany(card => card.AllActivations)
                 .Where(activation => activation.FullCondition(ActiveInvestigator)))
             {
+                if (activation.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) continue;
+
                 CreateEffect(activation.Card,
                     activation.ActivateTurnsCost,
                     Activate,

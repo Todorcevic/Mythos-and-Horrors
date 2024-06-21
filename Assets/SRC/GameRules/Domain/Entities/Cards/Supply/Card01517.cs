@@ -17,8 +17,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateCommitActivation(GainSkillLogic, GainPowerSkillCondition, PlayActionType.Activate);
-            CreateCommitActivation(GainSkillLogic, GainStregnthSkillCondition, PlayActionType.Activate);
+            CreateChallengeActivation(GainSkillLogic, GainPowerSkillCondition, PlayActionType.Activate);
+            CreateChallengeActivation(GainSkillLogic, GainStregnthSkillCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
