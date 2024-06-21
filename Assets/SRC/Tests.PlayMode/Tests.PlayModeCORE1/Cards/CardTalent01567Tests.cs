@@ -13,22 +13,24 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator HealthFear()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator = _investigatorsProvider.Second;
             Card01567 cardTalent = _cardsProvider.GetCard<Card01567>();
+            Card01167 adversity = _cardsProvider.GetCard<Card01167>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTalent, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardTalent, amountFear: 3)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedClone(cardTalent, 1);
+            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
+            yield return ClickedIn(cardTalent);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));
         }
     }
 }

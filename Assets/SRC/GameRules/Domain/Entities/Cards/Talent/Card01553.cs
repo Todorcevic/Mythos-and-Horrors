@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool OwnChallengeCondition(CommitCardsChallengeGameAction commitCardChallengeGameAction)
         {
-            if (commitCardChallengeGameAction.ActiveInvestigator == ControlOwner) return false;
+            if (commitCardChallengeGameAction.CurrentChallenge.ActiveInvestigator == ControlOwner) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             return true;
         }
@@ -45,7 +45,11 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, challengePhaseGameAction.ActiveInvestigator.HandZone));
+            challengePhaseGameAction.SuccesEffects.Add(ReturnCardToHand);
+            await Task.CompletedTask;
+
+            async Task ReturnCardToHand() =>
+                await _gameActionsProvider.Create(new MoveCardsGameAction(this, challengePhaseGameAction.ActiveInvestigator.HandZone));
         }
     }
 }

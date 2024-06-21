@@ -5,6 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CommitableCard : Card
     {
+        public Investigator InvestigatorCommiter { get; private set; }
         public State Commited { get; private set; }
 
         /*******************************************************************/
@@ -12,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Commited = CreateState(false);
+            Commited = CreateState(false, OnCommited);
         }
 
         /*******************************************************************/
@@ -27,6 +28,12 @@ namespace MythosAndHorrors.GameRules
                 ChallengeType.Power => wildAmount + (Info.Power ?? 0),
                 _ => wildAmount
             };
+        }
+
+        private void OnCommited(bool isActive)
+        {
+            if (isActive) InvestigatorCommiter = ControlOwner;
+            else InvestigatorCommiter = null;
         }
     }
 }

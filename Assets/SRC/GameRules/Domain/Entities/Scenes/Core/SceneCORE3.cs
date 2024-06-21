@@ -259,7 +259,7 @@ namespace MythosAndHorrors.GameRules
                 bool DrawMonsterCondition(ChallengePhaseGameAction challengePhaseGameAction)
                 {
                     _reactionablesProvider.RemoveReaction(drawGhouReaction);
-                    if ((bool)challengePhaseGameAction.IsSuccessful) return false;
+                    if (challengePhaseGameAction.IsSucceed) return false;
                     return true;
                 }
             }

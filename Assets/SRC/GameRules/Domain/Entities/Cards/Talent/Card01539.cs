@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public override bool TalentCondition(ChallengePhaseGameAction challengePhaseGameAction)
         {
             if (challengePhaseGameAction is not InvestigatePlaceGameAction investigatePlaceGameAction) return false;
-            if (!investigatePlaceGameAction.IsSuccessful ?? true) return false;
+            if (!investigatePlaceGameAction.IsSucceed) return false;
             return true;
         }
 

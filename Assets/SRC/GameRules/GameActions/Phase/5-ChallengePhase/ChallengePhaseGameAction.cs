@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<CommitableCard> CurrentCommitsCards => _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>()
             .Where(comitableCard => comitableCard.Commited.IsActive);
         public int DifficultValue => IsAutoSucceed ? 0 : InitialDifficultValue;
-        public bool? IsSuccessful => ResultChallenge?.IsSuccessful;
+        public bool IsSucceed => (bool)ResultChallenge?.IsSuccessful;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier.Value));
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, this));
+            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
             await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier.Value));
         }

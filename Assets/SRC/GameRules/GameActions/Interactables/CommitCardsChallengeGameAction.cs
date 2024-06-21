@@ -5,26 +5,23 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
+    public class CommitCardsChallengeGameAction : InteractableGameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
-        public Investigator ActiveInvestigator { get; }
         public CardEffect ButtonEffect { get; private set; }
         public ChallengePhaseGameAction CurrentChallenge { get; }
-        public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(CurrentChallenge.Stat);
 
-        private IEnumerable<CommitableCard> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(ActiveInvestigator.CurrentPlace)
+        private IEnumerable<CommitableCard> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(CurrentChallenge.ActiveInvestigator.CurrentPlace)
               .SelectMany(investigator => investigator.HandZone.Cards)
-              .OfType<CommitableCard>().Where(commitableCard => commitableCard.GetChallengeValue(ChallengeType) > 0);
+              .OfType<CommitableCard>().Where(commitableCard => commitableCard.GetChallengeValue(CurrentChallenge.ChallengeType) > 0);
 
         /*******************************************************************/
-        public CommitCardsChallengeGameAction(Investigator investigator, ChallengePhaseGameAction challenge) :
+        public CommitCardsChallengeGameAction(ChallengePhaseGameAction challenge) :
             base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards")
         {
-            ActiveInvestigator = investigator;
             CurrentChallenge = challenge;
         }
 
@@ -40,7 +37,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Commit()
                 {
                     await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
-                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(ActiveInvestigator, CurrentChallenge));
+                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(CurrentChallenge));
                 }
             }
         }

@@ -81,7 +81,9 @@ namespace MythosAndHorrors.GameView
 
         private Tween UpdateResult(ChallengePhaseGameAction ChallengePhaseGameAction)
         {
-            if (!ChallengePhaseGameAction.IsSuccessful.HasValue)
+            bool? isSuccessful = ChallengePhaseGameAction.ResultChallenge?.IsSuccessful;
+
+            if (!isSuccessful.HasValue)
             {
                 _result.transform.DOScale(0, 0).SetEase(Ease.InBack);
                 _result.text = string.Empty;
@@ -90,8 +92,8 @@ namespace MythosAndHorrors.GameView
             }
             else
             {
-                _result.text = ChallengePhaseGameAction.IsSuccessful.Value ? "Success" : "Fail";
-                _result.color = ChallengePhaseGameAction.IsSuccessful.Value ? Color.green : Color.red;
+                _result.text = isSuccessful.Value ? "Success" : "Fail";
+                _result.color = isSuccessful.Value ? Color.green : Color.red;
                 return DOTween.Sequence().Append(_skillChallengeController.ShutDown())
                     .Append(_result.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack));
             }

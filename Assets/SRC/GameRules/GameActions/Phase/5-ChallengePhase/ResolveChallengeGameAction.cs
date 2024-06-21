@@ -22,14 +22,14 @@ namespace MythosAndHorrors.GameRules
         {
             await ResolveTalentsCards();
 
-            if ((bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.SuccesEffects.Any())
+            if (ChallengePhaseGameAction.IsSucceed && ChallengePhaseGameAction.SuccesEffects.Any())
             {
                 await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllSuccessEffects, ExecuteEffect));
 
                 IEnumerable<Func<Task>> AllSuccessEffects() => ChallengePhaseGameAction.SuccesEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }
-            else if (!(bool)ChallengePhaseGameAction.IsSuccessful && ChallengePhaseGameAction.FailEffects.Any())
+            else if (!ChallengePhaseGameAction.IsSucceed && ChallengePhaseGameAction.FailEffects.Any())
             {
                 await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllFailEffects, ExecuteEffect));
 

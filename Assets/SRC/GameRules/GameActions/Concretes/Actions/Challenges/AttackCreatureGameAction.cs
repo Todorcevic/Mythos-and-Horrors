@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (CardCreature is not ICounterAttackable) return;
             if (CardCreature.Exausted.IsActive) return;
-            if ((bool)IsSuccessful) return;
+            if (IsSucceed) return;
 
             await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }
