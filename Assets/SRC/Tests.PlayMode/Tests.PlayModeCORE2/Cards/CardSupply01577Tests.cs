@@ -6,9 +6,9 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
-namespace MythosAndHorrors.PlayModeCORE1.Tests
+namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-    public class CardSupply01534Tests : TestCORE1Preparation
+    public class CardSupply01577Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
@@ -16,9 +16,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator IncrementChallengeSkill()
         {
             Investigator investigator = _investigatorsProvider.First; //2 Agi
-            Card01534 cardSupply = _cardsProvider.GetCard<Card01534>();
-            CardCreature creature = SceneCORE1.GhoulVoraz; // 3 Agi
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
+            Card01577 cardSupply = _cardsProvider.GetCard<Card01577>();
+            CardCreature creature = SceneCORE2.Drew; // 2 Agi
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
