@@ -10,24 +10,21 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Supply };
-        private IEnumerable<CardWeapon> Firearms => ControlOwner.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
+        private IEnumerable<CardWeapon> Firearms(Investigator investigator) => investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
-            if (!Firearms.Any()) return false;
+            if (!Firearms(ControlOwner).Any()) return false;
             return true;
         }
 
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            IEnumerable<CardWeapon> Firearms = investigator.CurrentPlace.InvestigatorsInThisPlace.SelectMany(investigator => investigator.AidZone.Cards)
-            .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IBulletable);
-
             InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
             interactable.CreateCancelMainButton();
-            foreach (CardWeapon firearm in Firearms)
+            foreach (CardWeapon firearm in Firearms(investigator))
             {
                 interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);
 

@@ -58,11 +58,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            //await _gameActionsProvider.Create(new IncrementStatGameAction(Stat, StatModifier.Value));
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
-            //await _gameActionsProvider.Create(new DecrementStatGameAction(Stat, StatModifier.Value));
         }
 
         public async Task ContinueChallenge()

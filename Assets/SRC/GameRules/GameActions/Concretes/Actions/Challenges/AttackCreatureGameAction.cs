@@ -45,7 +45,5 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
         }
-
-        //public void UpdateAmountDamage(int newAmountDamage) => AmountDamage = newAmountDamage;
     }
 }
