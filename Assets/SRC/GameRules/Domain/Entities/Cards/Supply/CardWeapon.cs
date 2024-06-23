@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task ChooseEnemyLogic(Investigator investigator)
+        protected async Task ChooseEnemyLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
             chooseEnemy.CreateCancelMainButton();

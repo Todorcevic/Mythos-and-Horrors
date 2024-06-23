@@ -3,6 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class EliminateInvestigatorGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

@@ -18,7 +18,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-            yield return StartingScene();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             Card01516 weaponCard = _cardsProvider.GetCard<Card01516>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
@@ -42,7 +43,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-            yield return StartingScene();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             Card01516 weaponCard = _cardsProvider.GetCard<Card01516>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(weaponCard.AmountBullets, 0)).AsCoroutine();

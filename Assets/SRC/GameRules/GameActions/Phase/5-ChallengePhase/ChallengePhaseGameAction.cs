@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsAutoFail { get; set; }
         public ResultChallengeGameAction ResultChallenge { get; private set; }
 
-        public override Investigator ActiveInvestigator => _investigatorsProvider.GetInvestigatorWithThisStat(Stat);
+        public override Investigator ActiveInvestigator => _investigatorsProvider?.GetInvestigatorWithThisStat(Stat) ?? throw new NullReferenceException("_investigatorsProvider must be Inject");
         public ChallengeType ChallengeType => ActiveInvestigator.GetChallengeType(Stat);
 
         private IEnumerable<ChallengeToken> CurrentTokensRevealed => _challengeTokensProvider.ChallengeTokensRevealed;

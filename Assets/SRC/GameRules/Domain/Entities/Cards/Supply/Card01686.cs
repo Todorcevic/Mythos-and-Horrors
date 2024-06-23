@@ -1,9 +1,47 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01686 : CardSupply
+    public class Card01686 : CardWeapon
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        public State ThrowingState { get; private set; }
+
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tome };
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            ThrowingState = CreateState(false);
+            CreateActivation(1, ThrowAttackLogic, AttackCondition, PlayActionType.Attack);
+        }
+
+        /*******************************************************************/
+        private async Task ThrowAttackLogic(Investigator investigator)
+        {
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(ThrowingState, true));
+            await ChooseEnemyLogic(investigator);
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(ThrowingState, false));
+        }
+
+        /*******************************************************************/
+        protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
+        {
+            if (ThrowingState.IsActive)
+            {
+                await _gameActionsProvider.Create(new DiscardGameAction(this));
+                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 2));
+                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
+            }
+            else
+            {
+                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 1));
+            }
+        }
     }
 }
