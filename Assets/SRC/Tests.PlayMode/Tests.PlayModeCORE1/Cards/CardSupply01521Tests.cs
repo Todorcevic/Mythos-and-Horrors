@@ -13,22 +13,24 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator BackDamage()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
             Card01521 cardSupply = _cardsProvider.GetCard<Card01521>();
+            CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create(new CreatureAttackGameAction(creature, investigator));
             yield return ClickedIn(cardSupply);
-            yield return ClickedMainButton();
+            yield return ClickedIn(cardSupply);
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(creature.DamageRecived.Value, Is.EqualTo(1));
+            Assert.That(cardSupply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
         }
     }
 }
