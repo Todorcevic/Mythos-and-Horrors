@@ -57,6 +57,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
+
         /*******************************************************************/
         private async Task GainStrenghtDeactivationLogic(IEnumerable<Card> cardsToBuff)
         {
