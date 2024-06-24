@@ -118,7 +118,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        private Tween Rotate()
+        public Tween Rotate()
         {
             _effectController.Rotate(Card.FaceDown.IsActive);
             _buffController.Rotate(Card.FaceDown.IsActive);
