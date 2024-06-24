@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -10,14 +11,14 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardSupply01532Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator TakeRTomeWheSpawn()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator = _investigatorsProvider.Second;
             Card01532 cardSupply = _cardsProvider.GetCard<Card01532>();
+            Card01531 tome = _cardsProvider.GetCard<Card01531>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
@@ -25,10 +26,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardSupply);
+            yield return ClickedIn(cardSupply);
+            yield return ClickedIn(tome);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(tome.CurrentZone, Is.EqualTo(investigator.HandZone));
+            Assert.That(investigator.DeckZone.Cards.All(card => card.FaceDown.IsActive), Is.True);
         }
     }
 }
