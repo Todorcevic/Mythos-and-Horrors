@@ -11,10 +11,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardSupply01532Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeRTomeWheSpawn()
+        public IEnumerator TakeTomeWheSpawn()
         {
             Investigator investigator = _investigatorsProvider.Second;
             Card01532 cardSupply = _cardsProvider.GetCard<Card01532>();

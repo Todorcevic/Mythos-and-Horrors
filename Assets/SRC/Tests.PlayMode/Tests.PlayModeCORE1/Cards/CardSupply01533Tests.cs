@@ -1,8 +1,8 @@
-﻿
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -13,22 +13,25 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator GainResourceWhenInvestigate()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator = _investigatorsProvider.Second;
             Card01533 cardSupply = _cardsProvider.GetCard<Card01533>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedMainButton();
             yield return ClickedIn(cardSupply);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(6));
+            Assert.That(investigator.Intelligence.Value, Is.EqualTo(6));
         }
     }
 }
