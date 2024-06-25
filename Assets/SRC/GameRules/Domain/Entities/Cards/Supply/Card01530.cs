@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01530 : CardSupply
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tool };
@@ -22,11 +21,9 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() =>
-            BuffActivation() ?
-            new[] { _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone).InvestigatorCard } :
+            IsInPlay ?
+            new[] { ControlOwner.InvestigatorCard } :
             Enumerable.Empty<Card>();
-
-        private bool BuffActivation() => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone)?.AidZone == CurrentZone;
 
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
