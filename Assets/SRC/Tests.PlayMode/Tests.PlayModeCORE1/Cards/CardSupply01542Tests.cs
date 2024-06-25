@@ -13,22 +13,52 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator IncrementSkill()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01542 cardSupply = _cardsProvider.GetCard<Card01542>();
+            Investigator investigator = _investigatorsProvider.Second;
+            Investigator investigator2 = _investigatorsProvider.First;
+            yield return BuildCard("01542", investigator);
+            Card01542 supply = _cardsProvider.GetCard<Card01542>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedClone(investigator2.InvestigatorCard, 0);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator2.Strength.Value, Is.EqualTo(6));
+            Assert.That(supply.Exausted.IsActive, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator Reset()
+        {
+            Investigator investigator = _investigatorsProvider.Second;
+            Investigator investigator2 = _investigatorsProvider.First;
+            yield return BuildCard("01542", investigator);
+            Card01542 supply = _cardsProvider.GetCard<Card01542>();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            yield return ClickedIn(investigator.AvatarCard);
+            yield return ClickedIn(supply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedClone(investigator2.InvestigatorCard, 0);
+            Assert.That(investigator2.Strength.Value, Is.EqualTo(6));
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator2.Strength.Value, Is.EqualTo(4));
+            Assert.That(supply.Exausted.IsActive, Is.True);
         }
     }
 }
