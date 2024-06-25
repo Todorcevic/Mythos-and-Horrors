@@ -8,28 +8,56 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardSupply01535Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator SusceeChallenge()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator = _investigatorsProvider.Second;
+            Investigator investigator2 = _investigatorsProvider.First;
             Card01535 cardSupply = _cardsProvider.GetCard<Card01535>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator2, cardSupply, amountDamage: 2)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardSupply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator2.DamageRecived.Value, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator FailChallenge()
+        {
+            Investigator investigator = _investigatorsProvider.Second;
+            Investigator investigator2 = _investigatorsProvider.First;
+            Card01535 cardSupply = _cardsProvider.GetCard<Card01535>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail);
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator2, cardSupply, amountDamage: 2)).AsCoroutine();
+
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(cardSupply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(investigator2.DamageRecived.Value, Is.EqualTo(3));
         }
     }
 }

@@ -24,15 +24,21 @@ namespace MythosAndHorrors.GameRules
         public async Task HealthActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
+            interactableGameAction.CreateCancelMainButton();
+
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
-                interactableGameAction.CreateEffect(investigatorToSelect.AvatarCard, new Stat(0, false), HealthInvestigator, PlayActionType.Choose, activeInvestigator);
+                interactableGameAction.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), HealthInvestigator, PlayActionType.Choose, activeInvestigator);
 
                 /*******************************************************************/
                 async Task HealthInvestigator()
                 {
-                    await _gameActionsProvider.Create(new HealthGameAction(investigatorToSelect.InvestigatorCard, amountDamageToRecovery: 1)); //TODO must be a challenge
+                    await _gameActionsProvider.Create(new ChallengePhaseGameAction(activeInvestigator.Intelligence, 2, "Health", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator));
+
+                    /*******************************************************************/
+                    async Task HealthInvestigator() => await _gameActionsProvider.Create(new HealthGameAction(investigatorToSelect.InvestigatorCard, amountDamageToRecovery: 1));
+                    async Task DamageInvestigator() => await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToSelect, this, amountDamage: 1));
                 };
             }
 
@@ -42,7 +48,7 @@ namespace MythosAndHorrors.GameRules
         public bool HealtConditionConditionToActivate(Investigator activeInvestigator)
         {
             if (!IsInPlay) return false;
-            if (Owner != activeInvestigator) return false;
+            if (ControlOwner != activeInvestigator) return false;
             return true;
         }
     }
