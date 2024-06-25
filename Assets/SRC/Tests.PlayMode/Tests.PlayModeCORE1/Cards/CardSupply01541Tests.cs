@@ -13,22 +13,21 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator DiscardCreature()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01541 cardSupply = _cardsProvider.GetCard<Card01541>();
+            Investigator investigator = _investigatorsProvider.Second;
+            yield return BuildCard("01541", investigator);
+            Card01541 supply = _cardsProvider.GetCard<Card01541>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulVoraz, investigator.CurrentPlace));
+            yield return ClickedIn(supply);
+            yield return taskGameAction.AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
-            yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
-
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(SceneCORE1.GhoulVoraz.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+            Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
         }
     }
 }
