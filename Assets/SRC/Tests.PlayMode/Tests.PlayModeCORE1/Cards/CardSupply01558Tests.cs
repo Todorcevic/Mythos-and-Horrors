@@ -13,22 +13,49 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator GainResources()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01558 cardSupply = _cardsProvider.GetCard<Card01558>();
+            Investigator investigator = _investigatorsProvider.Third;
+            Card01558 supply = _cardsProvider.GetCard<Card01558>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(6));
+            Assert.That(supply.Exausted.IsActive, Is.True);
         }
+
+        [UnityTest]
+        public IEnumerator Discard()
+        {
+            Investigator investigator = _investigatorsProvider.Third;
+            Card01558 supply = _cardsProvider.GetCard<Card01558>();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supply.AmountCharges, 1)).AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.Resources.Value, Is.EqualTo(6));
+            Assert.That(supply.Exausted.IsActive, Is.False);
+            Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
+            Assert.That(supply.AmountCharges.Value, Is.EqualTo(4));
+        }
+
     }
 }
