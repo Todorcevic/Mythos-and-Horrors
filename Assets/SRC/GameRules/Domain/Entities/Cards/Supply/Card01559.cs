@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -20,8 +21,20 @@ namespace MythosAndHorrors.GameRules
         {
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
+            CreateBuff(CardToSelect, BuffOn, BuffOff);
         }
 
         /*******************************************************************/
+        private async Task BuffOn(IEnumerable<Card> cardsToBuff)
+        {
+            await _gameActionsProvider.Create(new IncrementStatGameAction(ControlOwner.Power, 1));
+        }
+
+        private async Task BuffOff(IEnumerable<Card> cardsToDebuff)
+        {
+            await _gameActionsProvider.Create(new DecrementStatGameAction(ControlOwner.Power, 1));
+        }
+
+        private IEnumerable<Card> CardToSelect() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }

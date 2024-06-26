@@ -18,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             CreateBuff(CardToSelect, BuffOn, BuffOff);
-
             CreateActivation(1, Logic, Condition, PlayActionType.Elude);
         }
 
