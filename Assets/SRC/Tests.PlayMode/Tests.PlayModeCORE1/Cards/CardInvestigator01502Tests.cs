@@ -40,17 +40,18 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator FreeTurnToActivateTome()
         {
-            Card tomeCard = _cardsProvider.GetCard<Card01535>();
+            Card01535 tomeCard = _cardsProvider.GetCard<Card01535>();
             Investigator investigatorToTest = _investigatorsProvider.Second;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedIn(tomeCard);
-            yield return ClickedIn(investigatorToTest.AvatarCard);
+            yield return ClickedIn(investigatorToTest.InvestigatorCard);
+            yield return ClickedMainButton();
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
-
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();

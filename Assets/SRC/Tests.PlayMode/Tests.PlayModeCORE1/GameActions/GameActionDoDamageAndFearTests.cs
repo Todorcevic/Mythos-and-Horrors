@@ -17,16 +17,16 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return BuildCard("01594", investigator);
-            Card bulletProof = _cardsProvider.GetCard<Card01594>();
+            Card01594 bulletProof = _cardsProvider.GetCard<Card01594>();
+            Card01521 damageableCard = _cardsProvider.GetCard<Card01521>(); ;
 
-            Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, SceneCORE1.GhoulSecuaz, amountDamage: 2, amountFear: 1));
-
             yield return ClickedIn(bulletProof);
+            yield return ClickedIn(damageableCard);
             yield return ClickedIn(damageableCard);
             yield return gameActionTask.AsCoroutine();
 
