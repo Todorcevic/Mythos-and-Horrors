@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator Extraturn()
+        public IEnumerator ExtraTurn()
         {
             Investigator investigator = _investigatorsProvider.Third;
             yield return BuildCard("01548", investigator);

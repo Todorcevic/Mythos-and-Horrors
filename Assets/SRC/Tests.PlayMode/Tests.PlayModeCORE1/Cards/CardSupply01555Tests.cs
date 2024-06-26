@@ -13,22 +13,30 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator UnconfrontAndMove()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01555 cardSupply = _cardsProvider.GetCard<Card01555>();
+            Investigator investigator = _investigatorsProvider.Third;
+            yield return BuildCard("01555", investigator);
+            Card01555 supply = _cardsProvider.GetCard<Card01555>();
+            CardCreature creature = SceneCORE1.GhoulVoraz;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            yield return AssertThatIsNotClickable(SceneCORE1.Parlor);
+            yield return ClickedIn(SceneCORE1.Attic);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));
+            Assert.That(investigator.CurrentPlace, Is.EqualTo(SceneCORE1.Attic));
+            Assert.That(creature.CurrentPlace, Is.EqualTo(SceneCORE1.Hallway));
+            Assert.That(supply.Exausted.IsActive, Is.True);
         }
     }
 }

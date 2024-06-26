@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -27,21 +28,25 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateForceReaction<PlayInvestigatorGameAction>(Condition, Logic, GameActionTime.Before);
-        }
-
-        private async Task Logic(PlayInvestigatorGameAction playInvestigatorGameAction)
-        {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(playInvestigatorGameAction.ActiveInvestigator.CurrentTurns, 1));
-        }
-
-        private bool Condition(PlayInvestigatorGameAction playInvestigatorGameAction)
-        {
-            if (!IsInPlay) return false;
-            if (playInvestigatorGameAction.ActiveInvestigator != ControlOwner) return false;
-            return true;
+            CreateBuff(CardToBuff, BuffOn, BuffOff);
         }
 
         /*******************************************************************/
+        private async Task BuffOff(IEnumerable<Card> allCards)
+        {
+            CardInvestigator investigatorCard = allCards.OfType<CardInvestigator>().First();
+            await _gameActionsProvider.Create(new DecrementStatGameAction(investigatorCard.MaxTurns, 1));
+            if (investigatorCard.CurrentTurns.Value > investigatorCard.MaxTurns.Value)
+                await _gameActionsProvider.Create(new DecrementStatGameAction(investigatorCard.CurrentTurns, 1));
+        }
+
+        private async Task BuffOn(IEnumerable<Card> allCards)
+        {
+            CardInvestigator investigatorCard = allCards.OfType<CardInvestigator>().First();
+            await _gameActionsProvider.Create(new IncrementStatGameAction(investigatorCard.MaxTurns, 1));
+            await _gameActionsProvider.Create(new IncrementStatGameAction(investigatorCard.CurrentTurns, 1));
+        }
+
+        private IEnumerable<Card> CardToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }
