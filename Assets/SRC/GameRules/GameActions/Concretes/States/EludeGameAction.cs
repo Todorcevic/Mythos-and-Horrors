@@ -3,17 +3,18 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class EludeGameAction : GameAction
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature Creature { get; }
+        public Investigator Investigator { get; }
 
         /*******************************************************************/
-        public EludeGameAction(CardCreature creature)
+        public EludeGameAction(CardCreature creature, Investigator byThisInvestigator)
         {
             Creature = creature;
+            Investigator = byThisInvestigator;
         }
 
         /*******************************************************************/

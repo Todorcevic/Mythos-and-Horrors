@@ -15,20 +15,21 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator TakeResources()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01545 cardSupply = _cardsProvider.GetCard<Card01545>();
+            Investigator investigator = _investigatorsProvider.Second;
+            Card01545 supply = _cardsProvider.GetCard<Card01545>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
         }
     }
 }

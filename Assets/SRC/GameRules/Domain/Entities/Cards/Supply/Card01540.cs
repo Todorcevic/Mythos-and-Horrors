@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         private bool ReturnToHandCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
+            if (ControlOwner != investigator) return false;
             if (CurrentPlace.Hints.Value > 0) return false;
             return true;
         }

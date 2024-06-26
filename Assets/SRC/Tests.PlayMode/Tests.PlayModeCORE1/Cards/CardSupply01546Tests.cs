@@ -13,22 +13,29 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator DrawCardWhenElude()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01546 cardSupply = _cardsProvider.GetCard<Card01546>();
+            Investigator investigator = _investigatorsProvider.Third;
+            yield return BuildCard("01546", investigator);
+            Card01546 supply = _cardsProvider.GetCard<Card01546>();
+            CardCreature creature = SceneCORE1.GhoulVoraz;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+            int amountCardsInDeck = investigator.DeckZone.Cards.Count;
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedClone(creature, 1);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return ClickedIn(supply);
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.DeckZone.Cards.Count, Is.EqualTo(amountCardsInDeck - 1));
+            Assert.That(creature.Exausted.IsActive, Is.True);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
 
             IEnumerable<CardCreature> AllCreatures() => investigator.CreaturesInSamePlace;
-            async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create(new EludeGameAction(creature));
+            async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create(new EludeGameAction(creature, investigator));
         }
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

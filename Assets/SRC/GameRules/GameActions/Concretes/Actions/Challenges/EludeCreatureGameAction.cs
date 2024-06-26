@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task SuccesEffet()
         {
-            await _gameActionsProvider.Create(new EludeGameAction(CardCreature));
+            await _gameActionsProvider.Create(new EludeGameAction(CardCreature, ActiveInvestigator));
         }
     }
 }
