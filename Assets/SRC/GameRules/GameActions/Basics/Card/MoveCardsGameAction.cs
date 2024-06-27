@@ -62,6 +62,8 @@ namespace MythosAndHorrors.GameRules
             await base.Undo();
             await _moveCardPresenter.PlayAnimationWith(this);
         }
+
+        public Zone GetZoneBeforeMoveFor(Card card) => _cardsWithUndoState[card].zone;
     }
 }
 

@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _agility;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _eldritchableStat;
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _extraStat;
+
         /*******************************************************************/
         protected override void SetSpecific()
         {

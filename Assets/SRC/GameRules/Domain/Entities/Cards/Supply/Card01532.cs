@@ -59,6 +59,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!moveCardsGameAction.Cards.Contains(this)) return false;
             if (moveCardsGameAction.AllMoves[this].zone.ZoneType != ZoneType.Aid) return false;
+            if (ZoneType.PlayZone.HasFlag(moveCardsGameAction.GetZoneBeforeMoveFor(this).ZoneType)) return false;
             return true;
         }
 

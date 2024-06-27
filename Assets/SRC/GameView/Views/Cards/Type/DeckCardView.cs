@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
         [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _health;
         [SerializeField, Required, ChildGameObjectsOnly] private MultiStatView _sanity;
+        [SerializeField, Required, ChildGameObjectsOnly] private StatView _extraStat;
 
         private bool HasCost => _cost.IsActive;
         private bool HasSlot => Card.Info.Slots.Count() > 0;
@@ -79,6 +80,12 @@ namespace MythosAndHorrors.GameView
             else if (Card is CardCondition cardCondition)
             {
                 _cost.SetStat(cardCondition.ResourceCost);
+            }
+
+            if (Card.ExtraStat != null)
+            {
+                _extraStat.gameObject.SetActive(true);
+                _extraStat.SetStat(Card.ExtraStat);
             }
         }
 

@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose deck");
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
             interactableGameAction.CreateCancelMainButton();
             interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck, PlayActionType.Choose, investigator);
 
@@ -46,8 +46,8 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectDeck()
                 {
                     IEnumerable<Card> cards = inv.DeckZone.Cards.TakeLast(3);
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(cards, _chaptersProvider.CurrentScene.LimboZone));
-                    await SortCards(inv);
+                    await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+                    await SortCards(cards, inv);
                 }
             }
 
@@ -58,26 +58,26 @@ namespace MythosAndHorrors.GameRules
             async Task SelectDangerDeck()
             {
                 IEnumerable<Card> cards = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.TakeLast(3);
-                await _gameActionsProvider.Create(new MoveCardsGameAction(cards, _chaptersProvider.CurrentScene.LimboZone));
-                await SortCards(null);
+                await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+                await SortCards(cards, null);
             }
         }
 
-        private async Task SortCards(Owner owner)
+        private async Task SortCards(IEnumerable<Card> cards, Owner owner)
         {
             Zone zoneToReturn = owner is Investigator investigator ? investigator.DeckZone : _chaptersProvider.CurrentScene.DangerDeckZone;
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose card");
-            interactableGameAction.CreateCancelMainButton();
-            foreach (Card card in _chaptersProvider.CurrentScene.LimboZone.Cards)
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose card");
+            foreach (Card card in cards)
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, cardAffected: cardAffected);
 
                 async Task SelectCard()
                 {
                     await _gameActionsProvider.Create(new MoveCardsGameAction(card, zoneToReturn, isFaceDown: true));
-                    if (_chaptersProvider.CurrentScene.LimboZone.Cards.Any()) await SortCards(owner);
+                    IEnumerable<Card> newCards = cards.Except(new[] { card });
+                    if (newCards.Any()) await SortCards(newCards, owner);
                 }
             }
 

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01563 : CardSupply, IDamageable, IFearable
+    public class Card01563 : CardSupply, IDamageable, IFearable, IEldritchable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
@@ -13,6 +14,7 @@ namespace MythosAndHorrors.GameRules
         public Stat DamageRecived { get; private set; }
         public Stat Sanity { get; private set; }
         public Stat FearRecived { get; private set; }
+        public Stat Eldritch { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Ally, Tag.Sorcerer };
 
         /*******************************************************************/
@@ -24,8 +26,50 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
+            ExtraStat = Eldritch = CreateStat(0);
+            CreateForceReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After);
+            CreateFastActivation(SearchLogic, SearchCondition, PlayActionType.Activate);
+        }
+
+        private bool SearchCondition(Investigator investigator)
+        {
+            if (!IsInPlay) return false;
+            if (Exausted.IsActive) return false;
+            return true;
+        }
+
+        private async Task SearchLogic(Investigator investigator)
+        {
+            IEnumerable<Card> cards = investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Spell)).TakeLast(3);
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
+            foreach (Card card in cards)
+            {
+                interactableGameAction.CreateEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator);
+
+                async Task SelectSpell()
+                {
+                    await _gameActionsProvider.Create(new DrawGameAction(investigator, card));
+                    await _gameActionsProvider.Create(new HideCardsGameAction(cards.Except(new[] { card })));
+                }
+            }
+
+            await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create(interactableGameAction);
         }
 
         /*******************************************************************/
+        private async Task Logic(MoveCardsGameAction moveCardsGameAction)
+        {
+            await _gameActionsProvider.Create(new IncrementStatGameAction(Eldritch, 1));
+        }
+
+        private bool Condition(MoveCardsGameAction moveCardsGameAction)
+        {
+            if (!moveCardsGameAction.Cards.Contains(this)) return false;
+            if (moveCardsGameAction.AllMoves[this].zone.ZoneType != ZoneType.Aid) return false;
+            if (ZoneType.PlayZone.HasFlag(moveCardsGameAction.GetZoneBeforeMoveFor(this).ZoneType)) return false;
+            return true;
+        }
     }
 }
