@@ -99,7 +99,6 @@ namespace MythosAndHorrors.GameRules
         private bool ParleyConditionToActivate(Investigator activeInvestigator)
         {
             if (_chaptersProvider.CurrentScene is not SceneCORE1) return false;
-            if (!IsInPlay) return false;
             if (activeInvestigator.AvatarCard.CurrentZone != CurrentZone) return false;
             if (Owner != null) return false;
             return true;

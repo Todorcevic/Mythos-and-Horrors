@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -13,22 +14,27 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator SortCards()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
-            Card01561 cardSupply = _cardsProvider.GetCard<Card01561>();
+            Investigator investigator2 = _investigatorsProvider.Second;
+            Card01561 supply = _cardsProvider.GetCard<Card01561>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedIn(SceneCORE1.LimboZone.Cards.First());
+            yield return ClickedIn(SceneCORE1.LimboZone.Cards.First());
+            yield return ClickedIn(SceneCORE1.LimboZone.Cards.First());
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(supply.AmountCharges.Value, Is.EqualTo(2));
         }
     }
 }

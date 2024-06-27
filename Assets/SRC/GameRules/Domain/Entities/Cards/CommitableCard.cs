@@ -7,6 +7,8 @@ namespace MythosAndHorrors.GameRules
     {
         public Investigator InvestigatorCommiter { get; private set; }
         public State Commited { get; private set; }
+        public override Investigator ControlOwner => InvestigatorCommiter ?? base.ControlOwner;
+        public override bool IsInPlay => !Commited.IsActive && base.IsInPlay;
 
         /*******************************************************************/
         [Inject]

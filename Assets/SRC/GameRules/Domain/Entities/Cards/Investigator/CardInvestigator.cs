@@ -34,6 +34,7 @@ namespace MythosAndHorrors.GameRules
         public State Isolated { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
+        public override bool IsInPlay => CurrentZone.ZoneType == ZoneType.Investigator;
 
         /*******************************************************************/
         [Inject]
