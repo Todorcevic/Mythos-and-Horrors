@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -13,22 +14,28 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator GainCharge()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01570 cardSupply = _cardsProvider.GetCard<Card01570>();
+            Investigator investigator = _investigatorsProvider.Fourth;
+            yield return BuildCard("01570", investigator);
+            Card01570 supply = _cardsProvider.GetCard<Card01570>();
+            Card01561 spell = _cardsProvider.GetCard<Card01561>();
+
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(spell, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            yield return ClickedIn(supply);
+            yield return ClickedIn(spell);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(supply.Exausted.IsActive, Is.True);
+            Assert.That(spell.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(investigator.SlotsCollection.AllSlotsType.Count(slot => slot == SlotType.Magical), Is.EqualTo(3));
         }
     }
 }
