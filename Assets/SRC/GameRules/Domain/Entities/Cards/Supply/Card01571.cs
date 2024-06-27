@@ -1,10 +1,89 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01571 : CardSupply
+    public class Card01571 : CardSupply, IChargeable
     {
-        public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Relic };
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
+        public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Relic };
+        public Stat AmountCharges { get; private set; }
+        public State Played { get; private set; }
+
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            AmountCharges = CreateStat(4);
+            Played = CreateState(false);
+            CreateOptativeReaction<RevealRandomChallengeTokenGameAction>(PlayCondition, PlayLogic, GameActionTime.Before);
+            CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
+        }
+
+        /*******************************************************************/
+        private async Task PlayLogic(RevealRandomChallengeTokenGameAction reavealChallengeTokenGameAction)
+        {
+            reavealChallengeTokenGameAction.Cancel();
+
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, true));
+            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ControlOwner));
+            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ControlOwner));
+
+            IEnumerable<ChallengeToken> allTokens = _challengeTokensProvider.ChallengeTokensRevealed;
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose token");
+            foreach (ChallengeToken token in allTokens)
+            {
+                interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner);
+
+                /*******************************************************************/
+                async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));
+            }
+
+            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountCharges, 1));
+            await _gameActionsProvider.Create(interactableGameAction);
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, false));
+        }
+
+        private async Task RestoreAllTokesn(IEnumerable<ChallengeToken> allTokens)
+        {
+
+            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(AllTokens, LogicForToken));
+
+            /*******************************************************************/
+            async Task LogicForToken(ChallengeToken token) => await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(token));
+            IEnumerable<ChallengeToken> AllTokens() => allTokens;
+        }
+
+        private bool PlayCondition(RevealRandomChallengeTokenGameAction reavealChallengeTokenGameAction)
+        {
+            if (!IsInPlay) return false;
+            if (AmountCharges.Value < 1) return false;
+            if (reavealChallengeTokenGameAction.Investigator != ControlOwner) return false;
+            if (Played.IsActive) return false;
+            return true;
+        }
+
+        /*******************************************************************/
+        private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
+        {
+            await _gameActionsProvider.Create(new DiscardGameAction(this));
+        }
+
+        private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
+        {
+            if (!IsInPlay) return false;
+            if (!updateStatGameAction.HasThisStat(AmountCharges)) return false;
+            if (AmountCharges.Value > 0) return false;
+            return true;
+        }
+
+        /*******************************************************************/
     }
 }
