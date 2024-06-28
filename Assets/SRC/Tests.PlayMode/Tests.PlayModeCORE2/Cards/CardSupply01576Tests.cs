@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -13,22 +14,27 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator EludeCreature()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
-            Card01576 cardSupply = _cardsProvider.GetCard<Card01576>();
+            yield return BuildCard("01576", investigator);
+            Card01576 supply = _cardsProvider.GetCard<Card01576>();
+            CardCreature creature = SceneCORE2.Drew;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Assert.That(investigator.AllTypeCreaturesConfronted.Any(), Is.True);
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(supply);
+            yield return ClickedIn(creature);
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(creature.Exausted.IsActive, Is.True);
+            Assert.That(investigator.AllTypeCreaturesConfronted.Any(), Is.False);
         }
     }
 }
