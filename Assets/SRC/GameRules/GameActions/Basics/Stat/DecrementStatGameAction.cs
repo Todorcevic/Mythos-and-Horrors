@@ -6,11 +6,12 @@ namespace MythosAndHorrors.GameRules
     public class DecrementStatGameAction : UpdateStatGameAction
     {
         /*******************************************************************/
-        public DecrementStatGameAction(Stat stat, int value) : base(stat, stat.Value - value) { }
+        public DecrementStatGameAction(Stat stat, int value) : base(stat, stat.RealValue - value) { }
 
         public DecrementStatGameAction(Dictionary<Stat, int> statsWithValues)
             : base(statsWithValues.ToDictionary(statNewValues => statNewValues.Key,
-                statNewValues => statNewValues.Key.Value - statNewValues.Value)) { }
+                statNewValues => statNewValues.Key.RealValue - statNewValues.Value))
+        { }
 
         /*******************************************************************/
     }

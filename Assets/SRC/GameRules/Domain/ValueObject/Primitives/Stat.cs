@@ -8,6 +8,7 @@
 
         public int InitialValue { get; }
         public int Value => !_canBeNegative && _value < 0 ? 0 : _value;
+        public int RealValue => _value;
         public int ValueBeforeUpdate { get; private set; }
 
 
