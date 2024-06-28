@@ -7,8 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class Card01572 : CardSupply, IDamageable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public Stat Health { get; private set; }
         public Stat DamageRecived { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Armor };
