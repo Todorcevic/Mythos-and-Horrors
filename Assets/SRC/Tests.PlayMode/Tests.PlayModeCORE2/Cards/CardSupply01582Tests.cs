@@ -6,9 +6,9 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
-namespace MythosAndHorrors.PlayModeCORE1.Tests
+namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-    public class CardSupply01582Tests : TestCORE1Preparation
+    public class CardSupply01582Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 

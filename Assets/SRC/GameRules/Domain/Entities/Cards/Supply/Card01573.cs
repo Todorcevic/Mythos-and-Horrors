@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task Logic(InvestigatePlaceGameAction action)
+        private async Task Logic(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Item");
             interactableGameAction.CreateCancelMainButton();
@@ -44,6 +44,7 @@ namespace MythosAndHorrors.GameRules
             if (investigatePlaceGameAction.ActiveInvestigator != ControlOwner) return false;
             if (!investigatePlaceGameAction.IsSucceed) return false;
             if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2) return false;
+            if (!ControlOwner.DiscardZone.Cards.Where(card => card.HasThisTag(Tag.Item)).Any()) return false;
             return true;
         }
 

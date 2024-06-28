@@ -6,9 +6,9 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
-namespace MythosAndHorrors.PlayModeCORE1.Tests
+namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-    public class CardSupply01575Tests : TestCORE1Preparation
+    public class CardSupply01576Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
 
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
-            Card01575 cardSupply = _cardsProvider.GetCard<Card01575>();
+            Card01576 cardSupply = _cardsProvider.GetCard<Card01576>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
