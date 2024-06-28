@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ModestTree;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -24,6 +27,47 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
+            CreateOptativeReaction<HarmToInvestigatorGameAction>(Condition, Logic, GameActionTime.Before);
+        }
+
+        /*******************************************************************/
+        private async Task Logic(HarmToInvestigatorGameAction harmToInvestigatorGameAction)
+        {
+            if (harmToInvestigatorGameAction.Parent is not CreatureAttackGameAction creatureAttackGameAction) return;
+            int creatureDamage = creatureAttackGameAction.Creature.Damage.Value;
+            harmToInvestigatorGameAction.AddAmountDamage(-creatureDamage);
+
+
+
+            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
+            interactableGameAction.CreateCancelMainButton();
+
+            foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Except(new[] { creatureAttackGameAction.Creature }))
+            {
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose, ControlOwner);
+
+                /*******************************************************************/
+                async Task DamageLogic()
+                {
+                    await _gameActionsProvider.Create(new HarmToCardGameAction(creature,
+                        creatureAttackGameAction.Creature,
+                        amountDamage: creatureDamage));
+                }
+            }
+
+            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create(new HarmToCardGameAction(this, this, amountFear: 1));
+            await _gameActionsProvider.Create(interactableGameAction);
+        }
+
+        private bool Condition(HarmToInvestigatorGameAction harmToInvestigatorGameAction)
+        {
+            if (harmToInvestigatorGameAction.Parent is not CreatureAttackGameAction creatureAttackGameAction) return false;
+            if (!IsInPlay) return false;
+            if (Exausted.IsActive) return false;
+            if (harmToInvestigatorGameAction.Investigator != ControlOwner) return false;
+            if (!creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Except(new[] { creatureAttackGameAction.Creature }).Any()) return false;
+            return true;
         }
 
         /*******************************************************************/

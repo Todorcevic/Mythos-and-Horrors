@@ -35,6 +35,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(creature.Exausted.IsActive, Is.True);
             Assert.That(investigator.AllTypeCreaturesConfronted.Any(), Is.False);
+            Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
         }
     }
 }
