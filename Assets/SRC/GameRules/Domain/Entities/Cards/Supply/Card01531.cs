@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
         private bool Condition(Investigator investigator)
         {
             if (!IsInPlay) return false;
+            if (ControlOwner != investigator) return false;
             if (Exausted.IsActive) return false;
             return true;
         }
@@ -66,7 +67,5 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(interactableGameAction);
         }
-
-        /*******************************************************************/
     }
 }

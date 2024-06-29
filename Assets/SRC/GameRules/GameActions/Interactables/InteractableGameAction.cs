@@ -106,5 +106,15 @@ namespace MythosAndHorrors.GameRules
         public void ClearEffects() => _allCardEffects.Clear();
 
         public virtual void ExecuteSpecificInitialization() { }
+
+        internal void CreateEffect(Card card, object decrementLogic, PlayActionType choose, Investigator controlOwner)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void CreateEffect(Card card, Stat stat, object decrementLogic, PlayActionType choose, Investigator controlOwner)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

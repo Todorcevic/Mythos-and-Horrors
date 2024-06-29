@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _resourceBulletIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _resourceChargeIcon;
         [SerializeField, Required, AssetsOnly] private Sprite _resourceSupplyIcon;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceSecretIcon;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillIconsController _skillIconsController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChargesIconsController _resourceIconsController;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotController _slotController;
@@ -59,6 +60,9 @@ namespace MythosAndHorrors.GameView
                         break;
                     case ChargeType.Supplie:
                         _resourceIconsController.IntialSet(chargeable.Charge.Amount, _resourceSupplyIcon, null);
+                        break;
+                    case ChargeType.Secret:
+                        _resourceIconsController.IntialSet(chargeable.Charge.Amount, _resourceSecretIcon, null);
                         break;
                 }
             }

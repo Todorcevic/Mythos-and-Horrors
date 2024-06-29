@@ -13,49 +13,36 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator Attack()
+        public IEnumerator ShowAndDrawCardWithDecrease()
         {
             Investigator investigator = _investigatorsProvider.First;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
+            Investigator investigator2 = _investigatorsProvider.Second;
+            yield return BuildCard("01686", investigator);
+
+            Card01686 cardSupply = _cardsProvider.GetCard<Card01686>();
+            Card01521 cardAsset = _cardsProvider.GetCard<Card01521>();
+            Card01520 cardAsset2 = _cardsProvider.GetCard<Card01520>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return BuildCard("01686", investigator);
-            Card01686 weaponCard = _cardsProvider.GetCard<Card01686>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
+            yield return PlayThisInvestigator(investigator2);
 
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset2, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedClone(weaponCard, 0);
-            yield return ClickedIn(SceneCORE1.GhoulVoraz);
+            int resopurceCostExpected = cardAsset.ResourceCost.Value - 2;
+            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(cardSupply);
+            yield return ClickedIn(investigator2.InvestigatorCard);
+            yield return ClickedIn(cardAsset);
+            yield return ClickedIn(cardSupply);
             yield return ClickedMainButton();
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
+            yield return gameActionTask.AsCoroutine();
 
-            Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(1));
-        }
-
-        [UnityTest]
-        public IEnumerator ThrowAttack()
-        {
-            Investigator investigator = _investigatorsProvider.First;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_2);
-            yield return PlaceOnlyScene();
-            yield return PlayThisInvestigator(investigator);
-            yield return BuildCard("01686", investigator);
-            Card01686 weaponCard = _cardsProvider.GetCard<Card01686>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
-
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedClone(weaponCard, 1);
-            yield return ClickedIn(SceneCORE1.GhoulVoraz);
-            yield return ClickedMainButton();
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
-
-            Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
-            Assert.That(weaponCard.CurrentZone, Is.EqualTo(investigator.DiscardZone));
+            Assert.That(cardAsset.ResourceCost.Value, Is.EqualTo(resopurceCostExpected));
+            Assert.That(cardAsset.CurrentZone, Is.EqualTo(investigator2.HandZone));
+            Assert.That(cardAsset.FaceDown.IsActive, Is.False);
+            Assert.That(cardAsset2.FaceDown.IsActive, Is.True);
         }
     }
 }

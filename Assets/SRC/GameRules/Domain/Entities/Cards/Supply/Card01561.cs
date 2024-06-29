@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (investigator != ControlOwner) return false;
-            if (Charge.IsVoid) return false;
+            if (Charge.IsEmpty) return false;
             return true;
         }
 

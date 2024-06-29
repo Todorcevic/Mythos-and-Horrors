@@ -1614,6 +1614,7 @@ MonoBehaviour:
   _resourceBulletIcon: {fileID: 21300000, guid: 990b707287cc5cf4bbc16ec487857c38, type: 3}
   _resourceChargeIcon: {fileID: 21300000, guid: ce7ccd3150665bb47a5114aa6cc30e2c, type: 3}
   _resourceSupplyIcon: {fileID: 21300000, guid: aa3f59eb3b6e4b74283a14fa488eb1a9, type: 3}
+  _resourceSecretIcon: {fileID: 21300000, guid: 3ac51cfd6b791ac448a42c55fe31ac70, type: 3}
   _skillIconsController: {fileID: 3523531158224367783}
   _resourceIconsController: {fileID: 1760438861404628343}
   _slotController: {fileID: 3739118251725033398}

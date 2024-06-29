@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     {
         public ChargeType ChargeType { get; }
         public Stat Amount { get; }
-        public bool IsVoid => Amount.Value < 1;
+        public bool IsEmpty => Amount.Value < 1;
 
         /*******************************************************************/
         public Charge(int amount, ChargeType chargeType)
