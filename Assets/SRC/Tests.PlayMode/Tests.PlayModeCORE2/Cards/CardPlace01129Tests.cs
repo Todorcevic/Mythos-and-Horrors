@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cardPlace, 1);
             yield return ClickedIn(tome);
-            yield return ClickedIn(cardPlace);
+            yield return ClickedTokenButton();
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             int hadSizeExpeceted = investigator.HandSize;
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cardPlace, 1);
-            yield return ClickedIn(cardPlace);
+            yield return ClickedTokenButton();
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

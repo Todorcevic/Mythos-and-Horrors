@@ -6,19 +6,19 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01519 : CardSupply, ISupplietable
+    public class Card01519 : CardSupply, IChargeable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Talent, Tag.Science };
-        public Stat AmountSupplies { get; private set; }
+        public Charge Charge { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountSupplies = CreateStat(3);
+            Charge = new Charge(3, ChargeType.Supplie);
             CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
@@ -32,15 +32,15 @@ namespace MythosAndHorrors.GameRules
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!IsInPlay) return false;
-            if (!updateStatGameAction.HasThisStat(AmountSupplies)) return false;
-            if (AmountSupplies.Value > 0) return false;
+            if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
+            if (Charge.Amount.Value > 0) return false;
             return true;
         }
 
         /*******************************************************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
 
@@ -60,12 +60,11 @@ namespace MythosAndHorrors.GameRules
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeRestoreSanity))
             {
-                interactableGameAction.CreateEffect(investigator.AvatarCard,
+                interactableGameAction.CreateEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
                     RestoreSanityInvestigator,
                     PlayActionType.Choose,
-                    playedBy: activeInvestigator,
-                    cardAffected: investigator.InvestigatorCard);
+                    playedBy: activeInvestigator);
 
                 /*******************************************************************/
                 async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new HealthGameAction(investigator.InvestigatorCard, amountFearToRecovery: 1));

@@ -6,31 +6,31 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01529 : CardWeapon, IBulletable
+    public class Card01529 : CardWeapon, IChargeable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Weapon, Tag.Firearm };
-        public Stat AmountBullets { get; private set; }
+        public Charge Charge { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountBullets = CreateStat(2);
+            Charge = new Charge(2, ChargeType.Bullet);
         }
 
         /*******************************************************************/
         protected override bool AttackCondition(Investigator investigator)
         {
-            if (AmountBullets.Value <= 0) return false;
+            if (Charge.Amount.Value <= 0) return false;
             return base.AttackCondition(investigator);
         }
 
         protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountBullets, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
             await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 3));
 
             attackCreatureGameAction.SuccesEffects.Clear();

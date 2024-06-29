@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supply.AmountCharges, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supply.Charge.Amount, 1)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(supply);
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator.Resources.Value, Is.EqualTo(6));
             Assert.That(supply.Exausted.IsActive, Is.False);
             Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
-            Assert.That(supply.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(supply.Charge.Amount.Value, Is.EqualTo(4));
         }
 
     }

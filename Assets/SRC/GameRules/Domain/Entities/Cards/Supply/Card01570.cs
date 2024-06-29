@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,13 +54,13 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
             interactableGameAction.CreateCancelMainButton();
 
-            foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable))
+            foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
                 async Task SelectSpell() =>
-                    await _gameActionsProvider.Create(new IncrementStatGameAction(((IChargeable)card).AmountCharges, 1));
+                    await _gameActionsProvider.Create(new IncrementStatGameAction(((IChargeable)card).Charge.Amount, 1));
             }
 
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));

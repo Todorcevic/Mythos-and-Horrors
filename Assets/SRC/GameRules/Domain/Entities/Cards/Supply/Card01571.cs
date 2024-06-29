@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Relic };
-        public Stat AmountCharges { get; private set; }
+        public Charge Charge { get; private set; }
         public State Played { get; private set; }
 
         /*******************************************************************/
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountCharges = CreateStat(4);
+            Charge = new Charge(4, ChargeType.MagicCharge);
             Played = CreateState(false);
             CreateOptativeReaction<RevealRandomChallengeTokenGameAction>(PlayCondition, PlayLogic, GameActionTime.Before);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
@@ -46,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));
             }
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountCharges, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
             await _gameActionsProvider.Create(interactableGameAction);
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, false));
         }
@@ -64,7 +63,7 @@ namespace MythosAndHorrors.GameRules
         private bool PlayCondition(RevealRandomChallengeTokenGameAction reavealChallengeTokenGameAction)
         {
             if (!IsInPlay) return false;
-            if (AmountCharges.Value < 1) return false;
+            if (Charge.Amount.Value < 1) return false;
             if (reavealChallengeTokenGameAction.Investigator != ControlOwner) return false;
             if (Played.IsActive) return false;
             return true;
@@ -79,8 +78,8 @@ namespace MythosAndHorrors.GameRules
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!IsInPlay) return false;
-            if (!updateStatGameAction.HasThisStat(AmountCharges)) return false;
-            if (AmountCharges.Value > 0) return false;
+            if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
+            if (Charge.Amount.Value > 0) return false;
             return true;
         }
 

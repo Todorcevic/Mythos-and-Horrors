@@ -21,6 +21,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Forests[2], SceneCORE3.OutZone));
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, SceneCORE3.GetPlaceZone(2, 2)));
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new RoundGameAction());

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
-            Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(4));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(weaponCard);
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
-            Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(3));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             Card01506 weaponCard = _cardsProvider.GetCard<Card01506>();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(weaponCard.AmountBullets, 0)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(weaponCard.Charge.Amount, 0)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(0));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(0));
         }
     }
 }

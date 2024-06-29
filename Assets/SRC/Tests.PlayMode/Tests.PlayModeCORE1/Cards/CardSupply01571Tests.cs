@@ -23,15 +23,16 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(supply);
-            yield return ClickedClone(supply, 0);
+            yield return ClickedClone(supply, 0, true);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(supply.AmountCharges.Value, Is.EqualTo(3));
+            Assert.That(supply.Charge.Amount.Value, Is.EqualTo(3));
             Assert.That(investigator.Hints.Value, Is.EqualTo(1));
         }
 
@@ -50,7 +51,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(supply);
-            yield return ClickedClone(supply, 1);
+            yield return ClickedClone(supply, 1, true);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(supply.AmountCharges.Value, Is.EqualTo(2));
+            Assert.That(supply.Charge.Amount.Value, Is.EqualTo(2));
             Assert.That(investigator2.CardAidToDraw, Is.EqualTo(card2));
         }
     }

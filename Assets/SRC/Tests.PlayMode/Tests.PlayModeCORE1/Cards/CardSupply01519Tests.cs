@@ -8,9 +8,10 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardSupply01519Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator ActivateToHealInvestigator()
         {
@@ -28,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Fourth.FearRecived, 1}
             };
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
-            Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(3));
+            Assert.That(supplyCard.Charge.Amount.Value, Is.EqualTo(3));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);
@@ -37,7 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(1));
-            Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(2));
+            Assert.That(supplyCard.Charge.Amount.Value, Is.EqualTo(2));
         }
 
         [UnityTest]
@@ -51,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigator.DamageRecived, 1)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supplyCard.AmountSupplies, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supplyCard.Charge.Amount, 1)).AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);

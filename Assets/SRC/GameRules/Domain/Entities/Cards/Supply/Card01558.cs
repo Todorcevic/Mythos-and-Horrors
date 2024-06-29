@@ -1,6 +1,4 @@
-﻿using ModestTree;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
@@ -12,14 +10,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Talent };
-        public Stat AmountCharges { get; private set; }
+        public Charge Charge { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountCharges = CreateStat(4);
+            Charge = new Charge(4, ChargeType.MagicCharge);
             CreateFastActivation(Logic, Condition, PlayActionType.Activate);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
@@ -33,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!IsInPlay) return false;
-            if (!updateStatGameAction.HasThisStat(AmountCharges)) return false;
-            if (AmountCharges.Value > 0) return false;
+            if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
+            if (Charge.Amount.Value > 0) return false;
             return true;
         }
 
@@ -50,7 +48,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountCharges, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
             await _gameActionsProvider.Create(new GainResourceGameAction(ControlOwner, 1));
         }

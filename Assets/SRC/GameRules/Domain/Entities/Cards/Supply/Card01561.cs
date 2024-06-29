@@ -13,14 +13,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
 
-        public Stat AmountCharges { get; private set; }
+        public Charge Charge { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountCharges = CreateStat(3);
+            Charge = new Charge(3, ChargeType.MagicCharge);
             CreateActivation(1, Logic, Condition, PlayActionType.Activate);
         }
 
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (investigator != ControlOwner) return false;
-            if (AmountCharges.Value < 1) return false;
+            if (Charge.IsVoid) return false;
             return true;
         }
 
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountCharges, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
             await _gameActionsProvider.Create(interactableGameAction);
 
             /*******************************************************************/

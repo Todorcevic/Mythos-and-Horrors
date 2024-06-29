@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(supply.Exausted.IsActive, Is.True);
-            Assert.That(spell.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(spell.Charge.Amount.Value, Is.EqualTo(4));
             Assert.That(investigator.SlotsCollection.AllSlotsType.Count(slot => slot == SlotType.Magical), Is.EqualTo(3));
         }
     }

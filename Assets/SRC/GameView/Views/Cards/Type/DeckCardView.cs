@@ -47,9 +47,21 @@ namespace MythosAndHorrors.GameView
         private void SetChargesIcons()
         {
             if (Card is not CardSupply cardSupply) return;
-            if (Card is IBulletable bulletable) _resourceIconsController.IntialSet(bulletable.AmountBullets, _resourceBulletIcon, null);
-            else if (Card is IChargeable chargeable) _resourceIconsController.IntialSet(chargeable.AmountCharges, _resourceChargeIcon, null);
-            else if (Card is ISupplietable supplietable) _resourceIconsController.IntialSet(supplietable.AmountSupplies, _resourceSupplyIcon, null);
+            if (Card is IChargeable chargeable)
+            {
+                switch (chargeable.Charge.ChargeType)
+                {
+                    case ChargeType.Bullet:
+                        _resourceIconsController.IntialSet(chargeable.Charge.Amount, _resourceBulletIcon, null);
+                        break;
+                    case ChargeType.MagicCharge:
+                        _resourceIconsController.IntialSet(chargeable.Charge.Amount, _resourceChargeIcon, null);
+                        break;
+                    case ChargeType.Supplie:
+                        _resourceIconsController.IntialSet(chargeable.Charge.Amount, _resourceSupplyIcon, null);
+                        break;
+                }
+            }
         }
 
         private FactionDeckSO SetCurrent(Faction faction) =>

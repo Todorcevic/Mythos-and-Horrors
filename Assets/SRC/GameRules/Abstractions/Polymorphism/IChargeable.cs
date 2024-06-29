@@ -2,6 +2,6 @@
 {
     public interface IChargeable
     {
-        Stat AmountCharges { get; }
+        Charge Charge { get; }
     }
 }

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(weaponCard);
@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(3));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(weaponCard);
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(0));
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(3));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(4));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(weaponCard);
@@ -85,7 +85,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(0));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
-            Assert.That(weaponCard.AmountCharges.Value, Is.EqualTo(3));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(3));
         }
     }
 }

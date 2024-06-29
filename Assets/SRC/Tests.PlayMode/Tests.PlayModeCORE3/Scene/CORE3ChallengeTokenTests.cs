@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         private IEnumerator ExecuteChallenge()
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedClone(investigator.CurrentPlace, 0);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         private IEnumerator ExecuteChallengeWithOpportunityAttack()
         {
             taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedClone(investigator.CurrentPlace, 0);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
@@ -171,6 +171,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Assert.That(totalTokensRevealed.Result.totalTokenAmount, Is.EqualTo(2));
             Assert.That(totalTokensRevealed.Result.totalTokenValue, Is.EqualTo(-7));
         }
+
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator HardAncientTokenTest()

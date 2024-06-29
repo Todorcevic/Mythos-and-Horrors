@@ -22,12 +22,8 @@ namespace MythosAndHorrors.GameRules
             if (Card is IResetable resetable) await resetable.Reset();
 
             Dictionary<Stat, int> allStats = new();
-            if (Card is IBulletable bulletable)
-                allStats.Add(bulletable.AmountBullets, bulletable.AmountBullets.InitialValue);
             if (Card is IChargeable chargeable)
-                allStats.Add(chargeable.AmountCharges, chargeable.AmountCharges.InitialValue);
-            if (Card is ISupplietable supplietable)
-                allStats.Add(supplietable.AmountSupplies, supplietable.AmountSupplies.InitialValue);
+                allStats.Add(chargeable.Charge.Amount, chargeable.Charge.Amount.InitialValue);
             if (Card is IDamageable damageable)
                 allStats.Add(damageable.DamageRecived, damageable.DamageRecived.InitialValue);
             if (Card is IFearable fearable)

@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(weapon.AmountBullets.Value, Is.EqualTo(7));
+            Assert.That(weapon.Charge.Amount.Value, Is.EqualTo(7));
         }
     }
 }

@@ -12,14 +12,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
-        public Stat AmountCharges { get; private set; }
+        public Charge Charge { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            AmountCharges = CreateStat(4);
+            Charge = new Charge(4, ChargeType.MagicCharge);
             CreateForceReaction<ResolveChallengeGameAction>(Condition, Logic, GameActionTime.After);
         }
 
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
         {
             attackCreatureGameAction.ChangeStat(ControlOwner.Power);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountCharges, 1));
+            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
             await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
             _attackCreatureGameAction = attackCreatureGameAction;
         }
