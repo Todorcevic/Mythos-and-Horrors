@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01519 : CardSupply, ISupplietable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Talent, Tag.Science };
         public Stat AmountSupplies { get; private set; }
@@ -21,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(3);
-            CreateActivation(1, HealActivate, HealConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -40,27 +38,26 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public async Task HealActivate(Investigator activeInvestigator)
+        public async Task HealthActivate(Investigator activeInvestigator)
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
 
-            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
+            foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeHealed))
             {
-                interactableGameAction.CreateEffect(investigator.AvatarCard,
+                interactableGameAction.CreateEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
                     RestoreHealthInvestigator,
                     PlayActionType.Choose,
-                    playedBy: activeInvestigator,
-                    cardAffected: investigator.InvestigatorCard);
+                    playedBy: activeInvestigator);
 
                 /*******************************************************************/
                 async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create(new HealthGameAction(investigator.InvestigatorCard, amountDamageToRecovery: 1));
             }
 
-            foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace)
+            foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeRestoreSanity))
             {
                 interactableGameAction.CreateEffect(investigator.AvatarCard,
@@ -81,6 +78,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (ControlOwner != activeInvestigator) return false;
+            if (!activeInvestigator.CurrentPlace.InvestigatorsInThisPlace.Any(investigator => investigator.CanBeHealed || investigator.CanBeRestoreSanity)) return false;
             return true;
         }
     }

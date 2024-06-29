@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);
-            yield return ClickedClone(_investigatorsProvider.Second.AvatarCard, 0);
+            yield return ClickedClone(_investigatorsProvider.Second.InvestigatorCard, 0);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
@@ -55,7 +55,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);
-            //yield return ClickedClone(investigator.AvatarCard, 0);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
