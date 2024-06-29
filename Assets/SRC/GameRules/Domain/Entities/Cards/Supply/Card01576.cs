@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
-            interactableGameAction.CreateCancelMainButton();
+            interactableGameAction.CreateCancelMainButton(_gameActionsProvider);
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {

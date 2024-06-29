@@ -76,9 +76,9 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public void CreateCancelMainButton()
+        public void CreateCancelMainButton(GameActionsProvider gameActionsProvider)
         {
-            MainButtonEffect = new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Cancel");
+            MainButtonEffect = gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Cancel") : null;
         }
 
         public void CreateContinueMainButton()

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
-            interactableGameAction.CreateCancelMainButton();
+            interactableGameAction.CreateCancelMainButton(_gameActionsProvider);
 
             foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Except(new[] { creatureAttackGameAction.Creature }))
             {

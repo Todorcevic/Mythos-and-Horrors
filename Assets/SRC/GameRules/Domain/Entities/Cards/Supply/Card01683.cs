@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select card to Health");
-            interactableGameAction.CreateCancelMainButton();
+            interactableGameAction.CreateCancelMainButton(_gameActionsProvider);
 
             foreach (Card card in CardsToHealth(activeInvestigator.CurrentPlace))
             {

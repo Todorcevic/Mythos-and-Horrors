@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Item");
-            interactableGameAction.CreateCancelMainButton();
+            interactableGameAction.CreateCancelMainButton(_gameActionsProvider);
 
             foreach (Card itemCard in ControlOwner.DiscardZone.Cards.Where(card => card.HasThisTag(Tag.Item)))
             {

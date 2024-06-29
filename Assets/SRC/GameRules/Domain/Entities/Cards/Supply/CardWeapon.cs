@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         protected async Task ChooseEnemyLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
-            chooseEnemy.CreateCancelMainButton();
+            chooseEnemy.CreateCancelMainButton(_gameActionsProvider);
 
             foreach (CardCreature creature in AttackbleCreatures)
             {

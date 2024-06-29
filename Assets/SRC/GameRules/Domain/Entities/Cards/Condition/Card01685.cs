@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction chooseHints = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
 
-                chooseHints.CreateCancelMainButton();
+                chooseHints.CreateCancelMainButton(_gameActionsProvider);
 
                 foreach (CardPlace place in PlacesWithHints(investigator))
                 {
