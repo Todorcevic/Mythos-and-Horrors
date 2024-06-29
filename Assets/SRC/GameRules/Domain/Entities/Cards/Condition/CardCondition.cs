@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public virtual PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
-        public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
         public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
 
         /*******************************************************************/
@@ -20,13 +19,10 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
-            PlayFromHandCondition = new GameConditionWith<GameAction>(CanPlayFromHandWith);
             PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
         }
 
         /*******************************************************************/
-        protected abstract bool CanPlayFromHandWith(GameAction gameAction);
-
         protected abstract Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator);
 
         /*******************************************************************/

@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat ResourceCost { get; private set; }
         public Stat PlayFromHandTurnsCost { get; protected set; }
-        public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
+        public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }
         public GameCommand<GameAction> PlayFromHandCommand { get; private set; }
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
@@ -28,16 +28,16 @@ namespace MythosAndHorrors.GameRules
         {
             ResourceCost = CreateStat(Info.Cost ?? 0);
             PlayFromHandTurnsCost = CreateStat(1);
-            PlayFromHandCondition = new GameConditionWith<GameAction>(ConditionToPlayFromHand);
+            PlayFromHandCondition = new GameConditionWith<Investigator>(ConditionToPlayFromHand);
             PlayFromHandCommand = new GameCommand<GameAction>(PlayFromHand);
         }
 
         /*******************************************************************/
-        private bool ConditionToPlayFromHand(GameAction gameAction)
+        private bool ConditionToPlayFromHand(Investigator investigator)
         {
-            if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
+            //if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
-            if (ControlOwner != oneInvestigatorTurnGameAction.ActiveInvestigator) return false;
+            if (ControlOwner != investigator) return false;
             if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
             if (PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
             return true;

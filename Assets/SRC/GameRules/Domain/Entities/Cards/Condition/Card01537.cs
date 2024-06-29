@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 1));
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
             return true;

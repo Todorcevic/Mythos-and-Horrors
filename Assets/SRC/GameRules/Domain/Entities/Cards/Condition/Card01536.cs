@@ -63,6 +63,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Swaped, true));
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
     }
 }

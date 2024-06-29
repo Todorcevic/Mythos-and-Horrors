@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
 
     }
 }

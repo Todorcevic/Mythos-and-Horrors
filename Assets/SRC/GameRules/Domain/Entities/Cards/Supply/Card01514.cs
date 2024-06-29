@@ -27,30 +27,58 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-
-            Func<GameAction, bool> originalCondition = cardCondition.PlayFromHandCondition.ConditionLogic;
-            cardCondition.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
-            await Task.CompletedTask;
-
-            /*******************************************************************/
-            bool ConditionToPlayFromHand(GameAction gameAction)
+            if (cardCondition is CardConditionFast cardConditionFast)
             {
-                Zone discardZone = cardCondition.CurrentZone;
-                Zone handZone = cardCondition.ControlOwner.HandZone;
-                discardZone.RemoveCard(cardCondition);
-                handZone.AddCard(cardCondition);
-                bool result = originalCondition.Invoke(gameAction);
-                handZone.RemoveCard(cardCondition);
-                discardZone.AddCard(cardCondition);
-                return result;
+                Func<GameAction, bool> originalCondition = cardConditionFast.PlayFromHandCondition.ConditionLogic;
+                cardConditionFast.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
+                await Task.CompletedTask;
+
+                /*******************************************************************/
+                bool ConditionToPlayFromHand(GameAction gameAction)
+                {
+                    Zone discardZone = cardCondition.CurrentZone;
+                    Zone handZone = cardCondition.ControlOwner.HandZone;
+                    discardZone.RemoveCard(cardCondition);
+                    handZone.AddCard(cardCondition);
+                    bool result = originalCondition.Invoke(gameAction);
+                    handZone.RemoveCard(cardCondition);
+                    discardZone.AddCard(cardCondition);
+                    return result;
+                }
+            }
+            else if (cardCondition is CardConditionPlayFromHand cardConditionPlayFromHans)
+            {
+                Func<Investigator, bool> originalCondition = cardConditionPlayFromHans.PlayFromHandCondition.ConditionLogic;
+                cardConditionPlayFromHans.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
+                await Task.CompletedTask;
+
+                /*******************************************************************/
+                bool ConditionToPlayFromHand(Investigator investigator)
+                {
+                    Zone discardZone = cardCondition.CurrentZone;
+                    Zone handZone = cardCondition.ControlOwner.HandZone;
+                    discardZone.RemoveCard(cardCondition);
+                    handZone.AddCard(cardCondition);
+                    bool result = originalCondition.Invoke(investigator);
+                    handZone.RemoveCard(cardCondition);
+                    discardZone.AddCard(cardCondition);
+                    return result;
+                }
             }
         }
 
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
-            if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            cardCondition.PlayFromHandCondition.Reset();
-            await Task.CompletedTask;
+            if (enumerable.FirstOrDefault() is CardConditionFast cardCondition)
+            {
+                cardCondition.PlayFromHandCondition.Reset();
+                await Task.CompletedTask;
+            }
+            else if (enumerable.FirstOrDefault() is CardConditionPlayFromHand cardConditionPlayFromHand)
+            {
+                cardConditionPlayFromHand.PlayFromHandCondition.Reset();
+                await Task.CompletedTask;
+            }
         }
 
         private IEnumerable<Card> CardsToBuff() =>

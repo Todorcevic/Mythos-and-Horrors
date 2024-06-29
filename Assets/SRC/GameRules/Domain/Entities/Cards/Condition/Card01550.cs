@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (ControlOwner.CurrentPlace.ConnectedPlacesToMove.All(place => place.CreaturesInThisPlace.Any())) return false;
             return true;

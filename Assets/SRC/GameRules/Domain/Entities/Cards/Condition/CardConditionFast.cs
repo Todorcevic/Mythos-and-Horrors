@@ -8,12 +8,14 @@ namespace MythosAndHorrors.GameRules
     public abstract class CardConditionFast : CardCondition
     {
         protected abstract GameActionTime FastReactionAtStart { get; }
+        public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
+            PlayFromHandCondition = new GameConditionWith<GameAction>(CanPlayFromHandWith);
             CreateFastPlayCondition<GameAction>();
         }
 
@@ -27,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected sealed override bool CanPlayFromHandWith(GameAction gameAction)
+        protected bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner.Resources.Value < ResourceCost.Value) return false;

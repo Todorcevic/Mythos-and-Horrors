@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
     public interface IPlayableFromHand
     {
@@ -8,7 +6,7 @@ namespace MythosAndHorrors.GameRules
         Stat ResourceCost { get; }
         Stat PlayFromHandTurnsCost { get; }
         GameCommand<GameAction> PlayFromHandCommand { get; }
-        GameConditionWith<GameAction> PlayFromHandCondition { get; }
+        GameConditionWith<Investigator> PlayFromHandCondition { get; }
 
         bool IsFreeActivation => PlayFromHandTurnsCost.Value < 1;
         bool WithOppotunityAttack => !IsFreeActivation && (PlayFromHandActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;

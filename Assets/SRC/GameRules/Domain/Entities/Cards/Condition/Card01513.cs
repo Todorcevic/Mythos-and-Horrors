@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
 
         /*******************************************************************/
         private async Task Logic(PlayInvestigatorGameAction playInvestigatorGameAction)

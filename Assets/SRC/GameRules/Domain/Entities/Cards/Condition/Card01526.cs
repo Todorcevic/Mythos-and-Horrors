@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
             .OfType<CardWeapon>().Where(weapon => weapon.HasThisTag(Tag.Firearm) && weapon is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.Bullet);
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (!Firearms(ControlOwner).Any()) return false;
             return true;

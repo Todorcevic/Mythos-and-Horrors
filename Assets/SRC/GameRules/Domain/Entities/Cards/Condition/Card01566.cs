@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(chooseEnemy);
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
             return true;

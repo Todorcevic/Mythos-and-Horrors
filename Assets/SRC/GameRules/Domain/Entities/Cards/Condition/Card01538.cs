@@ -77,7 +77,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.CurrentPlace.OwnZone));
         }
 
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
 
     }
 }

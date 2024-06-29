@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<Card> CardsToBuff() => Played.IsActive ? new List<CardInvestigator>() { Owner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction) => true;
+        protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
 
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator) =>
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, true));
