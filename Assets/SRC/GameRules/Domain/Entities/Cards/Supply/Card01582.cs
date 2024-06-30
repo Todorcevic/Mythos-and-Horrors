@@ -1,6 +1,4 @@
-﻿using ModestTree;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,8 +34,6 @@ namespace MythosAndHorrors.GameRules
             if (harmToInvestigatorGameAction.Parent is not CreatureAttackGameAction creatureAttackGameAction) return;
             int creatureDamage = creatureAttackGameAction.Creature.Damage.Value;
             harmToInvestigatorGameAction.AddAmountDamage(-creatureDamage);
-
-
 
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
             interactableGameAction.CreateCancelMainButton();

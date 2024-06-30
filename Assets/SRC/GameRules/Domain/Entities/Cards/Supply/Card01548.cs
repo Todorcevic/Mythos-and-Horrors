@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01548 : CardSupply, IDamageable, IFearable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
 
         public Stat Health { get; private set; }
         public Stat DamageRecived { get; private set; }
