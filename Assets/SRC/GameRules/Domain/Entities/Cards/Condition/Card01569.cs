@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
 
-            chooseEnemy.CreateCancelMainButton(_gameActionsProvider);
+            chooseEnemy.CreateCancelMainButton();
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {

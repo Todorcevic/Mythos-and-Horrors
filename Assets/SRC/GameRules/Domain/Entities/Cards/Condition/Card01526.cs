@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
-            interactable.CreateCancelMainButton(_gameActionsProvider);
+            interactable.CreateCancelMainButton();
             foreach (CardWeapon firearm in Firearms(investigator))
             {
                 interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);

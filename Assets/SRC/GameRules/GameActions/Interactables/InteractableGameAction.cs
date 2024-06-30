@@ -76,9 +76,10 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        public void CreateCancelMainButton(GameActionsProvider gameActionsProvider)
+        private bool withCancelMainButton;
+        public void CreateCancelMainButton()
         {
-            MainButtonEffect = gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Cancel") : null;
+            withCancelMainButton = true;
         }
 
         public void CreateContinueMainButton()
@@ -90,6 +91,7 @@ namespace MythosAndHorrors.GameRules
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
+            if (withCancelMainButton) MainButtonEffect = UndoEffect;
         }
 
         async Task UndoLogic()

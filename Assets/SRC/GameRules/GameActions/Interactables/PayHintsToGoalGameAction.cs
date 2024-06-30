@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
-            CreateCancelMainButton(_gameActionsProvider);
+            CreateCancelMainButton();
 
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.Hints.Value > 0))
             {

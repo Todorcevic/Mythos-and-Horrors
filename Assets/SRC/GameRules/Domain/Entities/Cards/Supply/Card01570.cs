@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
-            interactableGameAction.CreateCancelMainButton(_gameActionsProvider);
+            interactableGameAction.CreateCancelMainButton();
 
             foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
             {

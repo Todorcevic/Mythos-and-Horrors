@@ -20,16 +20,16 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(4, ChargeType.MagicCharge);
-            CreateForceReaction<ResolveChallengeGameAction>(Condition, Logic, GameActionTime.After);
+            CreateForceReaction<ResolveChallengeGameAction>(ResolveCondition, ResolveLogic, GameActionTime.After);
         }
 
         /*******************************************************************/
-        private async Task Logic(ResolveChallengeGameAction resolveChallengeGameAction)
+        private async Task ResolveLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, this, amountFear: 1));
         }
 
-        private bool Condition(ResolveChallengeGameAction resolveChallengeGameAction)
+        private bool ResolveCondition(ResolveChallengeGameAction resolveChallengeGameAction)
         {
             if (resolveChallengeGameAction.ChallengePhaseGameAction != _attackCreatureGameAction) return false;
             if (resolveChallengeGameAction.ChallengePhaseGameAction.ResultChallenge.TokensRevealed
