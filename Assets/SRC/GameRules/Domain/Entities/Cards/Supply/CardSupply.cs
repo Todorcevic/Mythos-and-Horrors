@@ -35,7 +35,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool ConditionToPlayFromHand(Investigator investigator)
         {
-            //if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner != investigator) return false;
             if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
