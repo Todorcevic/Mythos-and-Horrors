@@ -2,7 +2,6 @@
 using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;

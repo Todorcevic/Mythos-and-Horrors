@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(SceneCORE1.GhoulVoraz.DamageRecived.Value, Is.EqualTo(2));
-            Assert.That(weaponCard.AmountBullets.Value, Is.EqualTo(2));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(2));
         }
     }
 }

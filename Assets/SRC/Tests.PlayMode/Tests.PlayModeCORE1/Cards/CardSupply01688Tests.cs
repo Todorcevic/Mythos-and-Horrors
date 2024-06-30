@@ -1,5 +1,4 @@
-﻿
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
@@ -13,22 +12,29 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator AttackAndExtraTurn()
         {
-            Assert.That(false, "Not Implemented");
-            Investigator investigator = _investigatorsProvider.First;
-            Card01688 cardSupply = _cardsProvider.GetCard<Card01688>();
+            Investigator investigator = _investigatorsProvider.Third;
+            yield return BuildCard("01688", investigator);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            Card01688 weaponCard = _cardsProvider.GetCard<Card01688>();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(weaponCard, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulVoraz, investigator.DangerZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
+            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            yield return ClickedIn(weaponCard);
+            yield return ClickedIn(SceneCORE1.GhoulSecuaz);
             yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(SceneCORE1.GhoulSecuaz.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+            Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(2));
+            Assert.That(weaponCard.Used.IsActive, Is.True);
         }
     }
 }
