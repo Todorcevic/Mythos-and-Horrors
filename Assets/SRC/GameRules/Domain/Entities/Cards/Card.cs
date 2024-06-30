@@ -43,7 +43,16 @@ namespace MythosAndHorrors.GameRules
         public virtual Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
         public virtual bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
         public bool IsActivable => AllActivations.Any();
-        public bool CanBeDiscarded => !HasThisTag(Tag.Weakness);
+        public bool CanBeDiscarded
+        {
+            get
+            {
+                if (this is IPermanentable) return false;
+                if (HasThisTag(Tag.Weakness)) return false;
+                return true;
+            }
+        }
+
         public bool IsVictory => Info.Victory != null;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 

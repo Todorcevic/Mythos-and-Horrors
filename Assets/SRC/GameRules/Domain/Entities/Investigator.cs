@@ -15,8 +15,9 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
         public CardInvestigator InvestigatorCard => Cards.OfType<CardInvestigator>().First();
         public CardAvatar AvatarCard => Cards.OfType<CardAvatar>().First();
-        public List<Card> RequerimentCard => Cards.FindAll(card => card.ExtraInfo?.IsRequired ?? false);
-        public List<Card> FullDeck => Cards.FindAll(card => card is not CardAvatar && card is not CardInvestigator);
+        public List<Card> RequerimentCards => Cards.FindAll(card => card.ExtraInfo?.IsRequired ?? false);
+        public List<Card> PermanentCards => Cards.FindAll(card => card is IPermanentable);
+        public List<Card> FullDeck => Cards.FindAll(card => card is not CardAvatar && card is not CardInvestigator && card is not IPermanentable);
         public Zone HandZone => Zones.First(zone => zone.ZoneType == ZoneType.Hand);
         public Zone DeckZone => Zones.First(zone => zone.ZoneType == ZoneType.InvestigatorDeck);
         public Zone DiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.InvestigatorDiscard);

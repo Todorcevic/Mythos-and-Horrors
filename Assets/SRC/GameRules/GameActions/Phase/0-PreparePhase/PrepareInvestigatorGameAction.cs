@@ -22,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await PositionateInvestigatorCard();
+            await PositionatePermanentCards();
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
@@ -32,6 +33,11 @@ namespace MythosAndHorrors.GameRules
         private async Task PositionateInvestigatorCard()
         {
             await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
+        }
+
+        private async Task PositionatePermanentCards()
+        {
+            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.PermanentCards, ActiveInvestigator.AidZone));
         }
 
         private async Task PositionateDeck()

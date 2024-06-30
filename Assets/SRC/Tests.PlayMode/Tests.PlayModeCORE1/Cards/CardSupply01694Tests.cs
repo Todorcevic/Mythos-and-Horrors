@@ -3,7 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
-using System.Threading.Tasks;
+using System.Linq;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
@@ -13,22 +13,17 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeResources()
+        public IEnumerator ExtraSupportSlot()
         {
-            Assert.That(false, "Not Implemented");
             Investigator investigator = _investigatorsProvider.First;
-            Card01694 cardSupply = _cardsProvider.GetCard<Card01694>();
+            yield return BuildCard("01694", investigator);
+            Card01694 supply = _cardsProvider.GetCard<Card01694>();
+
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.HandZone)).AsCoroutine();
-
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-            yield return ClickedIn(cardSupply);
-            yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
-
-            Assert.That(investigator.Resources.Value, Is.EqualTo(8));
+            Assert.That(investigator.SlotsCollection.AllSlotsType.Count(slot => slot == SlotType.Supporter), Is.EqualTo(2));
         }
     }
 }
