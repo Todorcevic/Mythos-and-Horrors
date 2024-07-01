@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
 
             async Task SufferInjury(Investigator investigator) =>
-                await _gameActionsProvider.Create(new IncrementStatGameAction(investigator.Injury, 1));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.Injury, 1).Start();
         }
 
         /*******************************************************************/
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
             int amountEldritch = _cardsProvider.AllCards.OfType<CardCreature>()
                   .Where(creature => creature.Tags.Contains(Tag.Ghoul) && (creature.CurrentPlace == parlor || creature.CurrentPlace == hallway)).Count();
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Eldritch, amountEldritch));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Eldritch, amountEldritch).Start();
         }
     }
 }

@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
                 .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
-            await _gameActionsProvider.Create(new IncrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
         }
 
         private async Task DeactivationLogic(IEnumerable<Card> cards)
@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
                 .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
         }
 
         private IEnumerable<Card> CardToBuff()

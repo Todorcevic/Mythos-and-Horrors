@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(SceneCORE2.Fluvial.Hints, 16)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Hints, 16).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 8)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator2, investigator2.CurrentPlace.Hints, 8)).AsCoroutine();
 

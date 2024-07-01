@@ -23,13 +23,13 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationLogic(IEnumerable<Card> cardsToBuff)
         {
             Dictionary<Stat, int> allStats = cardsToBuff.OfType<CardSupply>().ToDictionary(supply => supply.ResourceCost, supply => 2);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
         }
 
         private async Task DeactivationLogic(IEnumerable<Card> cardsToDebuff)
         {
             Dictionary<Stat, int> allStats = cardsToDebuff.OfType<CardSupply>().ToDictionary(supply => supply.ResourceCost, supply => 2);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
         }
 
         private IEnumerable<Card> CardsToBuff()

@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ActiveInvestigator.DeckZone).Start();
         }
 
         private async Task CollectResources()

@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true)
                 .Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(_chaptersProvider.CurrentScene.DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
 
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Monster) ||
                 _chaptersProvider.CurrentScene.DangerDeckZone.TopCard is not CardCreature)
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
             CardCreature monster = (CardCreature)_chaptersProvider.CurrentScene.DangerDeckZone.TopCard;
             await _gameActionsProvider.Create(new SpawnCreatureGameAction(monster, SceneCORE3.MainPath));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(monster.Eldritch, 1).Start();
         }
     }
 }

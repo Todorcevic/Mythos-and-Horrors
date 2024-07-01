@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             //1.2	Place 1 doom on the current agenda. (DecrementStatGameAction.Parent is ScenePhaseGameAction)
-            await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Start();
             //1.3	Check doom threshold.
             await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             //1.4	Each investigator draws 1 encounter card.

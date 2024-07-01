@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestoreHintsCondition(RoundGameAction action)
         {
-            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, _investigatorsProvider.AllInvestigators.Count() * 2));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Start();
         }
 
         private bool RestoreHintsLogic(RoundGameAction action)

@@ -64,13 +64,13 @@ namespace MythosAndHorrors.GameRules
         private async Task GainStrenghtDeactivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create(new DecrementStatGameAction(cardInvestigator.Strength, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
         }
 
         private async Task GainStrenghtActivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Strength, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

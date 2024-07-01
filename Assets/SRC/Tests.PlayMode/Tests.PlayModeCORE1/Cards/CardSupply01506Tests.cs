@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             Card01506 weaponCard = _cardsProvider.GetCard<Card01506>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(weaponCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(weaponCard.Charge.Amount, 0)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(weaponCard.Charge.Amount, 0).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulVoraz, investigator.DangerZone).Start().AsCoroutine();

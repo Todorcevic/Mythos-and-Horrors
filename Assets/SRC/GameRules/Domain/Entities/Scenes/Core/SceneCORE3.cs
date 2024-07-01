@@ -98,7 +98,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PlaceDangerDeck()
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
         }
 
         private async Task PlacePlotAndGoal()
@@ -110,7 +110,7 @@ namespace MythosAndHorrors.GameRules
             if (AmountInterrogate < 2) totaL = 3;
             else if (AmountInterrogate < 4) totaL = 2;
             else if (AmountInterrogate < 6) totaL = 1;
-            await _gameActionsProvider.Create(new DecrementStatGameAction(FirstPlot.Eldritch, totaL));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(FirstPlot.Eldritch, totaL).Start();
         }
 
         private async Task CheckDiscard()
@@ -162,7 +162,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create(new IncrementStatGameAction(statsWithValues));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
             }
         }
 
@@ -180,7 +180,7 @@ namespace MythosAndHorrors.GameRules
                     statsWithValues.Add(investigator.Injury, 2);
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create(new IncrementStatGameAction(statsWithValues));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
             }
         }
 
@@ -199,7 +199,7 @@ namespace MythosAndHorrors.GameRules
                     statsWithValues.Add(investigator.Injury, 2);
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create(new IncrementStatGameAction(statsWithValues));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
             }
 
             async Task TakeFlaw()
@@ -253,7 +253,7 @@ namespace MythosAndHorrors.GameRules
                     Card monster = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Monster));
 
                     await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster));
-                    await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
                 }
 
                 bool DrawMonsterCondition(ChallengePhaseGameAction challengePhaseGameAction)
@@ -287,14 +287,14 @@ namespace MythosAndHorrors.GameRules
             {
                 IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
                     .OfType<IEldritchable>().FirstOrDefault();
-                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Start();
             }
 
             async Task CultistHardEffect()
             {
                 IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
                   .OfType<IEldritchable>().FirstOrDefault();
-                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 2));
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 2).Start();
             }
         }
 

@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameRules
                     Card ghoul = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Ghoul));
 
                     await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul));
-                    await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
                 }
 
                 bool DrawGhoulCondition(ChallengePhaseGameAction challengePhaseGameAction)
@@ -191,14 +191,14 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, false));
             if (Lita.ControlOwner != null)
                 await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
-            await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Shock, 1).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
         protected override async Task Resolution2()
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Xp, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Xp, 1).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 

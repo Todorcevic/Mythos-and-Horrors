@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(SceneCORE3.DangerDiscardZone.Cards, SceneCORE3.DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(SceneCORE3.DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(SceneCORE3.DangerDeckZone).Start();
             await SpawnCreature();
             if (_investigatorsProvider.AllInvestigators.Count() > 2) await SpawnCreature();
         }

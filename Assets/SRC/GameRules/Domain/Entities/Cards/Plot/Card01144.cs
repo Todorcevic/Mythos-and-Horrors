@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Agility] = 1;
             }
 
-            await _gameActionsProvider.Create(new IncrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
         }
         private async Task RemoveAddStrenghAndAgilityBlankBuff(IEnumerable<Card> cards)
         {
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Agility] = 1;
             }
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(allStats));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
         }
     }
 }

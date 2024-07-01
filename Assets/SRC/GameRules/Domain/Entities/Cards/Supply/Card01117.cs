@@ -52,13 +52,13 @@ namespace MythosAndHorrors.GameRules
         private async Task GainStrength(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(map));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Start();
         }
 
         private async Task RemoveGainStrenghtBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(map));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Start();
         }
 
         private IEnumerable<Card> CardsToBuff()

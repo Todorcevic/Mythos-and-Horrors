@@ -35,12 +35,12 @@ namespace MythosAndHorrors.GameRules
             if (ThrowingState.IsActive)
             {
                 await _gameActionsProvider.Create(new DiscardGameAction(this));
-                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 2));
-                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
             }
             else
             {
-                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 1));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 1).Start();
             }
         }
 

@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
             await interactableGameAction.Start();
 
             /*******************************************************************/

@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(plot, SceneCORE3.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(plot.Eldritch, 4)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 4).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
             yield return ClickedClone(cardAdversity, 0, isReaction: true);

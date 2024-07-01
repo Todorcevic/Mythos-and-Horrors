@@ -7,13 +7,17 @@ namespace MythosAndHorrors.GameRules
     public class IncrementStatGameAction : UpdateStatGameAction
     {
         /*******************************************************************/
-        public IncrementStatGameAction(Stat stat, int value) : base(stat, stat.RealValue + value) { }
+        public new IncrementStatGameAction SetWith(Stat stat, int value)
+        {
+            base.SetWith(stat, stat.RealValue + value);
+            return this;
+        }
 
-        public IncrementStatGameAction(Dictionary<Stat, int> statsWithValues)
-            : base(statsWithValues.ToDictionary(statNewValues => statNewValues.Key,
-                statNewValues => statNewValues.Key.RealValue + statNewValues.Value))
-        { }
-
-        /*******************************************************************/
+        public new IncrementStatGameAction SetWith(Dictionary<Stat, int> statsWithValues)
+        {
+            base.SetWith(statsWithValues.ToDictionary(statNewValues => statNewValues.Key,
+                statNewValues => statNewValues.Key.RealValue + statNewValues.Value));
+            return this;
+        }
     }
 }

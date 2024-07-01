@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(adversityCard.Hints, 0)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(adversityCard.Hints, 0).Start().AsCoroutine();
 
             Assert.That(adversityCard.Hints.Value, Is.EqualTo(0));
             yield return _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE1.FullResolutions[0])).AsCoroutine();

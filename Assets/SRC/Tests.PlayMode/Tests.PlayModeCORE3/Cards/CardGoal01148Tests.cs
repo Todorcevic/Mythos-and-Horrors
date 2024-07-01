@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(SceneCORE3.CurrentGoal.Hints, 0)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(2));
             Assert.That(cardGoal.IsComplete, Is.True);

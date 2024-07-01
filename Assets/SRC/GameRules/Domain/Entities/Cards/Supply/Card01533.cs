@@ -48,13 +48,13 @@ namespace MythosAndHorrors.GameRules
         private async Task RemoveIntelligenceBuff(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create(new DecrementStatGameAction(cardInvestigator.Intelligence, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Start();
         }
 
         private async Task AddIntelligenceBuff(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Intelligence, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Start();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

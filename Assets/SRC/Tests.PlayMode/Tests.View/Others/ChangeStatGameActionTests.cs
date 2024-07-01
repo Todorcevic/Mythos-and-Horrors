@@ -19,8 +19,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Update_Investigator_Stats()
         {
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.Health, 3).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.CurrentTurns, 2).Start().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             do
             {
-                yield return _gameActionsProvider.Create(new UpdateStatGameAction(cardSupply.ResourceCost, 8)).AsCoroutine();
+                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardSupply.ResourceCost, 8).Start().AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             do
             {
-                yield return _gameActionsProvider.Create(new UpdateStatGameAction(cardPlot.Eldritch, 2)).AsCoroutine();
+                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardPlot.Eldritch, 2).Start().AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
 
             } while (DEBUG_MODE);
@@ -77,7 +77,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();

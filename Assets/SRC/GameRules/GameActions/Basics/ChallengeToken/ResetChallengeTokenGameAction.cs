@@ -4,8 +4,11 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResetChallengeTokenGameAction : UpdateChallengeTokenGameAction
     {
-        public ResetChallengeTokenGameAction(ChallengeToken challengeToken) : base(challengeToken, challengeToken.Value, challengeToken.Effect)
-        { }
+        public ResetChallengeTokenGameAction SetWith(ChallengeToken challengeToken)
+        {
+            SetWith(challengeToken, challengeToken.Value, challengeToken.Effect);
+            return this;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

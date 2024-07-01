@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         public Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
         public async Task PlayRevelationFor(Investigator investigator) =>
-            await _gameActionsProvider.Create(new UpdateStatGameAction(ChargeFear, 3));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(ChargeFear, 3).Start();
 
         /*******************************************************************/
         private bool TakeFearCondition(Investigator investigator)
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         private async Task TakeFearLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
-            await _gameActionsProvider.Create(new DecrementStatGameAction(ChargeFear, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChargeFear, 1).Start();
 
             if (DiscardCondition()) await DiscardLogic();
 

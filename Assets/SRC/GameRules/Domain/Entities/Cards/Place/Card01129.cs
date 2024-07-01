@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new ShowCardsGameAction(supportsInDeck));
             await interactableGameAction.Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(investigator.DeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Start();
         }
 
         private bool TakeTomeOrSpellCondition(Investigator investigator)

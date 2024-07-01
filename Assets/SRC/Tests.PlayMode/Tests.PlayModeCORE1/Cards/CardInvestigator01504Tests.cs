@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigatorToTest.FearRecived, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorToTest.FearRecived, 3).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             yield return ClickedIn(investigatorToTest.CurrentPlace);

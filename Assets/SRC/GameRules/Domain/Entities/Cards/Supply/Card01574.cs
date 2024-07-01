@@ -40,8 +40,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 2));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
             _attackCreatureGameAction = attackCreatureGameAction;
         }
     }

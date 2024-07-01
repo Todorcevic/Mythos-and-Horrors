@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             CardView[] allCardViews = _zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();
             do
             {
-                yield return _gameActionsProvider.Create(new ShuffleGameAction(_investigatorsProvider.First.DeckZone)).AsCoroutine();
+                yield return _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_investigatorsProvider.First.DeckZone).Start().AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
             CardView[] allCardViewsShuffled = _zoneViewsManager.Get(_investigatorsProvider.First.DeckZone).GetComponentsInChildren<CardView>();

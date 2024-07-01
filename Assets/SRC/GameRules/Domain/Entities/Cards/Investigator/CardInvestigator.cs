@@ -103,8 +103,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Reset()
         {
-            await _gameActionsProvider.Create(new UpdateStatGameAction(DamageRecived, DamageRecived.InitialValue));
-            await _gameActionsProvider.Create(new UpdateStatGameAction(FearRecived, FearRecived.InitialValue));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(DamageRecived, DamageRecived.InitialValue).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(FearRecived, FearRecived.InitialValue).Start();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
             };
             if (card.Sanity.Value < card.Info.Sanity) stats.Add(card.Sanity, 1);
 
-            await _gameActionsProvider.Create(new IncrementStatGameAction(stats));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Start();
         }
 
         private async Task ActivateBuff(IEnumerable<Card> cards)
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
             };
             if (card.Sanity.Value == card.Info.Sanity) stats.Add(card.Sanity, 1);
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(stats));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
         }
 
         private IEnumerable<Card> CardsToBuff()

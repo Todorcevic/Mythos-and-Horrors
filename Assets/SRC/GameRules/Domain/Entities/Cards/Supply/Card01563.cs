@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(MoveCardsGameAction moveCardsGameAction)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Eldritch, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Eldritch, 1).Start();
         }
 
         private bool Condition(MoveCardsGameAction moveCardsGameAction)

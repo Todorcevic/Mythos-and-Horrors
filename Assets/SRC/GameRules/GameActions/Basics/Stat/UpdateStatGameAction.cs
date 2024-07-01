@@ -10,17 +10,18 @@ namespace MythosAndHorrors.GameRules
         private Dictionary<Stat, int> _statsWithOldValue;
         [Inject] private readonly IPresenter<UpdateStatGameAction> _statsPresenter;
 
-        public Dictionary<Stat, int> StatsWithValue { get; }
+        public Dictionary<Stat, int> StatsWithValue { get; private set; }
         public List<Stat> AllStatsUpdated => StatsWithValue.Keys.ToList();
 
         public override bool CanBeExecuted => StatsWithValue.Count > 0;
 
         /*******************************************************************/
-        public UpdateStatGameAction(Stat stat, int value) : this(new Dictionary<Stat, int> { { stat, value } }) { }
+        public UpdateStatGameAction SetWith(Stat stat, int value) => SetWith(new Dictionary<Stat, int> { { stat, value } });
 
-        public UpdateStatGameAction(Dictionary<Stat, int> statsWithValues)
+        public UpdateStatGameAction SetWith(Dictionary<Stat, int> statsWithValues)
         {
             StatsWithValue = statsWithValues.Where(kv => kv.Key.Value != kv.Value).ToDictionary(kv => kv.Key, kv => kv.Value);
+            return this;
         }
 
         /*******************************************************************/

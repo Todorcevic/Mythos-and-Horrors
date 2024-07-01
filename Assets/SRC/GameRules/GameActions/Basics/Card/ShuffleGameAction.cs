@@ -10,13 +10,14 @@ namespace MythosAndHorrors.GameRules
         private List<Card> _cards;
         [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
 
-        public Zone ZoneToShuffle { get; }
+        public Zone ZoneToShuffle { get; private set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public ShuffleGameAction(Zone zoneToShuffle)
+        public ShuffleGameAction SetWith(Zone zoneToShuffle)
         {
             ZoneToShuffle = zoneToShuffle;
+            return this;
         }
 
         /*******************************************************************/

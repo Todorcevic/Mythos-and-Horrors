@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");

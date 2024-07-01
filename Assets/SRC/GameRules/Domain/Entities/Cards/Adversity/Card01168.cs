@@ -35,12 +35,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ActivationBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(cards.Cast<CardPlace>().Unique().Enigma, 2));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Start();
         }
 
         private async Task DeactivationBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(cards.Cast<CardPlace>().Unique().Enigma, 2));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Start();
 
         }
 

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true)
                 .Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(_chaptersProvider.CurrentScene.DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
 
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Ghoul))
                 await _gameActionsProvider.Create(new DiscardGameAction(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard));

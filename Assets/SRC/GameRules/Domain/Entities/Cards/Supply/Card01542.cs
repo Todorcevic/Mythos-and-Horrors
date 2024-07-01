@@ -40,12 +40,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task BuffOn(IEnumerable<Card> cardsToBuff)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(StatBuffed, 2));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(StatBuffed, 2).Start();
         }
 
         private async Task BuffOff(IEnumerable<Card> cardsToDebuff)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(StatBuffed, 2));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(StatBuffed, 2).Start();
         }
 
         private IEnumerable<Card> CardToSelect()

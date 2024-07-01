@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ExtraDamageLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
             if (resolveChallengeGameAction.ChallengePhaseGameAction is not AttackCreatureGameAction attackCreatureGameAction) return;
-            await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.AmountDamage, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
         }
 
         private bool ExtraDamageCondition(ResolveChallengeGameAction resolveChallengeGameAction)
@@ -61,8 +61,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.StatModifier, 2));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Start();
             _attackCreatureGameAction = attackCreatureGameAction;
             attackCreatureGameAction.SuccesEffects.Add(ExtraTurn);
 
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
                 if (attackCreatureGameAction.ResultChallenge.TotalDifferenceValue < 3) return;
 
                 await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, true));
-                await _gameActionsProvider.Create(new IncrementStatGameAction(attackCreatureGameAction.ActiveInvestigator.CurrentTurns, 1));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.ActiveInvestigator.CurrentTurns, 1).Start();
             }
         }
 

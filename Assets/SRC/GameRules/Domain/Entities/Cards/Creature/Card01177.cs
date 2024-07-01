@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
                         { Damage, 1 },
                         { Fear, 1 }
                     };
-                await _gameActionsProvider.Create(new IncrementStatGameAction(stats));
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Start();
 
                 CreateOneTimeReaction<CreatureAttackGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
                         { Damage, 1 },
                         { Fear, 1 }
                     };
-                    await _gameActionsProvider.Create(new DecrementStatGameAction(stats));
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
                 }
 
                 bool RestoreCondition(CreatureAttackGameAction creatureAttackGameAction2)

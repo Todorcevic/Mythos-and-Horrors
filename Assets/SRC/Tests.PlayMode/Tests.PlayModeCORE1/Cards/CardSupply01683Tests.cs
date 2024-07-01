@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Fourth.FearRecived, 1},
                 { ally.FearRecived, 1}
             };
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(4));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

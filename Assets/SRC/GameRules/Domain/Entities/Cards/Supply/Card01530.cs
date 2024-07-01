@@ -28,13 +28,13 @@ namespace MythosAndHorrors.GameRules
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Intelligence, card => 1);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(map));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Start();
         }
 
         private async Task RemoveIntelligenceBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Intelligence, card => 1);
-            await _gameActionsProvider.Create(new DecrementStatGameAction(map));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Start();
         }
     }
 }

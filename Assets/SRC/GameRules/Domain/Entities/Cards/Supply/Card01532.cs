@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new ShowCardsGameAction(tomes));
             await interactableGameAction.Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(ControlOwner.DeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ControlOwner.DeckZone).Start();
         }
 
         private bool Condition(MoveCardsGameAction moveCardsGameAction)

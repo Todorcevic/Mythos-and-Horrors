@@ -35,10 +35,10 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
             InvestigatePlaceGameAction investigatePlaceGameAction = new(investigator, investigator.CurrentPlace);
-            await _gameActionsProvider.Create(new IncrementStatGameAction(investigatePlaceGameAction.StatModifier, investigator.Agility.Value));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Start();
             await _gameActionsProvider.Create(investigatePlaceGameAction);
             if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2)
-                await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
         }
 
         /*******************************************************************/

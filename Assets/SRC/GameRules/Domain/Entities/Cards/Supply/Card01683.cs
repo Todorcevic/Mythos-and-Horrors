@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(AmountSupplies, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(AmountSupplies, 1).Start();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select card to Health");

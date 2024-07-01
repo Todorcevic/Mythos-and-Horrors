@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             CreateMainButton(PassTurn, "Finish");
 
             async Task PassTurn() =>
-                await _gameActionsProvider.Create(new DecrementStatGameAction(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value));
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value).Start();
         }
 
         /*******************************************************************/

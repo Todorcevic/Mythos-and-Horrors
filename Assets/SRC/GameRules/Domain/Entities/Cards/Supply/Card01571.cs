@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));
             }
 
-            await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
             await interactableGameAction.Start();
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, false));
         }

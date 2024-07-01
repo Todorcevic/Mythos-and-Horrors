@@ -52,9 +52,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Creature);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -66,10 +66,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Creature);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(SceneCORE2.CurrentPlot.Eldritch, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(SceneCORE2.CurrentPlot.Eldritch, 2).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -81,9 +81,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -98,9 +98,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(acolit2.Eldritch, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 

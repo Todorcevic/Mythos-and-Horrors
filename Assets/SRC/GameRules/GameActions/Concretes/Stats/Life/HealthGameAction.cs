@@ -24,13 +24,13 @@ namespace MythosAndHorrors.GameRules
             if (CardAffected is IDamageable damageable)
             {
                 int amountToRetrieve = AmountDamageToRecovery > damageable.DamageRecived.Value ? damageable.DamageRecived.Value : AmountDamageToRecovery;
-                await _gameActionsProvider.Create(new DecrementStatGameAction(damageable.DamageRecived, amountToRetrieve));
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(damageable.DamageRecived, amountToRetrieve).Start();
             }
 
             if (CardAffected is IFearable fearable)
             {
                 int amountToRetrieve = AmountFearToRecovery > fearable.FearRecived.Value ? fearable.FearRecived.Value : AmountFearToRecovery;
-                await _gameActionsProvider.Create(new DecrementStatGameAction(fearable.FearRecived, amountToRetrieve));
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(fearable.FearRecived, amountToRetrieve).Start();
             }
         }
     }

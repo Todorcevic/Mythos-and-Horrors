@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             Dictionary<Stat, int> turnsInvestigastors = _investigatorsProvider.AllInvestigatorsInPlay
                 .ToDictionary(investigator => investigator.CurrentTurns, investigator => investigator.MaxTurns.Value);
-            await _gameActionsProvider.Create(new UpdateStatGameAction(turnsInvestigastors));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(turnsInvestigastors).Start();
         }
     }
 }

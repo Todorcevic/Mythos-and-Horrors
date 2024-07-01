@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         {
             Card cultist = SceneCORE2.Cultists.Where(cultist => cultist.CurrentZone == SceneCORE2.OutZone).Rand();
             await _gameActionsProvider.Create(new DrawGameAction(_investigatorsProvider.Leader, cultist));
-            await _gameActionsProvider.Create(new UpdateStatGameAction(Hints, _investigatorsProvider.AllInvestigators.Count() * 2));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Start();
         }
 
         private bool DrawCultistCondition(PayHintsToGoalGameAction payHintGameActionn)

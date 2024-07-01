@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         public async Task GainTurnActivate(Investigator activeInvestigator)
         {
             await _gameActionsProvider.Create(new PayResourceGameAction(activeInvestigator, 2));
-            await _gameActionsProvider.Create(new IncrementStatGameAction(activeInvestigator.CurrentTurns, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Start();
             await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
         }
 

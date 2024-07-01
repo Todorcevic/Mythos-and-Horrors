@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Third.DamageRecived, 1},
                 { _investigatorsProvider.Fourth.FearRecived, 1}
             };
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(stats)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
             Assert.That(supplyCard.Charge.Amount.Value, Is.EqualTo(3));
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
@@ -51,8 +51,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigator.DamageRecived, 1)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(supplyCard.Charge.Amount, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.DamageRecived, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(supplyCard.Charge.Amount, 1).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);

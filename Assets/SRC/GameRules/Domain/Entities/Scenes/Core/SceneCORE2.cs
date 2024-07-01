@@ -97,7 +97,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PlaceDangerDeck()
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
         }
 
         private async Task PlacePlotAndGoal()
@@ -215,7 +215,7 @@ namespace MythosAndHorrors.GameRules
                 IEldritchable nearestCreature = nearest
                     .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();
 
-                if (nearestCreature != null) await _gameActionsProvider.Create(new IncrementStatGameAction(nearestCreature.Eldritch, 1));
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Start();
             }
 
             async Task CultistHardEffect()
@@ -224,7 +224,7 @@ namespace MythosAndHorrors.GameRules
                     .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
-                if (allEldrichableStats.Any()) await _gameActionsProvider.Create(new IncrementStatGameAction(allEldrichableStats));
+                if (allEldrichableStats.Any()) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allEldrichableStats).Start();
                 else await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
             }
         }

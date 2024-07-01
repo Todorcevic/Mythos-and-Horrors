@@ -8,16 +8,17 @@ namespace MythosAndHorrors.GameRules
         public Func<Investigator, int> _OldValue;
         public Func<Investigator, Task> _OldEffect;
 
-        public ChallengeToken ChallengeToken { get; }
-        public Func<Investigator, int> NewValue { get; }
-        public Func<Investigator, Task> NewEffect { get; }
+        public ChallengeToken ChallengeToken { get; private set; }
+        public Func<Investigator, int> NewValue { get; private set; }
+        public Func<Investigator, Task> NewEffect { get; private set; }
 
         /*******************************************************************/
-        public UpdateChallengeTokenGameAction(ChallengeToken challengeToken, Func<Investigator, int> newValue, Func<Investigator, Task> newEffect)
+        public UpdateChallengeTokenGameAction SetWith(ChallengeToken challengeToken, Func<Investigator, int> newValue, Func<Investigator, Task> newEffect)
         {
             ChallengeToken = challengeToken;
             NewValue = newValue;
             NewEffect = newEffect;
+            return this;
         }
 
         /*******************************************************************/

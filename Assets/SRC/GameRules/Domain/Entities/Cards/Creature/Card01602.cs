@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task PutEldritchLogic(CreatureAttackGameAction creatureAttackGameAction)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot.Eldritch, 1).Start();
         }
 
         private bool PutEldritchCondition(CreatureAttackGameAction creatureAttackGameAction)

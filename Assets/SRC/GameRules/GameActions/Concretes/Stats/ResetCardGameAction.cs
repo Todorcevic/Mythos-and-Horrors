@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                 allStats.Add(eldritchable.Eldritch, eldritchable.Eldritch.InitialValue);
 
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Card.Exausted, false));
-            await _gameActionsProvider.Create(new UpdateStatGameAction(allStats));
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(allStats).Start();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
                 await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
-                await _gameActionsProvider.Create(new DecrementStatGameAction(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 2));
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 2).Start();
                 await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
             }
 

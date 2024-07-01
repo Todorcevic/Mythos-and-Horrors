@@ -26,14 +26,15 @@ namespace MythosAndHorrors.GameRules
         private async Task DoubleModifierLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
             Func<Investigator, int> original = revealChallengeToken.ChallengeTokenRevealed.Value;
-            await _gameActionsProvider.Create(new UpdateChallengeTokenGameAction(revealChallengeToken.ChallengeTokenRevealed,
-                DoubleModifier, revealChallengeToken.ChallengeTokenRevealed.Effect));
-
-            int DoubleModifier(Investigator investigator) => original.Invoke(investigator) * 2;
+            await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
+                .SetWith(revealChallengeToken.ChallengeTokenRevealed, DoubleModifier, revealChallengeToken.ChallengeTokenRevealed.Effect)
+                .Start();
 
             CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
             /*******************************************************************/
+            int DoubleModifier(Investigator investigator) => original.Invoke(investigator) * 2;
+
             bool RestoreCondition(RestoreChallengeTokenGameAction restoreChallengeToken)
             {
                 if (restoreChallengeToken.ChallengeTokenToRestore != revealChallengeToken.ChallengeTokenRevealed) return false;
@@ -42,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task RestoreLogic(RestoreChallengeTokenGameAction restoreChallengeToken)
             {
-                await _gameActionsProvider.Create(new ResetChallengeTokenGameAction(restoreChallengeToken.ChallengeTokenToRestore));
+                await _gameActionsProvider.Create<ResetChallengeTokenGameAction>().SetWith(restoreChallengeToken.ChallengeTokenToRestore).Start();
             }
         }
 

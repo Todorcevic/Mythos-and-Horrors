@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulVoraz, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardGoal.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardGoal.Hints, cardGoal.Hints.Value).Start().AsCoroutine();
 
             Assert.That(SceneCORE1.Study.CurrentZone, Is.EqualTo(_chaptersProvider.CurrentScene.OutZone));
             Assert.That(SceneCORE1.GhoulSecuaz.CurrentZone, Is.EqualTo(_chaptersProvider.CurrentScene.DangerDiscardZone));
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(SceneCORE1.Study.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Hints, cardGoal.Hints.Value).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3)).AsCoroutine();
 
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(SceneCORE1.Study.Hints, cardGoal.Hints.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Hints, cardGoal.Hints.Value).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.Third, SceneCORE1.Study.Hints, 1)).AsCoroutine();

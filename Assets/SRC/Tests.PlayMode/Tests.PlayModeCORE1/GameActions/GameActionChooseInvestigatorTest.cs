@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator ChooseInvestigatorTest()
         {
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.Second.CurrentTurns, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.Second.CurrentTurns, 1).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<ChooseInvestigatorGameAction>().SetWith().Start();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);

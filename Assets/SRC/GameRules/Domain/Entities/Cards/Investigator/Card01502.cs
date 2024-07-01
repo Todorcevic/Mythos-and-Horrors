@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
-            await _gameActionsProvider.Create(new IncrementStatGameAction(Owner.CurrentTurns, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Start();
             interactableGameAction.CreateCancelMainButton();
 
             foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))

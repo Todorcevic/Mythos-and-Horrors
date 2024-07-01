@@ -4,14 +4,15 @@ namespace MythosAndHorrors.GameRules
 {
     public class AddSlotGameAction : GameAction
     {
-        public Investigator Investigator { get; }
-        public Slot Slot { get; }
+        public Investigator Investigator { get; private set; }
+        public Slot Slot { get; private set; }
 
         /*******************************************************************/
-        public AddSlotGameAction(Investigator cardSupply, Slot slot)
+        public AddSlotGameAction SetWith(Investigator cardSupply, Slot slot)
         {
             Investigator = cardSupply;
             Slot = slot;
+            return this;
         }
 
         /*******************************************************************/

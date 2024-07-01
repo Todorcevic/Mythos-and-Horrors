@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(investigator2);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine(); ;
 
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(goal2, SceneCORE3.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, SceneCORE3.Ritual)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine(); ;
 
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(investigator2);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
             yield return _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE3.Urmodoth, investigator2.InvestigatorCard)).AsCoroutine();

@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             {
                 victoriable.InvestigatorsVictoryAffected.ForEach(investigator => xp[investigator.Xp] += victoriable.Victory);
             }
-            await _gameActionsProvider.Create(new IncrementStatGameAction(xp));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(xp).Start();
         }
     }
 }

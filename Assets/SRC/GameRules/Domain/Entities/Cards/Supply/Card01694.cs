@@ -25,12 +25,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ActiveBuff(IEnumerable<Card> enumerable)
         {
-            await _gameActionsProvider.Create(new AddSlotGameAction(ControlOwner, ExtraAlly));
+            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraAlly).Start();
         }
 
         private async Task DeactiveBuff(IEnumerable<Card> enumerable)
         {
-            await _gameActionsProvider.Create(new RemoveSlotGameAction(ControlOwner, ExtraAlly));
+            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraAlly).Start();
         }
 
         private IEnumerable<Card> CardToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();

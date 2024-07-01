@@ -27,12 +27,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task BuffOn(IEnumerable<Card> cardsToBuff)
         {
-            await _gameActionsProvider.Create(new IncrementStatGameAction(ControlOwner.Power, 1));
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(ControlOwner.Power, 1).Start();
         }
 
         private async Task BuffOff(IEnumerable<Card> cardsToDebuff)
         {
-            await _gameActionsProvider.Create(new DecrementStatGameAction(ControlOwner.Power, 1));
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ControlOwner.Power, 1).Start();
         }
 
         private IEnumerable<Card> CardToSelect() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();

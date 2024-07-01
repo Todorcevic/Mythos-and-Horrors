@@ -87,7 +87,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(monster.Eldritch, 3).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -101,7 +101,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(monster.Eldritch, 3).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.DrewInterrogate, true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.VictoriaInterrogate, true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatGameAction(SceneCORE3.CurrentGoal.Hints, 0)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Start().AsCoroutine();
 
             Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
             Assert.That(SceneCORE3.CultistsNotInterrogate().Count, Is.EqualTo(4));

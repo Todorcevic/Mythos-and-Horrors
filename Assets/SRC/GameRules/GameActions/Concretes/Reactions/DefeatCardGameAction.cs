@@ -22,8 +22,8 @@ namespace MythosAndHorrors.GameRules
         {
             if (Card is CardInvestigator cardInvestigator)
             {
-                if (cardInvestigator.Owner.HealthLeft < 0) await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Injury, 1));
-                if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create(new IncrementStatGameAction(cardInvestigator.Shock, 1));
+                if (cardInvestigator.Owner.HealthLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Injury, 1).Start();
+                if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Shock, 1).Start();
 
                 await _gameActionsProvider.Create(new EliminateInvestigatorGameAction(cardInvestigator.Owner));
                 await _gameActionsProvider.Create(new UpdateStatesGameAction(cardInvestigator.Defeated, true));
