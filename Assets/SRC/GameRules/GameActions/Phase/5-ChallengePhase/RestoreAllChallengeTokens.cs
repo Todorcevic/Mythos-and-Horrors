@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<ChallengeToken>(TokensRevealed, Restore));
+            await _gameActionsProvider.Create<SafeForeach<ChallengeToken>>().SetWith(TokensRevealed, Restore).Start();
         }
 
         /*******************************************************************/

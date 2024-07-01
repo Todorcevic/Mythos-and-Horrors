@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResetLogic(PlayInvestigatorGameAction action)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, false).Start();
         }
 
         private bool ResetCondition(PlayInvestigatorGameAction action)
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
                 if (!attackCreatureGameAction.IsSucceed) return;
                 if (attackCreatureGameAction.ResultChallenge.TotalDifferenceValue < 3) return;
 
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, true));
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Start();
                 await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.ActiveInvestigator.CurrentTurns, 1).Start();
             }
         }

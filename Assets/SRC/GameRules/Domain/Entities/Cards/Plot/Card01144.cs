@@ -27,10 +27,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsToChallenge, ChallengePower));
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengePower).Start();
 
             /*******************************************************************/
-
             IEnumerable<Investigator> InvestigatorsToChallenge() => _investigatorsProvider.AllInvestigatorsInPlay;
 
             async Task ChallengePower(Investigator investigator)
@@ -38,10 +37,8 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power, 6, $"{investigator.InvestigatorCard.Info.Name} Power Challenge", failEffect: AddMadness, cardToChallenge: this));
 
                 /*******************************************************************/
-                async Task AddMadness()
-                {
-                    await _gameActionsProvider.Create(new DrawGameAction(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)));
-                }
+                async Task AddMadness() => await _gameActionsProvider.Create(new DrawGameAction(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)));
+
             }
         }
 

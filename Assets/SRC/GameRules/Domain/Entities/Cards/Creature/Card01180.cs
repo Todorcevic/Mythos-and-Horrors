@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(DefeatCardGameAction action)
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigaotrsAffected, TakeFear));
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TakeFear).Start();
 
             /*******************************************************************/
             async Task TakeFear(Investigator investigator)

@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(InvestigatorsUsed[investigator], true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Start();
         }
     }
 }

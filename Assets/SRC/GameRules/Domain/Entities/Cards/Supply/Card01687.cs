@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             InvestigatePlaceGameAction investigatePlaceGameAction = new(investigator, investigator.CurrentPlace);
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Start();
             await _gameActionsProvider.Create(investigatePlaceGameAction);

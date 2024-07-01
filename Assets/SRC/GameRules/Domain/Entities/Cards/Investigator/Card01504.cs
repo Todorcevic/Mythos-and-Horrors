@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
                 async Task HarmCreature()
                 {
                     await _gameActionsProvider.Create(new HarmToCardGameAction(creature, Owner.InvestigatorCard, amountDamage: 1));
-                    await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
                 };
             }
 
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(PhaseGameAction phaseGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
         }
 
         private bool RestartAbilityCondition(PhaseGameAction phaseGameAction)

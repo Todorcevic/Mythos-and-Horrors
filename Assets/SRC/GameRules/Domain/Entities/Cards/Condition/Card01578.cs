@@ -16,10 +16,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(AllCreatures, EvedaAction));
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AllCreatures, EvedaAction).Start();
 
             /*******************************************************************/
-
             IEnumerable<CardCreature> AllCreatures() => investigator.CreaturesInSamePlace;
             async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create(new EludeGameAction(creature, investigator));
         }

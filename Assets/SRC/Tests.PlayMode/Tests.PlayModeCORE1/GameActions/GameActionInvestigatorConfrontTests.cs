@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Exausted, true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.CurrentPlace.OwnZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

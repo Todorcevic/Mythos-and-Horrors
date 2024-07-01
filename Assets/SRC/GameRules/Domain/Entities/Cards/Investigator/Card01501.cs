@@ -18,10 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-
             CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After);
-
-            //CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, isAtStart: false);
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -34,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
         {
             await _gameActionsProvider.Create(new GainHintGameAction(Owner, Owner.CurrentPlace.Hints, 1));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
         }
 
         private bool DiscoverHintCondition(DefeatCardGameAction defeatCardGameAction)
@@ -50,7 +47,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction roundGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
         }
 
         private bool RestartAbilityCondition(RoundGameAction roundGameAction)

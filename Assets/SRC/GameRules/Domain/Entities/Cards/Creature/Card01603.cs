@@ -31,12 +31,12 @@ namespace MythosAndHorrors.GameRules
 
         private async Task AddBlankBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(cards.Select(card => card.Blancked), true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cards.Select(card => card.Blancked), true).Start();
         }
 
         private async Task RemoveBlankBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(cards.Select(card => card.Blancked), false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cards.Select(card => card.Blancked), false).Start();
         }
     }
 }

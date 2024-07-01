@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await _gameActionsProvider.Create(new DrawAidGameAction(ControlOwner));
         }
 

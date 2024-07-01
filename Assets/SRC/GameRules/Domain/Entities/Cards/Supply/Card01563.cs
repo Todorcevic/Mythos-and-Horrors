@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await interactableGameAction.Start();
         }
 

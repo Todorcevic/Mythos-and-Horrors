@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ReadyLogic(InvestigatorsPhaseGameAction action)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, false).Start();
         }
 
         private bool ReadyCondition(InvestigatorsPhaseGameAction action)
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
 
         public async Task Reset()
         {
-            if (HealthLeft < 1) await _gameActionsProvider.Create(new UpdateStatesGameAction(Defeated, true));
+            if (HealthLeft < 1) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Defeated, true).Start();
         }
     }
 }

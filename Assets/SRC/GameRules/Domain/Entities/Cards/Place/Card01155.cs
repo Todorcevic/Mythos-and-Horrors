@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private async Task ResetCondition(PlayInvestigatorGameAction playInvestigatorGameAction) =>
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, false).Start();
 
         private bool ResetLogic(PlayInvestigatorGameAction playInvestigatorGameAction) => true;
 
@@ -34,13 +34,13 @@ namespace MythosAndHorrors.GameRules
         private async Task HealthFearLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new HealthGameAction(investigator.InvestigatorCard, amountFearToRecovery: 1));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Start();
         }
 
         private async Task HealthDamageLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new HealthGameAction(investigator.InvestigatorCard, amountDamageToRecovery: 1));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Used, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Start();
         }
 
         private bool HealthCondition(Investigator investigator)

@@ -1,12 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class OpportunityAttackGameAction : GameAction
     {
-
         public Investigator Investigator { get; }
 
         public override bool CanBeExecuted => Investigator.AllTypeCreaturesConfronted.Any();
@@ -20,11 +19,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => Investigator.AllTypeCreaturesConfronted, CreatureAttack));
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AllCreaturesConfronted, CreatureAttack).Start();
 
+            /*******************************************************************/
+            IEnumerable<CardCreature> AllCreaturesConfronted() => Investigator.AllTypeCreaturesConfronted;
             async Task CreatureAttack(CardCreature creature) =>
                 await _gameActionsProvider.Create(new CreatureAttackGameAction(creature, Investigator));
-
         }
     }
 }

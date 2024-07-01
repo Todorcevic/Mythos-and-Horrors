@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class PlayEffectGameAction : GameAction
     {
-
-        public BaseEffect Effect { get; }
+        public BaseEffect Effect { get; private set; }
 
         /*******************************************************************/
-        public PlayEffectGameAction(BaseEffect effect)
+        public PlayEffectGameAction SetWith(BaseEffect effect)
         {
             Effect = effect ?? throw new ArgumentNullException("Effect cant be null");
+            return this;
         }
 
         /*******************************************************************/

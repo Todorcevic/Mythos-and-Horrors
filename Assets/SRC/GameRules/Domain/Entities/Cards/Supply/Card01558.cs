@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
             await _gameActionsProvider.Create(new GainResourceGameAction(ControlOwner, 1));

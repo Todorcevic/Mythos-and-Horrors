@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -19,15 +20,17 @@ namespace MythosAndHorrors.GameRules
         {
 
             var asda = _cardsProvider.AttackerCreatures.ToList();
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(() => _cardsProvider.AttackerCreatures, Attack));
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AttackerCreatures, Attack).Start();
 
             /*******************************************************************/
+            IEnumerable<CardCreature> AttackerCreatures() => _cardsProvider.AttackerCreatures;
+
             async Task Attack(CardCreature cardCreature)
             {
                 if (cardCreature is CardColosus colosus)
                     await _gameActionsProvider.Create(new ColosusAttackGameAction(colosus));
                 else await _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, cardCreature.ConfrontedInvestigator));
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(cardCreature.Exausted, true));
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardCreature.Exausted, true).Start();
             }
         }
     }

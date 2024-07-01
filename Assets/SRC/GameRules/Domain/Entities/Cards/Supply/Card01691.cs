@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await _gameActionsProvider.Create(new HarmToCardGameAction(this, this, amountFear: 1));
             await interactableGameAction.Start();
         }

@@ -26,8 +26,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator2.MaxTurns, 4).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.FullDeck.TakeLast(3), investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.TakeLast(3), investigator2.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator2.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator2.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
             yield return ClickedIn(investigator.HandZone.Cards[1]);

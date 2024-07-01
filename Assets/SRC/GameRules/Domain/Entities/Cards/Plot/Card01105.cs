@@ -10,9 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
-        IEnumerable<Investigator> InvestigatorsWithCards() => _investigatorProvider.AllInvestigatorsInPlay
-        .Where(investigator => investigator.HandZone.Cards.Any());
-
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
@@ -25,7 +22,11 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DiscardAllInvestigators()
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsWithCards, Discard));
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsWithCards, Discard).Start();
+
+            /*******************************************************************/
+            IEnumerable<Investigator> InvestigatorsWithCards() =>
+                _investigatorProvider.AllInvestigatorsInPlay.Where(investigator => investigator.HandZone.Cards.Any());
 
             async Task Discard(Investigator investigator)
             {

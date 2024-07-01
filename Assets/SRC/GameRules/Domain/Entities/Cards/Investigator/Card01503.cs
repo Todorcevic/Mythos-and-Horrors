@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new PayResourceGameAction(activeInvestigator, 2));
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Start();
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
         }
 
         public bool GainTurnConditionToActivate(Investigator activeInvestigator)
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
         }
 
         private bool RestartAbilityCondition(RoundGameAction roudnGameAction)

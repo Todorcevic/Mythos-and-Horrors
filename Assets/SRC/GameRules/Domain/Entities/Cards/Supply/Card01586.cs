@@ -24,9 +24,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ThrowAttackLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(ThrowingState, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, true).Start();
             await ChooseEnemyLogic(investigator);
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(ThrowingState, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, false).Start();
         }
 
         /*******************************************************************/

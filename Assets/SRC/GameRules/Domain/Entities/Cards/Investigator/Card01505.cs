@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Discard()
                 {
-                    await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
                     await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(revealChallengeToken.ChallengeTokenRevealed));
                     await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(Owner));
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
         }
 
         private bool RestartAbilityCondition(ChallengePhaseGameAction challengePhaseGameAction)

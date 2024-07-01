@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)card).Charge.Amount, 1).Start();
             }
 
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await interactableGameAction.Start();
         }
 

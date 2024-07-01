@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DrawCondition(EludeGameAction eludeGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await _gameActionsProvider.Create(new DrawAidGameAction(ControlOwner));
         }
 

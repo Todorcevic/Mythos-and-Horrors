@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 async Task DrawItem() => await _gameActionsProvider.Create(new DrawGameAction(ControlOwner, itemCard));
             }
 
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await interactableGameAction.Start();
         }
 

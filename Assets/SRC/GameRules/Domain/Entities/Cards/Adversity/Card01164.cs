@@ -32,11 +32,11 @@ namespace MythosAndHorrors.GameRules
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
         public override async Task PlayRevelationFor(Investigator investigator) =>
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Start();
 
         /*******************************************************************/
         private async Task WasteLogic(PlayEffectGameAction action) =>
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, true).Start();
 
         private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {
@@ -93,7 +93,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DiscardLogic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
             await _gameActionsProvider.Create(new ChallengePhaseGameAction(playInvestigatorGameAction.ActiveInvestigator.Power, 3, $"Challenge: {Info.Name}", this, succesEffect: Discard));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Wasted, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Start();
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));

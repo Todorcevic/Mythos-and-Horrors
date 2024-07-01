@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RemovePlayedLogic(RoundGameAction roundGameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Swaped, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Swaped, false).Start();
         }
 
         private bool RemovePlayedCondition(RoundGameAction roundGameAction)
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator) =>
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Swaped, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Swaped, true).Start();
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
     }

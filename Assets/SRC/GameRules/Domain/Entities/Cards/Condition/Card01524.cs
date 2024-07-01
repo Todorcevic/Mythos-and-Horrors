@@ -24,7 +24,11 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Explote()
                 {
-                    await _gameActionsProvider.Create(new SafeForeach<IDamageable>(AllDamageables, DoDamage));
+                    await _gameActionsProvider.Create<SafeForeach<IDamageable>>().SetWith(AllDamageables, DoDamage).Start();
+
+                    /*******************************************************************/
+                    IEnumerable<IDamageable> AllDamageables() => place.CreaturesInThisPlace.Cast<IDamageable>().Concat(place.InvestigatorsInThisPlace
+                           .Select(investigator => investigator.InvestigatorCard).Cast<IDamageable>());
 
                     async Task DoDamage(IDamageable damageable)
                     {
@@ -32,9 +36,6 @@ namespace MythosAndHorrors.GameRules
                             await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(cardInvestigator.Owner, this, amountDamage: 3));
                         else await _gameActionsProvider.Create(new HarmToCardGameAction((Card)damageable, this, amountDamage: 3));
                     }
-
-                    IEnumerable<IDamageable> AllDamageables() => place.CreaturesInThisPlace.Cast<IDamageable>().Concat(place.InvestigatorsInThisPlace
-                            .Select(investigator => investigator.InvestigatorCard).Cast<IDamageable>());
                 }
             }
 

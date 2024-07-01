@@ -5,7 +5,16 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResetStatesGameAction : UpdateStatesGameAction
     {
-        public ResetStatesGameAction(State state) : base(state, state.InitialState) { }
-        public ResetStatesGameAction(IEnumerable<State> states) : base(states.ToDictionary(state => state, state => state.InitialState)) { }
+        public ResetStatesGameAction SetWith(State state)
+        {
+            SetWith(state, state.InitialState);
+            return this;
+        }
+
+        public ResetStatesGameAction SetWith(IEnumerable<State> states)
+        {
+            SetWith(states.ToDictionary(state => state, state => state.InitialState));
+            return this;
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResetStatLogic(InvestigatorsPhaseGameAction action)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(ActivationUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, false).Start();
             StatBuffed = null;
         }
 
@@ -83,8 +83,8 @@ namespace MythosAndHorrors.GameRules
                     async Task SetStat(Stat statSelected)
                     {
                         StatBuffed = statSelected;
-                        await _gameActionsProvider.Create(new UpdateStatesGameAction(ActivationUsed, true));
-                        await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, true).Start();
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
                     }
                 };
             }

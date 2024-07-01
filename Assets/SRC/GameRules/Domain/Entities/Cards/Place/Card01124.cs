@@ -49,11 +49,11 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
             await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 1));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Start();
         }
 
         private async Task ResetPlayedLogic(PlayInvestigatorGameAction action) =>
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, false).Start();
 
 
         private bool ResetPlayedCondition(PlayInvestigatorGameAction action) => true;

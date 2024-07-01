@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Cards.Select(card => card.FaceDown), false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Cards.Select(card => card.FaceDown), false).Start();
         }
     }
 }

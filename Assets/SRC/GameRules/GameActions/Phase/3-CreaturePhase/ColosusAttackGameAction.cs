@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Zenject;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ColosusAttackGameAction : GameAction
     {
-
         public CardColosus Colosus { get; }
 
         /*******************************************************************/
@@ -17,12 +16,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => Colosus.MassiveInvestigatorsConfronted, Attack));
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsConfronted, Attack).Start();
 
-            async Task Attack(Investigator investigator)
-            {
-                await _gameActionsProvider.Create(new CreatureAttackGameAction(Colosus, investigator));
-            }
+            /*******************************************************************/
+            IEnumerable<Investigator> InvestigatorsConfronted() => Colosus.MassiveInvestigatorsConfronted;
+
+            async Task Attack(Investigator investigator) => await _gameActionsProvider.Create(new CreatureAttackGameAction(Colosus, investigator));
         }
     }
 }

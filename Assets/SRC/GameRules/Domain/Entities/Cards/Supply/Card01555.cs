@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(investigator, place));
             }
 
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await interactableGameAction.Start();
         }
 

@@ -23,14 +23,14 @@ namespace MythosAndHorrors.GameRules
 
             if (ChallengePhaseGameAction.IsSucceed && ChallengePhaseGameAction.SuccesEffects.Any())
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllSuccessEffects, ExecuteEffect));
+                await _gameActionsProvider.Create<SafeForeach<Func<Task>>>().SetWith(AllSuccessEffects, ExecuteEffect).Start();
 
                 IEnumerable<Func<Task>> AllSuccessEffects() => ChallengePhaseGameAction.SuccesEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();
             }
             else if (!ChallengePhaseGameAction.IsSucceed && ChallengePhaseGameAction.FailEffects.Any())
             {
-                await _gameActionsProvider.Create(new SafeForeach<Func<Task>>(AllFailEffects, ExecuteEffect));
+                await _gameActionsProvider.Create<SafeForeach<Func<Task>>>().SetWith(AllFailEffects, ExecuteEffect).Start();
 
                 IEnumerable<Func<Task>> AllFailEffects() => ChallengePhaseGameAction.FailEffects;
                 async Task ExecuteEffect(Func<Task> effect) => await effect?.Invoke();

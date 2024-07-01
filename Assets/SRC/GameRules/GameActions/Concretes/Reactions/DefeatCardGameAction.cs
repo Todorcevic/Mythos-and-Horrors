@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
                 if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Shock, 1).Start();
 
                 await _gameActionsProvider.Create(new EliminateInvestigatorGameAction(cardInvestigator.Owner));
-                await _gameActionsProvider.Create(new UpdateStatesGameAction(cardInvestigator.Defeated, true));
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardInvestigator.Defeated, true).Start();
             }
             else await _gameActionsProvider.Create(new DiscardGameAction(Card));
         }

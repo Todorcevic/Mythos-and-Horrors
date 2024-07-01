@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             IEnumerable<State> exhaustedStates = _cardsProvider.GetCardsExhausted().Select(card => card.Exausted);
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(exhaustedStates, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(exhaustedStates, false).Start();
         }
     }
 }

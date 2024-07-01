@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[3]));
             else
             {
-                await _gameActionsProvider.Create(new SafeForeach<Investigator>(InvestigatorsUnresignes, SufferInjury));
+                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsUnresignes, SufferInjury).Start();
                 await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[0]));
             }
             /*******************************************************************/
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         private async Task MoveGhoulLogic(CreaturePhaseGameAction gameAction)
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(GhoulsToMove, MoveCreature));
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(GhoulsToMove, MoveCreature).Start();
 
             /*******************************************************************/
             async Task MoveCreature(CardCreature ghoul) => await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, ghoul.CurrentPlace.DistanceTo(parlor).path));

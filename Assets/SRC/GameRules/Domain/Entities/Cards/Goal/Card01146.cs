@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
             if (!SceneCORE3.Ritual.IsInPlay)
                 await _gameActionsProvider.Create<MoveCardsGameAction>()
                     .SetWith(SceneCORE3.Ritual, _chapterProvider.CurrentScene.GetPlaceZone(1, 4)).Start();
-            await _gameActionsProvider.Create(new SafeForeach<CardCreature>(SceneCORE3.CultistsNotInterrogate, Spawn));
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(SceneCORE3.CultistsNotInterrogate, Spawn).Start();
 
             /*******************************************************************/
             async Task Spawn(CardCreature creature) =>

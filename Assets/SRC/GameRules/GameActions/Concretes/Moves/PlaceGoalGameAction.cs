@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(CardGoal.FaceDown, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(CardGoal.FaceDown, false).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardGoal, _chaptersProviders.CurrentScene.GoalZone).Start();
             await _gameActionsProvider.Create(new ShowHistoryGameAction(CardGoal.InitialHistory, CardGoal));
         }

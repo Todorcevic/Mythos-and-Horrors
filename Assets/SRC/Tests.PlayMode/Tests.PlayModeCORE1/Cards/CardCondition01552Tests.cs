@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01552 conditionCard = _cardsProvider.GetCard<Card01552>();
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(SceneCORE1.GhoulGelid.Exausted, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(SceneCORE1.GhoulGelid.Exausted, true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulGelid, investigator.CurrentPlace)).AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulSecuaz, investigator.CurrentPlace)).AsCoroutine();
 

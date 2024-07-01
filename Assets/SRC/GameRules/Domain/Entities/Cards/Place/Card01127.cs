@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new ShowCardsGameAction(supportsInDeck));
             await interactableGameAction.Start();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Start();
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(InvestigatorsUsed[investigator], true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Start();
         }
 
         private bool TakeSupportCondition(Investigator investigator)

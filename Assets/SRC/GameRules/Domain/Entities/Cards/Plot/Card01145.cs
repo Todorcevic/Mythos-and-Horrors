@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
             }
             else
             {
-                await _gameActionsProvider.Create(new SafeForeach<CardCreature>(CreaturesInRitual, Discard));
+                await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInRitual, Discard).Start();
 
                 /*******************************************************************/
                 async Task Discard(CardCreature creature)

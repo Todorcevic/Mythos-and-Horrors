@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
                         {
                             await _gameActionsProvider.Create(new DrawGameAction(inv, card));
                             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Start();
-                            await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
+                            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
                             await _gameActionsProvider.Create(new HideCardsGameAction(cardsToShow.Except(new[] { card })));
                             await DecrementCost(card, inv);
                         }

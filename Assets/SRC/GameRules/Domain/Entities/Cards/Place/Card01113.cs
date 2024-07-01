@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -20,9 +21,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create(new SafeForeach<Investigator>(() => moveInvestigatorToPlaceGameAction.Investigators
-            .Where(investigator => investigator.CurrentPlace == this), TekeFear));
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TekeFear).Start();
 
+            /*******************************************************************/
+            IEnumerable<Investigator> InvestigaotrsAffected() =>
+                moveInvestigatorToPlaceGameAction.Investigators.Where(investigator => investigator.CurrentPlace == this);
             async Task TekeFear(Investigator investigator) =>
                 await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, amountFear: 1, fromCard: this));
         }

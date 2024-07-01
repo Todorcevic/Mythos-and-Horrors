@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             SetUndoButton();
             if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
-            await _gameActionsProvider.Create(new PlayEffectGameAction(EffectSelected));
+            await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Start();
         }
 
         public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;

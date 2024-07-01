@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(CommitableCard.Commited, true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(CommitableCard.Commited, true).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CommitableCard, _chapterProvider.CurrentScene.LimboZone).Start();
         }
     }

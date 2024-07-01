@@ -24,12 +24,10 @@ namespace MythosAndHorrors.GameRules
         {
             CardPlace currentPlace = Investigator.CurrentPlace;
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, Investigator.Resources.Value));
-
             await _gameActionsProvider.Create<DropHintGameAction>().SetWith(Investigator, currentPlace.Hints, Investigator.Hints.Value).Start();
-
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone).Start();
-            await _gameActionsProvider.Create(new SafeForeach<Card>(DangerCards, Discard));
+            await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(DangerCards, Discard).Start();
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
 
             /*******************************************************************/

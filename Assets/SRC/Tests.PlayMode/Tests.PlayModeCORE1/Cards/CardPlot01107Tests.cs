@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
             CardGoal cardGoal = _cardsProvider.GetCard<Card01110>();
             yield return PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.Second.Resign, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(_investigatorsProvider.Second.Resign, true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();

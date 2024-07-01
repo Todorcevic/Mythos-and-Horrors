@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                     async Task Activate()
                     {
                         await activation.PlayFor(activeInvestigator);
-                        await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, true));
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction gameAction)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(AbilityUsed, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
         }
 
         private bool RestartAbilityCondition(RoundGameAction gameAction)
@@ -84,7 +84,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override int StarValue() => 0;
 
-        private async Task DrawCards() => await _gameActionsProvider.Create(new SafeForeach<Card>(TomesInPlay, DrawAid));
+        private async Task DrawCards() => await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(TomesInPlay, DrawAid).Start();
 
         private async Task DrawAid(Card tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
     }

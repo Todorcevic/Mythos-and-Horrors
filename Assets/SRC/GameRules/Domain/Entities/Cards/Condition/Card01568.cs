@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task RemoveText()
                 {
-                    await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, true));
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Start();
                     CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, GameActionTime.After);
 
                     /*******************************************************************/
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                     }
 
                     async Task RemoveEffecLogic(GameAction gameAction) =>
-                        await _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Blancked, false));
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, false).Start();
                 }
             }
 

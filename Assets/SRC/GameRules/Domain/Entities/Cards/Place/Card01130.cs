@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         private async Task TakeResourceLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 3));
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(InvestigatorsUsed[investigator], true));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Start();
         }
 
         private bool TakeResourceCondition(Investigator investigator)

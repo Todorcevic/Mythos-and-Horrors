@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new SafeForeach<CommitableCard>(AllCommitableCards, Discard));
+            await _gameActionsProvider.Create<SafeForeach<CommitableCard>>().SetWith(AllCommitableCards, Discard).Start();
         }
 
         /*******************************************************************/
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Discard(CommitableCard card)
         {
-            await _gameActionsProvider.Create(new UpdateStatesGameAction(card.Commited, false));
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(card.Commited, false).Start();
             await _gameActionsProvider.Create(new DiscardGameAction(card));
         }
     }
