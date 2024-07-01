@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MoveInvestigatorAndUnconfrontGameAction : MoveInvestigatorToPlaceGameAction
     {
-        public MoveInvestigatorAndUnconfrontGameAction(Investigator investigator, CardPlace cardPlace) : base(investigator, cardPlace) { }
+        public new MoveInvestigatorAndUnconfrontGameAction SetWith(Investigator investigator, CardPlace cardPlace)
+        {
+            base.SetWith(investigator, cardPlace);
+            return this;
+        }
 
-        public MoveInvestigatorAndUnconfrontGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace) : base(investigators, cardPlace) { }
+        public new MoveInvestigatorAndUnconfrontGameAction SetWith(IEnumerable<Investigator> investigators, CardPlace cardPlace)
+        {
+            base.SetWith(investigators, cardPlace);
+            return this;
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

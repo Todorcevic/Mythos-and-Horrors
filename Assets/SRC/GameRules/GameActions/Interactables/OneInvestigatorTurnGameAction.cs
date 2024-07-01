@@ -109,7 +109,7 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task Move() => await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(ActiveInvestigator, cardPlace));
+                async Task Move() => await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(ActiveInvestigator, cardPlace).Start();
             }
         }
 
@@ -151,6 +151,7 @@ namespace MythosAndHorrors.GameRules
                     PlayActionType.Confront,
                     ActiveInvestigator);
 
+                /*******************************************************************/
                 bool CanInvestigatorConfront()
                 {
                     if (ActiveInvestigator.CurrentTurns.Value < cardCreature.InvestigatorConfronTurnsCost.Value) return false;
@@ -159,7 +160,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorConfront() =>
-                    await _gameActionsProvider.Create(new InvestigatorConfrontGameAction(ActiveInvestigator, cardCreature));
+                    await _gameActionsProvider.Create<InvestigatorConfrontGameAction>().SetWith(ActiveInvestigator, cardCreature).Start();
             }
         }
 

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Forests[2], SceneCORE3.OutZone).Start();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE3.GetPlaceZone(2, 2)).Start();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(new[] { investigator, investigator2 }, cardPlace)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(new[] { investigator, investigator2 }, cardPlace).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardPlace, amountDamage: 2, amountFear: 2));
             yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator2, cardPlace, amountDamage: 2, amountFear: 2));
 

@@ -31,7 +31,8 @@ namespace MythosAndHorrors.GameRules
             if (moveInvestigatorGameAction is not MoveInvestigatorAndUnconfrontGameAction)
             {
                 moveInvestigatorGameAction.Cancel();
-                await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace));
+                await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()
+                    .SetWith(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace).Start();
             }
         }
 

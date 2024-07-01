@@ -21,7 +21,6 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             IEnumerable<CardPlace> connectedPlacesToMove = investigator.CurrentPlace.ConnectedPlacesToMove.Where(place => !place.CreaturesInThisPlace.Any());
-
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Place To move");
             interactable.CreateCancelMainButton();
@@ -31,7 +30,8 @@ namespace MythosAndHorrors.GameRules
                 interactable.CreateEffect(place, new Stat(0, false), DeconfrontAndMove, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
-                async Task DeconfrontAndMove() => await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(investigator, place));
+                async Task DeconfrontAndMove() => await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()
+                    .SetWith(investigator, place).Start();
             }
 
             await interactable.Start();

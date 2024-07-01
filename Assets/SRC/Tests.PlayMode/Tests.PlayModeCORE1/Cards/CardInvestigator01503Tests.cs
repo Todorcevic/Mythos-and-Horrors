@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.Third;
             CardPlace place = SceneCORE1.Cellar;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Start().AsCoroutine();
             int resutlExpected = investigatorToTest.Resources.Value + 2;
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));

@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ParleyActivate(Investigator investigator)
         {
             _amountDiscarded = CreateStat(0);
-            await _gameActionsProvider.Create(new ParleyGameAction(PayCreature));
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Start();
 
             /*******************************************************************/
             async Task PayCreature()

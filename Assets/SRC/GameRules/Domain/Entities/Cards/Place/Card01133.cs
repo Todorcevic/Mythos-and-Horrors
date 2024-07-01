@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     CardPlace PlaceToReturn = _cardsProvider.GetCard<Card01125>();
                     await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 2));
-                    await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, PlaceToReturn));
+                    await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, PlaceToReturn).Start();
                 }
             }
         }

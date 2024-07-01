@@ -51,7 +51,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (withResources)
                 await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
             if (withAvatar)
-                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, StartingPlace));
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, StartingPlace).Start();
         }
 
         private async Task PlayAllInvestigatorsAsync(bool withCards = true, bool withResources = true, bool withAvatar = true)
@@ -64,7 +64,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                     await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
             }
             if (withAvatar)
-                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, StartingPlace));
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, StartingPlace).Start();
         }
 
         private async Task WasteTurns(Investigator investigator)

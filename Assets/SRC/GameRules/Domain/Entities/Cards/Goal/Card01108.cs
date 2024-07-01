@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
             await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInStudy, DiscardCreature).Start();
-            await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Hallway));
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Hallway).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(Study, _chaptersProvider.CurrentScene.OutZone).Start();
         }

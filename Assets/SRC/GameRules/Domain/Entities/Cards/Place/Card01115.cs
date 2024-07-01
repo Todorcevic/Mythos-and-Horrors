@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new ResignGameAction(activeInvestigator));
+            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Start();
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ParleyActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new ParleyGameAction(TakeLita));
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Start();
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()

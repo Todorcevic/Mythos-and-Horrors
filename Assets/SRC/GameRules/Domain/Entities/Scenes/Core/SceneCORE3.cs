@@ -134,7 +134,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlaceInvestigators()
         {
-            await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigators, MainPath));
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, MainPath).Start();
         }
 
         /*******************************************************************/

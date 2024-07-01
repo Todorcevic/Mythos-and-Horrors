@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
-            await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Study));
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Study).Start();
         }
 
         /*******************************************************************/

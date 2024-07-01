@@ -74,7 +74,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Cellar)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Cellar).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
 
             yield return ExecuteChallenge();

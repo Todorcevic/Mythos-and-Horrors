@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Attick, _chaptersProvider.CurrentScene.GetPlaceZone(1, 3)).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, Attick)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, Attick).Start().AsCoroutine();
 
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayAllInvestigators();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Attick, _chaptersProvider.CurrentScene.GetPlaceZone(1, 3)).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Attick)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Attick).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.FearRecived.Value, Is.EqualTo(1));
             Assert.That(_investigatorsProvider.Second.FearRecived.Value, Is.EqualTo(1));

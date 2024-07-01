@@ -87,7 +87,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ParleyActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new ParleyGameAction(TakeLita));
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Start();
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()

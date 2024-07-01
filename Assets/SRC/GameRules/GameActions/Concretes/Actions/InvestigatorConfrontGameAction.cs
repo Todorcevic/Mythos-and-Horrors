@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorConfrontGameAction : GameAction
     {
-        public Investigator Investigator { get; }
-        public CardCreature Creature { get; }
+        public Investigator Investigator { get; private set; }
+        public CardCreature Creature { get; private set; }
 
         /*******************************************************************/
-        public InvestigatorConfrontGameAction(Investigator investigator, CardCreature creature)
+        public InvestigatorConfrontGameAction SetWith(Investigator investigator, CardCreature creature)
         {
             Investigator = investigator;
             Creature = creature;
+            return this;
         }
 
         /*******************************************************************/

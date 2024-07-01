@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Forests[2], SceneCORE3.OutZone).Start();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE3.GetPlaceZone(2, 2)).Start();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(cardPlace);

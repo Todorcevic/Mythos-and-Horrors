@@ -1,29 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MoveInvestigatorToPlaceGameAction : GameAction
     {
-        public IEnumerable<Investigator> Investigators { get; }
-        public Dictionary<Investigator, CardPlace> From { get; }
-        public CardPlace CardPlace { get; }
+        public IEnumerable<Investigator> Investigators { get; private set; }
+        public Dictionary<Investigator, CardPlace> From { get; private set; }
+        public CardPlace CardPlace { get; private set; }
 
         /*******************************************************************/
-        public MoveInvestigatorToPlaceGameAction(Investigator investigator, CardPlace cardPlace)
+        public MoveInvestigatorToPlaceGameAction SetWith(Investigator investigator, CardPlace cardPlace)
         {
             From = new Dictionary<Investigator, CardPlace> { { investigator, investigator.CurrentPlace } };
             Investigators = new[] { investigator };
             CardPlace = cardPlace;
+            return this;
         }
 
-        public MoveInvestigatorToPlaceGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace)
+        public MoveInvestigatorToPlaceGameAction SetWith(IEnumerable<Investigator> investigators, CardPlace cardPlace)
         {
             From = investigators.ToDictionary(investigator => investigator, investigator => investigator.CurrentPlace);
             Investigators = investigators;
             CardPlace = cardPlace;
+            return this;
         }
 
         /*******************************************************************/

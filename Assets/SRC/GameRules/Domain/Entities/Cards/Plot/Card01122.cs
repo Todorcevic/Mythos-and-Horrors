@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new ResignGameAction(activeInvestigator));
+            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Start();
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)

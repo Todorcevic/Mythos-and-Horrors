@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResignLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new ResignGameAction(investigator));
+            await _gameActionsProvider.Create<ResignGameAction>().SetWith(investigator).Start();
         }
 
         private bool ResignCondition(Investigator investigator)

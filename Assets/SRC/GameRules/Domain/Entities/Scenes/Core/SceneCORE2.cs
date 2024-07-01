@@ -109,9 +109,11 @@ namespace MythosAndHorrors.GameRules
         private async Task PlaceInvestigators()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
-                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Home));
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>()
+                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Home).Start();
             else
-                await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Fluvial));
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>()
+                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Fluvial).Start();
         }
 
         /*******************************************************************/

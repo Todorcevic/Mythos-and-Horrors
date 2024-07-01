@@ -35,7 +35,8 @@ namespace MythosAndHorrors.GameRules
                     interactableGameAction.CreateEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, playedBy: eludeCreatureGameAction.ActiveInvestigator);
 
                     async Task MoveAndUnconfront() =>
-                        await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(eludeCreatureGameAction.ActiveInvestigator, place));
+                        await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()
+                        .SetWith(eludeCreatureGameAction.ActiveInvestigator, place).Start();
                 }
 
                 await interactableGameAction.Start();

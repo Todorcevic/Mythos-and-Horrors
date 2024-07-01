@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             int DeckSizeExpected = investigator.DeckZone.Cards.Count - 1;
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, home)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, home).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(home, 1);

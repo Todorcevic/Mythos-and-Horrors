@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ResignGameAction : GameAction
     {
-
-        public Investigator Investigator { get; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public ResignGameAction(Investigator investigator)
+        public ResignGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

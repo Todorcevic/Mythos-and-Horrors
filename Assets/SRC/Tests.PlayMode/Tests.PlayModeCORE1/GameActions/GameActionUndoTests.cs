@@ -88,7 +88,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01518 ally = _cardsProvider.GetCard<Card01518>();
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE1.Attic)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, investigator.AidZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
