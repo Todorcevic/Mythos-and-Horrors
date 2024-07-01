@@ -24,7 +24,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
-            interactable.CreateCancelMainButton();
             foreach (CardWeapon firearm in Firearms(investigator))
             {
                 interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);

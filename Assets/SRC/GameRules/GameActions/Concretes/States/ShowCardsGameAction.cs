@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
 
         public IEnumerable<Card> Cards { get; }
         public override bool CanUndo => false;
-        public override bool CanBeExecuted => Cards.Any(card => card.FaceDown.IsActive);
+        //public override bool CanBeExecuted => Cards.Any(card => card.FaceDown.IsActive);
 
         /*******************************************************************/
         public ShowCardsGameAction(Card card) : this(new List<Card> { card }) { }

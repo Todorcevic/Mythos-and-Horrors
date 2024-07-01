@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigator2.InvestigatorCard);
             yield return ClickedIn(card3);
             yield return ClickedIn(card1);
-            //yield return ClickedIn(card2);
+            yield return ClickedIn(card2);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

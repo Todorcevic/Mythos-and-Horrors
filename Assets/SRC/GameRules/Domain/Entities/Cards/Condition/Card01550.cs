@@ -23,7 +23,6 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<CardPlace> connectedPlacesToMove = investigator.CurrentPlace.ConnectedPlacesToMove.Where(place => !place.CreaturesInThisPlace.Any());
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Place To move");
-            interactable.CreateCancelMainButton();
 
             foreach (CardPlace place in connectedPlacesToMove)
             {

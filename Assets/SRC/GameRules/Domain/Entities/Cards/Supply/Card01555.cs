@@ -34,7 +34,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Place");
-            interactableGameAction.CreateCancelMainButton();
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {

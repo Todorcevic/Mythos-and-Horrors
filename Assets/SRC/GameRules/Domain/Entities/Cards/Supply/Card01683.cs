@@ -54,8 +54,6 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select card to Health");
 
-            interactableGameAction.CreateCancelMainButton();
-
             foreach (Card card in CardsToHealth(activeInvestigator.CurrentPlace))
             {
                 interactableGameAction.CreateEffect(card,

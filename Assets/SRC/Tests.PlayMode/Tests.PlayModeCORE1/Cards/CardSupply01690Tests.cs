@@ -16,18 +16,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator SortCardWithFear()
         {
             Investigator investigator = _investigatorsProvider.First;
-            //Investigator investigator2 = _investigatorsProvider.Second;
             yield return BuildCard("01690", investigator);
             Card01690 supply = _cardsProvider.GetCard<Card01690>();
-
             Card card1 = _cardsProvider.GetCard<Card01530>();
             Card card2 = _cardsProvider.GetCard<Card01166>();
             Card card3 = _cardsProvider.GetCard<Card01525>();
-
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            //yield return PlayThisInvestigator(investigator2);
-
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(new[] { card1, card2, card3 }, SceneCORE1.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Start().AsCoroutine();
 
@@ -36,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(SceneCORE1.CardDangerToDraw);
             yield return ClickedIn(card3);
             yield return ClickedIn(card1);
-            //yield return ClickedIn(card2);
+            yield return ClickedIn(card2);
             Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

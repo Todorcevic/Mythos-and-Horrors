@@ -37,7 +37,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
-            interactableGameAction.CreateCancelMainButton();
             interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck, PlayActionType.Choose, investigator);
 
             foreach (Investigator inv in _investigatorsProvider.AllInvestigatorsInPlay)

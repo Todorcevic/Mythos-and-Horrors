@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardSupply01542Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Unit;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator IncrementSkill()
@@ -54,6 +54,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedClone(investigator2.InvestigatorCard, 0, true);
             Assert.That(investigator2.Strength.Value, Is.EqualTo(6));
             yield return ClickedMainButton();
+            yield return ClickedIn(investigator2.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

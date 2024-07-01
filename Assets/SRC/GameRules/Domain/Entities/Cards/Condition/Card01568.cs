@@ -26,12 +26,9 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Creature");
-            interactable.CreateCancelMainButton();
             foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)))
             {
-                interactable.CreateCancelMainButton();
                 interactable.CreateEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator);
-
                 async Task RemoveText()
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Start();

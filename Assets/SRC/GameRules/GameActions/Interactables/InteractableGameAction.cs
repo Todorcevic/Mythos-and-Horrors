@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
         public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
-        private bool NoEffect => MainButtonEffect == null && !_allCardEffects.Any();
+        private bool NoEffect => (MainButtonEffect == null) && !_allCardEffects.Any();
         private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
         public bool IsManadatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
@@ -75,12 +75,6 @@ namespace MythosAndHorrors.GameRules
             return effect;
         }
 
-        private bool withCancelMainButton;
-        public void CreateCancelMainButton()
-        {
-            withCancelMainButton = true;
-        }
-
         public void CreateContinueMainButton()
         {
             MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, description: "Continue");
@@ -90,7 +84,7 @@ namespace MythosAndHorrors.GameRules
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
-            if (withCancelMainButton) MainButtonEffect = UndoEffect;
+            if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
         }
 
         async Task UndoLogic()

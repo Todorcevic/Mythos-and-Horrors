@@ -55,15 +55,6 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        public async Task<InteractableGameAction> CancelInteractable()
-        {
-            if (!CanUndo(realLast: true)) throw new Exception("Can't undo last interactable");
-            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo(realLast: true);
-
-            await UndoUntil(lastInteractableToUndo);
-            return lastInteractableToUndo;
-        }
-
         public async Task<InteractableGameAction> UndoLastInteractable()
         {
             if (!CanUndo()) throw new Exception("Can't undo last interactable");

@@ -50,12 +50,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
-
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.DamageRecived, 1).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(supplyCard.Charge.Amount, 1).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
             yield return ClickedIn(supplyCard);
+            yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

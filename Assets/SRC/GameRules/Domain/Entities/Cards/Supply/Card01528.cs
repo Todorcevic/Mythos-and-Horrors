@@ -44,7 +44,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
-            interactableGameAction.CreateCancelMainButton();
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
                 interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator);

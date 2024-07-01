@@ -30,8 +30,6 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
                     .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
 
-                chooseHints.CreateCancelMainButton();
-
                 foreach (CardPlace place in PlacesWithHints(investigator))
                 {
                     chooseHints.CreateEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator);

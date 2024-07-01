@@ -31,6 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(creature);
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.False);
             Assert.That(creature.Blancked.IsActive, Is.True);
+            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
