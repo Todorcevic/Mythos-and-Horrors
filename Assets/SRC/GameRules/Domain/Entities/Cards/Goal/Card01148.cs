@@ -38,23 +38,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PayHintsWithChallengeActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power,
-                 difficultValue: 3,
-                "Pay Hint To Goal",
-                cardToChallenge: this,
-                succesEffect: SuccessEffect,
-                failEffect: FailEffect));
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                .SetWith(investigator.Power, difficultValue: 3, "Pay Hint To Goal", cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
+                .Start();
 
             /*******************************************************************/
-            async Task SuccessEffect()
-            {
-                await _gameActionsProvider.Create(new PayHintGameAction(investigator, Hints, 1));
-            }
-
-            async Task FailEffect()
-            {
-                await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Start();
-            }
+            async Task SuccessEffect() => await _gameActionsProvider.Create(new PayHintGameAction(investigator, Hints, 1));
+            async Task FailEffect() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Start();
         }
 
         /*******************************************************************/

@@ -53,20 +53,15 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
         }
 
-        private IEnumerable<Card> CardsToBuff()
-        {
-            return IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
-        }
+        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
 
         /*******************************************************************/
         private async Task ChallengeToDiscardLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard));
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard).Start();
 
-            async Task Discard()
-            {
-                await _gameActionsProvider.Create(new DiscardGameAction(this));
-            }
+            /*******************************************************************/
+            async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));
         }
 
         private bool ChallengeToDiscardCondition(Investigator investigator)

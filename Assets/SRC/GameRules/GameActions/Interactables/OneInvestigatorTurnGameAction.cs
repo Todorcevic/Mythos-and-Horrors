@@ -86,8 +86,8 @@ namespace MythosAndHorrors.GameRules
                 return true;
             }
 
-            async Task Investigate() =>
-                await _gameActionsProvider.Create(new InvestigatePlaceGameAction(ActiveInvestigator, ActiveInvestigator.CurrentPlace));
+            async Task Investigate() => await _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                .SetWith(ActiveInvestigator, ActiveInvestigator.CurrentPlace).Start();
         }
 
         /*******************************************************************/
@@ -132,7 +132,9 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task InvestigatorAttack() => await _gameActionsProvider.Create(new AttackCreatureGameAction(ActiveInvestigator, cardCreature, amountDamage: 1));
+                async Task InvestigatorAttack() =>
+                    await _gameActionsProvider.Create<AttackCreatureGameAction>()
+                    .SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Start();
             }
         }
 
@@ -182,7 +184,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorElude() =>
-                    await _gameActionsProvider.Create(new EludeCreatureGameAction(ActiveInvestigator, cardCreature));
+                    await _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature).Start();
             }
         }
 

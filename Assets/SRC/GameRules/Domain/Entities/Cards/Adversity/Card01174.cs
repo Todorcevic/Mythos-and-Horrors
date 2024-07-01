@@ -67,14 +67,12 @@ namespace MythosAndHorrors.GameRules
             await choose.Start();
 
             /*******************************************************************/
-            async Task StrengthChallenge() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Strength, 4, "Open", this, succesEffect: Discard));
-            async Task AgilityChallenge() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Agility, 4, "Open", this, succesEffect: Discard));
+            async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Strength, 4, "Open", this, succesEffect: Discard).Start();
+            async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Open", this, succesEffect: Discard).Start();
 
             /*******************************************************************/
-            async Task Discard()
-            {
-                await _gameActionsProvider.Create(new DiscardGameAction(this));
-            }
+            async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));
+
         }
 
         private bool TryOpenCondition(Investigator investigator)

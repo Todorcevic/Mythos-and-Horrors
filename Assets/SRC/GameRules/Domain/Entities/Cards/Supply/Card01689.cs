@@ -63,11 +63,12 @@ namespace MythosAndHorrors.GameRules
         private async Task InvestigateLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
-            _investigatePlaceGameAction = new(investigator, investigator.CurrentPlace);
+            _investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                .SetWith(investigator, investigator.CurrentPlace);
             _investigatePlaceGameAction.ChangeStat(investigator.Power);
             _investigatePlaceGameAction.UpdateAmountHints(_investigatePlaceGameAction.AmountHints + 1);
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Start();
-            await _gameActionsProvider.Create(_investigatePlaceGameAction);
+            await _investigatePlaceGameAction.Start();
         }
 
         /*******************************************************************/

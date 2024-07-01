@@ -25,10 +25,10 @@ namespace MythosAndHorrors.GameRules
 
                 async Task EludeCreature()
                 {
-                    EludeCreatureGameAction eludeGameAction = new(investigator, creature);
+                    EludeCreatureGameAction eludeGameAction = _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(investigator, creature);
                     eludeGameAction.ChangeStat(investigator.Power);
                     eludeGameAction.SuccesEffects.Add(SuccesEffet);
-                    await _gameActionsProvider.Create(eludeGameAction);
+                    await eludeGameAction.Start();
 
                     List<ChallengeTokenType> dazzle = new() { ChallengeTokenType.Ancient, ChallengeTokenType.Creature, ChallengeTokenType.Cultist, ChallengeTokenType.Danger, ChallengeTokenType.Fail };
                     if (eludeGameAction.ResultChallenge.TokensRevealed.Any(token => dazzle.Contains(token.TokenType)))

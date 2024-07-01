@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -14,14 +13,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            ChallengePhaseGameAction challengeGameAction = null;
-            challengeGameAction = new(investigator.Agility, 3, "Challenge: " + Info.Name, this, failEffect: FailEffect);
-            await _gameActionsProvider.Create(challengeGameAction);
+            ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
+            await challengeGameAction.SetWith(investigator.Agility, 3, "Challenge: " + Info.Name, this, failEffect: FailEffect).Start();
 
-            async Task FailEffect()
-            {
+            /*******************************************************************/
+            async Task FailEffect() =>
                 await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountDamage: challengeGameAction.ResultChallenge.TotalDifferenceValue * -1));
-            }
         }
     }
 }

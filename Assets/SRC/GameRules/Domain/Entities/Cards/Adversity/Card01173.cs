@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Agility, 4, "Wing Darkeness", this, failEffect: HarmAndMove));
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Wing Darkeness", this, failEffect: HarmAndMove).Start();
 
             /*******************************************************************/
             async Task HarmAndMove()

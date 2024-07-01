@@ -1,21 +1,21 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class AttackCreatureGameAction : ChallengePhaseGameAction
     {
-        public CardCreature CardCreature { get; }
+        public CardCreature CardCreature { get; private set; }
         public Stat AmountDamage { get; private set; }
 
         /*******************************************************************/
-        public AttackCreatureGameAction(Investigator investigator, CardCreature creature, int amountDamage)
-            : base(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature)
+        public AttackCreatureGameAction SetWith(Investigator investigator, CardCreature creature, int amountDamage)
         {
+            SetWith(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature);
             CardCreature = creature;
             AmountDamage = new Stat(amountDamage, false);
             SuccesEffects.Add(SuccesEffet);
             FailEffects.Add(FailEffet);
+            return this;
         }
 
         /*******************************************************************/

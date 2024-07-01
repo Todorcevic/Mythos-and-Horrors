@@ -13,9 +13,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            ChallengePhaseGameAction challengeGameAction = null;
-            challengeGameAction = new(investigator.Power, 5, "Ulmodoth Wrat", this, failEffect: MultiFailEffect);
-            await _gameActionsProvider.Create(challengeGameAction);
+            ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
+            await challengeGameAction.SetWith(investigator.Power, 5, "Ulmodoth Wrat" + Info.Name, this, failEffect: MultiFailEffect).Start();
 
             /*******************************************************************/
             async Task MultiFailEffect()

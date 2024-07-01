@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task HealthInvestigator()
                 {
-                    await _gameActionsProvider.Create(new ChallengePhaseGameAction(activeInvestigator.Intelligence, 2, "Health", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator));
+                    await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(activeInvestigator.Intelligence, 2, "Health", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator).Start();
 
                     /*******************************************************************/
                     async Task HealthInvestigator() => await _gameActionsProvider.Create(new HealthGameAction(investigatorToSelect.InvestigatorCard, amountDamageToRecovery: 1));

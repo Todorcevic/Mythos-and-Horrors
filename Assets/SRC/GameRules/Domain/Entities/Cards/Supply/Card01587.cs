@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Start();
-            await _gameActionsProvider.Create(new InvestigatePlaceGameAction(investigator, investigator.CurrentPlace));
+            await _gameActionsProvider.Create<InvestigatePlaceGameAction>().SetWith(investigator, investigator.CurrentPlace).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Start();
 
         }

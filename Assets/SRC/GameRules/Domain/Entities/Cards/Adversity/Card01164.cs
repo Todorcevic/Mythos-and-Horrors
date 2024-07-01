@@ -92,7 +92,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DiscardLogic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
-            await _gameActionsProvider.Create(new ChallengePhaseGameAction(playInvestigatorGameAction.ActiveInvestigator.Power, 3, $"Challenge: {Info.Name}", this, succesEffect: Discard));
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(playInvestigatorGameAction.ActiveInvestigator.Power, 3, $"Challenge: {Info.Name}", this, succesEffect: Discard).Start();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Start();
 
             /*******************************************************************/

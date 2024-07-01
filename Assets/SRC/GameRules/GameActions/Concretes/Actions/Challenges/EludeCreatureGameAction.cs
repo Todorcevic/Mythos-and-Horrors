@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class EludeCreatureGameAction : ChallengePhaseGameAction
     {
-        public CardCreature CardCreature { get; }
+        public CardCreature CardCreature { get; private set; }
 
         /*******************************************************************/
-        public EludeCreatureGameAction(Investigator investigator, CardCreature creature)
-            : base(investigator.Agility, creature.Agility.Value, "Elude " + creature.Info.Name, cardToChallenge: creature)
+        public EludeCreatureGameAction SetWith(Investigator investigator, CardCreature creature)
         {
+            SetWith(investigator.Agility, creature.Agility.Value, "Elude " + creature.Info.Name, cardToChallenge: creature);
             CardCreature = creature;
             SuccesEffects.Add(SuccesEffet);
+            return this;
         }
 
         /*******************************************************************/

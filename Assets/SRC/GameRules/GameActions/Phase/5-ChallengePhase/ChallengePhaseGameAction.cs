@@ -16,12 +16,12 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public Stat Stat { get; private set; }
-        public int InitialDifficultValue { get; init; }
+        public int InitialDifficultValue { get; private set; }
         public Stat StatModifier { get; private set; }
-        public string ChallengeName { get; init; }
+        public string ChallengeName { get; private set; }
         public List<Func<Task>> SuccesEffects { get; init; } = new();
         public List<Func<Task>> FailEffects { get; init; } = new();
-        public Card CardToChallenge { get; init; }
+        public Card CardToChallenge { get; private set; }
         public bool IsAutoSucceed { get; set; }
         public bool IsAutoFail { get; set; }
         public ResultChallengeGameAction ResultChallenge { get; private set; }
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
+        public ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
         {
             Stat = stat;
             StatModifier = new Stat(0, true);
@@ -52,6 +52,7 @@ namespace MythosAndHorrors.GameRules
             ChallengeName = name;
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
+            return this;
         }
 
         /*******************************************************************/

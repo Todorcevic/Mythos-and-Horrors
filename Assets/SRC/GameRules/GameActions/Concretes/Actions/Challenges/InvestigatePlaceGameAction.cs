@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class InvestigatePlaceGameAction : ChallengePhaseGameAction
     {
         public int AmountHints { get; private set; }
-        public CardPlace CardPlace { get; }
+        public CardPlace CardPlace { get; private set; }
 
         /*******************************************************************/
-        public InvestigatePlaceGameAction(Investigator investigator, CardPlace cardPlace)
-            : base(investigator.Intelligence, cardPlace.Enigma.Value, "Investigate " + cardPlace.Info.Name, cardToChallenge: cardPlace)
+        public InvestigatePlaceGameAction SetWith(Investigator investigator, CardPlace cardPlace)
         {
+            SetWith(investigator.Intelligence, cardPlace.Enigma.Value, "Investigate " + cardPlace.Info.Name, cardToChallenge: cardPlace);
             AmountHints = 1;
             CardPlace = cardPlace;
             SuccesEffects.Add(SuccesEffet);
+            return this;
         }
 
         /*******************************************************************/

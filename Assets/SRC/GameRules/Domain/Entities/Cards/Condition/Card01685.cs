@@ -18,11 +18,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             int amoutHintsLeft = 2;
-            InvestigatePlaceGameAction investigate = new(investigator, investigator.CurrentPlace);
+            InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                .SetWith(investigator, investigator.CurrentPlace);
             investigate.SuccesEffects.Clear();
             investigate.SuccesEffects.Add(ChooseHints);
-
-            await _gameActionsProvider.Create(investigate);
+            await investigate.Start();
 
             /*******************************************************************/
             async Task ChooseHints()

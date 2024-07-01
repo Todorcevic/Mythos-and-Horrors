@@ -31,7 +31,9 @@ namespace MythosAndHorrors.GameRules
 
             async Task ChallengeLogic(Investigator investigator)
             {
-                await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Intelligence, 3, "Enter Forest", this, failEffect: CantMove));
+                await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                    .SetWith(investigator.Intelligence, 3, "Enter Forest", this, failEffect: CantMove)
+                    .Start();
 
                 async Task CantMove()
                 {

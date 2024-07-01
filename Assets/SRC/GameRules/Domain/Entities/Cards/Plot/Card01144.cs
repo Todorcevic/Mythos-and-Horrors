@@ -34,11 +34,12 @@ namespace MythosAndHorrors.GameRules
 
             async Task ChallengePower(Investigator investigator)
             {
-                await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Power, 6, $"{investigator.InvestigatorCard.Info.Name} Power Challenge", failEffect: AddMadness, cardToChallenge: this));
+                await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                    .SetWith(investigator.Power, 6, $"{investigator.InvestigatorCard.Info.Name} Power Challenge", failEffect: AddMadness, cardToChallenge: this)
+                    .Start();
 
                 /*******************************************************************/
                 async Task AddMadness() => await _gameActionsProvider.Create(new DrawGameAction(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)));
-
             }
         }
 

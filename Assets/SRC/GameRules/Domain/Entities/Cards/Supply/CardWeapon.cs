@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,9 +43,10 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task AttackCreature()
                 {
-                    AttackCreatureGameAction attackCreatureGameAction = new(ControlOwner, creature, amountDamage: 1);
+                    AttackCreatureGameAction attackCreatureGameAction = _gameActionsProvider.Create<AttackCreatureGameAction>()
+                        .SetWith(investigator, creature, amountDamage: 1);
                     await ExtraAttackEnemyLogic(attackCreatureGameAction);
-                    await _gameActionsProvider.Create(attackCreatureGameAction);
+                    await attackCreatureGameAction.Start();
                 }
             }
 
