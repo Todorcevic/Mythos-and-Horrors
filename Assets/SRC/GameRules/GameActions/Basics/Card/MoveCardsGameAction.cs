@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         private Dictionary<Card, (Zone zone, bool faceDown)> _cardsWithUndoState;
         [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
 
-        public Dictionary<Card, (Zone zone, bool faceDown)> AllMoves { get; }
+        public Dictionary<Card, (Zone zone, bool faceDown)> AllMoves { get; private set; }
         public IEnumerable<Card> Cards => AllMoves.Keys.ToList();
         public Card SingleCard => Cards.Unique();
         public bool IsSingleMove => Cards.Count() == 1;
@@ -18,21 +18,19 @@ namespace MythosAndHorrors.GameRules
         public override bool CanUndo => !Cards.Any(card => _cardsWithUndoState[card].faceDown && !AllMoves[card].faceDown);
 
         /*******************************************************************/
-        public MoveCardsGameAction(Card card, Zone zone, bool isFaceDown = false) :
-            this(new Dictionary<Card, (Zone zone, bool faceDown)> { { card, (zone, isFaceDown) } })
-        { }
+        public MoveCardsGameAction SetWith(Card card, Zone zone, bool isFaceDown = false) =>
+            SetWith(new Dictionary<Card, (Zone zone, bool faceDown)> { { card, (zone, isFaceDown) } });
 
-        public MoveCardsGameAction(IEnumerable<Card> cards, Zone zone, bool isFaceDown = false) :
-            this(cards.ToDictionary(card => card, card => (zone, isFaceDown)))
-        { }
+        public MoveCardsGameAction SetWith(IEnumerable<Card> cards, Zone zone, bool isFaceDown = false) =>
+            SetWith(cards.ToDictionary(card => card, card => (zone, isFaceDown)));
 
-        public MoveCardsGameAction(Dictionary<Card, Zone> allMoves) :
-            this(allMoves.ToDictionary(kv => kv.Key, kv => (kv.Value, false)))
-        { }
+        public MoveCardsGameAction SetWith(Dictionary<Card, Zone> allMoves) =>
+            SetWith(allMoves.ToDictionary(kv => kv.Key, kv => (kv.Value, false)));
 
-        public MoveCardsGameAction(Dictionary<Card, (Zone zone, bool faceDown)> allMoves)
+        public MoveCardsGameAction SetWith(Dictionary<Card, (Zone zone, bool faceDown)> allMoves)
         {
             AllMoves = allMoves;
+            return this;
         }
 
         /*******************************************************************/

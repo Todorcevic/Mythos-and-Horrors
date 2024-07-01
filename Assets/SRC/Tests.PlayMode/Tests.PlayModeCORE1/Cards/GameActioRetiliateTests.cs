@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_3);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulPriest, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulPriest, investigator.DangerZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(SceneCORE1.GhoulPriest, 0);

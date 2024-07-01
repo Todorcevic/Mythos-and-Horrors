@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 4)).AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE2.East.Hints, 4)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.MaskedHunter, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.MaskedHunter, investigator.DangerZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return AssertThatIsNotClickable(SceneCORE2.CurrentGoal);

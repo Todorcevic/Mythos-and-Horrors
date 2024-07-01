@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(darkMemory, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(darkMemory, investigator.HandZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(darkMemory);
@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(darkMemory, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(darkMemory, investigator.HandZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedMainButton();

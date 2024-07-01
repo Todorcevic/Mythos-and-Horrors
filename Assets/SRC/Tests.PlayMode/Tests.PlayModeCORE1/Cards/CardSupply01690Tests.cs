@@ -28,8 +28,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             //yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(new[] { card1, card2, card3 }, SceneCORE1.DangerDeckZone, isFaceDown: true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(new[] { card1, card2, card3 }, SceneCORE1.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(supply);

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Necronomicon, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DeckZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DrawAidGameAction(investigator)).AsCoroutine();
 
             Assert.That(Necronomicon.CurrentZone, Is.EqualTo(investigator.DangerZone));
@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<ResultChallengeGameAction> challengePhase = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Necronomicon, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(investigator.CurrentPlace);
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01509 Necronomicon = _cardsProvider.GetCard<Card01509>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Necronomicon, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(Necronomicon);

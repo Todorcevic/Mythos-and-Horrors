@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Update_Investigator_Stats()
         {
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.Health, 3)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(_investigatorsProvider.First.CurrentTurns, 2)).AsCoroutine();
 
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Move_Resource_From_Card()
         {
             CardSupply cardSupply = _investigatorsProvider.First.FullDeck.OfType<CardSupply>().First();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
             do
             {
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Update_Eldritch_Stats()
         {
             CardPlot cardPlot = _chaptersProvider.CurrentScene.PlotCards.First();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
             do
             {
@@ -72,9 +72,9 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             CardGoal cardGoal = _chaptersProvider.CurrentScene.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<Card01112>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2))).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(place.Hints, 3)).AsCoroutine();

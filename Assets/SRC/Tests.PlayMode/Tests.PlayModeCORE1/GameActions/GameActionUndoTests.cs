@@ -15,9 +15,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator UndoMoveMulticardsTest()
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone)).AsCoroutine();
-            MoveCardsGameAction moveCardsGameAction = new(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
-            yield return _gameActionsProvider.Create(moveCardsGameAction).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone).Start().AsCoroutine();
+            MoveCardsGameAction moveCardsGameAction = _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
+            yield return moveCardsGameAction.Start().AsCoroutine();
 
             yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
@@ -29,9 +29,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTomove, _investigatorsProvider.First.AidZone)).AsCoroutine();
-            MoveCardsGameAction moveCardGameAction = new(cardTomove, _investigatorsProvider.First.DiscardZone);
-            yield return _gameActionsProvider.Create(moveCardGameAction).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
+            MoveCardsGameAction moveCardGameAction = _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.DiscardZone);
+            yield return moveCardGameAction.Start().AsCoroutine();
 
             yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
@@ -89,7 +89,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE1.Attic)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ally, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, investigator.AidZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
             yield return ClickedIn(investigator.AvatarCard);

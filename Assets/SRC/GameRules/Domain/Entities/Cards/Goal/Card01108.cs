@@ -31,10 +31,11 @@ namespace MythosAndHorrors.GameRules
                 { Parlor, _chaptersProvider.CurrentScene.GetPlaceZone(1, 4) }
             };
 
-            await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
             await _gameActionsProvider.Create(new SafeForeach<CardCreature>(CreaturesInStudy, DiscardCreature));
             await _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.AllInvestigatorsInPlay, Hallway));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, _chaptersProvider.CurrentScene.OutZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(Study, _chaptersProvider.CurrentScene.OutZone).Start();
         }
 
         private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create(new DiscardGameAction(creature));

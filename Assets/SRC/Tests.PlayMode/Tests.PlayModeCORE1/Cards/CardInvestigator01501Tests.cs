@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlayThisInvestigator(investigatorToTest, withAvatar: false);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3))).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.First;
             CardCreature cardCreature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCreature, investigatorToTest.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCreature, investigatorToTest.DangerZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, investigatorToTest.InvestigatorCard, amountDamage: 5));
             yield return ClickedIn(investigatorToTest.InvestigatorCard);

@@ -92,12 +92,12 @@ namespace MythosAndHorrors.GameRules
                 { ForestsToPlace[3], GetPlaceZone(2, 4) },
             };
 
-            await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
         }
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
 

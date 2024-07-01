@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private async Task PlayInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, withCards)));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, withCards)).Start();
             if (withResources)
                 await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
             if (withAvatar)
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
                 if (withCards)
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(GetCardZonesInvestigator(investigator, true)));
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, true)).Start();
                 if (withResources)
                     await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
             }

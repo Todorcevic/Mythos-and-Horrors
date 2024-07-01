@@ -17,8 +17,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
             CardGoal cardGoal = _cardsProvider.GetCard<Card01109>();
             yield return PlayAllInvestigators();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
@@ -35,8 +35,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardGoal cardGoal = _cardsProvider.GetCard<Card01110>();
             yield return PlayAllInvestigators();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(_investigatorsProvider.Second.Resign, true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, _chaptersProvider.CurrentScene.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
@@ -56,9 +56,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place4.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place3.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, place4.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place3.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new CreaturePhaseGameAction()).AsCoroutine();
 
             Assert.That(ghoul.CurrentPlace, Is.EqualTo(place2));
@@ -76,10 +76,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardToDraw, investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, place.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardToDraw, investigator.DeckZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedMainButton();

@@ -20,8 +20,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card card = investigator.CardAidToDraw;
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(hiperborea, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(spell, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(hiperborea, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(spell, investigator.HandZone).Start().AsCoroutine();
 
             Assert.That(card.CurrentZone, Is.EqualTo(investigator.DeckZone));
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

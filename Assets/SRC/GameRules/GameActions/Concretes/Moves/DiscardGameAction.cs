@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Zone zoneToMove = GetDiscardZone();
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Card, zoneToMove));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Card, zoneToMove).Start();
             await _gameActionsProvider.Create(new ResetCardGameAction(Card));
         }
 

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01689 assetCard = _cardsProvider.GetCard<Card01689>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(assetCard, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(assetCard, investigator.AidZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(assetCard);
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             Card01689 assetCard = _cardsProvider.GetCard<Card01689>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(assetCard, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(assetCard, investigator.AidZone).Start().AsCoroutine();
 
             Task<RoundGameAction> taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedIn(investigator.AvatarCard);

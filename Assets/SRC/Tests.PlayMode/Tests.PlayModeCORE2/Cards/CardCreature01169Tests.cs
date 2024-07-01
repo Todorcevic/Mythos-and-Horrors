@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             yield return StartingScene();
             CardCreature acolit = SceneCORE2.Acolits.First();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, SceneCORE2.Home)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, SceneCORE2.Fluvial)).AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Third, SceneCORE2.Hospital)).AsCoroutine();
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Assert.That(acolit.CurrentZone.ZoneType, Is.Not.EqualTo(ZoneType.Danger));
             Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace).distance, Is.EqualTo(2));
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.Second, SceneCORE2.North)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorsProvider.First)).AsCoroutine();

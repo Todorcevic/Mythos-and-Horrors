@@ -81,22 +81,22 @@ namespace MythosAndHorrors.GameRules
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
                 allPlaces.Add(Home, GetPlaceZone(0, 4));
 
-            await _gameActionsProvider.Create(new MoveCardsGameAction(allPlaces));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
         }
 
         private async Task PlaceAcolits()
         {
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 1)
-                await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(0), South.OwnZone));
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(0), South.OwnZone).Start();
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 2)
-                await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(1), Center.OwnZone));
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(1), Center.OwnZone).Start();
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 3)
-                await _gameActionsProvider.Create(new MoveCardsGameAction(Acolits.ElementAt(2), Graveyard.OwnZone));
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(2), Graveyard.OwnZone).Start();
         }
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
         }
 

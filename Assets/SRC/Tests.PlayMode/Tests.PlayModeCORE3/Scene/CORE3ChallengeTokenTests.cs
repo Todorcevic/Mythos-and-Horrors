@@ -60,7 +60,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator NormalCreatureTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Creature);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -86,7 +86,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
 
             yield return ExecuteChallenge();
@@ -100,7 +100,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator HardCultistTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(monster.Eldritch, 3)).AsCoroutine();
 
             yield return ExecuteChallenge();
@@ -124,7 +124,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, investigator.CurrentPlace.OwnZone).Start().AsCoroutine();
 
             yield return ExecuteChallengeWithOpportunityAttack();
 
@@ -136,7 +136,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator HardDangerTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(monster, investigator.CurrentPlace.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(monster, investigator.CurrentPlace.OwnZone).Start().AsCoroutine();
 
             yield return ExecuteChallengeWithOpportunityAttack();
 
@@ -163,7 +163,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             SetScene(Dificulty.Normal, ChallengeTokenType.Ancient);
             revealToken.ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ancient, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -180,7 +180,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             SetScene(Dificulty.Hard, ChallengeTokenType.Ancient);
             revealToken.ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ancient, SceneCORE3.Forest2.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ancient, SceneCORE3.Forest2.OwnZone).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 

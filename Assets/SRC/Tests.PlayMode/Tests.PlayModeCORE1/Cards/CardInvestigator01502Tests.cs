@@ -22,9 +22,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(necro, SceneCORE1.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard2, investigatorToTest.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(necro, SceneCORE1.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard2, investigatorToTest.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigatorToTest, place)).AsCoroutine();
             int resultExpected = investigatorToTest.DeckZone.Cards.Count - 2;
 
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.Second;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card tomeCard = _cardsProvider.GetCard<Card01535>();
             Investigator investigatorToTest = _investigatorsProvider.Second;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tomeCard, investigatorToTest.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
             yield return ClickedIn(investigatorToTest.InvestigatorCard);

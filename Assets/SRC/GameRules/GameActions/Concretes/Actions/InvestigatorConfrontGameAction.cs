@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, Investigator.DangerZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Creature, Investigator.DangerZone).Start();
         }
     }
 }

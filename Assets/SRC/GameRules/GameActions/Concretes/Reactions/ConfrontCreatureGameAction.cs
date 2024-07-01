@@ -26,7 +26,8 @@ namespace MythosAndHorrors.GameRules
             if (Creature is ITarget target && _investigatorProvider.GetInvestigatorsInThisPlace(Creature.CurrentPlace)
                 .Contains(target.TargetInvestigator)) investigator = target.TargetInvestigator;
 
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Creature, investigator.DangerZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(Creature, investigator.DangerZone).Start();
         }
     }
 }

@@ -4,14 +4,15 @@ namespace MythosAndHorrors.GameRules
 {
     public class AddRequerimentCardGameAction : GameAction
     {
-        public Investigator Investigator { get; }
-        public Card Card { get; }
+        public Investigator Investigator { get; private set; }
+        public Card Card { get; private set; }
 
         /*******************************************************************/
-        public AddRequerimentCardGameAction(Investigator investigator, Card card)
+        public AddRequerimentCardGameAction SetWith(Investigator investigator, Card card)
         {
             Investigator = investigator;
             Card = card;
+            return this;
         }
 
         /*******************************************************************/

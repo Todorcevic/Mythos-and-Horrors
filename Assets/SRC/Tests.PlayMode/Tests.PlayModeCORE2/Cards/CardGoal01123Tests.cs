@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01123 goal = _cardsProvider.GetCard<Card01123>();
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.AllCultists, SceneCORE2.VictoryZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.AllCultists, SceneCORE2.VictoryZone).Start().AsCoroutine();
 
             Assert.That(goal.IsComplete, Is.True);
         }

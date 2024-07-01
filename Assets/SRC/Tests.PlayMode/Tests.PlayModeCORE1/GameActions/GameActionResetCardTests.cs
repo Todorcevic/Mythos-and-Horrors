@@ -17,10 +17,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(creature.Exausted, true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToCardGameAction(creature, investigator.InvestigatorCard, amountDamage: 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, SceneCORE1.DangerDeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DrawDangerGameAction(investigator)).AsCoroutine();
 
             Assert.That(creature.Exausted.IsActive, Is.False);

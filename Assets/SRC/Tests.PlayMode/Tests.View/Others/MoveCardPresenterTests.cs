@@ -22,8 +22,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
             Card card = investigator1.FullDeck[1];
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator2.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator2.DangerZone).Start().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_cardViewsManager.GetCardView(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.PlaceCards.First();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, investigator1.InvestigatorZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, investigator1.InvestigatorZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, cardPlace)).AsCoroutine();
 

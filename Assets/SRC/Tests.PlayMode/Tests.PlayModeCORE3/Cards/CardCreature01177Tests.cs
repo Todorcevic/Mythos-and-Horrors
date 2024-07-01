@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01177 creature = _cardsProvider.GetCard<Card01177>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new CreatureAttackGameAction(creature, investigator));
             yield return ClickedIn(investigator.DiscardableCardsInHand.First());
@@ -37,8 +37,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01177 creature = _cardsProvider.GetCard<Card01177>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigator.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.HandZone.Cards, investigator.DiscardZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.HandZone.Cards, investigator.DiscardZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CreatureAttackGameAction(creature, investigator)).AsCoroutine();
 

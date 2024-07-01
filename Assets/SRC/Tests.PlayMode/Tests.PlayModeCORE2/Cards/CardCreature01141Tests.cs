@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return StartingScene();
             CardCreature cultist = SceneCORE2.Ruth;
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cultist, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cultist, 1);

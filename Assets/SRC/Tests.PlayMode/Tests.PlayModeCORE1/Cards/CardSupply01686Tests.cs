@@ -26,9 +26,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset2, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardAsset, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardAsset2, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardSupply);
@@ -59,9 +59,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset2, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardAsset2, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardSupply);
@@ -90,9 +90,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardSupply, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardCondition, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardAsset2, investigator2.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardAsset2, investigator2.DeckZone, isFaceDown: true).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardSupply);

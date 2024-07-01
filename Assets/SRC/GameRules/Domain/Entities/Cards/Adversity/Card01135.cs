@@ -30,15 +30,9 @@ namespace MythosAndHorrors.GameRules
 
             await interactableGameAction.Start();
 
-            async Task SpendClue()
-            {
-                await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, ExtraStat, 1).Start();
-            }
-
-            async Task TakeDamage()
-            {
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountDamage: 2));
-            }
+            /*******************************************************************/
+            async Task SpendClue() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, ExtraStat, 1).Start();
+            async Task TakeDamage() => await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountDamage: 2));
         }
     }
 }

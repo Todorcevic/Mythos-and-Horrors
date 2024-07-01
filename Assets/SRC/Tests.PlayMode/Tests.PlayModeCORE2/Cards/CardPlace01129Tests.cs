@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(tome, investigator.DeckZone, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tome, investigator.DeckZone, true).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cardPlace, 1);
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell)), SceneCORE2.OutZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell)), SceneCORE2.OutZone).Start().AsCoroutine();
 
             int hadSizeExpeceted = investigator.HandSize;
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

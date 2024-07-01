@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = cardInvestigator.Owner;
             CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, investigatorToTest.CurrentPlace.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigatorToTest.CurrentPlace.OwnZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigatorToTest, creature, amountFear: 3, isDirect: true));
             yield return ClickedIn(cardInvestigator);

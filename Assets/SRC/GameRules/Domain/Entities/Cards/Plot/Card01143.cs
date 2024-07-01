@@ -14,8 +14,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards,
-                           _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true)
+                .Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(_chaptersProvider.CurrentScene.DangerDeckZone));
 
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Monster) ||

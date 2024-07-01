@@ -88,8 +88,9 @@ namespace MythosAndHorrors.GameRules
         private async Task MoveToDeckConditionLogic(DiscardGameAction discardGameAction)
         {
             discardGameAction.Cancel();
-            await _gameActionsProvider.Create(new MoveCardsGameAction(discardGameAction.Card, ControlOwner.DeckZone, isFaceDown: true));
-            await _gameActionsProvider.Create(new ChangeCardPositionGameAction(discardGameAction.Card, 0));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(discardGameAction.Card, ControlOwner.DeckZone, isFaceDown: true).Start();
+            await _gameActionsProvider.Create<ChangeCardPositionGameAction>().SetWith(discardGameAction.Card, 0).Start();
         }
 
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)

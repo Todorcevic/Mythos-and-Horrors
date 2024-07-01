@@ -16,9 +16,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();
             CardCreature creature = _cardsProvider.GetCard<Card01116>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, place2.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place3.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, place2.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.AvatarCard, place3.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.Second.AvatarCard, place4.OwnZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 
@@ -32,9 +32,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, SceneCORE1.Hallway.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, SceneCORE1.Attic.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, SceneCORE1.Cellar.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Hallway.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.AvatarCard, SceneCORE1.Attic.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.Second.AvatarCard, SceneCORE1.Cellar.OwnZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 
@@ -50,10 +50,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();
             CardPlace place5 = _cardsProvider.GetCard<Card01115>();
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, place2.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.First.AvatarCard, place3.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Second.AvatarCard, place4.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(_investigatorsProvider.Third.AvatarCard, place5.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, place2.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.AvatarCard, place3.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.Second.AvatarCard, place4.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.Third.AvatarCard, place5.OwnZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveCreatureGameAction((IStalker)creature, _investigatorsProvider.AllInvestigatorsInPlay)).AsCoroutine();
 

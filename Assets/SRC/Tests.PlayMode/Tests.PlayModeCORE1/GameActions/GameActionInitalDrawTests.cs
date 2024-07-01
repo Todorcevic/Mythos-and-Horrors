@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card weaknessCard = _cardsProvider.GetCard<Card01507>();
             Card normalCard = _cardsProvider.GetCard<Card01517>();
             yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(new[] { normalCard, weaknessCard }, investigator.DeckZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(new[] { normalCard, weaknessCard }, investigator.DeckZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
 

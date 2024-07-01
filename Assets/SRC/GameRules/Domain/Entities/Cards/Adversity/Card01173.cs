@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
                 Dictionary<Card, Zone> moveAndDisconfront = investigator.BasicCreaturesConfronted.Where(creature => !creature.HasThisTag(Tag.Nightgaunt))
                     .ToDictionary(creature => (Card)creature, creature => creature.CurrentPlace.OwnZone);
                 moveAndDisconfront.Add(investigator.AvatarCard, SceneCORE2.Center.OwnZone);
-                await _gameActionsProvider.Create(new MoveCardsGameAction(moveAndDisconfront));
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(moveAndDisconfront).Start();
             }
         }
     }

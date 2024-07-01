@@ -24,9 +24,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01523 conditionCard = _cardsProvider.GetCard<Card01523>();
             Card01523 conditionCard2 = _cardsProvider.GetCards<Card01523>().First(card => card != conditionCard);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard2, investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.GhoulSecuaz, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard2, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Start().AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new CreatureAttackGameAction(SceneCORE1.GhoulSecuaz, investigator2));
             yield return ClickedIn(conditionCard);
             yield return gameActionTask.AsCoroutine();

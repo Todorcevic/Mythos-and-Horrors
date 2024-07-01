@@ -14,9 +14,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card01106 cardPlot = _cardsProvider.GetCard<Card01106>();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.DangerCards, SceneCORE1.DangerDeckZone, isFaceDown: true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE1.DangerCards.Take(10), SceneCORE1.DangerDiscardZone, isFaceDown: false)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, SceneCORE1.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.DangerCards, SceneCORE1.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.DangerCards.Take(10), SceneCORE1.DangerDiscardZone, isFaceDown: false).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE1.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();

@@ -24,10 +24,10 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Card card2 = investigator1.FullDeck[2];
 
             interactableGameAction.CreateContinueMainButton();
-            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.DangerZone)), PlayActionType.Choose, investigator1);
-            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create(new MoveCardsGameAction(card, investigator1.HandZone)), PlayActionType.Choose, investigator1);
-            interactableGameAction.CreateEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)), PlayActionType.Choose, investigator1);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
+            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Start(), PlayActionType.Choose, investigator1);
+            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.HandZone).Start(), PlayActionType.Choose, investigator1);
+            interactableGameAction.CreateEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card2, investigator1.DangerZone).Start(), PlayActionType.Choose, investigator1);
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone).Start().AsCoroutine();
 
             Task gameActionTask = interactableGameAction.Start();
 

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene(withResources: true);
 
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
                 { _investigatorsProvider.First.DamageRecived, 4},
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, _investigatorsProvider.First.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new IncrementStatGameAction(investigator.DamageRecived, 1)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(supplyCard.Charge.Amount, 1)).AsCoroutine();

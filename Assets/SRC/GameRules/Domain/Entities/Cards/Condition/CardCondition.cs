@@ -29,7 +29,8 @@ namespace MythosAndHorrors.GameRules
         private async Task PlayFromHand(GameAction gameAction)
         {
             Investigator currentInvestigator = ControlOwner; // Bcz when card go to Limbo ControlOwner==null
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.LimboZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(this, _chaptersProvider.CurrentScene.LimboZone).Start();
             await ExecuteConditionEffect(gameAction, currentInvestigator);
             await _gameActionsProvider.Create(new DiscardGameAction(this));
         }

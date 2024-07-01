@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create(new SpawnCreatureGameAction(cardCreature, Investigator));
                     break;
                 default:
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(CardDrawed, Investigator.HandZone));
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Start();
                     break;
             }
         }

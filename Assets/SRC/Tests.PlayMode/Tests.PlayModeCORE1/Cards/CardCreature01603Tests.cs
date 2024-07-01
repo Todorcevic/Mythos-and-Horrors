@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator2 = _investigatorsProvider.Third;
             yield return StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator2));
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
             Assert.That(investigator2.InvestigatorCard.CanBePlayed, Is.False);
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
             Investigator investigator = _investigatorsProvider.Third;
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(creature, SceneCORE1.Study.OwnZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(SceneCORE1.Study);
             yield return ClickedMainButton();

@@ -8,14 +8,15 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<ChangeCardPositionGameAction> _chagePositionPresenter;
         private int lastPosition;
 
-        public Card Card { get; }
-        public int NewPosition { get; }
+        public Card Card { get; private set; }
+        public int NewPosition { get; private set; }
 
         /*******************************************************************/
-        public ChangeCardPositionGameAction(Card card, int newPosition)
+        public ChangeCardPositionGameAction SetWith(Card card, int newPosition)
         {
             Card = card;
             NewPosition = newPosition;
+            return this;
         }
 
         /*******************************************************************/

@@ -60,7 +60,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
             await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[1]));
         }
     }

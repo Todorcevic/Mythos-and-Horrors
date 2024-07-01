@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             Card01550 conditionCard = _cardsProvider.GetCard<Card01550>();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(conditionCard, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulSecuaz, investigator.CurrentPlace)).AsCoroutine();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE1.GhoulVoraz, SceneCORE1.Attic)).AsCoroutine();

@@ -21,8 +21,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01521 damageableCard = _cardsProvider.GetCard<Card01521>(); ;
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(damageableCard, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(bulletProof, investigator.AidZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, SceneCORE1.GhoulSecuaz, amountDamage: 2, amountFear: 1));
             yield return ClickedIn(bulletProof);
@@ -42,8 +42,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card bulletProof = _cardsProvider.GetCard<Card01594>();
             Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(damageableCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(bulletProof, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(damageableCard, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(bulletProof, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, SceneCORE1.Hallway)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

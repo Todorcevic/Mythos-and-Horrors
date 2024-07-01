@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return StartingScene();
             CardCreature cultist = SceneCORE2.Peter;
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 3)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cultist, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cultist, 2);

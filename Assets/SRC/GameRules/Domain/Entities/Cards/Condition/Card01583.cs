@@ -25,7 +25,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             if (gameAction is not EludeGameAction eludeGameAction) return;
-            await _gameActionsProvider.Create(new MoveCardsGameAction(eludeGameAction.Creature, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(eludeGameAction.Creature, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create(new ResetCardGameAction(eludeGameAction.Creature));
             await _gameActionsProvider.Create(new ShuffleGameAction(_chaptersProvider.CurrentScene.DangerDeckZone));
         }

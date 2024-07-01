@@ -78,7 +78,8 @@ namespace MythosAndHorrors.GameRules
 
                 async Task SelectCard()
                 {
-                    await _gameActionsProvider.Create(new MoveCardsGameAction(card, zoneToReturn, isFaceDown: true));
+                    await _gameActionsProvider.Create<MoveCardsGameAction>()
+                        .SetWith(card, zoneToReturn, isFaceDown: true).Start();
                     IEnumerable<Card> newCards = cards.Except(new[] { card });
                     if (newCards.Any()) await SortCards(newCards, owner);
                 }

@@ -38,7 +38,8 @@ namespace MythosAndHorrors.GameRules
             async Task PayCreature()
             {
                 await _gameActionsProvider.Create(new PayHintGameAction(investigator, Agility, 2));
-                await _gameActionsProvider.Create(new MoveCardsGameAction(this, _chaptersProvider.CurrentScene.VictoryZone));
+                await _gameActionsProvider.Create<MoveCardsGameAction>()
+                    .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
             }
         }
     }

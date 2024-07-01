@@ -31,8 +31,8 @@ namespace MythosAndHorrors.GameRules
         public async override Task PrepareScene()
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(Study, GetPlaceZone(0, 3)));
-            await _gameActionsProvider.Create(new MoveCardsGameAction(StartDeckDangerCards, DangerDeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(DangerDeckZone));
             await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
             await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
@@ -181,14 +181,16 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
-            if (Lita.ControlOwner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.ControlOwner, Lita));
+            if (Lita.ControlOwner != null)
+                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
         protected override async Task Resolution1()
         {
             await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, false));
-            if (Lita.ControlOwner != null) await _gameActionsProvider.Create(new AddRequerimentCardGameAction(Lita.ControlOwner, Lita));
+            if (Lita.ControlOwner != null)
+                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
             await _gameActionsProvider.Create(new IncrementStatGameAction(_investigatorsProvider.Leader.Shock, 1));
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }

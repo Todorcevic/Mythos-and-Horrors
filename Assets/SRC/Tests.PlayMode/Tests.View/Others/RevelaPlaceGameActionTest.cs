@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator RevealPlaceTest()
         {
             CardPlace place = _cardsProvider.GetCard<Card01111>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 4))).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 4)).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(_investigatorsProvider.First, place)).AsCoroutine();
 

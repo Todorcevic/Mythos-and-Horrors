@@ -69,7 +69,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 }
             }
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardsWithZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsWithZone).Start().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return PressAnyKey();

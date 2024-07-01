@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
             Assert.That(adversityCard.Hints.Value, Is.EqualTo(3));
             yield return _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE1.FullResolutions[0])).AsCoroutine();
             Assert.That(investigator.Shock.Value, Is.EqualTo(1));
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(adversityCard.Hints, 0)).AsCoroutine();
 
             Assert.That(adversityCard.Hints.Value, Is.EqualTo(0));
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             int investigatorPlaceHintsExpected = investigator.CurrentPlace.Hints.Value;
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, investigator.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(investigator.CurrentPlace);
@@ -69,9 +69,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ghoul, place.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(noGhoul, place.OwnZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, _chaptersProvider.CurrentScene.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, place.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
             yield return ClickedMainButton();

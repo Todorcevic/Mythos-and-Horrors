@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.Second;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supply, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(supply);
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.Second;
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardWithBuff, investigator.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardWithBuff, investigator.AidZone).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(6));

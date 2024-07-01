@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
             if (SceneCORE3.CurrentGoal == SceneCORE3.GoalCards.ElementAt(0))
             {
-                await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)));
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)).Start();
             }
             else
             {
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentGoal, SceneCORE3.OutZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start();
             await _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.Ritual));
         }
 

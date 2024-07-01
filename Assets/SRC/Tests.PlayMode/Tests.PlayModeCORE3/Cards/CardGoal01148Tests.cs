@@ -19,8 +19,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardGoal cardGoal = _cardsProvider.GetCard<Card01148>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentGoal, SceneCORE3.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, SceneCORE3.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE3.Forests[0].Hints, 2)).AsCoroutine();
             int actualHintsInCurrentPlace = investigator.CurrentPlace.Hints.Value;
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
@@ -40,8 +40,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01148>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentGoal, SceneCORE3.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardGoal, SceneCORE3.GoalZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(SceneCORE3.CurrentGoal.Hints, 0)).AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(2));

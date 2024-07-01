@@ -24,8 +24,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, SceneCORE3.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new DecrementStatGameAction(cardPlot.Eldritch, cardPlot.Eldritch.Value)).AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
@@ -43,8 +43,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Card01144 cardPlot = _cardsProvider.GetCard<Card01144>();
             CardCreature creature = _cardsProvider.GetCard<Card01169>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlot, SceneCORE3.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, SceneCORE3.MainPath)).AsCoroutine();
 

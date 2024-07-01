@@ -25,18 +25,18 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Investigator investigator1 = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.InvestigatorCard, investigator1.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.ElementAt(1), investigator1.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.ElementAt(2), investigator1.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.ElementAt(3), investigator1.DiscardZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.ElementAt(4), investigator1.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.ElementAt(5), investigator1.DangerZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.InvestigatorCard, investigator2.InvestigatorZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.ElementAt(1), investigator2.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.ElementAt(2), investigator2.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.ElementAt(3), investigator2.DiscardZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.ElementAt(4), investigator2.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.ElementAt(5), investigator2.DangerZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.InvestigatorCard, investigator1.InvestigatorZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.ElementAt(1), investigator1.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.ElementAt(2), investigator1.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.ElementAt(3), investigator1.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.ElementAt(4), investigator1.DeckZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.ElementAt(5), investigator1.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.InvestigatorCard, investigator2.InvestigatorZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.ElementAt(1), investigator2.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.ElementAt(2), investigator2.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.ElementAt(3), investigator2.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.ElementAt(4), investigator2.DeckZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.ElementAt(5), investigator2.DangerZone).Start().AsCoroutine();
 
             if (DEBUG_MODE) Time.timeScale = 1;
             while (DEBUG_MODE)

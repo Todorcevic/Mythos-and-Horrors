@@ -62,7 +62,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Lita, _investigatorsProvider.Second.AidZone));
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, _investigatorsProvider.Second.AidZone).Start();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
 
 
@@ -86,7 +86,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(Lita, _investigatorsProvider.Second.AidZone));
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, _investigatorsProvider.Second.AidZone).Start();
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
 
 
@@ -106,8 +106,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.CurrentPlot, SceneCORE3.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE3.PlotCards.ElementAt(2), SceneCORE3.PlotZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.PlotCards.ElementAt(2), SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE3.PlotCards.ElementAt(2))).AsCoroutine();
 
             yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();

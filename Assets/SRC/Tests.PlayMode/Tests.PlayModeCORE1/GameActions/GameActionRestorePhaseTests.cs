@@ -17,15 +17,15 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
 
             yield return PlayAllInvestigators(withResources: true);
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.HandZone.Cards, investigator.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.HandZone.Cards, investigator2.DeckZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.Take(9), investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.Take(9), investigator2.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.HandZone.Cards, investigator.DeckZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.HandZone.Cards, investigator2.DeckZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.FullDeck.Take(9), investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.Take(9), investigator2.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigator.CurrentTurns, 2)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigator2.CurrentTurns, 0)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatGameAction(investigator2.MaxTurns, 4)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.FullDeck.TakeLast(3), investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.FullDeck.TakeLast(3), investigator2.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.FullDeck.TakeLast(3), investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.TakeLast(3), investigator2.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
             yield return _gameActionsProvider.Create(new UpdateStatesGameAction(investigator2.FullDeck.TakeLast(3).Select(card => card.Exausted), true)).AsCoroutine();
 
@@ -56,8 +56,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
             yield return PlayAllInvestigators(withResources: true, withAvatar: false);
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.DeckZone.Cards.Take(5), investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
             yield return ClickedIn(investigator.HandZone.Cards.First());

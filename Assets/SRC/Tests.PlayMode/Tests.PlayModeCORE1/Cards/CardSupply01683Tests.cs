@@ -21,8 +21,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return BuildCard("01683", investigator);
             Card01683 supplyCard = _cardsProvider.GetCard<Card01683>();
             Card01533 ally = _cardsProvider.GetCard<Card01533>();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(supplyCard, investigator.AidZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(ally, _investigatorsProvider.Second.AidZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, _investigatorsProvider.Second.AidZone).Start().AsCoroutine();
 
             Dictionary<Stat, int> stats = new()
             {

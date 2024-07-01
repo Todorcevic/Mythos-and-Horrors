@@ -32,7 +32,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ReturnToHandLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(this, investigator.HandZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(this, investigator.HandZone).Start();
         }
 
         /*******************************************************************/

@@ -22,8 +22,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             int DeckSizeExpected = investigator.DeckZone.Cards.Count - 3;
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(SceneCORE2.GetPlaceZone(0, 3).Cards.First(), SceneCORE2.OutZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardPlace, SceneCORE2.GetPlaceZone(0, 3))).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.GetPlaceZone(0, 3).Cards.First(), SceneCORE2.OutZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE2.GetPlaceZone(0, 3)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new MoveInvestigatorToPlaceGameAction(investigator, cardPlace)).AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

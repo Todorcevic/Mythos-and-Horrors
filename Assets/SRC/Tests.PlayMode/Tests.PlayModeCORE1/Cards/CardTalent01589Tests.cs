@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             int amountDeckCards = investigator.DeckZone.Cards.Count;
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTalent, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
             yield return ClickedIn(cardTalent);
@@ -46,8 +46,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             int amountDeckCards = investigator.DeckZone.Cards.Count;
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTalent, investigator.HandZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(cardTalent2, investigator.HandZone)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent2, investigator.HandZone).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
             yield return ClickedIn(cardTalent);

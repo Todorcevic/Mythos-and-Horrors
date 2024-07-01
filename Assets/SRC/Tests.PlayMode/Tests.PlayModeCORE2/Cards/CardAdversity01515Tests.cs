@@ -21,8 +21,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01515 adversityCard = _cardsProvider.GetCard<Card01515>();
 
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator.DeckZone.Cards.Take(5), investigator.DiscardZone)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new MoveCardsGameAction(adversityCard, investigator.DeckZone, isFaceDown: true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DeckZone, isFaceDown: true).Start().AsCoroutine();
             Assert.That(investigator.DiscardZone.Cards.Count(), Is.EqualTo(5));
             yield return _gameActionsProvider.Create(new DrawAidGameAction(investigator)).AsCoroutine();
 

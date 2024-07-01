@@ -31,17 +31,20 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PositionateInvestigatorCard()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(ActiveInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorZone).Start();
         }
 
         private async Task PositionatePermanentCards()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.PermanentCards, ActiveInvestigator.AidZone));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(ActiveInvestigator.PermanentCards, ActiveInvestigator.AidZone).Start();
         }
 
         private async Task PositionateDeck()
         {
-            await _gameActionsProvider.Create(new MoveCardsGameAction(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone, isFaceDown: true));
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(ActiveInvestigator.FullDeck, ActiveInvestigator.DeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(ActiveInvestigator.DeckZone));
         }
 
