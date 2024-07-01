@@ -23,7 +23,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Item");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Item");
             interactableGameAction.CreateCancelMainButton();
 
             foreach (Card itemCard in ControlOwner.DiscardZone.Cards.Where(card => card.HasThisTag(Tag.Item)))
@@ -35,7 +36,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)

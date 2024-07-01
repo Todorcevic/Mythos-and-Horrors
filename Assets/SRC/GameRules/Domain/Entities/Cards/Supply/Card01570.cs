@@ -51,7 +51,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
             interactableGameAction.CreateCancelMainButton();
 
             foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
@@ -64,7 +65,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         /*******************************************************************/

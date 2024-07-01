@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ShowCardsGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IEnumerable<Card> Cards { get; }
         public override bool CanUndo => false;

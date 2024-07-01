@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResetCardGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private Card Card { get; }
 

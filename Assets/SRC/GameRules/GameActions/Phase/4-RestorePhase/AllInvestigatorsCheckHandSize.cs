@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
         public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(AllInvestigatorsCheckHandSize);
@@ -22,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             while (GetInvestigatorsMustDiscard().Any())
             {
                 Investigator investigator = GetInvestigatorsMustDiscard().First();
-                await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(investigator));
+                await _gameActionsProvider.Create<CheckMaxHandSizeGameAction>().SetWith(investigator).Start();
             }
         }
 

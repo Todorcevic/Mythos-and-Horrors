@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ShareDamageAndFearGameAction : InteractableGameAction, IPersonalInteractable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        public Investigator ActiveInvestigator { get; }
-        public Card ByThisCard { get; }
+        public Investigator ActiveInvestigator { get; private set; }
+        public Card ByThisCard { get; private set; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
 
@@ -18,13 +15,14 @@ namespace MythosAndHorrors.GameRules
         public override string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/
-        public ShareDamageAndFearGameAction(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0) :
-            base(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm")
+        public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm");
             ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
+            return this;
         }
 
         /*******************************************************************/
@@ -47,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 async Task DoDamageAndFear()
                 {
                     HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, ByThisCard, AmountDamage, AmountFear));
-                    await _gameActionsProvider.Create(new ShareDamageAndFearGameAction(ActiveInvestigator, ByThisCard, AmountDamage - harm.TotalDamageApply, AmountFear - harm.TotalFearApply));
+                    await _gameActionsProvider.Create<ShareDamageAndFearGameAction>().SetWith(ActiveInvestigator, ByThisCard, AmountDamage - harm.TotalDamageApply, AmountFear - harm.TotalFearApply).Start();
                 }
             }
         }

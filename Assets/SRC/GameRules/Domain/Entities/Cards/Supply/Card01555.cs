@@ -32,7 +32,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Place");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Place");
             interactableGameAction.CreateCancelMainButton();
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
@@ -44,7 +45,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         /*******************************************************************/

@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class StartGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 

@@ -7,8 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveInvestigatorToPlaceGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public IEnumerable<Investigator> Investigators { get; }
         public Dictionary<Investigator, CardPlace> From { get; }
         public CardPlace CardPlace { get; }

@@ -14,7 +14,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Card");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Card");
             foreach (Card card in investigator.DiscardableCardsInHand)
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator);
@@ -27,7 +28,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
     }
 }

@@ -15,7 +15,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
+            InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
 
             chooseEnemy.CreateCancelMainButton();
 
@@ -31,7 +32,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(chooseEnemy);
+            await chooseEnemy.Start();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class HealthGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public int AmountDamageToRecovery { get; }
         public int AmountFearToRecovery { get; }

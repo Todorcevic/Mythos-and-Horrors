@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ColosusAttackGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardColosus Colosus { get; }
 

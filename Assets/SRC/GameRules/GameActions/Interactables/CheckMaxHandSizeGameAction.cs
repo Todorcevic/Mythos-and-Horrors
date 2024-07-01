@@ -6,16 +6,18 @@ namespace MythosAndHorrors.GameRules
     public class CheckMaxHandSizeGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public Investigator ActiveInvestigator { get; }
+        public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        public CheckMaxHandSizeGameAction(Investigator investigator) : base(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction))
+        public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction));
             ActiveInvestigator = investigator;
+            return this;
         }
 
+        /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
             if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateContinueMainButton();
@@ -33,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new CheckMaxHandSizeGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create<CheckMaxHandSizeGameAction>().SetWith(ActiveInvestigator).Start();
                 };
             }
         }

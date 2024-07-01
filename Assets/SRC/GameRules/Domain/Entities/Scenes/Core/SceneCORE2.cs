@@ -254,9 +254,13 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task DropHint() =>
-                await _gameActionsProvider.Create(new DropHintGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1));
+                                await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Start();
+
+
+                //await _gameActionsProvider.Create(new DropHintGameAction(
+                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1));
             }
 
             async Task DangerHardEffect()
@@ -266,10 +270,15 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task DropHints() =>
-                await _gameActionsProvider.Create(new DropHintGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                                    await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
-                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value));
+                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Start();
+
+
+                //await _gameActionsProvider.Create(new DropHintGameAction(
+                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
+                //    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value));
             }
         }
     }

@@ -29,7 +29,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {
@@ -45,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         private bool RevealNewTokenCondition(RevealChallengeTokenGameAction revealChallengeTokenGameAction)

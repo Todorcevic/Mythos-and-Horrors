@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlacePlotGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
         public CardPlot CardPlot { get; }

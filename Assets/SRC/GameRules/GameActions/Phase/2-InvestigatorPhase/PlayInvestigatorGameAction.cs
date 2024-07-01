@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class PlayInvestigatorGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         private Investigator lastInvestigator;
 
@@ -28,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _gameActionsProvider.Create(new UpdateStatesGameAction(ActiveInvestigator.IsPlayingTurns, true));
-            await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
+            await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Start();
             await _gameActionsProvider.Create(new UpdateStatesGameAction(ActiveInvestigator.IsPlayingTurns, false));
         }
 

@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResolveChallengeGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
 
         /*******************************************************************/

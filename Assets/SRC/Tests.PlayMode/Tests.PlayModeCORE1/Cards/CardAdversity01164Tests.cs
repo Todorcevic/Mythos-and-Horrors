@@ -3,14 +3,13 @@ using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardAdversity01164Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Unit;
 
         [UnityTest]
         public IEnumerator MoveCostExtraTurn()

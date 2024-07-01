@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task CheckSlotsLogic(MoveCardsGameAction action)
         {
-            await _gameActionsProvider.Create(new CheckSlotsGameAction(Owner));
+            await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(Owner).Start();
         }
 
         /*******************************************************************/

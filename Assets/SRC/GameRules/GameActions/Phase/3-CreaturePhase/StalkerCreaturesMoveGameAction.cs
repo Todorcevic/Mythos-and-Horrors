@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     //3.2	Hunter enemies move.
     public class StalkerCreaturesMoveGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly TextsProvider _textsProvider;

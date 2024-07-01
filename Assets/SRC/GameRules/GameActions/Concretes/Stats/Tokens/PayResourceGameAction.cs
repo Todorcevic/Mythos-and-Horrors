@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PayResourceGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
         public int Amount { get; }

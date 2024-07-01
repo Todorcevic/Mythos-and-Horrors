@@ -42,11 +42,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Take decision");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Take decision");
             interactableGameAction.CreateEffect(this, new Stat(0, false), BurnIt, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
             interactableGameAction.CreateEffect(this, new Stat(0, false), NoBurn, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
 
             /*******************************************************************/
             async Task BurnIt()

@@ -15,7 +15,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            InteractableGameAction chooseEnemy = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
+            InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
             chooseEnemy.CreateCancelMainButton();
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
@@ -39,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(creature, this, amountDamage: 1));
             }
 
-            await _gameActionsProvider.Create(chooseEnemy);
+            await chooseEnemy.Start();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

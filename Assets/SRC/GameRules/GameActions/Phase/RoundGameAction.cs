@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class RoundGameAction : GameAction
     {
         public static int Round { get; private set; }
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()

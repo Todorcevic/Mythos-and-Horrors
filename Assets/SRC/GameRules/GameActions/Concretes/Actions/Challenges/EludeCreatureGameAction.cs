@@ -5,8 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class EludeCreatureGameAction : ChallengePhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public CardCreature CardCreature { get; }
 
         /*******************************************************************/

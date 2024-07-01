@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class RestoreAllChallengeTokens : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         /*******************************************************************/

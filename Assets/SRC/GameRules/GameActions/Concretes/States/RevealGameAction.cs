@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class RevealGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public IRevealable RevellableCard { get; }
         public Card Card => RevellableCard as Card;

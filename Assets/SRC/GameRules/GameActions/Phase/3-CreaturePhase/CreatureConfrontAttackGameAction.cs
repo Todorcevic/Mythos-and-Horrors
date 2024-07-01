@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class CreatureConfrontAttackGameAction : PhaseGameAction
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/

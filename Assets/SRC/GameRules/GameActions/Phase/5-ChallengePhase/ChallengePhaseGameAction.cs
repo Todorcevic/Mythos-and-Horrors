@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChallengePhaseGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly TextsProvider _textsProvider;
@@ -59,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(this));
+            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this).Start();
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
         }
 

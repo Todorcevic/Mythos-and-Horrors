@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     internal class CommitGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chapterProvider;
 
         public CommitableCard CommitableCard { get; init; }

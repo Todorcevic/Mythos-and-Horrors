@@ -36,7 +36,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
             interactableGameAction.CreateCancelMainButton();
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
@@ -47,7 +48,8 @@ namespace MythosAndHorrors.GameRules
                 {
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
                     await _gameActionsProvider.Create(new ShowCardsGameAction(cardsToShow));
-                    InteractableGameAction interactableGameAction2 = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Card");
+                    InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Card");
 
                     foreach (Card card in cardsToShow)
                     {
@@ -64,11 +66,11 @@ namespace MythosAndHorrors.GameRules
                         }
                     }
 
-                    await _gameActionsProvider.Create(interactableGameAction2);
+                    await interactableGameAction2.Start();
                 }
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         private async Task DecrementCost(Card card, Investigator investigator) //TODO: Implementar como original
@@ -79,7 +81,8 @@ namespace MythosAndHorrors.GameRules
 
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "SpendCharge");
+                InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "SpendCharge");
                 interactableGameAction.CreateContinueMainButton();
                 interactableGameAction.CreateEffect(this, new Stat(0, false), DecrementLogic, PlayActionType.Choose, investigator, resourceCost: playableFromHand.ResourceCost);
 
@@ -89,7 +92,7 @@ namespace MythosAndHorrors.GameRules
                     await playableFromHand.PlayFromHandCommand.RunWith(interactableGameAction);
                 }
 
-                await _gameActionsProvider.Create(interactableGameAction);
+                await interactableGameAction.Start();
             }
             await _gameActionsProvider.Create(new IncrementStatGameAction(playableFromHand.ResourceCost, 2));
         }

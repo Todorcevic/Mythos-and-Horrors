@@ -6,25 +6,27 @@ namespace MythosAndHorrors.GameRules
 {
     public class OneInvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public Investigator ActiveInvestigator { get; }
+        public Investigator ActiveInvestigator { get; private set; }
         public CardEffect TakeResourceEffect { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
-        public OneInvestigatorTurnGameAction() : base(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn")
+        public OneInvestigatorTurnGameAction SetWith()
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn");
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
+            return this;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
             await base.ExecuteThisLogic();
-            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect) || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
-                await _gameActionsProvider.Create(new OneInvestigatorTurnGameAction());
+            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
+                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
+                await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Start();
         }
 
         /*******************************************************************/

@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        public Investigator ActiveInvestigator { get; }
+        public Investigator ActiveInvestigator { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
-        public CheckSlotsGameAction(Investigator investigator) : base(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard")
+        public CheckSlotsGameAction SetWith(Investigator investigator)
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard");
             ActiveInvestigator = investigator;
+            return this;
         }
 
         /*******************************************************************/
@@ -30,7 +29,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new CheckSlotsGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(ActiveInvestigator).Start();
                 }
             }
         }

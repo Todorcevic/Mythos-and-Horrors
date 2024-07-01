@@ -1,18 +1,17 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MulliganGameAction : InteractableGameAction, IPersonalInteractable
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        public Investigator ActiveInvestigator { get; }
+        public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        public MulliganGameAction(Investigator investigator) : base(canBackToThisInteractable: true, mustShowInCenter: false, "Mulligan")
+        public MulliganGameAction SetWith(Investigator investigator)
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(MulliganGameAction));
             ActiveInvestigator = investigator;
+            return this;
         }
 
         /*******************************************************************/
@@ -28,7 +27,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create(new DiscardGameAction(card));
-                    await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
+                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Start();
                 }
             }
         }

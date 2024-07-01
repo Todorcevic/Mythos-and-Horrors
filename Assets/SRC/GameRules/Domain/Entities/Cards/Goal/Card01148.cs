@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task FailEffect()
             {
-                await _gameActionsProvider.Create(new DropHintGameAction(investigator, investigator.CurrentPlace.Hints, 1));
+                await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Start();
             }
         }
 

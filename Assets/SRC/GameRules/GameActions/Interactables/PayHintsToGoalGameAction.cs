@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class PayHintsToGoalGameAction : InteractableGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        public CardGoal CardGoal { get; }
+        public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
         public override bool CanBeExecuted => CardGoal.IsInPlay && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
         public List<CardEffect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
-        public PayHintsToGoalGameAction(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay) :
-            base(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay")
+        public PayHintsToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
+            SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
+            return this;
         }
+
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
         {
@@ -35,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     int amoutToPay = investigator.Hints.Value > CardGoal.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
                     await _gameActionsProvider.Create(new PayHintGameAction(investigator, CardGoal.Hints, amoutToPay));
-                    await _gameActionsProvider.Create(new PayHintsToGoalGameAction(CardGoal, InvestigatorsToPay));
+                    await _gameActionsProvider.Create<PayHintsToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Start();
                 }
             }
         }

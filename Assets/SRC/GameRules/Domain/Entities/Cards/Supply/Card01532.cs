@@ -33,7 +33,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(MoveCardsGameAction moveCardsGameAction)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
             interactableGameAction.CreateCancelMainButton();
 
             IEnumerable<CardSupply> tomes = ControlOwner.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Tome));
@@ -51,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new ShowCardsGameAction(tomes));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
             await _gameActionsProvider.Create(new ShuffleGameAction(ControlOwner.DeckZone));
         }
 

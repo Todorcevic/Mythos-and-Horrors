@@ -42,7 +42,8 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
 
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeHealed))
@@ -70,7 +71,7 @@ namespace MythosAndHorrors.GameRules
                 async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create(new HealthGameAction(investigator.InvestigatorCard, amountFearToRecovery: 1));
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         public bool HealConditionToActivate(Investigator activeInvestigator)

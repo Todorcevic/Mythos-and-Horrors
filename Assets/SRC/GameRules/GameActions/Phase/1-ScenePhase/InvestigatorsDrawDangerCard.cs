@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsDrawDangerCard : PhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 

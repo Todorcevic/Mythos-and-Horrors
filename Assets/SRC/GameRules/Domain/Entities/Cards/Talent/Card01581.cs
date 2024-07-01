@@ -27,7 +27,8 @@ namespace MythosAndHorrors.GameRules
 
             async Task SucessEffect()
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: false, "Select Place to Move");
+                InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Select Place to Move");
                 interactableGameAction.CreateContinueMainButton();
                 foreach (CardPlace place in eludeCreatureGameAction.ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
                 {
@@ -37,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                         await _gameActionsProvider.Create(new MoveInvestigatorAndUnconfrontGameAction(eludeCreatureGameAction.ActiveInvestigator, place));
                 }
 
-                await _gameActionsProvider.Create(interactableGameAction);
+                await interactableGameAction.Start();
             }
         }
     }

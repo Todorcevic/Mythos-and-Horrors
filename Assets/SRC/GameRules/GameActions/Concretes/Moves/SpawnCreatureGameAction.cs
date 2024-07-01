@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class SpawnCreatureGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature Creature { get; }
         public CardPlace Place { get; private set; }

@@ -57,7 +57,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChooseInvestigatorLogic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Gain Skills");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Gain Skills");
             interactableGameAction.CreateCancelMainButton();
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace);
@@ -68,14 +69,15 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task GainSkillInvestigator()
                 {
-                    InteractableGameAction interactableGameAction2 = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Skills");
+                    InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Skills");
                     interactableGameAction2.CreateCancelMainButton();
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Strength), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Agility), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Intelligence), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Power), PlayActionType.Choose, investigator);
 
-                    await _gameActionsProvider.Create(interactableGameAction2);
+                    await interactableGameAction2.Start();
 
                     /*******************************************************************/
                     async Task SetStat(Stat statSelected)
@@ -87,9 +89,8 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
-
 
         private bool ChooseInvestigatorCondition(Investigator investigator)
         {
@@ -98,7 +99,5 @@ namespace MythosAndHorrors.GameRules
             if (Exausted.IsActive) return false;
             return true;
         }
-
-        /*******************************************************************/
     }
 }

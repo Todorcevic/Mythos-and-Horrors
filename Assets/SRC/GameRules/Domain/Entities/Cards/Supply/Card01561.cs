@@ -35,7 +35,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
             interactableGameAction.CreateCancelMainButton();
             interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck, PlayActionType.Choose, investigator);
 
@@ -52,7 +53,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
 
             /*******************************************************************/
             async Task SelectDangerDeck()
@@ -68,7 +69,8 @@ namespace MythosAndHorrors.GameRules
             Zone zoneToReturn = owner is Investigator investigator ? investigator.DeckZone : _chaptersProvider.CurrentScene.DangerDeckZone;
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Choose card");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose card");
             foreach (Card card in cards)
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, cardAffected: cardAffected);
@@ -81,7 +83,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
     }
 }

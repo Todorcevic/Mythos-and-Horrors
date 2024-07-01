@@ -5,8 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlayDrawActivableGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public IDrawActivable DrawActivable { get; }
         public Investigator Investigator { get; }
 

@@ -6,8 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class InitialDrawGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public Investigator Investigator { get; }
         public override bool CanBeExecuted => Investigator.HandZone.Cards.Count() < GameValues.INITIAL_DRAW_SIZE;
         public override bool CanUndo => false;

@@ -41,7 +41,8 @@ namespace MythosAndHorrors.GameRules
         private async Task SearchLogic(Investigator investigator)
         {
             IEnumerable<Card> cards = investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Spell)).TakeLast(3);
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose spell");
             foreach (Card card in cards)
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator);
@@ -55,7 +56,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Exausted, true));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         /*******************************************************************/

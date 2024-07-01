@@ -27,7 +27,8 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task ChooseHints()
             {
-                InteractableGameAction chooseHints = new(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+                InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
 
                 chooseHints.CreateCancelMainButton();
 
@@ -43,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                     }
                 }
 
-                await _gameActionsProvider.Create(chooseHints);
+                await chooseHints.Start();
             }
         }
 

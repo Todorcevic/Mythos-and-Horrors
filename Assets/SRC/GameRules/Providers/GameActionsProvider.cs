@@ -21,6 +21,11 @@ namespace MythosAndHorrors.GameRules
         public PayHintsToGoalGameAction CurrentPayAsGroup => GetRealLastActive<PayHintsToGoalGameAction>();
 
         /*******************************************************************/
+        public T Create<T>() where T : GameAction
+        {
+            return _container.Instantiate<T>();
+        }
+
         public async Task<T> Create<T>(T gameAction) where T : GameAction
         {
             _container.Inject(gameAction);

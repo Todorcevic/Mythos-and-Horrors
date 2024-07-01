@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 
     public class EliminateInvestigatorGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IPresenter<EliminateInvestigatorGameAction> eliminateInvestigatorPresenter;
 
@@ -25,7 +24,9 @@ namespace MythosAndHorrors.GameRules
         {
             CardPlace currentPlace = Investigator.CurrentPlace;
             await _gameActionsProvider.Create(new PayResourceGameAction(Investigator, Investigator.Resources.Value));
-            await _gameActionsProvider.Create(new DropHintGameAction(Investigator, currentPlace.Hints, Investigator.Hints.Value));
+
+            await _gameActionsProvider.Create<DropHintGameAction>().SetWith(Investigator, currentPlace.Hints, Investigator.Hints.Value).Start();
+
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone));
             await _gameActionsProvider.Create(new MoveCardsGameAction(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone));
             await _gameActionsProvider.Create(new SafeForeach<Card>(DangerCards, Discard));

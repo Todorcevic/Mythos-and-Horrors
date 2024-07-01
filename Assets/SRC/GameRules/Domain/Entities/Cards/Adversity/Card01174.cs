@@ -59,11 +59,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TryOpenLogic(Investigator investigator)
         {
-            InteractableGameAction choose = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge");
+            InteractableGameAction choose = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge");
             choose.CreateCancelMainButton();
             choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
             choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
-            await _gameActionsProvider.Create(choose);
+            await choose.Start();
 
             /*******************************************************************/
             async Task StrengthChallenge() => await _gameActionsProvider.Create(new ChallengePhaseGameAction(investigator.Strength, 4, "Open", this, succesEffect: Discard));

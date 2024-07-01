@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class FinalizeGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IPresenter<FinalizeGameAction> _finalizePresenter;
 
         public Resolution Resolution { get; }

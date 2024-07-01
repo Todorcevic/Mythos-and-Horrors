@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly OptativeReactionsProvider _optativeReactionsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] protected readonly GameActionsProvider _gameActionsProvider;
 
         public bool IsActive { get; private set; }
         public bool IsCancel { get; private set; }

@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class OpportunityAttackGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
 

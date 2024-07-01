@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class ResolveAllTokensGameAction : GameAction
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
 

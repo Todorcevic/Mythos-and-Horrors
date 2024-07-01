@@ -36,7 +36,8 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ControlOwner));
 
             IEnumerable<ChallengeToken> allTokens = _challengeTokensProvider.ChallengeTokensRevealed;
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Choose token");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose token");
             foreach (ChallengeToken token in allTokens)
             {
                 interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner);
@@ -46,7 +47,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create(new DecrementStatGameAction(Charge.Amount, 1));
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
             await _gameActionsProvider.Create(new UpdateStatesGameAction(Played, false));
         }
 

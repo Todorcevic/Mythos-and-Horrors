@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class ScenePhaseGameAction : PhaseGameAction, IPhase
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override Phase MainPhase => Phase.Scene;

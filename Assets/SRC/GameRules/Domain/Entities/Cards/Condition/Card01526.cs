@@ -22,7 +22,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            InteractableGameAction interactable = new(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
             interactable.CreateCancelMainButton();
             foreach (CardWeapon firearm in Firearms(investigator))
             {
@@ -31,7 +32,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Reload() => await _gameActionsProvider.Create(new IncrementStatGameAction(((IChargeable)firearm).Charge.Amount, 3));
             }
 
-            await _gameActionsProvider.Create(interactable);
+            await interactable.Start();
         }
     }
 }

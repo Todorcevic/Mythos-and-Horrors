@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class CreaturePhaseGameAction : PhaseGameAction, IPhase
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override Phase MainPhase => Phase.Creature;
         public override string Name => _textsProvider.GameText.CREATURE_PHASE_NAME;

@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class GainHintGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Investigator Investigator { get; }
         public Stat FromStat { get; private set; }

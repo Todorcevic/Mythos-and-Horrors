@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveInvestigatorAndUnconfrontGameAction : MoveInvestigatorToPlaceGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         public MoveInvestigatorAndUnconfrontGameAction(Investigator investigator, CardPlace cardPlace) : base(investigator, cardPlace) { }
 
         public MoveInvestigatorAndUnconfrontGameAction(IEnumerable<Investigator> investigators, CardPlace cardPlace) : base(investigators, cardPlace) { }

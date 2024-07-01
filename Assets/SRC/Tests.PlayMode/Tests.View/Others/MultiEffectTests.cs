@@ -17,7 +17,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator MultiEffect_Test()
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: true, mustShowInCenter: true, "Multieffect test");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Multieffect test");
             Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.FullDeck[1];
             Card card2 = investigator1.FullDeck[2];
@@ -28,7 +29,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             interactableGameAction.CreateEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create(new MoveCardsGameAction(card2, investigator1.DangerZone)), PlayActionType.Choose, investigator1);
             yield return _gameActionsProvider.Create(new MoveCardsGameAction(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(interactableGameAction);
+            Task gameActionTask = interactableGameAction.Start();
 
             if (!DEBUG_MODE) yield return WaitToClick(card);
             if (!DEBUG_MODE) yield return WaitToCloneClick(0);

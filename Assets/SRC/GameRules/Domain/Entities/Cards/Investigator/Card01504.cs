@@ -31,7 +31,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DamageBySanityLogic(HarmToCardGameAction harmToCardGameAction)
         {
-            InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Harm Creature");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Harm Creature");
             interactableGameAction.CreateCancelMainButton();
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
@@ -45,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 };
             }
 
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         private bool DamageBySanityCondition(HarmToCardGameAction harmToCardGameAction)

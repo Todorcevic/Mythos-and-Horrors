@@ -42,10 +42,8 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<IReaction> optativeReactions = _optativeReactions.Where(realReaction => realReaction.Check(gameAction, time)).Except(_played);
             if (!optativeReactions.Any()) return;
 
-            InteractableGameAction interactableGameAction = new(
-                   canBackToThisInteractable: true,
-                   mustShowInCenter: true,
-                   "Play Reaction?");
+            InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Play Reaction?");
 
             foreach (IReaction reaction in optativeReactions)
             {
@@ -66,7 +64,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             interactableGameAction.CreateContinueMainButton();
-            await _gameActionsProvider.Create(interactableGameAction);
+            await interactableGameAction.Start();
         }
 
         private Stat GetResourceCostFor(ITriggered triggered)

@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class StartChapterGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public Chapter Chapter { get; }

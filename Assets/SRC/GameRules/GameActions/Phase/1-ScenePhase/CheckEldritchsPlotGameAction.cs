@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class CheckEldritchsPlotGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public bool IsComplete => _chaptersProvider.CurrentScene.CurrentPlot.Eldritch.Value -

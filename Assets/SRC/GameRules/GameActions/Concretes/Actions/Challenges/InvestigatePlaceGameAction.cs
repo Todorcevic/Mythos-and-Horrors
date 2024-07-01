@@ -5,8 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatePlaceGameAction : ChallengePhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public int AmountHints { get; private set; }
         public CardPlace CardPlace { get; }
 

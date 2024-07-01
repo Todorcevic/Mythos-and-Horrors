@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PrepareInvestigatorGameAction : PhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsProvider _textsProvider;
 
         public override Phase MainPhase => Phase.Prepare;
@@ -59,7 +58,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Mulligan()
         {
-            await _gameActionsProvider.Create(new MulliganGameAction(ActiveInvestigator));
+            await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Start();
         }
     }
 }

@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public bool CanBackToThisInteractable { get; protected set; }
         public bool MustShowInCenter { get; protected set; }
@@ -29,13 +28,13 @@ namespace MythosAndHorrors.GameRules
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public IEnumerable<CardEffect> AllEffects => _allCardEffects.ToList();
 
-
         /*******************************************************************/
-        public InteractableGameAction(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
             Description = description;
+            return this;
         }
 
         /*******************************************************************/

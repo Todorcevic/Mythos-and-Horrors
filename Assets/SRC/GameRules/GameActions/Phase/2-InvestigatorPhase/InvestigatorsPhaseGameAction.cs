@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class InvestigatorsPhaseGameAction : PhaseGameAction, IPhase
     {
         [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create(new ChooseInvestigatorGameAction(_investigatorsProvider.Leader));
+            await _gameActionsProvider.Create<ChooseInvestigatorGameAction>().SetWith().Start();
             await _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
         }
     }

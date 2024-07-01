@@ -5,7 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class DefeatCardGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Card Card { get; }
         public Card ByThisCard { get; }

@@ -43,7 +43,8 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task PayCreature()
             {
-                InteractableGameAction interactableGameAction = new(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay");
+                InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay");
                 foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
                 {
                     interactableGameAction.CreateEffect(card,
@@ -64,7 +65,7 @@ namespace MythosAndHorrors.GameRules
                     }
                 }
 
-                await _gameActionsProvider.Create(interactableGameAction);
+                await interactableGameAction.Start();
             }
         }
     }

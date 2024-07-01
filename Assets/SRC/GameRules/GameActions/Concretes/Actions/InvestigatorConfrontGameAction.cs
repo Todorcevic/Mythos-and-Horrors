@@ -5,8 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorConfrontGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public Investigator Investigator { get; }
         public CardCreature Creature { get; }
 

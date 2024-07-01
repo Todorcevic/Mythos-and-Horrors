@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class MoveCreatureGameAction : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public CardCreature Creature { get; }
         public CardPlace Destiny { get; }

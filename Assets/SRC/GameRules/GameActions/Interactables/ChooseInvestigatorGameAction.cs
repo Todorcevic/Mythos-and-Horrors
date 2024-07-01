@@ -5,11 +5,14 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : InteractableGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public ChooseInvestigatorGameAction(Investigator activeInvestigator) : base(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator") { }
+        public ChooseInvestigatorGameAction SetWith()
+        {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator");
+            return this;
+        }
 
         /*******************************************************************/
         public override void ExecuteSpecificInitialization()
@@ -19,10 +22,7 @@ namespace MythosAndHorrors.GameRules
                 CreateEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
-                async Task PlayInvestigator()
-                {
-                    await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
-                };
+                async Task PlayInvestigator() => await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             }
         }
     }

@@ -5,8 +5,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class AttackCreatureGameAction : ChallengePhaseGameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public CardCreature CardCreature { get; }
         public Stat AmountDamage { get; private set; }
 

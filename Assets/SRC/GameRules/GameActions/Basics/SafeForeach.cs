@@ -8,8 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class SafeForeach<T> : GameAction
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
         public Func<IEnumerable<T>> Collection { get; }
         public Func<T, Task> Logic { get; }
         public State Initilized { get; }

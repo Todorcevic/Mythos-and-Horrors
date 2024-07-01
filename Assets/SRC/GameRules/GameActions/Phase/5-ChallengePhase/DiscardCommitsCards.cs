@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     public class DiscardCommitsCards : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override bool CanBeExecuted => AllCommitableCards().Count() > 0;
 

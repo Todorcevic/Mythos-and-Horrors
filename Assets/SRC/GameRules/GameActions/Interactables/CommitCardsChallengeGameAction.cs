@@ -8,12 +8,11 @@ namespace MythosAndHorrors.GameRules
     public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
 
         public CardEffect ButtonEffect { get; private set; }
-        public ChallengePhaseGameAction CurrentChallenge { get; }
+        public ChallengePhaseGameAction CurrentChallenge { get; private set; }
 
         private IEnumerable<CommitableCard> AllCommitableCards => _investigatorsProvider.GetInvestigatorsInThisPlace(CurrentChallenge.ActiveInvestigator.CurrentPlace)
               .SelectMany(investigator => investigator.HandZone.Cards)
@@ -22,10 +21,11 @@ namespace MythosAndHorrors.GameRules
         public Investigator ActiveInvestigator => CurrentChallenge.ActiveInvestigator;
 
         /*******************************************************************/
-        public CommitCardsChallengeGameAction(ChallengePhaseGameAction challenge) :
-            base(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards")
+        public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
+            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards");
             CurrentChallenge = challenge;
+            return this;
         }
 
         /*******************************************************************/
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Commit()
                 {
                     await _gameActionsProvider.Create(new CommitGameAction(commitableCard));
-                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(CurrentChallenge));
+                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Start();
                 }
             }
 
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Activate()
                 {
                     await activation.PlayFor(CurrentChallenge);
-                    await _gameActionsProvider.Create(new CommitCardsChallengeGameAction(CurrentChallenge));
+                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Start();
                 }
             }
         }
