@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +12,13 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        => throw new NotImplementedException();
+
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard");
             ActiveInvestigator = investigator;
             return this;
         }

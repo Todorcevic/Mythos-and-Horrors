@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,9 +12,13 @@ namespace MythosAndHorrors.GameRules
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+         => throw new NotImplementedException();
+
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction));
             ActiveInvestigator = investigator;
             return this;
         }

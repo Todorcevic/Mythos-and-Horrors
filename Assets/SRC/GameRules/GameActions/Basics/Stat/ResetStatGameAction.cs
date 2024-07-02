@@ -1,20 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ResetStatGameAction : UpdateStatGameAction
+    public class ResetStatGameAction : GameAction
     {
-        public ResetStatGameAction SetWith(Stat stat)
-        {
-            SetWith(stat, stat.InitialValue);
-            return this;
-        }
+        public IEnumerable<Stat> Stats { get; private set; }
+
+        /*******************************************************************/
+        public ResetStatGameAction SetWith(Stat stat) => SetWith(new[] { stat });
 
         public ResetStatGameAction SetWith(IEnumerable<Stat> stats)
         {
-            SetWith(stats.ToDictionary(stat => stat, stat => stat.InitialValue));
+            Stats = stats;
             return this;
+        }
+
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await _gameActionsProvider.Create<UpdateStatGameAction>()
+                .SetWith(Stats.ToDictionary(stat => stat, stat => stat.InitialValue))
+                .Execute();
         }
     }
 }

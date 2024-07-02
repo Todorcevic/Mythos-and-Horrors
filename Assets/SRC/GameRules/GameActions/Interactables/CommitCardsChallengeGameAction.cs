@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -21,9 +23,13 @@ namespace MythosAndHorrors.GameRules
         public Investigator ActiveInvestigator => CurrentChallenge.ActiveInvestigator;
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        => throw new NotImplementedException();
+
         public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
-            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards");
             CurrentChallenge = challenge;
             return this;
         }

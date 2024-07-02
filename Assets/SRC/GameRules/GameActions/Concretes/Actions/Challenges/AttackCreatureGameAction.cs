@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -8,9 +10,13 @@ namespace MythosAndHorrors.GameRules
         public Stat AmountDamage { get; private set; }
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
+            => throw new NotImplementedException();
+
         public AttackCreatureGameAction SetWith(Investigator investigator, CardCreature creature, int amountDamage)
         {
-            SetWith(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature);
+            base.SetWith(investigator.Strength, creature.Strength.Value, "Attack " + creature.Info.Name, cardToChallenge: creature);
             CardCreature = creature;
             AmountDamage = new Stat(amountDamage, false);
             SuccesEffects.Add(SuccesEffet);

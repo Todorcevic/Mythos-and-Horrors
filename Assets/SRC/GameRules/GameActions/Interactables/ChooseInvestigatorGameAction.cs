@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,9 +10,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+         => throw new NotImplementedException();
+
         public ChooseInvestigatorGameAction SetWith()
         {
-            SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator");
             return this;
         }
 

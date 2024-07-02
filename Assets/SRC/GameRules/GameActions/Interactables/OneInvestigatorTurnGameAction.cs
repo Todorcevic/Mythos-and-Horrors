@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -13,9 +15,13 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
 
         /*******************************************************************/
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        => throw new NotImplementedException();
+
         public OneInvestigatorTurnGameAction SetWith()
         {
-            SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn");
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
             return this;
         }
