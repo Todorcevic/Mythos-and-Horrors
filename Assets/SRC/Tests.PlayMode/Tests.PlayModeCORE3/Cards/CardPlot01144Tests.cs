@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

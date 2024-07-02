@@ -16,9 +16,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             //3.2	Hunter enemies move.
-            await _gameActionsProvider.Create(new StalkerCreaturesMoveGameAction());
+            await _gameActionsProvider.Create<StalkerCreaturesMoveGameAction>().Start();
             //3.3	Next investigator resolves engaged enemy attacks.
-            await _gameActionsProvider.Create(new CreatureConfrontAttackGameAction());
+            await _gameActionsProvider.Create<CreatureConfrontAttackGameAction>().Start();
         }
         //3.4	Enemy phase ends.
     }

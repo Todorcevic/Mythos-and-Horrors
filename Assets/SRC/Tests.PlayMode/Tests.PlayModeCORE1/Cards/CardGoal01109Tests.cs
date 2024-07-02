@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Hallway.Hints, 3).Start().AsCoroutine();
             yield return WasteAllTurns();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return WasteAllTurns();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
             yield return ClickedUndoButton();

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(investigator.AvatarCard);
             yield return WasteAllTurns();
             yield return ClickedMainButton();
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(condition, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(investigator.AvatarCard);
             yield return WasteAllTurns();
             yield return ClickedMainButton();

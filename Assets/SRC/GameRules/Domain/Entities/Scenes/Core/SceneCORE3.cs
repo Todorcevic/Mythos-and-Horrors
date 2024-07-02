@@ -154,7 +154,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
             await TakeShock();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
 
             async Task TakeShock()
             {
@@ -171,7 +171,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
             await TakeInjuriesAndShock();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
 
             async Task TakeInjuriesAndShock()
             {
@@ -190,7 +190,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaSacrifice, true).Start();
             await TakeInjuriesAndShock();
             await TakeFlaw();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
 
             async Task TakeInjuriesAndShock()
             {

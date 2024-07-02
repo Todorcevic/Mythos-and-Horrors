@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE3.GetPlaceZone(2, 2)).Start();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new RoundGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(cardPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

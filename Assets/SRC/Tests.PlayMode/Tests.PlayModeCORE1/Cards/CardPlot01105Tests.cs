@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
             yield return ClickedClone(cardPlot, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            Task<CheckEldritchsPlotGameAction> taskGameAction = _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
             yield return ClickedClone(cardPlot, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 

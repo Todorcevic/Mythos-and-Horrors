@@ -125,7 +125,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task Resolution1()
         {
             await Interrogates();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
 
         }
 
@@ -133,7 +133,7 @@ namespace MythosAndHorrors.GameRules
         {
             await Interrogates();
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
         }
 
         private async Task Interrogates()

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return StartingScene();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 6).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
 
             Assert.That(plot.CurrentZone, Is.EqualTo(SceneCORE2.OutZone));
             Assert.That(SceneCORE2.MaskedHunter.IsInPlay, Is.True);

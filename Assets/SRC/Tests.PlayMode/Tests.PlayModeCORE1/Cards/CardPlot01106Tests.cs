@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE1.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
 
             Assert.That(SceneCORE1.DangerCards.Any(card => card.Tags.Contains(Tag.Ghoul) && card.IsInPlay), Is.True);
         }

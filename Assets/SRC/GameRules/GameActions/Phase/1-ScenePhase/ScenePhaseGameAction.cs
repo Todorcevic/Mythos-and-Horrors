@@ -19,9 +19,9 @@ namespace MythosAndHorrors.GameRules
             //1.2	Place 1 doom on the current agenda. (DecrementStatGameAction.Parent is ScenePhaseGameAction)
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Start();
             //1.3	Check doom threshold.
-            await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
             //1.4	Each investigator draws 1 encounter card.
-            await _gameActionsProvider.Create(new InvestigatorsDrawDangerCard());
+            await _gameActionsProvider.Create<InvestigatorsDrawDangerCard>().Start();
         }
         //1.5	Mythos phase ends.
     }

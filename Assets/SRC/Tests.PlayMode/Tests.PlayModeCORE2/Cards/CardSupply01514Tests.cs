@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
 
-            Task<RoundGameAction> taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(conditionCard);
             Assert.That(conditionCard.CurrentZone, Is.EqualTo(investigator.DeckZone));
             yield return ClickedTokenButton();
@@ -94,7 +94,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
 
-            Task<RoundGameAction> taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedIn(cardCondition);
             Assert.That(cardCondition.CurrentZone, Is.EqualTo(investigator.DeckZone));
             yield return ClickedTokenButton();

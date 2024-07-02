@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.True);
 
-            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(creature);
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.False);

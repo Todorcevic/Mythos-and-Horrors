@@ -73,7 +73,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

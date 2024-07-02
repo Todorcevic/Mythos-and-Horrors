@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, Prepare).Start();
             await _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(_chaptersProvider.CurrentScene).Start();
 
-            while (true) await _gameActionsProvider.Create(new RoundGameAction());
+            while (true) await _gameActionsProvider.Create<RoundGameAction>().Start();
         }
 
         /*******************************************************************/

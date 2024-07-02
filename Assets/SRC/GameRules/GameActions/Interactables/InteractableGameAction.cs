@@ -91,7 +91,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
             if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
-            await _gameActionsProvider.Create(lastInteractable);
+            await lastInteractable.Start();
         }
 
         public void RemoveEffect(CardEffect effect) => _allCardEffects.Remove(effect);

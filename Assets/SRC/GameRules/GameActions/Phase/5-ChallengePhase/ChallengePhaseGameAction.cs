@@ -70,9 +70,9 @@ namespace MythosAndHorrors.GameRules
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
             await ResultChallenge.Start();
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
+            await _gameActionsProvider.Create<RestoreAllChallengeTokens>().Start();
             await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create(new DiscardCommitsCards());
+            await _gameActionsProvider.Create<DiscardCommitsCards>().Start();
         }
 
         public void ChangeStat(Stat stat) => Stat = stat;

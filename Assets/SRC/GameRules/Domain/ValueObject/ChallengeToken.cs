@@ -5,9 +5,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChallengeToken
     {
-        public Func<Investigator, int> _initialValue;
-        public Func<Investigator, Task> inititalEffect;
-
+        public Func<Investigator, int> InitialValue { get; }
+        public Func<Investigator, Task> InititalEffect { get; }
         public ChallengeTokenType TokenType { get; }
         public Func<Investigator, int> Value { get; private set; }
         public Func<Investigator, Task> Effect { get; private set; }
@@ -17,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         public ChallengeToken(ChallengeTokenType type, Func<Investigator, int> value = null, Func<Investigator, Task> effect = null, string description = null)
         {
             TokenType = type;
-            _initialValue = Value = value ?? ((_) => 0);
-            inititalEffect = Effect = effect;
+            InitialValue = Value = value ?? ((_) => 0);
+            InititalEffect = Effect = effect;
             Description = description;
         }
         /*******************************************************************/
@@ -32,10 +31,10 @@ namespace MythosAndHorrors.GameRules
             Effect = newEffect;
         }
 
-        public void ResetToken()
-        {
-            Value = _initialValue;
-            Effect = inititalEffect;
-        }
+        //public void ResetToken()
+        //{
+        //    Value = InitialValue;
+        //    Effect = InititalEffect;
+        //}
     }
 }

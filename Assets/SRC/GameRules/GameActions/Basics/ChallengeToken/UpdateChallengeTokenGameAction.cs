@@ -5,8 +5,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class UpdateChallengeTokenGameAction : GameAction
     {
-        public Func<Investigator, int> _OldValue;
-        public Func<Investigator, Task> _OldEffect;
+        private Func<Investigator, int> _OldValue;
+        private Func<Investigator, Task> _OldEffect;
 
         public ChallengeToken ChallengeToken { get; private set; }
         public Func<Investigator, int> NewValue { get; private set; }
@@ -15,6 +15,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public UpdateChallengeTokenGameAction SetWith(ChallengeToken challengeToken, Func<Investigator, int> newValue, Func<Investigator, Task> newEffect)
         {
+            _OldValue = challengeToken.Value;
+            _OldEffect = challengeToken.Effect;
             ChallengeToken = challengeToken;
             NewValue = newValue;
             NewEffect = newEffect;
@@ -24,8 +26,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _OldValue = ChallengeToken.Value;
-            _OldEffect = ChallengeToken.Effect;
             ChallengeToken.UpdateValue(NewValue);
             ChallengeToken.UpdateEffect(NewEffect);
             await Task.CompletedTask;

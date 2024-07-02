@@ -60,7 +60,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             totalTokensRevealed = CaptureTotalTokensRevelaed();
             yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(creature, investigator.InvestigatorCard).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<ResetAllInvestigatorsTurnsGameAction>().Start().AsCoroutine();
             taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(SceneCORE1.Study);
             yield return ClickedMainButton();

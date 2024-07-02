@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.DangerCards.Take(10), SceneCORE3.DangerDiscardZone, isFaceDown: false).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
 
             CardCreature monster = SceneCORE3.MainPath.OwnZone.Cards.OfType<CardCreature>().First();
             Assert.That(monster.Eldritch.Value, Is.EqualTo(1));

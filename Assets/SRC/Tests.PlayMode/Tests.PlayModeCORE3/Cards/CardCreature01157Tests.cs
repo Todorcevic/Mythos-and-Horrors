@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new CreatureConfrontAttackGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureConfrontAttackGameAction>().Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.DamageRecived.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.DamageRecived.Value, Is.EqualTo(3));

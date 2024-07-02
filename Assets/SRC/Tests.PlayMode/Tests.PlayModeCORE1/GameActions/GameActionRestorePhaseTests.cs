@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator2.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Start();
             yield return ClickedIn(investigator.HandZone.Cards[1]);
             yield return ClickedIn(investigator.HandZone.Cards[2]);
             yield return ClickedMainButton();
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new RestorePhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Start();
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedMainButton();

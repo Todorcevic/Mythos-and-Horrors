@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Start();
-            await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;

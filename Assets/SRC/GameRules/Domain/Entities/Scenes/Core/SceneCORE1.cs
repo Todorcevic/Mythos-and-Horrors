@@ -171,7 +171,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
             if (Lita.ControlOwner != null)
                 await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
         }
 
         protected override async Task Resolution1()
@@ -180,14 +180,14 @@ namespace MythosAndHorrors.GameRules
             if (Lita.ControlOwner != null)
                 await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Shock, 1).Start();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
         }
 
         protected override async Task Resolution2()
         {
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Xp, 1).Start();
-            await _gameActionsProvider.Create(new GainSceneXpGameAction());
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
         }
 
         protected override async Task Resolution3()

@@ -10,14 +10,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionUndoTests : TestCORE1Preparation
     {
-
         [UnityTest]
         public IEnumerator UndoMoveMulticardsTest()
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone).Start().AsCoroutine();
-            MoveCardsGameAction moveCardsGameAction = _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone);
-            yield return moveCardsGameAction.Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone).Start().AsCoroutine();
 
             yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
@@ -30,9 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card cardTomove = _investigatorsProvider.First.FullDeck.First();
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
-            MoveCardsGameAction moveCardGameAction = _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.DiscardZone);
-            yield return moveCardGameAction.Start().AsCoroutine();
-
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.DiscardZone).Start().AsCoroutine();
             yield return _gameActionsProvider.UndoLast().AsCoroutine();
 
             Assert.That(cardTomove.CurrentZone, Is.EqualTo(_investigatorsProvider.First.AidZone));
@@ -42,9 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
             yield return PlayAllInvestigators();
-            AllInvestigatorsDrawCardAndResource allInvestigatorsDrawCardAndResource = new();
-            yield return _gameActionsProvider.Create(allInvestigatorsDrawCardAndResource).AsCoroutine();
-
+            yield return _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResource>().Start().AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
@@ -55,9 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator UndoRestorePhaseGameActionTest()
         {
             yield return PlayAllInvestigators();
-            RestorePhaseGameAction restorePhaseGameAction = new();
-            yield return _gameActionsProvider.Create(restorePhaseGameAction).AsCoroutine();
-
+            yield return _gameActionsProvider.Create<RestorePhaseGameAction>().Start().AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);
@@ -69,7 +61,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return PlayThisInvestigator(investigator);
-            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
             yield return ClickedIn(investigator.CardAidToDraw);
             yield return ClickedIn(investigator.CardAidToDraw);
             yield return ClickedIn(investigator.CardAidToDraw);
@@ -91,7 +83,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, investigator.AidZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
             yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedIn(SceneCORE1.Attic);
             yield return ClickedUndoButton();
@@ -116,7 +108,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
 
-            Task gameActionTask = _gameActionsProvider.Create(new InvestigatorsPhaseGameAction());
+            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
             yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();

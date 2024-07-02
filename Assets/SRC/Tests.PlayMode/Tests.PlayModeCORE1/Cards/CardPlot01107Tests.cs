@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
 
             Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway), Is.True);
             Assert.That(_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp), Is.True);
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.Leader.Injury.Value, Is.EqualTo(1));
             Assert.That(_investigatorsProvider.Second.Injury.Value, Is.EqualTo(0));
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, place4.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place3.OwnZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new CreaturePhaseGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CreaturePhaseGameAction>().Start().AsCoroutine();
 
             Assert.That(ghoul.CurrentPlace, Is.EqualTo(place2));
             Assert.That(noGhoul.CurrentPlace, Is.EqualTo(place3));
@@ -81,7 +81,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardToDraw, investigator.DeckZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new RoundGameAction());
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine(); ;
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine(); ;
 
             Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
             Assert.That(SceneCORE3.Urmodoth.IsInPlay, Is.True);
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.Ritual).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine(); ;
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine(); ;
 
             Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
             Assert.That(creature.IsInPlay, Is.False);
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new CheckEldritchsPlotGameAction()).AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE3.Urmodoth, investigator2.InvestigatorCard).Start().AsCoroutine();
 
             Assert.That(investigator.Injury.Value, Is.EqualTo(2));

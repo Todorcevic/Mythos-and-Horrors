@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
                 await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 2).Start();
-                await _gameActionsProvider.Create(new CheckEldritchsPlotGameAction());
+                await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
             }
 
             async Task TakeFear()
