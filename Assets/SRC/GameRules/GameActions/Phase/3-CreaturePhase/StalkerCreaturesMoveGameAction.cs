@@ -26,6 +26,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private IEnumerable<IStalker> StalkersInPlay() => _cardsProvider.AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
-        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create(new MoveCreatureGameAction(stalker, _investigatorsProvider.AllInvestigatorsInPlay));
+        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(stalker, _investigatorsProvider.AllInvestigatorsInPlay).Start();
     }
 }

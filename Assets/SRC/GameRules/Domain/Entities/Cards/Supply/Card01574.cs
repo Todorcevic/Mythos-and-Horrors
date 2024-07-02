@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         private bool Condition(ResolveChallengeGameAction resolveChallengeGameAction)

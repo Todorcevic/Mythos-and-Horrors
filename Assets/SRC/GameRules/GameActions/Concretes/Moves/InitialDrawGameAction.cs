@@ -1,19 +1,19 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class InitialDrawGameAction : GameAction
     {
-        public Investigator Investigator { get; }
+        public Investigator Investigator { get; private set; }
         public override bool CanBeExecuted => Investigator.HandZone.Cards.Count() < GameValues.INITIAL_DRAW_SIZE;
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public InitialDrawGameAction(Investigator investigator)
+        public InitialDrawGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/
@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameRules
             Card nextDraw = Investigator.CardAidToDraw ?? throw new System.Exception("No card to draw"); //TODO must shuffle deck with discard
             if (nextDraw.Tags.Contains(Tag.Weakness))
             {
-                await _gameActionsProvider.Create(new DiscardGameAction(nextDraw));
-                await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(nextDraw).Start();
+                await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Start();
                 return;
             }
 
             await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Investigator).Start();
-            await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
+            await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Start();
         }
     }
 }

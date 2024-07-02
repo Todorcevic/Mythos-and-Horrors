@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01124 home = _cardsProvider.GetCard<Card01124>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(ghoul, investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(ghoul, investigator).Start().AsCoroutine();
 
             Assert.That(ghoul.CurrentPlace, Is.EqualTo(home));
         }

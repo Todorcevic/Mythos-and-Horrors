@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(RoundGameAction action)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         private bool DiscardCondition(RoundGameAction action)

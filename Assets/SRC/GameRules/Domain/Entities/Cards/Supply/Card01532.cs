@@ -46,11 +46,11 @@ namespace MythosAndHorrors.GameRules
                 async Task TakeTome()
                 {
                     await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, tome).Start();
-                    await _gameActionsProvider.Create(new HideCardsGameAction(tomes.Except(new[] { tome })));
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(tomes.Except(new[] { tome })).Start();
                 }
             }
 
-            await _gameActionsProvider.Create(new ShowCardsGameAction(tomes));
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(tomes).Start();
             await interactableGameAction.Start();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ControlOwner.DeckZone).Start();
         }

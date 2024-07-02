@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MoveCreatureGameAction : GameAction
     {
-
-        public CardCreature Creature { get; }
-        public CardPlace Destiny { get; }
+        public CardCreature Creature { get; private set; }
+        public CardPlace Destiny { get; private set; }
 
         /*******************************************************************/
-        public MoveCreatureGameAction(CardCreature creature, CardPlace destiny)
+        public MoveCreatureGameAction SetWith(CardCreature creature, CardPlace destiny)
         {
             Creature = creature;
             Destiny = destiny;
+            return this;
         }
 
-        public MoveCreatureGameAction(IStalker creature, IEnumerable<Investigator> investigatorsInPlay)
+        public MoveCreatureGameAction SetWith(IStalker creature, IEnumerable<Investigator> investigatorsInPlay)
         {
             Creature = (CardCreature)creature;
             Destiny = creature.GetPlaceToStalkerMove(investigatorsInPlay);
+            return this;
         }
 
         /*******************************************************************/

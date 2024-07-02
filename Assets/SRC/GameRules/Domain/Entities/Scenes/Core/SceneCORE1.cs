@@ -34,8 +34,8 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
-            await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
-            await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
             await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Study).Start();
         }
 
@@ -179,8 +179,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task Resolution0()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
             if (Lita.ControlOwner != null)
                 await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
@@ -188,7 +188,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution1()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, false));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, false).Start();
             if (Lita.ControlOwner != null)
                 await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Shock, 1).Start();
@@ -197,16 +197,16 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution2()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Xp, 1).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
         protected override async Task Resolution3()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.LitaGoAway, true));
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaGoAway, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
             await Task.CompletedTask;
             //TODO: continue
         }

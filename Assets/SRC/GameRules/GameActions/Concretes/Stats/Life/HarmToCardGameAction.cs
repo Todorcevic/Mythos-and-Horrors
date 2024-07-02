@@ -45,14 +45,14 @@ namespace MythosAndHorrors.GameRules
             {
                 if (damageableAfter.HealthLeft <= 0)
                 {
-                    await _gameActionsProvider.Create(new DefeatCardGameAction(Card, ByThisCard));
+                    await _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(Card, ByThisCard).Start();
                 }
             }
             if (Card is IFearable fearableAfter)
             {
                 if (fearableAfter.SanityLeft <= 0)
                 {
-                    await _gameActionsProvider.Create(new DefeatCardGameAction(Card, ByThisCard));
+                    await _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(Card, ByThisCard).Start();
                 }
             }
         }

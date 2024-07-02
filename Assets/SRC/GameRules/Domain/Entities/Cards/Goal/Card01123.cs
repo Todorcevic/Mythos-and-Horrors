@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected async Task RevealLogic(MoveCardsGameAction updateStatGameAction) =>
-            await _gameActionsProvider.Create(new RevealGameAction(this));
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
 
         /*******************************************************************/
         protected override async Task CompleteEffect()

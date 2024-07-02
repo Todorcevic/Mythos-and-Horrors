@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(this, _chaptersProvider.CurrentScene.LimboZone).Start();
             await ExecuteConditionEffect(gameAction, currentInvestigator);
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
     }
 }

@@ -50,15 +50,15 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected async Task RevealLogic(UpdateStatGameAction updateStatGameAction) =>
-            await _gameActionsProvider.Create(new RevealGameAction(this));
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
 
         /*******************************************************************/
         private async Task RevealEffect(RevealGameAction revealGameAction)
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-            await _gameActionsProvider.Create(new PlaceGoalGameAction(NextCardGoal));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(NextCardGoal).Start();
         }
 
         protected abstract Task CompleteEffect();

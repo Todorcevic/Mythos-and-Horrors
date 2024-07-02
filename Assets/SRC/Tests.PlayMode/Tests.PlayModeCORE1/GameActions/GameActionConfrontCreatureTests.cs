@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
             yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Exausted, true).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new EliminateInvestigatorGameAction(_investigatorsProvider.Third)).AsCoroutine();
+            yield return _gameActionsProvider.Create<EliminateInvestigatorGameAction>().SetWith(_investigatorsProvider.Third).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
             Assert.That(creature.CurrentZone, Is.EqualTo(SceneCORE1.Study.OwnZone));

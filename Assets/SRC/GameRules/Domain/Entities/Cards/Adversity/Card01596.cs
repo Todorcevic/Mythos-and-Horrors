@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
                     /*******************************************************************/
                     IEnumerable<Card> Collection() => investigator.HandZone.Cards.Where(card => card.CanBeDiscarded).Except(new[] { card });
-                    async Task Logic(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    async Task Logic(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
                 }
             }
 

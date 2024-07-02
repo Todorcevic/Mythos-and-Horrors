@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class EliminateInvestigatorGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly IPresenter<EliminateInvestigatorGameAction> eliminateInvestigatorPresenter;
 
-        public Investigator Investigator { get; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public EliminateInvestigatorGameAction(Investigator investigator)
+        public EliminateInvestigatorGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/
@@ -31,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
 
             /*******************************************************************/
-            async Task Discard(Card card) => await _gameActionsProvider.Create(new DiscardGameAction(card));
+            async Task Discard(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
             IEnumerable<Card> DangerCards() => Investigator.DangerZone.Cards;
         }
 

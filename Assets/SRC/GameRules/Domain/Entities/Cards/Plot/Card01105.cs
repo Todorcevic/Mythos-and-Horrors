@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             async Task Discard(Investigator investigator)
             {
                 Card cardToDiscard = investigator.HandZone.Cards.Rand();
-                await _gameActionsProvider.Create(new DiscardGameAction(cardToDiscard));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
             }
         }
 

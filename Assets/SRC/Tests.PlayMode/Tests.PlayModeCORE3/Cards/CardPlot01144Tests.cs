@@ -46,7 +46,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, SceneCORE3.PlotZone).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.MainPath).Start().AsCoroutine();
 
             Assert.That(creature.Strength.Value, Is.EqualTo(creature.Info.Strength + 1));
             Assert.That(creature.Agility.Value, Is.EqualTo(creature.Info.Agility + 1));

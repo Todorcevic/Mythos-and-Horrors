@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             }
             if (Effect.WithOpportunityAttack)
             {
-                await _gameActionsProvider.Create(new OpportunityAttackGameAction(Effect.Investigator));
+                await _gameActionsProvider.Create<OpportunityAttackGameAction>().SetWith(Effect.Investigator).Start();
             }
             await Effect.Logic();
         }

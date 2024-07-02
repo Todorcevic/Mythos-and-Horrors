@@ -50,11 +50,11 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectSpell()
                 {
                     await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Start();
-                    await _gameActionsProvider.Create(new HideCardsGameAction(cards.Except(new[] { card })));
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cards.Except(new[] { card })).Start();
                 }
             }
 
-            await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Start();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await interactableGameAction.Start();
         }

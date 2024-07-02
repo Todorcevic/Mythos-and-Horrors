@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelecteInvestigator()
                 {
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
-                    await _gameActionsProvider.Create(new ShowCardsGameAction(cardsToShow));
+                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Start();
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Card");
 
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
                             await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Start();
                             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Start();
                             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-                            await _gameActionsProvider.Create(new HideCardsGameAction(cardsToShow.Except(new[] { card })));
+                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Start();
                             await DecrementCost(card, inv);
                         }
                     }

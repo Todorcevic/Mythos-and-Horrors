@@ -21,10 +21,10 @@ namespace MythosAndHorrors.GameRules
 
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Monster) ||
                 _chaptersProvider.CurrentScene.DangerDeckZone.TopCard is not CardCreature)
-                await _gameActionsProvider.Create(new DiscardGameAction(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard).Start();
 
             CardCreature monster = (CardCreature)_chaptersProvider.CurrentScene.DangerDeckZone.TopCard;
-            await _gameActionsProvider.Create(new SpawnCreatureGameAction(monster, SceneCORE3.MainPath));
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(monster, SceneCORE3.MainPath).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(monster.Eldritch, 1).Start();
         }
     }

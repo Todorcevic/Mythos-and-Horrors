@@ -71,7 +71,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new RevealGameAction(Parlor)).AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(Parlor).Start().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(Parlor);

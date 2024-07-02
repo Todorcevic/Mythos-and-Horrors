@@ -66,7 +66,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ConfrontLogic(GameAction gameAction)
         {
-            await _gameActionsProvider.Create(new ConfrontCreatureGameAction(this));
+            await _gameActionsProvider.Create<ConfrontCreatureGameAction>().SetWith(this).Start();
         }
     }
 }

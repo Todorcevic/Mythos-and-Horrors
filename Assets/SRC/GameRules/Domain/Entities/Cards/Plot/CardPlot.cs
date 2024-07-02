@@ -35,8 +35,8 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
             await CompleteEffect();
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-            await _gameActionsProvider.Create(new PlacePlotGameAction(NextCardPlot));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(NextCardPlot).Start();
         }
 
         protected abstract Task CompleteEffect();

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01568 conditionCard = _cardsProvider.GetCard<Card01568>();
             Card01603 creature = _cardsProvider.GetCard<Card01603>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, investigator.CurrentPlace)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Start().AsCoroutine();
 
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.True);
 

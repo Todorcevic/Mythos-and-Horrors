@@ -7,7 +7,6 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
-
     public class CardGoal01146Tests : TestCORE3Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -16,8 +15,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         public IEnumerator CompleteEffect()
         {
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.DrewInterrogate, true)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.VictoriaInterrogate, true)).AsCoroutine();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.VictoriaInterrogate, true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Start().AsCoroutine();
 
             Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);

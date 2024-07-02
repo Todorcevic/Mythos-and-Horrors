@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -21,8 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
-            await _gameActionsProvider.Create(new DiscardGameAction(spawnCreatureGameAction.Creature));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(spawnCreatureGameAction.Creature).Start();
         }
 
         private bool Condition(SpawnCreatureGameAction spawnCreatureGameAction)

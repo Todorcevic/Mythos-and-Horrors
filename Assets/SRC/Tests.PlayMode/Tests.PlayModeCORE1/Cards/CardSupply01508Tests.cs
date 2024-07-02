@@ -58,7 +58,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Task<DiscardGameAction> gameActionTask2 = _gameActionsProvider.Create(new DiscardGameAction(toPlay));
+            Task gameActionTask2 = _gameActionsProvider.Create<DiscardGameAction>().SetWith(toPlay).Start();
             yield return ClickedIn(cardsToPlay.First());
             yield return gameActionTask2.AsCoroutine();
 

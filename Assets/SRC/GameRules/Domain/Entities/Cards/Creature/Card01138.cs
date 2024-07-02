@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     async Task Discard()
                     {
-                        await _gameActionsProvider.Create(new DiscardGameAction(card));
+                        await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
                         await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_amountDiscarded, 1).Start();
                         if (_amountDiscarded.Value == 4)
                             await _gameActionsProvider.Create<MoveCardsGameAction>()

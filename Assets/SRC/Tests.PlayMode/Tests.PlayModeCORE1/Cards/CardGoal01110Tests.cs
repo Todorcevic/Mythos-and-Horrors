@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulPriest, SceneCORE1.Hallway.OwnZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard));
+            Task taskGameAction = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard).Start();
             yield return ClickedClone(cardGoal, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulPriest, SceneCORE1.Hallway.OwnZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard));
+            Task taskGameAction = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE1.GhoulPriest, _investigatorsProvider.First.InvestigatorCard).Start();
             yield return ClickedClone(cardGoal, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 

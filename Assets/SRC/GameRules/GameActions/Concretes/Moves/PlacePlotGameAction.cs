@@ -7,14 +7,15 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
 
-        public CardPlot CardPlot { get; }
+        public CardPlot CardPlot { get; private set; }
 
         public override bool CanBeExecuted => CardPlot != null;
 
         /*******************************************************************/
-        public PlacePlotGameAction(CardPlot cardPlot)
+        public PlacePlotGameAction SetWith(CardPlot cardPlot)
         {
             CardPlot = cardPlot;
+            return this;
         }
 
         /*******************************************************************/

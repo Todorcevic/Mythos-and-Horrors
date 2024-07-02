@@ -8,12 +8,13 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Card Card { get; }
+        public Card Card { get; private set; }
 
         /*******************************************************************/
-        public DiscardGameAction(Card card)
+        public DiscardGameAction SetWith(Card card)
         {
             Card = card;
+            return this;
         }
 
         /*******************************************************************/

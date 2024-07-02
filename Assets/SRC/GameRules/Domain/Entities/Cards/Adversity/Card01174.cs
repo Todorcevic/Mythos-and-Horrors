@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task PlayRevelationFor(Investigator investigator)
         {
-            if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create(new DiscardGameAction(this));
+            if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         /*******************************************************************/
@@ -70,7 +70,7 @@ namespace MythosAndHorrors.GameRules
             async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Open", this, succesEffect: Discard).Start();
 
             /*******************************************************************/
-            async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));
+            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
 
         }
 

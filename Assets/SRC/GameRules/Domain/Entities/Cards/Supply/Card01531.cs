@@ -55,11 +55,11 @@ namespace MythosAndHorrors.GameRules
                         async Task Draw()
                         {
                             await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Start();
-                            await _gameActionsProvider.Create(new HideCardsGameAction(cardsToShow.Except(new[] { card })));
+                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Start();
                         }
                     }
 
-                    await _gameActionsProvider.Create(new ShowCardsGameAction(cardsToShow));
+                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Start();
                     await interactableGameAction2.Start();
                     await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Start();
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();

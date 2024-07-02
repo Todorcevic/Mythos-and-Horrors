@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Start().AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE1.GhoulSecuaz, investigator.InvestigatorCard));
+            Task gameActionTask = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.InvestigatorCard).Start();
             yield return ClickedIn(conditionCard);
             yield return gameActionTask.AsCoroutine();
 

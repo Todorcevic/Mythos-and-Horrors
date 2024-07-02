@@ -75,7 +75,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();

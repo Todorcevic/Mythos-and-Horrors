@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard).Start();
 
             /*******************************************************************/
-            async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(this));
+            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         private bool ChallengeToDiscardCondition(Investigator investigator)

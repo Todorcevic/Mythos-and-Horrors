@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Discard(CommitableCard card)
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(card.Commited, false).Start();
-            await _gameActionsProvider.Create(new DiscardGameAction(card));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
         }
     }
 }

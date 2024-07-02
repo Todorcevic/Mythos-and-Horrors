@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectDeck()
                 {
                     IEnumerable<Card> cards = inv.DeckZone.Cards.TakeLast(3);
-                    await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Start();
                     await SortCards(cards, inv);
                 }
             }
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
             async Task SelectDangerDeck()
             {
                 IEnumerable<Card> cards = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.TakeLast(3);
-                await _gameActionsProvider.Create(new ShowCardsGameAction(cards));
+                await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Start();
                 await SortCards(cards, null);
                 await TakeHorror(cards);
             }

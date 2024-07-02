@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task PlayRevelationFor(Investigator investigator)
         {
             if (CurrentZone.Cards.Exists(card => card is Card01168 && card != this))
-                await _gameActionsProvider.Create(new DiscardGameAction(this));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         /*******************************************************************/
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task FinishLogic(InvestigatePlaceGameAction investigateGameAction)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         private bool FinishCondition(InvestigatePlaceGameAction investigateGameAction)

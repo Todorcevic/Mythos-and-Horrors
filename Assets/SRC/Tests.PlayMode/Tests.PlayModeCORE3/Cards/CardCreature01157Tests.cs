@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new CreatureConfrontAttackGameAction()).AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.DamageRecived.Value, Is.EqualTo(3));
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
             yield return ClickedIn(SceneCORE3.Forest3);
@@ -63,7 +63,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, _investigatorsProvider.Second.AidZone).Start();
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
@@ -87,7 +87,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.Second);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, _investigatorsProvider.Second.AidZone).Start();
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
 
             Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
@@ -108,9 +108,9 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.PlotCards.ElementAt(2), SceneCORE3.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE3.PlotCards.ElementAt(2))).AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE3.PlotCards.ElementAt(2)).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.MainPath)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToCardGameAction(SceneCORE3.Urmodoth, _investigatorsProvider.First.InvestigatorCard, amountDamage: SceneCORE3.Urmodoth.Health.Value)).AsCoroutine();
 
             Assert.That(SceneCORE3.Urmodoth.Defeated.IsActive, Is.True);

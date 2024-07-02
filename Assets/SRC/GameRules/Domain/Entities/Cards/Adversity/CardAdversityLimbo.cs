@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
             if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, true).Start();
             await ObligationLogic(investigator);
             if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, false).Start();
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         /*******************************************************************/

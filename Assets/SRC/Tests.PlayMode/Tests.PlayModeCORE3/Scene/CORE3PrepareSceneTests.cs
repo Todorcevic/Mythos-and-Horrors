@@ -31,11 +31,11 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             SceneCORE3 scene = SceneCORE3;
             yield return PlayAllInvestigators(withAvatar: false);
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.DrewInterrogate, true));
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.MaskedHunterInterrogate, true));
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PeterInterrogate, true));
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.IsMidknigh, true));
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
 
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 

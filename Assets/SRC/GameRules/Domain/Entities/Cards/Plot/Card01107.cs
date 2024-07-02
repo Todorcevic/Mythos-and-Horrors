@@ -56,7 +56,8 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(GhoulsToMove, MoveCreature).Start();
 
             /*******************************************************************/
-            async Task MoveCreature(CardCreature ghoul) => await _gameActionsProvider.Create(new MoveCreatureGameAction(ghoul, ghoul.CurrentPlace.DistanceTo(parlor).path));
+            async Task MoveCreature(CardCreature ghoul) =>
+                await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(ghoul, ghoul.CurrentPlace.DistanceTo(parlor).path).Start();
         }
 
         /*******************************************************************/

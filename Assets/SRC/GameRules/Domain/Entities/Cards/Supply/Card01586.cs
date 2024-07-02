@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (ThrowingState.IsActive)
             {
-                await _gameActionsProvider.Create(new DiscardGameAction(this));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
                 await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Start();
                 await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
             }

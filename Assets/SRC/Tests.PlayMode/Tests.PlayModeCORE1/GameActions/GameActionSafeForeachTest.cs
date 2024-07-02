@@ -69,7 +69,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             SafeForeachReaction();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create(new RevealGameAction(SceneCORE1.Hallway)).AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedTokenButton();
@@ -110,7 +110,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
         private async Task DiscardAndMoveInvestigatorToStudy(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First()));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(investigator.HandZone.Cards.First()).Start();
             await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Start();
         }
 
@@ -126,7 +126,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 /*******************************************************************/
                 async Task Activate()
                 {
-                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
                     await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Start();
                 }
 

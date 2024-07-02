@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new EliminateInvestigatorGameAction(Investigator));
+            await _gameActionsProvider.Create<EliminateInvestigatorGameAction>().SetWith(Investigator).Start();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Investigator.Resign, IsActive).Start();
         }
     }

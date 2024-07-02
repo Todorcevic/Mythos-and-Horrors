@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(6));
 
-            yield return _gameActionsProvider.Create(new DiscardGameAction(cardWithBuff)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardWithBuff).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(5));

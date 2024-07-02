@@ -32,8 +32,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         {
             SceneCORE2 scene = SceneCORE2;
             yield return PlayAllInvestigators(withAvatar: false);
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HouseUp, true));
-            yield return _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, true));
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
             yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
 
             Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(9));

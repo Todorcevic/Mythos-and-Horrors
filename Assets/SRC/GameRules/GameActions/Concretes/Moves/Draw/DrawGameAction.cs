@@ -25,10 +25,10 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<PlayDrawActivableGameAction>().SetWith(cardAdversity, Investigator).Start();
                     break;
                 case ISpawnable spawnable:
-                    await _gameActionsProvider.Create(new SpawnCreatureGameAction(spawnable));
+                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(spawnable).Start();
                     break;
                 case CardCreature cardCreature:
-                    await _gameActionsProvider.Create(new SpawnCreatureGameAction(cardCreature, Investigator));
+                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(cardCreature, Investigator).Start();
                     break;
                 default:
                     await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Start();

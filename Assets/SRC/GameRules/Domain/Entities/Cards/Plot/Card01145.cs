@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +51,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Discard(CardCreature creature)
                 {
-                    await _gameActionsProvider.Create(new DiscardGameAction(creature));
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Start();
                 }
 
                 IEnumerable<CardCreature> CreaturesInRitual()
@@ -62,7 +61,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start();
-            await _gameActionsProvider.Create(new SpawnCreatureGameAction(SceneCORE3.Urmodoth, SceneCORE3.Ritual));
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.Ritual).Start();
         }
 
         protected override async Task CompleteEffect()

@@ -9,14 +9,15 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         private bool _oldRegister;
 
-        public Enum Position { get; }
-        public bool State { get; }
+        public Enum Position { get; private set; }
+        public bool State { get; private set; }
 
         /*******************************************************************/
-        public RegisterChapterGameAction(Enum position, bool state)
+        public RegisterChapterGameAction SetWith(Enum position, bool state)
         {
             Position = position;
             State = state;
+            return this;
         }
 
         /*******************************************************************/

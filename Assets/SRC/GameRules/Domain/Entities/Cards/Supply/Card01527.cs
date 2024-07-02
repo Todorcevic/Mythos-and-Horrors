@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentTurns, 2).Start();
         }
 

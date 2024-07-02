@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,10 +42,11 @@ namespace MythosAndHorrors.GameRules
             {
                 interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator);
 
-                async Task Elude() => await _gameActionsProvider.Create(new EludeGameAction(creature, ControlOwner));
+                /*******************************************************************/
+                async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Start();
             }
 
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
             await interactableGameAction.Start();
         }
     }

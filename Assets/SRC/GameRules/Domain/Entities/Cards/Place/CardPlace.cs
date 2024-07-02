@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         private async Task RevealLogic(MoveCardsGameAction moveCardsGameAction) =>
-            await _gameActionsProvider.Create(new RevealGameAction(this));
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
 
     }
 }

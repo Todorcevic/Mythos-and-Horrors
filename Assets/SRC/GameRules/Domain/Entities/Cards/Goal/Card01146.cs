@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task Spawn(CardCreature creature) =>
-              await _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, SceneCORE3.MainPath));
+              await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.MainPath).Start();
         }
     }
 }

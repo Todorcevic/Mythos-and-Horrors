@@ -103,8 +103,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlacePlotAndGoal()
         {
-            await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
-            await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
 
             int totaL = 0;
             if (AmountInterrogate < 2) totaL = 3;
@@ -125,10 +125,10 @@ namespace MythosAndHorrors.GameRules
             {
                 Card cardToDiscard = investigator.HandZone.Cards.Rand();
                 if (cardToDiscard == null) return;
-                await _gameActionsProvider.Create(new DiscardGameAction(cardToDiscard));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
                 cardToDiscard = investigator.HandZone.Cards.Rand();
                 if (cardToDiscard == null) return;
-                await _gameActionsProvider.Create(new DiscardGameAction(cardToDiscard));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
             }
         }
 
@@ -140,7 +140,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task Resolution0()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.UmordhothWin, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, true).Start();
             await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInPlay, Defeated).Start();
 
             /*******************************************************************/
@@ -152,7 +152,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution1()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.UmordhothWin, false));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
             await TakeShock();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
 
@@ -169,7 +169,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution2()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.UmordhothWin, false));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
             await TakeInjuriesAndShock();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
 
@@ -187,7 +187,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task Resolution3()
         {
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.LitaSacrifice, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaSacrifice, true).Start();
             await TakeInjuriesAndShock();
             await TakeFlaw();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());

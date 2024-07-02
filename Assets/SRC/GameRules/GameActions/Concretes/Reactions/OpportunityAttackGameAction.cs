@@ -6,14 +6,14 @@ namespace MythosAndHorrors.GameRules
 {
     public class OpportunityAttackGameAction : GameAction
     {
-        public Investigator Investigator { get; }
-
+        public Investigator Investigator { get; private set; }
         public override bool CanBeExecuted => Investigator.AllTypeCreaturesConfronted.Any();
 
         /*******************************************************************/
-        public OpportunityAttackGameAction(Investigator investigator)
+        public OpportunityAttackGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

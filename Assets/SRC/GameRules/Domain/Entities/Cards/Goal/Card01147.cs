@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RevealRituaReactionlLogic(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create(new RevealGameAction(this));
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
         }
 
         private bool RevealRituaReactionCondition(RevealGameAction revealGameAction)
@@ -51,10 +51,10 @@ namespace MythosAndHorrors.GameRules
         private async Task SpawnCreature()
         {
             while (SceneCORE3.DangerDeckZone.TopCard is not CardCreature)
-                await _gameActionsProvider.Create(new DiscardGameAction(SceneCORE3.DangerDeckZone.TopCard));
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(SceneCORE3.DangerDeckZone.TopCard).Start();
 
             CardCreature creature = (CardCreature)SceneCORE3.DangerDeckZone.TopCard;
-            await _gameActionsProvider.Create(new SpawnCreatureGameAction(creature, SceneCORE3.Ritual));
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.Ritual).Start();
         }
     }
 }

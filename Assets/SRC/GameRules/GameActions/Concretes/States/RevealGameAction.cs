@@ -1,18 +1,17 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class RevealGameAction : GameAction
     {
-
-        public IRevealable RevellableCard { get; }
+        public IRevealable RevellableCard { get; private set; }
         public Card Card => RevellableCard as Card;
 
         /*******************************************************************/
-        public RevealGameAction(IRevealable cardReveled)
+        public RevealGameAction SetWith(IRevealable cardReveled)
         {
             RevellableCard = cardReveled;
+            return this;
         }
 
         /*******************************************************************/

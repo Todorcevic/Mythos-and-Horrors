@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE1.GoalZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.InvestigatorCard, investigator.InvestigatorZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, SceneCORE1.GetPlaceZone(2, 2)).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new RevealGameAction(place)).AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, place.Hints, 2)).AsCoroutine();

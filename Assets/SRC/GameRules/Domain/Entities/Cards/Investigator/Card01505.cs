@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Discard()
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
-                    await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
                     await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(revealChallengeToken.ChallengeTokenRevealed));
                     await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(Owner));
                 }

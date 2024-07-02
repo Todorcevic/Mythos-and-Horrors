@@ -14,8 +14,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
-            yield return _gameActionsProvider.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(investigator.HandZone.Cards.First()).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(investigator).Start().AsCoroutine();
 
             Assert.That(investigator.HandZone.Cards.Count(), Is.EqualTo(5));
         }
@@ -27,10 +27,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             Card weaknessCard = _cardsProvider.GetCard<Card01507>();
             Card normalCard = _cardsProvider.GetCard<Card01517>();
-            yield return _gameActionsProvider.Create(new DiscardGameAction(investigator.HandZone.Cards.First())).AsCoroutine();
+            yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(investigator.HandZone.Cards.First()).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(new[] { normalCard, weaknessCard }, investigator.DeckZone).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new InitialDrawGameAction(investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(investigator).Start().AsCoroutine();
 
             Assert.That(investigator.HandZone.Cards.Contains(normalCard));
             Assert.That(investigator.DiscardZone.Cards.Contains(weaknessCard));

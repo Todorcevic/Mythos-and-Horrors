@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                     interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, creatureAttackGameAction.Investigator);
 
                     /*******************************************************************/
-                    async Task Discard() => await _gameActionsProvider.Create(new DiscardGameAction(card));
+                    async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
                 }
 
                 await interactableGameAction.Start();

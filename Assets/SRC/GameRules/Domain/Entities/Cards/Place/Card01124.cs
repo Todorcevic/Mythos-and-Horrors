@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task PriestSpawnLogic(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            spawnCreatureGameAction.UpdatePlace(this);
+            spawnCreatureGameAction.SetWith(spawnCreatureGameAction.Creature, this);
             await Task.CompletedTask;
         }
 

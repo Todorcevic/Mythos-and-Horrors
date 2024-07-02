@@ -102,8 +102,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PlacePlotAndGoal()
         {
-            await _gameActionsProvider.Create(new PlacePlotGameAction(FirstPlot));
-            await _gameActionsProvider.Create(new PlaceGoalGameAction(FirstGoal));
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
         }
 
         private async Task PlaceInvestigators()
@@ -132,26 +132,26 @@ namespace MythosAndHorrors.GameRules
         protected override async Task Resolution2()
         {
             await Interrogates();
-            await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.IsMidknigh, true));
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
             await _gameActionsProvider.Create(new GainSceneXpGameAction());
         }
 
         private async Task Interrogates()
         {
             if (Drew.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.DrewInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Start();
             if (Herman.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.HermanInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HermanInterrogate, true).Start();
             if (Peter.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PeterInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Start();
             if (Victoria.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.VictoriaInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.VictoriaInterrogate, true).Start();
             if (Ruth.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.RuthInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.RuthInterrogate, true).Start();
             if (MaskedHunter.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.MaskedHunterInterrogate, true));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Start();
             if (GhoulPriest.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create(new RegisterChapterGameAction(CORERegister.PriestGhoulLive, false));
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, false).Start();
         }
 
         /*******************************************************************/

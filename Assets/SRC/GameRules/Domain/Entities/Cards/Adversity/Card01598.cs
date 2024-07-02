@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         private bool DiscardConditionToActivate(Investigator activeInvestigator)

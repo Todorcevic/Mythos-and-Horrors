@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01170 acolit = _cardsProvider.GetCard<Card01170>();
 
-            yield return _gameActionsProvider.Create(new SpawnCreatureGameAction(acolit)).AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(acolit).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new ScenePhaseGameAction()).AsCoroutine();
 
             Assert.That(acolit.Eldritch.Value, Is.EqualTo(1));

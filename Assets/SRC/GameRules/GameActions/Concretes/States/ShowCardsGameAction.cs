@@ -1,23 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ShowCardsGameAction : GameAction
     {
-
-        public IEnumerable<Card> Cards { get; }
+        public IEnumerable<Card> Cards { get; private set; }
         public override bool CanUndo => false;
-        //public override bool CanBeExecuted => Cards.Any(card => card.FaceDown.IsActive);
 
         /*******************************************************************/
-        public ShowCardsGameAction(Card card) : this(new List<Card> { card }) { }
+        public ShowCardsGameAction SetWith(Card card) => SetWith(new[] { card });
 
-        public ShowCardsGameAction(IEnumerable<Card> cards)
+        public ShowCardsGameAction SetWith(IEnumerable<Card> cards)
         {
             Cards = cards;
+            return this;
         }
 
         /*******************************************************************/

@@ -8,14 +8,15 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
-        public CardCreature Creature { get; }
-        public Investigator ConfrontedInvestigator { get; }
+        public CardCreature Creature { get; private set; }
+        public Investigator ConfrontedInvestigator { get; private set; }
 
         /*******************************************************************/
-        public ConfrontCreatureGameAction(CardCreature creature, Investigator confrontedInvestigator = null)
+        public ConfrontCreatureGameAction SetWith(CardCreature creature, Investigator confrontedInvestigator = null)
         {
             Creature = creature;
             ConfrontedInvestigator = confrontedInvestigator;
+            return this;
         }
 
         /*******************************************************************/

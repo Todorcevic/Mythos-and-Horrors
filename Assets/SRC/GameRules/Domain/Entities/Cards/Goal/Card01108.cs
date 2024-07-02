@@ -38,6 +38,6 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(Study, _chaptersProvider.CurrentScene.OutZone).Start();
         }
 
-        private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create(new DiscardGameAction(creature));
+        private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Start();
     }
 }

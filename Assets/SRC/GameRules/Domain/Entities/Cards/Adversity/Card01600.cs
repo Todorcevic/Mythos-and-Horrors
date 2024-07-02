@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DiscardLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new DiscardGameAction(this));
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
         }
 
         /*******************************************************************/

@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
-            yield return _gameActionsProvider.Create(new DefeatCardGameAction(SceneCORE2.MaskedHunter, investigator.InvestigatorCard)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE2.MaskedHunter, investigator.InvestigatorCard).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
 
             gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
