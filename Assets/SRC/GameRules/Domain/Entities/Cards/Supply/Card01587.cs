@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate);
+            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
         }
 
         /*******************************************************************/
@@ -37,7 +37,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
             await _gameActionsProvider.Create<InvestigatePlaceGameAction>().SetWith(investigator, investigator.CurrentPlace).Execute();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
-
         }
     }
 }

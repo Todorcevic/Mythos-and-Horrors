@@ -10,6 +10,12 @@ namespace MythosAndHorrors.GameRules
         private readonly List<IReaction> _reactions = new();
 
         /*******************************************************************/
+        public async Task WhenInitial(GameAction gameAction)
+        {
+            foreach (IReaction reaction in _reactions.Where(realReaction => realReaction.Check(gameAction, GameActionTime.Initial)).ToList())
+                await reaction.React(gameAction);
+        }
+
         public async Task WhenBegin(GameAction gameAction)
         {
             foreach (IReaction reaction in _reactions.Where(realReaction => realReaction.Check(gameAction, GameActionTime.Before)).ToList())

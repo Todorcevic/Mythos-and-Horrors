@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
 
                 CreateOneTimeReaction<CreatureAttackGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
-                async Task RestoreLogic(CreatureAttackGameAction creatureAttackGameAction2)
+                async Task RestoreLogic(CreatureAttackGameAction creatureAttackAfterGameAction)
                 {
                     Dictionary<Stat, int> stats = new()
                     {
@@ -64,9 +64,9 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Execute();
                 }
 
-                bool RestoreCondition(CreatureAttackGameAction creatureAttackGameAction2)
+                bool RestoreCondition(CreatureAttackGameAction creatureAttackAfterGameAction)
                 {
-                    if (creatureAttackGameAction2 != creatureAttackGameAction) return false;
+                    if (creatureAttackAfterGameAction != creatureAttackGameAction) return false;
                     return true;
                 }
             }

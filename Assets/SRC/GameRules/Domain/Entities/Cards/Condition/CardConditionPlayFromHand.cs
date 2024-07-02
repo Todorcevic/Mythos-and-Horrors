@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -7,6 +8,8 @@ namespace MythosAndHorrors.GameRules
     {
         public Stat PlayFromHandTurnsCost { get; private set; }
         public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }
+
+        public virtual Func<Card> CardAffected => null;
 
         /*******************************************************************/
         [Inject]
@@ -20,7 +23,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected bool CanPlayFromHandWith(Investigator investigator)
         {
-            //if (gameAction is not OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) return false;
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner != investigator) return false;
             if (ResourceCost.Value > ControlOwner.Resources.Value) return false;

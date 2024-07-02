@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
         private readonly List<Activation<Investigator>> _activations = new();
 
         /*******************************************************************/
-        public Activation<Investigator> CreateActivation(Card card, int turnCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType)
+        public Activation<Investigator> CreateActivation(Card card, int turnCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, Func<Card> cardAffected)
         {
-            Activation<Investigator> newActivation = new(card, new Stat(turnCost, false), new GameCommand<Investigator>(logic), new GameConditionWith<Investigator>(condition), playActionType);
+            Activation<Investigator> newActivation = new(card, new Stat(turnCost, false), new GameCommand<Investigator>(logic), new GameConditionWith<Investigator>(condition), playActionType, cardAffected);
             _activations.Add(newActivation);
             return newActivation;
         }

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Protected = new State(false);
             CreateForceReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.Before);
-            CreateForceReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, GameActionTime.Before);
+            CreateForceReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, GameActionTime.Initial);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
         }
 

@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
         public List<Activation<ChallengePhaseGameAction>> AllCommitsActivations { get; private set; } = new();
 
         /*******************************************************************/
-        protected Activation<ChallengePhaseGameAction> CreateChallengeActivation(Func<ChallengePhaseGameAction, Task> logic, Func<ChallengePhaseGameAction, bool> condition, PlayActionType playActionType)
+        protected Activation<ChallengePhaseGameAction> CreateChallengeActivation(Func<ChallengePhaseGameAction, Task> logic, Func<ChallengePhaseGameAction, bool> condition, PlayActionType playActionType, Func<Card> cardAffected = null)
         {
-            Activation<ChallengePhaseGameAction> newActivation = new(this, new Stat(0, false), new GameCommand<ChallengePhaseGameAction>(logic), new GameConditionWith<ChallengePhaseGameAction>(condition), playActionType);
+            Activation<ChallengePhaseGameAction> newActivation = new(this, new Stat(0, false), new GameCommand<ChallengePhaseGameAction>(logic), new GameConditionWith<ChallengePhaseGameAction>(condition), playActionType, cardAffected);
             AllCommitsActivations.Add(newActivation);
             _specificAbilities.Add(newActivation);
             return newActivation;

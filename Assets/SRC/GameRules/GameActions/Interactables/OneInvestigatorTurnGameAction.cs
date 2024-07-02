@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
-        => throw new NotImplementedException();
+            => throw new NotImplementedException();
 
         public OneInvestigatorTurnGameAction SetWith()
         {
@@ -69,7 +69,8 @@ namespace MythosAndHorrors.GameRules
                     PlayFromHand,
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
                     playedBy: ActiveInvestigator,
-                    resourceCost: playableFromHand.ResourceCost);
+                    resourceCost: playableFromHand.ResourceCost,
+                    cardAffected: playableFromHand.CardAffected?.Invoke());
 
                 async Task PlayFromHand() => await playableFromHand.PlayFromHandCommand.RunWith(this);
             }
@@ -207,7 +208,8 @@ namespace MythosAndHorrors.GameRules
                     activation.ActivateTurnsCost,
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
-                    ActiveInvestigator);
+                    ActiveInvestigator,
+                    cardAffected: activation.CardAffected?.Invoke());
 
                 async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }

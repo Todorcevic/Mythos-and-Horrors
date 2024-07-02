@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class CardSupply : CommitableCard, IPlayableFromHand
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -19,6 +19,8 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
+
+        public virtual Func<Card> CardAffected => null;
 
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 

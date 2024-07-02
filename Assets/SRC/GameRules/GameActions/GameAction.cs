@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Execute()
         {
+            await _reactionablesProvider.WhenInitial(this);
             if (!CanBeExecuted || IsCancel) return;
             if (this is IInitializable initializable) initializable.ExecuteSpecificInitialization();
             InitialSet();
@@ -30,12 +31,11 @@ namespace MythosAndHorrors.GameRules
                 FinishSet();
                 return;
             }
-
             _gameActionsProvider.AddUndo(this);
 
             await ExecuteThisLogic();
-            await _buffsProvider.ExecuteAllBuffs();
 
+            await _buffsProvider.ExecuteAllBuffs();
             await _reactionablesProvider.WhenFinish(this);
             await _optativeReactionsProvider.WhenFinish(this);
             FinishSet();

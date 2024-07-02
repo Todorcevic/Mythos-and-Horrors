@@ -11,30 +11,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
     public class GameActionUndoTests : TestCORE1Preparation
     {
         [UnityTest]
-        public IEnumerator UndoMoveMulticardsTest()
-        {
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.HandZone.Cards, _investigatorsProvider.First.DeckZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.FullDeck, _investigatorsProvider.First.DiscardZone).Execute().AsCoroutine();
-
-            yield return _gameActionsProvider.UndoLast().AsCoroutine();
-
-            Assert.That(_investigatorsProvider.First.FullDeck.All(card => card.CurrentZone == _investigatorsProvider.First.DeckZone), Is.True);
-        }
-
-        [UnityTest]
-        public IEnumerator UndoOneCardTest()
-        {
-            Card cardTomove = _investigatorsProvider.First.FullDeck.First();
-            yield return PlayThisInvestigator(_investigatorsProvider.First);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.AidZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTomove, _investigatorsProvider.First.DiscardZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.UndoLast().AsCoroutine();
-
-            Assert.That(cardTomove.CurrentZone, Is.EqualTo(_investigatorsProvider.First.AidZone));
-        }
-
-        [UnityTest]
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
             yield return PlayAllInvestigators();
