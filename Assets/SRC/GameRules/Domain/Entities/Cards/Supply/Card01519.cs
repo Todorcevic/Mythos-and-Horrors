@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Start();
+                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
             }
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
@@ -68,10 +68,10 @@ namespace MythosAndHorrors.GameRules
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Start();
+                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         public bool HealConditionToActivate(Investigator activeInvestigator)

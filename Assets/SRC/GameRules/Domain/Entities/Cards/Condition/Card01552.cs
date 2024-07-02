@@ -20,10 +20,10 @@ namespace MythosAndHorrors.GameRules
             {
                 chooseEnemy.CreateEffect(creature, new Stat(0, false), DamageCreature, PlayActionType.Choose, investigator);
 
-                async Task DamageCreature() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Start();
+                async Task DamageCreature() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Execute();
             }
 
-            await chooseEnemy.Start();
+            await chooseEnemy.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

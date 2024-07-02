@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             await Task.CompletedTask;
 
             async Task HealthFear() =>
-                await _gameActionsProvider.Create<HealthGameAction>().SetWith(InvestigatorCommiter.InvestigatorCard, amountFearToRecovery: 1).Start();
+                await _gameActionsProvider.Create<HealthGameAction>().SetWith(InvestigatorCommiter.InvestigatorCard, amountFearToRecovery: 1).Execute();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
-            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Start();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Execute();
         }
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)
@@ -48,13 +48,13 @@ namespace MythosAndHorrors.GameRules
         private async Task RemoveIntelligenceBuff(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Execute();
         }
 
         private async Task AddIntelligenceBuff(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Intelligence, 1).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

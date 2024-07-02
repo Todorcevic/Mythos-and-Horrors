@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
 
             var asda = _cardsProvider.AttackerCreatures.ToList();
-            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AttackerCreatures, Attack).Start();
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AttackerCreatures, Attack).Execute();
 
             /*******************************************************************/
             IEnumerable<CardCreature> AttackerCreatures() => _cardsProvider.AttackerCreatures;
@@ -28,9 +28,9 @@ namespace MythosAndHorrors.GameRules
             async Task Attack(CardCreature cardCreature)
             {
                 if (cardCreature is CardColosus colosus)
-                    await _gameActionsProvider.Create<ColosusAttackGameAction>().SetWith(colosus).Start();
-                else await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cardCreature, cardCreature.ConfrontedInvestigator).Start();
-                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardCreature.Exausted, true).Start();
+                    await _gameActionsProvider.Create<ColosusAttackGameAction>().SetWith(colosus).Execute();
+                else await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cardCreature, cardCreature.ConfrontedInvestigator).Execute();
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardCreature.Exausted, true).Execute();
             }
         }
     }

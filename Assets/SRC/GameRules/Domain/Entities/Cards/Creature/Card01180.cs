@@ -23,12 +23,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(DefeatCardGameAction action)
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TakeFear).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TakeFear).Execute();
 
             /*******************************************************************/
             async Task TakeFear(Investigator investigator)
             {
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Execute();
             }
 
             IEnumerable<Investigator> InvestigaotrsAffected()

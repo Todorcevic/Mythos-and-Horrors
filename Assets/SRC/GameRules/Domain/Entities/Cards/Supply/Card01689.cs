@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResolveLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.CurrentTurns, 0).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.CurrentTurns, 0).Execute();
             CreateOneTimeReaction<OneInvestigatorTurnGameAction>(PassTurnCondition, PassTurnLogic, GameActionTime.Before);
 
             async Task PassTurnLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
@@ -62,13 +62,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigateLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
             _investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
                 .SetWith(investigator, investigator.CurrentPlace);
             _investigatePlaceGameAction.ChangeStat(investigator.Power);
             _investigatePlaceGameAction.UpdateAmountHints(_investigatePlaceGameAction.AmountHints + 1);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Start();
-            await _investigatePlaceGameAction.Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Execute();
+            await _investigatePlaceGameAction.Execute();
         }
 
         /*******************************************************************/

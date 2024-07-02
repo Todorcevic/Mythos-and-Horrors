@@ -58,9 +58,9 @@ namespace MythosAndHorrors.GameRules
         private async Task ShowHistory()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway))
-                await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
-            else await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[1]).Start();
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[2]).Start();
+                await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Execute();
+            else await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[1]).Execute();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[2]).Execute();
         }
 
         private async Task PlacePlaces()
@@ -81,39 +81,39 @@ namespace MythosAndHorrors.GameRules
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
                 allPlaces.Add(Home, GetPlaceZone(0, 4));
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Execute();
         }
 
         private async Task PlaceAcolits()
         {
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 1)
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(0), South.OwnZone).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(0), South.OwnZone).Execute();
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 2)
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(1), Center.OwnZone).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(1), Center.OwnZone).Execute();
             if (_investigatorsProvider.AllInvestigatorsInPlay.Count() > 3)
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(2), Graveyard.OwnZone).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Acolits.ElementAt(2), Graveyard.OwnZone).Execute();
         }
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Execute();
         }
 
         private async Task PlacePlotAndGoal()
         {
-            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
-            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Execute();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Execute();
         }
 
         private async Task PlaceInvestigators()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.HouseUp))
                 await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>()
-                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Home).Start();
+                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Home).Execute();
             else
                 await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>()
-                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Fluvial).Start();
+                    .SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Fluvial).Execute();
         }
 
         /*******************************************************************/
@@ -125,33 +125,33 @@ namespace MythosAndHorrors.GameRules
         protected override async Task Resolution1()
         {
             await Interrogates();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
 
         }
 
         protected override async Task Resolution2()
         {
             await Interrogates();
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Execute();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
         }
 
         private async Task Interrogates()
         {
             if (Drew.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Execute();
             if (Herman.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HermanInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HermanInterrogate, true).Execute();
             if (Peter.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Execute();
             if (Victoria.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.VictoriaInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.VictoriaInterrogate, true).Execute();
             if (Ruth.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.RuthInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.RuthInterrogate, true).Execute();
             if (MaskedHunter.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Execute();
             if (GhoulPriest.CurrentZone == VictoryZone)
-                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, false).Start();
+                await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, false).Execute();
         }
 
         /*******************************************************************/
@@ -217,7 +217,7 @@ namespace MythosAndHorrors.GameRules
                 IEldritchable nearestCreature = nearest
                     .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();
 
-                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Start();
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Execute();
             }
 
             async Task CultistHardEffect()
@@ -226,8 +226,8 @@ namespace MythosAndHorrors.GameRules
                     .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
-                if (allEldrichableStats.Any()) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allEldrichableStats).Start();
-                else await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
+                if (allEldrichableStats.Any()) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allEldrichableStats).Execute();
+                else await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
             }
         }
 
@@ -257,7 +257,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task DropHint() =>
                                 await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Start();
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Execute();
 
 
                 //await _gameActionsProvider.Create(new DropHintGameAction(
@@ -274,7 +274,7 @@ namespace MythosAndHorrors.GameRules
                 async Task DropHints() =>
                                     await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
-                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Start();
+                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Execute();
 
 
                 //await _gameActionsProvider.Create(new DropHintGameAction(

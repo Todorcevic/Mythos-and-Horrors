@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             Func<Investigator, int> original = revealChallengeToken.ChallengeTokenRevealed.Value;
             await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
                 .SetWith(revealChallengeToken.ChallengeTokenRevealed, DoubleModifier, revealChallengeToken.ChallengeTokenRevealed.Effect)
-                .Start();
+                .Execute();
 
             CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task RestoreLogic(RestoreChallengeTokenGameAction restoreChallengeToken)
             {
-                await _gameActionsProvider.Create<ResetChallengeTokenGameAction>().SetWith(restoreChallengeToken.ChallengeTokenToRestore).Start();
+                await _gameActionsProvider.Create<ResetChallengeTokenGameAction>().SetWith(restoreChallengeToken.ChallengeTokenToRestore).Execute();
             }
         }
 

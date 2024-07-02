@@ -21,13 +21,13 @@ namespace MythosAndHorrors.GameRules
         {
             if (Card is CardInvestigator cardInvestigator)
             {
-                if (cardInvestigator.Owner.HealthLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Injury, 1).Start();
-                if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Shock, 1).Start();
+                if (cardInvestigator.Owner.HealthLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Injury, 1).Execute();
+                if (cardInvestigator.Owner.SanityLeft < 0) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Shock, 1).Execute();
 
-                await _gameActionsProvider.Create<EliminateInvestigatorGameAction>().SetWith(cardInvestigator.Owner).Start();
-                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardInvestigator.Defeated, true).Start();
+                await _gameActionsProvider.Create<EliminateInvestigatorGameAction>().SetWith(cardInvestigator.Owner).Execute();
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardInvestigator.Defeated, true).Execute();
             }
-            else await _gameActionsProvider.Create<DiscardGameAction>().SetWith(Card).Start();
+            else await _gameActionsProvider.Create<DiscardGameAction>().SetWith(Card).Execute();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             IEnumerable<Card> allAvatars = Investigators.Select(investigator => investigator.AvatarCard);
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allAvatars, CardPlace.OwnZone).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allAvatars, CardPlace.OwnZone).Execute();
         }
     }
 }

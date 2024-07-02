@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelecteInvestigator()
                 {
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
-                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Start();
+                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Execute();
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Card");
 
@@ -57,26 +57,26 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task Draw()
                         {
-                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Start();
-                            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Start();
-                            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Start();
+                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Execute();
+                            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Execute();
+                            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Execute();
                             await DecrementCost(card, inv);
                         }
                     }
 
-                    await interactableGameAction2.Start();
+                    await interactableGameAction2.Execute();
                 }
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         private async Task DecrementCost(Card card, Investigator investigator) //TODO: Implementar como original
         {
             if (Charge.IsEmpty) return;
             if (card is not IPlayableFromHand playableFromHand) return;
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Execute();
 
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
             {
@@ -87,13 +87,13 @@ namespace MythosAndHorrors.GameRules
 
                 async Task DecrementLogic()
                 {
-                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
                     await playableFromHand.PlayFromHandCommand.RunWith(interactableGameAction);
                 }
 
-                await interactableGameAction.Start();
+                await interactableGameAction.Execute();
             }
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Execute();
         }
     }
 }

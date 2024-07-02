@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
         private IEnumerator ExecuteChallenge()
         {
-            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator NormalCreatureTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Creature);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator HardCreatureTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Creature);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -74,8 +74,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Cellar).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Cellar).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -91,7 +91,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<(int totalTokenAmount, int totalTokenValue)> totalTokensRevealed = CaptureTotalTokensRevelaed();
 
             //Task<ChallengePhaseGameAction> gdfgd = CaptureResolvingChallenge();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -105,7 +105,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -117,7 +117,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator HardDangerTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 

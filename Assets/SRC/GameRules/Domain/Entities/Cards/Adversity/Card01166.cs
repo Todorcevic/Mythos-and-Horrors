@@ -14,8 +14,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Start();
-            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Execute();
+            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
         }
     }
 }

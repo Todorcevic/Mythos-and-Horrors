@@ -19,11 +19,11 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Investigator investigator = _investigatorsProvider.First;
             CardGoal cardGoal = _cardsProvider.GetCard<Card01148>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE3.Forests[0].Hints, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE3.Forests[0].Hints, 2).Execute().AsCoroutine();
             int actualHintsInCurrentPlace = investigator.CurrentPlace.Hints.Value;
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardGoal);
             yield return ClickedMainButton();
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
@@ -40,9 +40,9 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01148>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(2));
             Assert.That(cardGoal.IsComplete, Is.True);

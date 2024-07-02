@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Resolution.History).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Resolution.History).Execute();
             await Resolution.Logic.Invoke();
             await _finalizePresenter.PlayAnimationWith(this);
         }

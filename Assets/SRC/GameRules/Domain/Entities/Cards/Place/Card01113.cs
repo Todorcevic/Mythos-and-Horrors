@@ -21,13 +21,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TekeFear).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TekeFear).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigaotrsAffected() =>
                 moveInvestigatorToPlaceGameAction.Investigators.Where(investigator => investigator.CurrentPlace == this);
             async Task TekeFear(Investigator investigator) =>
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, amountFear: 1, fromCard: this).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, amountFear: 1, fromCard: this).Execute();
         }
 
         private bool TakeFearCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)

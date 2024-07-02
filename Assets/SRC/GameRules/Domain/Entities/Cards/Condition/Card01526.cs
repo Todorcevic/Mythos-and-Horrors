@@ -28,10 +28,10 @@ namespace MythosAndHorrors.GameRules
             {
                 interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);
 
-                async Task Reload() => await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)firearm).Charge.Amount, 3).Start();
+                async Task Reload() => await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)firearm).Charge.Amount, 3).Execute();
             }
 
-            await interactable.Start();
+            await interactable.Execute();
         }
     }
 }

@@ -19,10 +19,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardSupply Lita = _cardsProvider.GetCard<Card01117>();
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulVoraz, SceneCORE1.Study).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulVoraz, SceneCORE1.Study).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedClone(SceneCORE1.GhoulVoraz, 0);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -41,9 +41,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardSupply Lita = _cardsProvider.GetCard<Card01117>();
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(Lita);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

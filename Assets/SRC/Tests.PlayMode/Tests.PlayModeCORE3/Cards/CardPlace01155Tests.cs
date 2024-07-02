@@ -23,19 +23,19 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(investigator2);
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Forests[2], SceneCORE3.OutZone).Start();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE3.GetPlaceZone(2, 2)).Start();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(new[] { investigator, investigator2 }, cardPlace).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, cardPlace, amountDamage: 2, amountFear: 2).Start();
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator2, cardPlace, amountDamage: 2, amountFear: 2).Start();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Forests[2], SceneCORE3.OutZone).Execute();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE3.GetPlaceZone(2, 2)).Execute();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(new[] { investigator, investigator2 }, cardPlace).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, cardPlace, amountDamage: 2, amountFear: 2).Execute();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator2, cardPlace, amountDamage: 2, amountFear: 2).Execute();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedClone(cardPlace, 1);
             yield return ClickedIn(cardPlace);
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
-            gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Start();
+            gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Execute();
             yield return ClickedClone(cardPlace, 2);
             yield return ClickedIn(cardPlace);
             yield return ClickedUndoButton();

@@ -19,9 +19,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             yield return BuildCard("01684", investigator);
             Card01684 conditionCard = _cardsProvider.GetCard<Card01684>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, SceneCORE2.Drew, amountDamage: 2, amountFear: 3).Start();
+            Task gameActionTask = _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, SceneCORE2.Drew, amountDamage: 2, amountFear: 3).Execute();
             yield return ClickedIn(conditionCard);
             yield return gameActionTask.AsCoroutine();
 

@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
             {
                 moveInvestigatorGameAction.Cancel();
                 await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()
-                    .SetWith(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace).Start();
+                    .SetWith(moveInvestigatorGameAction.Investigators, moveInvestigatorGameAction.CardPlace).Execute();
             }
         }
 
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorCardGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorCardGameAction)
@@ -75,7 +75,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, investigator.CurrentPlace.OwnZone).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, investigator.CurrentPlace.OwnZone).Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;

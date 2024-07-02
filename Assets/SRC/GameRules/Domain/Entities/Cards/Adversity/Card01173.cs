@@ -15,16 +15,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Wing Darkeness", this, failEffect: HarmAndMove).Start();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Wing Darkeness", this, failEffect: HarmAndMove).Execute();
 
             /*******************************************************************/
             async Task HarmAndMove()
             {
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 1, amountFear: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 1, amountFear: 1).Execute();
                 Dictionary<Card, Zone> moveAndDisconfront = investigator.BasicCreaturesConfronted.Where(creature => !creature.HasThisTag(Tag.Nightgaunt))
                     .ToDictionary(creature => (Card)creature, creature => creature.CurrentPlace.OwnZone);
                 moveAndDisconfront.Add(investigator.AvatarCard, SceneCORE2.Center.OwnZone);
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(moveAndDisconfront).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(moveAndDisconfront).Execute();
             }
         }
     }

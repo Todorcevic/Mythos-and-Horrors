@@ -14,9 +14,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountFear: 2, isDirect: true).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountFear: 2, isDirect: true).Execute();
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(investigator.DiscardZone.Cards, _chaptersProvider.CurrentScene.OutZone).Start();
+                .SetWith(investigator.DiscardZone.Cards, _chaptersProvider.CurrentScene.OutZone).Execute();
         }
     }
 }

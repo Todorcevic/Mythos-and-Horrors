@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Dictionary<Card, (Zone zone, bool faceDown)> all = GetCardZonesPlacesCORE1().ToDictionary(pair => pair.Key, pair => (pair.Value, false))
                 .Concat(GetCardZonesSceneCORE1()).ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(all).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(all).Execute();
 
             /*******************************************************************/
             Dictionary<Card, Zone> GetCardZonesPlacesCORE1() => new()

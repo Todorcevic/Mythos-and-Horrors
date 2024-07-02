@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
@@ -47,10 +47,10 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Start();
-            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Execute();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Execute();
         }
     }
 }

@@ -11,10 +11,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             Round++;
-            if (Round != 1) await _gameActionsProvider.Create<ScenePhaseGameAction>().Start();
-            await _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
-            await _gameActionsProvider.Create<CreaturePhaseGameAction>().Start();
-            await _gameActionsProvider.Create<RestorePhaseGameAction>().Start();
+            if (Round != 1) await _gameActionsProvider.Create<ScenePhaseGameAction>().Execute();
+            await _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
+            await _gameActionsProvider.Create<CreaturePhaseGameAction>().Execute();
+            await _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
         }
 
         public override async Task Undo()

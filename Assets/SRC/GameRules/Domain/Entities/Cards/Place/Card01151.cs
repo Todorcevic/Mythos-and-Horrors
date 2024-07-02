@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChallengeCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengeLogic).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengeLogic).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsToChallenge() => moveInvestigatorToPlaceGameAction.Investigators
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                     .SetWith(investigator.Intelligence, 3, "Enter Forest", this, failEffect: CantMove)
-                    .Start();
+                    .Execute();
 
                 async Task CantMove()
                 {

@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             await Task.CompletedTask;
 
             async Task ReturnCardToHand() =>
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, challengePhaseGameAction.ActiveInvestigator.HandZone).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, challengePhaseGameAction.ActiveInvestigator.HandZone).Execute();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             if (Destiny == Creature.CurrentPlace) return;
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Creature, Destiny.OwnZone).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Creature, Destiny.OwnZone).Execute();
         }
     }
 }

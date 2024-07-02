@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene(withResources: true);
 
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Execute().AsCoroutine();
             Dictionary<Stat, int> stats = new()
             {
                 { _investigatorsProvider.First.DamageRecived, 4},
@@ -28,10 +28,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Third.DamageRecived, 1},
                 { _investigatorsProvider.Fourth.FearRecived, 1}
             };
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Execute().AsCoroutine();
             Assert.That(supplyCard.Charge.Amount.Value, Is.EqualTo(3));
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Execute();
             yield return ClickedIn(supplyCard);
             yield return ClickedClone(_investigatorsProvider.Second.InvestigatorCard, 0);
             yield return ClickedMainButton();
@@ -49,11 +49,11 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             Card01519 supplyCard = _cardsProvider.GetCard<Card01519>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.DamageRecived, 1).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(supplyCard.Charge.Amount, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, _investigatorsProvider.First.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.DamageRecived, 1).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(supplyCard.Charge.Amount, 1).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Execute();
             yield return ClickedIn(supplyCard);
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();

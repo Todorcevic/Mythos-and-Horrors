@@ -24,9 +24,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ThrowAttackLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, true).Execute();
             await ChooseEnemyLogic(investigator);
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, false).Execute();
         }
 
         /*******************************************************************/
@@ -34,13 +34,13 @@ namespace MythosAndHorrors.GameRules
         {
             if (ThrowingState.IsActive)
             {
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Start();
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 2).Execute();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Execute();
             }
             else
             {
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 1).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 1).Execute();
             }
         }
 

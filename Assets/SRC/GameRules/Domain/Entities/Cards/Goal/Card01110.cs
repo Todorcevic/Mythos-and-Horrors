@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected async Task RevealLogic(DefeatCardGameAction updateStatGameAction) =>
-            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Execute();
 
         /*******************************************************************/
         protected override async Task CompleteEffect()
@@ -47,17 +47,17 @@ namespace MythosAndHorrors.GameRules
             interactableGameAction.CreateEffect(this, new Stat(0, false), BurnIt, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
             interactableGameAction.CreateEffect(this, new Stat(0, false), NoBurn, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
 
             /*******************************************************************/
             async Task BurnIt()
             {
-                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[1]).Start();
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[1]).Execute();
             }
 
             async Task NoBurn()
             {
-                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Start();
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Execute();
             }
         }
     }

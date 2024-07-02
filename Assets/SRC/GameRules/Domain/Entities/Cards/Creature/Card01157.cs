@@ -44,13 +44,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ThrowLitaActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Start();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
         }
 
         /*******************************************************************/
         private async Task ReadyLogic(InvestigatorsPhaseGameAction action)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, false).Execute();
         }
 
         private bool ReadyCondition(InvestigatorsPhaseGameAction action)
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
 
         public async Task Reset()
         {
-            if (HealthLeft < 1) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Defeated, true).Start();
+            if (HealthLeft < 1) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Defeated, true).Execute();
         }
     }
 }

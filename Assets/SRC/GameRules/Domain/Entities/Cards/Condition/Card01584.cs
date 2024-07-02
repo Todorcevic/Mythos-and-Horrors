@@ -23,10 +23,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             if (gameAction is not ResultChallengeGameAction resultChallengeGameAction) return;
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Start();
-            await resultChallengeGameAction.Start();
-            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Execute();
+            await resultChallengeGameAction.Execute();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
         }
     }
 }

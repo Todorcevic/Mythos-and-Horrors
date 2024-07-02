@@ -17,15 +17,15 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01175 creature = _cardsProvider.GetCard<Card01175>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Execute().AsCoroutine();
             Assert.That(creature.Strength.Value, Is.EqualTo(3));
             Assert.That(creature.Agility.Value, Is.EqualTo(3));
 
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, creature, amountFear: 3).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, creature, amountFear: 3).Execute().AsCoroutine();
             Assert.That(creature.Strength.Value, Is.EqualTo(4));
             Assert.That(creature.Agility.Value, Is.EqualTo(4));
 
-            yield return _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, investigator).Execute().AsCoroutine();
             Assert.That(creature.Strength.Value, Is.EqualTo(3));
             Assert.That(creature.Agility.Value, Is.EqualTo(3));
         }

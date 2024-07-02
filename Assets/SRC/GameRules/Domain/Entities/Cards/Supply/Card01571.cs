@@ -31,9 +31,9 @@ namespace MythosAndHorrors.GameRules
         {
             reavealChallengeTokenGameAction.Cancel();
 
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Start();
-            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ControlOwner).Start();
-            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ControlOwner).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Execute();
+            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ControlOwner).Execute();
+            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ControlOwner).Execute();
 
             IEnumerable<ChallengeToken> allTokens = _challengeTokensProvider.ChallengeTokensRevealed;
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
@@ -46,18 +46,18 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));
             }
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
-            await interactableGameAction.Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, false).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, false).Execute();
         }
 
         private async Task RestoreAllTokesn(IEnumerable<ChallengeToken> allTokens)
         {
 
-            await _gameActionsProvider.Create<SafeForeach<ChallengeToken>>().SetWith(AllTokens, LogicForToken).Start();
+            await _gameActionsProvider.Create<SafeForeach<ChallengeToken>>().SetWith(AllTokens, LogicForToken).Execute();
 
             /*******************************************************************/
-            async Task LogicForToken(ChallengeToken token) => await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(token).Start();
+            async Task LogicForToken(ChallengeToken token) => await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(token).Execute();
             IEnumerable<ChallengeToken> AllTokens() => allTokens;
         }
 
@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)

@@ -24,9 +24,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             int expecetdDeckSize = investigatorChoosen.DeckZone.Cards.Count - 3;
             Card01543 conditionCard = _cardsProvider.GetCard<Card01543>();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(investigatorChoosen.AvatarCard);
             yield return ClickedMainButton();

@@ -25,10 +25,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Hints, 2).Start();
-            await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, Hints, 2).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Start();
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Hints, 2).Execute();
+            await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, Hints, 2).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Execute();
         }
 
         private bool Condition(Investigator investigator)

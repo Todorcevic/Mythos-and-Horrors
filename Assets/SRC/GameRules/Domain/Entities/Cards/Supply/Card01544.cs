@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
             if (resolveChallengeGameAction.ChallengePhaseGameAction is not AttackCreatureGameAction attackCreatureGameAction) return;
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Execute();
         }
 
         private bool Condition(ResolveChallengeGameAction resolveChallengeGameAction)

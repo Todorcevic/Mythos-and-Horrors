@@ -15,13 +15,13 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true)
-                .Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
+                .Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Execute();
 
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Ghoul))
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard).Execute();
 
-            await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorProvider.Leader).Start();
+            await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorProvider.Leader).Execute();
         }
     }
 }

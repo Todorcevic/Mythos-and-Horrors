@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Start();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Execute();
         }
 
         /*******************************************************************/
 
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Start();
+            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Execute();
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)

@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task AttackSucceed()
             {
-                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackGameAction.CardCreature, this, amountDamage: 1).Start();
+                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackGameAction.CardCreature, this, amountDamage: 1).Execute();
             }
         }
 
@@ -52,13 +52,13 @@ namespace MythosAndHorrors.GameRules
         private async Task GainStrength(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Execute();
         }
 
         private async Task RemoveGainStrenghtBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Strength, card => 1);
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff()
@@ -81,21 +81,21 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ThrowLitaActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Start();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
         }
 
         /*******************************************************************/
         private async Task ParleyActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Start();
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Execute();
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                 .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: this, ParleySucceed, null)
-                .Start();
+                .Execute();
 
             async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, activeInvestigator.AidZone).Start();
+                .SetWith(this, activeInvestigator.AidZone).Execute();
         }
 
         private bool ParleyConditionToActivate(Investigator activeInvestigator)

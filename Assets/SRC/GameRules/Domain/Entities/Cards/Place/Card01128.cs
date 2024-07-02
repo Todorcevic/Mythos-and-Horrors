@@ -25,8 +25,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task HealthFearLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 3).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Start();
+            await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 3).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Execute();
         }
 
         private bool HealthFearCondition(Investigator investigator)

@@ -30,8 +30,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 3).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.StatModifier, 3).Execute();
 
             attackCreatureGameAction.SuccesEffects.Clear();
             attackCreatureGameAction.FailEffects.Clear();
@@ -42,14 +42,14 @@ namespace MythosAndHorrors.GameRules
             {
                 int amountDamage = Math.Clamp(attackCreatureGameAction.ResultChallenge.TotalDifferenceValue, -5, -1) * -1;
                 if (attackCreatureGameAction.CardCreature.IsConfronted && attackCreatureGameAction.CardCreature.ConfrontedInvestigator != ControlOwner)
-                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature.ConfrontedInvestigator.InvestigatorCard, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Start();
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature.ConfrontedInvestigator.InvestigatorCard, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Execute();
             }
 
             async Task SuccessEffect()
             {
 
                 int amountDamage = Math.Clamp(attackCreatureGameAction.ResultChallenge.TotalDifferenceValue, 1, 5);
-                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Start();
+                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Execute();
             }
         }
 

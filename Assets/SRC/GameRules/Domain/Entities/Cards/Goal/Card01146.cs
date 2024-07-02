@@ -15,12 +15,12 @@ namespace MythosAndHorrors.GameRules
         {
             if (!SceneCORE3.Ritual.IsInPlay)
                 await _gameActionsProvider.Create<MoveCardsGameAction>()
-                    .SetWith(SceneCORE3.Ritual, _chapterProvider.CurrentScene.GetPlaceZone(1, 4)).Start();
-            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(SceneCORE3.CultistsNotInterrogate, Spawn).Start();
+                    .SetWith(SceneCORE3.Ritual, _chapterProvider.CurrentScene.GetPlaceZone(1, 4)).Execute();
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(SceneCORE3.CultistsNotInterrogate, Spawn).Execute();
 
             /*******************************************************************/
             async Task Spawn(CardCreature creature) =>
-              await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.MainPath).Start();
+              await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, SceneCORE3.MainPath).Execute();
         }
     }
 }

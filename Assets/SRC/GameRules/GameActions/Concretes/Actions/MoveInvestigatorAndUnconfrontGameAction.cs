@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             Investigators.SelectMany(investigator => investigator.BasicCreaturesConfronted)
                 .ForEach(creature => allMoves.Add(creature, creature.CurrentPlace.OwnZone));
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allMoves).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allMoves).Execute();
         }
     }
 }

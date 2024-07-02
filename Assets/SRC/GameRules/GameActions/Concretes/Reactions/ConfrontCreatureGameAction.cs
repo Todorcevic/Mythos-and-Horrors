@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
                 .Contains(target.TargetInvestigator)) investigator = target.TargetInvestigator;
 
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(Creature, investigator.DangerZone).Start();
+                .SetWith(Creature, investigator.DangerZone).Execute();
         }
     }
 }

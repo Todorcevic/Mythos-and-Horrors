@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Explote()
                 {
-                    await _gameActionsProvider.Create<SafeForeach<IDamageable>>().SetWith(AllDamageables, DoDamage).Start();
+                    await _gameActionsProvider.Create<SafeForeach<IDamageable>>().SetWith(AllDamageables, DoDamage).Execute();
 
                     /*******************************************************************/
                     IEnumerable<IDamageable> AllDamageables() => place.CreaturesInThisPlace.Cast<IDamageable>().Concat(place.InvestigatorsInThisPlace
@@ -31,13 +31,13 @@ namespace MythosAndHorrors.GameRules
                     async Task DoDamage(IDamageable damageable)
                     {
                         if (damageable is CardInvestigator cardInvestigator)
-                            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(cardInvestigator.Owner, this, amountDamage: 3).Start();
-                        else await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith((Card)damageable, this, amountDamage: 3).Start();
+                            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(cardInvestigator.Owner, this, amountDamage: 3).Execute();
+                        else await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith((Card)damageable, this, amountDamage: 3).Execute();
                     }
                 }
             }
 
-            await interactable.Start();
+            await interactable.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;

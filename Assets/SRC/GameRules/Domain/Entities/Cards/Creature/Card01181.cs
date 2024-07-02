@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeFearLogic(ConfrontCreatureGameAction confrontCreatureGameAction)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ConfrontedInvestigator, this, amountFear: 1).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ConfrontedInvestigator, this, amountFear: 1).Execute();
         }
 
         private bool TakeFearCondition(ConfrontCreatureGameAction confrontCreatureGameAction)

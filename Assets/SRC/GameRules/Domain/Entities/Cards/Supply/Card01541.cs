@@ -20,8 +20,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(spawnCreatureGameAction.Creature).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(spawnCreatureGameAction.Creature).Execute();
         }
 
         private bool Condition(SpawnCreatureGameAction spawnCreatureGameAction)

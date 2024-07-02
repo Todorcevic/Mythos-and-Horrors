@@ -15,9 +15,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card01105 cardPlot = _cardsProvider.GetCard<Card01105>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
             yield return ClickedClone(cardPlot, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
@@ -29,9 +29,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card01105 cardPlot = _cardsProvider.GetCard<Card01105>();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
             yield return ClickedClone(cardPlot, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 

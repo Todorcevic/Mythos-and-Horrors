@@ -20,12 +20,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private async Task SuccesEffet() =>
-            await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(CardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value).Start();
+            await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(CardCreature, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value).Execute();
 
         private async Task FailEffet()
         {
             if (CardCreature.IsConfronted && CardCreature.ConfrontedInvestigator != ActiveInvestigator)
-                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(CardCreature.ConfrontedInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value).Start();
+                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(CardCreature.ConfrontedInvestigator.InvestigatorCard, ActiveInvestigator.InvestigatorCard, amountDamage: AmountDamage.Value).Execute();
         }
 
         protected override async Task ExecuteThisPhaseLogic()
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
             if (CardCreature.Exausted.IsActive) return;
             if (IsSucceed) return;
 
-            await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(CardCreature, ActiveInvestigator).Start();
+            await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(CardCreature, ActiveInvestigator).Execute();
         }
     }
 }

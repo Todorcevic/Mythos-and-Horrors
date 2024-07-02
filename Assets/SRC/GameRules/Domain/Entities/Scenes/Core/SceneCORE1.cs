@@ -30,13 +30,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
-            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
-            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
-            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Study).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Execute();
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Execute();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Execute();
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Study).Execute();
         }
 
         /*******************************************************************/
@@ -80,8 +80,8 @@ namespace MythosAndHorrors.GameRules
                 {
                     Card ghoul = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Ghoul));
 
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul).Start();
-                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul).Execute();
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Execute();
                 }
 
                 bool DrawGhoulCondition(ChallengePhaseGameAction challengePhaseGameAction)
@@ -118,16 +118,16 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeOneFear() =>
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 1).Execute();
             }
             async Task CultistHardEffect()
             {
                 _gameActionsProvider.CurrentChallenge.FailEffects.Add(TakeTwoFear);
-                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
 
                 /*******************************************************************/
                 async Task TakeTwoFear() =>
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 2).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 2).Execute();
             }
         }
 
@@ -154,47 +154,47 @@ namespace MythosAndHorrors.GameRules
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
                     .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
 
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Execute();
             }
             async Task DangerHardEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
                    .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Execute();
             }
         }
 
         /*******************************************************************/
         protected override async Task Resolution0()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Execute();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Execute();
             if (Lita.ControlOwner != null)
-                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Execute();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
         }
 
         protected override async Task Resolution1()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, false).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, false).Execute();
             if (Lita.ControlOwner != null)
-                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Shock, 1).Start();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+                await _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(Lita.ControlOwner, Lita).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Shock, 1).Execute();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
         }
 
         protected override async Task Resolution2()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Xp, 1).Start();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatorsProvider.Leader.Xp, 1).Execute();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
         }
 
         protected override async Task Resolution3()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaGoAway, true).Start();
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Start();
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaGoAway, true).Execute();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Execute();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Execute();
             await Task.CompletedTask;
             //TODO: continue
         }

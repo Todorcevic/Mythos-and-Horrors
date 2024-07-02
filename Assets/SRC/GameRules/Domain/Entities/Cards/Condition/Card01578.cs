@@ -16,11 +16,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AllCreatures, EvedaAction).Start();
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(AllCreatures, EvedaAction).Execute();
 
             /*******************************************************************/
             IEnumerable<CardCreature> AllCreatures() => investigator.CreaturesInSamePlace;
-            async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, investigator).Start();
+            async Task EvedaAction(CardCreature creature) => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, investigator).Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

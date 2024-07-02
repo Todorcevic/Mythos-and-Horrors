@@ -23,8 +23,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Start();
-            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Execute();
+            await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;
@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, amountFear: 2, fromCard: this).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, amountFear: 2, fromCard: this).Execute();
         }
 
         private bool Condition(PlayInvestigatorGameAction playInvestigatorGameAction)

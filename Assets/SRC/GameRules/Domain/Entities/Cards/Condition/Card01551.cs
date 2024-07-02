@@ -27,11 +27,11 @@ namespace MythosAndHorrors.GameRules
                     AttackCreatureGameAction playAttackGameAction = _gameActionsProvider.Create<AttackCreatureGameAction>()
                         .SetWith(investigator, creature, amountDamage: 3);
                     playAttackGameAction.ChangeStat(investigator.Agility);
-                    await playAttackGameAction.Start();
+                    await playAttackGameAction.Execute();
                 }
             }
 
-            await chooseEnemy.Start();
+            await chooseEnemy.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

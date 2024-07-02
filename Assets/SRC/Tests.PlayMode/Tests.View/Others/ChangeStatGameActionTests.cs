@@ -18,9 +18,9 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Update_Investigator_Stats()
         {
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.Health, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.CurrentTurns, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.Health, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.CurrentTurns, 2).Execute().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
@@ -35,11 +35,11 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Move_Resource_From_Card()
         {
             CardSupply cardSupply = _investigatorsProvider.First.FullDeck.OfType<CardSupply>().First();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSupply, _chaptersProvider.CurrentScene.PlotZone).Execute().AsCoroutine();
 
             do
             {
-                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardSupply.ResourceCost, 8).Start().AsCoroutine();
+                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardSupply.ResourceCost, 8).Execute().AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
             } while (DEBUG_MODE);
 
@@ -52,11 +52,11 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Update_Eldritch_Stats()
         {
             CardPlot cardPlot = _chaptersProvider.CurrentScene.PlotCards.First();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Execute().AsCoroutine();
 
             do
             {
-                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardPlot.Eldritch, 2).Start().AsCoroutine();
+                yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(cardPlot.Eldritch, 2).Execute().AsCoroutine();
                 if (DEBUG_MODE) yield return PressAnyKey();
 
             } while (DEBUG_MODE);
@@ -71,16 +71,16 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             CardGoal cardGoal = _chaptersProvider.CurrentScene.GoalCards.First();
             CardPlace place = _cardsProvider.GetCard<Card01112>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Execute().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.First, place.Hints, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.First, place.Hints, 2).Execute().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionsProvider.Create<PayHintGameAction>().SetWith(_investigatorsProvider.First, cardGoal.Hints, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<PayHintGameAction>().SetWith(_investigatorsProvider.First, cardGoal.Hints, 1).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));

@@ -21,12 +21,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return BuildCard("01568", investigator);
             Card01568 conditionCard = _cardsProvider.GetCard<Card01568>();
             Card01603 creature = _cardsProvider.GetCard<Card01603>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Execute().AsCoroutine();
 
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.True);
 
-            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Start();
+            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(creature);
             Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.False);

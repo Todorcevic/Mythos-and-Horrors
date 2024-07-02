@@ -36,12 +36,12 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ActivationLogic(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraBook).Start();
+            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
         }
 
         private async Task Deactivationlogic(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraBook).Start();
+            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
         }
 
         /*******************************************************************/

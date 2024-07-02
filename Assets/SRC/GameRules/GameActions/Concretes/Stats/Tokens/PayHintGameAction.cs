@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
                 { Investigator.Hints, Investigator.Hints.Value - Amount}
             };
 
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(statablesUpdated).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(statablesUpdated).Execute();
         }
     }
 }

@@ -33,21 +33,21 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
 
             InvestigatePlaceGameAction investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
                 .SetWith(investigator, investigator.CurrentPlace);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Start();
-            await investigatePlaceGameAction.Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Execute();
+            await investigatePlaceGameAction.Execute();
 
             if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2)
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
         }
 
         /*******************************************************************/
         private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)

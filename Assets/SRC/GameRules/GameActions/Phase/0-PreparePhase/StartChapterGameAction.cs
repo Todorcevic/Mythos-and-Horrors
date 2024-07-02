@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Chapter.Description).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Chapter.Description).Execute();
         }
     }
 }

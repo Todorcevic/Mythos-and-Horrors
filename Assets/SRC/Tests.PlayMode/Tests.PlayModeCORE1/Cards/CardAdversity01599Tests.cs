@@ -20,13 +20,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, adversity, amountFear: 1, isDirect: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, adversity, amountFear: 1, isDirect: true).Execute().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(adversity);
             Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedMainButton();

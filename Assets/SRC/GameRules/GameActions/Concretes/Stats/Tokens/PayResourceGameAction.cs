@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Investigator.Resources, Amount).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Investigator.Resources, Amount).Execute();
         }
     }
 }

@@ -22,8 +22,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
             Card card = investigator1.FullDeck[1];
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator2.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator2.DangerZone).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_cardViewsManager.GetCardView(card).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(investigator2.DangerZone)));
@@ -36,9 +36,9 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.PlaceCards.First();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, investigator1.InvestigatorZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, investigator1.InvestigatorZone).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, cardPlace).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, cardPlace).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.First).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));

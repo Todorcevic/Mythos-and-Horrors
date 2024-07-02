@@ -38,10 +38,10 @@ namespace MythosAndHorrors.GameRules
                     interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, creatureAttackGameAction.Investigator);
 
                     /*******************************************************************/
-                    async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
+                    async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
                 }
 
-                await interactableGameAction.Start();
+                await interactableGameAction.Execute();
             }
             else
             {
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
                         { Damage, 1 },
                         { Fear, 1 }
                     };
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Execute();
 
                 CreateOneTimeReaction<CreatureAttackGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
                         { Damage, 1 },
                         { Fear, 1 }
                     };
-                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Execute();
                 }
 
                 bool RestoreCondition(CreatureAttackGameAction creatureAttackGameAction2)

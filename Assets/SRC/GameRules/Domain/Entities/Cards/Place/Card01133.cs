@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengeLogic).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengeLogic).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsToChallenge() =>
@@ -34,13 +34,13 @@ namespace MythosAndHorrors.GameRules
 
             async Task ChallengeLogic(Investigator investigator)
             {
-                await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, "Graveyar", this, failEffect: TakeFearAndmove).Start();
+                await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, "Graveyar", this, failEffect: TakeFearAndmove).Execute();
 
                 async Task TakeFearAndmove()
                 {
                     CardPlace PlaceToReturn = _cardsProvider.GetCard<Card01125>();
-                    await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 2).Start();
-                    await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, PlaceToReturn).Start();
+                    await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 2).Execute();
+                    await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, PlaceToReturn).Execute();
                 }
             }
         }

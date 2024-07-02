@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResetStatLogic(InvestigatorsPhaseGameAction action)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, false).Execute();
             StatBuffed = null;
         }
 
@@ -40,12 +40,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task BuffOn(IEnumerable<Card> cardsToBuff)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(StatBuffed, 2).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(StatBuffed, 2).Execute();
         }
 
         private async Task BuffOff(IEnumerable<Card> cardsToDebuff)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(StatBuffed, 2).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(StatBuffed, 2).Execute();
         }
 
         private IEnumerable<Card> CardToSelect()
@@ -75,19 +75,19 @@ namespace MythosAndHorrors.GameRules
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Intelligence), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Power), PlayActionType.Choose, investigator);
 
-                    await interactableGameAction2.Start();
+                    await interactableGameAction2.Execute();
 
                     /*******************************************************************/
                     async Task SetStat(Stat statSelected)
                     {
                         StatBuffed = statSelected;
-                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, true).Start();
-                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActivationUsed, true).Execute();
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
                     }
                 };
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         private bool ChooseInvestigatorCondition(Investigator investigator)

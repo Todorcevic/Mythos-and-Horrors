@@ -59,20 +59,20 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this).Execute();
             await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
         }
 
         public async Task ContinueChallenge()
         {
-            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Start();
-            await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Start();
+            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Execute();
+            await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Execute();
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
-            await ResultChallenge.Start();
+            await ResultChallenge.Execute();
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create<RestoreAllChallengeTokens>().Start();
-            await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create<DiscardCommitsCards>().Start();
+            await _gameActionsProvider.Create<RestoreAllChallengeTokens>().Execute();
+            await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Execute();
+            await _gameActionsProvider.Create<DiscardCommitsCards>().Execute();
         }
 
         public void ChangeStat(Stat stat) => Stat = stat;

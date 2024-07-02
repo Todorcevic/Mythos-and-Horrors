@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
         private IEnumerator ExecuteChallenge()
         {
-            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -51,10 +51,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator NormalCreatureTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Creature);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -65,11 +65,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HardCreatureTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Creature);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(SceneCORE2.CurrentPlot.Eldritch, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(SceneCORE2.CurrentPlot.Eldritch, 2).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -80,10 +80,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator NormalCultistTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -97,10 +97,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HardCultistTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Cultist);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.North.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit.Eldritch, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit2, SceneCORE2.East.OwnZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(acolit2.Eldritch, 1).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -127,7 +127,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -141,7 +141,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HardDangerTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 

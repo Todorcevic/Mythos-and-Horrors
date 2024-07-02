@@ -19,10 +19,10 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
             Assert.That(investigator.Power.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Power - 1));
             Assert.That(investigator.Sanity.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Sanity - 1));
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardAdversity);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

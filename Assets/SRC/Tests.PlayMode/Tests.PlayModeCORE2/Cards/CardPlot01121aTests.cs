@@ -14,8 +14,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01121a plot = _cardsProvider.GetCard<Card01121a>();
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 6).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 6).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine();
 
             Assert.That(plot.CurrentZone, Is.EqualTo(SceneCORE2.OutZone));
             Assert.That(SceneCORE2.MaskedHunter.IsInPlay, Is.True);

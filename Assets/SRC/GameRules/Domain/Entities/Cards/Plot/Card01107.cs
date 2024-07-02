@@ -31,16 +31,16 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             if (_chaptersProvider.CurrentScene.CurrentGoal is not Card01110)
-                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Start();
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
             else
             {
-                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsUnresignes, SufferInjury).Start();
-                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[0]).Start();
+                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsUnresignes, SufferInjury).Execute();
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[0]).Execute();
             }
             /*******************************************************************/
 
             async Task SufferInjury(Investigator investigator) =>
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.Injury, 1).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.Injury, 1).Execute();
         }
 
         /*******************************************************************/
@@ -53,11 +53,11 @@ namespace MythosAndHorrors.GameRules
         private async Task MoveGhoulLogic(CreaturePhaseGameAction gameAction)
         {
             Card01115 parlor = _cardsProvider.GetCard<Card01115>();
-            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(GhoulsToMove, MoveCreature).Start();
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(GhoulsToMove, MoveCreature).Execute();
 
             /*******************************************************************/
             async Task MoveCreature(CardCreature ghoul) =>
-                await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(ghoul, ghoul.CurrentPlace.DistanceTo(parlor).path).Start();
+                await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(ghoul, ghoul.CurrentPlace.DistanceTo(parlor).path).Execute();
         }
 
         /*******************************************************************/
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameRules
             int amountEldritch = _cardsProvider.AllCards.OfType<CardCreature>()
                   .Where(creature => creature.Tags.Contains(Tag.Ghoul) && (creature.CurrentPlace == parlor || creature.CurrentPlace == hallway)).Count();
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Eldritch, amountEldritch).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Eldritch, amountEldritch).Execute();
         }
     }
 }

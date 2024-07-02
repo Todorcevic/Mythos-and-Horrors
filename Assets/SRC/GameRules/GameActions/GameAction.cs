@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public virtual bool CanUndo => true;
 
         /*******************************************************************/
-        public async Task Start()
+        public async Task Execute()
         {
             if (!CanBeExecuted || IsCancel) return;
             if (this is IInitializable initializable) initializable.ExecuteSpecificInitialization();

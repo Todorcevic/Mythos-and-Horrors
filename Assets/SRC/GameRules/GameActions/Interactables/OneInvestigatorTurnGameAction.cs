@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             await base.ExecuteThisLogic();
             if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
                 || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
-                await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Start();
+                await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Execute();
         }
 
         /*******************************************************************/
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             CreateMainButton(PassTurn, "Finish");
 
             async Task PassTurn() =>
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value).Start();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value).Execute();
         }
 
         /*******************************************************************/
@@ -87,7 +87,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             async Task Investigate() => await _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(ActiveInvestigator, ActiveInvestigator.CurrentPlace).Start();
+                .SetWith(ActiveInvestigator, ActiveInvestigator.CurrentPlace).Execute();
         }
 
         /*******************************************************************/
@@ -109,7 +109,7 @@ namespace MythosAndHorrors.GameRules
                     return true;
                 }
 
-                async Task Move() => await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(ActiveInvestigator, cardPlace).Start();
+                async Task Move() => await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(ActiveInvestigator, cardPlace).Execute();
             }
         }
 
@@ -134,7 +134,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task InvestigatorAttack() =>
                     await _gameActionsProvider.Create<AttackCreatureGameAction>()
-                    .SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Start();
+                    .SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Execute();
             }
         }
 
@@ -160,7 +160,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorConfront() =>
-                    await _gameActionsProvider.Create<InvestigatorConfrontGameAction>().SetWith(ActiveInvestigator, cardCreature).Start();
+                    await _gameActionsProvider.Create<InvestigatorConfrontGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
             }
         }
 
@@ -185,7 +185,7 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 async Task InvestigatorElude() =>
-                    await _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature).Start();
+                    await _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
             }
         }
 
@@ -225,7 +225,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Start();
+        private async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Execute();
 
         /*******************************************************************/
         private void PrepareTakeResource()
@@ -238,7 +238,7 @@ namespace MythosAndHorrors.GameRules
                 ActiveInvestigator);
 
             /*******************************************************************/
-            async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Start();
+            async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Execute();
         }
 
         private bool CanTakeResource()

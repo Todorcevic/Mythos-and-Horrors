@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Execute().AsCoroutine();
 
             Assert.That(investigator.SlotsCollection.AllSlotsType.Count(slot => slot == SlotType.Supporter), Is.EqualTo(2));
         }

@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
-            await challengeGameAction.SetWith(investigator.Power, 5, "Ulmodoth Wrat" + Info.Name, this, failEffect: MultiFailEffect).Start();
+            await challengeGameAction.SetWith(investigator.Power, 5, "Ulmodoth Wrat" + Info.Name, this, failEffect: MultiFailEffect).Execute();
 
             /*******************************************************************/
             async Task MultiFailEffect()
@@ -35,15 +35,15 @@ namespace MythosAndHorrors.GameRules
                             interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator);
 
                             /*******************************************************************/
-                            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
+                            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
                         }
 
-                        await interactableGameAction.Start();
+                        await interactableGameAction.Execute();
 
                         /*******************************************************************/
                         async Task TakeDamageAndFear()
                         {
-                            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 1, amountFear: 1).Start();
+                            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 1, amountFear: 1).Execute();
                         }
                     }
                 }

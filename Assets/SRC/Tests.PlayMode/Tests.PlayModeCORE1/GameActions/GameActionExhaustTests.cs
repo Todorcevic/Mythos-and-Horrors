@@ -14,12 +14,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card cardToExhaust = _investigatorsProvider.First.FullDeck.First();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardToExhaust, _investigatorsProvider.First.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardToExhaust.Exausted, true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardToExhaust, _investigatorsProvider.First.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardToExhaust.Exausted, true).Execute().AsCoroutine();
 
             Assert.That(cardToExhaust.Exausted.IsActive);
 
-            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardToExhaust.Exausted, false).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardToExhaust.Exausted, false).Execute().AsCoroutine();
 
             Assert.That(!cardToExhaust.Exausted.IsActive);
         }

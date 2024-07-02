@@ -35,9 +35,9 @@ namespace MythosAndHorrors.GameRules
                 allSelectables.AddRange(Investigator.AidZone.Cards.OfType<IFearable>().Cast<Card>().Except(allSelectables));
 
             if (IsDirect || !allSelectables.Any())
-                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(Investigator.InvestigatorCard, FromCard, AmountDamage, AmountFear).Start();
+                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(Investigator.InvestigatorCard, FromCard, AmountDamage, AmountFear).Execute();
             else await _gameActionsProvider.Create<ShareDamageAndFearGameAction>()
-                    .SetWith(Investigator, FromCard, AmountDamage, AmountFear).Start();
+                    .SetWith(Investigator, FromCard, AmountDamage, AmountFear).Execute();
         }
 
         public void AddAmountDamage(int amountDamage) => AmountDamage = Math.Max(0, AmountDamage + amountDamage);

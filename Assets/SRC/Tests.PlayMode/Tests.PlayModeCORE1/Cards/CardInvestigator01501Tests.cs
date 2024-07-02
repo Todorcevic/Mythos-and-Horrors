@@ -19,10 +19,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlayThisInvestigator(investigatorToTest, withAvatar: false);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3)).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3)).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(place);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -37,9 +37,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.First;
             CardCreature cardCreature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCreature, investigatorToTest.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCreature, investigatorToTest.DangerZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardCreature, investigatorToTest.InvestigatorCard, amountDamage: 5).Start();
+            Task taskGameAction = _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardCreature, investigatorToTest.InvestigatorCard, amountDamage: 5).Execute();
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return taskGameAction.AsCoroutine();
 

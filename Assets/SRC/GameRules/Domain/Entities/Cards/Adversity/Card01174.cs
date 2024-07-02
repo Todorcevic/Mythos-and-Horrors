@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task PlayRevelationFor(Investigator investigator)
         {
-            if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            if (CurrentZone == _chaptersProvider.CurrentScene.LimboZone) await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         /*******************************************************************/
@@ -63,14 +63,14 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Challenge");
             choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
             choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
-            await choose.Start();
+            await choose.Execute();
 
             /*******************************************************************/
-            async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Strength, 4, "Open", this, succesEffect: Discard).Start();
-            async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Open", this, succesEffect: Discard).Start();
+            async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Strength, 4, "Open", this, succesEffect: Discard).Execute();
+            async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Open", this, succesEffect: Discard).Execute();
 
             /*******************************************************************/
-            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
 
         }
 

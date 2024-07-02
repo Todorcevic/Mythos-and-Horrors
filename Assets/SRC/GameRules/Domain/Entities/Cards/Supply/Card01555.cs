@@ -40,22 +40,22 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, playedBy: investigator);
 
                 async Task MoveAndUnconfront() =>
-                    await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>().SetWith(investigator, place).Start();
+                    await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>().SetWith(investigator, place).Execute();
             }
 
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await interactableGameAction.Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await interactableGameAction.Execute();
         }
 
         /*******************************************************************/
         private async Task BuffOn(IEnumerable<Card> cardsToBuff)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(ControlOwner.Agility, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(ControlOwner.Agility, 1).Execute();
         }
 
         private async Task BuffOff(IEnumerable<Card> cardsToDebuff)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ControlOwner.Agility, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ControlOwner.Agility, 1).Execute();
         }
 
         private IEnumerable<Card> CardToSelect() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();

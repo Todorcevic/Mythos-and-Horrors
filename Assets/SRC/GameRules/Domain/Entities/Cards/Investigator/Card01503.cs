@@ -33,15 +33,15 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawResources()
         {
-            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(Owner, 2).Start();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(Owner, 2).Execute();
         }
 
         /*******************************************************************/
         public async Task GainTurnActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(activeInvestigator, 2).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(activeInvestigator, 2).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Execute();
         }
 
         public bool GainTurnConditionToActivate(Investigator activeInvestigator)
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Execute();
         }
 
         private bool RestartAbilityCondition(RoundGameAction roudnGameAction)

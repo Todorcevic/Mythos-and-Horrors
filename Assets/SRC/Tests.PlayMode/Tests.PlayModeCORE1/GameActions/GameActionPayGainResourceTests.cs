@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Execute();
             yield return ClickedTokenButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(10));
         }
@@ -40,8 +40,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<PayResourceGameAction>().SetWith(_investigatorsProvider.First, 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<PayResourceGameAction>().SetWith(_investigatorsProvider.First, 2).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(8));
         }

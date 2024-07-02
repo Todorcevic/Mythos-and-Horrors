@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
             if (challengePhaseGameAction is not AttackCreatureGameAction attackCreatureGameAction) return;
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.AmountDamage, 1).Execute();
         }
     }
 }

@@ -18,9 +18,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.Second;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(supply);
             Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
@@ -36,12 +36,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.Second;
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardWithBuff, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardWithBuff, investigator.AidZone).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(6));
 
-            yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardWithBuff).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardWithBuff).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(5));

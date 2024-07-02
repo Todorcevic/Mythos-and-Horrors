@@ -12,17 +12,17 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<StartChapterGameAction>().SetWith(_chaptersProvider.CurrentChapter).Start();
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, Prepare).Start();
-            await _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(_chaptersProvider.CurrentScene).Start();
+            await _gameActionsProvider.Create<StartChapterGameAction>().SetWith(_chaptersProvider.CurrentChapter).Execute();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, Prepare).Execute();
+            await _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(_chaptersProvider.CurrentScene).Execute();
 
-            while (true) await _gameActionsProvider.Create<RoundGameAction>().Start();
+            while (true) await _gameActionsProvider.Create<RoundGameAction>().Execute();
         }
 
         /*******************************************************************/
         private IEnumerable<Investigator> AllInvestigators() => _investigatorsProvider.AllInvestigators;
 
         private async Task Prepare(Investigator investigator) =>
-            await _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Start();
+            await _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Execute();
     }
 }

@@ -31,11 +31,11 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateEffect(itemCard, new Stat(0, false), DrawItem, PlayActionType.Choose | PlayActionType.Draw, ControlOwner);
 
                 /*******************************************************************/
-                async Task DrawItem() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, itemCard).Start();
+                async Task DrawItem() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, itemCard).Execute();
             }
 
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await interactableGameAction.Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await interactableGameAction.Execute();
         }
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)

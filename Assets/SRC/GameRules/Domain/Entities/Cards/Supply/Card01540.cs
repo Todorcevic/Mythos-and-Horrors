@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ReturnToHandLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, investigator.HandZone).Start();
+                .SetWith(this, investigator.HandZone).Execute();
         }
 
         /*******************************************************************/
@@ -45,13 +45,13 @@ namespace MythosAndHorrors.GameRules
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Intelligence, card => 1);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(map).Execute();
         }
 
         private async Task RemoveIntelligenceBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Intelligence, card => 1);
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(map).Execute();
         }
     }
 }

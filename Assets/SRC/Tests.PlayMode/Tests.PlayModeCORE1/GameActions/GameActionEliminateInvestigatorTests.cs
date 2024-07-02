@@ -15,10 +15,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardAdversity adversity = _cardsProvider.GetCard<Card01162>();
             CardCreature ghoulSecuaz = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoulSecuaz, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversity, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE1.Attic.Hints, 2).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, ghoulSecuaz, amountFear: 8).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoulSecuaz, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversity, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE1.Attic.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, ghoulSecuaz, amountFear: 8).Execute().AsCoroutine();
 
             Assert.That(investigator.Defeated.IsActive, Is.True);
             Assert.That(adversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));

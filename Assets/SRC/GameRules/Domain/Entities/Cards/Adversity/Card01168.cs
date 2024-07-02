@@ -29,18 +29,18 @@ namespace MythosAndHorrors.GameRules
         public override async Task PlayRevelationFor(Investigator investigator)
         {
             if (CurrentZone.Cards.Exists(card => card is Card01168 && card != this))
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         /*******************************************************************/
         private async Task ActivationBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Execute();
         }
 
         private async Task DeactivationBuff(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cards.Cast<CardPlace>().Unique().Enigma, 2).Execute();
 
         }
 
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task FinishLogic(InvestigatePlaceGameAction investigateGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool FinishCondition(InvestigatePlaceGameAction investigateGameAction)

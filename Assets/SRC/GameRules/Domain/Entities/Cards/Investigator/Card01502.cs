@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Execute();
 
             foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))
             {
@@ -45,11 +45,11 @@ namespace MythosAndHorrors.GameRules
                     async Task Activate()
                     {
                         await activation.PlayFor(activeInvestigator);
-                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Execute();
                     }
                 }
             }
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         public bool FreeTomeActivationConditionToActivate(Investigator activeInvestigator)
@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction gameAction)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, false).Execute();
         }
 
         private bool RestartAbilityCondition(RoundGameAction gameAction)
@@ -83,8 +83,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override int StarValue() => 0;
 
-        private async Task DrawCards() => await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(TomesInPlay, DrawAid).Start();
+        private async Task DrawCards() => await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(TomesInPlay, DrawAid).Execute();
 
-        private async Task DrawAid(Card tome) => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Owner).Start();
+        private async Task DrawAid(Card tome) => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Owner).Execute();
     }
 }

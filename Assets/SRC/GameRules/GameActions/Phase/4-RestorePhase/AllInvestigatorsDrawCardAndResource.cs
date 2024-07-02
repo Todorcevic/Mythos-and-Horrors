@@ -17,15 +17,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInPlay, DrawAndGainResource).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInPlay, DrawAndGainResource).Execute();
         }
 
         /*******************************************************************/
         private IEnumerable<Investigator> AllInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
         private async Task DrawAndGainResource(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
-            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 1).Start();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 1).Execute();
         }
     }
 }

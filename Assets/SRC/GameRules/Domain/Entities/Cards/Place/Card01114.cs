@@ -21,12 +21,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDamageLogic(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsHere, TekeDamage).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsHere, TekeDamage).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsHere() => moveInvestigatorToPlaceGameAction.Investigators.Where(investigator => investigator.CurrentPlace == this);
             async Task TekeDamage(Investigator investigator) =>
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, amountDamage: 1, fromCard: this).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, amountDamage: 1, fromCard: this).Execute();
         }
 
         private bool TakeDamageCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorToPlaceGameAction)

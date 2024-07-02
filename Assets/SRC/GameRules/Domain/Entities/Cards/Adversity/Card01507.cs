@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeShockLogic(FinalizeGameAction finalizeGameAction)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(ControlOwner.Shock, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(ControlOwner.Shock, 1).Execute();
         }
 
         private bool TakeShockCondition(FinalizeGameAction finalizeGameAction)
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PayHintLogic(GainHintGameAction gainHintGameAction)
         {
             gainHintGameAction.Cancel();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Hints, gainHintGameAction.Amount).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Hints, gainHintGameAction.Amount).Execute();
         }
 
         private bool PayHintCondition(GainHintGameAction gainHintGameAction)
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
 
         public async Task Reset()
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, Hints.InitialValue).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, Hints.InitialValue).Execute();
         }
     }
 }

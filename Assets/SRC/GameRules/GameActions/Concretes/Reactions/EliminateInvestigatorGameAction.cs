@@ -22,15 +22,15 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             CardPlace currentPlace = Investigator.CurrentPlace;
-            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(Investigator, Investigator.Resources.Value).Start();
-            await _gameActionsProvider.Create<DropHintGameAction>().SetWith(Investigator, currentPlace.Hints, Investigator.Hints.Value).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone).Start();
-            await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(DangerCards, Discard).Start();
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(Investigator, Investigator.Resources.Value).Execute();
+            await _gameActionsProvider.Create<DropHintGameAction>().SetWith(Investigator, currentPlace.Hints, Investigator.Hints.Value).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone).Execute();
+            await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(DangerCards, Discard).Execute();
             await eliminateInvestigatorPresenter.PlayAnimationWith(this);
 
             /*******************************************************************/
-            async Task Discard(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
+            async Task Discard(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
             IEnumerable<Card> DangerCards() => Investigator.DangerZone.Cards;
         }
 

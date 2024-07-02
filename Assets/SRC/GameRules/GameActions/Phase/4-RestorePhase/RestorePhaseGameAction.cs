@@ -16,13 +16,13 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             //4.2	Reset actions.
-            await _gameActionsProvider.Create<ResetAllInvestigatorsTurnsGameAction>().Start();
+            await _gameActionsProvider.Create<ResetAllInvestigatorsTurnsGameAction>().Execute();
             //4.3	Ready all exhausted cards.
-            await _gameActionsProvider.Create<ReadyAllCardsGameAction>().Start();
+            await _gameActionsProvider.Create<ReadyAllCardsGameAction>().Execute();
             //4.4	Each investigator draws 1 card and gains 1 resource.
-            await _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResource>().Start();
+            await _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResource>().Execute();
             //4.5	Each investigator checks hand size.
-            await _gameActionsProvider.Create<AllInvestigatorsCheckHandSize>().Start();
+            await _gameActionsProvider.Create<AllInvestigatorsCheckHandSize>().Execute();
         }
         //4.6	Upkeep phase ends.
     }

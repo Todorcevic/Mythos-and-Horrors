@@ -50,15 +50,15 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected async Task RevealLogic(UpdateStatGameAction updateStatGameAction) =>
-            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Execute();
 
         /*******************************************************************/
         private async Task RevealEffect(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Execute();
             await CompleteEffect();
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(NextCardGoal).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(NextCardGoal).Execute();
         }
 
         protected abstract Task CompleteEffect();
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create<PayHintsToGoalGameAction>()
             .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0))
-            .Start();
+            .Execute();
 
         protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {

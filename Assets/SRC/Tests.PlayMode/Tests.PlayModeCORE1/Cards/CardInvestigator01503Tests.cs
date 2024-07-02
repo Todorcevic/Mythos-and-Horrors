@@ -19,10 +19,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.Third;
             CardPlace place = SceneCORE1.Cellar;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Execute().AsCoroutine();
             int resutlExpected = investigatorToTest.Resources.Value + 2;
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(place);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = _investigatorsProvider.Third;
             yield return PlayThisInvestigator(investigatorToTest, withResources: true);
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(4));
             yield return ClickedMainButton();

@@ -39,8 +39,8 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Commit()
                 {
-                    await _gameActionsProvider.Create<CommitGameAction>().SetWith(commitableCard).Start();
-                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Start();
+                    await _gameActionsProvider.Create<CommitGameAction>().SetWith(commitableCard).Execute();
+                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
                 }
             }
 
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
                 async Task Activate()
                 {
                     await activation.PlayFor(CurrentChallenge);
-                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Start();
+                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
                 }
             }
         }

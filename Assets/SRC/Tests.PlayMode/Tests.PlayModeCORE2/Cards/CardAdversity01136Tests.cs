@@ -19,10 +19,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01136 adversityCard = _cardsProvider.GetCard<Card01136>();
             Card01135 adversityCard2 = _cardsProvider.GetCard<Card01135>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard2, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard2, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute().AsCoroutine();
 
             Assert.That(adversityCard2.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
@@ -37,11 +37,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01136 adversityCard = _cardsProvider.GetCard<Card01136>();
             int hintsPlaceExpected = investigator.CurrentPlace.Hints.Value - 1;
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
             Assert.That(investigator.Hints.Value, Is.EqualTo(2));
 
-            Task drawTask = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start();
+            Task drawTask = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
 

@@ -22,10 +22,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Task<ResultChallengeGameAction> challengeResolved = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest, withResources: false);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(AmuletoDeWendy, investigatorToTest.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(AmuletoDeWendy, investigatorToTest.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigatorToTest, place).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest, withResources: false);
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(cardInvestigator);

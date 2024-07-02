@@ -18,9 +18,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Creature.Exausted, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Creature.Exausted, true).Execute();
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(Creature, Creature.CurrentPlace.OwnZone).Start();
+                .SetWith(Creature, Creature.CurrentPlace.OwnZone).Execute();
         }
     }
 }

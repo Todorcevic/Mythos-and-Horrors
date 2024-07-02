@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task CheckSlotsLogic(MoveCardsGameAction action)
         {
-            await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(Owner).Start();
+            await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(Owner).Execute();
         }
 
         /*******************************************************************/
@@ -103,8 +103,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Reset()
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(DamageRecived, DamageRecived.InitialValue).Start();
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(FearRecived, FearRecived.InitialValue).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(DamageRecived, DamageRecived.InitialValue).Execute();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(FearRecived, FearRecived.InitialValue).Execute();
         }
     }
 }

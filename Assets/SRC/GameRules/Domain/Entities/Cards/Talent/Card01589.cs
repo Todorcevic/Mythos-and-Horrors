@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
             challengePhaseGameAction.SuccesEffects.Add(Draw);
             await Task.CompletedTask;
 
-            async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(InvestigatorCommiter).Start();
+            async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(InvestigatorCommiter).Execute();
         }
     }
 }

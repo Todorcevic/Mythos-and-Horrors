@@ -21,8 +21,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return BuildCard("01683", investigator);
             Card01683 supplyCard = _cardsProvider.GetCard<Card01683>();
             Card01533 ally = _cardsProvider.GetCard<Card01533>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, _investigatorsProvider.Second.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ally, _investigatorsProvider.Second.AidZone).Execute().AsCoroutine();
 
             Dictionary<Stat, int> stats = new()
             {
@@ -34,10 +34,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 { _investigatorsProvider.Fourth.FearRecived, 1},
                 { ally.FearRecived, 1}
             };
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Execute().AsCoroutine();
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(4));
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(supplyCard);
             yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedIn(supplyCard);

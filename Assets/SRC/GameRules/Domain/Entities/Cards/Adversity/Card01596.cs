@@ -22,15 +22,15 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Discard()
                 {
-                    await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(Collection, Logic).Start();
+                    await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(Collection, Logic).Execute();
 
                     /*******************************************************************/
                     IEnumerable<Card> Collection() => investigator.HandZone.Cards.Where(card => card.CanBeDiscarded).Except(new[] { card });
-                    async Task Logic(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
+                    async Task Logic(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
                 }
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
     }
 }

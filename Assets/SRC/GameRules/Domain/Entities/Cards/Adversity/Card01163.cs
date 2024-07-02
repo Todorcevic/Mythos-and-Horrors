@@ -14,11 +14,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
-            await challengeGameAction.SetWith(investigator.Power, 3, "Challenge: " + Info.Name, this, failEffect: FailEffect).Start();
+            await challengeGameAction.SetWith(investigator.Power, 3, "Challenge: " + Info.Name, this, failEffect: FailEffect).Execute();
 
             /*******************************************************************/
             async Task FailEffect() =>
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: challengeGameAction.ResultChallenge.TotalDifferenceValue * -1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: challengeGameAction.ResultChallenge.TotalDifferenceValue * -1).Execute();
 
         }
     }

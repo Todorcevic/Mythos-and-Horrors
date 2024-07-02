@@ -23,11 +23,11 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, true).Execute();
             List<T> elementsExecuted = new();
             T element = Collection().FirstOrDefault();
             await ResolveLogic();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, false).Execute();
 
             async Task ResolveLogic()
             {

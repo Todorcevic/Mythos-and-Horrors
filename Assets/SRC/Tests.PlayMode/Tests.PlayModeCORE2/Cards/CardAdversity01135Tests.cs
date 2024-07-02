@@ -19,11 +19,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
             Assert.That(investigator.Hints.Value, Is.EqualTo(2));
 
-            Task drawTask = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start();
+            Task drawTask = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
             yield return ClickedClone(adversityCard, 0, isReaction: true);
             yield return drawTask.AsCoroutine();
 
@@ -38,9 +38,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(adversityCard.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));

@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         private async Task EludeLogic(EludeCreatureGameAction eludeGameAction)
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
+                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
         }
 
         private bool EludeCondition(EludeCreatureGameAction aludeGameAction)

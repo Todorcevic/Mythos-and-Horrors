@@ -19,8 +19,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DeckZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DeckZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute().AsCoroutine();
 
             Assert.That(Necronomicon.CurrentZone, Is.EqualTo(investigator.DangerZone));
         }
@@ -34,9 +34,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<ResultChallengeGameAction> challengePhase = CaptureResolvingChallenge();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -53,9 +53,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01509 Necronomicon = _cardsProvider.GetCard<Card01509>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(Necronomicon);
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
             Assert.That(Necronomicon.ChargeFear.Value, Is.EqualTo(2));

@@ -50,25 +50,25 @@ namespace MythosAndHorrors.GameRules
 
                 async Task SelecteCreature()
                 {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardCreature, this, amountDamage: 1).Start();
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardCreature, this, amountDamage: 1).Execute();
                 }
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         /*******************************************************************/
         private async Task GainStrenghtDeactivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
         private async Task GainStrenghtActivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

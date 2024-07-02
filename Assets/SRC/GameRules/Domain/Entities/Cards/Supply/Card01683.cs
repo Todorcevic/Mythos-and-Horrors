@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DiscardLogic(UpdateStatGameAction updateStatGameAction)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(AmountSupplies, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(AmountSupplies, 1).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select card to Health");
@@ -63,10 +63,10 @@ namespace MythosAndHorrors.GameRules
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Start();
+                async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Execute();
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         public bool HealConditionToActivate(Investigator activeInvestigator)

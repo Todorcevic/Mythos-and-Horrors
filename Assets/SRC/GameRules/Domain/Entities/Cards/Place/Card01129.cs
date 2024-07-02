@@ -33,14 +33,14 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Take()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSupply).Start();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(supportsInDeck.Except(new[] { cardSupply })).Start();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSupply).Execute();
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(supportsInDeck.Except(new[] { cardSupply })).Execute();
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(supportsInDeck).Start();
-            await interactableGameAction.Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Start();
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(supportsInDeck).Execute();
+            await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Execute();
         }
 
         private bool TakeTomeOrSpellCondition(Investigator investigator)

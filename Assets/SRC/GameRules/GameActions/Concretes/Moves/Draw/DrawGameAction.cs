@@ -22,16 +22,16 @@ namespace MythosAndHorrors.GameRules
             switch (CardDrawed)
             {
                 case IDrawActivable cardAdversity:
-                    await _gameActionsProvider.Create<PlayDrawActivableGameAction>().SetWith(cardAdversity, Investigator).Start();
+                    await _gameActionsProvider.Create<PlayDrawActivableGameAction>().SetWith(cardAdversity, Investigator).Execute();
                     break;
                 case ISpawnable spawnable:
-                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(spawnable).Start();
+                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(spawnable).Execute();
                     break;
                 case CardCreature cardCreature:
-                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(cardCreature, Investigator).Start();
+                    await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(cardCreature, Investigator).Execute();
                     break;
                 default:
-                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Start();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Execute();
                     break;
             }
         }

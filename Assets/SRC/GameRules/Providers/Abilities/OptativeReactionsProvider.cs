@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             interactableGameAction.CreateContinueMainButton();
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         private Stat GetResourceCostFor(ITriggered triggered)

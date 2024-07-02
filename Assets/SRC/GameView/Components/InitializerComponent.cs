@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
             await IntialState();
             _prepareGameUseCase.Execute();
             if (!_executedByTests) return;
-            await _gameActionsProvider.Create<StartGameAction>().Start();
+            await _gameActionsProvider.Create<StartGameAction>().Execute();
         }
 
         private async Task IntialState()

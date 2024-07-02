@@ -29,9 +29,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create<RevealGameAction>().SetWith(Parlor).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, Parlor.OwnZone).Start();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GhoulPriest, Hallway.OwnZone).Start();
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(Parlor).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, Parlor.OwnZone).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GhoulPriest, Hallway.OwnZone).Execute();
         }
 
         /*******************************************************************/
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
                   .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
 
-            await _gameActionsProvider.Create<PayHintsToGoalGameAction>().SetWith(this, specificInvestigators).Start();
+            await _gameActionsProvider.Create<PayHintsToGoalGameAction>().SetWith(this, specificInvestigators).Execute();
         }
 
         protected override bool PayHintsConditionToActivate(Investigator investigator) => false;

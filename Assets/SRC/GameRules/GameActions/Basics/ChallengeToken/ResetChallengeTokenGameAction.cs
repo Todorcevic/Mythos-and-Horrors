@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
-                .SetWith(ChallengeToken, ChallengeToken.InitialValue, ChallengeToken.InititalEffect).Start();
+                .SetWith(ChallengeToken, ChallengeToken.InitialValue, ChallengeToken.InititalEffect).Execute();
         }
     }
 }

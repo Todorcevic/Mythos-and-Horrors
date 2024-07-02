@@ -47,13 +47,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawCardAndResourceLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
-            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 1).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Start();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 1).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Execute();
         }
 
         private async Task ResetPlayedLogic(PlayInvestigatorGameAction action) =>
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, false).Execute();
 
 
         private bool ResetPlayedCondition(PlayInvestigatorGameAction action) => true;

@@ -22,12 +22,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardCondition);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -44,10 +44,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01510 conditionCard = _cardsProvider.GetCard<Card01510>();
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
             yield return ClickedIn(conditionCard);
             Assert.That(conditionCard.CurrentZone, Is.EqualTo(investigator.DeckZone));
             yield return ClickedTokenButton();
@@ -66,12 +66,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardCondition);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -89,12 +89,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01510 cardCondition = _cardsProvider.GetCard<Card01510>();
             Card01580 basicCard = _cardsProvider.GetCard<Card01580>();
 
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(basicCard, investigator.DeckZone, isFaceDown: true).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(basicCard, investigator.DeckZone, isFaceDown: true).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
             yield return ClickedIn(cardCondition);
             Assert.That(cardCondition.CurrentZone, Is.EqualTo(investigator.DeckZone));
             yield return ClickedTokenButton();
@@ -112,11 +112,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01522 cardCondition = _cardsProvider.GetCard<Card01522>();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE2.Drew, investigator.InvestigatorCard).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE2.Drew, investigator.InvestigatorCard).Execute();
             yield return ClickedIn(cardCondition);
             yield return taskGameAction.AsCoroutine();
 
@@ -134,10 +134,10 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01565 cardCondition = _cardsProvider.GetCard<Card01565>();
             Card01168 cardAdversity = _cardsProvider.GetCard<Card01168>();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedIn(cardCondition);
             yield return taskGameAction.AsCoroutine();
 

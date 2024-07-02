@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             int currentDeckSize = investigator.DeckZone.Cards.Count;
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedClone(cardAdversity, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
@@ -54,11 +54,11 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             CardPlot plot = SceneCORE3.PlotCards.ElementAt(1);
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(plot, SceneCORE3.PlotZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 4).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentPlot, SceneCORE3.OutZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(plot, SceneCORE3.PlotZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 4).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
             Assert.That(investigator.Isolated.IsActive, Is.True);
             Assert.That(_gameActionsProvider.CurrentInteractable.AllEffects.All(cardEffect => cardEffect.Investigator == investigator), Is.True);

@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RestartAbilityLogic(RoundGameAction roudnGameAction)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(AbilityUsed, 0).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(AbilityUsed, 0).Execute();
         }
 
         private bool RestartAbilityCondition(RoundGameAction roudnGameAction)
@@ -65,13 +65,13 @@ namespace MythosAndHorrors.GameRules
                 { investigator.Resources, 1 },
                 { Resources, 1 }
             };
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(resources).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(AbilityUsed, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(resources).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(AbilityUsed, 1).Execute();
         }
 
         public async Task Reset()
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Resources, Resources.InitialValue).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Resources, Resources.InitialValue).Execute();
         }
     }
 }

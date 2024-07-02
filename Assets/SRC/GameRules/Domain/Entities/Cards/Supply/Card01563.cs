@@ -49,20 +49,20 @@ namespace MythosAndHorrors.GameRules
 
                 async Task SelectSpell()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Start();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cards.Except(new[] { card })).Start();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Execute();
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cards.Except(new[] { card })).Execute();
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await interactableGameAction.Start();
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await interactableGameAction.Execute();
         }
 
         /*******************************************************************/
         private async Task Logic(MoveCardsGameAction moveCardsGameAction)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Eldritch, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Eldritch, 1).Execute();
         }
 
         private bool Condition(MoveCardsGameAction moveCardsGameAction)

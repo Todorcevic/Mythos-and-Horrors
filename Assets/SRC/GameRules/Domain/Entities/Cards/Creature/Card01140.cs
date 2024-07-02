@@ -33,13 +33,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ParleyActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Start();
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Execute();
 
             async Task PayCreature()
             {
-                await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Start();
+                await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Execute();
                 await _gameActionsProvider.Create<MoveCardsGameAction>()
-                    .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
+                    .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
             }
         }
     }

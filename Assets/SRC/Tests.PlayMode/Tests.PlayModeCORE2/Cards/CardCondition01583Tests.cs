@@ -20,12 +20,12 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return BuildCard("01583", investigator);
             Card01583 conditionCard = _cardsProvider.GetCard<Card01583>();
             Card01578 conditionCard2 = _cardsProvider.GetCard<Card01578>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard2, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard2, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(conditionCard2);
             yield return ClickedIn(conditionCard);
             yield return ClickedMainButton();

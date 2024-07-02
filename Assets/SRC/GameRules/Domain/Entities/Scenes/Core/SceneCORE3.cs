@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ShowHistory()
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Execute();
         }
 
         private async Task PlacePlaces()
@@ -92,31 +92,31 @@ namespace MythosAndHorrors.GameRules
                 { ForestsToPlace[3], GetPlaceZone(2, 4) },
             };
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Execute();
         }
 
         private async Task PlaceDangerDeck()
         {
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Execute();
         }
 
         private async Task PlacePlotAndGoal()
         {
-            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Start();
-            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Start();
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(FirstPlot).Execute();
+            await _gameActionsProvider.Create<PlaceGoalGameAction>().SetWith(FirstGoal).Execute();
 
             int totaL = 0;
             if (AmountInterrogate < 2) totaL = 3;
             else if (AmountInterrogate < 4) totaL = 2;
             else if (AmountInterrogate < 6) totaL = 1;
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(FirstPlot.Eldritch, totaL).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(FirstPlot.Eldritch, totaL).Execute();
         }
 
         private async Task CheckDiscard()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.IsMidknigh))
-                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsWithCards, Discard).Start();
+                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsWithCards, Discard).Execute();
 
             IEnumerable<Investigator> InvestigatorsWithCards() => _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.HandZone.Cards.Any());
@@ -125,36 +125,36 @@ namespace MythosAndHorrors.GameRules
             {
                 Card cardToDiscard = investigator.HandZone.Cards.Rand();
                 if (cardToDiscard == null) return;
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Execute();
                 cardToDiscard = investigator.HandZone.Cards.Rand();
                 if (cardToDiscard == null) return;
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Execute();
             }
         }
 
         private async Task PlaceInvestigators()
         {
-            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, MainPath).Start();
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, MainPath).Execute();
         }
 
         /*******************************************************************/
         protected override async Task Resolution0()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, true).Start();
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInPlay, Defeated).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, true).Execute();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInPlay, Defeated).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> AllInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
             async Task Defeated(Investigator investigator) =>
-                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Defeated, true).Start();
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Defeated, true).Execute();
 
         }
 
         protected override async Task Resolution1()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Execute();
             await TakeShock();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
 
             async Task TakeShock()
             {
@@ -163,15 +163,15 @@ namespace MythosAndHorrors.GameRules
                 {
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Execute();
             }
         }
 
         protected override async Task Resolution2()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.UmordhothWin, false).Execute();
             await TakeInjuriesAndShock();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
 
             async Task TakeInjuriesAndShock()
             {
@@ -181,16 +181,16 @@ namespace MythosAndHorrors.GameRules
                     statsWithValues.Add(investigator.Injury, 2);
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Execute();
             }
         }
 
         protected override async Task Resolution3()
         {
-            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaSacrifice, true).Start();
+            await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaSacrifice, true).Execute();
             await TakeInjuriesAndShock();
             await TakeFlaw();
-            await _gameActionsProvider.Create<GainSceneXpGameAction>().Start();
+            await _gameActionsProvider.Create<GainSceneXpGameAction>().Execute();
 
             async Task TakeInjuriesAndShock()
             {
@@ -200,7 +200,7 @@ namespace MythosAndHorrors.GameRules
                     statsWithValues.Add(investigator.Injury, 2);
                     statsWithValues.Add(investigator.Shock, 2);
                 }
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Execute();
             }
 
             async Task TakeFlaw()
@@ -253,8 +253,8 @@ namespace MythosAndHorrors.GameRules
                 {
                     Card monster = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Monster));
 
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster).Start();
-                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster).Execute();
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Execute();
                 }
 
                 bool DrawMonsterCondition(ChallengePhaseGameAction challengePhaseGameAction)
@@ -288,14 +288,14 @@ namespace MythosAndHorrors.GameRules
             {
                 IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
                     .OfType<IEldritchable>().FirstOrDefault();
-                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Start();
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 1).Execute();
             }
 
             async Task CultistHardEffect()
             {
                 IEldritchable nearestCreature = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures
                   .OfType<IEldritchable>().FirstOrDefault();
-                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 2).Start();
+                if (nearestCreature != null) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCreature.Eldritch, 2).Execute();
             }
         }
 
@@ -320,13 +320,13 @@ namespace MythosAndHorrors.GameRules
             async Task DangerNormalEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Execute();
             }
 
             async Task DangerHardEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Start();
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Execute();
             }
         }
 
@@ -353,14 +353,14 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
                     .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
-                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
             }
 
             async Task AncientHardEffect()
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
-                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
             }
         }
     }

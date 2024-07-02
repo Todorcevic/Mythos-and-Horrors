@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Start();
+            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Execute();
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)
@@ -38,13 +38,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ParleyActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Start();
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Execute();
 
             /*******************************************************************/
             async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                 .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: Lita, succesEffect: ParleySucceed, failEffect: null)
-                .Start();
-            async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, activeInvestigator.AidZone).Start();
+                .Execute();
+            async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, activeInvestigator.AidZone).Execute();
         }
 
         private bool ParleyConditionToActivate(Investigator activeInvestigator)

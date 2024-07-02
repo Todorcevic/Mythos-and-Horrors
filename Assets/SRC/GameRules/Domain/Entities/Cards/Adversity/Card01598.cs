@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Intelligence] = 1;
             }
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();
         }
         private async Task RemoveDecrementStatBuff(IEnumerable<Card> cards)
         {
@@ -54,13 +54,13 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Intelligence] = 1;
             }
 
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
         }
 
         /*******************************************************************/
         private async Task DiscardActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool DiscardConditionToActivate(Investigator activeInvestigator)

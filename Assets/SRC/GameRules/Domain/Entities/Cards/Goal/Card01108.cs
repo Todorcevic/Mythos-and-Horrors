@@ -31,13 +31,13 @@ namespace MythosAndHorrors.GameRules
                 { Parlor, _chaptersProvider.CurrentScene.GetPlaceZone(1, 4) }
             };
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Start();
-            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInStudy, DiscardCreature).Start();
-            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Hallway).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allPlaces).Execute();
+            await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInStudy, DiscardCreature).Execute();
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, Hallway).Execute();
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(Study, _chaptersProvider.CurrentScene.OutZone).Start();
+                .SetWith(Study, _chaptersProvider.CurrentScene.OutZone).Execute();
         }
 
-        private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Start();
+        private async Task DiscardCreature(CardCreature creature) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Execute();
     }
 }

@@ -31,12 +31,12 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ActivationLogic(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraMagicalSlot).Start();
+            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraMagicalSlot).Execute();
         }
 
         private async Task Deactivationlogic(IEnumerable<Card> cards)
         {
-            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraMagicalSlot).Start();
+            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraMagicalSlot).Execute();
         }
 
         /*******************************************************************/
@@ -60,11 +60,11 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task SelectSpell() =>
-                    await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)card).Charge.Amount, 1).Start();
+                    await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)card).Charge.Amount, 1).Execute();
             }
 
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await interactableGameAction.Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await interactableGameAction.Execute();
         }
 
         /*******************************************************************/

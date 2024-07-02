@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameRules
             Card nextDraw = Investigator.CardAidToDraw ?? throw new System.Exception("No card to draw"); //TODO must shuffle deck with discard
             if (nextDraw.Tags.Contains(Tag.Weakness))
             {
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(nextDraw).Start();
-                await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(nextDraw).Execute();
+                await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Execute();
                 return;
             }
 
-            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Investigator).Start();
-            await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Start();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Investigator).Execute();
+            await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(Investigator).Execute();
         }
     }
 }

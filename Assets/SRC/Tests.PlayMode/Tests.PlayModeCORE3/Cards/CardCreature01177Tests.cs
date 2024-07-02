@@ -20,9 +20,9 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01177 creature = _cardsProvider.GetCard<Card01177>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Execute();
             yield return ClickedIn(investigator.DiscardableCardsInHand.First());
             yield return gameActionTask.AsCoroutine();
 
@@ -37,10 +37,10 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01177 creature = _cardsProvider.GetCard<Card01177>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.HandZone.Cards, investigator.DiscardZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.HandZone.Cards, investigator.DiscardZone).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Execute().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));

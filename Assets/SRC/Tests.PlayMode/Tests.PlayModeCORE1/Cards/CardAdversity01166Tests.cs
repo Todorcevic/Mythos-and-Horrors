@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             Card01166 cardAdversity = _cardsProvider.GetCard<Card01166>();
             yield return PlaceOnlyScene();
-            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
 
             Assert.That(SceneCORE1.CurrentPlot.AmountOfEldritch, Is.EqualTo(1));

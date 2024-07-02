@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01123 goal = _cardsProvider.GetCard<Card01123>();
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.AllCultists, SceneCORE2.VictoryZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.AllCultists, SceneCORE2.VictoryZone).Execute().AsCoroutine();
 
             Assert.That(goal.IsComplete, Is.True);
         }
@@ -31,11 +31,11 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator2 = _investigatorsProvider.Second;
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Hints, 16).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Hints, 16).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(goal);
             yield return ClickedIn(investigator.AvatarCard);
 

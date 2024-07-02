@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ParleyActivate(Investigator investigator)
         {
             _amountDiscarded = CreateStat(0);
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Start();
+            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Execute();
 
             /*******************************************************************/
             async Task PayCreature()
@@ -57,16 +57,16 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     async Task Discard()
                     {
-                        await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
-                        await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_amountDiscarded, 1).Start();
+                        await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
+                        await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_amountDiscarded, 1).Execute();
                         if (_amountDiscarded.Value == 4)
                             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
+                                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
                         else await PayCreature();
                     }
                 }
 
-                await interactableGameAction.Start();
+                await interactableGameAction.Execute();
             }
         }
     }

@@ -17,12 +17,12 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select One Effect");
             interactableGameAction.CreateEffect(this, new Stat(0, false), DiscardAllInvestigators, PlayActionType.Choose, playedBy: _investigatorProvider.Leader);
             interactableGameAction.CreateEffect(this, new Stat(0, false), Damage, PlayActionType.Choose, playedBy: _investigatorProvider.Leader, cardAffected: _investigatorProvider.Leader.InvestigatorCard);
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
 
         private async Task DiscardAllInvestigators()
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsWithCards, Discard).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsWithCards, Discard).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsWithCards() =>
@@ -31,13 +31,13 @@ namespace MythosAndHorrors.GameRules
             async Task Discard(Investigator investigator)
             {
                 Card cardToDiscard = investigator.HandZone.Cards.Rand();
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardToDiscard).Execute();
             }
         }
 
         private async Task Damage()
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_investigatorProvider.Leader, this, amountFear: 2).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_investigatorProvider.Leader, this, amountFear: 2).Execute();
         }
     }
 }

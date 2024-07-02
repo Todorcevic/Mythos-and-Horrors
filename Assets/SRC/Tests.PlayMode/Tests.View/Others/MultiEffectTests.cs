@@ -24,12 +24,12 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Card card2 = investigator1.FullDeck[2];
 
             interactableGameAction.CreateContinueMainButton();
-            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Start(), PlayActionType.Choose, investigator1);
-            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.HandZone).Start(), PlayActionType.Choose, investigator1);
-            interactableGameAction.CreateEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card2, investigator1.DangerZone).Start(), PlayActionType.Choose, investigator1);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone).Start().AsCoroutine();
+            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Execute(), PlayActionType.Choose, investigator1);
+            interactableGameAction.CreateEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.HandZone).Execute(), PlayActionType.Choose, investigator1);
+            interactableGameAction.CreateEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card2, investigator1.DangerZone).Execute(), PlayActionType.Choose, investigator1);
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone).Execute().AsCoroutine();
 
-            Task gameActionTask = interactableGameAction.Start();
+            Task gameActionTask = interactableGameAction.Execute();
 
             if (!DEBUG_MODE) yield return WaitToClick(card);
             if (!DEBUG_MODE) yield return WaitToCloneClick(0);

@@ -21,10 +21,10 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(madness, investigator.DeckZone, isFaceDown: true).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<ChangeCardPositionGameAction>().SetWith(madness, 10).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(madness, investigator.DeckZone, isFaceDown: true).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<ChangeCardPositionGameAction>().SetWith(madness, 10).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

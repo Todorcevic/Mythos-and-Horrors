@@ -30,8 +30,8 @@ namespace MythosAndHorrors.GameRules
         private async Task DrawCultistLogic(PayHintsToGoalGameAction payHintGameActionn)
         {
             Card cultist = SceneCORE2.Cultists.Where(cultist => cultist.CurrentZone == SceneCORE2.OutZone).Rand();
-            await _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.Leader, cultist).Start();
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Start();
+            await _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.Leader, cultist).Execute();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Execute();
         }
 
         private bool DrawCultistCondition(PayHintsToGoalGameAction payHintGameActionn)
@@ -53,12 +53,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         protected async Task RevealLogic(MoveCardsGameAction updateStatGameAction) =>
-            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<RevealGameAction>().SetWith(this).Execute();
 
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE2.FullResolutions[1]).Start();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE2.FullResolutions[1]).Execute();
         }
     }
 }

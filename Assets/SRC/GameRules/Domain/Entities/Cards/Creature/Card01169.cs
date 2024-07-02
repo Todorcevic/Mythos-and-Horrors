@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task EnterPlayLogic(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Eldritch, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Eldritch, 1).Execute();
         }
 
         private bool EnterPlayCondition(SpawnCreatureGameAction spawnCreatureGameAction)

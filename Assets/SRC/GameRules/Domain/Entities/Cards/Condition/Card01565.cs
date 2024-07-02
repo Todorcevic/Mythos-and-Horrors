@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not MoveCardsGameAction moveCardsGameAction) return;
             if (moveCardsGameAction.Parent is not PlayDrawActivableGameAction playRevelationAdversity) return;
             playRevelationAdversity.Cancel();
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith((Card)playRevelationAdversity.DrawActivable).Start();
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith((Card)playRevelationAdversity.DrawActivable).Execute();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Execute();
         }
     }
 }

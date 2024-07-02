@@ -23,13 +23,13 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Draw()
                 {
-                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
-                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
-                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Execute();
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Execute();
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Execute();
                 }
             }
 
-            await interactable.Start();
+            await interactable.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;

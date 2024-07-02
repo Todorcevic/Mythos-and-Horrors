@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(investigator, investigator.CurrentPlace);
             investigate.SuccesEffects.Clear();
             investigate.SuccesEffects.Add(ChooseHints);
-            await investigate.Start();
+            await investigate.Execute();
 
             /*******************************************************************/
             async Task ChooseHints()
@@ -36,13 +36,13 @@ namespace MythosAndHorrors.GameRules
 
                     async Task TakeHint()
                     {
-                        await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 1).Start();
+                        await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 1).Execute();
                         amoutHintsLeft--;
                         if (amoutHintsLeft > 0) await ChooseHints();
                     }
                 }
 
-                await chooseHints.Start();
+                await chooseHints.Execute();
             }
         }
 

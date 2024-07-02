@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01124 home = _cardsProvider.GetCard<Card01124>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(ghoul, investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(ghoul, investigator).Execute().AsCoroutine();
 
             Assert.That(ghoul.CurrentPlace, Is.EqualTo(home));
         }
@@ -34,9 +34,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             int DeckSizeExpected = investigator.DeckZone.Cards.Count - 1;
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, home).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, home).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedClone(home, 1);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

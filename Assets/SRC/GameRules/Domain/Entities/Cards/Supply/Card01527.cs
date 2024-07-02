@@ -32,21 +32,21 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentTurns, 2).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentTurns, 2).Execute();
         }
 
         /*******************************************************************/
         private async Task GainPowerDeactivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
         private async Task GainPowerActivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

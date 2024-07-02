@@ -18,10 +18,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01165 cardAdversity = _cardsProvider.GetCard<Card01165>();
             Card01506 supply = _cardsProvider.GetCard<Card01506>();
             yield return StartingScene(withResources: true);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
             yield return ClickedIn(investigator.AvatarCard);
             yield return WasteAllTurns();
             yield return ClickedMainButton();
@@ -38,10 +38,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01165 cardAdversity = _cardsProvider.GetCard<Card01165>();
             Card01510 condition = _cardsProvider.GetCard<Card01510>();
             yield return StartingScene(withResources: true);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(condition, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(condition, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Start();
+            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
             yield return ClickedIn(investigator.AvatarCard);
             yield return WasteAllTurns();
             yield return ClickedMainButton();

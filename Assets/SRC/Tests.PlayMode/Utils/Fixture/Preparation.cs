@@ -47,11 +47,11 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private async Task PlayInvestigator(Investigator investigator, bool withCards = true, bool withResources = true, bool withAvatar = true)
         {
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, withCards)).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, withCards)).Execute();
             if (withResources)
-                await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Start();
+                await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Execute();
             if (withAvatar)
-                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, StartingPlace).Start();
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, StartingPlace).Execute();
         }
 
         private async Task PlayAllInvestigatorsAsync(bool withCards = true, bool withResources = true, bool withAvatar = true)
@@ -59,22 +59,22 @@ namespace MythosAndHorrors.PlayMode.Tests
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigators)
             {
                 if (withCards)
-                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, true)).Start();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, true)).Execute();
                 if (withResources)
-                    await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Start();
+                    await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Execute();
             }
             if (withAvatar)
-                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, StartingPlace).Start();
+                await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, StartingPlace).Execute();
         }
 
         private async Task WasteTurns(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentTurns, 0).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentTurns, 0).Execute();
         }
 
         private async Task WasteAll()
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.CurrentTurns, investigator => 0)).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.CurrentTurns, investigator => 0)).Execute();
         }
 
         private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesInvestigator(Investigator investigator, bool withCards)

@@ -19,14 +19,14 @@ namespace MythosAndHorrors.GameRules
             CardCreature nearestCultist = investigator.NearestCreatures.FirstOrDefault(card => card.HasThisTag(Tag.Cultist));
             if (nearestCultist != null)
             {
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCultist.Eldritch, 2).Start();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(nearestCultist.Eldritch, 2).Execute();
             }
             else
             {
                 CardCreature searchedCultist = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.Concat(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards)
                     .OfType<CardCreature>().FirstOrDefault(card => card.HasThisTag(Tag.Cultist));
-                await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, searchedCultist).Start();
-                await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
+                await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, searchedCultist).Execute();
+                await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Execute();
             }
         }
     }

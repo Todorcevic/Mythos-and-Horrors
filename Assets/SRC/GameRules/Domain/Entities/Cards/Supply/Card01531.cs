@@ -54,19 +54,19 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task Draw()
                         {
-                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Start();
-                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Start();
+                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Execute();
+                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Execute();
                         }
                     }
 
-                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Start();
-                    await interactableGameAction2.Start();
-                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Start();
-                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
+                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Execute();
+                    await interactableGameAction2.Execute();
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Execute();
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
                 }
             }
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             SceneCORE3 scene = SceneCORE3;
             yield return PlayAllInvestigators(withAvatar: false);
 
-            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Execute().AsCoroutine();
 
             Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(5));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
@@ -31,13 +31,13 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             SceneCORE3 scene = SceneCORE3;
             yield return PlayAllInvestigators(withAvatar: false);
-            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Start();
-            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Start();
-            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Start();
-            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Start();
-            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Execute();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.DrewInterrogate, true).Execute();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.MaskedHunterInterrogate, true).Execute();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Execute();
+            yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Execute();
 
-            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Execute().AsCoroutine();
 
             Assert.That(scene.FirstPlot.AmountOfEldritch, Is.EqualTo(2));
             Assert.That(scene.DangerDeckZone.Cards, Contains.Item(scene.GhoulPriest));

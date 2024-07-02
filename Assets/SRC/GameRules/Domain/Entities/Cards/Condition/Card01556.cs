@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeToken) return;
             ChallengeToken tokenUpdated = revealChallengeToken.ChallengeTokenRevealed;
             await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
-                .SetWith(tokenUpdated, (_) => Math.Abs((int)tokenUpdated.TokenType), tokenUpdated.Effect).Start();
+                .SetWith(tokenUpdated, (_) => Math.Abs((int)tokenUpdated.TokenType), tokenUpdated.Effect).Execute();
             CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
             /*******************************************************************/
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task RestoreLogic(RestoreChallengeTokenGameAction restoreChallengeTokenGameAction)
             {
-                await _gameActionsProvider.Create<ResetChallengeTokenGameAction>().SetWith(tokenUpdated).Start();
+                await _gameActionsProvider.Create<ResetChallengeTokenGameAction>().SetWith(tokenUpdated).Execute();
             }
         }
     }

@@ -28,11 +28,11 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator);
             interactableGameAction.CreateEffect(this, new Stat(0, false), TakeDamage, PlayActionType.Choose, playedBy: investigator);
 
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
 
             /*******************************************************************/
-            async Task SpendClue() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, ExtraStat, 1).Start();
-            async Task TakeDamage() => await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 2).Start();
+            async Task SpendClue() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, ExtraStat, 1).Execute();
+            async Task TakeDamage() => await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 2).Execute();
         }
     }
 }

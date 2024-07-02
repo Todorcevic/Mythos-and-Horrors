@@ -18,9 +18,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             IEnumerable<Investigator> AllInvestigatorsInStudy() => _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == SceneCORE1.Study);
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardAndMoveInvestigatorToStudy).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardAndMoveInvestigatorToStudy).Execute().AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(4));
         }
@@ -32,10 +32,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             IEnumerable<Investigator> AllInvestigatorsInStudy() => _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == SceneCORE1.Study);
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Start();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Hallway).Start().AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Execute();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Hallway).Execute().AsCoroutine();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(_investigatorsProvider.Fourth.HandZone.Cards.First());
@@ -52,8 +52,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             IEnumerable<Investigator> AllInvestigatorsInStudy() => _investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == SceneCORE1.Study);
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Hallway).Start().AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Start();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Hallway).Execute().AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Execute();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(_investigatorsProvider.Third.HandZone.Cards.First());
@@ -69,9 +69,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             SafeForeachReaction();
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Start().AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
@@ -101,7 +101,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             async Task SafeForeachReac(PlayInvestigatorGameAction gameAction)
             {
                 _reactionablesProvider.RemoveReaction(reaction);
-                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy).Start();
+                await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, DiscardSelectionAndMoveInvestigatorToStudy).Execute();
             }
 
             IEnumerable<Investigator> AllInvestigators() => _investigatorsProvider.AllInvestigatorsInPlay
@@ -110,8 +110,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
         private async Task DiscardAndMoveInvestigatorToStudy(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(investigator.HandZone.Cards.First()).Start();
-            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(investigator.HandZone.Cards.First()).Execute();
+            await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Execute();
         }
 
         private async Task DiscardSelectionAndMoveInvestigatorToStudy(Investigator investigator)
@@ -126,12 +126,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
                 /*******************************************************************/
                 async Task Activate()
                 {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
-                    await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Start();
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
+                    await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Study).Execute();
                 }
 
             }
-            await interactableGameAction.Start();
+            await interactableGameAction.Execute();
         }
     }
 }

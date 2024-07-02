@@ -40,19 +40,19 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                 .SetWith(investigator.Power, difficultValue: 3, "Pay Hint To Goal", cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
-                .Start();
+                .Execute();
 
             /*******************************************************************/
-            async Task SuccessEffect() => await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, Hints, 1).Start();
-            async Task FailEffect() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Start();
+            async Task SuccessEffect() => await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, Hints, 1).Execute();
+            async Task FailEffect() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Execute();
         }
 
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[1]).Start();
+                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[1]).Execute();
         }
     }
 }

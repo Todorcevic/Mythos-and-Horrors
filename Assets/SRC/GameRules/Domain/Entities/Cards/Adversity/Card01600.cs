@@ -38,13 +38,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DiscardLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         /*******************************************************************/
         private async Task TakeDirectFearLogic(HarmToCardGameAction action)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountFear: 1, isDirect: true).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountFear: 1, isDirect: true).Execute();
         }
 
         private bool TakeDirectFearConditionn(HarmToCardGameAction harmToCardGameAction)

@@ -45,11 +45,11 @@ namespace MythosAndHorrors.GameRules
                     AttackCreatureGameAction attackCreatureGameAction = _gameActionsProvider.Create<AttackCreatureGameAction>()
                         .SetWith(investigator, creature, amountDamage: 1);
                     await ExtraAttackEnemyLogic(attackCreatureGameAction);
-                    await attackCreatureGameAction.Start();
+                    await attackCreatureGameAction.Execute();
                 }
             }
 
-            await chooseEnemy.Start();
+            await chooseEnemy.Execute();
         }
 
         protected abstract Task ExtraAttackEnemyLogic(AttackCreatureGameAction attackCreatureGameAction);

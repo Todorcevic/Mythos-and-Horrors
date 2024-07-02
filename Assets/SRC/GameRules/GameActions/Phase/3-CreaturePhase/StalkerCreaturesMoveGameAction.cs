@@ -20,12 +20,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create<SafeForeach<IStalker>>().SetWith(StalkersInPlay, Move).Start();
+            await _gameActionsProvider.Create<SafeForeach<IStalker>>().SetWith(StalkersInPlay, Move).Execute();
         }
 
         /*******************************************************************/
         private IEnumerable<IStalker> StalkersInPlay() => _cardsProvider.AllCards.OfType<IStalker>().Where(stalker => stalker.CurrentPlace != null);
 
-        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(stalker, _investigatorsProvider.AllInvestigatorsInPlay).Start();
+        private async Task Move(IStalker stalker) => await _gameActionsProvider.Create<MoveCreatureGameAction>().SetWith(stalker, _investigatorsProvider.AllInvestigatorsInPlay).Execute();
     }
 }

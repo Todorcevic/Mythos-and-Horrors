@@ -19,15 +19,15 @@ namespace MythosAndHorrors.GameRules
         {
             if (Effect.ActivateTurnsCost.Value > 0)
             {
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Effect.Investigator.CurrentTurns, Effect.ActivateTurnsCost.Value).Start();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Effect.Investigator.CurrentTurns, Effect.ActivateTurnsCost.Value).Execute();
             }
             if (Effect is CardEffect cardEffec && cardEffec.ResourceCost.Value > 0)
             {
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardEffec.Investigator.Resources, cardEffec.ResourceCost.Value).Start();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardEffec.Investigator.Resources, cardEffec.ResourceCost.Value).Execute();
             }
             if (Effect.WithOpportunityAttack)
             {
-                await _gameActionsProvider.Create<OpportunityAttackGameAction>().SetWith(Effect.Investigator).Start();
+                await _gameActionsProvider.Create<OpportunityAttackGameAction>().SetWith(Effect.Investigator).Execute();
             }
             await Effect.Logic();
         }

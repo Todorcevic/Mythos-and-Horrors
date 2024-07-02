@@ -45,14 +45,14 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task TakeTome()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, tome).Start();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(tomes.Except(new[] { tome })).Start();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, tome).Execute();
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(tomes.Except(new[] { tome })).Execute();
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(tomes).Start();
-            await interactableGameAction.Start();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ControlOwner.DeckZone).Start();
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(tomes).Execute();
+            await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ControlOwner.DeckZone).Execute();
         }
 
         private bool Condition(MoveCardsGameAction moveCardsGameAction)

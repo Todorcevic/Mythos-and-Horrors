@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             ChallengeTokenRevealed = _challengeTokensProvider.GetRandomToken();
-            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(ChallengeTokenRevealed, Investigator).Start();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(ChallengeTokenRevealed, Investigator).Execute();
         }
     }
 }

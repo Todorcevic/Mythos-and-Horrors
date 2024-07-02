@@ -30,10 +30,10 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task DeconfrontAndMove() => await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()
-                    .SetWith(investigator, place).Start();
+                    .SetWith(investigator, place).Execute();
             }
 
-            await interactable.Start();
+            await interactable.Execute();
         }
     }
 }

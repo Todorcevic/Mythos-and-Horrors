@@ -38,20 +38,20 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task RevealEffect(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Execute();
 
             if (SceneCORE3.CurrentGoal == SceneCORE3.GoalCards.ElementAt(0))
             {
-                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)).Start();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.Ritual, SceneCORE3.GetPlaceZone(1, 4)).Execute();
             }
             else
             {
-                await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInRitual, Discard).Start();
+                await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(CreaturesInRitual, Discard).Execute();
 
                 /*******************************************************************/
                 async Task Discard(CardCreature creature)
                 {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Start();
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creature).Execute();
                 }
 
                 IEnumerable<CardCreature> CreaturesInRitual()
@@ -60,13 +60,13 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start();
-            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.Ritual).Start();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute();
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.Ritual).Execute();
         }
 
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Start();
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Execute();
 
         }
     }

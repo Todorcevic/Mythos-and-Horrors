@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
             };
             if (card.Sanity.Value < card.Info.Sanity) stats.Add(card.Sanity, 1);
 
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Execute();
         }
 
         private async Task ActivateBuff(IEnumerable<Card> cards)
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
             };
             if (card.Sanity.Value == card.Info.Sanity) stats.Add(card.Sanity, 1);
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
@@ -58,10 +58,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChallengeToDiscardLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard).Start();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard).Execute();
 
             /*******************************************************************/
-            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         private bool ChallengeToDiscardCondition(Investigator investigator)

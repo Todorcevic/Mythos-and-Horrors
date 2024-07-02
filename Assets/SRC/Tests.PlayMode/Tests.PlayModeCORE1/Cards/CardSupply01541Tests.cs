@@ -20,9 +20,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01541 supply = _cardsProvider.GetCard<Card01541>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulVoraz, investigator.CurrentPlace).Start();
+            Task taskGameAction = _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulVoraz, investigator.CurrentPlace).Execute();
             yield return ClickedIn(supply);
             yield return taskGameAction.AsCoroutine();
 

@@ -32,11 +32,11 @@ namespace MythosAndHorrors.GameRules
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
         public override async Task PlayRevelationFor(Investigator investigator) =>
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Execute();
 
         /*******************************************************************/
         private async Task WasteLogic(PlayEffectGameAction action) =>
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, true).Execute();
 
         private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
                 .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
         }
 
         private async Task DeactivationLogic(IEnumerable<Card> cards)
@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameRules
                 .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();
         }
 
         private IEnumerable<Card> CardToBuff()
@@ -92,11 +92,11 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DiscardLogic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(playInvestigatorGameAction.ActiveInvestigator.Power, 3, $"Challenge: {Info.Name}", this, succesEffect: Discard).Start();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Start();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(playInvestigatorGameAction.ActiveInvestigator.Power, 3, $"Challenge: {Info.Name}", this, succesEffect: Discard).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Execute();
 
             /*******************************************************************/
-            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                 { Strength, 1 },
                 { Agility, 1 }
             };
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Execute();
         }
 
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
                 { Strength, 1 },
                 { Agility, 1 }
             };
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(stats).Execute();
         }
 
         private IEnumerable<Card> CardToBuff()

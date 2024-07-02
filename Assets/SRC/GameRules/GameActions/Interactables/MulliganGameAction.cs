@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task Discard()
                 {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
-                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Start();
+                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
+                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
                 }
             }
         }

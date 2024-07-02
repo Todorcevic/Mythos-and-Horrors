@@ -33,10 +33,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected virtual async Task RevealEffect(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Execute();
             await CompleteEffect();
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(NextCardPlot).Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+            await _gameActionsProvider.Create<PlacePlotGameAction>().SetWith(NextCardPlot).Execute();
         }
 
         protected abstract Task CompleteEffect();

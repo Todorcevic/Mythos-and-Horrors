@@ -17,12 +17,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsConfronted, Attack).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsConfronted, Attack).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsConfronted() => Colosus.MassiveInvestigatorsConfronted;
 
-            async Task Attack(Investigator investigator) => await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(Colosus, investigator).Start();
+            async Task Attack(Investigator investigator) => await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(Colosus, investigator).Execute();
         }
     }
 }

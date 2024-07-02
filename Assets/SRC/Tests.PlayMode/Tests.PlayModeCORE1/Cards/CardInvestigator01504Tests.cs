@@ -21,9 +21,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest);
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorToTest.FearRecived, 3).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorToTest.FearRecived, 3).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -39,9 +39,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigatorToTest = cardInvestigator.Owner;
             CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigatorToTest.CurrentPlace.OwnZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigatorToTest.CurrentPlace.OwnZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigatorToTest, creature, amountFear: 3, isDirect: true).Start();
+            Task taskGameAction = _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigatorToTest, creature, amountFear: 3, isDirect: true).Execute();
             yield return ClickedIn(cardInvestigator);
             yield return ClickedIn(creature);
             yield return taskGameAction.AsCoroutine();

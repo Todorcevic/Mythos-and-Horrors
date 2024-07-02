@@ -14,14 +14,14 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
             CardCreature cultist = SceneCORE2.Drew;
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cultist, investigator.InvestigatorCard, amountDamage: 2).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cultist, investigator.InvestigatorCard, amountDamage: 2).Execute().AsCoroutine();
 
-            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Execute().AsCoroutine();
             Assert.That(cultist.HealthLeft, Is.EqualTo(3));
-            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Execute().AsCoroutine();
             Assert.That(cultist.HealthLeft, Is.EqualTo(4));
-            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cultist, _investigatorsProvider.First).Execute().AsCoroutine();
             Assert.That(cultist.HealthLeft, Is.EqualTo(4));
         }
     }

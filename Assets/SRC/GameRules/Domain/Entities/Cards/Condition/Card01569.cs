@@ -27,20 +27,20 @@ namespace MythosAndHorrors.GameRules
                     EludeCreatureGameAction eludeGameAction = _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(investigator, creature);
                     eludeGameAction.ChangeStat(investigator.Power);
                     eludeGameAction.SuccesEffects.Add(SuccesEffet);
-                    await eludeGameAction.Start();
+                    await eludeGameAction.Execute();
 
                     List<ChallengeTokenType> dazzle = new() { ChallengeTokenType.Ancient, ChallengeTokenType.Creature, ChallengeTokenType.Cultist, ChallengeTokenType.Danger, ChallengeTokenType.Fail };
                     if (eludeGameAction.ResultChallenge.TokensRevealed.Any(token => dazzle.Contains(token.TokenType)))
                     {
-                        await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentTurns, 1).Start();
-                        await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Start();
+                        await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentTurns, 1).Execute();
+                        await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Execute();
                     }
                 }
 
-                async Task SuccesEffet() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Start();
+                async Task SuccesEffet() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Execute();
             }
 
-            await chooseEnemy.Start();
+            await chooseEnemy.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

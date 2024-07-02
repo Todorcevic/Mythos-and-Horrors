@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         public Zone ZoneToMoveWhenDraw(Investigator investigator) => investigator.DangerZone;
 
         public async Task PlayRevelationFor(Investigator investigator) =>
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(ChargeFear, 3).Start();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(ChargeFear, 3).Execute();
 
         /*******************************************************************/
         private bool TakeFearCondition(Investigator investigator)
@@ -40,15 +40,15 @@ namespace MythosAndHorrors.GameRules
 
         private async Task TakeFearLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Start();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChargeFear, 1).Start();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Execute();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChargeFear, 1).Execute();
 
             if (DiscardCondition()) await DiscardLogic();
 
             /*******************************************************************/
             async Task DiscardLogic()
             {
-                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
             }
 
             bool DiscardCondition()
@@ -62,8 +62,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChangeTokenLogic(RevealChallengeTokenGameAction reavelChangeTokenGameAction)
         {
-            await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(reavelChangeTokenGameAction.ChallengeTokenRevealed).Start();
-            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.FailToken, reavelChangeTokenGameAction.Investigator).Start();
+            await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(reavelChangeTokenGameAction.ChallengeTokenRevealed).Execute();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.FailToken, reavelChangeTokenGameAction.Investigator).Execute();
         }
 
         private bool ChangeTokenCondition(RevealChallengeTokenGameAction reavelChangeTokenGameAction)

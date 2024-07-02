@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Crypt Challenge", this, failEffect: DiscardOrFear).Start();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Crypt Challenge", this, failEffect: DiscardOrFear).Execute();
 
             /*******************************************************************/
             async Task DiscardOrFear()
@@ -29,13 +29,13 @@ namespace MythosAndHorrors.GameRules
                         interactableGameAcrtion.CreateEffect(cardSupply, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator);
 
                         /*******************************************************************/
-                        async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardSupply).Start();
+                        async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardSupply).Execute();
                     }
 
-                    await interactableGameAcrtion.Start();
+                    await interactableGameAcrtion.Execute();
                 }
 
-                else await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 2).Start();
+                else await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 2).Execute();
             }
         }
     }

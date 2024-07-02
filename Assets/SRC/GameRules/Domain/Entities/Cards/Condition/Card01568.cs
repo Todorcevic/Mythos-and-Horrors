@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                 interactable.CreateEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator);
                 async Task RemoveText()
                 {
-                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Start();
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Execute();
                     CreateOneTimeReaction<GameAction>(RemoveEffectCondition, RemoveEffecLogic, GameActionTime.After);
 
                     /*******************************************************************/
@@ -42,11 +42,11 @@ namespace MythosAndHorrors.GameRules
                     }
 
                     async Task RemoveEffecLogic(GameAction gameAction) =>
-                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, false).Start();
+                        await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, false).Execute();
                 }
             }
 
-            await interactable.Start();
+            await interactable.Execute();
         }
     }
 }

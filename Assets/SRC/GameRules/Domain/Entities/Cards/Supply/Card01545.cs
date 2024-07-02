@@ -20,16 +20,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task InvestigationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
 
             InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
                 .SetWith(investigator, investigator.CurrentPlace);
             investigate.SuccesEffects.Clear();
             investigate.SuccesEffects.Add(GainResources);
-            await investigate.Start();
+            await investigate.Execute();
 
             /*******************************************************************/
-            async Task GainResources() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 3).Start();
+            async Task GainResources() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 3).Execute();
         }
 
         private bool InvestigationCondition(Investigator investigator)

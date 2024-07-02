@@ -277,7 +277,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (TestsType != TestsType.Unit)
                 SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
             yield return
-                _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(investigator, cardCreated).Start().AsCoroutine();
+                _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(investigator, cardCreated).Execute().AsCoroutine();
         }
     }
 }

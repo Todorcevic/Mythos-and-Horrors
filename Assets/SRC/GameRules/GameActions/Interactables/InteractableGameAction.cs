@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             SetUndoButton();
             if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
-            await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Start();
+            await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();
         }
 
         public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
@@ -91,7 +91,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
             if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
-            await lastInteractable.Start();
+            await lastInteractable.Execute();
         }
 
         public void RemoveEffect(CardEffect effect) => _allCardEffects.Remove(effect);

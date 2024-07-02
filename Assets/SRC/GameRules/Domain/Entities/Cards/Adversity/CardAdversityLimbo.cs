@@ -15,10 +15,10 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task PlayRevelationFor(Investigator investigator)
         {
-            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, true).Start();
+            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, true).Execute();
             await ObligationLogic(investigator);
-            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, false).Start();
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
+            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, false).Execute();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
         /*******************************************************************/

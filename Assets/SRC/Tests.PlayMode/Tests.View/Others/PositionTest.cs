@@ -20,10 +20,10 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Investigator investigator1 = _investigatorsProvider.First;
             foreach (Slot slot in investigator1.SlotsCollection.Slots.ToList())
             {
-                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Start().AsCoroutine();
-                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Start().AsCoroutine();
-                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Start().AsCoroutine();
-                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Start().AsCoroutine();
+                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Execute().AsCoroutine();
+                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Execute().AsCoroutine();
+                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Execute().AsCoroutine();
+                yield return _gameActionsProvider.Create<AddSlotGameAction>().SetWith(investigator1, slot).Execute().AsCoroutine();
             }
 
             Dictionary<Card, Zone> cardsWithZone = new()
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 }
             }
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsWithZone).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsWithZone).Execute().AsCoroutine();
 
 
             if (DEBUG_MODE) yield return PressAnyKey();

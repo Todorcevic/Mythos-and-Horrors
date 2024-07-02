@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengePower).Start();
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsToChallenge, ChallengePower).Execute();
 
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsToChallenge() => _investigatorsProvider.AllInvestigatorsInPlay;
@@ -36,10 +36,10 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                     .SetWith(investigator.Power, 6, $"{investigator.InvestigatorCard.Info.Name} Power Challenge", failEffect: AddMadness, cardToChallenge: this)
-                    .Start();
+                    .Execute();
 
                 /*******************************************************************/
-                async Task AddMadness() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)).Start();
+                async Task AddMadness() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)).Execute();
             }
         }
 
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Agility] = 1;
             }
 
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
         }
         private async Task RemoveAddStrenghAndAgilityBlankBuff(IEnumerable<Card> cards)
         {
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.GameRules
                 allStats[card.Agility] = 1;
             }
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Start();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();
         }
     }
 }

@@ -43,11 +43,11 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator);
 
                 /*******************************************************************/
-                async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Start();
+                async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Execute();
             }
 
-            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Start();
-            await interactableGameAction.Start();
+            await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
+            await interactableGameAction.Execute();
         }
     }
 }

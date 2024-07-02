@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             Card01181 creature = _cardsProvider.GetCard<Card01181>();
-            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator).Execute().AsCoroutine();
 
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
         }

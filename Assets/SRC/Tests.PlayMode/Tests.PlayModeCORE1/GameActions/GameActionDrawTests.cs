@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card cardToDraw = investigator.CardAidToDraw;
 
             Assert.That(investigator.DeckZone.Cards.Contains(cardToDraw), Is.True);
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardToDraw);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
