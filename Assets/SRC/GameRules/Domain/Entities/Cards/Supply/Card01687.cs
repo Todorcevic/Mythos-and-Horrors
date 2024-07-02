@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate);
+            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 

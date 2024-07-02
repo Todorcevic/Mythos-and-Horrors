@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.MagicCharge);
-            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate);
+            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
             CreateForceReaction<ResolveChallengeGameAction>(ResolveCondition, ResolveLogic, GameActionTime.After);
         }
 

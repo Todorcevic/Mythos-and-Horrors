@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate);
+            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
         }
 
         /*******************************************************************/

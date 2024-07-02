@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, cardAffected: () => Urmodoth);
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
         }
@@ -34,10 +34,9 @@ namespace MythosAndHorrors.GameRules
             attackGameAction.SuccesEffects.Add(AttackSucceed);
             await Task.CompletedTask;
 
-            async Task AttackSucceed()
-            {
-                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackGameAction.CardCreature, this, amountDamage: 1).Execute();
-            }
+            /*******************************************************************/
+            async Task AttackSucceed() => await _gameActionsProvider.Create<HarmToCardGameAction>()
+                .SetWith(attackGameAction.CardCreature, this, amountDamage: 1).Execute();
         }
 
         private bool AttackCondition(AttackCreatureGameAction attackGameAction)
