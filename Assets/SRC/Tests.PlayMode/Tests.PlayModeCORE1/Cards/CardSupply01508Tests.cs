@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsToPlay2, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(toPlay, investigator.HandZone).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(toPlay);
             yield return ClickedIn(cardsToPlay2.First());
             yield return ClickedMainButton();
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsToPlay2, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(toPlay, investigator.HandZone).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(toPlay);
             yield return ClickedIn(cardsToPlay2.First());
             yield return ClickedMainButton();

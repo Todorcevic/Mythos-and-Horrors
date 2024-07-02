@@ -8,12 +8,13 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
-        public Investigator Investigator { get; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public ResolveAllTokensGameAction(Investigator investigator)
+        public ResolveAllTokensGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/
@@ -26,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<ChallengeToken> AllTokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed;
 
             async Task Resolve(ChallengeToken challengeToken) =>
-                await _gameActionsProvider.Create(new ResolveSingleChallengeTokenGameAction(challengeToken, Investigator));
+                await _gameActionsProvider.Create<ResolveSingleChallengeTokenGameAction>().SetWith(challengeToken, Investigator).Start();
         }
     }
 }

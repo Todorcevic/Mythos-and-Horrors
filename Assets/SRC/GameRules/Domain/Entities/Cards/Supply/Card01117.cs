@@ -81,7 +81,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task ThrowLitaActivate(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[3]));
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Start();
         }
 
         /*******************************************************************/

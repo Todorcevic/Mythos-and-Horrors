@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01580 conditionCard = _cardsProvider.GetCard<Card01580>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             int currentDeckAmount = investigator.DeckZone.Cards.Count;
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

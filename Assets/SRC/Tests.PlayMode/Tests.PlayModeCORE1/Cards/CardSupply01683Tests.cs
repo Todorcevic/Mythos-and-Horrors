@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
             Assert.That(supplyCard.AmountSupplies.Value, Is.EqualTo(4));
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(supplyCard);
             yield return ClickedIn(_investigatorsProvider.Second.InvestigatorCard);
             yield return ClickedIn(supplyCard);

@@ -28,8 +28,8 @@ namespace MythosAndHorrors.GameRules
             async Task Attack(CardCreature cardCreature)
             {
                 if (cardCreature is CardColosus colosus)
-                    await _gameActionsProvider.Create(new ColosusAttackGameAction(colosus));
-                else await _gameActionsProvider.Create(new CreatureAttackGameAction(cardCreature, cardCreature.ConfrontedInvestigator));
+                    await _gameActionsProvider.Create<ColosusAttackGameAction>().SetWith(colosus).Start();
+                else await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cardCreature, cardCreature.ConfrontedInvestigator).Start();
                 await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(cardCreature.Exausted, true).Start();
             }
         }

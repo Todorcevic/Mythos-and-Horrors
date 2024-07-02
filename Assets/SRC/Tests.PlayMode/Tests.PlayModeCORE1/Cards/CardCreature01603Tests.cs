@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator2));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Start();
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
             Assert.That(investigator2.InvestigatorCard.CanBePlayed, Is.False);
 
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardCreature creature = _cardsProvider.GetCard<Card01603>();
             Investigator investigator = _investigatorsProvider.Third;
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(SceneCORE1.Study);
             yield return ClickedMainButton();
 
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             totalTokensRevealed = CaptureTotalTokensRevelaed();
             yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(creature, investigator.InvestigatorCard).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
-            taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(SceneCORE1.Study);
             yield return ClickedMainButton();
 

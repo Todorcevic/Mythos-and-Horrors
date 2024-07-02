@@ -5,12 +5,13 @@ namespace MythosAndHorrors.GameRules
 {
     public class ColosusAttackGameAction : GameAction
     {
-        public CardColosus Colosus { get; }
+        public CardColosus Colosus { get; private set; }
 
         /*******************************************************************/
-        public ColosusAttackGameAction(CardColosus colosus)
+        public ColosusAttackGameAction SetWith(CardColosus colosus)
         {
             Colosus = colosus;
+            return this;
         }
 
         /*******************************************************************/
@@ -21,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             IEnumerable<Investigator> InvestigatorsConfronted() => Colosus.MassiveInvestigatorsConfronted;
 
-            async Task Attack(Investigator investigator) => await _gameActionsProvider.Create(new CreatureAttackGameAction(Colosus, investigator));
+            async Task Attack(Investigator investigator) => await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(Colosus, investigator).Start();
         }
     }
 }

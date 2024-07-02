@@ -62,8 +62,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChangeTokenLogic(RevealChallengeTokenGameAction reavelChangeTokenGameAction)
         {
-            await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(reavelChangeTokenGameAction.ChallengeTokenRevealed));
-            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(_chaptersProvider.CurrentScene.FailToken, reavelChangeTokenGameAction.Investigator));
+            await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(reavelChangeTokenGameAction.ChallengeTokenRevealed).Start();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.FailToken, reavelChangeTokenGameAction.Investigator).Start();
         }
 
         private bool ChangeTokenCondition(RevealChallengeTokenGameAction reavelChangeTokenGameAction)

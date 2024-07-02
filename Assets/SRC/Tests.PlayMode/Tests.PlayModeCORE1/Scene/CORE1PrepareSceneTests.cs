@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             SceneCORE1 scene = SceneCORE1;
             yield return PlayAllInvestigators(withAvatar: false);
 
-            yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
+            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Start().AsCoroutine();
 
             Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(1));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),

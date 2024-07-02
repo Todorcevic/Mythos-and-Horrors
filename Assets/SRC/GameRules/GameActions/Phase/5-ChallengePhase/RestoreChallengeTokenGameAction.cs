@@ -8,12 +8,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<RestoreChallengeTokenGameAction> _presenter;
 
-        public ChallengeToken ChallengeTokenToRestore { get; init; }
+        public ChallengeToken ChallengeTokenToRestore { get; private set; }
 
         /*******************************************************************/
-        public RestoreChallengeTokenGameAction(ChallengeToken challengeTokenToRestore)
+        public RestoreChallengeTokenGameAction SetWith(ChallengeToken challengeTokenToRestore)
         {
             ChallengeTokenToRestore = challengeTokenToRestore;
+            return this;
         }
 
         /*******************************************************************/

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
             Assert.That(adversityCard.Hints.Value, Is.EqualTo(3));
-            yield return _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE1.FullResolutions[0])).AsCoroutine();
+            yield return _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE1.FullResolutions[0]).Start().AsCoroutine();
             Assert.That(investigator.Shock.Value, Is.EqualTo(1));
         }
 
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(adversityCard.Hints, 0).Start().AsCoroutine();
 
             Assert.That(adversityCard.Hints.Value, Is.EqualTo(0));
-            yield return _gameActionsProvider.Create(new FinalizeGameAction(SceneCORE1.FullResolutions[0])).AsCoroutine();
+            yield return _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE1.FullResolutions[0]).Start().AsCoroutine();
             Assert.That(investigator.Shock.Value, Is.EqualTo(0));
         }
 
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(adversityCard);

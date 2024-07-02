@@ -11,13 +11,14 @@ namespace MythosAndHorrors.GameRules
 
         public bool? IsSuccessful { get; set; }
         public int TotalDifferenceValue { get; set; }
-        public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
+        public ChallengePhaseGameAction ChallengePhaseGameAction { get; private set; }
         public List<ChallengeToken> TokensRevealed { get; private set; }
 
         /*******************************************************************/
-        public ResultChallengeGameAction(ChallengePhaseGameAction challengePhaseGameAction)
+        public ResultChallengeGameAction SetWith(ChallengePhaseGameAction challengePhaseGameAction)
         {
             ChallengePhaseGameAction = challengePhaseGameAction;
+            return this;
         }
 
         /*******************************************************************/

@@ -7,12 +7,13 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly IPresenter<FinalizeGameAction> _finalizePresenter;
 
-        public Resolution Resolution { get; }
+        public Resolution Resolution { get; private set; }
 
         /*******************************************************************/
-        public FinalizeGameAction(Resolution resolution)
+        public FinalizeGameAction SetWith(Resolution resolution)
         {
             Resolution = resolution;
+            return this;
         }
 
         /*******************************************************************/

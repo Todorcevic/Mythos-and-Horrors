@@ -123,7 +123,7 @@ namespace MythosAndHorrors.GameRules
             async Task CultistHardEffect()
             {
                 _gameActionsProvider.CurrentChallenge.FailEffects.Add(TakeTwoFear);
-                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
 
                 /*******************************************************************/
                 async Task TakeTwoFear() =>

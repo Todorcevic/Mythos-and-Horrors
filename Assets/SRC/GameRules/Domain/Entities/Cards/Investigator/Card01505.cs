@@ -41,8 +41,8 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
                     await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Start();
-                    await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(revealChallengeToken.ChallengeTokenRevealed));
-                    await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(Owner));
+                    await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(revealChallengeToken.ChallengeTokenRevealed).Start();
+                    await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(Owner).Start();
                 }
             }
 

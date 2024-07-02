@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Start().AsCoroutine();
 
             Assert.That(investigator.AllTypeCreaturesConfronted.Any(), Is.True);
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(supply);
             yield return ClickedIn(creature);
             Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));

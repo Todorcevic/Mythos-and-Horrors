@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(stats).Start().AsCoroutine();
             Assert.That(supplyCard.Charge.Amount.Value, Is.EqualTo(3));
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Start();
             yield return ClickedIn(supplyCard);
             yield return ClickedClone(_investigatorsProvider.Second.InvestigatorCard, 0);
             yield return ClickedMainButton();
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.DamageRecived, 1).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(supplyCard.Charge.Amount, 1).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.First));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Start();
             yield return ClickedIn(supplyCard);
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return ClickedMainButton();

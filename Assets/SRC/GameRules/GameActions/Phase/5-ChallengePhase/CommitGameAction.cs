@@ -7,12 +7,13 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chapterProvider;
 
-        public CommitableCard CommitableCard { get; init; }
+        public CommitableCard CommitableCard { get; private set; }
 
         /*******************************************************************/
-        public CommitGameAction(CommitableCard card)
+        public CommitGameAction SetWith(CommitableCard card)
         {
             CommitableCard = card;
+            return this;
         }
 
         /*******************************************************************/

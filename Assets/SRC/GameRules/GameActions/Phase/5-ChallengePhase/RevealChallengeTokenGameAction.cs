@@ -13,10 +13,11 @@ namespace MythosAndHorrors.GameRules
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public RevealChallengeTokenGameAction(ChallengeToken challengeToken, Investigator investigator)
+        public RevealChallengeTokenGameAction SetWith(ChallengeToken challengeToken, Investigator investigator)
         {
             ChallengeTokenRevealed = challengeToken;
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

@@ -65,12 +65,13 @@ namespace MythosAndHorrors.GameRules
 
         public async Task ContinueChallenge()
         {
-            await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(ActiveInvestigator));
-            await _gameActionsProvider.Create(new ResolveAllTokensGameAction(ActiveInvestigator));
-            ResultChallenge = await _gameActionsProvider.Create(new ResultChallengeGameAction(this));
+            await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Start();
+            await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Start();
+            ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
+            await ResultChallenge.Start();
             await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create(new RestoreAllChallengeTokens());
-            await _gameActionsProvider.Create(new ResolveChallengeGameAction(this));
+            await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Start();
             await _gameActionsProvider.Create(new DiscardCommitsCards());
         }
 

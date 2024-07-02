@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01694 supply = _cardsProvider.GetCard<Card01694>();
 
             yield return PlaceOnlyScene();
-            Task taskGameAction = _gameActionsProvider.Create(new PrepareInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

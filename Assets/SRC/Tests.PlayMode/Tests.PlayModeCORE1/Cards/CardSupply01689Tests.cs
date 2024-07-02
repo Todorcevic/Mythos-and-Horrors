@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01689 assetCard = _cardsProvider.GetCard<Card01689>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(assetCard, investigator.AidZone).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(assetCard);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardCreature creature = _cardsProvider.GetCard<Card01601>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(creature, 2);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

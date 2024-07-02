@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ResolveChallengeGameAction : GameAction
     {
-        public ChallengePhaseGameAction ChallengePhaseGameAction { get; init; }
+        public ChallengePhaseGameAction ChallengePhaseGameAction { get; private set; }
 
         /*******************************************************************/
-        public ResolveChallengeGameAction(ChallengePhaseGameAction challengePhaseGameAction)
+        public ResolveChallengeGameAction SetWith(ChallengePhaseGameAction challengePhaseGameAction)
         {
             ChallengePhaseGameAction = challengePhaseGameAction;
+            return this;
         }
 
         /*******************************************************************/

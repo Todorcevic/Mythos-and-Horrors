@@ -66,7 +66,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[2]));
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Start();
 
         }
     }

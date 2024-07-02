@@ -31,11 +31,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             if (_chaptersProvider.CurrentScene.CurrentGoal is not Card01110)
-                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[3]));
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Start();
             else
             {
                 await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigatorsUnresignes, SufferInjury).Start();
-                await _gameActionsProvider.Create(new FinalizeGameAction(_chaptersProvider.CurrentScene.FullResolutions[0]));
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[0]).Start();
             }
             /*******************************************************************/
 

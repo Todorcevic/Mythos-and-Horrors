@@ -12,9 +12,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create(new StartChapterGameAction(_chaptersProvider.CurrentChapter));
+            await _gameActionsProvider.Create<StartChapterGameAction>().SetWith(_chaptersProvider.CurrentChapter).Start();
             await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, Prepare).Start();
-            await _gameActionsProvider.Create(new PrepareSceneGameAction(_chaptersProvider.CurrentScene));
+            await _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(_chaptersProvider.CurrentScene).Start();
 
             while (true) await _gameActionsProvider.Create(new RoundGameAction());
         }
@@ -23,6 +23,6 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<Investigator> AllInvestigators() => _investigatorsProvider.AllInvestigators;
 
         private async Task Prepare(Investigator investigator) =>
-            await _gameActionsProvider.Create(new PrepareInvestigatorGameAction(investigator));
+            await _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Start();
     }
 }

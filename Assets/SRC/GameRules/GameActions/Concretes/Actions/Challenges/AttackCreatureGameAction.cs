@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
             if (CardCreature.Exausted.IsActive) return;
             if (IsSucceed) return;
 
-            await _gameActionsProvider.Create(new CreatureAttackGameAction(CardCreature, ActiveInvestigator));
+            await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(CardCreature, ActiveInvestigator).Start();
         }
     }
 }

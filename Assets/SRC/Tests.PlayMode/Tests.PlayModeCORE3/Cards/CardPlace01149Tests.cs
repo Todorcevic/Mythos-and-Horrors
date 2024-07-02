@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(cardPlace, 1);
             yield return gameActionTask.AsCoroutine();
 

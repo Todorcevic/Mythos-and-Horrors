@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(investigator.Strength.Value, Is.EqualTo(3));
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(cardSupply);
             yield return ClickedIn(creature);
             yield return ClickedMainButton();

@@ -16,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
-            await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(revealChallengeTokenGameAction.ChallengeTokenRevealed));
-            await _gameActionsProvider.Create(new RevealChallengeTokenGameAction(_chaptersProvider.CurrentScene.StarToken, investigator));
+            await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(revealChallengeTokenGameAction.ChallengeTokenRevealed).Start();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.StarToken, investigator).Start();
         }
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

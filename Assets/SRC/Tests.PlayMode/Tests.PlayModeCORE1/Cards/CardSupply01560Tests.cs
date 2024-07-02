@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(weaponCard);
             yield return ClickedIn(SceneCORE1.GhoulVoraz);
             yield return ClickedMainButton();
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(weaponCard);
             yield return ClickedIn(SceneCORE1.GhoulVoraz);
             yield return ClickedMainButton();
@@ -76,7 +76,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(4));
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(weaponCard);
             yield return ClickedIn(SceneCORE1.GhoulVoraz);
             yield return ClickedMainButton();

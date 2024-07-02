@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(spell, investigator.HandZone).Start().AsCoroutine();
 
             Assert.That(card.CurrentZone, Is.EqualTo(investigator.DeckZone));
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(spell);
             yield return ClickedIn(hiperborea);
             yield return ClickedMainButton();

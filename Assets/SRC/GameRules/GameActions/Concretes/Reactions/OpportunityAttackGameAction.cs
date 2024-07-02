@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             IEnumerable<CardCreature> AllCreaturesConfronted() => Investigator.AllTypeCreaturesConfronted;
             async Task CreatureAttack(CardCreature creature) =>
-                await _gameActionsProvider.Create(new CreatureAttackGameAction(creature, Investigator));
+                await _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, Investigator).Start();
         }
     }
 }

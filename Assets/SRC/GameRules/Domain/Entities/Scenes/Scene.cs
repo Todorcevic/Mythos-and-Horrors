@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task InvestigatorsLooseLogic(EliminateInvestigatorGameAction action)
         {
-            await _gameActionsProvider.Create(new FinalizeGameAction(FullResolutions[0]));
+            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(FullResolutions[0]).Start();
         }
 
         private bool InvestigatorsLooseCondition(EliminateInvestigatorGameAction action)

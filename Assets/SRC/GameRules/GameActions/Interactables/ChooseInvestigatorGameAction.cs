@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
                 CreateEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator);
 
                 /*******************************************************************/
-                async Task PlayInvestigator() => await _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+                async Task PlayInvestigator() => await _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             }
         }
     }

@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(adversity);
             Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedMainButton();

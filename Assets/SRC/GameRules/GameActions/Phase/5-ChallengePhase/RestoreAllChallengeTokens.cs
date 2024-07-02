@@ -18,6 +18,6 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<ChallengeToken> TokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed;
 
         private async Task Restore(ChallengeToken challengeToken) =>
-            await _gameActionsProvider.Create(new RestoreChallengeTokenGameAction(challengeToken));
+            await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(challengeToken).Start();
     }
 }

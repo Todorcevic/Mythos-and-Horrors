@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(goal);
             yield return ClickedIn(investigator.AvatarCard);
 

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             SceneCORE3 scene = SceneCORE3;
             yield return PlayAllInvestigators(withAvatar: false);
 
-            yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
+            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Start().AsCoroutine();
 
             Assert.That(scene.PlaceCards.Where(place => place.IsInPlay).Count(), Is.EqualTo(5));
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.Select(investigator => investigator.CurrentPlace).Unique(),
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PeterInterrogate, true).Start();
             yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.IsMidknigh, true).Start();
 
-            yield return _gameActionsProvider.Create(new PrepareSceneGameAction(scene)).AsCoroutine();
+            yield return _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(scene).Start().AsCoroutine();
 
             Assert.That(scene.FirstPlot.AmountOfEldritch, Is.EqualTo(2));
             Assert.That(scene.DangerDeckZone.Cards, Contains.Item(scene.GhoulPriest));

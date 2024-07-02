@@ -17,10 +17,11 @@ namespace MythosAndHorrors.GameRules
         public static Investigator PlayActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        public PlayInvestigatorGameAction(Investigator investigator)
+        public PlayInvestigatorGameAction SetWith(Investigator investigator)
         {
             lastInvestigator = PlayActiveInvestigator;
             PlayActiveInvestigator = ActiveInvestigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

@@ -353,14 +353,14 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
                     .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
-                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
             }
 
             async Task AncientHardEffect()
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
-                await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
+                await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
             }
         }
     }

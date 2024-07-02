@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
             Assert.That(investigator.Power.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Power - 1));
             Assert.That(investigator.Sanity.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Sanity - 1));
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(cardAdversity);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

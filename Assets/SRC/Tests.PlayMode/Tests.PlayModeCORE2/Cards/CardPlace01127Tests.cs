@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, SceneCORE2.GetPlaceZone(0, 3)).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(cardPlace, 1);
             yield return ClickedIn(support);
             yield return ClickedIn(cardPlace);
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             IEnumerable<Card> allSupport = investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Ally));
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(allSupport, SceneCORE2.OutZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(cardPlace, 1);
             yield return ClickedIn(cardPlace);
             yield return ClickedUndoButton();

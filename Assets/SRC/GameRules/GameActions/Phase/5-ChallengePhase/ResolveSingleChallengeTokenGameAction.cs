@@ -11,10 +11,11 @@ namespace MythosAndHorrors.GameRules
         public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public ResolveSingleChallengeTokenGameAction(ChallengeToken challengeTokenToResolve, Investigator investigator)
+        public ResolveSingleChallengeTokenGameAction SetWith(ChallengeToken challengeTokenToResolve, Investigator investigator)
         {
             ChallengeTokenToResolve = challengeTokenToResolve;
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

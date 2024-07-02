@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Start();
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Leader.AvatarCard);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
@@ -63,7 +63,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Study.Hints, 1).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Leader));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Start();
             yield return ClickedTokenButton();
             yield return ClickedIn(cardGoal);
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);

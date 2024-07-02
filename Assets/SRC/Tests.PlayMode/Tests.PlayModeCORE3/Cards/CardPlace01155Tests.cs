@@ -29,13 +29,13 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, cardPlace, amountDamage: 2, amountFear: 2).Start();
             yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator2, cardPlace, amountDamage: 2, amountFear: 2).Start();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(cardPlace, 1);
             yield return ClickedIn(cardPlace);
             yield return ClickedUndoButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
-            gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator2));
+            gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Start();
             yield return ClickedClone(cardPlace, 2);
             yield return ClickedIn(cardPlace);
             yield return ClickedUndoButton();

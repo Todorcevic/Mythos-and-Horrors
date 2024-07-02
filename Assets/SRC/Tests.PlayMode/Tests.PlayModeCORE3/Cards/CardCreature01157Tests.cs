@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Second).Start();
             yield return ClickedIn(SceneCORE3.Forest3);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Second).Start();
             yield return ClickedClone(SceneCORE3.Urmodoth, 2);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -90,7 +90,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
 
 
-            Task<PlayInvestigatorGameAction> gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(_investigatorsProvider.Second));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Second).Start();
             yield return ClickedIn(Lita);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigatorToTest);
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorToTest.FearRecived, 3).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigatorToTest));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Start();
             yield return ClickedIn(investigatorToTest.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

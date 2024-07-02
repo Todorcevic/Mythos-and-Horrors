@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assume.That(SceneCORE2.MaskedHunter.CurrentPlace, Is.EqualTo(investigator.CurrentPlace));
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
 
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE2.MaskedHunter, investigator.InvestigatorCard).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new ResetAllInvestigatorsTurnsGameAction()).AsCoroutine();
 
-            gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.East.Hints, 4).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.MaskedHunter, investigator.DangerZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return AssertThatIsNotClickable(SceneCORE2.CurrentGoal);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

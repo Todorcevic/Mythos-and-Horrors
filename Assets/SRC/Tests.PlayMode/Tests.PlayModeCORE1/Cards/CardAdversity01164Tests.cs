@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
             Assert.That(cardAdversity.Wasted.IsActive, Is.False);
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedIn(SceneCORE1.Attic);
             //Assert.That(cardAdversity.Wasted.IsActive, Is.True);
             //Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(SceneCORE1.GhoulSecuaz, 0);
             yield return ClickedMainButton();
             //Assert.That(cardAdversity.Wasted.IsActive, Is.True);

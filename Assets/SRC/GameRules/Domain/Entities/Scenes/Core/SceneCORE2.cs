@@ -227,7 +227,7 @@ namespace MythosAndHorrors.GameRules
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
                 if (allEldrichableStats.Any()) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allEldrichableStats).Start();
-                else await _gameActionsProvider.Create(new RevealRandomChallengeTokenGameAction(investigator));
+                else await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Start();
             }
         }
 

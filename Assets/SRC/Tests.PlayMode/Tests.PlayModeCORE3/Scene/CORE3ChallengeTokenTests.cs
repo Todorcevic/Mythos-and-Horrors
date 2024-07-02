@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
         private IEnumerator ExecuteChallenge()
         {
-            taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(investigator.CurrentPlace, 0);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
         private IEnumerator ExecuteChallengeWithOpportunityAttack()
         {
-            taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
+            taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(investigator.CurrentPlace, 0);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
