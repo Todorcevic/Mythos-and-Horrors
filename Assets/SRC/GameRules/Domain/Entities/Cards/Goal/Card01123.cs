@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DrawCultistLogic(PayHintsToGoalGameAction payHintGameActionn)
         {
             Card cultist = SceneCORE2.Cultists.Where(cultist => cultist.CurrentZone == SceneCORE2.OutZone).Rand();
-            await _gameActionsProvider.Create(new DrawGameAction(_investigatorsProvider.Leader, cultist));
+            await _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.Leader, cultist).Start();
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Start();
         }
 

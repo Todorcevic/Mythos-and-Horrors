@@ -1,5 +1,4 @@
-﻿
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
@@ -26,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
+            Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start();
             yield return ClickedIn(cardTalent);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -49,7 +48,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent2, investigator.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
+            Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start();
             yield return ClickedIn(cardTalent);
             yield return AssertThatIsNotClickable(cardTalent2);
             yield return ClickedMainButton();

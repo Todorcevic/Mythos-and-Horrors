@@ -253,7 +253,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     Card monster = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Monster));
 
-                    await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster));
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, monster).Start();
                     await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
                 }
 

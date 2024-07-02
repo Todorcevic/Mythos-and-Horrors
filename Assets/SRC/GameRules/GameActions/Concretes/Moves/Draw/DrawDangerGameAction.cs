@@ -2,6 +2,10 @@
 {
     public class DrawDangerGameAction : DrawGameAction
     {
-        public DrawDangerGameAction(Investigator investigator) : base(investigator, investigator.CardDangerToDraw) { }
+        public DrawDangerGameAction SetWith(Investigator investigator)
+        {
+            SetWith(investigator, investigator.CardDangerToDraw);
+            return this;
+        }
     }
 }

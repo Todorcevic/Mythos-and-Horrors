@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Start();
             await _gameActionsProvider.Create(resultChallengeGameAction);
-            await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
         }
     }
 }

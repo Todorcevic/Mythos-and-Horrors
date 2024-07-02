@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private IEnumerable<Investigator> AllInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
         private async Task DrawAndGainResource(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
             await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 1));
         }
     }

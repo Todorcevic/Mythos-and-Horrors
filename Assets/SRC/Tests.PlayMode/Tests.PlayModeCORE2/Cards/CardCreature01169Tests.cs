@@ -33,7 +33,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE2.Hospital).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Fourth, SceneCORE2.North).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorsProvider.First)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorsProvider.First).Start().AsCoroutine();
 
             Assert.That(acolit.IsInPlay, Is.True);
             Assert.That(acolit.CurrentZone.ZoneType, Is.Not.EqualTo(ZoneType.Danger));
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(acolit, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE2.North).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorsProvider.First)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorsProvider.First).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace).distance, Is.EqualTo(1));
             Assert.That(acolit.CurrentPlace, Is.EqualTo(SceneCORE2.Fluvial));

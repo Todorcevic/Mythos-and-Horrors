@@ -2,6 +2,10 @@
 {
     public class DrawAidGameAction : DrawGameAction
     {
-        public DrawAidGameAction(Investigator investigator) : base(investigator, investigator.CardAidToDraw) { }
+        public DrawAidGameAction SetWith(Investigator investigator)
+        {
+            SetWith(investigator, investigator.CardAidToDraw);
+            return this;
+        }
     }
 }

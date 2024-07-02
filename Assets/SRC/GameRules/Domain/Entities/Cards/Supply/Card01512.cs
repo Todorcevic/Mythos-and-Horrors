@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task DrawLogic(PlayEffectGameAction playEffectGameAction)
         {
-            await _gameActionsProvider.Create(new DrawAidGameAction(ControlOwner));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ControlOwner).Start();
         }
 
         private bool DrawCondition(PlayEffectGameAction playEffectGameAction)

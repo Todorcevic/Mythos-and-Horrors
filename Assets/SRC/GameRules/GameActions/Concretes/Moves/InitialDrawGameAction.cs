@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
                 return;
             }
 
-            await _gameActionsProvider.Create(new DrawAidGameAction(Investigator));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Investigator).Start();
             await _gameActionsProvider.Create(new InitialDrawGameAction(Investigator));
         }
     }

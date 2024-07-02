@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Necronomicon, investigator.DeckZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new DrawAidGameAction(investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start().AsCoroutine();
 
             Assert.That(Necronomicon.CurrentZone, Is.EqualTo(investigator.DangerZone));
         }

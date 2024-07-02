@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Take()
                 {
-                    await _gameActionsProvider.Create(new DrawGameAction(investigator, cardSupply));
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSupply).Start();
                     await _gameActionsProvider.Create(new HideCardsGameAction(supportsInDeck.Except(new[] { cardSupply })));
                 }
             }

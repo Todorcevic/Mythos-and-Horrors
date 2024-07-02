@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.DiscardZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DeckZone, isFaceDown: true).Start().AsCoroutine();
             Assert.That(investigator.DiscardZone.Cards.Count(), Is.EqualTo(5));
-            yield return _gameActionsProvider.Create(new DrawAidGameAction(investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start().AsCoroutine();
 
             Assert.That(investigator.DiscardZone.Cards.Count(), Is.EqualTo(1));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(2));

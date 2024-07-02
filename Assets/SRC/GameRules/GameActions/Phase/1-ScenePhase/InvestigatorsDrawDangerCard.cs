@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             IEnumerable<Investigator> AllInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
             async Task DrawDangerCard(Investigator investigator) =>
-                     await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
+                     await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE2.East).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE2.University).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 2)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new DrawGameAction(_investigatorsProvider.First, SceneCORE2.MaskedHunter)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.First, SceneCORE2.MaskedHunter).Start().AsCoroutine();
 
             Assume.That(SceneCORE2.MaskedHunter.CurrentPlace, Is.EqualTo(investigator.CurrentPlace));
 

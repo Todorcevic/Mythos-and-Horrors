@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DrawCondition(EludeGameAction eludeGameAction)
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await _gameActionsProvider.Create(new DrawAidGameAction(ControlOwner));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ControlOwner).Start();
         }
 
         private bool DrawLogic(EludeGameAction eludeGameAction)

@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 3));
-            await _gameActionsProvider.Create(new DrawAidGameAction(investigator));
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator) => true;

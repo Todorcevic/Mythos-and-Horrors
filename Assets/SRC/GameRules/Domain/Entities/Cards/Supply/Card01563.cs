@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task SelectSpell()
                 {
-                    await _gameActionsProvider.Create(new DrawGameAction(investigator, card));
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Start();
                     await _gameActionsProvider.Create(new HideCardsGameAction(cards.Except(new[] { card })));
                 }
             }

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateEffect(itemCard, new Stat(0, false), DrawItem, PlayActionType.Choose | PlayActionType.Draw, ControlOwner);
 
                 /*******************************************************************/
-                async Task DrawItem() => await _gameActionsProvider.Create(new DrawGameAction(ControlOwner, itemCard));
+                async Task DrawItem() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, itemCard).Start();
             }
 
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();

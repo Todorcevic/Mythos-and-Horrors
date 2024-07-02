@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class PlayDrawActivableGameAction : GameAction
     {
-        public IDrawActivable DrawActivable { get; }
-        public Investigator Investigator { get; }
+        public IDrawActivable DrawActivable { get; private set; }
+        public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public PlayDrawActivableGameAction(IDrawActivable drawActivable, Investigator investigator)
+        public PlayDrawActivableGameAction SetWith(IDrawActivable drawActivable, Investigator investigator)
         {
             DrawActivable = drawActivable;
             Investigator = investigator;
+            return this;
         }
 
         /*******************************************************************/

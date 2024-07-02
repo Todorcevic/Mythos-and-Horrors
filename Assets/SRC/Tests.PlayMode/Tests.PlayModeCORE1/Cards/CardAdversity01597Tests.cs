@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator, withResources: true);
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(5));
-            yield return _gameActionsProvider.Create(new DrawGameAction(investigator, adversity)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(0));
         }

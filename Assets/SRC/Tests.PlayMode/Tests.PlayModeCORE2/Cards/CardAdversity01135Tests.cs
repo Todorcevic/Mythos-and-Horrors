@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
             Assert.That(investigator.Hints.Value, Is.EqualTo(2));
 
-            Task<DrawDangerGameAction> drawTask = _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
+            Task drawTask = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start();
             yield return ClickedClone(adversityCard, 0, isReaction: true);
             yield return drawTask.AsCoroutine();
 
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new DrawDangerGameAction(investigator)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(adversityCard.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));

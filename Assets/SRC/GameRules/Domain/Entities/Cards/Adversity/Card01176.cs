@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, fromCard: this, amountFear: 2));
                 Card madness = investigator.DeckZone.Cards.FirstOrDefault(card => card.HasThisTag(Tag.Weakness) && card.HasThisTag(Tag.Madness));
-                if (madness != null) await _gameActionsProvider.Create(new DrawGameAction(investigator, madness));
+                if (madness != null) await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, madness).Start();
             }
         }
     }

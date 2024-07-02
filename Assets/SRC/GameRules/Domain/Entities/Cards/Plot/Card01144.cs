@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                     .Start();
 
                 /*******************************************************************/
-                async Task AddMadness() => await _gameActionsProvider.Create(new DrawGameAction(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)));
+                async Task AddMadness() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)).Start();
             }
         }
 

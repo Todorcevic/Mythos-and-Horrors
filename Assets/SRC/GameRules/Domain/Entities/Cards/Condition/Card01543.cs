@@ -23,9 +23,9 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Draw()
                 {
-                    await _gameActionsProvider.Create(new DrawAidGameAction(investigatorToChoose));
-                    await _gameActionsProvider.Create(new DrawAidGameAction(investigatorToChoose));
-                    await _gameActionsProvider.Create(new DrawAidGameAction(investigatorToChoose));
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
+                    await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigatorToChoose).Start();
                 }
             }
 

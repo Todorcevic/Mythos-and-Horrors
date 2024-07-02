@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            Task<DrawGameAction> drawTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task drawTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
 

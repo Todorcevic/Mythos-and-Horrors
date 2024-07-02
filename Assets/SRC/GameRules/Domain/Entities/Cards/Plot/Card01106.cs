@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             while (!_chaptersProvider.CurrentScene.DangerDeckZone.TopCard.Tags.Contains(Tag.Ghoul))
                 await _gameActionsProvider.Create(new DiscardGameAction(_chaptersProvider.CurrentScene.DangerDeckZone.TopCard));
 
-            await _gameActionsProvider.Create(new DrawDangerGameAction(_investigatorProvider.Leader));
+            await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorProvider.Leader).Start();
         }
     }
 }

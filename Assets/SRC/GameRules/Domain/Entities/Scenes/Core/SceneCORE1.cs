@@ -80,7 +80,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     Card ghoul = DangerDeckZone.Cards.Concat(DangerDiscardZone.Cards).FirstOrDefault(card => card.Tags.Contains(Tag.Ghoul));
 
-                    await _gameActionsProvider.Create(new DrawGameAction(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul));
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, ghoul).Start();
                     await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
                 }
 

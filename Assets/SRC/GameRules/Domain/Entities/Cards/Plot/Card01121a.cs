@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            await _gameActionsProvider.Create(new DrawGameAction(_investigatorProvider.Leader, MaskedHunter));
+            await _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorProvider.Leader, MaskedHunter).Start();
         }
 
         /*******************************************************************/

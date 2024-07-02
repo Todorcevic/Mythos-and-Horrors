@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Card01598 cardAdversity = _cardsProvider.GetCard<Card01598>();
             yield return StartingScene();
 
-            yield return _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start().AsCoroutine();
             Assert.That(investigator.Strength.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Strength - 1));
 
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));

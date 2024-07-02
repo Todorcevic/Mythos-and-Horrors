@@ -225,7 +225,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private async Task Draw() => await _gameActionsProvider.Create(new DrawAidGameAction(ActiveInvestigator));
+        private async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Start();
 
         /*******************************************************************/
         private void PrepareTakeResource()

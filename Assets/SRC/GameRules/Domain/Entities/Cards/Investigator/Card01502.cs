@@ -85,6 +85,6 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawCards() => await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(TomesInPlay, DrawAid).Start();
 
-        private async Task DrawAid(Card tome) => await _gameActionsProvider.Create(new DrawAidGameAction(Owner));
+        private async Task DrawAid(Card tome) => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(Owner).Start();
     }
 }

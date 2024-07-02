@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardTalent, amountFear: 3)).AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, adversity));
+            Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start();
             yield return ClickedIn(cardTalent);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

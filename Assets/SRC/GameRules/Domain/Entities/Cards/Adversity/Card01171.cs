@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             {
                 CardCreature searchedCultist = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.Concat(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards)
                     .OfType<CardCreature>().FirstOrDefault(card => card.HasThisTag(Tag.Cultist));
-                await _gameActionsProvider.Create(new DrawGameAction(investigator, searchedCultist));
+                await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, searchedCultist).Start();
                 await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
             }
         }

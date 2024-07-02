@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task TakeTome()
                 {
-                    await _gameActionsProvider.Create(new DrawGameAction(ControlOwner, tome));
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, tome).Start();
                     await _gameActionsProvider.Create(new HideCardsGameAction(tomes.Except(new[] { tome })));
                 }
             }

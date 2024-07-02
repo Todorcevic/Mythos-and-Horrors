@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create(new DrawDangerGameAction(investigator));
+            await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Start();
             await _gameActionsProvider.Create(new GainHintGameAction(investigator, investigator.CurrentPlace.Hints, 2));
         }
 

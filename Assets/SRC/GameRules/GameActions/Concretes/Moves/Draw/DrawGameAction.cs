@@ -1,20 +1,19 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class DrawGameAction : GameAction
     {
-
-        public Investigator Investigator { get; }
-        public Card CardDrawed { get; }
+        public Investigator Investigator { get; private set; }
+        public Card CardDrawed { get; private set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public DrawGameAction(Investigator investigator, Card cardDrawed)
+        public DrawGameAction SetWith(Investigator investigator, Card cardDrawed)
         {
             Investigator = investigator;
             CardDrawed = cardDrawed;
+            return this;
         }
 
         /*******************************************************************/
@@ -23,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             switch (CardDrawed)
             {
                 case IDrawActivable cardAdversity:
-                    await _gameActionsProvider.Create(new PlayDrawActivableGameAction(cardAdversity, Investigator));
+                    await _gameActionsProvider.Create<PlayDrawActivableGameAction>().SetWith(cardAdversity, Investigator).Start();
                     break;
                 case ISpawnable spawnable:
                     await _gameActionsProvider.Create(new SpawnCreatureGameAction(spawnable));

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedIn(conditionCard);
             yield return gameActionTask.AsCoroutine();
 
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

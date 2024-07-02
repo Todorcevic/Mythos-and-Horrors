@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             int currentDeckSize = investigator.DeckZone.Cards.Count;
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
             yield return taskGameAction.AsCoroutine();
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedClone(cardAdversity, 1, isReaction: true);
             yield return taskGameAction.AsCoroutine();
 
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(plot, SceneCORE3.PlotZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 4).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
             Assert.That(investigator.Isolated.IsActive, Is.True);
             Assert.That(_gameActionsProvider.CurrentInteractable.AllEffects.All(cardEffect => cardEffect.Investigator == investigator), Is.True);

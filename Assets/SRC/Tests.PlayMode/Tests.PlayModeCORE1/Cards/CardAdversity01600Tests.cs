@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
 
-            yield return _gameActionsProvider.Create(new DrawGameAction(investigator, adversity)).AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start().AsCoroutine();
             yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, adversity, amountDamage: 1, isDirect: true)).AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));

@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task Draw()
                         {
-                            await _gameActionsProvider.Create(new DrawGameAction(inv, card));
+                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Start();
                             await _gameActionsProvider.Create(new HideCardsGameAction(cardsToShow.Except(new[] { card })));
                         }
                     }

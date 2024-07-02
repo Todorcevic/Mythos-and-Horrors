@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            Task drawTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task drawTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
@@ -36,7 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Start().AsCoroutine();
 
-            Task drawTask = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task drawTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedMainButton();
             yield return drawTask.AsCoroutine();
             Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));

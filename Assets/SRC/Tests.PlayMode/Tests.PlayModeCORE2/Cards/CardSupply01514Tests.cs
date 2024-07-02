@@ -137,7 +137,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create(new DrawGameAction(investigator, cardAdversity));
+            Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Start();
             yield return ClickedIn(cardCondition);
             yield return taskGameAction.AsCoroutine();
 
