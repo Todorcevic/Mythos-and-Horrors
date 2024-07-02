@@ -238,7 +238,7 @@ namespace MythosAndHorrors.GameRules
                 ActiveInvestigator);
 
             /*******************************************************************/
-            async Task TakeResource() => await _gameActionsProvider.Create(new GainResourceGameAction(ActiveInvestigator, 1));
+            async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Start();
         }
 
         private bool CanTakeResource()

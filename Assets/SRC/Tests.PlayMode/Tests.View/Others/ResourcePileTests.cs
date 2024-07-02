@@ -33,8 +33,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Move_Resource_To_Pile()
         {
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.InvestigatorCard, _investigatorsProvider.First.InvestigatorZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new PayResourceGameAction(_investigatorsProvider.First, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<PayResourceGameAction>().SetWith(_investigatorsProvider.First, 2).Start().AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(3));
         }
@@ -47,8 +47,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.First.FullDeck.First(), _investigatorsProvider.First.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(_investigatorsProvider.Second.FullDeck.First(), _investigatorsProvider.Second.AidZone).Start().AsCoroutine();
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.Second, 5)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.Second, 5).Start().AsCoroutine();
 
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.First).ResourcesTokenController.Amount, Is.EqualTo(5));
             Assert.That(_areaInvestigatorViewsManager.Get(_investigatorsProvider.Second).ResourcesTokenController.Amount, Is.EqualTo(5));

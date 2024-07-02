@@ -127,7 +127,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE2.North.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 
@@ -141,7 +141,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HardDangerTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE2.North.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Start().AsCoroutine();
 
             yield return ExecuteChallenge();
 

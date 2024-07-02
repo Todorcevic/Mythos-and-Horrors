@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Assert.That(creature.Strength.Value, Is.EqualTo(3));
             Assert.That(creature.Agility.Value, Is.EqualTo(3));
 
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, creature, amountFear: 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, creature, amountFear: 3).Start().AsCoroutine();
             Assert.That(creature.Strength.Value, Is.EqualTo(4));
             Assert.That(creature.Agility.Value, Is.EqualTo(4));
 

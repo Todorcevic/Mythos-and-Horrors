@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
-            await _gameActionsProvider.Create(new GainResourceGameAction(ControlOwner, 1));
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Start();
         }
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)

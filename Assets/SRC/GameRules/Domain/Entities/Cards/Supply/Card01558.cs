@@ -49,8 +49,8 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Start();
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
-            await _gameActionsProvider.Create(new GainResourceGameAction(ControlOwner, 1));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Start();
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ControlOwner, 1).Start();
         }
     }
 }

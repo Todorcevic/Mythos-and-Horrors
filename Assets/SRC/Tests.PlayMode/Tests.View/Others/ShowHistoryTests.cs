@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             do
             {
-                yield return _gameActionsProvider.Create(new ShowHistoryGameAction(sutHistory)).AsCoroutine();
+                yield return _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(sutHistory).Start().AsCoroutine();
             }
             while (DEBUG_MODE);
 

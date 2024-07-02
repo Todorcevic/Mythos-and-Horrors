@@ -25,9 +25,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new PayResourceGameAction(investigator, 5));
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Hints, 2).Start();
-            await _gameActionsProvider.Create(new GainHintGameAction(investigator, Hints, 2));
+            await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, Hints, 2).Start();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Start();
         }
 

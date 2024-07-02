@@ -111,7 +111,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE3.PlotCards.ElementAt(2)).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.MainPath).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new HarmToCardGameAction(SceneCORE3.Urmodoth, _investigatorsProvider.First.InvestigatorCard, amountDamage: SceneCORE3.Urmodoth.Health.Value)).AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(SceneCORE3.Urmodoth, _investigatorsProvider.First.InvestigatorCard, amountDamage: SceneCORE3.Urmodoth.Health.Value).Start().AsCoroutine();
 
             Assert.That(SceneCORE3.Urmodoth.Defeated.IsActive, Is.True);
             Assert.That(_investigatorsProvider.First.Xp.Value, Is.GreaterThanOrEqualTo(10));

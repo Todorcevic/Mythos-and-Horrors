@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task HarmCreature()
                 {
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(creature, Owner.InvestigatorCard, amountDamage: 1));
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, Owner.InvestigatorCard, amountDamage: 1).Start();
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
                 };
             }

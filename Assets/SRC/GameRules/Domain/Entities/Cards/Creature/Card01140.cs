@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task PayCreature()
             {
-                await _gameActionsProvider.Create(new PayResourceGameAction(investigator, 5));
+                await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Start();
                 await _gameActionsProvider.Create<MoveCardsGameAction>()
                     .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Start();
             }

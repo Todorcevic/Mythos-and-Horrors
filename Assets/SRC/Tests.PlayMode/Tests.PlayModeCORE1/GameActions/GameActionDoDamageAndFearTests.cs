@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(damageableCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(bulletProof, investigator.AidZone).Start().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, SceneCORE1.GhoulSecuaz, amountDamage: 2, amountFear: 1));
+            Task gameActionTask = _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, SceneCORE1.GhoulSecuaz, amountDamage: 2, amountFear: 1).Start();
             yield return ClickedIn(bulletProof);
             yield return ClickedIn(damageableCard);
             yield return ClickedIn(damageableCard);

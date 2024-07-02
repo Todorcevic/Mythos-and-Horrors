@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
 
                     async Task TakeHint()
                     {
-                        await _gameActionsProvider.Create(new GainHintGameAction(investigator, place.Hints, 1));
+                        await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 1).Start();
                         amoutHintsLeft--;
                         if (amoutHintsLeft > 0) await ChooseHints();
                     }

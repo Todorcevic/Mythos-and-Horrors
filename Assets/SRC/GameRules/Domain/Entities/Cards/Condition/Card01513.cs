@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task Logic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, amountFear: 2, fromCard: this));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, amountFear: 2, fromCard: this).Start();
         }
 
         private bool Condition(PlayInvestigatorGameAction playInvestigatorGameAction)

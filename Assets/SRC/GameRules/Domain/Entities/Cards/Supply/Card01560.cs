@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResolveLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, this, amountFear: 1));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, this, amountFear: 1).Start();
         }
 
         private bool ResolveCondition(ResolveChallengeGameAction resolveChallengeGameAction)

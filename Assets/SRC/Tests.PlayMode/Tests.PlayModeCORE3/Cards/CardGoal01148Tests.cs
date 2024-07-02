@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, SceneCORE3.Forests[0].Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE3.Forests[0].Hints, 2).Start().AsCoroutine();
             int actualHintsInCurrentPlace = investigator.CurrentPlace.Hints.Value;
             Task taskGameAction = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedIn(cardGoal);

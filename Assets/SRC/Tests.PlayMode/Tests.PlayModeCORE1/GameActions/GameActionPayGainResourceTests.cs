@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(10));
         }
@@ -40,8 +40,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(_investigatorsProvider.First, 5)).AsCoroutine();
-            yield return _gameActionsProvider.Create(new PayResourceGameAction(_investigatorsProvider.First, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(_investigatorsProvider.First, 5).Start().AsCoroutine();
+            yield return _gameActionsProvider.Create<PayResourceGameAction>().SetWith(_investigatorsProvider.First, 2).Start().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Resources.Value, Is.EqualTo(8));
         }

@@ -20,11 +20,11 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(investigator, place.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 2).Start().AsCoroutine();
 
             Assert.That(investigator.Hints.Value, Is.EqualTo(2));
 
-            yield return _gameActionsProvider.Create(new PayHintGameAction(investigator, cardGoal.Hints, 1)).AsCoroutine();
+            yield return _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, cardGoal.Hints, 1).Start().AsCoroutine();
 
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
             Assert.That(place.Hints.Value, Is.EqualTo(1));

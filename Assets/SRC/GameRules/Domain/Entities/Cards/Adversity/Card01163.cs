@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task FailEffect() =>
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: challengeGameAction.ResultChallenge.TotalDifferenceValue * -1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: challengeGameAction.ResultChallenge.TotalDifferenceValue * -1).Start();
 
         }
     }

@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDirectDamageLogic(HarmToCardGameAction action)
         {
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(InvestigatorAffected, this, amountDamage: 1, isDirect: true));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountDamage: 1, isDirect: true).Start();
         }
 
         private bool TakeDirectDamageConditionn(HarmToCardGameAction harmToCardGameAction)

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             harmToInvestigateGameAction.AddAmountDamage(-5);
             harmToInvestigateGameAction.AddAmountFear(-5);
 
-            await _gameActionsProvider.Create(new GainResourceGameAction(investigator, amountResourcesTogain));
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, amountResourcesTogain).Start();
         }
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

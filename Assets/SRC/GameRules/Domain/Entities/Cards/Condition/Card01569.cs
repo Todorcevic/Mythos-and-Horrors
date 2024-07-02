@@ -33,11 +33,11 @@ namespace MythosAndHorrors.GameRules
                     if (eludeGameAction.ResultChallenge.TokensRevealed.Any(token => dazzle.Contains(token.TokenType)))
                     {
                         await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentTurns, 1).Start();
-                        await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 1));
+                        await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Start();
                     }
                 }
 
-                async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(creature, this, amountDamage: 2));
+                async Task SuccesEffet() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Start();
             }
 
             await chooseEnemy.Start();

@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionRepository.Create(new PayResourceGameAction(investigator, investigator.Resources.Value));
+            await _gameActionRepository.Create<PayResourceGameAction>().SetWith(investigator, investigator.Resources.Value).Start();
         }
     }
 }

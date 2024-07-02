@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ShowHistory()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
         }
 
         private async Task PlacePlaces()
@@ -320,17 +320,13 @@ namespace MythosAndHorrors.GameRules
             async Task DangerNormalEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                     _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Start();
             }
 
             async Task DangerHardEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace.Any()) return;
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                     _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Start();
             }
         }
 

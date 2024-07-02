@@ -31,8 +31,8 @@ namespace MythosAndHorrors.GameRules
                     async Task DoDamage(IDamageable damageable)
                     {
                         if (damageable is CardInvestigator cardInvestigator)
-                            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(cardInvestigator.Owner, this, amountDamage: 3));
-                        else await _gameActionsProvider.Create(new HarmToCardGameAction((Card)damageable, this, amountDamage: 3));
+                            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(cardInvestigator.Owner, this, amountDamage: 3).Start();
+                        else await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith((Card)damageable, this, amountDamage: 3).Start();
                     }
                 }
             }

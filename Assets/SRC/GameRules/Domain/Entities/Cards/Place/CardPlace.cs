@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task RevealEffect(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Start();
         }
 
         /*******************************************************************/

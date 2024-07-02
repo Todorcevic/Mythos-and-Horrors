@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class HarmToCardGameAction : GameAction
     {
-
-        public Card Card { get; }
-        public Card ByThisCard { get; }
+        public Card Card { get; private set; }
+        public Card ByThisCard { get; private set; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
         public int TotalDamageApply { get; private set; }
         public int TotalFearApply { get; private set; }
 
         /*******************************************************************/
-        public HarmToCardGameAction(Card card, Card byThisCard, int amountDamage = 0, int amountFear = 0)
+        public HarmToCardGameAction SetWith(Card card, Card byThisCard, int amountDamage = 0, int amountFear = 0)
         {
             Card = card;
             ByThisCard = byThisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
+            return this;
         }
 
         /*******************************************************************/

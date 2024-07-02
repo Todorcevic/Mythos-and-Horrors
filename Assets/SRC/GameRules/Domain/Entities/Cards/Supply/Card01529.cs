@@ -42,14 +42,14 @@ namespace MythosAndHorrors.GameRules
             {
                 int amountDamage = Math.Clamp(attackCreatureGameAction.ResultChallenge.TotalDifferenceValue, -5, -1) * -1;
                 if (attackCreatureGameAction.CardCreature.IsConfronted && attackCreatureGameAction.CardCreature.ConfrontedInvestigator != ControlOwner)
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(attackCreatureGameAction.CardCreature.ConfrontedInvestigator.InvestigatorCard, ControlOwner.InvestigatorCard, amountDamage: amountDamage));
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature.ConfrontedInvestigator.InvestigatorCard, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Start();
             }
 
             async Task SuccessEffect()
             {
 
                 int amountDamage = Math.Clamp(attackCreatureGameAction.ResultChallenge.TotalDifferenceValue, 1, 5);
-                await _gameActionsProvider.Create(new HarmToCardGameAction(attackCreatureGameAction.CardCreature, ControlOwner.InvestigatorCard, amountDamage: amountDamage));
+                await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(attackCreatureGameAction.CardCreature, ControlOwner.InvestigatorCard, amountDamage: amountDamage).Start();
             }
         }
 

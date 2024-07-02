@@ -33,13 +33,13 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawResources()
         {
-            await _gameActionsProvider.Create(new GainResourceGameAction(Owner, 2));
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(Owner, 2).Start();
         }
 
         /*******************************************************************/
         public async Task GainTurnActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create(new PayResourceGameAction(activeInvestigator, 2));
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(activeInvestigator, 2).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Start();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Start();
         }

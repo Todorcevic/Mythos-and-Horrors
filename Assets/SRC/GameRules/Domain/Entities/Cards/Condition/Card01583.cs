@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not EludeGameAction eludeGameAction) return;
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(eludeGameAction.Creature, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true).Start();
-            await _gameActionsProvider.Create(new ResetCardGameAction(eludeGameAction.Creature));
+            await _gameActionsProvider.Create<ResetCardGameAction>().SetWith(eludeGameAction.Creature).Start();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Start();
         }
     }

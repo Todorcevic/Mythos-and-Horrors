@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 async Task TakeFearAndmove()
                 {
                     CardPlace PlaceToReturn = _cardsProvider.GetCard<Card01125>();
-                    await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 2));
+                    await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 2).Start();
                     await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, PlaceToReturn).Start();
                 }
             }

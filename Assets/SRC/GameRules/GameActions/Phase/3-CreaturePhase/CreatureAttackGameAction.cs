@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await _creatureAttackPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(Investigator, Creature, Creature.Damage.Value, Creature.Fear.Value));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(Investigator, Creature, Creature.Damage.Value, Creature.Fear.Value).Start();
         }
     }
 }

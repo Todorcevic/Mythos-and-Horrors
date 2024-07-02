@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task HarmAndMove()
             {
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, fromCard: this, amountDamage: 1, amountFear: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 1, amountFear: 1).Start();
                 Dictionary<Card, Zone> moveAndDisconfront = investigator.BasicCreaturesConfronted.Where(creature => !creature.HasThisTag(Tag.Nightgaunt))
                     .ToDictionary(creature => (Card)creature, creature => creature.CurrentPlace.OwnZone);
                 moveAndDisconfront.Add(investigator.AvatarCard, SceneCORE2.Center.OwnZone);

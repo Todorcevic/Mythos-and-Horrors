@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async override Task PrepareScene()
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Study, GetPlaceZone(0, 3)).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(StartDeckDangerCards, DangerDeckZone, isFaceDown: true).Start();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(DangerDeckZone).Start();
@@ -118,10 +118,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeOneFear() =>
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.CardToChallenge,
-                    amountFear: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 1).Start();
             }
             async Task CultistHardEffect()
             {
@@ -130,10 +127,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeTwoFear() =>
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.CardToChallenge,
-                    amountFear: 2));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 2).Start();
             }
         }
 
@@ -160,19 +154,13 @@ namespace MythosAndHorrors.GameRules
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
                     .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
 
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                _gameActionsProvider.CurrentChallenge.CardToChallenge,
-                amountDamage: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Start();
             }
             async Task DangerHardEffect()
             {
                 if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
                    .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(
-                _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                _gameActionsProvider.CurrentChallenge.CardToChallenge,
-                amountDamage: 1, amountFear: 1));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Start();
             }
         }
 

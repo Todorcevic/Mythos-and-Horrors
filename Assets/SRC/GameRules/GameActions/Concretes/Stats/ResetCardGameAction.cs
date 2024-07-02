@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ResetCardGameAction : GameAction
     {
-
-        private Card Card { get; }
+        public Card Card { get; private set; }
 
         /*******************************************************************/
-        public ResetCardGameAction(Card card)
+        public ResetCardGameAction SetWith(Card card)
         {
             Card = card;
+            return this;
         }
 
         /*******************************************************************/

@@ -44,7 +44,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task DoDamageAndFear()
                 {
-                    HarmToCardGameAction harm = await _gameActionsProvider.Create(new HarmToCardGameAction(cardSelectable, ByThisCard, AmountDamage, AmountFear));
+                    HarmToCardGameAction harm = _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardSelectable, ByThisCard, AmountDamage, AmountFear);
+                    await harm.Start();
                     await _gameActionsProvider.Create<ShareDamageAndFearGameAction>().SetWith(ActiveInvestigator, ByThisCard, AmountDamage - harm.TotalDamageApply, AmountFear - harm.TotalFearApply).Start();
                 }
             }

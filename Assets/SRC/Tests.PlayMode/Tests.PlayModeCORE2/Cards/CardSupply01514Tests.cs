@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.HandZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
@@ -66,7 +66,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
             Card01578 cardCondition = _cardsProvider.GetCard<Card01578>();
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Start().AsCoroutine();
@@ -89,7 +89,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01510 cardCondition = _cardsProvider.GetCard<Card01510>();
             Card01580 basicCard = _cardsProvider.GetCard<Card01580>();
 
-            yield return _gameActionsProvider.Create(new GainResourceGameAction(investigator, 8)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(basicCard, investigator.DeckZone, isFaceDown: true).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Start().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Start().AsCoroutine();

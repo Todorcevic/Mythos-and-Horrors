@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task GainSkillLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            await _gameActionsProvider.Create(new PayResourceGameAction(ControlOwner, 1));
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(ControlOwner, 1).Start();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(challengePhaseGameAction.StatModifier, 1).Start();
         }
 

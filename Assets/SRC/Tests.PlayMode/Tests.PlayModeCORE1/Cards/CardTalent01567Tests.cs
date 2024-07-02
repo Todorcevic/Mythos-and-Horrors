@@ -23,7 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent, investigator.HandZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardTalent, amountFear: 3)).AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, cardTalent, amountFear: 3).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Start();
             yield return ClickedIn(cardTalent);

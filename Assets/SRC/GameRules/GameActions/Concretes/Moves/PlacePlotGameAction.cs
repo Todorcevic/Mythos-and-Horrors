@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(CardPlot.FaceDown, false).Start();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardPlot, _chaptersProviders.CurrentScene.PlotZone).Start();
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(CardPlot.InitialHistory, CardPlot));
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(CardPlot.InitialHistory, CardPlot).Start();
         }
     }
 }

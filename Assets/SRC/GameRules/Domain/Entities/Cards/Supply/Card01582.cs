@@ -45,14 +45,12 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task DamageLogic()
                 {
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(creature,
-                        creatureAttackGameAction.Creature,
-                        amountDamage: creatureDamage));
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, creatureAttackGameAction.Creature, amountDamage: creatureDamage).Start();
                 }
             }
 
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-            await _gameActionsProvider.Create(new HarmToCardGameAction(this, this, amountFear: 1));
+            await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(this, this, amountFear: 1).Start();
             await interactableGameAction.Start();
         }
 

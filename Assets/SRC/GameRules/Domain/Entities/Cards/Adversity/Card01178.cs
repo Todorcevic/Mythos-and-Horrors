@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task TakeFear()
             {
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, this, amountFear: 2));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 2).Start();
             }
         }
     }

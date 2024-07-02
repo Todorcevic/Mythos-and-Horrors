@@ -49,7 +49,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, withCards)).Start();
             if (withResources)
-                await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
+                await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Start();
             if (withAvatar)
                 await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, StartingPlace).Start();
         }
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 if (withCards)
                     await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GetCardZonesInvestigator(investigator, true)).Start();
                 if (withResources)
-                    await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 5));
+                    await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 5).Start();
             }
             if (withAvatar)
                 await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigators, StartingPlace).Start();

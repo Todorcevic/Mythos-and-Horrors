@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                     await interactableGameAcrtion.Start();
                 }
 
-                else await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, fromCard: this, amountDamage: 2));
+                else await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountDamage: 2).Start();
             }
         }
     }

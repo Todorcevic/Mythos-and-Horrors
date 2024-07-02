@@ -66,7 +66,6 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Assert.That((_cardViewsManager.GetCardView(cardPlot) as PlotCardView).GetPrivateMember<MultiStatView>("_eldritch").Stat.Value, Is.EqualTo(2));
         }
 
-
         [UnityTest]
         public IEnumerator Full_Hint_Stats()
         {
@@ -79,14 +78,12 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(place.Hints, 3).Start().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionsProvider.Create(new GainHintGameAction(_investigatorsProvider.First, place.Hints, 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.First, place.Hints, 2).Start().AsCoroutine();
             if (DEBUG_MODE) yield return PressAnyKey();
-            yield return _gameActionsProvider.Create(new PayHintGameAction(_investigatorsProvider.First, cardGoal.Hints, 1)).AsCoroutine();
-
+            yield return _gameActionsProvider.Create<PayHintGameAction>().SetWith(_investigatorsProvider.First, cardGoal.Hints, 1).Start().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
         }
-
     }
 }

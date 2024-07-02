@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
                     }
                 }
 
-                async Task SuccesEffet() => await _gameActionsProvider.Create(new HarmToCardGameAction(creature, this, amountDamage: 1));
+                async Task SuccesEffet() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 1).Start();
             }
 
             await chooseEnemy.Start();

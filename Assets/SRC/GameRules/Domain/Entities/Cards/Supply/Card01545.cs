@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             await investigate.Start();
 
             /*******************************************************************/
-            async Task GainResources() => await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 3));
+            async Task GainResources() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 3).Start();
         }
 
         private bool InvestigationCondition(Investigator investigator)

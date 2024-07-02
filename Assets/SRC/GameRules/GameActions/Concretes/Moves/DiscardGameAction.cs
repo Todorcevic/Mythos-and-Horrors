@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             Zone zoneToMove = GetDiscardZone();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Card, zoneToMove).Start();
-            await _gameActionsProvider.Create(new ResetCardGameAction(Card));
+            await _gameActionsProvider.Create<ResetCardGameAction>().SetWith(Card).Start();
         }
 
         private Zone GetDiscardZone()

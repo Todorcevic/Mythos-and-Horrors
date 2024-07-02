@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class GainHintGameAction : GameAction
     {
-
-        public Investigator Investigator { get; }
+        public Investigator Investigator { get; private set; }
         public Stat FromStat { get; private set; }
         public int Amount { get; private set; }
         public override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
-        public GainHintGameAction(Investigator investigator, Stat fromStat, int amount)
+        public GainHintGameAction SetWith(Investigator investigator, Stat fromStat, int amount)
         {
             Investigator = investigator;
             FromStat = fromStat;
             Amount = fromStat.Value < amount ? fromStat.Value : amount;
+            return this;
         }
 
         /*******************************************************************/

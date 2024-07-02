@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DrawAndGainResource(Investigator investigator)
         {
             await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Start();
-            await _gameActionsProvider.Create(new GainResourceGameAction(investigator, 1));
+            await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 1).Start();
         }
     }
 }

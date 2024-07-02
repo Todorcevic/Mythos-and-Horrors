@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task RevealEffect(RevealGameAction revealGameAction)
         {
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(RevealHistory, this));
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(RevealHistory, this).Start();
 
             if (SceneCORE3.CurrentGoal == SceneCORE3.GoalCards.ElementAt(0))
             {

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task TakeFearLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, fromCard: this, amountFear: 1));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, fromCard: this, amountFear: 1).Start();
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChargeFear, 1).Start();
 
             if (DiscardCondition()) await DiscardLogic();

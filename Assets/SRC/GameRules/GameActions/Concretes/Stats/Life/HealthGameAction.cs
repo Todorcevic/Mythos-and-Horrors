@@ -1,21 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class HealthGameAction : GameAction
     {
-
-        public int AmountDamageToRecovery { get; }
-        public int AmountFearToRecovery { get; }
-        public Card CardAffected { get; }
+        public int AmountDamageToRecovery { get; private set; }
+        public int AmountFearToRecovery { get; private set; }
+        public Card CardAffected { get; private set; }
 
         /*******************************************************************/
-        public HealthGameAction(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
+        public HealthGameAction SetWith(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
         {
             CardAffected = card;
             AmountDamageToRecovery = amountDamageToRecovery;
             AmountFearToRecovery = amountFearToRecovery;
+            return this;
         }
 
         /*******************************************************************/

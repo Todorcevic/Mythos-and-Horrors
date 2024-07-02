@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 .Start();
 
             /*******************************************************************/
-            async Task SuccessEffect() => await _gameActionsProvider.Create(new PayHintGameAction(investigator, Hints, 1));
+            async Task SuccessEffect() => await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, Hints, 1).Start();
             async Task FailEffect() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Start();
         }
 

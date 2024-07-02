@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task SuccesEffet() => await _gameActionsProvider.Create(new GainHintGameAction(ActiveInvestigator, CardPlace.Hints, AmountHints));
+        private async Task SuccesEffet() => await _gameActionsProvider.Create<GainHintGameAction>().SetWith(ActiveInvestigator, CardPlace.Hints, AmountHints).Start();
 
         public void UpdateAmountHints(int newAmountHints) => AmountHints = newAmountHints;
     }

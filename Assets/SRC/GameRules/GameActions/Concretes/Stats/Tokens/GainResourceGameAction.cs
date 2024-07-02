@@ -1,21 +1,20 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class GainResourceGameAction : GameAction
     {
-
-        public Investigator Investigator { get; }
-        public int Amount { get; }
+        public Investigator Investigator { get; private set; }
+        public int Amount { get; private set; }
 
         public override bool CanBeExecuted => Amount > 0;
 
         /*******************************************************************/
-        public GainResourceGameAction(Investigator investigator, int amount)
+        public GainResourceGameAction SetWith(Investigator investigator, int amount)
         {
             Investigator = investigator;
             Amount = amount;
+            return this;
         }
 
         /*******************************************************************/

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task HarmAndWeakness()
             {
-                await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, fromCard: this, amountFear: 2));
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, fromCard: this, amountFear: 2).Start();
                 Card madness = investigator.DeckZone.Cards.FirstOrDefault(card => card.HasThisTag(Tag.Weakness) && card.HasThisTag(Tag.Madness));
                 if (madness != null) await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, madness).Start();
             }

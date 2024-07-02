@@ -51,8 +51,8 @@ namespace MythosAndHorrors.GameRules
                 async Task SelecteCreature()
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Start();
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(this, this, amountDamage: 1));
-                    await _gameActionsProvider.Create(new HarmToCardGameAction(cardCreature, this, amountDamage: 1));
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(this, this, amountDamage: 1).Start();
+                    await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cardCreature, this, amountDamage: 1).Start();
                 }
             }
 

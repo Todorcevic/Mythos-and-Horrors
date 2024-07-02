@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             {
                 chooseEnemy.CreateEffect(creature, new Stat(0, false), DamageCreature, PlayActionType.Choose, investigator);
 
-                async Task DamageCreature() => await _gameActionsProvider.Create(new HarmToCardGameAction(creature, this, amountDamage: 2));
+                async Task DamageCreature() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Start();
             }
 
             await chooseEnemy.Start();

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return StartingScene();
             CardCreature cultist = SceneCORE2.Drew;
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new HarmToCardGameAction(cultist, investigator.InvestigatorCard, amountDamage: 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(cultist, investigator.InvestigatorCard, amountDamage: 2).Start().AsCoroutine();
 
             yield return _gameActionsProvider.Create(new CreatureAttackGameAction(cultist, _investigatorsProvider.First)).AsCoroutine();
             Assert.That(cultist.HealthLeft, Is.EqualTo(3));

@@ -90,7 +90,7 @@ namespace MythosAndHorrors.GameRules
         private async Task TakeHorror(IEnumerable<Card> cards)
         {
             if (!cards.Any(card => card.HasThisTag(Tag.Terror) || card.HasThisTag(Tag.Omen))) return;
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(ControlOwner, this, amountFear: 1));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(ControlOwner, this, amountFear: 1).Start();
         }
     }
 }

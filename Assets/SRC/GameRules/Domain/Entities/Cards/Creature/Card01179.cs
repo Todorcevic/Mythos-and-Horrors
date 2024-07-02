@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task HealthLogic(RoundGameAction action)
         {
-            await _gameActionsProvider.Create(new HealthGameAction(this, amountDamageToRecovery: 2));
+            await _gameActionsProvider.Create<HealthGameAction>().SetWith(this, amountDamageToRecovery: 2).Start();
         }
 
         private bool HealthCondition(RoundGameAction action)

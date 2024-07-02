@@ -58,9 +58,9 @@ namespace MythosAndHorrors.GameRules
         private async Task ShowHistory()
         {
             if (_chaptersProvider.CurrentChapter.IsRegistered(CORERegister.LitaGoAway))
-                await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[0]));
-            else await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[1]));
-            await _gameActionsProvider.Create(new ShowHistoryGameAction(Descriptions[2]));
+                await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Start();
+            else await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[1]).Start();
+            await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[2]).Start();
         }
 
         private async Task PlacePlaces()

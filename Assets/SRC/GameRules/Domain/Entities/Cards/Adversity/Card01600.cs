@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDirectFearLogic(HarmToCardGameAction action)
         {
-            await _gameActionsProvider.Create(new HarmToInvestigatorGameAction(InvestigatorAffected, this, amountFear: 1, isDirect: true));
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountFear: 1, isDirect: true).Start();
         }
 
         private bool TakeDirectFearConditionn(HarmToCardGameAction harmToCardGameAction)

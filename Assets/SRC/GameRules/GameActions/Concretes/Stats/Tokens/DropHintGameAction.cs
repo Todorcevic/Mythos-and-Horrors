@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class DropHintGameAction : GameAction
     {
-
         public Investigator Investigator { get; private set; }
         public Stat ToStat { get; private set; }
         public int Amount { get; private set; }

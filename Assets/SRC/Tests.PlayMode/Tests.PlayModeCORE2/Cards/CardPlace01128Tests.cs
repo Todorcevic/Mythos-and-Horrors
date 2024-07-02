@@ -7,7 +7,6 @@ using UnityEngine.TestTools;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-
     public class CardPlace01128Tests : TestCORE2Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Start().AsCoroutine();
-            yield return _gameActionsProvider.Create(new HarmToInvestigatorGameAction(investigator, cardPlace, amountDamage: 2)).AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, cardPlace, amountDamage: 2).Start().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create(new PlayInvestigatorGameAction(investigator));
             yield return ClickedClone(cardPlace, 1);

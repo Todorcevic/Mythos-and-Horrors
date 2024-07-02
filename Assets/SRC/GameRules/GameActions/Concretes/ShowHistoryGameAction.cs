@@ -7,15 +7,16 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly IPresenter<ShowHistoryGameAction> _showHistoryPresenter;
 
-        public History History { get; }
-        public Card Card { get; }
+        public History History { get; private set; }
+        public Card Card { get; private set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public ShowHistoryGameAction(History history, Card card = null)
+        public ShowHistoryGameAction SetWith(History history, Card card = null)
         {
             History = history;
             Card = card;
+            return this;
         }
 
         /*******************************************************************/
