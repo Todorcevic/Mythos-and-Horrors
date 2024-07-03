@@ -106,7 +106,6 @@ namespace MythosAndHorrors.GameRules
             Zones.Add(new(ZoneType.Aid));
             Zones.Add(new(ZoneType.Danger));
             Zones.Add(new(ZoneType.Investigator));
-            //SlotsCollection = new(this);
         }
 
         /*******************************************************************/

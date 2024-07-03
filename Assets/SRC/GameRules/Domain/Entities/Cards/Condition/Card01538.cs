@@ -21,8 +21,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateForceReaction<MoveInvestigatorToPlaceGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
-            CreateForceReaction<MoveInvestigatorToPlaceGameAction>(ConfrontCantMoveCondition, ConfrontCantMoveLogic, GameActionTime.Before);
-            CreateForceReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, GameActionTime.Before);
+            CreateForceReaction<MoveInvestigatorToPlaceGameAction>(ConfrontCantMoveCondition, ConfrontCantMoveLogic, GameActionTime.Initial);
+            CreateForceReaction<MoveCreatureGameAction>(CantMoveCondition, CantMoveLogic, GameActionTime.Initial);
         }
 
         /*******************************************************************/

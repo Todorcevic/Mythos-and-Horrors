@@ -30,10 +30,5 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(statablesUpdated).Execute();
         }
-
-        public void SetNewAmount(int newAmount)
-        {
-            Amount = newAmount;
-        }
     }
 }
