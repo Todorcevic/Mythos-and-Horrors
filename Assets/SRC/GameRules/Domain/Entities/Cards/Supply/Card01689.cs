@@ -36,10 +36,7 @@ namespace MythosAndHorrors.GameRules
                 await Task.CompletedTask;
             }
 
-            bool PassTurnCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
-            {
-                return true;
-            }
+            bool PassTurnCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) => true;
         }
 
         private bool ResolveCondition(ResolveChallengeGameAction resolveChallengeGameAction)
@@ -54,8 +51,9 @@ namespace MythosAndHorrors.GameRules
         private bool InvestigateCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
-            if (investigator != ControlOwner) return false;
             if (Charge.IsEmpty) return false;
+            if (investigator != ControlOwner) return false;
+            if (!investigator.CurrentPlace.CanBeInvestigated.IsActive) return false;
             return true;
         }
 

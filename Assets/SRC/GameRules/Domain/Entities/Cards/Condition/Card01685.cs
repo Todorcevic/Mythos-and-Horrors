@@ -50,7 +50,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!PlacesWithHints(ControlOwner).Any()) return false;
+            if (!investigator.CurrentPlace.CanBeInvestigated.IsActive) return false;
+            if (!PlacesWithHints(investigator).Any()) return false;
             return true;
         }
     }

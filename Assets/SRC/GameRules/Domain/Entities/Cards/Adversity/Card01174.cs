@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
-            CreateForceReaction<InteractableGameAction>(AvoidInvestigateCondition, AvoidInvestigateLogic, GameActionTime.Before);
+            CreateBuff(CardsToBuff, ActivationLogic, DactivationLogic);
         }
 
         /*******************************************************************/
@@ -34,19 +34,16 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task AvoidInvestigateLogic(InteractableGameAction interactableGameAction)
+        private async Task DactivationLogic(IEnumerable<Card> enumerable)
         {
-            Card placeAffected = _cardsProvider.GetCardWithThisZone(CurrentZone);
-            IEnumerable<CardEffect> investigateEffects = interactableGameAction.AllEffects
-               .Where(effect => effect.IsActionType(PlayActionType.Investigate) && (effect.CardOwner == placeAffected || effect.CardAffected == placeAffected));
-            interactableGameAction.RemoveEffects(investigateEffects);
-            await Task.CompletedTask;
+            CardPlace cardPlace = enumerable.Cast<CardPlace>().First();
+            await _gameActionsProvider.Create<ResetConditionalGameAction>().SetWith(cardPlace.CanBeInvestigated).Execute();
         }
 
-        private bool AvoidInvestigateCondition(InteractableGameAction interactableGameAction)
+        private async Task ActivationLogic(IEnumerable<Card> enumerable)
         {
-            if (!IsInPlay) return false;
-            return true;
+            CardPlace cardPlace = enumerable.Cast<CardPlace>().First();
+            await _gameActionsProvider.Create<UpdateConditionalGameAction>().SetWith(cardPlace.CanBeInvestigated, false).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff()

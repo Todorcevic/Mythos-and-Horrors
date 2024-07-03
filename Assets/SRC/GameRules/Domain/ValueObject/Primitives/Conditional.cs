@@ -4,11 +4,10 @@ namespace MythosAndHorrors.GameRules
 {
     public class Conditional
     {
-        private bool? _activated;
-
         private readonly Func<bool> _condition;
 
-        public bool IsActive => _activated ?? _condition?.Invoke() ?? false;
+        public bool? CurrentActivate { get; private set; }
+        public bool IsActive => CurrentActivate ?? _condition?.Invoke() ?? false;
 
         /*******************************************************************/
         public Conditional(Func<bool> condition)
@@ -17,9 +16,9 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public void UpdateActivation(bool? activated)
+        public void UpdateActivationTo(bool? activated)
         {
-            _activated = activated;
+            CurrentActivate = activated;
         }
     }
 }

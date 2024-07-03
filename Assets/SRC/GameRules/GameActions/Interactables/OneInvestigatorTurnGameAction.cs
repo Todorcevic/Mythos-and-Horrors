@@ -89,6 +89,7 @@ namespace MythosAndHorrors.GameRules
 
             bool CanInvestigate()
             {
+                if (!ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsActive) return false;
                 if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.CurrentPlace.InvestigationTurnsCost.Value) return false;
                 return true;
             }
