@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
         private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {
             if (Wasted.IsActive) return false;
-            if ((playEffectGameAction.Effect.PlayActionType & (PlayActionType.Move | PlayActionType.Attack | PlayActionType.Confront)) == 0) return false;
+            if (playEffectGameAction.Effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude)) return false;
             if (playEffectGameAction.Effect.Investigator != InvestigatorAffected) return false;
             return true;
         }

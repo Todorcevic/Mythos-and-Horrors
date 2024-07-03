@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         private async Task CantPlayLogic(InteractableGameAction interactableGameAction)
         {
             IEnumerable<CardEffect> effectesToRemove = interactableGameAction.AllEffects
-                .Where(effect => effect.IsActionType(PlayActionType.PlayFromHand) && effect.CardOwner.CurrentZone == ControlOwner.HandZone);
+                .Where(effect => effect.IsThatActionType(PlayActionType.PlayFromHand) && effect.CardOwner.CurrentZone == ControlOwner.HandZone);
 
             interactableGameAction.RemoveEffects(effectesToRemove);
             await Task.CompletedTask;

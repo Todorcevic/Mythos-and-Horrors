@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay) return false;
             if (playEffectGameAction.Effect is not CardEffect cardEffect) return false;
             if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
-            if (!playEffectGameAction.Effect.IsActionType(PlayActionType.PlayFromHand)) return false;
+            if (!playEffectGameAction.Effect.IsThatActionType(PlayActionType.PlayFromHand)) return false;
             if (!cardEffect.CardOwner.HasThisTag(Tag.Spell)) return false;
             return true;
         }

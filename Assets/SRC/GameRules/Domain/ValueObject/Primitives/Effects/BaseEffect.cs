@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
 
-        public bool IsActionType(PlayActionType actionType) => (PlayActionType & actionType) == actionType;
+        public bool IsThatActionType(PlayActionType actionType) => (PlayActionType & actionType) == actionType;
+        public bool IsOneTheseActionType(PlayActionType actionType) => (PlayActionType & actionType) == 0;
     }
 }
