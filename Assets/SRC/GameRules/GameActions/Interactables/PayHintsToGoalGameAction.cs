@@ -42,15 +42,5 @@ namespace MythosAndHorrors.GameRules
                 }
             }
         }
-
-        public void UpdateInvestigatorsToPay(IEnumerable<Investigator> investigatorsToPay)
-        {
-            InvestigatorsToPay = investigatorsToPay;
-            IEnumerable<CardEffect> effectsToRemove = EffectsToPay.Where(effect => !investigatorsToPay.Contains(effect.CardOwner.Owner));
-
-            RemoveEffects(effectsToRemove);
-            EffectsToPay.Clear();
-            EffectsToPay.AddRange(effectsToRemove);
-        }
     }
 }

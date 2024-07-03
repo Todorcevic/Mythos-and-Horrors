@@ -27,6 +27,8 @@ namespace MythosAndHorrors.GameRules
         public bool IsManadatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public IEnumerable<CardEffect> AllEffects => _allCardEffects.ToList();
+        public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
+        public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
         public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
@@ -45,9 +47,6 @@ namespace MythosAndHorrors.GameRules
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();
         }
-
-        public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
-        public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
         public IEnumerable<CardEffect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
@@ -81,35 +80,26 @@ namespace MythosAndHorrors.GameRules
             static async Task Continue() => await Task.CompletedTask;
         }
 
-        private void SetUndoButton()
-        {
-            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
-            if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
-        }
-
-        async Task UndoLogic()
-        {
-            InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-            if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
-            await lastInteractable.Execute();
-        }
-
         public void RemoveEffect(CardEffect effect) => _allCardEffects.Remove(effect);
 
         public void RemoveEffects(IEnumerable<CardEffect> effects) => effects.ForEach(effect => _allCardEffects.Remove(effect));
 
-        public void ClearEffects() => _allCardEffects.Clear();
-
         public virtual void ExecuteSpecificInitialization() { }
 
-        internal void CreateEffect(Card card, object decrementLogic, PlayActionType choose, Investigator controlOwner)
+        private void SetUndoButton()
         {
-            throw new NotImplementedException();
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
+            if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
+
+            /*******************************************************************/
+            async Task UndoLogic()
+            {
+                InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+                if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
+                await lastInteractable.Execute();
+            }
         }
 
-        internal void CreateEffect(Card card, Stat stat, object decrementLogic, PlayActionType choose, Investigator controlOwner)
-        {
-            throw new NotImplementedException();
-        }
+        private void ClearEffects() => _allCardEffects.Clear();
     }
 }
