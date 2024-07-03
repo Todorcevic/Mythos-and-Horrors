@@ -51,11 +51,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlace place2 = _cardsProvider.GetCard<Card01112>();
             CardPlace place3 = _cardsProvider.GetCard<Card01113>();
             CardPlace place4 = _cardsProvider.GetCard<Card01114>();
+            CardPlace place5 = _cardsProvider.GetCard<Card01115>();
             CardCreature ghoul = _cardsProvider.GetCard<Card01119>();
             CardCreature noGhoul = _cardsProvider.GetCard<Card01603>();
             CardPlot cardPlot = _cardsProvider.GetCard<Card01107>();
-            yield return StartingScene();
+            yield return PlaceOnlyScene();
 
+            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(place5).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoul, place4.OwnZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(noGhoul, place3.OwnZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Execute().AsCoroutine();

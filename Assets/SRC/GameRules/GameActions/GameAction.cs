@@ -11,9 +11,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
 
+        public GameAction Parent { get; } = _current;
         public bool IsActive { get; private set; }
         public bool IsCancel { get; private set; }
-        public GameAction Parent { get; private set; }
         public virtual bool CanBeExecuted => true;
         public virtual bool CanUndo => true;
 
@@ -54,13 +54,12 @@ namespace MythosAndHorrors.GameRules
         private void InitialSet()
         {
             IsActive = true;
-            Parent = _current ?? this;
             _current = this;
         }
 
         private void FinishSet()
         {
-            _current = Parent;
+            _current = Parent ?? this;
             IsActive = false;
         }
     }

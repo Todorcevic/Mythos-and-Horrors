@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -20,7 +18,8 @@ namespace MythosAndHorrors.GameRules
         {
             CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign);
             CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            CreateForceReaction<InteractableGameAction>(AvoidMoveCondition, AvoidMoveLogic, GameActionTime.Before);
+            //CreateForceReaction<InteractableGameAction>(AvoidMoveCondition, AvoidMoveLogic, GameActionTime.Before);
+            CanMoveHere = new Conditional(() => IsInPlay && Revealed.IsActive);
         }
 
         /*******************************************************************/
@@ -56,18 +55,18 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task AvoidMoveLogic(InteractableGameAction interactableGameAction)
-        {
-            IEnumerable<CardEffect> moveEffects = interactableGameAction.AllEffects
-                .Where(effects => effects.IsActionType(PlayActionType.Move) && (effects.CardOwner == this || effects.CardAffected == this));
-            interactableGameAction.RemoveEffects(moveEffects);
-            await Task.CompletedTask;
-        }
+        //private async Task AvoidMoveLogic(InteractableGameAction interactableGameAction)
+        //{
+        //    IEnumerable<CardEffect> moveEffects = interactableGameAction.AllEffects
+        //        .Where(effects => effects.IsActionType(PlayActionType.Move) && (effects.CardOwner == this || effects.CardAffected == this));
+        //    interactableGameAction.RemoveEffects(moveEffects);
+        //    await Task.CompletedTask;
+        //}
 
-        private bool AvoidMoveCondition(InteractableGameAction oneInvestigatorTurnGameAction)
-        {
-            if (Revealed.IsActive) return false;
-            return true;
-        }
+        //private bool AvoidMoveCondition(InteractableGameAction oneInvestigatorTurnGameAction)
+        //{
+        //    if (Revealed.IsActive) return false;
+        //    return true;
+        //}
     }
 }

@@ -21,11 +21,11 @@ namespace MythosAndHorrors.GameRules
             Played = new State(false);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff);
             CreateForceReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
-            CreateForceReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenReaction, GameActionTime.Before);
+            CreateForceReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenLogic, GameActionTime.Initial);
         }
 
         /*******************************************************************/
-        private async Task RevealTokenReaction(RevealChallengeTokenGameAction revealChallengeTaokenGameAction)
+        private async Task RevealTokenLogic(RevealChallengeTokenGameAction revealChallengeTaokenGameAction)
         {
             revealChallengeTaokenGameAction.Cancel();
             await Task.CompletedTask;

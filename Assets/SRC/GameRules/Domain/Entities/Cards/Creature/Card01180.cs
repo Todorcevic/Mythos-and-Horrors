@@ -26,15 +26,9 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(InvestigaotrsAffected, TakeFear).Execute();
 
             /*******************************************************************/
-            async Task TakeFear(Investigator investigator)
-            {
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountFear: 1).Execute();
-            }
-
-            IEnumerable<Investigator> InvestigaotrsAffected()
-            {
-                return _investigatorsProvider.GetInvestigatorsInThisPlace(CurrentPlace);
-            }
+            IEnumerable<Investigator> InvestigaotrsAffected() => _investigatorsProvider.GetInvestigatorsInThisPlace(CurrentPlace);
+            async Task TakeFear(Investigator investigator) => await _gameActionsProvider.Create<HarmToInvestigatorGameAction>()
+                .SetWith(investigator, this, amountFear: 1).Execute();
         }
 
         private bool TakeFearCondition(DefeatCardGameAction defeatCardGameAction)
@@ -43,7 +37,5 @@ namespace MythosAndHorrors.GameRules
             if (defeatCardGameAction.Card != this) return false;
             return true;
         }
-
-        /*******************************************************************/
     }
 }

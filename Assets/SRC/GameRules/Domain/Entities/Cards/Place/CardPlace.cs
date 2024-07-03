@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardPlace : Card, IRevealable
     {
-        private IEnumerable<CardPlace> _connectedPlacesToMove;
+        //private IEnumerable<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -18,6 +18,8 @@ namespace MythosAndHorrors.GameRules
         public Stat InvestigationTurnsCost { get; private set; }
         public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
+        public Conditional CanBeInvestigated { get; private set; }
+        public Conditional CanMoveHere { get; protected set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
 
         /*******************************************************************/
@@ -28,9 +30,9 @@ namespace MythosAndHorrors.GameRules
             .Where(creature => creature.CurrentPlace == this);
         public IEnumerable<Investigator> InvestigatorsInThisPlace => _investigatorsProvider.AllInvestigatorsInPlay
             .Where(investigator => investigator.CurrentPlace == this);
-        public IEnumerable<CardPlace> ConnectedPlacesToMove =>
-            _connectedPlacesToMove ??= ExtraInfo?.ConnectedPlaces?
-            .Select(code => _cardsProvider.GetCardByCode(code)).Where(card => card.IsInPlay).OfType<CardPlace>();
+        public IEnumerable<CardPlace> ConnectedPlacesToMove => ExtraInfo?.ConnectedPlaces?
+            .Select(code => _cardsProvider.GetCardByCode(code)).Cast<CardPlace>()
+            .Where(cardPlace => cardPlace.CanMoveHere.IsActive);
         public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/
@@ -44,6 +46,8 @@ namespace MythosAndHorrors.GameRules
             MoveTurnsCost = CreateStat(1);
             Revealed = CreateState(false);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
+            CanBeInvestigated = new Conditional(() => Revealed.IsActive);
+            CanMoveHere = new Conditional(() => IsInPlay);
             CreateBaseReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 
