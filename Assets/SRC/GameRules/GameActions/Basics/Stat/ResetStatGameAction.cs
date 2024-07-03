@@ -1,28 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ResetStatGameAction : GameAction
+    public class ResetStatGameAction : UpdateStatGameAction
     {
-        public IEnumerable<Stat> Stats { get; private set; }
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new UpdateStatGameAction SetWith(Stat stat, int value) => throw new NotImplementedException();
 
-        /*******************************************************************/
-        public ResetStatGameAction SetWith(Stat stat) => SetWith(new[] { stat });
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new UpdateStatGameAction SetWith(Dictionary<Stat, int> statsWithValues) => throw new NotImplementedException();
 
-        public ResetStatGameAction SetWith(IEnumerable<Stat> stats)
+        public ResetStatGameAction SetWith(Stat stat)
         {
-            Stats = stats;
+            base.SetWith(stat, stat.InitialValue);
             return this;
         }
 
-        /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
+        public ResetStatGameAction SetWith(IEnumerable<Stat> stats)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>()
-                .SetWith(Stats.ToDictionary(stat => stat, stat => stat.InitialValue))
-                .Execute();
+            base.SetWith(stats.ToDictionary(stat => stat, stat => stat.InitialValue));
+            return this;
         }
     }
 }

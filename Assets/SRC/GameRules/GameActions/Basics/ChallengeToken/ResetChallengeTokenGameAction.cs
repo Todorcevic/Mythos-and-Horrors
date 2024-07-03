@@ -2,22 +2,19 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ResetChallengeTokenGameAction : GameAction
+    public class ResetChallengeTokenGameAction : UpdateChallengeTokenGameAction
     {
-        public ChallengeToken ChallengeToken { get; private set; }
-
-        /*******************************************************************/
         public ResetChallengeTokenGameAction SetWith(ChallengeToken challengeToken)
         {
-            ChallengeToken = challengeToken;
+            SetWith(challengeToken, challengeToken.Value, challengeToken.Effect);
             return this;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
-                .SetWith(ChallengeToken, ChallengeToken.InitialValue, ChallengeToken.InititalEffect).Execute();
+            ChallengeToken.ResetToken();
+            await Task.CompletedTask;
         }
     }
 }
