@@ -27,6 +27,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (CurrentPlace != investigator.CurrentPlace) return false;
+            if (!investigator.CanPayHints.IsActive) return false;
             if (investigator.Hints.Value < 2) return false;
             return true;
         }

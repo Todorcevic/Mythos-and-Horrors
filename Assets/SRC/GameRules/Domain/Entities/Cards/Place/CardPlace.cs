@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class CardPlace : Card, IRevealable
     {
-        //private IEnumerable<CardPlace> _connectedPlacesToMove;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -46,7 +45,7 @@ namespace MythosAndHorrors.GameRules
             MoveTurnsCost = CreateStat(1);
             Revealed = CreateState(false);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
-            CanBeInvestigated = new Conditional(() => Revealed.IsActive);
+            CanBeInvestigated = new Conditional(() => IsInPlay && Revealed.IsActive);
             CanMoveHere = new Conditional(() => IsInPlay);
             CreateBaseReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }

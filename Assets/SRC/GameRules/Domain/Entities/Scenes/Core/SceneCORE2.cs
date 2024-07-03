@@ -258,11 +258,6 @@ namespace MythosAndHorrors.GameRules
                 async Task DropHint() =>
                                 await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Execute();
-
-
-                //await _gameActionsProvider.Create(new DropHintGameAction(
-                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1));
             }
 
             async Task DangerHardEffect()
@@ -275,12 +270,6 @@ namespace MythosAndHorrors.GameRules
                                     await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
                     amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Execute();
-
-
-                //await _gameActionsProvider.Create(new DropHintGameAction(
-                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                //    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
-                //    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value));
             }
         }
     }

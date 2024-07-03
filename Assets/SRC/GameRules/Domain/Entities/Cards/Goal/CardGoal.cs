@@ -67,14 +67,15 @@ namespace MythosAndHorrors.GameRules
         protected virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
 
             await _gameActionsProvider.Create<PayHintsToGoalGameAction>()
-            .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Hints.Value > 0))
+            .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayHints.IsActive))
             .Execute();
 
         protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayHints.IsActive)
+                .Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
             return true;
         }
     }

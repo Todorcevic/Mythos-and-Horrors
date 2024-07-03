@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public IReaction AvoidPayHintReaction { get; private set; }
         public IReaction AvoidGainHintReaction { get; private set; }
-
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
            .OrderByDescending(investigator => investigator.Hints.Value).First();
         public CardPlace SpawnPlace => TargetInvestigator.CurrentPlace;
@@ -32,8 +29,6 @@ namespace MythosAndHorrors.GameRules
             CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff);
             AvoidGainHintReaction = CreateForceReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, GameActionTime.Initial);
             AvoidGainHintReaction.Disable();
-            AvoidPayHintReaction = CreateForceReaction<PayHintsToGoalGameAction>(CantPayHintsCondition, CantPayHintsLogic, GameActionTime.Before);
-            AvoidPayHintReaction.Disable();
         }
 
         /*******************************************************************/
@@ -43,17 +38,15 @@ namespace MythosAndHorrors.GameRules
         private async Task CantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
             AvoidGainHintReaction.Enable();
-            CantPayHintsLogic();
-            AvoidPayHintReaction.Enable();
-            await Task.CompletedTask;
+            CardInvestigator investigatorCard = cards.Cast<CardInvestigator>().First();
+            await _gameActionsProvider.Create<UpdateConditionalGameAction>().SetWith(investigatorCard.CanPayHints, false).Execute();
         }
 
         private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
             AvoidGainHintReaction.Disable();
-            DisableCantPayHintsLogic();
-            AvoidPayHintReaction.Disable();
-            await Task.CompletedTask;
+            CardInvestigator investigatorCard = cards.Cast<CardInvestigator>().First();
+            await _gameActionsProvider.Create<ResetConditionalGameAction>().SetWith(investigatorCard.CanPayHints).Execute();
         }
 
         /*******************************************************************/
@@ -67,38 +60,6 @@ namespace MythosAndHorrors.GameRules
         {
             gainHintGameAction.Cancel();
             await Task.CompletedTask;
-        }
-
-        bool CantPayHintsCondition(PayHintsToGoalGameAction payHintToGoalGameAction)
-        {
-            if (!payHintToGoalGameAction.InvestigatorsToPay.Contains(ConfrontedInvestigator)) return false;
-            return true;
-        }
-
-        async Task CantPayHintsLogic(PayHintsToGoalGameAction payHintToGoalGameAction)
-        {
-            IEnumerable<Investigator> investigatorsToPay = payHintToGoalGameAction.InvestigatorsToPay.Except(new[] { ConfrontedInvestigator });
-            payHintToGoalGameAction.UpdateInvestigatorsToPay(investigatorsToPay);
-            await Task.CompletedTask;
-        }
-
-        /*******************************************************************/
-        void CantPayHintsLogic()
-        {
-            GameConditionWith<Investigator> payCondition = _chaptersProvider.CurrentScene.CurrentGoal.PayHints.Condition;
-            payCondition.AddCondition(NewPayCondition);
-
-            bool NewPayCondition(Investigator investigator)
-            {
-                if (_investigatorsProvider.AllInvestigatorsInPlay.Except(new[] { ConfrontedInvestigator })
-                    .Sum(investigator => investigator.Hints.Value) < _chaptersProvider.CurrentScene.CurrentGoal.Hints.Value) return false;
-                return true;
-            }
-        }
-
-        void DisableCantPayHintsLogic()
-        {
-            _chaptersProvider.CurrentScene.CurrentGoal.PayHints.Condition.Reset();
         }
     }
 }

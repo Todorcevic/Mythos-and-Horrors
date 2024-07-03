@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (Revealed.IsActive) return false;
-            if (investigator.Hints.Value < 1) return false;
+            if (!investigator.CanPayHints.IsActive) return false;
             return true;
         }
 

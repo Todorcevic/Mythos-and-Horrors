@@ -32,6 +32,7 @@ namespace MythosAndHorrors.GameRules
         public State Defeated { get; private set; }
         public State IsPlaying { get; private set; }
         public State Isolated { get; private set; }
+        public Conditional CanPayHints { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
         public override bool IsInPlay => CurrentZone.ZoneType == ZoneType.Investigator;
@@ -63,6 +64,7 @@ namespace MythosAndHorrors.GameRules
             Defeated = CreateState(false, isReseteable: false);
             IsPlaying = CreateState(false);
             Isolated = CreateState(false);
+            CanPayHints = new Conditional(() => Hints.Value > 0);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);

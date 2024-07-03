@@ -94,6 +94,7 @@ namespace MythosAndHorrors.GameRules
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
         public State Isolated => InvestigatorCard.Isolated;
+        public Conditional CanPayHints => InvestigatorCard.CanPayHints;
 
         /*******************************************************************/
         [Inject]
