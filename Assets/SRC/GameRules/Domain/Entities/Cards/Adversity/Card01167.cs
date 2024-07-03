@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task DiscardOrFear()
             {
-                IEnumerable<CardSupply> cardSuppliesForDiscard = investigator.AidZone.Cards.OfType<CardSupply>().Where(supply => supply.CanBeDiscarded);
+                IEnumerable<CardSupply> cardSuppliesForDiscard = investigator.AidZone.Cards.OfType<CardSupply>().Where(supply => supply.CanBeDiscarted.IsActive);
                 if (cardSuppliesForDiscard.Any())
                 {
                     InteractableGameAction interactableGameAcrtion = _gameActionsProvider.Create<InteractableGameAction>().SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Discard");

@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (revealChallengeTokenGameAction.Investigator != Owner) return false;
-            if (!Owner.HandZone.Cards.Any(card => card.CanBeDiscarded)) return false;
+            if (!Owner.HandZone.Cards.Any(card => card.CanBeDiscarted.IsActive)) return false;
             if (AbilityUsed.IsActive) return false;
             return true;
         }

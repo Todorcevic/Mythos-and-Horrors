@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                     .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay");
-                foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarded))
+                foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive))
                 {
                     interactableGameAction.CreateEffect(card,
                         new Stat(0, false),
