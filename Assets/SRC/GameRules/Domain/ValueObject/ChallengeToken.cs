@@ -31,10 +31,10 @@ namespace MythosAndHorrors.GameRules
             Effect = newEffect;
         }
 
-        //public void ResetToken()
-        //{
-        //    Value = InitialValue;
-        //    Effect = InititalEffect;
-        //}
+        public void ResetToken()
+        {
+            Value = InitialValue;
+            Effect = InititalEffect;
+        }
     }
 }
