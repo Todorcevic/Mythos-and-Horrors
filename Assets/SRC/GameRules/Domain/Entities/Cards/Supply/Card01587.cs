@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
@@ -19,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
+            CreateFastActivation(InvestigateLogic, InvestigateCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
@@ -34,10 +33,19 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigateLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
-            await _gameActionsProvider.Create<InvestigatePlaceGameAction>().SetWith(investigator, investigator.CurrentPlace).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+            await interactable.Execute();
+
+            /*******************************************************************/
+            async Task Investigate()
+            {
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
+                await _gameActionsProvider.Create<InvestigatePlaceGameAction>().SetWith(investigator, investigator.CurrentPlace).Execute();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 2).Execute();
+            }
         }
     }
 }

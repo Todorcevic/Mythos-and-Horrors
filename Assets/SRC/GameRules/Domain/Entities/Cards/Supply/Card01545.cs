@@ -14,22 +14,31 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
+            CreateFastActivation(InvestigationLogic, InvestigationCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
         private async Task InvestigationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
-
-            InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(investigator, investigator.CurrentPlace);
-            investigate.SuccesEffects.Clear();
-            investigate.SuccesEffects.Add(GainResources);
-            await investigate.Execute();
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+            await interactable.Execute();
 
             /*******************************************************************/
-            async Task GainResources() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 3).Execute();
+
+            async Task Investigate()
+            {
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+                InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                    .SetWith(investigator, investigator.CurrentPlace);
+                investigate.SuccesEffects.Clear();
+                investigate.SuccesEffects.Add(GainResources);
+                await investigate.Execute();
+
+                /*******************************************************************/
+                async Task GainResources() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 3).Execute();
+            }
         }
 
         private bool InvestigationCondition(Investigator investigator)

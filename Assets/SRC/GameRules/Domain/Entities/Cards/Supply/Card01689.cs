@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.MagicCharge);
-            CreateActivation(1, InvestigateLogic, InvestigateCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
+            CreateFastActivation(InvestigateLogic, InvestigateCondition, PlayActionType.Activate);
             CreateForceReaction<ResolveChallengeGameAction>(ResolveCondition, ResolveLogic, GameActionTime.After);
         }
 
@@ -59,15 +59,22 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigateLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
-            _investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(investigator, investigator.CurrentPlace);
-            _investigatePlaceGameAction.ChangeStat(investigator.Power);
-            _investigatePlaceGameAction.UpdateAmountHints(_investigatePlaceGameAction.AmountHints + 1);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Execute();
-            await _investigatePlaceGameAction.Execute();
-        }
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+            await interactable.Execute();
 
-        /*******************************************************************/
+            /*******************************************************************/
+            async Task Investigate()
+            {
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+                _investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                    .SetWith(investigator, investigator.CurrentPlace);
+                _investigatePlaceGameAction.ChangeStat(investigator.Power);
+                _investigatePlaceGameAction.UpdateAmountHints(_investigatePlaceGameAction.AmountHints + 1);
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Execute();
+                await _investigatePlaceGameAction.Execute();
+            }
+        }
     }
 }

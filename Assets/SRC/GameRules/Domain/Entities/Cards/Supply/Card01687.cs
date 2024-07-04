@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tool, Tag.Illicit };
-
         public Charge Charge { get; private set; }
 
         /*******************************************************************/
@@ -19,10 +18,11 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Investigate, cardAffected: () => ControlOwner.CurrentPlace);
+            CreateFastActivation(InvestigationLogic, InvestigationCondition, PlayActionType.Activate);
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
+        /*******************************************************************/
         private bool InvestigationCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
@@ -33,15 +33,23 @@ namespace MythosAndHorrors.GameRules
 
         private async Task InvestigationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+            await interactable.Execute();
 
-            InvestigatePlaceGameAction investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(investigator, investigator.CurrentPlace);
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Execute();
-            await investigatePlaceGameAction.Execute();
+            /*******************************************************************/
+            async Task Investigate()
+            {
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+                InvestigatePlaceGameAction investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                    .SetWith(investigator, investigator.CurrentPlace);
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatePlaceGameAction.StatModifier, investigator.Agility.Value).Execute();
+                await investigatePlaceGameAction.Execute();
 
-            if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2)
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+                if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2)
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            }
         }
 
         /*******************************************************************/

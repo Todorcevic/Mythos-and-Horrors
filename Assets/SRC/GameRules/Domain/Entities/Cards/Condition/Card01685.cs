@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,40 +12,58 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
-        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Investigate;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
         private IEnumerable<CardPlace> PlacesWithHints(Investigator investigator) =>
             investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace).Where(place => place.Hints.Value > 0);
         public override Func<Card> CardAffected => () => ControlOwner.CurrentPlace;
 
         /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            PlayFromHandTurnsCost = CreateStat(0);
+        }
+
+        /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            int amoutHintsLeft = 2;
-            InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(investigator, investigator.CurrentPlace);
-            investigate.SuccesEffects.Clear();
-            investigate.SuccesEffects.Add(ChooseHints);
-            await investigate.Execute();
+            InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+
+            await interactable.Execute();
 
             /*******************************************************************/
-            async Task ChooseHints()
+            async Task Investigate()
             {
-                InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
+                int amoutHintsLeft = 2;
+                InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
+                    .SetWith(investigator, investigator.CurrentPlace);
+                investigate.SuccesEffects.Clear();
+                investigate.SuccesEffects.Add(ChooseHints);
+                await investigate.Execute();
 
-                foreach (CardPlace place in PlacesWithHints(investigator))
+                /*******************************************************************/
+                async Task ChooseHints()
                 {
-                    chooseHints.CreateEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator);
+                    InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Place");
 
-                    async Task TakeHint()
+                    foreach (CardPlace place in PlacesWithHints(investigator))
                     {
-                        await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 1).Execute();
-                        amoutHintsLeft--;
-                        if (amoutHintsLeft > 0) await ChooseHints();
-                    }
-                }
+                        chooseHints.CreateEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator);
 
-                await chooseHints.Execute();
+                        async Task TakeHint()
+                        {
+                            await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, place.Hints, 1).Execute();
+                            amoutHintsLeft--;
+                            if (amoutHintsLeft > 0) await ChooseHints();
+                        }
+                    }
+                    await chooseHints.Execute();
+                }
             }
         }
 

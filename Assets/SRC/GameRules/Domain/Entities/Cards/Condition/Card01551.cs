@@ -13,8 +13,8 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
-        protected IEnumerable<CardCreature> AttackbleCreatures =>
-            ControlOwner?.CreaturesInSamePlace.Where(creature => creature.InvestigatorAttackTurnsCost.Value <= ControlOwner.CurrentTurns.Value);
+        protected IEnumerable<CardCreature> AttackbleCreatures(Investigator investigator) =>
+            investigator.CreaturesInSamePlace.Where(creature => creature.InvestigatorAttackTurnsCost.Value <= investigator.CurrentTurns.Value);
 
         /*******************************************************************/
         [Inject]
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, description: "Choose Enemy");
 
-            foreach (CardCreature creature in AttackbleCreatures)
+            foreach (CardCreature creature in AttackbleCreatures(investigator))
             {
                 chooseEnemy.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator);
 
@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!AttackbleCreatures.Any()) return false;
+            if (!AttackbleCreatures(investigator).Any()) return false;
             return true;
         }
     }
