@@ -28,6 +28,7 @@ namespace MythosAndHorrors.GameRules
         private bool Condition(Investigator investigator)
         {
             if (!IsInPlay) return false;
+            if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
             if (Charge.IsEmpty) return false;
             return true;
@@ -53,7 +54,6 @@ namespace MythosAndHorrors.GameRules
                     await SortCards(cards, inv);
                 }
             }
-
 
             await interactableGameAction.Execute();
 

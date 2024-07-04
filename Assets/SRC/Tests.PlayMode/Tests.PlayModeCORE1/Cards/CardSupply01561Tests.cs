@@ -35,6 +35,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(card3);
             yield return ClickedIn(card1);
             yield return ClickedIn(card2);
+            yield return AssertThatIsNotClickable(supply);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
