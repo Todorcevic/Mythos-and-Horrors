@@ -13,8 +13,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public State AbilityUsed { get; private set; }
-
         private IEnumerable<Card> TomesInPlay() => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
+        private IEnumerable<Card> AllActivableTomes => _cardsProvider.AllCards
+            .Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable);
         public override IEnumerable<Tag> Tags => new[] { Tag.Miskatonic };
 
         /*******************************************************************/
@@ -34,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Tome");
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Execute();
 
-            foreach (Card activable in _cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable))
+            foreach (Card activable in AllActivableTomes)
             {
                 foreach (Activation<Investigator> activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
@@ -57,7 +58,7 @@ namespace MythosAndHorrors.GameRules
             if (AbilityUsed.IsActive) return false;
             if (!IsInPlay) return false;
             if (Owner != activeInvestigator) return false;
-            if (!_cardsProvider.AllCards.Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable).Any()) return false;
+            if (!AllActivableTomes.Any()) return false;
             return true;
         }
 

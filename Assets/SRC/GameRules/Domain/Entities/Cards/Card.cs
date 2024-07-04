@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public virtual Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
         public virtual bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
-        public bool IsActivable => AllActivations.Any();
+        public bool IsActivable => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner));
         private bool CanBeDiscarded
         {
             get
@@ -106,14 +106,14 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        protected Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, Func<Card> cardAffected = null)
+        protected Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, Card cardAffected = null)
         {
             Activation<Investigator> newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType, cardAffected);
             _specificAbilities.Add(newActivation);
             return newActivation;
         }
 
-        protected Activation<Investigator> CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, Func<Card> cardAffected = null)
+        protected Activation<Investigator> CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, Card cardAffected = null)
         {
             return CreateActivation(0, logic, condition, playActionType, cardAffected);
         }

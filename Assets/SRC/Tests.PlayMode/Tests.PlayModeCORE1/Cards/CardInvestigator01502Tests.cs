@@ -18,7 +18,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card tomeCard2 = _cardsProvider.GetCard<Card01535>();
             Card01509 necro = _cardsProvider.GetCard<Card01509>();
             CardPlace place = SceneCORE1.Cellar;
-            Investigator investigatorToTest = _investigatorsProvider.Second;
+            CardInvestigator cardInvestigator = _cardsProvider.GetCard<Card01502>();
+            Investigator investigatorToTest = cardInvestigator.Owner;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigatorToTest);
@@ -43,7 +44,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card01535 tomeCard = _cardsProvider.GetCard<Card01535>();
             Investigator investigatorToTest = _investigatorsProvider.Second;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value0);
-            yield return StartingScene();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigatorToTest, withResources: false);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
@@ -67,19 +69,46 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Card tomeCard = _cardsProvider.GetCard<Card01535>();
             Investigator investigatorToTest = _investigatorsProvider.Second;
-            yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigatorToTest);
 
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedUndoButton();
-
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
 
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+        }
+
+        [UnityTest]
+        public IEnumerator CantActivateWhenTomeIsExhaust()
+        {
+            Card tomeCard = _cardsProvider.GetCard<Card01531>();
+            Card customCard = _cardsProvider.GetCard<Card01535>();
+            Investigator investigatorToTest = _investigatorsProvider.Second;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigatorToTest);
+
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(customCard, investigatorToTest.DeckZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
+            yield return ClickedTokenButton();
+            yield return ClickedIn(tomeCard);
+            yield return ClickedIn(investigatorToTest.InvestigatorCard);
+            yield return ClickedIn(customCard);
+            yield return ClickedTokenButton();
+            yield return AssertThatIsNotClickable(investigatorToTest.InvestigatorCard);
+            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(tomeCard.Exausted.IsActive, Is.True);
         }
     }
 }

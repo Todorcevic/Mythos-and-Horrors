@@ -181,8 +181,9 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator AssertThatIsClickable(Card card, bool isClickable = true)
         {
+            string message = isClickable ? "Not become clickable" : "Become clickable";
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
-                Assert.That(fakeInteractable.IsClickable(card) == isClickable);
+                Assert.That(fakeInteractable.IsClickable(card) == isClickable, $"{card} is {message}");
 
             else if (TestsType == TestsType.Integration)
             {
@@ -191,7 +192,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
                 while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
-                Assert.That(cardSensor.IsClickable == isClickable);
+                Assert.That(cardSensor.IsClickable == isClickable, $"{card} is {message}");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
         }

@@ -210,7 +210,7 @@ namespace MythosAndHorrors.GameRules
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
                     ActiveInvestigator,
-                    cardAffected: activation.CardAffected?.Invoke());
+                    cardAffected: activation.CardAffected);
 
                 async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }

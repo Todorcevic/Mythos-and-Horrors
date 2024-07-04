@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, cardAffected: () => Urmodoth);
+            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, cardAffected: Urmodoth);
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
         }

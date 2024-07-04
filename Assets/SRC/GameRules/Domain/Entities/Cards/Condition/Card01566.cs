@@ -10,7 +10,14 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
-        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Elude;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
+
+        /*******************************************************************/
+        [Inject]
+        private void Init()
+        {
+            PlayFromHandTurnsCost = CreateStat(0);
+        }
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
@@ -20,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                chooseEnemy.CreateEffect(creature, new Stat(0, false), EludeCreature, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, creature.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, cardAffected: this);
 
                 async Task EludeCreature()
                 {

@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class Activation<T> : ITriggered
     {
         public Card Card { get; }
-        public Func<Card> CardAffected { get; }
+        public Card CardAffected { get; }
         public Stat ActivateTurnsCost { get; }
         public GameCommand<T> Logic { get; }
         public GameConditionWith<T> Condition { get; }
@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
-        public Activation(Card card, Stat activateTurnsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Func<Card> cardAffected)
+        public Activation(Card card, Stat activateTurnsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Card cardAffected)
         {
             Card = card;
             CardAffected = cardAffected;

@@ -12,13 +12,12 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Ally, Tag.Criminal };
 
-
         /*******************************************************************/
         [Inject]
         public void Init()
         {
             CreateBuff(CardToSelect, BuffOn, BuffOff);
-            CreateActivation(1, Logic, Condition, PlayActionType.Elude);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
@@ -37,8 +36,9 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                interactableGameAction.CreateEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, playedBy: investigator);
+                interactableGameAction.CreateEffect(place, place.MoveTurnsCost, MoveAndUnconfront, PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, cardAffected: this);
 
+                /*******************************************************************/
                 async Task MoveAndUnconfront() =>
                     await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>().SetWith(investigator, place).Execute();
             }

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator);
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator, cardAffected: this);
 
                 /*******************************************************************/
                 async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Execute();
