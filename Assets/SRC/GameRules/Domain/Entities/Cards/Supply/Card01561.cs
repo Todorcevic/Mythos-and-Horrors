@@ -35,6 +35,9 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
             interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck, PlayActionType.Choose, investigator);
@@ -51,7 +54,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+
             await interactableGameAction.Execute();
 
             /*******************************************************************/

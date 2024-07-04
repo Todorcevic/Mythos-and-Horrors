@@ -74,6 +74,7 @@ namespace MythosAndHorrors.GameRules
         protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
             PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
+            if (time == GameActionTime.Initial) throw new ArgumentException("Initial time is not allowed for OptativeReactions");
             OptativeReaction<T> realReaction = _realReactionsProvider.CreateOptativeReaction(this, condition, logic, time, playActionType);
             _specificAbilities.Add(realReaction);
             return realReaction;
