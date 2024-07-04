@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class CardConditionPlayFromHand : CardCondition, IPlayableFromHand
     {
-        public Stat PlayFromHandTurnsCost { get; private set; }
+        public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }
 
         public virtual Func<Card> CardAffected => null;

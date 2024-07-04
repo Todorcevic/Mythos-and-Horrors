@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ChooseEnemyLogic, AttackCondition, PlayActionType.Attack);
+            CreateFastActivation(ChooseEnemyLogic, AttackCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
-                chooseEnemy.CreateEffect(creature, new Stat(0, false), AttackCreature, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator);
 
                 /*******************************************************************/
                 async Task AttackCreature()

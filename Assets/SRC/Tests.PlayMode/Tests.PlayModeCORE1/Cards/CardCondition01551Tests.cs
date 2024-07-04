@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedTokenButton();
             yield return ClickedTokenButton();
             yield return ClickedIn(SceneCORE1.Attic);
-            if (TestsType == TestsType.Unit) Assert.That(conditionCard.CanBePlayed, Is.False);
+            yield return AssertThatIsNotClickable(conditionCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

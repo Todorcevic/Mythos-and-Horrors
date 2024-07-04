@@ -61,6 +61,34 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         }
 
         [UnityTest]
+        public IEnumerator AttackWithWeaponCostExtraTurn()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
+            Card01506 weapon = _cardsProvider.GetCard<Card01506>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1)); ;
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(weapon, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+            yield return ClickedIn(weapon);
+            yield return ClickedIn(SceneCORE1.GhoulSecuaz);
+            yield return ClickedMainButton();
+            yield return ClickedTokenButton();
+            yield return AssertThatIsNotClickable(SceneCORE1.Attic);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+            Assert.That(cardAdversity.Wasted.IsActive, Is.False);
+        }
+
+        [UnityTest]
         public IEnumerator TakeResources()
         {
             Investigator investigator = _investigatorsProvider.First;

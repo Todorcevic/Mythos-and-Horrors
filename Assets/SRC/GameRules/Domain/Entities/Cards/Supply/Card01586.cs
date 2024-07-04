@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ThrowingState = CreateState(false);
-            CreateActivation(1, ThrowAttackLogic, AttackCondition, PlayActionType.Attack);
+            CreateFastActivation(ThrowAttackLogic, AttackCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
