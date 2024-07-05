@@ -25,8 +25,9 @@ namespace MythosAndHorrors.GameRules
         private bool InvestigateCondition(Investigator investigator)
         {
             if (!IsInPlay) return false;
-            if (Charge.Amount.Value < 1) return false;
+            if (Charge.IsEmpty) return false;
             if (investigator != ControlOwner) return false;
+            if (!investigator.CanInvestigate) return false;
             if (!investigator.CurrentPlace.CanBeInvestigated.IsActive) return false;
             return true;
         }

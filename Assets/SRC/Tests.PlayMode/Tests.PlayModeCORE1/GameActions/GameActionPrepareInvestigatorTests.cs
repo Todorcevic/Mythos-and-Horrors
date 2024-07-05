@@ -22,7 +22,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(supply.IsInPlay, Is.True);
-
         }
     }
 }

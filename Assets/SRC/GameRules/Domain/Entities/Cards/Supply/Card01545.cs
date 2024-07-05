@@ -45,6 +45,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (ControlOwner != investigator) return false;
+            if (!investigator.CanInvestigate) return false;
             if (!ControlOwner.CurrentPlace.CanBeInvestigated.IsActive) return false;
             return true;
         }

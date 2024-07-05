@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
-            await Mulligan();
-            await DrawInitialHand();
+            //await Mulligan();
+            //await DrawInitialHand();
         }
 
         private async Task PositionateInvestigatorCard()
