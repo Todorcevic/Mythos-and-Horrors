@@ -89,8 +89,8 @@ namespace MythosAndHorrors.GameRules
         {
             discardGameAction.Cancel();
             await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(discardGameAction.Card, ControlOwner.DeckZone, isFaceDown: true).Execute();
-            await _gameActionsProvider.Create<ChangeCardPositionGameAction>().SetWith(discardGameAction.Card, 0).Execute();
+                .SetWith(discardGameAction.Cards, ControlOwner.DeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ChangeCardPositionGameAction>().SetWith(discardGameAction.Cards.First(), 0).Execute();
         }
 
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -8,31 +9,33 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public Card Card { get; private set; }
+        public IEnumerable<Card> Cards { get; private set; }
 
         /*******************************************************************/
-        public DiscardGameAction SetWith(Card card)
+        public DiscardGameAction SetWith(Card card) => SetWith(new Card[] { card });
+
+        public DiscardGameAction SetWith(IEnumerable<Card> cards)
         {
-            Card = card;
+            Cards = cards;
             return this;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            Zone zoneToMove = GetDiscardZone();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Card, zoneToMove).Execute();
-            await _gameActionsProvider.Create<ResetCardGameAction>().SetWith(Card).Execute();
+            Dictionary<Card, Zone> discardResult = Cards.ToDictionary(card => card, card => GetDiscardZone(card));
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(discardResult).Execute();
+            await _gameActionsProvider.Create<ResetCardGameAction>().SetWith(Cards).Execute();
         }
 
-        private Zone GetDiscardZone()
+        private Zone GetDiscardZone(Card card)
         {
-            if (Card.IsVictory) return _chaptersProvider.CurrentScene.VictoryZone;
+            if (card.IsVictory) return _chaptersProvider.CurrentScene.VictoryZone;
 
-            if (_chaptersProvider.CurrentScene.StartDeckDangerCards.Contains(Card))
+            if (_chaptersProvider.CurrentScene.StartDeckDangerCards.Contains(card))
                 return _chaptersProvider.CurrentScene.DangerDiscardZone;
 
-            return Card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;
+            return card.Owner?.DiscardZone ?? _chaptersProvider.CurrentScene.OutZone;
         }
     }
 }
