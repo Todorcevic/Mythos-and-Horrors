@@ -26,8 +26,9 @@ namespace MythosAndHorrors.GameRules
             await PositionateDeck();
             await CollectResources();
             await DrawInitialHand();
-            //await Mulligan();
-            //await DrawInitialHand();
+            await Mulligan();
+            await DrawInitialHand();
+            await RestoreCards();
         }
 
         private async Task PositionateInvestigatorCard()
@@ -63,6 +64,13 @@ namespace MythosAndHorrors.GameRules
         private async Task Mulligan()
         {
             await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
+        }
+
+        private async Task RestoreCards()
+        {
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+                .SetWith(ActiveInvestigator.DiscardZone.Cards, ActiveInvestigator.DeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ActiveInvestigator.DeckZone).Execute();
         }
     }
 }
