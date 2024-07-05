@@ -2,15 +2,15 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PlayDrawActivableGameAction : GameAction
+    public class PlayDrawRevelationGameAction : GameAction
     {
-        public IDrawActivable DrawActivable { get; private set; }
+        public IDrawRevelation DrawActivable { get; private set; }
         public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public PlayDrawActivableGameAction SetWith(IDrawActivable drawActivable, Investigator investigator)
+        public PlayDrawRevelationGameAction SetWith(IDrawRevelation drawRevelation, Investigator investigator)
         {
-            DrawActivable = drawActivable;
+            DrawActivable = drawRevelation;
             Investigator = investigator;
             return this;
         }

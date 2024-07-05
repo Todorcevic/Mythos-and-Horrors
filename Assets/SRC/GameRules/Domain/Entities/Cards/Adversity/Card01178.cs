@@ -20,8 +20,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task DrawAndEldritch()
             {
-                await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
-                await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
+                await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator, 2).Execute();
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 2).Execute();
                 await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
             }

@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public interface IDrawActivable
+    public interface IDrawRevelation
     {
         Zone ZoneToMoveWhenDraw(Investigator investigator);
 

@@ -10,7 +10,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            if (investigator.Hints.Value < 1) await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
+            if (investigator.Hints.Value < 1) //No have hints
+                await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
             else
             {
                 ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();

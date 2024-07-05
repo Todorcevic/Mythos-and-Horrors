@@ -2,7 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardAdversity : Card, IDrawActivable
+    public abstract class CardAdversity : Card, IDrawRevelation
     {
         /*******************************************************************/
         public abstract Zone ZoneToMoveWhenDraw(Investigator investigator);
