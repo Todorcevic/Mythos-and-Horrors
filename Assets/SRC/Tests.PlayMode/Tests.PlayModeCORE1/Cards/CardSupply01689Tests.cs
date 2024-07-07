@@ -1,5 +1,4 @@
-﻿
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
