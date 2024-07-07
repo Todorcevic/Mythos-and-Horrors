@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitPresenter;
@@ -43,9 +44,22 @@ namespace MythosAndHorrors.GameRules
             {
                 CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
 
+                /*******************************************************************/
                 async Task Commit()
                 {
                     await _gameActionsProvider.Create<CommitGameAction>().SetWith(commitableCard).Execute();
+                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
+                }
+            }
+
+            foreach (CommitableCard commitableCard in _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>().Where(commitable => commitable.Commited.IsActive))
+            {
+                CreateEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit, commitableCard.InvestigatorCommiter, cardAffected: CurrentChallenge.CardToChallenge);
+
+                /*******************************************************************/
+                async Task Uncommit()
+                {
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(commitableCard, commitableCard.InvestigatorCommiter.HandZone).Execute();
                     await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
                 }
             }
@@ -60,6 +74,7 @@ namespace MythosAndHorrors.GameRules
                    PlayActionType.Activate | activation.PlayAction,
                    ActiveInvestigator);
 
+                /*******************************************************************/
                 async Task Activate()
                 {
                     await activation.PlayFor(CurrentChallenge);

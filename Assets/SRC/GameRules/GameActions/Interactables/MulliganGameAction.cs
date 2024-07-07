@@ -36,6 +36,26 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
                 }
             }
+
+            foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
+            {
+                if (!CanRestore()) continue;
+
+                CreateEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator);
+
+                /*******************************************************************/
+                async Task Restore()
+                {
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, ActiveInvestigator.HandZone).Execute();
+                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
+                }
+
+                bool CanRestore()
+                {
+                    if (card.HasThisTag(Tag.Weakness)) return false;
+                    return true;
+                }
+            }
         }
     }
 }

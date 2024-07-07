@@ -4,6 +4,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using System.Linq;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
@@ -22,6 +23,26 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(supply.IsInPlay, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator Mulligan()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            yield return BuildCard("01694", investigator);
+            Card01694 supply = _cardsProvider.GetCard<Card01694>();
+
+            yield return PlaceOnlyScene();
+            Task taskGameAction = _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Execute();
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedIn(investigator.DiscardZone.Cards.Last());
+            yield return ClickedIn(investigator.DiscardZone.Cards.Last());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.HandSize, Is.EqualTo(5));
         }
     }
 }
