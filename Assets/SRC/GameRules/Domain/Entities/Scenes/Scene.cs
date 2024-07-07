@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Zone DangerDeckZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDeck);
         public Zone DangerDiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDiscard);
@@ -59,6 +60,21 @@ namespace MythosAndHorrors.GameRules
             PrepareDefaultChallengeTokens();
             PrepareResolutions();
             _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, GameActionTime.After);
+            _reactionablesProvider.CreateReaction<MoveCardsGameAction>(CheckRestoreDeckCondition, CheckRestoreDeckLogic, GameActionTime.After);
+        }
+
+        private async Task CheckRestoreDeckLogic(MoveCardsGameAction action)
+        {
+            await _gameActionsProvider.Create<MoveCardsGameAction>()
+              .SetWith(_chaptersProvider.CurrentScene.DangerDiscardZone.Cards, _chaptersProvider.CurrentScene.DangerDeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(_chaptersProvider.CurrentScene.DangerDeckZone).Execute();
+        }
+
+        private bool CheckRestoreDeckCondition(MoveCardsGameAction action)
+        {
+            if (DangerDeckZone.Cards.Any()) return false;
+            if (!DangerDiscardZone.Cards.Any()) return false;
+            return true;
         }
 
         /*******************************************************************/

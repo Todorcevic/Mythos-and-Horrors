@@ -10,6 +10,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionPrepareInvestigatorTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator PermanentAtStart()
         {
@@ -28,9 +30,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator Mulligan()
         {
+            if (TestsType != TestsType.Unit) yield break;
             Investigator investigator = _investigatorsProvider.First;
-            yield return BuildCard("01694", investigator);
-            Card01694 supply = _cardsProvider.GetCard<Card01694>();
 
             yield return PlaceOnlyScene();
             Task taskGameAction = _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Execute();

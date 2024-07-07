@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator Reveal()
         {
             CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
-            yield return PlayAllInvestigators();
+            yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.Study, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3)).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay, SceneCORE1.Study).Execute();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();

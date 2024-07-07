@@ -8,13 +8,15 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionCreatureAttackTests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Integration;
 
         [UnityTest]
         public IEnumerator CreatureAttackTest()
         {
             Investigator investigator = _investigatorsProvider.First;
             CardCreature cardCreature = _cardsProvider.GetCard<Card01119>();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.InvestigatorCard, investigator.InvestigatorZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCreature, investigator.DangerZone).Execute().AsCoroutine();
 
@@ -31,8 +33,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
             CardCreature cardCreature = _cardsProvider.GetCard<Card01119>();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.InvestigatorCard, investigator.InvestigatorZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.InvestigatorCard, investigator2.InvestigatorZone).Execute().AsCoroutine();
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
+
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCreature, investigator.DangerZone).Execute().AsCoroutine();
 
             yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(cardCreature, investigator2).Execute().AsCoroutine();
