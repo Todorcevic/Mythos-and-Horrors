@@ -32,7 +32,9 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DrawCardsLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator, 3).Execute();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
+            await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Execute();
         }
     }

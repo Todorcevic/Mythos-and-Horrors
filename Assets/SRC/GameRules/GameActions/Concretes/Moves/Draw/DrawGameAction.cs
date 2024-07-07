@@ -1,35 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class DrawGameAction : GameAction
     {
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
+
         public Investigator Investigator { get; private set; }
-        public IEnumerable<Card> CardsDrawed { get; private set; }
+        public Card CardDrawed { get; protected set; }
         public override bool CanUndo => false;
 
         /*******************************************************************/
-        public DrawGameAction SetWith(Investigator investigator, Card cardDrawed) => SetWith(investigator, new[] { cardDrawed });
-
-        public DrawGameAction SetWith(Investigator investigator, IEnumerable<Card> cardsDrawed)
+        public DrawGameAction SetWith(Investigator investigator, Card cardDrawed)
         {
             Investigator = investigator;
-            CardsDrawed = cardsDrawed;
+            CardDrawed = cardDrawed;
             return this;
         }
 
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(CardsToDraw, Draw).Execute();
-        }
-
-        private IEnumerable<Card> CardsToDraw() => CardsDrawed;
-
-        private async Task Draw(Card card)
-        {
-            switch (card)
+            switch (CardDrawed)
             {
                 case IDrawRevelation cardAdversity:
                     await _gameActionsProvider.Create<PlayDrawRevelationGameAction>().SetWith(cardAdversity, Investigator).Execute();
@@ -41,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(cardCreature, Investigator).Execute();
                     break;
                 default:
-                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, Investigator.HandZone).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Execute();
                     break;
             }
         }

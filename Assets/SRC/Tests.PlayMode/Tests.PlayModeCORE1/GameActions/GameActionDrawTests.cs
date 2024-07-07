@@ -25,5 +25,19 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Assert.That(investigator.DeckZone.Cards.Contains(cardToDraw), Is.False);
         }
+
+        //[UnityTest]
+        //public IEnumerator RestoreTest()
+        //{
+        //    Investigator investigator = _investigatorsProvider.First;
+        //    yield return PlayThisInvestigator(investigator);
+
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>()
+        //        .SetWith(investigator.DeckZone.Cards, investigator.DiscardZone).Execute();
+
+        //    yield return _gameActionsProvider.Create<DrawAidGameAction>().SetWith(investigator).Execute().AsCoroutine();
+
+        //    Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+        //}
     }
 }
