@@ -1,18 +1,26 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DrawAidGameAction : DrawGameAction
+    public class DrawAidGameAction : GameAction
     {
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new DrawGameAction SetWith(Investigator investigator, Card cardDrawed)
-           => throw new NotImplementedException();
+        public Investigator Investigator { get; private set; }
 
+        /*******************************************************************/
         public DrawAidGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(investigator, investigator.CardAidToDraw);
+            Investigator = investigator;
             return this;
+        }
+
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            if (Investigator.CardAidToDraw == null) await _gameActionsProvider.Create<RestoreAidDeckGameAction>().SetWith(Investigator).Execute();
+            await _gameActionsProvider.Create<DrawGameAction>().SetWith(Investigator, Investigator.CardAidToDraw).Execute();
+            if (Investigator.CardAidToDraw == null) await _gameActionsProvider.Create<RestoreAidDeckGameAction>().SetWith(Investigator).Execute();
+
         }
     }
 }

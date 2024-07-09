@@ -23,7 +23,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-
         private bool Condition(Investigator investigator)
         {
             if (!IsInPlay) return false;

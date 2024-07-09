@@ -68,24 +68,6 @@ namespace MythosAndHorrors.GameRules
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);
-            CreateBaseReaction<MoveCardsGameAction>(CheckRestoreDeckCondition, CheckRestoreDeckLogic, GameActionTime.After);
-        }
-
-        /*******************************************************************/
-        private async Task CheckRestoreDeckLogic(MoveCardsGameAction action)
-        {
-            await _gameActionsProvider.Create<MoveCardsGameAction>()
-              .SetWith(Owner.DiscardZone.Cards, Owner.DeckZone, isFaceDown: true).Execute();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(Owner.DeckZone).Execute();
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(Owner, null, amountFear: 1).Execute();
-        }
-
-        private bool CheckRestoreDeckCondition(MoveCardsGameAction action)
-        {
-            if (!IsInPlay) return false;
-            if (Owner.DeckZone.Cards.Any()) return false;
-            if (!Owner.DiscardZone.Cards.Any()) return false;
-            return true;
         }
 
         /*******************************************************************/

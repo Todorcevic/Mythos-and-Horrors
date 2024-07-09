@@ -22,6 +22,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            await CheckRestore();
+
             switch (CardDrawed)
             {
                 case IDrawRevelation cardAdversity:
@@ -37,6 +39,14 @@ namespace MythosAndHorrors.GameRules
                     await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(CardDrawed, Investigator.HandZone).Execute();
                     break;
             }
+
+            await CheckRestore();
+        }
+
+        private async Task CheckRestore()
+        {
+            if (Investigator.CardAidToDraw == null) await _gameActionsProvider.Create<RestoreAidDeckGameAction>().SetWith(Investigator).Execute();
+            if (Investigator.CardDangerToDraw == null) await _gameActionsProvider.Create<RestoreDangerDeckGameAction>().SetWith(Investigator).Execute();
         }
     }
 }
