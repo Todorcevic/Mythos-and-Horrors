@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 119371572780859952, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3748680710134981367, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,10 +54,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108029046768802330, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
       propertyPath: m_Name
-      value: Investigator
+      value: Avatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888546650383677177, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 119371572780859952, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65aea4a2374a2140b57b905ea511c1b, type: 3}
