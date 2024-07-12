@@ -3,7 +3,6 @@ using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -13,11 +12,13 @@ namespace MythosAndHorrors.GameView.NEWS
     {
         private CardEffect _cloneEffect;
         [Title(nameof(CardView))]
-        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _title;
-        [SerializeField, Required, ChildGameObjectsOnly] protected TextMeshPro _description;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
+        [SerializeField, Required, ChildGameObjectsOnly] private PictureController _pictureController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TitleController _titleController;
+        [SerializeField, Required, ChildGameObjectsOnly] private DescriptionController _descriptionController;
         [SerializeField, Required, ChildGameObjectsOnly] private BadgeController _badgeController;
-        [SerializeField, Required, ChildGameObjectsOnly] private SkillStatsController _skillStstController;
+        [SerializeField, Required, ChildGameObjectsOnly] private SkillStatsController _skillStatsController;
+
+
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
@@ -45,40 +46,22 @@ namespace MythosAndHorrors.GameView.NEWS
         /*******************************************************************/
         private void SetCommon(ZoneView currentZoneView)
         {
-            SetPicture();
+            _pictureController.Init(Card);
+            _titleController.Init(Card);
+            _descriptionController.Init(Card);
+            _badgeController.Init(Card);
+            _skillStatsController.Init(Card);
+
             SetInitialCurrentZoneView(currentZoneView);
             name = Card.Info.Code;
             _ownZoneCardView.Init(Card.OwnZone);
-            _title.text = Card.Info.Name;
-            SetDescription(Card.Info.Description ?? Card.Info.Flavor);
-
-
-
-            _badgeController.SetBadge(Card.Info.Faction);
-            _skillStstController.SetStats(Card);
 
             /*******************************************************************/
-            async void SetPicture() => await _picture.LoadCardSprite(Card.Info.Code);
-
             void SetInitialCurrentZoneView(ZoneView zoneView)
             {
                 CurrentZoneView = zoneView;
                 transform.SetParent(zoneView.transform);
             }
-        }
-
-        protected void SetDescription(string description)
-        {
-            _description.text = "";
-            if (Card.Info.Tags != null && Card.Info.Tags.Length > 0)
-            {
-                _description.text = "<size=3><b>";
-                Card.Info.Tags.ForEach(tag => _description.text += tag + " - ");
-                _description.text = _description.text.Remove(_description.text.Length - 3);
-                _description.text += "</b></size>\n";
-            }
-
-            _description.text += "\n<voffset=0.25em>" + description + "</voffset>";
         }
 
         protected abstract void SetSpecific();
@@ -116,14 +99,9 @@ namespace MythosAndHorrors.GameView.NEWS
             _effectController.Clear();
         }
 
-        public Tween CheckExhaust() =>
-            _picture.material.DOColor(Card.Exausted.IsActive ? ViewValues.DEACTIVE_COLOR : Color.white, ViewValues.DEFAULT_TIME_ANIMATION);
+        public Tween CheckExhaust() => Card.Exausted.IsActive ? _pictureController.ExaustAnimation() : _pictureController.UnexaustAnimation();
 
-        public Tween CheckBlancked()
-        {
-            SetDescription(Card.Blancked.IsActive ? string.Empty : Card.Info.Description ?? Card.Info.Flavor);
-            return DOTween.Sequence();
-        }
+        public Tween CheckBlancked() => Card.Blancked.IsActive ? _descriptionController.BlankAnimation() : _descriptionController.UnblankAnimation();
 
         /*******************************************************************/
         public Tween Rotate()

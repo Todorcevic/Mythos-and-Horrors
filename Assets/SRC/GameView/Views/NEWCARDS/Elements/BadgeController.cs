@@ -16,7 +16,12 @@ namespace MythosAndHorrors.GameView.NEWS
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
 
         /*******************************************************************/
-        public void SetBadge(Faction faction)
+        public void Init(Card card)
+        {
+            SetBadge(card.Info.Faction);
+        }
+
+        private void SetBadge(Faction faction)
         {
             _badge.sprite = faction switch
             {
