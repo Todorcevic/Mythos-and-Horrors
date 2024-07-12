@@ -48,10 +48,6 @@ namespace MythosAndHorrors.GameRules
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
         public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
         public int Position => _investigatorsProvider.GetInvestigatorPosition(this);
-        public int DefaultHealth => InvestigatorCard.Info.Health ?? 0;
-        public int DefaultSanity => InvestigatorCard.Info.Sanity ?? 0;
-        public int InitialHealth => DefaultHealth - Injury.Value;
-        public int InitialSanity => DefaultSanity - Shock.Value;
         public int HealthLeft => InvestigatorCard.Health.Value - DamageRecived.Value;
         public int SanityLeft => InvestigatorCard.Sanity.Value - FearRecived.Value;
         public int HandSize => HandZone.Cards.Count;

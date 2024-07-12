@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
+
     public class BadgeController : MonoBehaviour
     {
         [SerializeField, Required, AssetsOnly] private Sprite _brave;
@@ -11,7 +12,6 @@ namespace MythosAndHorrors.GameView.NEWS
         [SerializeField, Required, AssetsOnly] private Sprite _esoteric;
         [SerializeField, Required, AssetsOnly] private Sprite _scholarly;
         [SerializeField, Required, AssetsOnly] private Sprite _versatile;
-        [SerializeField, Required, AssetsOnly] private Sprite _neutral;
         [SerializeField, Required, AssetsOnly] private Sprite _myth;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
 
@@ -30,11 +30,11 @@ namespace MythosAndHorrors.GameView.NEWS
                 Faction.Esoteric => _esoteric,
                 Faction.Scholarly => _scholarly,
                 Faction.Versatile => _versatile,
-                Faction.Neutral => _neutral,
                 Faction.Myth => _myth,
-                Faction.None => _neutral,
-                _ => _neutral
+                _ => null
             };
+
+            if (_badge.sprite == null) gameObject.SetActive(false);
         }
     }
 }
