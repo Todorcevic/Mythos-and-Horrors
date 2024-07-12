@@ -150,7 +150,7 @@ namespace MythosAndHorrors.Tools
                 "mystic" => Faction.Esoteric,
                 "seeker" => Faction.Scholarly,
                 "neutral" => Faction.Neutral,
-                "mythos" => Faction.Myths,
+                "mythos" => Faction.Myth,
                 _ => Faction.None,
             };
 

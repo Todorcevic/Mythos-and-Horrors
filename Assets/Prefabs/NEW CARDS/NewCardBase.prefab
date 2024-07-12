@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 1390483187078777146}
+  _holder: {fileID: 0}
 --- !u!114 &7599471779822450459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,6 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 6166696740934334839}
+  _holder: {fileID: 0}
 --- !u!114 &2245790020729250310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,6 +1265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 258666506467780561}
+  _holder: {fileID: 0}
 --- !u!114 &3776172080372344333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,12 +2125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1658df494999aaf4db5fa50cc5b417e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _strength: {fileID: 4178462796453573737}
-  _agility: {fileID: 5200037303357691825}
-  _intelligence: {fileID: 8661187126599678092}
-  _power: {fileID: 1877608795528487770}
-  _damage: {fileID: 2443348903445144575}
-  _fear: {fileID: 4592652542843681069}
+  _strength: {fileID: 0}
+  _agility: {fileID: 0}
+  _intelligence: {fileID: 0}
+  _power: {fileID: 0}
+  _damage: {fileID: 0}
+  _fear: {fileID: 0}
 --- !u!114 &7454603225486953115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2292,6 +2295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 3067802844267795097}
+  _holder: {fileID: 0}
 --- !u!114 &1129371235748932665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2906,6 +2910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 7918105857640650496}
+  _holder: {fileID: 0}
 --- !u!114 &7507989193192747260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3872,6 +3877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 4155833075523294219}
+  _holder: {fileID: 0}
 --- !u!114 &4340193053479407364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4266,6 +4272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 5999077033747137644}
+  _holder: {fileID: 0}
 --- !u!114 &2089858007679368868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7724,14 +7731,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c79226084c6d14ab9561051b048a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allFactions:
-  - {fileID: 11400000, guid: 180ef2b2b6bbaa84e930ed53ff7e8020, type: 2}
-  - {fileID: 11400000, guid: e0ff40cba8cb2c04d89d6416005f296b, type: 2}
-  - {fileID: 11400000, guid: ee47a825142a3494bb0bd325c20ba818, type: 2}
-  - {fileID: 11400000, guid: dd0fe449d6696c7488e83e37eb0f213a, type: 2}
-  - {fileID: 11400000, guid: 433219325718ddc478a3822ea578456c, type: 2}
-  - {fileID: 11400000, guid: e1497b2ce29724e48a7970cd1f218b9d, type: 2}
-  - {fileID: 11400000, guid: ecf1fef8ff3270145b063738d00cce88, type: 2}
+  _brave: {fileID: 21300000, guid: d2796b773273c9d4f936c30771d17754, type: 3}
+  _cunning: {fileID: 21300000, guid: e247166fc382d024c8ebdaadffb0bb14, type: 3}
+  _esoteric: {fileID: 21300000, guid: a3d7a0f31e9264a47945992033ff458e, type: 3}
+  _scholarly: {fileID: 21300000, guid: e247166fc382d024c8ebdaadffb0bb14, type: 3}
+  _versatile: {fileID: 21300000, guid: 058f6e233803d2a48b3600116d2439b9, type: 3}
+  _neutral: {fileID: 21300000, guid: b2d2a75ee0d09bd49880ff86e358935e, type: 3}
+  _myth: {fileID: 21300000, guid: 9712cafbd151da24ebf67f4cb234091f, type: 3}
   _badge: {fileID: 1771774671283687303}
 --- !u!1 &8329475486560576591
 GameObject:

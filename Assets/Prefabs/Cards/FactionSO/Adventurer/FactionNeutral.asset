@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: FactionNeutral
   m_EditorClassIdentifier: 
   _faction: 32
-  _badget: {fileID: 21300000, guid: b2d2a75ee0d09bd49880ff86e358935e, type: 3}
+  _templateFront: {fileID: 21300000, guid: 183125d38cb362543805ee7c66659cde, type: 3}
+  _badget: {fileID: 21300000, guid: c2a5de880ff13d644872a403e9d14639, type: 3}
+  _stats: {fileID: 21300000, guid: 2550c6b29d3474644a51285d262a0950, type: 3}

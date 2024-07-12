@@ -12,6 +12,6 @@ namespace MythosAndHorrors.GameRules
         Esoteric = 1 << 3,
         Scholarly = 1 << 4,
         Neutral = 1 << 5,
-        Myths = 1 << 6,
+        Myth = 1 << 6,
     }
 }

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: FactionCunning
   m_EditorClassIdentifier: 
   _faction: 2
-  _badget: {fileID: 21300000, guid: 5f08daf3d3b70aa4b9465f3eb4b11cf0, type: 3}
+  _templateFront: {fileID: 21300000, guid: df9e5453dadd3de40bbe3a2e90ca9c28, type: 3}
+  _badget: {fileID: 21300000, guid: cf37abba149cf444881842231fc1528c, type: 3}
+  _stats: {fileID: 21300000, guid: 55c489f4026f9d74eab1519aead47a6e, type: 3}
