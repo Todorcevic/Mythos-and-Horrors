@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: FactionEsoteric
   m_EditorClassIdentifier: 
   _faction: 8
-  _templateFront: {fileID: 21300000, guid: 176be3a56ab782e4dbe05adce1a4af53, type: 3}
-  _templatePlayCard: {fileID: 21300000, guid: 234457347f85d3a4fb94d5661519d8ef, type: 3}
-  _badget: {fileID: 21300000, guid: 8109d2ec41d14224b837462e2f971c3e, type: 3}
-  _stats: {fileID: 21300000, guid: 5b24941793dc77b4781ee1887dc576ef, type: 3}
-  _color: {r: 0.21960786, g: 0.03529412, b: 0.23137257, a: 1}
+  _badget: {fileID: 21300000, guid: a3d7a0f31e9264a47945992033ff458e, type: 3}

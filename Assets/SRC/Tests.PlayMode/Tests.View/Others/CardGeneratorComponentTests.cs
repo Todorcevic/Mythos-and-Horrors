@@ -45,8 +45,6 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 .Find(factionInvestigatorSO => factionInvestigatorSO._faction == Faction.Brave);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(result.GetPrivateMember<SpriteRenderer>("_template").sprite == factionElementsExpected._templateFront,
-                $"was of: {factionElementsExpected._templateFront}");
             Assert.That(result.GetPrivateMember<SpriteRenderer>("_badge").sprite == factionElementsExpected._badget,
                 $"was of: {factionElementsExpected._badget}");
             yield return null;
