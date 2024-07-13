@@ -12,9 +12,9 @@ namespace MythosAndHorrors.GameView.NEWS
         [SerializeField, Required, AssetsOnly] private Sprite _voidCount;
         [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _allCounts;
 
-        protected int AmountEnable => _allCounts.Count(spriteRenderer => spriteRenderer.gameObject.activeSelf);
-        protected SpriteRenderer LastShowed => _allCounts.LastOrDefault(spriteRenderer => spriteRenderer.sprite == _fillCount);
-        protected SpriteRenderer FirstVoid => _allCounts.FirstOrDefault(spriteRenderer => spriteRenderer.sprite == _voidCount);
+        public int AmountEnable => _allCounts.Count(spriteRenderer => spriteRenderer.gameObject.activeSelf);
+        public SpriteRenderer LastShowed => _allCounts.LastOrDefault(spriteRenderer => spriteRenderer.sprite == _fillCount);
+        public SpriteRenderer FirstVoid => _allCounts.FirstOrDefault(spriteRenderer => spriteRenderer.sprite == _voidCount);
 
         /*******************************************************************/
         public void EnableThisAmount(int amount)

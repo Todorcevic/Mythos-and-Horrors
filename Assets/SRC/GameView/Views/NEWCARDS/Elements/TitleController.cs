@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
-
     public class TitleController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _name;

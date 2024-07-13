@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameView.NEWS
                 SetCostWith(platableFromHand.ResourceCost);
             else if (card is CardGoal cardGoal)
                 SetCostWith(cardGoal.Hints);
+            else gameObject.SetActive(false);
 
             SetSlots(card);
         }
@@ -43,8 +44,15 @@ namespace MythosAndHorrors.GameView.NEWS
 
         private void SetSlots(Card card)
         {
-            SlotType slot1 = card.Info.Slots.FirstOrDefault();
-            SlotType slot2 = card.Info.Slots.LastOrDefault();
+            if (card.Info.Slots == null || card.Info.Slots.Length == 0)
+            {
+                _slot1.gameObject.SetActive(false);
+                _slot2.gameObject.SetActive(false);
+                return;
+            }
+
+            SlotType slot1 = card.Info.Slots.Length > 0 ? card.Info.Slots[0] : SlotType.None;
+            SlotType slot2 = card.Info.Slots.Length > 1 ? card.Info.Slots[1] : SlotType.None;
             _slot1.Init(slot1);
             _slot2.Init(slot2);
         }
