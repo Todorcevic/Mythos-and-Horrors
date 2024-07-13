@@ -1,14 +1,15 @@
 using DG.Tweening;
 using MythosAndHorrors.GameRules;
+using MythosAndHorrors.GameView.NEWS;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
-    public abstract class CardView : MonoBehaviour, IPlayable
+    public class CardView : MonoBehaviour, IPlayable
     {
         private CardEffect _cloneEffect;
         [Title(nameof(CardView))]
@@ -20,7 +21,6 @@ namespace MythosAndHorrors.GameView.NEWS
         [SerializeField, Required, ChildGameObjectsOnly] private SkillStatsController _skillStatsController;
         [SerializeField, Required, ChildGameObjectsOnly] private CounterStatsController _countersCollection;
         [SerializeField, Required, ChildGameObjectsOnly] private ChargeController _chargeController;
-
 
 
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameView.NEWS
         {
             Card = card;
             SetCommon(currentZoneView);
-            SetSpecific();
+            //SetSpecific();
             Off();
         }
 
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameView.NEWS
             }
         }
 
-        protected abstract void SetSpecific();
+        //protected abstract void SetSpecific();
 
         public Tween DisableToCenterShow()
         {
@@ -122,18 +122,18 @@ namespace MythosAndHorrors.GameView.NEWS
         public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION, Vector3.up, speed: 1f, frequency: 5, depth: 0, mode: SpiralMode.ExpandThenContract)
                  .SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear).SetId("Idle");
 
-        //public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
-        //{
-        //    if (newZoneView == CurrentZoneView) return DOTween.Sequence();
-        //    Sequence moveSequence = DOTween.Sequence().SetId(nameof(CardView))
-        //         .OnStart(() => transform.SetParent(newZoneView.transform))
-        //         .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
-        //         .Join(Rotate())
-        //         .Join(newZoneView.EnterZone(this).SetEase(ease));
+        public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
+        {
+            if (newZoneView == CurrentZoneView) return DOTween.Sequence();
+            Sequence moveSequence = DOTween.Sequence().SetId(nameof(CardView))
+                 .OnStart(() => transform.SetParent(newZoneView.transform))
+                 .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
+                 .Join(Rotate())
+                 .Join(newZoneView.EnterZone(this).SetEase(ease));
 
-        //    CurrentZoneView = newZoneView;
-        //    return moveSequence;
-        //}
+            CurrentZoneView = newZoneView;
+            return moveSequence;
+        }
 
         public virtual Sequence RevealAnimation() => DOTween.Sequence()
                             .Append(DisableToCenterShow())

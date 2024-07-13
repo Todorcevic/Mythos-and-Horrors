@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
 
         public IEnumerable<CardView> GetCardViews(IEnumerable<Card> cards) => cards.Select(GetCardView);
 
-        public AvatarCardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard) as AvatarCardView;
+        public CardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard);
 
         public void AddCardView(CardView cardView) => _allCardsView.Add(cardView);
 

@@ -1,26 +1,26 @@
-﻿using MythosAndHorrors.GameRules;
-using Sirenix.OdinInspector;
-using UnityEngine;
+﻿//using MythosAndHorrors.GameRules;
+//using Sirenix.OdinInspector;
+//using UnityEngine;
 
-namespace MythosAndHorrors.GameView
-{
-    public class AvatarCardView : CardView
-    {
-        [Title(nameof(AvatarCardView))]
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _resource;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _hint;
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
+//namespace MythosAndHorrors.GameView
+//{
+//    public class AvatarCardView : CardView
+//    {
+//        [Title(nameof(AvatarCardView))]
+//        [SerializeField, Required, ChildGameObjectsOnly] private StatView _health;
+//        [SerializeField, Required, ChildGameObjectsOnly] private StatView _resource;
+//        [SerializeField, Required, ChildGameObjectsOnly] private StatView _hint;
+//        [SerializeField, Required, ChildGameObjectsOnly] private StatView _sanity;
 
-        public Investigator Investigator => Card.Owner;
+//        public Investigator Investigator => Card.Owner;
 
-        /*******************************************************************/
-        protected override void SetSpecific()
-        {
-            _health.SetStat(Investigator.Health);
-            _resource.SetStat(Investigator.Resources);
-            _hint.SetStat(Investigator.Hints);
-            _sanity.SetStat(Investigator.Sanity);
-        }
-    }
-}
+//        /*******************************************************************/
+//        protected override void SetSpecific()
+//        {
+//            _health.SetStat(Investigator.Health);
+//            _resource.SetStat(Investigator.Resources);
+//            _hint.SetStat(Investigator.Hints);
+//            _sanity.SetStat(Investigator.Sanity);
+//        }
+//    }
+//}

@@ -1,15 +1,21 @@
-﻿using MythosAndHorrors.GameRules;
+﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
-    public class CostController : MonoBehaviour
+    public class CostController : MonoBehaviour, IStatable
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private StatView _cost;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot2;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
+
+        public Stat Stat { get; private set; }
+
+        public Transform StatTransform => transform;
 
         /*******************************************************************/
         public void Init(Card card)
@@ -22,10 +28,17 @@ namespace MythosAndHorrors.GameView.NEWS
             SetSlots(card);
         }
 
+        public Tween UpdateAnimation()
+        {
+            _value.text = Stat.Value.ToString();
+            return DOTween.Sequence();
+        }
+
         private void SetCostWith(Stat stat)
         {
-            _cost.SetStat(stat);
-            _cost.gameObject.SetActive(true);
+            Stat = stat;
+            gameObject.SetActive(true);
+            UpdateAnimation();
         }
 
         private void SetSlots(Card card)
