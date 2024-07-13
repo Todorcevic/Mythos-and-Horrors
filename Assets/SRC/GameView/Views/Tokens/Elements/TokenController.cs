@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
         }
 
-        Tween IStatable.UpdateValue()
+        Tween IStatable.UpdateAnimation()
         {
             Sequence updateSequence = DOTween.Sequence();
             _allTokens.ForEach(token => updateSequence.Join(token.SetAmount(_allTokens.IndexOf(token) + 1)));

@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         Transform IStatable.StatTransform => _showToken;
         Stat IStatable.Stat => _chaptersProvider.CurrentScene.PileAmount;
-        Tween IStatable.UpdateValue() => DOTween.Sequence();
+        Tween IStatable.UpdateAnimation() => DOTween.Sequence();
 
         /*******************************************************************/
         public void ActivateToClick()

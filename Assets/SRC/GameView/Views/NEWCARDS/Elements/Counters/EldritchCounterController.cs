@@ -6,26 +6,30 @@ namespace MythosAndHorrors.GameView.NEWS
 {
     public class EldritchCounterController : CounterController, IStatable
     {
-        private CardPlot _cardPlot;
+        private IEldritchable _eldritchable;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(CardPlot cardPlot)
+        public void Init(IEldritchable eldritchable)
         {
-            _cardPlot = cardPlot;
-            Stat = _cardPlot.Eldritch;
-
-            EnableThisAmount(_cardPlot.Eldritch.Value);
-            ShowThisAmount(_cardPlot.AmountOfEldritch);
-            gameObject.SetActive(true);
+            _eldritchable = eldritchable;
+            Stat = _eldritchable.Eldritch;
+            UpdateValue();
         }
 
-        public Tween UpdateValue()
+        public Tween UpdateAnimation()
         {
-            ShowThisAmount(_cardPlot.AmountOfEldritch);
+            UpdateValue();
             return DOTween.Sequence();
+        }
+
+        private void UpdateValue()
+        {
+            gameObject.SetActive(_eldritchable.Eldritch.Value > 0);
+            EnableThisAmount(_eldritchable.Eldritch.Value);
+            ShowThisAmount(_eldritchable.Eldritch.Value);
         }
     }
 }

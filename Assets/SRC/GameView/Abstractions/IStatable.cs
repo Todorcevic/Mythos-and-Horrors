@@ -11,6 +11,6 @@ namespace MythosAndHorrors.GameView
         //List<Stat> MultiStat => new();
         Stat Stat { get; }
         Transform StatTransform { get; }
-        Tween UpdateValue();
+        Tween UpdateAnimation();
     }
 }

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView.NEWS
         private IDamageable _damageable;
 
         public Stat Stat { get; private set; }
-        public Transform StatTransform => transform;
+        public Transform StatTransform => LastShowed.transform;
 
         /*******************************************************************/
         public void Init(IDamageable damageable)
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView.NEWS
             gameObject.SetActive(true);
         }
 
-        public Tween UpdateValue()
+        public Tween UpdateAnimation()
         {
             ShowThisAmount(_damageable.HealthLeft);
             return DOTween.Sequence();

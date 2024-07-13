@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameView
 
         private TurnView GetActiveTurn() => _turnViews.Last(turn => turn.IsOn);
 
-        Tween IStatable.UpdateValue() => TurnOn();
+        Tween IStatable.UpdateAnimation() => TurnOn();
     }
 }
 

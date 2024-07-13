@@ -22,10 +22,10 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
             _icon = icon;
             _holder = holder;
-            UpdateValue();
+            UpdateAnimation();
         }
 
-        public Tween UpdateValue()
+        public Tween UpdateAnimation()
         {
             ClearAll();
             AddSkillIconView(Stat.Value, _icon, _holder);

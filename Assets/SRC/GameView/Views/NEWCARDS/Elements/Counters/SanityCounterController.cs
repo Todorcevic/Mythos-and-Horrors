@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView.NEWS
         private IFearable _fearable;
 
         public Stat Stat { get; private set; }
-        public Transform StatTransform => transform;
+        public Transform StatTransform => LastShowed.transform;
 
         /*******************************************************************/
         public void Init(IFearable fearable)
@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView.NEWS
             gameObject.SetActive(true);
         }
 
-        public Tween UpdateValue()
+        public Tween UpdateAnimation()
         {
             ShowThisAmount(_fearable.SanityLeft);
             return DOTween.Sequence();

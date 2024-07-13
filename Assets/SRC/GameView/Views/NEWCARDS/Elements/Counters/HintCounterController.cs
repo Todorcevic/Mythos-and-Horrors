@@ -4,32 +4,29 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
-
     public class HintCounterController : CounterController, IStatable
     {
-        private CardPlace _hintable;
-
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
         public void Init(CardPlace hintable)
         {
-            _hintable = hintable;
-            Stat = _hintable.Hints;
-
-            EnableThisAmount(_hintable.Hints.Value);
-            ShowThisAmount(_hintable.Hints.Value);
-            gameObject.SetActive(true);
+            Stat = hintable.Hints;
+            UpdateValue();
         }
 
-        public Tween UpdateValue()
+        public Tween UpdateAnimation()
         {
-            if (_hintable.Hints.Value > AmountEnable)
-                EnableThisAmount(_hintable.Hints.Value);
-
-            ShowThisAmount(_hintable.Hints.Value);
+            UpdateValue();
             return DOTween.Sequence();
+        }
+
+        private void UpdateValue()
+        {
+            EnableThisAmount(Stat.Value);
+            ShowThisAmount(Stat.Value);
+            gameObject.SetActive(true);
         }
     }
 }

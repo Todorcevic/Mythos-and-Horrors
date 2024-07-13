@@ -108,7 +108,7 @@ namespace MythosAndHorrors.GameView
             {
                 if (statablesUpdated[stat]) continue;
                 statablesUpdated[stat] = true;
-                updateSequence.Join(stat.UpdateValue());
+                updateSequence.Join(stat.UpdateAnimation());
             }
             return updateSequence;
         }
