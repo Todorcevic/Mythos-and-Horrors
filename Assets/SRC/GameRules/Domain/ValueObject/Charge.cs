@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
     public class Charge
     {

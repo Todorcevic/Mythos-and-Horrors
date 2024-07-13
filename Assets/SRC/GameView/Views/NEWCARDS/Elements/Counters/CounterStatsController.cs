@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
-    public class CountersCollection : MonoBehaviour
+    public class CounterStatsController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private HealthCounterController _healthController;
         [SerializeField, Required, ChildGameObjectsOnly] private SanityCounterController _sanityController;

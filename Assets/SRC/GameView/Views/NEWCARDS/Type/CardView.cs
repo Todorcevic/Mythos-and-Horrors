@@ -18,7 +18,8 @@ namespace MythosAndHorrors.GameView.NEWS
         [SerializeField, Required, ChildGameObjectsOnly] private BadgeController _badgeController;
         [SerializeField, Required, ChildGameObjectsOnly] private CostController _costController;
         [SerializeField, Required, ChildGameObjectsOnly] private SkillStatsController _skillStatsController;
-        [SerializeField, Required, ChildGameObjectsOnly] private CountersCollection _countersCollection;
+        [SerializeField, Required, ChildGameObjectsOnly] private CounterStatsController _countersCollection;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChargeController _chargeController;
 
 
 
@@ -56,6 +57,7 @@ namespace MythosAndHorrors.GameView.NEWS
             _costController.Init(Card);
             _skillStatsController.Init(Card);
             _countersCollection.Init(Card);
+            _chargeController.Init(Card);
 
 
             SetInitialCurrentZoneView(currentZoneView);
