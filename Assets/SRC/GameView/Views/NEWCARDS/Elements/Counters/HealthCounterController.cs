@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView.NEWS
 {
+
     public class HealthCounterController : CounterController, IStatable
     {
         private IDamageable _damageable;

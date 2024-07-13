@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
-            ExtraStat = Eldritch = CreateStat(0);
+            Eldritch = CreateStat(0);
             CreateForceReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After);
             CreateFastActivation(SearchLogic, SearchCondition, PlayActionType.Activate);
         }
