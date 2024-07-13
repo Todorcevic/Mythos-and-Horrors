@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChaptersProvider _chaptersProviders;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
@@ -18,7 +19,8 @@ namespace MythosAndHorrors.GameRules
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
         public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.PlotCards.NextElementFor(this);
-        public int AmountOfEldritch => (Info.Eldritch ?? 0) - Eldritch.Value;
+        public int AmountOfEldritch => Eldritch.Value - _cardsProvider.AllCards.OfType<IEldritchable>().Sum(eldrichable => eldrichable.Eldritch.Value);
+        public int AmountDecrementedEldritch => (Info.Eldritch ?? 0) - AmountOfEldritch;
 
         /*******************************************************************/
         [Inject]

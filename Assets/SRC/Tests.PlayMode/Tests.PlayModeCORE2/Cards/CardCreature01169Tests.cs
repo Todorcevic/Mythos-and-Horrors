@@ -7,7 +7,6 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
-
     public class CardCreature01169Tests : TestCORE2Preparation
     {
         [UnityTest]
@@ -20,6 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(acolit.Eldritch.Value, Is.EqualTo(1));
             Assert.That(SceneCORE2.CurrentPlot.Eldritch.Value, Is.EqualTo(6));
+            Assert.That(SceneCORE2.CurrentPlot.AmountOfEldritch, Is.EqualTo(5));
         }
 
         [UnityTest]

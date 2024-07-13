@@ -77,7 +77,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(cardPlot.AmountOfEldritch, Is.EqualTo(1));
+            Assert.That(cardPlot.AmountDecrementedEldritch, Is.EqualTo(1));
         }
     }
 }

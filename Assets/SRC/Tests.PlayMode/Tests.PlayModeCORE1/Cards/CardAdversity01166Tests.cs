@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
 
-            Assert.That(SceneCORE1.CurrentPlot.AmountOfEldritch, Is.EqualTo(1));
+            Assert.That(SceneCORE1.CurrentPlot.AmountDecrementedEldritch, Is.EqualTo(1));
         }
     }
 }
