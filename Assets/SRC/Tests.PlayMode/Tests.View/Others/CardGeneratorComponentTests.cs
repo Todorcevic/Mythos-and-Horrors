@@ -24,7 +24,6 @@ namespace MythosAndHorrors.PlayModeView.Tests
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(result.Card, Is.EqualTo(card));
 
-
             Assert.That(result.CurrentZoneView, Is.InstanceOf<ZoneOutView>());
             Assert.That(result.GetPrivateMember<TitleController>("_titleController").transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
             Assert.That(result.GetPrivateMember<DescriptionController>("_descriptionController").transform.GetTextFromThis("Description").Contains(card.Info.Description)

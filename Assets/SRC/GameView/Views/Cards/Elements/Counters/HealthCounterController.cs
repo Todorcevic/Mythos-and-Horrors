@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class HealthCounterController : CounterController, IStatable
     {
         private IDamageable _damageable;
@@ -20,7 +19,6 @@ namespace MythosAndHorrors.GameView
 
             EnableThisAmount(_damageable.Health.Value);
             ShowThisAmount(_damageable.HealthLeft);
-            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

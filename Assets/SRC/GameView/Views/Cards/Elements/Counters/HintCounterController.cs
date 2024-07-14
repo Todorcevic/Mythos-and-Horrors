@@ -26,7 +26,6 @@ namespace MythosAndHorrors.GameView
         {
             EnableThisAmount(Stat.Value);
             ShowThisAmount(Stat.Value);
-            gameObject.SetActive(true);
         }
     }
 }

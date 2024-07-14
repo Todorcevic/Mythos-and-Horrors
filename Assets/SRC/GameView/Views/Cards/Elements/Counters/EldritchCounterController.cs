@@ -27,7 +27,6 @@ namespace MythosAndHorrors.GameView
 
         private void UpdateValue()
         {
-            gameObject.SetActive(_eldritchable.Eldritch.Value > 0);
             EnableThisAmount(_eldritchable.Eldritch.Value);
             ShowThisAmount(_eldritchable.Eldritch.Value);
         }

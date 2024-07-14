@@ -21,20 +21,23 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
-            if (card is not IChargeable chargeable) return;
-            Stat = chargeable.Charge.Amount;
-
-            Sprite sprite = chargeable.Charge.ChargeType switch
+            if (card is IChargeable chargeable)
             {
-                ChargeType.Bullet => _bullet,
-                ChargeType.MagicCharge => _magic,
-                ChargeType.Supplie => _supplie,
-                ChargeType.Secret => _secret,
-                _ => null
-            };
+                Stat = chargeable.Charge.Amount;
 
-            _charges.ForEach(charge => charge.sprite = sprite);
-            UpdateAnimation();
+                Sprite sprite = chargeable.Charge.ChargeType switch
+                {
+                    ChargeType.Bullet => _bullet,
+                    ChargeType.MagicCharge => _magic,
+                    ChargeType.Supplie => _supplie,
+                    ChargeType.Secret => _secret,
+                    _ => null
+                };
+
+                _charges.ForEach(charge => charge.sprite = sprite);
+                UpdateAnimation();
+            }
+            else Destroy(gameObject);
         }
 
         public Tween UpdateAnimation()

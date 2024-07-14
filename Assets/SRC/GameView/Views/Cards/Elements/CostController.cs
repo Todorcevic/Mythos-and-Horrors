@@ -20,13 +20,12 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
+            SetSlots(card);
             if (card is IPlayableFromHand platableFromHand)
                 SetCostWith(platableFromHand.ResourceCost);
             else if (card is CardGoal cardGoal)
                 SetCostWith(cardGoal.Hints);
-            else gameObject.SetActive(false);
-
-            SetSlots(card);
+            else Destroy(gameObject);
         }
 
         public Tween UpdateAnimation()

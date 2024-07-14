@@ -19,7 +19,6 @@ namespace MythosAndHorrors.GameView
 
             EnableThisAmount(_cardPlot.Eldritch.Value);
             ShowThisAmount(_cardPlot.AmountOfEldritch);
-            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

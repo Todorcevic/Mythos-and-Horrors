@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class BadgeController : MonoBehaviour
     {
         [SerializeField, Required, AssetsOnly] private Sprite _brave;
@@ -34,7 +33,7 @@ namespace MythosAndHorrors.GameView
                 _ => null
             };
 
-            if (_badge.sprite == null) gameObject.SetActive(false);
+            if (_badge.sprite == null) Destroy(gameObject);
         }
     }
 }

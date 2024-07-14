@@ -1,5 +1,4 @@
-﻿using MythosAndHorrors.GameRules;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
