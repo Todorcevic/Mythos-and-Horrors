@@ -7,7 +7,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
     public class DescriptionController : MonoBehaviour
     {

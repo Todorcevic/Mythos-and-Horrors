@@ -5,7 +5,6 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using UnityEngine;
 using MythosAndHorrors.PlayMode.Tests;
-using MythosAndHorrors.GameView.NEWS;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {
@@ -14,7 +13,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
     {
         //protected override bool DEBUG_MODE => true;
 
-        ///*******************************************************************/
+        /*******************************************************************/
         [UnityTest]
         public IEnumerator CardGeneratorComponent_Generate_InvestigatorCard()
         {

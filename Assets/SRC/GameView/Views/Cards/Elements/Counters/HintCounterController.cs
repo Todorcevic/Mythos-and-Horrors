@@ -2,17 +2,17 @@
 using MythosAndHorrors.GameRules;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
-    public class ResourceCounterController : CounterController, IStatable
+    public class HintCounterController : CounterController, IStatable
     {
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(Stat resourceStat)
+        public void Init(CardPlace hintable)
         {
-            Stat = resourceStat;
+            Stat = hintable.Hints;
             UpdateValue();
         }
 

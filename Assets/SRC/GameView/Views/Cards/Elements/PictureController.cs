@@ -3,7 +3,7 @@ using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
     public class PictureController : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
     public class StatView : MonoBehaviour, IStatable
     {

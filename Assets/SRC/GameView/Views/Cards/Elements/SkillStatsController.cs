@@ -2,9 +2,8 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
-
     public class SkillStatsController : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private StatView _strength;

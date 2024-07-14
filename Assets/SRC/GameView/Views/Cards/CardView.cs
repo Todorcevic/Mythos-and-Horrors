@@ -1,6 +1,5 @@
 using DG.Tweening;
 using MythosAndHorrors.GameRules;
-using MythosAndHorrors.GameView.NEWS;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;

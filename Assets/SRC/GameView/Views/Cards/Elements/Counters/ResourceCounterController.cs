@@ -2,20 +2,17 @@
 using MythosAndHorrors.GameRules;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
-    public class EldritchCounterController : CounterController, IStatable
+    public class ResourceCounterController : CounterController, IStatable
     {
-        private IEldritchable _eldritchable;
-
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(IEldritchable eldritchable)
+        public void Init(Stat resourceStat)
         {
-            _eldritchable = eldritchable;
-            Stat = _eldritchable.Eldritch;
+            Stat = resourceStat;
             UpdateValue();
         }
 
@@ -27,9 +24,9 @@ namespace MythosAndHorrors.GameView.NEWS
 
         private void UpdateValue()
         {
-            gameObject.SetActive(_eldritchable.Eldritch.Value > 0);
-            EnableThisAmount(_eldritchable.Eldritch.Value);
-            ShowThisAmount(_eldritchable.Eldritch.Value);
+            EnableThisAmount(Stat.Value);
+            ShowThisAmount(Stat.Value);
+            gameObject.SetActive(true);
         }
     }
 }

@@ -2,7 +2,7 @@
 using MythosAndHorrors.GameRules;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
     public class PlotCounterController : CounterController, IStatable
     {

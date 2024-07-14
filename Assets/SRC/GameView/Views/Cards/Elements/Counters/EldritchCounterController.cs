@@ -2,17 +2,20 @@
 using MythosAndHorrors.GameRules;
 using UnityEngine;
 
-namespace MythosAndHorrors.GameView.NEWS
+namespace MythosAndHorrors.GameView
 {
-    public class HintCounterController : CounterController, IStatable
+    public class EldritchCounterController : CounterController, IStatable
     {
+        private IEldritchable _eldritchable;
+
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(CardPlace hintable)
+        public void Init(IEldritchable eldritchable)
         {
-            Stat = hintable.Hints;
+            _eldritchable = eldritchable;
+            Stat = _eldritchable.Eldritch;
             UpdateValue();
         }
 
@@ -24,9 +27,9 @@ namespace MythosAndHorrors.GameView.NEWS
 
         private void UpdateValue()
         {
-            EnableThisAmount(Stat.Value);
-            ShowThisAmount(Stat.Value);
-            gameObject.SetActive(true);
+            gameObject.SetActive(_eldritchable.Eldritch.Value > 0);
+            EnableThisAmount(_eldritchable.Eldritch.Value);
+            ShowThisAmount(_eldritchable.Eldritch.Value);
         }
     }
 }
