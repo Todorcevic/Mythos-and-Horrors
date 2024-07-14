@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SkillStatsController _skillStatsController;
         [SerializeField, Required, ChildGameObjectsOnly] private CounterStatsController _countersCollection;
         [SerializeField, Required, ChildGameObjectsOnly] private ChargeController _chargeController;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
+        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
 
 
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
-        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
-        [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
         [Inject] private readonly DiContainer _diContainer;
 
@@ -42,7 +42,6 @@ namespace MythosAndHorrors.GameView
         {
             Card = card;
             SetCommon(currentZoneView);
-            //SetSpecific();
             Off();
         }
 
@@ -57,7 +56,7 @@ namespace MythosAndHorrors.GameView
             _skillStatsController.Init(Card);
             _countersCollection.Init(Card);
             _chargeController.Init(Card);
-
+            HideBuffsAndEffects();
 
             SetInitialCurrentZoneView(currentZoneView);
             name = Card.Info.Code;
@@ -70,8 +69,6 @@ namespace MythosAndHorrors.GameView
                 transform.SetParent(zoneView.transform);
             }
         }
-
-        //protected abstract void SetSpecific();
 
         public Tween DisableToCenterShow()
         {

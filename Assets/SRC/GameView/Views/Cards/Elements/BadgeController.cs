@@ -18,6 +18,8 @@ namespace MythosAndHorrors.GameView
         public void Init(Card card)
         {
             SetBadge(card.Info.Faction);
+            if (_badge.sprite != null) _badge.gameObject.SetActive(true);
+            else Destroy(gameObject);
         }
 
         private void SetBadge(Faction faction)
@@ -32,8 +34,6 @@ namespace MythosAndHorrors.GameView
                 Faction.Myth => _myth,
                 _ => null
             };
-
-            if (_badge.sprite == null) Destroy(gameObject);
         }
     }
 }

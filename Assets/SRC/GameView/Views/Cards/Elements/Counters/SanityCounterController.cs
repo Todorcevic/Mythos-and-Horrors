@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameView
 
             EnableThisAmount(_fearable.Sanity.Value);
             ShowThisAmount(_fearable.SanityLeft);
+            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

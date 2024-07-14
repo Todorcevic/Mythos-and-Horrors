@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameView
             _eldritchable = eldritchable;
             Stat = _eldritchable.Eldritch;
             UpdateValue();
+            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

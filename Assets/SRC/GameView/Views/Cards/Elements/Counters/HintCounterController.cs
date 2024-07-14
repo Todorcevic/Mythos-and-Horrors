@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameView
         {
             Stat = hintable.Hints;
             UpdateValue();
+            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

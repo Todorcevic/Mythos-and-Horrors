@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameView
 
             EnableThisAmount(_damageable.Health.Value);
             ShowThisAmount(_damageable.HealthLeft);
+            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()

@@ -21,10 +21,10 @@ namespace MythosAndHorrors.GameView
         {
             Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated)
                 .ToDictionary(statView => statView, _ => false);
-            await SpecialAnimations(updateStatGameAction, statablesUpdated);
+            //await SpecialAnimations(updateStatGameAction, statablesUpdated);
 
             IEnumerable<IStatable> allStatables = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated);
-            Update(allStatables, statablesUpdated);
+            await Update(allStatables, statablesUpdated).AsyncWaitForCompletion();
         }
 
         /*******************************************************************/
