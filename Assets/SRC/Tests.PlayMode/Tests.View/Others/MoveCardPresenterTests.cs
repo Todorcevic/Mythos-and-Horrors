@@ -36,8 +36,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.PlaceCards.First();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, investigator1.InvestigatorZone).Execute().AsCoroutine();
-
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, _chaptersProvider.CurrentScene.GetPlaceZone(1, 1)).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, cardPlace).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);

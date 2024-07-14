@@ -4,9 +4,7 @@ using UnityEngine.TestTools;
 using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using UnityEngine;
-using System.Collections.Generic;
 using MythosAndHorrors.PlayMode.Tests;
-using System.Linq;
 using MythosAndHorrors.GameView.NEWS;
 
 namespace MythosAndHorrors.PlayModeView.Tests

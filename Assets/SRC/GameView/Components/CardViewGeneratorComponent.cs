@@ -12,14 +12,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
         [Inject] private readonly CardsProvider _cardProvider;
-        //[SerializeField, Required, AssetsOnly] private CardView _investigatorPrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _investigatorDeckPrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _adversityPrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _creaturePrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _placePrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _plotPrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _goalPrefab;
-        //[SerializeField, Required, AssetsOnly] private CardView _avatarCardPrefab;
         [SerializeField, Required, AssetsOnly] private CardView _cardPrefab;
 
         /*******************************************************************/
@@ -32,18 +24,5 @@ namespace MythosAndHorrors.GameView
             _cardViewsManager.AddCardView(newCardview);
             return newCardview;
         }
-
-        //private CardView GetPrefab(Card card) => card switch
-        //{
-        //    CardInvestigator => _investigatorPrefab,
-        //    CardSupply or CardTalent or CardCondition => _investigatorDeckPrefab,
-        //    CardAdversity => _adversityPrefab,
-        //    CardCreature => _creaturePrefab,
-        //    CardPlace => _placePrefab,
-        //    CardPlot => _plotPrefab,
-        //    CardGoal => _goalPrefab,
-        //    CardAvatar => _avatarCardPrefab,
-        //    _ => throw new ArgumentException($"Card type {card} not supported"),
-        //};
     }
 }

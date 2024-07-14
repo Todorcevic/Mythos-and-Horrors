@@ -3723,7 +3723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16e034a400bfcd43ad6a7fd2c584f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 5542431244194406154, guid: 32e18c9dbafd019468ac1c246b323773, type: 3}
+  _cardPrefab: {fileID: 5294846047101392226, guid: 32e18c9dbafd019468ac1c246b323773, type: 3}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0
@@ -7781,8 +7781,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.256982
+  m_Value: 1.0000004
+  m_Size: 0.25698203
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

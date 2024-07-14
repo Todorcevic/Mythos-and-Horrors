@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
                 return;
             }
 
-            if (moveCardsGameAction.Parent.Parent is InitialDrawGameAction)
+            if (moveCardsGameAction.Parent?.Parent is InitialDrawGameAction)
             {
                 await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
                 return;
