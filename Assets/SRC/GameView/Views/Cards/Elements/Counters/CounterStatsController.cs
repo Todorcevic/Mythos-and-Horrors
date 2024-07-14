@@ -6,24 +6,35 @@ namespace MythosAndHorrors.GameView
 {
     public class CounterStatsController : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private HealthCounterController _healthController;
-        [SerializeField, Required, ChildGameObjectsOnly] private SanityCounterController _sanityController;
-        [SerializeField, Required, ChildGameObjectsOnly] private HintCounterController _hintController;
-        [SerializeField, Required, ChildGameObjectsOnly] private EldritchCounterController _eldritchController;
-        [SerializeField, Required, ChildGameObjectsOnly] private PlotCounterController _plotController;
+        [SerializeField, Required, AssetsOnly] private HealthCounterController _healthController;
+        [SerializeField, Required, AssetsOnly] private SanityCounterController _sanityController;
+        [SerializeField, Required, AssetsOnly] private HintCounterController _hintController;
+        [SerializeField, Required, AssetsOnly] private EldritchCounterController _eldritchController;
+        [SerializeField, Required, AssetsOnly] private PlotCounterController _plotController;
 
         /*******************************************************************/
         public void Init(Card card)
         {
-            if (card is IDamageable damageable) _healthController.Init(damageable);
-            else Destroy(_healthController.gameObject);
-            if (card is IFearable fearable) _sanityController.Init(fearable);
-            else Destroy(_sanityController.gameObject);
-            if (card is CardPlace cardPlace) _hintController.Init(cardPlace);
-            else Destroy(_hintController.gameObject);
-            if (card is IEldritchable eldritchable) _eldritchController.Init(eldritchable);
-            else if (card is CardPlot cardPlot) _plotController.Init(cardPlot);
-            else Destroy(_plotController.gameObject);
+            if (card is IDamageable damageable)
+            {
+                Instantiate(_healthController, transform).Init(damageable);
+            }
+            if (card is IFearable fearable)
+            {
+                Instantiate(_sanityController, transform).Init(fearable);
+            }
+            if (card is CardPlace cardPlace)
+            {
+                Instantiate(_hintController, transform).Init(cardPlace);
+            }
+            if (card is IEldritchable eldritchable)
+            {
+                Instantiate(_eldritchController, transform).Init(eldritchable);
+            }
+            if (card is CardPlot cardPlot)
+            {
+                Instantiate(_plotController, transform).Init(cardPlot);
+            }
         }
     }
 }

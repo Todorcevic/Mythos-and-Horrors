@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
-
     public class CardAdversity01158Tests : TestCORE3Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;

@@ -9,11 +9,12 @@ namespace MythosAndHorrors.GameView
 {
     public class ChargeController : MonoBehaviour, IStatable
     {
+        private readonly List<SpriteRenderer> _charges = new();
         [SerializeField, Required, AssetsOnly] private Sprite _bullet;
         [SerializeField, Required, AssetsOnly] private Sprite _magic;
         [SerializeField, Required, AssetsOnly] private Sprite _supplie;
         [SerializeField, Required, AssetsOnly] private Sprite _secret;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _charges;
+        [SerializeField, Required, AssetsOnly] private SpriteRenderer _charge;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => _charges.First(charge => charge.transform.gameObject.activeSelf).transform;
@@ -25,7 +26,7 @@ namespace MythosAndHorrors.GameView
             {
                 Stat = chargeable.Charge.Amount;
 
-                Sprite sprite = chargeable.Charge.ChargeType switch
+                _charge.sprite = chargeable.Charge.ChargeType switch
                 {
                     ChargeType.Bullet => _bullet,
                     ChargeType.MagicCharge => _magic,
@@ -34,7 +35,6 @@ namespace MythosAndHorrors.GameView
                     _ => null
                 };
 
-                _charges.ForEach(charge => charge.sprite = sprite);
                 UpdateAnimation();
             }
             else Destroy(gameObject);
@@ -42,8 +42,22 @@ namespace MythosAndHorrors.GameView
 
         public Tween UpdateAnimation()
         {
-            _charges.Take(Stat.Value).ForEach(charge => charge.gameObject.SetActive(true));
-            _charges.Skip(Stat.Value).ForEach(charge => charge.gameObject.SetActive(false));
+            if (Stat.Value > _charges.Count)
+            {
+                for (int i = _charges.Count; i < Stat.Value; i++)
+                {
+                    _charges.Add(Instantiate(_charge, transform));
+                }
+            }
+            else if (Stat.Value < _charges.Count)
+            {
+                for (int i = _charges.Count - 1; i >= Stat.Value; i--)
+                {
+                    Destroy(_charges[i].gameObject);
+                    _charges.RemoveAt(i);
+                }
+            }
+
             return DOTween.Sequence();
         }
     }

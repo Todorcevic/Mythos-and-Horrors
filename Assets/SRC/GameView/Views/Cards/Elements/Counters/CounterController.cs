@@ -7,9 +7,10 @@ namespace MythosAndHorrors.GameView
 {
     public class CounterController : MonoBehaviour
     {
+        private readonly List<SpriteRenderer> _allCounts = new();
         [SerializeField, Required, AssetsOnly] private Sprite _fillCount;
         [SerializeField, Required, AssetsOnly] private Sprite _voidCount;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<SpriteRenderer> _allCounts;
+        [SerializeField, Required, AssetsOnly] private GameObject _column;
 
         public int AmountEnable => _allCounts.Count(spriteRenderer => spriteRenderer.gameObject.activeSelf);
         public SpriteRenderer LastShowed => _allCounts.LastOrDefault(spriteRenderer => spriteRenderer.sprite == _fillCount);
@@ -20,6 +21,7 @@ namespace MythosAndHorrors.GameView
         {
             for (int i = 0; i < amount; i++)
             {
+                if (i >= _allCounts.Count) CreateNewColumn();
                 EnableCount(_allCounts[i]);
             }
 
@@ -56,6 +58,11 @@ namespace MythosAndHorrors.GameView
             {
                 count.transform.parent.gameObject.SetActive(false);
             }
+        }
+
+        private void CreateNewColumn()
+        {
+            _allCounts.AddRange(Instantiate(_column, transform).GetComponentsInChildren<SpriteRenderer>());
         }
     }
 }
