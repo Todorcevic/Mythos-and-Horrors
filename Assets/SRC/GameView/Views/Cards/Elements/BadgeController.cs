@@ -12,13 +12,13 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _scholarly;
         [SerializeField, Required, AssetsOnly] private Sprite _versatile;
         [SerializeField, Required, AssetsOnly] private Sprite _myth;
+        [SerializeField, Required, AssetsOnly] private Sprite _neutral;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _badge;
 
         /*******************************************************************/
         public void Init(Card card)
         {
             SetBadge(card.Info.Faction);
-            _badge.gameObject.SetActive(_badge.sprite != null);
         }
 
         private void SetBadge(Faction faction)
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
                 Faction.Scholarly => _scholarly,
                 Faction.Versatile => _versatile,
                 Faction.Myth => _myth,
-                _ => null
+                _ => _neutral
             };
         }
     }
