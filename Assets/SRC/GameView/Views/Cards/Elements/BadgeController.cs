@@ -18,8 +18,7 @@ namespace MythosAndHorrors.GameView
         public void Init(Card card)
         {
             SetBadge(card.Info.Faction);
-            if (_badge.sprite != null) _badge.gameObject.SetActive(true);
-            else Destroy(gameObject);
+            _badge.gameObject.SetActive(_badge.sprite != null);
         }
 
         private void SetBadge(Faction faction)

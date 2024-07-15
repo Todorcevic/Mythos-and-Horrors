@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameView
 
                 UpdateAnimation();
             }
-            else Destroy(gameObject);
+            else gameObject.SetActive(false);
         }
 
         public Tween UpdateAnimation()

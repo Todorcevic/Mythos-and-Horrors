@@ -47,19 +47,6 @@ namespace MythosAndHorrors.GameView
 
                     //TODO: ChallengeCards with typeChallenge 
             }
-
-            Destruction();
-        }
-
-        private void Destruction()
-        {
-            if (!_strength.gameObject.activeSelf) Destroy(_strength);
-            if (!_agility.gameObject.activeSelf) Destroy(_agility);
-            if (!_intelligence.gameObject.activeSelf) Destroy(_intelligence);
-            if (!_power.gameObject.activeSelf) Destroy(_power);
-            if (!_wild.gameObject.activeSelf) Destroy(_wild);
-            if (!_damage.gameObject.activeSelf) Destroy(_damage);
-            if (!_fear.gameObject.activeSelf) Destroy(_fear);
         }
 
         private void SetStrenghtWith(Stat stat)

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameView
                 SetCostWith(platableFromHand.ResourceCost);
             else if (card is CardGoal cardGoal)
                 SetCostWith(cardGoal.Hints);
-            else Destroy(gameObject);
+            else gameObject.SetActive(false);
         }
 
         public Tween UpdateAnimation()
