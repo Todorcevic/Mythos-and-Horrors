@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.First;
             Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1)); ;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1));
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
@@ -57,6 +57,34 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+            Assert.That(cardAdversity.Wasted.IsActive, Is.False);
+        }
+
+        [UnityTest]
+        public IEnumerator OtherInvestigatorAttackCostExtraTurn()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator2 = _investigatorsProvider.Second;
+            Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return PlayThisInvestigator(investigator2);
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator2, SceneCORE1.Hallway).Execute().AsCoroutine();
+
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Execute();
+            yield return ClickedClone(SceneCORE1.GhoulSecuaz, 0);
+            yield return ClickedMainButton();
+            yield return ClickedTokenButton();
+            yield return ClickedTokenButton();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(cardAdversity.CurrentZone, Is.EqualTo(investigator.DangerZone));
             Assert.That(cardAdversity.Wasted.IsActive, Is.False);
         }
 
