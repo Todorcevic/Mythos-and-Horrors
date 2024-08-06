@@ -10,6 +10,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionRestorePhaseTests : TestCORE1Preparation
     {
+        protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator RestorePhaseTest()
         {
@@ -48,7 +50,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator2.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
         }
 
-        //protected override TestsType TestsType => TestsType.Debug;
         [UnityTest]
         public IEnumerator CheckMaxHandSizeUndo()
         {

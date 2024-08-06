@@ -11,9 +11,9 @@ namespace MythosAndHorrors.GameRules
         private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        public bool CanBackToThisInteractable { get; protected set; }
-        public bool MustShowInCenter { get; protected set; }
-        public virtual string Description { get; protected set; }
+        public bool CanBackToThisInteractable { get; private set; }
+        public bool MustShowInCenter { get; private set; }
+        public string Code { get; private set; }
 
         public BaseEffect EffectSelected { get; private set; }
         public BaseEffect MainButtonEffect { get; private set; }
@@ -31,11 +31,11 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/
-        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
-            Description = description;
+            Code = code;
             return this;
         }
 

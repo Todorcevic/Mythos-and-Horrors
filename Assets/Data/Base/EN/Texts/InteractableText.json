@@ -1,0 +1,10 @@
+{
+    "CheckMaxHandSize": {
+        "Title": "Discard down to {arg0} cards ({arg1} left)",
+        "MustShowInCenter": false
+    },
+    "Two": {
+        "Title": "Not Done",
+        "MustShowInCenter": false
+    }
+}

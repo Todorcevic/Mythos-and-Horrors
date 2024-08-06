@@ -12,9 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Card ByThisCard { get; private set; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
-
         public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && ActiveInvestigator.IsInPlay;
-        public override string Description => $"Recived {AmountDamage}Damage {AmountFear}Fear";
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
@@ -23,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Share harm");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: $"Recived {amountDamage}Damage {amountFear}Fear");
             ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;

@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : InteractableGameAction, IPersonalInteractable
     {
-        [Inject] private readonly TextsProvider _textsProvider;
+        private const string CODE = "CheckMaxHandSize";
 
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Hide Parent Method")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code)
          => throw new NotImplementedException();
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(CheckMaxHandSizeGameAction));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, CODE);
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

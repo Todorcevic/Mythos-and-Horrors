@@ -22,14 +22,14 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
 
-        private bool IsActivated => _collider.enabled;
-        public BaseEffect MainButtonEffect { get; set; }
+        public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
 
         /*******************************************************************/
+        public void SetEffect(BaseEffect effect) => MainButtonEffect = effect;
+
         public void ActivateToClick()
         {
-            //if (IsActivated) return;
             _message.text = MainButtonEffect?.Description;
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
@@ -40,7 +40,6 @@ namespace MythosAndHorrors.GameView
 
         public void DeactivateToClick()
         {
-            //if (!IsActivated) return;
             _collider.enabled = false;
             _buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);
