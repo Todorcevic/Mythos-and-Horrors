@@ -32,8 +32,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Assert.That(result.GetPrivateMember<SkillStatsController>("_skillStatsController").GetPrivateMember<StatView>("_agility")
                 .transform.GetTextFromThis("Value"), Is.EqualTo(card.Info.Agility.ToString()));
 
-            Assert.That(result.GetPrivateMember<CounterStatsController>("_countersCollection")
-                .GetPrivateMember<HealthCounterController>("_healthController").AmountEnable, Is.EqualTo(card.Info.Health));
+            Assert.That(result.GetComponentInChildren<HealthCounterController>().GetPrivateMember<int>("AmountEnable"), Is.EqualTo(card.Info.Health));
         }
     }
 }

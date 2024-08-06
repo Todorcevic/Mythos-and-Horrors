@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
-using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
@@ -13,19 +12,17 @@ namespace MythosAndHorrors.EditMode.Tests
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
         [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
         [Inject] private readonly CardLoaderUseCase _cardLoaderUseCase;
+        [Inject] private readonly InvestigatorLoaderUseCase _investigatorLoaderUseCase;
 
         /*******************************************************************/
         [Test]
-        public void GetAllCards()
+        public void GetSpecificCard()
         {
             _dataSaveLoaderUseCase.Load();
             _textsLoaderUseCase.LoadGameTexts();
-
-            _cardLoaderUseCase.Execute("01501");
-            _cardLoaderUseCase.Execute("01603");
+            _investigatorLoaderUseCase.Execute();
 
             Assert.That(_sut.GetCard<Card01501>().Info.Name, Is.EqualTo("Roland Banks"));
-            Assert.That(_sut.AllCards.Count(), Is.EqualTo(2));
         }
     }
 }

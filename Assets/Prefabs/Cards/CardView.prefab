@@ -1310,11 +1310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2cba1714c735894fa360c9b1aa899d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthController: {fileID: 3578736555278912800, guid: 800f148b0efccc649b5e13ac9c848e76, type: 3}
-  _sanityController: {fileID: 3857982746523096729, guid: 7cc41d99cb380a54ca05ba48a0218813, type: 3}
-  _hintController: {fileID: 5858345290103329268, guid: d23f6bad12caeeb42a5b40b3b07a6dd2, type: 3}
-  _eldritchController: {fileID: 5256041183089332148, guid: 801b971ba19781e46a9a201c09261e0b, type: 3}
-  _plotController: {fileID: 4415649910404868511, guid: 5de8daff24c16e04b92fc500382fabcb, type: 3}
+  _healthControllerPrefab: {fileID: 3578736555278912800, guid: 800f148b0efccc649b5e13ac9c848e76, type: 3}
+  _sanityControllerPrefab: {fileID: 3857982746523096729, guid: 7cc41d99cb380a54ca05ba48a0218813, type: 3}
+  _hintControllerPrefab: {fileID: 5858345290103329268, guid: d23f6bad12caeeb42a5b40b3b07a6dd2, type: 3}
+  _eldritchControllerPrefab: {fileID: 5256041183089332148, guid: 801b971ba19781e46a9a201c09261e0b, type: 3}
+  _plotControllerPrefab: {fileID: 4415649910404868511, guid: 5de8daff24c16e04b92fc500382fabcb, type: 3}
 --- !u!114 &4777218361842893506
 MonoBehaviour:
   m_ObjectHideFlags: 0
