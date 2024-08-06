@@ -94,7 +94,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             Card01164 cardAdversity = _cardsProvider.GetCard<Card01164>();
             Card01506 weapon = _cardsProvider.GetCard<Card01506>();
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1)); ;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1));
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();

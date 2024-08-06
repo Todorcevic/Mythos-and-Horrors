@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -9,7 +8,6 @@ namespace MythosAndHorrors.GameRules
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
         => throw new NotImplementedException();
 
