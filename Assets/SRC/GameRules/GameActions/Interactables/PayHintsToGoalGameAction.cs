@@ -23,11 +23,12 @@ namespace MythosAndHorrors.GameRules
             base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator to pay");
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsActive))
             {

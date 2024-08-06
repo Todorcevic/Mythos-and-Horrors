@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InteractableGameAction : GameAction, IInitializable
+    public class InteractableGameAction : GameAction
     {
         private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
@@ -84,8 +84,6 @@ namespace MythosAndHorrors.GameRules
 
         public void RemoveEffects(IEnumerable<CardEffect> effects) => effects.ForEach(effect => _allCardEffects.Remove(effect));
 
-        public virtual void ExecuteSpecificInitialization() { }
-
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
@@ -95,11 +93,8 @@ namespace MythosAndHorrors.GameRules
             async Task UndoLogic()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                if (lastInteractable.GetType() != typeof(InteractableGameAction)) lastInteractable.ClearEffects();
                 await lastInteractable.Execute();
             }
         }
-
-        private void ClearEffects() => _allCardEffects.Clear();
     }
 }

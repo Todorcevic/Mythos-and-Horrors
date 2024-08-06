@@ -15,11 +15,12 @@ namespace MythosAndHorrors.GameRules
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(MulliganGameAction));
             ActiveInvestigator = investigator;
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             CreateContinueMainButton();
 

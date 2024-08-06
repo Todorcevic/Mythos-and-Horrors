@@ -23,6 +23,7 @@ namespace MythosAndHorrors.GameRules
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Play Turn");
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
+            ExecuteSpecificInitialization();
             return this;
         }
 
@@ -36,8 +37,9 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
+            if (!CanBeExecuted) return;
             PreparePassEffect();
             PrepareInvestigateEffect();
             PrepareMoveEffect();

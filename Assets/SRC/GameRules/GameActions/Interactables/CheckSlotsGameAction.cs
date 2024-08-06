@@ -20,11 +20,12 @@ namespace MythosAndHorrors.GameRules
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard");
             ActiveInvestigator = investigator;
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             IEnumerable<CardSupply> cards = ActiveInvestigator.CardsInPlay.OfType<CardSupply>()
                 .Where(card => card.HasAnyOfThisSlots(ActiveInvestigator.GetAllSlotsExeded()));

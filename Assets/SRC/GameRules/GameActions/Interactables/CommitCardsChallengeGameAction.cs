@@ -32,11 +32,12 @@ namespace MythosAndHorrors.GameRules
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Commit cards");
             CurrentChallenge = challenge;
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             CreateMainButton(CurrentChallenge.ContinueChallenge, "Drop");
 

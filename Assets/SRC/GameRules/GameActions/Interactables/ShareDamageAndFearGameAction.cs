@@ -28,11 +28,12 @@ namespace MythosAndHorrors.GameRules
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             List<Card> allSelectables = new() { ActiveInvestigator.InvestigatorCard };
 

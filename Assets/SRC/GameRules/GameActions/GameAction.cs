@@ -22,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         {
             await _reactionablesProvider.WhenInitial(this);
             if (!CanBeExecuted || IsCancel) return;
-            if (this is IInitializable initializable) initializable.ExecuteSpecificInitialization();
             InitialSet();
             await _reactionablesProvider.WhenBegin(this);
             await _optativeReactionsProvider.WhenBegin(this);

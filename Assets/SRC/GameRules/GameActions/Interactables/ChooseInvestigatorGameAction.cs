@@ -17,11 +17,12 @@ namespace MythosAndHorrors.GameRules
         public ChooseInvestigatorGameAction SetWith()
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator");
+            ExecuteSpecificInitialization();
             return this;
         }
 
         /*******************************************************************/
-        public override void ExecuteSpecificInitialization()
+        private void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
