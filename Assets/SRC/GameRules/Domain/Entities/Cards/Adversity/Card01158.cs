@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Curse };
+        public Stat ChoiseRemaining { get; private set; }
 
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
@@ -19,15 +20,18 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task MultiFailEffect()
             {
-                for (int i = 0; i < challengeGameAction.ResultChallenge.TotalDifferenceValue * -1; i++)
+                ChoiseRemaining = new Stat(challengeGameAction.ResultChallenge.TotalDifferenceValue * -1, false);
+
+                while (ChoiseRemaining.Value > 0)
                 {
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChoiseRemaining, 1).Execute();
                     if (investigator.IsInPlay) await FailEffect();
 
                     /*******************************************************************/
                     async Task FailEffect()
                     {
                         InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, $"Choose one | {challengeGameAction.ResultChallenge.TotalDifferenceValue * -1 - i} choices remaining");
+                            .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01158");
 
                         interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator);
                         foreach (Card card in investigator.DiscardableCardsInHand)

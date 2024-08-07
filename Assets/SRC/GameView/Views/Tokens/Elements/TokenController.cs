@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
     public class TokenController : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
-        [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] public Transform CenterShow { get; }
+        [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] private Transform _centerShow;
         [Inject] private readonly StatableManager _statableManager;
 
         public int Amount => _allTokens.Count(tokenView => tokenView.IsActive);
@@ -38,14 +38,14 @@ namespace MythosAndHorrors.GameView
         public Tween Pay(int amount, Transform thisPosition)
         {
             Sequence paySequence = DOTween.Sequence();
-            GetActiveTokens(amount).ForEach(token => paySequence.Join(token.MoveTo(thisPosition, CenterShow)));
+            GetActiveTokens(amount).ForEach(token => paySequence.Join(token.MoveTo(thisPosition, _centerShow)));
             return paySequence;
         }
 
         public Tween Gain(int amount, Transform thisPosition)
         {
             Sequence gainSequence = DOTween.Sequence();
-            GetDeactiveTokens(amount).ForEach(token => gainSequence.Join(token.MoveFrom(thisPosition, CenterShow)));
+            GetDeactiveTokens(amount).ForEach(token => gainSequence.Join(token.MoveFrom(thisPosition, _centerShow)));
             return gainSequence;
         }
 

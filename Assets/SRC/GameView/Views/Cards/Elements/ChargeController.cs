@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -15,6 +16,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _supplie;
         [SerializeField, Required, AssetsOnly] private Sprite _secret;
         [SerializeField, Required, AssetsOnly] private SpriteRenderer _charge;
+        [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => _charges.First(charge => charge.transform.gameObject.activeSelf).transform;
@@ -25,6 +27,7 @@ namespace MythosAndHorrors.GameView
             if (card is IChargeable chargeable)
             {
                 Stat = chargeable.Charge.Amount;
+                _statableManager.Add(this);
 
                 _charge.sprite = chargeable.Charge.ChargeType switch
                 {
@@ -36,6 +39,7 @@ namespace MythosAndHorrors.GameView
                 };
 
                 UpdateAnimation();
+
             }
             else gameObject.SetActive(false);
         }

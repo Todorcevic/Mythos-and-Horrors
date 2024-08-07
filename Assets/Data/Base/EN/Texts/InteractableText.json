@@ -1,6 +1,6 @@
 {
     "CheckMaxHandSize": {
-        "Title": "Discard until you have {arg0} cards | {arg1} cards remaining",
+        "Title": "Discard until you have {arg0} cards - {arg1} cards remaining",
         "MustShowInCenter": false
     },
     "CheckSlots": {
@@ -28,7 +28,7 @@
         "MustShowInCenter": true
     },
     "ShareDamageAndFear": {
-        "Title": "Deal {arg0}Damage | {arg1}Fear",
+        "Title": "Deal {arg0}Damage - {arg1}Fear",
         "MustShowInCenter": true
     },
     "Card01135": {
@@ -36,7 +36,7 @@
         "MustShowInCenter": true
     },
     "Card01158": {
-        "Title": "Choose one | {arg0} choices remaining",
+        "Title": "Choose one - {arg0} choices remaining",
         "MustShowInCenter": true
     }
 }

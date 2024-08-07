@@ -16,14 +16,10 @@ namespace MythosAndHorrors.GameView
             _allStats.Add(statableView);
         }
 
-        public IStatable Get(Stat stat) => _allStats.First(statable => statable.Stat == stat ||
-            ((statable is IMultiStatable multistatable) && multistatable.MultiStat.Contains(stat)));
+        public IStatable Get(Stat stat) => _allStats.First(statable => statable.Stat == stat);
 
-        public IEnumerable<IStatable> GetAll(Stat stat) => _allStats.FindAll(statable => statable.Stat == stat ||
-            ((statable is IMultiStatable multistatable) && multistatable.MultiStat.Contains(stat)));
+        public IEnumerable<IStatable> GetAll(Stat stat) => _allStats.FindAll(statable => statable.Stat == stat);
 
-        public IEnumerable<IStatable> GetAll(IEnumerable<Stat> stats) =>
-            _allStats.FindAll(statable => stats.Contains(statable.Stat) ||
-            ((statable is IMultiStatable multistatable) && multistatable.MultiStat.Intersect(stats).Any()));
+        public IEnumerable<IStatable> GetAll(IEnumerable<Stat> stats) => _allStats.FindAll(statable => stats.Contains(statable.Stat));
     }
 }

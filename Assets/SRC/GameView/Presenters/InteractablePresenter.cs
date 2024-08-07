@@ -23,6 +23,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly PhaseComponent _phaseComponent;
         [Inject] private readonly TextsManager _textsManager;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
         async Task<BaseEffect> IInteractablePresenter.SelectWith(InteractableGameAction interactableGameAction)
@@ -117,7 +118,7 @@ namespace MythosAndHorrors.GameView
                 case "CheckSlots":
                     CheckSlotsGameAction checkSlotsGameAction = (CheckSlotsGameAction)_interactableGameAction;
                     string slotsToRemove = string.Empty;
-                    checkSlotsGameAction.ActiveInvestigator.GetAllSlotsExeded().ForEach(slot => slotsToRemove += slot.ToString() + "|");
+                    checkSlotsGameAction.ActiveInvestigator.GetAllSlotsExeded().ForEach(slot => slotsToRemove += slot.ToString() + "-");
                     slotsToRemove = slotsToRemove.Remove(slotsToRemove.Length - 1);
                     return _interactableText.Title.ParseViewWith(slotsToRemove);
 
@@ -128,6 +129,11 @@ namespace MythosAndHorrors.GameView
                 case "ShareDamageAndFear":
                     ShareDamageAndFearGameAction shareDamageAndFearGameAction = (ShareDamageAndFearGameAction)_interactableGameAction;
                     return _interactableText.Title.ParseViewWith(shareDamageAndFearGameAction.AmountDamage.ToString(), shareDamageAndFearGameAction.AmountFear.ToString());
+
+                case "Card01158":
+                    Card01158 card = _cardsProvider.GetCard<Card01158>();
+                    return _interactableText.Title.ParseViewWith((card.ChoiseRemaining.Value + 1).ToString());
+
             }
 
             return _interactableText.Title;

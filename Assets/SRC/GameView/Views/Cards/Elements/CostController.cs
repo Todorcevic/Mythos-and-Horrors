@@ -1,9 +1,9 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Linq;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
+        [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
 
@@ -20,6 +21,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
+            _statableManager.Add(this);
             SetSlots(card);
             if (card is IPlayableFromHand platableFromHand)
                 SetCostWith(platableFromHand.ResourceCost);
