@@ -4,6 +4,6 @@ namespace MythosAndHorrors.GameRules
 {
     public interface IInteractablePresenter
     {
-        Task<BaseEffect> SelectWith(GameAction gamAction);
+        Task<BaseEffect> SelectWith(InteractableGameAction interactableGameAction);
     }
 }

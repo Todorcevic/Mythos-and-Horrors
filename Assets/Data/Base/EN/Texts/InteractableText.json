@@ -3,8 +3,8 @@
         "Title": "Discard down to {arg0} cards ({arg1} left)",
         "MustShowInCenter": false
     },
-    "Two": {
-        "Title": "Not Done",
-        "MustShowInCenter": false
+    "CheckSlots": {
+        "Title": "{arg0} Slots is full, select Supply To Discard",
+        "MustShowInCenter": true
     }
 }

@@ -85,7 +85,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         public bool IsClickable(Card cardSelected) => cardSelected.PlayableEffects?.Any() ?? false;
 
         /*******************************************************************/
-        public async Task<BaseEffect> SelectWith(GameAction gamAction)
+        public async Task<BaseEffect> SelectWith(InteractableGameAction _)
         {
             await Task.WhenAny(waitForClicked.Task, Task.Delay(3000));
 

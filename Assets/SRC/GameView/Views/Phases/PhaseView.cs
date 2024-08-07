@@ -24,6 +24,11 @@ namespace MythosAndHorrors.GameView
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
             .OnComplete(() => gameObject.SetActive(false));
 
+        public Sequence ChangeText(string description) => ChangeText(_name.text, description)
+                .Join(ShowDescription())
+                .AppendInterval(ViewValues.SLOW_TIME_ANIMATION * 4)
+                .Append(HideDescription());
+
         public Sequence ChangeText(string name, string description)
         {
             Sequence namingSequence = DOTween.Sequence();
@@ -53,16 +58,8 @@ namespace MythosAndHorrors.GameView
             HideDescription();
         }
 
-        private Tween ShowDescription()
-        {
+        private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBounce);
 
-            return _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBounce);
-        }
-
-        private Tween HideDescription()
-        {
-
-            return _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION);
-        }
+        private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION);
     }
 }

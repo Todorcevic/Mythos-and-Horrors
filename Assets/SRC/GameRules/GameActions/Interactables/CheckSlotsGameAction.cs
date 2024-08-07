@@ -8,6 +8,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
+        private const string CODE = "CheckSlots";
+
         public Investigator ActiveInvestigator { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
@@ -18,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Select Supply To Discard");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, CODE);
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

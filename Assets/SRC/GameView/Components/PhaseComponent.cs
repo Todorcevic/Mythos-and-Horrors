@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameView
     public class PhaseComponent : MonoBehaviour
     {
         private const float OFFSET = -140f;
-
         private Investigator currentInvestigator;
         private PhaseView _currentPhaseView;
         [SerializeField, Required, ChildGameObjectsOnly] private List<PhaseView> _phaseViews;
@@ -35,6 +34,8 @@ namespace MythosAndHorrors.GameView
                 .Join(newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description))
                 .OnComplete(() => _currentPhaseView = newPhase);
         }
+
+        public Tween ShowText(string information) => _currentPhaseView?.ChangeText(information) ?? DOTween.Sequence();
 
         private Tween SetAvatar(Investigator investigatorTurn)
         {

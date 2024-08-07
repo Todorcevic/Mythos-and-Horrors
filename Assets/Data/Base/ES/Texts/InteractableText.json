@@ -3,7 +3,7 @@
         "Title": "Descartar hasta tener {arg0} cartas ({arg1} restantes)",
         "MustShowInCenter": false
     },
-    "Two": {
+    "CheckSlots": {
         "Title": "Not Done",
         "MustShowInCenter": false
     }

@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameView
         private bool _mustShowInCenter;
         private InteractableGameAction _interactableGameAction;
         private InteractableText _interactableText;
-
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
@@ -22,20 +21,19 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly PhaseComponent _phaseComponent;
         [Inject] private readonly TextsManager _textsManager;
 
         /*******************************************************************/
-        async Task<BaseEffect> IInteractablePresenter.SelectWith(GameAction gamAction)
+        async Task<BaseEffect> IInteractablePresenter.SelectWith(InteractableGameAction interactableGameAction)
         {
-            if (gamAction is not InteractableGameAction interactableGameAction) return default;
             _interactableGameAction = interactableGameAction;
+            _mainButtonComponent.SetEffect(_interactableGameAction.MainButtonEffect);
 
             if (!_textsManager.InteractableTexts.TryGetValue(_interactableGameAction.Code, out _interactableText))
             {
                 _interactableText = new InteractableText(_interactableGameAction.Code, _interactableGameAction.MustShowInCenter);
             }
-
-            _mainButtonComponent.SetEffect(_interactableGameAction.MainButtonEffect);
 
             if (_interactableGameAction is IPersonalInteractable personalInteractable)
             {
@@ -64,6 +62,7 @@ namespace MythosAndHorrors.GameView
             else
             {
                 await CenterShowDown();
+                _phaseComponent.ShowText(GetRealTitle());
                 return await Interact();
             }
         }
@@ -108,10 +107,19 @@ namespace MythosAndHorrors.GameView
 
         private string GetRealTitle()
         {
-            if (_interactableGameAction is CheckMaxHandSizeGameAction checkMaxHandSize)
+            switch (_interactableGameAction.Code)
             {
-                int cardsLeft = checkMaxHandSize.ActiveInvestigator.HandSize - checkMaxHandSize.ActiveInvestigator.MaxHandSize.Value;
-                return _interactableText.Title.ParseViewWith(checkMaxHandSize.ActiveInvestigator.MaxHandSize.Value.ToString(), cardsLeft.ToString());
+                case "CheckMaxHandSize":
+                    CheckMaxHandSizeGameAction checkMaxHandSizeGameAction = (CheckMaxHandSizeGameAction)_interactableGameAction;
+                    int cardsLeft = checkMaxHandSizeGameAction.ActiveInvestigator.HandSize - checkMaxHandSizeGameAction.ActiveInvestigator.MaxHandSize.Value;
+                    return _interactableText.Title.ParseViewWith(checkMaxHandSizeGameAction.ActiveInvestigator.MaxHandSize.Value.ToString(), cardsLeft.ToString());
+
+                case "CheckSlots":
+                    CheckSlotsGameAction checkSlotsGameAction = (CheckSlotsGameAction)_interactableGameAction;
+                    string slotsToRemove = string.Empty;
+                    checkSlotsGameAction.ActiveInvestigator.GetAllSlotsExeded().ForEach(slot => slotsToRemove += slot.ToString() + "|");
+                    slotsToRemove = slotsToRemove.Remove(slotsToRemove.Length - 1);
+                    return _interactableText.Title.ParseViewWith(slotsToRemove);
             }
 
             return _interactableText.Title;
