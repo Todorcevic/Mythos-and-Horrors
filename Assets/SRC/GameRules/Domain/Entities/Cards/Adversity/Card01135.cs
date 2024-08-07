@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01135");
 
             if (investigator.CanPayHints.IsActive)
                 interactableGameAction.CreateEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator);

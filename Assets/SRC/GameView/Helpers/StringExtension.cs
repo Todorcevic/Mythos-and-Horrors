@@ -4,15 +4,15 @@ namespace MythosAndHorrors.GameView
 {
     public static class StringExtension
     {
-        public static string ParseViewWith(this string str, params string[] args)
+        public static string ParseViewWith(this string text, params string[] args)
         {
-            if (str == null) throw new ArgumentNullException(nameof(str));
+            if (text == null) throw new ArgumentNullException(nameof(text));
 
             for (int i = 0; i < args.Length; i++)
             {
-                str = str.Replace($"{{arg{i}}}", args[i]);
+                text = text.Replace($"{{arg{i}}}", args[i]);
             }
-            return str;
+            return text;
         }
     }
 }

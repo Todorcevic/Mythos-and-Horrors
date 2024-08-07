@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : InteractableGameAction
     {
+        private const string CODE = "ChooseInvestigator";
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
@@ -16,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChooseInvestigatorGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose Investigator");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE);
             ExecuteSpecificInitialization();
             return this;
         }

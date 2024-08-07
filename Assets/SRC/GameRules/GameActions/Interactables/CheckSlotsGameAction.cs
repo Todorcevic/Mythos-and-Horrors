@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE);
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

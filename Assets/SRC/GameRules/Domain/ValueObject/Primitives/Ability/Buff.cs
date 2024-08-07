@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
     public class Buff : IViewEffect, IAbility
     {
         private bool _isBuffing;
+        private readonly Stack<List<Card>> _undoCardsAfeccted = new();
 
         public Card CardMaster { get; }
         public Func<IEnumerable<Card>> CardsToBuff { get; }
@@ -70,8 +71,6 @@ namespace MythosAndHorrors.GameRules
             await BuffOffLogic.RunWith(CurrentCardsAffected);
             CurrentCardsAffected.Clear();
         }
-
-        private readonly Stack<List<Card>> _undoCardsAfeccted = new();
 
         public void Undo()
         {

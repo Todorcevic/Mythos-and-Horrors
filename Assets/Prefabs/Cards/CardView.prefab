@@ -1272,6 +1272,7 @@ GameObject:
   - component: {fileID: 7146364131974474006}
   - component: {fileID: 4478067262793974341}
   - component: {fileID: 4777218361842893506}
+  - component: {fileID: 6019355612304738272}
   m_Layer: 3
   m_Name: Counters
   m_TagString: Untagged
@@ -1341,6 +1342,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 1
+--- !u!114 &6019355612304738272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723086848655957849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 4478067262793974341}
+  _bindId: 0
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!1 &6905897654971988374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1937,7 @@ GameObject:
   - component: {fileID: 465905975934171176}
   - component: {fileID: 8688392126135273741}
   - component: {fileID: 8976686929807381669}
+  - component: {fileID: 4453167514833834463}
   m_Layer: 3
   m_Name: Charges
   m_TagString: Untagged
@@ -1987,6 +2007,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4453167514833834463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8381220424457898944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 8688392126135273741}
+  _bindId: 0
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 1
 --- !u!1 &8647370356557701656
 GameObject:
   m_ObjectHideFlags: 0

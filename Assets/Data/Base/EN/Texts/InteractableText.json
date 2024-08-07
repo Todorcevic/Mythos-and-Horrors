@@ -1,10 +1,42 @@
 {
     "CheckMaxHandSize": {
-        "Title": "Discard down to {arg0} cards ({arg1} left)",
+        "Title": "Discard until you have {arg0} cards | {arg1} cards remaining",
         "MustShowInCenter": false
     },
     "CheckSlots": {
         "Title": "{arg0} Slots is full, select Supply To Discard",
+        "MustShowInCenter": true
+    },
+    "ChooseInvestigator": {
+        "Title": "Choose the Investigator to play his turn",
+        "MustShowInCenter": true
+    },
+    "CommitCardsChallenge": {
+        "Title": "Commit cards to this Challenge",
+        "MustShowInCenter": false
+    },
+    "Mulligan": {
+        "Title": "Discard cards to replace them",
+        "MustShowInCenter": false
+    },
+    "OneInvestigatorTurn": {
+        "Title": "{arg0} plays his turn",
+        "MustShowInCenter": false
+    },
+    "PayHintsToGoal": {
+        "Title": "Choose the Investigator to pay Hints to the Goal",
+        "MustShowInCenter": true
+    },
+    "ShareDamageAndFear": {
+        "Title": "Deal {arg0}Damage | {arg1}Fear",
+        "MustShowInCenter": true
+    },
+    "Card01135": {
+        "Title": "Choose one",
+        "MustShowInCenter": true
+    },
+    "Card01158": {
+        "Title": "Choose one | {arg0} choices remaining",
         "MustShowInCenter": true
     }
 }

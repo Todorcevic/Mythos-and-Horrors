@@ -20,10 +20,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public bool Check(GameAction gameAction, GameActionTime time)
         {
-            if (Time != time) return false;
-            if (gameAction is not T realGameAction) return false;
-            if (gameAction.IsCancel) return false;
             if (IsDisable) return false;
+            if (Time != time) return false;
+            if (gameAction.IsCancel) return false;
+            if (gameAction is not T realGameAction) return false;
             if (!Condition.IsTrueWith(realGameAction)) return false;
             return true;
         }

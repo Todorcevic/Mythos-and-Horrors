@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
     public record BaseEffect : IViewEffectDescription
     {
         private readonly string _description;
+
         public Stat ActivateTurnsCost { get; }
         public PlayActionType PlayActionType { get; }
         public Investigator Investigator { get; }

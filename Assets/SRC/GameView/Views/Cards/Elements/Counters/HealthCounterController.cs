@@ -16,7 +16,6 @@ namespace MythosAndHorrors.GameView
         {
             _damageable = damageable;
             Stat = _damageable.DamageRecived;
-
             EnableThisAmount(_damageable.Health.Value);
             ShowThisAmount(_damageable.HealthLeft);
             gameObject.SetActive(true);

@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MulliganGameAction : InteractableGameAction, IPersonalInteractable
     {
+        private const string CODE = "Mulligan";
+
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code)
         => throw new NotImplementedException();
 
         public MulliganGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, nameof(MulliganGameAction));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE);
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

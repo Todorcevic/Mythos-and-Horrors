@@ -2,7 +2,6 @@
 {
     public interface IPersonalInteractable
     {
-
         public Investigator ActiveInvestigator { get; }
     }
 }

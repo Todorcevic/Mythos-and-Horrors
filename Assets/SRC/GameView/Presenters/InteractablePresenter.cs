@@ -120,6 +120,14 @@ namespace MythosAndHorrors.GameView
                     checkSlotsGameAction.ActiveInvestigator.GetAllSlotsExeded().ForEach(slot => slotsToRemove += slot.ToString() + "|");
                     slotsToRemove = slotsToRemove.Remove(slotsToRemove.Length - 1);
                     return _interactableText.Title.ParseViewWith(slotsToRemove);
+
+                case "OneInvestigatorTurn":
+                    OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = (OneInvestigatorTurnGameAction)_interactableGameAction;
+                    return _interactableText.Title.ParseViewWith(oneInvestigatorTurnGameAction.ActiveInvestigator.InvestigatorCard.Info.Name);
+
+                case "ShareDamageAndFear":
+                    ShareDamageAndFearGameAction shareDamageAndFearGameAction = (ShareDamageAndFearGameAction)_interactableGameAction;
+                    return _interactableText.Title.ParseViewWith(shareDamageAndFearGameAction.AmountDamage.ToString(), shareDamageAndFearGameAction.AmountFear.ToString());
             }
 
             return _interactableText.Title;

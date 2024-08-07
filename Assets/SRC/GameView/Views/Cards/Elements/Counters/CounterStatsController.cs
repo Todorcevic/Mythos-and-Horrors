@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -11,29 +12,40 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private HintCounterController _hintControllerPrefab;
         [SerializeField, Required, AssetsOnly] private EldritchCounterController _eldritchControllerPrefab;
         [SerializeField, Required, AssetsOnly] private PlotCounterController _plotControllerPrefab;
+        [Inject] private readonly StatableManager _statableManager;
 
         /*******************************************************************/
         public void Init(Card card)
         {
             if (card is IDamageable damageable)
             {
-                Instantiate(_healthControllerPrefab, transform).Init(damageable);
+                HealthCounterController newHealController = Instantiate(_healthControllerPrefab, transform);
+                newHealController.Init(damageable);
+                _statableManager.Add(newHealController);
             }
             if (card is IFearable fearable)
             {
-                Instantiate(_sanityControllerPrefab, transform).Init(fearable);
+                SanityCounterController newFearController = Instantiate(_sanityControllerPrefab, transform);
+                newFearController.Init(fearable);
+                _statableManager.Add(newFearController);
             }
             if (card is CardPlace cardPlace)
             {
-                Instantiate(_hintControllerPrefab, transform).Init(cardPlace);
+                HintCounterController newHintController = Instantiate(_hintControllerPrefab, transform);
+                newHintController.Init(cardPlace);
+                _statableManager.Add(newHintController);
             }
             if (card is IEldritchable eldritchable)
             {
-                Instantiate(_eldritchControllerPrefab, transform).Init(eldritchable);
+                EldritchCounterController newEldritchController = Instantiate(_eldritchControllerPrefab, transform);
+                newEldritchController.Init(eldritchable);
+                _statableManager.Add(newEldritchController);
             }
             if (card is CardPlot cardPlot)
             {
-                Instantiate(_plotControllerPrefab, transform).Init(cardPlot);
+                PlotCounterController newPlotController = Instantiate(_plotControllerPrefab, transform);
+                newPlotController.Init(cardPlot);
+                _statableManager.Add(newPlotController);
             }
         }
     }

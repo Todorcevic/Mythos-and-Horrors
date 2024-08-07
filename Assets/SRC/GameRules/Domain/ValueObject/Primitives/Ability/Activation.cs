@@ -26,16 +26,16 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public bool FullCondition(T investigator)
+        public bool FullCondition(T element)
         {
             if (IsDisable) return false;
-            if (!Condition.IsTrueWith(investigator)) return false;
+            if (!Condition.IsTrueWith(element)) return false;
             return true;
         }
 
-        public async Task PlayFor(T investigator)
+        public async Task PlayFor(T element)
         {
-            await Logic.RunWith(investigator);
+            await Logic.RunWith(element);
         }
 
         public void Enable() => IsDisable = false;
