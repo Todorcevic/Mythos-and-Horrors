@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE);
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

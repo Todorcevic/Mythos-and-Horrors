@@ -220,35 +220,39 @@
         "MustShowInCenter": true
     },
     "Card01686-2": {
-        "Title": "Play Card",
+        "Title": "Spend one Secret to play this Card",
         "MustShowInCenter": true
     },
-    "Card01550": {
+    "Card01687": {
         "Title": "Choose Place",
         "MustShowInCenter": true
     },
-    "Card01550": {
+    "Card01689": {
         "Title": "Choose Place",
         "MustShowInCenter": true
     },
-    "Card01550": {
+    "Card01690": {
+        "Title": "Choose deck",
+        "MustShowInCenter": true
+    },
+    "Card01690-1": {
+        "Title": "Choose Card to return",
+        "MustShowInCenter": true
+    },
+    "Card01691": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "CardWeapon": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01581": {
         "Title": "Choose Place",
         "MustShowInCenter": true
     },
-    "Card01550": {
-        "Title": "Choose Place",
-        "MustShowInCenter": true
-    },
-    "Card01550": {
-        "Title": "Choose Place",
-        "MustShowInCenter": true
-    },
-    "Card01550": {
-        "Title": "Choose Place",
-        "MustShowInCenter": true
-    },
-    "Card01550": {
-        "Title": "Choose Place",
-        "MustShowInCenter": true
+    "OptativeReactions": {
+        "Title": "Choose Card to play",
+        "MustShowInCenter": false
     }
 }

@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             async Task SucessEffect()
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Select Place to Move");
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Card01581");
                 interactableGameAction.CreateContinueMainButton();
                 foreach (CardPlace place in eludeCreatureGameAction.ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
                 {

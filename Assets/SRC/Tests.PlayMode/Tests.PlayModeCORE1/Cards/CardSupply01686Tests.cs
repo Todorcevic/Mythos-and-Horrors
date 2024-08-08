@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(cardSupply);
             yield return ClickedIn(investigator2.InvestigatorCard);
             yield return ClickedIn(cardAsset);
-            yield return ClickedIn(cardSupply);
+            yield return ClickedIn(cardAsset);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(cardSupply);
             yield return ClickedIn(investigator2.InvestigatorCard);
             yield return ClickedIn(cardCondition);
-            yield return AssertThatIsNotClickable(cardSupply);
+            yield return AssertThatIsNotClickable(cardCondition);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -98,7 +98,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(cardSupply);
             yield return ClickedIn(investigator2.InvestigatorCard);
             yield return ClickedIn(cardCondition);
-            yield return ClickedIn(cardSupply);
+            yield return ClickedIn(cardCondition);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

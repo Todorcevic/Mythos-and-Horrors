@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
             harmToInvestigatorGameAction.AddAmountDamage(-creatureDamage);
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01691");
 
             foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace)
             {

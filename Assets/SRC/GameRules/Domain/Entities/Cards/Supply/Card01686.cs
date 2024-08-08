@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -57,10 +56,10 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task Draw()
                         {
+                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Execute();
                             await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Execute();
                             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Execute();
                             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
-                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Execute();
                             await DecrementCost(card, inv);
                         }
                     }
@@ -72,10 +71,12 @@ namespace MythosAndHorrors.GameRules
             await interactableGameAction.Execute();
         }
 
-        private async Task DecrementCost(Card card, Investigator investigator) //TODO: Implementar como original
+        private async Task DecrementCost(Card card, Investigator investigator)
         {
             if (Charge.IsEmpty) return;
             if (card is not IPlayableFromHand playableFromHand) return;
+            if (!playableFromHand.PlayFromHandCondition.IsTrueWith(card.ControlOwner)) return;
+
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Execute();
 
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
@@ -83,7 +84,7 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                     .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01686-2");
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.CreateEffect(this, new Stat(0, false), DecrementLogic, PlayActionType.Choose, investigator, resourceCost: playableFromHand.ResourceCost);
+                interactableGameAction.CreateEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand, card.ControlOwner, resourceCost: playableFromHand.ResourceCost);
 
                 async Task DecrementLogic()
                 {

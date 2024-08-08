@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             if (!optativeReactions.Any()) return;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Play Reaction?");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "OptativeReactions");
 
             foreach (IReaction reaction in optativeReactions)
             {
