@@ -21,5 +21,8 @@ namespace MythosAndHorrors.GameView
         public static Color ACTIVE_COLOR = new(0.1607843f, 0.4039216f, 0.05098039f);
         public static Color DEACTIVE_COLOR = new(0.4528302f, 0.07903168f, 0.07903168f);
         public static Color DEFAULT_COLOR = new(0.7019608f, 0.772549f, 0.8784314f);
+
+        public const string NOT_WAITABLE_ANIMATION = "NOT_WAITABLE";
+        public const string MOVE_ANIMATION = "MOVE_ANIMATION";
     }
 }

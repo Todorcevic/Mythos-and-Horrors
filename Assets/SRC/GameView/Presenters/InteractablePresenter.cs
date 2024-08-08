@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameView
             else
             {
                 await CenterShowDown();
-                _phaseComponent.ShowText(GetRealTitle());
+                _phaseComponent.ShowText(GetRealTitle()).SetNotWaitable();
                 return await Interact();
             }
         }
@@ -124,7 +124,8 @@ namespace MythosAndHorrors.GameView
 
                 case "OneInvestigatorTurn":
                     OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = (OneInvestigatorTurnGameAction)_interactableGameAction;
-                    return _interactableText.Title.ParseViewWith(oneInvestigatorTurnGameAction.ActiveInvestigator.InvestigatorCard.Info.Name);
+                    CardInvestigator investigatorCard = oneInvestigatorTurnGameAction.ActiveInvestigator.InvestigatorCard;
+                    return _interactableText.Title.ParseViewWith(investigatorCard.Info.Name, investigatorCard.CurrentTurns.Value.ToString());
 
                 case "ShareDamageAndFear":
                     ShareDamageAndFearGameAction shareDamageAndFearGameAction = (ShareDamageAndFearGameAction)_interactableGameAction;

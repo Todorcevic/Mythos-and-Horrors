@@ -36,14 +36,19 @@ namespace MythosAndHorrors.GameView
                 .Join(transform.DOScale(1f, timeAnimation));
         }
 
+        public static Tween SetNotWaitable(this Tween tween)
+        {
+            return tween.SetId(ViewValues.NOT_WAITABLE_ANIMATION);
+        }
+
         public static async Task WaitForAnimationsComplete()
         {
-            while (DOTween.TotalPlayingTweens() > 0) await Task.Yield();
+            while (DOTween.TotalPlayingTweens() > DOTween.TotalTweensById(ViewValues.NOT_WAITABLE_ANIMATION, playingOnly: true)) await Task.Yield();
         }
 
         public static async Task WaitForMoveToZoneComplete()
         {
-            while (DOTween.TweensById(nameof(CardView), playingOnly: true)?.Count > 0) await Task.Yield();
+            while (DOTween.TweensById(ViewValues.MOVE_ANIMATION, playingOnly: true)?.Count > 0) await Task.Yield();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -15,14 +14,17 @@ namespace MythosAndHorrors.GameView
         private Vector3 _colliderOriginalSize;
 
         public bool IsClickable { get; set; }
-
         private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
 
+        /*******************************************************************/
+        private void Start()
+        {
+            _colliderOriginalSize = _collider.size;
+        }
 
         /*******************************************************************/
         public void ColliderUp(float amount)
         {
-            _colliderOriginalSize = _collider.size;
             _collider.size += Vector3.up * amount;
             _collider.center -= 0.5f * amount * Vector3.up;
         }

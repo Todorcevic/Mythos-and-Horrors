@@ -20,7 +20,7 @@
         "MustShowInCenter": false
     },
     "OneInvestigatorTurn": {
-        "Title": "{arg0} plays his turn",
+        "Title": "{arg0} plays his turn - {arg1} Actions remaining",
         "MustShowInCenter": false
     },
     "PayHintsToGoal": {
@@ -101,10 +101,6 @@
     },
     "Card01138": {
         "Title": "Choose one card to discard - {arg0} cards remaining",
-        "MustShowInCenter": false
-    },
-    "Card01177": {
-        "Title": "Choose Place",
         "MustShowInCenter": false
     },
     "Card01550": {

@@ -11,11 +11,11 @@ namespace MythosAndHorrors.GameView
         public override Tween MouseEnter(CardView cardView)
         {
             cardView.ShowBuffsAndEffects();
-            int yOFFSET = cardView.GetBuffsAmount();
-            cardView.ColliderForBuffs(threshold * yOFFSET);
+            float yOFFSET = cardView.GetBuffsAmount() * threshold;
+            cardView.ColliderForBuffs(yOFFSET);
 
             return ((Sequence)base.MouseEnter(cardView))
-                .Join(cardView.transform.DOLocalMove(_hoverPosition.localPosition + (threshold * yOFFSET * Vector3.forward), ViewValues.FAST_TIME_ANIMATION));
+                .Join(cardView.transform.DOLocalMove(_hoverPosition.localPosition + (yOFFSET * Vector3.forward), ViewValues.FAST_TIME_ANIMATION));
         }
 
         public override Tween MouseExit(CardView cardView)

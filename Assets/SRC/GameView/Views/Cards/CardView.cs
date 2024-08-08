@@ -121,7 +121,7 @@ namespace MythosAndHorrors.GameView
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             if (newZoneView == CurrentZoneView) return DOTween.Sequence();
-            Sequence moveSequence = DOTween.Sequence().SetId(nameof(CardView))
+            Sequence moveSequence = DOTween.Sequence().SetId(ViewValues.MOVE_ANIMATION)
                  .OnStart(() => transform.SetParent(newZoneView.transform))
                  .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
                  .Join(Rotate())

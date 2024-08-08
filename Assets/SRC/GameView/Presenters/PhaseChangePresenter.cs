@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<PhaseGameAction>.PlayAnimationWith(PhaseGameAction phaseGameAction)
         {
-            _phaseComponent.ShowThisPhase(phaseGameAction);
+            _phaseComponent.ShowThisPhase(phaseGameAction).SetNotWaitable();
             await _swapInvestigatorHandler.Select(phaseGameAction.ActiveInvestigator).AsyncWaitForCompletion();
         }
     }
