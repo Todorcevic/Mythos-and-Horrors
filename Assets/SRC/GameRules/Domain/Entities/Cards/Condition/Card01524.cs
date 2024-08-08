@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Firearm");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01524");
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace))
             {
                 interactable.CreateEffect(place, new Stat(0, false), Explote, PlayActionType.Choose, investigator);

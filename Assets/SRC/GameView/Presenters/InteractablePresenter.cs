@@ -131,9 +131,12 @@ namespace MythosAndHorrors.GameView
                     return _interactableText.Title.ParseViewWith(shareDamageAndFearGameAction.AmountDamage.ToString(), shareDamageAndFearGameAction.AmountFear.ToString());
 
                 case "Card01158":
-                    Card01158 card = _cardsProvider.GetCard<Card01158>();
-                    return _interactableText.Title.ParseViewWith((card.ChoiseRemaining.Value + 1).ToString());
+                    Card01158 card01158 = _cardsProvider.GetCard<Card01158>();
+                    return _interactableText.Title.ParseViewWith((card01158.ChoiseRemaining.Value + 1).ToString());
 
+                case "Card01138":
+                    Card01138 card01138 = _cardsProvider.GetCard<Card01138>();
+                    return _interactableText.Title.ParseViewWith((card01138.DiscardRemaining.Value + 1).ToString());
             }
 
             return _interactableText.Title;

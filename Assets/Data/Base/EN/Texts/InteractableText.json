@@ -38,5 +38,113 @@
     "Card01158": {
         "Title": "Choose one - {arg0} choices remaining",
         "MustShowInCenter": true
+    },
+    "Card01167": {
+        "Title": "Discard a Supply",
+        "MustShowInCenter": true
+    },
+    "Card01174": {
+        "Title": "Choose Challenge type",
+        "MustShowInCenter": true
+    },
+    "Card01596": {
+        "Title": "Choose one Card, the rest are discarded",
+        "MustShowInCenter": true
+    },
+    "Card01524": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    } ,
+    "Card01178": {
+        "Title": "Choose one",
+        "MustShowInCenter": true
+    },
+    "Card01526": {
+        "Title": "Choose firearm",
+        "MustShowInCenter": true
+    },
+    "Card01543": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01551": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01552": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01566": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01568": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01569": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01685": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01685-2": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01138": {
+        "Title": "Choose one card to discard - {arg0} cards remaining",
+        "MustShowInCenter": false
+    },
+    "Card01177": {
+        "Title": "Choose Place",
+        "MustShowInCenter": false
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01550": {
+        "Title": "Choose Place",
+        "MustShowInCenter": true
     }
 }

@@ -27,12 +27,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Choose Enemy");
+            InteractableGameAction chooseCreature = _gameActionsProvider.Create<InteractableGameAction>()
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Card01551");
 
             foreach (CardCreature creature in AttackbleCreatures(investigator))
             {
-                chooseEnemy.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator);
+                chooseCreature.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator);
 
                 async Task AttackCreature()
                 {
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 }
             }
 
-            await chooseEnemy.Execute();
+            await chooseCreature.Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)

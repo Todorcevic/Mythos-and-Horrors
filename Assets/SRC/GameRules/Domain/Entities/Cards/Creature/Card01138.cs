@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public Stat DiscardRemaining { get; private set; }
         private SceneCORE2 SceneCORE2 => (SceneCORE2)_chaptersProvider.CurrentScene;
         public CardPlace SpawnPlace => SceneCORE2.Graveyard;
         public override IEnumerable<Tag> Tags => new[] { Tag.Humanoid, Tag.Cultist };
@@ -33,40 +33,36 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private Stat _amountDiscarded;
-
         private async Task ParleyActivate(Investigator investigator)
         {
-            _amountDiscarded = CreateStat(0);
+            DiscardRemaining = CreateStat(4);
             await _gameActionsProvider.Create<ParleyGameAction>().SetWith(PayCreature).Execute();
 
             /*******************************************************************/
             async Task PayCreature()
             {
-                InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Parlay");
-                foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive))
+                while (DiscardRemaining.Value > 0)
                 {
-                    interactableGameAction.CreateEffect(card,
-                        new Stat(0, false),
-                        Discard,
-                        PlayActionType.Choose,
-                        playedBy: investigator,
-                        cardAffected: this);
-
-                    /*******************************************************************/
-                    async Task Discard()
+                    await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(DiscardRemaining, 1).Execute();
+                    InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Card01138");
+                    foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive))
                     {
-                        await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
-                        await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_amountDiscarded, 1).Execute();
-                        if (_amountDiscarded.Value == 4)
-                            await _gameActionsProvider.Create<MoveCardsGameAction>()
-                                .SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
-                        else await PayCreature();
+                        interactableGameAction.CreateEffect(card,
+                            new Stat(0, false),
+                            Discard,
+                            PlayActionType.Choose,
+                            playedBy: investigator,
+                            cardAffected: this);
+
+                        /*******************************************************************/
+                        async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
                     }
+
+                    await interactableGameAction.Execute();
                 }
 
-                await interactableGameAction.Execute();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
             }
         }
     }

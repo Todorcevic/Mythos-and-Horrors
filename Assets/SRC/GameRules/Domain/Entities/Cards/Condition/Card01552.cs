@@ -14,12 +14,13 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Choose Enemy");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Card01552");
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => creature.Exausted.IsActive))
             {
                 chooseEnemy.CreateEffect(creature, new Stat(0, false), DamageCreature, PlayActionType.Choose, investigator);
 
+                /*******************************************************************/
                 async Task DamageCreature() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Execute();
             }
 

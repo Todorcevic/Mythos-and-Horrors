@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -14,6 +15,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
             PlayFromHandTurnsCost = CreateStat(0);
@@ -23,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Choose Enemy");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Card01566");
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {

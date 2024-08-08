@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ThrowAttackLogic(Investigator investigator)
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, true).Execute();
-            await ChooseEnemyLogic(investigator);
+            await ChooseCreatureLogic(investigator);
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ThrowingState, false).Execute();
         }
 

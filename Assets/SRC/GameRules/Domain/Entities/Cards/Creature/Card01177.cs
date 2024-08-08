@@ -30,18 +30,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (creatureAttackGameAction.Investigator.DiscardableCardsInHand.Any())
             {
-                InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: false, "Discard");
-
-                foreach (Card card in creatureAttackGameAction.Investigator.DiscardableCardsInHand)
-                {
-                    interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, creatureAttackGameAction.Investigator);
-
-                    /*******************************************************************/
-                    async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
-                }
-
-                await interactableGameAction.Execute();
+                await _gameActionsProvider.Create<DiscardGameAction>().SetWith(creatureAttackGameAction.Investigator.DiscardableCardsInHand.Rand()).Execute();
             }
             else
             {

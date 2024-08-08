@@ -3,8 +3,6 @@ using UnityEngine.TestTools;
 using System.Collections;
 using NUnit.Framework;
 using MythosAndHorrors.PlayMode.Tests;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
@@ -21,13 +19,13 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return PlayThisInvestigator(investigator);
             Card01177 creature = _cardsProvider.GetCard<Card01177>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Execute().AsCoroutine();
+            int expectedHandSize = investigator.HandSize - 1;
 
-            Task gameActionTask = _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Execute();
-            yield return ClickedIn(investigator.DiscardableCardsInHand.First());
-            yield return gameActionTask.AsCoroutine();
+            yield return _gameActionsProvider.Create<CreatureAttackGameAction>().SetWith(creature, investigator).Execute().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+            Assert.That(investigator.HandSize, Is.EqualTo(expectedHandSize));
         }
 
         [UnityTest]

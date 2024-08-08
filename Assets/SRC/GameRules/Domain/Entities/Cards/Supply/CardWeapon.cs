@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateFastActivation(ChooseEnemyLogic, AttackCondition, PlayActionType.Activate);
+            CreateFastActivation(ChooseCreatureLogic, AttackCondition, PlayActionType.Activate);
         }
 
         /*******************************************************************/
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        protected async Task ChooseEnemyLogic(Investigator investigator)
+        protected async Task ChooseCreatureLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Choose Enemy");

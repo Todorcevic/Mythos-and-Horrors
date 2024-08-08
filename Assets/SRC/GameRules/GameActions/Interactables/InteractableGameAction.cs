@@ -24,10 +24,10 @@ namespace MythosAndHorrors.GameRules
         public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
         private bool NoEffect => (MainButtonEffect == null) && !_allCardEffects.Any();
         private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
-        public bool IsManadatary => MainButtonEffect == null;
+        public bool IsMandatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public IEnumerable<CardEffect> AllEffects => _allCardEffects.ToList();
-        public CardEffect GetUniqueEffect() => (IsManadatary && IsUniqueEffect) ? UniqueEffect : null;
+        public CardEffect GetUniqueEffect() => (IsMandatary && IsUniqueEffect) ? UniqueEffect : null;
         public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
 
         /*******************************************************************/

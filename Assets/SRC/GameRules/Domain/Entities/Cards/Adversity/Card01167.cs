@@ -22,7 +22,8 @@ namespace MythosAndHorrors.GameRules
                 IEnumerable<CardSupply> cardSuppliesForDiscard = investigator.AidZone.Cards.OfType<CardSupply>().Where(supply => supply.CanBeDiscarted.IsActive);
                 if (cardSuppliesForDiscard.Any())
                 {
-                    InteractableGameAction interactableGameAcrtion = _gameActionsProvider.Create<InteractableGameAction>().SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Discard");
+                    InteractableGameAction interactableGameAcrtion = _gameActionsProvider.Create<InteractableGameAction>()
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01167");
 
                     foreach (CardSupply cardSupply in cardSuppliesForDiscard)
                     {

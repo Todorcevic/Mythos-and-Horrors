@@ -24,8 +24,8 @@ namespace MythosAndHorrors.GameView
         {
             if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
-            BlockUI();
-            await DotweenExtension.WaitForAnimationsComplete();
+            await BlockUI().AsyncWaitForCompletion();
+            //  await DotweenExtension.WaitForAnimationsComplete(); //TODO: Borrar cuando se compruebe que no hay problemas
         }
 
         private Tween UnblockUI()

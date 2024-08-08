@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<CardPlace> connectedPlacesToMove = investigator.CurrentPlace.ConnectedPlacesToMove.Where(place => !place.CreaturesInThisPlace.Any());
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Place To move");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01550");
 
             foreach (CardPlace place in connectedPlacesToMove)
             {
