@@ -5,21 +5,22 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01509 : CardSupply, IDrawRevelation
+    public class Card01509 : CardSupply, IDrawRevelation, IChargeable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item, Tag.Weakness };
-
+        public Charge Charge { get; private set; }
         public Stat ChargeFear { get; private set; }
+        public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item, Tag.Weakness };
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ExtraStat = ChargeFear = CreateStat(3);
+            ChargeFear = CreateStat(3);
+            Charge = new Charge(ChargeFear, ChargeType.Special);
             CreateActivation(1, TakeFearLogic, TakeFearCondition, PlayActionType.Activate);
             CreateForceReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
         }

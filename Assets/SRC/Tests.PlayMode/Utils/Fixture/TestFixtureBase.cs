@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -229,9 +229,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 MainButtonComponent _mainButtonComponent = SceneContainer.Resolve<MainButtonComponent>();
                 float startTime = Time.realtimeSinceStartup;
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) yield return null;
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.IsActivated) yield return null;
 
-                if (_mainButtonComponent.GetPrivateMember<bool>("IsActivated")) _mainButtonComponent.OnMouseUpAsButton();
+                if (_mainButtonComponent.IsActivated) _mainButtonComponent.OnMouseUpAsButton();
                 else throw new TimeoutException("Main Button Not become clickable");
 
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();

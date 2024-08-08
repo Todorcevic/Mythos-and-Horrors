@@ -5,16 +5,16 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01511 : CardAdversity, IVictoriable, IResetable
+    public class Card01511 : CardAdversity, IVictoriable, IResetable, IChargeable
     {
         private const int AMOUNT_RESOURCE_NEEDED = 6;
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public Charge Charge { get; private set; }
         public Stat AbilityUsed { get; private set; }
         public Stat Resources { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => new[] { Owner };
-
         int IVictoriable.Victory => -2;
         bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
@@ -25,7 +25,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateStat(0);
-            Resources = ExtraStat = CreateStat(AMOUNT_RESOURCE_NEEDED);
+            Resources = CreateStat(AMOUNT_RESOURCE_NEEDED);
+            Charge = new Charge(Resources, ChargeType.Special);
             CreateFastActivation(PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate);
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }

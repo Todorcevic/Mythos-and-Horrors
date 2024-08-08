@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
@@ -10,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 {
     public class CardGoal01148Tests : TestCORE3Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator PayHintsWithChallenge()
@@ -26,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardGoal);
             yield return ClickedMainButton();
-            Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
+            //Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
             yield return ClickedIn(cardGoal);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

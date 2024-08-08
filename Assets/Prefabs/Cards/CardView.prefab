@@ -1313,8 +1313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthControllerPrefab: {fileID: 3578736555278912800, guid: 800f148b0efccc649b5e13ac9c848e76, type: 3}
   _sanityControllerPrefab: {fileID: 3857982746523096729, guid: 7cc41d99cb380a54ca05ba48a0218813, type: 3}
-  _hintControllerPrefab: {fileID: 5858345290103329268, guid: d23f6bad12caeeb42a5b40b3b07a6dd2, type: 3}
-  _eldritchControllerPrefab: {fileID: 5256041183089332148, guid: 801b971ba19781e46a9a201c09261e0b, type: 3}
+  _hintControllerPrefab: {fileID: 55494191464183722, guid: d23f6bad12caeeb42a5b40b3b07a6dd2, type: 3}
+  _eldritchControllerPrefab: {fileID: 3889961860373313010, guid: 801b971ba19781e46a9a201c09261e0b, type: 3}
   _plotControllerPrefab: {fileID: 4415649910404868511, guid: 5de8daff24c16e04b92fc500382fabcb, type: 3}
 --- !u!114 &4777218361842893506
 MonoBehaviour:
@@ -1976,10 +1976,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9f01bc1123cc647b02a6b94bbd1bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 21300000, guid: 2f2816cbf6f343b489a6d1f9b7de2f23, type: 3}
-  _magic: {fileID: 21300000, guid: 8e851963ec89be549851eea12bf89a40, type: 3}
-  _supplie: {fileID: 21300000, guid: 40e760c155e8693429b1df7b7f2fa1d5, type: 3}
-  _secret: {fileID: 21300000, guid: 89367bee371da894bb076970ff60b7af, type: 3}
+  _bullet: {fileID: 21300000, guid: a3a82a90ab641a14d9d5c698aedeaecc, type: 3}
+  _magic: {fileID: 21300000, guid: 6cf9e3475e70f7d4ab0c841d7d634f92, type: 3}
+  _supplie: {fileID: 21300000, guid: 53c52a6b1e3e23746b184cd10ab42625, type: 3}
+  _secret: {fileID: 21300000, guid: 7d7da81dd63eb824582426ee6a59e031, type: 3}
+  _special: {fileID: 21300000, guid: 45ddf922fd7da884f80e2f15e97f0c74, type: 3}
   _charge: {fileID: 1625676036555892817, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
 --- !u!114 &8976686929807381669
 MonoBehaviour:

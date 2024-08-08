@@ -4,16 +4,17 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ResourceCounterController : CounterController, IStatable
+    public class BasicCounterController : CounterController, IStatable
     {
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(Stat resourceStat)
+        public void Init(Stat extraStat)
         {
-            Stat = resourceStat;
+            Stat = extraStat;
             UpdateValue();
+            gameObject.SetActive(true);
         }
 
         public Tween UpdateAnimation()
@@ -26,7 +27,7 @@ namespace MythosAndHorrors.GameView
         {
             EnableThisAmount(Stat.Value);
             ShowThisAmount(Stat.Value);
-            gameObject.SetActive(true);
+
         }
     }
 }

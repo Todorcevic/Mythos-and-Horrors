@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameView
     {
         private const float OFFSET = 1f;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
@@ -24,6 +23,7 @@ namespace MythosAndHorrors.GameView
 
         public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
+        public bool IsActivated => _collider.enabled;
 
         /*******************************************************************/
         public void SetEffect(BaseEffect effect) => MainButtonEffect = effect;

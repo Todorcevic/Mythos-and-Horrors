@@ -5,10 +5,11 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01135 : CardAdversityLimbo
+    public class Card01135 : CardAdversityLimbo, IChargeable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public Charge Charge { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Curse, Tag.Isolate };
 
         /*******************************************************************/
@@ -16,11 +17,13 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ExtraStat = CreateStat(0);
+            Charge = new Charge(1, ChargeType.Special);
         }
+
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Charge.Amount, 1).Execute();
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01135");
 
@@ -31,7 +34,7 @@ namespace MythosAndHorrors.GameRules
             await interactableGameAction.Execute();
 
             /*******************************************************************/
-            async Task SpendClue() => await _gameActionsProvider.Create<DropHintGameAction>().SetWith(investigator, ExtraStat, 1).Execute();
+            async Task SpendClue() => await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, Charge.Amount, 1).Execute();
             async Task TakeDamage() => await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 2).Execute();
         }
     }

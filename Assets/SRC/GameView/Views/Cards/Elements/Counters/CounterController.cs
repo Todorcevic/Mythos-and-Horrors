@@ -13,8 +13,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private GameObject _column;
 
         private int AmountEnable => _allCounts.Count(spriteRenderer => spriteRenderer.gameObject.activeSelf);
-        public SpriteRenderer LastShowed => _allCounts.LastOrDefault(spriteRenderer => spriteRenderer.sprite == _fillCount);
-        public SpriteRenderer FirstVoid => _allCounts.FirstOrDefault(spriteRenderer => spriteRenderer.sprite == _voidCount);
 
         /*******************************************************************/
         public void EnableThisAmount(int amount)

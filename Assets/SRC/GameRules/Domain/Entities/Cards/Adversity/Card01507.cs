@@ -5,19 +5,21 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01507 : CardAdversity, IResetable
+    public class Card01507 : CardAdversity, IResetable, IChargeable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
-        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
+        public Charge Charge { get; private set; }
         public Stat Hints { get; private set; }
+        public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
 
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            ExtraStat = Hints = CreateStat(3);
+            Hints = CreateStat(3);
+            Charge = new Charge(Hints, ChargeType.Special);
             CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before);
             CreateForceReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }

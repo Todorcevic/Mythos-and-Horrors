@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
         private IFearable _fearable;
 
         public Stat Stat { get; private set; }
-        public Transform StatTransform => LastShowed.transform;
+        public Transform StatTransform => transform;
 
         /*******************************************************************/
         public void Init(IFearable fearable)

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameView
         private IDamageable _damageable;
 
         public Stat Stat { get; private set; }
-        public Transform StatTransform => LastShowed.transform;
+        public Transform StatTransform => transform;
 
         /*******************************************************************/
         public void Init(IDamageable damageable)

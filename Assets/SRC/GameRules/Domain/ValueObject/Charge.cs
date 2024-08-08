@@ -12,5 +12,11 @@
             Amount = new Stat(amount, false);
             ChargeType = chargeType;
         }
+
+        public Charge(Stat stat, ChargeType chargeType)
+        {
+            Amount = stat;
+            ChargeType = chargeType;
+        }
     }
 }

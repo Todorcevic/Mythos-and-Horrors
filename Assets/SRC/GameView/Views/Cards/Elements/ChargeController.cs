@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _magic;
         [SerializeField, Required, AssetsOnly] private Sprite _supplie;
         [SerializeField, Required, AssetsOnly] private Sprite _secret;
+        [SerializeField, Required, AssetsOnly] private Sprite _special;
         [SerializeField, Required, AssetsOnly] private SpriteRenderer _charge;
         [Inject] private readonly StatableManager _statableManager;
 
@@ -35,6 +36,7 @@ namespace MythosAndHorrors.GameView
                     ChargeType.MagicCharge => _magic,
                     ChargeType.Supplie => _supplie,
                     ChargeType.Secret => _secret,
+                    ChargeType.Special => _special,
                     _ => null
                 };
 

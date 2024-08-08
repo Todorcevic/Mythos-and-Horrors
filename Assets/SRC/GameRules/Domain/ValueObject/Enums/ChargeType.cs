@@ -5,6 +5,7 @@
         Bullet,
         Supplie,
         MagicCharge,
-        Secret
+        Secret,
+        Special
     }
 }

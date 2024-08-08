@@ -9,8 +9,8 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, AssetsOnly] private HealthCounterController _healthControllerPrefab;
         [SerializeField, Required, AssetsOnly] private SanityCounterController _sanityControllerPrefab;
-        [SerializeField, Required, AssetsOnly] private HintCounterController _hintControllerPrefab;
-        [SerializeField, Required, AssetsOnly] private EldritchCounterController _eldritchControllerPrefab;
+        [SerializeField, Required, AssetsOnly] private BasicCounterController _hintControllerPrefab;
+        [SerializeField, Required, AssetsOnly] private BasicCounterController _eldritchControllerPrefab;
         [SerializeField, Required, AssetsOnly] private PlotCounterController _plotControllerPrefab;
         [Inject] private readonly StatableManager _statableManager;
 
@@ -31,14 +31,14 @@ namespace MythosAndHorrors.GameView
             }
             if (card is CardPlace cardPlace)
             {
-                HintCounterController newHintController = Instantiate(_hintControllerPrefab, transform);
-                newHintController.Init(cardPlace);
+                BasicCounterController newHintController = Instantiate(_hintControllerPrefab, transform);
+                newHintController.Init(cardPlace.Hints);
                 _statableManager.Add(newHintController);
             }
             if (card is IEldritchable eldritchable)
             {
-                EldritchCounterController newEldritchController = Instantiate(_eldritchControllerPrefab, transform);
-                newEldritchController.Init(eldritchable);
+                BasicCounterController newEldritchController = Instantiate(_eldritchControllerPrefab, transform);
+                newEldritchController.Init(eldritchable.Eldritch);
                 _statableManager.Add(newEldritchController);
             }
             if (card is CardPlot cardPlot)

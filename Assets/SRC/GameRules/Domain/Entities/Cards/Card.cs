@@ -22,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         private readonly List<State> _states = new();
         protected readonly List<IAbility> _specificAbilities = new();
 
-        public Stat ExtraStat { get; protected set; }
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public State Blancked { get; private set; }
