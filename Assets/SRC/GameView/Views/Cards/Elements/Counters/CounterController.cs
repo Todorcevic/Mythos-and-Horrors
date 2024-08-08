@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void EnableThisAmount(int amount)
         {
+            amount = Mathf.Max(amount, 0);
             for (int i = 0; i < amount; i++)
             {
                 if (i >= _allCounts.Count) CreateNewColumn();
@@ -31,6 +32,7 @@ namespace MythosAndHorrors.GameView
 
         public void ShowThisAmount(int amount)
         {
+            amount = Mathf.Max(amount, 0);
             for (int i = 0; i < amount; i++)
             {
                 _allCounts[i].sprite = _fillCount;
