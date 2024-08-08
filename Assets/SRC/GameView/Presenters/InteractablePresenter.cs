@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -33,7 +34,8 @@ namespace MythosAndHorrors.GameView
 
             if (!_textsManager.InteractableTexts.TryGetValue(_interactableGameAction.Code, out _interactableText))
             {
-                _interactableText = new InteractableText(_interactableGameAction.Code, _interactableGameAction.MustShowInCenter);
+                _interactableText = new InteractableText();
+                Debug.LogWarning($"Interactable text not found for {_interactableGameAction.Code}");
             }
 
             if (_interactableGameAction is IPersonalInteractable personalInteractable)

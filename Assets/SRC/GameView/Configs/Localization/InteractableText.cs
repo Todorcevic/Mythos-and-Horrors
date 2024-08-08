@@ -6,12 +6,5 @@ namespace MythosAndHorrors.GameView
     {
         [JsonProperty("Title")] public string Title { get; init; } = "TEXT NOT FOUND";
         [JsonProperty("MustShowInCenter")] public bool MustShowInCenter { get; init; }
-
-        /*******************************************************************/
-        public InteractableText(string title, bool mustShowInCenter)
-        {
-            Title = title;
-            MustShowInCenter = mustShowInCenter;
-        }
     }
 }

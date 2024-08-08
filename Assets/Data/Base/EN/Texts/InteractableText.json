@@ -253,6 +253,10 @@
     },
     "OptativeReactions": {
         "Title": "Choose Card to play",
-        "MustShowInCenter": false
+        "MustShowInCenter": true
+    },
+    "TestsPurpose": {
+        "Title": "Choose",
+        "MustShowInCenter": true
     }
 }
