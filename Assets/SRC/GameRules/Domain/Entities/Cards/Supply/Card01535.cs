@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public async Task HealthActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Health");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01535");
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
@@ -34,7 +34,8 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task HealthInvestigator()
                 {
-                    await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(activeInvestigator.Intelligence, 2, "Health", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator).Execute();
+                    await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                        .SetWith(activeInvestigator.Intelligence, 2, "Health", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator).Execute();
 
                     /*******************************************************************/
                     async Task HealthInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigatorToSelect.InvestigatorCard, amountDamageToRecovery: 1).Execute();

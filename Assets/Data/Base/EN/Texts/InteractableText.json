@@ -1,14 +1,14 @@
 {
     "CheckMaxHandSize": {
-        "Title": "Discard until you have {arg0} cards - {arg1} cards remaining",
+        "Title": "Discard until you have {arg0} Cards - {arg1} Cards remaining",
         "MustShowInCenter": false
     },
     "CheckSlots": {
-        "Title": "{arg0} Slots is full, select Supply To Discard",
+        "Title": "{arg0} Slots is full, choose Supply To Discard",
         "MustShowInCenter": true
     },
     "ChooseInvestigator": {
-        "Title": "Choose the Investigator to play his turn",
+        "Title": "Choose Investigator to play his turn",
         "MustShowInCenter": true
     },
     "CommitCardsChallenge": {
@@ -16,15 +16,15 @@
         "MustShowInCenter": false
     },
     "Mulligan": {
-        "Title": "Discard cards to replace them",
+        "Title": "Discard Cards to replace them",
         "MustShowInCenter": false
     },
     "OneInvestigatorTurn": {
-        "Title": "{arg0} plays his turn - {arg1} Actions remaining",
+        "Title": "{arg0} plays his Turn - {arg1} Actions remaining",
         "MustShowInCenter": false
     },
     "PayHintsToGoal": {
-        "Title": "Choose the Investigator to pay Hints to the Goal",
+        "Title": "Choose Investigator to pay Hints to the Goal",
         "MustShowInCenter": true
     },
     "ShareDamageAndFear": {
@@ -40,7 +40,7 @@
         "MustShowInCenter": true
     },
     "Card01167": {
-        "Title": "Discard a Supply",
+        "Title": "Discard Supply",
         "MustShowInCenter": true
     },
     "Card01174": {
@@ -48,19 +48,19 @@
         "MustShowInCenter": true
     },
     "Card01596": {
-        "Title": "Choose one Card, the rest are discarded",
+        "Title": "Choose Card, the rest are discarded",
         "MustShowInCenter": true
     },
     "Card01524": {
         "Title": "Choose Place",
         "MustShowInCenter": true
-    } ,
+    },
     "Card01178": {
         "Title": "Choose one",
         "MustShowInCenter": true
     },
     "Card01526": {
-        "Title": "Choose firearm",
+        "Title": "Choose Firearm",
         "MustShowInCenter": true
     },
     "Card01543": {
@@ -100,19 +100,127 @@
         "MustShowInCenter": true
     },
     "Card01138": {
-        "Title": "Choose one card to discard - {arg0} cards remaining",
+        "Title": "Choose Card to discard - {arg0} Cards remaining",
         "MustShowInCenter": false
     },
-    "Card01550": {
+    "Card01110": {
+        "Title": "Choose decision",
+        "MustShowInCenter": true
+    },
+    "Card01502": {
+        "Title": "Choose Tome",
+        "MustShowInCenter": true
+    },
+    "Card01504": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01505": {
+        "Title": "Choose Card to discard",
+        "MustShowInCenter": true
+    },
+    "Card01127": {
+        "Title": "Choose Support",
+        "MustShowInCenter": true
+    },
+    "Card01129": {
+        "Title": "Choose Tome or Spell",
+        "MustShowInCenter": true
+    },
+    "Card01518": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01519": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01528": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01531": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01531-2": {
+        "Title": "Choose Card to draw",
+        "MustShowInCenter": true
+    },
+    "Card01532": {
+        "Title": "Choose Tome",
+        "MustShowInCenter": true
+    },
+    "Card01535": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01542": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01542-1": {
+        "Title": "Choose Skill",
+        "MustShowInCenter": true
+    },
+    "Card01545": {
         "Title": "Choose Place",
         "MustShowInCenter": true
     },
-    "Card01550": {
+    "Card01555": {
         "Title": "Choose Place",
         "MustShowInCenter": true
     },
-    "Card01550": {
+    "Card01561": {
+        "Title": "Choose deck",
+        "MustShowInCenter": true
+    },
+    "Card01561-1": {
+        "Title": "Choose Card to return",
+        "MustShowInCenter": true
+    },
+    "Card01563": {
+        "Title": "Choose Spell",
+        "MustShowInCenter": true
+    },
+    "Card01570": {
+        "Title": "Choose Spell",
+        "MustShowInCenter": true
+    },
+    "Card01571": {
+        "Title": "Choose Token",
+        "MustShowInCenter": true
+    },
+    "Card01573": {
+        "Title": "Choose Item",
+        "MustShowInCenter": true
+    },
+    "Card01576": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01582": {
+        "Title": "Choose Creature",
+        "MustShowInCenter": true
+    },
+    "Card01587": {
         "Title": "Choose Place",
+        "MustShowInCenter": true
+    },
+    "Card01683": {
+        "Title": "Choose Card to Health",
+        "MustShowInCenter": true
+    },
+    "Card01686": {
+        "Title": "Choose Investigator",
+        "MustShowInCenter": true
+    },
+    "Card01686-1": {
+        "Title": "Choose Card to draw",
+        "MustShowInCenter": true
+    },
+    "Card01686-2": {
+        "Title": "Play Card",
         "MustShowInCenter": true
     },
     "Card01550": {

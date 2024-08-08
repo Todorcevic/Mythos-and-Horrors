@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose deck");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01561");
             interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck, PlayActionType.Choose, investigator);
 
             foreach (Investigator inv in _investigatorsProvider.AllInvestigatorsInPlay)
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Choose card");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01561-1");
             foreach (Card card in cards)
             {
                 interactableGameAction.CreateEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, cardAffected: cardAffected);

@@ -62,8 +62,8 @@ namespace MythosAndHorrors.GameView
             }
             else
             {
-                await CenterShowDown();
                 _phaseComponent.ShowText(GetRealTitle()).SetNotWaitable();
+                await CenterShowDown();
                 return await Interact();
             }
         }

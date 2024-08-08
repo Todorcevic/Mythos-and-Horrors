@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Place");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01555");
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {

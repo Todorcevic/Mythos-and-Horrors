@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select Investigator");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01519");
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeHealed))

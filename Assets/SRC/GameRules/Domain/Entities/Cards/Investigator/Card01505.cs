@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Select to Discard");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01505");
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {

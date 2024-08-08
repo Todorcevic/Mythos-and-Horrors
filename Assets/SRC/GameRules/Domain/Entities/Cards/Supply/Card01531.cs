@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01531");
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
                 interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose, investigator);
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
                 async Task SelecteInvestigator()
                 {
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Card");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01531-2");
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
 
                     foreach (Card card in cardsToShow)

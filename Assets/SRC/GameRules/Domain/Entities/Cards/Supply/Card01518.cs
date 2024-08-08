@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Creature");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01518");
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
                 interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator);
@@ -72,7 +72,5 @@ namespace MythosAndHorrors.GameRules
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
-
-        /*******************************************************************/
     }
 }

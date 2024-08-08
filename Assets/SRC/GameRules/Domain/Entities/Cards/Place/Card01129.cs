@@ -24,21 +24,22 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeTomeOrSpellLogic(Investigator investigator)
         {
-            IEnumerable<Card> supportsInDeck = investigator.DeckZone.Cards.Skip(Math.Max(0, investigator.DeckZone.Cards.Count() - 6)).Take(6).Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell));
+            IEnumerable<Card> cardToChoose = investigator.DeckZone.Cards.Skip(Math.Max(0, investigator.DeckZone.Cards.Count() - 6))
+                .Take(6).Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Take support");
-            foreach (CardSupply cardSupply in supportsInDeck)
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01129");
+            foreach (Card card in cardToChoose)
             {
-                interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator);
 
                 async Task Take()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSupply).Execute();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(supportsInDeck.Except(new[] { cardSupply })).Execute();
+                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Execute();
+                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardToChoose.Except(new[] { card })).Execute();
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(supportsInDeck).Execute();
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardToChoose).Execute();
             await interactableGameAction.Execute();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Execute();
         }

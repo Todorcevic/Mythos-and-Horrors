@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(MoveCardsGameAction moveCardsGameAction)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Choose Investigator");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01532");
 
             IEnumerable<CardSupply> tomes = ControlOwner.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Tome));
 

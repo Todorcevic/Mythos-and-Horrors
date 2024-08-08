@@ -10,10 +10,11 @@ namespace MythosAndHorrors.GameView
 {
     public class PhaseView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField, Required] public Phase _phase;
+        [SerializeField, Required] private Phase _phase;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _name;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _description;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _descriptionBackground;
+        private Sequence _showText;
 
         public Phase Phase => _phase;
 
@@ -24,10 +25,16 @@ namespace MythosAndHorrors.GameView
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
             .OnComplete(() => gameObject.SetActive(false));
 
-        public Sequence ChangeText(string description) => ChangeText(_name.text, description)
+        public Sequence ChangeText(string description)
+        {
+            _showText.Kill();
+            _showText = ChangeText(_name.text, description)
                 .Join(ShowDescription())
                 .AppendInterval(ViewValues.SLOW_TIME_ANIMATION * 4)
                 .Append(HideDescription());
+
+            return _showText;
+        }
 
         public Sequence ChangeText(string name, string description)
         {
