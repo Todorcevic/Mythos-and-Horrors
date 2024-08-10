@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01505");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01505");
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {

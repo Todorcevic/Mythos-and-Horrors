@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task CompleteEffect()
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01110");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01110");
             interactableGameAction.CreateEffect(this, new Stat(0, false), BurnIt, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
             interactableGameAction.CreateEffect(this, new Stat(0, false), NoBurn, PlayActionType.Choose, playedBy: _investigatorsProvider.Leader);
             await interactableGameAction.Execute();

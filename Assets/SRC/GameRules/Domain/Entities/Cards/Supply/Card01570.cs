@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01570");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01570");
 
             foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
             {

@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(DiscardRemaining, 1).Execute();
                     InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Card01138", DescriptionParams());
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Interactable_Card01138", DescriptionParams());
                     foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive))
                     {
                         interactableGameAction.CreateEffect(card,

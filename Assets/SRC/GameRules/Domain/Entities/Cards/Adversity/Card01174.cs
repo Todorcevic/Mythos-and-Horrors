@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
-            CreateBuff(CardsToBuff, ActivationLogic, DactivationLogic);
+            CreateBuff(CardsToBuff, ActivationBuffLogic, DactivationBuffLogic, code: "Buff_Card01174");
         }
 
         /*******************************************************************/
@@ -34,13 +34,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task DactivationLogic(IEnumerable<Card> enumerable)
+        private async Task DactivationBuffLogic(IEnumerable<Card> enumerable)
         {
             CardPlace cardPlace = enumerable.Cast<CardPlace>().First();
             await _gameActionsProvider.Create<ResetConditionalGameAction>().SetWith(cardPlace.CanBeInvestigated).Execute();
         }
 
-        private async Task ActivationLogic(IEnumerable<Card> enumerable)
+        private async Task ActivationBuffLogic(IEnumerable<Card> enumerable)
         {
             CardPlace cardPlace = enumerable.Cast<CardPlace>().First();
             await _gameActionsProvider.Create<UpdateConditionalGameAction>().SetWith(cardPlace.CanBeInvestigated, false).Execute();
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
         private async Task TryOpenLogic(Investigator investigator)
         {
             InteractableGameAction choose = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01174");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01174");
             choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
             choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
             await choose.Execute();

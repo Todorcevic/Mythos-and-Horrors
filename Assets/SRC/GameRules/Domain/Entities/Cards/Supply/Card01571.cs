@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
             IEnumerable<ChallengeToken> allTokens = _challengeTokensProvider.ChallengeTokensRevealed;
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01571");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01571");
             foreach (ChallengeToken token in allTokens)
             {
                 interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner);

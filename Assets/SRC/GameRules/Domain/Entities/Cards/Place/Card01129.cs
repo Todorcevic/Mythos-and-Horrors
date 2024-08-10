@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Card> cardToChoose = investigator.DeckZone.Cards.Skip(Math.Max(0, investigator.DeckZone.Cards.Count() - 6))
                 .Take(6).Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01129");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01129");
             foreach (Card card in cardToChoose)
             {
                 interactableGameAction.CreateEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator);

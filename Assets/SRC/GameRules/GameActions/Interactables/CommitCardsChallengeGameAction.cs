@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "CommitCardsChallenge";
+        private const string CODE = "Interactable_CommitCardsChallenge";
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] argdescriptionArgss)
         => throw new NotImplementedException();
 
         public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)

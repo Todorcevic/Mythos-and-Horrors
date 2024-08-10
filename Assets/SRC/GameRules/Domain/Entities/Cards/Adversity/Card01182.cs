@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ChallengeToDiscardLogic, ChallengeToDiscardCondition, PlayActionType.Activate);
-            CreateBuff(CardsToBuff, ActivateBuff, DeactivateBuff);
+            CreateBuff(CardsToBuff, ActivateBuff, DeactivateBuff, code: "Buff_Card01182");
         }
 
         /*******************************************************************/

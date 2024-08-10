@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
                 if (cardSuppliesForDiscard.Any())
                 {
                     InteractableGameAction interactableGameAcrtion = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01167");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01167");
 
                     foreach (CardSupply cardSupply in cardSuppliesForDiscard)
                     {

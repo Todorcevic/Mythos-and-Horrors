@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         public async Task HealthActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01535");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01535");
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)

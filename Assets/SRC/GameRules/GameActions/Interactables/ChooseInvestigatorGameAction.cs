@@ -7,12 +7,12 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : InteractableGameAction
     {
-        private const string CODE = "ChooseInvestigator";
+        private const string CODE = "Interactable_ChooseInvestigator";
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] ardescriptionArgsgs)
          => throw new NotImplementedException();
 
         public ChooseInvestigatorGameAction SetWith()

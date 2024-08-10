@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01686");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686");
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
                 interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose, investigator);
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
                     await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Execute();
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01686-1");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686-1");
 
                     foreach (Card card in cardsToShow)
                     {
@@ -82,7 +82,7 @@ namespace MythosAndHorrors.GameRules
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Card01686-2");
+                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01686-2");
                 interactableGameAction.CreateContinueMainButton();
                 interactableGameAction.CreateEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand, card.ControlOwner, resourceCost: playableFromHand.ResourceCost);
 

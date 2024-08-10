@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             Wasted = CreateState(false);
             CreateForceReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
             CreateForceReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
-            CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic);
+            CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic, code: "Buff_Card01164");
         }
 
         /*******************************************************************/

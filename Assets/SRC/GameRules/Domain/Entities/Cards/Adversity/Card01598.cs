@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(2, DiscardActivate, DiscardConditionToActivate, PlayActionType.Activate);
-            CreateBuff(CardsToBuff, DecrementStatBuff, RemoveDecrementStatBuff);
+            CreateBuff(CardsToBuff, DecrementStatBuff, RemoveDecrementStatBuff, code: "Buff_Card01598");
         }
 
         /*******************************************************************/
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DecrementStatBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> allStats = new();
-            foreach (var card in cards.OfType<CardInvestigator>())
+            foreach (CardInvestigator card in cards.OfType<CardInvestigator>())
             {
                 allStats[card.Strength] = 1;
                 allStats[card.Agility] = 1;
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         private async Task RemoveDecrementStatBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> allStats = new();
-            foreach (var card in cards.OfType<CardInvestigator>())
+            foreach (CardInvestigator card in cards.OfType<CardInvestigator>())
             {
                 allStats[card.Strength] = 1;
                 allStats[card.Agility] = 1;

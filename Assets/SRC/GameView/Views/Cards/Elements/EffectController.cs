@@ -7,7 +7,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class EffectController : MonoBehaviour
     {
         private const float REVERSE_OFFSET_Z = 0.003f;

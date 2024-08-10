@@ -6,13 +6,13 @@ namespace MythosAndHorrors.GameRules
 {
     public class MulliganGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Mulligan";
+        private const string CODE = "Interactable_Mulligan";
 
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
         => throw new NotImplementedException();
 
         public MulliganGameAction SetWith(Investigator investigator)

@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ChooseInvestigatorLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01542");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01542");
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.GameRules
                 async Task GainSkillInvestigator()
                 {
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01542-1");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01542-1");
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Strength), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Agility), PlayActionType.Choose, investigator);
                     interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Intelligence), PlayActionType.Choose, investigator);

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                     async Task FailEffect()
                     {
                         InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01158", DescriptionParams());
+                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01158", DescriptionParams());
 
                         interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator);
                         foreach (Card card in investigator.DiscardableCardsInHand)

@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
-            Description = _textsProvider.GetInteractableText(code, descriptionArgs);
+            Description = _textsProvider.GetLocalizableText(code, descriptionArgs);
             return this;
         }
 

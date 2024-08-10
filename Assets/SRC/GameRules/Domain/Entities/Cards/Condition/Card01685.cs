@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Card01685");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01685");
 
             interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
 
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
                 async Task ChooseHints()
                 {
                     InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Card01685-2");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01685-2");
 
                     foreach (CardPlace place in PlacesWithHints(investigator))
                     {

@@ -119,9 +119,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** BUFFS *****************************/
-        protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic, Func<IEnumerable<Card>, Task> deactivationLogic, bool isBase = false)
+        protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
+            Func<IEnumerable<Card>, Task> deactivationLogic, string code, params string[] descriptionArgs)
         {
-            Buff newBuff = _buffsProvider.CreateBuff(this, cardsToBuff, activationLogic, deactivationLogic);
+            Buff newBuff = _buffsProvider.CreateBuff(this, cardsToBuff, activationLogic, deactivationLogic, code, descriptionArgs);
             _specificAbilities.Add(newBuff);
             return newBuff;
         }

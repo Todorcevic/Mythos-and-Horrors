@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<CardSupply> supportsInDeck = investigator.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Ally));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01127");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01127");
             foreach (CardSupply cardSupply in supportsInDeck)
             {
                 interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator);

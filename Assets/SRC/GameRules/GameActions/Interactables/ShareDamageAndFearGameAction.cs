@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class ShareDamageAndFearGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "ShareDamageAndFear";
+        private const string CODE = "Interactable_ShareDamageAndFear";
 
         public Investigator ActiveInvestigator { get; private set; }
         public Card ByThisCard { get; private set; }
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
         => throw new NotImplementedException();
 
         public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator MultiEffect_Test()
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "TestsPurpose");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_TestsPurpose");
             Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.FullDeck[1];
             Card card2 = investigator1.FullDeck[2];

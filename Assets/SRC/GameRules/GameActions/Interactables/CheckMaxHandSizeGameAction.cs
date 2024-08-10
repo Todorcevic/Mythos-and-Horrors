@@ -6,13 +6,13 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "CheckMaxHandSize";
+        private const string CODE = "Interactable_CheckMaxHandSize";
 
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
          => throw new NotImplementedException();
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)

@@ -8,14 +8,14 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "CheckSlots";
+        private const string CODE = "Interactable_CheckSlots";
 
         public Investigator ActiveInvestigator { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
         => throw new NotImplementedException();
 
         public CheckSlotsGameAction SetWith(Investigator investigator)

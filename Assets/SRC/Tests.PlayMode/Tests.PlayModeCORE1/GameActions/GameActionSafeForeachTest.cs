@@ -117,7 +117,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         private async Task DiscardSelectionAndMoveInvestigatorToStudy(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "TestsPurpose");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_TestsPurpose");
 
             foreach (Card card in investigator.HandZone.Cards)
             {

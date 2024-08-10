@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class OneInvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "OneInvestigatorTurn";
+        private const string CODE = "Interactable_OneInvestigatorTurn";
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public Investigator ActiveInvestigator { get; private set; }
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
             => throw new NotImplementedException();
 
         public OneInvestigatorTurnGameAction SetWith()

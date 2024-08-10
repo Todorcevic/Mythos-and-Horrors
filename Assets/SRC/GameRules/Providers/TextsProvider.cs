@@ -15,11 +15,16 @@ namespace MythosAndHorrors.GameRules
             GameText = gameText ?? throw new ArgumentNullException(nameof(gameText) + " gameText cant be null");
         }
 
-        public void AddInteractableTexts(Dictionary<string, string> interactableText)
+        public void AddLocalizableDictionary(Dictionary<string, string> interactableText)
         {
-            _interactableTexts = interactableText ?? throw new ArgumentNullException(nameof(interactableText) + " gameText cant be null");
+            _interactableTexts = interactableText ?? throw new ArgumentNullException(nameof(interactableText) + " interactableText cant be null");
         }
 
-        public string GetInteractableText(string code, string[] args) => _interactableTexts[code].ParseViewWith(args);
+        /*******************************************************************/
+        public string GetLocalizableText(string code, string[] descriptionArgs)
+        {
+            if (!_interactableTexts.TryGetValue(code, out string text)) throw new ArgumentException("Location text not found for code: " + code);
+            return text.ParseViewWith(descriptionArgs);
+        }
     }
 }
