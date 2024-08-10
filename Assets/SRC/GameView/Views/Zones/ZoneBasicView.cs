@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         public override Tween MouseEnter(CardView cardView)
         {
             _hoverAnimation?.Kill();
-            _hoverAnimation = cardView.transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
+            _hoverAnimation = cardView.transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic); //Can be 0.1f timeAnimation
             return _hoverAnimation;
         }
 
