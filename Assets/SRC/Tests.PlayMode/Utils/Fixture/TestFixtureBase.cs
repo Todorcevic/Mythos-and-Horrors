@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -26,7 +27,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Integration;
+        protected override TestsType TestsType => TestsType.Unit;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -172,6 +173,12 @@ namespace MythosAndHorrors.PlayMode.Tests
                 else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
+        }
+
+        protected void AssumeThat(bool condition)
+        {
+            if (TestsType == TestsType.Debug) return;
+            Assume.That(condition);
         }
 
         protected IEnumerator AssertThatIsNotClickable(Card card)

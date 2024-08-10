@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameView
     {
         private bool _mustShowInCenter;
         private InteractableGameAction _interactableGameAction;
-        private InteractableText _interactableText;
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
@@ -23,7 +22,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly PhaseComponent _phaseComponent;
-        [Inject] private readonly TextsManager _textsManager;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
@@ -32,18 +30,12 @@ namespace MythosAndHorrors.GameView
             _interactableGameAction = interactableGameAction;
             _mainButtonComponent.SetEffect(_interactableGameAction.MainButtonEffect);
 
-            if (!_textsManager.InteractableTexts.TryGetValue(_interactableGameAction.Code, out _interactableText))
-            {
-                _interactableText = new InteractableText();
-                Debug.LogWarning($"Interactable text not found for {_interactableGameAction.Code}");
-            }
-
             if (_interactableGameAction is IPersonalInteractable personalInteractable)
             {
                 await _swapInvestigatorHandler.Select(personalInteractable.ActiveInvestigator).AsyncWaitForCompletion();
             }
 
-            _mustShowInCenter = _interactableText.MustShowInCenter;
+            _mustShowInCenter = _interactableGameAction.MustShowInCenter;
             return await Initial();
         }
 
@@ -59,12 +51,12 @@ namespace MythosAndHorrors.GameView
             else if (_mustShowInCenter)
             {
                 List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                await _showSelectorComponent.ShowCards(cardsToShow, GetRealTitle());
+                await _showSelectorComponent.ShowCards(cardsToShow, _interactableGameAction.Description);
                 return await Interact();
             }
             else
             {
-                _phaseComponent.ShowText(GetRealTitle()).SetNotWaitable();
+                _phaseComponent.ShowText(_interactableGameAction.Description).SetNotWaitable();
                 await CenterShowDown();
                 return await Interact();
             }
@@ -93,8 +85,8 @@ namespace MythosAndHorrors.GameView
 
         private async Task<BaseEffect> InteractWithMultiEfefct(CardView multiEffectCardView)
         {
-            _mustShowInCenter = _interactableText.MustShowInCenter;
-            return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, _interactableGameAction.Code)
+            _mustShowInCenter = _interactableGameAction.MustShowInCenter;
+            return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, _interactableGameAction.Description)
                 ?? await Initial();
         }
 
@@ -106,43 +98,6 @@ namespace MythosAndHorrors.GameView
                 Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card), ease: Ease.OutSine);
                 await _showSelectorComponent.ShowDown(returnSequence, withActivation: false);
             }
-        }
-
-        private string GetRealTitle()
-        {
-            switch (_interactableGameAction.Code)
-            {
-                case "CheckMaxHandSize":
-                    CheckMaxHandSizeGameAction checkMaxHandSizeGameAction = (CheckMaxHandSizeGameAction)_interactableGameAction;
-                    int cardsLeft = checkMaxHandSizeGameAction.ActiveInvestigator.HandSize - checkMaxHandSizeGameAction.ActiveInvestigator.MaxHandSize.Value;
-                    return _interactableText.Title.ParseViewWith(checkMaxHandSizeGameAction.ActiveInvestigator.MaxHandSize.Value.ToString(), cardsLeft.ToString());
-
-                case "CheckSlots":
-                    CheckSlotsGameAction checkSlotsGameAction = (CheckSlotsGameAction)_interactableGameAction;
-                    string slotsToRemove = string.Empty;
-                    checkSlotsGameAction.ActiveInvestigator.GetAllSlotsExeded().ForEach(slot => slotsToRemove += slot.ToString() + "-");
-                    slotsToRemove = slotsToRemove.Remove(slotsToRemove.Length - 1);
-                    return _interactableText.Title.ParseViewWith(slotsToRemove);
-
-                case "OneInvestigatorTurn":
-                    OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction = (OneInvestigatorTurnGameAction)_interactableGameAction;
-                    CardInvestigator investigatorCard = oneInvestigatorTurnGameAction.ActiveInvestigator.InvestigatorCard;
-                    return _interactableText.Title.ParseViewWith(investigatorCard.Info.Name, investigatorCard.CurrentTurns.Value.ToString());
-
-                case "ShareDamageAndFear":
-                    ShareDamageAndFearGameAction shareDamageAndFearGameAction = (ShareDamageAndFearGameAction)_interactableGameAction;
-                    return _interactableText.Title.ParseViewWith(shareDamageAndFearGameAction.AmountDamage.ToString(), shareDamageAndFearGameAction.AmountFear.ToString());
-
-                case "Card01158":
-                    Card01158 card01158 = _cardsProvider.GetCard<Card01158>();
-                    return _interactableText.Title.ParseViewWith((card01158.ChoiseRemaining.Value + 1).ToString());
-
-                case "Card01138":
-                    Card01138 card01138 = _cardsProvider.GetCard<Card01138>();
-                    return _interactableText.Title.ParseViewWith((card01138.DiscardRemaining.Value + 1).ToString());
-            }
-
-            return _interactableText.Title;
         }
     }
 }

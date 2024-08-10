@@ -68,7 +68,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
-            Assume.That(investigator.HandZone.Cards.Count, Is.EqualTo(9));
+            AssumeThat(investigator.HandZone.Cards.Count == 9);
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedMainButton();
             yield return ClickedIn(investigator2.HandZone.Cards.First());

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                     async Task FailEffect()
                     {
                         InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01158");
+                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Card01158", DescriptionParams());
 
                         interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator);
                         foreach (Card card in investigator.DiscardableCardsInHand)
@@ -45,10 +45,10 @@ namespace MythosAndHorrors.GameRules
                         await interactableGameAction.Execute();
 
                         /*******************************************************************/
-                        async Task TakeDamageAndFear()
-                        {
+                        async Task TakeDamageAndFear() =>
                             await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 1, amountFear: 1).Execute();
-                        }
+
+                        string DescriptionParams() => (ChoiseRemaining.Value + 1).ToString();
                     }
                 }
             }

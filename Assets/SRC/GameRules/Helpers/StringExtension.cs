@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MythosAndHorrors.GameView
+namespace MythosAndHorrors.GameRules
 {
     public static class StringExtension
     {

@@ -17,18 +17,15 @@ namespace MythosAndHorrors.GameView
         {
             string jsonData = File.ReadAllText(_filesPath.JSON_GAMETEXT_PATH);
             _textsProvider.AddTexts(JsonConvert.DeserializeObject<GameText>(jsonData));
+
+            string jsonDataInteractable = File.ReadAllText(_filesPath.JSON_INTERACTABLETEXT_PATH);
+            _textsProvider.AddInteractableTexts(JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonDataInteractable));
         }
 
         public void LoadViewTexts()
         {
             string jsonData = File.ReadAllText(_filesPath.JSON_VIEWTEXT_PATH);
             _textsManager.AddTexts(JsonConvert.DeserializeObject<ViewText>(jsonData));
-
-
-
-
-            string jsonDataInteractable = File.ReadAllText(_filesPath.JSON_INTERACTABLETEXT_PATH);
-            _textsManager.AddInteractableTexts(JsonConvert.DeserializeObject<Dictionary<string, InteractableText>>(jsonDataInteractable));
         }
     }
 }

@@ -15,15 +15,23 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string description)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
         => throw new NotImplementedException();
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE, DescriptionParams());
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
+
+            /*******************************************************************/
+            string DescriptionParams()
+            {
+                string slots = string.Empty;
+                investigator.GetAllSlotsExeded().ForEach(slot => slots += slot.ToString() + "-");
+                return slots.Length > 0 ? slots.Remove(slots.Length - 1) : slots;
+            }
         }
 
         /*******************************************************************/

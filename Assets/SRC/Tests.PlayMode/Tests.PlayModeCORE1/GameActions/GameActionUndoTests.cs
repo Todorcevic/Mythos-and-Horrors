@@ -96,11 +96,11 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedUndoButton();
             yield return ClickedTokenButton();
             yield return ClickedMainButton();
-            Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(0));
+            AssumeThat(investigator.CurrentTurns.Value == 0);
             yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
             yield return ClickedTokenButton();
-            Assume.That(_investigatorsProvider.Second.CurrentTurns.Value, Is.EqualTo(3));
-            Assume.That(_investigatorsProvider.Third.CurrentTurns.Value, Is.EqualTo(2));
+            AssumeThat(_investigatorsProvider.Second.CurrentTurns.Value == 3);
+            AssumeThat(_investigatorsProvider.Third.CurrentTurns.Value == 2);
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();

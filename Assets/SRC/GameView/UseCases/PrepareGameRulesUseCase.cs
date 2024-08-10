@@ -4,6 +4,7 @@ namespace MythosAndHorrors.GameView
 {
     public class PrepareGameRulesUseCase
     {
+        [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
         [Inject] private readonly ChapterInfoLoaderUseCase _chapterInfoLoaderUseCase;
         [Inject] private readonly SceneLoaderUseCase _sceneLoaderUseCase;
@@ -13,6 +14,7 @@ namespace MythosAndHorrors.GameView
         public void Execute()
         {
             _dataSaveLoaderUseCase.Load();
+            _textsLoaderUseCase.LoadGameTexts();
             _investigatorLoaderUseCase.Execute();
             _chapterInfoLoaderUseCase.Execute();
             _sceneLoaderUseCase.Execute();

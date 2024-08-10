@@ -80,7 +80,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
-            Assume.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
+            AssumeThat(investigator.CurrentTurns.Value == 1);
             yield return ClickedTokenButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

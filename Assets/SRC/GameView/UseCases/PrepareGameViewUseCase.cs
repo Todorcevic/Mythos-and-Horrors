@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Execute()
         {
-            _textsLoaderUseCase.LoadGameTexts();
             _textsLoaderUseCase.LoadViewTexts();
             _avatarLoaderUseCase.Execute();
             _zoneLoaderUseCase.Execute();

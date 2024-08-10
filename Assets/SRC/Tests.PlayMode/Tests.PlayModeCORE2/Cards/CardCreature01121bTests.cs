@@ -25,13 +25,13 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.First, maskedHunter).Execute().AsCoroutine();
 
-            Assume.That(maskedHunter.CurrentPlace, Is.EqualTo(investigator.CurrentPlace));
+            AssumeThat(maskedHunter.CurrentPlace == investigator.CurrentPlace);
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
 
-            Assume.That(investigator.Hints.Value, Is.EqualTo(2));
+            AssumeThat(investigator.Hints.Value == 2);
 
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

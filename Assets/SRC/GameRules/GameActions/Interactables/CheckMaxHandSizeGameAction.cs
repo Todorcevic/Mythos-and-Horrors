@@ -12,15 +12,22 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] args)
          => throw new NotImplementedException();
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE, DescriptionParams());
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
+
+            /*******************************************************************/
+            string[] DescriptionParams()
+            {
+                int cardsLeft = investigator.HandSize - investigator.MaxHandSize.Value;
+                return new[] { investigator.MaxHandSize.Value.ToString(), cardsLeft.ToString() };
+            }
         }
 
         /*******************************************************************/

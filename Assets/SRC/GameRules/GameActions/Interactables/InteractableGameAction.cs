@@ -10,32 +10,31 @@ namespace MythosAndHorrors.GameRules
     {
         private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         public bool CanBackToThisInteractable { get; private set; }
         public bool MustShowInCenter { get; private set; }
-        public string Code { get; private set; }
-
+        public string Description { get; private set; }
         public BaseEffect EffectSelected { get; private set; }
         public BaseEffect MainButtonEffect { get; private set; }
         public BaseEffect UndoEffect { get; private set; }
-        private CardEffect UniqueEffect => _allCardEffects.Unique();
+
         public bool IsUniqueEffect => _allCardEffects.Count() == 1;
         public bool IsUniqueCard => _allCardEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
-        public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
         private bool NoEffect => (MainButtonEffect == null) && !_allCardEffects.Any();
-        private bool JustMainButton => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter;
-        public bool IsMandatary => MainButtonEffect == null;
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
+        public Card UniqueCard => _allCardEffects.Select(effect => effect.CardOwner).Unique();
+        private CardEffect UniqueCardEffect => _allCardEffects.Unique();
         public IEnumerable<CardEffect> AllEffects => _allCardEffects.ToList();
-        public CardEffect GetUniqueEffect() => (IsMandatary && IsUniqueEffect) ? UniqueEffect : null;
-        public BaseEffect GetUniqueMainButton() => JustMainButton ? MainButtonEffect : null;
+        public CardEffect GetUniqueEffect() => (MainButtonEffect == null && IsUniqueEffect) ? UniqueCardEffect : null;
+        public BaseEffect GetUniqueMainButton() => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter ? MainButtonEffect : null;
 
         /*******************************************************************/
-        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code)
+        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
-            Code = code;
+            Description = _textsProvider.GetInteractableText(code, descriptionArgs);
             return this;
         }
 
