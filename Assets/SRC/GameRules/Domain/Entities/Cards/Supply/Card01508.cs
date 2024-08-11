@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraBook = new Slot(SlotType.Item, SlotCondition);
-            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic);
+            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, "Buff_Card01508");
 
             bool SlotCondition()
             {
@@ -37,10 +37,12 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationLogic(IEnumerable<Card> cards)
         {
             await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
+            await _gameActionsProvider.Create<AddSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
         }
 
         private async Task Deactivationlogic(IEnumerable<Card> cards)
         {
+            await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
             await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraBook).Execute();
         }
 

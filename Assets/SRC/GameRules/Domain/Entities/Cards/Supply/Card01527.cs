@@ -1,6 +1,4 @@
-﻿using ModestTree;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateBuff(CardsToBuff, GainPowerActivationLogic, GainPowerDeactivationLogic);
+            CreateBuff(CardsToBuff, GainPowerActivationLogic, GainPowerDeactivationLogic, "Buff_Card01527");
             CreateFastActivation(Logic, Condition, PlayActionType.Activate);
         }
 
@@ -40,13 +38,13 @@ namespace MythosAndHorrors.GameRules
         private async Task GainPowerDeactivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardInvestigator.Power, 1).Execute();
         }
 
         private async Task GainPowerActivationLogic(IEnumerable<Card> cardsToBuff)
         {
             CardInvestigator cardInvestigator = cardsToBuff.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Power, 1).Execute();
         }
 
         private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];

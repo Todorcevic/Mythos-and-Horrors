@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateBuff(CardToSelect, BuffOn, BuffOff);
+            CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01555");
             CreateFastActivation(Logic, Condition, PlayActionType.Activate);
         }
 

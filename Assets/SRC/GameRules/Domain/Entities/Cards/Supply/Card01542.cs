@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             CreateActivation(1, ChooseInvestigatorLogic, ChooseInvestigatorCondition, PlayActionType.Activate);
-            CreateBuff(CardToSelect, BuffOn, BuffOff);
+            CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01542");
             CreateForceReaction<InvestigatorsPhaseGameAction>(ResetStatCondition, ResetStatLogic, GameActionTime.After);
             ActivationUsed = CreateState(false);
         }

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
         public string JSON_GAMETEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/GameText.json";
         public string JSON_VIEWTEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/ViewText.json";
 
-        public string JSON_INTERACTABLETEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/InteractableText.json";
+        public string JSON_LOCALIZABLETEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/LocalizableText.json";
 
         /*******************************************************************/
         public string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Scene.json";

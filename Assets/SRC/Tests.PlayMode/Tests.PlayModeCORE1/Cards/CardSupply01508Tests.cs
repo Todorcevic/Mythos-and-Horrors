@@ -30,11 +30,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(toPlay);
-            yield return ClickedIn(cardsToPlay2.First());
+            yield return ClickedIn(cardsToPlay2.ElementAt(0));
+            yield return ClickedIn(cardsToPlay2.ElementAt(1));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(cardsToPlay2.First().CurrentZone, Is.EqualTo(investigator.AidZone));
+            Assert.That(cardsToPlay2.ElementAt(0).CurrentZone, Is.EqualTo(investigator.AidZone));
+            Assert.That(cardsToPlay2.ElementAt(1).CurrentZone, Is.EqualTo(investigator.AidZone));
         }
 
         [UnityTest]

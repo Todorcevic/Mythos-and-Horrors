@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly BuffsProvider _buffsProvider;
 
         public bool IsUniqueTarget => true;
         public Investigator TargetInvestigator => Owner;
@@ -20,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateBuff(CardsToBuff, AddBlankBuff, RemoveBlankBuff);
+            CreateBuff(CardsToBuff, AddBlankBuff, RemoveBlankBuff, code: "Buff_Card01603");
         }
 
         /*******************************************************************/

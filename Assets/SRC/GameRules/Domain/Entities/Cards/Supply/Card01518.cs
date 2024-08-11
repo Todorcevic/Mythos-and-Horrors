@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic);
+            CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic, "Buff_Card01518");
             CreateFastActivation(Logic, Condition, PlayActionType.Activate);
         }
 

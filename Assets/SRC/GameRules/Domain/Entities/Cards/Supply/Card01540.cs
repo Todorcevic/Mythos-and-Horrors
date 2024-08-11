@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         {
             RemoveStat(PlayFromHandTurnsCost);
             PlayFromHandTurnsCost = CreateStat(0);
-            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff);
+            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, "Buff_Card01540");
             CreateFastActivation(ReturnToHandLogic, ReturnToHandCondition, PlayActionType.Activate);
         }
 

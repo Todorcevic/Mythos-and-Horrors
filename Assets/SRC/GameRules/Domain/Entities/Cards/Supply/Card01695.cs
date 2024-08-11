@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraTrinket = new Slot(SlotType.Trinket);
-            CreateBuff(CardToBuff, ActiveBuff, DeactiveBuff);
+            CreateBuff(CardToBuff, ActiveBuff, DeactiveBuff, "Buff_Card01695");
         }
 
         /*******************************************************************/

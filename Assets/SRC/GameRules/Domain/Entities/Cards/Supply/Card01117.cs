@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
             CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, cardAffected: Urmodoth);
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
-            CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff);
+            CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, "Buff_Card01117");
         }
 
         /*******************************************************************/

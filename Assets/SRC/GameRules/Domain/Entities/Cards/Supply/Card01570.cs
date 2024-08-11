@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, Logic, Condition, PlayActionType.Activate);
-            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic);
+            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, "Buff_Card01570");
             ExtraMagicalSlot = new Slot(SlotType.Magical);
         }
 
