@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         private const float OFFSET_Z = -0.001f;
 
         [SerializeField, Required, ChildGameObjectsOnly] private List<EffectView> _effectViews;
-        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         public int EffectsAmount => _effectViews.Count(effectView => !effectView.IsEmpty);
 
@@ -24,8 +24,10 @@ namespace MythosAndHorrors.GameView
             {
                 EffectView effectView = GetEffectView();
                 effectView.SetDescription(effect.Description);
-                effectView.SetAvatarLeft(_avatarViewsManager.GetByCode(effect.CardCode)?.Image);
-                effectView.SetAvatarRight(_avatarViewsManager.GetByCode(effect.CardCodeSecundary)?.Image);
+                if (effect.CardCode != null)
+                    effectView.SetPictureLeft(_cardViewsManager.GetCardView(effect.CardCode)?.Picture);
+                if (effect.CardCodeSecundary != null)
+                    effectView.SetPictureRight(_cardViewsManager.GetCardView(effect.CardCodeSecundary)?.Picture);
             }
         }
 

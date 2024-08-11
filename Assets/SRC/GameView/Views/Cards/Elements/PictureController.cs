@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _picture;
 
+        public Sprite Picture => _picture.sprite;
+
         /*******************************************************************/
         public void Init(Card card)
         {

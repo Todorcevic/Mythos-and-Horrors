@@ -34,6 +34,7 @@ namespace MythosAndHorrors.GameView
         public CardSensorController CardSensor => _cardSensor;
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
         public IEnumerable<BaseEffect> EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
+        public Sprite Picture => _pictureController.Picture;
 
         /*******************************************************************/
         public void Init(Card card, ZoneView currentZoneView)

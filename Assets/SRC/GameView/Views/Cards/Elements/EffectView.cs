@@ -19,13 +19,13 @@ namespace MythosAndHorrors.GameView
             _description.text = text;
         }
 
-        public void SetAvatarLeft(Sprite sprite)
+        public void SetPictureLeft(Sprite sprite)
         {
             _avatarLeft.enabled = sprite != null;
             _avatarLeft.sprite = sprite;
         }
 
-        public void SetAvatarRight(Sprite sprite)
+        public void SetPictureRight(Sprite sprite)
         {
             _avatarRight.enabled = sprite != null;
             _avatarRight.sprite = sprite;
