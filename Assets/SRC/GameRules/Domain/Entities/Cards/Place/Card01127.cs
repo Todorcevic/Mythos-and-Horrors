@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _investigatorsProvider.AllInvestigators.ForEach(investigator => InvestigatorsUsed.Add(investigator, CreateState(false)));
-            CreateActivation(1, TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate);
+            CreateActivation(1, TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate, "Activation_Card01127");
         }
 
         /*******************************************************************/
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01127");
             foreach (CardSupply cardSupply in supportsInDeck)
             {
-                interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01127");
 
                 async Task Take()
                 {

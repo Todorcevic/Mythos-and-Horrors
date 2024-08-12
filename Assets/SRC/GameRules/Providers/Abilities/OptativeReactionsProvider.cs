@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        private readonly List<IReaction> _optativeReactions = new();
+        private readonly List<IReaction> _optativeCodes = new();
         private readonly List<IReaction> _played = new();
 
         /*******************************************************************/
@@ -28,18 +28,18 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time,
-            PlayActionType playActionType = PlayActionType.None) where T : GameAction
+        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, string localizableCode,
+            PlayActionType playActionType = PlayActionType.None, params string[] localizableArgs) where T : GameAction
         {
-            OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time);
-            _optativeReactions.Add(optativeReaction);
+            OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time, localizableCode, localizableArgs);
+            _optativeCodes.Add(optativeReaction);
             return optativeReaction;
         }
 
         /*******************************************************************/
         private async Task CreateInteractable(GameAction gameAction, GameActionTime time)
         {
-            IEnumerable<IReaction> optativeReactions = _optativeReactions.Where(realReaction => realReaction.Check(gameAction, time)).Except(_played);
+            IEnumerable<IReaction> optativeReactions = _optativeCodes.Where(realReaction => realReaction.Check(gameAction, time)).Except(_played);
             if (!optativeReactions.Any()) return;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
@@ -60,6 +60,8 @@ namespace MythosAndHorrors.GameRules
                     },
                     playActionType: triggered.PlayAction,
                     playedBy: triggered.Card.ControlOwner ?? _investigatorsProvider.Leader,
+                    localizableCode: triggered.LocalizableCode,
+                    localizableArgs: triggered.LocalizableArgs,
                     resourceCost: GetResourceCostFor(triggered));
             }
 

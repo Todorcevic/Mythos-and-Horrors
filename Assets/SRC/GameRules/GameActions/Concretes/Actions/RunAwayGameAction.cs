@@ -2,12 +2,12 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class ResignGameAction : GameAction
+    public class RunAwayGameAction : GameAction
     {
         public Investigator Investigator { get; private set; }
 
         /*******************************************************************/
-        public ResignGameAction SetWith(Investigator investigator)
+        public RunAwayGameAction SetWith(Investigator investigator)
         {
             Investigator = investigator;
             return this;

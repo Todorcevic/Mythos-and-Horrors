@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, "Activation_Card01519");
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -52,10 +52,11 @@ namespace MythosAndHorrors.GameRules
                     new Stat(0, false),
                     RestoreHealthInvestigator,
                     PlayActionType.Choose,
+                    localizableCode: "CardEffect_Card01519",
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
+                async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
             }
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
@@ -65,10 +66,11 @@ namespace MythosAndHorrors.GameRules
                     new Stat(0, false),
                     RestoreSanityInvestigator,
                     PlayActionType.Choose,
+                    localizableCode: "CardEffect_Card01519-1",
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();
+                async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();
             }
 
             await interactableGameAction.Execute();

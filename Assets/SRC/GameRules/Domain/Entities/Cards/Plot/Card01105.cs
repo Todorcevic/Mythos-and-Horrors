@@ -15,8 +15,10 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01105");
-            interactableGameAction.CreateEffect(this, new Stat(0, false), DiscardAllInvestigators, PlayActionType.Choose, playedBy: _investigatorProvider.Leader);
-            interactableGameAction.CreateEffect(this, new Stat(0, false), Damage, PlayActionType.Choose, playedBy: _investigatorProvider.Leader, cardAffected: _investigatorProvider.Leader.InvestigatorCard);
+            interactableGameAction.CreateEffect(this, new Stat(0, false), DiscardAllInvestigators,
+                PlayActionType.Choose, playedBy: _investigatorProvider.Leader, "CardEffect_Card01105");
+            interactableGameAction.CreateEffect(this, new Stat(0, false), Damage,
+                PlayActionType.Choose, playedBy: _investigatorProvider.Leader, "CardEffect_Card01105-1", cardAffected: _investigatorProvider.Leader.InvestigatorCard);
             await interactableGameAction.Execute();
         }
 

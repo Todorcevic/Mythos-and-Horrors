@@ -16,13 +16,13 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ResignLogic, ResignCondition, PlayActionType.Resign);
+            CreateActivation(1, ResignLogic, ResignCondition, PlayActionType.Resign, "Activation_Card01149");
         }
 
         /*******************************************************************/
         private async Task ResignLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ResignGameAction>().SetWith(investigator).Execute();
+            await _gameActionsProvider.Create<RunAwayGameAction>().SetWith(investigator).Execute();
         }
 
         private bool ResignCondition(Investigator investigator)

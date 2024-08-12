@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01526");
             foreach (CardWeapon firearm in Firearms(investigator))
             {
-                interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, firearm.ControlOwner.AvatarCard);
+                interactable.CreateEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, "CardEffect_Card01526", firearm.ControlOwner.AvatarCard);
 
                 async Task Reload() => await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)firearm).Charge.Amount, 3).Execute();
             }

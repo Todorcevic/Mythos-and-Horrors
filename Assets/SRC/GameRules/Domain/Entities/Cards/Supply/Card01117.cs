@@ -22,8 +22,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, cardAffected: Urmodoth);
+            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01117");
+            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, "Activation_Card01117-1",
+                cardAffected: Urmodoth, localizableArgs: Urmodoth.Info.Name);
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, "Buff_Card01117");
         }

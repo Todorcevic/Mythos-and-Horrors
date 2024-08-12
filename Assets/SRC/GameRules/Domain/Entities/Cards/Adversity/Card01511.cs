@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01511 : CardAdversity, IVictoriable, IResetable, IChargeable
     {
         private const int AMOUNT_RESOURCE_NEEDED = 6;
-
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public Charge Charge { get; private set; }
@@ -27,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             AbilityUsed = CreateStat(0);
             Resources = CreateStat(AMOUNT_RESOURCE_NEEDED);
             Charge = new Charge(Resources, ChargeType.Special);
-            CreateFastActivation(PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate);
+            CreateFastActivation(PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate, "Activation_Card01511");
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 

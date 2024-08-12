@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ChooseInvestigatorGameAction : InteractableGameAction
     {
-        private const string CODE = "Interactable_ChooseInvestigator";
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
@@ -17,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChooseInvestigatorGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_ChooseInvestigator");
             ExecuteSpecificInitialization();
             return this;
         }
@@ -27,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
-                CreateEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator);
+                CreateEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator, "CardEffect_ChooseInvestigator");
 
                 /*******************************************************************/
                 async Task PlayInvestigator() => await _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();

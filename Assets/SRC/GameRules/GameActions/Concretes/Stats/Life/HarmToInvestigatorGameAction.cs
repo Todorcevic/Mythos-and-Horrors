@@ -15,13 +15,13 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => AmountDamage > 0 || AmountFear > 0;
 
         /*******************************************************************/
-        public HarmToInvestigatorGameAction SetWith(Investigator investigator, Card fromCard, int amountDamage = 0, int amountFear = 0, bool isDirect = false)
+        public HarmToInvestigatorGameAction SetWith(Investigator investigator, Card fromCard, int amountDamage = 0, int amountFear = 0, bool isInevitable = false)
         {
             Investigator = investigator;
             FromCard = fromCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
-            IsDirect = isDirect;
+            IsDirect = isInevitable;
             return this;
         }
 

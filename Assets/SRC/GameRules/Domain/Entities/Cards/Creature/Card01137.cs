@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task HealLogic(CreatureAttackGameAction creatureAttackGameAction)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(this, amountDamageToRecovery: 1).Execute();
+            await _gameActionsProvider.Create<RecoverGameAction>().SetWith(this, amountDamageToRecovery: 1).Execute();
         }
 
         private bool HealCondition(CreatureAttackGameAction creatureAttackGameAction)

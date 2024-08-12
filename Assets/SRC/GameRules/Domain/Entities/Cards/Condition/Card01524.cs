@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01524");
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace))
             {
-                interactable.CreateEffect(place, new Stat(0, false), Explote, PlayActionType.Choose, investigator);
+                interactable.CreateEffect(place, new Stat(0, false), Explote, PlayActionType.Choose, investigator, "CardEffect_Card01524", localizableArgs: Info.Name);
 
                 async Task Explote()
                 {

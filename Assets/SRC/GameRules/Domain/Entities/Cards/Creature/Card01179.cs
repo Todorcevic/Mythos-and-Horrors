@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task HealthLogic(RoundGameAction action)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(this, amountDamageToRecovery: 2).Execute();
+            await _gameActionsProvider.Create<RecoverGameAction>().SetWith(this, amountDamageToRecovery: 2).Execute();
         }
 
         private bool HealthCondition(RoundGameAction action)

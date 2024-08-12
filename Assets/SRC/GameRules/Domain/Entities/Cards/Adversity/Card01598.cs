@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(2, DiscardActivate, DiscardConditionToActivate, PlayActionType.Activate);
+            CreateActivation(2, DiscardActivate, DiscardConditionToActivate, PlayActionType.Activate, "Activation_Card01598");
             CreateBuff(CardsToBuff, DecrementStatBuff, RemoveDecrementStatBuff, code: "Buff_Card01598");
         }
 

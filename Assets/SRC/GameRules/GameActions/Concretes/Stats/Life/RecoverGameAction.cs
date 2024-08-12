@@ -2,14 +2,14 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class HealthGameAction : GameAction
+    public class RecoverGameAction : GameAction
     {
         public int AmountDamageToRecovery { get; private set; }
         public int AmountFearToRecovery { get; private set; }
         public Card CardAffected { get; private set; }
 
         /*******************************************************************/
-        public HealthGameAction SetWith(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
+        public RecoverGameAction SetWith(Card card, int amountDamageToRecovery = 0, int amountFearToRecovery = 0)
         {
             CardAffected = card;
             AmountDamageToRecovery = amountDamageToRecovery;

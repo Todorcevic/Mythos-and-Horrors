@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
 
+        protected override string LocalizableCode => "OptativeReaction_Card01523";
+
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After);
+            CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After, "OptativeReaction_Card01505");
             CreateForceReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {
-                interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: Owner);
+                interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: Owner, "CardEffect_Card01505");
 
                 /*******************************************************************/
                 async Task Discard()

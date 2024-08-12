@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate);
+            CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate, "Activation_Card01174");
             CreateBuff(CardsToBuff, ActivationBuffLogic, DactivationBuffLogic, code: "Buff_Card01174");
         }
 
@@ -57,8 +57,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction choose = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01174");
-            choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator);
-            choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator);
+            choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174");
+            choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174-1");
             await choose.Execute();
 
             /*******************************************************************/

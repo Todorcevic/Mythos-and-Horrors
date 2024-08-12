@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After);
+            CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After, "OptativeReaction_Card01501");
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 

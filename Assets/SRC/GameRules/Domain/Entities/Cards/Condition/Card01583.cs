@@ -12,6 +12,8 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
+        protected override string LocalizableCode => "OptativeReaction_Card01583";
+
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {

@@ -8,8 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Interactable_CheckSlots";
-
         public Investigator ActiveInvestigator { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
 
@@ -20,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE, DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_CheckSlots", DescriptionParams());
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -41,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 .Where(card => card.HasAnyOfThisSlots(ActiveInvestigator.GetAllSlotsExeded()));
             foreach (CardSupply card in cards)
             {
-                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator);
+                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckSlots");
 
                 async Task Discard()
                 {

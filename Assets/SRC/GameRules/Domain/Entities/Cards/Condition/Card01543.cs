@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Investigator investigatorToChoose in investigator.CurrentPlace.InvestigatorsInThisPlace)
             {
-                interactable.CreateEffect(investigatorToChoose.AvatarCard, new Stat(0, false), Draw, PlayActionType.Choose, investigator);
+                interactable.CreateEffect(investigatorToChoose.AvatarCard, new Stat(0, false), Draw, PlayActionType.Choose, investigator, "CardEffect_Card01543");
 
                 /*******************************************************************/
                 async Task Draw()

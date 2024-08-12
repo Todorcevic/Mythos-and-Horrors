@@ -28,8 +28,8 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01135");
 
             if (investigator.CanPayHints.IsActive)
-                interactableGameAction.CreateEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator);
-            interactableGameAction.CreateEffect(this, new Stat(0, false), TakeDamage, PlayActionType.Choose, playedBy: investigator);
+                interactableGameAction.CreateEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01135");
+            interactableGameAction.CreateEffect(this, new Stat(0, false), TakeDamage, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01135-1");
 
             await interactableGameAction.Execute();
 

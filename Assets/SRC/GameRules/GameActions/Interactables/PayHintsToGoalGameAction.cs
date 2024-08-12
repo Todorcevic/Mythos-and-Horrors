@@ -8,8 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class PayHintsToGoalGameAction : InteractableGameAction
     {
-        private const string CODE = "Interactable_PayHintsToGoal";
-
         public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
         public override bool CanBeExecuted => CardGoal.IsInPlay && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
@@ -22,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         public PayHintsToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
-            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: CODE);
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_PayHintsToGoal");
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
             ExecuteSpecificInitialization();
@@ -34,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsActive))
             {
-                EffectsToPay.Add(CreateEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator));
+                EffectsToPay.Add(CreateEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator, "CreateEffect_PayHintsToGoal", localizableArgs: investigator.Hints.Value.ToString()));
 
                 /*******************************************************************/
                 async Task PayHint()

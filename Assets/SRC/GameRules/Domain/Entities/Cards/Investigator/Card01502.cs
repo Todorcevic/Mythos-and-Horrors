@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateFastActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate);
+            CreateFastActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate, "Activation_Card01502");
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -40,7 +40,8 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation<Investigator> activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
-                        interactableGameAction.CreateEffect(activable, activation.ActivateTurnsCost, Activate, PlayActionType.Choose | activation.PlayAction, playedBy: activeInvestigator);
+                        interactableGameAction.CreateEffect(activable, activation.ActivateTurnsCost, Activate,
+                            PlayActionType.Choose | activation.PlayAction, playedBy: activeInvestigator, localizableCode: activation.LocalizableCode, localizableArgs: activation.LocalizableArgs);
 
                     /*******************************************************************/
                     async Task Activate()

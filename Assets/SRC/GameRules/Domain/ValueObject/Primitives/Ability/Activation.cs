@@ -4,6 +4,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class Activation<T> : ITriggered
     {
+        public string LocalizableCode { get; }
+        public string[] LocalizableArgs { get; }
         public Card Card { get; }
         public Card CardAffected { get; }
         public Stat ActivateTurnsCost { get; }
@@ -15,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
 
         /*******************************************************************/
-        public Activation(Card card, Stat activateTurnsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Card cardAffected)
+        public Activation(Card card, Stat activateTurnsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Card cardAffected, string localizableCode, params string[] localizableArgs)
         {
             Card = card;
             CardAffected = cardAffected;
@@ -23,6 +25,8 @@ namespace MythosAndHorrors.GameRules
             Logic = logic;
             Condition = condition;
             PlayAction = PlayActionType.Activate | playActionType;
+            LocalizableCode = localizableCode;
+            LocalizableArgs = localizableArgs;
         }
 
         /*******************************************************************/

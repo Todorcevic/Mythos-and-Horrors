@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
+        protected override string LocalizableCode => "OptativeReaction_Card01510";
 
         /*******************************************************************/
         [Inject]

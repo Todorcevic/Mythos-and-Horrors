@@ -1,20 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CardChallengeSupply : CardSupply
     {
+        [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
         public List<Activation<ChallengePhaseGameAction>> AllCommitsActivations { get; private set; } = new();
 
         /*******************************************************************/
-        protected Activation<ChallengePhaseGameAction> CreateChallengeActivation(Func<ChallengePhaseGameAction, Task> logic, Func<ChallengePhaseGameAction, bool> condition, PlayActionType playActionType, Card cardAffected = null)
+        protected Activation<ChallengePhaseGameAction> CreateChallengeActivation(Func<ChallengePhaseGameAction, Task> logic, Func<ChallengePhaseGameAction, bool> condition, PlayActionType playActionType, string localizableCode, Card cardAffected = null, params string[] localizableArgs)
         {
-            Activation<ChallengePhaseGameAction> newActivation = new(this, new Stat(0, false), new GameCommand<ChallengePhaseGameAction>(logic), new GameConditionWith<ChallengePhaseGameAction>(condition), playActionType, cardAffected);
+            Activation<ChallengePhaseGameAction> newActivation = new(this, new Stat(0, false), new GameCommand<ChallengePhaseGameAction>(logic), new GameConditionWith<ChallengePhaseGameAction>(condition), playActionType, cardAffected, localizableCode, localizableArgs);
             AllCommitsActivations.Add(newActivation);
             _specificAbilities.Add(newActivation);
             return newActivation;
+        }
+
+        protected async Task GainSkillLogic(ChallengePhaseGameAction challengePhaseGameAction)
+        {
+            await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(ControlOwner, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(challengePhaseGameAction.StatModifier, 1).Execute();
         }
 
     }

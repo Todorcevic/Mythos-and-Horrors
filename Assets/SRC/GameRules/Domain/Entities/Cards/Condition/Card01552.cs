@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => creature.Exausted.IsActive))
             {
-                chooseEnemy.CreateEffect(creature, new Stat(0, false), DamageCreature, PlayActionType.Choose, investigator);
+                chooseEnemy.CreateEffect(creature, new Stat(0, false), DamageCreature, PlayActionType.Choose, investigator, "CardEffect_Card01552");
 
                 /*******************************************************************/
                 async Task DamageCreature() => await _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, this, amountDamage: 2).Execute();
@@ -32,6 +32,5 @@ namespace MythosAndHorrors.GameRules
             if (!ControlOwner.CreaturesInSamePlace.Any(creature => creature.Exausted.IsActive)) return false;
             return true;
         }
-
     }
 }

@@ -11,7 +11,6 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsUniqueTarget => true;
         public Investigator TargetInvestigator => Owner;
-
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Humanoid, Tag.Criminal };
 
         /*******************************************************************/
@@ -19,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
+            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01601");
         }
 
         /*******************************************************************/

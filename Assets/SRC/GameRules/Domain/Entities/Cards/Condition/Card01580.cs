@@ -11,6 +11,8 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune };
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
 
+        protected override string LocalizableCode => "OptativeReaction_Card01580";
+
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
@@ -24,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not ResultChallengeGameAction resultChallengeGameAction) return;
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Execute(); //TODO : Check if this is correct
             await resultChallengeGameAction.Execute();
         }
     }

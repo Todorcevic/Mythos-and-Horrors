@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
                     playedBy: activeInvestigator);
 
                 /*******************************************************************/
-                async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<HealthGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Execute();
+                async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Execute();
             }
 
             await interactableGameAction.Execute();

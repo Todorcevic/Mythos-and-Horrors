@@ -2,7 +2,9 @@
 {
     public interface ITriggered : IAbility
     {
-        public Card Card { get; }
-        public PlayActionType PlayAction { get; }
+        string LocalizableCode { get; }
+        string[] LocalizableArgs { get; }
+        Card Card { get; }
+        PlayActionType PlayAction { get; }
     }
 }

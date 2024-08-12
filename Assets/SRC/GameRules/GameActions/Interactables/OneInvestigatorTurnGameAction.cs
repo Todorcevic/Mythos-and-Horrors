@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class OneInvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Interactable_OneInvestigatorTurn";
         [Inject] private readonly CardsProvider _cardsProvider;
 
         public Investigator ActiveInvestigator { get; private set; }
@@ -22,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         public OneInvestigatorTurnGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE, DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: "Interactable_OneInvestigatorTurn", DescriptionParams());
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
             ExecuteSpecificInitialization();
             return this;
@@ -80,7 +79,8 @@ namespace MythosAndHorrors.GameRules
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
                     playedBy: ActiveInvestigator,
                     resourceCost: playableFromHand.ResourceCost,
-                    cardAffected: playableFromHand.CardAffected?.Invoke());
+                    cardAffected: playableFromHand.CardAffected?.Invoke(),
+                    localizableCode: "CardEffect_OneInvestigatorTurn"); //Check if can propagate the localizableCode from IPlayableFromHand
 
                 async Task PlayFromHand() => await playableFromHand.PlayFromHandCommand.RunWith(this);
             }
@@ -95,7 +95,8 @@ namespace MythosAndHorrors.GameRules
                 ActiveInvestigator.CurrentPlace.InvestigationTurnsCost,
                 Investigate,
                 PlayActionType.Investigate,
-                playedBy: ActiveInvestigator);
+                playedBy: ActiveInvestigator,
+                localizableCode: "CardEffect_OneInvestigatorTurn-1");
 
             bool CanInvestigate()
             {
@@ -119,7 +120,8 @@ namespace MythosAndHorrors.GameRules
                     cardPlace.MoveTurnsCost,
                     Move,
                     PlayActionType.Move,
-                    ActiveInvestigator);
+                    ActiveInvestigator,
+                    localizableCode: "CardEffect_OneInvestigatorTurn-2");
 
                 bool CanMove()
                 {
@@ -142,7 +144,8 @@ namespace MythosAndHorrors.GameRules
                     cardCreature.InvestigatorAttackTurnsCost,
                     InvestigatorAttack,
                     PlayActionType.Attack,
-                    ActiveInvestigator);
+                    ActiveInvestigator,
+                    localizableCode: "CardEffect_OneInvestigatorTurn-3");
 
                 bool CanInvestigatorAttack()
                 {
@@ -167,7 +170,8 @@ namespace MythosAndHorrors.GameRules
                     cardCreature.InvestigatorConfronTurnsCost,
                     InvestigatorConfront,
                     PlayActionType.Confront,
-                    ActiveInvestigator);
+                    ActiveInvestigator,
+                    localizableCode: "CardEffect_OneInvestigatorTurn-4");
 
                 /*******************************************************************/
                 bool CanInvestigatorConfront()
@@ -193,7 +197,8 @@ namespace MythosAndHorrors.GameRules
                     cardCreature.EludeTurnsCost,
                     InvestigatorElude,
                     PlayActionType.Elude,
-                    ActiveInvestigator);
+                    ActiveInvestigator,
+                    localizableCode: "CardEffect_OneInvestigatorTurn-5");
 
                 bool CanInvestigatorElude()
                 {
@@ -220,7 +225,9 @@ namespace MythosAndHorrors.GameRules
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
                     ActiveInvestigator,
-                    cardAffected: activation.CardAffected);
+                    cardAffected: activation.CardAffected,
+                    localizableCode: activation.LocalizableCode,
+                    localizableArgs: activation.LocalizableArgs);
 
                 async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }
@@ -235,7 +242,8 @@ namespace MythosAndHorrors.GameRules
                 ActiveInvestigator.DrawTurnsCost,
                 Draw,
                 PlayActionType.Draw,
-                ActiveInvestigator);
+                ActiveInvestigator,
+                localizableCode: "CardEffect_OneInvestigatorTurn-6");
         }
 
         private bool CanDraw()
@@ -254,7 +262,8 @@ namespace MythosAndHorrors.GameRules
                 ActiveInvestigator.BasicActionTurnsCost,
                 TakeResource,
                 PlayActionType.TakeResource,
-                ActiveInvestigator);
+                ActiveInvestigator,
+                localizableCode: "CardEffect_OneInvestigatorTurn-7");
 
             /*******************************************************************/
             async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Execute();

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateBuff(CardsToBuff, GainPowerActivationLogic, GainPowerDeactivationLogic, "Buff_Card01527");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01527");
         }
 
         /*******************************************************************/

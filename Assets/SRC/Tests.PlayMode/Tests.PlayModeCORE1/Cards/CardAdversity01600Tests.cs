@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(investigator);
 
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, adversity, amountDamage: 1, isDirect: true).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, adversity, amountDamage: 1, isInevitable: true).Execute().AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(1));
             Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));

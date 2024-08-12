@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateOptativeReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After);
+            CreateOptativeReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After, "Activation_Card01532");
         }
 
         /*******************************************************************/
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardSupply tome in tomes)
             {
-                interactableGameAction.CreateEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner);
+                interactableGameAction.CreateEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, "CardEffect_Card01532");
 
                 /*******************************************************************/
                 async Task TakeTome()

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, TakeTomeOrSpellLogic, TakeTomeOrSpellCondition, PlayActionType.Activate);
+            CreateActivation(1, TakeTomeOrSpellLogic, TakeTomeOrSpellCondition, PlayActionType.Activate, "Activation_Card01129");
         }
 
         /*******************************************************************/
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01129");
             foreach (Card card in cardToChoose)
             {
-                interactableGameAction.CreateEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01129");
 
                 async Task Take()
                 {

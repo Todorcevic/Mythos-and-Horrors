@@ -19,17 +19,17 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _investigatorsProvider.AllInvestigators.ForEach(investigator => InvestigatorsUsed.Add(investigator, CreateState(false)));
-            CreateActivation(1, HealthFearLogic, HealthFearCondition, PlayActionType.Activate);
+            CreateActivation(1, HealthLogic, HealthCondition, PlayActionType.Activate, "Activation_Card01128");
         }
 
         /*******************************************************************/
-        private async Task HealthFearLogic(Investigator investigator)
+        private async Task HealthLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 3).Execute();
+            await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 3).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Execute();
         }
 
-        private bool HealthFearCondition(Investigator investigator)
+        private bool HealthCondition(Investigator investigator)
         {
             if (investigator.CurrentPlace != this) return false;
             if (InvestigatorsUsed[investigator].IsActive) return false;

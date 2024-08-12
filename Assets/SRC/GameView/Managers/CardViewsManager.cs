@@ -11,15 +11,13 @@ namespace MythosAndHorrors.GameView
         public List<CardView> AllCardsView => _allCardsView;
 
         /*******************************************************************/
+        public void AddCardView(CardView cardView) => _allCardsView.Add(cardView);
+
         public CardView GetCardView(string cardId) => _allCardsView.First(cardView => cardView.Card.Info.Code == cardId);
 
         public CardView GetCardView(Card card) => _allCardsView.First(cardView => cardView.Card == card);
 
-        public IEnumerable<CardView> GetCardViews(IEnumerable<Card> cards) => cards.Select(GetCardView);
-
         public CardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard);
-
-        public void AddCardView(CardView cardView) => _allCardsView.Add(cardView);
 
         public List<CardView> GetAllCanPlay() => _allCardsView.FindAll(cardView => cardView.Card.CanBePlayed);
 

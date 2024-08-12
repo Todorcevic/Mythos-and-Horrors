@@ -16,16 +16,15 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign);
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley);
-            //CreateForceReaction<InteractableGameAction>(AvoidMoveCondition, AvoidMoveLogic, GameActionTime.Before);
+            CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign, "Activation_Card01115");
+            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01115-1"); //TODO: move to Lita Card
             CanMoveHere = new Conditional(() => IsInPlay && Revealed.IsActive);
         }
 
         /*******************************************************************/
         private async Task ResignActivate(Investigator activeInvestigator)
         {
-            await _gameActionsProvider.Create<ResignGameAction>().SetWith(activeInvestigator).Execute();
+            await _gameActionsProvider.Create<RunAwayGameAction>().SetWith(activeInvestigator).Execute();
         }
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)

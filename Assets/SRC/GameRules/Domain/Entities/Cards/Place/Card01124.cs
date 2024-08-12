@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Played = CreateState(false);
-            CreateActivation(1, DrawCardAndResourceLogic, DrawCardAndResourceCondition, PlayActionType.Activate);
+            CreateActivation(1, DrawCardAndResourceLogic, DrawCardAndResourceCondition, PlayActionType.Activate, "Activation_Card01124");
             CreateForceReaction<PlayInvestigatorGameAction>(ResetPlayedCondition, ResetPlayedLogic, GameActionTime.After);
             CreateForceReaction<SpawnCreatureGameAction>(PriestSpawnCondition, PriestSpawnLogic, GameActionTime.Before);
         }

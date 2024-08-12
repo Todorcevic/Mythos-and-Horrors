@@ -9,7 +9,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class CommitCardsChallengeGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Interactable_CommitCardsChallenge";
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
@@ -31,7 +30,7 @@ namespace MythosAndHorrors.GameRules
 
         public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE);
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: "Interactable_CommitCardsChallenge");
             CurrentChallenge = challenge;
             ExecuteSpecificInitialization();
             return this;
@@ -44,7 +43,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CommitableCard commitableCard in AllCommitableCards)
             {
-                CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit, commitableCard.ControlOwner, cardAffected: CurrentChallenge.CardToChallenge);
+                CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit,
+                    commitableCard.ControlOwner, "CardEffect_CommitCardsChallenge", cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
                 async Task Commit()
@@ -56,7 +56,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CommitableCard commitableCard in _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>().Where(commitable => commitable.Commited.IsActive))
             {
-                CreateEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit, commitableCard.InvestigatorCommiter, cardAffected: CurrentChallenge.CardToChallenge);
+                CreateEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit,
+                    commitableCard.InvestigatorCommiter, "CardEffect_CommitCardsChallenge-1", cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
                 async Task Uncommit()
@@ -74,7 +75,9 @@ namespace MythosAndHorrors.GameRules
                    activation.ActivateTurnsCost,
                    Activate,
                    PlayActionType.Activate | activation.PlayAction,
-                   ActiveInvestigator);
+                   ActiveInvestigator,
+                   activation.LocalizableCode,
+                   localizableArgs: activation.LocalizableArgs);
 
                 /*******************************************************************/
                 async Task Activate()

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateForceReaction<HarmToCardGameAction>(TakeDirectFearConditionn, TakeDirectFearLogic, GameActionTime.After);
-            CreateActivation(2, DiscardLogic, DiscardCondition, PlayActionType.Activate);
+            CreateActivation(2, DiscardLogic, DiscardCondition, PlayActionType.Activate, "Activation_Card01600");
         }
 
         /*******************************************************************/
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task TakeDirectFearLogic(HarmToCardGameAction action)
         {
-            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountFear: 1, isDirect: true).Execute();
+            await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(InvestigatorAffected, this, amountFear: 1, isInevitable: true).Execute();
         }
 
         private bool TakeDirectFearConditionn(HarmToCardGameAction harmToCardGameAction)

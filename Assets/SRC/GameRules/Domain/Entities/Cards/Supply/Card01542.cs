@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateActivation(1, ChooseInvestigatorLogic, ChooseInvestigatorCondition, PlayActionType.Activate);
+            CreateActivation(1, ChooseInvestigatorLogic, ChooseInvestigatorCondition, PlayActionType.Activate, "Activation_Card01542");
             CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01542");
             CreateForceReaction<InvestigatorsPhaseGameAction>(ResetStatCondition, ResetStatLogic, GameActionTime.After);
             ActivationUsed = CreateState(false);
@@ -63,17 +63,22 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
-                interactableGameAction.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), GainSkillInvestigator, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), GainSkillInvestigator,
+                    PlayActionType.Choose, investigator, "CardEffect_Card01542");
 
                 /*******************************************************************/
                 async Task GainSkillInvestigator()
                 {
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01542-1");
-                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Strength), PlayActionType.Choose, investigator);
-                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Agility), PlayActionType.Choose, investigator);
-                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Intelligence), PlayActionType.Choose, investigator);
-                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), () => SetStat(investigatorToSelect.Power), PlayActionType.Choose, investigator);
+                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false),
+                        () => SetStat(investigatorToSelect.Strength), PlayActionType.Choose, investigator, "CardEffect_Card01542-1");
+                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false),
+                        () => SetStat(investigatorToSelect.Agility), PlayActionType.Choose, investigator, "CardEffect_Card01542-2");
+                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false),
+                        () => SetStat(investigatorToSelect.Intelligence), PlayActionType.Choose, investigator, "CardEffect_Card01542-3");
+                    interactableGameAction2.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false),
+                        () => SetStat(investigatorToSelect.Power), PlayActionType.Choose, investigator, "CardEffect_Card01542-4");
 
                     await interactableGameAction2.Execute();
 

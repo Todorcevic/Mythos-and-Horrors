@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            PayHints = CreateFastActivation(PayHintsActivate, PayHintsConditionToActivate, PlayActionType.Activate);
+            PayHints = CreateFastActivation(PayHintsActivate, PayHintsConditionToActivate, PlayActionType.Activate, "Activation_CardGoal");
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Hints = CreateStat(MaxHints);
             Revealed = CreateState(false);

@@ -1,5 +1,4 @@
-﻿using ModestTree;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
             CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic, "Buff_Card01528");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01528");
         }
 
         /*******************************************************************/
@@ -46,7 +45,8 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01528");
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, 
+                    PlayActionType.Choose, investigator, "CardEffect_Card01528");
 
                 async Task SelecteCreature()
                 {

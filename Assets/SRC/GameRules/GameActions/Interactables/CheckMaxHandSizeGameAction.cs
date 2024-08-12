@@ -6,8 +6,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class CheckMaxHandSizeGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Interactable_CheckMaxHandSize";
-
         public Investigator ActiveInvestigator { get; private set; }
 
         /*******************************************************************/
@@ -17,7 +15,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: CODE, DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: "Interactable_CheckMaxHandSize", DescriptionParams());
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -42,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
-                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator);
+                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckMaxHandSize");
 
                 /*******************************************************************/
                 async Task Discard()

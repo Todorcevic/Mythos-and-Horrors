@@ -7,6 +7,8 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class CardConditionFast : CardCondition
     {
+        protected abstract string LocalizableCode { get; }
+        protected virtual string[] LocalizableArgs => Array.Empty<string>();
         protected abstract GameActionTime FastReactionAtStart { get; }
         public GameConditionWith<GameAction> PlayFromHandCondition { get; private set; }
 
@@ -25,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             Func<T, bool> condition = PlayFromHandCondition.IsTrueWith;
             Func<T, Task> logic = PlayFromHandCommand.RunWith;
 
-            return CreateOptativeReaction(condition, logic, FastReactionAtStart, PlayFromHandActionType);
+            return CreateOptativeReaction(condition, logic, FastReactionAtStart, LocalizableCode, PlayFromHandActionType, LocalizableArgs);
         }
 
         /*******************************************************************/

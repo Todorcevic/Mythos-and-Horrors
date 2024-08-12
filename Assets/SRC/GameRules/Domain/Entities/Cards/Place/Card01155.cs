@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Used = CreateState(false);
-            CreateActivation(1, HealthDamageLogic, HealthCondition, PlayActionType.Activate);
-            CreateActivation(1, HealthFearLogic, HealthCondition, PlayActionType.Activate);
+            CreateActivation(1, HealthDamageLogic, HealthCondition, PlayActionType.Activate, "Activation_Card01155");
+            CreateActivation(1, HealthFearLogic, HealthCondition, PlayActionType.Activate, "Activation_Card01155-1");
             CreateForceReaction<PlayInvestigatorGameAction>(ResetLogic, ResetCondition, GameActionTime.Before);
         }
 
@@ -33,13 +33,13 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task HealthFearLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();
+            await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Execute();
         }
 
         private async Task HealthDamageLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<HealthGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
+            await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Execute();
         }
 

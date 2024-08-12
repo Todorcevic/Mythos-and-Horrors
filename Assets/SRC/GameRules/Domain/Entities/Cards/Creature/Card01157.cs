@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             Defeated = CreateState(false);
             CreateForceReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, GameActionTime.After);
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, "Activation_Card01157", localizableArgs: Lita.Info.Name);
         }
 
         /*******************************************************************/

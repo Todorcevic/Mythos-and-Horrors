@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
             CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, "Buff_Card01533");
-            CreateOptativeReaction<InvestigatePlaceGameAction>(Condition, Logic, GameActionTime.After);
+            CreateOptativeReaction<InvestigatePlaceGameAction>(Condition, Logic, GameActionTime.After, "OptativeReaction_Card01533");
         }
 
         /*******************************************************************/

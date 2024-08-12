@@ -8,8 +8,6 @@ namespace MythosAndHorrors.GameRules
 {
     public class ShareDamageAndFearGameAction : InteractableGameAction, IPersonalInteractable
     {
-        private const string CODE = "Interactable_ShareDamageAndFear";
-
         public Investigator ActiveInvestigator { get; private set; }
         public Card ByThisCard { get; private set; }
         public int AmountDamage { get; private set; }
@@ -23,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: CODE, DescriptionParams(amountDamage, amountFear));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_ShareDamageAndFear", DescriptionParams(amountDamage, amountFear));
             ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
@@ -52,7 +50,13 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card cardSelectable in allSelectables)
             {
-                CreateEffect(cardSelectable, new Stat(0, false), DoDamageAndFear, PlayActionType.Choose, cardSelectable.ControlOwner, cardAffected: ByThisCard);
+                int damage = AmountDamage > 0 && cardSelectable is IDamageable damageable ? Math.Min(AmountDamage, damageable.HealthLeft) : 0;
+                int fear = AmountFear > 0 && cardSelectable is IFearable fearable ? Math.Min(AmountFear, fearable.SanityLeft) : 0;
+                string localizableCode = damage > 0 && fear > 0 ? "CardEffect_ShareDamageAndFear" : damage > 0 ? "CardEffect_ShareDamage" : "CardEffect_ShareFear";
+                string[] localizableArgs = damage > 0 && fear > 0 ? new[] { damage.ToString(), fear.ToString() } : damage > 0 ? new[] { damage.ToString() } : new[] { fear.ToString() };
+
+                CreateEffect(cardSelectable, new Stat(0, false), DoDamageAndFear, PlayActionType.Choose,
+                    cardSelectable.ControlOwner, localizableCode, cardAffected: ByThisCard, localizableArgs: localizableArgs);
 
                 /*******************************************************************/
                 async Task DoDamageAndFear()

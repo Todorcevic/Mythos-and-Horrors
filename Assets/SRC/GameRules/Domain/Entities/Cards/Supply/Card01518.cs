@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             FearRecived = CreateStat(0);
 
             CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic, "Buff_Card01518");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01518");
         }
 
         /*******************************************************************/
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01518");
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator, "CardEffect_Card01518");
 
                 async Task SelecteCreature()
                 {

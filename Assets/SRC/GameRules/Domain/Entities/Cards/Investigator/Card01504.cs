@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After);
+            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After, "OptativeReaction_Card01504");
             CreateForceReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01504");
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner);
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, "CardEffect_Card01504");
 
                 /*******************************************************************/
                 async Task HarmCreature()

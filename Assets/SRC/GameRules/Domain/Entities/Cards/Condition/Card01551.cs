@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in AttackbleCreatures(investigator))
             {
-                chooseCreature.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator);
+                chooseCreature.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, "CardEffect_Card01551");
 
                 async Task AttackCreature()
                 {

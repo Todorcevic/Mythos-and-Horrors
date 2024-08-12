@@ -33,10 +33,10 @@ namespace MythosAndHorrors.GameRules
                         InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                             .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01158", DescriptionParams());
 
-                        interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator);
+                        interactableGameAction.CreateEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01158");
                         foreach (Card card in investigator.DiscardableCardsInHand)
                         {
-                            interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator);
+                            interactableGameAction.CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01158-1");
 
                             /*******************************************************************/
                             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
