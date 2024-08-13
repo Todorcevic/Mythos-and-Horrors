@@ -28,6 +28,36 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Card> StartDeckDangerCards => DangerCards.Except(new Card[] { Lita, GhoulPriest });
 
         /*******************************************************************/
+        public override void Init()
+        {
+            base.Init();
+            ParleyLita();
+        }
+
+        private void ParleyLita()
+        {
+            Lita.CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01117");
+
+            async Task ParleyActivate(Investigator activeInvestigator)
+            {
+                await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Execute();
+
+                /*******************************************************************/
+                async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                    .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: Lita, ParleySucceed, null)
+                    .Execute();
+
+                async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()
+                    .SetWith(Lita, activeInvestigator.AidZone).Execute();
+            }
+
+            bool ParleyConditionToActivate(Investigator activeInvestigator)
+            {
+                if (activeInvestigator.AvatarCard.CurrentZone != Lita.CurrentZone) return false;
+                return true;
+            }
+        }
+
         public async override Task PrepareScene()
         {
             await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Descriptions[0]).Execute();
@@ -42,11 +72,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override void PrepareChallengeTokens()
         {
-            {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
-            }
+            CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
+            CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
+            DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
         }
 
         private int CreatureValue(Investigator investigator)

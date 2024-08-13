@@ -65,6 +65,36 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Card> AgentSelected => _agentSelected ??= new List<IEnumerable<Card>> { Hastur, Yog, Shub, Cthulhu }.Rand().ToList();
 
         /*******************************************************************/
+        public override void Init()
+        {
+            base.Init();
+            ThrowLita();
+        }
+
+        private void ThrowLita()
+        {
+            if (Lita == null) return;
+            Urmodoth.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
+                   PlayActionType.Activate, "Activation_Card01157", cardAffected: Lita, localizableArgs: new[] { Lita.Info.Name, Urmodoth.Info.Name });
+
+            Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate,
+                           "Activation_Card01157", cardAffected: Urmodoth, localizableArgs: new[] { Lita.Info.Name, Urmodoth.Info.Name });
+
+            bool ThrowLitaConditionToActivate(Investigator investigator)
+            {
+                if (!Urmodoth.IsInPlay) return false;
+                if (!Lita?.IsInPlay ?? true) return false;
+                if (Lita?.CurrentPlace != Urmodoth.CurrentPlace) return false;
+                if (Urmodoth.CurrentPlace != investigator.CurrentPlace) return false;
+                return true;
+            }
+
+            async Task ThrowLitaActivate(Investigator investigator)
+            {
+                await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
+            }
+        }
+
         public override async Task PrepareScene()
         {
             await ShowHistory();

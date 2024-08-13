@@ -7,9 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01115 : CardPlace
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
-
-        private CardSupply Lita => _cardsProvider.GetCard<Card01117>();
 
         /*******************************************************************/
         [Inject]
@@ -17,7 +14,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign, "Activation_Card01115");
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01115-1"); //TODO: move to Lita Card
             CanMoveHere = new Conditional(() => IsInPlay && Revealed.IsActive);
         }
 
@@ -33,39 +29,5 @@ namespace MythosAndHorrors.GameRules
             if (activeInvestigator.CurrentPlace != this) return false;
             return true;
         }
-
-        private async Task ParleyActivate(Investigator activeInvestigator)
-        {
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Execute();
-
-            /*******************************************************************/
-            async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: Lita, succesEffect: ParleySucceed, failEffect: null)
-                .Execute();
-            async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, activeInvestigator.AidZone).Execute();
-        }
-
-        private bool ParleyConditionToActivate(Investigator activeInvestigator)
-        {
-            if (!IsInPlay) return false;
-            if (activeInvestigator.CurrentPlace != this) return false;
-            if (Lita.CurrentZone != OwnZone) return false;
-            return true;
-        }
-
-        /*******************************************************************/
-        //private async Task AvoidMoveLogic(InteractableGameAction interactableGameAction)
-        //{
-        //    IEnumerable<CardEffect> moveEffects = interactableGameAction.AllEffects
-        //        .Where(effects => effects.IsActionType(PlayActionType.Move) && (effects.CardOwner == this || effects.CardAffected == this));
-        //    interactableGameAction.RemoveEffects(moveEffects);
-        //    await Task.CompletedTask;
-        //}
-
-        //private bool AvoidMoveCondition(InteractableGameAction oneInvestigatorTurnGameAction)
-        //{
-        //    if (Revealed.IsActive) return false;
-        //    return true;
-        //}
     }
 }

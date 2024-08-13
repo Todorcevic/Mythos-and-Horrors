@@ -25,6 +25,7 @@ namespace MythosAndHorrors.GameView
             Scene scene = (Scene)_jsonService.CreateDataFromFile(type, _filesPath.JSON_SCENE_PATH(sceneSelected));
             _diContainer.Inject(scene);
             _ownersProvider.AddOwner(scene); //Order is important bcz CreateTokens need CurrentScene
+            scene.Init();
             CreateTokens(scene);
         }
 

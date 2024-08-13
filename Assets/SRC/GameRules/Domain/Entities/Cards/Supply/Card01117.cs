@@ -21,7 +21,6 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01117");
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, "Buff_Card01117");
         }
@@ -63,28 +62,6 @@ namespace MythosAndHorrors.GameRules
             return IsInPlay ? _investigatorProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == CurrentPlace).Select(investigator => investigator.InvestigatorCard) :
                 Enumerable.Empty<Card>();
-        }
-
-        /*******************************************************************/
-        private async Task ParleyActivate(Investigator activeInvestigator)
-        {
-            await _gameActionsProvider.Create<ParleyGameAction>().SetWith(TakeLita).Execute();
-
-            /*******************************************************************/
-            async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: this, ParleySucceed, null)
-                .Execute();
-
-            async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, activeInvestigator.AidZone).Execute();
-        }
-
-        private bool ParleyConditionToActivate(Investigator activeInvestigator)
-        {
-            if (_chaptersProvider.CurrentScene is not SceneCORE1) return false;
-            if (activeInvestigator.AvatarCard.CurrentZone != CurrentZone) return false;
-            if (Owner != null) return false;
-            return true;
         }
     }
 }

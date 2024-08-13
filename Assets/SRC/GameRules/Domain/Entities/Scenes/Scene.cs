@@ -13,7 +13,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Zone DangerDeckZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDeck);
         public Zone DangerDiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDiscard);
@@ -45,9 +44,7 @@ namespace MythosAndHorrors.GameRules
         public List<Resolution> FullResolutions { get; } = new();
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
+        public virtual void Init()
         {
             PileAmount = new Stat(int.MaxValue, canBeNegative: false);
             Zones.Add(new(ZoneType.DangerDeck));
@@ -86,6 +83,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public abstract Task PrepareScene();
+
         protected abstract void PrepareChallengeTokens();
 
         private void PrepareDefaultChallengeTokens()

@@ -17,7 +17,6 @@ namespace MythosAndHorrors.GameRules
         int IVictoriable.Victory => 10;
         bool IVictoriable.IsVictoryComplete => Defeated.IsActive;
         public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
-        public Card01117 Lita => _cardsProvider.TryGetCard<Card01117>();
         public State Defeated { get; private set; }
 
         /*******************************************************************/
@@ -29,29 +28,6 @@ namespace MythosAndHorrors.GameRules
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             Defeated = CreateState(false);
             CreateForceReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, GameActionTime.After);
-            if (Lita != null)
-            {
-                CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
-                    PlayActionType.Activate, "Activation_Card01157", cardAffected: Lita, localizableArgs: new[] { Lita.Info.Name, Info.Name });
-
-                Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate,
-                    "Activation_Card01157", cardAffected: this, localizableArgs: new[] { Lita.Info.Name, Info.Name });
-            }
-        }
-
-        /*******************************************************************/
-        private bool ThrowLitaConditionToActivate(Investigator investigator)
-        {
-            if (!IsInPlay) return false;
-            if (!Lita?.IsInPlay ?? true) return false;
-            if (Lita?.CurrentPlace != CurrentPlace) return false;
-            if (CurrentPlace != investigator.CurrentPlace) return false;
-            return true;
-        }
-
-        private async Task ThrowLitaActivate(Investigator investigator)
-        {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
         }
 
         /*******************************************************************/

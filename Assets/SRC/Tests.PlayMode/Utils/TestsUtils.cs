@@ -33,6 +33,29 @@ namespace MythosAndHorrors.PlayMode.Tests
             return null;
         }
 
+        public static void ExecutePrivateMethod(this object objectTarget, string methodName, params object[] parameters)
+        {
+            if (objectTarget == null) throw new ArgumentNullException("objectTarget cant be null");
+            if (string.IsNullOrEmpty(methodName)) throw new ArgumentNullException("methodName cant be null or empty");
+
+            Type objectType = objectTarget.GetType();
+            MethodInfo method;
+
+            while (objectType != null)
+            {
+                method = objectType.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                if (method != null)
+                {
+                    method.Invoke(objectTarget, parameters);
+                    return;
+                }
+
+                objectType = objectType.BaseType;
+            }
+
+            throw new ArgumentNullException("Private method not found: " + objectTarget.GetType().Name + " - " + methodName);
+        }
+
         public static T GetPrivateMember<T>(this object objectTarget, string memberName)
         {
             if (objectTarget == null) throw new ArgumentNullException("objectTarget cant be null");
