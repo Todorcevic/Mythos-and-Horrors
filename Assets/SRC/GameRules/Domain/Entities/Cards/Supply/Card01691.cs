@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
-            CreateOptativeReaction<HarmToInvestigatorGameAction>(Condition, Logic, GameActionTime.Before);
+            CreateOptativeReaction<HarmToInvestigatorGameAction>(Condition, Logic, GameActionTime.Before, "OptativeReaction_Card01691");
         }
 
         /*******************************************************************/
@@ -40,7 +40,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose, ControlOwner);
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose,
+                    ControlOwner, "CardEffect_Card01691", localizableArgs: creatureDamage.ToString());
 
                 /*******************************************************************/
                 async Task DamageLogic()

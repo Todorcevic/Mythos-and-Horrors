@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         int IVictoriable.Victory => 10;
         bool IVictoriable.IsVictoryComplete => Defeated.IsActive;
         public override IEnumerable<Tag> Tags => new[] { Tag.AncientOne, Tag.Elite };
-        public CardSupply Lita => _cardsProvider.TryGetCard<Card01117>();
+        public Card01117 Lita => _cardsProvider.TryGetCard<Card01117>();
         public State Defeated { get; private set; }
 
         /*******************************************************************/
@@ -29,7 +29,14 @@ namespace MythosAndHorrors.GameRules
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             Defeated = CreateState(false);
             CreateForceReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, GameActionTime.After);
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, "Activation_Card01157", localizableArgs: Lita.Info.Name);
+            if (Lita != null)
+            {
+                CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
+                    PlayActionType.Activate, "Activation_Card01157", cardAffected: Lita, localizableArgs: new[] { Lita.Info.Name, Info.Name });
+
+                Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate,
+                    "Activation_Card01157", cardAffected: this, localizableArgs: new[] { Lita.Info.Name, Info.Name });
+            }
         }
 
         /*******************************************************************/
@@ -37,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (!Lita?.IsInPlay ?? true) return false;
-            if (Lita?.ControlOwner.CurrentPlace != CurrentPlace) return false;
+            if (Lita?.CurrentPlace != CurrentPlace) return false;
             if (CurrentPlace != investigator.CurrentPlace) return false;
             return true;
         }

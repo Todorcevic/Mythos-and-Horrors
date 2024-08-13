@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Health = CreateStat(Info.Health ?? 0);
             DamageRecived = CreateStat(0);
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01576");
         }
 
         /*******************************************************************/
@@ -40,7 +40,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator, cardAffected: this);
+                interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator,
+                    "CardEffect_Card01576", cardAffected: this);
 
                 /*******************************************************************/
                 async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Execute();

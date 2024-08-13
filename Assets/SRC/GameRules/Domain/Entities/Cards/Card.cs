@@ -106,7 +106,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        protected Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, string localizableCode, Card cardAffected = null, params string[] localizableArgs)
+        public Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, string localizableCode, Card cardAffected = null, params string[] localizableArgs)
         {
             Activation<Investigator> newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType, cardAffected, localizableCode, localizableArgs);
             _specificAbilities.Add(newActivation);

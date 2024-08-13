@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, Logic, Condition, PlayActionType.Activate);
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01570");
             CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, "Buff_Card01570");
             ExtraMagicalSlot = new Slot(SlotType.Magical);
         }
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
             {
-                interactableGameAction.CreateEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, "CardEffect_Card01570");
 
                 /*******************************************************************/
                 async Task SelectSpell() =>
@@ -66,7 +66,5 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
             await interactableGameAction.Execute();
         }
-
-        /*******************************************************************/
     }
 }

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(4, ChargeType.MagicCharge);
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01558");
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 

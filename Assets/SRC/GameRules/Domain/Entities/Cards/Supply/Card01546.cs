@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -32,10 +31,5 @@ namespace MythosAndHorrors.GameRules
             if (Exausted.IsActive) return false;
             return true;
         }
-
-        /*******************************************************************/
-
-
-
     }
 }

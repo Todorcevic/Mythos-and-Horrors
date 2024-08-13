@@ -15,7 +15,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Ally };
-        public CardCreature Urmodoth => _cardsProvider.TryGetCard<Card01157>();
 
         /*******************************************************************/
         [Inject]
@@ -23,8 +22,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01117");
-            CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, "Activation_Card01117-1",
-                cardAffected: Urmodoth, localizableArgs: Urmodoth.Info.Name);
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
             CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, "Buff_Card01117");
         }
@@ -66,22 +63,6 @@ namespace MythosAndHorrors.GameRules
             return IsInPlay ? _investigatorProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == CurrentPlace).Select(investigator => investigator.InvestigatorCard) :
                 Enumerable.Empty<Card>();
-        }
-
-        /*******************************************************************/
-        private bool ThrowLitaConditionToActivate(Investigator investigator)
-        {
-            if (_chaptersProvider.CurrentScene is not SceneCORE3) return false;
-            if (!IsInPlay) return false;
-            if (!Urmodoth?.IsInPlay ?? true) return false;
-            if (CurrentPlace != Urmodoth.CurrentPlace) return false;
-            if (investigator.CurrentPlace != Urmodoth.CurrentPlace) return false;
-            return true;
-        }
-
-        private async Task ThrowLitaActivate(Investigator investigator)
-        {
-            await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[3]).Execute();
         }
 
         /*******************************************************************/

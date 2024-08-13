@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(2, ChargeType.Secret);
-            CreateActivation(1, Logic, Condition, PlayActionType.Activate);
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01686");
         }
 
         /*******************************************************************/
@@ -39,7 +39,8 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686");
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
-                interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose, investigator);
+                interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator,
+                    PlayActionType.Choose, investigator, "CardEffect_Card01686");
 
                 /*******************************************************************/
                 async Task SelecteInvestigator()
@@ -51,7 +52,7 @@ namespace MythosAndHorrors.GameRules
 
                     foreach (Card card in cardsToShow)
                     {
-                        interactableGameAction2.CreateEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv);
+                        interactableGameAction2.CreateEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01686-1");
 
                         /*******************************************************************/
                         async Task Draw()
@@ -84,7 +85,8 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                     .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01686-2");
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.CreateEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand, card.ControlOwner, resourceCost: playableFromHand.ResourceCost);
+                interactableGameAction.CreateEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand,
+                    card.ControlOwner, "CardEffect_Card01686-2", resourceCost: playableFromHand.ResourceCost);
 
                 async Task DecrementLogic()
                 {

@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01555");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate);
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01555");
         }
 
         /*******************************************************************/
@@ -36,7 +36,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                interactableGameAction.CreateEffect(place, place.MoveTurnsCost, MoveAndUnconfront, PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, cardAffected: this);
+                interactableGameAction.CreateEffect(place, place.MoveTurnsCost, MoveAndUnconfront,
+                    PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, "CardEffect_Card01555", cardAffected: this);
 
                 /*******************************************************************/
                 async Task MoveAndUnconfront() =>

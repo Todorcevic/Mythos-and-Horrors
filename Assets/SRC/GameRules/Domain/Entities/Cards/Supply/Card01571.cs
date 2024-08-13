@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             Charge = new Charge(4, ChargeType.MagicCharge);
             Played = CreateState(false);
-            CreateOptativeReaction<RevealRandomChallengeTokenGameAction>(PlayCondition, PlayLogic, GameActionTime.Before);
+            CreateOptativeReaction<RevealRandomChallengeTokenGameAction>(PlayCondition, PlayLogic, GameActionTime.Before, "OptativeReaction_Card01571");
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01571");
             foreach (ChallengeToken token in allTokens)
             {
-                interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner);
+                interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner, "CardEffect_Card01571");
 
                 /*******************************************************************/
                 async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));

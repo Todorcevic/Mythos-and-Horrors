@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(4);
-            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate);
+            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, "Activation_Card01683");
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -60,7 +60,8 @@ namespace MythosAndHorrors.GameRules
                     new Stat(0, false),
                     RestoreHealthAndFearInvestigator,
                     PlayActionType.Choose,
-                    playedBy: activeInvestigator);
+                    playedBy: activeInvestigator,
+                    localizableCode: "CardEffect_Card01683");
 
                 /*******************************************************************/
                 async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Execute();

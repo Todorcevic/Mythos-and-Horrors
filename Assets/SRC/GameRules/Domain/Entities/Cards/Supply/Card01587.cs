@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateFastActivation(InvestigateLogic, InvestigateCondition, PlayActionType.Activate);
+            CreateFastActivation(InvestigateLogic, InvestigateCondition, PlayActionType.Activate, "Activation_Card01587");
         }
 
         /*******************************************************************/
@@ -36,7 +36,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01587");
-            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, cardAffected: this);
+            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate,
+                PlayActionType.Investigate, investigator, "CardEffect_Card01587", cardAffected: this);
             await interactable.Execute();
 
             /*******************************************************************/
