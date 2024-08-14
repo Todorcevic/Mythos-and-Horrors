@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_CheckSlots", DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_CheckSlots", DescriptionParams());
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

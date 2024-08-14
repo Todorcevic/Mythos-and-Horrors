@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_ShareDamageAndFear", DescriptionParams(amountDamage, amountFear));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_ShareDamageAndFear", DescriptionParams(amountDamage, amountFear));
             ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;

@@ -27,7 +27,8 @@ namespace MythosAndHorrors.GameView
 
         public Sequence ChangeText(string description)
         {
-            _showText.Kill();
+            if (description == _description.text) return DOTween.Sequence();
+            _showText?.Kill();
             _showText = ChangeText(_name.text, description)
                 .Join(ShowDescription())
                 .AppendInterval(ViewValues.SLOW_TIME_ANIMATION * 4)

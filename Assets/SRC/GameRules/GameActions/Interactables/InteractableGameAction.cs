@@ -30,11 +30,11 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect GetUniqueMainButton() => MainButtonEffect != null && !_allCardEffects.Any() && MustShowInCenter ? MainButtonEffect : null;
 
         /*******************************************************************/
-        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
+        public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string localizableCode, params string[] localizableArgs)
         {
             CanBackToThisInteractable = canBackToThisInteractable;
             MustShowInCenter = mustShowInCenter;
-            Description = _textsProvider.GetLocalizableText(code, descriptionArgs);
+            Description = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
             return this;
         }
 

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         public OneInvestigatorTurnGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: "Interactable_OneInvestigatorTurn", DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_OneInvestigatorTurn", DescriptionParams());
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
             ExecuteSpecificInitialization();
             return this;

@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
 
         public MulliganGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, code: "Interactable_Mulligan");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_Mulligan");
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;

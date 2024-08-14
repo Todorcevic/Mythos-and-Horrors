@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DamageBySanityLogic(HarmToCardGameAction harmToCardGameAction)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01504");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01504");
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
                 interactableGameAction.CreateEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, "CardEffect_Card01504");

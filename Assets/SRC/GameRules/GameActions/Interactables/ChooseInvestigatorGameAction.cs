@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChooseInvestigatorGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, code: "Interactable_ChooseInvestigator");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_ChooseInvestigator");
             ExecuteSpecificInitialization();
             return this;
         }

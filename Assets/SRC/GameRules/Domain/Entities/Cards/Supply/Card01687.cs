@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         private async Task InvestigationLogic(Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_Card01687");
+               .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01687");
             interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate,
                 PlayActionType.Investigate, investigator, "CardEffect_Card01687", cardAffected: this);
             await interactable.Execute();

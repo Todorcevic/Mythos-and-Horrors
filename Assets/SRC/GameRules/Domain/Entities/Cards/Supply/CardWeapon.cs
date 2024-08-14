@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         protected async Task ChooseCreatureLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, code: "Interactable_CardWeapon");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_CardWeapon");
 
             foreach (CardCreature creature in AttackbleCreatures)
             {

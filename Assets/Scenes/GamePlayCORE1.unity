@@ -1711,8 +1711,16 @@ PrefabInstance:
       value: 0.7019608
       objectReference: {fileID: 0}
     - target: {fileID: 3912260284232278279, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912260284232278279, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4292920755
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912260284232278279, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5640203609873489107, guid: 9bc1679fb57cb5444ab6119fd2bc5533, type: 3}
       propertyPath: m_Layer
