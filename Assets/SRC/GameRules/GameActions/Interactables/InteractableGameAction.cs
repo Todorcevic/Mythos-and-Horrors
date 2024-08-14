@@ -67,8 +67,9 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
-        public BaseEffect CreateMainButton(Func<Task> logic, string description)
+        public BaseEffect CreateMainButton(Func<Task> logic, string localizableCode, params string[] localizableArgs)
         {
+            string description = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
             BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, null, description: description);
             MainButtonEffect = effect;
             return effect;
@@ -76,7 +77,8 @@ namespace MythosAndHorrors.GameRules
 
         public void CreateContinueMainButton()
         {
-            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, description: "Continue");
+            string description = _textsProvider.GetLocalizableText("MainButton_Continue");
+            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, description: description);
             static async Task Continue() => await Task.CompletedTask;
         }
 
@@ -86,7 +88,8 @@ namespace MythosAndHorrors.GameRules
 
         private void SetUndoButton()
         {
-            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: "Back") : null;
+            string description = _textsProvider.GetLocalizableText("MainButton_Back");
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: description) : null;
             if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
 
             /*******************************************************************/

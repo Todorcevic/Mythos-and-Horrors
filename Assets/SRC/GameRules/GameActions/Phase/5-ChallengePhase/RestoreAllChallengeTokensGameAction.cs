@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class RestoreAllChallengeTokens : GameAction
+    public class RestoreAllChallengeTokensGameAction : GameAction
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 

@@ -5,14 +5,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class AllInvestigatorsCheckHandSize : PhaseGameAction
+    public class AllInvestigatorsCheckHandSizeGameAction : PhaseGameAction
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(AllInvestigatorsCheckHandSize);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(AllInvestigatorsCheckHandSize);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_AllInvestigatorsCheckHandSize");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_AllInvestigatorsCheckHandSize");
         public override Phase MainPhase => Phase.Restore;
 
         /*******************************************************************/

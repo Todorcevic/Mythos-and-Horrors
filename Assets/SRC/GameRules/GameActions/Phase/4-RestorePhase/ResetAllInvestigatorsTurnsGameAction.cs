@@ -7,11 +7,10 @@ namespace MythosAndHorrors.GameRules
 {
     public class ResetAllInvestigatorsTurnsGameAction : PhaseGameAction
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ResetAllInvestigatorsTurnsGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ResetAllInvestigatorsTurnsGameAction);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ResetAllInvestigatorsTurns");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ResetAllInvestigatorsTurns");
         public override Phase MainPhase => Phase.Restore;
 
         /*******************************************************************/

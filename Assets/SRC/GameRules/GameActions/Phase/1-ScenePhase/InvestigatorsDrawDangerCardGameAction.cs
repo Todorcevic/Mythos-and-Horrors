@@ -4,14 +4,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigatorsDrawDangerCard : PhaseGameAction
+    public class InvestigatorsDrawDangerCardGameAction : PhaseGameAction
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(InvestigatorsDrawDangerCard);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(InvestigatorsDrawDangerCard);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_InvestigatorsDrawDangerCard");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_InvestigatorsDrawDangerCard");
         public override Phase MainPhase => Phase.Scene;
 
         /*******************************************************************/

@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Crypt Challenge", this, failEffect: DiscardOrFear).Execute();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Challenge_Card01167", this, failEffect: DiscardOrFear, localizableArgs: Info.Name).Execute();
 
             /*******************************************************************/
             async Task DiscardOrFear()

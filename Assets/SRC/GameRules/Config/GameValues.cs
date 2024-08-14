@@ -1,6 +1,5 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-
     public class GameValues
     {
         public const int INITIAL_DRAW_SIZE = 5;

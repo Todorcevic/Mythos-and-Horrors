@@ -1,15 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class RestorePhaseGameAction : PhaseGameAction, IPhase
     {
-        [Inject] private readonly TextsProvider _textsProvider;
-
         public override Phase MainPhase => Phase.Restore;
-        public override string Name => _textsProvider.GameText.RESTORE_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.RESTORE_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_RestorePhase");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_RestorePhase");
 
         /*******************************************************************/
         //4.1	Upkeep phase begins.
@@ -20,9 +17,9 @@ namespace MythosAndHorrors.GameRules
             //4.3	Ready all exhausted cards.
             await _gameActionsProvider.Create<ReadyAllCardsGameAction>().Execute();
             //4.4	Each investigator draws 1 card and gains 1 resource.
-            await _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResource>().Execute();
+            await _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResourceGameAction>().Execute();
             //4.5	Each investigator checks hand size.
-            await _gameActionsProvider.Create<AllInvestigatorsCheckHandSize>().Execute();
+            await _gameActionsProvider.Create<AllInvestigatorsCheckHandSizeGameAction>().Execute();
         }
         //4.6	Upkeep phase ends.
     }

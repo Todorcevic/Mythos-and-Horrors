@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Cellar => _cardsProvider.GetCard<Card01114>();
         public CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
 
-        public CardSupply Lita => _cardsProvider.GetCard<Card01117>();
+        public Card01117 Lita => _cardsProvider.GetCard<Card01117>();
         public CardCreature GhoulSecuaz => _cardsProvider.GetCard<Card01160>();
         public CardCreature GhoulVoraz => _cardsProvider.GetCard<Card01161>();
         public CardCreature GhoulGelid => _cardsProvider.GetCard<Card01119>();
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                    .SetWith(activeInvestigator.Intelligence, 4, "Parley with Lita", cardToChallenge: Lita, ParleySucceed, null)
+                    .SetWith(activeInvestigator.Intelligence, 4, "Challenge_Card01117", cardToChallenge: Lita, ParleySucceed, null, localizableArgs: Lita.Info.Name)
                     .Execute();
 
                 async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()

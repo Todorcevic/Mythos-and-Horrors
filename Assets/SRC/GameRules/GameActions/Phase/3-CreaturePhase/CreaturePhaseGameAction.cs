@@ -1,15 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class CreaturePhaseGameAction : PhaseGameAction, IPhase
     {
-        [Inject] private readonly TextsProvider _textsProvider;
-
         public override Phase MainPhase => Phase.Creature;
-        public override string Name => _textsProvider.GameText.CREATURE_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.CREATURE_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_CreaturePhase");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_CreaturePhase");
 
         /*******************************************************************/
         //3.1	Enemy phase begins.

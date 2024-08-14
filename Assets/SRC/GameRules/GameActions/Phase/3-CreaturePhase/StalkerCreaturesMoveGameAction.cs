@@ -10,11 +10,10 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(StalkerCreaturesMoveGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(StalkerCreaturesMoveGameAction);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_StalkerCreaturesMove");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_StalkerCreaturesMove");
         public override Phase MainPhase => Phase.Creature;
 
         /*******************************************************************/

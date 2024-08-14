@@ -8,10 +8,9 @@ namespace MythosAndHorrors.GameRules
     public class ReadyAllCardsGameAction : PhaseGameAction
     {
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
 
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ReadyAllCardsGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ReadyAllCardsGameAction);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ReadyAllCards");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ReadyAllCards");
         public override Phase MainPhase => Phase.Restore;
 
         /*******************************************************************/

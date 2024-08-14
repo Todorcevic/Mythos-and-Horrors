@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
-            CreateMainButton(CurrentChallenge.ContinueChallenge, "Drop");
+            CreateMainButton(CurrentChallenge.ContinueChallenge, "MainButton_CommitCardsChallenge");
 
             foreach (CommitableCard commitableCard in AllCommitableCards)
             {

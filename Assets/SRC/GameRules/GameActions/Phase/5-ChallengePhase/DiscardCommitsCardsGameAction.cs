@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DiscardCommitsCards : GameAction
+    public class DiscardCommitsCardsGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 

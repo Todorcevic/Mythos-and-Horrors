@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ChallengeToDiscardLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, $"Discard {Info.Name}", this, succesEffect: Discard).Execute();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, "Challenge_Card01182", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();

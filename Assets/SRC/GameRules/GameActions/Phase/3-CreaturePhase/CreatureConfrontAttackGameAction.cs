@@ -6,12 +6,11 @@ namespace MythosAndHorrors.GameRules
 {
     public class CreatureConfrontAttackGameAction : PhaseGameAction
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(CreatureConfrontAttackGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(CreatureConfrontAttackGameAction);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_CreatureConfrontAttack");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_CreatureConfrontAttack");
         public override Phase MainPhase => Phase.Creature;
 
         /*******************************************************************/

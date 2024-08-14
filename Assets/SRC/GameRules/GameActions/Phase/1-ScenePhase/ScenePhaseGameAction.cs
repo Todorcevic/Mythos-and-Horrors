@@ -5,12 +5,11 @@ namespace MythosAndHorrors.GameRules
 {
     public class ScenePhaseGameAction : PhaseGameAction, IPhase
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override Phase MainPhase => Phase.Scene;
-        public override string Name => _textsProvider.GameText.SCENE_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.SCENE_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ScenePhase");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ScenePhase");
 
         /*******************************************************************/
         //1.1	Mythos phase begins.
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
             //1.3	Check doom threshold.
             await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
             //1.4	Each investigator draws 1 encounter card.
-            await _gameActionsProvider.Create<InvestigatorsDrawDangerCard>().Execute();
+            await _gameActionsProvider.Create<InvestigatorsDrawDangerCardGameAction>().Execute();
         }
         //1.5	Mythos phase ends.
     }

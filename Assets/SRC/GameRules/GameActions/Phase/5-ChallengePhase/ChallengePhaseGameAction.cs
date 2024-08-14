@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
@@ -38,18 +37,18 @@ namespace MythosAndHorrors.GameRules
         public bool IsSucceed => (bool)ResultChallenge?.IsSuccessful;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Name) + nameof(ChallengePhaseGameAction);
-        public override string Description => _textsProvider.GameText.DEFAULT_VOID_TEXT + nameof(Description) + nameof(ChallengePhaseGameAction);
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_Challenge");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_Challenge");
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string name, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
+        public ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string localizableCode, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null, params string[] localizableArgs)
         {
             Stat = stat;
             StatModifier = new Stat(0, true);
             InitialDifficultValue = difficultValue;
             CardToChallenge = cardToChallenge;
-            ChallengeName = name;
+            ChallengeName = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
             return this;
@@ -70,9 +69,9 @@ namespace MythosAndHorrors.GameRules
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
             await ResultChallenge.Execute();
             await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create<RestoreAllChallengeTokens>().Execute();
+            await _gameActionsProvider.Create<RestoreAllChallengeTokensGameAction>().Execute();
             await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Execute();
-            await _gameActionsProvider.Create<DiscardCommitsCards>().Execute();
+            await _gameActionsProvider.Create<DiscardCommitsCardsGameAction>().Execute();
         }
 
         public void ChangeStat(Stat stat) => Stat = stat;

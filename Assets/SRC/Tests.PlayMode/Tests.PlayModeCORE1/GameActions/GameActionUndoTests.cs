@@ -14,7 +14,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
             yield return PlayAllInvestigators();
-            yield return _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResource>().Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<AllInvestigatorsDrawCardAndResourceGameAction>().Execute().AsCoroutine();
             yield return _gameActionsProvider.Rewind().AsCoroutine();
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.Resources.Value == 0), Is.True);

@@ -1,15 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class PrepareInvestigatorGameAction : PhaseGameAction
     {
-        [Inject] private readonly TextsProvider _textsProvider;
-
         public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.PREPARE_INVESTIGATOR_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_PrepareInvestigator");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_PrepareInvestigator");
 
         /*******************************************************************/
         public PrepareInvestigatorGameAction SetWith(Investigator investigator)

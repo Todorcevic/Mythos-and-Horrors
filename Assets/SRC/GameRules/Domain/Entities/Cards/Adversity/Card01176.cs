@@ -14,7 +14,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Yellow Sign", this, failEffect: HarmAndWeakness).Execute();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>()
+                .SetWith(investigator.Power, 4, "Challenge_Card01176", this, failEffect: HarmAndWeakness, localizableArgs: Info.Name).Execute();
 
             /*******************************************************************/
             async Task HarmAndWeakness()

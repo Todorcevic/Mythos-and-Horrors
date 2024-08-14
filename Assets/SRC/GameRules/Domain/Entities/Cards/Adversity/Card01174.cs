@@ -62,8 +62,10 @@ namespace MythosAndHorrors.GameRules
             await choose.Execute();
 
             /*******************************************************************/
-            async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Strength, 4, "Open", this, succesEffect: Discard).Execute();
-            async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Agility, 4, "Open", this, succesEffect: Discard).Execute();
+            async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
+                SetWith(investigator.Strength, 4, "Challenge_Card01174", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
+            async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
+                SetWith(investigator.Agility, 4, "Challenge_Card01174", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();

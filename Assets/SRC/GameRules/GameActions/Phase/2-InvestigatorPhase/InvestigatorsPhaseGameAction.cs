@@ -6,13 +6,12 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatorsPhaseGameAction : PhaseGameAction, IPhase
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
         public override Phase MainPhase => Phase.Investigator;
-        public override string Name => _textsProvider.GameText.INVESTIGATOR_PHASE_NAME;
-        public override string Description => _textsProvider.GameText.INVESTIGATOR_PHASE_DESCRIPTION;
+        public override string Name => _textsProvider.GetLocalizableText("PhaseName_InvestigatorsPhase");
+        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_InvestigatorsPhase");
 
         /*******************************************************************/
         public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Any();
