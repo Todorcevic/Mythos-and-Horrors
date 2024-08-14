@@ -17,6 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             Card01166 cardAdversity = _cardsProvider.GetCard<Card01166>();
             yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
 

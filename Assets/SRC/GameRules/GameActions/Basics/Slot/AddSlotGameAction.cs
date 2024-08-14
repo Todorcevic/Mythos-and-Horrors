@@ -8,9 +8,9 @@ namespace MythosAndHorrors.GameRules
         public Slot Slot { get; private set; }
 
         /*******************************************************************/
-        public AddSlotGameAction SetWith(Investigator cardSupply, Slot slot)
+        public AddSlotGameAction SetWith(Investigator investigator, Slot slot)
         {
-            Investigator = cardSupply;
+            Investigator = investigator;
             Slot = slot;
             return this;
         }

@@ -40,19 +40,11 @@ namespace MythosAndHorrors.GameRules
             }
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(statsWithValues).Execute();
 
-            if (Card is IDamageable damageableAfter)
+
+            if ((Card is IDamageable damageableAfter && damageableAfter.HealthLeft <= 0) 
+                || (Card is IFearable fearableAfter && fearableAfter.SanityLeft <= 0))
             {
-                if (damageableAfter.HealthLeft <= 0)
-                {
-                    await _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(Card, ByThisCard).Execute();
-                }
-            }
-            if (Card is IFearable fearableAfter)
-            {
-                if (fearableAfter.SanityLeft <= 0)
-                {
-                    await _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(Card, ByThisCard).Execute();
-                }
+                await _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(Card, ByThisCard).Execute();
             }
         }
     }
