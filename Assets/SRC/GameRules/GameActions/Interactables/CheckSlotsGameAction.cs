@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             string DescriptionParams()
             {
                 string slots = string.Empty;
-                investigator.GetAllSlotsExeded().ForEach(slot => slots += slot.ToString() + "-");
+                investigator.GetAllSlotsExeded().Distinct().ForEach(slot => slots += slot.ToString() + "-");
                 return slots.Length > 0 ? slots.Remove(slots.Length - 1) : slots;
             }
         }
