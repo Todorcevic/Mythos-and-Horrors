@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengeToken ChallengeTokenRevealed { get; private set; }
         public Investigator Investigator { get; private set; }
+        public override bool CanBeExecuted => Investigator.IsInPlay;
 
         /*******************************************************************/
         public RevealRandomChallengeTokenGameAction SetWith(Investigator investigator)

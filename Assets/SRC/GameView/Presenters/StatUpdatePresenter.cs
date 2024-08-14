@@ -70,8 +70,15 @@ namespace MythosAndHorrors.GameView
             {
                 int amount = investigator.Resources.Value - investigator.Resources.ValueBeforeUpdate;
                 Stat cardResoursable = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Resources }).UniqueOrDefault();
-                if (amount > 0) payResourceSequence.Append(_tokenMoverHandler.GainResourceAnimation(investigator, amount, cardResoursable));
-                else if (amount < 0) payResourceSequence.Append(_tokenMoverHandler.PayResourceAnimation(investigator, -1 * amount, cardResoursable));
+
+                if (amount > 0)
+                {
+                    payResourceSequence.Append(_tokenMoverHandler.GainResourceAnimation(investigator, amount, cardResoursable));
+                }
+                else if (amount < 0)
+                {
+                    payResourceSequence.Append(_tokenMoverHandler.PayResourceAnimation(investigator, -1 * amount, cardResoursable));
+                }
             }
 
             return payResourceSequence;

@@ -28,10 +28,16 @@ namespace MythosAndHorrors.GameView
         public Tween MoveTo(Transform destiny, Transform centerShow)
         {
             return DOTween.Sequence()
-                   .OnStart(() => _model.transform.SetParent(destiny))
+                   .OnStart(Starting)
                    .Append(MoveCenter(centerShow))
                    .Append(_model.transform.DORecolocate(ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)))
                    .OnComplete(ReturnToken);
+
+            void Starting()
+            {
+                _amount.transform.localScale = Vector3.zero;
+                _model.transform.SetParent(destiny);
+            }
 
             void ReturnToken()
             {
@@ -49,6 +55,7 @@ namespace MythosAndHorrors.GameView
 
             void PositionateToken()
             {
+                _amount.transform.localScale = Vector3.zero;
                 _model.transform.SetEqual(origin);
                 Activate();
             }
