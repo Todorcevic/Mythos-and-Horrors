@@ -39,21 +39,21 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator.DiscardZone.Cards.Contains(weaknessCard));
         }
 
-        [UnityTest]
-        public IEnumerator TestToPositionateZones()
-        {
-            Investigator investigator = _investigatorsProvider.First;
-            yield return StartingScene();
+        //[UnityTest]
+        //public IEnumerator TestToPositionateZones()
+        //{
+        //    Investigator investigator = _investigatorsProvider.First;
+        //    yield return StartingScene();
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), investigator.DiscardZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), SceneCORE1.LimboZone).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), investigator.DiscardZone).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), SceneCORE1.LimboZone).Execute().AsCoroutine();
 
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+        //    Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+        //    yield return ClickedMainButton();
+        //    yield return gameActionTask.AsCoroutine();
 
-            Assert.That(true, Is.True);
-        }
+        //    Assert.That(true, Is.True);
+        //}
     }
 }

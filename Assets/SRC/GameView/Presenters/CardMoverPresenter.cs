@@ -12,15 +12,11 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenter<MoveCardsGameAction>.PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)
         {
+            if (await CheckSpecialMove(moveCardsGameAction)) return;
+
             if (!moveCardsGameAction.IsSingleMove)
             {
                 await _moveCardHandler.MoveCardsToCurrentZones(moveCardsGameAction.Cards, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
-                return;
-            }
-
-            if (moveCardsGameAction.Parent?.Parent is InitialDrawGameAction)
-            {
-                await _moveCardHandler.MoveCardWithPreviewWithoutWait(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
                 return;
             }
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
@@ -30,6 +26,19 @@ namespace MythosAndHorrors.GameView
         {
             await _moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone).AsyncWaitForCompletion();
             _ = _moveCardHandler.ReturnCard(gameAction.Creature);
+        }
+
+        private async Task<bool> CheckSpecialMove(MoveCardsGameAction moveCardsGameAction)
+        {
+            if (moveCardsGameAction.Parent is InitialDrawGameAction)
+            {
+                foreach (Card card in moveCardsGameAction.Cards)
+                {
+                    await _moveCardHandler.MoveCardWithPreviewWithoutWait(card, card.CurrentZone).AsyncWaitForCompletion();
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -55,7 +55,6 @@ namespace MythosAndHorrors.GameRules
         private async Task DrawInitialHand()
         {
             await _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(ActiveInvestigator).Execute();
-            await Task.Delay(400); //TODO: Remove this delay, its must be in GameView
         }
 
         private async Task Mulligan()

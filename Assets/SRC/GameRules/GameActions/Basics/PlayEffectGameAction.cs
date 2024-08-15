@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -23,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             }
             if (Effect is CardEffect cardEffec && cardEffec.ResourceCost.Value > 0)
             {
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardEffec.Investigator.Resources, cardEffec.ResourceCost.Value).Execute();
+                await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(cardEffec.Investigator, cardEffec.ResourceCost.Value).Execute();
             }
             if (Effect.WithOpportunityAttack)
             {

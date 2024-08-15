@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
             await SpecialAnimations(updateStatGameAction, statablesUpdated);
 
             IEnumerable<IStatable> allStatables = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated);
-            await Update(allStatables, statablesUpdated).AsyncWaitForCompletion();
+            Update(allStatables, statablesUpdated);
         }
 
         /*******************************************************************/
