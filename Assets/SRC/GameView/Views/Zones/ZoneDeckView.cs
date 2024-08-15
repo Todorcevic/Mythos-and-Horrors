@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameView
         public override Tween ExitZone(CardView cardView)
         {
             _allCards.Remove(cardView);
-            return DOTween.Sequence();
+            return Reorder();
         }
 
         public override Tween MouseEnter(CardView cardView)
@@ -58,35 +58,36 @@ namespace MythosAndHorrors.GameView
                 DOTween.Sequence().Join(_allCards[i].Rotate())
                 .Join(_allCards[i].transform.DOShakeRotation(ViewValues.DEFAULT_TIME_ANIMATION + 0.001f))
                 .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX(Random.value - 0.25f, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
-                .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f)))
-                .Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION)));
+                .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))));
             }
-
+            ShuffleSequence.Join(Reorder());
             return ShuffleSequence;
         }
 
         public override Tween UpdatePosition(Card cardToChange)
         {
             int newPosition = cardToChange.CurrentZone.Cards.IndexOf(cardToChange);
-            CardView cardViewToChane = _allCards.Find(card => card.Card == cardToChange);
-            _allCards.Remove(cardViewToChane);
-            _allCards.Insert(newPosition, cardViewToChane);
+            CardView cardViewToChange = _allCards.Find(card => card.Card == cardToChange);
+            _allCards.Remove(cardViewToChange);
+            _allCards.Insert(newPosition, cardViewToChange);
+            cardViewToChange.transform.SetSiblingIndex(newPosition);
 
-            cardViewToChane.transform.SetSiblingIndex(newPosition);
-            //_allCards = _allCards.OrderBy(card => Zone.Cards.IndexOf(card.Card)).ToList();
+            Sequence changePositionSequence = DOTween.Sequence();
+            changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveX(-10, ViewValues.DEFAULT_TIME_ANIMATION));
+            changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * newPosition, ViewValues.DEFAULT_TIME_ANIMATION));
+            changePositionSequence.Join(Reorder());
+            changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION));
+            return changePositionSequence;
+        }
 
-            Sequence ChangePositionSequence = DOTween.Sequence();
-            ChangePositionSequence.Append(cardViewToChane.transform.DOLocalMoveX(-10, ViewValues.DEFAULT_TIME_ANIMATION));
-            ChangePositionSequence.Append(cardViewToChane.transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * newPosition, ViewValues.DEFAULT_TIME_ANIMATION));
-
+        private Sequence Reorder()
+        {
+            Sequence reorderSequence = DOTween.Sequence();
             for (int i = 0; i < _allCards.Count; i++)
             {
-                ChangePositionSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION));
+                reorderSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION));
             }
-
-            ChangePositionSequence.Append(cardViewToChane.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION));
-
-            return ChangePositionSequence;
+            return reorderSequence;
         }
     }
 }
