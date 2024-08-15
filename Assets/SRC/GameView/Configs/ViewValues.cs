@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameView
     public class ViewValues
     {
         public const float INSTANT_TIME_ANIMATION = 0f;
-        public const float VERYFAST_TIME_ANIMATION = 0.1f;
+        //public const float VERYFAST_TIME_ANIMATION = 0.1f;
         public const float FAST_TIME_ANIMATION = 0.25f;
         public const float DEFAULT_TIME_ANIMATION = 0.4f;
         public const float MID_TIME_ANIMATION = 0.5f;
