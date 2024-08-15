@@ -28,13 +28,6 @@ namespace MythosAndHorrors.GameView
             await DotweenExtension.WaitForAnimationsComplete();
         }
 
-        //public void DeactivateCardSensorsWithotWait()
-        //{
-        //    if (_fullBlock.enabled) return;
-        //    _fullBlock.enabled = true;
-        //    BlockUI();
-        //}
-
         private Tween UnblockUI()
         {
             _uIBlock.raycastTarget = false;

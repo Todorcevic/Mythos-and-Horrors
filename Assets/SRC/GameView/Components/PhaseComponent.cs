@@ -9,6 +9,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class PhaseComponent : MonoBehaviour
     {
         private const float OFFSET = -140f;

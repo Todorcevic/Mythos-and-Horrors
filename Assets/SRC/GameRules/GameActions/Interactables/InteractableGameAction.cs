@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
             Investigator playedBy, string localizableCode, Card cardAffected = null, Stat resourceCost = null, params string[] localizableArgs)
         {
             string description = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
-            CardEffect effect = new(card, activateTurnCost, logic, playActionType, playedBy, description, cardAffected, resourceCost: resourceCost);
+            CardEffect effect = new(card, activateTurnCost, logic, playActionType, playedBy, localizableCode, description, cardAffected, resourceCost: resourceCost);
             if (CanBeAdded(effect)) _allCardEffects.Add(effect);
             return effect;
 
@@ -70,15 +70,16 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect CreateMainButton(Func<Task> logic, string localizableCode, params string[] localizableArgs)
         {
             string description = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
-            BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, null, description: description);
+            BaseEffect effect = new(new Stat(0, false), logic, PlayActionType.None, null, localizableCode, description: description);
             MainButtonEffect = effect;
             return effect;
         }
 
         public void CreateContinueMainButton()
         {
-            string description = _textsProvider.GetLocalizableText("MainButton_Continue");
-            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, description: description);
+            const string LOCALIZABLE_CODE = "MainButton_Continue";
+            string description = _textsProvider.GetLocalizableText(LOCALIZABLE_CODE);
+            MainButtonEffect = new BaseEffect(new Stat(0, false), Continue, PlayActionType.None, null, LOCALIZABLE_CODE, description: description);
             static async Task Continue() => await Task.CompletedTask;
         }
 
@@ -88,8 +89,9 @@ namespace MythosAndHorrors.GameRules
 
         private void SetUndoButton()
         {
-            string description = _textsProvider.GetLocalizableText("MainButton_Back");
-            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, description: description) : null;
+            const string LOCALIZABLE_CODE = "MainButton_Back";
+            string description = _textsProvider.GetLocalizableText(LOCALIZABLE_CODE);
+            UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, LOCALIZABLE_CODE, description: description) : null;
             if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
 
             /*******************************************************************/

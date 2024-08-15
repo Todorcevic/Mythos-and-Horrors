@@ -6,6 +6,8 @@ namespace MythosAndHorrors.GameRules
 {
     public class PlayEffectGameAction : GameAction
     {
+        [Inject] private readonly IPresenter<PlayEffectGameAction> _presenter;
+
         public BaseEffect Effect { get; private set; }
 
         /*******************************************************************/
@@ -30,6 +32,8 @@ namespace MythosAndHorrors.GameRules
             {
                 await _gameActionsProvider.Create<OpportunityAttackGameAction>().SetWith(Effect.Investigator).Execute();
             }
+
+            await _presenter.PlayAnimationWith(this);
             await Effect.Logic();
         }
     }

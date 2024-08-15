@@ -4,6 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class FinalizePresenter : IPresenter<FinalizeGameAction>
     {
         [Inject] private readonly RegisterChapterComponent _registerChapterComponent;
