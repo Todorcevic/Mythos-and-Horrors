@@ -8,14 +8,15 @@ namespace MythosAndHorrors.GameView
 {
     public class ZoneDiscardView : ZoneView
     {
-        private const float OFF_SET_EXPAND_X = -1.5f;
-        public float OFF_SET_EXPAND_SELECTED = 2f;
+        public bool IsRightDesplacement;
         private bool isStandUp;
         private Sequence hoverAnimation;
         private readonly List<CardView> _allCards = new();
         [SerializeField, Required] protected Transform _movePosition;
         [SerializeField, Required] protected Transform _hoverPosition;
 
+        private float OFF_SET_EXPAND_X => -1.5f * (IsRightDesplacement ? -1 : 1);
+        private float OFF_SET_EXPAND_SELECTED => 2f * (IsRightDesplacement ? -1 : 1);
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
         public int LastIndex => _allCards.Count - 1;
 
@@ -31,17 +32,6 @@ namespace MythosAndHorrors.GameView
         {
             _allCards.Remove(cardView);
             return Repositionate();
-        }
-
-        private Tween Repositionate()
-        {
-            Sequence seq = DOTween.Sequence();
-            _allCards.ForEach((card) =>
-            {
-                int index = _allCards.IndexOf(card);
-                seq.Join(card.transform.DOLocalMoveY(index * ViewValues.CARD_THICKNESS, ViewValues.FAST_TIME_ANIMATION));
-            });
-            return seq;
         }
 
         public override Tween MouseEnter(CardView cardView)
@@ -77,6 +67,16 @@ namespace MythosAndHorrors.GameView
             }
 
             return hoverAnimation;
+        }
+
+        private Sequence Repositionate()
+        {
+            Sequence reorderSequence = DOTween.Sequence();
+            for (int i = 0; i < _allCards.Count; i++)
+            {
+                reorderSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.FAST_TIME_ANIMATION));
+            }
+            return reorderSequence;
         }
     }
 }

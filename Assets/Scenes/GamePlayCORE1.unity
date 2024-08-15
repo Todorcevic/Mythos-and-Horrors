@@ -21343,9 +21343,25 @@ PrefabInstance:
       propertyPath: _zoneType
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 2714779417993467425, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
+      propertyPath: OFF_SET_EXPAND_X
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714779417993467425, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
+      propertyPath: IsRightDesplacement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714779417993467425, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
+      propertyPath: OFF_SET_EXPAND_SELECTED
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 3375400328656556330, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_Name
       value: LimboZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710043762133320910, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4936304347524684766, guid: 038ae7e2f2966e84484e457574d90849, type: 3}
       propertyPath: m_Name

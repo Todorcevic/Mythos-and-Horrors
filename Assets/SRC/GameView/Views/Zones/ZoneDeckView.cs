@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameView
         public override Tween ExitZone(CardView cardView)
         {
             _allCards.Remove(cardView);
-            return Reorder();
+            return Repositionate();
         }
 
         public override Tween MouseEnter(CardView cardView)
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameView
                 .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX(Random.value - 0.25f, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
                 .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))));
             }
-            ShuffleSequence.Join(Reorder());
+            ShuffleSequence.Join(Repositionate());
             return ShuffleSequence;
         }
 
@@ -75,17 +75,17 @@ namespace MythosAndHorrors.GameView
             Sequence changePositionSequence = DOTween.Sequence();
             changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveX(-10, ViewValues.DEFAULT_TIME_ANIMATION));
             changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * newPosition, ViewValues.DEFAULT_TIME_ANIMATION));
-            changePositionSequence.Join(Reorder());
+            changePositionSequence.Join(Repositionate());
             changePositionSequence.Append(cardViewToChange.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION));
             return changePositionSequence;
         }
 
-        private Sequence Reorder()
+        private Sequence Repositionate()
         {
             Sequence reorderSequence = DOTween.Sequence();
             for (int i = 0; i < _allCards.Count; i++)
             {
-                reorderSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.DEFAULT_TIME_ANIMATION));
+                reorderSequence.Join(_allCards[i].transform.DOLocalMoveY(ViewValues.CARD_THICKNESS * i, ViewValues.FAST_TIME_ANIMATION));
             }
             return reorderSequence;
         }
