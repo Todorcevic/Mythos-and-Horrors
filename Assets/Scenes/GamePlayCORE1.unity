@@ -12646,7 +12646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c86ed643056a9942bf6a08156188a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allAnimations: []
+  allAnimations:
+  - {fileID: 11400000, guid: c6b92947ea907ae44b46f451a0f61082, type: 2}
   _audioSource: {fileID: 1898129552}
 --- !u!1 &1898621144
 GameObject:

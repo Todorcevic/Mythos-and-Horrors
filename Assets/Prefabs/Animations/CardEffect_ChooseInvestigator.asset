@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fb753b2657d1054e806e2f85f39f12e, type: 3}
-  m_Name: PlayAnimation
+  m_Name: CardEffect_ChooseInvestigator
   m_EditorClassIdentifier: 
   _localizableCode: CardEffect_ChooseInvestigator
   _audio: {fileID: 8300000, guid: 19898b5016c85aa4fbbd32aa3894286a, type: 3}

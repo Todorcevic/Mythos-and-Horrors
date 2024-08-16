@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MythosAndHorrors.GameView
 {
+
+
     public class TextsManager
     {
         public ViewText ViewText { get; private set; }
