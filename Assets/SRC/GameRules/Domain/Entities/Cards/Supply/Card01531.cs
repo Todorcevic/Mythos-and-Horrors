@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01531");
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
-                interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose,
+                interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose,
                     investigator, "CardEffect_Card01531");
 
                 /*******************************************************************/
@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
 
                     foreach (Card card in cardsToShow)
                     {
-                        interactableGameAction2.CreateEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01531-1");
+                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01531-1");
 
                         /*******************************************************************/
                         async Task Draw()

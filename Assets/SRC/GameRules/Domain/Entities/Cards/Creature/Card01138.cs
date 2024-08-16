@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Interactable_Card01138", DescriptionParams());
                     foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive))
                     {
-                        interactableGameAction.CreateEffect(card,
+                        interactableGameAction.CreateCardEffect(card,
                             new Stat(0, false),
                             Discard,
                             PlayActionType.Choose,

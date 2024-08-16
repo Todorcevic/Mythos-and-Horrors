@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeHealed))
             {
-                interactableGameAction.CreateEffect(investigator.InvestigatorCard,
+                interactableGameAction.CreateCardEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
                     RestoreHealthInvestigator,
                     PlayActionType.Choose,
@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeRestoreSanity))
             {
-                interactableGameAction.CreateEffect(investigator.InvestigatorCard,
+                interactableGameAction.CreateCardEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
                     RestoreSanityInvestigator,
                     PlayActionType.Choose,

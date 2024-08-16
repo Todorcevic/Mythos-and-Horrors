@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                chooseEnemy.CreateEffect(creature, creature.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, "CardEffect_Card01569");
+                chooseEnemy.CreateCardEffect(creature, creature.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, "CardEffect_Card01569");
 
                 async Task EludeCreature()
                 {

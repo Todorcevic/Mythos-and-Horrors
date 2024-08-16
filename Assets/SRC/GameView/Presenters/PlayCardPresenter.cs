@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task PlayAnimationWith(PlayEffectGameAction playEffectGameAction)
         {
-            if (playEffectGameAction.Effect is CardEffect cardEffect)
+            if (playEffectGameAction.Effect is CardEffect cardEffect && cardEffect.CardOwner != null)
             {
                 CardView cardView = _cardViewsManager.GetCardView(cardEffect.CardOwner);
                 AudioClip clip = _animationsManager.GetAnimation(cardEffect);

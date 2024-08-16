@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
-                interactableGameAction.CreateEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), HealthInvestigator,
+                interactableGameAction.CreateCardEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), HealthInvestigator,
                     PlayActionType.Choose, activeInvestigator, "CardEffect_Card01535");
 
                 /*******************************************************************/

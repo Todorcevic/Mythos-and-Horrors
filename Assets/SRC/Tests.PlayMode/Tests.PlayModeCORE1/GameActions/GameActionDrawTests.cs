@@ -6,6 +6,7 @@ using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
 using System.Linq;
 using System;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {

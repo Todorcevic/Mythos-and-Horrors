@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CommitableCard commitableCard in AllCommitableCards)
             {
-                CreateEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit,
+                CreateCardEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit,
                     commitableCard.ControlOwner, "CardEffect_CommitCardsChallenge", cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CommitableCard commitableCard in _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>().Where(commitable => commitable.Commited.IsActive))
             {
-                CreateEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit,
+                CreateCardEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit,
                     commitableCard.InvestigatorCommiter, "CardEffect_CommitCardsChallenge-1", cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
                 .SelectMany(cardChallengeSupply => cardChallengeSupply.AllCommitsActivations)
                 .Where(activation => activation.FullCondition(CurrentChallenge)))
             {
-                CreateEffect(activation.Card,
+                CreateCardEffect(activation.Card,
                    activation.ActivateTurnsCost,
                    Activate,
                    PlayActionType.Activate | activation.PlayAction,

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Except(new[] { creatureAttackGameAction.Creature }))
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose, ControlOwner,
+                interactableGameAction.CreateCardEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose, ControlOwner,
                     "CardEffect_Card01582", localizableArgs: creatureDamage.ToString());
 
                 /*******************************************************************/

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
-                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckMaxHandSize");
+                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckMaxHandSize");
 
                 /*******************************************************************/
                 async Task Discard()

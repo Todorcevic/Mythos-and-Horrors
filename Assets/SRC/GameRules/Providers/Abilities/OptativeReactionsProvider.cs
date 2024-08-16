@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
             {
                 ITriggered triggered = (ITriggered)reaction;
 
-                interactableGameAction.CreateEffect(
+                interactableGameAction.CreateCardEffect(
                     card: triggered.Card,
                     activateTurnCost: new Stat(0, false),
                     logic: async () =>

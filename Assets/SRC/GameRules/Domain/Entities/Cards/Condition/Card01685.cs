@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01685");
 
-            interactable.CreateEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, "CardEffect_Card01685", cardAffected: this);
+            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, "CardEffect_Card01685", cardAffected: this);
 
             await interactable.Execute();
 
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
                     foreach (CardPlace place in PlacesWithHints(investigator))
                     {
-                        chooseHints.CreateEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator, "CardEffect_Card01685-1");
+                        chooseHints.CreateCardEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator, "CardEffect_Card01685-1");
 
                         async Task TakeHint()
                         {

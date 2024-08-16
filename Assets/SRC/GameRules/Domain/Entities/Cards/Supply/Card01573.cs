@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card itemCard in ControlOwner.DiscardZone.Cards.Where(card => card.HasThisTag(Tag.Item)))
             {
-                interactableGameAction.CreateEffect(itemCard, new Stat(0, false), DrawItem, PlayActionType.Choose | PlayActionType.Draw, ControlOwner, "CardEffect_Card01573");
+                interactableGameAction.CreateCardEffect(itemCard, new Stat(0, false), DrawItem, PlayActionType.Choose | PlayActionType.Draw, ControlOwner, "CardEffect_Card01573");
 
                 /*******************************************************************/
                 async Task DrawItem() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, itemCard).Execute();

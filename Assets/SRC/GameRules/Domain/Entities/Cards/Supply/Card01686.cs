@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686");
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
-                interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator,
+                interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator,
                     PlayActionType.Choose, investigator, "CardEffect_Card01686");
 
                 /*******************************************************************/
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
 
                     foreach (Card card in cardsToShow)
                     {
-                        interactableGameAction2.CreateEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01686-1");
+                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01686-1");
 
                         /*******************************************************************/
                         async Task Draw()
@@ -85,7 +85,7 @@ namespace MythosAndHorrors.GameRules
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                     .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01686-2");
                 interactableGameAction.CreateContinueMainButton();
-                interactableGameAction.CreateEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand,
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand,
                     card.ControlOwner, "CardEffect_Card01686-2", resourceCost: playableFromHand.ResourceCost);
 
                 async Task DecrementLogic()

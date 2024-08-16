@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
-                chooseEnemy.CreateEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack,
+                chooseEnemy.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack,
                     investigator, "CardEffect_CardWeapon", localizableArgs: Info.Name);
 
                 /*******************************************************************/

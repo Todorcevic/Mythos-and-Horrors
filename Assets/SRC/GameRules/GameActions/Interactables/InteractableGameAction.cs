@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public IEnumerable<CardEffect> GetEffectForThisCard(Card cardAffected) => _allCardEffects.FindAll(effect => effect.CardOwner == cardAffected);
 
-        public CardEffect CreateEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType,
+        public CardEffect CreateCardEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType,
             Investigator playedBy, string localizableCode, Card cardAffected = null, Stat resourceCost = null, params string[] localizableArgs)
         {
             string description = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);

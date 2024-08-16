@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardSupply tome in tomes)
             {
-                interactableGameAction.CreateEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, "CardEffect_Card01532");
+                interactableGameAction.CreateCardEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, "CardEffect_Card01532");
 
                 /*******************************************************************/
                 async Task TakeTome()

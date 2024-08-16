@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
                 interactableGameAction.CreateContinueMainButton();
                 foreach (CardPlace place in eludeCreatureGameAction.ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
                 {
-                    interactableGameAction.CreateEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, 
+                    interactableGameAction.CreateCardEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, 
                         playedBy: eludeCreatureGameAction.ActiveInvestigator, "CardEffect_Card01581");
 
                     /*******************************************************************/

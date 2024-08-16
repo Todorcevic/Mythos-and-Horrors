@@ -57,8 +57,8 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction choose = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01174");
-            choose.CreateEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174");
-            choose.CreateEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174-1");
+            choose.CreateCardEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174");
+            choose.CreateCardEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174-1");
             await choose.Execute();
 
             /*******************************************************************/

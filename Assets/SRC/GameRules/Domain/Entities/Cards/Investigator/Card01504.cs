@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01504");
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, "CardEffect_Card01504");
+                interactableGameAction.CreateCardEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, "CardEffect_Card01504");
 
                 /*******************************************************************/
                 async Task HarmCreature()

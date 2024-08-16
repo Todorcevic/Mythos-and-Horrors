@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                interactableGameAction.CreateEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator,
+                interactableGameAction.CreateCardEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator,
                     "CardEffect_Card01576", cardAffected: this);
 
                 /*******************************************************************/

@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
                     foreach (CardSupply cardSupply in cardSuppliesForDiscard)
                     {
-                        interactableGameAcrtion.CreateEffect(cardSupply, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01167");
+                        interactableGameAcrtion.CreateCardEffect(cardSupply, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01167");
 
                         /*******************************************************************/
                         async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardSupply).Execute();

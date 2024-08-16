@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameRules
                 string localizableCode = damage > 0 && fear > 0 ? "CardEffect_ShareDamageAndFear" : damage > 0 ? "CardEffect_ShareDamage" : "CardEffect_ShareFear";
                 string[] localizableArgs = damage > 0 && fear > 0 ? new[] { damage.ToString(), fear.ToString() } : damage > 0 ? new[] { damage.ToString() } : new[] { fear.ToString() };
 
-                CreateEffect(cardSelectable, new Stat(0, false), DoDamageAndFear, PlayActionType.Choose,
+                CreateCardEffect(cardSelectable, new Stat(0, false), DoDamageAndFear, PlayActionType.Choose,
                     cardSelectable.ControlOwner, localizableCode, cardAffected: ByThisCard, localizableArgs: localizableArgs);
 
                 /*******************************************************************/

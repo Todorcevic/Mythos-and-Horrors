@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01568");
             foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)))
             {
-                interactable.CreateEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator, "CardEffect_Card01568");
+                interactable.CreateCardEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator, "CardEffect_Card01568");
                 async Task RemoveText()
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Execute();

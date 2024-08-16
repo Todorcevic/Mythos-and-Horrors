@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsActive))
             {
-                EffectsToPay.Add(CreateEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator, "CreateEffect_PayHintsToGoal", localizableArgs: investigator.Hints.Value.ToString()));
+                EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator, "CreateEffect_PayHintsToGoal", localizableArgs: investigator.Hints.Value.ToString()));
 
                 /*******************************************************************/
                 async Task PayHint()

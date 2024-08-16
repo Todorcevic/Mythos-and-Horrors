@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                CreateEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan");
+                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan");
 
                 /*******************************************************************/
                 async Task Discard()
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanRestore()) continue;
 
-                CreateEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan-1");
+                CreateCardEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan-1");
 
                 /*******************************************************************/
                 async Task Restore()

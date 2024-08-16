@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in CardsToHealth(activeInvestigator.CurrentPlace))
             {
-                interactableGameAction.CreateEffect(card,
+                interactableGameAction.CreateCardEffect(card,
                     new Stat(0, false),
                     RestoreHealthAndFearInvestigator,
                     PlayActionType.Choose,

@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01571");
             foreach (ChallengeToken token in allTokens)
             {
-                interactableGameAction.CreateEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner, "CardEffect_Card01571");
+                interactableGameAction.CreateCardEffect(this, new Stat(0, false), SelectToken, PlayActionType.Choose, ControlOwner, "CardEffect_Card01571");
 
                 /*******************************************************************/
                 async Task SelectToken() => await RestoreAllTokesn(allTokens.Except(new[] { token }));

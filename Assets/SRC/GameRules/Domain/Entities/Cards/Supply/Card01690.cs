@@ -37,12 +37,12 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01690");
-            interactableGameAction.CreateEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck,
+            interactableGameAction.CreateCardEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck,
                 PlayActionType.Choose, investigator, "CardEffect_Card01690");
 
             foreach (Investigator inv in _investigatorsProvider.AllInvestigatorsInPlay)
             {
-                interactableGameAction.CreateEffect(inv.InvestigatorCard, new Stat(0, false), SelectDeck, PlayActionType.Choose, investigator, "CardEffect_Card01690-1");
+                interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelectDeck, PlayActionType.Choose, investigator, "CardEffect_Card01690-1");
 
                 async Task SelectDeck()
                 {
@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01690-1");
             foreach (Card card in cards)
             {
-                interactableGameAction.CreateEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, "CardEffect_Card01690-2", cardAffected: cardAffected);
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, "CardEffect_Card01690-2", cardAffected: cardAffected);
 
                 async Task SelectCard()
                 {

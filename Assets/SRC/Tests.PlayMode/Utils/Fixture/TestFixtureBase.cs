@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Integration;
+        protected override TestsType TestsType => TestsType.Unit;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -42,6 +42,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             DOTween.SetTweensCapacity(1250, 312);
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
             AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
+            AlwaysDrawMainButtonClick(SceneContainer.Resolve<MainButtonComponent>()).AsTask();
 
             /*******************************************************************/
             IEnumerator AlwaysHistoryPanelClick(ShowHistoryComponent _showHistoryComponent)
@@ -66,6 +67,17 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 while (registerButton.interactable) yield return null;
                 yield return AlwaysRegisterPanelClick(_registerChapterComponent);
+            }
+
+            IEnumerator AlwaysDrawMainButtonClick(MainButtonComponent _mainButtonComponent)
+            {
+                while (_gameActionsProvider.CurrentGameAction is not DrawGameAction || !_mainButtonComponent.IsActivated) yield return null;
+
+                if (_mainButtonComponent.IsActivated) _mainButtonComponent.OnMouseUpAsButton();
+                else throw new TimeoutException("MainButton to Draw Not become clickable");
+
+                while (_mainButtonComponent.IsActivated) yield return null;
+                yield return AlwaysDrawMainButtonClick(_mainButtonComponent);
             }
         }
 

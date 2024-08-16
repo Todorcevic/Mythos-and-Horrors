@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01127");
             foreach (CardSupply cardSupply in supportsInDeck)
             {
-                interactableGameAction.CreateEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01127");
+                interactableGameAction.CreateCardEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01127");
 
                 async Task Take()
                 {

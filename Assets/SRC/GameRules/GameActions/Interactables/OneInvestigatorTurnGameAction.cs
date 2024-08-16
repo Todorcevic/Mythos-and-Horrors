@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
             foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(ActiveInvestigator)))
             {
-                CreateEffect((Card)playableFromHand,
+                CreateCardEffect((Card)playableFromHand,
                     playableFromHand.PlayFromHandTurnsCost,
                     PlayFromHand,
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
@@ -91,7 +91,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanInvestigate()) return;
 
-            CreateEffect(ActiveInvestigator.CurrentPlace,
+            CreateCardEffect(ActiveInvestigator.CurrentPlace,
                 ActiveInvestigator.CurrentPlace.InvestigationTurnsCost,
                 Investigate,
                 PlayActionType.Investigate,
@@ -116,7 +116,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanMove()) continue;
 
-                CreateEffect(cardPlace,
+                CreateCardEffect(cardPlace,
                     cardPlace.MoveTurnsCost,
                     Move,
                     PlayActionType.Move,
@@ -140,7 +140,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorAttack()) continue;
 
-                CreateEffect(cardCreature,
+                CreateCardEffect(cardCreature,
                     cardCreature.InvestigatorAttackTurnsCost,
                     InvestigatorAttack,
                     PlayActionType.Attack,
@@ -166,7 +166,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorConfront()) continue;
 
-                CreateEffect(cardCreature,
+                CreateCardEffect(cardCreature,
                     cardCreature.InvestigatorConfronTurnsCost,
                     InvestigatorConfront,
                     PlayActionType.Confront,
@@ -193,7 +193,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanInvestigatorElude()) continue;
 
-                CreateEffect(cardCreature,
+                CreateCardEffect(cardCreature,
                     cardCreature.EludeTurnsCost,
                     InvestigatorElude,
                     PlayActionType.Elude,
@@ -220,7 +220,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (activation.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) continue;
 
-                CreateEffect(activation.Card,
+                CreateCardEffect(activation.Card,
                     activation.ActivateTurnsCost,
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
@@ -238,7 +238,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!CanDraw()) return;
 
-            CreateEffect(ActiveInvestigator.CardAidToDraw,
+            CreateCardEffect(ActiveInvestigator.CardAidToDraw,
                 ActiveInvestigator.DrawTurnsCost,
                 Draw,
                 PlayActionType.Draw,
@@ -258,7 +258,8 @@ namespace MythosAndHorrors.GameRules
         private void PrepareTakeResource()
         {
             if (!CanTakeResource()) return;
-            TakeResourceEffect = CreateEffect(null,
+
+            TakeResourceEffect = CreateCardEffect(null,
                 ActiveInvestigator.BasicActionTurnsCost,
                 TakeResource,
                 PlayActionType.TakeResource,

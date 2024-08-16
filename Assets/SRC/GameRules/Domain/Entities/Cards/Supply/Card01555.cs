@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                interactableGameAction.CreateEffect(place, place.MoveTurnsCost, MoveAndUnconfront,
+                interactableGameAction.CreateCardEffect(place, place.MoveTurnsCost, MoveAndUnconfront,
                     PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, "CardEffect_Card01555", cardAffected: this);
 
                 /*******************************************************************/
