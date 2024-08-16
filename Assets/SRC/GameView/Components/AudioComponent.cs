@@ -1,6 +1,7 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -10,9 +11,12 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSource;
 
         /*******************************************************************/
-        public void PlayAudio(AudioClip audio)
+        public async Task PlayAudio(AudioClip audioClip)
         {
-            _audioSource.PlayOneShot(audio);
+            if (audioClip == null) return;
+            _audioSource.PlayOneShot(audioClip);
+            int duration = Mathf.CeilToInt(audioClip.length * 1000);
+            await Task.Delay(duration);
         }
     }
 }

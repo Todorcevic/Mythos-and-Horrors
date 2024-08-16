@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameView
     public class TokenController : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private List<TokenView> _allTokens;
-        [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] private Transform _centerShow;
+        [Inject(Id = ZenjectBinding.BindId.CenterShowToken)] private readonly Transform _centerShow;
         [Inject] private readonly StatableManager _statableManager;
 
         public int Amount => _allTokens.Count(tokenView => tokenView.IsActive);

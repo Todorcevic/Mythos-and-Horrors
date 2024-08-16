@@ -1,4 +1,6 @@
 ﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -6,11 +8,10 @@ namespace MythosAndHorrors.GameView
     [CreateAssetMenu(fileName = "PlayAnimation", menuName = "ScriptableObjects/PlayAnimation")]
     public class PlayAnimationSO : ScriptableObject
     {
-        [SerializeField, Required] private string _localizableCode;
-        [SerializeField, Required] private AudioClip _audio;
+        [SerializeField, Required] private List<AudioClip> _audios;
+        public List<AudioClip> Audio => _audios;
 
-        public string LocalizableCode => _localizableCode;
-        public AudioClip Audio => _audio;
+        public AudioClip GetAudioByName(string name) => _audios.Find(audio => audio.name == name);
     }
 }
 

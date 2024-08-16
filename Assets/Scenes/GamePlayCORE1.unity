@@ -6078,6 +6078,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d2e0548a434f44aa57e571ed15e5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allAnimations:
+  - {fileID: 11400000, guid: c6b92947ea907ae44b46f451a0f61082, type: 2}
+  - {fileID: 11400000, guid: fac2d972c17c54241b9f567f9c792628, type: 2}
 --- !u!4 &962170785
 Transform:
   m_ObjectHideFlags: 0
@@ -12646,8 +12649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c86ed643056a9942bf6a08156188a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allAnimations:
-  - {fileID: 11400000, guid: c6b92947ea907ae44b46f451a0f61082, type: 2}
   _audioSource: {fileID: 1898129552}
 --- !u!1 &1898621144
 GameObject:

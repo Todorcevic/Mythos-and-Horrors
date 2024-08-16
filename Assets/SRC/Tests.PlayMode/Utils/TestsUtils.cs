@@ -87,11 +87,12 @@ namespace MythosAndHorrors.PlayMode.Tests
             task.GetAwaiter().GetResult();
         }
 
-        private static JustForCoroutine coroutineCreator;
+        private class VoidMonoBehaviour : MonoBehaviour { }
+        private static VoidMonoBehaviour coroutineCreator;
         public static Task AsTask(this IEnumerator coroutine)
         {
             TaskCompletionSource<bool> taskCompletionSource = new();
-            if (coroutineCreator == null) coroutineCreator = new GameObject(nameof(JustForCoroutine)).AddComponent<JustForCoroutine>();
+            if (coroutineCreator == null) coroutineCreator = new GameObject(nameof(VoidMonoBehaviour)).AddComponent<VoidMonoBehaviour>();
             coroutineCreator.StartCoroutine(RunCoroutine(coroutine, taskCompletionSource));
             return taskCompletionSource.Task;
 
@@ -101,8 +102,6 @@ namespace MythosAndHorrors.PlayMode.Tests
                 taskCompletionSource.SetResult(true);
             }
         }
-
-        private class JustForCoroutine : MonoBehaviour { }
 
         public static IEnumerator Fast(this IEnumerator coroutine)
         {

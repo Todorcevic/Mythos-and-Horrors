@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using MythosAndHorrors.GameRules;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
@@ -10,13 +12,17 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public AnimationsManager(List<PlayAnimationSO> allAnimations)
         {
-            _allAnimations = allAnimations.ToDictionary(playAnimation => playAnimation.LocalizableCode);
+            _allAnimations = allAnimations.ToDictionary(playAnimation => playAnimation.name);
         }
 
         /*******************************************************************/
-        public PlayAnimationSO GetAnimation(string localizableCode)
+        public AudioClip GetAnimation(CardEffect cardEffect)
         {
-            return _allAnimations[localizableCode];
+            _allAnimations.TryGetValue(cardEffect.CardOwner.Info.Code, out PlayAnimationSO animation);
+            return animation?.GetAudioByName(cardEffect.LocalizableCode) ?? DefaultAudioClip();
         }
+
+        public AudioClip DefaultAudioClip() => _allAnimations["Default"].Audio[0];
+
     }
 }

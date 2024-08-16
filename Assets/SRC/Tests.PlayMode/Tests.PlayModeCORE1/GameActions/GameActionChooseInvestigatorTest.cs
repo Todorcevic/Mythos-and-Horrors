@@ -9,12 +9,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionChooseInvestigatorTest : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator ChooseInvestigatorTest()
         {
-            yield return StartingScene();
+            yield return StartingScene(withResources: true);
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.Second.CurrentTurns, 1).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<ChooseInvestigatorGameAction>().SetWith().Execute();
