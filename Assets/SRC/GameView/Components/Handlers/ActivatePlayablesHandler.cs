@@ -54,15 +54,5 @@ namespace MythosAndHorrors.GameView
             void CheckDeactivateAvatars() =>
                 _avatarViewsManager.AvatarsPlayabled(clones ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
         }
-
-        public void ActivateMainButton()
-        {
-            _allPlayablesComponent.First(playable => playable is MainButtonComponent).ActivateToClick();
-        }
-
-        public void DeactivateMainButton()
-        {
-            _allPlayablesComponent.First(playable => playable is MainButtonComponent).DeactivateToClick();
-        }
     }
 }

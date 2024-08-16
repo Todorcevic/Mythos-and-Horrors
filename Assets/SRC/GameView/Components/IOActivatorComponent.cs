@@ -28,16 +28,16 @@ namespace MythosAndHorrors.GameView
             await DotweenExtension.WaitForAnimationsComplete();
         }
 
-        private Tween UnblockUI()
+        private void UnblockUI()
         {
             _uIBlock.raycastTarget = false;
-            return _showCardsInCenterButton.ActivateToClick();
+            _showCardsInCenterButton.ActivateToClick();
         }
 
-        private Tween BlockUI()
+        private void BlockUI()
         {
             _uIBlock.raycastTarget = true;
-            return _showCardsInCenterButton.DeactivateToClick();
+            _showCardsInCenterButton.DeactivateToClick();
         }
     }
 }

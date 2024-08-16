@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionChooseInvestigatorTest : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator ChooseInvestigatorTest()
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create<ChooseInvestigatorGameAction>().SetWith().Execute();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedTokenButton();
+            //yield return ClickedTokenButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

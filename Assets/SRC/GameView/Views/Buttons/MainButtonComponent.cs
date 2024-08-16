@@ -28,24 +28,30 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void SetEffect(BaseEffect effect) => MainButtonEffect = effect;
 
+        //public void ActivateToClick() => ActivateToClick2().Play();
+        //public void DeactivateToClick() => DeactivateToClick2().Play();
+
         public void ActivateToClick()
         {
             _message.text = MainButtonEffect?.Description;
             _collider.enabled = true;
-            _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
-            _buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION);
-            _message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f);
-            _message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+
+            DOTween.Sequence()
+                .Join(_buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
+                .Join(_buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION))
+                .Join(_message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f))
+                .Join(_message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION));
         }
 
         public void DeactivateToClick()
         {
             _collider.enabled = false;
-            _buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
-            _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);
-            _message.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION);
-            _message.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
-            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
+            DOTween.Sequence()
+                 .Join(_buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
+                .Join(_buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION))
+                .Join(_message.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION))
+                .Join(_message.DOFade(0f, ViewValues.FAST_TIME_ANIMATION))
+                .Join(_light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION));
         }
 
         public void ActivateToCancelClick()

@@ -91,16 +91,16 @@ namespace MythosAndHorrors.GameView
         {
             if (_cardSensor.IsClickable) return;
             _cardSensor.IsClickable = true;
-            _glowComponent.SetGreenGlow();
             _effectController.AddEffects(((IEnumerable<IViewEffect>)((IPlayable)this).EffectsSelected));
+            _glowComponent.SetGreenGlow();
         }
 
         public void DeactivateToClick()
         {
             if (!_cardSensor.IsClickable) return;
             _cardSensor.IsClickable = false;
-            _glowComponent.Off();
             _effectController.Clear();
+            _glowComponent.Off();
         }
 
         public Tween CheckExhaust() => Card.Exausted.IsActive ? _pictureController.ExaustAnimation() : _pictureController.UnexaustAnimation();

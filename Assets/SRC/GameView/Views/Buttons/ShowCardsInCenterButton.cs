@@ -36,26 +36,16 @@ namespace MythosAndHorrors.GameView
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public Tween ActivateToClick()
+        public void ActivateToClick()
         {
             _isPlayable = true;
-            return _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+            _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
         }
 
-        public Tween DeactivateToClick()
+        public void DeactivateToClick()
         {
             _isPlayable = false;
-            return _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
-        }
-
-        void IPlayable.ActivateToClick()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        void IPlayable.DeactivateToClick()
-        {
-            throw new System.NotImplementedException();
+            _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
         }
     }
 }

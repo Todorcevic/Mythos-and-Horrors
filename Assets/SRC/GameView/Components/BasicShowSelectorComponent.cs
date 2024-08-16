@@ -39,8 +39,8 @@ namespace MythosAndHorrors.GameView
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition())
-                .Join(_selectorBlockController.DeactivateSelector());
-            if (restoreCards != null) returnSequence.Join(restoreCards);
+                .Join(_selectorBlockController.DeactivateSelector())
+                .Join(restoreCards);
 
             await returnSequence.AsyncWaitForCompletion();
             DeactiveTitle();
@@ -62,26 +62,25 @@ namespace MythosAndHorrors.GameView
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-        public async Task MainButonShowUp()
+        public async Task MainButtonShowUp()
         {
             _ = _ioActivatorComponent.DeactivateCardSensors();
-            _mainButtonComponent.ActivateToClick();
+
             await DOTween.Sequence()
-                .Join(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
-                .Join(_selectorBlockController.ActivateSelector())
-                .AsyncWaitForCompletion();
+               .Join(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
+               .Join(_selectorBlockController.ActivateSelector()).AsyncWaitForCompletion();
+
+            _mainButtonComponent.ActivateToClick();
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-
-        public async Task MainButonHideUp()
+        public void MainButtonHideUp()
         {
             _ = _ioActivatorComponent.DeactivateCardSensors();
+            DOTween.Sequence()
+                .Join(_mainButtonComponent.RestorePosition())
+                .Join(_selectorBlockController.DeactivateSelector());
             _mainButtonComponent.DeactivateToClick();
-            await DOTween.Sequence()
-            .Join(_mainButtonComponent.RestorePosition())
-            .Join(_selectorBlockController.DeactivateSelector())
-            .AsyncWaitForCompletion();
         }
 
         public void ActivateTitle(string title)

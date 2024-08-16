@@ -30,7 +30,5 @@ namespace MythosAndHorrors.GameView
                 _moveCardHandler.ReturnCard(cardEffect.CardOwner);
             }
         }
-
-
     }
 }

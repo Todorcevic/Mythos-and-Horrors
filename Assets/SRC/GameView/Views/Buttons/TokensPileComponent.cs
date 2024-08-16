@@ -34,15 +34,14 @@ namespace MythosAndHorrors.GameView
         public void ActivateToClick()
         {
             if (_isClickable || !((IPlayable)this).CanBePlayed) return;
-            _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION);
-            _isClickable = true;
+            _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _isClickable = true);
+
         }
 
         public void DeactivateToClick()
         {
             if (!_isClickable) return;
-            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
-            _isClickable = false;
+            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _isClickable = false);
         }
 
         /*******************************************************************/

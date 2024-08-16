@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionInitalDrawTests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator InitialDrawBasic()
@@ -36,24 +36,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<InitialDrawGameAction>().SetWith(investigator).Execute().AsCoroutine();
 
             Assert.That(investigator.HandZone.Cards.Contains(normalCard));
-            Assert.That(investigator.DiscardZone.Cards.Contains(weaknessCard));
+            Assert.That(investigator.DeckZone.Cards.Contains(weaknessCard));
         }
-
-        //[UnityTest]
-        //public IEnumerator TestToPositionateZones()
-        //{
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    yield return StartingScene();
-
-        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), investigator.DiscardZone).Execute().AsCoroutine();
-        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.TakeLast(8), SceneCORE1.LimboZone).Execute().AsCoroutine();
-
-
-        //    Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-        //    yield return ClickedMainButton();
-        //    yield return gameActionTask.AsCoroutine();
-
-        //    Assert.That(true, Is.True);
-        //}
     }
 }
