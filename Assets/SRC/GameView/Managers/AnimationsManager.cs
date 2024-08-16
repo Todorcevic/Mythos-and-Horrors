@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
         public AudioClip GetAnimation(CardEffect cardEffect)
         {
             _allAnimations.TryGetValue(cardEffect.CardOwner.Info.Code, out PlayAnimationSO animation);
-            return animation?.GetAudioByName(cardEffect.LocalizableCode) ?? DefaultAudioClip();
+            return animation?.GetAudioByName(cardEffect.LocalizableCode);
         }
 
         public AudioClip DefaultAudioClip() => _allAnimations["Default"].Audio[0];

@@ -39,8 +39,8 @@ namespace MythosAndHorrors.GameView
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition())
-                .Join(_selectorBlockController.DeactivateSelector())
-                .Join(restoreCards);
+                .Join(_selectorBlockController.DeactivateSelector());
+            if (restoreCards != null) returnSequence.Join(restoreCards);
 
             await returnSequence.AsyncWaitForCompletion();
             DeactiveTitle();
@@ -60,6 +60,28 @@ namespace MythosAndHorrors.GameView
             showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0, Ease.InSine));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
+        }
+
+        public async Task MainButonShowUp()
+        {
+            _ = _ioActivatorComponent.DeactivateCardSensors();
+            _mainButtonComponent.ActivateToClick();
+            await DOTween.Sequence()
+                .Join(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
+                .Join(_selectorBlockController.ActivateSelector())
+                .AsyncWaitForCompletion();
+            _ioActivatorComponent.ActivateCardSensors();
+        }
+
+
+        public async Task MainButonHideUp()
+        {
+            _ = _ioActivatorComponent.DeactivateCardSensors();
+            _mainButtonComponent.DeactivateToClick();
+            await DOTween.Sequence()
+            .Join(_mainButtonComponent.RestorePosition())
+            .Join(_selectorBlockController.DeactivateSelector())
+            .AsyncWaitForCompletion();
         }
 
         public void ActivateTitle(string title)

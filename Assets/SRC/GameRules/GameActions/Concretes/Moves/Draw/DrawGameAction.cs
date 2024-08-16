@@ -5,6 +5,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class DrawGameAction : GameAction
     {
+        [Inject] private readonly IPresenter<DrawGameAction> _presenter;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Investigator Investigator { get; private set; }
@@ -24,6 +25,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await CheckRestore();
+            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(CardDrawed).Execute();
+            await _presenter.PlayAnimationWith(this);
 
             switch (CardDrawed)
             {

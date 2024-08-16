@@ -24,8 +24,9 @@ namespace MythosAndHorrors.GameView
 
         async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
         {
-            await _moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone).AsyncWaitForCompletion();
-            _ = _moveCardHandler.ReturnCard(gameAction.Creature);
+            await DOTween.Sequence()
+                .Join(_moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone))
+                .Append(_moveCardHandler.ReturnCard(gameAction.Creature)).AsyncWaitForCompletion();
         }
 
         private async Task<bool> CheckSpecialMove(MoveCardsGameAction moveCardsGameAction)

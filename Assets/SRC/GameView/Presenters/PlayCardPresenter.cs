@@ -6,6 +6,8 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
+
     public class PlayCardPresenter : IPresenter<PlayEffectGameAction>
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -28,5 +30,7 @@ namespace MythosAndHorrors.GameView
                 _moveCardHandler.ReturnCard(cardEffect.CardOwner);
             }
         }
+
+
     }
 }

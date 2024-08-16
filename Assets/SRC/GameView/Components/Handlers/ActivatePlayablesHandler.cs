@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly List<IPlayable> _allPlayablesComponent;
+        [Inject] private readonly List<IPlayable> _allPlayablesComponent; //Buttons
 
         /*******************************************************************/
         private void ShowCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Show());
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameView
             ShowCardsState();
             CheckActivesActivables(specificsCardViews);
             CheckActivesAvatars(specificsCardViews);
-            CheckActivesIOActivator();
+            _ioActivatorComponent.ActivateCardSensors();
 
             /*******************************************************************/
             void CheckActivesActivables(List<IPlayable> specificsCardViews)
@@ -34,11 +34,6 @@ namespace MythosAndHorrors.GameView
 
             void CheckActivesAvatars(List<IPlayable> specificsCardViews) => _avatarViewsManager
                 .AvatarsPlayabled(specificsCardViews ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.ActivateGlow());
-
-            void CheckActivesIOActivator()
-            {
-                _ioActivatorComponent.ActivateCardSensors();
-            }
         }
 
         public async Task DeactivatePlayables(List<IPlayable> clones = null)
@@ -46,7 +41,7 @@ namespace MythosAndHorrors.GameView
             HideCardsState();
             CheckDeactivateActivables();
             CheckDeactivateAvatars();
-            await CheckDeactivateIOActivator();
+            await _ioActivatorComponent.DeactivateCardSensors();
 
             /*******************************************************************/
             void CheckDeactivateActivables()
@@ -56,12 +51,18 @@ namespace MythosAndHorrors.GameView
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
             }
 
-            void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled(clones ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
+            void CheckDeactivateAvatars() =>
+                _avatarViewsManager.AvatarsPlayabled(clones ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
+        }
 
-            async Task CheckDeactivateIOActivator()
-            {
-                await _ioActivatorComponent.DeactivateCardSensors();
-            }
+        public void ActivateMainButton()
+        {
+            _allPlayablesComponent.First(playable => playable is MainButtonComponent).ActivateToClick();
+        }
+
+        public void DeactivateMainButton()
+        {
+            _allPlayablesComponent.First(playable => playable is MainButtonComponent).DeactivateToClick();
         }
     }
 }
