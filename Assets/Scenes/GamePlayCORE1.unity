@@ -5248,6 +5248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 884426001}
   - component: {fileID: 884426000}
+  - component: {fileID: 884426002}
   m_Layer: 0
   m_Name: Initializer
   m_TagString: Untagged
@@ -5282,6 +5283,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884426002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884425999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd51fb8526aa884795613bac955d3d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _withoutAudio: 0
+  _withoutMulligan: 1
+  _gameVelocity: 1
+  _languaje: 0
 --- !u!1 &903284071
 GameObject:
   m_ObjectHideFlags: 0
@@ -19304,7 +19321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
       propertyPath: m_fontSize
-      value: 8.9
+      value: 9.45
       objectReference: {fileID: 0}
     - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
       propertyPath: m_sharedMaterial
