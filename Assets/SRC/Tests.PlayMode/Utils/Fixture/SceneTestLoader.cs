@@ -59,7 +59,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             void InstallerToSceneInUnitMode()
             {
                 SceneContainer.BindInstance(JSON_SAVE_DATA_PATH).WhenInjectedInto<DataSaveUseCase>();
-                SceneContainer.BindInstance(true).WhenInjectedInto(typeof(InitializerComponent), typeof(InitialSettings)); //Only for PlayModeViewTests
+                SceneContainer.BindInstance(false).WhenInjectedInto(typeof(InitializerComponent), typeof(InitialSettings)); //Only for PlayModeViewTests
                 InstallFakes();
             }
 

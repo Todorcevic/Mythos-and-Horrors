@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffController;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private CardSensorController _cardSensor;
-        [SerializeField, Required, ChildGameObjectsOnly] private ZoneCardView _ownZoneCardView;
+        [SerializeField, Required, ChildGameObjectsOnly] private ZoneRowView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
         [Inject] private readonly DiContainer _diContainer;

@@ -3744,7 +3744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardPrefab: {fileID: 5294846047101392226, guid: 32e18c9dbafd019468ac1c246b323773, type: 3}
-  _cardAvatarPrefab: {fileID: 5294846047101392226, guid: 2606996fcb741ab41a3cf871997ecc84, type: 3}
+  _cardAvatarPrefab: {fileID: 2611584681410183878, guid: 03fe1b796d1e5af4b8bcc910772db73d, type: 3}
 --- !u!4 &582586615
 Transform:
   m_ObjectHideFlags: 0
