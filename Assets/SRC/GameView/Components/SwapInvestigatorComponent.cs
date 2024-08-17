@@ -22,10 +22,10 @@ namespace MythosAndHorrors.GameView
             AreaInvestigatorView areaInvestigatorView = _areaInvestigatorViewsManager.Get(investigator);
             (Transform positionToExit, Transform positionToEnter) = GetSidePosition(investigator);
             return DOTween.Sequence().OnStart(() => areaInvestigatorView.transform.position = positionToEnter.position)
-                .Append(areaInvestigatorView.transform.DOFullMove(_playPosition, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutQuad))
+                .Append(areaInvestigatorView.transform.DOFullMove(_playPosition, ViewValues.MID_TIME_ANIMATION).SetEase(Ease.InOutQuad))
                 .Join(_currentAreaInvestigator == null ?
                 DOTween.Sequence() :
-                _currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.InOutQuad))
+                _currentAreaInvestigator.transform.DOFullMove(positionToExit, ViewValues.MID_TIME_ANIMATION).SetEase(Ease.InOutQuad))
                 .OnComplete(() => _currentAreaInvestigator = areaInvestigatorView);
         }
 

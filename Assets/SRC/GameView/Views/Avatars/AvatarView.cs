@@ -57,23 +57,23 @@ namespace MythosAndHorrors.GameView
         public void OnPointerEnter(PointerEventData eventData)
         {
             PointerEnterAnimation();
-            _cardViewsManager.GetAvatarCardView(Investigator)?.CardSensor.MouseEnter();
+            _cardViewsManager.GetAvatarCardView(Investigator).CardSensor.MouseEnter();
         }
 
         public void PointerEnterAnimation()
         {
-            _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION);
+            _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             PointerExitAnimation();
-            _cardViewsManager.GetAvatarCardView(Investigator)?.CardSensor.MouseExit();
+            _cardViewsManager.GetAvatarCardView(Investigator).CardSensor.MouseExit();
         }
 
         public void PointerExitAnimation()
         {
-            _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION);
+            _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
         public async void OnPointerClick(PointerEventData eventData)

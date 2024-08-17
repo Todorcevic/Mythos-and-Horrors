@@ -39,13 +39,13 @@ namespace MythosAndHorrors.GameView
         public void ActivateToClick()
         {
             _isPlayable = true;
-            _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+            _icon.DOFade(1f, ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
         public void DeactivateToClick()
         {
             _isPlayable = false;
-            _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION);
+            _icon.DOFade(0.5f, ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
     }
 }

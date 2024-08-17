@@ -55,6 +55,7 @@ namespace MythosAndHorrors.GameView
             _skillStatsController.Init(Card);
             _countersCollection.Init(Card);
             _chargeController.Init(Card);
+            _cardSensor.Init(this);
             HideBuffsAndEffects();
 
             SetInitialCurrentZoneView(currentZoneView);
