@@ -19298,6 +19298,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
+      propertyPath: m_text
+      value: Investigator  Phase
+      objectReference: {fileID: 0}
+    - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
+      propertyPath: m_fontSize
+      value: 8.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+    - target: {fileID: 2061035263671649892, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 3936176638692464342, guid: ced0a59a5508c704aa60bd09787343ee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
