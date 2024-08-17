@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using MythosAndHorrors.GameRules;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -9,6 +10,7 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         private CardView _cardView;
         private Vector3 _colliderOriginalSize;
@@ -41,12 +43,14 @@ namespace MythosAndHorrors.GameView
             if (EventSystem.current.IsPointerOverGameObject()) return;
             CardView.CurrentZoneView.MouseEnter(CardView);
             _cardShowerComponent.ShowCard(CardView);
+            CheckOnMouseEnterAvatar();
         }
 
         public void OnMouseExit()
         {
             CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
+            CheckOnMouseExitAvatar();
         }
 
         public void OnMouseUpAsButton()
@@ -54,6 +58,18 @@ namespace MythosAndHorrors.GameView
             if (EventSystem.current.IsPointerOverGameObject()) return;
             if (!IsClickable) return;
             _clickHandler.Clicked(CardView);
+        }
+
+        private void CheckOnMouseEnterAvatar()
+        {
+            if (_cardView.Card is not CardAvatar cardAvatar) return;
+            _avatarViewsManager.Get(cardAvatar.Owner).OnPointerEnter(null);
+        }
+
+        private void CheckOnMouseExitAvatar()
+        {
+            if (_cardView.Card is not CardAvatar cardAvatar) return;
+            _avatarViewsManager.Get(cardAvatar.Owner).OnPointerExit(null);
         }
     }
 }

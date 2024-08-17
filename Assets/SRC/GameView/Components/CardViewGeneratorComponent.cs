@@ -1,6 +1,5 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,13 +12,14 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
         [Inject] private readonly CardsProvider _cardProvider;
         [SerializeField, Required, AssetsOnly] private CardView _cardPrefab;
+        [SerializeField, Required, AssetsOnly] private CardView _cardAvatarPrefab;
 
         /*******************************************************************/
         public void BuildAllCardViews() => _cardProvider.AllCards.ForEach(card => BuildCardView(card));
 
         public CardView BuildCardView(Card card)
         {
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(_cardPrefab, transform);
+            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(card is CardAvatar ? _cardAvatarPrefab : _cardPrefab, transform);
             newCardview.Init(card, _zoneViewManager.OutZone);
             _cardViewsManager.AddCardView(newCardview);
             return newCardview;

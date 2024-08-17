@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameView
 {
     public class InitialSettings : MonoBehaviour
     {
+        [InjectOptional] private readonly bool _executedByTests = false;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [SerializeField] private bool _withoutAudio;
         [SerializeField] private bool _withoutMulligan;
@@ -17,6 +18,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private void Awake()
         {
+            if (_executedByTests) return;
             if (_withoutAudio)
             {
                 AudioListener.volume = 0;
