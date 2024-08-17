@@ -7,15 +7,16 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class CostController : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
+        [SerializeField, Required, ChildGameObjectsOnly] private TurnsCostController _turnsCostController;
         [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
-
         public Transform StatTransform => transform;
 
         /*******************************************************************/
@@ -24,7 +25,10 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
             SetSlots(card);
             if (card is IPlayableFromHand platableFromHand)
+            {
                 SetCostWith(platableFromHand.ResourceCost);
+                _turnsCostController.Init(platableFromHand.PlayFromHandTurnsCost);
+            }
             else if (card is CardGoal cardGoal)
                 SetCostWith(cardGoal.Hints);
             else gameObject.SetActive(false);
