@@ -746,17 +746,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 687382625686284995}
     m_Modifications:
-    - target: {fileID: 254060432686076266, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2060582944213530566, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_Name
       value: TurnsController
-      objectReference: {fileID: 0}
-    - target: {fileID: 2873679201836008389, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2997667983390737016, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -844,7 +836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687493885220480963, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 64
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6687493885220480963, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_SizeDelta.y
@@ -896,10 +888,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687493885220480963, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7049030606644825312, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
-      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

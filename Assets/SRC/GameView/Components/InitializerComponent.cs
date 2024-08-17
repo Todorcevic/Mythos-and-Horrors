@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameView
 {
     public class InitializerComponent : MonoBehaviour
     {
-        [InjectOptional] private readonly bool _executedByTests = true;
+        [InjectOptional] private readonly bool _normalExecution = true;
         [Inject] private readonly PrepareAllUseCase _prepareGameUseCase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
         {
             await IntialState();
             _prepareGameUseCase.Execute();
-            if (!_executedByTests) return;
+            if (!_normalExecution) return;
             await _gameActionsProvider.Create<StartGameAction>().Execute();
         }
 

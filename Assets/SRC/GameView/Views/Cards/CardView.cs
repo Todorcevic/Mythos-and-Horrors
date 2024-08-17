@@ -8,12 +8,6 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class AvatarCardView : CardView
-    {
-
-    }
-
-
     public class CardView : MonoBehaviour, IPlayable
     {
         private CardEffect _cloneEffect;
