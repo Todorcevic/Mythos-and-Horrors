@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         public bool IsVoid => Investigator == null;
         public Investigator Investigator { get; private set; }
@@ -55,10 +56,22 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void OnPointerEnter(PointerEventData eventData)
         {
+            PointerEnterAnimation();
+            _cardViewsManager.GetAvatarCardView(Investigator)?.CardSensor.MouseEnter();
+        }
+
+        public void PointerEnterAnimation()
+        {
             _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION);
         }
 
         public void OnPointerExit(PointerEventData eventData)
+        {
+            PointerExitAnimation();
+            _cardViewsManager.GetAvatarCardView(Investigator)?.CardSensor.MouseExit();
+        }
+
+        public void PointerExitAnimation()
         {
             _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION);
         }
