@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {
@@ -17,6 +18,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator MultiEffect_Test()
         {
+            yield return new WaitForSeconds(4);
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_TestsPurpose");
             Investigator investigator1 = _investigatorsProvider.First;
