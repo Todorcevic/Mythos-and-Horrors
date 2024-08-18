@@ -18,6 +18,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         public IEnumerator Load_Avatar()
         {
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
+            //yield return new WaitForSeconds(3);
             Assert.That(_avatarViewsManager.AllAvatars.Count, Is.EqualTo(4));
         }
 
