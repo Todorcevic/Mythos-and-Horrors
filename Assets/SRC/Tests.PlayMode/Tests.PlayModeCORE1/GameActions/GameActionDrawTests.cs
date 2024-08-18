@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
 using System.Linq;
-using System;
 using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
@@ -58,7 +57,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             bool DrawCondition(DrawGameAction action) => true;
         }
 
-
         [UnityTest]
         public IEnumerator Restore2Test()
         {
@@ -70,6 +68,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CardAidToDraw);
+            yield return new WaitForSeconds(1);
             yield return ClickedIn(investigator.CardAidToDraw);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

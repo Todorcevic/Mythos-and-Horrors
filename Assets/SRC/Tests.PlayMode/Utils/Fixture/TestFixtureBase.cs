@@ -167,7 +167,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
-        private const float TIMEOUT = 5f;
+        private const float TIMEOUT = 3f;
         protected IEnumerator ClickedIn(Card card)
         {
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
