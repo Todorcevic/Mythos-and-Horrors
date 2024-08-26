@@ -19,9 +19,9 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Scene.json";
         public string JSON_HISTORY_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Histories.json";
-        public string JSON_INVESTIGATOR_PATH(string investigatorCode) => $"Assets/Data/Base/{Languaje}/Investigators/{investigatorCode}.json";
+        public string JSON_INVESTIGATOR_PATH(string investigatorCode) => $"Assets/Data/Base/Investigators/{investigatorCode}.json";
 
         /*******************************************************************/
-        public string JSON_INVESTIGATORS_PATH => $"Assets/Data/Base/{Languaje}/Investigators.json";
+        public string JSON_SAVE_INVESTIGATORS_PATH => $"Assets/Data/Save/Investigators.json";
     }
 }

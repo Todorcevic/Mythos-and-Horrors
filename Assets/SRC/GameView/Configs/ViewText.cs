@@ -2,7 +2,7 @@
 {
     public class ViewText
     {
-        public string BUTTON_DONE { get; init; }
+        //public string BUTTON_DONE { get; init; }
         //public string BUTTON_PLAY => "Play";
         //public string BUTTON_DISCARD => "Discard";
         //public string BUTTON_CANCEL => "Cancel";
