@@ -34,13 +34,11 @@ namespace MythosAndHorrors.GameView
         public void ActivateToClick()
         {
             _message.text = MainButtonEffect?.Description;
-            _collider.enabled = true;
-
             DOTween.Sequence()
                 .Join(_buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
                 .Join(_buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f))
-                .Join(_message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION));
+                .Join(_message.DOFade(1f, ViewValues.FAST_TIME_ANIMATION)).OnComplete(() => _collider.enabled = true);
         }
 
         public void DeactivateToClick()

@@ -26,7 +26,6 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not ResultChallengeGameAction resultChallengeGameAction) return;
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.StatModifier, 2).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(resultChallengeGameAction.ChallengePhaseGameAction.Stat, 2).Execute(); //TODO : Check if this is correct
             await resultChallengeGameAction.Execute();
         }
     }
