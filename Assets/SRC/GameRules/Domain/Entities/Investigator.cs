@@ -46,9 +46,6 @@ namespace MythosAndHorrors.GameRules
         public bool HasSlotsExeded => GetAllSlotsExeded().Any();
 
         /*******************************************************************/
-        public bool CanBeHealed => DamageRecived.Value > 0;
-        public bool CanBeRestoreSanity => FearRecived.Value > 0;
-        public bool CanInvestigate => CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value;
         public bool HasTurnsAvailable => CurrentTurns.Value > 0;
         public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
         public int Position => _investigatorsProvider.GetInvestigatorPosition(this);
@@ -62,7 +59,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace CurrentPlace => _cardsProvider.GetCardWithThisZone(AvatarCard.CurrentZone) as CardPlace;
         public IEnumerable<Card> CardsInPlay => Cards.Where(card => ZoneType.PlayZone.HasFlag(card.CurrentZone.ZoneType))
             .Union(AidZone.Cards); //But Cards not Owner how Lita
-        public IEnumerable<Card> DiscardableCardsInHand => HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive);
+        public IEnumerable<Card> DiscardableCardsInHand => HandZone.Cards.Where(card => card.CanBeDiscarted.IsTrue);
         public IEnumerable<CardCreature> CreaturesInSamePlace => _cardsProvider.GetCards<CardCreature>()
           .Where(creature => creature.CurrentPlace != null && creature.CurrentPlace == CurrentPlace);
         private IEnumerable<CardColosus> ColosusConfronted => _cardsProvider.GetCards<CardCreature>()
@@ -92,6 +89,9 @@ namespace MythosAndHorrors.GameRules
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
         public State Isolated => InvestigatorCard.Isolated;
         public Conditional CanPayHints => InvestigatorCard.CanPayHints;
+        public Conditional CanBeHealed => InvestigatorCard.CanBeHealed;
+        public Conditional CanBeRestoreSanity => InvestigatorCard.CanBeRestoreSanity;
+        public Conditional CanInvestigate => InvestigatorCard.CanInvestigate;
 
         /*******************************************************************/
         [Inject]

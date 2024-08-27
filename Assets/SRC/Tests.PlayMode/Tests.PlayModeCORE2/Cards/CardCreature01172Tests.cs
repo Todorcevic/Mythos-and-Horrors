@@ -27,7 +27,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedClone(creature, 1);
             yield return ClickedMainButton();
             yield return ClickedIn(investigator.InvestigatorCard);
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsActive));
+            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsTrue));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             .Where(investigator => investigator.CurrentPlace == this);
         public IEnumerable<CardPlace> ConnectedPlacesToMove => ExtraInfo?.ConnectedPlaces?
             .Select(code => _cardsProvider.GetCardByCode(code)).Cast<CardPlace>()
-            .Where(cardPlace => cardPlace.CanMoveHere.IsActive);
+            .Where(cardPlace => cardPlace.CanMoveHere.IsTrue);
         public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 
         /*******************************************************************/

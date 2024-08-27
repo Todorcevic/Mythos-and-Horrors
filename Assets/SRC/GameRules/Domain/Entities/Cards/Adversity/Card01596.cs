@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task Discard()
                 {
-                    IEnumerable<Card> toDiscard = investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsActive).Except(new[] { card });
+                    IEnumerable<Card> toDiscard = investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsTrue).Except(new[] { card });
                     await _gameActionsProvider.Create<DiscardGameAction>().SetWith(toDiscard).Execute();
                 }
             }

@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
-            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsActive))
+            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsTrue))
             {
                 EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator, "CreateEffect_PayHintsToGoal", localizableArgs: investigator.Hints.Value.ToString()));
 

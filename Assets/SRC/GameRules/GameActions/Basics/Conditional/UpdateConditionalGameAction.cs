@@ -2,7 +2,6 @@
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class UpdateConditionalGameAction : GameAction
     {
         private bool? _oldValue;
@@ -21,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            _oldValue = Conditional.CurrentActivate;
+            _oldValue = Conditional.CurrentFixedState;
             Conditional.UpdateActivationTo(Value);
             await Task.CompletedTask;
         }

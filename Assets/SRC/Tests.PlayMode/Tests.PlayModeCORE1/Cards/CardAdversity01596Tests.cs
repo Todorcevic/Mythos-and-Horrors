@@ -20,7 +20,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Card adversity = _cardsProvider.GetCard<Card01596>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsActive);
+            Card cardToMaintan = investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsTrue);
             Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Execute();
             yield return ClickedIn(cardToMaintan);
             yield return taskGameAction.AsCoroutine();

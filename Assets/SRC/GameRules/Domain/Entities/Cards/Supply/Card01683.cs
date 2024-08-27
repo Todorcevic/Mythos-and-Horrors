@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         private IEnumerable<Card> CardsToHealth(CardPlace place) => place.InvestigatorsInThisPlace
-                .Where(investigator => investigator.CanBeHealed || investigator.CanBeRestoreSanity).Select(investigator => investigator.InvestigatorCard)
+                .Where(investigator => investigator.CanBeHealed.IsTrue || investigator.CanBeRestoreSanity.IsTrue).Select(investigator => investigator.InvestigatorCard)
             .Concat(Other(place));
 
         private IEnumerable<Card> Other(CardPlace place) => _cardsProvider.GetCards<CardSupply>()

@@ -10,8 +10,8 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Investigator> AllInvestigators => _ownersProvider.AllOwners.OfType<Investigator>();
         public IEnumerable<Investigator> AllInvestigatorsInPlay => AllInvestigators.Where(investigator => investigator.IsInPlay);
         public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable);
-        public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate);
-        public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.Where(investigator => investigator.CanBeHealed);
+        public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate.IsTrue);
+        public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.Where(investigator => investigator.CanBeHealed.IsTrue);
         public Investigator Leader => AllInvestigatorsInPlay.First();
         public Investigator First => AllInvestigators.ElementAt(0);
         public Investigator Second => AllInvestigators.ElementAt(1);

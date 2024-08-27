@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01135");
 
-            if (investigator.CanPayHints.IsActive)
+            if (investigator.CanPayHints.IsTrue)
                 interactableGameAction.CreateCardEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01135");
             interactableGameAction.CreateCardEffect(this, new Stat(0, false), TakeDamage, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01135-1");
 

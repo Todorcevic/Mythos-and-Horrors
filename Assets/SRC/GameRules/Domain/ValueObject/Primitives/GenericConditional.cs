@@ -2,20 +2,21 @@
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Conditional
+    public class Conditional<T>
     {
-        private readonly Func<bool> _condition;
+        private readonly Func<T, bool> _condition;
 
         public bool? CurrentFixedState { get; private set; }
-        public bool IsTrue => CurrentFixedState ?? _condition.Invoke();
 
         /*******************************************************************/
-        public Conditional(Func<bool> condition)
+        public Conditional(Func<T, bool> condition)
         {
             _condition = condition;
         }
 
         /*******************************************************************/
+        public bool IsTrueWith(T element) => CurrentFixedState ?? _condition.Invoke(element);
+
         public void UpdateActivationTo(bool? activated)
         {
             CurrentFixedState = activated;

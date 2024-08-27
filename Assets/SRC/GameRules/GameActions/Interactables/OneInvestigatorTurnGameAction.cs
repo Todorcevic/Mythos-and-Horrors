@@ -100,8 +100,8 @@ namespace MythosAndHorrors.GameRules
 
             bool CanInvestigate()
             {
-                if (!ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsActive) return false;
-                if (!ActiveInvestigator.CanInvestigate) return false;
+                if (!ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
+                if (!ActiveInvestigator.CanInvestigate.IsTrue) return false;
                 return true;
             }
 

@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01519");
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
-                .Where(investigator => investigator.CanBeHealed))
+                .Where(investigator => investigator.CanBeHealed.IsTrue))
             {
                 interactableGameAction.CreateCardEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
             }
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
-                .Where(investigator => investigator.CanBeRestoreSanity))
+                .Where(investigator => investigator.CanBeRestoreSanity.IsTrue))
             {
                 interactableGameAction.CreateCardEffect(investigator.InvestigatorCard,
                     new Stat(0, false),
@@ -80,7 +80,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (!IsInPlay) return false;
             if (ControlOwner != activeInvestigator) return false;
-            if (!activeInvestigator.CurrentPlace.InvestigatorsInThisPlace.Any(investigator => investigator.CanBeHealed || investigator.CanBeRestoreSanity)) return false;
+            if (!activeInvestigator.CurrentPlace.InvestigatorsInThisPlace.Any(investigator => investigator.CanBeHealed.IsTrue || investigator.CanBeRestoreSanity.IsTrue)) return false;
             return true;
         }
     }

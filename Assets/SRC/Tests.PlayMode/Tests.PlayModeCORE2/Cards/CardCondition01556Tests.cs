@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(investigator.InvestigatorCard);
-            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsActive && card != conditionCard));
+            yield return ClickedIn(investigator.HandZone.Cards.First(card => card.CanBeDiscarted.IsTrue && card != conditionCard));
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
