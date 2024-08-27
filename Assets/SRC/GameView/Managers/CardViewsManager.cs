@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
 
         public CardView GetAvatarCardView(Investigator investigator) => GetCardView(investigator.AvatarCard);
 
-        public List<CardView> GetAllCanPlay() => _allCardsView.FindAll(cardView => cardView.Card.CanBePlayed);
+        public List<CardView> GetAllCanPlay() => _allCardsView.FindAll(cardView => cardView.Card.CanBePlayed.IsTrue);
 
         public List<IUpdatable> GetAllUpdatable() => _allCardsView.OfType<IUpdatable>().ToList();
 

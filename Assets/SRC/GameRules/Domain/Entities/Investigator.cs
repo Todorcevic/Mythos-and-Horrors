@@ -50,7 +50,6 @@ namespace MythosAndHorrors.GameRules
         public int HealthLeft => InvestigatorCard.Health.Value - DamageRecived.Value;
         public int SanityLeft => InvestigatorCard.Sanity.Value - FearRecived.Value;
         public int HandSize => HandZone.Cards.Count;
-        public int AmountCardsInPlay => CardsInPlay.Count();
         public string Code => InvestigatorCard.Info.Code;
         public Card CardAidToDraw => DeckZone.Cards.LastOrDefault();
         public Card CardDangerToDraw => _chaptersProvider.CurrentScene.CardDangerToDraw;

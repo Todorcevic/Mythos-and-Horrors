@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator2).Execute();
             while (_gameActionsProvider.CurrentInteractable == null) yield return null;
-            Assert.That(investigator2.InvestigatorCard.CanBePlayed, Is.False);
+            Assert.That(investigator2.InvestigatorCard.CanBePlayed.IsTrue, Is.False);
 
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

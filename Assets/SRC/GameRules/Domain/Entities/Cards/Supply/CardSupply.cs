@@ -19,9 +19,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public CardPlace CurrentPlace => IsInPlay.IsTrue ? ControlOwner?.CurrentPlace : null;
-
         public virtual Func<Card> CardAffected => null;
-
         public bool HasAnyOfThisSlots(IEnumerable<SlotType> slotsType) => Info.Slots.Intersect(slotsType).Any();
 
         /*******************************************************************/
@@ -45,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        public async Task PlayFromHand(GameAction investigator)
+        private async Task PlayFromHand(GameAction investigator)
         {
             await _gameActionsProvider.Create<MoveCardsGameAction>()
                 .SetWith(this, ControlOwner.AidZone).Execute();

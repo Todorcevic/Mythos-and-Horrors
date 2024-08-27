@@ -26,8 +26,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(conditionCard);
-            Assert.That(SceneCORE1.Attic.CanBePlayed, Is.False);
-            Assert.That(SceneCORE1.Cellar.CanBePlayed, Is.True);
+            Assert.That(SceneCORE1.Attic.CanBePlayed.IsTrue, Is.False);
+            Assert.That(SceneCORE1.Cellar.CanBePlayed.IsTrue, Is.True);
             yield return ClickedIn(SceneCORE1.Cellar);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

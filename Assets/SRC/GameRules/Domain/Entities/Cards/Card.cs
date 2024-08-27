@@ -25,7 +25,9 @@ namespace MythosAndHorrors.GameRules
         public State FaceDown { get; private set; }
         public State Exausted { get; private set; }
         public State Blancked { get; private set; }
+        public Conditional CanBePlayed { get; private set; }
         public Conditional CanBeDiscarted { get; private set; }
+        public Conditional IsActivable { get; private set; }
         public Conditional IsInPlay { get; protected set; }
         public Zone OwnZone { get; private set; }
 
@@ -36,23 +38,11 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<Buff> AllBuffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
         public CardExtraInfo ExtraInfo => _extraInfo;
-        public bool CanBePlayed => PlayableEffects.Any();
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<CardEffect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public virtual Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
-        public bool IsActivable => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner));
-        private bool CanBeDiscarded
-        {
-            get
-            {
-                if (this is IPermanentable) return false;
-                if (HasThisTag(Tag.Weakness)) return false;
-                return true;
-            }
-        }
-
         public bool IsVictory => Info.Victory != null;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 
@@ -66,7 +56,9 @@ namespace MythosAndHorrors.GameRules
             FaceDown = CreateState(false);
             Exausted = CreateState(false);
             Blancked = CreateState(false, BlankState);
-            CanBeDiscarted = new(() => CanBeDiscarded);
+            CanBeDiscarted = new(() => CanBeDiscarded());
+            CanBePlayed = new(() => PlayableEffects.Any());
+            IsActivable = new(() => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner)));
             IsInPlay = new(() => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType));
         }
 
@@ -158,6 +150,13 @@ namespace MythosAndHorrors.GameRules
         {
             if (isActive) _specificAbilities.ForEach(ability => ability.Disable());
             else _specificAbilities.ForEach(ability => ability.Enable());
+        }
+
+        private bool CanBeDiscarded()
+        {
+            if (this is IPermanentable) return false;
+            if (HasThisTag(Tag.Weakness)) return false;
+            return true;
         }
     }
 }
