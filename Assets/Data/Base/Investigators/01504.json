@@ -44,5 +44,6 @@
     "DeckSize": 30,
     "Xp": 0,
     "Injury": 0,
-    "Shock": 0
+    "Shock": 0,
+    "IsDie": false
 }

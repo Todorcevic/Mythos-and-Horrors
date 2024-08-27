@@ -8,7 +8,11 @@ namespace MythosAndHorrors.GameView
 {
     public class JsonService
     {
-        [Inject] private readonly CardConverter _converters;
+        [Inject] private readonly CardConverter _cardConverter;
+        [Inject] private readonly StatConverter _statConverter;
+        [Inject] private readonly StateConverter _stateConverter;
+
+        private JsonConverter[] AllConverters => new JsonConverter[] { _cardConverter, _statConverter, _stateConverter };
 
         /*******************************************************************/
         public JsonService()
@@ -23,24 +27,24 @@ namespace MythosAndHorrors.GameView
         public T CreateDataFromResources<T>(string pathAndNameJsonFile)
         {
             TextAsset jsonData = Resources.Load<TextAsset>(pathAndNameJsonFile);
-            return JsonConvert.DeserializeObject<T>(jsonData.text, _converters);
+            return JsonConvert.DeserializeObject<T>(jsonData.text, AllConverters);
         }
 
         public object CreateDataFromFile(Type type, string pathAndNameJsonFile)
         {
             string jsonData = File.ReadAllText(pathAndNameJsonFile);
-            return JsonConvert.DeserializeObject(jsonData, type, _converters);
+            return JsonConvert.DeserializeObject(jsonData, type, AllConverters);
         }
 
         public T CreateDataFromFile<T>(string pathAndNameJsonFile)
         {
             string jsonData = File.ReadAllText(pathAndNameJsonFile);
-            return JsonConvert.DeserializeObject<T>(jsonData, _converters);
+            return JsonConvert.DeserializeObject<T>(jsonData, AllConverters);
         }
 
         public void SaveFileFromData(object data, string pathAndNameJsonFile)
         {
-            string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented, _converters);
+            string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented, AllConverters);
             File.WriteAllText(pathAndNameJsonFile, jsonData);
         }
 

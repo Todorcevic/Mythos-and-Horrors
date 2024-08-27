@@ -35,14 +35,14 @@ namespace MythosAndHorrors.GameView
             _description.text = description;
         }
 
-        public Tween BlankAnimation() //TODO: Implementar animacion de fade out
+        public Tween BlankAnimation()
         {
-            return DOTween.Sequence();
+            return _description.DOFade(0, ViewValues.DEFAULT_FADE);
         }
 
-        public Tween UnblankAnimation() //TODO: Implementar animacion de fade in
+        public Tween UnblankAnimation()
         {
-            return DOTween.Sequence();
+            return _description.DOFade(1, ViewValues.DEFAULT_FADE);
         }
     }
 }

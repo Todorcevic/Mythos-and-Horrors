@@ -44,8 +44,6 @@ namespace MythosAndHorrors.GameView
                 case CardPlace cardPlace:
                     SetIntelligenceWith(cardPlace.Enigma);
                     break;
-
-                    //TODO: ChallengeCards with typeChallenge 
             }
         }
 

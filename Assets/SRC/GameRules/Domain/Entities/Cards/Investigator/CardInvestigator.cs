@@ -17,9 +17,6 @@ namespace MythosAndHorrors.GameRules
         public Stat Agility { get; private set; }
         public Stat Intelligence { get; private set; }
         public Stat Power { get; private set; }
-        public Stat Xp { get; private set; }
-        public Stat Injury { get; private set; }
-        public Stat Shock { get; private set; }
         public Stat Resources { get; private set; }
         public Stat Hints { get; private set; }
         public Stat CurrentTurns { get; private set; }
@@ -41,17 +38,12 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            Health = CreateStat(Info.Health ?? 0 - Injury.Value);
-            Sanity = CreateStat(Info.Sanity ?? 0 - Shock.Value);
             DamageRecived = CreateStat(0);
             FearRecived = CreateStat(0);
             Strength = CreateStat(Info.Strength ?? 0);
             Agility = CreateStat(Info.Agility ?? 0);
             Intelligence = CreateStat(Info.Intelligence ?? 0);
             Power = CreateStat(Info.Power ?? 0);
-            Xp = CreateStat(0);
-            Injury = CreateStat(0);
-            Shock = CreateStat(0);
             Resources = CreateStat(0);
             Hints = CreateStat(0);
             MaxTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
@@ -67,6 +59,13 @@ namespace MythosAndHorrors.GameRules
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);
+        }
+
+        public void SetLazyStats(int injuryValue, int shockValue)
+        {
+            Health = CreateStat(Info.Health ?? 0 - injuryValue);
+            Sanity = CreateStat(Info.Sanity ?? 0 - shockValue);
+
         }
 
         /*******************************************************************/

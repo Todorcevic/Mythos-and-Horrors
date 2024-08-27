@@ -13,6 +13,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         [JsonProperty("DeckBuildingConditions")] public Dictionary<Faction, int> DeckBuildingConditions { get; init; }
+        [JsonProperty("Xp")] public Stat Xp { get; init; }
+        [JsonProperty("Injury")] public Stat Injury { get; init; }
+        [JsonProperty("Shock")] public Stat Shock { get; init; }
+        [JsonProperty("IsDie")] public State IsDie { get; init; }
         public CardInvestigator InvestigatorCard => Cards.OfType<CardInvestigator>().First();
         public CardAvatar AvatarCard => Cards.OfType<CardAvatar>().First();
         public List<Card> RequerimentCards => Cards.FindAll(card => card.ExtraInfo?.IsRequired ?? false);
@@ -76,9 +80,6 @@ namespace MythosAndHorrors.GameRules
         public Stat Agility => InvestigatorCard.Agility;
         public Stat Intelligence => InvestigatorCard.Intelligence;
         public Stat Power => InvestigatorCard.Power;
-        public Stat Xp => InvestigatorCard.Xp;
-        public Stat Injury => InvestigatorCard.Injury;
-        public Stat Shock => InvestigatorCard.Shock;
         public Stat Resources => InvestigatorCard.Resources;
         public Stat Hints => InvestigatorCard.Hints;
         public Stat CurrentTurns => InvestigatorCard.CurrentTurns;
@@ -103,6 +104,7 @@ namespace MythosAndHorrors.GameRules
             Zones.Add(new(ZoneType.Aid));
             Zones.Add(new(ZoneType.Danger));
             Zones.Add(new(ZoneType.Investigator));
+            InvestigatorCard.SetLazyStats(Injury.Value, Shock.Value);
         }
 
         /*******************************************************************/

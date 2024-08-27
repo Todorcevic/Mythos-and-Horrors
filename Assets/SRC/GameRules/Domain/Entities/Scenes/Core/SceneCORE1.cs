@@ -223,8 +223,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.LitaGoAway, true).Execute();
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.HouseUp, true).Execute();
             await _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.PriestGhoulLive, true).Execute();
-            await Task.CompletedTask;
-            //TODO: continue
+
+            foreach (Investigator investigator in _investigatorsProvider.AllInvestigators.Where(investigator => !investigator.Resign.IsActive))
+            {
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.IsDie, true).Execute();
+            }
         }
     }
 }
