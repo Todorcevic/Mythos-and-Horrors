@@ -18,15 +18,13 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task PlayAnimationWith(DrawGameAction drawGameAction)
         {
-            CardView cardView = _cardViewsManager.GetCardView(drawGameAction.CardDrawed);
             _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
 
-            _showCardsInCenterButton.DeactivateToClick();
-            _moveCardHandler.MoveCardtoCenter(drawGameAction.CardDrawed);
-            await _showSelectorComponent.MainButtonShowUp();
+            await DOTween.Sequence()
+                 .Join(_moveCardHandler.MoveCardtoCenter(drawGameAction.CardDrawed))
+                 .Join(_showSelectorComponent.MainButtonShowUp()).AsyncWaitForCompletion();
 
-            Tween idle = cardView.Idle();
-
+            Tween idle = _cardViewsManager.GetCardView(drawGameAction.CardDrawed).Idle();
             await _clickHandler.WaitingClick();
             idle.Kill();
 

@@ -62,16 +62,18 @@ namespace MythosAndHorrors.GameView
             _ioActivatorComponent.ActivateCardSensors();
         }
 
-        public async Task MainButtonShowUp()
+        public Tween MainButtonShowUp()
         {
-            _ = _ioActivatorComponent.DeactivateCardSensors();
-
-            await DOTween.Sequence()
+            return DOTween.Sequence().OnStart(() => _ = _ioActivatorComponent.DeactivateCardSensors())
                .Join(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
-               .Join(_selectorBlockController.ActivateSelector()).AsyncWaitForCompletion();
+               .Join(_selectorBlockController.ActivateSelector())
+               .OnComplete(Complete);
 
-            _mainButtonComponent.ActivateToClick();
-            _ioActivatorComponent.ActivateCardSensors();
+            void Complete()
+            {
+                _mainButtonComponent.ActivateToClick();
+                _ioActivatorComponent.ActivateCardSensors(withShowCenterButton: false);
+            }
         }
 
         public void MainButtonHideUp()

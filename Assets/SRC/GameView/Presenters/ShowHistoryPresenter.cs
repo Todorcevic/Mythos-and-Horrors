@@ -16,6 +16,5 @@ namespace MythosAndHorrors.GameView
             Transform initialPosition = showHistoryGameAction.Card == null ? null : _cardViewsManager.GetCardView(showHistoryGameAction.Card).transform;
             await _showHistoryComponent.Show(showHistoryGameAction.History, initialPosition);
         }
-
     }
 }

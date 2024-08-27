@@ -132,7 +132,7 @@ namespace MythosAndHorrors.GameView
             return moveSequence;
         }
 
-        public virtual Sequence RevealAnimation() => DOTween.Sequence()
+        public Sequence RevealAnimation() => DOTween.Sequence()
                             .Append(DisableToCenterShow())
                             .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
                             .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))

@@ -20,14 +20,14 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private async void SetPicture(string address) => await _picture.LoadCardSprite(address);
 
-        public Tween ExaustAnimation() //TODO: Implementar animacion de fade out
+        public Tween ExaustAnimation()
         {
-            return DOTween.Sequence();
+            return _picture.material.DOColor(ViewValues.EXAUST_COLOR, ViewValues.DEFAULT_FADE);
         }
 
-        public Tween UnexaustAnimation() //TODO: Implementar animacion de fade in
+        public Tween UnexaustAnimation()
         {
-            return DOTween.Sequence();
+            return _picture.material.DOColor(Color.white, ViewValues.DEFAULT_FADE);
         }
     }
 }

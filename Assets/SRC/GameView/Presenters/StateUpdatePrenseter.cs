@@ -39,12 +39,12 @@ namespace MythosAndHorrors.GameView
 
         private Tween CheckIfCardIsRevealed(IEnumerable<State> states)
         {
-            IEnumerable<IRevealable> cardsUpdated = _cardsProvider.AllCards.OfType<IRevealable>().Where(revelable => states.Contains(revelable.Revealed));
+            IEnumerable<Card> cardsUpdated = _cardsProvider.AllCards.OfType<IRevealable>().Where(revelable => states.Contains(revelable.Revealed)).FilterCast<Card>();
             if (!cardsUpdated.Any()) return DOTween.Sequence();
             Sequence readySequence = DOTween.Sequence()
-                .Append(_swapInvestigatorPresenter.Select(cardsUpdated.FilterCast<Card>().Select(revelable => revelable.Owner).UniqueOrDefault()));
+                .Append(_swapInvestigatorPresenter.Select(cardsUpdated.Select(revelable => revelable.Owner).UniqueOrDefault()));
             readySequence.Append(DOTween.Sequence());
-            foreach (Card card in cardsUpdated.FilterCast<Card>())
+            foreach (Card card in cardsUpdated)
             {
                 CardView cardView = _cardViewsManager.GetCardView(card);
                 readySequence.Join(cardView.RevealAnimation());

@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,31 +12,21 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, SceneObjectsOnly] private ShowCardsInCenterButton _showCardsInCenterButton;
 
         /*******************************************************************/
-        public void ActivateCardSensors()
+        public void ActivateCardSensors(bool withShowCenterButton = true)
         {
             if (!_fullBlock.enabled) return;
             _fullBlock.enabled = false;
-            UnblockUI();
+            _uIBlock.raycastTarget = false;
+            if (withShowCenterButton) _showCardsInCenterButton.ActivateToClick();
         }
 
         public async Task DeactivateCardSensors()
         {
             if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
-            BlockUI();
-            await DotweenExtension.WaitForAnimationsComplete();
-        }
-
-        private void UnblockUI()
-        {
-            _uIBlock.raycastTarget = false;
-            _showCardsInCenterButton.ActivateToClick();
-        }
-
-        private void BlockUI()
-        {
             _uIBlock.raycastTarget = true;
             _showCardsInCenterButton.DeactivateToClick();
+            await DotweenExtension.WaitForAnimationsComplete();
         }
     }
 }

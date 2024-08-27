@@ -40,6 +40,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return base.PrepareIntegrationTests();
             Time.timeScale = TestsType == TestsType.Debug ? 1 : 64;
             DOTween.SetTweensCapacity(1250, 312);
+            if (TestsType == TestsType.Debug) yield break;
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
             AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
             AlwaysDrawMainButtonClick(SceneContainer.Resolve<MainButtonComponent>()).AsTask();
