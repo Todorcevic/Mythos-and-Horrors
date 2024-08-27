@@ -86,19 +86,19 @@
     {
         "Code": "01113",
         "Title": "Cámara Elevada",
-        "Description": "Al acercarse a esta área elevada, un olor fétido y penetrante se apodera del ambiente, evocando carne en descomposición y exacerbando una sensación de malestar y alerta. La cámara elevada, claramente formada por procesos naturales, muestra signos de haber sido alterada con el tiempo, posiblemente por antiguos habitantes de la cueva o por fuerzas enigmáticas.\nDentro de la cámara, se descubre una escena escalofriante y sorprendente. Colgado de una formación rocosa del techo, yace el cadáver ensangrentado de una criatura deformada, suspendido de manera macabra como si se tratara de carne en un matadero. La sangre de la criatura cae en gotas, acumulándose en un pequeño receptáculo natural en el suelo, formado por las rocas de la propia cueva.\nLa visión de este cadáver y su macabra exposición despierta una mezcla de horror y preguntas. Surge la curiosidad sobre la naturaleza de la criatura, cómo llegó a ese lugar y el posible significado detrás de su presencia.",
+        "Description": "Al acercarse al área elevada, un olor fétido llena el aire, evocando carne en descomposición. La cámara, de origen natural pero alterada, revela una escena macabra: el cadáver ensangrentado de una criatura deformada cuelga del techo, con su sangre goteando en un receptáculo de rocas en el suelo. La visión del cadáver despierta horror y preguntas sobre su origen y significado.",
         "Image": "01113"
     },
     {
         "Code": "01114",
         "Title": "Descenso Helado",
-        "Description": "Las rocas y formaciones naturales utilizadas como escaleras en este descenso están recubiertas de una fina capa de hielo, volviéndolas peligrosamente resbaladizas. El aire se torna notablemente más frío al acercarse a esta área, un cambio sorprendente considerando la temperatura habitual de la cueva.\nEn vez de una continuación de la cueva rocosa, se revela una extensa red de túneles y cavernas completamente cubiertas de hielo. Las formaciones de hielo y las estalactitas brillan bajo la luz de las linternas, creando un paisaje cautivador.\nEl frío en esta área es intenso, calando profundamente. El aire, casi congelado, da lugar a un ambiente que combina belleza y peligro. ",
+        "Description": "Las rocas que forman las escaleras están cubiertas de una capa de hielo, volviéndolas resbaladizas. El aire se enfría drásticamente al descender, revelando una red de túneles y cavernas heladas. Las estalactitas brillan bajo la luz, creando un paisaje tanto hermoso como peligroso.",
         "Image": "01114"
     },
     {
         "Code": "01115",
-        "Title": "Vestíbulo de la Barrera Mística",
-        "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+        "Title": "El Umbral Silencioso",
+        "Description": "Este lugar actúa como un punto de transición entre las zonas exploradas de la cueva y la barrera mística. El ambiente aquí es más sereno, aunque cargado de una energía latente. Una luz tenue emana desde dentro, iluminando parcialmente el espacio y proyectando sombras inquietantes en las paredes.",
         "Image": "01115"
     }
 ]

@@ -5747,7 +5747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 35}
+  m_AnchoredPosition: {x: 0, y: -115}
   m_SizeDelta: {x: 910, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &942543336
@@ -5770,7 +5770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d47ae5b7707f6c0478b2793efa83db81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07d7c4f23a28d6947a328d09713c6834, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7823,8 +7823,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.256982
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9486,27 +9486,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Viernes, 18 de septiembre de 1925. Arkham, Massachusetts. Es el final
-    de un largo y anormalmente caluroso verano. Las primeras se\xF1ales del oto\xF1o
-    empiezan a aparecer, pero persiste un sofocante e implacable calor. Una ira silenciosa
-    e impalpable atenaza la ciudad. El mal genio est\xE1 a flor de piel, y s\xF3lo
-    en la \xFAltima semana ha habido numerosas discusiones entre habitantes de la
-    ciudad que han acabado en violentas peleas por simples malentendidos.\r\n\r\nY
-    ahora ha llamado James Hankerson. Afirma haber encontrado un cuerpo desmembrado
-    en su granero.\r\n\r\nSer\xEDa demasiado f\xE1cil echarle la culpa al tiempo.
-    A esta ciudad le pasa algo, y este viejo adivino poco puede hacer para detener
-    su ca\xEDda. Mis augurios indican que un peque\xF1o grupo de investigadores se
-    reunir\xE1 para arreglar las cosas. Estar\xE9 observando sus progresos... pero
-    no tengo muchas esperanzas.\n\npersiste un sofocante e implacable calor. Una
-    ira silenciosa e impalpable atenaza la ciudad. El mal genio est\xE1 a flor de
-    piel, y s\xF3lo en la \xFAltima semana ha habido numerosas discusiones entre
-    habitantes de la ciudad que han acabado en violentas peleas por simples malentendidos.\r\n\r\nY
-    ahora ha llamado James Hankerson. Afirma haber encontrado un cuerpo desmembrado
-    en s\n\npersiste un sofocante e implacable calor. Una ira silenciosa e impalpable
-    atenaza la ciudad. El mal genio est\xE1 a flor de piel, y s\xF3lo en la \xFAltima
-    semana ha habido numerosas discusiones entre habitantes de la ciudad que han
-    acabado en violentas peleas por simples malentendidos.\r\n\r\nY ahora ha llamado
-    James Hankerson. Afirma haber encontrado un cuerpo desmembrado en s\n"
+  m_text: Deep within the cave, the ground gives way, revealing a vast network of
+    dark tunnels. In the shadows, the investigators discern silhouettes of unknown
+    creatures, moving with agility in a subterranean ecosystem alien to the surface.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 29bbe40b22307bf4bb130c22ef17887f, type: 2}
   m_sharedMaterial: {fileID: 686913658499092511, guid: 29bbe40b22307bf4bb130c22ef17887f, type: 2}

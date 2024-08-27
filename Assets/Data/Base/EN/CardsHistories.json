@@ -79,26 +79,26 @@
     },
     {
         "Code": "01112",
-        "Title": "Pasaje Subterráneo",
-        "Description": "Las paredes rocosas del pasaje empiezan a revelar indicios de transformación. El suelo pétreo se metamorfosea lentamente en una senda de tierra apisonada, mientras que las paredes de la caverna muestran manchas de barro y raíces entrelazadas. Este cambio en el ambiente evoca la impresión de haber ingresado en un dominio distinto, como si la cueva condujera a un espacio o dimensión ajena.",
+        "Title": "Underground Passage",
+        "Description": "The rocky walls of the passage begin to reveal signs of transformation. The stony ground slowly metamorphoses into a path of compacted earth, while the cavern walls display patches of mud and intertwined roots. This change in the environment evokes the impression of having entered a different domain, as if the cave were leading to a foreign space or dimension.",
         "Image": "01112"
     },
     {
         "Code": "01113",
         "Title": "Elevated Chamber",
-        "Description": "Al acercarse a esta área elevada, un olor fétido y penetrante se apodera del ambiente, evocando carne en descomposición y exacerbando una sensación de malestar y alerta. La cámara elevada, claramente formada por procesos naturales, muestra signos de haber sido alterada con el tiempo, posiblemente por antiguos habitantes de la cueva o por fuerzas enigmáticas.\nDentro de la cámara, se descubre una escena escalofriante y sorprendente. Colgado de una formación rocosa del techo, yace el cadáver ensangrentado de una criatura deformada, suspendido de manera macabra como si se tratara de carne en un matadero. La sangre de la criatura cae en gotas, acumulándose en un pequeño receptáculo natural en el suelo, formado por las rocas de la propia cueva.\nLa visión de este cadáver y su macabra exposición despierta una mezcla de horror y preguntas. Surge la curiosidad sobre la naturaleza de la criatura, cómo llegó a ese lugar y el posible significado detrás de su presencia.",
+        "Description": "As they approach the elevated area, a foul stench fills the air, evoking the scent of decaying flesh. The chamber, naturally formed but altered, reveals a macabre scene: the bloodied corpse of a deformed creature hangs from the ceiling, with its blood dripping into a makeshift basin of rocks on the floor. The sight of the corpse evokes horror and raises questions about its origin and significance.",
         "Image": "01113"
     },
     {
         "Code": "01114",
         "Title": "Frozen Descent",
-        "Description": "Las rocas y formaciones naturales utilizadas como escaleras en este descenso están recubiertas de una fina capa de hielo, volviéndolas peligrosamente resbaladizas. El aire se torna notablemente más frío al acercarse a esta área, un cambio sorprendente considerando la temperatura habitual de la cueva.\nEn vez de una continuación de la cueva rocosa, se revela una extensa red de túneles y cavernas completamente cubiertas de hielo. Las formaciones de hielo y las estalactitas brillan bajo la luz de las linternas, creando un paisaje cautivador.\nEl frío en esta área es intenso, calando profundamente. El aire, casi congelado, da lugar a un ambiente que combina belleza y peligro. ",
+        "Description": "The rocks that form the stairs are covered in a layer of ice, making them slippery. The air cools drastically as they descend, revealing a network of frozen tunnels and caverns. Stalactites glisten under the light, creating a landscape that is both beautiful and dangerous. ",
         "Image": "01114"
     },
     {
         "Code": "01115",
-        "Title": "Vestíbulo de la Barrera Mística",
-        "Description": "Este lugar funciona como un área de transición entre las secciones ya exploradas de la cueva y la barrera mística. El ambiente en esta zona es más sereno, aunque impregnado de una energía latente. Una luz que emana dentro del espacio proporciona una iluminación parcial del vestíbulo, generando un juego de sombras en las paredes.",
+        "Title": "The Silent Threshold",
+        "Description": "This place acts as a transition point between the explored areas of the cave and the mystical barrier. The atmosphere here is more serene, yet charged with latent energy. A faint light emanates from within, partially illuminating the space and casting eerie shadows on the walls.",
         "Image": "01115"
     }
 ]
