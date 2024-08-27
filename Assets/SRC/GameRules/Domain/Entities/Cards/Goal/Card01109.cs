@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool PayHintsCondition(RoundGameAction roundGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == Hallway).Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;

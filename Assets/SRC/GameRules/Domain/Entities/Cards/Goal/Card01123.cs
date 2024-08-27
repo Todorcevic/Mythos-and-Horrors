@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DrawCultistCondition(PayHintsToGoalGameAction payHintGameActionn)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
             return true;
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         private bool RevealCondition(MoveCardsGameAction updateStatGameAction)
         {
             if (updateStatGameAction.AllMoves.All(move => move.Value.zone != SceneCORE2.VictoryZone)) return false;
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Revealed.IsActive) return false;
             if (SceneCORE2.AllCultists.Any(cultist => cultist.CurrentZone != SceneCORE2.VictoryZone)) return false;
             return true;

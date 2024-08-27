@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool ReturnToHandCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != investigator) return false;
             if (CurrentPlace.Hints.Value > 0) return false;
             return true;
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() =>
-            IsInPlay ?
+            IsInPlay.IsTrue ?
             new[] { ControlOwner.InvestigatorCard } :
             Enumerable.Empty<Card>();
 

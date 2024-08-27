@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool TakeFearCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ChargeFear.Value < 1) return false;
             return true;
         }
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
 
             bool DiscardCondition()
             {
-                if (!IsInPlay) return false;
+                if (!IsInPlay.IsTrue) return false;
                 if (ChargeFear.Value > 0) return false;
                 return true;
             }
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ChangeTokenCondition(RevealChallengeTokenGameAction reavelChangeTokenGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (reavelChangeTokenGameAction.Investigator != ControlOwner) return false;
             if (reavelChangeTokenGameAction.ChallengeTokenRevealed != _chaptersProvider.CurrentScene.StarToken) return false;
             return true;

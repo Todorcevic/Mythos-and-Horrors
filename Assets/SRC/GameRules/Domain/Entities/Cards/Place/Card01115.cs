@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign, "Activation_Card01115");
-            CanMoveHere = new Conditional(() => IsInPlay && Revealed.IsActive);
+            CanMoveHere = new Conditional(() => IsInPlay.IsTrue && Revealed.IsActive);
         }
 
         /*******************************************************************/
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (activeInvestigator.CurrentPlace != this) return false;
             return true;
         }

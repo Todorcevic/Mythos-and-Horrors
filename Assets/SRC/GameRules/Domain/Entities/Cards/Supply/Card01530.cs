@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         }
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff() =>
-            IsInPlay ?
+            IsInPlay.IsTrue ?
             new[] { ControlOwner.InvestigatorCard } :
             Enumerable.Empty<Card>();
 

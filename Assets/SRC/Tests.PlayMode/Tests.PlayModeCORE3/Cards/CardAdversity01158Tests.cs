@@ -50,7 +50,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return drawTask.AsCoroutine();
 
-            Assert.That(investigator.IsInPlay, Is.False);
+            Assert.That(investigator.IsInPlay.IsTrue, Is.False);
         }
     }
 }

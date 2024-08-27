@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
             if (Charge.IsEmpty) return false;

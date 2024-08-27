@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool InvestigationCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (investigator != ControlOwner) return false;
             if (Exausted.IsActive) return false;
             return true;
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
             if (Charge.Amount.Value > 0) return false;
             return true;

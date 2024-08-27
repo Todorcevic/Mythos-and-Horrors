@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -8,8 +9,13 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
-        public override bool IsInPlay => CurrentZone.ZoneType == ZoneType.Limbo;
-
+        /*******************************************************************/
+        [Inject]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        private void Init()
+        {
+            IsInPlay = new(() => CurrentZone.ZoneType == ZoneType.Limbo);
+        }
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.LimboZone;
 

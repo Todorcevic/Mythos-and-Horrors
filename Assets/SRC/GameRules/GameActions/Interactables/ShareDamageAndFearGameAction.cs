@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Card ByThisCard { get; private set; }
         public int AmountDamage { get; private set; }
         public int AmountFear { get; private set; }
-        public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && ActiveInvestigator.IsInPlay;
+        public override bool CanBeExecuted => (AmountDamage > 0 || AmountFear > 0) && ActiveInvestigator.IsInPlay.IsTrue;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]

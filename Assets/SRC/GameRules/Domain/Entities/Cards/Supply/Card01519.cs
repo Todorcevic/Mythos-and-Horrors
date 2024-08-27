@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
             if (Charge.Amount.Value > 0) return false;
             return true;
@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool HealConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != activeInvestigator) return false;
             if (!activeInvestigator.CurrentPlace.InvestigatorsInThisPlace.Any(investigator => investigator.CanBeHealed.IsTrue || investigator.CanBeRestoreSanity.IsTrue)) return false;
             return true;

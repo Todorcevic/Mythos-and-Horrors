@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool RevealRituaReactionCondition(RevealGameAction revealGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Revealed.IsActive) return false;
             if (revealGameAction.RevellableCard != SceneCORE3.Ritual) return false;
             return true;

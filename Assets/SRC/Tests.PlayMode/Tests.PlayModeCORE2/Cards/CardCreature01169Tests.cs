@@ -35,7 +35,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(_investigatorsProvider.First).Execute().AsCoroutine();
 
-            Assert.That(acolit.IsInPlay, Is.True);
+            Assert.That(acolit.IsInPlay.IsTrue, Is.True);
             Assert.That(acolit.CurrentZone.ZoneType, Is.Not.EqualTo(ZoneType.Danger));
             Assert.That(_investigatorsProvider.First.CurrentPlace.DistanceTo(acolit.CurrentPlace).distance, Is.EqualTo(2));
 

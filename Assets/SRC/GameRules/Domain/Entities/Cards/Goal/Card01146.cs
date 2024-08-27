@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task CompleteEffect()
         {
-            if (!SceneCORE3.Ritual.IsInPlay)
+            if (!SceneCORE3.Ritual.IsInPlay.IsTrue)
                 await _gameActionsProvider.Create<MoveCardsGameAction>()
                     .SetWith(SceneCORE3.Ritual, _chapterProvider.CurrentScene.GetPlaceZone(1, 4)).Execute();
             await _gameActionsProvider.Create<SafeForeach<CardCreature>>().SetWith(SceneCORE3.CultistsNotInterrogate, Spawn).Execute();

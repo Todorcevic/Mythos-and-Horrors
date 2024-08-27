@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
             if (!investigator.CreaturesInSamePlace.Any()) return false;
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01528");
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateCardEffect(cardCreature, new Stat(0, false), SelecteCreature, 
+                interactableGameAction.CreateCardEffect(cardCreature, new Stat(0, false), SelecteCreature,
                     PlayActionType.Choose, investigator, "CardEffect_Card01528");
 
                 async Task SelecteCreature()
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
 
         /*******************************************************************/
     }

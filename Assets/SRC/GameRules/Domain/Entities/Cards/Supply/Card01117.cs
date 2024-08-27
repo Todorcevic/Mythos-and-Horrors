@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool AttackCondition(AttackCreatureGameAction attackGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (attackGameAction.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
             if (!attackGameAction.CardCreature.HasThisTag(Tag.Monster)) return false;
             return true;
@@ -59,7 +59,7 @@ namespace MythosAndHorrors.GameRules
 
         private IEnumerable<Card> CardsToBuff()
         {
-            return IsInPlay ? _investigatorProvider.AllInvestigatorsInPlay
+            return IsInPlay.IsTrue ? _investigatorProvider.AllInvestigatorsInPlay
                 .Where(investigator => investigator.CurrentPlace == CurrentPlace).Select(investigator => investigator.InvestigatorCard) :
                 Enumerable.Empty<Card>();
         }

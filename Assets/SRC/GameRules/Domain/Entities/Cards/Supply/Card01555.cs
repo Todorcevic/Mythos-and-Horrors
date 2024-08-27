@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
             return true;
@@ -59,6 +59,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ControlOwner.Agility, 1).Execute();
         }
 
-        private IEnumerable<Card> CardToSelect() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardToSelect() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }

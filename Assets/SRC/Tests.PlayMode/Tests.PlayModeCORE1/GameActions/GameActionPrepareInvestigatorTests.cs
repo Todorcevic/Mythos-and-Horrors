@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(supply.IsInPlay, Is.True);
+            Assert.That(supply.IsInPlay.IsTrue, Is.True);
         }
 
         [UnityTest]

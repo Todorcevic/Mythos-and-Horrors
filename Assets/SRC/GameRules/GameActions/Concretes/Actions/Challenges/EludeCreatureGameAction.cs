@@ -7,7 +7,7 @@ namespace MythosAndHorrors.GameRules
     public class EludeCreatureGameAction : ChallengePhaseGameAction
     {
         public CardCreature CardCreature { get; private set; }
-        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay && CardCreature.IsInPlay;
+        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay.IsTrue && CardCreature.IsInPlay.IsTrue;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]

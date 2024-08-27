@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool Condition(SpawnCreatureGameAction spawnCreatureGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (spawnCreatureGameAction.Place != ControlOwner.CurrentPlace) return false;
             if (spawnCreatureGameAction.Creature.HasThisTag(Tag.Elite)) return false;
             return true;

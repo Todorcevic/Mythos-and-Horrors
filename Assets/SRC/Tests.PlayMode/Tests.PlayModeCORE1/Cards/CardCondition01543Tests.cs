@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigatorChoosen.DeckZone.Cards.Count, Is.EqualTo(expecetdDeckSize));
-            Assert.That(cardToDraw3.IsInPlay, Is.True);
+            Assert.That(cardToDraw3.IsInPlay.IsTrue, Is.True);
         }
     }
 }

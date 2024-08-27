@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         public static CardPlace GetPlaceToStalkerMove(this IStalker stalker, IEnumerable<Investigator> investigatorsInplay)
         {
-            if (stalker is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay ?
+            if (stalker is ITarget target && target.IsUniqueTarget) return target.TargetInvestigator.IsInPlay.IsTrue ?
                     stalker.CurrentPlace.DistanceTo(target.TargetInvestigator.CurrentPlace).path :
                     stalker.CurrentPlace;
 

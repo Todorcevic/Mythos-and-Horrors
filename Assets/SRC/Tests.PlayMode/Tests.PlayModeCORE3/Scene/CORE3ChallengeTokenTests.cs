@@ -72,13 +72,13 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Creature);
             Assert.That(_cardsProvider.GetCards<CardCreature>()
-            .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.False);
+            .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.Monster)).Any(), Is.False);
 
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-3));
             Assert.That(_cardsProvider.GetCards<CardCreature>()
-                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Any(), Is.True);
+                .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.Monster)).Any(), Is.True);
 
         }
 

@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_PlayInvestigator");
         public override Phase MainPhase => Phase.Investigator;
 
-        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable;
+        public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable.IsTrue;
         public static Investigator PlayActiveInvestigator { get; private set; }
 
         /*******************************************************************/

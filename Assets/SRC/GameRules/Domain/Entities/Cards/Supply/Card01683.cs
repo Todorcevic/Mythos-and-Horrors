@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (!updateStatGameAction.HasThisStat(AmountSupplies)) return false;
             if (AmountSupplies.Value > 0) return false;
             return true;
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             .Concat(Other(place));
 
         private IEnumerable<Card> Other(CardPlace place) => _cardsProvider.GetCards<CardSupply>()
-           .Where(card => card.IsInPlay && card.HasThisTag(Tag.Ally) && card.CurrentPlace == place
+           .Where(card => card.IsInPlay.IsTrue && card.HasThisTag(Tag.Ally) && card.CurrentPlace == place
                  && ((card is IDamageable damageable && damageable.CanBeHealed) || (card is IFearable fearable && fearable.CanBeRestoreSanity)));
 
         /*******************************************************************/
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool HealConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != activeInvestigator) return false;
             if (!CardsToHealth(activeInvestigator.CurrentPlace).Any()) return false;
             return true;

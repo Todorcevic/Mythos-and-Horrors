@@ -25,8 +25,8 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine(); ;
 
-            Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
-            Assert.That(SceneCORE3.Urmodoth.IsInPlay, Is.True);
+            Assert.That(SceneCORE3.Ritual.IsInPlay.IsTrue, Is.True);
+            Assert.That(SceneCORE3.Urmodoth.IsInPlay.IsTrue, Is.True);
         }
 
         [UnityTest]
@@ -50,9 +50,9 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine(); ;
 
-            Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
-            Assert.That(creature.IsInPlay, Is.False);
-            Assert.That(SceneCORE3.Urmodoth.IsInPlay, Is.True);
+            Assert.That(SceneCORE3.Ritual.IsInPlay.IsTrue, Is.True);
+            Assert.That(creature.IsInPlay.IsTrue, Is.False);
+            Assert.That(SceneCORE3.Urmodoth.IsInPlay.IsTrue, Is.True);
         }
 
         [UnityTest]

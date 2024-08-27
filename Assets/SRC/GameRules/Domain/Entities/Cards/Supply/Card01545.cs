@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool InvestigationCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != investigator) return false;
             if (!investigator.CanInvestigate.IsTrue) return false;
             if (!ControlOwner.CurrentPlace.CanBeInvestigated.IsTrue) return false;

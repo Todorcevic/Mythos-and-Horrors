@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
         public bool GainTurnConditionToActivate(Investigator activeInvestigator)
         {
             if (AbilityUsed.IsActive) return false;
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Owner != activeInvestigator) return false;
             if (activeInvestigator.Resources.Value < 2) return false;
             return true;

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected virtual bool AttackCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (investigator != ControlOwner) return false;
             if (!AttackbleCreatures.Any()) return false;
             return true;

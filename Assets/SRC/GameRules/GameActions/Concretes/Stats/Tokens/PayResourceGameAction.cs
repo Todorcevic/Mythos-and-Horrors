@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     {
         public Investigator Investigator { get; private set; }
         public int Amount { get; private set; }
-        public override bool CanBeExecuted => Investigator.IsInPlay && Amount > 0;
+        public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue && Amount > 0;
 
         /*******************************************************************/
         public PayResourceGameAction SetWith(Investigator investigator, int amount)

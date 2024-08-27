@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(stats).Execute();
         }
 
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
 
         /*******************************************************************/
         private async Task ChallengeToDiscardLogic(Investigator investigator)

@@ -45,6 +45,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorCard.CurrentTurns, 1).Execute();
         }
 
-        private IEnumerable<Card> CardToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }

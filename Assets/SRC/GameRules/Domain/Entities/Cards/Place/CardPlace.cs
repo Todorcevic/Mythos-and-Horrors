@@ -45,8 +45,8 @@ namespace MythosAndHorrors.GameRules
             MoveTurnsCost = CreateStat(1);
             Revealed = CreateState(false);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
-            CanBeInvestigated = new Conditional(() => IsInPlay && Revealed.IsActive);
-            CanMoveHere = new Conditional(() => IsInPlay);
+            CanBeInvestigated = new Conditional(() => IsInPlay.IsTrue && Revealed.IsActive);
+            CanMoveHere = new Conditional(() => IsInPlay.IsTrue);
             CreateBaseReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 

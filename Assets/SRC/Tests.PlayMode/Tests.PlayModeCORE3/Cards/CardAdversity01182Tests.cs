@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(cardAdversity.IsInPlay, Is.False);
+            Assert.That(cardAdversity.IsInPlay.IsTrue, Is.False);
         }
     }
 }

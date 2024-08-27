@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public Investigator Investigator { get; private set; }
         public Card CardDrawed { get; protected set; }
         public override bool CanUndo => false;
-        public override bool CanBeExecuted => Investigator.IsInPlay;
+        public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue;
 
         /*******************************************************************/
         public DrawGameAction SetWith(Investigator investigator, Card cardDrawed)

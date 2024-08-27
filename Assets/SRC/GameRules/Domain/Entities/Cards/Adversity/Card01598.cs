@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task PlayRevelationFor(Investigator investigator) => await Task.CompletedTask;
 
         /*******************************************************************/
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         private async Task DecrementStatBuff(IEnumerable<Card> cards)
         {
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if ((activeInvestigator.CurrentPlace != ControlOwner.CurrentPlace)) return false;
             return true;
         }

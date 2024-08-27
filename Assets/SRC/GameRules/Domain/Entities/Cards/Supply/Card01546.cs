@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DrawLogic(EludeGameAction eludeGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (eludeGameAction.Investigator != ControlOwner) return false;
             if (Exausted.IsActive) return false;
             return true;

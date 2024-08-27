@@ -8,8 +8,8 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly OwnersProvider _ownersProvider;
         public IEnumerable<Investigator> AllInvestigators => _ownersProvider.AllOwners.OfType<Investigator>();
-        public IEnumerable<Investigator> AllInvestigatorsInPlay => AllInvestigators.Where(investigator => investigator.IsInPlay);
-        public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable);
+        public IEnumerable<Investigator> AllInvestigatorsInPlay => AllInvestigators.Where(investigator => investigator.IsInPlay.IsTrue);
+        public IEnumerable<Investigator> GetInvestigatorsCanStartTurn => AllInvestigatorsInPlay.Where(investigator => investigator.HasTurnsAvailable.IsTrue);
         public IEnumerable<Investigator> GetInvestigatorsCanInvestigate => AllInvestigatorsInPlay.Where(investigator => investigator.CanInvestigate.IsTrue);
         public IEnumerable<Investigator> GetInvestigatorsCanBeHealed => AllInvestigatorsInPlay.Where(investigator => investigator.CanBeHealed.IsTrue);
         public Investigator Leader => AllInvestigatorsInPlay.First();

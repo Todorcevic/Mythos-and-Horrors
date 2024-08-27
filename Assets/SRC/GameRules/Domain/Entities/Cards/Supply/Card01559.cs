@@ -35,6 +35,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ControlOwner.Power, 1).Execute();
         }
 
-        private IEnumerable<Card> CardToSelect() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardToSelect() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }

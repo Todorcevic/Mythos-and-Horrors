@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (investigator != ControlOwner) return false;
             if (!investigator.CreaturesInSamePlace.Any()) return false;
             return true;
@@ -71,6 +71,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Strength, 1).Execute();
         }
 
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
     }
 }

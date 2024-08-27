@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ConfrontCantMoveCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (moveInvestigatorGameAction.CardPlace != CurrentPlace) return false;
             if (!moveInvestigatorGameAction.Investigators.Any(investigator => investigator.BasicCreaturesConfronted.Any())) return false;
             return true;
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool CantMoveCondition(MoveCreatureGameAction moveCreatureGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (moveCreatureGameAction.Creature.HasThisTag(Tag.Elite)) return false;
             if (moveCreatureGameAction.Destiny != CurrentPlace) return false;
             return true;
@@ -67,7 +67,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(MoveInvestigatorToPlaceGameAction moveInvestigatorCardGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (!moveInvestigatorCardGameAction.From.Values.Contains(CurrentPlace)) return false;
             return true;
         }

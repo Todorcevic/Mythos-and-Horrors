@@ -172,7 +172,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             int CreatureNormalValue() => _cardsProvider.GetCards<CardCreature>()
-                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
+                .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.Cultist))
                 .OfType<IEldritchable>().Select(eldritchable => eldritchable.Eldritch.Value)
                 .OrderByDescending(eldritch => eldritch).FirstOrDefault() * -1;
 
@@ -223,7 +223,7 @@ namespace MythosAndHorrors.GameRules
             async Task CultistHardEffect()
             {
                 Dictionary<Stat, int> allEldrichableStats = _cardsProvider.GetCards<CardCreature>()
-                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Cultist))
+                    .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.Cultist))
                         .OfType<IEldritchable>().ToDictionary(cultist => cultist.Eldritch, cultist => 1);
 
                 if (allEldrichableStats.Any()) await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allEldrichableStats).Execute();

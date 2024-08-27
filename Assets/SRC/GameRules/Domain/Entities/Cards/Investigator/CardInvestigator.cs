@@ -32,9 +32,10 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
         public Conditional CanInvestigate { get; private set; }
+        public Conditional HasTurnsAvailable { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
-        public override bool IsInPlay => CurrentZone.ZoneType == ZoneType.Investigator;
+        //public override bool .IsInPlay.IsTrue => CurrentZone.ZoneType == ZoneType.Investigator;
 
         /*******************************************************************/
         [Inject]
@@ -62,6 +63,8 @@ namespace MythosAndHorrors.GameRules
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);
             CanBeRestoreSanity = new Conditional(() => FearRecived.Value > 0);
             CanInvestigate = new Conditional(() => Owner.CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value);
+            HasTurnsAvailable = new Conditional(() => CurrentTurns.Value > 0);
+            IsInPlay = new Conditional(() => CurrentZone.ZoneType == ZoneType.Investigator);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);

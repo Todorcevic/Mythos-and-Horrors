@@ -97,7 +97,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ChooseInvestigatorCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != investigator) return false;
             if (Exausted.IsActive) return false;
             return true;

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             return true;
         }
 
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(cardInvestigator.Power, 1).Execute();
         }
 
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : new Card[0];
 
         /*******************************************************************/
     }

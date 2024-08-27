@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(adversity.IsInPlay, Is.False);
+            Assert.That(adversity.IsInPlay.IsTrue, Is.False);
         }
     }
 }

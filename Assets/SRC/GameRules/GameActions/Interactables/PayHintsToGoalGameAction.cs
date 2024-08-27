@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
-        public override bool CanBeExecuted => CardGoal.IsInPlay && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
+        public override bool CanBeExecuted => CardGoal.IsInPlay.IsTrue && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
         public List<CardEffect> EffectsToPay { get; } = new();
 
         /*******************************************************************/

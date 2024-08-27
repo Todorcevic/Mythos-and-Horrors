@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigator.Resign.IsActive, Is.True);
-            Assert.That(investigator.InvestigatorCard.IsInPlay, Is.False);
+            Assert.That(investigator.InvestigatorCard.IsInPlay.IsTrue, Is.False);
         }
 
         [UnityTest]

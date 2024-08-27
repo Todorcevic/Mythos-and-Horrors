@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.PlaceCards
-            .FirstOrDefault(place => place.IsInPlay && place.IsAlone);
+            .FirstOrDefault(place => place.IsInPlay.IsTrue && place.IsAlone);
         public override IEnumerable<Tag> Tags => new[] { Tag.Cultist, Tag.Humanoid };
 
         /*******************************************************************/
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         private bool EnterPlayCondition(SpawnCreatureGameAction spawnCreatureGameAction)
         {
             if (spawnCreatureGameAction.Creature != this) return false;
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             return true;
         }
     }

@@ -82,7 +82,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         private IEnumerable<Card> CardsToBuff() =>
-            IsInPlay ? new List<Card>() { ControlOwner.DiscardZone.Cards.LastOrDefault() } : Enumerable.Empty<Card>();
+            IsInPlay.IsTrue ? new List<Card>() { ControlOwner.DiscardZone.Cards.LastOrDefault() } : Enumerable.Empty<Card>();
 
         /*******************************************************************/
         private async Task MoveToDeckConditionLogic(DiscardGameAction discardGameAction)
@@ -95,7 +95,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (discardGameAction.Parent is not PlayEffectGameAction playEffectGameAction) return false;
             if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
             if (!playEffectGameAction.Effect.IsThatActionType(PlayActionType.PlayFromHand)) return false;

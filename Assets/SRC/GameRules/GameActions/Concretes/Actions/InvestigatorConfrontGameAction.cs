@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     {
         public Investigator Investigator { get; private set; }
         public CardCreature Creature { get; private set; }
-        public override bool CanBeExecuted => Investigator.IsInPlay && Creature.IsInPlay;
+        public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue && Creature.IsInPlay.IsTrue;
 
         /*******************************************************************/
         public InvestigatorConfrontGameAction SetWith(Investigator investigator, CardCreature creature)

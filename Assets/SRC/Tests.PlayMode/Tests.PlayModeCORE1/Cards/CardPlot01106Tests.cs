@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine();
 
-            Assert.That(SceneCORE1.DangerCards.Any(card => card.Tags.Contains(Tag.Ghoul) && card.IsInPlay), Is.True);
+            Assert.That(SceneCORE1.DangerCards.Any(card => card.Tags.Contains(Tag.Ghoul) && card.IsInPlay.IsTrue), Is.True);
         }
     }
 }

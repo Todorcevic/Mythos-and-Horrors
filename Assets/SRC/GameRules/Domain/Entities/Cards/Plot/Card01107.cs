@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         IEnumerable<CardCreature> GhoulsToMove() => _cardsProvider.AllCards.OfType<CardCreature>()
-              .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay && !creature.IsConfronted);
+              .Where(creature => creature.Tags.Contains(Tag.Ghoul) && creature.IsInPlay.IsTrue && !creature.IsConfronted);
         IEnumerable<Investigator> InvestigatorsUnresignes() => _investigatorsProvider.AllInvestigators
               .Where(investigator => !investigator.Resign.IsActive);
 
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool MoveGhoulCondition(CreaturePhaseGameAction gameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             return true;
         }
 
@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool PlaceEldritchCondition(RoundGameAction gameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             return true;
         }
 

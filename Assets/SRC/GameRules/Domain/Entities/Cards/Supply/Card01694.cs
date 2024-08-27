@@ -33,6 +33,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<RemoveSlotGameAction>().SetWith(ControlOwner, ExtraAlly).Execute();
         }
 
-        private IEnumerable<Card> CardToBuff() => IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
     }
 }

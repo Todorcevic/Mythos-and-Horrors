@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         public State AbilityUsed { get; private set; }
         private IEnumerable<Card> TomesInPlay() => Owner.CardsInPlay.Where(card => card.Tags.Contains(Tag.Tome));
         private IEnumerable<Card> AllActivableTomes => _cardsProvider.AllCards
-            .Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay && card.IsActivable);
+            .Where(card => card.Tags.Contains(Tag.Tome) && card.IsInPlay.IsTrue && card.IsActivable);
         public override IEnumerable<Tag> Tags => new[] { Tag.Miskatonic };
 
         /*******************************************************************/
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
         public bool FreeTomeActivationConditionToActivate(Investigator activeInvestigator)
         {
             if (AbilityUsed.IsActive) return false;
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Owner != activeInvestigator) return false;
             if (!AllActivableTomes.Any()) return false;
             return true;

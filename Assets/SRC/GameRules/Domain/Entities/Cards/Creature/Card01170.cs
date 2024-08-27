@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Humanoid, Tag.Cultist };
-        public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.PlaceCards.FirstOrDefault(place => place.IsInPlay && place.IsAlone);
+        public CardPlace SpawnPlace => _chaptersProvider.CurrentScene.PlaceCards.FirstOrDefault(place => place.IsInPlay.IsTrue && place.IsAlone);
 
         /*******************************************************************/
         [Inject]
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool TakeEldrichCondition(ScenePhaseGameAction action)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             return true;
         }
     }

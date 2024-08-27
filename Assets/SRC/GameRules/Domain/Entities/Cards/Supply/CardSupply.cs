@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
         /*******************************************************************/
-        public CardPlace CurrentPlace => IsInPlay ? ControlOwner?.CurrentPlace : null;
+        public CardPlace CurrentPlace => IsInPlay.IsTrue ? ControlOwner?.CurrentPlace : null;
 
         public virtual Func<Card> CardAffected => null;
 

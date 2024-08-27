@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Resources { get; private set; }
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => new[] { Owner };
         int IVictoriable.Victory => -2;
-        bool IVictoriable.IsVictoryComplete => IsInPlay && Resources.Value > 0;
+        bool IVictoriable.IsVictoryComplete => IsInPlay.IsTrue && Resources.Value > 0;
         public override IEnumerable<Tag> Tags => new[] { Tag.Weakness, Tag.Task };
 
         /*******************************************************************/

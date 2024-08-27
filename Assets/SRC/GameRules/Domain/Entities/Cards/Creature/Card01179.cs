@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool HealthCondition(RoundGameAction action)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (HealthLeft <= 0) return false;
             return true;
         }

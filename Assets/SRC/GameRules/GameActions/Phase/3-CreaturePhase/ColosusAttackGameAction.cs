@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
     public class ColosusAttackGameAction : GameAction
     {
         public CardColosus Colosus { get; private set; }
-        public override bool CanBeExecuted => Colosus.IsInPlay;
+        public override bool CanBeExecuted => Colosus.IsInPlay.IsTrue;
 
         /*******************************************************************/
         public ColosusAttackGameAction SetWith(CardColosus colosus)

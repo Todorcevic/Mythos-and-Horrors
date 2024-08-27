@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool SearchCondition(Investigator investigator)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             return true;
         }

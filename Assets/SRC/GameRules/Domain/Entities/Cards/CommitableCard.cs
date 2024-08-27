@@ -12,9 +12,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Power { get; private set; }
         public Stat Wild { get; private set; }
         public State Commited { get; private set; }
-
         public override Investigator ControlOwner => InvestigatorCommiter ?? base.ControlOwner;
-        public override bool IsInPlay => !Commited.IsActive && base.IsInPlay;
 
         /*******************************************************************/
         [Inject]
@@ -27,6 +25,7 @@ namespace MythosAndHorrors.GameRules
             Power = CreateStat(Info.Power ?? 0);
             Wild = CreateStat(Info.Wild ?? 0);
             Commited = CreateState(false, OnCommited);
+            IsInPlay = new(() => !Commited.IsActive && ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType));
         }
 
         /*******************************************************************/

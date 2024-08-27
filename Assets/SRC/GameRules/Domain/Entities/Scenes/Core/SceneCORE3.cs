@@ -82,8 +82,8 @@ namespace MythosAndHorrors.GameRules
 
             bool ThrowLitaConditionToActivate(Investigator investigator)
             {
-                if (!Urmodoth.IsInPlay) return false;
-                if (!Lita?.IsInPlay ?? true) return false;
+                if (!Urmodoth.IsInPlay.IsTrue) return false;
+                if (!Lita?.IsInPlay.IsTrue ?? true) return false;
                 if (Lita?.CurrentPlace != Urmodoth.CurrentPlace) return false;
                 if (Urmodoth.CurrentPlace != investigator.CurrentPlace) return false;
                 return true;
@@ -258,7 +258,7 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             int CreatureNormalValue() => _cardsProvider.GetCards<CardCreature>()
-                .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.Monster)).Count() * -1
+                .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.Monster)).Count() * -1
 ;
 
             int CreatureHardValue() => -3;
@@ -382,14 +382,14 @@ namespace MythosAndHorrors.GameRules
             async Task AncientNormalEffect()
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
-                    .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
+                    .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.AncientOne)).Any()) return;
                 await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
             }
 
             async Task AncientHardEffect()
             {
                 if (!_cardsProvider.GetCards<CardCreature>()
-                   .Where(creature => creature.IsInPlay && creature.HasThisTag(Tag.AncientOne)).Any()) return;
+                   .Where(creature => creature.IsInPlay.IsTrue && creature.HasThisTag(Tag.AncientOne)).Any()) return;
                 await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(investigator).Execute();
             }
         }

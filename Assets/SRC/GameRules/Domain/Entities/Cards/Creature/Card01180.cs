@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool TakeFearCondition(DefeatCardGameAction defeatCardGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (defeatCardGameAction.Card != this) return false;
             return true;
         }

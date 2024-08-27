@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine();
 
             Assert.That(plot.CurrentZone, Is.EqualTo(SceneCORE2.OutZone));
-            Assert.That(SceneCORE2.MaskedHunter.IsInPlay, Is.True);
+            Assert.That(SceneCORE2.MaskedHunter.IsInPlay.IsTrue, Is.True);
         }
     }
 }

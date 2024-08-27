@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DrawCondition(PlayEffectGameAction playEffectGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (playEffectGameAction.Effect is not CardEffect cardEffect) return false;
             if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
             if (!playEffectGameAction.Effect.IsThatActionType(PlayActionType.PlayFromHand)) return false;

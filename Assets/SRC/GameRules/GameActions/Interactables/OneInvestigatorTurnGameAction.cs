@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public Investigator ActiveInvestigator { get; private set; }
         public CardEffect TakeResourceEffect { get; private set; }
-        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay;
+        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay.IsTrue;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         {
             await base.ExecuteThisLogic();
             if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
-                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable)
+                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable.IsTrue)
                 await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Execute();
         }
 

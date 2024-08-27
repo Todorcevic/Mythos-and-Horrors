@@ -46,8 +46,6 @@ namespace MythosAndHorrors.GameRules
         public bool HasSlotsExeded => GetAllSlotsExeded().Any();
 
         /*******************************************************************/
-        public bool HasTurnsAvailable => CurrentTurns.Value > 0;
-        public bool IsInPlay => InvestigatorZone.HasThisCard(InvestigatorCard);
         public int Position => _investigatorsProvider.GetInvestigatorPosition(this);
         public int HealthLeft => InvestigatorCard.Health.Value - DamageRecived.Value;
         public int SanityLeft => InvestigatorCard.Sanity.Value - FearRecived.Value;
@@ -66,7 +64,7 @@ namespace MythosAndHorrors.GameRules
             .Where(creature => creature.CurrentPlace == CurrentPlace && !creature.Exausted.IsActive).OfType<CardColosus>();
         public IEnumerable<CardCreature> AllTypeCreaturesConfronted => BasicCreaturesConfronted.Concat(ColosusConfronted.Cast<CardCreature>());
         public IEnumerable<CardCreature> BasicCreaturesConfronted => DangerZone.Cards.OfType<CardCreature>();
-        public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay)
+        public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay.IsTrue)
             .OrderBy(creature => creature.CurrentPlace.DistanceTo(CurrentPlace).distance);
 
         public Stat Health => InvestigatorCard.Health;
@@ -92,6 +90,8 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanBeHealed => InvestigatorCard.CanBeHealed;
         public Conditional CanBeRestoreSanity => InvestigatorCard.CanBeRestoreSanity;
         public Conditional CanInvestigate => InvestigatorCard.CanInvestigate;
+        public Conditional HasTurnsAvailable => InvestigatorCard.HasTurnsAvailable;
+        public Conditional IsInPlay => InvestigatorCard.IsInPlay;
 
         /*******************************************************************/
         [Inject]

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<RegisterChapterGameAction>().SetWith(CORERegister.VictoriaInterrogate, true).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Execute().AsCoroutine();
 
-            Assert.That(SceneCORE3.Ritual.IsInPlay, Is.True);
+            Assert.That(SceneCORE3.Ritual.IsInPlay.IsTrue, Is.True);
             Assert.That(SceneCORE3.CultistsNotInterrogate().Count, Is.EqualTo(4));
             Assert.That(SceneCORE3.CultistsNotInterrogate().All(cultist => cultist.CurrentPlace == SceneCORE3.MainPath), Is.True);
         }

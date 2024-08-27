@@ -39,12 +39,12 @@ namespace MythosAndHorrors.GameRules
                     .Execute();
 
                 /*******************************************************************/
-                async Task AddMadness() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay)).Execute();
+                async Task AddMadness() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, SceneCORE3.Haunteds.First(haunted => !haunted.IsInPlay.IsTrue)).Execute();
             }
         }
 
         /*******************************************************************/
-        private IEnumerable<Card> CardsToBuff() => IsInPlay ? _cardsProvider.GetCardsInPlay().OfType<CardCreature>() : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? _cardsProvider.GetCardsInPlay().OfType<CardCreature>() : Enumerable.Empty<Card>();
 
         private async Task AddStrenghAndAgilityBuff(IEnumerable<Card> cards)
         {

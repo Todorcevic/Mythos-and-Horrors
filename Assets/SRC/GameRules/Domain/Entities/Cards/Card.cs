@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public State Exausted { get; private set; }
         public State Blancked { get; private set; }
         public Conditional CanBeDiscarted { get; private set; }
+        public Conditional IsInPlay { get; protected set; }
         public Zone OwnZone { get; private set; }
 
         /*******************************************************************/
@@ -41,7 +42,6 @@ namespace MythosAndHorrors.GameRules
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public virtual Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
-        public virtual bool IsInPlay => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType);
         public bool IsActivable => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner));
         private bool CanBeDiscarded
         {
@@ -67,6 +67,7 @@ namespace MythosAndHorrors.GameRules
             Exausted = CreateState(false);
             Blancked = CreateState(false, BlankState);
             CanBeDiscarted = new(() => CanBeDiscarded);
+            IsInPlay = new(() => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType));
         }
 
         /************************** REACTIONS ******************************/

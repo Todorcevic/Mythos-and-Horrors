@@ -5,7 +5,7 @@ namespace MythosAndHorrors.GameRules
     public class RestoreAidDeckGameAction : GameAction
     {
         public Investigator Investigator { get; private set; }
-        public override bool CanBeExecuted => Investigator.IsInPlay;
+        public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue;
 
         /*******************************************************************/
         public RestoreAidDeckGameAction SetWith(Investigator investigator)

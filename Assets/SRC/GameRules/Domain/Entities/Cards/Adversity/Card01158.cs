@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
                 while (ChoiseRemaining.Value > 0)
                 {
                     await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ChoiseRemaining, 1).Execute();
-                    if (investigator.IsInPlay) await FailEffect();
+                    if (investigator.IsInPlay.IsTrue) await FailEffect();
 
                     /*******************************************************************/
                     async Task FailEffect()

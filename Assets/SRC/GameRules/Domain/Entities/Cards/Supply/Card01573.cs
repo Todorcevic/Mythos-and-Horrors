@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
-            if (!IsInPlay) return false;
+            if (!IsInPlay.IsTrue) return false;
             if (investigatePlaceGameAction.ActiveInvestigator != ControlOwner) return false;
             if (!investigatePlaceGameAction.IsSucceed) return false;
             if (investigatePlaceGameAction.ResultChallenge.TotalDifferenceValue < 2) return false;

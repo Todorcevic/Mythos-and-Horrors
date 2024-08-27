@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private IEnumerable<Card> CardsToBuff()
         {
-            return IsInPlay ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+            return IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
         }
 
         private async Task ActivationLogic(IEnumerable<Card> cards)
