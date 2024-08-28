@@ -3,7 +3,6 @@ using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -29,12 +28,6 @@ namespace MythosAndHorrors.GameView
         {
             _interactableGameAction = interactableGameAction;
             _mainButtonComponent.SetEffect(_interactableGameAction.MainButtonEffect);
-
-            if (_interactableGameAction is IPersonalInteractable personalInteractable)
-            {
-                await _swapInvestigatorHandler.Select(personalInteractable.ActiveInvestigator).AsyncWaitForCompletion();
-            }
-
             _mustShowInCenter = _interactableGameAction.MustShowInCenter;
             return await Initial();
         }
