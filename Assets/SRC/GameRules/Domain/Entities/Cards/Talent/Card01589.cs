@@ -33,6 +33,7 @@ namespace MythosAndHorrors.GameRules
         private bool CheckMaxCondition(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
         {
             if (commitCardsChallengeGameAction.CurrentChallenge.CurrentCommitsCards.All(commitableCard => commitableCard.Info.Code != Info.Code)) return false;
+            if (Commited.IsActive) return false;
             return true;
         }
 

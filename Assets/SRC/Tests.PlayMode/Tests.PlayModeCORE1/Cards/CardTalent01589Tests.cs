@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardTalent01589Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Integration;
 
         [UnityTest]
         public IEnumerator Draw()
@@ -49,6 +49,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardTalent2, investigator.HandZone).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, adversity).Execute();
+            yield return ClickedIn(cardTalent);
+            yield return ClickedIn(cardTalent); //Testing Uncommit
             yield return ClickedIn(cardTalent);
             yield return AssertThatIsNotClickable(cardTalent2);
             yield return ClickedMainButton();
