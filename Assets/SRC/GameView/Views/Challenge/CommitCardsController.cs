@@ -15,22 +15,15 @@ namespace MythosAndHorrors.GameView
             ?? CreateCardChallenge();
 
         /*******************************************************************/
-        public void ShowToken(ChallengeToken challengeToken, Investigator investigator) =>
-            GetFreeCardChallenge.SetToken(challengeToken, _challengeTokensManager.GetToken(challengeToken.TokenType).Image, investigator);
-
-        public void RestoreToken(ChallengeToken challengeToken) =>
-            _cardChallenges.Find(cardChallenge => cardChallenge.Token == challengeToken)?.Disable();
-
         public void ClearAll() => _cardChallenges.ForEach(cardChallenge => cardChallenge.Disable());
 
         public void ShowAll(IEnumerable<CommitableCard> commitCards, ChallengeType challengeType)
         {
-            _cardChallenges.FindAll(cardChallengeView => !commitCards.Contains(cardChallengeView.Card) && cardChallengeView.Token == null)
-                .ForEach(cardChallenge => cardChallenge.Disable());
+            _cardChallenges.FindAll(cardChallengeView => !commitCards.Contains(cardChallengeView.Card)).ForEach(cardChallenge => cardChallenge.Disable());
 
             foreach (CommitableCard commitCard in commitCards.Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))
             {
-                GetFreeCardChallenge.SetCard(commitCard, commitCard.GetChallengeValue(challengeType));
+                GetFreeCardChallenge.SetCard(commitCard, challengeType, commitCard.GetChallengeValue(challengeType));
             }
         }
 

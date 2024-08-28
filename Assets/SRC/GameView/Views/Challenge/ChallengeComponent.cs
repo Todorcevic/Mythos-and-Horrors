@@ -45,8 +45,8 @@ namespace MythosAndHorrors.GameView
         public Tween UpdateInfo()
         {
             ChallengePhaseGameAction ChallengePhaseGameAction = _gameActionsProvider.CurrentChallenge ?? throw new NullReferenceException("ChallengePhaseGameAction is null");
-            _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.Stat.Value);
-            _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.DifficultValue);
+            _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.Stat.Value);
+            _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
             _sceneTokenController.UpdateValues(ChallengePhaseGameAction.ActiveInvestigator);
@@ -57,9 +57,15 @@ namespace MythosAndHorrors.GameView
             return UpdateResult(ChallengePhaseGameAction);
         }
 
-        public void SetToken(ChallengeToken token, Investigator investigator) => _commitCardController.ShowToken(token, investigator);
+        public void SetToken(ChallengeToken token, Investigator investigator)
+        {
+            //_commitCardController.ShowToken(token, investigator);
+        }
 
-        public void RestoreToken(ChallengeToken token) => _commitCardController.RestoreToken(token);
+        public void RestoreToken(ChallengeToken token)
+        {
+            //_commitCardController.RestoreToken(token); 
+        }
 
         public async Task Show(Transform worldObject)
         {

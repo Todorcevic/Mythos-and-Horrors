@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         private Vector3 _colliderOriginalSize;
 
         public bool IsClickable { get; set; }
-        private CardView CardView => _cardView ??= GetComponentInParent<CardView>();
+        private CardView CardView => _cardView ??= GetComponentInParent<CardView>(includeInactive: true);
 
         /*******************************************************************/
         private void Start()
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public void OnMouseEnter()
+        private void OnMouseEnter()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
             MouseEnter();
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameView
             _cardShowerComponent.ShowCard(CardView);
         }
 
-        public void OnMouseExit()
+        private void OnMouseExit()
         {
             MouseExit();
             CheckOnMouseExitAvatar();
@@ -76,9 +76,14 @@ namespace MythosAndHorrors.GameView
 
         }
 
-        public void OnMouseUpAsButton()
+        private void OnMouseUpAsButton()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
+            MouseUpAsButton();
+        }
+
+        public void MouseUpAsButton()
+        {
             if (!IsClickable) return;
             _clickHandler.Clicked(CardView);
         }

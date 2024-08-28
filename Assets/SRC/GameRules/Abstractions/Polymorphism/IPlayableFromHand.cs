@@ -10,9 +10,5 @@ namespace MythosAndHorrors.GameRules
         Stat PlayFromHandTurnsCost { get; }
         GameCommand<GameAction> PlayFromHandCommand { get; }
         GameConditionWith<Investigator> PlayFromHandCondition { get; }
-
-        bool IsFreeActivation => PlayFromHandTurnsCost.Value < 1;
-        bool WithOppotunityAttack => !IsFreeActivation && (PlayFromHandActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;
-        bool IsJustPlayFromHand => PlayFromHandActionType == PlayActionType.PlayFromHand;
     }
 }

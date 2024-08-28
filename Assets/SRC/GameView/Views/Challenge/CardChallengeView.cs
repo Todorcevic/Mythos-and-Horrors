@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,31 +12,23 @@ namespace MythosAndHorrors.GameView
     {
         private CardView _cardView;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _cardImage;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _challengeStatsControler;
         [Inject] private readonly CardViewsManager _cardViewsManager;
 
         public Card Card { get; private set; }
-        public ChallengeToken Token { get; private set; }
 
         /*******************************************************************/
-        public Tween SetToken(ChallengeToken challengeToken, Sprite tokenSprite, Investigator investigator)
+        public Tween SetCard(Card card, ChallengeType challengeType, int value)
         {
-            if (Card != null || Token != null) return DOTween.Sequence();
-            Token = challengeToken;
-            _cardImage.sprite = tokenSprite;
-            _value.text = challengeToken.Value(investigator).ToString();
-            transform.localScale = Vector3.zero;
-            return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
-              .OnStart(() => gameObject.SetActive(true));
-        }
-
-        public Tween SetCard(Card card, int value)
-        {
-            if (Card != null || Token != null) return DOTween.Sequence();
-            _ = _cardImage.LoadCardSprite(card.Info.Code);
+            if (Card != null) return DOTween.Sequence();
             Card = card;
+            _ = _cardImage.LoadCardSprite(card.Info.Code);
             _cardView = _cardViewsManager.GetCardView(card);
-            _value.text = value.ToString();
+            _challengeStatsControler.SetStat(challengeType, value);
+
+            if (card is CommitableCard commitableCard && commitableCard.Wild.Value > 0)
+                _challengeStatsControler.SetWildStat(commitableCard.Wild.Value);
+
             transform.localScale = Vector3.zero;
             return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
                 .OnStart(() => gameObject.SetActive(true));
@@ -45,9 +36,8 @@ namespace MythosAndHorrors.GameView
 
         public void Disable()
         {
-            if (Card == null && Token == null) return;
+            if (Card == null) return;
             Card = null;
-            Token = null;
             gameObject.SetActive(false);
             transform.SetAsLastSibling();
         }
@@ -56,18 +46,18 @@ namespace MythosAndHorrors.GameView
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
-            _cardView.CardSensor.OnMouseEnter();
+            _cardView.CardSensor.MouseEnter();
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
-            _cardView.CardSensor.OnMouseExit();
+            _cardView.CardSensor.MouseExit();
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            _cardView.CardSensor.OnMouseUpAsButton();
+            _cardView.CardSensor.MouseUpAsButton();
         }
     }
 }

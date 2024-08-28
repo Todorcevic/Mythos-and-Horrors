@@ -181,7 +181,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
 
-                if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+                if (cardSensor.IsClickable) cardSensor.MouseUpAsButton();
                 else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
@@ -234,7 +234,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
                 while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
 
-                if (cardSensor.IsClickable) cardSensor.OnMouseUpAsButton();
+                if (cardSensor.IsClickable) cardSensor.MouseUpAsButton();
                 else throw new TimeoutException($"Clone position: {position} Not become clickable");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
