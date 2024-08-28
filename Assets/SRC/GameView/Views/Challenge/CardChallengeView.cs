@@ -28,6 +28,7 @@ namespace MythosAndHorrors.GameView
 
             if (card is CommitableCard commitableCard && commitableCard.Wild.Value > 0)
                 _challengeStatsControler.SetWildStat(commitableCard.Wild.Value);
+            //else _challengeStatsControler.SetWildStat(0);
 
             transform.localScale = Vector3.zero;
             return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)

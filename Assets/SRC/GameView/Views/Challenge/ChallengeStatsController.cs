@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameView
         public void SetWildStat(int value)
         {
             _wildValue.text = value.ToString();
-            _wildValue.gameObject.SetActive(true);
+            _wildValue.transform.parent.gameObject.SetActive(true);
         }
 
         private void HideAll()

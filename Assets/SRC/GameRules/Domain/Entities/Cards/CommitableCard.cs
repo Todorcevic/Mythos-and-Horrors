@@ -29,15 +29,17 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
+        public int GetChallengeFullValueWithWild(ChallengeType challengeType) => GetChallengeValue(challengeType) + Wild.Value;
+
         public int GetChallengeValue(ChallengeType challengeType)
         {
             return challengeType switch
             {
-                ChallengeType.Strength => Wild.Value + Strength.Value,
-                ChallengeType.Agility => Wild.Value + Agility.Value,
-                ChallengeType.Intelligence => Wild.Value + Intelligence.Value,
-                ChallengeType.Power => Wild.Value + Power.Value,
-                _ => Wild.Value
+                ChallengeType.Strength => Strength.Value,
+                ChallengeType.Agility => Agility.Value,
+                ChallengeType.Intelligence => Intelligence.Value,
+                ChallengeType.Power => Power.Value,
+                _ => 0
             };
         }
 

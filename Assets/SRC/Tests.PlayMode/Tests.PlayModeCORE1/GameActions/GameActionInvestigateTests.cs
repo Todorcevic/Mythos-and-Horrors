@@ -15,20 +15,22 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         public IEnumerator InvestigatePlace()
         {
             CardPlace place = SceneCORE1.Study;
+            Card commitableAny = _cardsProvider.GetCard<Card01510>();
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(commitableAny, investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, place).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Execute();
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(place);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.First.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
         }
     }
 }
