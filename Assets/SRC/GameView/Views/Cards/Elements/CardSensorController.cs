@@ -73,7 +73,6 @@ namespace MythosAndHorrors.GameView
         {
             CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
-
         }
 
         private void OnMouseUpAsButton()

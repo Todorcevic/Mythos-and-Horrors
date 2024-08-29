@@ -1731,10 +1731,10 @@ GameObject:
   m_Component:
   - component: {fileID: 303007372}
   - component: {fileID: 303007375}
+  - component: {fileID: 303007377}
   - component: {fileID: 303007376}
   - component: {fileID: 303007374}
   - component: {fileID: 303007373}
-  - component: {fileID: 303007377}
   m_Layer: 5
   m_Name: Challenger
   m_TagString: Untagged

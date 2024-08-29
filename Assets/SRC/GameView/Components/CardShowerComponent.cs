@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         public void ShowCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
-
+            DestroyShowCard();
             transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
             _currentShowCard = cardView.CloneToCardShower(transform);
             _showcardSequence = _currentShowCard.Animation();
@@ -22,10 +22,15 @@ namespace MythosAndHorrors.GameView
         public void HideCard(CardView cardView)
         {
             if (MustNotShowFilter(cardView)) return;
+            DestroyShowCard();
+        }
 
+        private void DestroyShowCard()
+        {
+            if (_currentShowCard == null) return;
             _showcardSequence?.Kill();
-            if (_currentShowCard != null)
-                Destroy(_currentShowCard.gameObject);
+            Destroy(_currentShowCard.gameObject);
+            _currentShowCard = null;
         }
 
         private Vector3 GetPosition(Transform cardTransform) =>
