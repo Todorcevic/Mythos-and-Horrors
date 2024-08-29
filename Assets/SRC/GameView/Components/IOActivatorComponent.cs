@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
@@ -12,6 +13,13 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, SceneObjectsOnly] private ShowCardsInCenterButton _showCardsInCenterButton;
 
         /*******************************************************************/
+        private void Update()
+        {
+            //_fullBlock.enabled = EventSystem.current.IsPointerOverGameObject();
+        }
+
+        /*******************************************************************/
+
         public void ActivateCardSensors(bool withShowCenterButton = true)
         {
             if (!_fullBlock.enabled) return;

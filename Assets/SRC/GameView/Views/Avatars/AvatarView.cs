@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public void OnPointerEnter(PointerEventData eventData)
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             PointerEnterAnimation();
             _cardViewsManager.GetAvatarCardView(Investigator).CardSensor.MouseEnter();
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameView
             _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             PointerExitAnimation();
             _cardViewsManager.GetAvatarCardView(Investigator).CardSensor.MouseExit();
@@ -76,7 +76,7 @@ namespace MythosAndHorrors.GameView
             _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
-        public async void OnPointerClick(PointerEventData eventData)
+        async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
             await _ioActivatorComponent.DeactivateCardSensors();
             await _swapInvestigatorPresenter.Select(Investigator).AsyncWaitForCompletion();

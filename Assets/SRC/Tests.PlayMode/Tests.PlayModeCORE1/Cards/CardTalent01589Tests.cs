@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardTalent01589Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Integration;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Draw()
