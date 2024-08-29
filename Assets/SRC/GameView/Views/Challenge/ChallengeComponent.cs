@@ -24,8 +24,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _result;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _totalChallenge;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _difficult;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
@@ -52,8 +52,8 @@ namespace MythosAndHorrors.GameView
             _sceneTokenController.UpdateValues(ChallengePhaseGameAction.ActiveInvestigator);
             _tokenLeftController.Refresh();
             _challengeMeterComponent.Show(ChallengePhaseGameAction);
-            _totalChallenge.text = ChallengePhaseGameAction.CurrentTotalChallengeValue.ToString();
-            _difficult.text = ChallengePhaseGameAction.DifficultValue.ToString();
+            _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
+            _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             return UpdateResult(ChallengePhaseGameAction);
         }
 

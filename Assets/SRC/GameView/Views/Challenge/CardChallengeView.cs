@@ -21,14 +21,14 @@ namespace MythosAndHorrors.GameView
         public Tween SetCard(Card card, ChallengeType challengeType, int value)
         {
             if (Card != null) return DOTween.Sequence();
-            Card = card;
             _ = _cardImage.LoadCardSprite(card.Info.Code);
+            Card = card;
+            transform.SetAsLastSibling();
             _cardView = _cardViewsManager.GetCardView(card);
             _challengeStatsControler.SetStat(challengeType, value);
 
             if (card is CommitableCard commitableCard && commitableCard.Wild.Value > 0)
                 _challengeStatsControler.SetWildStat(commitableCard.Wild.Value);
-            //else _challengeStatsControler.SetWildStat(0);
 
             transform.localScale = Vector3.zero;
             return transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack)
@@ -44,14 +44,19 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
+        private int realSibling;
+
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
+            realSibling = transform.GetSiblingIndex();
+            transform.SetAsLastSibling();
             transform.DOScale(1.1f, ViewValues.FAST_TIME_ANIMATION);
             _cardView.CardSensor.MouseEnter();
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
+            transform.SetSiblingIndex(realSibling);
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
             _cardView.CardSensor.MouseExit();
         }

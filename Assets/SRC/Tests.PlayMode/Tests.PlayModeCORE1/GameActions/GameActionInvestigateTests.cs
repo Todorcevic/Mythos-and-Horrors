@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             CardPlace place = SceneCORE1.Study;
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
-            yield return PlayThisInvestigator(investigator);
+            yield return PlayAllInvestigators();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(2, 2)).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, place).Execute().AsCoroutine();
 
