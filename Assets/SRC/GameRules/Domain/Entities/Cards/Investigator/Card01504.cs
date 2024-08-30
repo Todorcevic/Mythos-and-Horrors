@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
+            StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Info.Name);
             AbilityUsed = CreateState(false);
             CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After, "OptativeReaction_Card01504");
             CreateForceReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);

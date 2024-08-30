@@ -17,6 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
+            StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Owner.CurrentPlace.Info.Name);
             AbilityUsed = CreateState(false);
             CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After, "OptativeReaction_Card01501");
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);

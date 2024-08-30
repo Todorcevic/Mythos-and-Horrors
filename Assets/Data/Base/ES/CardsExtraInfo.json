@@ -704,5 +704,25 @@
     {
         "Code": "01117",
         "IsRequired": true
+    },
+    {
+        "Code": "01501",
+        "StarTokenDescription": "+1 por cada pista que haya en {arg0}."
+    },
+    {
+        "Code": "01502",
+        "StarTokenDescription": "Si tienes éxito, roba 1 carta por cada Tomo que controle {arg0}."
+    },
+    {
+        "Code": "01503",
+        "StarTokenDescription": "Si tienes éxito, ganas 2 recursos."
+    },
+    {
+        "Code": "01504",
+        "StarTokenDescription": "+1 por cada punto de Miedo que tenga {arg0}."
+    },
+    {
+        "Code": "01505",
+        "StarTokenDescription": "Si {arg0} está en juego, tienes éxito automáticamente."
     }
 ]

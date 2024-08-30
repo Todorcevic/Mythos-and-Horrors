@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -10,6 +11,8 @@ namespace MythosAndHorrors.GameRules
 
         public List<ChallengeToken> ChallengeTokensInBag { get; private set; }
         public List<ChallengeToken> ChallengeTokensRevealed { get; private set; } = new();
+        public IEnumerable<ChallengeToken> BasicChallengeTokensInBag => ChallengeTokensInBag.Where(token => ((int)token.TokenType) < 10);
+        public IEnumerable<ChallengeToken> SpecialChallengeTokensInBag => ChallengeTokensInBag.Where(token => ((int)token.TokenType) >= 10);
 
         /*******************************************************************/
         public void CreateTokens(List<ChallengeTokenType> tokens)

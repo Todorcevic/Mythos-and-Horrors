@@ -155,11 +155,11 @@
         60
     ],
     "AncientTokenDescriptionNormal": "",
-    "CreatureTokenDescriptionNormal": "X es la cantidad de Enemigos Gul que hay en tu Lugar.",
-    "DangerTokenDescriptionNormal": "Si hay un enemigo Gul en tu Lugar, recibe 1 punto de daño",
-    "CultistTokenDescriptionNormal": "Si fracasas, recibe 1 punto de horror",
+    "CreatureTokenDescriptionNormal": "+1 for each {arg0} in {arg1}.",
+    "DangerTokenDescriptionNormal": "If there is a {arg0} in {arg1}, take 1 damage.",
+    "CultistTokenDescriptionNormal": "If you fail, take 1 Fear.",
     "AncientTokenDescriptionHard": "",
-    "CreatureTokenDescriptionHard": "Si fracasas, después de esta prueba de habilidad busca en el mazo y la pila de descartes de Encuentros un Enemigo Gul y róbalo. Baraja el mazo de Encuentros",
-    "DangerTokenDescriptionHard": "Si hay un enemigo Gul en tu Lugar, recibe 1 punto de daño y 1 punto de horror",
-    "CultistTokenDescriptionHard": "Revela otra ficha. Si fracasas, recibe 2 puntos de horror"
+    "CreatureTokenDescriptionHard": "If you fail, after this Challenge, search the Danger deck and discard pile for a {arg0} and draw it. Shuffle the Danger deck",
+    "DangerTokenDescriptionHard": "If there is a {arg0} in {arg1}, take 1 Damage and 1 Fear.",
+    "CultistTokenDescriptionHard": "Reveal another Token. If you fail, take 2 Fear."
 }

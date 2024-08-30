@@ -158,9 +158,9 @@ namespace MythosAndHorrors.GameRules
         protected override void PrepareChallengeTokens()
         {
             {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
+                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: (_) => CreatureTokenDescriptionNormal);
+                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: (_) => CultistTokenDescriptionNormal);
+                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: (_) => DangerTokenDescriptionNormal);
             }
         }
 

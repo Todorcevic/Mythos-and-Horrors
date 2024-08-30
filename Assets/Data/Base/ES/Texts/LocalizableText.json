@@ -329,8 +329,5 @@
     "Challenge_Card01117": "Parley with {arg0}",
     "Challenge_AttackCreature": "Attack to {arg0}",
     "Challenge_EludeCreature": "Elude {arg0}",
-    "Challenge_InvestigatePlace": "Investigate {arg0}",
-    "Challenge_Fail_Token": "Auto fail",
-    "Challenge_Component_Succeed": "Succeed",
-    "Challenge_Component_Fail": "Fail"
+    "Challenge_InvestigatePlace": "Investigate {arg0}"
 }

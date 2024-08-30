@@ -72,21 +72,29 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override void PrepareChallengeTokens()
         {
-            CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureTokenDescriptionNormal);
-            CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistTokenDescriptionNormal);
-            DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerTokenDescriptionNormal);
+            CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: CreatureDescription);
+            DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: DangerDescription);
+            CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: CultistDescription);
         }
 
         private int CreatureValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return CreatureNormalValue();
+                return CreatureNormalValue(investigator);
             else return CreatureHardValue();
 
             /*******************************************************************/
-            int CreatureNormalValue() => _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+            int CreatureNormalValue(Investigator investigator) => investigator.CreaturesInSamePlace
                 .Where(creature => creature.Tags.Contains(Tag.Ghoul)).Count() * -1;
             int CreatureHardValue() => -2;
+        }
+
+        private string CreatureDescription(Investigator investigator)
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CreatureTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+            else
+                return CreatureTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString());
         }
 
         private async Task CreatureEffect(Investigator investigator)
@@ -121,6 +129,47 @@ namespace MythosAndHorrors.GameRules
             }
         }
 
+        private int DangerValue(Investigator investigator)
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return DangerNormalValue();
+            else return DangerHardValue();
+
+            /*******************************************************************/
+            int DangerNormalValue() => -2;
+            int DangerHardValue() => -4;
+        }
+
+        private string DangerDescription(Investigator investigator)
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+            else
+                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+        }
+
+        private async Task DangerEffect(Investigator investigator)
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                await DangerNormalEffect();
+            else await DangerHardEffect();
+
+            /*******************************************************************/
+            async Task DangerNormalEffect()
+            {
+                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+                    .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
+
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Execute();
+            }
+            async Task DangerHardEffect()
+            {
+                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
+                   .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
+                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Execute();
+            }
+        }
+
         private int CultistValue(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
@@ -130,6 +179,14 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             int CultistNormalValue() => -1;
             int CultistHardValue() => 0;
+        }
+
+        private string CultistDescription(Investigator investigator)
+        {
+            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
+                return CultistTokenDescriptionNormal;
+            else
+                return CultistTokenDescriptionHard;
         }
 
         private async Task CultistEffect(Investigator investigator)
@@ -156,39 +213,6 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task TakeTwoFear() =>
                 await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountFear: 2).Execute();
-            }
-        }
-
-        private int DangerValue(Investigator investigator)
-        {
-            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return DangerNormalValue();
-            else return DangerHardValue();
-
-            /*******************************************************************/
-            int DangerNormalValue() => -2;
-            int DangerHardValue() => -4;
-        }
-
-        private async Task DangerEffect(Investigator investigator)
-        {
-            if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                await DangerNormalEffect();
-            else await DangerHardEffect();
-
-            /*******************************************************************/
-            async Task DangerNormalEffect()
-            {
-                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
-                    .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
-
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1).Execute();
-            }
-            async Task DangerHardEffect()
-            {
-                if (!_gameActionsProvider.CurrentChallenge.ActiveInvestigator.CreaturesInSamePlace
-                   .Any(creature => creature.Tags.Contains(Tag.Ghoul))) return;
-                await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator, _gameActionsProvider.CurrentChallenge.CardToChallenge, amountDamage: 1, amountFear: 1).Execute();
             }
         }
 

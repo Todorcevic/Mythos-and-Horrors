@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         public Zone DangerDeckZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDeck);
         public Zone DangerDiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDiscard);
@@ -88,19 +89,23 @@ namespace MythosAndHorrors.GameRules
         private void PrepareDefaultChallengeTokens()
         {
             PrepareChallengeTokens();
-            StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue);
-            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect);
+            StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue, description: StarDescription);
+            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect, description: FailDescription);
 
             /*******************************************************************/
-            async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect();
+            async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect.Invoke();
 
-            int StarValue(Investigator investigator) => investigator.InvestigatorCard.StarTokenValue();
+            int StarValue(Investigator investigator) => investigator.InvestigatorCard.StarTokenValue.Invoke(); ;
+
+            string StarDescription(Investigator investigator) => investigator.InvestigatorCard.StarTokenDescription.Invoke();
 
             async Task FailEffect(Investigator investigator)
             {
                 _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
                 await Task.CompletedTask;
             }
+
+            string FailDescription(Investigator investigator) => _textsProvider.GetLocalizableText("Challenge_Fail_Token");
         }
 
         private void PrepareResolutions()

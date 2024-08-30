@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
         public Conditional HasTurnsAvailable { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
-        //public override bool .IsInPlay.IsTrue => CurrentZone.ZoneType == ZoneType.Investigator;
+        public Func<string> StarTokenDescription { get; protected set; }
 
         /*******************************************************************/
         [Inject]
@@ -67,6 +67,8 @@ namespace MythosAndHorrors.GameRules
             IsInPlay = new Conditional(() => CurrentZone.ZoneType == ZoneType.Investigator);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
+            StarTokenDescription = () => ExtraInfo.StarTokenDescription;
+
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);
         }
 

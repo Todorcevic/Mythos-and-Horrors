@@ -10,15 +10,15 @@ namespace MythosAndHorrors.GameRules
         public ChallengeTokenType TokenType { get; }
         public Func<Investigator, int> Value { get; private set; }
         public Func<Investigator, Task> Effect { get; private set; }
-        public string Description { get; }
+        public Func<Investigator, string> Description { get; }
 
         /*******************************************************************/
-        public ChallengeToken(ChallengeTokenType type, Func<Investigator, int> value = null, Func<Investigator, Task> effect = null, string description = null)
+        public ChallengeToken(ChallengeTokenType type, Func<Investigator, int> value = null, Func<Investigator, Task> effect = null, Func<Investigator, string> description = null)
         {
             TokenType = type;
             InitialValue = Value = value ?? ((_) => 0);
             InititalEffect = Effect = effect;
-            Description = description;
+            Description = description ?? ((_) => string.Empty);
         }
         /*******************************************************************/
         public void UpdateValue(Func<Investigator, int> newValue)

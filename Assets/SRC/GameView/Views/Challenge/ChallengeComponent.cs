@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -18,19 +17,20 @@ namespace MythosAndHorrors.GameView
         private Vector3 returnPosition;
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _investigatorCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _result;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _message;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
-        [SerializeField, Required, ChildGameObjectsOnly] private SceneTokensController _sceneTokenController;
-        [SerializeField, Required, ChildGameObjectsOnly] private TokenLeftController _tokenLeftController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowTopController;
+        [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowBottomController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMeterComponent _challengeMeterComponent;
-        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
 
         /*******************************************************************/
         [Inject]
@@ -49,8 +49,8 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
-            _sceneTokenController.UpdateValues(ChallengePhaseGameAction.ActiveInvestigator);
-            _tokenLeftController.Refresh();
+            _tokenRowTopController.SetWith(ChallengePhaseGameAction.ActiveInvestigator, _challengeTokensProvider.BasicChallengeTokensInBag);
+            _tokenRowBottomController.SetWith(ChallengePhaseGameAction.ActiveInvestigator, _challengeTokensProvider.SpecialChallengeTokensInBag);
             _challengeMeterComponent.Show(ChallengePhaseGameAction);
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
@@ -81,7 +81,6 @@ namespace MythosAndHorrors.GameView
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
             _investigatorCardController.Disable();
             _challengeCardController.Disable();
-            _sceneTokenController.Disable();
             _commitCardController.ClearAll();
         }
 
@@ -90,10 +89,10 @@ namespace MythosAndHorrors.GameView
             bool? isSuccessful = ChallengePhaseGameAction.ResultChallenge?.IsSuccessful;
             if (!isSuccessful.HasValue) return DOTween.Sequence();
 
-            _result.transform.DOScale(0, 0).SetEase(Ease.InBack);
-            _result.text = isSuccessful.Value ? "Success" : "Fail";
-            _result.color = isSuccessful.Value ? Color.green : Color.red;
-            return _result.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
+            _message.transform.DOScale(0, 0).SetEase(Ease.InBack);
+            _message.text = isSuccessful.Value ? _textsProvider.GetLocalizableText("Challenge_Component_Succeed") : _textsProvider.GetLocalizableText("Challenge_Component_Fail");
+            _message.color = isSuccessful.Value ? Color.green : Color.red;
+            return _message.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()

@@ -704,5 +704,25 @@
     {
         "Code": "01117",
         "IsRequired": true
+    },
+    {
+        "Code": "01501",
+        "StarTokenDescription": "+1 for each Hint present in {arg0}."
+    },
+    {
+        "Code": "01502",
+        "StarTokenDescription": "If you succeed, draw 1 card for each Tome controlled by {arg0}."
+    },
+    {
+        "Code": "01503",
+        "StarTokenDescription": "If you succeed, gain 2 resources."
+    },
+    {
+        "Code": "01504",
+        "StarTokenDescription": "+1 for each Fear {arg0} has."
+    },
+    {
+        "Code": "01505",
+        "StarTokenDescription": "If {arg0} is in play, you automatically succeed."
     }
 ]

@@ -1,29 +1,35 @@
-﻿using MythosAndHorrors.GameRules;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
 {
-    public class SceneTokenView : MonoBehaviour
+    public class SceneTokenView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private ChallengeToken _challengeToken;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _description;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _image;
+        private string _description;
+        private TextMeshProUGUI _message;
 
         /*******************************************************************/
-        public void SetToken(ChallengeToken challengeToken)
+        public void SetToken(int value, string description, Sprite image, TextMeshProUGUI message)
         {
-            if (challengeToken == null) return;
-            gameObject.SetActive(true);
-            _challengeToken = challengeToken;
-            _description.text = _challengeToken.Description;
+            _message = message;
+            _description = description;
+            _image.sprite = image;
+            _value.text = $"{(value > 0 ? "+" : "")}{value}";
         }
 
-        public void UpdateValue(Investigator investigator)
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (_challengeToken == null) return;
-            _value.text = (_challengeToken.Value?.Invoke(investigator) ?? 0).ToString();
+            _message.text = "<size=100%>" + _value.text + (string.IsNullOrEmpty(_description) ? string.Empty : "\n <size=60%>" + _description);
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        {
+            _message.text = string.Empty;
         }
     }
 }
