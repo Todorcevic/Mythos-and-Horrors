@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
             StatModifier = new Stat(0, true);
             InitialDifficultValue = difficultValue;
             CardToChallenge = cardToChallenge;
-            ChallengeName = _textsProvider.GetLocalizableText(localizableCode, localizableArgs);
+            ChallengeName = $"{ActiveInvestigator.InvestigatorCard.Info.Name} {_textsProvider.GetLocalizableText(localizableCode, localizableArgs)}";
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
             return this;

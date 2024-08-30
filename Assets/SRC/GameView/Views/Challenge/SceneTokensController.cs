@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

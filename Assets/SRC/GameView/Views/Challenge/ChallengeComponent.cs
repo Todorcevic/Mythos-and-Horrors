@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
-        [SerializeField, Required, ChildGameObjectsOnly] private SkillChallengeController _skillChallengeController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _investigatorCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
@@ -88,22 +88,12 @@ namespace MythosAndHorrors.GameView
         private Tween UpdateResult(ChallengePhaseGameAction ChallengePhaseGameAction)
         {
             bool? isSuccessful = ChallengePhaseGameAction.ResultChallenge?.IsSuccessful;
+            if (!isSuccessful.HasValue) return DOTween.Sequence();
 
-            if (!isSuccessful.HasValue)
-            {
-                _result.transform.DOScale(0, 0).SetEase(Ease.InBack);
-                _result.text = string.Empty;
-                _result.color = Color.white;
-                _skillChallengeController.SetSkill(ChallengePhaseGameAction.ChallengeType);
-            }
-            else
-            {
-                _result.text = isSuccessful.Value ? "Success" : "Fail";
-                _result.color = isSuccessful.Value ? Color.green : Color.red;
-                return DOTween.Sequence().Append(_skillChallengeController.ShutDown())
-                    .Append(_result.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack));
-            }
-            return DOTween.Sequence();
+            _result.transform.DOScale(0, 0).SetEase(Ease.InBack);
+            _result.text = isSuccessful.Value ? "Success" : "Fail";
+            _result.color = isSuccessful.Value ? Color.green : Color.red;
+            return _result.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
