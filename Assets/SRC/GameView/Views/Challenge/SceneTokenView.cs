@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,11 +25,13 @@ namespace MythosAndHorrors.GameView
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
+            transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
             _message.text = "<size=100%>" + _value.text + (string.IsNullOrEmpty(_description) ? string.Empty : "\n <size=60%>" + _description);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
+            transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
             _message.text = string.Empty;
         }
     }

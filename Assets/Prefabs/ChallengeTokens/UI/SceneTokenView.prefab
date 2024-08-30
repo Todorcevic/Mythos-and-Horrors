@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 8321904123837306118}
   _image: {fileID: 4017297536911905395}
+  _layout: {fileID: 9033690308817504637}
 --- !u!114 &9033690308817504637
 MonoBehaviour:
   m_ObjectHideFlags: 0

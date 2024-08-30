@@ -52,6 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tokensManager: {fileID: 11400000, guid: 09fc65450f5340a4994669165b367dcc, type: 2}
   _sceneTokenPrefab: {fileID: 6276486648033780427, guid: da97249664c20bd4da44cbbdec293df1, type: 3}
+  _horizontalLayout: {fileID: 3238544369012443459}
+  _rectTransform: {fileID: 8617029857575581958}
   _message: {fileID: 0}
 --- !u!222 &4256804677450942753
 CanvasRenderer:
