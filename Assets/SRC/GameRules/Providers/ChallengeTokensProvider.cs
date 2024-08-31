@@ -13,6 +13,10 @@ namespace MythosAndHorrors.GameRules
         public List<ChallengeToken> ChallengeTokensRevealed { get; private set; } = new();
         public IEnumerable<ChallengeToken> BasicChallengeTokensInBag => ChallengeTokensInBag.Where(token => ((int)token.TokenType) < 10);
         public IEnumerable<ChallengeToken> SpecialChallengeTokensInBag => ChallengeTokensInBag.Where(token => ((int)token.TokenType) >= 10);
+        public IEnumerable<ChallengeToken> BasicChallengeTokensRevealed => ChallengeTokensRevealed.Where(token => ((int)token.TokenType) < 10);
+        public IEnumerable<ChallengeToken> SpecialChallengeTokensRevealed => ChallengeTokensRevealed.Where(token => ((int)token.TokenType) >= 10);
+        public IEnumerable<ChallengeToken> AllBasicChallengeTokens => BasicChallengeTokensInBag.Concat(BasicChallengeTokensRevealed);
+        public IEnumerable<ChallengeToken> AllSpecialChallengeTokens => SpecialChallengeTokensInBag.Concat(SpecialChallengeTokensRevealed);
 
         /*******************************************************************/
         public void CreateTokens(List<ChallengeTokenType> tokens)

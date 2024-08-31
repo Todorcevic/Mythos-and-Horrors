@@ -28,8 +28,18 @@ namespace MythosAndHorrors.GameView
         private void SetToken(ChallengeToken token, Investigator investigator)
         {
             ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, transform);
-            sceneToken.SetToken(token.Value.Invoke(investigator), token.Description.Invoke(investigator), _message);
+            sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _message);
             allTokens.Add(sceneToken);
+        }
+
+        public void ShowToken(ChallengeToken token)
+        {
+            allTokens.Find(sceneToken => sceneToken.Challengetoken == token)?.ShowToken();
+        }
+
+        public void HideToken(ChallengeToken token)
+        {
+            allTokens.Find(sceneToken => sceneToken.Challengetoken == token)?.HideToken();
         }
     }
 }

@@ -49,26 +49,26 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
-            _tokenRowTopController.SetWith(ChallengePhaseGameAction.ActiveInvestigator, _challengeTokensProvider.BasicChallengeTokensInBag);
-            _tokenRowBottomController.SetWith(ChallengePhaseGameAction.ActiveInvestigator, _challengeTokensProvider.SpecialChallengeTokensInBag);
+            ShowRevealedTokens();
             _challengeMeterComponent.Show(ChallengePhaseGameAction);
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             return UpdateResult(ChallengePhaseGameAction);
         }
 
-        public void SetToken(ChallengeToken token, Investigator investigator)
+        private void ShowRevealedTokens()
         {
-            //_commitCardController.ShowToken(token, investigator);
+            _challengeTokensProvider.BasicChallengeTokensRevealed.ForEach(token => _tokenRowTopController.ShowToken(token));
+            _challengeTokensProvider.BasicChallengeTokensInBag.ForEach(token => _tokenRowTopController.HideToken(token));
+            _challengeTokensProvider.SpecialChallengeTokensRevealed.ForEach(token => _tokenRowBottomController.ShowToken(token));
+            _challengeTokensProvider.SpecialChallengeTokensInBag.ForEach(token => _tokenRowBottomController.HideToken(token));
         }
 
-        public void RestoreToken(ChallengeToken token)
+        public async Task Show(Transform worldObject, Investigator investigator)
         {
-            //_commitCardController.RestoreToken(token); 
-        }
-
-        public async Task Show(Transform worldObject)
-        {
+            _tokenRowTopController.SetWith(investigator, _challengeTokensProvider.AllBasicChallengeTokens);
+            _tokenRowBottomController.SetWith(investigator, _challengeTokensProvider.AllSpecialChallengeTokens);
+            _message.text = string.Empty;
             transform.localScale = Vector3.zero;
             returnPosition = transform.position = (worldObject == null) ?
                 _outPosition.transform.position :
@@ -88,10 +88,10 @@ namespace MythosAndHorrors.GameView
         {
             bool? isSuccessful = ChallengePhaseGameAction.ResultChallenge?.IsSuccessful;
             if (!isSuccessful.HasValue) return DOTween.Sequence();
-
             _message.transform.DOScale(0, 0).SetEase(Ease.InBack);
-            _message.text = isSuccessful.Value ? _textsProvider.GetLocalizableText("Challenge_Component_Succeed") : _textsProvider.GetLocalizableText("Challenge_Component_Fail");
-            _message.color = isSuccessful.Value ? Color.green : Color.red;
+            _message.text = isSuccessful.Value ?
+                $"<color=#{ColorUtility.ToHtmlStringRGB(ViewValues.GREEN_FONT_COLOR)}>{_textsProvider.GetLocalizableText("Challenge_Component_Succeed")}" :
+                $"<color=#{ColorUtility.ToHtmlStringRGB(ViewValues.RED_FONT_COLOR)}>{_textsProvider.GetLocalizableText("Challenge_Component_Fail")}";
             return _message.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
         }
 

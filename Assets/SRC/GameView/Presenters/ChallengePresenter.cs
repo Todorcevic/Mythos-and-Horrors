@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameView
                     await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
                     Transform worldObject = challengePhaseGameAction.CardToChallenge == null ? null :
                          _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
-                    await _challengeComponent.Show(worldObject);
+                    await _challengeComponent.Show(worldObject, challengePhaseGameAction.ActiveInvestigator);
                 }
             }
         }
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameView
         {
             await _challengeBagComponent.DropToken(revealChallengeTokenGA.ChallengeTokenRevealed).AsyncWaitForCompletion();
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-            _challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed, revealChallengeTokenGA.Investigator);
+            //_challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed, revealChallengeTokenGA.Investigator);
         }
 
         async Task IPresenter<ResolveSingleChallengeTokenGameAction>.PlayAnimationWith(ResolveSingleChallengeTokenGameAction resolveSingleChallengeGA)
@@ -55,7 +55,8 @@ namespace MythosAndHorrors.GameView
         async Task IPresenter<RestoreChallengeTokenGameAction>.PlayAnimationWith(RestoreChallengeTokenGameAction restoreChallengeToken)
         {
             await _challengeBagComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore).AsyncWaitForCompletion();
-            _challengeComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore);
+            await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
+            //_challengeComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore);
         }
     }
 }
