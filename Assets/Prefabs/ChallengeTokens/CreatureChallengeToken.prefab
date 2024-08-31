@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 2340749446080962695, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 69ae0d320f8990e4da943dfad18b9507, type: 2}
+      objectReference: {fileID: 2100000, guid: d61fbfe494755194ab439bfb8251019d, type: 2}
     - target: {fileID: 2555081931009267597, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
       propertyPath: m_Name
       value: CreatureChallengeToken

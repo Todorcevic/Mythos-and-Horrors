@@ -57,9 +57,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2340749446080962695, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340749446080962695, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1283c84d6ea00364d87a844e9ebb1a82, type: 2}
+    - target: {fileID: 2340749446080962695, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1778dc3ab083ef45ae8da35d4b7041c, type: 2}
     - target: {fileID: 2555081931009267597, guid: b94b60ba7732ffe4097b7a9dd021d72d, type: 3}
       propertyPath: m_Name
       value: AncientChallengeToken
