@@ -3,15 +3,13 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
 {
     public class TokensRowController : MonoBehaviour
     {
-        private readonly List<SceneTokenView> allTokens = new();
+        private readonly List<ChallengeToken2DView> allTokens = new();
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
-        [SerializeField, Required, AssetsOnly] private SceneTokenView _sceneTokenPrefab;
         [SerializeField, Required] private TextMeshProUGUI _message;
 
         /*******************************************************************/
@@ -29,9 +27,9 @@ namespace MythosAndHorrors.GameView
 
         private void SetToken(ChallengeToken token, Investigator investigator)
         {
-            SceneTokenView sceneToken = Instantiate(_sceneTokenPrefab, transform);
+            ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, transform);
+            sceneToken.SetToken(token.Value.Invoke(investigator), token.Description.Invoke(investigator), _message);
             allTokens.Add(sceneToken);
-            sceneToken.SetToken(token.Value.Invoke(investigator), token.Description.Invoke(investigator), _tokensManager.GetToken(token.TokenType).Image, _message);
         }
     }
 }

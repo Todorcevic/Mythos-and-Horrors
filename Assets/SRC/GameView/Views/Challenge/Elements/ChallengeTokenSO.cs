@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private ChallengeTokenType _type;
 
         public Sprite Image => _image;
+        public Texture Texture => _texture;
         public ChallengeTokenType TokenType => _type;
     }
 }

@@ -23,16 +23,16 @@ namespace MythosAndHorrors.PlayModeView.Tests
             {
                 if (DEBUG_MODE) yield return PressAnyKey();
 
-                yield return _challengeBagComponent.DropToken(challengeToken, _investigatorsProvider.First).WaitForCompletion();
+                yield return _challengeBagComponent.DropToken(challengeToken).WaitForCompletion();
             } while (DEBUG_MODE);
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_challengeBagComponent.GetPrivateMember<List<ChallengeTokenView>>("_allTokensDrop").Unique().ChallengeToken,
+            Assert.That(_challengeBagComponent.GetPrivateMember<List<ChallengeToken3DView>>("_allTokensDrop").Unique().ChallengeToken,
                 Is.EqualTo(challengeToken));
 
             yield return _challengeBagComponent.RestoreToken(challengeToken).WaitForCompletion();
 
-            Assert.That(_challengeBagComponent.GetPrivateMember<List<ChallengeTokenView>>("_allTokensDrop").Count, Is.EqualTo(0));
+            Assert.That(_challengeBagComponent.GetPrivateMember<List<ChallengeToken3DView>>("_allTokensDrop").Count, Is.EqualTo(0));
         }
     }
 }
