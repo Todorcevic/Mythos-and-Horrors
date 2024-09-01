@@ -224,7 +224,7 @@ Material:
     - _WaveY: 0.5
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 1.01
+    - _ZoomUvAmount: 1.05
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 1, b: 0.020439148, a: 1}
