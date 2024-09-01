@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameView
 
         public void ShowToken()
         {
-            transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
+            //transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
             _frame.gameObject.SetActive(true);
             _value.transform.parent.gameObject.SetActive(true);
             ShowText();
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.GameView
 
         public void HideToken()
         {
-            transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+            //transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
             _frame.gameObject.SetActive(false);
             _value.transform.parent.gameObject.SetActive(false);
             HideText();
