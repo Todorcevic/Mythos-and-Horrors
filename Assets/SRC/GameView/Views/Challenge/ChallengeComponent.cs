@@ -23,14 +23,15 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _investigatorCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
+        [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _message;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _resultMessage;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowTopController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowBottomController;
-        [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
-        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMeterComponent _challengeMeterComponent;
+        [SerializeField, Required, ChildGameObjectsOnly] private ResultInfoComponent _resultInfoComponent;
 
         /*******************************************************************/
         [Inject]
@@ -50,10 +51,9 @@ namespace MythosAndHorrors.GameView
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = ChallengePhaseGameAction.ChallengeName;
             ShowRevealedTokens();
-            _challengeMeterComponent.Show(ChallengePhaseGameAction);
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
-            return UpdateResult(ChallengePhaseGameAction);
+            return _resultInfoComponent.Show(ChallengePhaseGameAction);
         }
 
         private void ShowRevealedTokens()
@@ -64,16 +64,15 @@ namespace MythosAndHorrors.GameView
             _challengeTokensProvider.SpecialChallengeTokensInBag.ForEach(token => _tokenRowBottomController.HideToken(token));
         }
 
-        public async Task Show(Transform worldObject, Investigator investigator)
+        public Sequence Show(Transform worldObject, Investigator investigator)
         {
+            _message.text = string.Empty;
             _tokenRowTopController.SetWith(investigator, _challengeTokensProvider.AllBasicChallengeTokens);
             _tokenRowBottomController.SetWith(investigator, _challengeTokensProvider.AllSpecialChallengeTokens);
-            _message.text = string.Empty;
             transform.localScale = Vector3.zero;
-            returnPosition = transform.position = (worldObject == null) ?
-                _outPosition.transform.position :
+            returnPosition = transform.position = (worldObject == null) ? _outPosition.transform.position :
                 RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
-            await ShowAnimation().AsyncWaitForCompletion();
+            return ShowAnimation();
         }
 
         public async Task Hide()
@@ -82,17 +81,6 @@ namespace MythosAndHorrors.GameView
             _investigatorCardController.Disable();
             _challengeCardController.Disable();
             _commitCardController.ClearAll();
-        }
-
-        private Tween UpdateResult(ChallengePhaseGameAction ChallengePhaseGameAction)
-        {
-            bool? isSuccessful = ChallengePhaseGameAction.ResultChallenge?.IsSuccessful;
-            if (!isSuccessful.HasValue) return DOTween.Sequence();
-            _message.transform.DOScale(0, 0).SetEase(Ease.InBack);
-            _message.text = isSuccessful.Value ?
-                $"<color=#{ColorUtility.ToHtmlStringRGB(ViewValues.GREEN_FONT_COLOR)}>{_textsProvider.GetLocalizableText("Challenge_Component_Succeed")}" :
-                $"<color=#{ColorUtility.ToHtmlStringRGB(ViewValues.RED_FONT_COLOR)}>{_textsProvider.GetLocalizableText("Challenge_Component_Fail")}";
-            return _message.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()

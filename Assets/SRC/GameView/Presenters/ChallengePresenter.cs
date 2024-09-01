@@ -12,7 +12,11 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly ChallengeComponent _challengeComponent;
         [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
+        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
 
         /*******************************************************************/
         async Task IPresenter<ChallengePhaseGameAction>.PlayAnimationWith(ChallengePhaseGameAction challengePhaseGameAction)
@@ -23,16 +27,25 @@ namespace MythosAndHorrors.GameView
                 if (challengePhaseGameAction.ResultChallenge != null)
                 {
                     await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
+                    await PauseToContinue();
                     await _challengeComponent.Hide();
                 }
                 else
                 {
-                    await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
                     Transform worldObject = challengePhaseGameAction.CardToChallenge == null ? null :
-                         _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
-                    await _challengeComponent.Show(worldObject, challengePhaseGameAction.ActiveInvestigator);
+                      _cardViewsManager.GetCardView(challengePhaseGameAction.CardToChallenge).transform;
+                    await _challengeComponent.Show(worldObject, challengePhaseGameAction.ActiveInvestigator)
+                        .Join(_challengeComponent.UpdateInfo()).AsyncWaitForCompletion();
                 }
             }
+        }
+
+        private async Task PauseToContinue()
+        {
+            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
+            _showSelectorComponent.MainButtonShowUp();
+            await _clickHandler.WaitingClick();
+            _showSelectorComponent.MainButtonHideUp();
         }
 
         async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
@@ -44,7 +57,6 @@ namespace MythosAndHorrors.GameView
         {
             await _challengeBagComponent.DropToken(revealChallengeTokenGA.ChallengeTokenRevealed).AsyncWaitForCompletion();
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-            //_challengeComponent.SetToken(revealChallengeTokenGA.ChallengeTokenRevealed, revealChallengeTokenGA.Investigator);
         }
 
         async Task IPresenter<ResolveSingleChallengeTokenGameAction>.PlayAnimationWith(ResolveSingleChallengeTokenGameAction resolveSingleChallengeGA)
@@ -56,7 +68,6 @@ namespace MythosAndHorrors.GameView
         {
             await _challengeBagComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore).AsyncWaitForCompletion();
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
-            //_challengeComponent.RestoreToken(restoreChallengeToken.ChallengeTokenToRestore);
         }
     }
 }

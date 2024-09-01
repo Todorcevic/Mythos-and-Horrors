@@ -16,6 +16,7 @@ namespace MythosAndHorrors.GameView
         public void SetStat(ChallengeType challengeType, int value)
         {
             HideAll();
+            //string formattedValue = $"{(value > 0 ? "+" : "")}{value}";
             if (challengeType == ChallengeType.Strength)
             {
                 _strengthValue.text = value.ToString();

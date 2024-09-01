@@ -155,7 +155,7 @@
         60
     ],
     "AncientTokenDescriptionNormal": "",
-    "CreatureTokenDescriptionNormal": "+1 for each {arg0} in {arg1}.",
+    "CreatureTokenDescriptionNormal": "-1 for each {arg0} in {arg1}.",
     "DangerTokenDescriptionNormal": "If there is a {arg0} in {arg1}, take 1 damage.",
     "CultistTokenDescriptionNormal": "If you fail, take 1 Fear.",
     "AncientTokenDescriptionHard": "",

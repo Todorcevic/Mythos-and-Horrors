@@ -117,10 +117,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6590745455387766947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.7316, y: 0.4564}
-  m_SizeDelta: {x: 150, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000091552734, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8064141767357693623
 CanvasRenderer:
@@ -169,12 +169,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6590745455387766947}
-  - component: {fileID: 66085278851512512}
+  - component: {fileID: 5638187545438975341}
   - component: {fileID: 7027611103901294315}
   - component: {fileID: 9033474083904809474}
   - component: {fileID: 435015353257470822}
   m_Layer: 5
-  m_Name: ChallengeCard
+  m_Name: ChallengeCommit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ RectTransform:
   m_AnchoredPosition: {x: -285.4, y: -20}
   m_SizeDelta: {x: 120, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &66085278851512512
+--- !u!114 &5638187545438975341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5952476789306968992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab0a74aea444c14dbdf93ea898a573b, type: 3}
+  m_Script: {fileID: 11500000, guid: 3af4a65843de9a949b46411d1d7fc84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cardImage: {fileID: 9033474083904809474}

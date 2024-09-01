@@ -30,5 +30,11 @@ namespace MythosAndHorrors.GameView
 
             _showSelectorComponent.MainButtonHideUp();
         }
+
+        private async Task PauseToContinue()
+        {
+            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
+            await _clickHandler.WaitingClick();
+        }
     }
 }

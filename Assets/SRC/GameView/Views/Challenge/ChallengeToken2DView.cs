@@ -5,13 +5,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace MythosAndHorrors.GameView
 {
     public class ChallengeToken2DView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField, Required, ChildGameObjectsOnly] private Image _image;
-        private string _value;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _frame;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
         private string _description;
         private TextMeshProUGUI _message;
 
@@ -28,7 +30,8 @@ namespace MythosAndHorrors.GameView
             Challengetoken = challengetoken;
             _message = message;
             _description = description;
-            _value = $"{(value > 0 ? "+" : "")}{value}";
+            //_value.text = $"{(value > 0 ? "+" : "")}{value}";
+            _value.text = value.ToString();
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -46,18 +49,28 @@ namespace MythosAndHorrors.GameView
         public void ShowToken()
         {
             transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
+            _frame.gameObject.SetActive(true);
+            _value.transform.parent.gameObject.SetActive(true);
             ShowText();
         }
 
         public void HideToken()
         {
             transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+            _frame.gameObject.SetActive(false);
+            _value.transform.parent.gameObject.SetActive(false);
             HideText();
         }
 
-        private void ShowText() => _message.text = "<size=100%>" + _value + (string.IsNullOrEmpty(_description) ? string.Empty : "\n <size=60%>" + _description);
+        private void ShowText()
+        {
+            _message.text = "<size=100%>" + _value.text + (string.IsNullOrEmpty(_description) ? string.Empty : "\n <size=60%>" + _description);
+        }
 
-        private void HideText() => _message.text = string.Empty;
+        private void HideText()
+        {
+            _message.text = string.Empty;
+        }
     }
 }
 

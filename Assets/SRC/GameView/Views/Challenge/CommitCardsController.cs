@@ -13,32 +13,32 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _challengeTokensManager;
         [SerializeField, Required, ChildGameObjectsOnly] private HorizontalLayoutGroup _layoutGroup;
         [SerializeField, Required, ChildGameObjectsOnly] private RectTransform _rectTransform;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<CardChallengeView> _cardChallenges;
+        [SerializeField, Required, ChildGameObjectsOnly] private List<CommitChallengeView> _commitChallenges;
 
         /*******************************************************************/
-        public void ClearAll() => _cardChallenges.ForEach(cardChallenge => cardChallenge.Disable());
+        public void ClearAll() => _commitChallenges.ForEach(cardChallenge => cardChallenge.Disable());
 
         public void ShowAll(IEnumerable<CommitableCard> commitCards, ChallengeType challengeType)
         {
             _layoutGroup.enabled = true;
-            _cardChallenges.FindAll(cardChallengeView => !commitCards.Contains(cardChallengeView.Card)).ForEach(cardChallenge => cardChallenge.Disable());
+            _commitChallenges.FindAll(cardChallengeView => !commitCards.Contains(cardChallengeView.CommitableCard)).ForEach(cardChallenge => cardChallenge.Disable());
             Sequence spawnCommitsCardAnimation = DOTween.Sequence();
-            foreach (CommitableCard commitCard in commitCards.Where(card => !_cardChallenges.Select(cardChallenge => cardChallenge.Card).Contains(card)))
+            foreach (CommitableCard commitCard in commitCards.Where(card => !_commitChallenges.Select(cardChallenge => cardChallenge.CommitableCard).Contains(card)))
             {
                 spawnCommitsCardAnimation.Join(GetFreeCardChallenge().SetCard(commitCard, challengeType, commitCard.GetChallengeValue(challengeType)));
             }
             spawnCommitsCardAnimation.OnComplete(() => _layoutGroup.enabled = false);
         }
 
-        private CardChallengeView CreateCardChallenge()
+        private CommitChallengeView GetFreeCardChallenge() => _commitChallenges.FirstOrDefault(cardChallenge => cardChallenge.CommitableCard == null) ?? CreateCardChallenge();
+
+        private CommitChallengeView CreateCardChallenge()
         {
-            CardChallengeView cardChallenge = Instantiate(_cardChallenges.First(), transform);
+            CommitChallengeView cardChallenge = Instantiate(_commitChallenges.First(), transform);
             cardChallenge.Disable();
-            _cardChallenges.Add(cardChallenge);
+            _commitChallenges.Add(cardChallenge);
             return cardChallenge;
         }
-
-        private CardChallengeView GetFreeCardChallenge() => _cardChallenges.FirstOrDefault(cardChallenge => cardChallenge.Card == null) ?? CreateCardChallenge();
     }
 }
 
