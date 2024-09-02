@@ -64,8 +64,11 @@ namespace MythosAndHorrors.GameView
             _challengeTokensProvider.SpecialChallengeTokensInBag.ForEach(token => _tokenRowBottomController.HideToken(token));
         }
 
+
+        public bool IsShowed { get; private set; }
         public Sequence Show(Transform worldObject, Investigator investigator)
         {
+            IsShowed = true;
             _message.text = string.Empty;
             _tokenRowTopController.SetWith(investigator, _challengeTokensProvider.AllBasicChallengeTokens);
             _tokenRowBottomController.SetWith(investigator, _challengeTokensProvider.AllSpecialChallengeTokens);
@@ -77,6 +80,7 @@ namespace MythosAndHorrors.GameView
 
         public async Task Hide()
         {
+            IsShowed = false;
             await HideAnimation(returnPosition).AsyncWaitForCompletion();
             _investigatorCardController.Disable();
             _challengeCardController.Disable();

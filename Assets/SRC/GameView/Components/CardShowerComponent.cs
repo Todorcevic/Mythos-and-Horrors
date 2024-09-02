@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
         {
             if (MustNotShowFilter(cardView)) return;
             DestroyShowCard();
-            transform.position = new Vector3(GetPosition(cardView.transform).x, transform.position.y, transform.position.z);
+            transform.position = new Vector3(GetXPosition(cardView.transform), transform.position.y, transform.position.z);
             _currentShowCard = cardView.CloneToCardShower(transform);
             _showcardSequence = _currentShowCard.Animation();
         }
@@ -33,10 +33,15 @@ namespace MythosAndHorrors.GameView
             _currentShowCard = null;
         }
 
-        private Vector3 GetPosition(Transform cardTransform) =>
-            (cardTransform.position - Camera.main.transform.position).normalized
-            * (transform.position - Camera.main.transform.position).magnitude
-            + Vector3.right * (Camera.main.WorldToViewportPoint(cardTransform.position).x < 0.5f ? X_OFFSET : -X_OFFSET);
+        private float GetXPosition(Transform cardTransform)
+        {
+            float limit = Camera.main.orthographicSize * Camera.main.aspect;
+            Vector3 finalPosition = ((cardTransform.position - Camera.main.transform.position).normalized
+               * (transform.position - Camera.main.transform.position).magnitude
+               + Vector3.right * (Camera.main.WorldToViewportPoint(cardTransform.position).x < 0.5f ? X_OFFSET : -X_OFFSET));
+
+            return Mathf.Clamp(finalPosition.x, -limit, limit);
+        }
 
         private bool MustNotShowFilter(CardView cardView)
         {

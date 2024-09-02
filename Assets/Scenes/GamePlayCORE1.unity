@@ -12635,6 +12635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81ce4dbe8371384baf8a3719a6e3415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _challengeComponent: {fileID: 303007375}
 --- !u!4 &1834867011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d5aedf37d25c2184692e281fdf49677b, type: 3}
