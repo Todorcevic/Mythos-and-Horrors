@@ -45,6 +45,13 @@ namespace MythosAndHorrors.GameView
             await returnSequence.AsyncWaitForCompletion();
             DeactiveTitle();
             if (withActivation) _ioActivatorComponent.ActivateCardSensors();
+
+            /*******************************************************************/
+            void DeactiveTitle()
+            {
+                _title.gameObject.SetActive(false);
+                _title.text = string.Empty;
+            }
         }
 
         private async Task ShowUp(string title)
@@ -60,9 +67,19 @@ namespace MythosAndHorrors.GameView
             showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0, Ease.InSine));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
+
+            /*******************************************************************/
+            void ActivateTitle(string title)
+            {
+                _title.text = title;
+                _title.gameObject.SetActive(true);
+            }
         }
 
-        public Tween MainButtonShowUp()
+        /*******************************************************************/
+        public static bool IsWaitingToContinue { get; private set; }
+
+        public Tween MainButtonWaitingToContinueShowUp()
         {
             return DOTween.Sequence().OnStart(() => _ = _ioActivatorComponent.DeactivateCardSensors())
                .Join(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
@@ -73,28 +90,18 @@ namespace MythosAndHorrors.GameView
             {
                 _mainButtonComponent.ActivateToClick();
                 _ioActivatorComponent.ActivateCardSensors(withShowCenterButton: false);
+                IsWaitingToContinue = true;
             }
         }
 
-        public void MainButtonHideUp()
+        public void MainButtonWaitingToContinueHideUp()
         {
             _ = _ioActivatorComponent.DeactivateCardSensors();
             DOTween.Sequence()
                 .Join(_mainButtonComponent.RestorePosition())
                 .Join(_selectorBlockController.DeactivateSelector());
             _mainButtonComponent.DeactivateToClick();
-        }
-
-        public void ActivateTitle(string title)
-        {
-            _title.text = title;
-            _title.gameObject.SetActive(true);
-        }
-
-        private void DeactiveTitle()
-        {
-            _title.gameObject.SetActive(false);
-            _title.text = string.Empty;
+            IsWaitingToContinue = false;
         }
     }
 }

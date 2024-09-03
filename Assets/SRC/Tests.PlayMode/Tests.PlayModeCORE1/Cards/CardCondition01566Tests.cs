@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardCondition01566Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Evade()

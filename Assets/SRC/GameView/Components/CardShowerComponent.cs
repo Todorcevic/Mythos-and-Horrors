@@ -35,12 +35,13 @@ namespace MythosAndHorrors.GameView
 
         private float GetXPosition(Transform cardTransform)
         {
-            float limit = Camera.main.orthographicSize * Camera.main.aspect;
             Vector3 finalPosition = ((cardTransform.position - Camera.main.transform.position).normalized
                * (transform.position - Camera.main.transform.position).magnitude
                + Vector3.right * (Camera.main.WorldToViewportPoint(cardTransform.position).x < 0.5f ? X_OFFSET : -X_OFFSET));
 
-            return Mathf.Clamp(finalPosition.x, -limit, limit);
+            float leftLimit = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, transform.localPosition.z)).x + X_OFFSET * 2f;
+            float rightLimit = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, transform.localPosition.z)).x - X_OFFSET * 2f;
+            return Mathf.Clamp(finalPosition.x, leftLimit, rightLimit);
         }
 
         private bool MustNotShowFilter(CardView cardView)

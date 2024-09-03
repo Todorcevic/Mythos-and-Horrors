@@ -22,13 +22,13 @@ namespace MythosAndHorrors.GameView
 
             await DOTween.Sequence()
                  .Join(_moveCardHandler.MoveCardtoCenter(drawGameAction.CardDrawed))
-                 .Join(_showSelectorComponent.MainButtonShowUp()).AsyncWaitForCompletion();
+                 .Join(_showSelectorComponent.MainButtonWaitingToContinueShowUp()).AsyncWaitForCompletion();
 
             Tween idle = _cardViewsManager.GetCardView(drawGameAction.CardDrawed).Idle();
             await _clickHandler.WaitingClick();
             idle.Kill();
 
-            _showSelectorComponent.MainButtonHideUp();
+            _showSelectorComponent.MainButtonWaitingToContinueHideUp();
         }
 
         private async Task PauseToContinue()

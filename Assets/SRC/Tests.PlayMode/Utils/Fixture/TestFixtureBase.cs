@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             if (TestsType == TestsType.Debug) yield break;
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
             AlwaysRegisterPanelClick(SceneContainer.Resolve<RegisterChapterComponent>()).AsTask();
-            AlwaysDrawMainButtonClick(SceneContainer.Resolve<MainButtonComponent>()).AsTask();
+            AlwaysWaitingToContinueClick(SceneContainer.Resolve<MainButtonComponent>()).AsTask();
 
             /*******************************************************************/
             IEnumerator AlwaysHistoryPanelClick(ShowHistoryComponent _showHistoryComponent)
@@ -70,15 +70,15 @@ namespace MythosAndHorrors.PlayMode.Tests
                 yield return AlwaysRegisterPanelClick(_registerChapterComponent);
             }
 
-            IEnumerator AlwaysDrawMainButtonClick(MainButtonComponent _mainButtonComponent)
+            IEnumerator AlwaysWaitingToContinueClick(MainButtonComponent _mainButtonComponent)
             {
-                while (_gameActionsProvider.CurrentGameAction is not DrawGameAction || !_mainButtonComponent.IsActivated) yield return null;
+                while (!BasicShowSelectorComponent.IsWaitingToContinue || !_mainButtonComponent.IsActivated) yield return null;
 
                 if (_mainButtonComponent.IsActivated) _mainButtonComponent.OnMouseUpAsButton();
                 else throw new TimeoutException("MainButton to Draw Not become clickable");
 
                 while (_mainButtonComponent.IsActivated) yield return null;
-                yield return AlwaysDrawMainButtonClick(_mainButtonComponent);
+                yield return AlwaysWaitingToContinueClick(_mainButtonComponent);
             }
         }
 
@@ -198,9 +198,11 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return AssertThatIsClickable(card, false);
         }
 
+
         protected IEnumerator AssertThatIsClickable(Card card, bool isClickable = true)
         {
-            string message = isClickable ? "Not become clickable" : "Become clickable";
+            const float ASSERT_CLICKABLE_TIMEOUT = 0.3f;
+            string message = card.Info.Code + (isClickable ? " Not become clickable" : " Become clickable");
             if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
                 Assert.That(fakeInteractable.IsClickable(card) == isClickable, $"{card} is {message}");
 
@@ -210,7 +212,7 @@ namespace MythosAndHorrors.PlayMode.Tests
                 float startTime = Time.realtimeSinceStartup;
                 CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+                while (Time.realtimeSinceStartup - startTime < ASSERT_CLICKABLE_TIMEOUT && !cardSensor.IsClickable) yield return null;
                 Assert.That(cardSensor.IsClickable == isClickable, $"{card} is {message}");
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }

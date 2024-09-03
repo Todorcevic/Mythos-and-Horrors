@@ -43,9 +43,9 @@ namespace MythosAndHorrors.GameView
         private async Task PauseToContinue()
         {
             _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
-            _showSelectorComponent.MainButtonShowUp();
+            _showSelectorComponent.MainButtonWaitingToContinueShowUp();
             await _clickHandler.WaitingClick();
-            _showSelectorComponent.MainButtonHideUp();
+            _showSelectorComponent.MainButtonWaitingToContinueHideUp();
         }
 
         async Task IPresenter<CommitCardsChallengeGameAction>.PlayAnimationWith(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
