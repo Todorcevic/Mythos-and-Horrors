@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private List<EffectView> _effectViews;
         [Inject] private readonly CardViewsManager _cardViewsManager;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
 
         public int EffectsAmount => _effectViews.Count(effectView => !effectView.IsEmpty);
 

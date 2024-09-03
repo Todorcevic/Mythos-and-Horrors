@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
 using NUnit.Framework;
-using System.Linq;
 using Zenject;
 
 namespace MythosAndHorrors.EditMode.Tests
@@ -11,14 +10,12 @@ namespace MythosAndHorrors.EditMode.Tests
     {
         [Inject] private readonly CardLoaderUseCase _sut;
         [Inject] private readonly DataSaveUseCase _dataSaveLoaderUseCase;
-        [Inject] private readonly TextsLoaderUseCase _textsLoaderUseCase;
 
         /*******************************************************************/
         [SetUp]
         public void SetUp()
         {
             _dataSaveLoaderUseCase.Load();
-            _textsLoaderUseCase.LoadGameTexts();
         }
 
         [Test]

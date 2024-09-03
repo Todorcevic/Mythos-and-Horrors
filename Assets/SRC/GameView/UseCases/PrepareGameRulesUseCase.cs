@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameView
         public void Execute()
         {
             _dataSaveLoaderUseCase.Load();
-            _textsLoaderUseCase.LoadGameTexts();
             _investigatorLoaderUseCase.Execute();
             _chapterInfoLoaderUseCase.Execute();
             _sceneLoaderUseCase.Execute();

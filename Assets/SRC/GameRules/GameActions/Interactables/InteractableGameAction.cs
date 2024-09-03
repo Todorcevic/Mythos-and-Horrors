@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         private readonly List<CardEffect> _allCardEffects = new();
         [Inject] private readonly IInteractablePresenter _interactablePresenter;
-        [Inject] private readonly TextsProvider _textsProvider;
 
         public bool CanBackToThisInteractable { get; private set; }
         public bool MustShowInCenter { get; private set; }

@@ -1,5 +1,4 @@
-﻿using MythosAndHorrors.GameRules;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using Zenject;
 using System.Collections.Generic;
@@ -9,20 +8,14 @@ namespace MythosAndHorrors.GameView
     public class TextsLoaderUseCase
     {
         [Inject] private readonly FilesPath _filesPath;
-        [Inject] private readonly TextsProvider _textsProvider;
-        [Inject] private readonly TextsManager _textsManager;
+        [Inject] private readonly TextsManager _textsProvider;
 
         /*******************************************************************/
-        public void LoadGameTexts()
-        {
-            string jsonDataLocalizable = File.ReadAllText(_filesPath.JSON_LOCALIZABLETEXT_PATH);
-            _textsProvider.AddLocalizableDictionary(JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonDataLocalizable));
-        }
 
         public void LoadViewTexts()
         {
-            string jsonData = File.ReadAllText(_filesPath.JSON_VIEWTEXT_PATH);
-            _textsManager.AddTexts(JsonConvert.DeserializeObject<ViewText>(jsonData));
+            string jsonDataLocalizable = File.ReadAllText(_filesPath.JSON_LOCALIZABLETEXT_PATH);
+            _textsProvider.AddLocalizableDictionary(JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonDataLocalizable));
         }
     }
 }

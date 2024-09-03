@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly PhaseComponent _phaseComponent;
         [Inject] private readonly CardsProvider _cardsProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
 
         string InteractableTitle => _textsProvider.GetLocalizableText(_interactableGameAction.InteractableTitle);
 

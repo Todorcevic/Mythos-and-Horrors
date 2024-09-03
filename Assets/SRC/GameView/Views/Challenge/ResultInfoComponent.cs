@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameView
     public class ResultInfoComponent : MonoBehaviour
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _minos2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _minos1;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _zero;

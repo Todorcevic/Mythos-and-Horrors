@@ -12,7 +12,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
 
         public Zone DangerDeckZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDeck);
         public Zone DangerDiscardZone => Zones.First(zone => zone.ZoneType == ZoneType.DangerDiscard);

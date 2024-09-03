@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _avatarImage;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
 
         /*******************************************************************/
         public Tween ShowThisPhase(PhaseGameAction phaseGameAction)

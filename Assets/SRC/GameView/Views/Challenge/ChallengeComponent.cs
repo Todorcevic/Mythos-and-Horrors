@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _investigatorCardController;

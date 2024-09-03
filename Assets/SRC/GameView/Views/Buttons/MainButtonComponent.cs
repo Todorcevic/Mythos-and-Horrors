@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
     {
         private const float OFFSET = 1f;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;

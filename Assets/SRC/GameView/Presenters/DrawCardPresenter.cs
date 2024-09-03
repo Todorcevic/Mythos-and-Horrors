@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
-        [Inject] private readonly TextsProvider _textsProvider;
+        [Inject] private readonly TextsManager _textsProvider;
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ShowCardsInCenterButton _showCardsInCenterButton;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;

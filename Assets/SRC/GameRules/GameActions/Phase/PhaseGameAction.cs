@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public abstract class PhaseGameAction : GameAction
     {
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
-        [Inject] protected readonly TextsProvider _textsProvider;
 
         public abstract Localization PhaseNameLocalization { get; }
         public abstract Localization PhaseDescriptionLocalization { get; }

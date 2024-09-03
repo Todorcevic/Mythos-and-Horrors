@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class BuffsProvider
     {
-        [Inject] private readonly TextsProvider _textsProvider;
         private readonly List<Buff> _buffs = new();
 
         private IEnumerable<Buff> AllBuffs => _buffs.ToList();

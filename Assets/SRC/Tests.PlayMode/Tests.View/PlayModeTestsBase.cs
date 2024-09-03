@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [Inject] protected readonly CardsProvider _cardsProvider;
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
-        [Inject] protected readonly TextsProvider _textsProvider;
+        [Inject] protected readonly TextsManager _textsProvider;
 
         [Inject] protected readonly CardViewsManager _cardViewsManager;
         [Inject] protected readonly AvatarViewsManager _avatarViewsManager;
