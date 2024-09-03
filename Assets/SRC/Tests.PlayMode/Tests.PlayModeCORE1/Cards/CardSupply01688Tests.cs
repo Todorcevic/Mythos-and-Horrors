@@ -28,10 +28,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(weaponCard);
             yield return ClickedIn(SceneCORE1.GhoulSecuaz);
             yield return ClickedMainButton();
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
+            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(3));
             Assert.That(SceneCORE1.GhoulSecuaz.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
             Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(2));
             Assert.That(weaponCard.Used.IsActive, Is.True);

@@ -4,12 +4,13 @@ using System.Collections;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardCondition01566Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator Evade()
@@ -27,10 +28,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(SceneCORE1.GhoulGelid);
             yield return ClickedMainButton();
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(2));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
+            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(2));
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.True);
         }
 
@@ -50,10 +51,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(SceneCORE1.GhoulGelid);
             yield return ClickedMainButton();
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(1));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
+            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(1));
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
         }
     }

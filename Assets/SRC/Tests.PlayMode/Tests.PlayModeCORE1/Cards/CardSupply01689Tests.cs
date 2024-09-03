@@ -50,10 +50,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(assetCard);
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(0));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
+            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(0));
             Assert.That(investigator.Hints.Value, Is.EqualTo(0));
             Assert.That(assetCard.Charge.Amount.Value, Is.EqualTo(2));
         }

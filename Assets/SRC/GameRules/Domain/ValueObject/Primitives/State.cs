@@ -2,6 +2,8 @@
 
 namespace MythosAndHorrors.GameRules
 {
+
+
     public class State
     {
         public bool InitialState { get; }
