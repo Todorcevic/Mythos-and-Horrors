@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameView
 
         public void ActivateToClick()
         {
-            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect?.Localization);
+            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect.Localization);
             DOTween.Sequence()
                 .Join(_buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
                 .Join(_buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION))
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.GameView
 
         public void ActivateToCancelClick()
         {
-            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect?.Localization);
+            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect.Localization);
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);

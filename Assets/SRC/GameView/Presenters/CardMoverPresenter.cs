@@ -2,6 +2,7 @@ using Zenject;
 using System.Threading.Tasks;
 using MythosAndHorrors.GameRules;
 using DG.Tweening;
+using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {
@@ -14,7 +15,7 @@ namespace MythosAndHorrors.GameView
         {
             if (await CheckSpecialMove(moveCardsGameAction)) return;
 
-            if (!moveCardsGameAction.IsSingleMove)
+            if (!moveCardsGameAction.IsSingleMove || moveCardsGameAction.Cards.Any(card => card.FaceDown.IsActive))
             {
                 await _moveCardHandler.MoveCardsToCurrentZones(moveCardsGameAction.Cards, ViewValues.DELAY_TIME_ANIMATION).AsyncWaitForCompletion();
                 return;
@@ -41,7 +42,5 @@ namespace MythosAndHorrors.GameView
             }
             return false;
         }
-
-
     }
 }
