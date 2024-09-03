@@ -5,8 +5,8 @@ namespace MythosAndHorrors.GameRules
     public class PrepareInvestigatorGameAction : PhaseGameAction
     {
         public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_PrepareInvestigator");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_PrepareInvestigator");
+        public override Localization PhaseNameLocalization => new("PhaseName_PrepareInvestigator");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_PrepareInvestigator");
 
         /*******************************************************************/
         public PrepareInvestigatorGameAction SetWith(Investigator investigator)

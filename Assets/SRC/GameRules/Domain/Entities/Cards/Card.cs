@@ -63,11 +63,11 @@ namespace MythosAndHorrors.GameRules
         }
 
         /************************** REACTIONS ******************************/
-        protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, string localizableCode,
-            PlayActionType playActionType = PlayActionType.None, params string[] localizableArgs) where T : GameAction
+        protected OptativeReaction<T> CreateOptativeReaction<T>(Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, Localization localization,
+            PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
             if (time == GameActionTime.Initial) throw new ArgumentException("Initial time is not allowed for OptativeReactions");
-            OptativeReaction<T> realReaction = _realReactionsProvider.CreateOptativeReaction(this, condition, logic, time, localizableCode, playActionType);
+            OptativeReaction<T> realReaction = _realReactionsProvider.CreateOptativeReaction(this, condition, logic, time, localization, playActionType);
             _specificAbilities.Add(realReaction);
             return realReaction;
         }
@@ -99,23 +99,25 @@ namespace MythosAndHorrors.GameRules
         }
 
         /***************************** ACTIVATIONS *****************************/
-        public Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, string localizableCode, Card cardAffected = null, params string[] localizableArgs)
+        public Activation<Investigator> CreateActivation(int activateTurnsCost, Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType,
+            Localization localization, Card cardAffected = null)
         {
-            Activation<Investigator> newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType, cardAffected, localizableCode, localizableArgs);
+            Activation<Investigator> newActivation = _activationsProvider.CreateActivation(this, activateTurnsCost, logic, condition, playActionType, cardAffected, localization);
             _specificAbilities.Add(newActivation);
             return newActivation;
         }
 
-        protected Activation<Investigator> CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType, string localizableCode, Card cardAffected = null, params string[] localizableArgs)
+        protected Activation<Investigator> CreateFastActivation(Func<Investigator, Task> logic, Func<Investigator, bool> condition, PlayActionType playActionType,
+            Localization localization, Card cardAffected = null)
         {
-            return CreateActivation(0, logic, condition, playActionType, localizableCode, cardAffected, localizableArgs);
+            return CreateActivation(0, logic, condition, playActionType, localization, cardAffected);
         }
 
         /***************************** BUFFS *****************************/
         protected Buff CreateBuff(Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
-            Func<IEnumerable<Card>, Task> deactivationLogic, string code, params string[] descriptionArgs)
+            Func<IEnumerable<Card>, Task> deactivationLogic, Localization localization)
         {
-            Buff newBuff = _buffsProvider.CreateBuff(this, cardsToBuff, activationLogic, deactivationLogic, code, descriptionArgs);
+            Buff newBuff = _buffsProvider.CreateBuff(this, cardsToBuff, activationLogic, deactivationLogic, localization);
             _specificAbilities.Add(newBuff);
             return newBuff;
         }

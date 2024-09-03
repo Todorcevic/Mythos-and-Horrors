@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,8 +25,8 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
-            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, "Buff_Card01533");
-            CreateOptativeReaction<InvestigatePlaceGameAction>(Condition, Logic, GameActionTime.After, "OptativeReaction_Card01533");
+            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, new Localization("Buff_Card01533"));
+            CreateOptativeReaction<InvestigatePlaceGameAction>(Condition, Logic, GameActionTime.After, new Localization("OptativeReaction_Card01533"));
         }
 
         /*******************************************************************/

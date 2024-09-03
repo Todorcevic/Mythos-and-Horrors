@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
             FearRecived = CreateStat(0);
             Eldritch = CreateStat(0);
             CreateForceReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After);
-            CreateFastActivation(SearchLogic, SearchCondition, PlayActionType.Activate, "Activation_Card01563");
+            CreateFastActivation(SearchLogic, SearchCondition, PlayActionType.Activate, new Localization("Activation_Card01563"));
         }
 
         private bool SearchCondition(Investigator investigator)
@@ -42,10 +42,10 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Card> cards = investigator.DeckZone.Cards.Where(card => card.HasThisTag(Tag.Spell)).TakeLast(3);
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01563");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01563"));
             foreach (Card card in cards)
             {
-                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, "CardEffect_Card01563");
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01563"));
 
                 async Task SelectSpell()
                 {

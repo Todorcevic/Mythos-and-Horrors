@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01601");
+            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, new Localization("Activation_Card01601"));
         }
 
         /*******************************************************************/

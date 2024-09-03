@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
-        protected override string LocalizableCode => "OptativeReaction_Card01568";
+        protected override Localization Localization => new("OptativeReaction_Card01568");
 
         /*******************************************************************/
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
@@ -26,10 +26,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01568");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01568"));
             foreach (CardCreature creature in investigator.CreaturesInSamePlace.Where(creature => !creature.HasThisTag(Tag.Elite)))
             {
-                interactable.CreateCardEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator, "CardEffect_Card01568");
+                interactable.CreateCardEffect(creature, new Stat(0, false), RemoveText, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01568"));
                 async Task RemoveText()
                 {
                     await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(creature.Blancked, true).Execute();

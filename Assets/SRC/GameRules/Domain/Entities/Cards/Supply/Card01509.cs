@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             ChargeFear = CreateStat(3);
             Charge = new Charge(ChargeFear, ChargeType.Special);
-            CreateActivation(1, TakeFearLogic, TakeFearCondition, PlayActionType.Activate, "Activation_Card01509");
+            CreateActivation(1, TakeFearLogic, TakeFearCondition, PlayActionType.Activate, new Localization("Activation_Card01509"));
             CreateForceReaction<RevealChallengeTokenGameAction>(ChangeTokenCondition, ChangeTokenLogic, GameActionTime.After);
         }
 

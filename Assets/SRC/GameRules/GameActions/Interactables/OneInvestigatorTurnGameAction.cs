@@ -16,12 +16,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
             => throw new NotImplementedException();
 
         public OneInvestigatorTurnGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_OneInvestigatorTurn", DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_OneInvestigatorTurn", DescriptionParams()));
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
             ExecuteSpecificInitialization();
             return this;
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
 
         private void PreparePassEffect()
         {
-            CreateMainButton(PassTurn, "MainButton_OneInvestigatorTurn", ActiveInvestigator.CurrentTurns.Value.ToString());
+            CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.CurrentTurns.Value.ToString()));
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value).Execute();
@@ -78,9 +78,9 @@ namespace MythosAndHorrors.GameRules
                     PlayFromHand,
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
                     playedBy: ActiveInvestigator,
+                    new Localization("CardEffect_OneInvestigatorTurn"),  //Check if can propagate the localizableCode from IPlayableFromHand
                     resourceCost: playableFromHand.ResourceCost,
-                    cardAffected: playableFromHand.CardAffected?.Invoke(),
-                    localizableCode: "CardEffect_OneInvestigatorTurn"); //Check if can propagate the localizableCode from IPlayableFromHand
+                    cardAffected: playableFromHand.CardAffected?.Invoke());
 
                 async Task PlayFromHand() => await playableFromHand.PlayFromHandCommand.RunWith(this);
             }
@@ -96,7 +96,7 @@ namespace MythosAndHorrors.GameRules
                 Investigate,
                 PlayActionType.Investigate,
                 playedBy: ActiveInvestigator,
-                localizableCode: "CardEffect_OneInvestigatorTurn-1");
+                new Localization("CardEffect_OneInvestigatorTurn-1"));
 
             bool CanInvestigate()
             {
@@ -121,7 +121,7 @@ namespace MythosAndHorrors.GameRules
                     Move,
                     PlayActionType.Move,
                     ActiveInvestigator,
-                    localizableCode: "CardEffect_OneInvestigatorTurn-2");
+                    new Localization("CardEffect_OneInvestigatorTurn-2"));
 
                 bool CanMove()
                 {
@@ -145,7 +145,7 @@ namespace MythosAndHorrors.GameRules
                     InvestigatorAttack,
                     PlayActionType.Attack,
                     ActiveInvestigator,
-                    localizableCode: "CardEffect_OneInvestigatorTurn-3");
+                    new Localization("CardEffect_OneInvestigatorTurn-3"));
 
                 bool CanInvestigatorAttack()
                 {
@@ -171,7 +171,7 @@ namespace MythosAndHorrors.GameRules
                     InvestigatorConfront,
                     PlayActionType.Confront,
                     ActiveInvestigator,
-                    localizableCode: "CardEffect_OneInvestigatorTurn-4");
+                    new Localization("CardEffect_OneInvestigatorTurn-4"));
 
                 /*******************************************************************/
                 bool CanInvestigatorConfront()
@@ -198,7 +198,7 @@ namespace MythosAndHorrors.GameRules
                     InvestigatorElude,
                     PlayActionType.Elude,
                     ActiveInvestigator,
-                    localizableCode: "CardEffect_OneInvestigatorTurn-5");
+                    new Localization("CardEffect_OneInvestigatorTurn-5"));
 
                 bool CanInvestigatorElude()
                 {
@@ -225,9 +225,8 @@ namespace MythosAndHorrors.GameRules
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
                     ActiveInvestigator,
-                    cardAffected: activation.CardAffected,
-                    localizableCode: activation.LocalizableCode,
-                    localizableArgs: activation.LocalizableArgs);
+                    activation.Localization,
+                    cardAffected: activation.CardAffected);
 
                 async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }
@@ -243,7 +242,7 @@ namespace MythosAndHorrors.GameRules
                 Draw,
                 PlayActionType.Draw,
                 ActiveInvestigator,
-                localizableCode: "CardEffect_OneInvestigatorTurn-6");
+                new Localization("CardEffect_OneInvestigatorTurn-6"));
         }
 
         private bool CanDraw()
@@ -264,7 +263,7 @@ namespace MythosAndHorrors.GameRules
                 TakeResource,
                 PlayActionType.TakeResource,
                 ActiveInvestigator,
-                localizableCode: "CardEffect_OneInvestigatorTurn-7");
+                new Localization("CardEffect_OneInvestigatorTurn-7"));
 
             /*******************************************************************/
             async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Execute();

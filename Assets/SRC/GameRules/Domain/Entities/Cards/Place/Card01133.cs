@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
 
             async Task ChallengeLogic(Investigator investigator)
             {
-                await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, "Challenge_Card01133", this, failEffect: TakeFearAndmove, localizableArgs: Info.Name).Execute();
+                await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 3, new Localization("Challenge_Card01133", Info.Name), this, failEffect: TakeFearAndmove).Execute();
 
                 async Task TakeFearAndmove()
                 {

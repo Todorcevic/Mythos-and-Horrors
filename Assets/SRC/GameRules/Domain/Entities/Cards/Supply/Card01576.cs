@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Health = CreateStat(Info.Health ?? 0);
             DamageRecived = CreateStat(0);
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01576");
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01576"));
         }
 
         /*******************************************************************/
@@ -36,12 +36,12 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01576");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01576"));
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
                 interactableGameAction.CreateCardEffect(creature, new Stat(0, false), Elude, PlayActionType.Elude, investigator,
-                    "CardEffect_Card01576", cardAffected: this);
+                    new Localization("CardEffect_Card01576"), cardAffected: this);
 
                 /*******************************************************************/
                 async Task Elude() => await _gameActionsProvider.Create<EludeGameAction>().SetWith(creature, ControlOwner).Execute();

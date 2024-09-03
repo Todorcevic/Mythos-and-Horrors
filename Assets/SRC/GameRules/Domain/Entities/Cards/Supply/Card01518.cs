@@ -27,8 +27,8 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic, "Buff_Card01518");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01518");
+            CreateBuff(CardsToBuff, GainStrenghtActivationLogic, GainStrenghtDeactivationLogic, new Localization("Buff_Card01518"));
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01518"));
         }
 
         /*******************************************************************/
@@ -43,10 +43,10 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01518");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01518"));
             foreach (CardCreature cardCreature in investigator.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateCardEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator, "CardEffect_Card01518");
+                interactableGameAction.CreateCardEffect(cardCreature, new Stat(0, false), SelecteCreature, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01518"));
 
                 async Task SelecteCreature()
                 {

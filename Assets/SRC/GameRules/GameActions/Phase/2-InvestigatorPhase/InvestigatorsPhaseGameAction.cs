@@ -10,11 +10,9 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public override Phase MainPhase => Phase.Investigator;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_InvestigatorsPhase");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_InvestigatorsPhase");
-
-        /*******************************************************************/
         public override bool CanBeExecuted => _investigatorsProvider.GetInvestigatorsCanStartTurn.Any();
+        public override Localization PhaseNameLocalization => new("PhaseName_InvestigatorsPhase");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_InvestigatorsPhase");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

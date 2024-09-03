@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Info.Name);
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After, "OptativeReaction_Card01504");
+            CreateOptativeReaction<HarmToCardGameAction>(DamageBySanityCondition, DamageBySanityLogic, GameActionTime.After, new Localization("OptativeReaction_Card01504"));
             CreateForceReaction<PhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -33,10 +33,10 @@ namespace MythosAndHorrors.GameRules
         private async Task DamageBySanityLogic(HarmToCardGameAction harmToCardGameAction)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01504");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01504"));
             foreach (CardCreature creature in Owner.CreaturesInSamePlace)
             {
-                interactableGameAction.CreateCardEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, "CardEffect_Card01504");
+                interactableGameAction.CreateCardEffect(creature, new Stat(0, false), HarmCreature, PlayActionType.Choose, Owner, new Localization("CardEffect_Card01504"));
 
                 /*******************************************************************/
                 async Task HarmCreature()

@@ -8,10 +8,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
         [Inject] protected readonly TextsProvider _textsProvider;
 
-        public abstract string Name { get; }
-        public abstract string Description { get; }
+        public abstract Localization PhaseNameLocalization { get; }
+        public abstract Localization PhaseDescriptionLocalization { get; }
         public abstract Phase MainPhase { get; }
-
         public virtual Investigator ActiveInvestigator { get; protected set; }
 
         /*******************************************************************/

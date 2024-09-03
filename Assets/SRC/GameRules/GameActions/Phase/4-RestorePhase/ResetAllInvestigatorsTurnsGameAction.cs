@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ResetAllInvestigatorsTurns");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ResetAllInvestigatorsTurns");
         public override Phase MainPhase => Phase.Restore;
+        public override Localization PhaseNameLocalization => new("PhaseName_ResetAllInvestigatorsTurns");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_ResetAllInvestigatorsTurns");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

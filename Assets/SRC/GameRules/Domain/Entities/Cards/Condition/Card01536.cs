@@ -18,9 +18,9 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Swaped = new State(false);
-            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, code: "Buff_Card01536");
+            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, new Localization("Buff_Card01536"));
             CreateForceReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
-            CreateOptativeReaction<ChallengePhaseGameAction>(ChangeChallengerCondition, ChangeChallengerReaction, GameActionTime.Before, "OptativeReaction_Card01536");
+            CreateOptativeReaction<ChallengePhaseGameAction>(ChangeChallengerCondition, ChangeChallengerReaction, GameActionTime.Before, new Localization("OptativeReaction_Card01536"));
         }
 
         /*******************************************************************/

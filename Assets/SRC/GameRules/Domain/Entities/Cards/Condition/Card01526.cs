@@ -23,10 +23,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01526");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01526"));
             foreach (CardWeapon firearm in Firearms(investigator))
             {
-                interactable.CreateCardEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, "CardEffect_Card01526", firearm.ControlOwner.AvatarCard);
+                interactable.CreateCardEffect(firearm, new Stat(0, false), Reload, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01526"), firearm.ControlOwner.AvatarCard);
 
                 async Task Reload() => await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(((IChargeable)firearm).Charge.Amount, 3).Execute();
             }

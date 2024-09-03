@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01138");
+            CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, new Localization("Activation_Card01138"));
         }
 
         /*******************************************************************/
@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(DiscardRemaining, 1).Execute();
                     InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Interactable_Card01138", DescriptionParams());
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, new Localization("Interactable_Card01138", (DiscardRemaining.Value + 1).ToString()));
                     foreach (Card card in investigator.HandZone.Cards.Where(card => card.CanBeDiscarted.IsTrue))
                     {
                         interactableGameAction.CreateCardEffect(card,
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
                             Discard,
                             PlayActionType.Choose,
                             playedBy: investigator,
-                            localizableCode: "CardEffect_Card01138",
+                            new Localization("CardEffect_Card01138"),
                             cardAffected: this);
 
                         /*******************************************************************/
@@ -64,9 +64,6 @@ namespace MythosAndHorrors.GameRules
                 }
 
                 await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, _chaptersProvider.CurrentScene.VictoryZone).Execute();
-
-                /*******************************************************************/
-                string DescriptionParams() => (DiscardRemaining.Value + 1).ToString();
             }
         }
     }

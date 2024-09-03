@@ -90,7 +90,7 @@ namespace MythosAndHorrors.GameRules
         {
             PrepareChallengeTokens();
             StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue, description: StarDescription);
-            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect, description: FailDescription);
+            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect, description: (_) => FailTokenDescription);
 
             /*******************************************************************/
             async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect.Invoke();
@@ -104,8 +104,6 @@ namespace MythosAndHorrors.GameRules
                 _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
                 await Task.CompletedTask;
             }
-
-            string FailDescription(Investigator investigator) => _textsProvider.GetLocalizableText("Challenge_Fail_Token");
         }
 
         private void PrepareResolutions()

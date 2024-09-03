@@ -18,21 +18,25 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _avatarImage;
         [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         /*******************************************************************/
         public Tween ShowThisPhase(PhaseGameAction phaseGameAction)
         {
+            string name = _textsProvider.GetLocalizableText(phaseGameAction.PhaseNameLocalization);
+            string description = _textsProvider.GetLocalizableText(phaseGameAction.PhaseDescriptionLocalization);
+
             PhaseView newPhase = _phaseViews.First(phaseView => phaseView.Phase == phaseGameAction.MainPhase);
             if (newPhase == _currentPhaseView)
             {
-                return newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description).Join(SetAvatar(phaseGameAction.ActiveInvestigator));
+                return newPhase.ChangeText(name, description).Join(SetAvatar(phaseGameAction.ActiveInvestigator));
             }
             return DOTween.Sequence()
                 .Append(_currentPhaseView?.Hide() ?? DOTween.Sequence())
                 .Append(newPhase.Show())
                 .Join(SetAvatar(phaseGameAction.ActiveInvestigator))
-                .Join(newPhase.ChangeText(phaseGameAction.Name, phaseGameAction.Description))
-                .OnComplete(() => _currentPhaseView = newPhase);
+                .Join(newPhase.ChangeText(name, description)
+                .OnComplete(() => _currentPhaseView = newPhase));
         }
 
         public Tween ShowText(string information) => _currentPhaseView?.ChangeText(information) ?? DOTween.Sequence();

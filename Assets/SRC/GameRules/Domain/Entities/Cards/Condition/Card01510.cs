@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public State Protected { get; private set; }
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
-        protected override string LocalizableCode => "OptativeReaction_Card01510";
+        protected override Localization Localization => new Localization("OptativeReaction_Card01510");
 
         /*******************************************************************/
         [Inject]
@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             Protected = new State(false);
             CreateForceReaction<RoundGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.Before);
             CreateForceReaction<CreatureAttackGameAction>(CancelAttackCreatureCondition, CancelAttackCreaturePlayedLogic, GameActionTime.Initial);
-            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, code: "Buff_Card01510");
+            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, new Localization("Buff_Card01510"));
         }
 
         /*******************************************************************/

@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_CreatureConfrontAttack");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_CreatureConfrontAttack");
         public override Phase MainPhase => Phase.Creature;
+        public override Localization PhaseNameLocalization => new("PhaseName_CreatureConfrontAttack");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_CreatureConfrontAttack");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

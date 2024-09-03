@@ -161,5 +161,6 @@
     "AncientTokenDescriptionHard": "",
     "CreatureTokenDescriptionHard": "If you fail, after this Challenge, search the Danger deck and discard pile for a {arg0} and draw it. Shuffle the Danger deck",
     "DangerTokenDescriptionHard": "If there is a {arg0} in {arg1}, take 1 Damage and 1 Fear.",
-    "CultistTokenDescriptionHard": "Reveal another Token. If you fail, take 2 Fear."
+    "CultistTokenDescriptionHard": "Reveal another Token. If you fail, take 2 Fear.",
+    "FailTokenDescription": "Auto fail."
 }

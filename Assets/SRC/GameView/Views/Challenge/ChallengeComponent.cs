@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameView
             _investigatorCardController.SetCard(ChallengePhaseGameAction.ActiveInvestigator.InvestigatorCard, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.Stat.Value);
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
-            _challengeName.text = ChallengePhaseGameAction.ChallengeName;
+            _challengeName.text = _textsProvider.GetLocalizableText(ChallengePhaseGameAction.ChallengeName);
             ShowRevealedTokens();
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);

@@ -16,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01555");
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01555");
+            CreateBuff(CardToSelect, BuffOn, BuffOff, new Localization("Buff_Card01555"));
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01555"));
         }
 
         /*******************************************************************/
@@ -32,12 +32,12 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01555");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01555"));
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
                 interactableGameAction.CreateCardEffect(place, place.MoveTurnsCost, MoveAndUnconfront,
-                    PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, "CardEffect_Card01555", cardAffected: this);
+                    PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, new Localization("CardEffect_Card01555"), cardAffected: this);
 
                 /*******************************************************************/
                 async Task MoveAndUnconfront() =>

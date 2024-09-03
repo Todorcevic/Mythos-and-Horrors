@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             Wasted = CreateState(false);
             CreateForceReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
             CreateForceReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
-            CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic, code: "Buff_Card01164");
+            CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic, new Localization("Buff_Card01164"));
         }
 
         /*******************************************************************/
@@ -93,7 +93,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DiscardLogic(PlayInvestigatorGameAction playInvestigatorGameAction)
         {
             await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(playInvestigatorGameAction.ActiveInvestigator.Power, 3,
-                "Challenge_Card01164", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
+                new Localization("Challenge_Card01164", Info.Name), this, succesEffect: Discard).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Wasted, false).Execute();
 
             /*******************************************************************/

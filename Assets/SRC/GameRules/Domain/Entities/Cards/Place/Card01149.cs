@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ResignLogic, ResignCondition, PlayActionType.Resign, "Activation_Card01149");
+            CreateActivation(1, ResignLogic, ResignCondition, PlayActionType.Resign, new Localization("Activation_Card01149"));
         }
 
         /*******************************************************************/

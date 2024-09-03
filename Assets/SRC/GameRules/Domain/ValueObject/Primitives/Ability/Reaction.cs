@@ -7,8 +7,8 @@ namespace MythosAndHorrors.GameRules
         public GameConditionWith<T> Condition { get; }
         public GameCommand<T> Command { get; }
         public GameActionTime Time { get; }
-        public string Description { get; }
         public bool IsDisable { get; private set; }
+        public Localization Localization { get; protected set; }
 
         /*******************************************************************/
         public Reaction(GameConditionWith<T> condition, GameCommand<T> logic, GameActionTime time)

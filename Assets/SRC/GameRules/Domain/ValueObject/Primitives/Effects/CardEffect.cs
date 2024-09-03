@@ -12,9 +12,8 @@ namespace MythosAndHorrors.GameRules
         public string CardCodeSecundary => CardAffected?.Info.Code;
 
         /*******************************************************************/
-        public CardEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, string localizableCode, string description,
-            Card cardAffected = null, Stat resourceCost = null)
-            : base(activateTurnCost, logic, playActionType, playedBy, localizableCode, description)
+        public CardEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Localization localization,
+            Card cardAffected = null, Stat resourceCost = null) : base(activateTurnCost, logic, playActionType, playedBy, localization)
         {
             CardOwner = card;
             ResourceCost = resourceCost ?? new Stat(0, false);

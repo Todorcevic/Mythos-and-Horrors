@@ -25,12 +25,11 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] argdescriptionArgss)
-        => throw new NotImplementedException();
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
 
         public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_CommitCardsChallenge");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_CommitCardsChallenge"));
             CurrentChallenge = challenge;
             ExecuteSpecificInitialization();
             return this;
@@ -39,12 +38,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
-            CreateMainButton(CurrentChallenge.ContinueChallenge, "MainButton_CommitCardsChallenge");
+            CreateMainButton(CurrentChallenge.ContinueChallenge, new Localization("MainButton_CommitCardsChallenge"));
 
             foreach (CommitableCard commitableCard in AllCommitableCards)
             {
                 CreateCardEffect(commitableCard, new Stat(0, false), Commit, PlayActionType.Commit,
-                    commitableCard.ControlOwner, "CardEffect_CommitCardsChallenge", cardAffected: CurrentChallenge.CardToChallenge);
+                    commitableCard.ControlOwner, new Localization("CardEffect_CommitCardsChallenge"), cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
                 async Task Commit()
@@ -57,7 +56,7 @@ namespace MythosAndHorrors.GameRules
             foreach (CommitableCard commitableCard in _chaptersProvider.CurrentScene.LimboZone.Cards.OfType<CommitableCard>().Where(commitable => commitable.Commited.IsActive))
             {
                 CreateCardEffect(commitableCard, new Stat(0, false), Uncommit, PlayActionType.Commit,
-                    commitableCard.InvestigatorCommiter, "CardEffect_CommitCardsChallenge-1", cardAffected: CurrentChallenge.CardToChallenge);
+                    commitableCard.InvestigatorCommiter, new Localization("CardEffect_CommitCardsChallenge-1"), cardAffected: CurrentChallenge.CardToChallenge);
 
                 /*******************************************************************/
                 async Task Uncommit()
@@ -76,8 +75,7 @@ namespace MythosAndHorrors.GameRules
                    Activate,
                    PlayActionType.Activate | activation.PlayAction,
                    ActiveInvestigator,
-                   activation.LocalizableCode,
-                   localizableArgs: activation.LocalizableArgs);
+                   activation.Localization);
 
                 /*******************************************************************/
                 async Task Activate()

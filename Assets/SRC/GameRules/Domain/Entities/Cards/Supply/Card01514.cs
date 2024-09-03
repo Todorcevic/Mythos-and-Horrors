@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateForceReaction<DiscardGameAction>(MoveToDeckCondition, MoveToDeckConditionLogic, GameActionTime.Initial);
-            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, "Buff_Card01514");
+            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, new Localization("Buff_Card01514"));
         }
 
         /*******************************************************************/

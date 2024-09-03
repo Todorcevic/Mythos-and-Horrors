@@ -13,12 +13,11 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
-        => throw new NotImplementedException();
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_CheckSlots", DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_CheckSlots", DescriptionParams()));
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -39,7 +38,7 @@ namespace MythosAndHorrors.GameRules
                 .Where(card => card.HasAnyOfThisSlots(ActiveInvestigator.GetAllSlotsExeded()));
             foreach (CardSupply card in cards)
             {
-                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckSlots");
+                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_CheckSlots"));
 
                 async Task Discard()
                 {

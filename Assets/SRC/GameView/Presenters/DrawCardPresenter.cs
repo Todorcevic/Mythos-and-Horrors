@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task PlayAnimationWith(DrawGameAction drawGameAction)
         {
-            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
+            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, new Localization("MainButton_Continue")));
 
             await DOTween.Sequence()
                  .Join(_moveCardHandler.MoveCardtoCenter(drawGameAction.CardDrawed))
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task PauseToContinue()
         {
-            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
+            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, new Localization("MainButton_Continue")));
             await _clickHandler.WaitingClick();
         }
     }

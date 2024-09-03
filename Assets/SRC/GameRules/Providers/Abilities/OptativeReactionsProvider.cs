@@ -28,10 +28,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, string localizableCode,
-            PlayActionType playActionType = PlayActionType.None, params string[] localizableArgs) where T : GameAction
+        public OptativeReaction<T> CreateOptativeReaction<T>(Card card, Func<T, bool> condition, Func<T, Task> logic, GameActionTime time, Localization localization,
+            PlayActionType playActionType = PlayActionType.None) where T : GameAction
         {
-            OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time, localizableCode, localizableArgs);
+            OptativeReaction<T> optativeReaction = new(card, new GameConditionWith<T>(condition), new GameCommand<T>(logic), playActionType, time, localization);
             _optativeCodes.Add(optativeReaction);
             return optativeReaction;
         }
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             if (!optativeReactions.Any()) return;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_OptativeReactions");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_OptativeReactions"));
 
             foreach (IReaction reaction in optativeReactions)
             {
@@ -60,8 +60,7 @@ namespace MythosAndHorrors.GameRules
                     },
                     playActionType: triggered.PlayAction,
                     playedBy: triggered.Card.ControlOwner ?? _investigatorsProvider.Leader,
-                    localizableCode: triggered.LocalizableCode,
-                    localizableArgs: triggered.LocalizableArgs,
+                    triggered.Localization,
                     resourceCost: GetResourceCostFor(triggered));
             }
 

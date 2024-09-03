@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [Inject] protected readonly CardsProvider _cardsProvider;
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
+        [Inject] protected readonly TextsProvider _textsProvider;
 
         [Inject] protected readonly CardViewsManager _cardViewsManager;
         [Inject] protected readonly AvatarViewsManager _avatarViewsManager;
@@ -182,7 +183,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
 
             if (cardSensor.IsClickable) cardSensor.MouseUpAsButton();
-            else throw new TimeoutException($"Clone with Effect: {effect.Description} Not become clickable");
+            else throw new TimeoutException($"Clone with Effect: {_textsProvider.GetLocalizableText(effect.Localization)} Not become clickable");
             yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
         }
 

@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_AllInvestigatorsDrawCardAndResource");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_AllInvestigatorsDrawCardAndResource");
         public override Phase MainPhase => Phase.Restore;
+        public override Localization PhaseNameLocalization => new("PhaseName_AllInvestigatorsDrawCardAndResource");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_AllInvestigatorsDrawCardAndResource");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

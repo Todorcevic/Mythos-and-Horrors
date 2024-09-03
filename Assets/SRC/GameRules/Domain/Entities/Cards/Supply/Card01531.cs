@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01531");
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01531"));
         }
 
         /*******************************************************************/
@@ -34,22 +34,22 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01531");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01531"));
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
                 interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator, PlayActionType.Choose,
-                    investigator, "CardEffect_Card01531");
+                    investigator, new Localization("CardEffect_Card01531"));
 
                 /*******************************************************************/
                 async Task SelecteInvestigator()
                 {
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01531-2");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01531-2"));
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
 
                     foreach (Card card in cardsToShow)
                     {
-                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01531-1");
+                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, new Localization("CardEffect_Card01531-1"));
 
                         /*******************************************************************/
                         async Task Draw()

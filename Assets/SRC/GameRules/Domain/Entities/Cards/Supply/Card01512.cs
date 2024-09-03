@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateOptativeReaction<PlayEffectGameAction>(DrawCondition, DrawLogic, GameActionTime.After, "OptativeReaction_Card01512");
+            CreateOptativeReaction<PlayEffectGameAction>(DrawCondition, DrawLogic, GameActionTime.After, new Localization("OptativeReaction_Card01512"));
         }
 
         /*******************************************************************/

@@ -10,12 +10,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string localizableCode, params string[] localizableArgs)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
         => throw new NotImplementedException();
 
         public MulliganGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_Mulligan");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_Mulligan"));
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (Card card in ActiveInvestigator.HandZone.Cards)
             {
-                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan");
+                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_Mulligan"));
 
                 /*******************************************************************/
                 async Task Discard()
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
             {
                 if (!CanRestore()) continue;
 
-                CreateCardEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, "CardEffect_Mulligan-1");
+                CreateCardEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_Mulligan-1"));
 
                 /*******************************************************************/
                 async Task Restore()

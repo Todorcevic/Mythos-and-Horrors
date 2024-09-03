@@ -8,8 +8,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override Phase MainPhase => Phase.Scene;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ScenePhase");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ScenePhase");
+        public override Localization PhaseNameLocalization => new("PhaseName_ScenePhase");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_ScenePhase");
 
         /*******************************************************************/
         //1.1	Mythos phase begins.

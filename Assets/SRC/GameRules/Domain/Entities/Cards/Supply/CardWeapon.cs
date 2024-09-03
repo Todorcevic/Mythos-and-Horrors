@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateFastActivation(ChooseCreatureLogic, AttackCondition, PlayActionType.Activate, "Activation_CardWeapon");
+            CreateFastActivation(ChooseCreatureLogic, AttackCondition, PlayActionType.Activate, new Localization("Activation_CardWeapon"));
         }
 
         /*******************************************************************/
@@ -33,12 +33,12 @@ namespace MythosAndHorrors.GameRules
         protected async Task ChooseCreatureLogic(Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_CardWeapon");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_CardWeapon"));
 
             foreach (CardCreature creature in AttackbleCreatures)
             {
                 chooseEnemy.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack,
-                    investigator, "CardEffect_CardWeapon", localizableArgs: Info.Name);
+                    investigator, new Localization("CardEffect_CardWeapon", Info.Name));
 
                 /*******************************************************************/
                 async Task AttackCreature()

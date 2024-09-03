@@ -14,7 +14,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ChallengeBagComponent _challengeBagComponent;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
-        [Inject] private readonly TextsProvider _textsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
 
@@ -42,7 +41,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task PauseToContinue()
         {
-            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, string.Empty, _textsProvider.GetLocalizableText("MainButton_Continue")));
+            _mainButtonComponent.SetEffect(new BaseEffect(null, null, PlayActionType.None, null, new Localization("MainButton_Continue")));
             _showSelectorComponent.MainButtonWaitingToContinueShowUp();
             await _clickHandler.WaitingClick();
             _showSelectorComponent.MainButtonWaitingToContinueHideUp();

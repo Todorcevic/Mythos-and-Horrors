@@ -6,8 +6,8 @@ namespace MythosAndHorrors.GameRules
     {
         public Chapter Chapter { get; private set; }
         public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_StartChapter");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_StartChapter");
+        public override Localization PhaseNameLocalization => new("PhaseName_StartChapter");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_StartChapter");
 
         /*******************************************************************/
         public StartChapterGameAction SetWith(Chapter chapter)

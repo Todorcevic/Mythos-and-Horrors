@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameView
 
         [SerializeField, Required, ChildGameObjectsOnly] private List<EffectView> _effectViews;
         [Inject] private readonly CardViewsManager _cardViewsManager;
+        [Inject] private readonly TextsProvider _textsProvider;
 
         public int EffectsAmount => _effectViews.Count(effectView => !effectView.IsEmpty);
 
@@ -23,7 +24,7 @@ namespace MythosAndHorrors.GameView
             foreach (IViewEffect effect in effects)
             {
                 EffectView effectView = GetEffectView();
-                effectView.SetDescription(effect.Description);
+                effectView.SetDescription(_textsProvider.GetLocalizableText(effect.Localization));
                 if (effect.CardCode != null)
                     effectView.SetPictureLeft(_cardViewsManager.GetCardView(effect.CardCode)?.Picture);
                 if (effect.CardCodeSecundary != null)

@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         {
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
-            CreateBuff(CardToSelect, BuffOn, BuffOff, "Buff_Card01559");
+            CreateBuff(CardToSelect, BuffOn, BuffOff, new Localization("Buff_Card01559"));
         }
 
         /*******************************************************************/

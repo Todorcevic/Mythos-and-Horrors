@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateForceReaction<HarmToCardGameAction>(TakeDirectFearConditionn, TakeDirectFearLogic, GameActionTime.After);
-            CreateActivation(2, DiscardLogic, DiscardCondition, PlayActionType.Activate, "Activation_Card01600");
+            CreateActivation(2, DiscardLogic, DiscardCondition, PlayActionType.Activate, new Localization("Activation_Card01600"));
         }
 
         /*******************************************************************/

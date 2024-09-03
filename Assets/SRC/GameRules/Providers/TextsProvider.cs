@@ -14,10 +14,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public string GetLocalizableText(string code, params string[] descriptionArgs)
+        public string GetLocalizableText(Localization localization)
         {
-            if (!_localizableTexts.TryGetValue(code, out string text)) throw new ArgumentException("Location text not found for code: " + code);
-            return text.ParseViewWith(descriptionArgs);
+            if (!_localizableTexts.TryGetValue(localization.Code, out string text)) throw new ArgumentException("Location text not found for code: " + localization.Code);
+            return text.ParseViewWith(localization.Args);
         }
     }
 }

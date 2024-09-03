@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AmountSupplies = CreateStat(4);
-            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, "Activation_Card01683");
+            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01683"));
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(AmountSupplies, 1).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01683");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01683"));
 
             foreach (Card card in CardsToHealth(activeInvestigator.CurrentPlace))
             {
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
                     RestoreHealthAndFearInvestigator,
                     PlayActionType.Choose,
                     playedBy: activeInvestigator,
-                    localizableCode: "CardEffect_Card01683");
+                    new Localization("CardEffect_Card01683"));
 
                 /*******************************************************************/
                 async Task RestoreHealthAndFearInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(card, amountDamageToRecovery: 1, amountFearToRecovery: 1).Execute();

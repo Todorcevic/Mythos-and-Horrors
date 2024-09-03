@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(AmuletoDeWendy.Info.Name);
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After, "OptativeReaction_Card01505");
+            CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After, new Localization("OptativeReaction_Card01505"));
             CreateForceReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -30,11 +30,11 @@ namespace MythosAndHorrors.GameRules
         private async Task RevealNewTokenLogic(RevealChallengeTokenGameAction revealChallengeToken)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01505");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01505"));
 
             foreach (Card card in Owner.DiscardableCardsInHand)
             {
-                interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: Owner, "CardEffect_Card01505");
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: Owner, new Localization("CardEffect_Card01505"));
 
                 /*******************************************************************/
                 async Task Discard()

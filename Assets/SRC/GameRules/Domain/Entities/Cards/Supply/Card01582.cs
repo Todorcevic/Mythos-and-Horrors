@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             DamageRecived = CreateStat(0);
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
-            CreateOptativeReaction<HarmToInvestigatorGameAction>(Condition, Logic, GameActionTime.Before, "OptativeReaction_Card01582");
+            CreateOptativeReaction<HarmToInvestigatorGameAction>(Condition, Logic, GameActionTime.Before, new Localization("OptativeReaction_Card01582"));
         }
 
         /*******************************************************************/
@@ -36,12 +36,12 @@ namespace MythosAndHorrors.GameRules
             harmToInvestigatorGameAction.AddAmountDamage(-creatureDamage);
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01582");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01582"));
 
             foreach (CardCreature creature in creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Except(new[] { creatureAttackGameAction.Creature }))
             {
                 interactableGameAction.CreateCardEffect(creature, new Stat(0, false), DamageLogic, PlayActionType.Choose, ControlOwner,
-                    "CardEffect_Card01582", localizableArgs: creatureDamage.ToString());
+                    new Localization("CardEffect_Card01582", creatureDamage.ToString()));
 
                 /*******************************************************************/
                 async Task DamageLogic()

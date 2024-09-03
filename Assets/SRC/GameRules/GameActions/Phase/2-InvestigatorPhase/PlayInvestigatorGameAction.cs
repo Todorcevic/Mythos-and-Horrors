@@ -1,19 +1,16 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class PlayInvestigatorGameAction : PhaseGameAction
     {
-        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         private Investigator lastInvestigator;
 
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_PlayInvestigator");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_PlayInvestigator");
         public override Phase MainPhase => Phase.Investigator;
-
         public override bool CanBeExecuted => ActiveInvestigator.HasTurnsAvailable.IsTrue;
         public static Investigator PlayActiveInvestigator { get; private set; }
+        public override Localization PhaseNameLocalization => new("PhaseName_PlayInvestigator");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_PlayInvestigator");
 
         /*******************************************************************/
         public PlayInvestigatorGameAction SetWith(Investigator investigator)

@@ -11,12 +11,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] ardescriptionArgsgs)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
          => throw new NotImplementedException();
 
         public ChooseInvestigatorGameAction SetWith()
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_ChooseInvestigator");
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_ChooseInvestigator"));
             ExecuteSpecificInitialization();
             return this;
         }
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in _investigatorsProvider.GetInvestigatorsCanStartTurn)
             {
-                CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator, "CardEffect_ChooseInvestigator");
+                CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator, new Localization("CardEffect_ChooseInvestigator"));
 
                 /*******************************************************************/
                 async Task PlayInvestigator() => await _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();

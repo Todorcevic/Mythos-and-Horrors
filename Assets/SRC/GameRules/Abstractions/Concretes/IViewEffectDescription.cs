@@ -2,6 +2,6 @@
 {
     public interface IViewEffectDescription
     {
-        public string Description { get; }
+        public Localization Localization { get; }
     }
 }

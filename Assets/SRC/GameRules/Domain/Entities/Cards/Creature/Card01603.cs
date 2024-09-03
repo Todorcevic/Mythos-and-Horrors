@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateBuff(CardsToBuff, AddBlankBuff, RemoveBlankBuff, code: "Buff_Card01603");
+            CreateBuff(CardsToBuff, AddBlankBuff, RemoveBlankBuff, new Localization("Buff_Card01603"));
         }
 
         /*******************************************************************/

@@ -15,10 +15,9 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public Buff CreateBuff(Card card, Func<IEnumerable<Card>> cardsToBuff, Func<IEnumerable<Card>, Task> activationLogic,
-            Func<IEnumerable<Card>, Task> deactivationLogic, string code, params string[] descriptionArgs)
+            Func<IEnumerable<Card>, Task> deactivationLogic, Localization localization)
         {
-            Buff newBuff = new(card, cardsToBuff, new GameCommand<IEnumerable<Card>>(activationLogic),
-                new GameCommand<IEnumerable<Card>>(deactivationLogic), _textsProvider.GetLocalizableText(code, descriptionArgs));
+            Buff newBuff = new(card, cardsToBuff, new GameCommand<IEnumerable<Card>>(activationLogic), new GameCommand<IEnumerable<Card>>(deactivationLogic), localization);
             _buffs.Add(newBuff);
             return newBuff;
         }

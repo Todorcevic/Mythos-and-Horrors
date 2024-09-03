@@ -28,11 +28,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction chooseCreature = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01551");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01551"));
 
             foreach (CardCreature creature in AttackbleCreatures(investigator))
             {
-                chooseCreature.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, "CardEffect_Card01551");
+                chooseCreature.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, new Localization("CardEffect_Card01551"));
 
                 async Task AttackCreature()
                 {

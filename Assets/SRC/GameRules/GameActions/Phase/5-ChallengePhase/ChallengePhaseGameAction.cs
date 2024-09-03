@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Stat { get; private set; }
         public int InitialDifficultValue { get; private set; }
         public Stat StatModifier { get; private set; }
-        public string ChallengeName { get; private set; }
+        public Localization ChallengeName { get; private set; }
         public List<Func<Task>> SuccesEffects { get; init; } = new();
         public List<Func<Task>> FailEffects { get; init; } = new();
         public Card CardToChallenge { get; private set; }
@@ -37,18 +37,18 @@ namespace MythosAndHorrors.GameRules
         public bool IsSucceed => (bool)ResultChallenge?.IsSuccessful;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_Challenge");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_Challenge");
+        public override Localization PhaseNameLocalization => new("PhaseName_Challenge");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_Challenge");
         public override Phase MainPhase => Phase.Challenge;
 
         /*******************************************************************/
-        public ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string localizableCode, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null, params string[] localizableArgs)
+        public ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, Localization localization, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
         {
             Stat = stat;
             StatModifier = new Stat(0, true);
             InitialDifficultValue = difficultValue;
             CardToChallenge = cardToChallenge;
-            ChallengeName = $"{ActiveInvestigator.InvestigatorCard.Info.Name} {_textsProvider.GetLocalizableText(localizableCode, localizableArgs)}";
+            ChallengeName = localization;
             if (succesEffect != null) SuccesEffects.Add(succesEffect);
             if (failEffect != null) FailEffects.Add(failEffect);
             return this;

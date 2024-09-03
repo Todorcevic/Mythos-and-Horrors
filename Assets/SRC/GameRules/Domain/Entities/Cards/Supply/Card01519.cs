@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.Supplie);
-            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, "Activation_Card01519");
+            CreateActivation(1, HealthActivate, HealConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01519"));
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
 
@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01519");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01519"));
 
             foreach (Investigator investigator in activeInvestigator.CurrentPlace.InvestigatorsInThisPlace
                 .Where(investigator => investigator.CanBeHealed.IsTrue))
@@ -52,8 +52,8 @@ namespace MythosAndHorrors.GameRules
                     new Stat(0, false),
                     RestoreHealthInvestigator,
                     PlayActionType.Choose,
-                    localizableCode: "CardEffect_Card01519",
-                    playedBy: activeInvestigator);
+                    playedBy: activeInvestigator,
+                    new Localization("CardEffect_Card01519"));
 
                 /*******************************************************************/
                 async Task RestoreHealthInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountDamageToRecovery: 1).Execute();
@@ -66,8 +66,8 @@ namespace MythosAndHorrors.GameRules
                     new Stat(0, false),
                     RestoreSanityInvestigator,
                     PlayActionType.Choose,
-                    localizableCode: "CardEffect_Card01519-1",
-                    playedBy: activeInvestigator);
+                    playedBy: activeInvestigator,
+                    new Localization("CardEffect_Card01519-1"));
 
                 /*******************************************************************/
                 async Task RestoreSanityInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigator.InvestigatorCard, amountFearToRecovery: 1).Execute();

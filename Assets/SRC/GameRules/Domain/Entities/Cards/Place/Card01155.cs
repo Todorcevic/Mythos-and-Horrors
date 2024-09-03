@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Used = CreateState(false);
-            CreateActivation(1, HealthDamageLogic, HealthCondition, PlayActionType.Activate, "Activation_Card01155");
-            CreateActivation(1, HealthFearLogic, HealthCondition, PlayActionType.Activate, "Activation_Card01155-1");
+            CreateActivation(1, HealthDamageLogic, HealthCondition, PlayActionType.Activate, new Localization("Activation_Card01155"));
+            CreateActivation(1, HealthFearLogic, HealthCondition, PlayActionType.Activate, new Localization("Activation_Card01155-1"));
             CreateForceReaction<PlayInvestigatorGameAction>(ResetLogic, ResetCondition, GameActionTime.Before);
         }
 

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = CreateStat(3);
             Charge = new Charge(Hints, ChargeType.Special);
-            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before, "OptativeReaction_Card01182");
+            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01182"));
             CreateForceReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }
 

@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             CreateForceReaction<AttackCreatureGameAction>(AttackCondition, AttackLogic, GameActionTime.Before);
-            CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, "Buff_Card01117");
+            CreateBuff(CardsToBuff, GainStrength, RemoveGainStrenghtBuff, new Localization("Buff_Card01117"));
         }
 
         /*******************************************************************/

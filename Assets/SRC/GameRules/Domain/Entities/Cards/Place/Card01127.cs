@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _investigatorsProvider.AllInvestigators.ForEach(investigator => InvestigatorsUsed.Add(investigator, CreateState(false)));
-            CreateActivation(1, TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate, "Activation_Card01127");
+            CreateActivation(1, TakeSupportLogic, TakeSupportCondition, PlayActionType.Activate, new Localization("Activation_Card01127"));
         }
 
         /*******************************************************************/
@@ -28,10 +28,10 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<CardSupply> supportsInDeck = investigator.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Ally));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01127");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01127"));
             foreach (CardSupply cardSupply in supportsInDeck)
             {
-                interactableGameAction.CreateCardEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01127");
+                interactableGameAction.CreateCardEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01127"));
 
                 async Task Take()
                 {

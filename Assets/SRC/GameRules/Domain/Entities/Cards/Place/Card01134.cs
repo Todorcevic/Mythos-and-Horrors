@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Played = CreateState(false);
-            GainHints = CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01134");
+            GainHints = CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01134"));
         }
 
         /*******************************************************************/

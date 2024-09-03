@@ -18,20 +18,21 @@ namespace MythosAndHorrors.GameRules
         public GameCommand<IEnumerable<Card>> BuffOffLogic { get; }
         public List<Card> CurrentCardsAffected { get; private set; } = new();
         public bool IsDisabled { get; private set; }
-        public string Description { get; private set; }
+        //public string Description { get; private set; }
 
         string IViewEffect.CardCode => CardMaster.Info.Code;
         string IViewEffect.CardCodeSecundary => CardMaster.ControlOwner?.Code;
+        public Localization Localization { get; private set; }
 
         /*******************************************************************/
         public Buff(Card card, Func<IEnumerable<Card>> cardsToBuff, GameCommand<IEnumerable<Card>> buffOnLogic,
-            GameCommand<IEnumerable<Card>> buffOffLogic, string description)
+            GameCommand<IEnumerable<Card>> buffOffLogic, Localization localization)
         {
             CardMaster = card;
             CardsToBuff = cardsToBuff;
             BuffOnLogic = buffOnLogic;
             BuffOffLogic = buffOffLogic;
-            Description = description;
+            Localization = localization;
         }
 
         /*******************************************************************/

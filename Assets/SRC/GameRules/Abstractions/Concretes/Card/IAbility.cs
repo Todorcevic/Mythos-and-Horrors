@@ -1,8 +1,7 @@
 ﻿namespace MythosAndHorrors.GameRules
 {
-    public interface IAbility
+    public interface IAbility : IViewEffectDescription
     {
-        string Description { get; }
         void Disable();
         void Enable();
     }

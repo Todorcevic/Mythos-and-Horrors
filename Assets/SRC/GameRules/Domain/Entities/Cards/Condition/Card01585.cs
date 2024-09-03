@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Played = new State(false);
-            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, code: "Buff_Card01585");
+            CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, new Localization("Buff_Card01585"));
             CreateForceReaction<PlayInvestigatorGameAction>(RemovePlayedCondition, RemovePlayedLogic, GameActionTime.After);
             CreateForceReaction<RevealChallengeTokenGameAction>(RevealTokenCondition, RevealTokenLogic, GameActionTime.Initial);
         }

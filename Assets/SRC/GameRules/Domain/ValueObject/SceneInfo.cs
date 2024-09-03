@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("CreatureTokenDescriptionHard")] public string CreatureTokenDescriptionHard { get; init; }
         [JsonProperty("DangerTokenDescriptionHard")] public string DangerTokenDescriptionHard { get; init; }
         [JsonProperty("CultistTokenDescriptionHard")] public string CultistTokenDescriptionHard { get; init; }
+        [JsonProperty("FailTokenDescription")] public string FailTokenDescription { get; init; }
 
         public IEnumerable<CardPlace> PlaceCards => Cards.OfType<CardPlace>();
         public IEnumerable<CardPlot> PlotCards => Cards.OfType<CardPlot>();

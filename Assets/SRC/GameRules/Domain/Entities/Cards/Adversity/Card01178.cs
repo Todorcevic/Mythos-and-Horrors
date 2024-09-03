@@ -14,9 +14,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01178");
-            interactableGameAction.CreateCardEffect(this, new Stat(0, false), DrawAndEldritch, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01178");
-            interactableGameAction.CreateCardEffect(this, new Stat(0, false), TakeFear, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01178-1");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01178"));
+            interactableGameAction.CreateCardEffect(this, new Stat(0, false), DrawAndEldritch, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01178"));
+            interactableGameAction.CreateCardEffect(this, new Stat(0, false), TakeFear, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01178-1"));
             await interactableGameAction.Execute();
 
             /*******************************************************************/

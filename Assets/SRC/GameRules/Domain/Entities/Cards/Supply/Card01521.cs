@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateOptativeReaction<HarmToCardGameAction>(Condition, Logic, GameActionTime.Before, "OptativeReaction_Card01521");
+            CreateOptativeReaction<HarmToCardGameAction>(Condition, Logic, GameActionTime.Before, new Localization("OptativeReaction_Card01521"));
         }
 
         /*******************************************************************/

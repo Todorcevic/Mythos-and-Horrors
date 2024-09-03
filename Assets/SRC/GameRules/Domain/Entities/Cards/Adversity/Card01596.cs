@@ -15,10 +15,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01596");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01596"));
             foreach (Card card in investigator.DiscardableCardsInHand)
             {
-                interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01596");
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01596"));
 
                 async Task Discard()
                 {

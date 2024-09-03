@@ -19,8 +19,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate, "Activation_Card01174");
-            CreateBuff(CardsToBuff, ActivationBuffLogic, DactivationBuffLogic, code: "Buff_Card01174");
+            CreateActivation(1, TryOpenLogic, TryOpenCondition, PlayActionType.Activate, new Localization("Activation_Card01174"));
+            CreateBuff(CardsToBuff, ActivationBuffLogic, DactivationBuffLogic, new Localization("Buff_Card01174"));
         }
 
         /*******************************************************************/
@@ -56,20 +56,19 @@ namespace MythosAndHorrors.GameRules
         private async Task TryOpenLogic(Investigator investigator)
         {
             InteractableGameAction choose = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01174");
-            choose.CreateCardEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174");
-            choose.CreateCardEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01174-1");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01174"));
+            choose.CreateCardEffect(this, new Stat(0, false), StrengthChallenge, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01174"));
+            choose.CreateCardEffect(this, new Stat(0, false), AgilityChallenge, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01174-1"));
             await choose.Execute();
 
             /*******************************************************************/
             async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
-                SetWith(investigator.Strength, 4, "Challenge_Card01174", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
+                SetWith(investigator.Strength, 4, new Localization("Challenge_Card01174", Info.Name), this, succesEffect: Discard).Execute();
             async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
-                SetWith(investigator.Agility, 4, "Challenge_Card01174", this, succesEffect: Discard, localizableArgs: Info.Name).Execute();
+                SetWith(investigator.Agility, 4, new Localization("Challenge_Card01174", Info.Name), this, succesEffect: Discard).Execute();
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
-
         }
 
         private bool TryOpenCondition(Investigator investigator)

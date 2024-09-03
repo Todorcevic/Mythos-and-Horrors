@@ -6,8 +6,8 @@ namespace MythosAndHorrors.GameRules
     {
         public Scene Scene { get; private set; }
         public override Phase MainPhase => Phase.Prepare;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_PrepareScene");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_PrepareScene");
+        public override Localization PhaseNameLocalization => new("PhaseName_PrepareScene");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_PrepareScene");
 
         /*******************************************************************/
         public PrepareSceneGameAction SetWith(Scene scene)

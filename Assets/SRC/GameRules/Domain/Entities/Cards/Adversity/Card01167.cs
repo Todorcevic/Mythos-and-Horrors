@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, "Challenge_Card01167", this, failEffect: DiscardOrFear, localizableArgs: Info.Name).Execute();
+            await _gameActionsProvider.Create<ChallengePhaseGameAction>().SetWith(investigator.Power, 4, new Localization("Challenge_Card01167", Info.Name), this, failEffect: DiscardOrFear).Execute();
 
             /*******************************************************************/
             async Task DiscardOrFear()
@@ -23,11 +23,11 @@ namespace MythosAndHorrors.GameRules
                 if (cardSuppliesForDiscard.Any())
                 {
                     InteractableGameAction interactableGameAcrtion = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01167");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01167"));
 
                     foreach (CardSupply cardSupply in cardSuppliesForDiscard)
                     {
-                        interactableGameAcrtion.CreateCardEffect(cardSupply, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01167");
+                        interactableGameAcrtion.CreateCardEffect(cardSupply, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01167"));
 
                         /*******************************************************************/
                         async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardSupply).Execute();

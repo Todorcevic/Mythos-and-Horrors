@@ -10,12 +10,11 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
-         => throw new NotImplementedException();
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
 
         public CheckMaxHandSizeGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, localizableCode: "Interactable_CheckMaxHandSize", DescriptionParams());
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_CheckMaxHandSize", DescriptionParams()));
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -40,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
-                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, "CardEffect_CheckMaxHandSize");
+                CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_CheckMaxHandSize"));
 
                 /*******************************************************************/
                 async Task Discard()

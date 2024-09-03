@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(3, ChargeType.MagicCharge);
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate, "Activation_Card01690");
+            CreateFastActivation(Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01690"));
         }
 
         /*******************************************************************/
@@ -36,13 +36,13 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01690");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01690"));
             interactableGameAction.CreateCardEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck,
-                PlayActionType.Choose, investigator, "CardEffect_Card01690");
+                PlayActionType.Choose, investigator, new Localization("CardEffect_Card01690"));
 
             foreach (Investigator inv in _investigatorsProvider.AllInvestigatorsInPlay)
             {
-                interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelectDeck, PlayActionType.Choose, investigator, "CardEffect_Card01690-1");
+                interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelectDeck, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01690-1"));
 
                 async Task SelectDeck()
                 {
@@ -71,10 +71,10 @@ namespace MythosAndHorrors.GameRules
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01690-1");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01690-1"));
             foreach (Card card in cards)
             {
-                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, "CardEffect_Card01690-2", cardAffected: cardAffected);
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, new Localization("CardEffect_Card01690-2"), cardAffected: cardAffected);
 
                 async Task SelectCard()
                 {

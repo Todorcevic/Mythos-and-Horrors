@@ -5,8 +5,8 @@ namespace MythosAndHorrors.GameRules
     public class CreaturePhaseGameAction : PhaseGameAction, IPhase
     {
         public override Phase MainPhase => Phase.Creature;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_CreaturePhase");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_CreaturePhase");
+        public override Localization PhaseNameLocalization => new("PhaseName_CreaturePhase");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_CreaturePhase");
 
         /*******************************************************************/
         //3.1	Enemy phase begins.

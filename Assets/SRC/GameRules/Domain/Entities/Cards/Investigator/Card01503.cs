@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             AbilityUsed = CreateState(false);
-            CreateFastActivation(GainTurnActivate, GainTurnConditionToActivate, PlayActionType.Activate, "Activation_Card01503");
+            CreateFastActivation(GainTurnActivate, GainTurnConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01503"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 

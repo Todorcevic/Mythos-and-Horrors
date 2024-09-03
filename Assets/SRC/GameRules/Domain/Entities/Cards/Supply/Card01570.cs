@@ -18,8 +18,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01570");
-            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, "Buff_Card01570");
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01570"));
+            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, new Localization("Buff_Card01570"));
             ExtraMagicalSlot = new Slot(SlotType.Magical);
         }
 
@@ -52,11 +52,11 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01570");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01570"));
 
             foreach (Card card in investigator.CardsInPlay.Where(card => card is IChargeable chargeable && chargeable.Charge.ChargeType == ChargeType.MagicCharge))
             {
-                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, "CardEffect_Card01570");
+                interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01570"));
 
                 /*******************************************************************/
                 async Task SelectSpell() =>

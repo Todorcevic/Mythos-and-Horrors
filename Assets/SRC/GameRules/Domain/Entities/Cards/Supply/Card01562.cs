@@ -16,8 +16,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateChallengeActivation(GainSkillLogic, GainIntelligenceSkillCondition, PlayActionType.Activate, "Activation_Card01562");
-            CreateChallengeActivation(GainSkillLogic, GainPowerSkillCondition, PlayActionType.Activate, "Activation_Card01562-1");
+            CreateChallengeActivation(GainSkillLogic, GainIntelligenceSkillCondition, PlayActionType.Activate, new Localization("Activation_Card01562"));
+            CreateChallengeActivation(GainSkillLogic, GainPowerSkillCondition, PlayActionType.Activate, new Localization("Activation_Card01562-1"));
         }
 
         /*******************************************************************/

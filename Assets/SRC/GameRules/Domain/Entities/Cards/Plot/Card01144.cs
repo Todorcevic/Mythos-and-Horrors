@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateBuff(CardsToBuff, AddStrenghAndAgilityBuff, RemoveAddStrenghAndAgilityBlankBuff, "Buff_Card01144");
+            CreateBuff(CardsToBuff, AddStrenghAndAgilityBuff, RemoveAddStrenghAndAgilityBlankBuff, new Localization("Buff_Card01144"));
         }
 
         /*******************************************************************/
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             async Task ChallengePower(Investigator investigator)
             {
                 await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                    .SetWith(investigator.Power, 6, "Challenge_Card01144", failEffect: AddMadness, cardToChallenge: this, localizableArgs: Info.Name)
+                    .SetWith(investigator.Power, 6, new Localization("Challenge_Card01144", Info.Name), failEffect: AddMadness, cardToChallenge: this)
                     .Execute();
 
                 /*******************************************************************/

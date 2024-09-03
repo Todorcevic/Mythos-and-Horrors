@@ -16,24 +16,17 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string code, params string[] descriptionArgs)
-        => throw new NotImplementedException();
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
 
         public ShareDamageAndFearGameAction SetWith(Investigator investigator, Card bythisCard, int amountDamage = 0, int amountFear = 0)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, localizableCode: "Interactable_ShareDamageAndFear", DescriptionParams(amountDamage, amountFear));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_ShareDamageAndFear", amountDamage.ToString(), amountFear.ToString()));
             ActiveInvestigator = investigator;
             ByThisCard = bythisCard;
             AmountDamage = amountDamage;
             AmountFear = amountFear;
             ExecuteSpecificInitialization();
             return this;
-
-            /*******************************************************************/
-            static string[] DescriptionParams(int amountDamage, int amountFear)
-            {
-                return new[] { amountDamage.ToString(), amountFear.ToString() };
-            }
         }
 
         /*******************************************************************/
@@ -56,7 +49,7 @@ namespace MythosAndHorrors.GameRules
                 string[] localizableArgs = damage > 0 && fear > 0 ? new[] { damage.ToString(), fear.ToString() } : damage > 0 ? new[] { damage.ToString() } : new[] { fear.ToString() };
 
                 CreateCardEffect(cardSelectable, new Stat(0, false), DoDamageAndFear, PlayActionType.Choose,
-                    cardSelectable.ControlOwner, localizableCode, cardAffected: ByThisCard, localizableArgs: localizableArgs);
+                    cardSelectable.ControlOwner, new Localization(localizableCode, localizableArgs), cardAffected: ByThisCard);
 
                 /*******************************************************************/
                 async Task DoDamageAndFear()

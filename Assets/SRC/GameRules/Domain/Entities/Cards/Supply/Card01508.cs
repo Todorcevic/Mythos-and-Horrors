@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraBook = new Slot(SlotType.Item, SlotCondition);
-            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, "Buff_Card01508");
+            CreateBuff(CardsToBuff, ActivationLogic, Deactivationlogic, new Localization("Buff_Card01508"));
 
             bool SlotCondition()
             {

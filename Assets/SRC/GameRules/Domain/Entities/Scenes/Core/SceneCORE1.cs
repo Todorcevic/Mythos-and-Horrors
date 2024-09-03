@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
 
         private void ParleyLita()
         {
-            Lita.CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, "Activation_Card01117");
+            Lita.CreateActivation(1, ParleyActivate, ParleyConditionToActivate, PlayActionType.Parley, new Localization("Activation_Card01117"));
 
             async Task ParleyActivate(Investigator activeInvestigator)
             {
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                    .SetWith(activeInvestigator.Intelligence, 4, "Challenge_Card01117", cardToChallenge: Lita, ParleySucceed, null, localizableArgs: Lita.Info.Name)
+                    .SetWith(activeInvestigator.Intelligence, 4, new Localization("Challenge_Card01117", Lita.Info.Name), cardToChallenge: Lita, ParleySucceed, null)
                     .Execute();
 
                 async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()

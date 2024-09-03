@@ -22,11 +22,11 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<CardPlace> connectedPlacesToMove = investigator.CurrentPlace.ConnectedPlacesToMove.Where(place => !place.CreaturesInThisPlace.Any());
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01550");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01550"));
 
             foreach (CardPlace place in connectedPlacesToMove)
             {
-                interactable.CreateCardEffect(place, new Stat(0, false), DeconfrontAndMove, PlayActionType.Choose, investigator, "CardEffect_Card01550");
+                interactable.CreateCardEffect(place, new Stat(0, false), DeconfrontAndMove, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01550"));
 
                 /*******************************************************************/
                 async Task DeconfrontAndMove() => await _gameActionsProvider.Create<MoveInvestigatorAndUnconfrontGameAction>()

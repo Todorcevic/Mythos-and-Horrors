@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Charge = new Charge(2, ChargeType.Secret);
-            CreateActivation(1, Logic, Condition, PlayActionType.Activate, "Activation_Card01686");
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01686"));
         }
 
         /*******************************************************************/
@@ -36,11 +36,11 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01686"));
             foreach (Investigator inv in _investigatorsProvider.GetInvestigatorsInThisPlace(investigator.CurrentPlace))
             {
                 interactableGameAction.CreateCardEffect(inv.InvestigatorCard, new Stat(0, false), SelecteInvestigator,
-                    PlayActionType.Choose, investigator, "CardEffect_Card01686");
+                    PlayActionType.Choose, investigator, new Localization("CardEffect_Card01686"));
 
                 /*******************************************************************/
                 async Task SelecteInvestigator()
@@ -48,11 +48,11 @@ namespace MythosAndHorrors.GameRules
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
                     await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Execute();
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01686-1");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01686-1"));
 
                     foreach (Card card in cardsToShow)
                     {
-                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, "CardEffect_Card01686-1");
+                        interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, new Localization("CardEffect_Card01686-1"));
 
                         /*******************************************************************/
                         async Task Draw()
@@ -83,10 +83,10 @@ namespace MythosAndHorrors.GameRules
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_Card01686-2");
+                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01686-2"));
                 interactableGameAction.CreateContinueMainButton();
                 interactableGameAction.CreateCardEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand,
-                    card.ControlOwner, "CardEffect_Card01686-2", resourceCost: playableFromHand.ResourceCost);
+                    card.ControlOwner, new Localization("CardEffect_Card01686-2"), resourceCost: playableFromHand.ResourceCost);
 
                 async Task DecrementLogic()
                 {

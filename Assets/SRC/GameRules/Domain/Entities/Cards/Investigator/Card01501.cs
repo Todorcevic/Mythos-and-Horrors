@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Owner.CurrentPlace.Info.Name);
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After, "OptativeReaction_Card01501");
+            CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After, new Localization("OptativeReaction_Card01501"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 

@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameView
     {
         private const float OFFSET = 1f;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly TextsProvider _textsProvider;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
@@ -33,7 +34,7 @@ namespace MythosAndHorrors.GameView
 
         public void ActivateToClick()
         {
-            _message.text = MainButtonEffect?.Description;
+            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect?.Localization);
             DOTween.Sequence()
                 .Join(_buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
                 .Join(_buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION))
@@ -54,7 +55,7 @@ namespace MythosAndHorrors.GameView
 
         public void ActivateToCancelClick()
         {
-            _message.text = MainButtonEffect?.Description;
+            _message.text = _textsProvider.GetLocalizableText(MainButtonEffect?.Localization);
             _collider.enabled = true;
             _buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear);
             _buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION);

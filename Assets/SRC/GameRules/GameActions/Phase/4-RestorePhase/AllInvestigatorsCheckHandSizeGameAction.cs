@@ -10,9 +10,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         /*******************************************************************/
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_AllInvestigatorsCheckHandSize");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_AllInvestigatorsCheckHandSize");
         public override Phase MainPhase => Phase.Restore;
+        public override Localization PhaseNameLocalization => new("PhaseName_AllInvestigatorsCheckHandSize");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_AllInvestigatorsCheckHandSize");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

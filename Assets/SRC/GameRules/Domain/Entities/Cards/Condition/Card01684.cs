@@ -12,8 +12,7 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spirit };
         protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
-        protected override string LocalizableCode => "OptativeReaction_Card01684";
-        protected override string[] LocalizableArgs => new[] { _amountResourcesTogain.ToString(), _amountResourcesTogain.ToString() };
+        protected override Localization Localization => new("OptativeReaction_Card01684", _amountResourcesTogain.ToString(), _amountResourcesTogain.ToString());
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)

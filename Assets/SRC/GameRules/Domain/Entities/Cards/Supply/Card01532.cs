@@ -27,20 +27,20 @@ namespace MythosAndHorrors.GameRules
             Sanity = CreateStat(Info.Sanity ?? 0);
             FearRecived = CreateStat(0);
 
-            CreateOptativeReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After, "Activation_Card01532");
+            CreateOptativeReaction<MoveCardsGameAction>(Condition, Logic, GameActionTime.After, new Localization("Activation_Card01532"));
         }
 
         /*******************************************************************/
         private async Task Logic(MoveCardsGameAction moveCardsGameAction)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01532");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01532"));
 
             IEnumerable<CardSupply> tomes = ControlOwner.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Tome));
 
             foreach (CardSupply tome in tomes)
             {
-                interactableGameAction.CreateCardEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, "CardEffect_Card01532");
+                interactableGameAction.CreateCardEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, new Localization("CardEffect_Card01532"));
 
                 /*******************************************************************/
                 async Task TakeTome()

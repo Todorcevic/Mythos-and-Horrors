@@ -29,9 +29,9 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01685");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01685"));
 
-            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, "CardEffect_Card01685", cardAffected: this);
+            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, new Localization("CardEffect_Card01685"), cardAffected: this);
 
             await interactable.Execute();
 
@@ -49,11 +49,11 @@ namespace MythosAndHorrors.GameRules
                 async Task ChooseHints()
                 {
                     InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
-                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01685-2");
+                        .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01685-2"));
 
                     foreach (CardPlace place in PlacesWithHints(investigator))
                     {
-                        chooseHints.CreateCardEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator, "CardEffect_Card01685-1");
+                        chooseHints.CreateCardEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01685-1"));
 
                         async Task TakeHint()
                         {

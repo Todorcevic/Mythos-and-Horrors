@@ -9,9 +9,9 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_ReadyAllCards");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_ReadyAllCards");
         public override Phase MainPhase => Phase.Restore;
+        public override Localization PhaseNameLocalization => new("PhaseName_ReadyAllCards");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_ReadyAllCards");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

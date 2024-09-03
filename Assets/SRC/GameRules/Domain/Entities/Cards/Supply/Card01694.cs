@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             ExtraAlly = new Slot(SlotType.Supporter);
-            CreateBuff(CardToBuff, ActiveBuff, DeactiveBuff, "Buff_Card01694");
+            CreateBuff(CardToBuff, ActiveBuff, DeactiveBuff, new Localization("Buff_Card01694"));
         }
 
         /*******************************************************************/

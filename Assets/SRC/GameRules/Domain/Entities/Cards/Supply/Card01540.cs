@@ -17,8 +17,8 @@ namespace MythosAndHorrors.GameRules
         {
             RemoveStat(PlayFromHandTurnsCost);
             PlayFromHandTurnsCost = CreateStat(0);
-            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, "Buff_Card01540");
-            CreateFastActivation(ReturnToHandLogic, ReturnToHandCondition, PlayActionType.Activate, "Activation_Card01540");
+            CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, new Localization("Buff_Card01540"));
+            CreateFastActivation(ReturnToHandLogic, ReturnToHandCondition, PlayActionType.Activate, new Localization("Activation_Card01540"));
         }
 
         /*******************************************************************/

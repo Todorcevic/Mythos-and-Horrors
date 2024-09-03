@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign, "Activation_Card01115");
+            CreateActivation(1, ResignActivate, ResignConditionToActivate, PlayActionType.Resign, new Localization("Activation_Card01115"));
             CanMoveHere = new Conditional(() => IsInPlay.IsTrue && Revealed.IsActive);
         }
 

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Info.Name);
             AbilityUsed = CreateState(false);
-            CreateFastActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate, "Activation_Card01502");
+            CreateFastActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01502"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         public async Task FreeTomeActivationActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_Card01502");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01502"));
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Execute();
 
             foreach (Card activable in AllActivableTomes)
@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameRules
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
                         interactableGameAction.CreateCardEffect(activable, activation.ActivateTurnsCost, Activate,
-                            PlayActionType.Choose | activation.PlayAction, playedBy: activeInvestigator, localizableCode: activation.LocalizableCode, localizableArgs: activation.LocalizableArgs);
+                            PlayActionType.Choose | activation.PlayAction, playedBy: activeInvestigator, activation.Localization);
 
                     /*******************************************************************/
                     async Task Activate()

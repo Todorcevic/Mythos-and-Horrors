@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             _investigatorsProvider.AllInvestigators.ForEach(investigator => InvestigatorsUsed.Add(investigator, CreateState(false)));
-            CreateActivation(1, HealthFearLogic, HealthFearCondition, PlayActionType.Activate, "Activation_Card01131");
+            CreateActivation(1, HealthFearLogic, HealthFearCondition, PlayActionType.Activate, new Localization("Activation_Card01131"));
         }
 
         /*******************************************************************/

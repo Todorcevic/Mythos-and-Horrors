@@ -12,9 +12,9 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_StalkerCreaturesMove");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_StalkerCreaturesMove");
         public override Phase MainPhase => Phase.Creature;
+        public override Localization PhaseNameLocalization => new("PhaseName_StalkerCreaturesMove");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_StalkerCreaturesMove");
 
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()

@@ -17,26 +17,26 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, HealthActivate, HealtConditionConditionToActivate, PlayActionType.Activate, "Activation_Card01535");
+            CreateActivation(1, HealthActivate, HealtConditionConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01535"));
         }
 
         /************************ HEALTH ACTIVATION ******************************/
         public async Task HealthActivate(Investigator activeInvestigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01535");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01535"));
 
             IEnumerable<Investigator> investigators = _investigatorsProvider.GetInvestigatorsInThisPlace(activeInvestigator.CurrentPlace);
             foreach (Investigator investigatorToSelect in investigators)
             {
                 interactableGameAction.CreateCardEffect(investigatorToSelect.InvestigatorCard, new Stat(0, false), HealthInvestigator,
-                    PlayActionType.Choose, activeInvestigator, "CardEffect_Card01535");
+                    PlayActionType.Choose, activeInvestigator, new Localization("CardEffect_Card01535"));
 
                 /*******************************************************************/
                 async Task HealthInvestigator()
                 {
                     await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                        .SetWith(activeInvestigator.Intelligence, 2, "Challenge_Card01535", this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator, localizableArgs: Info.Name).Execute();
+                        .SetWith(activeInvestigator.Intelligence, 2, new Localization("Challenge_Card01535", Info.Name), this, succesEffect: HealthInvestigator, failEffect: DamageInvestigator).Execute();
 
                     /*******************************************************************/
                     async Task HealthInvestigator() => await _gameActionsProvider.Create<RecoverGameAction>().SetWith(investigatorToSelect.InvestigatorCard, amountDamageToRecovery: 1).Execute();

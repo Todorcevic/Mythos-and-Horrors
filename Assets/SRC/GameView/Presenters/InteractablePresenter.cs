@@ -22,6 +22,9 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly PhaseComponent _phaseComponent;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly TextsProvider _textsProvider;
+
+        string InteractableTitle => _textsProvider.GetLocalizableText(_interactableGameAction.InteractableTitle);
 
         /*******************************************************************/
         async Task<BaseEffect> IInteractablePresenter.SelectWith(InteractableGameAction interactableGameAction)
@@ -44,12 +47,12 @@ namespace MythosAndHorrors.GameView
             else if (_mustShowInCenter)
             {
                 List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                await _showSelectorComponent.ShowCards(cardsToShow, _interactableGameAction.Description);
+                await _showSelectorComponent.ShowCards(cardsToShow, InteractableTitle);
                 return await Interact();
             }
             else
             {
-                _phaseComponent.ShowText(_interactableGameAction.Description).SetNotWaitable();
+                _phaseComponent.ShowText(InteractableTitle).SetNotWaitable();
                 await CenterShowDown();
                 return await Interact();
             }
@@ -79,7 +82,7 @@ namespace MythosAndHorrors.GameView
         private async Task<BaseEffect> InteractWithMultiEfefct(CardView multiEffectCardView)
         {
             _mustShowInCenter = _interactableGameAction.MustShowInCenter;
-            return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, _interactableGameAction.Description)
+            return await _multiEffectHandler.ShowMultiEffects(multiEffectCardView, InteractableTitle)
                 ?? await Initial();
         }
 

@@ -15,12 +15,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, string localizableCode, params string[] localizableArgs)
+        private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
         => throw new NotImplementedException();
 
         public PayHintsToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
-            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, localizableCode: "Interactable_PayHintsToGoal", localizableArgs: cardGoal.Info.Name);
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayHintsToGoal", cardGoal.Info.Name));
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
             ExecuteSpecificInitialization();
@@ -32,7 +32,8 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsTrue))
             {
-                EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator, "CreateEffect_PayHintsToGoal", localizableArgs: investigator.Hints.Value.ToString()));
+                EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator,
+                    new Localization("CreateEffect_PayHintsToGoal", investigator.Hints.Value.ToString())));
 
                 /*******************************************************************/
                 async Task PayHint()

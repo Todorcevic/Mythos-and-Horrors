@@ -28,12 +28,12 @@ namespace MythosAndHorrors.GameRules
             async Task SucessEffect()
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, "Interactable_Card01581");
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: false, new Localization("Interactable_Card01581"));
                 interactableGameAction.CreateContinueMainButton();
                 foreach (CardPlace place in eludeCreatureGameAction.ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
                 {
-                    interactableGameAction.CreateCardEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move, 
-                        playedBy: eludeCreatureGameAction.ActiveInvestigator, "CardEffect_Card01581");
+                    interactableGameAction.CreateCardEffect(place, new Stat(0, false), MoveAndUnconfront, PlayActionType.Choose | PlayActionType.Move,
+                        playedBy: eludeCreatureGameAction.ActiveInvestigator, new Localization("CardEffect_Card01581"));
 
                     /*******************************************************************/
                     async Task MoveAndUnconfront() =>

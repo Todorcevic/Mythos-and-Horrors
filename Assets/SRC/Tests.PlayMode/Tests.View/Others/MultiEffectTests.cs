@@ -20,18 +20,18 @@ namespace MythosAndHorrors.PlayModeView.Tests
         {
             yield return new WaitForSeconds(4);
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, "Interactable_TestsPurpose");
+                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_TestsPurpose"));
             Investigator investigator1 = _investigatorsProvider.First;
             Card card = investigator1.FullDeck[1];
             Card card2 = investigator1.FullDeck[2];
 
             interactableGameAction.CreateContinueMainButton();
             interactableGameAction.CreateCardEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.DangerZone).Execute(),
-                PlayActionType.Choose, investigator1, "CardEffect_TestsPurpose");
+                PlayActionType.Choose, investigator1, new Localization("CardEffect_TestsPurpose"));
             interactableGameAction.CreateCardEffect(card, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, investigator1.HandZone).Execute(),
-                PlayActionType.Choose, investigator1, "CardEffect_TestsPurpose");
+                PlayActionType.Choose, investigator1, new Localization("CardEffect_TestsPurpose"));
             interactableGameAction.CreateCardEffect(card2, new Stat(0, false), () => _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card2, investigator1.DangerZone).Execute(),
-                PlayActionType.Choose, investigator1, "CardEffect_TestsPurpose");
+                PlayActionType.Choose, investigator1, new Localization("CardEffect_TestsPurpose"));
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator1.FullDeck.Take(5).ToList(), investigator1.HandZone).Execute().AsCoroutine();
 
             Task gameActionTask = interactableGameAction.Execute();

@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Blessed };
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
-        protected override string LocalizableCode => "OptativeReaction_Card01692";
+        protected override Localization Localization => new("OptativeReaction_Card01692");
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)

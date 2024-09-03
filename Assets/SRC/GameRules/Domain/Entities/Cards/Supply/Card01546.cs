@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateOptativeReaction<EludeGameAction>(DrawLogic, DrawCondition, GameActionTime.After, "OptativeReaction_Card01546");
+            CreateOptativeReaction<EludeGameAction>(DrawLogic, DrawCondition, GameActionTime.After, new Localization("OptativeReaction_Card01546"));
         }
 
         /*******************************************************************/

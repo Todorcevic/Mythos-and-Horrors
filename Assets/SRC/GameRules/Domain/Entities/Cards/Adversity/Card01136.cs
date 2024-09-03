@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
             else
             {
                 ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
-                await challengeGameAction.SetWith(investigator.Intelligence, 4, "Challenge_Card01136", this, failEffect: DropHints, localizableArgs: Info.Name).Execute();
+                await challengeGameAction.SetWith(investigator.Intelligence, 4, new Localization("Challenge_Card01136", Info.Name), this, failEffect: DropHints).Execute();
 
                 /*******************************************************************/
                 async Task DropHints()

@@ -12,12 +12,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
-        private new ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, string localizableCode, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null, params string[] localizableArgs)
+        private new ChallengePhaseGameAction SetWith(Stat stat, int difficultValue, Localization localization, Card cardToChallenge, Func<Task> succesEffect = null, Func<Task> failEffect = null)
             => throw new NotImplementedException();
 
         public InvestigatePlaceGameAction SetWith(Investigator investigator, CardPlace cardPlace)
         {
-            base.SetWith(investigator.Intelligence, cardPlace.Enigma.Value, "Challenge_InvestigatePlace", cardToChallenge: cardPlace, localizableArgs: cardPlace.Info.Name);
+            base.SetWith(investigator.Intelligence, cardPlace.Enigma.Value, new Localization("Challenge_InvestigatePlace", cardPlace.Info.Name), cardToChallenge: cardPlace);
             AmountHints = 1;
             CardPlace = cardPlace;
             SuccesEffects.Add(SuccesEffet);

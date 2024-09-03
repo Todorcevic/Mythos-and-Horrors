@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
         [Inject]
         public void Init()
         {
-            CreateOptativeReaction<SpawnCreatureGameAction>(Condition, Logic, GameActionTime.After, "OptativeReaction_Card01541");
+            CreateOptativeReaction<SpawnCreatureGameAction>(Condition, Logic, GameActionTime.After, new Localization("OptativeReaction_Card01541"));
         }
 
         /*******************************************************************/

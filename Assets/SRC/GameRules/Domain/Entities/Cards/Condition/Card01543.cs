@@ -15,11 +15,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01543");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01543"));
 
             foreach (Investigator investigatorToChoose in investigator.CurrentPlace.InvestigatorsInThisPlace)
             {
-                interactable.CreateCardEffect(investigatorToChoose.AvatarCard, new Stat(0, false), Draw, PlayActionType.Choose, investigator, "CardEffect_Card01543");
+                interactable.CreateCardEffect(investigatorToChoose.AvatarCard, new Stat(0, false), Draw, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01543"));
 
                 /*******************************************************************/
                 async Task Draw()

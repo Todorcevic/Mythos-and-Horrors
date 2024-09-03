@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateActivation(1, TakeTomeOrSpellLogic, TakeTomeOrSpellCondition, PlayActionType.Activate, "Activation_Card01129");
+            CreateActivation(1, TakeTomeOrSpellLogic, TakeTomeOrSpellCondition, PlayActionType.Activate, new Localization("Activation_Card01129"));
         }
 
         /*******************************************************************/
@@ -27,10 +27,10 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<Card> cardToChoose = investigator.DeckZone.Cards.Skip(Math.Max(0, investigator.DeckZone.Cards.Count() - 6))
                 .Take(6).Where(card => card.HasThisTag(Tag.Tome) || card.HasThisTag(Tag.Spell));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01129");
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01129"));
             foreach (Card card in cardToChoose)
             {
-                interactableGameAction.CreateCardEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator, "CardEffect_Card01129");
+                interactableGameAction.CreateCardEffect(card, CreateStat(0), Take, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01129"));
 
                 async Task Take()
                 {

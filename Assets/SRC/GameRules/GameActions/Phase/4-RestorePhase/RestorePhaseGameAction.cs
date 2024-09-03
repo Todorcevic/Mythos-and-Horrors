@@ -5,8 +5,8 @@ namespace MythosAndHorrors.GameRules
     public class RestorePhaseGameAction : PhaseGameAction, IPhase
     {
         public override Phase MainPhase => Phase.Restore;
-        public override string Name => _textsProvider.GetLocalizableText("PhaseName_RestorePhase");
-        public override string Description => _textsProvider.GetLocalizableText("PhaseDescription_RestorePhase");
+        public override Localization PhaseNameLocalization => new("PhaseName_RestorePhase");
+        public override Localization PhaseDescriptionLocalization => new("PhaseDescription_RestorePhase");
 
         /*******************************************************************/
         //4.1	Upkeep phase begins.

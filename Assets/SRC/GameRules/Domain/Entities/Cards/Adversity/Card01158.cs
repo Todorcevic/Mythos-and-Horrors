@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ObligationLogic(Investigator investigator)
         {
             ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
-            await challengeGameAction.SetWith(investigator.Power, 5, "Challenge_Card01158", this, failEffect: MultiFailEffect, localizableArgs: Info.Name).Execute();
+            await challengeGameAction.SetWith(investigator.Power, 5, new Localization("Challenge_Card01158", Info.Name), this, failEffect: MultiFailEffect).Execute();
 
             /*******************************************************************/
             async Task MultiFailEffect()
@@ -31,12 +31,12 @@ namespace MythosAndHorrors.GameRules
                     async Task FailEffect()
                     {
                         InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, "Interactable_Card01158", DescriptionParams());
+                            .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01158", (ChoiseRemaining.Value + 1).ToString()));
 
-                        interactableGameAction.CreateCardEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01158");
+                        interactableGameAction.CreateCardEffect(investigator.InvestigatorCard, new Stat(0, false), TakeDamageAndFear, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01158"));
                         foreach (Card card in investigator.DiscardableCardsInHand)
                         {
-                            interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, "CardEffect_Card01158-1");
+                            interactableGameAction.CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01158-1"));
 
                             /*******************************************************************/
                             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
@@ -47,8 +47,6 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task TakeDamageAndFear() =>
                             await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 1, amountFear: 1).Execute();
-
-                        string DescriptionParams() => (ChoiseRemaining.Value + 1).ToString();
                     }
                 }
             }

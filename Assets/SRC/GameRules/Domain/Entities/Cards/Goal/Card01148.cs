@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Hints);
             Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.Disable();
-            CreateActivation(1, PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate, "Activation_Card01148");
+            CreateActivation(1, PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01148"));
         }
 
         /*******************************************************************/
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PayHintsWithChallengeActivate(Investigator investigator)
         {
             await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                .SetWith(investigator.Power, difficultValue: 3, "Challenge_Card01148", cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect, localizableArgs: Info.Name)
+                .SetWith(investigator.Power, difficultValue: 3, new Localization("Challenge_Card01148", Info.Name), cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
                 .Execute();
 
             /*******************************************************************/

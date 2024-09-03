@@ -10,8 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] private readonly BuffsProvider _buffsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public IReaction AvoidGainHintReaction { get; private set; }
         public Investigator TargetInvestigator => _investigatorsProvider.AllInvestigatorsInPlay
@@ -26,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         {
             RemoveStat(Health);
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
-            CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff, code: "Buff_Card01121b");
+            CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff, new Localization("Buff_Card01121b"));
             AvoidGainHintReaction = CreateForceReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, GameActionTime.Initial);
             AvoidGainHintReaction.Disable();
         }
