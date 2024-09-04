@@ -1,13 +1,13 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class CostController : MonoBehaviour, IStatable
     {
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
@@ -24,20 +24,19 @@ namespace MythosAndHorrors.GameView
         {
             _statableManager.Add(this);
             SetSlots(card);
-            if (card is IPlayableFromHand platableFromHand)
-            {
-                SetCostWith(platableFromHand.ResourceCost);
-                _turnsCostController.Init(platableFromHand.PlayFromHandTurnsCost);
-            }
-            else if (card is CardGoal cardGoal)
-                SetCostWith(cardGoal.Hints);
-            else gameObject.SetActive(false);
-        }
 
-        public Tween UpdateAnimation()
-        {
-            _value.text = Stat.Value.ToString();
-            return DOTween.Sequence();
+            if (card is IPlayableFromHandInTurn playableFromHand)
+            {
+                SetCostWith(playableFromHand.ResourceCost);
+                _turnsCostController.InitWithPlayableFromHand(playableFromHand);
+            }
+            else if (card is CardConditionFast cardConditionFast)
+            {
+                SetCostWith(cardConditionFast.ResourceCost);
+                _turnsCostController.InitWithCardConditionFast();
+            }
+            else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Hints);
+            else gameObject.SetActive(false);
         }
 
         private void SetCostWith(Stat stat)
@@ -45,6 +44,12 @@ namespace MythosAndHorrors.GameView
             Stat = stat;
             gameObject.SetActive(true);
             UpdateAnimation();
+        }
+
+        public Tween UpdateAnimation()
+        {
+            _value.text = Stat.Value.ToString();
+            return DOTween.Sequence();
         }
 
         private void SetSlots(Card card)

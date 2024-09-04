@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardConditionPlayFromHand : CardCondition, IPlayableFromHand
+    public abstract class CardConditionPlayFromHand : CardCondition, IPlayableFromHandInTurn
     {
         public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }

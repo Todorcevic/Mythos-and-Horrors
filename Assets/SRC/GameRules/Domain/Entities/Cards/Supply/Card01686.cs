@@ -75,7 +75,7 @@ namespace MythosAndHorrors.GameRules
         private async Task DecrementCost(Card card, Investigator investigator)
         {
             if (Charge.IsEmpty) return;
-            if (card is not IPlayableFromHand playableFromHand) return;
+            if (card is not IPlayableFromHandInTurn playableFromHand) return;
             if (!playableFromHand.PlayFromHandCondition.IsTrueWith(card.ControlOwner)) return;
 
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(playableFromHand.ResourceCost, 2).Execute();

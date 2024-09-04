@@ -11,14 +11,21 @@ namespace MythosAndHorrors.GameView
         private readonly List<SpriteRenderer> allTurns = new();
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _fastTurnPrefab;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _turnPrefab;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _reactionPrefab;
 
         public Stat Stat { get; private set; }
         public Transform StatTransform => transform;
 
         /*******************************************************************/
-        public void Init(Stat turnCostStat)
+        public void InitWithCardConditionFast()
         {
-            Stat = turnCostStat;
+            allTurns.Add(Instantiate(_reactionPrefab, transform));
+            allTurns.ForEach(turn => turn.gameObject.SetActive(true));
+        }
+
+        public void InitWithPlayableFromHand(IPlayableFromHandInTurn playableFromHand)
+        {
+            Stat = playableFromHand.PlayFromHandTurnsCost;
             UpdateAnimation();
         }
 
@@ -26,6 +33,7 @@ namespace MythosAndHorrors.GameView
         {
             allTurns.ForEach(turn => Destroy(turn.gameObject));
             allTurns.Clear();
+
             if (Stat.Value == 0) allTurns.Add(Instantiate(_fastTurnPrefab, transform));
             else
             {

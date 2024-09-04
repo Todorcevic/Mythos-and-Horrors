@@ -70,7 +70,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PreparePlayFromHandEffect()
         {
-            foreach (IPlayableFromHand playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHand>()
+            foreach (IPlayableFromHandInTurn playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHandInTurn>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(ActiveInvestigator)))
             {
                 CreateCardEffect((Card)playableFromHand,
