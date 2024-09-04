@@ -28,6 +28,12 @@ namespace MythosAndHorrors.GameView
             newTokenScene.SetImage(tokenSO.Image);
             return newTokenScene;
         }
+
+        public Sprite GetSprite(ChallengeTokenType tokenType)
+        {
+            ChallengeTokenSO tokenSO = _tokens.Find(token => token.TokenType == tokenType);
+            return tokenSO.Image;
+        }
     }
 }
 

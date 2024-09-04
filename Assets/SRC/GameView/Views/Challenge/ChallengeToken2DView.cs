@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace MythosAndHorrors.GameView
 {
@@ -15,7 +14,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _frame;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
         private string _description;
-        private TextMeshProUGUI _message;
+        private ChallengeMessageController _challengeMessage;
 
         public ChallengeToken Challengetoken { get; private set; }
 
@@ -25,12 +24,11 @@ namespace MythosAndHorrors.GameView
             _image.sprite = sprite;
         }
 
-        public void SetToken(ChallengeToken challengetoken, int value, string description, TextMeshProUGUI message)
+        public void SetToken(ChallengeToken challengetoken, int value, string description, ChallengeMessageController challengeMessage)
         {
             Challengetoken = challengetoken;
-            _message = message;
+            _challengeMessage = challengeMessage;
             _description = description;
-            //_value.text = $"{(value > 0 ? "+" : "")}{value}";
             _value.text = value.ToString();
         }
 
@@ -48,7 +46,6 @@ namespace MythosAndHorrors.GameView
 
         public void ShowToken()
         {
-            //transform.DOScale(1.2f, ViewValues.FAST_TIME_ANIMATION);
             _frame.gameObject.SetActive(true);
             _value.transform.parent.gameObject.SetActive(true);
             ShowText();
@@ -56,7 +53,6 @@ namespace MythosAndHorrors.GameView
 
         public void HideToken()
         {
-            //transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
             _frame.gameObject.SetActive(false);
             _value.transform.parent.gameObject.SetActive(false);
             HideText();
@@ -64,12 +60,12 @@ namespace MythosAndHorrors.GameView
 
         private void ShowText()
         {
-            _message.text = "<size=100%>" + _value.text + (string.IsNullOrEmpty(_description) ? string.Empty : "\n <size=60%>" + _description);
+            _challengeMessage.ShowThisToken(_value.text, _description, _image.sprite);
         }
 
         private void HideText()
         {
-            _message.text = string.Empty;
+            _challengeMessage.ShowLastDropTokens();
         }
     }
 }

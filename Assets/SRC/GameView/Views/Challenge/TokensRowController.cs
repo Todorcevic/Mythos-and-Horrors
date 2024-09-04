@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
@@ -10,7 +9,7 @@ namespace MythosAndHorrors.GameView
     {
         private readonly List<ChallengeToken2DView> allTokens = new();
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
-        [SerializeField, Required] private TextMeshProUGUI _message;
+        [SerializeField, Required] private ChallengeMessageController _challengeMessageController;
 
         /*******************************************************************/
         public void SetWith(Investigator investigator, IEnumerable<ChallengeToken> tokens)
@@ -28,7 +27,7 @@ namespace MythosAndHorrors.GameView
         private void SetToken(ChallengeToken token, Investigator investigator)
         {
             ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, transform);
-            sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _message);
+            sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _challengeMessageController);
             allTokens.Add(sceneToken);
         }
 

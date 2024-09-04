@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
+
     public class ChallengeComponent : MonoBehaviour
     {
         private Vector3 initialScale;
@@ -25,13 +27,14 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
-        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _message;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMessageController _challengeMessageController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _resultMessage;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowTopController;
         [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowBottomController;
         [SerializeField, Required, ChildGameObjectsOnly] private ResultInfoComponent _resultInfoComponent;
+        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
 
         /*******************************************************************/
         [Inject]
@@ -50,26 +53,32 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = _textsProvider.GetLocalizableText(ChallengePhaseGameAction.ChallengeName);
-            ShowRevealedTokens();
+            ShowRevealedTokens(ChallengePhaseGameAction.ActiveInvestigator);
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             return _resultInfoComponent.Show(ChallengePhaseGameAction);
         }
 
-        private void ShowRevealedTokens()
+        private void ShowRevealedTokens(Investigator investigator)
         {
             _challengeTokensProvider.BasicChallengeTokensRevealed.ForEach(token => _tokenRowTopController.ShowToken(token));
             _challengeTokensProvider.BasicChallengeTokensInBag.ForEach(token => _tokenRowTopController.HideToken(token));
             _challengeTokensProvider.SpecialChallengeTokensRevealed.ForEach(token => _tokenRowBottomController.ShowToken(token));
             _challengeTokensProvider.SpecialChallengeTokensInBag.ForEach(token => _tokenRowBottomController.HideToken(token));
+
+            List<(string, string, Sprite)> allDropTokensInfo = _challengeTokensProvider.ChallengeTokensRevealed.Select(token => (
+                token.Value.Invoke(investigator).ToString(),
+                token.Description.Invoke(investigator),
+                _tokensManager.GetSprite(token.TokenType))).ToList();
+            _challengeMessageController.ShowDropTokens(allDropTokensInfo);
         }
 
-
+        /*******************************************************************/
         public bool IsShowed { get; private set; }
         public Sequence Show(Transform worldObject, Investigator investigator)
         {
             IsShowed = true;
-            _message.text = string.Empty;
+            _challengeMessageController.ResetAll();
             _tokenRowTopController.SetWith(investigator, _challengeTokensProvider.AllBasicChallengeTokens);
             _tokenRowBottomController.SetWith(investigator, _challengeTokensProvider.AllSpecialChallengeTokens);
             transform.localScale = Vector3.zero;
