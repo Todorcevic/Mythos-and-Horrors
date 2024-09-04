@@ -1,11 +1,11 @@
 {
     "Code": "CORE1",
     "Position": 1,
-    "Name": "El encuentro",
+    "Name": "Echoes in the Darkness",
     "Descriptions": [
         {
             "Code": "CORE1_INTRO",
-            "Title": "Ecos en la oscuridad",
+            "Title": "Echoes in the Darkness",
             "Description": "A team of geologists from Miskatonic University, led by the eminent Dr. William Harrow, had set out for the nearby hills to investigate a newly discovered and enigmatic cave. Their interest was at its peak due to reports of strange rock formations and fossils within the cave, which seemed to defy all logical explanation. However, after entering the cavern, the team did not return. An initial search revealed only their abandoned tools at the cave's entrance and strange marks on the tunnel walls, as if something or someone had dragged them into the underground depths. The local police have been reluctant to delve into the cave, citing geological dangers and a lack of evidence of any crime. But rumors among the locals tell a different story: they speak of ancient legends, of creatures forgotten by time that dwell in the depths of the earth, and of curses cast upon those who disturb their eternal rest.",
             "Image": "CORE1_INTRO"
         }
@@ -13,26 +13,26 @@
     "Resolutions": [
         {
             "Code": "no_resolution",
-            "Title": "Ninguna resolución",
-            "Description": "Apenas lográis escapar con vida de tu casa. La mujer de la salita os sigue por la puerta delantera y la cierra de un portazo.\n–¡Necios! ¿Veis lo que habéis hecho? –dice mientras apoya una silla contra la puerta y la mete bajo el picaporte–. Debemos salir de aquí. Venid conmigo y os diré lo que sé. Somos los únicos que podemos evitar que desaten contra la ciudad la amenaza que acecha bajo ella.\nNo estáis en condiciones de replicar, así que asentís y seguís a la mujer mientras sale corriendo del porche delantero en dirección al Barrio Fluvial, bajo la lluvia.",
+            "Title": "Fleeing from the Abyss",
+            "Description": "After a frantic flight through the cave tunnels, the investigators manage to escape from the creatures and the imminent danger. Exhausted and with their hearts pounding, they finally emerge to the surface. Dr. Thomas Walker follows them closely and secures the entrance behind him.\n “Fools! Do you see what you have done?” exclaims Dr. Thomas Walker, with a mix of anger and concern. “We must get away from here. Come with me, and I will explain everything. We are the only ones who can stop the threat looming beneath Arkham.”\n Though exhausted and overwhelmed by the events, the investigators nod and follow Dr. Walker. They hurriedly head towards a safer part of the city as a light rain begins to fall, symbolizing a possible change or purification.",
             "Image": "core3"
         },
         {
             "Code": "resolution1",
-            "Title": "Resolución 1",
-            "Description": " Asientes y permites que la mujer pelirroja prenda fuego a las paredes y suelos de tu casa. Las llamas se extienden rápidamente, y salís corriendo por la puerta delantera para evitar quedar atrapados en ese infierno. Desde la acera, observáis cómo el fuego consume todo lo que posees.\n–Venid conmigo –dice la mujer–. Debéis conocer la amenaza que acecha debajo. Si no colaboramos, estamos perdidos sin remedio... pero juntos podremos detenerla.",
+            "Title": "Sealing the Threshold of Horror",
+            "Description": "After emerging from the cave, the investigators and Dr. Thomas Walker devise a plan to seal the entrance. Dr. Walker leads the team in using manual tools and exploiting natural weak points in the cave's structure. They move large rocks and destabilize key supports to induce a collapse.\n With a deep rumble, the cave entrance collapses, sealing off the depths and preventing the creatures from emerging.\n The group watches the result of their work, feeling a mix of relief and concern for the unknowns that still remain.",
             "Image": "core4"
         },
         {
             "Code": "resolution2",
-            "Title": "Resolución 2",
-            "Description": " Te niegas a seguir la orden de la fanática y la echas de tu casa por miedo a que le prenda fuego sin tu permiso.\n–¡Necios! ¡Estáis cometiendo un funesto error! –os advierte–. No entendéis la amenaza que acecha debajo... ¡ni el grave peligro quecorremos todos!\nAún conmocionados por los acontecimientos de la noche, decidís escuchar a la mujer. Quizás pueda arrojar algo de luz sobre estos extraños sucesos... pero no parece confiar demasiado en vosotros.",
+            "Title": "The Deferred Decision",
+            "Description": "The investigators decide not to follow Dr. Thomas Walker's suggestion of a collapse. They fear that a total collapse might have unforeseen consequences or lock away secrets that need to be understood.\n They express their concerns to him, and despite his reluctance, they persuade Dr. Walker to abandon the idea, at least for the moment.\n Before leaving, Dr. Walker warns, “Fools! You do not understand the magnitude of what lurks beneath our feet. It is a grave mistake not to act now!”\n Although shaken by the events and the intensity of Dr. Walker, the investigators decide they need to know more before taking such an irreversible action.\n They plan to seek out a geologist later, hoping to learn more about the subterranean threats and find a more balanced approach.",
             "Image": "core4"
         },
         {
             "Code": "resolution3",
-            "Title": "Resolución 3",
-            "Description": "Corréis al pasillo para tratar de encontrar una forma de huir de la casa, pero la ardiente barrera sigue bloqueando vuestro camino. Estáis atrapados, y la horda de salvajes criaturas que han invadido tu casa se acerca, sin que tengáis posibilidad de huir.",
+            "Title": "Trapped in the Darkness",
+            "Description": "In a desperate attempt to find a way out, the investigators run through the cave tunnels.\n They discover that the path they had entered through, now transformed and altered, remains blocked by the recent collapse.\n With their escape route cut off and the creatures closing in, they realize they are trapped, with no visible way out.",
             "Image": "core5"
         }
     ],

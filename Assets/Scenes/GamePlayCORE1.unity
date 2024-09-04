@@ -5677,7 +5677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _withoutAudio: 0
-  _withoutMulligan: 1
+  _withoutMulligan: 0
   _gameVelocity: 1
   _languaje: 0
 --- !u!1 &903284071

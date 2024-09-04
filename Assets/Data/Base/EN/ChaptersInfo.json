@@ -1,10 +1,10 @@
 ﻿[
     {
         "Code": "CORE",
-        "Title": "Ecos en la Oscuridad",
+        "Title": "Dread of Depths",
         "Description": {
             "Code": "CORE_INTRO",
-            "Title": "Ecos en la Oscuridad",
+            "Title": "Dread of Depths",
             "Description": "Thursday, October 10, 1925. Arkham, Massachusetts. The city is engulfed in a thick fog that creeps through the streets like a living being, swallowing sounds and shapes with its damp and chilling shroud. The inhabitants of Arkham whisper about unsettling shadows that move on the edge of their vision, and incomprehensible murmurs that seem to emanate from the ancient walls of the city. In recent days, mysterious disappearances have been reported. People vanishing without a trace, homes abandoned with dinner still warm on the table. And more disturbingly, arcane symbols have been found etched into the doors of some houses, vibrating with an unknown and sinister energy.",
             "Image": "CORE_INTRO"
         },

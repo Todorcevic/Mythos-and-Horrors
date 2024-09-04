@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private Sprite _supplie;
         [SerializeField, Required, AssetsOnly] private Sprite _secret;
         [SerializeField, Required, AssetsOnly] private Sprite _special;
-        [SerializeField, Required, AssetsOnly] private SpriteRenderer _charge;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _chargePrefab;
         [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameView
                 Stat = chargeable.Charge.Amount;
                 _statableManager.Add(this);
 
-                _charge.sprite = chargeable.Charge.ChargeType switch
+                _chargePrefab.sprite = chargeable.Charge.ChargeType switch
                 {
                     ChargeType.Bullet => _bullet,
                     ChargeType.MagicCharge => _magic,
@@ -52,7 +52,9 @@ namespace MythosAndHorrors.GameView
             {
                 for (int i = _charges.Count; i < Stat.Value; i++)
                 {
-                    _charges.Add(Instantiate(_charge, transform));
+                    SpriteRenderer newCharge = Instantiate(_chargePrefab, transform);
+                    newCharge.gameObject.SetActive(true);
+                    _charges.Add(newCharge);
                 }
             }
             else if (Stat.Value < _charges.Count)
