@@ -12,14 +12,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-
     public class ChallengeComponent : MonoBehaviour
     {
         private Vector3 initialScale;
         private Vector3 returnPosition;
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly TextsManager _textsProvider;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
@@ -27,14 +25,11 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _challengeCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private CommitCardsController _commitCardController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _challengeName;
-        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMessageController _challengeMessageController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeTokensInfoController _challengeTokensInfoController;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _resultMessage;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
-        [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowTopController;
-        [SerializeField, Required, ChildGameObjectsOnly] private TokensRowController _tokenRowBottomController;
         [SerializeField, Required, ChildGameObjectsOnly] private ResultInfoComponent _resultInfoComponent;
-        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
 
         /*******************************************************************/
         [Inject]
@@ -53,24 +48,10 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.SetCard(ChallengePhaseGameAction.CardToChallenge, ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             _commitCardController.ShowAll(ChallengePhaseGameAction.CurrentCommitsCards, ChallengePhaseGameAction.ChallengeType);
             _challengeName.text = _textsProvider.GetLocalizableText(ChallengePhaseGameAction.ChallengeName);
-            ShowRevealedTokens(ChallengePhaseGameAction.ActiveInvestigator);
+            _challengeTokensInfoController.ShowRevealedTokens(ChallengePhaseGameAction.ActiveInvestigator);
             _totalChallengeStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.CurrentTotalChallengeValue);
             _difficultStatController.SetStat(ChallengePhaseGameAction.ChallengeType, ChallengePhaseGameAction.DifficultValue);
             return _resultInfoComponent.Show(ChallengePhaseGameAction);
-        }
-
-        private void ShowRevealedTokens(Investigator investigator)
-        {
-            _challengeTokensProvider.BasicChallengeTokensRevealed.ForEach(token => _tokenRowTopController.ShowToken(token));
-            _challengeTokensProvider.BasicChallengeTokensInBag.ForEach(token => _tokenRowTopController.HideToken(token));
-            _challengeTokensProvider.SpecialChallengeTokensRevealed.ForEach(token => _tokenRowBottomController.ShowToken(token));
-            _challengeTokensProvider.SpecialChallengeTokensInBag.ForEach(token => _tokenRowBottomController.HideToken(token));
-
-            List<(string, string, Sprite)> allDropTokensInfo = _challengeTokensProvider.ChallengeTokensRevealed.Select(token => (
-                token.Value.Invoke(investigator).ToString(),
-                token.Description.Invoke(investigator),
-                _tokensManager.GetSprite(token.TokenType))).ToList();
-            _challengeMessageController.ShowDropTokens(allDropTokensInfo);
         }
 
         /*******************************************************************/
@@ -78,9 +59,7 @@ namespace MythosAndHorrors.GameView
         public Sequence Show(Transform worldObject, Investigator investigator)
         {
             IsShowed = true;
-            _challengeMessageController.ResetAll();
-            _tokenRowTopController.SetWith(investigator, _challengeTokensProvider.AllBasicChallengeTokens);
-            _tokenRowBottomController.SetWith(investigator, _challengeTokensProvider.AllSpecialChallengeTokens);
+            _challengeTokensInfoController.Init(investigator);
             transform.localScale = Vector3.zero;
             returnPosition = transform.position = (worldObject == null) ? _outPosition.transform.position :
                 RectTransformUtility.WorldToScreenPoint(Camera.main, worldObject.transform.TransformPoint(Vector3.zero));
@@ -106,4 +85,3 @@ namespace MythosAndHorrors.GameView
                 .SetEase(Ease.InOutCubic);
     }
 }
-
