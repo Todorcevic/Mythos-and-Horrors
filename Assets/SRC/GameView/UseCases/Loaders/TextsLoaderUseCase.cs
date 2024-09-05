@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
 
         public void LoadViewTexts()
         {
-            string jsonDataLocalizable = File.ReadAllText(_filesPath.JSON_LOCALIZABLETEXT_PATH);
+            string jsonDataLocalizable = File.ReadAllText(_filesPath.JSON_LOCALIZABLE_TEXT_PATH);
             _textsProvider.AddLocalizableDictionary(JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonDataLocalizable));
         }
     }
