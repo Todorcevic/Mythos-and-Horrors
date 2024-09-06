@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01545"));
-            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate,
+            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.InvestigationTurnsCost, Investigate,
                 PlayActionType.Investigate, investigator, new Localization("CardEffect_Card01545"), cardAffected: this);
             await interactable.Execute();
 
@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay.IsTrue) return false;
             if (ControlOwner != investigator) return false;
             if (!investigator.CanInvestigate.IsTrue) return false;
-            if (!ControlOwner.CurrentPlace.CanBeInvestigated.IsTrue) return false;
+            if (!investigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
             return true;
         }
     }

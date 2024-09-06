@@ -14,8 +14,6 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Hints { get; private set; }
         public Stat Enigma { get; private set; }
-        public Stat InvestigationTurnsCost { get; private set; }
-        public Stat MoveTurnsCost { get; private set; }
         public State Revealed { get; private set; }
         public Conditional CanBeInvestigated { get; private set; }
         public Conditional CanMoveHere { get; protected set; }
@@ -41,8 +39,6 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = CreateStat(MaxHints);
             Enigma = CreateStat(Info.Enigma ?? 0);
-            InvestigationTurnsCost = CreateStat(1);
-            MoveTurnsCost = CreateStat(1);
             Revealed = CreateState(false);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             CanBeInvestigated = new Conditional(() => IsInPlay.IsTrue && Revealed.IsActive);

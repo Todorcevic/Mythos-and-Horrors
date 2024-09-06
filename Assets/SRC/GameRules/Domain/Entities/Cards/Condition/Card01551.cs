@@ -13,15 +13,12 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
-        protected IEnumerable<CardCreature> AttackbleCreatures(Investigator investigator) =>
-            investigator.CreaturesInSamePlace.Where(creature => creature.InvestigatorAttackTurnsCost.Value <= investigator.CurrentTurns.Value);
-
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHandTurnsCost = CreateStat(0);
+            PlayFromHandTurnsCost = CreateStat(0); //Podria hacerse que cambiara con un Reaction cuando estubiera en la mano del investigador
         }
 
         /*******************************************************************/
@@ -30,9 +27,9 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction chooseCreature = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01551"));
 
-            foreach (CardCreature creature in AttackbleCreatures(investigator))
+            foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseCreature.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, new Localization("CardEffect_Card01551"));
+                chooseCreature.CreateCardEffect(creature, investigator.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, new Localization("CardEffect_Card01551"));
 
                 async Task AttackCreature()
                 {
@@ -48,7 +45,8 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!AttackbleCreatures(investigator).Any()) return false;
+            if (!investigator.CanAttack.IsTrue) return false;
+            if (!investigator.CreaturesInSamePlace.Any()) return false;
             return true;
         }
     }

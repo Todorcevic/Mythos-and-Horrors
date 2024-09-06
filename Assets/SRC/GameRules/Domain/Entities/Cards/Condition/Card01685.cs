@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01685"));
 
-            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.CurrentPlace.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, new Localization("CardEffect_Card01685"), cardAffected: this);
+            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, new Localization("CardEffect_Card01685"), cardAffected: this);
 
             await interactable.Execute();
 

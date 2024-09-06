@@ -79,8 +79,18 @@ namespace MythosAndHorrors.GameRules
         public Stat CurrentTurns => InvestigatorCard.CurrentTurns;
         public Stat MaxTurns => InvestigatorCard.MaxTurns;
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
+
+
         public Stat DrawTurnsCost => InvestigatorCard.DrawTurnsCost;
         public Stat TakeResourceTurnsCost => InvestigatorCard.TakeResourceTurnsCost;
+        public Stat InvestigationTurnsCost => InvestigatorCard.InvestigationTurnsCost;
+        public Stat MoveTurnsCost => InvestigatorCard.MoveTurnsCost;
+        public Stat InvestigatorAttackTurnsCost => InvestigatorCard.InvestigatorAttackTurnsCost;
+        public Stat InvestigatorConfronTurnsCost => InvestigatorCard.InvestigatorConfronTurnsCost;
+        public Stat EludeTurnsCost => InvestigatorCard.EludeTurnsCost;
+
+
+
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
@@ -88,9 +98,18 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanPayHints => InvestigatorCard.CanPayHints;
         public Conditional CanBeHealed => InvestigatorCard.CanBeHealed;
         public Conditional CanBeRestoreSanity => InvestigatorCard.CanBeRestoreSanity;
+
+        public Conditional CanMove => InvestigatorCard.CanMove;
         public Conditional CanInvestigate => InvestigatorCard.CanInvestigate;
+        public Conditional CanAttack => InvestigatorCard.CanAttack;
+        public Conditional CanElude => InvestigatorCard.CanElude;
+        public Conditional CanConfornt => InvestigatorCard.CanConfornt;
+
+
         public Conditional HasTurnsAvailable => InvestigatorCard.HasTurnsAvailable;
         public Conditional IsInPlay => InvestigatorCard.IsInPlay;
+
+
 
         /*******************************************************************/
         [Inject]

@@ -18,9 +18,6 @@ namespace MythosAndHorrors.GameRules
         public Stat Agility { get; private set; }
         public Stat Damage { get; private set; }
         public Stat Fear { get; private set; }
-        //public Stat InvestigatorAttackTurnsCost { get; private set; }
-        //public Stat InvestigatorConfronTurnsCost { get; private set; }
-        //public Stat EludeTurnsCost { get; private set; }
         public Stat Eldritch { get; private set; }
         public Reaction<MoveCardsGameAction> ConfrontWhenMoveReaction { get; private set; }
         public Reaction<UpdateStatesGameAction> ConfrontWhenReadyReaction { get; private set; }
@@ -45,9 +42,6 @@ namespace MythosAndHorrors.GameRules
             Damage = CreateStat(Info.CreatureDamage ?? 0);
             Fear = CreateStat(Info.CreatureFear ?? 0);
             Eldritch = CreateStat(0);
-            //InvestigatorAttackTurnsCost = CreateStat(1);
-            //InvestigatorConfronTurnsCost = CreateStat(1);
-            //EludeTurnsCost = CreateStat(1);
             ConfrontWhenMoveReaction = CreateBaseReaction<MoveCardsGameAction>(ConfrontCondition, ConfrontLogic, GameActionTime.After);
             ConfrontWhenReadyReaction = CreateBaseReaction<UpdateStatesGameAction>(ConfrontCondition, ConfrontLogic, GameActionTime.After);
         }

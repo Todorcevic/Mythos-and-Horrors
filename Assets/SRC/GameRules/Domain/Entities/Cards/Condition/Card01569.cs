@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                chooseEnemy.CreateCardEffect(creature, creature.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, new Localization("CardEffect_Card01569"));
+                chooseEnemy.CreateCardEffect(creature, investigator.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, new Localization("CardEffect_Card01569"));
 
                 async Task EludeCreature()
                 {
@@ -54,6 +54,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
+            if (!investigator.CanElude.IsTrue) return false;
             if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
             return true;
         }

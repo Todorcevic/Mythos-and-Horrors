@@ -49,21 +49,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ActivationLogic(IEnumerable<Card> cards)
         {
-            IEnumerable<Stat> allPlaceStats = cards.OfType<CardPlace>().Select(place => place.MoveTurnsCost);
-            IEnumerable<Stat> allCreatureStats = cards.OfType<CardCreature>()
-                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.EludeTurnsCost });
-            Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
-
+            List<Stat> allInvestigatorStats = new() { InvestigatorAffected.MoveTurnsCost, InvestigatorAffected.InvestigatorAttackTurnsCost, InvestigatorAffected.EludeTurnsCost };
+            Dictionary<Stat, int> allStats = allInvestigatorStats.ToDictionary(stat => stat, stat => 1);
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
         }
 
         private async Task DeactivationLogic(IEnumerable<Card> cards)
         {
-            IEnumerable<Stat> allPlaceStats = cards.OfType<CardPlace>().Select(place => place.MoveTurnsCost);
-            IEnumerable<Stat> allCreatureStats = cards.OfType<CardCreature>()
-                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.EludeTurnsCost });
-            Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
-
+            List<Stat> allInvestigatorStats = new() { InvestigatorAffected.MoveTurnsCost, InvestigatorAffected.InvestigatorAttackTurnsCost, InvestigatorAffected.EludeTurnsCost };
+            Dictionary<Stat, int> allStats = allInvestigatorStats.ToDictionary(stat => stat, stat => 1);
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();
         }
 

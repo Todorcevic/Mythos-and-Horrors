@@ -41,11 +41,20 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanPayHints { get; private set; }
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
+
+        public Conditional CanMove { get; private set; }
         public Conditional CanInvestigate { get; private set; }
+        public Conditional CanAttack { get; private set; }
+        public Conditional CanElude { get; internal set; }
+        public Conditional CanConfornt { get; internal set; }
+
+
         public Conditional HasTurnsAvailable { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
         public Func<string> StarTokenDescription { get; protected set; }
+
+
 
         /*******************************************************************/
         [Inject]
@@ -79,7 +88,14 @@ namespace MythosAndHorrors.GameRules
             CanPayHints = new Conditional(() => Hints.Value > 0);
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);
             CanBeRestoreSanity = new Conditional(() => FearRecived.Value > 0);
-            CanInvestigate = new Conditional(() => Owner.CurrentPlace.InvestigationTurnsCost.Value <= CurrentTurns.Value);
+
+            CanMove = new Conditional(() => CurrentTurns.Value >= MoveTurnsCost.Value);
+            CanInvestigate = new Conditional(() => CurrentTurns.Value >= InvestigationTurnsCost.Value);
+            CanAttack = new Conditional(() => CurrentTurns.Value >= InvestigatorAttackTurnsCost.Value);
+            CanElude = new Conditional(() => CurrentTurns.Value >= EludeTurnsCost.Value);
+            CanConfornt = new Conditional(() => CurrentTurns.Value >= InvestigatorConfronTurnsCost.Value);
+
+
             HasTurnsAvailable = new Conditional(() => CurrentTurns.Value > 0);
             IsInPlay = new Conditional(() => CurrentZone.ZoneType == ZoneType.Investigator);
             StarTokenValue = StarValue;

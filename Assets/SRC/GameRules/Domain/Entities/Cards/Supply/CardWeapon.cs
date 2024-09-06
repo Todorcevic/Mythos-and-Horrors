@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -9,9 +8,6 @@ namespace MythosAndHorrors.GameRules
     public abstract class CardWeapon : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        protected IEnumerable<CardCreature> AttackbleCreatures =>
-            ControlOwner?.CreaturesInSamePlace.Where(creature => creature.InvestigatorAttackTurnsCost.Value <= ControlOwner.CurrentTurns.Value);
 
         /*******************************************************************/
         [Inject]
@@ -25,8 +21,9 @@ namespace MythosAndHorrors.GameRules
         protected virtual bool AttackCondition(Investigator investigator)
         {
             if (!IsInPlay.IsTrue) return false;
+            if (!investigator.CanAttack.IsTrue) return false;
             if (investigator != ControlOwner) return false;
-            if (!AttackbleCreatures.Any()) return false;
+            if (!investigator.CreaturesInSamePlace.Any()) return false;
             return true;
         }
 
@@ -35,9 +32,9 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_CardWeapon"));
 
-            foreach (CardCreature creature in AttackbleCreatures)
+            foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseEnemy.CreateCardEffect(creature, creature.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack,
+                chooseEnemy.CreateCardEffect(creature, investigator.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack,
                     investigator, new Localization("CardEffect_CardWeapon", Info.Name));
 
                 /*******************************************************************/

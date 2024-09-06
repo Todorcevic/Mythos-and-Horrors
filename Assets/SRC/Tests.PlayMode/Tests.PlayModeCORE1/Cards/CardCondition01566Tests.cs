@@ -24,7 +24,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulGelid, investigator.CurrentPlace).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            //yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentTurns, 0).Execute().AsCoroutine();
 
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(SceneCORE1.GhoulGelid);

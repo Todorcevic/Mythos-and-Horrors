@@ -26,6 +26,8 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
+            if (!investigator.CanMove.IsTrue) return false;
+            if (investigator.CurrentPlace.ConnectedPlacesToMove.Count() == 0) return false;
             return true;
         }
 
@@ -36,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                interactableGameAction.CreateCardEffect(place, place.MoveTurnsCost, MoveAndUnconfront,
+                interactableGameAction.CreateCardEffect(place, investigator.MoveTurnsCost, MoveAndUnconfront,
                     PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, new Localization("CardEffect_Card01555"), cardAffected: this);
 
                 /*******************************************************************/
