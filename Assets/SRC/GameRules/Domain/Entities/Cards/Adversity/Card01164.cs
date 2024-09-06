@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,22 @@ namespace MythosAndHorrors.GameRules
             Wasted = CreateState(false);
             CreateForceReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
             CreateForceReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
-            CreateBuff(CardToBuff, ActivationLogic, DeactivationLogic, new Localization("Buff_Card01164"));
+            CreateForceReaction<OneInvestigatorTurnGameAction>(CheckActionsTypeCondition, CheckActionsTypeLogic, GameActionTime.Before);
+        }
+
+        private async Task CheckActionsTypeLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        {
+            List<CardEffect> cardEffectAffected = oneInvestigatorTurnGameAction.AllEffects
+               .Where(effect => (effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude))).ToList();
+
+            Dictionary<Stat, int> allStats = cardEffectAffected.ToDictionary(cardEffect => cardEffect.ActivateTurnsCost, stat => 1);
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
+        }
+
+        private bool CheckActionsTypeCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        {
+            if (oneInvestigatorTurnGameAction.ActiveInvestigator != InvestigatorAffected) return false;
+            return ActivateCondition();
         }
 
         /*******************************************************************/
@@ -41,43 +57,20 @@ namespace MythosAndHorrors.GameRules
         private bool WastedCondition(PlayEffectGameAction playEffectGameAction)
         {
             if (Wasted.IsActive) return false;
-            if (playEffectGameAction.Effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude)) return false;
+            if (!playEffectGameAction.Effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude)) return false;
             if (playEffectGameAction.Effect.Investigator != InvestigatorAffected) return false;
             return true;
         }
 
         /*******************************************************************/
-        private async Task ActivationLogic(IEnumerable<Card> cards)
+
+        private bool ActivateCondition()
         {
-            //List<Stat> allInvestigatorStats = new() { InvestigatorAffected.MoveTurnsCost, InvestigatorAffected.InvestigatorAttackTurnsCost, InvestigatorAffected.EludeTurnsCost };
-            //Dictionary<Stat, int> allStats = allInvestigatorStats.ToDictionary(stat => stat, stat => 1);
-            //await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
-
-            await Task.CompletedTask;
-        }
-
-        private async Task DeactivationLogic(IEnumerable<Card> cards)
-        {
-            //List<Stat> allInvestigatorStats = new() { InvestigatorAffected.MoveTurnsCost, InvestigatorAffected.InvestigatorAttackTurnsCost, InvestigatorAffected.EludeTurnsCost };
-            //Dictionary<Stat, int> allStats = allInvestigatorStats.ToDictionary(stat => stat, stat => 1);
-            //await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();
-            await Task.CompletedTask;
-        }
-
-        private IEnumerable<Card> CardToBuff()
-        {
-            return ActivateCondition()
-                ? _cardsProvider.GetCardsInPlay().Where(card => card is CardPlace || card is CardCreature)
-                : Enumerable.Empty<Card>();
-
-            bool ActivateCondition()
-            {
-                if (CurrentZone.ZoneType != ZoneType.Danger) return false;
-                if (!InvestigatorAffected.IsPlayingTurns.IsActive) return false;
-                if (CurrentZone != InvestigatorAffected.DangerZone) return false;
-                if (Wasted.IsActive) return false;
-                return true;
-            }
+            if (CurrentZone.ZoneType != ZoneType.Danger) return false;
+            if (!InvestigatorAffected.IsPlayingTurns.IsActive) return false;
+            if (CurrentZone != InvestigatorAffected.DangerZone) return false;
+            if (Wasted.IsActive) return false;
+            return true;
         }
 
         /*******************************************************************/

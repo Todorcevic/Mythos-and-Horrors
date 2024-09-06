@@ -44,6 +44,7 @@ namespace MythosAndHorrors.GameRules
             _investigatorsProvider.GetInvestigatorWithThisCard(this);
         public virtual Investigator ControlOwner => _investigatorsProvider.GetInvestigatorWithThisZone(CurrentZone);
         public bool IsVictory => Info.Victory != null;
+        public bool HasEffects => PlayableEffects?.Any() ?? false;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 
         /*******************************************************************/

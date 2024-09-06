@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool? CurrentFixedState { get; private set; }
         public bool IsTrue => CurrentFixedState ?? _condition.Invoke();
+        public bool IsFalse => !IsTrue;
 
         /*******************************************************************/
         public Conditional(Func<bool> condition)
