@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -12,18 +11,10 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
-        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Investigate;
         private IEnumerable<CardPlace> PlacesWithHints(Investigator investigator) =>
             investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace).Where(place => place.Hints.Value > 0);
         public override Func<Card> CardAffected => () => ControlOwner.CurrentPlace;
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            PlayFromHandTurnsCost = CreateStat(0);
-        }
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
@@ -31,7 +22,7 @@ namespace MythosAndHorrors.GameRules
             InteractableGameAction interactable = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01685"));
 
-            interactable.CreateCardEffect(investigator.CurrentPlace, investigator.InvestigationTurnsCost, Investigate, PlayActionType.Investigate, investigator, new Localization("CardEffect_Card01685"), cardAffected: this);
+            interactable.CreateCardEffect(investigator.CurrentPlace, new Stat(0, false), Investigate, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01685"), cardAffected: this);
 
             await interactable.Execute();
 
@@ -70,7 +61,6 @@ namespace MythosAndHorrors.GameRules
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (!investigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
-            if (!investigator.CanInvestigate.IsTrue) return false;
             if (!PlacesWithHints(investigator).Any()) return false;
             return true;
         }

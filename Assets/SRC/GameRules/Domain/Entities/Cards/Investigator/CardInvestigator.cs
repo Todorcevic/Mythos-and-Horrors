@@ -24,13 +24,14 @@ namespace MythosAndHorrors.GameRules
         public Stat MaxHandSize { get; private set; }
 
 
-        public Stat DrawTurnsCost { get; private set; }
-        public Stat TakeResourceTurnsCost { get; private set; }
-        public Stat InvestigationTurnsCost { get; private set; }
-        public Stat MoveTurnsCost { get; private set; }
-        public Stat InvestigatorAttackTurnsCost { get; private set; }
-        public Stat InvestigatorConfronTurnsCost { get; private set; }
-        public Stat EludeTurnsCost { get; private set; }
+        //public Stat PlayCardsFromHandTurnsCost { get; internal set; }
+        //public Stat DrawTurnsCost { get; private set; }
+        //public Stat TakeResourceTurnsCost { get; private set; }
+        //public Stat InvestigationTurnsCost { get; private set; }
+        //public Stat MoveTurnsCost { get; private set; }
+        //public Stat InvestigatorAttackTurnsCost { get; private set; }
+        //public Stat InvestigatorConfronTurnsCost { get; private set; }
+        //public Stat EludeTurnsCost { get; private set; }
 
 
 
@@ -42,6 +43,7 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
 
+        public Conditional CanPlayCardsFromHand { get; private set; }
         public Conditional CanMove { get; private set; }
         public Conditional CanInvestigate { get; private set; }
         public Conditional CanAttack { get; private set; }
@@ -53,7 +55,6 @@ namespace MythosAndHorrors.GameRules
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }
         public Func<string> StarTokenDescription { get; protected set; }
-
 
 
         /*******************************************************************/
@@ -73,13 +74,14 @@ namespace MythosAndHorrors.GameRules
             CurrentTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
 
-            DrawTurnsCost = CreateStat(1);
-            TakeResourceTurnsCost = CreateStat(1);
-            InvestigationTurnsCost = CreateStat(1);
-            MoveTurnsCost = CreateStat(1);
-            InvestigatorAttackTurnsCost = CreateStat(1);
-            InvestigatorConfronTurnsCost = CreateStat(1);
-            EludeTurnsCost = CreateStat(1);
+            //PlayCardsFromHandTurnsCost = CreateStat(1);
+            //DrawTurnsCost = CreateStat(1);
+            //TakeResourceTurnsCost = CreateStat(1);
+            //InvestigationTurnsCost = CreateStat(1);
+            //MoveTurnsCost = CreateStat(1);
+            //InvestigatorAttackTurnsCost = CreateStat(1);
+            //InvestigatorConfronTurnsCost = CreateStat(1);
+            //EludeTurnsCost = CreateStat(1);
 
             Resign = CreateState(false, isReseteable: false);
             Defeated = CreateState(false, isReseteable: false);
@@ -89,11 +91,12 @@ namespace MythosAndHorrors.GameRules
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);
             CanBeRestoreSanity = new Conditional(() => FearRecived.Value > 0);
 
-            CanMove = new Conditional(() => CurrentTurns.Value >= MoveTurnsCost.Value);
-            CanInvestigate = new Conditional(() => CurrentTurns.Value >= InvestigationTurnsCost.Value);
-            CanAttack = new Conditional(() => CurrentTurns.Value >= InvestigatorAttackTurnsCost.Value);
-            CanElude = new Conditional(() => CurrentTurns.Value >= EludeTurnsCost.Value);
-            CanConfornt = new Conditional(() => CurrentTurns.Value >= InvestigatorConfronTurnsCost.Value);
+            //CanPlayCardsFromHand = new Conditional(() => CurrentTurns.Value >= PlayCardsFromHandTurnsCost.Value);
+            //CanMove = new Conditional(() => CurrentTurns.Value >= MoveTurnsCost.Value);
+            //CanInvestigate = new Conditional(() => CurrentTurns.Value >= InvestigationTurnsCost.Value);
+            //CanAttack = new Conditional(() => CurrentTurns.Value >= InvestigatorAttackTurnsCost.Value);
+            //CanElude = new Conditional(() => CurrentTurns.Value >= EludeTurnsCost.Value);
+            //CanConfornt = new Conditional(() => CurrentTurns.Value >= InvestigatorConfronTurnsCost.Value);
 
 
             HasTurnsAvailable = new Conditional(() => CurrentTurns.Value > 0);

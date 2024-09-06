@@ -8,6 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public override bool IsFast => true;
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
 
         /*******************************************************************/

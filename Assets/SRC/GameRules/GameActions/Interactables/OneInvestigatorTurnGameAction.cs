@@ -74,7 +74,7 @@ namespace MythosAndHorrors.GameRules
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(ActiveInvestigator)))
             {
                 CreateCardEffect((Card)playableFromHand,
-                    playableFromHand.PlayFromHandTurnsCost,
+                     new Stat(playableFromHand.IsFast ? 0 : 1, false),
                     PlayFromHand,
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
                     playedBy: ActiveInvestigator,
@@ -92,7 +92,7 @@ namespace MythosAndHorrors.GameRules
             if (!CanInvestigate()) return;
 
             CreateCardEffect(ActiveInvestigator.CurrentPlace,
-                ActiveInvestigator.InvestigationTurnsCost,
+                new Stat(1, false),
                 Investigate,
                 PlayActionType.Investigate,
                 playedBy: ActiveInvestigator,
@@ -101,7 +101,6 @@ namespace MythosAndHorrors.GameRules
             bool CanInvestigate()
             {
                 if (!ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
-                if (!ActiveInvestigator.CanInvestigate.IsTrue) return false;
                 return true;
             }
 
@@ -114,10 +113,8 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (CardPlace cardPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                if (!ActiveInvestigator.CanMove.IsTrue) continue;
-
                 CreateCardEffect(cardPlace,
-                    ActiveInvestigator.MoveTurnsCost,
+                    new Stat(1, false),
                     Move,
                     PlayActionType.Move,
                     ActiveInvestigator,
@@ -132,10 +129,8 @@ namespace MythosAndHorrors.GameRules
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
             {
-                if (!ActiveInvestigator.CanAttack.IsTrue) continue;
-
                 CreateCardEffect(cardCreature,
-                    ActiveInvestigator.InvestigatorAttackTurnsCost,
+                     new Stat(1, false),
                     InvestigatorAttack,
                     PlayActionType.Attack,
                     ActiveInvestigator,
@@ -156,7 +151,7 @@ namespace MythosAndHorrors.GameRules
                 if (!CanInvestigatorConfront()) continue;
 
                 CreateCardEffect(cardCreature,
-                    ActiveInvestigator.InvestigatorConfronTurnsCost,
+                    new Stat(1, false),
                     InvestigatorConfront,
                     PlayActionType.Confront,
                     ActiveInvestigator,
@@ -165,7 +160,6 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 bool CanInvestigatorConfront()
                 {
-                    if (!ActiveInvestigator.CanConfornt.IsTrue) return false;
                     if (ActiveInvestigator == cardCreature.ConfrontedInvestigator) return false;
                     return true;
                 }
@@ -183,7 +177,7 @@ namespace MythosAndHorrors.GameRules
                 if (!CanInvestigatorElude()) continue;
 
                 CreateCardEffect(cardCreature,
-                    ActiveInvestigator.EludeTurnsCost,
+                    new Stat(1, false),
                     InvestigatorElude,
                     PlayActionType.Elude,
                     ActiveInvestigator,
@@ -191,7 +185,6 @@ namespace MythosAndHorrors.GameRules
 
                 bool CanInvestigatorElude()
                 {
-                    if (!ActiveInvestigator.CanElude.IsTrue) return false;
                     if (cardCreature.ConfrontedInvestigator != ActiveInvestigator) return false;
                     return true;
                 }
@@ -207,8 +200,6 @@ namespace MythosAndHorrors.GameRules
             foreach (Activation<Investigator> activation in _cardsProvider.AllCards.SelectMany(card => card.AllActivations)
                 .Where(activation => activation.FullCondition(ActiveInvestigator)))
             {
-                if (activation.ActivateTurnsCost.Value > ActiveInvestigator.CurrentTurns.Value) continue;
-
                 CreateCardEffect(activation.Card,
                     activation.ActivateTurnsCost,
                     Activate,
@@ -224,20 +215,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareDraw()
         {
-            if (!CanDraw()) return;
-
             CreateCardEffect(ActiveInvestigator.CardAidToDraw,
-                ActiveInvestigator.DrawTurnsCost,
+                new Stat(1, false),
                 Draw,
                 PlayActionType.Draw,
                 ActiveInvestigator,
                 new Localization("CardEffect_OneInvestigatorTurn-6"));
-        }
-
-        private bool CanDraw()
-        {
-            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.DrawTurnsCost.Value) return false;
-            return true;
         }
 
         private async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Execute();
@@ -245,10 +228,8 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void PrepareTakeResource()
         {
-            if (!CanTakeResource()) return;
-
             TakeResourceEffect = CreateCardEffect(null,
-                ActiveInvestigator.TakeResourceTurnsCost,
+                new Stat(1, false),
                 TakeResource,
                 PlayActionType.TakeResource,
                 ActiveInvestigator,
@@ -257,12 +238,5 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task TakeResource() => await _gameActionsProvider.Create<GainResourceGameAction>().SetWith(ActiveInvestigator, 1).Execute();
         }
-
-        private bool CanTakeResource()
-        {
-            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.TakeResourceTurnsCost.Value) return false;
-            return true;
-        }
-
     }
 }

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(SceneCORE1.Attic);
 
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - investigator.MoveTurnsCost.Value));
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(2));
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(SceneCORE1.Parlor);
 
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(GameValues.DEFAULT_TURNS_AMOUNT - investigator.MoveTurnsCost.Value));
+            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(2));
             yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();

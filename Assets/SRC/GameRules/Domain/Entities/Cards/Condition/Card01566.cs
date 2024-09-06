@@ -14,14 +14,6 @@ namespace MythosAndHorrors.GameRules
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Elude;
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            PlayFromHandTurnsCost = CreateStat(0);
-        }
-
-        /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
             InteractableGameAction chooseEnemy = _gameActionsProvider.Create<InteractableGameAction>()
@@ -29,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                chooseEnemy.CreateCardEffect(creature, new Stat(investigator.EludeTurnsCost.Value, false), EludeCreature, PlayActionType.Elude, investigator, new Localization("CardEffect_Card01566"), cardAffected: this);
+                chooseEnemy.CreateCardEffect(creature, new Stat(0, false), EludeCreature, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01566"), cardAffected: this);
 
                 async Task EludeCreature()
                 {
@@ -53,7 +45,6 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!investigator.CanElude.IsTrue) return false;
             if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
             return true;
         }

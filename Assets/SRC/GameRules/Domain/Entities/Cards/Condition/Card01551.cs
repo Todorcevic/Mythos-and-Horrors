@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -11,15 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tactic };
-        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
-
-        /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            PlayFromHandTurnsCost = CreateStat(0); //Podria hacerse que cambiara con un Reaction cuando estubiera en la mano del investigador
-        }
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Attack;
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
@@ -29,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
-                chooseCreature.CreateCardEffect(creature, investigator.InvestigatorAttackTurnsCost, AttackCreature, PlayActionType.Attack, investigator, new Localization("CardEffect_Card01551"));
+                chooseCreature.CreateCardEffect(creature, new Stat(0, false), AttackCreature, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01551"));
 
                 async Task AttackCreature()
                 {
@@ -45,7 +36,6 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!investigator.CanAttack.IsTrue) return false;
             if (!investigator.CreaturesInSamePlace.Any()) return false;
             return true;
         }

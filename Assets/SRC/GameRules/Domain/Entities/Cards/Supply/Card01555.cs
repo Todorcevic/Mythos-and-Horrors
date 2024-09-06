@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             CreateBuff(CardToSelect, BuffOn, BuffOff, new Localization("Buff_Card01555"));
-            CreateFastActivation(Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01555"));
+            CreateActivation(1, Logic, Condition, PlayActionType.Activate | PlayActionType.Move | PlayActionType.Elude, new Localization("Activation_Card01555"));
         }
 
         /*******************************************************************/
@@ -26,7 +26,6 @@ namespace MythosAndHorrors.GameRules
             if (!IsInPlay.IsTrue) return false;
             if (Exausted.IsActive) return false;
             if (investigator != ControlOwner) return false;
-            if (!investigator.CanMove.IsTrue) return false;
             if (investigator.CurrentPlace.ConnectedPlacesToMove.Count() == 0) return false;
             return true;
         }
@@ -38,8 +37,8 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardPlace place in investigator.CurrentPlace.ConnectedPlacesToMove)
             {
-                interactableGameAction.CreateCardEffect(place, investigator.MoveTurnsCost, MoveAndUnconfront,
-                    PlayActionType.Move | PlayActionType.Elude, playedBy: investigator, new Localization("CardEffect_Card01555"), cardAffected: this);
+                interactableGameAction.CreateCardEffect(place, new Stat(0, false), MoveAndUnconfront,
+                    PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01555"), cardAffected: this);
 
                 /*******************************************************************/
                 async Task MoveAndUnconfront() =>

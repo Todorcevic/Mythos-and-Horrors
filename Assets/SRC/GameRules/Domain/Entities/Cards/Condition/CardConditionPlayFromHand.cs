@@ -6,10 +6,9 @@ namespace MythosAndHorrors.GameRules
 {
     public abstract class CardConditionPlayFromHand : CardCondition, IPlayableFromHandInTurn
     {
-        public Stat PlayFromHandTurnsCost { get; protected set; }
         public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }
-
         public virtual Func<Card> CardAffected => null;
+        public virtual bool IsFast => false;
 
         /*******************************************************************/
         [Inject]
@@ -17,7 +16,6 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             PlayFromHandCondition = new GameConditionWith<Investigator>(CanPlayFromHandWith);
-            PlayFromHandTurnsCost = CreateStat(1);
         }
 
         /*******************************************************************/
@@ -26,7 +24,6 @@ namespace MythosAndHorrors.GameRules
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner != investigator) return false;
             if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
-            if (PlayFromHandTurnsCost.Value > ControlOwner.CurrentTurns.Value) return false;
             return CanPlayFromHandSpecific(investigator);
         }
 

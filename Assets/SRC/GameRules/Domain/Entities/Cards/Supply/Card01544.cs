@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         private AttackCreatureGameAction _attackCreatureGameAction;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public override bool IsFast => true;
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Weapon, Tag.Melee, Tag.Illicit };
 
         /*******************************************************************/
@@ -17,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            PlayFromHandTurnsCost = CreateStat(0);
             CreateForceReaction<ResolveChallengeGameAction>(Condition, Logic, GameActionTime.Before);
         }
 

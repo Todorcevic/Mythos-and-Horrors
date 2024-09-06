@@ -9,14 +9,13 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public override bool IsFast => true;
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Tool };
 
         /*******************************************************************/
         [Inject]
         public void Init()
         {
-            RemoveStat(PlayFromHandTurnsCost);
-            PlayFromHandTurnsCost = CreateStat(0);
             CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, new Localization("Buff_Card01530"));
         }
         /*******************************************************************/

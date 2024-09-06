@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _turnPrefab;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _reactionPrefab;
 
-        public Stat Stat { get; private set; }
+        public Stat Stat { get; private set; } = new Stat(0, false);
         public Transform StatTransform => transform;
 
         /*******************************************************************/
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameView
 
         public void InitWithPlayableFromHand(IPlayableFromHandInTurn playableFromHand)
         {
-            Stat = playableFromHand.PlayFromHandTurnsCost;
+            //Stat = playableFromHand.PlayFromHandTurnsCost; //TODO: Fix this   
             UpdateAnimation();
         }
 
