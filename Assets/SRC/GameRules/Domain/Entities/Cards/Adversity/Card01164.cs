@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Stat> allPlaceStats = cards.OfType<CardPlace>().Select(place => place.MoveTurnsCost);
             IEnumerable<Stat> allCreatureStats = cards.OfType<CardCreature>()
-                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
+                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.EludeTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
         {
             IEnumerable<Stat> allPlaceStats = cards.OfType<CardPlace>().Select(place => place.MoveTurnsCost);
             IEnumerable<Stat> allCreatureStats = cards.OfType<CardCreature>()
-                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.InvestigatorConfronTurnsCost });
+                .SelectMany(creature => new[] { creature.InvestigatorAttackTurnsCost, creature.EludeTurnsCost });
             Dictionary<Stat, int> allStats = allPlaceStats.Concat(allCreatureStats).ToDictionary(stat => stat, stat => 1);
 
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(allStats).Execute();

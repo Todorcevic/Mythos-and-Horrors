@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
             yield return ClickedIn(conditionCard);
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(0));

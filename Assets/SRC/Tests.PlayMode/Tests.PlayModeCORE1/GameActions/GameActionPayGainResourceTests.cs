@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return PlayThisInvestigator(_investigatorsProvider.First, withResources: true);
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First).Execute();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

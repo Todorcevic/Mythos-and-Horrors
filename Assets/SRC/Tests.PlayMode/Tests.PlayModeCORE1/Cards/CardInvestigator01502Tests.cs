@@ -54,9 +54,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedMainButton();
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
@@ -97,11 +97,11 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedIn(tomeCard);
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedIn(customCard);
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return AssertThatIsNotClickable(investigatorToTest.InvestigatorCard);
             Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
 

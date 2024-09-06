@@ -27,8 +27,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(supplyCard);
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return AssertThatIsNotClickable(supplyCard);
             yield return ClickedMainButton();
 

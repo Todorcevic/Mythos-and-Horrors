@@ -86,19 +86,19 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
             yield return ClickedIn(investigator.AvatarCard);
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             AssumeThat(investigator.CurrentTurns.Value == 0);
             yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             AssumeThat(_investigatorsProvider.Second.CurrentTurns.Value == 3);
             AssumeThat(_investigatorsProvider.Third.CurrentTurns.Value == 2);
             yield return ClickedMainButton();

@@ -22,10 +22,10 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Execute().AsCoroutine();
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

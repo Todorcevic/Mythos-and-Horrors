@@ -58,5 +58,31 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(1));
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
         }
+
+        [UnityTest]
+        public IEnumerator CantPlayWithoutTurns()
+        {
+            Investigator investigator = _investigatorsProvider.Fourth;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            Card01566 conditionCard = _cardsProvider.GetCard<Card01566>();
+
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.CurrentPlace).Execute().AsCoroutine();
+
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+            yield return ClickedResourceButton();
+            yield return ClickedMainButton();
+            yield return ClickedResourceButton();
+            yield return ClickedMainButton();
+            yield return ClickedResourceButton();
+            yield return ClickedMainButton();
+            yield return AssertThatIsNotClickable(conditionCard);
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
+        }
     }
 }

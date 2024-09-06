@@ -72,16 +72,16 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             yield return ClickedUndoButton();
             AssumeThat(investigator.CurrentTurns.Value == 1);
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

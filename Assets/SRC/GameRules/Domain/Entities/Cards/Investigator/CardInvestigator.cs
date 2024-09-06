@@ -22,8 +22,18 @@ namespace MythosAndHorrors.GameRules
         public Stat CurrentTurns { get; private set; }
         public Stat MaxTurns { get; private set; }
         public Stat MaxHandSize { get; private set; }
+
+
         public Stat DrawTurnsCost { get; private set; }
-        public Stat TurnsCost { get; private set; }
+        public Stat TakeResourceTurnsCost { get; private set; }
+        public Stat InvestigationTurnsCost { get; private set; }
+        public Stat MoveTurnsCost { get; private set; }
+        public Stat InvestigatorAttackTurnsCost { get; private set; }
+        public Stat InvestigatorConfronTurnsCost { get; private set; }
+        public Stat EludeTurnsCost { get; private set; }
+
+
+
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
         public State IsPlaying { get; private set; }
@@ -53,8 +63,15 @@ namespace MythosAndHorrors.GameRules
             MaxTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
             CurrentTurns = CreateStat(GameValues.DEFAULT_TURNS_AMOUNT);
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
+
             DrawTurnsCost = CreateStat(1);
-            TurnsCost = CreateStat(1);
+            TakeResourceTurnsCost = CreateStat(1);
+            InvestigationTurnsCost = CreateStat(1);
+            MoveTurnsCost = CreateStat(1);
+            InvestigatorAttackTurnsCost = CreateStat(1);
+            InvestigatorConfronTurnsCost = CreateStat(1);
+            EludeTurnsCost = CreateStat(1);
+
             Resign = CreateState(false, isReseteable: false);
             Defeated = CreateState(false, isReseteable: false);
             IsPlaying = CreateState(false);

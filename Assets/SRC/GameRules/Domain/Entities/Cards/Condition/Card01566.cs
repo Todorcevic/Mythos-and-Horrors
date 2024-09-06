@@ -11,15 +11,15 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
-        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
+        public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Elude;
 
         /*******************************************************************/
-        [Inject]
-        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
-        private void Init()
-        {
-            PlayFromHandTurnsCost = CreateStat(0);
-        }
+        //[Inject]
+        //[SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
+        //private void Init()
+        //{
+        //    PlayFromHandTurnsCost = CreateStat(0);
+        //}
 
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
 
             foreach (CardCreature creature in investigator.AllTypeCreaturesConfronted)
             {
-                chooseEnemy.CreateCardEffect(creature, creature.EludeTurnsCost, EludeCreature, PlayActionType.Elude, investigator, new Localization("CardEffect_Card01566"), cardAffected: this);
+                chooseEnemy.CreateCardEffect(creature, new Stat(creature.EludeTurnsCost.Value - PlayFromHandTurnsCost.Value, false), EludeCreature, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01566"), cardAffected: this);
 
                 async Task EludeCreature()
                 {
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (!ControlOwner.AllTypeCreaturesConfronted.Any()) return false;
+            if (ControlOwner.AllTypeCreaturesConfronted.All(creature => creature.EludeTurnsCost.Value > investigator.CurrentTurns.Value)) return false;
             return true;
         }
     }

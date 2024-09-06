@@ -49,8 +49,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE1.GhoulGelid, SceneCORE1.Attic).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedTokenButton();
-            yield return ClickedTokenButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
             yield return ClickedIn(SceneCORE1.Attic);
             yield return AssertThatIsNotClickable(conditionCard);
             yield return ClickedMainButton();

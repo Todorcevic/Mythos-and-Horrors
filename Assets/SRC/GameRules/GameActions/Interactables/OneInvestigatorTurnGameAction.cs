@@ -259,7 +259,7 @@ namespace MythosAndHorrors.GameRules
             if (!CanTakeResource()) return;
 
             TakeResourceEffect = CreateCardEffect(null,
-                ActiveInvestigator.BasicActionTurnsCost,
+                ActiveInvestigator.TakeResourceTurnsCost,
                 TakeResource,
                 PlayActionType.TakeResource,
                 ActiveInvestigator,
@@ -271,7 +271,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool CanTakeResource()
         {
-            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.BasicActionTurnsCost.Value) return false;
+            if (ActiveInvestigator.CurrentTurns.Value < ActiveInvestigator.TakeResourceTurnsCost.Value) return false;
             return true;
         }
 
