@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameRules
                 foreach (Activation<Investigator> activation in activable.AllActivations.Where(activation => !activation.IsFreeActivation))
                 {
                     if (activation.Condition.IsTrueWith(activeInvestigator))
-                        interactableGameAction.CreateCardEffect(activable, activation.ActivateTurnsCost, Activate,
+                        interactableGameAction.CreateCardEffect(activable, activation.ActivateActionsCost, Activate,
                             PlayActionType.Choose | activation.PlayAction, playedBy: activeInvestigator, activation.Localization);
 
                     /*******************************************************************/

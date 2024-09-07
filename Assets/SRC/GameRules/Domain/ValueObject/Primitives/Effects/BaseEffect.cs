@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public Func<Task> Logic { get; private set; }
         public bool WithOpportunityAttack => !IsFreeActivation && (PlayActionType & PlayActionType.WithoutOpportunityAttack) == PlayActionType.None;
         public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
-        public bool CanBePlayed => ActivateTurnsCost.Value <= Investigator.CurrentActions.Value;
+        public virtual bool CanBePlayed => ActivateTurnsCost.Value <= Investigator.CurrentActions.Value;
         public Localization Localization { get; private set; }
 
         /*******************************************************************/

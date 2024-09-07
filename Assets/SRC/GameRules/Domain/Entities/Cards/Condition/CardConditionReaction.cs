@@ -33,7 +33,6 @@ namespace MythosAndHorrors.GameRules
         protected bool CanPlayFromHandWith(GameAction gameAction)
         {
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
-            if (ControlOwner.Resources.Value < ResourceCost.Value) return false;
             return CanPlayFromHandSpecific(gameAction);
         }
 

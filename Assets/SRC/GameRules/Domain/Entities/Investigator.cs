@@ -63,6 +63,7 @@ namespace MythosAndHorrors.GameRules
             .Where(creature => creature.CurrentPlace == CurrentPlace && !creature.Exausted.IsActive).OfType<CardColosus>();
         public IEnumerable<CardCreature> AllTypeCreaturesConfronted => BasicCreaturesConfronted.Concat(ColosusConfronted.Cast<CardCreature>());
         public IEnumerable<CardCreature> BasicCreaturesConfronted => DangerZone.Cards.OfType<CardCreature>();
+        public IEnumerable<CardCreature> ConfrontableCreatures => CreaturesInSamePlace.Where(creature => creature is not CardColosus && creature.ConfrontedInvestigator != this);
         public IEnumerable<CardCreature> NearestCreatures => _cardsProvider.GetCards<CardCreature>().Where(creature => creature.IsInPlay.IsTrue)
             .OrderBy(creature => creature.CurrentPlace.DistanceTo(CurrentPlace).distance);
 

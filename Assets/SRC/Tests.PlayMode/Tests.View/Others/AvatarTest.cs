@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.First.CurrentActions, 3).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.First).GetPrivateMember<ActionController>("_turnController").ActiveTurnsCount, Is.EqualTo(3));
+            Assert.That(_avatarViewsManager.Get(_investigatorsProvider.First).GetPrivateMember<ActionController>("_actionController").ActiveTurnsCount, Is.EqualTo(3));
         }
     }
 }

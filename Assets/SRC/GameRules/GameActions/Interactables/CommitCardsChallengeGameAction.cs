@@ -71,7 +71,7 @@ namespace MythosAndHorrors.GameRules
                 .Where(activation => activation.FullCondition(CurrentChallenge)))
             {
                 CreateCardEffect(activation.Card,
-                   activation.ActivateTurnsCost,
+                   activation.ActivateActionsCost,
                    Activate,
                    PlayActionType.Activate | activation.PlayAction,
                    ActiveInvestigator,

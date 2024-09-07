@@ -8,8 +8,10 @@ namespace MythosAndHorrors.GameRules
         public Stat ResourceCost { get; }
         public Card CardOwner { get; }
         public Card CardAffected { get; }
+        public override bool CanBePlayed => base.CanBePlayed && ResourceCost.Value <= Investigator.Resources.Value;
         public string CardCode => Investigator?.Code;
         public string CardCodeSecundary => CardAffected?.Info.Code;
+
 
         /*******************************************************************/
         public CardEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType, Investigator playedBy, Localization localization,

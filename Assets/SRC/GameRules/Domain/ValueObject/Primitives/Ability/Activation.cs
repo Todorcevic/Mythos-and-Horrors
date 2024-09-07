@@ -6,20 +6,20 @@ namespace MythosAndHorrors.GameRules
     {
         public Card Card { get; }
         public Card CardAffected { get; }
-        public Stat ActivateTurnsCost { get; }
+        public Stat ActivateActionsCost { get; }
         public GameCommand<T> Logic { get; }
         public GameConditionWith<T> Condition { get; }
         public PlayActionType PlayAction { get; }
         public bool IsDisable { get; private set; }
-        public bool IsFreeActivation => ActivateTurnsCost.Value < 1;
+        public bool IsFreeActivation => ActivateActionsCost.Value < 1;
         public Localization Localization { get; private set; }
 
         /*******************************************************************/
-        public Activation(Card card, Stat activateTurnsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Card cardAffected, Localization localization)
+        public Activation(Card card, Stat activateActionsCost, GameCommand<T> logic, GameConditionWith<T> condition, PlayActionType playActionType, Card cardAffected, Localization localization)
         {
             Card = card;
             CardAffected = cardAffected;
-            ActivateTurnsCost = activateTurnsCost;
+            ActivateActionsCost = activateActionsCost;
             Logic = logic;
             Condition = condition;
             PlayAction = PlayActionType.Activate | playActionType;

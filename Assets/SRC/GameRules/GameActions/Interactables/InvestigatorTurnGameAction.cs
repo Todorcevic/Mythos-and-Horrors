@@ -67,29 +67,28 @@ namespace MythosAndHorrors.GameRules
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentActions, ActiveInvestigator.CurrentActions.Value).Execute();
         }
 
-        /*******************************************************************/
         private void PreparePlayFromHandEffect()
         {
             foreach (IPlayableFromHandInTurn playableFromHand in _cardsProvider.AllCards.OfType<IPlayableFromHandInTurn>()
                 .Where(playableFromHand => playableFromHand.PlayFromHandCondition.IsTrueWith(ActiveInvestigator)))
             {
                 CreateCardEffect((Card)playableFromHand,
-                     new Stat(playableFromHand.IsFast ? 0 : 1, false),
+                    new Stat(playableFromHand.IsFast ? 0 : 1, false),
                     PlayFromHand,
                     PlayActionType.PlayFromHand | playableFromHand.PlayFromHandActionType,
                     playedBy: ActiveInvestigator,
-                    new Localization("CardEffect_OneInvestigatorTurn"),  //Check if can propagate the localizableCode from IPlayableFromHand
+                    new Localization("CardEffect_OneInvestigatorTurn"),
                     resourceCost: playableFromHand.ResourceCost,
                     cardAffected: playableFromHand.CardAffected?.Invoke());
 
+                /*******************************************************************/
                 async Task PlayFromHand() => await playableFromHand.PlayFromHandCommand.RunWith(this);
             }
         }
 
-        /*******************************************************************/
         private void PrepareInvestigateEffect()
         {
-            if (!CanInvestigate()) return;
+            if (ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsFalse) return;
 
             CreateCardEffect(ActiveInvestigator.CurrentPlace,
                 new Stat(1, false),
@@ -98,17 +97,10 @@ namespace MythosAndHorrors.GameRules
                 playedBy: ActiveInvestigator,
                 new Localization("CardEffect_OneInvestigatorTurn-1"));
 
-            bool CanInvestigate()
-            {
-                if (!ActiveInvestigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
-                return true;
-            }
-
-            async Task Investigate() => await _gameActionsProvider.Create<InvestigatePlaceGameAction>()
-                .SetWith(ActiveInvestigator, ActiveInvestigator.CurrentPlace).Execute();
+            /*******************************************************************/
+            async Task Investigate() => await _gameActionsProvider.Create<InvestigatePlaceGameAction>().SetWith(ActiveInvestigator, ActiveInvestigator.CurrentPlace).Execute();
         }
 
-        /*******************************************************************/
         private void PrepareMoveEffect()
         {
             foreach (CardPlace cardPlace in ActiveInvestigator.CurrentPlace.ConnectedPlacesToMove)
@@ -120,11 +112,11 @@ namespace MythosAndHorrors.GameRules
                     ActiveInvestigator,
                     new Localization("CardEffect_OneInvestigatorTurn-2"));
 
+                /*******************************************************************/
                 async Task Move() => await _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(ActiveInvestigator, cardPlace).Execute();
             }
         }
 
-        /*******************************************************************/
         private void PrepareInvestigatorAttackEffect()
         {
             foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
@@ -137,19 +129,14 @@ namespace MythosAndHorrors.GameRules
                     new Localization("CardEffect_OneInvestigatorTurn-3"));
 
                 /*******************************************************************/
-                async Task InvestigatorAttack() =>
-                    await _gameActionsProvider.Create<AttackCreatureGameAction>()
-                    .SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Execute();
+                async Task InvestigatorAttack() => await _gameActionsProvider.Create<AttackCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Execute();
             }
         }
 
-        /*******************************************************************/
         private void PrepareInvestigatorConfrontEffect()
         {
-            foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
+            foreach (CardCreature cardCreature in ActiveInvestigator.ConfrontableCreatures)
             {
-                if (!CanInvestigatorConfront()) continue;
-
                 CreateCardEffect(cardCreature,
                     new Stat(1, false),
                     InvestigatorConfront,
@@ -158,24 +145,14 @@ namespace MythosAndHorrors.GameRules
                     new Localization("CardEffect_OneInvestigatorTurn-4"));
 
                 /*******************************************************************/
-                bool CanInvestigatorConfront()
-                {
-                    if (ActiveInvestigator == cardCreature.ConfrontedInvestigator) return false;
-                    return true;
-                }
-
-                async Task InvestigatorConfront() =>
-                    await _gameActionsProvider.Create<InvestigatorConfrontGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
+                async Task InvestigatorConfront() => await _gameActionsProvider.Create<InvestigatorConfrontGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
             }
         }
 
-        /*******************************************************************/
         private void PrepareInvestigatorEludeEffect()
         {
-            foreach (CardCreature cardCreature in ActiveInvestigator.CreaturesInSamePlace)
+            foreach (CardCreature cardCreature in ActiveInvestigator.AllTypeCreaturesConfronted)
             {
-                if (!CanInvestigatorElude()) continue;
-
                 CreateCardEffect(cardCreature,
                     new Stat(1, false),
                     InvestigatorElude,
@@ -183,36 +160,29 @@ namespace MythosAndHorrors.GameRules
                     ActiveInvestigator,
                     new Localization("CardEffect_OneInvestigatorTurn-5"));
 
-                bool CanInvestigatorElude()
-                {
-                    if (cardCreature.ConfrontedInvestigator != ActiveInvestigator) return false;
-                    return true;
-                }
-
-                async Task InvestigatorElude() =>
-                    await _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
+                /*******************************************************************/
+                async Task InvestigatorElude() => await _gameActionsProvider.Create<EludeCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature).Execute();
             }
         }
 
-        /*******************************************************************/
         private void PrepareActivables()
         {
             foreach (Activation<Investigator> activation in _cardsProvider.AllCards.SelectMany(card => card.AllActivations)
                 .Where(activation => activation.FullCondition(ActiveInvestigator)))
             {
                 CreateCardEffect(activation.Card,
-                    activation.ActivateTurnsCost,
+                    activation.ActivateActionsCost,
                     Activate,
                     PlayActionType.Activate | activation.PlayAction,
                     ActiveInvestigator,
                     activation.Localization,
                     cardAffected: activation.CardAffected);
 
+                /*******************************************************************/
                 async Task Activate() => await activation.PlayFor(ActiveInvestigator);
             }
         }
 
-        /*******************************************************************/
         private void PrepareDraw()
         {
             CreateCardEffect(ActiveInvestigator.CardAidToDraw,
@@ -221,11 +191,11 @@ namespace MythosAndHorrors.GameRules
                 PlayActionType.Draw,
                 ActiveInvestigator,
                 new Localization("CardEffect_OneInvestigatorTurn-6"));
+
+            /*******************************************************************/
+            async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Execute();
         }
 
-        private async Task Draw() => await _gameActionsProvider.Create<DrawAidGameAction>().SetWith(ActiveInvestigator).Execute();
-
-        /*******************************************************************/
         private void PrepareTakeResource()
         {
             TakeResourceEffect = CreateCardEffect(null,

@@ -39,7 +39,6 @@ namespace MythosAndHorrors.GameRules
         {
             if (CurrentZone.ZoneType != ZoneType.Hand) return false;
             if (ControlOwner != investigator) return false;
-            if (ResourceCost.Value > ControlOwner.Resources.Value) return false;
             return true;
         }
 
