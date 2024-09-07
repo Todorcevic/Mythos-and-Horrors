@@ -360,7 +360,7 @@ MonoBehaviour:
   _sanityStat: {fileID: 9162925390872526085}
   _resourcesStat: {fileID: 6554940625355342066}
   _hintsStat: {fileID: 1582538060988199772}
-  _turnController: {fileID: 5641547707055704515}
+  _actionController: {fileID: 5641547707055704515}
 --- !u!114 &566041798234457830
 MonoBehaviour:
   m_ObjectHideFlags: 0
