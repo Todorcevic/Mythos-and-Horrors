@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=63> : After you defeat an Creature: Discover 1 <sprite index=38> at your Place. (Limit once per round.)\n<sprite index=15> : +1 <sprite index=58> for each <sprite index=38> on your Place.",
+        "Description": "<sprite index=63> : After Eliot Spencer defeats a Creature, he may discover 1 <sprite index=38> at his Place. (Limit once per round.)\n<sprite index=15> : +1 <sprite index=58> for each <sprite index=38> on his Place.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
         "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
         "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, he was relieved to have guidelines to follow in any given situation. But lately, his Federal Agent's Handbook had been entirely unhelpful given the cases he'd been assigned. Try as he might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If he hadn't seen it with his own eyes, he would never have believed it... and there's no way his superiors would understand. Roland knew he would have to handle this one himself.",
@@ -22,7 +22,7 @@
         "Name": "Eliot Spencer"
     },
     {
-        "Description": "You have an additional <sprite index=62> during your turn, which can only be used on [[Tome]] <sprite index=62> abilities.\n<sprite index=15> : 0 <sprite index=58>. If you succeed, draw 1 <sprite index=8> for each [[Tome]] you control.",
+        "Description": "<sprite index=61> : During her turn, Beatrice Ward has an additional <sprite index=62>, which can only be used on [[Tome]] <sprite index=62> abilities.\n<sprite index=15> : 0 <sprite index=58>. If the Challenge succeed, she draws 1 <sprite index=8> for each [[Tome]] she controls.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Mystic cards ([mystic]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon (John Dee Translation), 1 random basic weakness.",
         "Flavor": "\"I know of books so powerful, they can rewrite reality.\"",
         "Flavor2": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, fear. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
@@ -44,7 +44,7 @@
         "Name": "Beatrice Ward"
     },
     {
-        "Description": "<sprite index=63> : During your turn, spend 2 <sprite index=39>: You may take an additional <sprite index=62> this turn. (Limit once per turn.)\n<sprite index=15> : 2 <sprite index=58>. If you succeed, gain 2 <sprite index=39>.",
+        "Description": "<sprite index=61> : During his turn, Frank Harris may spend 2 <sprite index=39> and gain an additional <sprite index=62> this turn. (Limit once per turn.)\n<sprite index=15> : 2 <sprite index=58>. If the Challenge succeed, he gains 2 <sprite index=39>.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
         "Flavor": "\"I didn't get out of the joint just to watch the world end.\"",
         "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for his mother's operation. His mother died of her illness during the second year of his sentence. His cellmate, Brad Hollins, told him there were worse fates than death. He ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures he'd had while dreaming. Skids didn't give it much thought until the night he woke to the sight of his cellmate bursting into flames. When Skids was finally released, he returned to Arkham, looking for answers.",
@@ -66,7 +66,7 @@
         "Name": "Frank Harris"
     },
     {
-        "Description": "<sprite index=60> : After 1 or more Fear is placed on Agnes Baker: Deal 1 damage to an enemy at your location. (Limit once per phase.)\n[elder_sign] effect: +1 for each horror on Agnes Baker.",
+        "Description": "<sprite index=63> : After 1 or more <sprite index=60> is placed on Lucille Hargrove, she may deal 1 <sprite index=59> to an Creature at her Place. (Limit once per phase.)\n<sprite index=15> : +1 for each <sprite index=60> on Lucille Hargrove.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
         "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
         "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
@@ -74,10 +74,6 @@
         "Faction": 8,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Investigator",
-            "Sorcerer"
         ],
         "Quantity": 1,
         "Strength": 2,
@@ -89,20 +85,16 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01504",
-        "Name": "Agnes Baker"
+        "Name": "Lucille Hargrove"
     },
     {
-        "Description": "[reaction] When you reveal a chaos token, choose and discard 1 card from your hand: Cancel that chaos token and return it to the bag. Reveal a new chaos token. (Limit once per test/ability.)\n[elder_sign] effect: +0. If Wendy's Amulet is in play, you automatically succeed instead.",
+        "Description": "<sprite index=63> : When Sadie Turner reveals a Token, she may discard 1 <sprite index=8> from her hand, then that Token will go back and a new Token will be reavealed. (Limit once per Challenge.)\n<sprite index=15> : +0. If Talisman of Echoes is in play, the Challenge automatically succeeds.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
         "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Investigator",
-            "Drifter"
         ],
         "Quantity": 1,
         "Strength": 1,
@@ -114,7 +106,7 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01505",
-        "Name": "Wendy Adams"
+        "Name": "Sadie Turner"
     },
     {
         "Description": "Roland Banks deck only.\nUses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +1 [combat] for this attack (if there are 1 or more clues on your location, you get +3 [combat], instead). This attack deals +1 damage.",
