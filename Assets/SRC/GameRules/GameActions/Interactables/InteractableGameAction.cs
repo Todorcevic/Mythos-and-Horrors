@@ -18,15 +18,15 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect MainButtonEffect { get; private set; }
         public BaseEffect UndoEffect { get; private set; }
 
-        public bool IsUniqueEffect => AllEffects.Count() == 1;
-        public bool IsUniqueCard => AllEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
-        private bool NoEffect => (MainButtonEffect == null) && !AllEffects.Any();
+        public bool IsUniqueEffect => AllPlayableEffects.Count() == 1;
+        public bool IsUniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
+        private bool NoEffect => (MainButtonEffect == null) && !AllPlayableEffects.Any();
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
-        public Card UniqueCard => AllEffects.Select(effect => effect.CardOwner).Unique();
-        private CardEffect UniqueCardEffect => AllEffects.Unique();
-        public IEnumerable<CardEffect> AllEffects => _allCardEffects.FindAll(effect => effect.CanBePlayed);
+        public Card UniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).Unique();
+        private CardEffect UniqueCardEffect => AllPlayableEffects.Unique();
+        public IEnumerable<CardEffect> AllPlayableEffects => _allCardEffects.FindAll(effect => effect.CanBePlayed);
         public CardEffect GetUniqueEffect() => (MainButtonEffect == null && IsUniqueEffect) ? UniqueCardEffect : null;
-        public BaseEffect GetUniqueMainButton() => MainButtonEffect != null && !AllEffects.Any() && MustShowInCenter ? MainButtonEffect : null;
+        public BaseEffect GetUniqueMainButton() => MainButtonEffect != null && !AllPlayableEffects.Any() && MustShowInCenter ? MainButtonEffect : null;
 
         /*******************************************************************/
         public InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
@@ -47,7 +47,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        public IEnumerable<CardEffect> GetEffectForThisCard(Card cardAffected) => AllEffects.Where(effect => effect.CardOwner == cardAffected);
+        public IEnumerable<CardEffect> GetEffectForThisCard(Card cardAffected) => AllPlayableEffects.Where(effect => effect.CardOwner == cardAffected);
 
         public CardEffect CreateCardEffect(Card card, Stat activateTurnCost, Func<Task> logic, PlayActionType playActionType,
             Investigator playedBy, Localization localization, Card cardAffected = null, Stat resourceCost = null)

@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             Task taskGameAction = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedClone(cardAdversity, 0, isReaction: true);
             Assert.That(investigator.Isolated.IsActive, Is.True);
-            Assert.That(_gameActionsProvider.CurrentInteractable.AllEffects.All(cardEffect => cardEffect.Investigator == investigator), Is.True);
+            Assert.That(_gameActionsProvider.CurrentInteractable.AllPlayableEffects.All(cardEffect => cardEffect.Investigator == investigator), Is.True);
 
             yield return ClickedMainButton();
             yield return ClickedMainButton();

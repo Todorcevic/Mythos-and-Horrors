@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task CheckMaxLogic(CommitCardsChallengeGameAction commitCardsChallengeGameAction)
         {
-            CardEffect effectToRemove = commitCardsChallengeGameAction.AllEffects.FirstOrDefault(effect => effect.CardOwner == this);
+            CardEffect effectToRemove = commitCardsChallengeGameAction.AllPlayableEffects.FirstOrDefault(effect => effect.CardOwner == this);
             if (effectToRemove == null) return;
             commitCardsChallengeGameAction.RemoveEffect(effectToRemove);
             await Task.CompletedTask;

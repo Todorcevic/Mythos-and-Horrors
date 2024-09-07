@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task CheckActionsTypeLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
         {
-            List<CardEffect> cardEffectAffected = oneInvestigatorTurnGameAction.AllEffects
+            List<CardEffect> cardEffectAffected = oneInvestigatorTurnGameAction.AllPlayableEffects
                .Where(effect => (effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude))).ToList();
 
             Dictionary<Stat, int> allStats = cardEffectAffected.ToDictionary(cardEffect => cardEffect.ActivateTurnsCost, stat => 1);
