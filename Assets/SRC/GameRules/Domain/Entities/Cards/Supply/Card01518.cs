@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (investigator != ControlOwner) return false;
             if (!investigator.CreaturesInSamePlace.Any()) return false;
             return true;

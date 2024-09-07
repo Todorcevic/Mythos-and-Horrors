@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool RevealNewTokenCondition(RevealChallengeTokenGameAction revealChallengeTokenGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (revealChallengeTokenGameAction.Investigator != Owner) return false;
             if (!Owner.HandZone.Cards.Any(card => card.CanBeDiscarted.IsTrue)) return false;
             if (AbilityUsed.IsActive) return false;
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task StarEffect()
         {
-            if (!AmuletoDeWendy.IsInPlay.IsTrue) return;
+            if (AmuletoDeWendy.IsInPlay.IsFalse) return;
             _gameActionsProvider.CurrentChallenge.IsAutoSucceed = true;
             await Task.CompletedTask;
         }

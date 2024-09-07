@@ -48,7 +48,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool TakeDirectDamageConditionn(HarmToCardGameAction harmToCardGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (harmToCardGameAction.Card != InvestigatorAffected.InvestigatorCard) return false;
             if (harmToCardGameAction.AmountFear < 1) return false;
             return true;

@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(3));
+            Assert.That(investigator.CurrentActions.ValueBeforeUpdate, Is.EqualTo(3));
             Assert.That(SceneCORE1.GhoulSecuaz.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
             Assert.That(weaponCard.Charge.Amount.Value, Is.EqualTo(2));
             Assert.That(weaponCard.Used.IsActive, Is.True);

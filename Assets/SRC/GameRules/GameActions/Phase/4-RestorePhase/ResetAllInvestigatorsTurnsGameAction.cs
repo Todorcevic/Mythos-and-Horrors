@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             Dictionary<Stat, int> turnsInvestigastors = _investigatorsProvider.AllInvestigatorsInPlay
-                .ToDictionary(investigator => investigator.CurrentTurns, investigator => investigator.MaxTurns.Value);
+                .ToDictionary(investigator => investigator.CurrentActions, investigator => investigator.MaxActions.Value);
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(turnsInvestigastors).Execute();
         }
     }

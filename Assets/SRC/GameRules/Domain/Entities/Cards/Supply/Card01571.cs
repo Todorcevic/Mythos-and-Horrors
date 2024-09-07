@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool PlayCondition(RevealRandomChallengeTokenGameAction reavealChallengeTokenGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Charge.Amount.Value < 1) return false;
             if (reavealChallengeTokenGameAction.Investigator != ControlOwner) return false;
             if (Played.IsActive) return false;
@@ -78,7 +78,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (!updateStatGameAction.HasThisStat(Charge.Amount)) return false;
             if (Charge.Amount.Value > 0) return false;
             return true;

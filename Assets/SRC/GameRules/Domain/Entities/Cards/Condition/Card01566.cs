@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
                     List<ChallengeTokenType> dazzle = new() { ChallengeTokenType.Ancient, ChallengeTokenType.Creature, ChallengeTokenType.Cultist, ChallengeTokenType.Danger, ChallengeTokenType.Fail };
                     if (eludeGameAction.ResultChallenge.TokensRevealed.Any(token => dazzle.Contains(token.TokenType)))
                     {
-                        await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentTurns, 1).Execute();
+                        await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigator.CurrentActions, 1).Execute();
                     }
                 }
 

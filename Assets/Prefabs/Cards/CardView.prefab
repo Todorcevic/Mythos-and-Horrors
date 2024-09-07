@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6430441952295575128}
   - component: {fileID: 5224261012406206311}
   m_Layer: 3
-  m_Name: FastTurn
+  m_Name: FastAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   _slot1: {fileID: 4471964687420538711}
   _slot2: {fileID: 2226206611366920455}
   _value: {fileID: 7918105857640650496}
-  _turnsCostController: {fileID: 403714040741462580}
+  _actionsCostController: {fileID: 403714040741462580}
 --- !u!114 &7507989193192747260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 1134882245412105427}
   - component: {fileID: 6685524813076387131}
   m_Layer: 3
-  m_Name: Turn
+  m_Name: Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2854,7 +2854,7 @@ GameObject:
   - component: {fileID: 403714040741462580}
   - component: {fileID: 1296780024064124711}
   m_Layer: 3
-  m_Name: TurnsCost
+  m_Name: ActionTypeController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2891,11 +2891,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8904670908847415216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f31a0346444abbf48be62ebfd178553d, type: 3}
+  m_Script: {fileID: 11500000, guid: d1ec23e2b1ae66145b91414eee0b3c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fastTurnPrefab: {fileID: 6430441952295575128}
-  _turnPrefab: {fileID: 1134882245412105427}
+  _fastActionPrefab: {fileID: 6430441952295575128}
+  _actionPrefab: {fileID: 1134882245412105427}
   _reactionPrefab: {fileID: 6493929026939649605}
 --- !u!114 &1296780024064124711
 MonoBehaviour:

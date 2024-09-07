@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameRules
 
             bool Condition()
             {
-                if (!IsInPlay.IsTrue) return false;
+                if (IsInPlay.IsFalse) return false;
                 if (!IsConfronted) return false;
                 if (ConfrontedInvestigator.SanityLeft > 4) return false;
 

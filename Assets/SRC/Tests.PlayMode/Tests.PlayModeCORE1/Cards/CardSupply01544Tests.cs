@@ -25,7 +25,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(weaponCard);
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
+            Assert.That(investigator.CurrentActions.Value, Is.EqualTo(3));
             yield return ClickedIn(weaponCard);
             yield return ClickedIn(SceneCORE1.GhoulVoraz);
             yield return ClickedMainButton();

@@ -43,7 +43,7 @@ namespace MythosAndHorrors.GameRules
         protected bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
             if (!updateStatGameAction.HasThisStat(Hints)) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
             if (Hints.Value > 0) return false;
             return true;
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
 
         protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayHints.IsTrue)
                 .Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;

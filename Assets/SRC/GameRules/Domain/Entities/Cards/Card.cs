@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
             FaceDown = CreateState(false);
             Exausted = CreateState(false);
             Blancked = CreateState(false, BlankState);
-            CanBeDiscarted = new(() => CanBeDiscarded());
+            CanBeDiscarted = new(CanBeDiscarded);
             CanBePlayed = new(() => PlayableEffects.Any());
             IsActivable = new(() => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner)));
             IsInPlay = new(() => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType));

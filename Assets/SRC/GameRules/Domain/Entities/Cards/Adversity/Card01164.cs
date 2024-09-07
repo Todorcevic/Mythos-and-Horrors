@@ -26,10 +26,10 @@ namespace MythosAndHorrors.GameRules
             Wasted = CreateState(false);
             CreateForceReaction<PlayInvestigatorGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
             CreateForceReaction<PlayEffectGameAction>(WastedCondition, WasteLogic, GameActionTime.After);
-            CreateForceReaction<OneInvestigatorTurnGameAction>(CheckActionsTypeCondition, CheckActionsTypeLogic, GameActionTime.Before);
+            CreateForceReaction<InvestigatorTurnGameAction>(CheckActionsTypeCondition, CheckActionsTypeLogic, GameActionTime.Before);
         }
 
-        private async Task CheckActionsTypeLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        private async Task CheckActionsTypeLogic(InvestigatorTurnGameAction oneInvestigatorTurnGameAction)
         {
             List<CardEffect> cardEffectAffected = oneInvestigatorTurnGameAction.AllPlayableEffects
                .Where(effect => (effect.IsOneTheseActionType(PlayActionType.Move | PlayActionType.Attack | PlayActionType.Elude))).ToList();
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(allStats).Execute();
         }
 
-        private bool CheckActionsTypeCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+        private bool CheckActionsTypeCondition(InvestigatorTurnGameAction oneInvestigatorTurnGameAction)
         {
             if (oneInvestigatorTurnGameAction.ActiveInvestigator != InvestigatorAffected) return false;
             return ActivateCondition();

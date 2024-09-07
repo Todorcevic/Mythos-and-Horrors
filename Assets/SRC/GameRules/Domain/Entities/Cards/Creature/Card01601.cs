@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool ParleyConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (activeInvestigator.CurrentPlace != CurrentPlace) return false;
             if (activeInvestigator.Resources.Value < 4) return false;
             return true;

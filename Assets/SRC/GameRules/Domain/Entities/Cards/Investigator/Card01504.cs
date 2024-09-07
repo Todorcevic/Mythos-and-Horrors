@@ -54,7 +54,7 @@ namespace MythosAndHorrors.GameRules
             if (harmToCardGameAction.Card != this) return false;
             if (harmToCardGameAction.TotalFearApply <= 0) return false;
             if (AbilityUsed.IsActive) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (!Owner.CreaturesInSamePlace.Any()) return false;
             return true;
         }

@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ReadyCondition(InvestigatorsPhaseGameAction action)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (!Exausted.IsActive) return false;
             return true;
         }

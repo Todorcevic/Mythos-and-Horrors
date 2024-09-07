@@ -24,14 +24,14 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool Condition(Investigator investigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
 
         private async Task Logic(Investigator investigator)
         {
             await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentTurns, 2).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigator.CurrentActions, 2).Execute();
         }
 
         /*******************************************************************/

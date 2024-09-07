@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         private bool Condition(HarmToInvestigatorGameAction harmToInvestigatorGameAction)
         {
             if (harmToInvestigatorGameAction.Parent is not CreatureAttackGameAction creatureAttackGameAction) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Exausted.IsActive) return false;
             if (harmToInvestigatorGameAction.Investigator != ControlOwner) return false;
             if (!creatureAttackGameAction.Creature.CurrentPlace.CreaturesInThisPlace.Any()) return false;

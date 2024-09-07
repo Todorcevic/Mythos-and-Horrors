@@ -788,7 +788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2060582944213530566, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_Name
-      value: TurnsController
+      value: ActionController
       objectReference: {fileID: 0}
     - target: {fileID: 2997667983390737016, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8b2bd700d32c74890c932e9dcfbde7, type: 3}
+  m_Script: {fileID: 11500000, guid: b7dce0ce498a47e4eb06e8245294a360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &9060739223776770006

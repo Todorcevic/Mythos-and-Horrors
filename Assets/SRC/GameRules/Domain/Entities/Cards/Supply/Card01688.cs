@@ -73,7 +73,7 @@ namespace MythosAndHorrors.GameRules
                 if (attackCreatureGameAction.ResultChallenge.TotalDifferenceValue < 3) return;
 
                 await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Used, true).Execute();
-                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.ActiveInvestigator.CurrentTurns, 1).Execute();
+                await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(attackCreatureGameAction.ActiveInvestigator.CurrentActions, 1).Execute();
             }
         }
 

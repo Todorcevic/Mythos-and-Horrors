@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class OneInvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
+    public class InvestigatorTurnGameAction : InteractableGameAction, IPersonalInteractable
     {
         [Inject] private readonly CardsProvider _cardsProvider;
 
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
             => throw new NotImplementedException();
 
-        public OneInvestigatorTurnGameAction SetWith()
+        public InvestigatorTurnGameAction SetWith()
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_OneInvestigatorTurn", DescriptionParams()));
             ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             static string[] DescriptionParams()
             {
                 CardInvestigator investigatorCard = PlayInvestigatorGameAction.PlayActiveInvestigator.InvestigatorCard;
-                return new[] { investigatorCard.Info.Name, investigatorCard.CurrentTurns.Value.ToString() };
+                return new[] { investigatorCard.Info.Name, investigatorCard.CurrentActions.Value.ToString() };
             }
         }
 
@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
             await base.ExecuteThisLogic();
             if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
                 || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable.IsTrue)
-                await _gameActionsProvider.Create<OneInvestigatorTurnGameAction>().SetWith().Execute();
+                await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith().Execute();
         }
 
         /*******************************************************************/
@@ -61,10 +61,10 @@ namespace MythosAndHorrors.GameRules
 
         private void PreparePassEffect()
         {
-            CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.CurrentTurns.Value.ToString()));
+            CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.CurrentActions.Value.ToString()));
 
             async Task PassTurn() =>
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentTurns, ActiveInvestigator.CurrentTurns.Value).Execute();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentActions, ActiveInvestigator.CurrentActions.Value).Execute();
         }
 
         /*******************************************************************/

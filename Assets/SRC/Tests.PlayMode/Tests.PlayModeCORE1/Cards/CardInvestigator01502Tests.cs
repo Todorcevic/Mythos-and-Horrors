@@ -53,7 +53,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(tomeCard);
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedMainButton();
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(3));
             yield return ClickedResourceButton();
             yield return ClickedResourceButton();
             yield return ClickedResourceButton();
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigatorToTest.Resources.Value, Is.EqualTo(3));
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
         }
 
         [UnityTest]
@@ -76,12 +76,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return ClickedUndoButton();
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(3));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(3));
 
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
         }
 
         [UnityTest]
@@ -103,7 +103,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(customCard);
             yield return ClickedResourceButton();
             yield return AssertThatIsNotClickable(investigatorToTest.InvestigatorCard);
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(0));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
 
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

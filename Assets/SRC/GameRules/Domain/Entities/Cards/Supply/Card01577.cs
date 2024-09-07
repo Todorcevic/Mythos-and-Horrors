@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool GainPowerSkillCondition(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (challengePhaseGameAction.Stat != ControlOwner.Power) return false;
             if (ControlOwner.Resources.Value <= 0) return false;
             return true;
@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool GainAgilitySkillCondition(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (challengePhaseGameAction.Stat != ControlOwner.Agility) return false;
             if (ControlOwner.Resources.Value <= 0) return false;
             return true;

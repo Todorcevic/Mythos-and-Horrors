@@ -40,14 +40,14 @@ namespace MythosAndHorrors.GameRules
         public async Task GainTurnActivate(Investigator activeInvestigator)
         {
             await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(activeInvestigator, 2).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentTurns, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(activeInvestigator.CurrentActions, 1).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Execute();
         }
 
         public bool GainTurnConditionToActivate(Investigator activeInvestigator)
         {
             if (AbilityUsed.IsActive) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Owner != activeInvestigator) return false;
             if (activeInvestigator.Resources.Value < 2) return false;
             return true;

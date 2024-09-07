@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool HealtConditionConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (ControlOwner != activeInvestigator) return false;
             return true;
         }

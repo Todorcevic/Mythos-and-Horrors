@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(2));
+            Assert.That(investigator.CurrentActions.ValueBeforeUpdate, Is.EqualTo(2));
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.True);
         }
 
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.CurrentTurns.ValueBeforeUpdate, Is.EqualTo(1));
+            Assert.That(investigator.CurrentActions.ValueBeforeUpdate, Is.EqualTo(1));
             Assert.That(SceneCORE1.GhoulGelid.Exausted.IsActive, Is.False);
         }
 

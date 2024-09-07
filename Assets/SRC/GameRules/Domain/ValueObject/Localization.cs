@@ -1,6 +1,4 @@
-﻿using Zenject;
-
-namespace MythosAndHorrors.GameRules
+﻿namespace MythosAndHorrors.GameRules
 {
     public class Localization
     {

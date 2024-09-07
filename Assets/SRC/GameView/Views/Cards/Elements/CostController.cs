@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
-        [SerializeField, Required, ChildGameObjectsOnly] private TurnsCostController _turnsCostController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ActionTypeController _actionsCostController;
         [Inject] private readonly StatableManager _statableManager;
 
         public Stat Stat { get; private set; }
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
         {
             _statableManager.Add(this);
             SetSlots(card);
-            _turnsCostController.Init(card);
+            _actionsCostController.Init(card);
             if (card is IPlayableFromHandInTurn playableFromHand) SetCostWith(playableFromHand.ResourceCost);
             else if (card is CardConditionReaction cardConditionFast) SetCostWith(cardConditionFast.ResourceCost);
             else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Hints);

@@ -33,16 +33,16 @@ namespace MythosAndHorrors.GameRules
         private async Task BuffOff(IEnumerable<Card> allCards)
         {
             CardInvestigator investigatorCard = allCards.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigatorCard.MaxTurns, 1).Execute();
-            if (investigatorCard.CurrentTurns.Value > investigatorCard.MaxTurns.Value)
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigatorCard.CurrentTurns, 1).Execute();
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigatorCard.MaxActions, 1).Execute();
+            if (investigatorCard.CurrentActions.Value > investigatorCard.MaxActions.Value)
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(investigatorCard.CurrentActions, 1).Execute();
         }
 
         private async Task BuffOn(IEnumerable<Card> allCards)
         {
             CardInvestigator investigatorCard = allCards.OfType<CardInvestigator>().First();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorCard.MaxTurns, 1).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorCard.CurrentTurns, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorCard.MaxActions, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(investigatorCard.CurrentActions, 1).Execute();
         }
 
         private IEnumerable<Card> CardToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();

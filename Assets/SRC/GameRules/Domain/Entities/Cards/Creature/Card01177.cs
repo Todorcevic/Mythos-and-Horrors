@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(CreatureAttackGameAction creatureAttackGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (creatureAttackGameAction.Creature != this) return false;
             return true;
         }

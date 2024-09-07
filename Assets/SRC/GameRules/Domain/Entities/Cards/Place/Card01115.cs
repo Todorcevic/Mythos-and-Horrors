@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool ResignConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (activeInvestigator.CurrentPlace != this) return false;
             return true;
         }

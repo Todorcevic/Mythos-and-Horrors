@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool CantPlayCondition(InteractableGameAction interactableGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
 
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardCondition(RoundGameAction action)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
     }

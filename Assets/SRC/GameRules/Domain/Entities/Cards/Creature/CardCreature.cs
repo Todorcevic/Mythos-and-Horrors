@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool ConfrontCondition(GameAction gameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Exausted.IsActive) return false;
             if (IsConfronted) return false;
             if (!_investigatorsProvider.GetInvestigatorsInThisPlace(CurrentPlace).Any()) return false;

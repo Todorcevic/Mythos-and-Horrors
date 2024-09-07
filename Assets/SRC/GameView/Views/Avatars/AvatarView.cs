@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _sanityStat;
         [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _resourcesStat;
         [SerializeField, Required, ChildGameObjectsOnly] private StatUIView _hintsStat;
-        [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ActionController _turnController;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
         [Inject] private readonly IOActivatorComponent _ioActivatorComponent;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -50,7 +50,7 @@ namespace MythosAndHorrors.GameView
             _sanityStat.SetStat(Investigator.Sanity);
             _resourcesStat.SetStat(Investigator.Resources);
             _hintsStat.SetStat(Investigator.Hints);
-            _turnController.Init(Investigator.CurrentTurns, Investigator.MaxTurns);
+            _turnController.Init(Investigator.CurrentActions, Investigator.MaxActions);
         }
 
         /*******************************************************************/

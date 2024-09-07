@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TurnView : MonoBehaviour
+    public class ActionView : MonoBehaviour
     {
         public bool IsOn { get; private set; }
 

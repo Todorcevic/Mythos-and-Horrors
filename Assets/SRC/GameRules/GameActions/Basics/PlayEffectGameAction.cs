@@ -20,9 +20,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (Effect.ActivateTurnsCost.Value > 0)
+            if (!Effect.IsFreeActivation)
             {
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Effect.Investigator.CurrentTurns, Effect.ActivateTurnsCost.Value).Execute();
+                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Effect.Investigator.CurrentActions, Effect.ActivateTurnsCost.Value).Execute();
             }
             if (Effect is CardEffect cardEffec && cardEffec.ResourceCost.Value > 0)
             {

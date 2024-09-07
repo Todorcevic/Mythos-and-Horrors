@@ -8,13 +8,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TurnController : MonoBehaviour, IStatable
+    public class ActionController : MonoBehaviour, IStatable
     {
         private Stat _maxTurns;
-        [SerializeField, Required, ChildGameObjectsOnly] private List<TurnView> _turnViews;
+        [SerializeField, Required, ChildGameObjectsOnly] private List<ActionView> _actionViews;
         [Inject] private readonly StatableManager _statableManager;
 
-        public int ActiveTurnsCount => _turnViews.FindAll(turn => turn.IsOn).Count;
+        public int ActiveTurnsCount => _actionViews.FindAll(turn => turn.IsOn).Count;
         public Stat Stat { get; private set; }
 
         public Transform StatTransform => transform;
@@ -54,13 +54,13 @@ namespace MythosAndHorrors.GameView
 
         private void CheckMaxTurn(int realAmount)
         {
-            int amount = (_maxTurns.Value > realAmount ? _maxTurns.Value : realAmount) - _turnViews.Count;
+            int amount = (_maxTurns.Value > realAmount ? _maxTurns.Value : realAmount) - _actionViews.Count;
             if (amount < 0)
             {
                 for (int i = 0; i < -amount; i++)
                 {
-                    TurnView turn = _turnViews.Last();
-                    _turnViews.Remove(turn);
+                    ActionView turn = _actionViews.Last();
+                    _actionViews.Remove(turn);
                     Destroy(turn.gameObject);
                 }
             }
@@ -68,15 +68,15 @@ namespace MythosAndHorrors.GameView
             {
                 for (int i = 0; i < amount; i++)
                 {
-                    TurnView newTurn = Instantiate(GetFreeTurn() ?? GetActiveTurn(), transform);
-                    _turnViews.Add(newTurn);
+                    ActionView newTurn = Instantiate(GetFreeTurn() ?? GetActiveTurn(), transform);
+                    _actionViews.Add(newTurn);
                 }
             }
         }
 
-        private TurnView GetFreeTurn() => _turnViews.FirstOrDefault(turn => !turn.IsOn);
+        private ActionView GetFreeTurn() => _actionViews.FirstOrDefault(turn => !turn.IsOn);
 
-        private TurnView GetActiveTurn() => _turnViews.Last(turn => turn.IsOn);
+        private ActionView GetActiveTurn() => _actionViews.Last(turn => turn.IsOn);
 
         Tween IStatable.UpdateAnimation() => TurnOn();
     }

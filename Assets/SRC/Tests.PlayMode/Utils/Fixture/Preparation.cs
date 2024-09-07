@@ -69,12 +69,12 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         private async Task WasteTurns(Investigator investigator)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentTurns, 0).Execute();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentActions, 0).Execute();
         }
 
         private async Task WasteAll()
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.CurrentTurns, investigator => 0)).Execute();
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(_investigatorsProvider.AllInvestigatorsInPlay.ToDictionary(investigator => investigator.CurrentActions, investigator => 0)).Execute();
         }
 
         private Dictionary<Card, (Zone zone, bool faceDown)> GetCardZonesInvestigator(Investigator investigator, bool withCards)

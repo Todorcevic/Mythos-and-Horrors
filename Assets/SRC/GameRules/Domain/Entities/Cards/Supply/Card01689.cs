@@ -27,16 +27,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private async Task ResolveLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
-            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.CurrentTurns, 0).Execute();
-            CreateOneTimeReaction<OneInvestigatorTurnGameAction>(PassTurnCondition, PassTurnLogic, GameActionTime.Before);
+            await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.CurrentActions, 0).Execute();
+            CreateOneTimeReaction<InvestigatorTurnGameAction>(PassTurnCondition, PassTurnLogic, GameActionTime.Before);
 
-            async Task PassTurnLogic(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction)
+            async Task PassTurnLogic(InvestigatorTurnGameAction oneInvestigatorTurnGameAction)
             {
                 oneInvestigatorTurnGameAction.Cancel();
                 await Task.CompletedTask;
             }
 
-            bool PassTurnCondition(OneInvestigatorTurnGameAction oneInvestigatorTurnGameAction) => true;
+            bool PassTurnCondition(InvestigatorTurnGameAction oneInvestigatorTurnGameAction) => true;
         }
 
         private bool ResolveCondition(ResolveChallengeGameAction resolveChallengeGameAction)
@@ -50,10 +50,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool InvestigateCondition(Investigator investigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Charge.IsEmpty) return false;
             if (investigator != ControlOwner) return false;
-            if (!investigator.CurrentPlace.CanBeInvestigated.IsTrue) return false;
+            if (investigator.CurrentPlace.CanBeInvestigated.IsFalse) return false;
             return true;
         }
 

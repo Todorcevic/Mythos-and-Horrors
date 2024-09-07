@@ -32,7 +32,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(card3);
             yield return ClickedIn(card1);
             yield return ClickedIn(card2);
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
+            Assert.That(investigator.CurrentActions.Value, Is.EqualTo(3));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

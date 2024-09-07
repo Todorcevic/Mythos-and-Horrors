@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool Condition(InvestigatePlaceGameAction investigatePlaceGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (investigatePlaceGameAction.ActiveInvestigator != ControlOwner) return false;
             if (!investigatePlaceGameAction.IsSucceed) return false;
             return true;

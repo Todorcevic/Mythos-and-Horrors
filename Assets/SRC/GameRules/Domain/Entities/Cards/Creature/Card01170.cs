@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool TakeEldrichCondition(ScenePhaseGameAction action)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
     }

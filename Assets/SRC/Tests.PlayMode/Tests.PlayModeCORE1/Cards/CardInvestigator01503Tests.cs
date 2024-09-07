@@ -40,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
-            Assert.That(investigatorToTest.CurrentTurns.Value, Is.EqualTo(4));
+            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(4));
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

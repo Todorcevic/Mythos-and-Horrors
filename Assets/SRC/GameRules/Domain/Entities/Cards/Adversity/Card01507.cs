@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool TakeShockCondition(FinalizeGameAction finalizeGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Hints.Value <= 0) return false;
             return true;
         }
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool PayHintCondition(GainHintGameAction gainHintGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (gainHintGameAction.Investigator.CurrentPlace != ControlOwner.CurrentPlace) return false;
             if (Hints.Value <= 0) return false;
             return true;

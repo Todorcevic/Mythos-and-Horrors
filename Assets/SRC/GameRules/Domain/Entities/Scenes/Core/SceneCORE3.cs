@@ -81,8 +81,8 @@ namespace MythosAndHorrors.GameRules
 
             bool ThrowLitaConditionToActivate(Investigator investigator)
             {
-                if (!Urmodoth.IsInPlay.IsTrue) return false;
-                if (!Lita?.IsInPlay.IsTrue ?? true) return false;
+                if (Urmodoth.IsInPlay.IsFalse) return false;
+                if (Lita?.IsInPlay.IsFalse ?? true) return false;
                 if (Lita?.CurrentPlace != Urmodoth.CurrentPlace) return false;
                 if (Urmodoth.CurrentPlace != investigator.CurrentPlace) return false;
                 return true;

@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool Condition(ChallengePhaseGameAction challengePhaseGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (challengePhaseGameAction.ActiveInvestigator != ControlOwner) return false;
             if (challengePhaseGameAction.IsSucceed) return false;
             return true;

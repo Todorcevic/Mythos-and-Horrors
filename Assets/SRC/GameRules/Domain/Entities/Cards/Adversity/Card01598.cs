@@ -65,7 +65,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DiscardConditionToActivate(Investigator activeInvestigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if ((activeInvestigator.CurrentPlace != ControlOwner.CurrentPlace)) return false;
             return true;
         }

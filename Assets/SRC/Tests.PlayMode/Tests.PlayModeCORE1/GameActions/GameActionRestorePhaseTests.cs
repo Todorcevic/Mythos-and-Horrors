@@ -23,9 +23,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.HandZone.Cards, investigator2.DeckZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.FullDeck.Take(9), investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.Take(9), investigator2.HandZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentTurns, 2).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator2.CurrentTurns, 0).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator2.MaxTurns, 4).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentActions, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator2.CurrentActions, 0).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator2.MaxActions, 4).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.FullDeck.TakeLast(3), investigator.AidZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.FullDeck.TakeLast(3), investigator2.AidZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Execute().AsCoroutine();
@@ -44,8 +44,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator2.HandZone.Cards.Count, Is.EqualTo(8));
             Assert.That(investigator.Resources.Value, Is.EqualTo(6));
             Assert.That(investigator2.Resources.Value, Is.EqualTo(6));
-            Assert.That(investigator.CurrentTurns.Value, Is.EqualTo(3));
-            Assert.That(investigator2.CurrentTurns.Value, Is.EqualTo(4));
+            Assert.That(investigator.CurrentActions.Value, Is.EqualTo(3));
+            Assert.That(investigator2.CurrentActions.Value, Is.EqualTo(4));
             Assert.That(investigator.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
             Assert.That(investigator2.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
         }

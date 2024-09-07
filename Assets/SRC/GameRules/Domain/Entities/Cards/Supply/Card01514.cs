@@ -27,10 +27,10 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            if (cardCondition is CardConditionReaction cardConditionFast)
+            if (cardCondition is CardConditionReaction cardConditionReaction)
             {
-                Func<GameAction, bool> originalCondition = cardConditionFast.PlayFromHandCondition.ConditionLogic;
-                cardConditionFast.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
+                Func<GameAction, bool> originalCondition = cardConditionReaction.PlayFromHandCondition.ConditionLogic;
+                cardConditionReaction.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
                 await Task.CompletedTask;
 
                 /*******************************************************************/
@@ -95,7 +95,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool MoveToDeckCondition(DiscardGameAction discardGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (discardGameAction.Parent is not PlayEffectGameAction playEffectGameAction) return false;
             if (playEffectGameAction.Effect.Investigator != ControlOwner) return false;
             if (!playEffectGameAction.Effect.IsThatActionType(PlayActionType.PlayFromHand)) return false;

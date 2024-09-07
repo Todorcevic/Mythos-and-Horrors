@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01502"));
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentTurns, 1).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Owner.CurrentActions, 1).Execute();
 
             foreach (Card activable in AllActivableTomes)
             {
@@ -58,7 +58,7 @@ namespace MythosAndHorrors.GameRules
         public bool FreeTomeActivationConditionToActivate(Investigator activeInvestigator)
         {
             if (AbilityUsed.IsActive) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Owner != activeInvestigator) return false;
             if (!AllActivableTomes.Any()) return false;
             return true;

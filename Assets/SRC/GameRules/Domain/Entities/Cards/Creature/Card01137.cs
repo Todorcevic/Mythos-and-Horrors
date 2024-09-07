@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         private bool HealCondition(CreatureAttackGameAction creatureAttackGameAction)
         {
             if (creatureAttackGameAction.Creature != this) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (DamageRecived.Value <= 0) return false;
             return true;
         }

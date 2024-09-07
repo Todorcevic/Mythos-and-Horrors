@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TurnsCostController : MonoBehaviour
+    public class ActionTypeController : MonoBehaviour
     {
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _fastTurnPrefab;
-        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _turnPrefab;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _fastActionPrefab;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _actionPrefab;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _reactionPrefab;
 
         /*******************************************************************/
@@ -15,8 +15,8 @@ namespace MythosAndHorrors.GameView
         {
             if (card is IPlayableFromHandInTurn playableFromHand)
             {
-                if (playableFromHand.IsFast) _fastTurnPrefab.gameObject.SetActive(true);
-                else _turnPrefab.gameObject.SetActive(true);
+                if (playableFromHand.IsFast) _fastActionPrefab.gameObject.SetActive(true);
+                else _actionPrefab.gameObject.SetActive(true);
             }
             else if (card is CardConditionReaction) _reactionPrefab.gameObject.SetActive(true);
             else gameObject.SetActive(false);

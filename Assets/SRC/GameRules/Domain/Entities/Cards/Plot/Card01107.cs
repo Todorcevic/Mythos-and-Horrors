@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool MoveGhoulCondition(CreaturePhaseGameAction gameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
 
@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool PlaceEldritchCondition(RoundGameAction gameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
 

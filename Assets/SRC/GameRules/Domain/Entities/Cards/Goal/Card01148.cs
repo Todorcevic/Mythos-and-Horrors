@@ -30,9 +30,9 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool PayHintsWithChallengeConditionToActivate(Investigator investigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
-            if (!investigator.CanPayHints.IsTrue) return false;
+            if (investigator.CanPayHints.IsFalse) return false;
             return true;
         }
 

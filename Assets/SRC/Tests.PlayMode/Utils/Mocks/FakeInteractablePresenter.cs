@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             float startTime = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - startTime < TIMEOUT && !TakeResourceIsEnable()) yield return null;
             InteractableGameAction interactable = _gameActionsProvider.CurrentInteractable;
-            CardEffect effect = (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect ??
+            CardEffect effect = (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect ??
                 throw new InvalidOperationException("TakeResourceEffect is null");
             waitForClicked.SetResult(effect);
             while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayHintsToGoal == null)
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             }
 
             /*******************************************************************/
-            bool TakeResourceIsEnable() => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect != null;
+            bool TakeResourceIsEnable() => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect != null;
         }
 
         public IEnumerator ClickedIn(Card cardSelected, int position = 0)

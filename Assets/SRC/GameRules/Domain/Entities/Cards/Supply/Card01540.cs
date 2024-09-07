@@ -23,23 +23,18 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private bool ReturnToHandCondition(Investigator investigator)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (ControlOwner != investigator) return false;
             if (CurrentPlace.Hints.Value > 0) return false;
             return true;
         }
 
-        private async Task ReturnToHandLogic(Investigator investigator)
-        {
-            await _gameActionsProvider.Create<MoveCardsGameAction>()
-                .SetWith(this, investigator.HandZone).Execute();
-        }
+        private async Task ReturnToHandLogic(Investigator investigator) =>
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, investigator.HandZone).Execute();
+
 
         /*******************************************************************/
-        private IEnumerable<Card> CardsToBuff() =>
-            IsInPlay.IsTrue ?
-            new[] { ControlOwner.InvestigatorCard } :
-            Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
 
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {

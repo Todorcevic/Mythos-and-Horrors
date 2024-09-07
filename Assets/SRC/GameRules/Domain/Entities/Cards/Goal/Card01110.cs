@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (updateStatGameAction.Card != GhoulPriest) return false;
             if (Revealed.IsActive) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
 

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         private PhaseView _currentPhaseView;
         [SerializeField, Required, ChildGameObjectsOnly] private List<PhaseView> _phaseViews;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _avatarImage;
-        [SerializeField, Required, ChildGameObjectsOnly] private TurnController _turnController;
+        [SerializeField, Required, ChildGameObjectsOnly] private ActionController _turnController;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly TextsManager _textsProvider;
 
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameView
 
             void Set()
             {
-                _turnController.Init(investigatorTurn.CurrentTurns, investigatorTurn.MaxTurns);
+                _turnController.Init(investigatorTurn.CurrentActions, investigatorTurn.MaxActions);
                 _avatarImage.sprite = _avatarViewsManager.GetByCode(investigatorTurn.Code)?.Image;
                 currentInvestigator = investigatorTurn;
             }

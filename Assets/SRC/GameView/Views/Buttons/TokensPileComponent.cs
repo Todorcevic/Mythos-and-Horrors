@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
 
-        private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as OneInvestigatorTurnGameAction)?.TakeResourceEffect;
+        private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<CardEffect>() : new[] { TakeResourceEffect };
 
         /*******************************************************************/

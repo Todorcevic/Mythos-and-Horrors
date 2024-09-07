@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameRules
         private bool EnterPlayCondition(SpawnCreatureGameAction spawnCreatureGameAction)
         {
             if (spawnCreatureGameAction.Creature != this) return false;
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             return true;
         }
     }

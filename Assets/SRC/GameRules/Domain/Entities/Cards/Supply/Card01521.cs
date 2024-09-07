@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool Condition(HarmToCardGameAction harmToCardGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (harmToCardGameAction.Card != this) return false;
             if (harmToCardGameAction.ByThisCard is not CardCreature) return false;
             return true;

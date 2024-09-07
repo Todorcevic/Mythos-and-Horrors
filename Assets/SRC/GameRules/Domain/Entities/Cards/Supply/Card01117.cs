@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool AttackCondition(AttackCreatureGameAction attackGameAction)
         {
-            if (!IsInPlay.IsTrue) return false;
+            if (IsInPlay.IsFalse) return false;
             if (attackGameAction.ActiveInvestigator.CurrentPlace != CurrentPlace) return false;
             if (!attackGameAction.CardCreature.HasThisTag(Tag.Monster)) return false;
             return true;
