@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01568 : CardConditionFast
+    public class Card01568 : CardConditionReaction
     {
         private IPhase _phase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

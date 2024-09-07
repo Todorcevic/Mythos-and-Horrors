@@ -1,50 +1,25 @@
-﻿using DG.Tweening;
-using MythosAndHorrors.GameRules;
+﻿using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MythosAndHorrors.GameView
 {
-    public class TurnsCostController : MonoBehaviour, IStatable
+    public class TurnsCostController : MonoBehaviour
     {
-        private readonly List<SpriteRenderer> allTurns = new();
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _fastTurnPrefab;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _turnPrefab;
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _reactionPrefab;
 
-        public Stat Stat { get; private set; } = new Stat(0, false);
-        public Transform StatTransform => transform;
-
         /*******************************************************************/
-        public void InitWithCardConditionFast()
+        public void Init(Card card)
         {
-            allTurns.Add(Instantiate(_reactionPrefab, transform));
-            allTurns.ForEach(turn => turn.gameObject.SetActive(true));
-        }
-
-        public void InitWithPlayableFromHand(IPlayableFromHandInTurn playableFromHand)
-        {
-            //Stat = playableFromHand.PlayFromHandTurnsCost; //TODO: Fix this   
-            UpdateAnimation();
-        }
-
-        public Tween UpdateAnimation()
-        {
-            allTurns.ForEach(turn => Destroy(turn.gameObject));
-            allTurns.Clear();
-
-            if (Stat.Value == 0) allTurns.Add(Instantiate(_fastTurnPrefab, transform));
-            else
+            if (card is IPlayableFromHandInTurn playableFromHand)
             {
-                for (int i = 0; i < Stat.Value; i++)
-                {
-                    allTurns.Add(Instantiate(_turnPrefab, transform));
-                }
+                if (playableFromHand.IsFast) _fastTurnPrefab.gameObject.SetActive(true);
+                else _turnPrefab.gameObject.SetActive(true);
             }
-
-            allTurns.ForEach(turn => turn.gameObject.SetActive(true));
-            return DOTween.Sequence();
+            else if (card is CardConditionReaction) _reactionPrefab.gameObject.SetActive(true);
+            else gameObject.SetActive(false);
         }
     }
 }

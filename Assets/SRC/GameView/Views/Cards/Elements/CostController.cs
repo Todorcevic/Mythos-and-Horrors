@@ -24,17 +24,9 @@ namespace MythosAndHorrors.GameView
         {
             _statableManager.Add(this);
             SetSlots(card);
-
-            if (card is IPlayableFromHandInTurn playableFromHand)
-            {
-                SetCostWith(playableFromHand.ResourceCost);
-                _turnsCostController.InitWithPlayableFromHand(playableFromHand);
-            }
-            else if (card is CardConditionFast cardConditionFast)
-            {
-                SetCostWith(cardConditionFast.ResourceCost);
-                _turnsCostController.InitWithCardConditionFast();
-            }
+            _turnsCostController.Init(card);
+            if (card is IPlayableFromHandInTurn playableFromHand) SetCostWith(playableFromHand.ResourceCost);
+            else if (card is CardConditionReaction cardConditionFast) SetCostWith(cardConditionFast.ResourceCost);
             else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Hints);
             else gameObject.SetActive(false);
         }

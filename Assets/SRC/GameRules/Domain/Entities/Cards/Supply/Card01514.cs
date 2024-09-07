@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ActivationBuff(IEnumerable<Card> enumerable)
         {
             if (enumerable.FirstOrDefault() is not CardCondition cardCondition) return;
-            if (cardCondition is CardConditionFast cardConditionFast)
+            if (cardCondition is CardConditionReaction cardConditionFast)
             {
                 Func<GameAction, bool> originalCondition = cardConditionFast.PlayFromHandCondition.ConditionLogic;
                 cardConditionFast.PlayFromHandCondition.UpdateWith(ConditionToPlayFromHand);
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task DeactivationBuff(IEnumerable<Card> enumerable)
         {
-            if (enumerable.FirstOrDefault() is CardConditionFast cardCondition)
+            if (enumerable.FirstOrDefault() is CardConditionReaction cardCondition)
             {
                 cardCondition.PlayFromHandCondition.Reset();
                 await Task.CompletedTask;

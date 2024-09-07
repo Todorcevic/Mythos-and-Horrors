@@ -70,7 +70,7 @@ namespace MythosAndHorrors.GameRules
 
         private Stat GetResourceCostFor(ITriggered triggered)
         {
-            if (triggered.Card is CardConditionFast cardConditionFast) return cardConditionFast.ResourceCost;
+            if (triggered.Card is CardConditionReaction cardConditionFast) return cardConditionFast.ResourceCost;
             return null;
         }
     }

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public abstract class CardConditionFast : CardCondition
+    public abstract class CardConditionReaction : CardCondition
     {
         protected abstract Localization Localization { get; }
         protected abstract GameActionTime FastReactionAtStart { get; }
