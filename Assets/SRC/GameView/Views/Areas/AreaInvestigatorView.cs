@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameView
             _aidZone.Init(investigator.AidZone);
             _dangerZone.Init(investigator.DangerZone);
             ResourcesTokenController.Init(investigator.Resources);
-            HintsTokenController.Init(investigator.Hints);
+            HintsTokenController.Init(investigator.Keys);
         }
 
         /*******************************************************************/

@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameView
             if (card is CardPlace cardPlace)
             {
                 BasicCounterController newHintController = Instantiate(_hintControllerPrefab, transform);
-                newHintController.Init(cardPlace.Hints);
+                newHintController.Init(cardPlace.Keys);
                 _statableManager.Add(newHintController);
             }
             if (card is IEldritchable eldritchable)

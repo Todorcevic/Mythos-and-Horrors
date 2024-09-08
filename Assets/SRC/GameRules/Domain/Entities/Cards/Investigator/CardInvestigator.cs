@@ -29,12 +29,6 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanPayKeys { get; private set; }
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
-        public Conditional CanPlayCardsFromHand { get; private set; }
-        public Conditional CanMove { get; private set; }
-        public Conditional CanInvestigate { get; private set; }
-        public Conditional CanAttack { get; private set; }
-        public Conditional CanElude { get; internal set; }
-        public Conditional CanConfornt { get; internal set; }
         public Conditional HasActionsAvailable { get; private set; }
         public Func<int> StarTokenValue { get; private set; }
         public Func<Task> StarTokenEffect { get; private set; }

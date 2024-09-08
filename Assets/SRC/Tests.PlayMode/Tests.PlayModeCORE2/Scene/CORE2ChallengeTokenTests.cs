@@ -127,28 +127,28 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator NormalDangerTokenTest()
         {
             SetScene(Dificulty.Normal, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.North.Keys, 2).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-3));
-            Assert.That(SceneCORE2.North.Hints.Value, Is.EqualTo(6));
-            Assert.That(SceneCORE2.Fluvial.Hints.Value, Is.EqualTo(5));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(SceneCORE2.North.Keys.Value, Is.EqualTo(6));
+            Assert.That(SceneCORE2.Fluvial.Keys.Value, Is.EqualTo(5));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
         public IEnumerator HardDangerTokenTest()
         {
             SetScene(Dificulty.Hard, ChallengeTokenType.Danger);
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.North.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.North.Keys, 2).Execute().AsCoroutine();
 
             yield return ExecuteChallenge();
 
             Assert.That(tokenValue.Result, Is.EqualTo(-4));
-            Assert.That(SceneCORE2.North.Hints.Value, Is.EqualTo(6));
-            Assert.That(SceneCORE2.Fluvial.Hints.Value, Is.EqualTo(6));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
+            Assert.That(SceneCORE2.North.Keys.Value, Is.EqualTo(6));
+            Assert.That(SceneCORE2.Fluvial.Keys.Value, Is.EqualTo(6));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
         }
     }
 }

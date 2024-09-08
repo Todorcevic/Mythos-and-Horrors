@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
-        public override bool CanBeExecuted => CardGoal.IsInPlay.IsTrue && !CardGoal.Revealed.IsActive && CardGoal.Hints.Value > 0;
+        public override bool CanBeExecuted => CardGoal.IsInPlay.IsTrue && !CardGoal.Revealed.IsActive && CardGoal.Keys.Value > 0;
         public List<CardEffect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         public PayKeysToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
-            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayHintsToGoal", cardGoal.Info.Name));
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayKeysToGoal", cardGoal.Info.Name));
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
             ExecuteSpecificInitialization();
@@ -30,16 +30,16 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
-            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayHints.IsTrue))
+            foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayKeys.IsTrue))
             {
-                EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayHint, PlayActionType.Choose, playedBy: investigator,
-                    new Localization("CreateEffect_PayHintsToGoal", investigator.Hints.Value.ToString())));
+                EffectsToPay.Add(CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PayKey, PlayActionType.Choose, playedBy: investigator,
+                    new Localization("CreateEffect_PayKeysToGoal", investigator.Keys.Value.ToString())));
 
                 /*******************************************************************/
-                async Task PayHint()
+                async Task PayKey()
                 {
-                    int amoutToPay = investigator.Hints.Value > CardGoal.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
-                    await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, CardGoal.Hints, amoutToPay).Execute();
+                    int amoutToPay = investigator.Keys.Value > CardGoal.Keys.Value ? CardGoal.Keys.Value : investigator.Keys.Value;
+                    await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, CardGoal.Keys, amoutToPay).Execute();
                     await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
                 }
             }

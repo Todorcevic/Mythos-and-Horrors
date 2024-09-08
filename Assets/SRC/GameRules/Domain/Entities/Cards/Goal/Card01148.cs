@@ -21,30 +21,30 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            RemoveStat(Hints);
-            Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
-            PayHints.Disable();
-            CreateActivation(1, PayHintsWithChallengeActivate, PayHintsWithChallengeConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01148"));
+            RemoveStat(Keys);
+            Keys = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
+            PayKeys.Disable();
+            CreateActivation(1, PayKeysWithChallengeActivate, PayKeysWithChallengeConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01148"));
         }
 
         /*******************************************************************/
-        private bool PayHintsWithChallengeConditionToActivate(Investigator investigator)
+        private bool PayKeysWithChallengeConditionToActivate(Investigator investigator)
         {
             if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
-            if (investigator.CanPayHints.IsFalse) return false;
+            if (investigator.CanPayKeys.IsFalse) return false;
             return true;
         }
 
-        private async Task PayHintsWithChallengeActivate(Investigator investigator)
+        private async Task PayKeysWithChallengeActivate(Investigator investigator)
         {
             await _gameActionsProvider.Create<ChallengePhaseGameAction>()
                 .SetWith(investigator.Power, difficultValue: 3, new Localization("Challenge_Card01148", Info.Name), cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
                 .Execute();
 
             /*******************************************************************/
-            async Task SuccessEffect() => await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, Hints, 1).Execute();
-            async Task FailEffect() => await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Execute();
+            async Task SuccessEffect() => await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, Keys, 1).Execute();
+            async Task FailEffect() => await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 1).Execute();
         }
 
         /*******************************************************************/

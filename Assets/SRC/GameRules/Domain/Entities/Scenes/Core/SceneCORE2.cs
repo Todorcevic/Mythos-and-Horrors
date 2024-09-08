@@ -251,25 +251,25 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task DangerNormalEffect()
             {
-                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropHint);
+                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropKey);
                 await Task.CompletedTask;
 
                 /*******************************************************************/
-                async Task DropHint() =>
+                async Task DropKey() =>
                                 await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Execute();
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Keys, amount: 1).Execute();
             }
 
             async Task DangerHardEffect()
             {
-                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropHints);
+                _gameActionsProvider.CurrentChallenge.FailEffects.Add(DropKey);
                 await Task.CompletedTask;
 
                 /*******************************************************************/
-                async Task DropHints() =>
+                async Task DropKey() =>
                                     await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
-                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
-                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Execute();
+                    _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Keys,
+                    amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Keys.Value).Execute();
             }
         }
     }

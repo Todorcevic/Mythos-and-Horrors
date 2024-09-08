@@ -76,7 +76,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Intelligence => InvestigatorCard.Intelligence;
         public Stat Power => InvestigatorCard.Power;
         public Stat Resources => InvestigatorCard.Resources;
-        public Stat Hints => InvestigatorCard.Keys;
+        public Stat Keys => InvestigatorCard.Keys;
         public Stat CurrentActions => InvestigatorCard.CurrentActions;
         public Stat MaxActions => InvestigatorCard.MaxActions;
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
@@ -84,7 +84,7 @@ namespace MythosAndHorrors.GameRules
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
         public State Isolated => InvestigatorCard.Isolated;
-        public Conditional CanPayHints => InvestigatorCard.CanPayKeys;
+        public Conditional CanPayKeys => InvestigatorCard.CanPayKeys;
         public Conditional CanBeHealed => InvestigatorCard.CanBeHealed;
         public Conditional CanBeRestoreSanity => InvestigatorCard.CanBeRestoreSanity;
         public Conditional HasTurnsAvailable => InvestigatorCard.HasActionsAvailable;

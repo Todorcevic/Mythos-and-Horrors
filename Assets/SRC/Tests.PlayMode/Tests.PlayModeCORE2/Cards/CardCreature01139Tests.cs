@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return StartingScene();
             CardCreature cultist = SceneCORE2.Peter;
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 3).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cultist, investigator.DangerZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cultist.CurrentZone, Is.EqualTo(SceneCORE2.VictoryZone));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
     }
 }

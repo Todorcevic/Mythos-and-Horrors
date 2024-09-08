@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(2));
         }
     }
 }

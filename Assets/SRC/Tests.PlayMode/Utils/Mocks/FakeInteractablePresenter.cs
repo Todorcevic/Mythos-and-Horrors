@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             BaseEffect effect = _gameActionsProvider.CurrentInteractable?.MainButtonEffect ??
                 throw new InvalidOperationException("MainButtonEffect is null");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayHintsToGoal == null)
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayKeysToGoal == null)
             {
                 yield return null;
             }
@@ -55,7 +55,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             CardEffect effect = (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect ??
                 throw new InvalidOperationException("TakeResourceEffect is null");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayHintsToGoal == null)
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayKeysToGoal == null)
             {
                 yield return null;
             }
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             BaseEffect effect = cardSelected.PlayableEffects?.ElementAtOrDefault(position) ??
                 throw new InvalidOperationException($"Card {cardSelected.Info.Code} not has Effect");
             waitForClicked.SetResult(effect);
-            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayHintsToGoal == null)
+            while (interactable == _gameActionsProvider.CurrentInteractable && _gameActionsProvider.CurrentPayKeysToGoal == null)
             {
                 yield return null;
             }

@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (IsInPlay.IsFalse) return false;
             if (ControlOwner != investigator) return false;
-            if (CurrentPlace.Hints.Value > 0) return false;
+            if (CurrentPlace.Keys.Value > 0) return false;
             return true;
         }
 

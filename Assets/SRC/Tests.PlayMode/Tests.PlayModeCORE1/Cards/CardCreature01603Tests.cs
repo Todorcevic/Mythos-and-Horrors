@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigator.InvestigatorCard);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]

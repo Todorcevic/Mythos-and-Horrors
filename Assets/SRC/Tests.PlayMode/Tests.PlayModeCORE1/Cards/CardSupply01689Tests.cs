@@ -29,7 +29,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(2));
             Assert.That(assetCard.Charge.Amount.Value, Is.EqualTo(2));
         }
 
@@ -54,7 +54,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(investigator.CurrentActions.ValueBeforeUpdate, Is.EqualTo(0));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
             Assert.That(assetCard.Charge.Amount.Value, Is.EqualTo(2));
         }
     }

@@ -14,12 +14,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 1).Execute();
+            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 1).Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
+            if (ControlOwner.CurrentPlace.Keys.Value < 1) return false;
             return true;
         }
     }

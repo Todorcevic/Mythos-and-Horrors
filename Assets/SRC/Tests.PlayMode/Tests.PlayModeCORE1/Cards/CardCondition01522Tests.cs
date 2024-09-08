@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator ActivateToDiscoverHint()
+        public IEnumerator ActivateToDiscoverKey()
         {
             Investigator investigator = _investigatorsProvider.Third;
             yield return PlaceOnlyScene();
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(conditionCard);
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
     }
 }

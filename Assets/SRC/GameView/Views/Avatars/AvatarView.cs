@@ -49,7 +49,7 @@ namespace MythosAndHorrors.GameView
             _healthStat.SetStat(Investigator.Health);
             _sanityStat.SetStat(Investigator.Sanity);
             _resourcesStat.SetStat(Investigator.Resources);
-            _hintsStat.SetStat(Investigator.Hints);
+            _hintsStat.SetStat(Investigator.Keys);
             _actionController.Init(Investigator.CurrentActions, Investigator.MaxActions);
         }
 

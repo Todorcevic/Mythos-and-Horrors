@@ -19,28 +19,28 @@ namespace MythosAndHorrors.GameRules
         {
             StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Owner.CurrentPlace.Info.Name);
             AbilityUsed = CreateState(false);
-            CreateOptativeReaction<DefeatCardGameAction>(DiscoverHintCondition, DiscoverHintLogic, GameActionTime.After, new Localization("OptativeReaction_Card01501"));
+            CreateOptativeReaction<DefeatCardGameAction>(DiscoverKeyCondition, DiscoverKeyLogic, GameActionTime.After, new Localization("OptativeReaction_Card01501"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }
 
         /*******************************************************************/
         protected override async Task StarEffect() => await Task.CompletedTask;
 
-        protected override int StarValue() => Owner.CurrentPlace.Hints.Value;
+        protected override int StarValue() => Owner.CurrentPlace.Keys.Value;
 
         /*******************************************************************/
-        private async Task DiscoverHintLogic(DefeatCardGameAction defeatCardGameAction)
+        private async Task DiscoverKeyLogic(DefeatCardGameAction defeatCardGameAction)
         {
-            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(Owner, Owner.CurrentPlace.Hints, 1).Execute();
+            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(Owner, Owner.CurrentPlace.Keys, 1).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(AbilityUsed, true).Execute();
         }
 
-        private bool DiscoverHintCondition(DefeatCardGameAction defeatCardGameAction)
+        private bool DiscoverKeyCondition(DefeatCardGameAction defeatCardGameAction)
         {
             if (defeatCardGameAction.ByThisInvestigator != Owner) return false;
             if (defeatCardGameAction.Card is not CardCreature) return false;
             if (IsInPlay.IsFalse) return false;
-            if (Owner.CurrentPlace.Hints.Value < 1) return false;
+            if (Owner.CurrentPlace.Keys.Value < 1) return false;
             if (AbilityUsed.IsActive) return false;
             return true;
         }

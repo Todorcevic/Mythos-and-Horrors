@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengePhaseGameAction CurrentChallenge => GetRealLastActive<ChallengePhaseGameAction>();
         public InteractableGameAction CurrentInteractable => GetRealLastActive<InteractableGameAction>();
-        public PayKeysToGoalGameAction CurrentPayHintsToGoal => GetRealLastActive<PayKeysToGoalGameAction>();
+        public PayKeysToGoalGameAction CurrentPayKeysToGoal => GetRealLastActive<PayKeysToGoalGameAction>();
         public GameAction CurrentGameAction => GetRealLastActive<GameAction>();
 
         /*******************************************************************/

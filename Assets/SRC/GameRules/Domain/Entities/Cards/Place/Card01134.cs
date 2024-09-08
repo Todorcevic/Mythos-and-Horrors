@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public State Played { get; private set; }
-        public Activation<Investigator> GainHints { get; private set; }
+        public Activation<Investigator> GainKeys { get; private set; }
         public override IEnumerable<Tag> Tags => new[] { Tag.Arkham };
 
         /*******************************************************************/
@@ -19,15 +19,15 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Played = CreateState(false);
-            GainHints = CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01134"));
+            GainKeys = CreateActivation(1, Logic, Condition, PlayActionType.Activate, new Localization("Activation_Card01134"));
         }
 
         /*******************************************************************/
         private async Task Logic(Investigator investigator)
         {
             await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Execute();
-            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Hints, 2).Execute();
-            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, Hints, 2).Execute();
+            await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Keys, 2).Execute();
+            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, Keys, 2).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Execute();
         }
 

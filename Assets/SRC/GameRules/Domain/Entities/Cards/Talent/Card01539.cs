@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public override async Task TalentLogic(ChallengePhaseGameAction challengePhaseGameAction)
         {
             if (challengePhaseGameAction is not InvestigatePlaceGameAction investigatePlaceGameAction) return;
-            investigatePlaceGameAction.UpdateAmountHints(investigatePlaceGameAction.AmountHints + 1);
+            investigatePlaceGameAction.UpdateAmountKeys(investigatePlaceGameAction.AmountKeys + 1);
             await Task.CompletedTask;
         }
     }

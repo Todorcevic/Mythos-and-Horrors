@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
         {
             Investigator = investigator;
             ToStat = toStat;
-            Amount = Investigator.Hints.Value < amount ? Investigator.Hints.Value : amount; ;
+            Amount = Investigator.Keys.Value < amount ? Investigator.Keys.Value : amount; ;
             return this;
         }
 
@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             Dictionary<Stat, int> statablesUpdated = new()
             {
                 { ToStat, ToStat.Value - Amount },
-                { Investigator.Hints, Investigator.Hints.Value - Amount}
+                { Investigator.Keys, Investigator.Keys.Value - Amount}
             };
 
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(statablesUpdated).Execute();

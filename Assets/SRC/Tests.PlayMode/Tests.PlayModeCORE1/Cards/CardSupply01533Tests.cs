@@ -28,7 +28,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
             Assert.That(investigator.Resources.Value, Is.EqualTo(6));
             Assert.That(investigator.Intelligence.Value, Is.EqualTo(6));
         }

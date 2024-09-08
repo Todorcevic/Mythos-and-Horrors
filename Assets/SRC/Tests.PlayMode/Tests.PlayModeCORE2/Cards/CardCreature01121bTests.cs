@@ -22,7 +22,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE2.North).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE2.East).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE2.University).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 2).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.First, maskedHunter).Execute().AsCoroutine();
 
             AssumeThat(maskedHunter.CurrentPlace == investigator.CurrentPlace);
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
 
-            AssumeThat(investigator.Hints.Value == 2);
+            AssumeThat(investigator.Keys.Value == 2);
 
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
@@ -44,7 +44,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(3));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(3));
         }
 
         [UnityTest]
@@ -56,8 +56,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return PlayThisInvestigator(_investigatorsProvider.Third);
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 4).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.East.Hints, 4).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 4).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE2.East.Keys, 4).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(maskedHunter, investigator.DangerZone).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
@@ -65,7 +65,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(8));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(8));
         }
 
         [UnityTest]
@@ -76,7 +76,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Card01135 shadow = _cardsProvider.GetCard<Card01135>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 4).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 4).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(maskedHunter, investigator.DangerZone).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, shadow).Execute();

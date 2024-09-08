@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Xp")] public int? Xp { get; init; }
         [JsonProperty("Victory")] public int? Victory { get; init; }
         [JsonProperty("Enigma")] public int? Enigma { get; init; }
-        [JsonProperty("Hints")] public int? Hints { get; init; }
+        [JsonProperty("Hints")] public int? Keys { get; init; }
         [JsonProperty("Eldritch")] public int? Eldritch { get; init; }
         [JsonProperty("HealthPerInvestigator")] public bool? HealthPerInvestigator { get; init; }
     }

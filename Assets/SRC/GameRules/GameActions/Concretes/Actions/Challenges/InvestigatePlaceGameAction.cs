@@ -6,7 +6,7 @@ namespace MythosAndHorrors.GameRules
 {
     public class InvestigatePlaceGameAction : ChallengePhaseGameAction
     {
-        public int AmountHints { get; private set; }
+        public int AmountKeys { get; private set; }
         public CardPlace CardPlace { get; private set; }
         public override bool CanBeExecuted => ActiveInvestigator.IsInPlay.IsTrue && CardPlace.CanBeInvestigated.IsTrue;
 
@@ -18,15 +18,15 @@ namespace MythosAndHorrors.GameRules
         public InvestigatePlaceGameAction SetWith(Investigator investigator, CardPlace cardPlace)
         {
             base.SetWith(investigator.Intelligence, cardPlace.Enigma.Value, new Localization("Challenge_InvestigatePlace", cardPlace.Info.Name), cardToChallenge: cardPlace);
-            AmountHints = 1;
+            AmountKeys = 1;
             CardPlace = cardPlace;
             SuccesEffects.Add(SuccesEffet);
             return this;
         }
 
         /*******************************************************************/
-        private async Task SuccesEffet() => await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(ActiveInvestigator, CardPlace.Hints, AmountHints).Execute();
+        private async Task SuccesEffet() => await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(ActiveInvestigator, CardPlace.Keys, AmountKeys).Execute();
 
-        public void UpdateAmountHints(int newAmountHints) => AmountHints = newAmountHints;
+        public void UpdateAmountKeys(int newAmountKeys) => AmountKeys = newAmountKeys;
     }
 }

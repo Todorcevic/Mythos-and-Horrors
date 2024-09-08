@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(challengePhase.Result.ChallengePhaseGameAction.IsAutoFail, Is.True);
-            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
         }
 
         [UnityTest]

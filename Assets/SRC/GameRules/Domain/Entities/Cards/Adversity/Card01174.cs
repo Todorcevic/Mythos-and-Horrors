@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.PlaceCards.Where(place => !place.OwnZone.Cards.Exists(card => card is Card01174))
-                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Hints.Value).FirstOrDefault()?.OwnZone
+                .OrderByDescending(place => place.Revealed.IsActive).ThenByDescending(place => place.Keys.Value).FirstOrDefault()?.OwnZone
                 ?? _chaptersProvider.CurrentScene.LimboZone;
 
         public override async Task PlayRevelationFor(Investigator investigator)

@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
             Assert.That(item.CurrentZone, Is.EqualTo(investigator.HandZone));
         }
     }

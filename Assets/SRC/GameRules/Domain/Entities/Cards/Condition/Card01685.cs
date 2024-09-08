@@ -12,8 +12,8 @@ namespace MythosAndHorrors.GameRules
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Insight };
         public override PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand | PlayActionType.Investigate;
-        private IEnumerable<CardPlace> PlacesWithHints(Investigator investigator) =>
-            investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace).Where(place => place.Hints.Value > 0);
+        private IEnumerable<CardPlace> PlacesWithKeys(Investigator investigator) =>
+            investigator.CurrentPlace.ConnectedPlacesToMove.Append(investigator.CurrentPlace).Where(place => place.Keys.Value > 0);
         public override Func<Card> CardAffected => () => ControlOwner.CurrentPlace;
 
         /*******************************************************************/
@@ -29,31 +29,31 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task Investigate()
             {
-                int amoutHintsLeft = 2;
+                int amoutKeysLeft = 2;
                 InvestigatePlaceGameAction investigate = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
                     .SetWith(investigator, investigator.CurrentPlace);
                 investigate.SuccesEffects.Clear();
-                investigate.SuccesEffects.Add(ChooseHints);
+                investigate.SuccesEffects.Add(ChooseKeys);
                 await investigate.Execute();
 
                 /*******************************************************************/
-                async Task ChooseHints()
+                async Task ChooseKeys()
                 {
-                    InteractableGameAction chooseHints = _gameActionsProvider.Create<InteractableGameAction>()
+                    InteractableGameAction chooseKeys = _gameActionsProvider.Create<InteractableGameAction>()
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01685-2"));
 
-                    foreach (CardPlace place in PlacesWithHints(investigator))
+                    foreach (CardPlace place in PlacesWithKeys(investigator))
                     {
-                        chooseHints.CreateCardEffect(place, new Stat(0, false), TakeHint, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01685-1"));
+                        chooseKeys.CreateCardEffect(place, new Stat(0, false), TakeKey, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01685-1"));
 
-                        async Task TakeHint()
+                        async Task TakeKey()
                         {
-                            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, place.Hints, 1).Execute();
-                            amoutHintsLeft--;
-                            if (amoutHintsLeft > 0) await ChooseHints();
+                            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, place.Keys, 1).Execute();
+                            amoutKeysLeft--;
+                            if (amoutKeysLeft > 0) await ChooseKeys();
                         }
                     }
-                    await chooseHints.Execute();
+                    await chooseKeys.Execute();
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameRules
         protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
             if (investigator.CurrentPlace.CanBeInvestigated.IsFalse) return false;
-            if (!PlacesWithHints(investigator).Any()) return false;
+            if (!PlacesWithKeys(investigator).Any()) return false;
             return true;
         }
     }

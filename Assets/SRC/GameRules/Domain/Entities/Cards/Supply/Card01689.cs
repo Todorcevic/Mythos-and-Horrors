@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameRules
                 _investigatePlaceGameAction = _gameActionsProvider.Create<InvestigatePlaceGameAction>()
                     .SetWith(investigator, investigator.CurrentPlace);
                 _investigatePlaceGameAction.ChangeStat(investigator.Power);
-                _investigatePlaceGameAction.UpdateAmountHints(_investigatePlaceGameAction.AmountHints + 1);
+                _investigatePlaceGameAction.UpdateAmountKeys(_investigatePlaceGameAction.AmountKeys + 1);
                 await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(_investigatePlaceGameAction.StatModifier, 2).Execute();
                 await _investigatePlaceGameAction.Execute();
             }

@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            CreateOptativeReaction<RoundGameAction>(PayHintsCondition, PayHintsLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01109"));
+            CreateOptativeReaction<RoundGameAction>(PayKeysCondition, PayKeysLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01109"));
         }
 
         /*******************************************************************/
@@ -35,23 +35,23 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private bool PayHintsCondition(RoundGameAction roundGameAction)
+        private bool PayKeysCondition(RoundGameAction roundGameAction)
         {
             if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
             if (_investigatorsProvider.AllInvestigatorsInPlay
-                .Where(investigator => investigator.CurrentPlace == Hallway).Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+                .Where(investigator => investigator.CurrentPlace == Hallway).Sum(investigator => investigator.Keys.Value) < Keys.Value) return false;
             return true;
         }
 
-        private async Task PayHintsLogic(RoundGameAction roundGameAction)
+        private async Task PayKeysLogic(RoundGameAction roundGameAction)
         {
             IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
-                  .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Hints.Value > 0);
+                  .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Keys.Value > 0);
 
             await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(this, specificInvestigators).Execute();
         }
 
-        protected override bool PayHintsConditionToActivate(Investigator investigator) => false;
+        protected override bool PayKeysConditionToActivate(Investigator investigator) => false;
     }
 }

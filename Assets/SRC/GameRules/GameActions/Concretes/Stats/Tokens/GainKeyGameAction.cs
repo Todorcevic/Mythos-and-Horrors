@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             Dictionary<Stat, int> statablesUpdated = new()
             {
                 { FromStat, FromStat.Value - Amount },
-                { Investigator.Hints, Investigator.Hints.Value + Amount}
+                { Investigator.Keys, Investigator.Keys.Value + Amount}
             };
 
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(statablesUpdated).Execute();

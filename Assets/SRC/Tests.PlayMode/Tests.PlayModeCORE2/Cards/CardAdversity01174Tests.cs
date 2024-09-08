@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -56,7 +56,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -84,7 +84,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
     }
 }

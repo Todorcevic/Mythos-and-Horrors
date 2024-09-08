@@ -34,7 +34,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             Assert.That(tokenValue.Result, Is.EqualTo(0));
             Assert.That(challengeResolved.Result.ChallengePhaseGameAction.IsAutoSucceed, Is.True);
-            Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigatorToTest.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(challengeResolved.Result.totalTokensValue, Is.EqualTo(1));
-            Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigatorToTest.Keys.Value, Is.EqualTo(1));
             Assert.That(investigatorToTest.DiscardZone.Cards.Count, Is.EqualTo(1));
         }
     }

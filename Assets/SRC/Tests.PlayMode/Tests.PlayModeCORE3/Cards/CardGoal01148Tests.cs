@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator PayHintsWithChallenge()
+        public IEnumerator PayKeysWithChallenge()
         {
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_2));
             Investigator investigator = _investigatorsProvider.First;
@@ -20,18 +20,17 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE3.Forests[0].Hints, 2).Execute().AsCoroutine();
-            int actualHintsInCurrentPlace = investigator.CurrentPlace.Hints.Value;
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE3.Forests[0].Keys, 2).Execute().AsCoroutine();
+            int actualKeysInCurrentPlace = investigator.CurrentPlace.Keys.Value;
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(cardGoal);
             yield return ClickedMainButton();
-            //Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
             yield return ClickedIn(cardGoal);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
-            Assert.That(cardGoal.Hints.Value, Is.EqualTo(7));
-            Assert.That(investigator.CurrentPlace.Hints.Value, Is.EqualTo(actualHintsInCurrentPlace + 1));
+            Assert.That(cardGoal.Keys.Value, Is.EqualTo(7));
+            Assert.That(investigator.CurrentPlace.Keys.Value, Is.EqualTo(actualKeysInCurrentPlace + 1));
         }
 
         [UnityTest]
@@ -41,7 +40,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, SceneCORE3.GoalZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Hints, 0).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(SceneCORE3.CurrentGoal.Keys, 0).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Shock.Value, Is.EqualTo(2));
             Assert.That(cardGoal.IsComplete, Is.True);

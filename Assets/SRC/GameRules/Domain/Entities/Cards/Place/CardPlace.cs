@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
-        public Stat Hints { get; private set; }
+        public Stat Keys { get; private set; }
         public Stat Enigma { get; private set; }
         public State Revealed { get; private set; }
         public Conditional CanBeInvestigated { get; private set; }
@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
 
         /*******************************************************************/
-        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
+        public int MaxKeys => (Info.Keys ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public bool IsAlone => !OwnZone.Cards.Any(card => card is CardAvatar || card is CardCreature);
         public History RevealHistory => ExtraInfo?.Histories.ElementAtOrDefault(0) ?? new History();
         public IEnumerable<CardCreature> CreaturesInThisPlace => _cardsProvider.GetCardsInPlay().OfType<CardCreature>()
@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Hints = CreateStat(MaxHints);
+            Keys = CreateStat(MaxKeys);
             Enigma = CreateStat(Info.Enigma ?? 0);
             Revealed = CreateState(false);
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);

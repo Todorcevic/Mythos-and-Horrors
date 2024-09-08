@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
             Assert.That(investigator.DeckZone.Cards.Count, Is.EqualTo(deckSizeExepected));
         }
     }

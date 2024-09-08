@@ -104,7 +104,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         }
 
         [UnityTest]
-        public IEnumerator PlayFromDiscardPileOptativeDiscoverHint()
+        public IEnumerator PlayFromDiscardPileOptativeDiscoverKey()
         {
             Investigator investigator = _investigatorsProvider.Fourth;
             yield return PlaceOnlyScene();
@@ -120,7 +120,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(cardCondition);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]

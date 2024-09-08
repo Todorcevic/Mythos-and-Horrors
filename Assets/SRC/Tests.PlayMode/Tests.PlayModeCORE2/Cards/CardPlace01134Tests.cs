@@ -13,7 +13,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
-        public IEnumerator TakeHints()
+        public IEnumerator TakeKeys()
         {
             Investigator investigator = _investigatorsProvider.First;
             Card01134 cardPlace = _cardsProvider.GetCard<Card01134>();
@@ -28,8 +28,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.Resources.Value, Is.EqualTo(0));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(2));
-            Assert.That(cardPlace.Hints.Value, Is.EqualTo(8));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(2));
+            Assert.That(cardPlace.Keys.Value, Is.EqualTo(8));
         }
     }
 }

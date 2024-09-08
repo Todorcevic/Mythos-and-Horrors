@@ -89,10 +89,10 @@ namespace MythosAndHorrors.GameView
             Sequence hintsSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
-                       .Where(investigator => updateStatGameAction.HasThisStat(investigator.Hints)))
+                       .Where(investigator => updateStatGameAction.HasThisStat(investigator.Keys)))
             {
-                int amount = investigator.Hints.Value - investigator.Hints.ValueBeforeUpdate;
-                Stat locationHint = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Hints }).Unique();
+                int amount = investigator.Keys.Value - investigator.Keys.ValueBeforeUpdate;
+                Stat locationHint = updateStatGameAction.AllStatsUpdated.Except(new[] { investigator.Keys }).Unique();
 
                 if (amount > 0)
                 {

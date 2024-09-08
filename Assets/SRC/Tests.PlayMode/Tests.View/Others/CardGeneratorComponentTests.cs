@@ -26,12 +26,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             Assert.That(result.CurrentZoneView, Is.InstanceOf<ZoneOutView>());
             Assert.That(result.GetPrivateMember<TitleController>("_titleController").transform.GetTextFromThis("Title"), Is.EqualTo(card.Info.Name));
-            Assert.That(result.GetPrivateMember<DescriptionController>("_descriptionController").transform.GetTextFromThis("Description").Contains(card.Info.Description)
-                , Is.True);
-
             Assert.That(result.GetPrivateMember<SkillStatsController>("_skillStatsController").GetPrivateMember<StatView>("_agility")
                 .transform.GetTextFromThis("Value"), Is.EqualTo(card.Info.Agility.ToString()));
-
             Assert.That(result.GetComponentInChildren<HealthCounterController>().GetPrivateMember<int>("AmountEnable"), Is.EqualTo(card.Info.Health));
         }
     }

@@ -19,13 +19,13 @@ namespace MythosAndHorrors.GameRules
             if (gameAction is not DefeatCardGameAction defeatCardGameAction) return false;
             if (defeatCardGameAction.Card is not CardCreature) return false;
             if (defeatCardGameAction.ByThisInvestigator != ControlOwner) return false;
-            if (ControlOwner.CurrentPlace.Hints.Value < 1) return false;
+            if (ControlOwner.CurrentPlace.Keys.Value < 1) return false;
             return true;
         }
 
         protected override async Task ExecuteConditionEffect(GameAction gameAction, Investigator investigator)
         {
-            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, amount: 1).Execute();
+            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, amount: 1).Execute();
         }
     }
 }

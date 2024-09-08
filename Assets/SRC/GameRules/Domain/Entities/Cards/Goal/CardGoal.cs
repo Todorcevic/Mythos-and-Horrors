@@ -12,17 +12,17 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
-        public Stat Hints { get; protected set; }
+        public Stat Keys { get; protected set; }
         public State Revealed { get; private set; }
-        public Activation<Investigator> PayHints { get; private set; }
+        public Activation<Investigator> PayKeys { get; private set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
 
         /*******************************************************************/
         public int Position => _chaptersProviders.CurrentScene.GoalCards.IndexOf(this);
         public CardGoal NextCardGoal => _chaptersProviders.CurrentScene.GoalCards.NextElementFor(this);
-        public int MaxHints => (Info.Hints ?? 0) * _investigatorsProvider.AllInvestigators.Count();
-        public int AmountOfHints => MaxHints - Hints.Value;
+        public int MaxKeys => (Info.Keys ?? 0) * _investigatorsProvider.AllInvestigators.Count();
+        public int AmountOfKeys => MaxKeys - Keys.Value;
         public bool IsComplete => Revealed.IsActive;
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
         public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
@@ -32,9 +32,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            PayHints = CreateFastActivation(PayHintsActivate, PayHintsConditionToActivate, PlayActionType.Activate, new Localization("Activation_CardGoal"));
+            PayKeys = CreateFastActivation(PayKeysActivate, PayKeysConditionToActivate, PlayActionType.Activate, new Localization("Activation_CardGoal"));
             RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
-            Hints = CreateStat(MaxHints);
+            Keys = CreateStat(MaxKeys);
             Revealed = CreateState(false);
             Reveal = CreateBaseReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
@@ -42,10 +42,10 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected bool RevealCondition(UpdateStatGameAction updateStatGameAction)
         {
-            if (!updateStatGameAction.HasThisStat(Hints)) return false;
+            if (!updateStatGameAction.HasThisStat(Keys)) return false;
             if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
-            if (Hints.Value > 0) return false;
+            if (Keys.Value > 0) return false;
             return true;
         }
 
@@ -64,18 +64,18 @@ namespace MythosAndHorrors.GameRules
         protected abstract Task CompleteEffect();
 
         /*******************************************************************/
-        protected virtual async Task PayHintsActivate(Investigator activeInvestigator) =>
+        protected virtual async Task PayKeysActivate(Investigator activeInvestigator) =>
 
             await _gameActionsProvider.Create<PayKeysToGoalGameAction>()
-            .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayHints.IsTrue))
+            .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayKeys.IsTrue))
             .Execute();
 
-        protected virtual bool PayHintsConditionToActivate(Investigator activeInvestigator)
+        protected virtual bool PayKeysConditionToActivate(Investigator activeInvestigator)
         {
             if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;
-            if (_investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayHints.IsTrue)
-                .Sum(investigator => investigator.Hints.Value) < Hints.Value) return false;
+            if (_investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayKeys.IsTrue)
+                .Sum(investigator => investigator.Keys.Value) < Keys.Value) return false;
             return true;
         }
     }

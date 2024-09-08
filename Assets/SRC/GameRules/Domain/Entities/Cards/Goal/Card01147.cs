@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Reveal.Disable();
-            PayHints.Disable();
+            PayKeys.Disable();
             CreateForceReaction<RevealGameAction>(RevealRituaReactionCondition, RevealRituaReactionlLogic, GameActionTime.After);
         }
 

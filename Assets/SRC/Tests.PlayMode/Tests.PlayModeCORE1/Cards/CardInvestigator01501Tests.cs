@@ -43,7 +43,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigatorToTest.InvestigatorCard);
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigatorToTest.Hints.Value, Is.EqualTo(1));
+            Assert.That(investigatorToTest.Keys.Value, Is.EqualTo(1));
         }
     }
 }

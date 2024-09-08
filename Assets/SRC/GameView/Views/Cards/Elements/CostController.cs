@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
             _actionsCostController.Init(card);
             if (card is IPlayableFromHandInTurn playableFromHand) SetCostWith(playableFromHand.ResourceCost);
             else if (card is CardConditionReaction cardConditionFast) SetCostWith(cardConditionFast.ResourceCost);
-            else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Hints);
+            else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Keys);
             else gameObject.SetActive(false);
         }
 

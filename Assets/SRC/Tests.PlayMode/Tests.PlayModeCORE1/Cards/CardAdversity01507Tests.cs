@@ -18,7 +18,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Execute().AsCoroutine();
-            Assert.That(adversityCard.Hints.Value, Is.EqualTo(3));
+            Assert.That(adversityCard.Keys.Value, Is.EqualTo(3));
             yield return _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE1.FullResolutions[0]).Execute().AsCoroutine();
             Assert.That(investigator.Shock.Value, Is.EqualTo(1));
         }
@@ -30,20 +30,20 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(adversityCard.Hints, 0).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(adversityCard.Keys, 0).Execute().AsCoroutine();
 
-            Assert.That(adversityCard.Hints.Value, Is.EqualTo(0));
+            Assert.That(adversityCard.Keys.Value, Is.EqualTo(0));
             yield return _gameActionsProvider.Create<FinalizeGameAction>().SetWith(SceneCORE1.FullResolutions[0]).Execute().AsCoroutine();
             Assert.That(investigator.Shock.Value, Is.EqualTo(0));
         }
 
         [UnityTest]
-        public IEnumerator PayHint()
+        public IEnumerator PayKey()
         {
             Investigator investigator = _investigatorsProvider.First;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return StartingScene();
-            int investigatorPlaceHintsExpected = investigator.CurrentPlace.Hints.Value;
+            int investigatorPlaceKeysExpected = investigator.CurrentPlace.Keys.Value;
             Card01507 adversityCard = _cardsProvider.GetCard<Card01507>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, investigator.DangerZone).Execute().AsCoroutine();
 
@@ -54,9 +54,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(adversityCard.Hints.Value, Is.EqualTo(2));
-            Assert.That(investigator.Hints.Value, Is.EqualTo(0));
-            Assert.That(investigator.CurrentPlace.Hints.Value, Is.EqualTo(investigatorPlaceHintsExpected));
+            Assert.That(adversityCard.Keys.Value, Is.EqualTo(2));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
+            Assert.That(investigator.CurrentPlace.Keys.Value, Is.EqualTo(investigatorPlaceKeysExpected));
         }
 
         [UnityTest]

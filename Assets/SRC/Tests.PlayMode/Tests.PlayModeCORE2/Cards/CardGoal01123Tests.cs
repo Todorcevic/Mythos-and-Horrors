@@ -24,16 +24,16 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         }
 
         [UnityTest]
-        public IEnumerator PayHint()
+        public IEnumerator PayKey()
         {
             Card01123 goal = _cardsProvider.GetCard<Card01123>();
             Investigator investigator = _investigatorsProvider.First;
             Investigator investigator2 = _investigatorsProvider.Second;
 
             yield return StartingScene();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Hints, 16).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Keys, 16).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Keys, 8).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(goal);
