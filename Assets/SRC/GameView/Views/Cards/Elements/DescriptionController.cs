@@ -1,5 +1,4 @@
-﻿using DG.DemiEditor;
-using DG.Tweening;
+﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ namespace MythosAndHorrors.GameView
 
         private void SetDescription(string description)
         {
-            if (description.IsNullOrEmpty()) _description.gameObject.SetActive(false);
+            if (string.IsNullOrEmpty(description)) _description.gameObject.SetActive(false);
             _description.text = description.ParseDescription(_cardsProvider);
         }
 

@@ -7,8 +7,8 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/GamePlayCORE1.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+    guid: 7b8be6cb7e7d35b41aca7ff61d930880
+  - enabled: 0
     path: Assets/Scenes/GamePlayCORE2.unity
     guid: 226be905d95e7ee48a03d0d34f43788e
   - enabled: 1

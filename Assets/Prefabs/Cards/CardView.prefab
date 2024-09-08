@@ -2161,10 +2161,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<sprite index=63> : When Sadie Turner reveals a Token, she may discard
-    1 <sprite index=8> from her hand, then that Token will go back and a new Token
-    will be reavealed. (Limit once per Challenge.)\n<sprite index=15> : +0. If Talisman
-    of Echoes is in play, the Challenge automatically succeeds.'
+  m_text: '<sprite index=63> After <<01501>> defeats a Creature: he may discover
+    1 <sprite index=38> at his Place. (Limit once per Round.)\n<sprite index=13>
+    : +1 <sprite index=58> for each <sprite index=38> on his Place.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98444adc1b906ac499e033b3f0442f4b, type: 2}
   m_sharedMaterial: {fileID: -9153979637037764407, guid: 98444adc1b906ac499e033b3f0442f4b, type: 2}
@@ -2191,7 +2190,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.95
+  m_fontSize: 3.85
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
