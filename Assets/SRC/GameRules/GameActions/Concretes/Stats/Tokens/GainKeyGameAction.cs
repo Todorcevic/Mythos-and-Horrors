@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class GainHintGameAction : GameAction
+    public class GainKeyGameAction : GameAction
     {
         public Investigator Investigator { get; private set; }
         public Stat FromStat { get; private set; }
@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue && Amount > 0;
 
         /*******************************************************************/
-        public GainHintGameAction SetWith(Investigator investigator, Stat fromStat, int amount)
+        public GainKeyGameAction SetWith(Investigator investigator, Stat fromStat, int amount)
         {
             Investigator = investigator;
             FromStat = fromStat;

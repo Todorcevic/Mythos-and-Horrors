@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class DropHintGameAction : PayHintGameAction
+    public class DropKeyGameAction : PayKeyGameAction
     {
         protected override async Task ExecuteThisLogic()
         {

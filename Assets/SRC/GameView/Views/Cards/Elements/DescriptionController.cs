@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -13,6 +14,7 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _tags;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
         public void Init(Card card)
@@ -32,7 +34,7 @@ namespace MythosAndHorrors.GameView
         private void SetDescription(string description)
         {
             if (description.IsNullOrEmpty()) _description.gameObject.SetActive(false);
-            _description.text = description;
+            _description.text = description.ParseDescription(_cardsProvider);
         }
 
         public Tween BlankAnimation()

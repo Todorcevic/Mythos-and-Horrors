@@ -23,18 +23,18 @@ namespace MythosAndHorrors.GameRules
             Hints = CreateStat(_investigatorsProvider.AllInvestigators.Count() * 2);
             PayHints.ActivateActionsCost.UpdateValue(1);
             CreateForceReaction<MoveCardsGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
-            CreateForceReaction<PayHintsToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, GameActionTime.After);
+            CreateForceReaction<PayKeysToGoalGameAction>(DrawCultistCondition, DrawCultistLogic, GameActionTime.After);
         }
 
         /*******************************************************************/
-        private async Task DrawCultistLogic(PayHintsToGoalGameAction payHintGameActionn)
+        private async Task DrawCultistLogic(PayKeysToGoalGameAction payHintGameActionn)
         {
             Card cultist = SceneCORE2.Cultists.Where(cultist => cultist.CurrentZone == SceneCORE2.OutZone).Rand();
             await _gameActionsProvider.Create<DrawGameAction>().SetWith(_investigatorsProvider.Leader, cultist).Execute();
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Hints, _investigatorsProvider.AllInvestigators.Count() * 2).Execute();
         }
 
-        private bool DrawCultistCondition(PayHintsToGoalGameAction payHintGameActionn)
+        private bool DrawCultistCondition(PayKeysToGoalGameAction payHintGameActionn)
         {
             if (IsInPlay.IsFalse) return false;
             if (Revealed.IsActive) return false;

@@ -6,13 +6,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
+using TMPro;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {
     [TestFixture]
     public class MoveCardPresenterTests : PlayModeTestsBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -41,6 +42,21 @@ namespace MythosAndHorrors.PlayModeView.Tests
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
             Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.First).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
+        }
+
+        [UnityTest]
+        public IEnumerator Show_Specific_Card()
+        {
+            Card specificCard = _cardsProvider.GetCard<Card01501>();
+            CardView cardView = _cardViewsManager.GetCardView(specificCard);
+            string viewDescription = cardView.GetComponentInChildren<DescriptionController>().GetPrivateMember<TextMeshPro>("_description").text;
+            cardView.MoveToZone(_zoneViewsManager.CenterShowZone);
+
+            if (DEBUG_MODE) yield return PressAnyKey();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            if (DEBUG_MODE) yield return PressAnyKey();
+            Assert.That(viewDescription, Does.Contain("Sadie Turner").IgnoreCase);
         }
     }
 }

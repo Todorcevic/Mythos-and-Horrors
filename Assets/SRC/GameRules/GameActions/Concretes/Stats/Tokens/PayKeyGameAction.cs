@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintGameAction : GameAction
+    public class PayKeyGameAction : GameAction
     {
         public Investigator Investigator { get; private set; }
         public Stat ToStat { get; private set; }
@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         public override bool CanBeExecuted => Investigator.IsInPlay.IsTrue && Amount > 0;
 
         /*******************************************************************/
-        public PayHintGameAction SetWith(Investigator investigator, Stat toStat, int amount)
+        public PayKeyGameAction SetWith(Investigator investigator, Stat toStat, int amount)
         {
             Investigator = investigator;
             ToStat = toStat;

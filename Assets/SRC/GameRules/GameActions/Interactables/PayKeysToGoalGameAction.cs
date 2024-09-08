@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class PayHintsToGoalGameAction : InteractableGameAction
+    public class PayKeysToGoalGameAction : InteractableGameAction
     {
         public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
         => throw new NotImplementedException();
 
-        public PayHintsToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
+        public PayKeysToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
             base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayHintsToGoal", cardGoal.Info.Name));
             CardGoal = cardGoal;
@@ -39,8 +39,8 @@ namespace MythosAndHorrors.GameRules
                 async Task PayHint()
                 {
                     int amoutToPay = investigator.Hints.Value > CardGoal.Hints.Value ? CardGoal.Hints.Value : investigator.Hints.Value;
-                    await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, CardGoal.Hints, amoutToPay).Execute();
-                    await _gameActionsProvider.Create<PayHintsToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
+                    await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, CardGoal.Hints, amoutToPay).Execute();
+                    await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
                 }
             }
         }

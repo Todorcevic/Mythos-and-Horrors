@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             Hints = CreateStat(3);
             Charge = new Charge(Hints, ChargeType.Special);
-            CreateOptativeReaction<GainHintGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01182"));
+            CreateOptativeReaction<GainKeyGameAction>(PayHintCondition, PayHintLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01182"));
             CreateForceReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }
 
@@ -43,13 +43,13 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task PayHintLogic(GainHintGameAction gainHintGameAction)
+        private async Task PayHintLogic(GainKeyGameAction gainHintGameAction)
         {
             gainHintGameAction.Cancel();
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Hints, gainHintGameAction.Amount).Execute();
         }
 
-        private bool PayHintCondition(GainHintGameAction gainHintGameAction)
+        private bool PayHintCondition(GainKeyGameAction gainHintGameAction)
         {
             if (IsInPlay.IsFalse) return false;
             if (gainHintGameAction.Investigator.CurrentPlace != ControlOwner.CurrentPlace) return false;

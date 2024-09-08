@@ -39,8 +39,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Hallway.Hints, cardGoal.Hints.Value).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Hallway.Hints, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Hallway.Hints, cardGoal.Hints.Value - 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Hallway.Hints, 3).Execute().AsCoroutine();
             yield return WasteAllTurns();
 
             Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
@@ -65,9 +65,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.CurrentGoal, _chaptersProvider.CurrentScene.OutZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardGoal, _chaptersProvider.CurrentScene.GoalZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Hallway.Hints, cardGoal.Hints.Value).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Hallway.Hints, 8).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Hallway.Hints, 3).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Hallway.Hints, 1).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Hallway.Hints, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Hallway.Hints, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Hallway.Hints, 1).Execute().AsCoroutine();
 
             yield return WasteAllTurns();
 

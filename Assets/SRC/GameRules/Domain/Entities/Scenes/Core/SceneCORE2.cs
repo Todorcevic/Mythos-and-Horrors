@@ -256,7 +256,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task DropHint() =>
-                                await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                                await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints, amount: 1).Execute();
             }
 
@@ -267,7 +267,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task DropHints() =>
-                                    await _gameActionsProvider.Create<DropHintGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
+                                    await _gameActionsProvider.Create<DropKeyGameAction>().SetWith(_gameActionsProvider.CurrentChallenge.ActiveInvestigator,
                     _gameActionsProvider.CurrentChallenge.ActiveInvestigator.CurrentPlace.Hints,
                     amount: _gameActionsProvider.CurrentChallenge.ActiveInvestigator.Hints.Value).Execute();
             }

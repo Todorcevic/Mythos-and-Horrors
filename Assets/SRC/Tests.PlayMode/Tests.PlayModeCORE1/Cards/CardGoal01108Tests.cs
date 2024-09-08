@@ -37,8 +37,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Hints, cardGoal.Hints.Value).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Execute();
             yield return ClickedIn(cardGoal);
@@ -59,9 +59,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Hints, cardGoal.Hints.Value).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Study.Hints, 1).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Hints, 5).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Hints, 3).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Study.Hints, 1).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Execute();
             yield return ClickedResourceButton();

@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Intelligence { get; private set; }
         public Stat Power { get; private set; }
         public Stat Resources { get; private set; }
-        public Stat Hints { get; private set; }
+        public Stat Keys { get; private set; }
         public Stat CurrentActions { get; private set; }
         public Stat MaxActions { get; private set; }
         public Stat MaxHandSize { get; private set; }
@@ -26,7 +26,7 @@ namespace MythosAndHorrors.GameRules
         public State Defeated { get; private set; }
         public State IsPlaying { get; private set; }
         public State Isolated { get; private set; }
-        public Conditional CanPayHints { get; private set; }
+        public Conditional CanPayKeys { get; private set; }
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
         public Conditional CanPlayCardsFromHand { get; private set; }
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameRules
             Intelligence = CreateStat(Info.Intelligence ?? 0);
             Power = CreateStat(Info.Power ?? 0);
             Resources = CreateStat(0);
-            Hints = CreateStat(0);
+            Keys = CreateStat(0);
             MaxActions = CreateStat(GameValues.DEFAULT_ACTIONS_AMOUNT);
             CurrentActions = CreateStat(GameValues.DEFAULT_ACTIONS_AMOUNT);
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameRules
             Defeated = CreateState(false, isReseteable: false);
             IsPlaying = CreateState(false);
             Isolated = CreateState(false);
-            CanPayHints = new Conditional(() => Hints.Value > 0);
+            CanPayKeys = new Conditional(() => Keys.Value > 0);
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);
             CanBeRestoreSanity = new Conditional(() => FearRecived.Value > 0);
             HasActionsAvailable = new Conditional(() => CurrentActions.Value > 0);

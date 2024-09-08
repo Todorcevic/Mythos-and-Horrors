@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
             await interactableGameAction.Execute();
 
             /*******************************************************************/
-            async Task SpendClue() => await _gameActionsProvider.Create<PayHintGameAction>().SetWith(investigator, Charge.Amount, 1).Execute();
+            async Task SpendClue() => await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, Charge.Amount, 1).Execute();
             async Task TakeDamage() => await _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, this, amountDamage: 2).Execute();
         }
     }

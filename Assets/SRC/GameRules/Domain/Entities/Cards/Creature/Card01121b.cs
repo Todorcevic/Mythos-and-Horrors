@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
             RemoveStat(Health);
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 2);
             CreateBuff(CardsToBuff, CantGainAndPayHintsBuff, RemoveCantGainAndPayHintsBuff, new Localization("Buff_Card01121b"));
-            AvoidGainHintReaction = CreateForceReaction<GainHintGameAction>(CantGainHintsCondition, CantGainHintsLogic, GameActionTime.Initial);
+            AvoidGainHintReaction = CreateForceReaction<GainKeyGameAction>(CantGainHintsCondition, CantGainHintsLogic, GameActionTime.Initial);
             AvoidGainHintReaction.Disable();
         }
 
@@ -37,24 +37,24 @@ namespace MythosAndHorrors.GameRules
         {
             AvoidGainHintReaction.Enable();
             CardInvestigator investigatorCard = cards.Cast<CardInvestigator>().First();
-            await _gameActionsProvider.Create<UpdateConditionalGameAction>().SetWith(investigatorCard.CanPayHints, false).Execute();
+            await _gameActionsProvider.Create<UpdateConditionalGameAction>().SetWith(investigatorCard.CanPayKeys, false).Execute();
         }
 
         private async Task RemoveCantGainAndPayHintsBuff(IEnumerable<Card> cards)
         {
             AvoidGainHintReaction.Disable();
             CardInvestigator investigatorCard = cards.Cast<CardInvestigator>().First();
-            await _gameActionsProvider.Create<ResetConditionalGameAction>().SetWith(investigatorCard.CanPayHints).Execute();
+            await _gameActionsProvider.Create<ResetConditionalGameAction>().SetWith(investigatorCard.CanPayKeys).Execute();
         }
 
         /*******************************************************************/
-        bool CantGainHintsCondition(GainHintGameAction gainHintGameAction)
+        bool CantGainHintsCondition(GainKeyGameAction gainHintGameAction)
         {
             if (gainHintGameAction.Investigator != ConfrontedInvestigator) return false;
             return true;
         }
 
-        async Task CantGainHintsLogic(GainHintGameAction gainHintGameAction)
+        async Task CantGainHintsLogic(GainKeyGameAction gainHintGameAction)
         {
             gainHintGameAction.Cancel();
             await Task.CompletedTask;

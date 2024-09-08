@@ -19,6 +19,7 @@ namespace MythosAndHorrors.GameRules
         public IEnumerable<T> GetCards<T>() where T : Card => AllCards.OfType<T>();
 
         public Card GetCardByCode(string code) => AllCards.First(card => card.Info.Code == code);
+        public Card TryGetCardByCode(string code) => AllCards.FirstOrDefault(card => card.Info.Code == code);
 
         public Card GetCardWithThisZone(Zone zone) => AllCards.FirstOrDefault(card => card.OwnZone == zone);
         public Card GetCardWithThisStat(Stat stat) => AllCards.FirstOrDefault(card => card.HasThisStat(stat));

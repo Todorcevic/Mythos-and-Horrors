@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(investigator, 5).Execute();
             await _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(Hints, 2).Execute();
-            await _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, Hints, 2).Execute();
+            await _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, Hints, 2).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Played, true).Execute();
         }
 

@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task DropHints()
                 {
-                    await _gameActionsProvider.Create<DropHintGameAction>()
+                    await _gameActionsProvider.Create<DropKeyGameAction>()
                         .SetWith(investigator, investigator.CurrentPlace.Hints, challengeGameAction.ResultChallenge.TotalDifferenceValue * -1)
                         .Execute();
                 }

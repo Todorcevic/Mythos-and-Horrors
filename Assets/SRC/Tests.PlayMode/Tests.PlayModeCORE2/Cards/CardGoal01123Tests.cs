@@ -32,8 +32,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 
             yield return StartingScene();
             yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE2.Fluvial.Hints, 16).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Hints, 8).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator2, investigator2.CurrentPlace.Hints, 8).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(goal);

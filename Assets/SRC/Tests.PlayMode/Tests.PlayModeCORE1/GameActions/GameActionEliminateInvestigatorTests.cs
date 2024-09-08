@@ -17,7 +17,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(ghoulSecuaz, investigator.DangerZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversity, investigator.DangerZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainHintGameAction>().SetWith(investigator, SceneCORE1.Attic.Hints, 2).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, SceneCORE1.Attic.Hints, 2).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<HarmToInvestigatorGameAction>().SetWith(investigator, ghoulSecuaz, amountFear: 8).Execute().AsCoroutine();
 
             Assert.That(investigator.Defeated.IsActive, Is.True);
