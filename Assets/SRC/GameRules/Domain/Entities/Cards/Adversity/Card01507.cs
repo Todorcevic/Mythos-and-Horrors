@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Keys = CreateStat(3);
-            Charge = new Charge(Keys, ChargeType.Special);
+            Charge = new Charge(Keys, ChargeType.Secret);
             CreateOptativeReaction<GainKeyGameAction>(PayKeyCondition, PayKeyLogic, GameActionTime.Before, new Localization("OptativeReaction_Card01182"));
             CreateForceReaction<FinalizeGameAction>(TakeShockCondition, TakeShockLogic, GameActionTime.Before);
         }

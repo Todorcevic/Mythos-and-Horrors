@@ -47,7 +47,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Show_Specific_Card()
         {
-            Card specificCard = _cardsProvider.GetCard<Card01501>();
+            Card specificCard = _cardsProvider.GetCard<Card01507>();
             CardView cardView = _cardViewsManager.GetCardView(specificCard);
             string viewDescription = cardView.GetComponentInChildren<DescriptionController>().GetPrivateMember<TextMeshPro>("_description").text;
             cardView.MoveToZone(_zoneViewsManager.CenterShowZone);
