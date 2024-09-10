@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Charge = new Charge(1, ChargeType.Special);
+            Charge = new Charge(1, ChargeType.Secret);
         }
 
         /*******************************************************************/

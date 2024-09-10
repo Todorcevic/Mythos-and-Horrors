@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             AbilityUsed = CreateStat(0);
             Resources = CreateStat(AMOUNT_RESOURCE_NEEDED);
-            Charge = new Charge(Resources, ChargeType.Special);
+            Charge = new Charge(Resources, ChargeType.Money);
             CreateFastActivation(PayResourceActivate, PayResourceConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01511"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);
         }

@@ -4,8 +4,10 @@
     {
         Bullet,
         Supplie,
+        Money,
         MagicCharge,
         Secret,
+        Energy,
         Special
     }
 }

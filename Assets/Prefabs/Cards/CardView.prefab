@@ -2306,11 +2306,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9f01bc1123cc647b02a6b94bbd1bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 21300000, guid: a3a82a90ab641a14d9d5c698aedeaecc, type: 3}
-  _magic: {fileID: 21300000, guid: 6cf9e3475e70f7d4ab0c841d7d634f92, type: 3}
-  _supplie: {fileID: 21300000, guid: 53c52a6b1e3e23746b184cd10ab42625, type: 3}
-  _secret: {fileID: 21300000, guid: 7d7da81dd63eb824582426ee6a59e031, type: 3}
-  _special: {fileID: 21300000, guid: 45ddf922fd7da884f80e2f15e97f0c74, type: 3}
+  _bullet: {fileID: 21300000, guid: 9c668fcc9f7df5a4d900e4909c3c9965, type: 3}
+  _magic: {fileID: 21300000, guid: bc0e68a4b8bbf764eae761d15928e2b6, type: 3}
+  _supplie: {fileID: 21300000, guid: 6587221012ad8c44bb56015b95fe1127, type: 3}
+  _money: {fileID: 21300000, guid: a91a0141d5471454285f9e74e287d09f, type: 3}
+  _secret: {fileID: 21300000, guid: 67dd7d84d7f63774b98733dc16456944, type: 3}
+  _energy: {fileID: 21300000, guid: ee34d6608c01a70479aa8b7733ad4094, type: 3}
+  _special: {fileID: 21300000, guid: 97149489cd4643848ad9d7d079e64e71, type: 3}
   _chargePrefab: {fileID: 581939168290917628}
 --- !u!114 &8976686929807381669
 MonoBehaviour:
@@ -3489,6 +3491,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1625676036555892817, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625676036555892817, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625676036555892817, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c668fcc9f7df5a4d900e4909c3c9965, type: 3}
+    - target: {fileID: 1625676036555892817, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6150220571766142333, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3520,6 +3538,14 @@ PrefabInstance:
     - target: {fileID: 6150220571766142333, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150220571766142333, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150220571766142333, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6150220571766142333, guid: d548e6289ef259244a6f1146eb32f01b, type: 3}
       propertyPath: m_LocalPosition.x
