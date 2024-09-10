@@ -41,20 +41,19 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             Investigator investigator = _investigatorsProvider.Third;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator, withResources: true);
-            Card01510 conditionCard = _cardsProvider.GetCard<Card01510>();
+            Card01522 conditionCard = _cardsProvider.GetCard<Card01522>();
             Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE2.Drew, investigator.DangerZone).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            Task taskGameAction = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE2.Drew, investigator.InvestigatorCard).Execute();
             yield return ClickedIn(conditionCard);
             Assert.That(conditionCard.CurrentZone, Is.EqualTo(investigator.DeckZone));
-            yield return ClickedResourceButton();
-            yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigator.Resources.Value, Is.EqualTo(6));
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
         }
 
         [UnityTest]
@@ -77,30 +76,6 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(cardCondition.CurrentZone, Is.EqualTo(investigator.DeckZone));
-        }
-
-        [UnityTest]
-        public IEnumerator PlayFromDiscardPileOptative()
-        {
-            Investigator investigator = _investigatorsProvider.Fourth;
-            yield return PlaceOnlyScene();
-            yield return PlayThisInvestigator(investigator);
-            Card01514 supplyCard = _cardsProvider.GetCard<Card01514>();
-            Card01510 cardCondition = _cardsProvider.GetCard<Card01510>();
-            Card01580 basicCard = _cardsProvider.GetCard<Card01580>();
-
-            yield return _gameActionsProvider.Create<GainResourceGameAction>().SetWith(investigator, 8).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(basicCard, investigator.DeckZone, isFaceDown: true).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supplyCard, investigator.AidZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardCondition, investigator.DiscardZone).Execute().AsCoroutine();
-
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
-            yield return ClickedIn(cardCondition);
-            Assert.That(cardCondition.CurrentZone, Is.EqualTo(investigator.DeckZone));
-            yield return ClickedResourceButton();
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
-            Assert.That(investigator.Resources.Value, Is.EqualTo(14));
         }
 
         [UnityTest]

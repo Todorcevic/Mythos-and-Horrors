@@ -88,7 +88,7 @@
         "Name": "Lucille Hargrove"
     },
     {
-        "Description": "<sprite index=10> : Once per Challenge, when <<01505>> reveals a Symbol, she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> 0<sprite index=58>, if <<01514>> is in play, the Challenge automatically succeeds.",
+        "Description": "<sprite index=10> : Once per Challenge, when <<01505>> reveals a Symbol, she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>, if <<01514>> is in play, the Challenge automatically succeeds.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
         "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",
@@ -144,15 +144,11 @@
         "Name": "Concealed Crime"
     },
     {
-        "Description": "Daisy Walker deck only.\nYou have 2 additional hand slots, which can only be used to hold [[Tome]] assets.",
+        "Description": "The Investigator has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Item"
         ],
         "Cost": 2,
         "Quantity": 1,
@@ -162,10 +158,10 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01508",
-        "Name": "Daisy's Tote Bag"
+        "Name": "Scholar's Satchel"
     },
     {
-        "Description": "<b>Revelation</b> - Put The Necronomicon into play in your threat area, with 3 horror on it. It cannot leave play while it has 1 or more horror on it.\nTreat each [elder_sign] you reveal on a chaos token as a [auto_fail].\n[action]: Move 1 horror from The Necronomicon to Daisy Walker. Then, if The Necronomicon has no horror on it, discard it.",
+        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it swap it for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 Fear.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -180,19 +176,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01509",
-        "Name": "The Necronomicon"
+        "Name": "The Book of Hali"
     },
     {
-        "Description": "\"Skids\" O'Toole deck only.\nFast. Play after your turn begins.\nUntil the end of the round, non-[[Elite]] enemies cannot attack you.",
+        "Description": "<sprite index=7> : Non-[[Elite]] Creatures cannot attack the Investigator until the end of the Round.",
         "Flavor": "I ain't going to the pen a second time.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Tactic"
         ],
         "Cost": 1,
         "Quantity": 1,
@@ -202,7 +194,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01510",
-        "Name": "On the Lam"
+        "Name": "Slippery Escape"
     },
     {
         "Description": "<b>Revelation</b> - Put Hospital Debts into play in your threat area.\n[free]: Move 1 resource from your resource pool to Hospital Debts. (Limit twice per round.)\n<b>Forced</b> - When the game ends, if Hospital Debts has fewer than 6 resources on it: You earn 2 fewer experience for this scenario.",

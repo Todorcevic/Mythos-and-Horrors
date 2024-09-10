@@ -33,20 +33,21 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         [UnityTest]
         public IEnumerator CantPlaySupplyAndConditionWithOptianalReaction()
         {
-            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator = _investigatorsProvider.Second;
             Card01165 cardAdversity = _cardsProvider.GetCard<Card01165>();
-            Card01510 condition = _cardsProvider.GetCard<Card01510>();
+            Card01522 condition = _cardsProvider.GetCard<Card01522>();
+            CardCreature creature = SceneCORE1.GhoulSecuaz;
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(creature, investigator.DangerZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(condition, investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            Task taskGameAction2 = _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(creature, investigator.InvestigatorCard).Execute();
             yield return AssertThatIsNotClickable(condition);
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
+            yield return taskGameAction2.AsCoroutine();
 
-            Assert.That(cardAdversity.CurrentZone, Is.EqualTo(SceneCORE1.DangerDiscardZone));
+            Assert.That(cardAdversity.CurrentZone, Is.EqualTo(investigator.DangerZone));
         }
 
         [UnityTest]

@@ -32,7 +32,7 @@ namespace MythosAndHorrors.GameView
             {
                 string cardCode = match.Groups[1].Value;
 
-                return $"{_cardsProvider.TryGetCardByCode(cardCode)?.Info.Name ?? match.Value}";
+                return $"<b>{_cardsProvider.TryGetCardByCode(cardCode)?.Info.Name ?? match.Value}</b>";
             });
         }
     }
