@@ -57,6 +57,7 @@ namespace MythosAndHorrors.GameView
                 for (int i = _charges.Count; i < Stat.Value; i++)
                 {
                     SpriteRenderer newCharge = Instantiate(_chargePrefab, transform);
+                    newCharge.transform.localPosition += 0.0001f * i * Vector3.back;
                     newCharge.gameObject.SetActive(true);
                     _charges.Add(newCharge);
                 }
