@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override sealed async Task ExecuteThisLogic()
         {
+            await _gameActionsProvider.Create<VoidGameAction>().Execute(); //To refresh buffs
             await _changePhasePresenter.PlayAnimationWith(this);
             await ExecuteThisPhaseLogic();
         }

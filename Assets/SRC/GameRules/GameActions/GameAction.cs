@@ -31,6 +31,7 @@ namespace MythosAndHorrors.GameRules
                 return;
             }
             _gameActionsProvider.AddUndo(this);
+            //await _buffsProvider.ExecuteAllBuffs();
 
             await ExecuteThisLogic();
 

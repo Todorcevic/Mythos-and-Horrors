@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class CardCondition01568Tests : TestCORE1Preparation
     {
         //protected override TestsType TestsType => TestsType.Debug;
@@ -24,13 +23,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Execute().AsCoroutine();
 
-            Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.True);
-
             Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
+            AssumeThat(investigator.InvestigatorCard.Blancked.IsActive == true);
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(creature);
-            Assert.That(investigator.InvestigatorCard.Blancked.IsActive, Is.False);
-            Assert.That(creature.Blancked.IsActive, Is.True);
+            AssumeThat(investigator.InvestigatorCard.Blancked.IsActive == false);
+            AssumeThat(creature.Blancked.IsActive == true);
             yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();

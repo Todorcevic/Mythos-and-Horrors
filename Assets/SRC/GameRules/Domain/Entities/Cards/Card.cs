@@ -29,6 +29,7 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanBeDiscarted { get; private set; }
         public Conditional IsActivable { get; private set; }
         public Conditional IsInPlay { get; protected set; }
+        public Conditional IsInvestigating { get; protected set; }
         public Zone OwnZone { get; private set; }
 
         /*******************************************************************/
@@ -61,6 +62,8 @@ namespace MythosAndHorrors.GameRules
             CanBePlayed = new(() => PlayableEffects.Any());
             IsActivable = new(() => AllActivations.Any(activation => activation.Condition.IsTrueWith(ControlOwner)));
             IsInPlay = new(() => ZoneType.PlayZone.HasFlag(CurrentZone.ZoneType));
+            IsInvestigating = new(() => _gameActionsProvider.CurrentChallenge is InvestigatePlaceGameAction investigatePlaceGameAction
+                && investigatePlaceGameAction.ActiveInvestigator == Owner);
         }
 
         /************************** REACTIONS ******************************/

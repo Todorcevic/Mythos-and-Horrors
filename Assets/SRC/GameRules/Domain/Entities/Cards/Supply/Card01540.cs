@@ -34,8 +34,18 @@ namespace MythosAndHorrors.GameRules
 
 
         /*******************************************************************/
-        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardsToBuff()
+        {
+            return Condition() ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
 
+            /*******************************************************************/
+            bool Condition()
+            {
+                if (IsInPlay.IsFalse) return false;
+                if (ControlOwner.IsInvestigating.IsFalse) return false;
+                return true;
+            }
+        }
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
             Dictionary<Stat, int> map = cards.OfType<CardInvestigator>().ToDictionary(card => card.Intelligence, card => 1);

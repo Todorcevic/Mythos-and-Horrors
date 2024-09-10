@@ -89,6 +89,7 @@ namespace MythosAndHorrors.GameRules
         public Conditional CanBeRestoreSanity => InvestigatorCard.CanBeRestoreSanity;
         public Conditional HasTurnsAvailable => InvestigatorCard.HasActionsAvailable;
         public Conditional IsInPlay => InvestigatorCard.IsInPlay;
+        public Conditional IsInvestigating => InvestigatorCard.IsInvestigating;
 
         /*******************************************************************/
         [Inject]

@@ -30,7 +30,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         }
 
         [UnityTest]
-        public IEnumerator BuffIntelligenceToOwnerTest()
+        public IEnumerator NoBuffIntelligenceToOwnerTest()
         {
             Card cardWithBuff = _cardsProvider.GetCard<Card01530>();
             Investigator investigator = _investigatorsProvider.Second;
@@ -39,12 +39,32 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardWithBuff, investigator.AidZone).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
-            Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(6));
+            Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(5));
 
             yield return _gameActionsProvider.Create<DiscardGameAction>().SetWith(cardWithBuff).Execute().AsCoroutine();
 
             Assert.That(_investigatorsProvider.First.Intelligence.Value, Is.EqualTo(3));
             Assert.That(_investigatorsProvider.Second.Intelligence.Value, Is.EqualTo(5));
+        }
+
+        [UnityTest]
+        public IEnumerator BuffIntelligenceToOwnerTest()
+        {
+            Card cardWithBuff = _cardsProvider.GetCard<Card01530>();
+            Investigator investigator = _investigatorsProvider.Second;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
+            yield return StartingScene();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardWithBuff, investigator.AidZone).Execute().AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+            AssumeThat(investigator.Intelligence.Value == 5);
+            yield return ClickedIn(investigator.CurrentPlace);
+            AssumeThat(investigator.Intelligence.Value == 6);
+            yield return ClickedMainButton();
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.Intelligence.Value, Is.EqualTo(5));
         }
     }
 }

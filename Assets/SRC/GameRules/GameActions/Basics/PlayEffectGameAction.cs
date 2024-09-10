@@ -4,6 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
+
     public class PlayEffectGameAction : GameAction
     {
         [Inject] private readonly IPresenter<PlayEffectGameAction> _presenter;

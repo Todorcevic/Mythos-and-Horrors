@@ -18,8 +18,20 @@ namespace MythosAndHorrors.GameRules
         {
             CreateBuff(CardsToBuff, AddIntelligenceBuff, RemoveIntelligenceBuff, new Localization("Buff_Card01530"));
         }
+
         /*******************************************************************/
-        private IEnumerable<Card> CardsToBuff() => IsInPlay.IsTrue ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+        private IEnumerable<Card> CardsToBuff()
+        {
+            return Condition() ? new[] { ControlOwner.InvestigatorCard } : Enumerable.Empty<Card>();
+
+            /*******************************************************************/
+            bool Condition()
+            {
+                if (IsInPlay.IsFalse) return false;
+                if (ControlOwner.IsInvestigating.IsFalse) return false;
+                return true;
+            }
+        }
 
         private async Task AddIntelligenceBuff(IEnumerable<Card> cards)
         {
