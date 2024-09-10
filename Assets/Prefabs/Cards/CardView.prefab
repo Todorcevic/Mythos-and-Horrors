@@ -2190,7 +2190,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.85
+  m_fontSize: 4
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2749,7 +2749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[Item] [Firearm] [Ghoul]'
+  m_text: Item Firearm Ghoul
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98444adc1b906ac499e033b3f0442f4b, type: 2}
   m_sharedMaterial: {fileID: -9153979637037764407, guid: 98444adc1b906ac499e033b3f0442f4b, type: 2}
@@ -2782,7 +2782,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
   m_fontSizeMax: 5
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

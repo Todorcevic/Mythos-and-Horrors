@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
         {
             if (!Tags.Any()) _tags.gameObject.SetActive(false);
             _tags.text = string.Empty;
-            Tags.ForEach(tag => _tags.text += $"[{tag}]");
+            Tags.ForEach(tag => _tags.text += $"{tag} ");
         }
 
         private void SetDescription(string description)
