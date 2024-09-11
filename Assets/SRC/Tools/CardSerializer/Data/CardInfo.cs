@@ -130,7 +130,7 @@ namespace MythosAndHorrors.Tools
                 "act" => CardType.Goal,
                 "agenda" => CardType.Plot,
                 "scenario" => CardType.Scene,
-                _ => CardType.None,
+                _ => throw new ArgumentException("Invalid card type"),
             };
 
             Code = oldCardinfo.Code;

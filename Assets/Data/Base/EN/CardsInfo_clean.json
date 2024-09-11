@@ -134,7 +134,7 @@
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01507",
         "Name": "Concealed Crime"
     },
@@ -195,7 +195,7 @@
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01511",
         "Name": "Illegal Gambling Debts"
     },
@@ -2026,7 +2026,7 @@
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01598",
         "Name": "Haunted"
     },
@@ -2044,7 +2044,7 @@
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01599",
         "Name": "Psychosis"
     },
@@ -2062,7 +2062,7 @@
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01600",
         "Name": "Hypochondria"
     },

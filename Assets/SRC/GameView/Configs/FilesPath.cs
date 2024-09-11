@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameView
         public string JSON_SPECIALCARDINFO_PATH => $"Assets/Data/Base/{Languaje}/SpecialCardsInfo.json";
         public string JSON_CHAPTER_INFO_PATH => $"Assets/Data/Base/{Languaje}/ChaptersInfo.json";
         public string JSON_LOCALIZABLE_TEXT_PATH => $"Assets/Data/Base/{Languaje}/Texts/LocalizableText.json";
+        public string JSON_ENUMS_TEXT_PATH => $"Assets/Data/Base/{Languaje}/Enums.json";
 
         /*******************************************************************/
         public string JSON_SCENE_PATH(string sceneName) => $"Assets/Data/Base/{Languaje}/Scenes/{sceneName}/Scene.json";

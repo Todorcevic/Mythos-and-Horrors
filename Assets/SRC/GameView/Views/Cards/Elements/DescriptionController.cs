@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _tags;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly TextsManager _textsManager;
 
         /*******************************************************************/
         public void Init(Card card)
@@ -27,13 +28,13 @@ namespace MythosAndHorrors.GameView
         {
             if (!Tags.Any()) _tags.gameObject.SetActive(false);
             _tags.text = string.Empty;
-            Tags.ForEach(tag => _tags.text += $"{tag} ");
+            Tags.ForEach(tag => _tags.text += $"{_textsManager.GetTagText(tag)} ");
         }
 
         private void SetDescription(string description)
         {
             if (string.IsNullOrEmpty(description)) _description.gameObject.SetActive(false);
-            _description.text = description.ParseDescription(_cardsProvider);
+            _description.text = description.ParseDescription(_cardsProvider, _textsManager);
         }
 
         public Tween BlankAnimation()

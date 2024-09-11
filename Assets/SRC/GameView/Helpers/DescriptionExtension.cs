@@ -6,20 +6,20 @@ namespace MythosAndHorrors.GameView
 {
     public static class DescriptionExtension
     {
-        public static string ParseDescription(this string text, CardsProvider _cardsProvider)
+        public static string ParseDescription(this string text, CardsProvider _cardsProvider, TextsManager textsManager)
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            return ParseView(ParseTags(text), _cardsProvider);
+            return ParseView(ParseTags(text, textsManager), _cardsProvider);
         }
 
-        private static string ParseTags(string text)
+        private static string ParseTags(string text, TextsManager textsManager)
         {
             string pattern = @"\[\[(.*?)\]\]";
             return Regex.Replace(text, pattern, match =>
             {
                 string tagName = match.Groups[1].Value;
-                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return $"<i>{tag}</i>";
+                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return $"<i>{textsManager.GetTagText(tag)}</i>";
 
                 return match.Value;
             });

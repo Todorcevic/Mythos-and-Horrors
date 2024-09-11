@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -9,33 +10,13 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _name;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _cardType;
+        [Inject] private readonly TextsManager _textsManager;
 
         /*******************************************************************/
         public void Init(Card card)
         {
-            SetTitle(card.Info.Name);
-            SetType(card.Info.CardType);
-        }
-
-        /*******************************************************************/
-        private void SetTitle(string title) => _name.text = title;
-
-        private void SetType(CardType cardType)
-        {
-            _cardType.text = cardType switch
-            {
-                CardType.Investigator => "Investigator",
-                CardType.Supply => "Supply",
-                CardType.Talent => "Talent",
-                CardType.Condition => "Condition",
-                CardType.Creature => "Creature",
-                CardType.Adversity => "Adversity",
-                CardType.Place => "Place",
-                CardType.Goal => "Goal",
-                CardType.Plot => "Plot",
-                CardType.Scene => "Scene",
-                _ => string.Empty
-            };
+            _name.text = card.Info.Name;
+            _cardType.text = _textsManager.GetCardTypeText(card.Info.CardType);
         }
     }
 }
