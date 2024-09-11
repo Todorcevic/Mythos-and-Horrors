@@ -156,7 +156,7 @@
         "Name": "Scholar's Satchel"
     },
     {
-        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it swap it for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 Fear.",
+        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 Fear.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -169,7 +169,7 @@
         "Name": "The Book of Hali"
     },
     {
-        "Description": "<sprite index=7> : Non-[[Elite]] Creatures cannot attack the Investigator until the end of the Round.",
+        "Description": "<sprite index=7> :The Investigator cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
         "Flavor": "I ain't going to the pen a second time.",
         "PackCode": "rcore",
         "Faction": 32,
