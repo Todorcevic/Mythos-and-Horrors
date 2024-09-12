@@ -5,7 +5,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardInvestigator : Card, IDamageable, IFearable
+    public abstract class CardInvestigator : Card, IDamageable, IFearable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 

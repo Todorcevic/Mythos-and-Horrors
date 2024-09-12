@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -7,6 +9,8 @@ namespace MythosAndHorrors.GameRules
     public class Card01115 : CardPlace
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
 
         /*******************************************************************/
         [Inject]

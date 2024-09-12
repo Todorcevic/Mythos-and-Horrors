@@ -10,6 +10,8 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]

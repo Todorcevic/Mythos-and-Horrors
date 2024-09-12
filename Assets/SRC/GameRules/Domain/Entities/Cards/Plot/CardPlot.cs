@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         public Stat Eldritch { get; private set; }
         public State Revealed { get; private set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
 
         /*******************************************************************/
         public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);

@@ -25,7 +25,7 @@
         "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>, if the Challenge is successful, <<01502>> draws 1 Card for each [[Tome]] she controls.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Mystic cards ([mystic]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon (John Dee Translation), 1 random basic weakness.",
         "Flavor": "\"I know of books so powerful, they can rewrite reality.\"",
-        "Flavor2": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, fear. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
+        "Flavor2": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, <sprite index=61>. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -66,7 +66,7 @@
         "Name": "Frank Harris"
     },
     {
-        "Description": "<sprite index=10> : Limit once per Phase, after <<01504>> loses <sprite index=37>, she may deal 1 Damage to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
+        "Description": "<sprite index=10> : Limit once per Phase, after <<01504>> loses <sprite index=37>, she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
         "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
         "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
@@ -109,7 +109,7 @@
         "Name": "Sadie Turner"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack or +3<sprite index=54> if there is 1 or more <sprite index=38> at their location. This attack deals +1 Damage.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack or +3<sprite index=54> if there is 1 or more <sprite index=38> at their location. This attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -139,7 +139,7 @@
         "Name": "Concealed Crime"
     },
     {
-        "Description": "<sprite index=7> : The Investigator has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
+        "Description": "<sprite index=11> : The Investigator has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -156,7 +156,7 @@
         "Name": "Scholar's Satchel"
     },
     {
-        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 Fear.",
+        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 <sprite index=61>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -218,7 +218,7 @@
         "Name": "Talisman of Forgotten Times"
     },
     {
-        "Description": "<sprite index=7> : When <<01513>> is played, the current Plot gains 1 <sprite index=40> and may be resolved.\n<sprite index=7> : If <<01513>> is in the Investigator's hand at the end of their turn, they take 2 Fear.",
+        "Description": "<sprite index=7> : The current Plot gains 1 <sprite index=40> and may be resolved.\n<sprite index=7> : If <<01513>> is in the Investigator's hand at the end of their turn, they take 2 <sprite index=61>.",
         "Flavor": "No... not again!",
         "PackCode": "rcore",
         "Faction": 32,
@@ -248,7 +248,7 @@
         "Name": "Talisman of Echoes"
     },
     {
-        "Description": "<sprite index=7> : The Investigator takes 2 direct Fear. All cards in their discard pile are removed from the game.",
+        "Description": "<sprite index=7> : The Investigator takes 2 direct <sprite index=61>. All cards in their discard pile are removed from the game.",
         "Flavor": "I don't need them. I don't need anyone.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -262,7 +262,7 @@
         "Name": "Tears in the Dark"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack and deals +1 damage.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack and deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -295,7 +295,7 @@
         "Name": "Martial Discipline"
     },
     {
-        "Description": "You get +1 [combat].\n[free] Discard Beat Cop: Deal 1 damage to an enemy at your location.",
+        "Description": "You get +1 [combat].\n[free] Discard Beat Cop: Deal 1 <sprite index=59> to an enemy at your location.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -318,7 +318,7 @@
         "Name": "Beat Cop"
     },
     {
-        "Description": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage or horror from an investigator at your location.",
+        "Description": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 <sprite index=59> or horror from an investigator at your location.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -339,7 +339,7 @@
         "Name": "First Aid"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting the Investigator, this attack deals +1 damage.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting the Investigator, this attack deals +1 <sprite index=59>.",
         "Flavor": "Cuts through vines, underbrush, and tentacles equally well.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -356,7 +356,7 @@
         "Name": "Cleaving Cutlass"
     },
     {
-        "Description": "[reaction] When an enemy attack deals damage to Guard Dog: Deal 1 damage to the attacking enemy.",
+        "Description": "[reaction] When an enemy attack deals <sprite index=59> to Guard Dog: Deal 1 <sprite index=59> to the attacking enemy.",
         "Flavor": "Fiercely loyal, these trained canines make for perfect companions.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -422,7 +422,7 @@
         "Name": "Dodge"
     },
     {
-        "Description": "Choose either your location or a connecting location. Deal 3 damage to each enemy and to each investigator at the chosen location.",
+        "Description": "Choose either your location or a connecting location. Deal 3 <sprite index=59> to each enemy and to each investigator at the chosen location.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -442,7 +442,7 @@
         "Name": "Dynamite Blast"
     },
     {
-        "Description": "If this skill test is successful during an attack, that attack deals +1 damage.",
+        "Description": "If this skill test is successful during an attack, that attack deals +1 <sprite index=59>.",
         "Flavor": "With a sickening smack, he struck the abomination over and over... until at last, it stopped moving.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -504,7 +504,7 @@
         "Name": "Police Badge"
     },
     {
-        "Description": "You get +1 [combat].\n[free] Exhaust Beat Cop and deal 1 damage to it: Deal 1 damage to an enemy at your location.",
+        "Description": "You get +1 [combat].\n[free] Exhaust Beat Cop and deal 1 <sprite index=59> to it: Deal 1 <sprite index=59> to an enemy at your location.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -528,7 +528,7 @@
         "Name": "Beat Cop"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +3<sprite index=54> for this attack. This attack deals damage equal to the difference between the Challenge value and the result, up to a maximum of 5 damage, including negative values as collateral damage.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -636,7 +636,7 @@
         "Name": "Dr. Milan Christopher"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=67> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -653,7 +653,7 @@
         "Name": "Supernatural Perception"
     },
     {
-        "Description": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 damage from that investigator. If you fail, deal 1 damage to that investigator.",
+        "Description": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 <sprite index=59> from that investigator. If you fail, deal 1 <sprite index=59> to that investigator.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -781,7 +781,7 @@
     },
     {
         "Description": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Discard that enemy.",
-        "Flavor": "Do they fear it because of what it will do to them? Or, do they fear it because of what it will do to you?",
+        "Flavor": "Do they <sprite index=61> it because of what it will do to them? Or, do they <sprite index=61> it because of what it will do to you?",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -845,7 +845,7 @@
         "Name": "Cryptic Research"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: This attack deals +1 damage if the Challenge is succeeded by 2 or more.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: This attack deals +1 <sprite index=59> if the Challenge is succeeded by 2 or more.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -903,7 +903,7 @@
         "Name": "Pickpocketing"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 damage.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -981,7 +981,7 @@
         "Name": "Elusive"
     },
     {
-        "Description": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 damage.",
+        "Description": "<b>Fight.</b> This attack uses [agility] instead of [combat]. This attack deals +2 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1002,7 +1002,7 @@
         "Name": "Backstab"
     },
     {
-        "Description": "Deal 2 damage to an exhausted enemy at your location.",
+        "Description": "Deal 2 <sprite index=59> to an exhausted enemy at your location.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1174,7 +1174,7 @@
         "Name": "Holy Rosary"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator uses <sprite index=57> for this attack and deals +1 damage. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, the Investigator takes 1 Fear.",
+        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator uses <sprite index=57> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, the Investigator takes 1 <sprite index=61>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1293,7 +1293,7 @@
         "Name": "Ward of Protection"
     },
     {
-        "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn.",
+        "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 1 <sprite index=59> to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1355,7 +1355,7 @@
         "Name": "Mind Wipe"
     },
     {
-        "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 damage to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror.",
+        "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 <sprite index=59> to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1461,7 +1461,7 @@
         "Name": "Scavenging"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 damage. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
+        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1620,7 +1620,7 @@
         "Name": "Survival Instinct"
     },
     {
-        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to another enemy at your location, instead. (You still take horror dealt by the attack.)",
+        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's <sprite index=59> to another enemy at your location, instead. (You still take horror dealt by the attack.)",
         "Flavor": "\"Do not be frightened by what you see. Be frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,
@@ -1704,7 +1704,7 @@
         "Name": "Will to Survive"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack.\n<sprite index=9><sprite index=49> <b>Attack</b>: <<01586>> is discarded and the Investigator gets +2<sprite index=54> for this attack and deals +1 damage",
+        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack.\n<sprite index=9><sprite index=49> <b>Attack</b>: <<01586>> is discarded and the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1907,63 +1907,48 @@
         "Name": "Elder Sign Amulet"
     },
     {
-        "Description": "<b>Revelation</b> - Choose and discard all but 1 card from your hand.",
+        "Description": "<sprite index=7> : The Investigator chooses 1 card from their hand and discards the rest.",
         "Flavor": "Wait... where am I? What was I doing?",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Basic Weakness",
-            "Madness"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01596",
-        "Name": "Amnesia"
+        "Name": "Cognitive Dissonance"
     },
     {
-        "Description": "<b>Revelation</b> - Discard all your resources.",
+        "Description": "<sprite index=7> : The Investigator loses all their <sprite index=39>.",
         "Flavor": "What was that noise?",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Basic Weakness",
-            "Madness"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01597",
-        "Name": "Paranoia"
+        "Name": "Anxiety Attack"
     },
     {
-        "Description": "<b>Revelation</b> - Add Haunted to your threat area.\nYou get -1 to each of your skills.\n[action] [action]: Discard Haunted.",
+        "Description": "<sprite index=7> : The Investigator gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Basic Weakness",
-            "Curse"
-        ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01598",
-        "Name": "Haunted"
+        "Name": "Spectral Vision"
     },
     {
-        "Description": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct damage.\n[action] [action]: Discard Psychosis.",
+        "Description": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct <sprite index=59>.\n[action] [action]: Discard Psychosis.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1981,7 +1966,7 @@
         "Name": "Psychosis"
     },
     {
-        "Description": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more damage: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
+        "Description": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more <sprite index=59>: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -2072,7 +2057,7 @@
         "Name": "Stubborn Detective"
     },
     {
-        "Description": "Uses (4 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 damage and 1 horror from an investigator or [[Ally]] asset in your location.",
+        "Description": "Uses (4 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 <sprite index=59> and 1 horror from an investigator or [[Ally]] asset in your location.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -2093,7 +2078,7 @@
         "Name": "First Aid"
     },
     {
-        "Description": "Fast. Play when you are dealt damage and/or horror.\nCancel up to 5 damage and/or horror just dealt to you. Then, gain that many resources.",
+        "Description": "Fast. Play when you are dealt <sprite index=59> and/or horror.\nCancel up to 5 <sprite index=59> and/or horror just dealt to you. Then, gain that many resources.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -2180,7 +2165,7 @@
         "Name": "Lockpicks"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 damage. If the Attack is succeeded by 3 or more, the Investigator gains 1 <sprite index=7>, limit once per Turn",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, the Investigator gains 1 <sprite index=7>, limit once per Turn",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -2237,7 +2222,7 @@
         "Name": "Scrying"
     },
     {
-        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's damage to any enemy at your location, instead. (You still take horror dealt by the attack.)",
+        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's <sprite index=59> to any enemy at your location, instead. (You still take horror dealt by the attack.)",
         "Flavor": "\"Do not be frightened by what you see.\nBe frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,

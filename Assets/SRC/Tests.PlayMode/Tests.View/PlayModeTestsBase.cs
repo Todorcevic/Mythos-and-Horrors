@@ -219,8 +219,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         protected IEnumerator BuildCard(string cardCode, Investigator investigator)
         {
             Card cardCreated = SceneContainer.Resolve<CardLoaderUseCase>().Execute(cardCode);
-            SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
             yield return _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(investigator, cardCreated).Execute().AsCoroutine();
+            SceneContainer.TryResolve<CardViewGeneratorComponent>()?.BuildCardView(cardCreated);
         }
     }
 }

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card
+    public abstract class Card
     {
         [Inject] private readonly CardInfo _info;
         [InjectOptional] private readonly CardExtraInfo _extraInfo;
@@ -34,11 +34,12 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
-        public virtual IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
+        public CardExtraInfo ExtraInfo => _extraInfo;
+        public abstract IEnumerable<Tag> Tags { get; }
         public IEnumerable<Activation<Investigator>> AllActivations => _activationsProvider.GetActivationsFor(this);
         public IEnumerable<Buff> AllBuffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
-        public CardExtraInfo ExtraInfo => _extraInfo;
+
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<CardEffect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
@@ -49,6 +50,9 @@ namespace MythosAndHorrors.GameRules
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
 
         /*******************************************************************/
+        /*Zenject will execute this method in both the base class and derived classes with Init method,
+             with the base class method being executed first. This allows each to add complementary initialization logic
+             without overriding the base class logic. The purpose is to avoid the need to create a long constructor in every Card class*/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()

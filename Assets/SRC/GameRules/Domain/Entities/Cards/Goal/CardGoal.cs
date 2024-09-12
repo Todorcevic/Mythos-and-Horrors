@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -17,6 +18,7 @@ namespace MythosAndHorrors.GameRules
         public Activation<Investigator> PayKeys { get; private set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
 
         /*******************************************************************/
         public int Position => _chaptersProviders.CurrentScene.GoalCards.IndexOf(this);

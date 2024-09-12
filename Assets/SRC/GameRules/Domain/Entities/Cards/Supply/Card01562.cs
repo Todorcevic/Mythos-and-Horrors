@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01562 : CardChallengeSupply
     {
-        [Inject] private readonly GameActionsProvider _gameActionsProvider;
-
-        public override IEnumerable<Tag> Tags => new[] { Tag.Talent };
-
-        /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardSupply : CommitableCard, IPlayableFromHandInTurn
+    public abstract class CardSupply : CommitableCard, IPlayableFromHandInTurn
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 

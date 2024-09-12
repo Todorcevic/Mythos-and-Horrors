@@ -3,7 +3,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CommitableCard : Card
+    public abstract class CommitableCard : Card
     {
         public Investigator InvestigatorCommiter { get; private set; }
         public Stat Strength { get; private set; }

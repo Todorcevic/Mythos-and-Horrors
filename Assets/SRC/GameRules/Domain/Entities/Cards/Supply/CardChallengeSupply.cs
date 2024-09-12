@@ -5,11 +5,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardChallengeSupply : CardSupply
+    public abstract class CardChallengeSupply : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         public List<Activation<ChallengePhaseGameAction>> AllCommitsActivations { get; private set; } = new();
+        public override IEnumerable<Tag> Tags => new[] { Tag.Talent };
 
         /*******************************************************************/
         protected Activation<ChallengePhaseGameAction> CreateChallengeActivation(Func<ChallengePhaseGameAction, Task> logic, Func<ChallengePhaseGameAction, bool> condition, PlayActionType playActionType, Localization localization, Card cardAffected = null)

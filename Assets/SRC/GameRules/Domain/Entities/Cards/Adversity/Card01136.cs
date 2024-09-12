@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -6,6 +8,8 @@ namespace MythosAndHorrors.GameRules
     public class Card01136 : CardAdversityLimbo
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
 
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)

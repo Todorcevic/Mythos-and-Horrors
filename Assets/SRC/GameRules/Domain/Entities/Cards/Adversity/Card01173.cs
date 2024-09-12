@@ -12,6 +12,8 @@ namespace MythosAndHorrors.GameRules
 
         private SceneCORE2 SceneCORE2 => (SceneCORE2)_chaptersProvider.CurrentScene;
 
+        public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
+
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)
         {

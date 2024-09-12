@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class CardPlace : Card, IRevealable
+    public abstract class CardPlace : Card, IRevealable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
