@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Zenject;
+using Zenject.ReflectionBaking.Mono.Cecil;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -9,6 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public Charge Charge { get; private set; }
         public Stat ChargeFear { get; private set; }
@@ -64,14 +66,14 @@ namespace MythosAndHorrors.GameRules
         private async Task ChangeTokenLogic(RevealChallengeTokenGameAction reavelChangeTokenGameAction)
         {
             await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(reavelChangeTokenGameAction.ChallengeTokenRevealed).Execute();
-            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.FailToken, reavelChangeTokenGameAction.Investigator).Execute();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_challengeTokensProvider.GetSpecificToken(ChallengeTokenType.Fail), reavelChangeTokenGameAction.Investigator).Execute();
         }
 
         private bool ChangeTokenCondition(RevealChallengeTokenGameAction reavelChangeTokenGameAction)
         {
             if (IsInPlay.IsFalse) return false;
             if (reavelChangeTokenGameAction.Investigator != ControlOwner) return false;
-            if (reavelChangeTokenGameAction.ChallengeTokenRevealed != _chaptersProvider.CurrentScene.StarToken) return false;
+            if (reavelChangeTokenGameAction.ChallengeTokenRevealed.TokenType != ChallengeTokenType.Star) return false;
             return true;
         }
     }

@@ -2,7 +2,6 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,6 +73,7 @@ namespace MythosAndHorrors.GameView
             _challengeCardController.Disable();
             _commitCardController.ClearAll();
         }
+
 
         private Sequence ShowAnimation() => DOTween.Sequence()
                 .Join(transform.DOMove(_showPosition.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))

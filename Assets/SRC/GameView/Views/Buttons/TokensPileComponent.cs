@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
         private const float MOVE_OFFSET = 8;
         private const float Y_OFF_SET = 1f;
         private const float Z_OFF_SET = 2f;
-        private const float LIGHT_INTENSITY = 10f;
+        private const float LIGHT_INTENSITY = 2f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

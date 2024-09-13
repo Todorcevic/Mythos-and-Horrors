@@ -26,6 +26,8 @@ namespace MythosAndHorrors.GameRules
 
         public ChallengeToken GetRandomToken() => ChallengeTokensInBag[new Random().Next(ChallengeTokensInBag.Count)];
 
+        public ChallengeToken GetSpecificToken(ChallengeTokenType tokenType) => ChallengeTokensInBag.Find(token => token.TokenType == tokenType);
+
         public void RestoreSingleToken(ChallengeToken token)
         {
             ChallengeTokensInBag.Add(token);
@@ -44,12 +46,12 @@ namespace MythosAndHorrors.GameRules
         {
             return token switch
             {
-                ChallengeTokenType.Ancient => _chaptersProvider.CurrentScene.AncientToken,
-                ChallengeTokenType.Creature => _chaptersProvider.CurrentScene.CreatureToken,
-                ChallengeTokenType.Danger => _chaptersProvider.CurrentScene.DangerToken,
-                ChallengeTokenType.Cultist => _chaptersProvider.CurrentScene.CultistToken,
-                ChallengeTokenType.Fail => _chaptersProvider.CurrentScene.FailToken,
-                ChallengeTokenType.Star => _chaptersProvider.CurrentScene.StarToken,
+                ChallengeTokenType.Ancient => _chaptersProvider.CurrentScene.GetNewAncientToken(),
+                ChallengeTokenType.Creature => _chaptersProvider.CurrentScene.GetNewCreatureToken(),
+                ChallengeTokenType.Danger => _chaptersProvider.CurrentScene.GetNewDangerToken(),
+                ChallengeTokenType.Cultist => _chaptersProvider.CurrentScene.GetNewCultistToken(),
+                ChallengeTokenType.Fail => _chaptersProvider.CurrentScene.GetNewFailToken(),
+                ChallengeTokenType.Star => _chaptersProvider.CurrentScene.GetNewStarToken(),
                 _ => new ChallengeToken(token, (_) => (int)token)
             };
         }

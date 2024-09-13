@@ -29,12 +29,32 @@ namespace MythosAndHorrors.GameRules
         public abstract IEnumerable<Card> StartDeckDangerCards { get; }
 
         /************************** TOKENS *****************************/
-        public ChallengeToken StarToken { get; protected set; }
-        public ChallengeToken FailToken { get; protected set; }
-        public ChallengeToken AncientToken { get; protected set; }
-        public ChallengeToken CultistToken { get; protected set; }
-        public ChallengeToken DangerToken { get; protected set; }
-        public ChallengeToken CreatureToken { get; protected set; }
+        public ChallengeToken GetNewStarToken()
+        {
+            return new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue, description: StarDescription);
+
+            /*******************************************************************/
+            async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect.Invoke();
+            int StarValue(Investigator investigator) => investigator.InvestigatorCard.StarTokenValue.Invoke();
+            string StarDescription(Investigator investigator) => investigator.InvestigatorCard.StarTokenDescription.Invoke();
+        }
+
+        public ChallengeToken GetNewFailToken()
+        {
+            return new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect, description: (_) => FailTokenDescription);
+
+            /*******************************************************************/
+            async Task FailEffect(Investigator investigator)
+            {
+                _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
+                await Task.CompletedTask;
+            }
+
+        }
+        public abstract ChallengeToken GetNewAncientToken();
+        public abstract ChallengeToken GetNewCultistToken();
+        public abstract ChallengeToken GetNewDangerToken();
+        public abstract ChallengeToken GetNewCreatureToken();
 
         /************************** RESOURCES *****************************/
         public Stat PileAmount { get; private set; }
@@ -53,7 +73,6 @@ namespace MythosAndHorrors.GameRules
             Zones.Add(new(ZoneType.Victory));
             Zones.Add(new(ZoneType.Limbo));
             InitializePlaceZones();
-            PrepareDefaultChallengeTokens();
             PrepareResolutions();
             _reactionablesProvider.CreateReaction<EliminateInvestigatorGameAction>(InvestigatorsLooseCondition, InvestigatorsLooseLogic, GameActionTime.After);
         }
@@ -82,28 +101,6 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public abstract Task PrepareScene();
-
-        protected abstract void PrepareChallengeTokens();
-
-        private void PrepareDefaultChallengeTokens()
-        {
-            PrepareChallengeTokens();
-            StarToken = new ChallengeToken(ChallengeTokenType.Star, effect: StarEffect, value: StarValue, description: StarDescription);
-            FailToken = new ChallengeToken(ChallengeTokenType.Fail, effect: FailEffect, description: (_) => FailTokenDescription);
-
-            /*******************************************************************/
-            async Task StarEffect(Investigator investigator) => await investigator.InvestigatorCard.StarTokenEffect.Invoke();
-
-            int StarValue(Investigator investigator) => investigator.InvestigatorCard.StarTokenValue.Invoke(); ;
-
-            string StarDescription(Investigator investigator) => investigator.InvestigatorCard.StarTokenDescription.Invoke();
-
-            async Task FailEffect(Investigator investigator)
-            {
-                _gameActionsProvider.CurrentChallenge.IsAutoFail = true;
-                await Task.CompletedTask;
-            }
-        }
 
         private void PrepareResolutions()
         {

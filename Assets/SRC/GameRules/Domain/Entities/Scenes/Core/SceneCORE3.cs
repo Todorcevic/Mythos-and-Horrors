@@ -239,15 +239,10 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override void PrepareChallengeTokens()
-        {
-            {
-                CreatureToken = new ChallengeToken(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: (_) => CreatureTokenDescriptionNormal);
-                CultistToken = new ChallengeToken(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: (_) => CultistTokenDescriptionNormal);
-                DangerToken = new ChallengeToken(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: (_) => DangerTokenDescriptionNormal);
-                AncientToken = new ChallengeToken(ChallengeTokenType.Ancient, value: AncientValue, effect: AncientEffect, description: (_) => DangerTokenDescriptionNormal);
-            }
-        }
+        public override ChallengeToken GetNewCreatureToken() => new(ChallengeTokenType.Creature, value: CreatureValue, effect: CreatureEffect, description: (_) => CreatureTokenDescriptionNormal);
+        public override ChallengeToken GetNewDangerToken() => new(ChallengeTokenType.Danger, value: DangerValue, effect: DangerEffect, description: (_) => DangerTokenDescriptionNormal);
+        public override ChallengeToken GetNewCultistToken() => new(ChallengeTokenType.Cultist, value: CultistValue, effect: CultistEffect, description: (_) => CultistTokenDescriptionNormal);
+        public override ChallengeToken GetNewAncientToken() => new(ChallengeTokenType.Ancient, value: AncientValue, effect: AncientEffect, description: (_) => AncientTokenDescriptionNormal);
 
         private int CreatureValue(Investigator investigator)
         {

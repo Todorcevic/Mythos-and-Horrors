@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Fortune, Tag.Blessed };
         protected override GameActionTime FastReactionAtStart => GameActionTime.After;
@@ -18,7 +20,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return;
             await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(revealChallengeTokenGameAction.ChallengeTokenRevealed).Execute();
-            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_chaptersProvider.CurrentScene.StarToken, investigator).Execute();
+            await _gameActionsProvider.Create<RevealChallengeTokenGameAction>().SetWith(_challengeTokensProvider.GetSpecificToken(ChallengeTokenType.Star), investigator).Execute();
         }
 
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)

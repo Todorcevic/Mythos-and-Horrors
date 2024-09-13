@@ -22,7 +22,7 @@
         "Name": "Eliot Spencer"
     },
     {
-        "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>, if the Challenge is successful, <<01502>> draws 1 Card for each [[Tome]] she controls.",
+        "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge is successful, <<01502>> draws 1 Card for each [[Tome]] she controls.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Mystic cards ([mystic]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon (John Dee Translation), 1 random basic weakness.",
         "Flavor": "\"I know of books so powerful, they can rewrite reality.\"",
         "Flavor2": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, <sprite index=60>. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
@@ -44,7 +44,7 @@
         "Name": "Beatrice Ward"
     },
     {
-        "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2<sprite index=58>, if the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
+        "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2<sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
         "Flavor": "\"I didn't get out of the joint just to watch the world end.\"",
         "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for his mother's operation. His mother died of her illness during the second year of his sentence. His cellmate, Brad Hollins, told him there were worse fates than death. He ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures he'd had while dreaming. Skids didn't give it much thought until the night he woke to the sight of his cellmate bursting into flames. When Skids was finally released, he returned to Arkham, looking for answers.",
@@ -88,7 +88,7 @@
         "Name": "Lucille Hargrove"
     },
     {
-        "Description": "<sprite index=10> : Limit once per Challenge, after <<01505>> reveals a Symbol, she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>, if <<01514>> is in play, the Challenge automatically succeeds.",
+        "Description": "<sprite index=10> : Limit once per Challenge, after <<01505>> reveals a Symbol, she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
         "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",

@@ -29,7 +29,7 @@ namespace MythosAndHorrors.GameView
         public void ShowRevealedTokens(Investigator investigator)
         {
             allTokensTop.Concat(allTokensBottom).ForEach(token => token.HideToken());
-            allTokensTop.Concat(allTokensBottom).Where(token => _challengeTokensProvider.ChallengeTokensRevealed.Contains(token.Challengetoken))
+            allTokensTop.Concat(allTokensBottom).Where(challengeToken2d => _challengeTokensProvider.ChallengeTokensRevealed.Contains(challengeToken2d.Challengetoken))
                 .ForEach(token => token.ShowToken());
 
             List<(string, string, Sprite)> allDropTokensInfo = _challengeTokensProvider.ChallengeTokensRevealed.Select(token => (
@@ -41,7 +41,7 @@ namespace MythosAndHorrors.GameView
 
         private void SetTopTokens(Investigator investigator)
         {
-            foreach (ChallengeToken token in _challengeTokensProvider.AllBasicChallengeTokens)
+            foreach (ChallengeToken token in _challengeTokensProvider.AllBasicChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
             {
                 ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, topTokensContainer);
                 sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _challengeMessageController);
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.GameView
 
         private void SetBottomTokens(Investigator investigator)
         {
-            foreach (ChallengeToken token in _challengeTokensProvider.AllSpecialChallengeTokens)
+            foreach (ChallengeToken token in _challengeTokensProvider.AllSpecialChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
             {
                 ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, bottomTokensContainer);
                 sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _challengeMessageController);
