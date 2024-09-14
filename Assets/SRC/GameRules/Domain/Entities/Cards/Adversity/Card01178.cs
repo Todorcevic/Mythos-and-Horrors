@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        public override IEnumerable<Tag> Tags => new[] { Tag.Pact, Tag.Isolate };
+        public override IEnumerable<Tag> Tags => new[] { Tag.Pact, Tag.Deprivation };
 
         /*******************************************************************/
         protected override async Task ObligationLogic(Investigator investigator)

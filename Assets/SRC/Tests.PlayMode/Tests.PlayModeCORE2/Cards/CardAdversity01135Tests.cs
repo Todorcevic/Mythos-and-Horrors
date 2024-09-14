@@ -10,14 +10,14 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardAdversity01135Tests : TestCORE2Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator PayKeys()
         {
             Investigator investigator = _investigatorsProvider.Fourth;
             yield return PlaceOnlyScene();
-            yield return PlayThisInvestigator(investigator);
+            yield return PlayAllInvestigators();
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
             yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(investigator, investigator.CurrentPlace.Keys, 2).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();

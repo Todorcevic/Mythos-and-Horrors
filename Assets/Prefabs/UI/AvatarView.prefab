@@ -750,6 +750,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 687382625686284995}
     m_Modifications:
+    - target: {fileID: 148867846010961370, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e9b22787de4fe042a51076373bed62e, type: 3}
+    - target: {fileID: 148867846010961370, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 735261545278921325, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -832,6 +840,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538516175154594262, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912121159064636646, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e9b22787de4fe042a51076373bed62e, type: 3}
+    - target: {fileID: 4912121159064636646, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6137762236914465782, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
@@ -932,6 +948,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6687493885220480963, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049030606644825312, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e9b22787de4fe042a51076373bed62e, type: 3}
+    - target: {fileID: 7049030606644825312, guid: e4b8a1aeb44e3114fb2368561368eeb7, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

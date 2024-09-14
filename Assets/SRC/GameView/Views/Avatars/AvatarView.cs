@@ -42,6 +42,12 @@ namespace MythosAndHorrors.GameView
 
         public Tween DeactivateGlow() => _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
 
+        public Tween Show() => transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
+
+
+        public Tween Hide() => transform.DOScale(0f, ViewValues.FAST_TIME_ANIMATION);
+
+
         private async void SetPicture() => await _picture.LoadCardSprite(Investigator.InvestigatorCard.Info.Code);
 
         private void SetStats()

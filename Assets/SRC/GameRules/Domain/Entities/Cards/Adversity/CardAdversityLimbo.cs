@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
 
+        private bool IsPeril => HasThisTag(Tag.Deprivation);
+
         /*******************************************************************/
         [Inject]
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
@@ -21,9 +23,9 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task PlayRevelationFor(Investigator investigator)
         {
-            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, true).Execute();
+            if (IsPeril) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, true).Execute();
             await ObligationLogic(investigator);
-            if (HasThisTag(Tag.Isolate)) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, false).Execute();
+            if (IsPeril) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator.Isolated, false).Execute();
             await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 

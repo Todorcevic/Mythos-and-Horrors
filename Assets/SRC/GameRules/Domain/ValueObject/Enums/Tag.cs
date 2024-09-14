@@ -29,7 +29,7 @@
         Illicit,
         Innate,
         Insight,
-        Isolate,
+        Deprivation,
         Item,
         Madness,
         Melee,

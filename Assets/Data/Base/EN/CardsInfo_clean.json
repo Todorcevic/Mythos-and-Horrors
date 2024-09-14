@@ -169,7 +169,7 @@
         "Name": "The Book of Hali"
     },
     {
-        "Description": "<sprite index=7> :The Investigator cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
+        "Description": "<sprite index=11> : The Investigator cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
         "Flavor": "I ain't going to the pen a second time.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -200,7 +200,7 @@
         "Name": "Illegal Gambling Debts"
     },
     {
-        "Description": "<sprite index=10> : After the Investigator plays a [[Spell]], draw 1 card.",
+        "Description": "<sprite index=10> : After the Investigator plays a [[Spell]], they draw 1 card.",
         "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -233,7 +233,7 @@
         "Name": "Haunting Visions"
     },
     {
-        "Description": "<sprite index=7> : The topmost Condition in the Investigator discard pile is playable.\n<sprite index=7> : When a Condition would be discarded, it is placed at the bottom of the deck instead.",
+        "Description": "<sprite index=11> : The topmost Condition in the Investigator discard pile is playable.\n<sprite index=7> : When a Condition would be discarded, it is placed at the bottom of the deck instead.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1935,7 +1935,7 @@
         "Name": "Anxiety Attack"
     },
     {
-        "Description": "<sprite index=7> : The Investigator gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
+        "Description": "<sprite index=11> : The Investigator gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1948,40 +1948,30 @@
         "Name": "Spectral Vision"
     },
     {
-        "Description": "<b>Revelation</b> - Add Psychosis to your threat area.\n<b>Forced</b> - After you take 1 or more horror: Take 1 direct <sprite index=59>.\n[action] [action]: Discard Psychosis.",
+        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=60>, they take 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Adversity",
-            "Basic Weakness",
-            "Madness"
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01599",
-        "Name": "Psychosis"
+        "Name": "Hysteria"
     },
     {
-        "Description": "<b>Revelation</b> - Add Hypochondria to your threat area.\n<b>Forced</b> - After you take 1 or more <sprite index=59>: Take 1 direct horror.\n[action] [action]: Discard Hypochondria.",
+        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=59>, they take 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Basic Weakness",
-            "Madness"
-        ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01600",
-        "Name": "Hypochondria"
+        "Name": "Obsessive Infection"
     },
     {
         "Description": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley</b>. Discard Mob Enforcer.",
@@ -2323,5 +2313,1723 @@
         "CardType": 2,
         "Code": "01695",
         "Name": "Relic Hunter"
+    },
+    {
+        "Description": "Easy / Standard\n[skull] -X. X is the number of [[Ghoul]] enemies at your location.\n[cultist] -1. If you fail, take 1 horror.\n[tablet] -2. If there is a [[Ghoul]] enemy at your location, take 1 damage.\n",
+        "Description2": "Hard / Expert\n[skull] -2. If you fail, after this skill test, search the encounter deck and discard pile for a [[Ghoul]] enemy, and draw it. Shuffle the encounter deck.\n[cultist] Reveal another token. If you fail, take 2 horror.\n[tablet] -4. If there is a [[Ghoul]] enemy at your location, take 1 damage and 1 horror.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Scene"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 512,
+        "Code": "01104",
+        "Name": "The Gathering"
+    },
+    {
+        "Description2": "The lead investigator must decide (choose one): Either each investigator discards 1 card at random from his or her hand, or the lead investigator takes 2 horror.",
+        "Flavor": "It is late at night. You are holed up in your study, researching the bloody disappearances that have been taking place in the region. A few hours into your research, you hear the sound of strange chanting coming from your parlor, down the hall. At the same time, you hear dirt churning, as if something were digging beneath the floor.",
+        "Flavor2": "Your house continues to change before your very eyes. The walls have decayed, and the ground in many rooms has turned to dirt. It is almost as if you have been transported somewhere else entirely, although every now and again you recognize elements of your former home.",
+        "PackCode": "core",
+        "Name2": "A Lapse in Time",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01105",
+        "Name": "What's Going On?!"
+    },
+    {
+        "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until a [[Ghoul]] enemy is discarded. The lead investigator draws that enemy.",
+        "Flavor": "The floor beneath you is giving way, and you see a vast network of tunnels, twisting into the darkness below. Shapes and silhouettes of strange creatures move swiftly through the tunnels, trying to find a way up. You probably don't want to be here when they do...",
+        "Flavor2": "A feral beast, roughly humanoid with a canine cast and hooves for feet, tears through the ground in front of you. Below the floor, you can see vast tunnels beneath your house. Fiendish howling echoes from deep within the underground caverns.",
+        "PackCode": "core",
+        "Name2": "The Tunnels Below",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 7,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01106",
+        "Name": "Rise of the Ghouls"
+    },
+    {
+        "Description": "<b>Forced</b> - At the end of the enemy phase: Each unengaged [[Ghoul]] enemy moves 1 location towards the Parlor.\n<b>Forced</b> - At the end of the round: Place 1 doom on this agenda for each [[Ghoul]] enemy in the Hallway or Parlor.",
+        "Description2": "- If the investigators are at Act 1 or 2, they are trapped inside the house as the ghouls tear them apart. <b>(→R3)</b>\n- If the investigators are at Act 3, they barely escape with their lives, allowing the ghouls to run rampant. Each investigator that has not resigned is defeated and suffers 1 physical trauma.",
+        "Flavor": "You hear a crazed howl outside, and suddenly all the creatures turn their attention to that sound. They rush to escape the house, breaking down doors and clawing at everything in their way.",
+        "Flavor2": "The ground begins to shake and you can see claws rising up from the dirt as uncanny creatures desperately try to claw their way out of the ground all around you. Everywhere you turn, you see monsters rising from the earth. Terrified, you flee as fast as you can.",
+        "PackCode": "core",
+        "Name2": "The Ghouls Break Free",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 10,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01107",
+        "Name": "They're Getting Out!"
+    },
+    {
+        "Description2": "Put into play the set-aside Hallway, Cellar, Attic, and Parlor.\nDiscard each enemy in the Study.\nPlace each investigator in the Hallway.\nRemove the Study from the game.",
+        "Flavor": "As you leap to investigate, the door to your study vanishes before your eyes, leaving behind only solid wall. You're trapped inside your study until you can find another way out.",
+        "Flavor2": "You notice that the edges of your newly purchased rug are tattered and mud-stained. Finding this odd, you shift the furniture aside and pull back the rug. To your surprise, you see the door leading out of your study. You slowly turn the knob, and the door swings open, revealing your hallway below.\nYou jump through the doorway, landing on your feet on soft dirt. The door to the study slams shut above you. The smell of burning wood fills the narrow hall, intermingled with the scent of rot and decay.",
+        "PackCode": "core",
+        "Name2": "The Door on the Floor",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01108",
+        "Name": "Trapped"
+    },
+    {
+        "Description": "<b>Objective</b> - When the round ends, investigators in the hallway may, as a group, spend the requisite number of clues to advance.",
+        "Description2": "The barrier blocking passage into the parlor has vanished. Reveal the Parlor.\nPut the set-aside Lita Chantler into play in the Parlor.\nSpawn the set-aside Ghoul Priest in the Hallway.",
+        "Flavor": "A glowing barrier blocks the path to your parlor. As you move toward it, intense heat forces you to back away. Picking up a handful of dirt, you toss it as the barrier and watch in horror as the dirt incinerates. Perhaps there's something in the cellar or attic that can help.",
+        "Flavor2": "Using the barrel from the attic, you carry ice and snow from the cellar and hurl it at the barrier. The barrier sparks and shudders as it consumes the ice, then hisses and fades out of existence.",
+        "PackCode": "core",
+        "Name2": "Breaking the Barrier",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "Hints": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01109",
+        "Name": "The Barrier"
+    },
+    {
+        "Description": "<b>Objective</b> - If the Ghoul Priest is Defeated, advance.",
+        "Description2": "The lead investigator must decide (choose one):\n- It was never much of a home. Burn it down! <b>(→R1)</b>\n- This hell-pit is my home! No way are we burning it! <b>(→R2)</b>",
+        "Flavor": "A woman with a torch stands in your parlor, a glimmer of hatred in her eyes. \"What have you done to my barrier?\" she screams, furious. Before you can enter, a ghastly wail sounds behind you, and a creature wearing robes and a deer skull mask tears through the wall, advancing towards you.",
+        "Flavor2": "When the robed creature falls, the fiendish swarm burrows back into the ground and the chaos of the house quiets. But the stranger in your parlor chamber doesn't seem relieved.\n\"You broke my seal that was set to trap the ghouls within.\" She raises her torch. \"Now, we must take more direct measures and burn this hell-pit to the ground!\"",
+        "PackCode": "core",
+        "Name2": "Defending the Home",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01110",
+        "Name": "What Have You Done?"
+    },
+    {
+        "Flavor": "The door to your study has vanished.",
+        "Flavor2": "You've been investigating the strange events occurring in Arkham for several days now. Your deck in covered in newspaper articles, police reports, and witness accounts.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01111",
+        "Name": "Study"
+    },
+    {
+        "Flavor": "The walls of your house are splattered with mud, and your hardwood floor is gone, replaced with a dirt path.",
+        "Flavor2": "A moment of panic and disorientation strikes as you land upon the floor of the hallway. The world spins, as if turned on its head.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place"
+        ],
+        "Quantity": 1,
+        "Enigma": 1,
+        "Hints": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01112",
+        "Name": "Hallway"
+    },
+    {
+        "Description": "<b>Forced</b> - After you enter the Attic: Take 1 horror.",
+        "Flavor": "The bloody carcass of a malformed beast swings from a meat hook chained to the ceiling. Blood drains slowly from the carcass, dripping into a small barrel.",
+        "Flavor2": "The smell of rotten meat assaults your nostrils as you approach the attic stairs.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 1,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01113",
+        "Name": "Attic"
+    },
+    {
+        "Description": "<b>Forced</b> - After you enter the Cellar: Take 1 damage.",
+        "Flavor": "Your cellar seems to have been replaced with an underground network of icy tunnels and caverns. The cold chills you to the bone.",
+        "Flavor2": "The stairs leading down to your cellar are slick, and they glisten with a thin layer of ice...",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 4,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01114",
+        "Name": "Cellar"
+    },
+    {
+        "Description": "[action] <b>Resign.</b> \"This is too much for me!\" You run out the front door, fleeing in panic.\nWhile Lita Chantler is not controlled by a player, she gains: \"[action]: <b>Parley.</b> Test [intellect] (4). If you succeed, take control of Lita Chantler.\"",
+        "Description2": "The entrance to the Parlor is blocked by a darkly glowing unfathomable barrier. You cannot move into the Parlor.",
+        "Flavor2": "You're unsure what would happen if you tried to cross the threshold of the strange barrier, but based on its extreme heat, you sure as hell don't want to try.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01115",
+        "Name": "Parlor"
+    },
+    {
+        "Description": "<b>Prey</b> - Highest [combat].\nHunter. Retaliate.",
+        "Flavor": "A figure in red robes wearing a bone mask. It gibbers and snarls before leaping to attack.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Ghoul",
+            "Elite"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 4,
+        "Health": 5,
+        "CreatureDamage": 2,
+        "CreatureFear": 2,
+        "Victory": 2,
+        "HealthPerInvestigator": true,
+        "CardType": 16,
+        "Code": "01116",
+        "Name": "Ghoul Priest"
+    },
+    {
+        "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n[reaction] When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 32,
+        "Slots": [
+            4
+        ],
+        "Tags": [
+            "Supply",
+            "Ally"
+        ],
+        "Cost": 0,
+        "Quantity": 1,
+        "Health": 3,
+        "Sanity": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 2,
+        "Code": "01117",
+        "Name": "Lita Chantler"
+    },
+    {
+        "Description": "<b>Spawn</b> - Attic.",
+        "Flavor": "A monstrous creature feeds from the rotting carcass in the attic.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Ghoul"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 1,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 2,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01118",
+        "Name": "Flesh-Eater"
+    },
+    {
+        "Description": "<b>Spawn</b> - Cellar.",
+        "Flavor": "Inside the tunnels beneath the house, a massive beast tears its way out of the ice. It is covered in a think layer of frost, its breath visible in the bitter cold.",
+        "PackCode": "core",
+        "SceneCode": "torch",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Ghoul"
+        ],
+        "Quantity": 1,
+        "Strength": 3,
+        "Agility": 4,
+        "Health": 4,
+        "CreatureDamage": 2,
+        "CreatureFear": 1,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01119",
+        "Name": "Icy Ghoul"
+    },
+    {
+        "Description": "Easy / Standard\n[skull]: -X. X is the highest number of doom on a [[Cultist]] enemy in play.\n[cultist]: -2. Place 1 doom on the nearest [[Cultist]] enemy.\n[tablet]: -3. If you fail, place 1 of your clues on your location.",
+        "Description2": "Hard / Expert\n[skull]: -X. X is the total number of doom in play.\n[cultist]: -2. Place 1 doom on each [[Cultist]] enemy in play. If there are no [[Cultist]] enemies in play, reveal another token.\n[tablet]: -4. If you fail, place all your clues on your location.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Scene"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 512,
+        "Code": "01120",
+        "Name": "The Midnight Masks"
+    },
+    {
+        "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Flavor": "Lita seems convinced of a conspiracy within the city of Arkham. She believes that a secret cult serves the ghouls that live in the crypts beneath the city, and that several of the cult's prominent members are scattered throughout Arkham. As you begin searching for them, you can't shake the feeling that you, too, are being hunted.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 6,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01121a",
+        "Name": "Predator or Prey?"
+    },
+    {
+        "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Description2": "<b>(→R2)</b>",
+        "Flavor": "The minutes pass quickly as your investigation continues.",
+        "Flavor2": "Twelve bells ring out across the town. It is midnight. There is no time left to investigate the city; you must act based on the information you've collected from the cultists you've found.",
+        "PackCode": "core",
+        "Name2": "The Clock Strikes Midnight",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 8,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01122",
+        "Name": "Time Is Running Short"
+    },
+    {
+        "Description": "[action] The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
+        "Description2": "<b>(→R1)</b>",
+        "Flavor": "You have one night to find the members of this cult and unveil their plan. The more members of the cult you can find and interrogate before midnight, the better.",
+        "Flavor2": "You've successfully uncovered the identities of all of the cult's high-ranking members within Arkham. The man who had stalked you throughout the city was dedicated in his conviction, as was Herman, the undertaker of the graveyard. Others seemed to have been coerced to aid the cult. Ruth, the mortician, had been told that her family would be killed if she did not supply the ghouls with fresh corpses. Thankfully, you managed to help her escape the hospital safely. Peter, the professor, had to be convinced that his involvement with the cult would do more harm than good. Victoria's obsession with occult artifacts had landed her deep within the cult's web. When you confronted Drew in the asylum, he attacked you - but interestingly, he did so because he thought you were part of the cult. The deeper you delve into this conspiracy, the clearer it becomes that many lives have been ruined by it.",
+        "PackCode": "core",
+        "Name2": "Secrets Unveiled",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01123",
+        "Name": "Uncovering the Conspiracy"
+    },
+    {
+        "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n[action]: Draw 1 card and gain 1 resource. (Limit once per turn.)",
+        "Flavor": "You still feel uneasy about going back.",
+        "Flavor2": "Despite what happened, you just couldn't bring yourself to destroy your home.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01124",
+        "Name": "Your House"
+    },
+    {
+        "Flavor": "There is something unsettling about the water of the Miskatonic River tonight. It ripples and bubbles as though something is moving beneath the surface.",
+        "Flavor2": "The banks of the Miskatonic River are lined with docks, warehouses and small shops in a district aptly named Rivertown.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham",
+            "Central"
+        ],
+        "Quantity": 1,
+        "Enigma": 1,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01125",
+        "Name": "Rivertown"
+    },
+    {
+        "Description": "[action]: Draw 3 cards. (Limit once per game.)",
+        "Flavor": "The Georgian manor housing the Historical Society is well known for its private library, where local records, maps, and artifacts from Arkham's past hint at secrets better left alone.",
+        "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 3,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01126",
+        "Name": "Southside"
+    },
+    {
+        "Description": "[action]: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
+        "Flavor": "Ma's is famous for its cheap rooms and Mystery Meat Mondays. A motley variety of characters can be found coming and going at all times of day.",
+        "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01127",
+        "Name": "Southside"
+    },
+    {
+        "Description": "[action]: Heal 3 damage. (Limit once per game.)",
+        "Flavor": "An extended stay at St. Mary's can do wonders for the body, but its effect on one's psyche is unclear.",
+        "Flavor2": "Arkham's only hospital, St. Mary's has a twenty-four-hour receiving room and is busy at all hours of the night. Doctor Mortimore and Nurse Sharon have been particularly stressed lately, thanks in part to recent events.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01128",
+        "Name": "St. Mary's Hospital"
+    },
+    {
+        "Description": "[action]: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
+        "Flavor": "The campus is quiet and lonely. Several of the buildings have been left unlocked for students and faculty working late into the night.",
+        "Flavor2": "Miskatonic University is one of the most prestigious colleges in the Northeast. The university library is famous for its collection of occult books maintained by the esteemed Dr. Henry Armitage.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 4,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01129",
+        "Name": "Miskatonic University"
+    },
+    {
+        "Description": "[action]: Gain 3 resources. (Limit once per game.)",
+        "Flavor": "We'll call this a \"loan.\"",
+        "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 3,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01130",
+        "Name": "Downtown"
+    },
+    {
+        "Description": "[action]: Heal 3 horror. (Limit once per game.)",
+        "Flavor": "A refuge for the mind, or a prison for the soul?",
+        "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 4,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01131",
+        "Name": "Downtown"
+    },
+    {
+        "Description": "While you are in Easttown, reduce the cost of each [[Ally]] asset you play by 2.",
+        "Flavor2": "The Easttown neighborhood, situated on the northern banks of the Miskatonic River, contains lower-class housing, the Arkham Police Station, and popular eateries like Velma's Diner.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01132",
+        "Name": "Easttown"
+    },
+    {
+        "Description": "<b>Forced</b> - After you enter the Graveyard: Test [willpower] (3). If you fail, you must either take 2 horror or move to Rivertown.",
+        "Flavor2": "The graveyard lies at the foot of French Hill. Some of the headstones date back to the seventeenth century, when the earliest colonists came to Arkham. Considering what happened in your house, you're not completely keen on heading there.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 1,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01133",
+        "Name": "Graveyard"
+    },
+    {
+        "Description": "[action] Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
+        "Flavor": "In Northside, nothing gets people talking faster than a piece of dough.",
+        "Flavor2": "Northside is a commercial district that contains many offices and factories, as well as the train station.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Arkham"
+        ],
+        "Quantity": 1,
+        "Victory": 1,
+        "Enigma": 3,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01134",
+        "Name": "Northside"
+    },
+    {
+        "Description": "<sprite index=7> : The Investigator is Isolated and must choose one: spend 1 <sprite index=38> or take 2 <sprite index=59>.",
+        "Flavor": "A shadowy figure follows you in the rain. When you look back, your head pounds in agony and your vision blurs.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Quantity": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01135",
+        "Name": "Creeping Shade"
+    },
+    {
+        "Description": "<b>Revelation</b> - If you have no clues, False Lead gains surge. If you have 1 or more clues, test [intellect] (4). For each point you fail by, place 1 of your clues on your location.",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01136",
+        "Name": "False Lead"
+    },
+    {
+        "Description": "<b>Spawn</b> - Downtown.\n<b>Forced</b> - When \"Wolf-Man\" Drew attacks: Heal 1 damage from him.",
+        "Flavor": "Drew is a longtime patient at Arkham Asylum. Rumor has it he was locked up for committing cannibalism several years ago. He is considered extremely dangerous.",
+        "PackCode": "core",
+        "SceneCode": "cultists",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 2,
+        "Health": 4,
+        "CreatureDamage": 2,
+        "CreatureFear": 0,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01137",
+        "Name": "\"Wolf-Man\" Drew"
+    },
+    {
+        "Description": "<b>Spawn</b> - Graveyard.\n[action] Choose and discard 4 cards from your hand: <b>Parley.</b> Add Herman Collins to the victory display.",
+        "Flavor": "The undertaker in the local graveyard has been digging strange tunnels underneath the mausoleum... but for what purpose?",
+        "PackCode": "core",
+        "SceneCode": "cultists",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 3,
+        "Agility": 4,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01138",
+        "Name": "Herman Collins"
+    },
+    {
+        "Description": "<b>Spawn</b> - Miskatonic University.\n[action] Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
+        "Flavor": "A professor of the occult has been seen reading strange books that relate to cannibalism. Maybe he knows something we don't?",
+        "PackCode": "core",
+        "SceneCode": "cultists",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 2,
+        "Agility": 3,
+        "Health": 3,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01139",
+        "Name": "Peter Warren"
+    },
+    {
+        "Description": "<b>Spawn</b> - Northside.\n[action] Spend 5 resources: <b>Parley.</b> Add Victoria Devereux to the victory display.",
+        "Flavor": "Oliver Thomas, the proprietor of the Curiositie Shoppe, has informed you that a new client has taken a keen interest in a mysterious mask...",
+        "PackCode": "core",
+        "SceneCode": "cultists",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 3,
+        "Agility": 2,
+        "Health": 3,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01140",
+        "Name": "Victoria Devereux"
+    },
+    {
+        "Description": "<b>Spawn</b> - St. Mary's Hospital.\n<b>Forced</b> - After Ruth Turner is evaded: Add her to the victory display.",
+        "Flavor": "Bodies from the morgue have mysteriously gone missing. Perhaps the mortician in St. Mary's had something to do with these disappearances.",
+        "PackCode": "core",
+        "SceneCode": "cultists",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 2,
+        "Agility": 5,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01141",
+        "Name": "Ruth Turner"
+    },
+    {
+        "Description": "Easy / Standard\n[skull]: -X. X is the number of [[Monster]] enemies in play.\n[cultist]: -2. Place 1 doom on the nearest enemy.\n[tablet]: -3. If there is a [[Monster]] enemy at your location, take 1 damage.\n[elder_thing]: -5. If there is an [[Ancient One]] enemy in play, reveal another token.",
+        "Description2": "Hard / Expert\n[skull]: -3. If you fail, after this skill test, search the encounter deck and discard pile for a [[Monster]] enemy, and draw it. Shuffle the encounter deck.\n[cultist]: -4. Place 2 doom on the nearest enemy.\n[tablet]: -5. If there is a [[Monster]] enemy at your location, take 1 damage and 1 horror.\n[elder_thing]: -7. If there is an [[Ancient One]] enemy in play, reveal another token.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Scene"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 512,
+        "Code": "01142",
+        "Name": "The Devourer Below"
+    },
+    {
+        "Description2": "Shuffle the encounter discard pile into the encounter deck and discard cards from the top until a [[Monster]] enemy is discarded. Spawn that enemy in the Main Path. Then, place 1 doom on that enemy.",
+        "Flavor": "After interrogating members of the conspiracy within Arkham, you have learned that they are performing a rite of vengeance in response to the destruction of one of their master's lairs. You have entered the woods outside Arkham to try and stop them. The woods seem unnaturally cold, and filled with a deathly silence.",
+        "Flavor2": "Throughout the woods, a shrieking cry echoes. From somewhere deeper in the forest, a score of hideous voices answer the call, inhuman as the baying of hounds and yet articulate, repeating a singular name:\n\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"",
+        "PackCode": "core",
+        "Name2": "Death to the Intruders",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 4,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01143",
+        "Name": "The Arkham Woods"
+    },
+    {
+        "Description": "Each enemy gets +1 fight and +1 evade.",
+        "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search his or her collection for a random basic [[Madness]] weakness and add it to his or her hand.",
+        "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Arkham woods, blotting out the faint light of the stars.",
+        "Flavor2": "A dark presence approaches, and you are assaulted by invisible pressures that bring you to your knees. A terrible force threatens to invade your mind and soul. Your throat clenches and your eyes water as the sensation burns through you.",
+        "PackCode": "core",
+        "Name2": "The Will of Umôrdhoth",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 5,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01144",
+        "Name": "The Ritual Begins"
+    },
+    {
+        "Description": "<b>Forced</b> - When this agenda advances:\n- If the investigators are at Act 1, put the set-aside Ritual Site into play and spawn the set-aside Umôrdhoth there.\n- If the investigators are at Act 2 or 3, discard all enemies at the Ritual Site and spawn the set-aside Umôrdhoth there.",
+        "Description2": "<b>Revelation</b> - Replace the current Act and Agenda with The Devourer Below. This card is both the current Act and the current Agenda.\n<b>Objective</b> - If Umôrdhoth is defeated, <b>(→R2)</b>",
+        "Flavor": "The world begins to shift and change as the ritual nears its conclusion. The air grows chilly, and the entire forest is covered in a layer of rime. The trees bend unnaturally, and their shadows lengthen into weird shape.",
+        "PackCode": "core",
+        "Name2": "The Devourer Below",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Plot"
+        ],
+        "Quantity": 1,
+        "Eldritch": 5,
+        "HealthPerInvestigator": false,
+        "CardType": 256,
+        "Code": "01145",
+        "Name": "Vengeance Awaits"
+    },
+    {
+        "Description2": "Put the set-aside Ritual Site into play if it is not already in play.\nSearch the collection for each enemy recorded in your Campaign Log under \"Cultists Who Got Away,\" and spawn those enemies at the Main Path.",
+        "Flavor": "The evidence you've gathered has led you to the woods south of Arkham, where you believe a ritual to summon a being called \"Umôrdhoth\" is about to take place. Steeling your resolve, you set forth deeper into the woods, hoping to find the site of this ritual.",
+        "Flavor2": "Scattered throughout the forest you've seen glyphs and arcane sigils in various places - etched into the bark of trees, carved upon the faces of stones, and dripped in blood upon the ground. Though you cannot decipher these glyphs, you notice that most of them tend to face south. Following these signs leads you by twists and turns towards a cave in the darkest and coldest part of the forest.\nAs you advance, shadowy figures emerge from the trees, blocking the only path to the cave.",
+        "PackCode": "core",
+        "Name2": "Unveiling the Plan",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "Hints": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01146",
+        "Name": "Investigating the Trail"
+    },
+    {
+        "Description": "<b>Objective</b> - If an investigator enters the Ritual Site, advance.",
+        "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until 1 enemy is discarded (2 enemies instead if there are 3 or more players in the game). Spawn each discarded enemy at the Ritual Site.",
+        "Flavor": "The remaining cultists have followed you into the woods to try to stop you, and now they block the path to your objective. They stand ominously beneath the overhanging trees, silent sentinels in the night. You must defeat them or sneak past if you are to gain access to the site of their ritual.",
+        "Flavor2": "When you enter the cave, the air grows cold, and your nostrils are assaulted by the pungent smell of blood and rot.",
+        "PackCode": "core",
+        "Name2": "Last Rites",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01147",
+        "Name": "Into the Darkness"
+    },
+    {
+        "Description": "[action] Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
+        "Description2": "<b>(→R1)</b>",
+        "Flavor": "The site of the cult's ritual is inside a large cavern in a dark corner of the woods. In the center of the chamber is a candlelit circle marked by rocks and arcane runes.",
+        "Flavor2": "You brave the unnatural chill and weave through arcane symbols, crossing the threshold of the circle. You smother the markings on the ground, covering them with dirt, breaking apart the carefully constructed pattern of smooth rocks. A shrill noise pierces your ears as the air grows suddenly warmer, and the world distorts around you, settling into normality.",
+        "PackCode": "core",
+        "Name2": "The Ritual Is Broken",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Goal"
+        ],
+        "Quantity": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 128,
+        "Code": "01148",
+        "Name": "Disrupting the Ritual"
+    },
+    {
+        "Description": "The Main Path is connected to each other [[Woods]] location.\n[action]: <b>Resign.</b> \"There's nothing we can do to stop them!\" You flee from the woods, leaving Arkham to its grisly fate.",
+        "Flavor2": "Hangman's Brook separates Uptown from the woods south of Arkham. Passing over the small bridge, you follow the main path deeper into the trees.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01149",
+        "Name": "Main Path"
+    },
+    {
+        "Description": "<b>Forced</b> - After you enter this location: Test [willpower] (4). If you fail, take 1 horror and 1 damage.",
+        "Flavor": "This clearing has been the site of dark rites since colonists first came to the area over two centuries ago.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 4,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01150",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "<b>Forced</b> - When you move out of this location: Test [intellect] (3). If you fail, cancel the effects of the move.",
+        "Flavor": "This path seems to twist and turn upon itself, almost as if it were alive.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 3,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01151",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "This location is investigated using [willpower] instead of the skill indicated by the investigation attempt.",
+        "Flavor": "A house at the edge of the trail, covered in vines. Inside, the walls and floors are bloodstained and littered with dirt, mud, and discarded bones.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01152",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "This location is investigated using [agility] instead of the skill indicated by the investigation attempt.",
+        "Flavor": "Atop a nearby plateau, you can see signs of cultist activity. You will have to climb the cliff in order to reach the top.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01153",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
+        "Flavor": "An old horse trail in colonial days, this overgrown path hasn't been used in over a decade.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 2,
+        "Hints": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01154",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "[action]: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
+        "Flavor": "This would be a nice picnic spot, if it weren't for all the monsters.",
+        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Woods"
+        ],
+        "Quantity": 1,
+        "Enigma": 1,
+        "Hints": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01155",
+        "Name": "Arkham Woods"
+    },
+    {
+        "Description": "<b>Forced</b> - At the end of the round, if there are fewer than 2 clues per investigator on Ritual Site: Add clues to it until it has 2 clues per investigator on it.",
+        "Flavor": "The sigils on the wall begin to flicker in and out of focus, and the air grows heavy with the smell of death.",
+        "Flavor2": "The large central chamber of a cold, dark cavern, adorned with arcane markings and dimly lit by candlelight.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Place",
+            "Cave"
+        ],
+        "Quantity": 1,
+        "Enigma": 3,
+        "Hints": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 64,
+        "Code": "01156",
+        "Name": "Ritual Site"
+    },
+    {
+        "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n[action] If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Ancient One",
+            "Elite"
+        ],
+        "Quantity": 1,
+        "Strength": 5,
+        "Agility": 6,
+        "Health": 6,
+        "CreatureDamage": 3,
+        "CreatureFear": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01157",
+        "Name": "Umôrdhoth"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [willpower] (5). For each point you fail by, you must either (choose one): Choose and discard a card from your hand, or take 1 damage and 1 horror.",
+        "Flavor": "A deathly chill from below engulfs you, attempting to suck your life force away.",
+        "PackCode": "core",
+        "SceneCode": "tentacles",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Curse"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01158",
+        "Name": "Umôrdhoth's Wrath"
+    },
+    {
+        "Description": "Hunter.",
+        "Flavor": "A horde of cruel rats skitters forth in an undulating wave of claws, teeth, and mottled fur.",
+        "PackCode": "core",
+        "SceneCode": "rats",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Creature"
+        ],
+        "Quantity": 3,
+        "Strength": 1,
+        "Agility": 3,
+        "Health": 1,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01159",
+        "Name": "Swarm of Rats"
+    },
+    {
+        "Flavor": "It was a colossal and nameless blasphemy with glaring red eyes, and it held in bony claws a thing that had been a man, gnawing at the head as a child nibbles at a stick of candy. <cite>H. P. Lovecraft, \"Pickman's Model\"</cite>",
+        "PackCode": "core",
+        "SceneCode": "ghouls",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Ghoul"
+        ],
+        "Quantity": 3,
+        "Strength": 2,
+        "Agility": 2,
+        "Health": 2,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01160",
+        "Name": "Ghoul Minion"
+    },
+    {
+        "Description": "<b>Prey</b> - Lowest remaining health.",
+        "Flavor": "The sight of the thing raised the question: Do we eat to live, or do we live to eat?",
+        "PackCode": "core",
+        "SceneCode": "ghouls",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Ghoul"
+        ],
+        "Quantity": 1,
+        "Strength": 3,
+        "Agility": 3,
+        "Health": 3,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01161",
+        "Name": "Ravenous Ghoul"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [agility] (3). For each point you fail by, take 1 damage.",
+        "Flavor": "Decaying hands rise up from below and grasp and claw at your ankles.",
+        "PackCode": "core",
+        "SceneCode": "ghouls",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Hazard"
+        ],
+        "Quantity": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01162",
+        "Name": "Grasping Hands"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [willpower] (3). For each point you fail by, take 1 horror.",
+        "Flavor": "A sickening display of gore causes you to retch. You're glad this wasn't you.",
+        "PackCode": "core",
+        "SceneCode": "striking_fear",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Terror"
+        ],
+        "Quantity": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01163",
+        "Name": "Rotting Remains"
+    },
+    {
+        "Description": "<b>Revelation</b> - Put Frozen in Fear into play in your threat area.\nThe first time you perform one of the following actions (move, fight, or evade) each round, it costs 1 additional action.\n<b>Forced</b> - At the end of your turn: Test [willpower] (3). If you succeed, discard Frozen in Fear.",
+        "PackCode": "core",
+        "SceneCode": "striking_fear",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Terror"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01164",
+        "Name": "Frozen in Fear"
+    },
+    {
+        "Description": "<b>Revelation</b> - Put Dissonant Voices into play in your threat area.\nYou cannot play assets or events.\n<b>Forced</b> - At the end of the round: Discard Dissonant Voices.",
+        "PackCode": "core",
+        "SceneCode": "striking_fear",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Terror"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01165",
+        "Name": "Dissonant Voices"
+    },
+    {
+        "Description": "<b>Revelation</b> - Place 1 doom on the current agenda. This effect can cause the current agenda to advance.",
+        "Flavor": "Dark forces stir against you. If you do not act quickly, a sinister plot will be fulfilled.",
+        "PackCode": "core",
+        "SceneCode": "ancient_evils",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Omen"
+        ],
+        "Quantity": 3,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01166",
+        "Name": "Ancient Evils"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [willpower] (4). If you fail, choose and discard 1 asset you control (if you cannot, take 2 damage instead).",
+        "Flavor": "The supernatural cold threatens to freeze your soul.",
+        "PackCode": "core",
+        "SceneCode": "chilling_cold",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Hazard"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01167",
+        "Name": "Crypt Chill"
+    },
+    {
+        "Description": "<b>Revelation</b> - Attach to your location. Limit 1 per location.\nAttached location gets +2 shroud.\n<b>Forced</b> - After attached location is successfully investigated: Discard Obscuring Fog.",
+        "PackCode": "core",
+        "SceneCode": "chilling_cold",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Hazard"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01168",
+        "Name": "Obscuring Fog"
+    },
+    {
+        "Description": "<b>Spawn</b> - Any empty location.\n<b>Forced</b> - After Acolyte enters play: Place 1 doom on it.",
+        "Flavor": "It was only a small sacrifice.",
+        "PackCode": "core",
+        "SceneCode": "pentagram",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 3,
+        "Strength": 3,
+        "Agility": 2,
+        "Health": 1,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01169",
+        "Name": "Acolyte"
+    },
+    {
+        "Description": "<b>Spawn</b> - Any empty location.\nRetaliate.\n<b>Forced</b> - At the end of the mythos phase: Place 1 doom on Wizard of the Order.",
+        "PackCode": "core",
+        "SceneCode": "pentagram",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 2,
+        "Health": 2,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01170",
+        "Name": "Wizard of the Order"
+    },
+    {
+        "Description": "<b>Revelation</b> - Place 2 doom on the nearest [[Cultist]] enemy. If there are no [[Cultist]] enemies in play, search the encounter deck and discard pile for a [[Cultist]] enemy and draw it. Shuffle the encounter deck.",
+        "PackCode": "core",
+        "SceneCode": "pentagram",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Hex"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01171",
+        "Name": "Mysterious Chanting"
+    },
+    {
+        "Description": "Hunter.\nWhile attempting to evade Hunting Nightgaunt, double the negative modifier of each revealed chaos token.",
+        "Flavor": "... they had no faces at all to smile with, but only a suggestive blankness where a face ought to be. <cite>H. P. Lovecraft</cite>",
+        "PackCode": "core",
+        "SceneCode": "nightgaunts",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Monster",
+            "Nightgaunt"
+        ],
+        "Quantity": 2,
+        "Strength": 3,
+        "Agility": 1,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01172",
+        "Name": "Hunting Nightgaunt"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [agility] (4). If you fail, take 1 horror and 1 damage. Then, disengage with each non-[[Nightgaunt]] enemy engaged with you and move to a [[Central]] location.",
+        "Flavor": "A nightgaunt swoops down from the sky and grabs you with its clawed hands, carrying you off into the night.",
+        "PackCode": "core",
+        "SceneCode": "nightgaunts",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01173",
+        "Name": "On Wings of Darkness"
+    },
+    {
+        "Description": "<b>Revelation</b> - Attach to the location in play with the most clues, and without a Locked Door attached.\nThe attached location cannot be investigated.\n[action]: Test [combat] (4) to break down the door or [agility] (4) to pick the lock. If you succeed, discard Locked Door.",
+        "PackCode": "core",
+        "SceneCode": "locked_doors",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Obstacle"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01174",
+        "Name": "Locked Door"
+    },
+    {
+        "Description": "<b>Prey</b> - Lowest remaining sanity.\nHunter.\nWhile engaged with an investigator with remaining sanity 4 or fewer, Screeching Byakhee gets +1 fight and +1 evade.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_hastur",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Monster",
+            "Byakhee"
+        ],
+        "Quantity": 2,
+        "Strength": 3,
+        "Agility": 3,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 2,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01175",
+        "Name": "Screeching Byakhee"
+    },
+    {
+        "Description": "<b>Revelation</b> - Test [willpower] (4). If you fail, take 2 horror and search your deck for a [[Madness]] weakness. Draw that card and shuffle your deck.",
+        "Flavor": "They came to me slowly as if I had forgotten them, and at last I could make some sense out of the sounds. It was this: \"Have you found the Yellow Sign?\" <cite>Robert W. Chambers, \"The Yellow Sign\"</cite>",
+        "PackCode": "core",
+        "SceneCode": "agents_of_hastur",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Omen"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01176",
+        "Name": "The Yellow Sign"
+    },
+    {
+        "Description": "<b>Prey</b> - Fewest cards in hand.\n<b>Forced</b> - When Yithian Observer attacks you: Discard 1 card at random from your hand. If you cannot, Yithian Observer deals +1 damage and +1 horror for this attack.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_yog",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Monster",
+            "Yithian"
+        ],
+        "Quantity": 2,
+        "Strength": 4,
+        "Agility": 3,
+        "Health": 4,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01177",
+        "Name": "Yithian Observer"
+    },
+    {
+        "Description": "Peril.\n<b>Revelation</b> - You must either (choose one): draw 2 cards and place 2 doom on the current agenda (this effect can cause the current agenda to advance), or take 2 horror.",
+        "Flavor": "A voice inside your head offers you power... For a price.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_yog",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Pact"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01178",
+        "Name": "Offer of Power"
+    },
+    {
+        "Description": "<b>Prey</b> - Lowest [agility].\n<b>Forced</b> - At the end of the round: Heal 2 damage from Relentless Dark Young.",
+        "Flavor": "The trees trembled, leaves fluttering around us. The earth shook as the thuds of giant hooved feet grew ever closer...",
+        "PackCode": "core",
+        "SceneCode": "agents_of_shub",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Monster",
+            "Dark Young"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 2,
+        "Health": 5,
+        "CreatureDamage": 2,
+        "CreatureFear": 1,
+        "Victory": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01179",
+        "Name": "Relentless Dark Young"
+    },
+    {
+        "Description": "Hunter. Retaliate.\n<b>Forced</b> - After Goat Spawn is defeated: Each investigator at this location takes 1 horror.",
+        "Flavor": "The creature was at once terrible and graceful, the result of blasphemous trafficks with some otherworldly horror.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_shub",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster"
+        ],
+        "Quantity": 3,
+        "Strength": 3,
+        "Agility": 2,
+        "Health": 3,
+        "CreatureDamage": 1,
+        "CreatureFear": 0,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01180",
+        "Name": "Goat Spawn"
+    },
+    {
+        "Description": "<b>Prey</b> - Lowest [combat].\nHunter.\n<b>Forced</b> - After Young Deep One engages you: Take 1 horror.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_cthulhu",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Monster",
+            "Deep One"
+        ],
+        "Quantity": 2,
+        "Strength": 3,
+        "Agility": 3,
+        "Health": 3,
+        "CreatureDamage": 1,
+        "CreatureFear": 1,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01181",
+        "Name": "Young Deep One"
+    },
+    {
+        "Description": "<b>Revelation</b> - Put Dreams of R'lyeh into play in your threat area.\nYou get -1 [willpower] and -1 sanity.\n[action]: Test [willpower] (3). If you succeed, Discard Dreams of R'lyeh.",
+        "PackCode": "core",
+        "SceneCode": "agents_of_cthulhu",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Adversity",
+            "Omen"
+        ],
+        "Quantity": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 32,
+        "Code": "01182",
+        "Name": "Dreams of R'lyeh"
     }
 ]
