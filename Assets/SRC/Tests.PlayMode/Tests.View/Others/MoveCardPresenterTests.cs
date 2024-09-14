@@ -38,10 +38,10 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Investigator investigator1 = _investigatorsProvider.First;
             CardPlace cardPlace = _chaptersProvider.CurrentScene.PlaceCards.First();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlace, _chaptersProvider.CurrentScene.GetPlaceZone(1, 1)).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, cardPlace).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator1, cardPlace).Execute().AsCoroutine();
 
             if (DEBUG_MODE) yield return new WaitForSeconds(230);
-            Assert.That(_cardViewsManager.GetAvatarCardView(_investigatorsProvider.First).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
+            Assert.That(_cardViewsManager.GetAvatarCardView(investigator1).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
         }
 
         [UnityTest]

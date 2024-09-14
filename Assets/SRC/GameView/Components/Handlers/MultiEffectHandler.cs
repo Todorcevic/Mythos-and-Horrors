@@ -30,12 +30,12 @@ namespace MythosAndHorrors.GameView
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
             _showCardHandler.ActiavatePlayables(cardViewClones);
             IPlayable playableSelected = await _clickHandler.WaitingClick();
-            return await FinishMultiEffect(playableSelected);
+            await FinishMultiEffect();
+            return playableSelected.EffectsSelected.Single();
         }
 
-        private async Task<BaseEffect> FinishMultiEffect(IPlayable playableSelected)
+        private async Task FinishMultiEffect()
         {
-            BaseEffect effectSelected = playableSelected is CardView cardView ? playableSelected.EffectsSelected.Single() : null;
             await _showCardHandler.DeactivatePlayables(cardViewClones);
             Sequence destroyClonesSequence = DOTween.Sequence();
             cardViewClones.Cast<CardView>()
@@ -46,7 +46,6 @@ namespace MythosAndHorrors.GameView
             await _showSelectorComponent.ShowDown(destroyClonesSequence, withActivation: false);
             cardViewClones = null;
             originalCardView = null;
-            return effectSelected;
         }
 
         private List<IPlayable> CreateCardViewClones()

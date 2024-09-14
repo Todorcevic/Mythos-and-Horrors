@@ -12,10 +12,12 @@ namespace MythosAndHorrors.GameView
     public class ShowCardsInCenterButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPlayable
     {
         private bool _isPlayable;
+        private readonly BaseEffect showCardEffect = new(null, null, PlayActionType.None, null, new Localization(string.Empty));
         [SerializeField, Required, ChildGameObjectsOnly] private Image _icon;
         [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
 
-        IEnumerable<BaseEffect> IPlayable.EffectsSelected => new[] { new BaseEffect(null, null, PlayActionType.None, null, new Localization(string.Empty)) };
+        IEnumerable<BaseEffect> IPlayable.EffectsSelected => new[] { showCardEffect };
+        public bool HasThisEffect(BaseEffect baseEffect) => baseEffect == showCardEffect;
 
         /*******************************************************************/
         public void OnPointerClick(PointerEventData eventData)
