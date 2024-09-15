@@ -10,10 +10,10 @@ namespace MythosAndHorrors.GameView
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
 
-            return ParseView(ParseTags(text, textsManager), _cardsProvider);
+            return text.ParseTags(textsManager).ParseCardNames(_cardsProvider);
         }
 
-        private static string ParseTags(string text, TextsManager textsManager)
+        private static string ParseTags(this string text, TextsManager textsManager)
         {
             string pattern = @"\[\[(.*?)\]\]";
             return Regex.Replace(text, pattern, match =>
@@ -25,14 +25,13 @@ namespace MythosAndHorrors.GameView
             });
         }
 
-        private static string ParseView(this string text, CardsProvider _cardsProvider)
+        private static string ParseCardNames(this string text, CardsProvider _cardsProvider)
         {
             string pattern = @"<<(.+?)>>";
             return Regex.Replace(text, pattern, match =>
             {
-                string cardCode = match.Groups[1].Value;
-
-                return $"<b>{_cardsProvider.TryGetCardByCode(cardCode)?.Info.Name ?? match.Value}</b>";
+                string stringCode = match.Groups[1].Value;
+                return $"<b>{_cardsProvider.TryGetCardByCode(stringCode)?.Info.Name ?? match.Value}</b>";
             });
         }
     }

@@ -85,7 +85,6 @@ namespace MythosAndHorrors.GameView
 
         public void Off() => gameObject.SetActive(false);
 
-
         public void ActivateToClick()
         {
             if (_cardSensor.IsClickable) return;

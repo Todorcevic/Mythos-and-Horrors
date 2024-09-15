@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Description2")] public string Description2 { get; init; }
         [JsonProperty("Flavor")] public string Flavor { get; init; }
         [JsonProperty("Flavor2")] public string Flavor2 { get; init; }
+        [JsonProperty("Genre")] public Genre Genre { get; init; }
         [JsonProperty("CardType")] public CardType CardType { get; init; }
         [JsonProperty("Faction")] public Faction Faction { get; init; }
         [JsonProperty("Slots")] public SlotType[] Slots { get; init; }

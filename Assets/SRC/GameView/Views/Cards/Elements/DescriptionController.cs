@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
         public void Init(Card card)
         {
             SetTags(card.Tags);
-            SetDescription(card.Info.Description ?? card.Info.Flavor);
+            SetDescription(card);
         }
 
         /*******************************************************************/
@@ -31,10 +31,11 @@ namespace MythosAndHorrors.GameView
             Tags.ForEach(tag => _tags.text += $"{_textsManager.GetTagText(tag)} ");
         }
 
-        private void SetDescription(string description)
+        private void SetDescription(Card card)
         {
-            if (string.IsNullOrEmpty(description)) _description.gameObject.SetActive(false);
-            _description.text = description.ParseDescription(_cardsProvider, _textsManager);
+            string finalDescription = card.Info.Description ?? card.Info.Flavor;
+            if (string.IsNullOrEmpty(finalDescription)) _description.gameObject.SetActive(false);
+            _description.text = finalDescription.ParseDescription(_cardsProvider, _textsManager);
         }
 
         public Tween BlankAnimation()

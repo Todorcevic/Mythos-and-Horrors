@@ -9,6 +9,7 @@ namespace MythosAndHorrors.GameView
     public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
+        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
         async Task IPresenter<MoveCardsGameAction>.PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)

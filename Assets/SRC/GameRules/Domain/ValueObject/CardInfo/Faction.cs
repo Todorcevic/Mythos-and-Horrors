@@ -2,6 +2,7 @@
 
 namespace MythosAndHorrors.GameRules
 {
+
     [Flags]
     public enum Faction
     {
