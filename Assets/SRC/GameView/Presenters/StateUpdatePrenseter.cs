@@ -22,7 +22,7 @@ namespace MythosAndHorrors.GameView
             await CheckIfCardIsExhausted(updateStatesGameAction.States).AsyncWaitForCompletion();
             await CheckIfCardIsRevealed(updateStatesGameAction.States).AsyncWaitForCompletion();
             await CheckIfCardIsBlanked(updateStatesGameAction.States).AsyncWaitForCompletion();
-            //await CheckIfInvestigatorIsIsolated(updateStatesGameAction.States).AsyncWaitForCompletion();
+            await CheckIfInvestigatorIsIsolated(updateStatesGameAction.States).AsyncWaitForCompletion();
         }
 
         private Tween CheckIfCardIsExhausted(IEnumerable<State> states)
@@ -61,8 +61,7 @@ namespace MythosAndHorrors.GameView
                 .Append(DOTween.Sequence());
             foreach (Card card in cardsUpdated)
             {
-                CardView cardView = _cardViewsManager.GetCardView(card);
-                readySequence.Join(cardView.CheckBlancked());
+                readySequence.Join(_cardViewsManager.GetCardView(card).CheckBlancked());
             }
             return readySequence;
         }
@@ -70,13 +69,13 @@ namespace MythosAndHorrors.GameView
         private Tween CheckIfInvestigatorIsIsolated(IEnumerable<State> states)
         {
             Investigator investigator = _investigatorsProvider.AllInvestigatorsInPlay.FirstOrDefault(investigator => states.Contains(investigator.Isolated));
-
-            Sequence readySequence = DOTween.Sequence().Join(_swapInvestigatorPresenter.Select(investigator)).Append(DOTween.Sequence());
-
-            if (investigator == null) _avatarViewsManager.AllAvatars.ForEach(avatar => readySequence.Join(avatar.Show()));
-            else _avatarViewsManager.AllAvatars.Where(a => a.Investigator != investigator).ToList().ForEach(avatar => readySequence.Join(avatar.Hide()));
-
-            return readySequence;
+            if (investigator == null) return DOTween.Sequence();
+            Sequence isolateInvestigatorSequence = DOTween.Sequence().Join(_swapInvestigatorPresenter.Select(investigator)).Append(DOTween.Sequence());
+            if (investigator.Isolated.IsActive)
+                _avatarViewsManager.AllAvatars.ForEach(avatarView => isolateInvestigatorSequence.Join(avatarView.Investigator.Isolated.IsActive ? avatarView.Show() : avatarView.Hide()));
+            else
+                _avatarViewsManager.AllAvatars.ForEach(avatarView => isolateInvestigatorSequence.Join(avatarView.Show()));
+            return isolateInvestigatorSequence;
         }
     }
 }

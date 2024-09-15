@@ -42,11 +42,8 @@ namespace MythosAndHorrors.GameView
 
         public Tween DeactivateGlow() => _glow.DOFade(0f, ViewValues.FAST_TIME_ANIMATION);
 
-        public Tween Show() => transform.DOScale(1f, ViewValues.FAST_TIME_ANIMATION);
-
-
-        public Tween Hide() => transform.DOScale(0f, ViewValues.FAST_TIME_ANIMATION);
-
+        public Tween Show() => _picture.DOFade(1f, ViewValues.FAST_TIME_ANIMATION);
+        public Tween Hide() => _picture.DOFade(ViewValues.DEFAULT_FADE, ViewValues.FAST_TIME_ANIMATION);
 
         private async void SetPicture() => await _picture.LoadCardSprite(Investigator.InvestigatorCard.Info.Code);
 
@@ -68,7 +65,7 @@ namespace MythosAndHorrors.GameView
 
         public void PointerEnterAnimation()
         {
-            _picture.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
+            _picture.DOColor(new Color(0.8f, 0.8f, 0.8f, _picture.color.a), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
@@ -79,7 +76,7 @@ namespace MythosAndHorrors.GameView
 
         public void PointerExitAnimation()
         {
-            _picture.DOColor(Color.white, ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
+            _picture.DOColor(new Color(1f, 1f, 1f, _picture.color.a), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
         }
 
         async void IPointerClickHandler.OnPointerClick(PointerEventData eventData)

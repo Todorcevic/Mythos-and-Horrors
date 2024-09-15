@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -8,6 +11,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
+        [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
         private bool IsPeril => HasThisTag(Tag.Deprivation);
 
@@ -17,7 +21,21 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             IsInPlay = new(() => CurrentZone.ZoneType == ZoneType.Limbo);
+            CreateBuff(CardsToBuff, ActivationLogic, DeactivationLogic, new Localization("Buff_CardAdversityLimbo"));
         }
+
+        /*******************************************************************/
+        private async Task DeactivationLogic(IEnumerable<Card> enumerable) => await Task.CompletedTask;
+
+        private async Task ActivationLogic(IEnumerable<Card> enumerable) => await Task.CompletedTask;
+
+        private IEnumerable<Card> CardsToBuff()
+        {
+            if (IsInPlay.IsFalse) return Enumerable.Empty<Card>();
+            return _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.Isolated.IsActive)
+                .Select(investigator => investigator.InvestigatorCard);
+        }
+
         /*******************************************************************/
         public override sealed Zone ZoneToMoveWhenDraw(Investigator investigator) => _chaptersProvider.CurrentScene.LimboZone;
 

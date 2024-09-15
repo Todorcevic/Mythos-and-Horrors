@@ -109,7 +109,7 @@
         "Name": "Sadie Turner"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack or +3<sprite index=54> if there is 1 or more <sprite index=38> at their location. This attack deals +1<sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack or +3<sprite index=54> if there is 1 or more <sprite index=38> at his Place. This attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -126,7 +126,7 @@
         "Name": "Modified Service Weapon"
     },
     {
-        "Description": "<sprite index=10> : After the Investigator discovers 1 or more <sprite index=38>, they may remove that amount of <sprite index=50> from <<01507>> instead.\n<sprite index=7> : When the game ends, the investigator suffer 1 Shock if there is any <sprite index=50> on <<01507>>.",
+        "Description": "<sprite index=10> : After the Investigator discovers 1 or more <sprite index=38>, he may remove that amount of <sprite index=50> from <<01507>> instead.\n<sprite index=7> : When the game ends, the investigator suffers 1 Shock if there is any <sprite index=50> on <<01507>>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -200,7 +200,7 @@
         "Name": "Illegal Gambling Debts"
     },
     {
-        "Description": "<sprite index=10> : After the Investigator plays a [[Spell]], they draw 1 card.",
+        "Description": "<sprite index=10> : After the Investigator plays a [[Spell]], he draw 1 card.",
         "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -218,7 +218,7 @@
         "Name": "Talisman of Forgotten Times"
     },
     {
-        "Description": "<sprite index=7> : The current Plot gains 1 <sprite index=40> and may be resolved.\n<sprite index=7> : If <<01513>> is in the Investigator's hand at the end of their turn, they take 2 <sprite index=60>.",
+        "Description": "<sprite index=7> : The current Plot gains 1 <sprite index=40> and may be resolved.\n<sprite index=7> : If <<01513>> is in the Investigator's hand at the end of his turn, he take 2 <sprite index=60>.",
         "Flavor": "No... not again!",
         "PackCode": "rcore",
         "Faction": 32,
@@ -248,7 +248,7 @@
         "Name": "Talisman of Echoes"
     },
     {
-        "Description": "<sprite index=7> : The Investigator takes 2 direct <sprite index=60>. All cards in their discard pile are removed from the game.",
+        "Description": "<sprite index=7> : The Investigator takes 2 direct <sprite index=60>. All cards in his discard pile are removed from the game.",
         "Flavor": "I don't need them. I don't need anyone.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -1907,7 +1907,7 @@
         "Name": "Elder Sign Amulet"
     },
     {
-        "Description": "<sprite index=7> : The Investigator chooses 1 card from their hand and discards the rest.",
+        "Description": "<sprite index=7> : The Investigator chooses 1 card from his hand and discards the rest.",
         "Flavor": "Wait... where am I? What was I doing?",
         "PackCode": "rcore",
         "Faction": 32,
@@ -1921,7 +1921,7 @@
         "Name": "Cognitive Dissonance"
     },
     {
-        "Description": "<sprite index=7> : The Investigator loses all their <sprite index=39>.",
+        "Description": "<sprite index=7> : The Investigator loses all his <sprite index=39>.",
         "Flavor": "What was that noise?",
         "PackCode": "rcore",
         "Faction": 32,
@@ -1948,7 +1948,7 @@
         "Name": "Spectral Vision"
     },
     {
-        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=60>, they take 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
+        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=60>, he take 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1961,7 +1961,7 @@
         "Name": "Hysteria"
     },
     {
-        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=59>, they take 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
+        "Description": "<sprite index=7> - After the Investigator take 1 or more <sprite index=59>, he take 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -3008,21 +3008,18 @@
         "Name": "Creeping Shade"
     },
     {
-        "Description": "<b>Revelation</b> - If you have no clues, False Lead gains surge. If you have 1 or more clues, test [intellect] (4). For each point you fail by, place 1 of your clues on your location.",
+        "Description": "<sprite index=7> : If the Investigator has no <sprite index=38>, draw another Danger Card. Otherwise, he makes a Challenge <sprite index=56>4. For each point the investigator fails by, drop 1 <sprite index=38> on his Place.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01136",
-        "Name": "False Lead"
+        "Name": "Erroneous Evidence"
     },
     {
         "Description": "<b>Spawn</b> - Downtown.\n<b>Forced</b> - When \"Wolf-Man\" Drew attacks: Heal 1 damage from him.",
@@ -3499,7 +3496,7 @@
         "Name": "Umôrdhoth"
     },
     {
-        "Description": "<b>Revelation</b> - Test [willpower] (5). For each point you fail by, you must either (choose one): Choose and discard a card from your hand, or take 1 damage and 1 horror.",
+        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=57>5. For each point the Investigator fail by, he must choose one: Discard a card from his hand, or take 1 <sprite index=59> and 1 <sprite index=60>.",
         "Flavor": "A deathly chill from below engulfs you, attempting to suck your life force away.",
         "PackCode": "core",
         "SceneCode": "tentacles",
@@ -3507,15 +3504,11 @@
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Curse"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01158",
-        "Name": "Umôrdhoth's Wrath"
+        "Name": "Touch of the Ancient One"
     },
     {
         "Description": "Hunter.",
@@ -3593,7 +3586,7 @@
         "Name": "Ravenous Ghoul"
     },
     {
-        "Description": "<b>Revelation</b> - Test [agility] (3). For each point you fail by, take 1 damage.",
+        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=55>3. For each point the Investigator fails by, he take 1 <sprite index=59>.",
         "Flavor": "Decaying hands rise up from below and grasp and claw at your ankles.",
         "PackCode": "core",
         "SceneCode": "ghouls",
@@ -3601,18 +3594,14 @@
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Hazard"
-        ],
         "Quantity": 3,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01162",
-        "Name": "Grasping Hands"
+        "Name": "Tunnel of Claws"
     },
     {
-        "Description": "<b>Revelation</b> - Test [willpower] (3). For each point you fail by, take 1 horror.",
+        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=57>3. For each point the Investigator fails by, he take 1 <sprite index=60>.",
         "Flavor": "A sickening display of gore causes you to retch. You're glad this wasn't you.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
@@ -3620,51 +3609,39 @@
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Terror"
-        ],
         "Quantity": 3,
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01163",
-        "Name": "Rotting Remains"
+        "Name": "Rotting Corpse"
     },
     {
-        "Description": "<b>Revelation</b> - Put Frozen in Fear into play in your threat area.\nThe first time you perform one of the following actions (move, fight, or evade) each round, it costs 1 additional action.\n<b>Forced</b> - At the end of your turn: Test [willpower] (3). If you succeed, discard Frozen in Fear.",
+        "Description": "<sprite index=11> : Each round, the first time the Investigator uses a <sprite index=9><b>Move</b>, <sprite index=9><b>Attack</b>, or <sprite index=9><b>Elude</b>, it costs 1 additional <sprite index=9>.\n<sprite index=7> : At the end of the Investigator's turn, he makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
         "Faction": 64,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Terror"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01164",
-        "Name": "Frozen in Fear"
+        "Name": "Terror in the Dark"
     },
     {
-        "Description": "<b>Revelation</b> - Put Dissonant Voices into play in your threat area.\nYou cannot play assets or events.\n<b>Forced</b> - At the end of the round: Discard Dissonant Voices.",
+        "Description": "<sprite index=11> : The Investigator cannot play Supplies or Conditions.\n<sprite index=7> : At the end of the round, <<01165>> is discarded.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
         "Faction": 64,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Adversity",
-            "Terror"
-        ],
         "Quantity": 2,
         "HealthPerInvestigator": false,
-        "CardType": 32,
+        "CardType": 1024,
         "Code": "01165",
-        "Name": "Dissonant Voices"
+        "Name": "Tormenting Echoes"
     },
     {
         "Description": "<b>Revelation</b> - Place 1 doom on the current agenda. This effect can cause the current agenda to advance.",
