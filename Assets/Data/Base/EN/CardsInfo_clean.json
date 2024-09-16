@@ -385,16 +385,12 @@
         "Name": "Guard Dog"
     },
     {
-        "Description": "Fast. Play after you defeat an enemy.\nDiscover 1 clue at your location.",
+        "Description": "<sprite index=10> : After {{the Investigator}} defeats a Creature, {{he}} discovers 1 <sprite index=38> at {{his}} Place.",
         "Flavor": "Just as I suspected!",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -403,18 +399,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01522",
-        "Name": "Evidence!"
+        "Name": "Crucial Discovery"
     },
     {
-        "Description": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack.",
+        "Description": "<sprite index=10> : When a Creature attacks an investigator at {{the Investigator}}'s Place, that attack is canceled.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Tactic"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -424,18 +416,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01523",
-        "Name": "Dodge"
+        "Name": "Evasive Maneuver"
     },
     {
-        "Description": "Choose either your location or a connecting location. Deal 3 <sprite index=59> to each enemy and to each investigator at the chosen location.",
+        "Description": "<sprite index=7> : {{The Investigator}} chooses a connecting Place or the Place {{he}} is currently at, and deals 3 <sprite index=59> to each Creature and to each investigator at the chosen Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Tactic"
         ],
         "Cost": 5,
         "Quantity": 2,
@@ -444,7 +432,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01524",
-        "Name": "Dynamite Blast"
+        "Name": "Explosive Devastation"
     },
     {
         "Description": "If this skill test is successful during an attack, that attack deals +1 <sprite index=59>.",
