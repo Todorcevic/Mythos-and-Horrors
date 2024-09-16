@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class DrawCardPresenter : IPresenter<ShowCardsGameAction>
+    public class ShowCardPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public async Task PlayAnimationWith(ShowCardsGameAction ShowCardsGameAction)
         {
-            if (ShowCardsGameAction.IsByDrawed) await ShowDrawedCard(ShowCardsGameAction.Cards.Unique());
+            if (ShowCardsGameAction.Parent is DrawGameAction) await ShowDrawedCard(ShowCardsGameAction.Cards.Unique());
         }
 
         private async Task ShowDrawedCard(Card cardDrawed)

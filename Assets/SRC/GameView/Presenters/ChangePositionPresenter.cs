@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class ChangePositionPresenter : IPresenter<ChangeCardPositionGameAction>
+    public class ChangePositionPresenter
     {
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorPresenter;
 
         /*******************************************************************/
-        async Task IPresenter<ChangeCardPositionGameAction>.PlayAnimationWith(ChangeCardPositionGameAction changeCardPositionGameAction)
+        public async Task PlayAnimationWith(ChangeCardPositionGameAction changeCardPositionGameAction)
         {
             await UpdatePosition(changeCardPositionGameAction.Card);
         }

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class InteractableGameAction : GameAction
     {
         private readonly List<CardEffect> _allCardEffects = new();
-        [Inject] private readonly IInteractablePresenter _interactablePresenter;
+        [Inject] private readonly IPresenterInteractable _interactablePresenter;
 
         public bool CanBackToThisInteractable { get; private set; }
         public bool MustShowInCenter { get; private set; }

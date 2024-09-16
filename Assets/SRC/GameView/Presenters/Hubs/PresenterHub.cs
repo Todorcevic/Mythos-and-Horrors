@@ -4,26 +4,22 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class MainPresenter : IPresenterAnimation
+    public class PresenterHub : IPresenterAnimation
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly IPresenter<MoveCardsGameAction> _cardMoverPresenter;
-        [Inject] private readonly IPresenter<CreatureAttackGameAction> _creatureAttackPresenter;
-        [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengePresenter;
-        [Inject] private readonly IPresenter<CommitCardsChallengeGameAction> _commitCardsChallengeGameAction;
-        [Inject] private readonly IPresenter<RevealChallengeTokenGameAction> _revealTokenPresenter;
-        [Inject] private readonly IPresenter<ResolveSingleChallengeTokenGameAction> _solveTokenPresenter;
-        [Inject] private readonly IPresenter<RestoreChallengeTokenGameAction> _restoreChallengeTokenPresenter;
-        [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
-        [Inject] private readonly IPresenter<ChangeCardPositionGameAction> _chagePositionPresenter;
-        [Inject] private readonly IPresenter<ShowCardsGameAction> _drawPresenter;
-        [Inject] private readonly IPresenter<EliminateInvestigatorGameAction> eliminateInvestigatorPresenter;
-        [Inject] private readonly IPresenter<FinalizeGameAction> _finalizePresenter;
-        [Inject] private readonly IPresenter<PlayEffectGameAction> _playEffectPresenter;
-        [Inject] private readonly IPresenter<ShowHistoryGameAction> _showHistoryPresenter;
-        [Inject] private readonly IPresenter<ShuffleGameAction> _shufllePresenter;
-        [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
-        [Inject] private readonly IPresenter<UpdateStatGameAction> _statsPresenter;
+        [Inject] private readonly CardMoverPresenter _cardMoverPresenter;
+        [Inject] private readonly CreatureAttackPresenter _creatureAttackPresenter;
+        [Inject] private readonly ChallengePresenter _challengePresenter;
+        [Inject] private readonly PhaseChangePresenter _changePhasePresenter;
+        [Inject] private readonly ChangePositionPresenter _chagePositionPresenter;
+        [Inject] private readonly ShowCardPresenter _drawPresenter;
+        [Inject] private readonly EliminateInvestigatorPresenter eliminateInvestigatorPresenter;
+        [Inject] private readonly FinalizePresenter _finalizePresenter;
+        [Inject] private readonly PlayEffectPresenter _playEffectPresenter;
+        [Inject] private readonly ShowHistoryPresenter _showHistoryPresenter;
+        [Inject] private readonly ShufflePresenter _shufllePresenter;
+        [Inject] private readonly StateUpdatePresenter _updateStatesPresenters;
+        [Inject] private readonly StatUpdatePresenter _statsPresenter;
 
         /*******************************************************************/
         async Task IPresenterAnimation.PlayBeforeAnimationWith(GameAction gameAction)
@@ -34,13 +30,13 @@ namespace MythosAndHorrors.GameView
                     await _creatureAttackPresenter.PlayAnimationWith(creatureAttackGameAction);
                     break;
                 case ChallengePhaseGameAction challengePhaseGameAction:
-                    await _challengePresenter.PlayAnimationWith(challengePhaseGameAction);
+                    await _challengePresenter.ShowChallenge(challengePhaseGameAction);
                     break;
                 case CommitCardsChallengeGameAction commitCardsChallengeGameAction:
-                    await _commitCardsChallengeGameAction.PlayAnimationWith(commitCardsChallengeGameAction);
+                    await _challengePresenter.UpdateInfo();
                     break;
                 case ResolveSingleChallengeTokenGameAction resolveSingleChallengeTokenGameAction:
-                    await _solveTokenPresenter.PlayAnimationWith(resolveSingleChallengeTokenGameAction);
+                    await _challengePresenter.SolveTokenAnimation(resolveSingleChallengeTokenGameAction.ChallengeTokenToResolve);
                     break;
                 case PhaseGameAction phaseGameAction:
                     await _changePhasePresenter.PlayAnimationWith(phaseGameAction);
@@ -64,17 +60,17 @@ namespace MythosAndHorrors.GameView
                 case MoveCardsGameAction moveCardsGameAction:
                     await _cardMoverPresenter.PlayAnimationWith(moveCardsGameAction);
                     break;
-                case ResultChallengeGameAction resultChallengeGameAction:
-                    await _challengePresenter.PlayAnimationWith(resultChallengeGameAction.ChallengePhaseGameAction);
+                case ResultChallengeGameAction:
+                    await _challengePresenter.FinalizeChallenge();
                     break;
                 case ChallengePhaseGameAction challengePhaseGameAction:
                     await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? challengePhaseGameAction);
                     break;
                 case RevealChallengeTokenGameAction revealChallengeTokenGameAction:
-                    await _revealTokenPresenter.PlayAnimationWith(revealChallengeTokenGameAction);
+                    await _challengePresenter.DropToken(revealChallengeTokenGameAction.ChallengeTokenRevealed);
                     break;
                 case RestoreChallengeTokenGameAction restoreChallengeTokenGameAction:
-                    await _restoreChallengeTokenPresenter.PlayAnimationWith(restoreChallengeTokenGameAction);
+                    await _challengePresenter.RestoreToken(restoreChallengeTokenGameAction.ChallengeTokenToRestore);
                     break;
                 case ChangeCardPositionGameAction changeCardPositionGameAction:
                     await _chagePositionPresenter.PlayAnimationWith(changeCardPositionGameAction);
@@ -110,8 +106,8 @@ namespace MythosAndHorrors.GameView
                 case MoveCardsGameAction moveCardsGameAction:
                     await _cardMoverPresenter.PlayAnimationWith(moveCardsGameAction);
                     break;
-                case ChallengePhaseGameAction challengePhaseGameAction:
-                    await _challengePresenter.PlayAnimationWith(challengePhaseGameAction);
+                case ChallengePhaseGameAction:
+                    await _challengePresenter.HideChallenge();
                     break;
                 case ChangeCardPositionGameAction changeCardPositionGameAction:
                     await _chagePositionPresenter.PlayAnimationWith(changeCardPositionGameAction);

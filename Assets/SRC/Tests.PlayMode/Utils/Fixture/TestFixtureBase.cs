@@ -24,9 +24,9 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly CardsProvider _cardsProvider;
         [Inject] protected readonly ReactionablesProvider _reactionablesProvider;
         [Inject] protected readonly BuffsProvider _buffsProvider;
-        [Inject] private readonly IInteractablePresenter _interactablePresenter;
+        [Inject] private readonly IPresenterInteractable _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Integration;
+        protected override TestsType TestsType => TestsType.Unit;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -171,7 +171,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         private const float TIMEOUT = 3f;
         protected IEnumerator ClickedIn(Card card)
         {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 yield return fakeInteractable.ClickedIn(card);
             else if (TestsType == TestsType.Integration)
             {
@@ -203,7 +203,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         {
             const float ASSERT_CLICKABLE_TIMEOUT = 0.3f;
             string message = card.Info.Code + (isClickable ? " Not become clickable" : " Become clickable");
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 Assert.That(fakeInteractable.IsClickable(card) == isClickable, message);
 
             else if (TestsType == TestsType.Integration)
@@ -220,7 +220,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator ClickedClone(Card card, int position, bool isReaction = false)
         {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 yield return fakeInteractable.ClickedIn(card, position);
             else if (TestsType == TestsType.Integration)
             {
@@ -244,7 +244,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator ClickedMainButton()
         {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 yield return fakeInteractable.ClickedMainButton();
             else if (TestsType == TestsType.Integration)
             {
@@ -261,7 +261,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator ClickedResourceButton()
         {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 yield return fakeInteractable.ClickedTokenButton();
             else if (TestsType == TestsType.Integration)
             {
@@ -278,7 +278,7 @@ namespace MythosAndHorrors.PlayMode.Tests
 
         protected IEnumerator ClickedUndoButton()
         {
-            if (_interactablePresenter is FakeInteractablePresenter fakeInteractable)
+            if (_interactablePresenter is InteractableFake fakeInteractable)
                 yield return fakeInteractable.ClickedUndoButton();
             else if (TestsType == TestsType.Integration)
             {

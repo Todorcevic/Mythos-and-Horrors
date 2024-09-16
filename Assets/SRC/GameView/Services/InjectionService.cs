@@ -47,7 +47,9 @@ namespace MythosAndHorrors.GameView
             Container.Bind(x => x.AllNonAbstractClasses()
                 .InNamespace(gameViewNameSpace).WithSuffix("Converter")).AsSingle();
 
-            InstallGenericPresenterBindings(typeof(IPresenter<>));
+            /*** Presenter ***/
+            Container.Bind(x => x.AllNonAbstractClasses()
+                .InNamespace(gameViewNameSpace).WithSuffix("Presenter")).AsSingle();
         }
 
         private void InstallRules()
@@ -63,29 +65,8 @@ namespace MythosAndHorrors.GameView
         {
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
             Container.Bind(typeof(ClickHandler<>)).AsSingle();
-            Container.Bind<IInteractablePresenter>().To<InteractablePresenter>().AsCached();
-            Container.Bind<IPresenterAnimation>().To<MainPresenter>().AsSingle();
-        }
-
-        private void InstallGenericPresenterBindings(Type interfaceType)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type[] allTypes = assembly.GetTypes();
-
-            foreach (Type type in allTypes)
-            {
-                Type[] interfaces = type.GetInterfaces();
-                foreach (Type @interface in interfaces)
-                {
-                    if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == interfaceType)
-                    {
-                        Type argumentType = @interface.GetGenericArguments()[0];
-                        Type genericType = interfaceType.MakeGenericType(argumentType);
-
-                        Container.Bind(genericType).To(type).AsCached();
-                    }
-                }
-            }
+            Container.Bind<IPresenterInteractable>().To<InteractableHub>().AsSingle();
+            Container.Bind<IPresenterAnimation>().To<PresenterHub>().AsSingle();
         }
     }
 }

@@ -5,13 +5,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class PhaseChangePresenter : IPresenter<PhaseGameAction>
+    public class PhaseChangePresenter
     {
         [Inject] private readonly PhaseComponent _phaseComponent;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
 
         /*******************************************************************/
-        async Task IPresenter<PhaseGameAction>.PlayAnimationWith(PhaseGameAction phaseGameAction)
+        public async Task PlayAnimationWith(PhaseGameAction phaseGameAction)
         {
             _phaseComponent.ShowThisPhase(phaseGameAction).SetNotWaitable();
             await _swapInvestigatorHandler.Select(phaseGameAction.ActiveInvestigator).AsyncWaitForCompletion();

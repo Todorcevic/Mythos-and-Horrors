@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
-    public class FakeInteractablePresenter : IInteractablePresenter
+    public class InteractableFake : IPresenterInteractable
     {
         private const float TIMEOUT = 3f;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;

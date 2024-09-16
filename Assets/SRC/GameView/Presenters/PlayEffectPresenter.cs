@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class PlayCardPresenter : IPresenter<PlayEffectGameAction>
+    public class PlayEffectPresenter
     {
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly AudioComponent _audioComponent;

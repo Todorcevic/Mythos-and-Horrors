@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StatUpdatePresenter : IPresenter<UpdateStatGameAction>
+    public class StatUpdatePresenter
     {
         [Inject] private readonly StatableManager _statsViewsManager;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardsProvider _cardsProvider;
 
         /*******************************************************************/
-        async Task IPresenter<UpdateStatGameAction>.PlayAnimationWith(UpdateStatGameAction updateStatGameAction)
+        public async Task PlayAnimationWith(UpdateStatGameAction updateStatGameAction)
         {
             Dictionary<IStatable, bool> statablesUpdated = _statsViewsManager.GetAll(updateStatGameAction.AllStatsUpdated)
                 .ToDictionary(statView => statView, _ => false);

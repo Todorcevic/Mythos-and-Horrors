@@ -8,10 +8,6 @@ using NUnit.Framework;
 using UnityEngine.TestTools;
 using MythosAndHorrors.GameRules;
 using MythosAndHorrors.GameView;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using UnityEditor;
 
 namespace MythosAndHorrors.PlayMode.Tests
 {
@@ -65,26 +61,8 @@ namespace MythosAndHorrors.PlayMode.Tests
 
             void InstallFakes()
             {
-                SceneContainer.Rebind<IInteractablePresenter>().To<FakeInteractablePresenter>().AsCached();
-                BindAllFakePresenters();
-
-                static void BindAllFakePresenters()
-                {
-                    IEnumerable<Type> gameActionTypes = TypeCache.GetTypesDerivedFrom<GameAction>();
-                    foreach (Type type in gameActionTypes)
-                    {
-                        IEnumerable<FieldInfo> fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                            .Where(field => field.FieldType.IsGenericType
-                                && field.FieldType.GetGenericTypeDefinition() == typeof(IPresenter<>)
-                                && field.FieldType.GetGenericArguments()[0] == type);
-
-                        foreach (FieldInfo field in fields)
-                        {
-                            Type genericToBind = typeof(FakePresenter<>).MakeGenericType(type);
-                            SceneContainer.Rebind(field.FieldType).To(genericToBind).AsCached();
-                        }
-                    }
-                }
+                SceneContainer.Rebind<IPresenterInteractable>().To<InteractableFake>().AsSingle();
+                SceneContainer.Rebind<IPresenterAnimation>().To<PresenterFake>().AsSingle();
             }
         }
 

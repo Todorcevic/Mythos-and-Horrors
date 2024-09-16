@@ -8,7 +8,6 @@ namespace MythosAndHorrors.GameRules
     {
         public IEnumerable<Card> Cards { get; private set; }
         public override bool CanUndo => false;
-        public bool IsByDrawed => Parent is DrawGameAction;
 
         /*******************************************************************/
         public ShowCardsGameAction SetWith(Card card) => SetWith(new[] { card });

@@ -8,7 +8,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class StateUpdatePrenseter : IPresenter<UpdateStatesGameAction>
+    public class StateUpdatePresenter
     {
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly CardViewsManager _cardViewsManager;
@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        async Task IPresenter<UpdateStatesGameAction>.PlayAnimationWith(UpdateStatesGameAction updateStatesGameAction)
+        public async Task PlayAnimationWith(UpdateStatesGameAction updateStatesGameAction)
         {
             await CheckIfCardIsExhausted(updateStatesGameAction.States).AsyncWaitForCompletion();
             await CheckIfCardIsRevealed(updateStatesGameAction.States).AsyncWaitForCompletion();

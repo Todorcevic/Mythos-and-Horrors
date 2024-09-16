@@ -4,12 +4,12 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class EliminateInvestigatorPresenter : IPresenter<EliminateInvestigatorGameAction>
+    public class EliminateInvestigatorPresenter
     {
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
 
         /*******************************************************************/
-        async Task IPresenter<EliminateInvestigatorGameAction>.PlayAnimationWith(EliminateInvestigatorGameAction eliminateInvestigatorGameAction)
+        public async Task PlayAnimationWith(EliminateInvestigatorGameAction eliminateInvestigatorGameAction)
         {
             AvatarView avatar = _avatarViewsManager.Get(eliminateInvestigatorGameAction.Investigator);
             avatar.gameObject.SetActive(!avatar.gameObject.activeSelf);

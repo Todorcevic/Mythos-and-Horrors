@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {
-    public class CreatureAttackPresenter : IPresenter<CreatureAttackGameAction>
+    public class CreatureAttackPresenter
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 

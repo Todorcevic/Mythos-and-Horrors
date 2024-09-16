@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {
-    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>
+    public class CardMoverPresenter
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
 

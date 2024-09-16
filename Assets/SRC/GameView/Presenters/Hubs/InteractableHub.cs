@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
-    public class InteractablePresenter : IInteractablePresenter
+    public class InteractableHub : IPresenterInteractable
     {
         private bool _mustShowInCenter;
         private InteractableGameAction _interactableGameAction;
@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameView
         string InteractableTitle => _textsProvider.GetLocalizableText(_interactableGameAction.InteractableTitle);
 
         /*******************************************************************/
-        async Task<BaseEffect> IInteractablePresenter.SelectWith(InteractableGameAction interactableGameAction)
+        async Task<BaseEffect> IPresenterInteractable.SelectWith(InteractableGameAction interactableGameAction)
         {
             _interactableGameAction = interactableGameAction;
             _mainButtonComponent.SetEffect(_interactableGameAction.MainButtonEffect);
