@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class FinalizeGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<FinalizeGameAction> _finalizePresenter;
-
         public Resolution Resolution { get; private set; }
 
         /*******************************************************************/
@@ -21,7 +18,6 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<ShowHistoryGameAction>().SetWith(Resolution.History).Execute();
             await Resolution.Logic.Invoke();
-            await _finalizePresenter.PlayAnimationWith(this);
         }
     }
 }

@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameRules
     public class EliminateInvestigatorGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly IPresenter<EliminateInvestigatorGameAction> eliminateInvestigatorPresenter;
 
         public Investigator Investigator { get; private set; }
 
@@ -27,19 +26,11 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.Cards, _chaptersProvider.CurrentScene.OutZone).Execute();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Investigator.BasicCreaturesConfronted, currentPlace.OwnZone).Execute();
             await _gameActionsProvider.Create<SafeForeach<Card>>().SetWith(DangerCards, Discard).Execute();
-            await eliminateInvestigatorPresenter.PlayAnimationWith(this);
 
             /*******************************************************************/
 
             IEnumerable<Card> DangerCards() => Investigator.DangerZone.Cards;
-
             async Task Discard(Card card) => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
-        }
-
-        public override async Task Undo()
-        {
-            await base.Undo();
-            await eliminateInvestigatorPresenter.PlayAnimationWith(this);
         }
     }
 }

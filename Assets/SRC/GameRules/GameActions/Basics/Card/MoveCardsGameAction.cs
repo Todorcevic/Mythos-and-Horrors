@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class MoveCardsGameAction : GameAction
     {
         private Dictionary<Card, (Zone zone, bool faceDown)> _cardsWithUndoState;
-        [Inject] private readonly IPresenter<MoveCardsGameAction> _moveCardPresenter;
-
         public Dictionary<Card, (Zone zone, bool faceDown)> AllMoves { get; private set; }
         public IEnumerable<Card> Cards => AllMoves.Keys.ToList();
         public Card SingleCard => Cards.Unique();
@@ -45,7 +42,7 @@ namespace MythosAndHorrors.GameRules
                 move.Value.zone.AddCard(move.Key);
             }
 
-            await _moveCardPresenter.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
@@ -58,7 +55,6 @@ namespace MythosAndHorrors.GameRules
                 move.Value.zone.AddCard(move.Key);
             }
             await base.Undo();
-            await _moveCardPresenter.PlayAnimationWith(this);
         }
 
         public Zone GetZoneBeforeMoveFor(Card card) => _cardsWithUndoState[card].zone;

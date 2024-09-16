@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly OptativeReactionsProvider _optativeReactionsProvider;
         [Inject] private readonly BuffsProvider _buffsProvider;
         [Inject] protected readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly IPresenterAnimation _presenterAnimation;
 
         public GameAction Parent { get; } = _current;
         public bool IsActive { get; private set; }
@@ -31,9 +32,10 @@ namespace MythosAndHorrors.GameRules
                 return;
             }
             _gameActionsProvider.AddUndo(this);
-            //await _buffsProvider.ExecuteAllBuffs();
 
+            await _presenterAnimation.PlayBeforeAnimationWith(this);
             await ExecuteThisLogic();
+            await _presenterAnimation.PlayAfterAnimationWith(this);
 
             await _buffsProvider.ExecuteAllBuffs();
             await _reactionablesProvider.WhenFinish(this);
@@ -44,7 +46,7 @@ namespace MythosAndHorrors.GameRules
         public virtual async Task Undo()
         {
             _buffsProvider.UndoAllBuffs();
-            await Task.CompletedTask;
+            await _presenterAnimation.PlayUndoAnimationWith(this);
         }
 
         public void Cancel() => IsCancel = true;

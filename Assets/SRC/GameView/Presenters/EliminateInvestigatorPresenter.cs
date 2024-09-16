@@ -15,6 +15,5 @@ namespace MythosAndHorrors.GameView
             avatar.gameObject.SetActive(!avatar.gameObject.activeSelf);
             await Task.CompletedTask;
         }
-        /*******************************************************************/
     }
 }

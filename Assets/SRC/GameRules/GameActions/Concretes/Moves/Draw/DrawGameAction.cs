@@ -1,13 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class DrawGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<DrawGameAction> _presenter;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-
         public Investigator Investigator { get; private set; }
         public Card CardDrawed { get; protected set; }
         public override bool CanUndo => false;
@@ -26,7 +22,6 @@ namespace MythosAndHorrors.GameRules
         {
             await CheckRestore();
             await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(CardDrawed).Execute();
-            await _presenter.PlayAnimationWith(this);
 
             switch (CardDrawed)
             {

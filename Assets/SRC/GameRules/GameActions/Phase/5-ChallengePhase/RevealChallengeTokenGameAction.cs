@@ -6,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class RevealChallengeTokenGameAction : GameAction
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly IPresenter<RevealChallengeTokenGameAction> _revealTokenPresenter;
 
         public ChallengeToken ChallengeTokenRevealed { get; private set; }
         public Investigator Investigator { get; private set; }
@@ -25,7 +24,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             _challengeTokensProvider.RevealToken(ChallengeTokenRevealed);
-            await _revealTokenPresenter.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
 
         public void SetChallengeToken(ChallengeToken challengeToken)

@@ -20,7 +20,6 @@ namespace MythosAndHorrors.GameView
         private async Task UpdatePosition(Card card)
         {
             Zone zone = card.CurrentZone;
-
             await _swapInvestigatorPresenter.Select(zone).AsyncWaitForCompletion();
             await _zoneViewsManager.Get(zone).UpdatePosition(card).AsyncWaitForCompletion();
         }

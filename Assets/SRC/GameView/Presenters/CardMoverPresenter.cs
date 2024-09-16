@@ -6,13 +6,12 @@ using System.Linq;
 
 namespace MythosAndHorrors.GameView
 {
-    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>, IPresenter<CreatureAttackGameAction>
+    public class CardMoverPresenter : IPresenter<MoveCardsGameAction>
     {
         [Inject] private readonly MoveCardHandler _moveCardHandler;
-        [Inject] private readonly CardViewsManager _cardViewsManager;
 
         /*******************************************************************/
-        async Task IPresenter<MoveCardsGameAction>.PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)
+        public async Task PlayAnimationWith(MoveCardsGameAction moveCardsGameAction)
         {
             if (await CheckSpecialMove(moveCardsGameAction)) return;
 
@@ -22,13 +21,6 @@ namespace MythosAndHorrors.GameView
                 return;
             }
             await _moveCardHandler.MoveCardWithPreviewToZone(moveCardsGameAction.SingleCard, moveCardsGameAction.SingleCard.CurrentZone).AsyncWaitForCompletion();
-        }
-
-        async Task IPresenter<CreatureAttackGameAction>.PlayAnimationWith(CreatureAttackGameAction gameAction)
-        {
-            await DOTween.Sequence()
-                .Join(_moveCardHandler.MoveCardWithPreviewToZone(gameAction.Creature, gameAction.Investigator.InvestigatorZone))
-                .Append(_moveCardHandler.ReturnCard(gameAction.Creature)).AsyncWaitForCompletion();
         }
 
         private async Task<bool> CheckSpecialMove(MoveCardsGameAction moveCardsGameAction)

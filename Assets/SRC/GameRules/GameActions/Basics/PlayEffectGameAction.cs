@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-
     public class PlayEffectGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<PlayEffectGameAction> _presenter;
-
         public BaseEffect Effect { get; private set; }
 
         /*******************************************************************/
@@ -21,20 +17,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            if (!Effect.IsFreeActivation)
-            {
-                await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Effect.Investigator.CurrentActions, Effect.ActivateTurnsCost.Value).Execute();
-            }
-            if (Effect is CardEffect cardEffec && cardEffec.ResourceCost.Value > 0)
-            {
-                await _gameActionsProvider.Create<PayResourceGameAction>().SetWith(cardEffec.Investigator, cardEffec.ResourceCost.Value).Execute();
-            }
-            if (Effect.WithOpportunityAttack)
-            {
-                await _gameActionsProvider.Create<OpportunityAttackGameAction>().SetWith(Effect.Investigator).Execute();
-            }
-
-            await _presenter.PlayAnimationWith(this);
             await Effect.Logic();
         }
     }

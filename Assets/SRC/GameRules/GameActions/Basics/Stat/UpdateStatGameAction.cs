@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class UpdateStatGameAction : GameAction
     {
         private Dictionary<Stat, int> _statsWithOldValue;
-        [Inject] private readonly IPresenter<UpdateStatGameAction> _statsPresenter;
 
         public Dictionary<Stat, int> StatsWithValue { get; private set; }
         public List<Stat> AllStatsUpdated => StatsWithValue.Keys.ToList();
@@ -31,14 +29,13 @@ namespace MythosAndHorrors.GameRules
         {
             _statsWithOldValue = StatsWithValue.ToDictionary(statNewValues => statNewValues.Key, kvp => kvp.Key.Value);
             StatsWithValue.ForEach(statNewValues => statNewValues.Key.UpdateValue(statNewValues.Value));
-            await _statsPresenter.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
 
         public override async Task Undo()
         {
             StatsWithValue.ForEach(statNewValues => statNewValues.Key.UpdateValue(_statsWithOldValue[statNewValues.Key]));
             await base.Undo();
-            await _statsPresenter.PlayAnimationWith(this);
         }
     }
 }

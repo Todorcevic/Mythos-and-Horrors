@@ -6,14 +6,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
-using TMPro;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {
     [TestFixture]
     public class MoveCardPresenterTests : PlayModeTestsBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]

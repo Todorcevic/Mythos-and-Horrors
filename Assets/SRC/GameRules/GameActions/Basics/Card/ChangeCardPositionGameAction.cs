@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class ChangeCardPositionGameAction : GameAction
     {
-        [Inject] private readonly IPresenter<ChangeCardPositionGameAction> _chagePositionPresenter;
         private int lastPosition;
 
         public Card Card { get; private set; }
@@ -24,7 +22,7 @@ namespace MythosAndHorrors.GameRules
         {
             lastPosition = Card.CurrentZone.Cards.IndexOf(Card);
             Card.CurrentZone.ChangePositionOf(Card, NewPosition);
-            await _chagePositionPresenter.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
@@ -32,7 +30,6 @@ namespace MythosAndHorrors.GameRules
         {
             Card.CurrentZone.ChangePositionOf(Card, lastPosition);
             await base.Undo();
-            await _chagePositionPresenter.PlayAnimationWith(this);
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
     public class UpdateStatesGameAction : GameAction
     {
         private Dictionary<State, bool> _statesWithOldValue;
-        [Inject] private readonly IPresenter<UpdateStatesGameAction> _updateStatesPresenters;
 
         public Dictionary<State, bool> StatesDictionary { get; private set; }
         public List<State> States => StatesDictionary.Keys.ToList();
@@ -30,7 +28,7 @@ namespace MythosAndHorrors.GameRules
         {
             _statesWithOldValue = StatesDictionary.ToDictionary(kvp => kvp.Key, kvp => kvp.Key.IsActive);
             StatesDictionary.ForEach(kvp => kvp.Key.UpdateValueTo(kvp.Value));
-            await _updateStatesPresenters.PlayAnimationWith(this);
+            await Task.CompletedTask;
         }
 
         /*******************************************************************/
@@ -38,7 +36,6 @@ namespace MythosAndHorrors.GameRules
         {
             StatesDictionary.ForEach(kvp => kvp.Key.UpdateValueTo(_statesWithOldValue[kvp.Key]));
             await base.Undo();
-            await _updateStatesPresenters.PlayAnimationWith(this);
         }
     }
 }

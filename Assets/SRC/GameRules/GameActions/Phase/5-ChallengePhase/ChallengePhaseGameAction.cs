@@ -11,8 +11,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly IPresenter<ChallengePhaseGameAction> _challengerPresenter;
-        [Inject] private readonly IPresenter<PhaseGameAction> _changePhasePresenter;
 
         public Stat Stat { get; private set; }
         public int InitialDifficultValue { get; private set; }
@@ -57,18 +55,15 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _challengerPresenter.PlayAnimationWith(this);
-            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this).Execute();
-            await _changePhasePresenter.PlayAnimationWith(_gameActionsProvider.GetRealCurrentPhase() ?? this);
+            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this, ContinueChallenge).Execute();
         }
 
-        public async Task ContinueChallenge()
+        private async Task ContinueChallenge()
         {
             await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Execute();
             await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Execute();
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
             await ResultChallenge.Execute();
-            await _challengerPresenter.PlayAnimationWith(this);
             await _gameActionsProvider.Create<RestoreAllChallengeTokensGameAction>().Execute();
             await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Execute();
             await _gameActionsProvider.Create<DiscardCommitsCardsGameAction>().Execute();
@@ -82,7 +77,6 @@ namespace MythosAndHorrors.GameRules
         {
             IsUndo = true;
             await base.Undo();
-            await _challengerPresenter.PlayAnimationWith(this);
         }
     }
 }
