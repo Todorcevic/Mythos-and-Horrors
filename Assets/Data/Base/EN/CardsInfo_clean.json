@@ -455,16 +455,12 @@
         "Name": "Vicious Blow"
     },
     {
-        "Description": "Place 3 ammo tokens on a [[Firearm]] asset controlled by an investigator at your location.",
+        "Description": "<sprite index=7> : A [[Firearm]] Supply controlled by any investigator at {{The Investigator}}'s Place gains 3 <sprite index=47>.",
         "Flavor": "I've never met a beast that could outsmart a bullet.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Supply"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -473,7 +469,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01526",
-        "Name": "Extra Ammunition"
+        "Name": "Ammunition Reserve"
     },
     {
         "Description": "You get +1 [willpower].\n[free] While an investigator at your location is taking {{his}} or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
@@ -667,15 +663,11 @@
         "Name": "Medical Texts"
     },
     {
-        "Description": "Fast. Play only during your turn.\nUntil the end of the round, you may use your [intellect] in place of your [combat] and [agility].",
+        "Description": "<sprite index=11> : {{The Investigator}} may use {{his}} <sprite index=56> during <sprite index=54> and <sprite index=55> Challenges until the end of the Round.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -685,18 +677,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01536",
-        "Name": "Mind over Matter"
+        "Name": "Brain Power"
     },
     {
-        "Description": "Fast. Play only during your turn.\nDiscover 1 clue at your location.",
+        "Description": "<sprite index=7> : {{The Investigator}} discovers 1 <sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -705,19 +693,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01537",
-        "Name": "Working a Hunch"
+        "Name": "Intuitive Investigation"
     },
     {
-        "Description": "Attach to your location.\nNon-[[Elite]] enemies cannot move into attached location.\n<b>Forced</b> - When an investigator leaves attached location: Discard Barricade.",
+        "Description": "<sprite index=7> : <<01538>> is attached to {{the Investigator}}'s Place.\n <sprite index=11> : Non-[[Elite]] Creatures cannot move into the attached Place.\n<sprite index=7> : <<01538>> is discarded when an investigator leaves the attached Place.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight",
-            "Tactic"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -728,7 +711,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01538",
-        "Name": "Barricade"
+        "Name": "Impenetrable Defense"
     },
     {
         "Description": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
@@ -819,15 +802,11 @@
         "Name": "Encyclopedia"
     },
     {
-        "Description": "Fast. Play only during your turn.\nChoose an investigator at your location. That investigator draws 3 cards.",
+        "Description": "<sprite index=7> : {{The Investigator}} chooses 1 Investigator at {{his}} Place, who draws 3 cards.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -835,7 +814,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01543",
-        "Name": "Cryptic Research"
+        "Name": "Esoteric Investigation"
     },
     {
         "Description": "<sprite index=9> <b>Attack</b>: This attack deals +1 <sprite index=59> if the Challenge is succeeded by 2 or more.",
