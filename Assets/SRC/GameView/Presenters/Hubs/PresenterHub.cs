@@ -20,10 +20,12 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ShufflePresenter _shufllePresenter;
         [Inject] private readonly StateUpdatePresenter _updateStatesPresenters;
         [Inject] private readonly StatUpdatePresenter _statsPresenter;
+        [Inject] private readonly CardsDescriptionPresenter _cardsDescriptionPresenter;
 
         /*******************************************************************/
         async Task IPresenterAnimation.PlayBeforeAnimationWith(GameAction gameAction)
         {
+            _ = _cardsDescriptionPresenter.RefreshDescriptions();
             switch (gameAction)
             {
                 case CreatureAttackGameAction creatureAttackGameAction:

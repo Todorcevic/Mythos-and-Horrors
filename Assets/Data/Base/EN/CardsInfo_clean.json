@@ -1,9 +1,9 @@
 [
     {
-        "Description": "<sprite index=10> : Limit once per Round, after <<01501>> defeats a Creature, he may discover 1 <sprite index=38> at his Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>> Place.",
+        "Description": "<sprite index=10> : Limit once per Round, after <<01501>> defeats a Creature, {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>> Place.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
         "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
-        "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, he was relieved to have guidelines to follow in any given situation. But lately, his Federal Agent's Handbook had been entirely unhelpful given the cases he'd been assigned. Try as he might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If he hadn't seen it with his own eyes, he would never have believed it... and there's no way his superiors would understand. Roland knew he would have to handle this one himself.",
+        "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 4,
@@ -49,7 +49,7 @@
         "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2<sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
         "Flavor": "\"I didn't get out of the joint just to watch the world end.\"",
-        "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for his mother's operation. His mother died of her illness during the second year of his sentence. His cellmate, Brad Hollins, told him there were worse fates than death. He ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures he'd had while dreaming. Skids didn't give it much thought until the night he woke to the sight of his cellmate bursting into flames. When Skids was finally released, he returned to Arkham, looking for answers.",
+        "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for {{his}} mother's operation. {{his}} mother died of her illness during the second year of {{his}} sentence. {{his}} cellmate, Brad Hollins, told him there were worse fates than death. {{He}} ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures {{he}}'d had while dreaming. Skids didn't give it much thought until the night {{he}} woke to the sight of {{his}} cellmate bursting into flames. When Skids was finally released, {{he}} returned to Arkham, looking for answers.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 2,
@@ -114,7 +114,7 @@
         "Name": "Sadie Turner"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: The Investigator gets +1<sprite index=54> for this <b>attack</b> or +3<sprite index=54> if there are any <sprite index=38> at his Place. This <b>attack</b> deals +1<sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -131,7 +131,7 @@
         "Name": "Modified Service Weapon"
     },
     {
-        "Description": "<sprite index=10> : After the Investigator discovers any <sprite index=38>, he may remove that amount of <sprite index=50> from <<01507>> instead.\n<sprite index=7> : When the game ends, the investigator suffers 1 Shock if there is any <sprite index=50> on <<01507>>.",
+        "Description": "<sprite index=10> : After {{the Investigator}} discovers any <sprite index=38>, {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.\n<sprite index=7> : When the game ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -144,7 +144,7 @@
         "Name": "Concealed Crime"
     },
     {
-        "Description": "<sprite index=11> : The Investigator has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
+        "Description": "<sprite index=11> : {{The Investigator}} has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -161,7 +161,7 @@
         "Name": "Scholar's Satchel"
     },
     {
-        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When the Investigator reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : The Investigator takes 1 <sprite index=60>.",
+        "Description": "<sprite index=7> : When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\n<sprite index=7> : When {{the Investigator}} reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : {{The Investigator}} takes 1 <sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -174,7 +174,7 @@
         "Name": "The Book of Hali"
     },
     {
-        "Description": "<sprite index=11> : The Investigator cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
+        "Description": "<sprite index=11> : {{The Investigator}} cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
         "Flavor": "I ain't going to the pen a second time.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -192,7 +192,7 @@
         "Name": "Slippery Escape"
     },
     {
-        "Description": "<sprite index=7> : When the Scene ends, if <<01511>> has <sprite index=51>, the Investigator loses 2 experience points.\n<sprite index=8><sprite index=39><sprite index=51> : Limit twice per round.",
+        "Description": "<sprite index=7> : When the Scene ends, if <<01511>> has <sprite index=51>, {{the Investigator}} loses 2 experience points.\n<sprite index=8><sprite index=39><sprite index=51> : Limit twice per round.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -205,7 +205,7 @@
         "Name": "Illegal Gambling Debts"
     },
     {
-        "Description": "<sprite index=10> : After the Investigator plays a [[Spell]], he draw 1 card.",
+        "Description": "<sprite index=10> : After {{the Investigator}} plays a [[Spell]], {{he}} draw 1 card.",
         "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -223,7 +223,7 @@
         "Name": "Talisman of Forgotten Times"
     },
     {
-        "Description": "<sprite index=7> : The current Plot removes 1 <sprite index=40> and can finish.\n<sprite index=7> : If <<01513>> is in the Investigator's hand at the end of his turn, he take 2 <sprite index=60>.",
+        "Description": "<sprite index=7> : The current Plot removes 1 <sprite index=40> and can finish.\n<sprite index=7> : If <<01513>> is in {{the Investigator}}'s hand at the end of {{his}} turn, {{he}} take 2 <sprite index=60>.",
         "Flavor": "No... not again!",
         "PackCode": "rcore",
         "Faction": 32,
@@ -238,7 +238,7 @@
         "Name": "Haunting Visions"
     },
     {
-        "Description": "<sprite index=11> : The topmost Condition in the Investigator discard pile is playable.\n<sprite index=7> : When a Condition would be discarded, it is placed at the bottom of the deck instead.",
+        "Description": "<sprite index=11> : The topmost Condition in {{the Investigator}} discard pile is playable.\n<sprite index=7> : When a Condition would be discarded, it is placed at the bottom of the deck instead.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -253,7 +253,7 @@
         "Name": "Talisman of Echoes"
     },
     {
-        "Description": "<sprite index=7> : The Investigator takes 2 direct <sprite index=60>. All cards in his discard pile are removed from the game.",
+        "Description": "<sprite index=7> : {{The Investigator}} takes 2 direct <sprite index=60>. All cards in {{his}} discard pile are removed from the game.",
         "Flavor": "I don't need them. I don't need anyone.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -267,7 +267,7 @@
         "Name": "Tears in the Dark"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack and deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack and deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -283,7 +283,7 @@
         "Name": "Patrol Sidearm"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -344,7 +344,7 @@
         "Name": "First Aid"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting the Investigator, this attack deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
         "Flavor": "Cuts through vines, underbrush, and tentacles equally well.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -448,7 +448,7 @@
     },
     {
         "Description": "If this skill test is successful during an attack, that attack deals +1 <sprite index=59>.",
-        "Flavor": "With a sickening smack, he struck the abomination over and over... until at last, it stopped moving.",
+        "Flavor": "With a sickening smack, {{he}} struck the abomination over and over... until at last, it stopped moving.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -488,7 +488,7 @@
         "Name": "Extra Ammunition"
     },
     {
-        "Description": "You get +1 [willpower].\n[free] While an investigator at your location is taking his or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
+        "Description": "You get +1 [willpower].\n[free] While an investigator at your location is taking {{his}} or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -533,7 +533,7 @@
         "Name": "Beat Cop"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -572,7 +572,7 @@
         "Name": "Magnifying Glass"
     },
     {
-        "Description": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of his or her deck for a card, draws it, and shuffles the remaining cards into his or her deck.",
+        "Description": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of {{his}} or her deck for a card, draws it, and shuffles the remaining cards into {{his}} or her deck.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -641,7 +641,7 @@
         "Name": "Dr. Milan Christopher"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -908,7 +908,7 @@
         "Name": "Pickpocketing"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -948,7 +948,7 @@
         "Name": "Leo De Luca"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=55> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1179,7 +1179,7 @@
         "Name": "Holy Rosary"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: the Investigator uses <sprite index=57> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, the Investigator takes 1 <sprite index=60>.",
+        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: {{The Investigator}} uses <sprite index=57> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, {{the Investigator}} takes 1 <sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1215,7 +1215,7 @@
         "Name": "Scrying"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1466,7 +1466,7 @@
         "Name": "Scavenging"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1506,7 +1506,7 @@
     },
     {
         "Description": "[free] Discard Stray Cat: Automatically evade a non-[[Elite]] enemy at your location.",
-        "Flavor": "He never came if you called for him. It always seemed like he had his own agenda.",
+        "Flavor": "{{He}} never came if you called for him. It always seemed like {{he}} had {{his}} own agenda.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1528,7 +1528,7 @@
         "Name": "Stray Cat"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : The Investigator gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1709,7 +1709,7 @@
         "Name": "Will to Survive"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: the Investigator gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1912,7 +1912,7 @@
         "Name": "Elder Sign Amulet"
     },
     {
-        "Description": "<sprite index=7> : The Investigator chooses 1 card from his hand and discards the rest.",
+        "Description": "<sprite index=7> : {{The Investigator}} chooses 1 card from {{his}} hand and discards the rest.",
         "Flavor": "Wait... where am I? What was I doing?",
         "PackCode": "rcore",
         "Faction": 32,
@@ -1926,7 +1926,7 @@
         "Name": "Cognitive Dissonance"
     },
     {
-        "Description": "<sprite index=7> : The Investigator loses all his <sprite index=39>.",
+        "Description": "<sprite index=7> : {{The Investigator}} loses all {{his}} <sprite index=39>.",
         "Flavor": "What was that noise?",
         "PackCode": "rcore",
         "Faction": 32,
@@ -1940,7 +1940,7 @@
         "Name": "Anxiety Attack"
     },
     {
-        "Description": "<sprite index=11> : The Investigator gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
+        "Description": "<sprite index=11> : {{The Investigator}} gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1953,7 +1953,7 @@
         "Name": "Spectral Vision"
     },
     {
-        "Description": "<sprite index=7> - After the Investigator take <sprite index=60>, he take 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
+        "Description": "<sprite index=7> - After {{the Investigator}} take <sprite index=60>, {{he}} take 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1966,7 +1966,7 @@
         "Name": "Hysteria"
     },
     {
-        "Description": "<sprite index=7> - After the Investigator take <sprite index=59>, he take 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
+        "Description": "<sprite index=7> - After {{the Investigator}} take <sprite index=59>, {{he}} take 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -2028,8 +2028,8 @@
         "Name": "Silver Twilight Acolyte"
     },
     {
-        "Description": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if his or her printed text box were blank (except for [[Traits]]).",
-        "Flavor": "Despite everything, he still won't believe you had nothing to do with those murders.",
+        "Description": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if {{his}} or her printed text box were blank (except for [[Traits]]).",
+        "Flavor": "Despite everything, {{he}} still won't believe you had nothing to do with those murders.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -2160,7 +2160,7 @@
         "Name": "Lockpicks"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: the Investigator gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, the Investigator gains 1 <sprite index=7>, limit once per Turn",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, {{the Investigator}} gains 1 <sprite index=7>, limit once per Turn",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -2338,7 +2338,7 @@
         "Name": "The Gathering"
     },
     {
-        "Description2": "The lead investigator must decide (choose one): Either each investigator discards 1 card at random from his or her hand, or the lead investigator takes 2 horror.",
+        "Description2": "The lead investigator must decide (choose one): Either each investigator discards 1 card at random from {{his}} or her hand, or the lead investigator takes 2 horror.",
         "Flavor": "It is late at night. You are holed up in your study, researching the bloody disappearances that have been taking place in the region. A few hours into your research, you hear the sound of strange chanting coming from your parlor, down the hall. At the same time, you hear dirt churning, as if something were digging beneath the floor.",
         "Flavor2": "Your house continues to change before your very eyes. The walls have decayed, and the ground in many rooms has turned to dirt. It is almost as if you have been transported somewhere else entirely, although every now and again you recognize elements of your former home.",
         "PackCode": "core",
@@ -2736,7 +2736,7 @@
         "Description": "[action] The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
         "Description2": "<b>(→R1)</b>",
         "Flavor": "You have one night to find the members of this cult and unveil their plan. The more members of the cult you can find and interrogate before midnight, the better.",
-        "Flavor2": "You've successfully uncovered the identities of all of the cult's high-ranking members within Arkham. The man who had stalked you throughout the city was dedicated in his conviction, as was Herman, the undertaker of the graveyard. Others seemed to have been coerced to aid the cult. Ruth, the mortician, had been told that her family would be killed if she did not supply the ghouls with fresh corpses. Thankfully, you managed to help her escape the hospital safely. Peter, the professor, had to be convinced that his involvement with the cult would do more harm than good. Victoria's obsession with occult artifacts had landed her deep within the cult's web. When you confronted Drew in the asylum, he attacked you - but interestingly, he did so because he thought you were part of the cult. The deeper you delve into this conspiracy, the clearer it becomes that many lives have been ruined by it.",
+        "Flavor2": "You've successfully uncovered the identities of all of the cult's high-ranking members within Arkham. The man who had stalked you throughout the city was dedicated in {{his}} conviction, as was Herman, the undertaker of the graveyard. Others seemed to have been coerced to aid the cult. Ruth, the mortician, had been told that her family would be killed if she did not supply the ghouls with fresh corpses. Thankfully, you managed to help her escape the hospital safely. Peter, the professor, had to be convinced that {{his}} involvement with the cult would do more harm than good. Victoria's obsession with occult artifacts had landed her deep within the cult's web. When you confronted Drew in the asylum, {{he}} attacked you - but interestingly, {{he}} did so because {{he}} thought you were part of the cult. The deeper you delve into this conspiracy, the clearer it becomes that many lives have been ruined by it.",
         "PackCode": "core",
         "Name2": "Secrets Unveiled",
         "SceneCode": "arkham",
@@ -2998,7 +2998,7 @@
         "Name": "Northside"
     },
     {
-        "Description": "<sprite index=7> : The Investigator is Isolated and must choose one: spend 1 <sprite index=38> or take 2 <sprite index=59>.",
+        "Description": "<sprite index=7> : {{The Investigator}} is Isolated and must choose one: spend 1 <sprite index=38> or take 2 <sprite index=59>.",
         "Flavor": "A shadowy figure follows you in the rain. When you look back, your head pounds in agony and your vision blurs.",
         "PackCode": "core",
         "SceneCode": "arkham",
@@ -3013,7 +3013,7 @@
         "Name": "Creeping Shade"
     },
     {
-        "Description": "<sprite index=7> : If the Investigator has no <sprite index=38>, draw another Danger Card. Otherwise, he makes a Challenge <sprite index=56>4. For each point the investigator fails by, drop 1 <sprite index=38> on his Place.",
+        "Description": "<sprite index=7> : If {{the Investigator}} has no <sprite index=38>, draw another Danger Card. Otherwise, {{he}} makes a Challenge <sprite index=56>4. For each point {{the Investigator}} fails by, drop 1 <sprite index=38> on {{his}} Place.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -3028,7 +3028,7 @@
     },
     {
         "Description": "<b>Spawn</b> - Downtown.\n<b>Forced</b> - When \"Wolf-Man\" Drew attacks: Heal 1 damage from him.",
-        "Flavor": "Drew is a longtime patient at Arkham Asylum. Rumor has it he was locked up for committing cannibalism several years ago. He is considered extremely dangerous.",
+        "Flavor": "Drew is a longtime patient at Arkham Asylum. Rumor has it {{he}} was locked up for committing cannibalism several years ago. {{He}} is considered extremely dangerous.",
         "PackCode": "core",
         "SceneCode": "cultists",
         "Faction": 64,
@@ -3080,7 +3080,7 @@
     },
     {
         "Description": "<b>Spawn</b> - Miskatonic University.\n[action] Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
-        "Flavor": "A professor of the occult has been seen reading strange books that relate to cannibalism. Maybe he knows something we don't?",
+        "Flavor": "A professor of the occult has been seen reading strange books that relate to cannibalism. Maybe {{he}} knows something we don't?",
         "PackCode": "core",
         "SceneCode": "cultists",
         "Faction": 64,
@@ -3197,7 +3197,7 @@
     },
     {
         "Description": "Each enemy gets +1 fight and +1 evade.",
-        "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search his or her collection for a random basic [[Madness]] weakness and add it to his or her hand.",
+        "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search {{his}} or her collection for a random basic [[Madness]] weakness and add it to {{his}} or her hand.",
         "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Arkham woods, blotting out the faint light of the stars.",
         "Flavor2": "A dark presence approaches, and you are assaulted by invisible pressures that bring you to your knees. A terrible force threatens to invade your mind and soul. Your throat clenches and your eyes water as the sensation burns through you.",
         "PackCode": "core",
@@ -3501,7 +3501,7 @@
         "Name": "Umôrdhoth"
     },
     {
-        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=57>5. For each point the Investigator fail by, he must choose one: Discard a card from his hand, or take 1 <sprite index=59> and 1 <sprite index=60>.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=57>5. For each point {{the Investigator}} fail by, {{he}} must choose one: Discard a card from {{his}} hand, or take 1 <sprite index=59> and 1 <sprite index=60>.",
         "Flavor": "A deathly chill from below engulfs you, attempting to suck your life force away.",
         "PackCode": "core",
         "SceneCode": "tentacles",
@@ -3591,7 +3591,7 @@
         "Name": "Ravenous Ghoul"
     },
     {
-        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=55>3. For each point the Investigator fails by, he take 1 <sprite index=59>.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=55>3. For each point {{the Investigator}} fails by, {{he}} take 1 <sprite index=59>.",
         "Flavor": "Decaying hands rise up from below and grasp and claw at your ankles.",
         "PackCode": "core",
         "SceneCode": "ghouls",
@@ -3606,7 +3606,7 @@
         "Name": "Tunnel of Claws"
     },
     {
-        "Description": "<sprite index=7> : The investigator makes a Challenge <sprite index=57>3. For each point the Investigator fails by, he take 1 <sprite index=60>.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=57>3. For each point {{the Investigator}} fails by, {{he}} take 1 <sprite index=60>.",
         "Flavor": "A sickening display of gore causes you to retch. You're glad this wasn't you.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
@@ -3621,7 +3621,7 @@
         "Name": "Rotting Corpse"
     },
     {
-        "Description": "<sprite index=11> : Each round, the first time the Investigator uses a <sprite index=9><b>Move</b>, <sprite index=9><b>Attack</b>, or <sprite index=9><b>Elude</b>, it costs 1 additional <sprite index=9>.\n<sprite index=7> : At the end of the Investigator's turn, he makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
+        "Description": "<sprite index=11> : Each round, the first time {{the Investigator}} uses a <sprite index=9><b>Move</b>, <sprite index=9><b>Attack</b>, or <sprite index=9><b>Elude</b>, it costs 1 additional <sprite index=9>.\n<sprite index=7> : At the end of {{the Investigator}}'s turn, {{he}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
         "Faction": 64,
@@ -3635,7 +3635,7 @@
         "Name": "Terror in the Dark"
     },
     {
-        "Description": "<sprite index=11> : The Investigator cannot play Supplies or Conditions.\n<sprite index=7> : At the end of the round, <<01165>> is discarded.",
+        "Description": "<sprite index=11> : {{The Investigator}} cannot play Supplies or Conditions.\n<sprite index=7> : At the end of the round, <<01165>> is discarded.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
         "Faction": 64,
@@ -3664,7 +3664,7 @@
         "Name": "Dark songs"
     },
     {
-        "Description": "<sprite index=7> : The Investigator makes a Challenge <sprite index=57>4. If the Challenge fail, the Investigator discard 1 asset in play. He takes 2 <sprite index=59> instead if he cannot discard.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fail, {{the Investigator}} discard 1 asset in play. {{He}} takes 2 <sprite index=59> instead if {{he}} cannot discard.",
         "Flavor": "The supernatural cold threatens to freeze your soul.",
         "PackCode": "core",
         "SceneCode": "chilling_cold",
@@ -3781,7 +3781,7 @@
         "Name": "Hunting Nightgaunt"
     },
     {
-        "Description": "<sprite index=7> : The Investigator makes a Challenge <sprite index=55>4. If the Challenge fail, the Investigator takes 1 <sprite index=59> and 1 <sprite index=60>. Then he moves to a [[Central]] Place.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=55>4. If the Challenge fail, {{the Investigator}} takes 1 <sprite index=59> and 1 <sprite index=60>. Then {{he}} moves to a [[Central]] Place.",
         "Flavor": "A nightgaunt swoops down from the sky and grabs you with its clawed hands, carrying you off into the night.",
         "PackCode": "core",
         "SceneCode": "nightgaunts",
@@ -3796,7 +3796,7 @@
         "Name": "Darkwing Abduction"
     },
     {
-        "Description": "<sprite index=11> : The attached Place cannot be <b>Investigated</b>.\n<sprite index=9> : The investigator makes a Challenge <sprite index=54>4 or <sprite index=55>4. If the Challenge succeeds, <<01174>> is discarded.",
+        "Description": "<sprite index=11> : The attached Place cannot be <b>Investigated</b>.\n<sprite index=9> : {{The Investigator}} makes a Challenge <sprite index=54>4 or <sprite index=55>4. If the Challenge succeeds, <<01174>> is discarded.",
         "PackCode": "core",
         "SceneCode": "locked_doors",
         "Faction": 64,
@@ -3835,7 +3835,7 @@
         "Name": "Screeching Byakhee"
     },
     {
-        "Description": "<sprite index=7> : The Investigator makes a Challenge <sprite index=57>4. If the Challenge fail, the Investigator takes 2 <sprite index=60> and draw <<01598>>.",
+        "Description": "<sprite index=7> : {{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fail, {{the Investigator}} takes 2 <sprite index=60> and draw <<01598>>.",
         "Flavor": "They came to me slowly as if I had forgotten them, and at last I could make some sense out of the sounds. It was this: \"Have you found the Yellow Sign?\" <cite>Robert W. Chambers, \"The Yellow Sign\"</cite>",
         "PackCode": "core",
         "SceneCode": "agents_of_hastur",
@@ -3875,7 +3875,7 @@
         "Name": "Yithian Observer"
     },
     {
-        "Description": "The Investigator choose one:\n <sprite index=8> : The Investigator draws 2 cards and the current Plot removes 2 <sprite index=40> and can complete itself.\n<sprite index=8> : The Investigator takes 2 <sprite index=60>.",
+        "Description": "{{The Investigator}} choose one:\n <sprite index=8> : {{The Investigator}} draws 2 cards and the current Plot removes 2 <sprite index=40> and can complete itself.\n<sprite index=8> : {{The Investigator}} takes 2 <sprite index=60>.",
         "Flavor": "A voice inside your head offers you power... For a price.",
         "PackCode": "core",
         "SceneCode": "agents_of_yog",
@@ -3966,7 +3966,7 @@
         "Name": "Young Deep One"
     },
     {
-        "Description": "<sprite index=11> : The Investigator gets -1<sprite index=57> and -1<sprite index=37>.\n<sprite index=9>: The Investigator makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01182>> is discarded.",
+        "Description": "<sprite index=11> : {{The Investigator}} gets -1<sprite index=57> and -1<sprite index=37>.\n<sprite index=9>: {{The Investigator}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01182>> is discarded.",
         "PackCode": "core",
         "SceneCode": "agents_of_cthulhu",
         "Faction": 64,

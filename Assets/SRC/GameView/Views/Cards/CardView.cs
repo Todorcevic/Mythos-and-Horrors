@@ -85,6 +85,8 @@ namespace MythosAndHorrors.GameView
 
         public void Off() => gameObject.SetActive(false);
 
+        public void RefreshDescription() => _descriptionController.SetDescription(Card);
+
         public void ActivateToClick()
         {
             if (_cardSensor.IsClickable) return;
