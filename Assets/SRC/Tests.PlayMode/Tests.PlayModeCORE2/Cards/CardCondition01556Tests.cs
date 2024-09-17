@@ -15,7 +15,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         [UnityTest]
         public IEnumerator SwapTokenValue()
         {
-            Investigator investigator = _investigatorsProvider.Fourth;
+            Investigator investigator = _investigatorsProvider.Third;
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value_4).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value_4));
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
@@ -28,10 +28,30 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedIn(conditionCard);
-            yield return ClickedMainButton();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(investigator.Keys.Value, Is.EqualTo(1));
+        }
+
+        [UnityTest]
+        public IEnumerator SwapSceneTokenValue()
+        {
+            Investigator investigator = _investigatorsProvider.Third;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Danger).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Danger));
+            yield return PlaceOnlyScene();
+            yield return PlayThisInvestigator(investigator);
+            yield return BuildCard("01556", investigator);
+            Card01556 conditionCard = _cardsProvider.GetCard<Card01556>();
+
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
+
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedMainButton();
+            yield return ClickedIn(conditionCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

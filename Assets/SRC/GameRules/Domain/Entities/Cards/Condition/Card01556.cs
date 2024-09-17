@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeToken) return false;
             if (revealChallengeToken.Investigator != ControlOwner) return false;
-            if (revealChallengeToken.ChallengeTokenRevealed.TokenType >= 0) return false;
+            if (revealChallengeToken.ChallengeTokenRevealed.Value.Invoke(revealChallengeToken.Investigator) >= 0) return false;
             if (!_challengeTokensProvider.ChallengeTokensRevealed.Contains(revealChallengeToken.ChallengeTokenRevealed)) return false;
             return true;
         }
@@ -28,8 +28,9 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeToken) return;
             ChallengeToken tokenUpdated = revealChallengeToken.ChallengeTokenRevealed;
+            Func<Investigator, int> originalTokenValue = tokenUpdated.Value;
             await _gameActionsProvider.Create<UpdateChallengeTokenGameAction>()
-                .SetWith(tokenUpdated, (_) => Math.Abs((int)tokenUpdated.TokenType), tokenUpdated.Effect).Execute();
+                .SetWith(tokenUpdated, (_) => Math.Abs(originalTokenValue.Invoke(revealChallengeToken.Investigator)), tokenUpdated.Effect).Execute();
             CreateOneTimeReaction<RestoreChallengeTokenGameAction>(RestoreCondition, RestoreLogic, GameActionTime.After);
 
             /*******************************************************************/

@@ -208,7 +208,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             async Task CultistNormalEffect()
             {
-                var nearest = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures.ToList();
+                IEnumerable<CardCreature> nearest = _gameActionsProvider.CurrentChallenge.ActiveInvestigator.NearestCreatures;
 
                 IEldritchable nearestCreature = nearest
                     .Where(creature => creature.HasThisTag(Tag.Cultist)).OfType<IEldritchable>().FirstOrDefault();

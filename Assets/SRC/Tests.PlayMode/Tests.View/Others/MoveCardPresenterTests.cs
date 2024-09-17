@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
     [TestFixture]
     public class MoveCardPresenterTests : PlayModeTestsBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -46,8 +46,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Show_Specific_Card()
         {
-            yield return BuildCard("01538", _investigatorsProvider.First);
-            Card specificCard = _cardsProvider.GetCard<Card01538>();
+            yield return BuildCard("01566", _investigatorsProvider.First);
+            Card specificCard = _cardsProvider.GetCard<Card01566>();
             CardView cardView = _cardViewsManager.GetCardView(specificCard);
 
             cardView.MoveToZone(_zoneViewsManager.CenterShowZone);
