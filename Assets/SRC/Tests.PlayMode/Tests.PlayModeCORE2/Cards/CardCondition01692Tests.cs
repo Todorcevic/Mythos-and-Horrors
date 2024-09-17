@@ -14,8 +14,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         [UnityTest]
         public IEnumerator SwapToken()
         {
-            Investigator investigator = _investigatorsProvider.Second;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail);
+            Investigator investigator = _investigatorsProvider.First;
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_4);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return BuildCard("01692", investigator);

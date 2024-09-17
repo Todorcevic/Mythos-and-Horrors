@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -27,7 +26,8 @@ namespace MythosAndHorrors.GameRules
         {
             if (gameAction is not RevealChallengeTokenGameAction revealChallengeTokenGameAction) return false;
             if (revealChallengeTokenGameAction.Investigator != ControlOwner) return false;
-            if (revealChallengeTokenGameAction.ChallengeTokenRevealed.TokenType != ChallengeTokenType.Fail) return false;
+            if (revealChallengeTokenGameAction.ChallengeTokenRevealed.TokenType != ChallengeTokenType.Fail
+                && _gameActionsProvider.CurrentChallenge.CurrentTotalChallengeValue > 0) return false;
             return true;
         }
     }

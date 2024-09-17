@@ -5,21 +5,17 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01568 : CardConditionReaction
+    public class Card01568 : CardConditionPlayFromHand
     {
-        private IPhase _phase;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
+        public override bool IsFast => true;
         public override IEnumerable<Tag> Tags => new[] { Tag.Spell };
-        protected override GameActionTime FastReactionAtStart => GameActionTime.Before;
-        protected override Localization Localization => new("OptativeReaction_Card01568");
 
         /*******************************************************************/
-        protected override bool CanPlayFromHandSpecific(GameAction gameAction)
+        protected override bool CanPlayFromHandSpecific(Investigator investigator)
         {
-            if (gameAction is not IPhase phase) return false;
-            if (!ControlOwner.CreaturesInSamePlace.Any(creature => !creature.HasThisTag(Tag.Elite))) return false;
-            _phase = phase;
+            if (!investigator.CreaturesInSamePlace.Any(creature => !creature.HasThisTag(Tag.Elite))) return false;
             return true;
         }
 
@@ -38,7 +34,7 @@ namespace MythosAndHorrors.GameRules
                     /*******************************************************************/
                     bool RemoveEffectCondition(GameAction gameAction)
                     {
-                        if (gameAction != _phase) return false;
+                        if (gameAction is not RoundGameAction) return false;
                         return true;
                     }
 

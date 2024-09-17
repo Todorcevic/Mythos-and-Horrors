@@ -23,13 +23,12 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCard, investigator.HandZone).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
+            Task gameActionTask = _gameActionsProvider.Create<RoundGameAction>().Execute();
             AssumeThat(investigator.InvestigatorCard.Blancked.IsActive == true);
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(creature);
             AssumeThat(investigator.InvestigatorCard.Blancked.IsActive == false);
             AssumeThat(creature.Blancked.IsActive == true);
-            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

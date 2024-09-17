@@ -419,7 +419,7 @@
         "Name": "Evasive Maneuver"
     },
     {
-        "Description": "{{The Investigator}} chooses a connecting Place or the Place {{he}} is currently at, and deals 3 <sprite index=59> to each Creature and to each Investigator at the chosen Place.",
+        "Description": "{{The Investigator}} chooses a connecting Place or {{his}} current Place. All Creatures and Investigators at the chosen Place take 3 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -802,7 +802,7 @@
         "Name": "Encyclopedia"
     },
     {
-        "Description": "{{The Investigator}} chooses 1 Investigator at {{his}} Place, who draws 3 cards.",
+        "Description": "{{The Investigator}} chooses 1 Investigator at {{his}} Place. That Investigator draws 3 cards.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -949,7 +949,7 @@
         "Name": "Quick Escape"
     },
     {
-        "Description": "<b>Attack:</b> This attack uses <sprite index=55> and deals +2 <sprite index=59>.",
+        "Description": "<b>Attack:</b> {{The Investigator}} uses {{his}} <sprite index=55> in this Challenge and deals +2 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1235,7 +1235,7 @@
         "Name": "Spectral Shield"
     },
     {
-        "Description": "<b>Elude:</b> This Challenge uses <sprite index=57> and if it succeeds, deals 1 <sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1 <sprite index=9>.",
+        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 1 <sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1 <sprite index=9>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1272,15 +1272,11 @@
         "Name": "Fearless"
     },
     {
-        "Description": "Fast. Play after a phase begins.\nChoose a non-[[Elite]] enemy at your location. Treat the chosen enemy's printed text box as if it were blank (except for [[Traits]]) until the end of the phase.",
+        "Description": "{{The Investigator}} chooses a non-[[Elite]] Creature at {{his}} Place. That Creature loses all effects until the end of the Round.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Spell"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1290,18 +1286,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01568",
-        "Name": "Mind Wipe"
+        "Name": "Mental Null"
     },
     {
-        "Description": "<b>Evade.</b> This evasion attempt uses [willpower] instead of [agility]. If you succeed, deal 2 <sprite index=59> to the enemy just evaded. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this evasion attempt, lose 1 action this turn and take 1 horror.",
+        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 2 <sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1 <sprite index=9> and 1 <sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Spell"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1311,7 +1303,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01569",
-        "Name": "Blinding Light"
+        "Name": "Luminous Burst"
     },
     {
         "Description": "You have 1 additional arcane slot.\n[action] Exhaust Book of Shadows: Add 1 charge to a [[Spell]] asset you control.",
@@ -1478,16 +1470,12 @@
         "Name": "Perseverance"
     },
     {
-        "Description": "<b>Evade.</b> Automatically evade all enemies at your location.",
+        "Description": "<b>Elude:</b> {{The Investigator}} automatically eludes all Creatures at {{his}} Place.",
         "Flavor": "That should buy us some time.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Tactic"
         ],
         "Cost": 5,
         "Quantity": 2,
@@ -1497,18 +1485,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01578",
-        "Name": "Cunning Distraction"
+        "Name": "Artful Dodge"
     },
     {
-        "Description": "Fast. Play after you fail a skill test by 2 or less while investigating.\nDiscover 2 clues in your location.",
+        "Description": "After {{the Investigator}} fails a Challenge by 2 or fewer while investigating, {{he}} may discover 2 <sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Fortune"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1517,18 +1501,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01579",
-        "Name": "\"Look what I found!\""
+        "Name": "Fortuitous Find"
     },
     {
-        "Description": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test.",
+        "Description": "When {{the Investigator}} would fail a Challenge, {{he}} may gets +2<sprite index=58> for that Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Fortune"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1536,7 +1516,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01580",
-        "Name": "Lucky!"
+        "Name": "Lucky Clover"
     },
     {
         "Description": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location.",
@@ -1581,15 +1561,11 @@
         "Name": "Aquinnah"
     },
     {
-        "Description": "Fast. Play after a non-weakness, non-[[Elite]] enemy at your location is evaded.\nShuffle that enemy into the encounter deck.",
+        "Description": "After a non-[[Weakness]], non-[[Elite]] Creature at {{the Investigator}} Place is eluded, that Creature may be shuffled into the encounter deck.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Fortune"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1599,18 +1575,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01583",
-        "Name": "Close Call"
+        "Name": "Narrow Escape"
     },
     {
-        "Description": "Fast. Play when you would fail a skill test.\nGet +2 to your skill value for that test. Draw 1 card.",
+        "Description": "When {{the Investigator}} would fail a Challenge, {{he}} may gets +2<sprite index=58> for that Challenge and draw 1 Card.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Fortune"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1618,18 +1590,14 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01584",
-        "Name": "Lucky!"
+        "Name": "Lucky Clover"
     },
     {
-        "Description": "Fast. Play only during your turn.\nUntil the end of your turn, do not reveal chaos tokens for any skill tests you perform.",
+        "Description": "{{The Investigator}} does not reveal Symbols for any Challenge until the end of {{his}} turn.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Spirit"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -1639,7 +1607,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01585",
-        "Name": "Will to Survive"
+        "Name": "Unstoppable Spirit"
     },
     {
         "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>",
@@ -1679,16 +1647,12 @@
         "Name": "Flashlight"
     },
     {
-        "Description": "Gain 3 resources.",
+        "Description": "{{The Investigator}} gains 3 <sprite index=39>.",
         "Flavor": "You can never be too prepared.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Supply"
         ],
         "Cost": 0,
         "Quantity": 10,
@@ -1696,7 +1660,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01588",
-        "Name": "Emergency Cache"
+        "Name": "Resource Reserve"
     },
     {
         "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
@@ -1845,7 +1809,7 @@
         "Name": "Elder Sign Amulet"
     },
     {
-        "Description": "{{The Investigator}} chooses 1 card from {{his}} hand and discards the rest.",
+        "Description": "{{The Investigator}} chooses 1 card from {{his}} hand. The rest is discarded.",
         "Flavor": "Wait... where am I? What was I doing?",
         "PackCode": "rcore",
         "Faction": 32,
@@ -2006,15 +1970,11 @@
         "Name": "First Aid"
     },
     {
-        "Description": "Fast. Play when you are dealt <sprite index=59> and/or horror.\nCancel up to 5 <sprite index=59> and/or horror just dealt to you. Then, gain that many resources.",
+        "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>, he may cancel up to 5 <sprite index=59> and/or <sprite index=60>. Then, he gains that many resources.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Spirit"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -2024,19 +1984,15 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01684",
-        "Name": "\"I've had worse…\""
+        "Name": "Defiance in Adversity"
     },
     {
-        "Description": "<b>Investigate.</b> If you succeed, instead of discovering a clue at your location, discover 2 total clues from among your location and connecting locations.",
+        "Description": "<b>Investigate:</b> If the Challenge succeeds, {{the Investigator}} discovers 2 <sprite index=38> from among {{his}} Place and connecting Places.",
         "Flavor": "Some people need to know the truth at any cost. Some truths can cut like knives.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Insight"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -2046,7 +2002,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01685",
-        "Name": "Seeking Answers"
+        "Name": "Concise Interrogation"
     },
     {
         "Description": "Uses (2 secrets).\n[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of their deck for a card, draws it, and shuffles their deck. Then, you may spend 1 secret to have that investigator immediately play that card, reducing its cost by 2.",
@@ -2174,16 +2130,11 @@
         "Name": "Aquinnah"
     },
     {
-        "Description": "Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [auto_fail] token).\nCancel that token and treat it as an [elder_sign] token, instead.",
+        "Description": "When {{the Investigator}} reveals a Symbol that would cause the Challenge to fail, the Symbol may be canceled, and a <sprite index=21> is revealed.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Fortune",
-            "Blessed"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -2192,19 +2143,15 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01692",
-        "Name": "Eucatastrophe"
+        "Name": "Irresistible Appeal"
     },
     {
-        "Description": "Gain 3 resources and draw 1 card.",
+        "Description": "{{The Investigator}} gains 3 <sprite index=39> and draws 1 Card.",
         "Flavor": "You can never be too prepared.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Condition",
-            "Supply"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -2212,7 +2159,7 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01693",
-        "Name": "Emergency Cache"
+        "Name": "Resource Reserve"
     },
     {
         "Description": "Permanent.\nYou have 1 additional ally slot.",
