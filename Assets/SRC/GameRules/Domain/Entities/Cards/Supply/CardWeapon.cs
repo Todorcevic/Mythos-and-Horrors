@@ -40,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 async Task AttackCreature()
                 {
                     AttackCreatureGameAction attackCreatureGameAction = _gameActionsProvider.Create<AttackCreatureGameAction>()
-                        .SetWith(investigator, creature, amountDamage: 1);
+                        .SetWith(investigator, creature, amountDamage: investigator.BasicDamegeToAttack.Value);
                     await ExtraAttackEnemyLogic(attackCreatureGameAction);
                     await attackCreatureGameAction.Execute();
                 }

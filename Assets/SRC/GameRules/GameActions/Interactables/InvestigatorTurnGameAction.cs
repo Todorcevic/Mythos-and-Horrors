@@ -129,7 +129,7 @@ namespace MythosAndHorrors.GameRules
                     new Localization("CardEffect_OneInvestigatorTurn-3"));
 
                 /*******************************************************************/
-                async Task InvestigatorAttack() => await _gameActionsProvider.Create<AttackCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature, amountDamage: 1).Execute();
+                async Task InvestigatorAttack() => await _gameActionsProvider.Create<AttackCreatureGameAction>().SetWith(ActiveInvestigator, cardCreature, amountDamage: ActiveInvestigator.BasicDamegeToAttack.Value).Execute();
             }
         }
 

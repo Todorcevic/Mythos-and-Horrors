@@ -22,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         public Stat CurrentActions { get; private set; }
         public Stat MaxActions { get; private set; }
         public Stat MaxHandSize { get; private set; }
+        public Stat BasicDamegeToAttack { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
         public State IsPlaying { get; private set; }
@@ -50,6 +51,7 @@ namespace MythosAndHorrors.GameRules
             MaxActions = CreateStat(GameValues.DEFAULT_ACTIONS_AMOUNT);
             CurrentActions = CreateStat(GameValues.DEFAULT_ACTIONS_AMOUNT);
             MaxHandSize = CreateStat(GameValues.MAX_HAND_SIZE);
+            BasicDamegeToAttack = CreateStat(GameValues.DEFAULT_BASIC_DAMAGE_TO_ATTACK);
             Resign = CreateState(false, isReseteable: false);
             Defeated = CreateState(false, isReseteable: false);
             IsPlaying = CreateState(false);

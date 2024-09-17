@@ -80,6 +80,7 @@ namespace MythosAndHorrors.GameRules
         public Stat CurrentActions => InvestigatorCard.CurrentActions;
         public Stat MaxActions => InvestigatorCard.MaxActions;
         public Stat MaxHandSize => InvestigatorCard.MaxHandSize;
+        public Stat BasicDamegeToAttack => InvestigatorCard.BasicDamegeToAttack;
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
         public State IsPlayingTurns => InvestigatorCard.IsPlaying;
