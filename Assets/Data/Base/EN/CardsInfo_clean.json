@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=10> : Limit once per Round, after <<01501>> defeats a Creature, {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>> Place.",
+        "Description": "<sprite index=10> limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>> Place.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
         "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
         "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
@@ -69,7 +69,7 @@
         "Name": "Frank Harris"
     },
     {
-        "Description": "<sprite index=10> : Limit once per Phase, after <<01504>> loses <sprite index=37>, she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
+        "Description": "<sprite index=10> limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
         "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
         "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
@@ -92,7 +92,7 @@
         "Name": "Lucille Hargrove"
     },
     {
-        "Description": "<sprite index=10> : Limit once per Challenge, after <<01505>> reveals a Symbol, she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
+        "Description": "<sprite index=10> limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
         "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",
@@ -131,7 +131,7 @@
         "Name": "Modified Service Weapon"
     },
     {
-        "Description": "When the Scene ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.\n<sprite index=10> : After {{the Investigator}} discovers any <sprite index=38>, {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.",
+        "Description": "When the Scene ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.\n<sprite index=10> after {{the Investigator}} discovers any <sprite index=38>: {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -205,7 +205,7 @@
         "Name": "Illegal Gambling Debts"
     },
     {
-        "Description": "<sprite index=10> : After {{the Investigator}} plays a [[Spell]], {{he}} draw 1 card.",
+        "Description": "<sprite index=10> after {{the Investigator}} plays a [[Spell]]: {{he}} draw 1 card.",
         "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -267,7 +267,7 @@
         "Name": "Tears in the Dark"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack and deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack and deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -300,16 +300,11 @@
         "Name": "Martial Discipline"
     },
     {
-        "Description": "You get +1 [combat].\n[free] Discard Beat Cop: Deal 1 <sprite index=59> to an enemy at your location.",
+        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> : <<01518>> is discarded and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Police"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -320,19 +315,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01518",
-        "Name": "Beat Cop"
+        "Name": "Patrol Officer"
     },
     {
-        "Description": "Uses (3 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 <sprite index=59> or horror from an investigator at your location.",
+        "Description": "When <<01519>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator at {{the Investigator}}'s Place heals 1 <sprite index=36> or recovers 1 <sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent",
-            "Science"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -341,7 +331,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01519",
-        "Name": "First Aid"
+        "Name": "Emergency Kit"
     },
     {
         "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
@@ -361,17 +351,12 @@
         "Name": "Cleaving Cutlass"
     },
     {
-        "Description": "[reaction] When an enemy attack deals <sprite index=59> to Guard Dog: Deal 1 <sprite index=59> to the attacking enemy.",
+        "Description": "<sprite index=10> when a Creature deals <sprite index=59> to <<01521>>: it deals 1 <sprite index=59> to the Creature.",
         "Flavor": "Fiercely loyal, these trained canines make for perfect companions.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Creature"
         ],
         "Cost": 3,
         "Quantity": 2,
@@ -382,10 +367,10 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01521",
-        "Name": "Guard Dog"
+        "Name": "Loyal Hound"
     },
     {
-        "Description": "After {{the Investigator}} defeats a Creature, {{he}} may discover 1 <sprite index=38> at {{his}} Place.",
+        "Description": "After {{the Investigator}} defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.",
         "Flavor": "Just as I suspected!",
         "PackCode": "rcore",
         "Faction": 4,
@@ -402,7 +387,7 @@
         "Name": "Crucial Discovery"
     },
     {
-        "Description": "When a Creature attacks an investigator at {{the Investigator}}'s Place, {{the Investigator}} may cancel that attack.",
+        "Description": "When a Creature attacks an investigator at {{the Investigator}}'s Place: {{the Investigator}} may cancel that attack.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -435,16 +420,12 @@
         "Name": "Explosive Devastation"
     },
     {
-        "Description": "If this skill test is successful during an attack, that attack deals +1 <sprite index=59>.",
+        "Description": "When <<01525>> is committed to an Attack Challenge and succeeds, it deals +1 <sprite index=59>.",
         "Flavor": "With a sickening smack, {{he}} struck the abomination over and over... until at last, it stopped moving.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Practiced"
         ],
         "Quantity": 2,
         "Strength": 1,
@@ -452,7 +433,7 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01525",
-        "Name": "Vicious Blow"
+        "Name": "Ferocious Attack"
     },
     {
         "Description": "A [[Firearm]] Supply controlled by any investigator at {{The Investigator}}'s Place gains 3 <sprite index=47>.",
@@ -472,15 +453,11 @@
         "Name": "Ammunition Reserve"
     },
     {
-        "Description": "You get +1 [willpower].\n[free] While an investigator at your location is taking {{his}} or her turn, discard Police Badge: That investigator may take 2 additional actions this turn.",
+        "Description": "{{The Investigator}} gets +1<sprite index=57>.\n<sprite index=8> : An Investigator at {{the Investigator}}'s Place gains 2 <sprite index=9>",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             1
-        ],
-        "Tags": [
-            "Supply",
-            "Item"
         ],
         "Cost": 3,
         "Quantity": 2,
@@ -490,19 +467,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01527",
-        "Name": "Police Badge"
+        "Name": "Authority Emblem"
     },
     {
-        "Description": "You get +1 [combat].\n[free] Exhaust Beat Cop and deal 1 <sprite index=59> to it: Deal 1 <sprite index=59> to an enemy at your location.",
+        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> <b>Exhaust</b>: <<01518>> takes 1 <sprite index=59> and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Police"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -514,7 +486,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01528",
-        "Name": "Beat Cop"
+        "Name": "Patrol Officer"
     },
     {
         "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
@@ -534,17 +506,12 @@
         "Name": "Illegal Hunting Gun"
     },
     {
-        "Description": "Fast.\nYou get +1 [intellect] while investigating.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.",
         "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tool"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -553,19 +520,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01530",
-        "Name": "Magnifying Glass"
+        "Name": "Investigative Loupe"
     },
     {
-        "Description": "[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of {{his}} or her deck for a card, draws it, and shuffles the remaining cards into {{his}} or her deck.",
+        "Description": "<sprite index=9> <b>Exhaust</b>: An Investigator at {{the Investigator}}'s Place shows the top 3 cards of his deck and draws one.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tome"
         ],
         "Cost": 3,
         "Quantity": 2,
@@ -574,20 +536,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01531",
-        "Name": "Old Book of Lore"
+        "Name": "Esoteric Compendium"
     },
     {
-        "Description": "[reaction] After Research Librarian enters play: Search your deck for a [[Tome]] asset and add it to your hand. Shuffle your deck.",
+        "Description": "<sprite index=10> after <<01532>> enters play: {{The Investigator}} shows the [[Tome]] Supplies of {{his}} deck and draws one",
         "Flavor": "\"There have been problems at the Orne Library, as we both know, given poor Armitage's condition, and the other, unrelated... incident of a few years ago...\"",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Miskatonic"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -598,20 +555,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01532",
-        "Name": "Research Librarian"
+        "Name": "Arcane Archivist"
     },
     {
-        "Description": "You get +1 [intellect].\n[reaction] After you successfully investigate: Gain 1 resource.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1 <sprite index=39>.",
         "Flavor": "\"While I truly believe that this nightmare is just a singular abomination, I must admit that I am exhilarated by the possibility that this is but one specimen of a new genus!\"",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Miskatonic"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -622,7 +574,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01533",
-        "Name": "Dr. Milan Christopher"
+        "Name": "Bug Specialist"
     },
     {
         "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
@@ -642,16 +594,11 @@
         "Name": "Supernatural Perception"
     },
     {
-        "Description": "[action] Choose an investigator at your location and test [intellect] (2). If you succeed, heal 1 <sprite index=59> from that investigator. If you fail, deal 1 <sprite index=59> to that investigator.",
+        "Description": "<sprite index=9> : {{The Investigator}} chooses an investigator at {{his}} Place then, {{the Investigator}} makes a Challenge <sprite index=56>2. If the Challenge succeeds, the chosen investigator heals 1 <sprite index=59>. If the Challenge fails, the chosen investigator takes 1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tome"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -660,7 +607,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01535",
-        "Name": "Medical Texts"
+        "Name": "Mystic Healing Texts"
     },
     {
         "Description": "{{The Investigator}} may use {{his}} <sprite index=56> during <sprite index=54> and <sprite index=55> Challenges until the end of the Round.",
@@ -714,16 +661,12 @@
         "Name": "Impenetrable Defense"
     },
     {
-        "Description": "If this skill test is successful while investigating a location, discover 1 additional clue at that location.",
+        "Description": "When <<01539>> is committed to an Investigate Challenge and succeeds, it discovers 1 additional <sprite index=38>.",
         "Flavor": "I knew I had seen this symbol before. I must warn the others before it is too late!",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Practiced"
         ],
         "Quantity": 2,
         "Intelligence": 1,
@@ -731,20 +674,15 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01539",
-        "Name": "Deduction"
+        "Name": "Logical Conclusion"
     },
     {
-        "Description": "Fast.\nYou get +1 [intellect] while investigating.\n[free] If there are no clues on your location: Return Magnifying Glass to your hand.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
         "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tool"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -753,20 +691,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01540",
-        "Name": "Magnifying Glass"
+        "Name": "Investigative Loupe"
     },
     {
-        "Description": "[reaction] When a non-[[Elite]] enemy spawns at your location, discard Disc of Itzamna: Discard that enemy.",
+        "Description": "<sprite index=10> when a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: that Creature and <<01541>> are discarded.",
         "Flavor": "Do they <sprite index=60> it because of what it will do to them? Or, do they <sprite index=60> it because of what it will do to you?",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             1
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Relic"
         ],
         "Cost": 3,
         "Quantity": 2,
@@ -777,20 +710,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01541",
-        "Name": "Disc of Itzamna"
+        "Name": "Charm of Banishing"
     },
     {
-        "Description": "[action] Exhaust Encyclopedia: Choose an investigator at your location. That investigator gets +2 to a skill of your choice until the end of the phase.",
+        "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2<sprite index=54>, +2<sprite index=55>, +2<sprite index=56> or +2<sprite index=57> until the end of the Phase.",
         "Flavor": "It's supposed to be comprehensive, but the more I search through its pages, the more I realize we know nothing about the real truths of the cosmos.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tome"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -799,10 +727,10 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01542",
-        "Name": "Encyclopedia"
+        "Name": "Tome of Secrets"
     },
     {
-        "Description": "{{The Investigator}} chooses 1 Investigator at {{his}} Place. That Investigator draws 3 cards.",
+        "Description": "An Investigator at {{The Investigator}}'s Place draws 3 cards.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -833,16 +761,11 @@
         "Name": "Shadow Dagger"
     },
     {
-        "Description": "[action] Exhaust Burglary: <b>Investigate.</b> If you succeed, instead of discovering clues, gain 3 resources.",
+        "Description": "<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: If the Investigation Challenge succeeds, {{the Investigator}} gains 3 <sprite index=39> instead of <sprite index=38>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent",
-            "Illicit"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -851,7 +774,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01545",
-        "Name": "Burglary"
+        "Name": "Shadow Heist"
     },
     {
         "Description": "[reaction] After you evade an enemy, exhaust Pickpocketing: Draw 1 card.",
@@ -932,7 +855,7 @@
         "Name": "Urban Survival"
     },
     {
-        "Description": "{{The Investigator}} unconfronts each Creature and moves to a revealed Place with no Creatures.",
+        "Description": "{{The Investigator}} removes confrontation with each Creature and moves to a revealed Place with no Creatures.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -983,15 +906,11 @@
         "Name": "Surprise Attack"
     },
     {
-        "Description": "Commit only to a skill test you are performing.\nIf you succeed by 3 or more, return Opportunist to your hand after this test instead of discarding it.",
+        "Description": "<<01553>> can only be committed to {{the investigator}} Challenge. If the Challenge succeeds by 3 or more, <<01553>> is returned to {{the investigator}}'s hand.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 2,
         "Wild": 1,
@@ -999,7 +918,7 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01553",
-        "Name": "Opportunist"
+        "Name": "Keeping Distance"
     },
     {
         "Description": "You may take an additional action during your turn.",
@@ -1050,7 +969,7 @@
         "Name": "Cat Burglar"
     },
     {
-        "Description": "After {{the Investigator}} reveals a negative value Symbol, {{he}} may switch it to a positive value",
+        "Description": "After {{the Investigator}} reveals a negative value Symbol: {{He}} may switch it to a positive value",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1219,7 +1138,7 @@
         "Name": "Call of the Unknown"
     },
     {
-        "Description": "When {{the Investigator}} draws a non-[[Weakness]] Adversity card, {{he}} may cancel and discard that card. Then, {{he}} takes 1 <sprite index=60>.",
+        "Description": "When {{the Investigator}} draws a non-[[Weakness]] Adversity card: {{He}} may cancel and discard that card. Then, {{he}} takes 1 <sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1252,16 +1171,12 @@
         "Name": "Luminous Burst"
     },
     {
-        "Description": "If this skill test is successful, heal 1 horror.",
+        "Description": "When <<01539>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1 <sprite index=37>.",
         "Flavor": "Only by standing firm against the darkness can we live to see the light of another day.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 2,
         "Power": 1,
@@ -1269,7 +1184,7 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01567",
-        "Name": "Fearless"
+        "Name": "Braveheart"
     },
     {
         "Description": "{{The Investigator}} chooses a non-[[Elite]] Creature at {{his}} Place. That Creature loses all effects until the end of the Round.",
@@ -1488,7 +1403,7 @@
         "Name": "Artful Dodge"
     },
     {
-        "Description": "After {{the Investigator}} fails a Challenge by 2 or fewer while investigating, {{he}} may discover 2 <sprite index=38> at {{his}} Place.",
+        "Description": "After {{the Investigator}} fails a Investigation Challenge by 2 or fewer: {{He}} may discover 2 <sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1504,7 +1419,7 @@
         "Name": "Fortuitous Find"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge, {{he}} may gets +2<sprite index=58> for that Challenge.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1519,15 +1434,11 @@
         "Name": "Lucky Clover"
     },
     {
-        "Description": "If this skill test is successful during an evasion attempt, the evading investigator may immediately disengage from each other enemy engaged with him or her, and may move to a connecting location.",
+        "Description": "When <<01581>> is committed to an Elude Challenge and succeeds, {{the investigator}} may remove confrontation with all Creatures and move to a connecting Place.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 2,
         "Agility": 1,
@@ -1535,7 +1446,7 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01581",
-        "Name": "Survival Instinct"
+        "Name": "Desperate Maneuver"
     },
     {
         "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's <sprite index=59> to another enemy at your location, instead. (You still take horror dealt by the attack.)",
@@ -1561,7 +1472,7 @@
         "Name": "Aquinnah"
     },
     {
-        "Description": "After a non-[[Weakness]], non-[[Elite]] Creature at {{the Investigator}} Place is eluded, that Creature may be shuffled into the encounter deck.",
+        "Description": "After a non-[[Weakness]], non-[[Elite]] Creature at {{the Investigator}} Place is eluded: That Creature may be shuffled into the encounter deck.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1578,7 +1489,7 @@
         "Name": "Narrow Escape"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge, {{he}} may gets +2<sprite index=58> for that Challenge and draw 1 Card.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge and draw 1 Card.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1626,7 +1537,7 @@
         "Name": "Notched Knife"
     },
     {
-        "Description": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate.</b> Your location gets -2 shroud for this investigation.",
+        "Description": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate</b> Your location gets -2 shroud for this investigation.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1663,16 +1574,12 @@
         "Name": "Resource Reserve"
     },
     {
-        "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+        "Description": "Only one <<01589>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
         "Flavor": "Stay back! I'll handle this.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 4,
         "Power": 2,
@@ -1680,19 +1587,15 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01589",
-        "Name": "Guts"
+        "Name": "Nerve of Steel"
     },
     {
-        "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+        "Description": "Only one <<01590>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
         "Flavor": "At last, I've found it!",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Practiced"
         ],
         "Quantity": 4,
         "Intelligence": 2,
@@ -1700,19 +1603,15 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01590",
-        "Name": "Perception"
+        "Name": "Critical Analysis"
     },
     {
-        "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+        "Description": "Only one <<01591>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
         "Flavor": "Die, you beast!",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Practiced"
         ],
         "Quantity": 4,
         "Strength": 2,
@@ -1720,19 +1619,15 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01591",
-        "Name": "Overpower"
+        "Name": "Brute Strength"
     },
     {
-        "Description": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card.",
+        "Description": "Only one <<01592>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
         "Flavor": "Too easy.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 4,
         "Agility": 2,
@@ -1740,19 +1635,15 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01592",
-        "Name": "Manual Dexterity"
+        "Name": "Agile Hands"
     },
     {
-        "Description": "Max 1 committed per skill test.",
+        "Description": "Only one <<01593>> can be committed to a Challenge.",
         "Flavor": "Sometimes, the most selfless acts can come from the strangest places",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Talent",
-            "Innate"
         ],
         "Quantity": 4,
         "Wild": 2,
@@ -1760,7 +1651,7 @@
         "HealthPerInvestigator": false,
         "CardType": 4,
         "Code": "01593",
-        "Name": "Unexpected Courage"
+        "Name": "Spontaneous Courage"
     },
     {
         "Flavor": "Bullets are one thing... twelve-inch fangs quite another.",
@@ -1970,7 +1861,7 @@
         "Name": "First Aid"
     },
     {
-        "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>, he may cancel up to 5 <sprite index=59> and/or <sprite index=60>. Then, he gains that many resources.",
+        "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>: {{He}} may cancel up to 5 <sprite index=59> and/or <sprite index=60>. Then, {{he}} gains that many resources.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -1987,7 +1878,7 @@
         "Name": "Defiance in Adversity"
     },
     {
-        "Description": "<b>Investigate:</b> If the Challenge succeeds, {{the Investigator}} discovers 2 <sprite index=38> from among {{his}} Place and connecting Places.",
+        "Description": "<b>Investigate</b>: If the Challenge succeeds, {{the Investigator}} discovers 2 <sprite index=38> from among {{his}} Place and connecting Places.",
         "Flavor": "Some people need to know the truth at any cost. Some truths can cut like knives.",
         "PackCode": "rcore",
         "Faction": 16,
@@ -2027,7 +1918,7 @@
         "Name": "Old Book of Lore"
     },
     {
-        "Description": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate.</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+        "Description": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -2066,7 +1957,7 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate.</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn.",
+        "Description": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -2130,7 +2021,7 @@
         "Name": "Aquinnah"
     },
     {
-        "Description": "When {{the Investigator}} reveals a Symbol that would cause the Challenge to fail, the Symbol may be canceled, and a <sprite index=21> is revealed.",
+        "Description": "When {{the Investigator}} reveals a Symbol that would cause the Challenge to fail: That Symbol may be canceled, and a <sprite index=21> is revealed.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -3676,7 +3567,7 @@
         "Name": "Darkwing Abduction"
     },
     {
-        "Description": "The attached Place cannot be <b>Investigated</b>.\n<sprite index=9> : {{The Investigator}} makes a Challenge <sprite index=54>4 or <sprite index=55>4. If the Challenge succeeds, <<01174>> is discarded.",
+        "Description": "The attached Place cannot be Investigated.\n<sprite index=9> : {{The Investigator}} makes a Challenge <sprite index=54>4 or <sprite index=55>4. If the Challenge succeeds, <<01174>> is discarded.",
         "PackCode": "core",
         "SceneCode": "locked_doors",
         "Faction": 64,

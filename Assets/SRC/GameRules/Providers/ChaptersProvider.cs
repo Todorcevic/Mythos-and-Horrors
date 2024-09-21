@@ -11,7 +11,7 @@ namespace MythosAndHorrors.GameRules
         private List<Chapter> _chapters = new();
 
         public Chapter CurrentChapter => _chapters.First(chapter => chapter.HasThisScene(CurrentScene.Code));
-        public Scene CurrentScene => (Scene)_ownersProvider.AllOwners.First(owner => owner is Scene);
+        public Scene CurrentScene => _ownersProvider.AllOwners.OfType<Scene>().First();
         public Dificulty CurrentDificulty { get; private set; }
 
         /*******************************************************************/
