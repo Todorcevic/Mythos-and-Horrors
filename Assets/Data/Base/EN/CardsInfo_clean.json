@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=10> limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>> Place.",
+        "Description": "<sprite index=10> Limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>> Place.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
         "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
         "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
@@ -69,7 +69,7 @@
         "Name": "Frank Harris"
     },
     {
-        "Description": "<sprite index=10> limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
+        "Description": "<sprite index=10> Limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
         "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
         "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
@@ -92,7 +92,7 @@
         "Name": "Lucille Hargrove"
     },
     {
-        "Description": "<sprite index=10> limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
+        "Description": "<sprite index=10> Limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
         "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",
@@ -131,7 +131,7 @@
         "Name": "Modified Service Weapon"
     },
     {
-        "Description": "When the Scene ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.\n<sprite index=10> after {{the Investigator}} discovers any <sprite index=38>: {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.",
+        "Description": "When the Scene ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.\n<sprite index=10> After {{the Investigator}} discovers any <sprite index=38>: {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -205,7 +205,7 @@
         "Name": "Illegal Gambling Debts"
     },
     {
-        "Description": "<sprite index=10> after {{the Investigator}} plays a [[Spell]]: {{he}} draw 1 card.",
+        "Description": "<sprite index=10> After {{the Investigator}} plays a [[Spell]]: {{he}} draw 1 card.",
         "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
@@ -351,7 +351,7 @@
         "Name": "Cleaving Cutlass"
     },
     {
-        "Description": "<sprite index=10> when a Creature deals <sprite index=59> to <<01521>>: it deals 1 <sprite index=59> to the Creature.",
+        "Description": "<sprite index=10> After a Creature deals <sprite index=59> to <<01521>>: it deals 1 <sprite index=59> to the Creature.",
         "Flavor": "Fiercely loyal, these trained canines make for perfect companions.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -539,7 +539,7 @@
         "Name": "Esoteric Compendium"
     },
     {
-        "Description": "<sprite index=10> after <<01532>> enters play: {{The Investigator}} shows all [[Tome]] Supplies of {{his}} deck and draws one",
+        "Description": "<sprite index=10> After <<01532>> enters play: {{The Investigator}} shows all [[Tome]] of {{his}} deck and draws one",
         "Flavor": "\"There have been problems at the Orne Library, as we both know, given poor Armitage's condition, and the other, unrelated... incident of a few years ago...\"",
         "PackCode": "rcore",
         "Faction": 16,
@@ -694,7 +694,7 @@
         "Name": "Investigative Loupe"
     },
     {
-        "Description": "<sprite index=10> when a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: That Creature and <<01541>> are discarded.",
+        "Description": "<sprite index=10> After a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: That Creature and <<01541>> are discarded.",
         "Flavor": "Do they <sprite index=60> it because of what it will do to them? Or, do they <sprite index=60> it because of what it will do to you?",
         "PackCode": "rcore",
         "Faction": 16,
@@ -777,7 +777,7 @@
         "Name": "Shadow Heist"
     },
     {
-        "Description": "<sprite index=10> after {{the Investigator}} eludes a Creature <b>Exhaust</b> : {{He}} draws 1 card.",
+        "Description": "<sprite index=10> After {{the Investigator}} eludes a Creature <b>Exhaust</b> : {{He}} draws 1 card.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -809,7 +809,7 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "{{The Investigator}} get +1 <sprite index=9> during {{his}} turn.",
+        "Description": "{{The Investigator}} get +1 <sprite index=9>.",
         "Flavor": "\"I was born in Mississippi. Louisiana just sounded better.\"",
         "PackCode": "rcore",
         "Faction": 2,
@@ -911,17 +911,12 @@
         "Name": "Keeping Distance"
     },
     {
-        "Description": "You may take an additional action during your turn.",
+        "Description": "{{The Investigator}} get +1 <sprite index=9>.",
         "Flavor": "\"I was born in Mississippi. Louisiana just sounded better.\"",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Criminal"
         ],
         "Cost": 5,
         "Quantity": 2,
@@ -932,19 +927,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01554",
-        "Name": "Leo De Luca"
+        "Name": "Vito 'The Viper' Moretti"
     },
     {
-        "Description": "You get +1 [agility].\n[action] Exhaust Cat Burglar: Disengage from each enemy engaged with you and move to a connecting location. This action does not provoke attacks of opportunity.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=55>.\n<sprite index=9> <b>Exhaust</b>: {{The Investigator}} remove confrontation with all Creatures and move to a connecting Place. This action does not provoke attacks of opportunity.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Criminal"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -956,7 +946,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01555",
-        "Name": "Cat Burglar"
+        "Name": "Swift Bandit"
     },
     {
         "Description": "After {{the Investigator}} reveals a negative value Symbol: {{He}} may switch it to a positive value",
@@ -991,15 +981,11 @@
         "Name": "Gambler's Glory"
     },
     {
-        "Description": "Uses (4 secrets). If Forbidden Knowledge has no secrets, discard it.\n[free] Exhaust Forbidden Knowledge and take 1 horror: Move 1 secret from Forbidden Knowledge to your resource pool, as a resource.",
+        "Description": "When <<01558>> has no <sprite index=50>, it is discarded.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} takes 1 <sprite index=60> and gains 1 <sprite index=39>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -1008,20 +994,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01558",
-        "Name": "Forbidden Knowledge"
+        "Name": "Blasphemous Epiphany"
     },
     {
-        "Description": "You get +1 [willpower].",
+        "Description": "{{The Investigator}} gets +1 <sprite index=57>.",
         "Flavor": "Whether focused through a mundane trinket or a mystical artifact, there is real power in faith all the same.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             1
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Charm"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1031,7 +1012,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01559",
-        "Name": "Holy Rosary"
+        "Name": "Devout Amulet"
     },
     {
         "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: {{The Investigator}} uses <sprite index=57> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, {{the Investigator}} takes 1 <sprite index=60>.",
@@ -1050,15 +1031,11 @@
         "Name": "Withering Hex"
     },
     {
-        "Description": "Uses (3 charges).\n[action] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck or the encounter deck. Return them to the top of that deck in any order.",
+        "Description": "<sprite index=9><sprite index=49> <b>Exhaust</b>: {{The Investigator}} looks at the top 3 cards of any Investigator's deck or the Danger deck, them {{he}} returns to the top of that deck in any order.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             16
-        ],
-        "Tags": [
-            "Supply",
-            "Spell"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1067,7 +1044,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01561",
-        "Name": "Scrying"
+        "Name": "Clairvoyance"
     },
     {
         "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
@@ -1087,16 +1064,11 @@
         "Name": "Mystical Training"
     },
     {
-        "Description": "<b>Forced</b> - After Arcane Initiate enters play: Place 1 doom on it.\n[free] Exhaust Arcane Initiate: Search the top 3 cards of your deck for a [[Spell]] card and draw it. Shuffle your deck.",
+        "Description": "When <01563> enters play, 1 <sprite index=40> is placed on it.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} can draw a [[Spell]] from the top 3 cards of {{his}} deck.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Sorcerer"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1107,7 +1079,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01563",
-        "Name": "Arcane Initiate"
+        "Name": "Novice of the Dark Arts"
     },
     {
         "Description": "{{The Investigator}} draws the top card of the Danger deck and {{he}} discovers 2 <sprite index=39> at {{his}} Place.",
@@ -1211,16 +1183,11 @@
         "Name": "Luminous Burst"
     },
     {
-        "Description": "You have 1 additional arcane slot.\n[action] Exhaust Book of Shadows: Add 1 charge to a [[Spell]] asset you control.",
+        "Description": "{{The Investigator}} has 1 additional <sprite index=45>.\n<sprite index=9> <b>Exhaust</b>: One of {{the investigator}}'s [[Spell]] gains 1 <sprite index=49>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tome"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -1230,19 +1197,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01570",
-        "Name": "Book of Shadows"
+        "Name": "Shadowbound Tome"
     },
     {
-        "Description": "Uses (4 charges). If Grotesque Statue has no charges, discard it.\n[reaction] When you would reveal a chaos token, spend 1 charge: Reveal 2 chaos tokens instead of 1. Choose 1 of those tokens to resolve, and ignore the other.",
+        "Description": "When <<01571>> has no <sprite index=49>, it is discarded.\n<sprite index=10> When {{the Investigator}} would reveal a Symbol, <sprite index=49>: 2 Symbols are revealed and {{the Investigator}} chooses one to resolve.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Relic"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1251,7 +1213,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01571",
-        "Name": "Grotesque Statue"
+        "Name": "Sinister Statuette"
     },
     {
         "Flavor": "The coat was not the most fashionable choice, but it did feel warm and reassuring in its bulk.",
@@ -1259,11 +1221,6 @@
         "Faction": 1,
         "Slots": [
             2
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Armor"
         ],
         "Cost": 0,
         "Quantity": 2,
@@ -1273,18 +1230,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01572",
-        "Name": "Leather Coat"
+        "Name": "Hardy Greatcoat"
     },
     {
-        "Description": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand.",
+        "Description": "<sprite index=10> After {{the investigator}} successfully investigates by 2 or more, <b>exhaust</b>: {{He}} draws an [[Item]] from {{his}} discard pile.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1293,7 +1246,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01573",
-        "Name": "Scavenging"
+        "Name": "Recovering"
     },
     {
         "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
@@ -1313,17 +1266,12 @@
         "Name": "Heavy Hitter"
     },
     {
-        "Description": "[reaction] After you fail a skill test, exhaust Rabbit's Foot: Draw 1 card.",
+        "Description": "<sprite index=10> After {{the Investigator}} fails a Challenge, <b>Exhaust</b>: {{he}} draws 1 card.",
         "Flavor": "They claimed it would bring me good luck. I wouldn't say that's true. But now I feel like it would be even worse luck to get rid of it.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             1
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Charm"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1332,20 +1280,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01575",
-        "Name": "Rabbit's Foot"
+        "Name": "Lucky Coin"
     },
     {
-        "Description": "[free] Discard Stray Cat: Automatically evade a non-[[Elite]] enemy at your location.",
+        "Description": "<sprite index=8>: <01576> is discarded and {{the Investigator}} automatically eludes a non-[[Elite]] Creature at {{his}} Place.",
         "Flavor": "{{He}} never came if you called for him. It always seemed like {{he}} had {{his}} own agenda.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Creature"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1355,7 +1298,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01576",
-        "Name": "Stray Cat"
+        "Name": "Night Prowler"
     },
     {
         "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
@@ -1439,16 +1382,12 @@
         "Name": "Desperate Maneuver"
     },
     {
-        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's <sprite index=59> to another enemy at your location, instead. (You still take horror dealt by the attack.)",
+        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01582>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to another Creature at {{the Investigator}}'s Place, instead.",
         "Flavor": "\"Do not be frightened by what you see. Be frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally"
         ],
         "Cost": 5,
         "Quantity": 2,
@@ -1459,7 +1398,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01582",
-        "Name": "Aquinnah"
+        "Name": "Cursed Ally"
     },
     {
         "Description": "After a non-[[Weakness]], non-[[Elite]] Creature at {{the Investigator}} Place is eluded: That Creature may be shuffled into the encounter deck.",
@@ -1527,16 +1466,11 @@
         "Name": "Notched Knife"
     },
     {
-        "Description": "Uses (3 supplies).\n[action] Spend 1 supply: <b>Investigate</b> Your location gets -2 shroud for this investigation.",
+        "Description": "<sprite index=9><sprite index=48><b>Investigate</b>: {{The Investigator}}'s Place gets -2 <sprite index=56> for this Investigation Challenge.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tool"
         ],
         "Cost": 2,
         "Quantity": 10,
@@ -1545,7 +1479,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01587",
-        "Name": "Flashlight"
+        "Name": "Pocket Light"
     },
     {
         "Description": "{{The Investigator}} gains 3 <sprite index=39>.",
@@ -1650,11 +1584,6 @@
         "Slots": [
             2
         ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Armor"
-        ],
         "Cost": 2,
         "Quantity": 2,
         "Strength": 1,
@@ -1664,7 +1593,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01594",
-        "Name": "Bulletproof Vest"
+        "Name": "Bodyguard"
     },
     {
         "Flavor": "This has been in my family for generations. Take care of it, and it will take care of you.",
@@ -1672,11 +1601,6 @@
         "Faction": 32,
         "Slots": [
             1
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Relic"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1687,7 +1611,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01595",
-        "Name": "Elder Sign Amulet"
+        "Name": "Mystical Seal"
     },
     {
         "Description": "{{The Investigator}} chooses 1 card from {{his}} hand. The rest is discarded.",
@@ -1757,17 +1681,12 @@
         "Name": "Obsessive Infection"
     },
     {
-        "Description": "<b>Prey</b> - Bearer only.\nHunter.\n[action] Spend 4 resources: <b>Parley</b>. Discard Mob Enforcer.",
+        "Description": "<<01601>> chases {{the Investigator}}.\n<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01601>> is discarded.",
         "Flavor": "You knew you shouldn't have borrowed money from the O'Bannion gang. It seems like they're always looking to collect at the worst times.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Criminal"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -1778,21 +1697,15 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01601",
-        "Name": "Mob Enforcer"
+        "Name": "Crime Syndicate"
     },
     {
-        "Description": "<b>Prey</b> - Bearer only.\nHunter.\n<b>Forced</b> - After Silver Twilight Acolyte attacks: Place 1 doom on the current agenda.",
+        "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1 <sprite index=40> is removed from the current Plot.",
         "Flavor": "You'll never forget the day you learned the true secret of the Silver Twilight Lodge's inner circle. The truth is too terrible for the Lodge to let you live.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist",
-            "Silver Twilight"
         ],
         "Quantity": 1,
         "Strength": 2,
@@ -1803,20 +1716,15 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01602",
-        "Name": "Silver Twilight Acolyte"
+        "Name": "Cult Enforcer"
     },
     {
-        "Description": "<b>Prey</b> - Bearer only.\nHunter.\nWhile Stubborn Detective is at your location, treat your investigator as if {{his}} or her printed text box were blank (except for [[Traits]]).",
+        "Description": "<<01603>> chases {{the Investigator}}\nAll Investigators at <<01603>>'s Place lose all their effects.",
         "Flavor": "Despite everything, {{he}} still won't believe you had nothing to do with those murders.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Detective"
         ],
         "Quantity": 1,
         "Strength": 3,
@@ -1827,19 +1735,14 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01603",
-        "Name": "Stubborn Detective"
+        "Name": "Tenacious Inspector"
     },
     {
-        "Description": "Uses (4 supplies). If First Aid has no supplies, discard it.\n[action] Spend 1 supply: Heal 1 <sprite index=59> and 1 horror from an investigator or [[Ally]] asset in your location.",
+        "Description": "When <<01683>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator or [[Ally]] at {{the Investigator}}'s Place heals 1 <sprite index=36> and recovers 1 <sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent",
-            "Science"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1848,7 +1751,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01683",
-        "Name": "First Aid"
+        "Name": "Emergency Kit"
     },
     {
         "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>: {{He}} may cancel up to 5 <sprite index=59> and/or <sprite index=60>. Then, {{he}} gains that many resources.",
@@ -1886,16 +1789,11 @@
         "Name": "Concise Interrogation"
     },
     {
-        "Description": "Uses (2 secrets).\n[action] Exhaust Old Book of Lore: Choose an investigator at your location. That investigator searches the top 3 cards of their deck for a card, draws it, and shuffles their deck. Then, you may spend 1 secret to have that investigator immediately play that card, reducing its cost by 2.",
+        "Description": "<sprite index=9> <b>Exhaust</b>: An Investigator at {{the Investigator}}'s Place shows the top 3 cards of his deck and draws one. Then, <sprite index=50>: that card is played reducing its cost by 2.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tome"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -1905,20 +1803,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01686",
-        "Name": "Old Book of Lore"
+        "Name": "Esoteric Compendium"
     },
     {
-        "Description": "Uses (3 supplies). If Lockpicks has no supplies, discard it.\n[action] Exhaust Lockpicks: <b>Investigate</b> Add your [agility] value to your skill value for this investigation. If you do not succeed by at least 2, remove 1 supply from Lockpicks.",
+        "Description": "When <<01687>> has no <sprite index=52>, it is discarded.\n<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: {{The Investigator}}'s <sprite index=55> is added to this Investigation Challenge. If the Investigation Challenge does not succeed by at least 2, 1 <sprite index=52> is removed.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             8
-        ],
-        "Tags": [
-            "Supply",
-            "Item",
-            "Tool",
-            "Illicit"
         ],
         "Cost": 3,
         "Quantity": 2,
@@ -1927,7 +1819,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01687",
-        "Name": "Lockpicks"
+        "Name": "Master Keys"
     },
     {
         "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, {{the Investigator}} gains 1 <sprite index=9>, limit once per Turn",
@@ -1947,15 +1839,11 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "Uses (3 charges).\n[action] Spend 1 charge: <b>Investigate</b> Investigate using [willpower] instead of [intellect]. You get +2 [willpower] for this test. If you succeed you discover 1 additional clue at this location. If a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during this test, after this test resolves lose all remaining actions and immediately end your turn.",
+        "Description": "<sprite index=9><sprite index=49> <b>Investigate</b>: {{The Investigator}} uses <sprite index=57> for this Investigation Challenge and gets +2 <sprite index=57>. If the Investigation Challenge succeed, {{the Investigator}} discover 1 additional <sprite index=38> at {{his}} Place. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> Symbol is revealed, {{the Investigator}} loses all {{his}} actions and end {{his}} turn.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             16
-        ],
-        "Tags": [
-            "Supply",
-            "Spell"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -1964,18 +1852,14 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01689",
-        "Name": "Rite of Seeking"
+        "Name": "Magical Revelation"
     },
     {
-        "Description": "Uses (3 charges).\n[free] Exhaust Scrying and spend 1 charge: Look at the top 3 cards of any investigator's deck, or the encounter deck. Return them to the top of that deck, in any order. If a [[Terror]] or [[Omen]] card is among the looked-at cards, take 1 horror.",
+        "Description": "<sprite index=8><sprite index=49> <b>Exhaust</b>: {{The Investigator}} looks at the top 3 cards of any Investigator's deck or the Danger deck, them {{he}} returns to the top of that deck in any order. If a [[Terror]] or [[Omen]] is among the looked-at cards, {{The Investigator}} takes 1 <sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
             16
-        ],
-        "Tags": [
-            "Supply",
-            "Spell"
         ],
         "Cost": 1,
         "Quantity": 2,
@@ -1984,19 +1868,15 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01690",
-        "Name": "Scrying"
+        "Name": "Clairvoyance"
     },
     {
-        "Description": "[reaction] When an enemy attacks you, exhaust Aquinnah and deal 1 horror to her: Deal that enemy's <sprite index=59> to any enemy at your location, instead. (You still take horror dealt by the attack.)",
+        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01691>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to any Creature at {{the Investigator}}'s Place, instead.",
         "Flavor": "\"Do not be frightened by what you see.\nBe frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally"
         ],
         "Cost": 4,
         "Quantity": 2,
@@ -2008,7 +1888,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01691",
-        "Name": "Aquinnah"
+        "Name": "Cursed Ally"
     },
     {
         "Description": "When {{the Investigator}} reveals a Symbol that would cause the Challenge to fail: That Symbol may be canceled, and a <sprite index=21> is revealed.",
@@ -2043,42 +1923,34 @@
         "Name": "Resource Reserve"
     },
     {
-        "Description": "Permanent.\nYou have 1 additional ally slot.",
+        "Description": "<<01694>> is Fixed.\n{{The Investigator}} has 1 additional <sprite index=42>.",
         "Flavor": "When you turn on the charm, it could light the entire town.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Supply",
-            "Talent"
-        ],
         "Quantity": 2,
         "Xp": 3,
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01694",
-        "Name": "Charisma"
+        "Name": "Natural Leader"
     },
     {
-        "Description": "Permanent.\nYou have 1 additional accessory slot.",
+        "Description": "<<01695>> is Fixed.\n{{The Investigator}} has 1 additional <sprite index=46>.",
         "Flavor": "No stone unturned, no ancient treasure left behind.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Supply",
-            "Talent"
-        ],
         "Quantity": 2,
         "Xp": 3,
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01695",
-        "Name": "Relic Hunter"
+        "Name": "Treasure Finder"
     },
     {
         "Description": "Easy / Standard\n[skull] -X. X is the number of [[Ghoul]] enemies at your location.\n[cultist] -1. If you fail, take 1 horror.\n[tablet] -2. If there is a [[Ghoul]] enemy at your location, take 1 damage.\n",
@@ -2311,7 +2183,7 @@
         "Name": "Cellar"
     },
     {
-        "Description": "[action] <b>Resign.</b> \"This is too much for me!\" You run out the front door, fleeing in panic.\nWhile Lita Chantler is not controlled by a player, she gains: \"[action]: <b>Parley.</b> Test [intellect] (4). If you succeed, take control of Lita Chantler.\"",
+        "Description": "<sprite index=9> <b>Resign.</b> \"This is too much for me!\" You run out the front door, fleeing in panic.\nWhile Lita Chantler is not controlled by a player, she gains: \"<sprite index=9>: <b>Parley.</b> Test [intellect] (4). If you succeed, take control of Lita Chantler.\"",
         "Description2": "The entrance to the Parlor is blocked by a darkly glowing unfathomable barrier. You cannot move into the Parlor.",
         "Flavor2": "You're unsure what would happen if you tried to cross the threshold of the strange barrier, but based on its extreme heat, you sure as hell don't want to try.",
         "PackCode": "core",
@@ -2360,7 +2232,7 @@
         "Name": "Ghoul Priest"
     },
     {
-        "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n[reaction] When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
+        "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n<sprite index=10> When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 32,
@@ -2453,7 +2325,7 @@
         "Name": "The Midnight Masks"
     },
     {
-        "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Description": "<sprite index=9>: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
         "Flavor": "Lita seems convinced of a conspiracy within the city of Arkham. She believes that a secret cult serves the ghouls that live in the crypts beneath the city, and that several of the cult's prominent members are scattered throughout Arkham. As you begin searching for them, you can't shake the feeling that you, too, are being hunted.",
         "PackCode": "core",
         "SceneCode": "arkham",
@@ -2472,7 +2344,7 @@
         "Name": "Predator or Prey?"
     },
     {
-        "Description": "[action]: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Description": "<sprite index=9>: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
         "Description2": "<b>(→R2)</b>",
         "Flavor": "The minutes pass quickly as your investigation continues.",
         "Flavor2": "Twelve bells ring out across the town. It is midnight. There is no time left to investigate the city; you must act based on the information you've collected from the cultists you've found.",
@@ -2494,7 +2366,7 @@
         "Name": "Time Is Running Short"
     },
     {
-        "Description": "[action] The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
+        "Description": "<sprite index=9> The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
         "Description2": "<b>(→R1)</b>",
         "Flavor": "You have one night to find the members of this cult and unveil their plan. The more members of the cult you can find and interrogate before midnight, the better.",
         "Flavor2": "You've successfully uncovered the identities of all of the cult's high-ranking members within Arkham. The man who had stalked you throughout the city was dedicated in {{his}} conviction, as was Herman, the undertaker of the graveyard. Others seemed to have been coerced to aid the cult. Ruth, the mortician, had been told that her family would be killed if she did not supply the ghouls with fresh corpses. Thankfully, you managed to help her escape the hospital safely. Peter, the professor, had to be convinced that {{his}} involvement with the cult would do more harm than good. Victoria's obsession with occult artifacts had landed her deep within the cult's web. When you confronted Drew in the asylum, {{he}} attacked you - but interestingly, {{he}} did so because {{he}} thought you were part of the cult. The deeper you delve into this conspiracy, the clearer it becomes that many lives have been ruined by it.",
@@ -2515,7 +2387,7 @@
         "Name": "Uncovering the Conspiracy"
     },
     {
-        "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n[action]: Draw 1 card and gain 1 resource. (Limit once per turn.)",
+        "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n<sprite index=9>: Draw 1 card and gain 1 resource. (Limit once per turn.)",
         "Flavor": "You still feel uneasy about going back.",
         "Flavor2": "Despite what happened, you just couldn't bring yourself to destroy your home.",
         "PackCode": "core",
@@ -2559,7 +2431,7 @@
         "Name": "Rivertown"
     },
     {
-        "Description": "[action]: Draw 3 cards. (Limit once per game.)",
+        "Description": "<sprite index=9>: Draw 3 cards. (Limit once per game.)",
         "Flavor": "The Georgian manor housing the Historical Society is well known for its private library, where local records, maps, and artifacts from Arkham's past hint at secrets better left alone.",
         "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
         "PackCode": "core",
@@ -2581,7 +2453,7 @@
         "Name": "Southside"
     },
     {
-        "Description": "[action]: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
+        "Description": "<sprite index=9>: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
         "Flavor": "Ma's is famous for its cheap rooms and Mystery Meat Mondays. A motley variety of characters can be found coming and going at all times of day.",
         "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
         "PackCode": "core",
@@ -2603,7 +2475,7 @@
         "Name": "Southside"
     },
     {
-        "Description": "[action]: Heal 3 damage. (Limit once per game.)",
+        "Description": "<sprite index=9>: Heal 3 damage. (Limit once per game.)",
         "Flavor": "An extended stay at St. Mary's can do wonders for the body, but its effect on one's psyche is unclear.",
         "Flavor2": "Arkham's only hospital, St. Mary's has a twenty-four-hour receiving room and is busy at all hours of the night. Doctor Mortimore and Nurse Sharon have been particularly stressed lately, thanks in part to recent events.",
         "PackCode": "core",
@@ -2625,7 +2497,7 @@
         "Name": "St. Mary's Hospital"
     },
     {
-        "Description": "[action]: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
+        "Description": "<sprite index=9>: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
         "Flavor": "The campus is quiet and lonely. Several of the buildings have been left unlocked for students and faculty working late into the night.",
         "Flavor2": "Miskatonic University is one of the most prestigious colleges in the Northeast. The university library is famous for its collection of occult books maintained by the esteemed Dr. Henry Armitage.",
         "PackCode": "core",
@@ -2648,7 +2520,7 @@
         "Name": "Miskatonic University"
     },
     {
-        "Description": "[action]: Gain 3 resources. (Limit once per game.)",
+        "Description": "<sprite index=9>: Gain 3 resources. (Limit once per game.)",
         "Flavor": "We'll call this a \"loan.\"",
         "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
         "PackCode": "core",
@@ -2670,7 +2542,7 @@
         "Name": "Downtown"
     },
     {
-        "Description": "[action]: Heal 3 horror. (Limit once per game.)",
+        "Description": "<sprite index=9>: Heal 3 horror. (Limit once per game.)",
         "Flavor": "A refuge for the mind, or a prison for the soul?",
         "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
         "PackCode": "core",
@@ -2736,7 +2608,7 @@
         "Name": "Graveyard"
     },
     {
-        "Description": "[action] Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
+        "Description": "<sprite index=9> Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
         "Flavor": "In Northside, nothing gets people talking faster than a piece of dough.",
         "Flavor2": "Northside is a commercial district that contains many offices and factories, as well as the train station.",
         "PackCode": "core",
@@ -2814,7 +2686,7 @@
         "Name": "\"Wolf-Man\" Drew"
     },
     {
-        "Description": "<b>Spawn</b> - Graveyard.\n[action] Choose and discard 4 cards from your hand: <b>Parley.</b> Add Herman Collins to the victory display.",
+        "Description": "<b>Spawn</b> - Graveyard.\n<sprite index=9> Choose and discard 4 cards from your hand: <b>Parley.</b> Add Herman Collins to the victory display.",
         "Flavor": "The undertaker in the local graveyard has been digging strange tunnels underneath the mausoleum... but for what purpose?",
         "PackCode": "core",
         "SceneCode": "cultists",
@@ -2840,7 +2712,7 @@
         "Name": "Herman Collins"
     },
     {
-        "Description": "<b>Spawn</b> - Miskatonic University.\n[action] Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
+        "Description": "<b>Spawn</b> - Miskatonic University.\n<sprite index=9> Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
         "Flavor": "A professor of the occult has been seen reading strange books that relate to cannibalism. Maybe {{he}} knows something we don't?",
         "PackCode": "core",
         "SceneCode": "cultists",
@@ -2866,7 +2738,7 @@
         "Name": "Peter Warren"
     },
     {
-        "Description": "<b>Spawn</b> - Northside.\n[action] Spend 5 resources: <b>Parley.</b> Add Victoria Devereux to the victory display.",
+        "Description": "<b>Spawn</b> - Northside.\n<sprite index=9> Spend 5 resources: <b>Parley.</b> Add Victoria Devereux to the victory display.",
         "Flavor": "Oliver Thomas, the proprietor of the Curiositie Shoppe, has informed you that a new client has taken a keen interest in a mysterious mask...",
         "PackCode": "core",
         "SceneCode": "cultists",
@@ -3042,7 +2914,7 @@
         "Name": "Into the Darkness"
     },
     {
-        "Description": "[action] Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
+        "Description": "<sprite index=9> Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
         "Description2": "<b>(→R1)</b>",
         "Flavor": "The site of the cult's ritual is inside a large cavern in a dark corner of the woods. In the center of the chamber is a candlelit circle marked by rocks and arcane runes.",
         "Flavor2": "You brave the unnatural chill and weave through arcane symbols, crossing the threshold of the circle. You smother the markings on the ground, covering them with dirt, breaking apart the carefully constructed pattern of smooth rocks. A shrill noise pierces your ears as the air grows suddenly warmer, and the world distorts around you, settling into normality.",
@@ -3063,7 +2935,7 @@
         "Name": "Disrupting the Ritual"
     },
     {
-        "Description": "The Main Path is connected to each other [[Woods]] location.\n[action]: <b>Resign.</b> \"There's nothing we can do to stop them!\" You flee from the woods, leaving Arkham to its grisly fate.",
+        "Description": "The Main Path is connected to each other [[Woods]] location.\n<sprite index=9>: <b>Resign.</b> \"There's nothing we can do to stop them!\" You flee from the woods, leaving Arkham to its grisly fate.",
         "Flavor2": "Hangman's Brook separates Uptown from the woods south of Arkham. Passing over the small bridge, you follow the main path deeper into the trees.",
         "PackCode": "core",
         "SceneCode": "tentacles",
@@ -3194,7 +3066,7 @@
         "Name": "Arkham Woods"
     },
     {
-        "Description": "[action]: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
+        "Description": "<sprite index=9>: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
         "Flavor": "This would be a nice picnic spot, if it weren't for all the monsters.",
         "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
         "PackCode": "core",
@@ -3238,7 +3110,7 @@
         "Name": "Ritual Site"
     },
     {
-        "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n[action] If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
+        "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n<sprite index=9> If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,

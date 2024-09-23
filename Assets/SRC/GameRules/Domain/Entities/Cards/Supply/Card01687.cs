@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Charge = new Charge(3, ChargeType.Secret);
+            Charge = new Charge(3, ChargeType.Supplie);
             CreateActivation(1, InvestigationLogic, InvestigationCondition, PlayActionType.Activate | PlayActionType.Investigate, new Localization("Activation_Card01687"));
             CreateForceReaction<UpdateStatGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
         }
