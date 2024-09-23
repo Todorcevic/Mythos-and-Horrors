@@ -13,6 +13,10 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
+            _fastActionPrefab.gameObject.SetActive(false);
+            _actionPrefab.gameObject.SetActive(false);
+            _reactionPrefab.gameObject.SetActive(false);
+
             if (card is IPlayableFromHandInTurn playableFromHand)
             {
                 if (playableFromHand.IsFast) _fastActionPrefab.gameObject.SetActive(true);

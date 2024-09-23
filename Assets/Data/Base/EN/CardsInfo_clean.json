@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=10> limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>> Place.",
+        "Description": "<sprite index=10> limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>> Place.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
         "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
         "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
@@ -46,7 +46,7 @@
         "Name": "Beatrice Ward"
     },
     {
-        "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2<sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
+        "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2 <sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
         "Flavor": "\"I didn't get out of the joint just to watch the world end.\"",
         "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for {{his}} mother's operation. {{his}} mother died of her illness during the second year of {{his}} sentence. {{his}} cellmate, Brad Hollins, told him there were worse fates than death. {{He}} ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures {{he}}'d had while dreaming. Skids didn't give it much thought until the night {{he}} woke to the sight of {{his}} cellmate bursting into flames. When Skids was finally released, {{he}} returned to Arkham, looking for answers.",
@@ -69,7 +69,7 @@
         "Name": "Frank Harris"
     },
     {
-        "Description": "<sprite index=10> limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
+        "Description": "<sprite index=10> limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
         "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
         "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
         "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
@@ -114,7 +114,7 @@
         "Name": "Sadie Turner"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1<sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -267,7 +267,7 @@
         "Name": "Tears in the Dark"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack and deals +1<sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack and deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -283,7 +283,7 @@
         "Name": "Patrol Sidearm"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -300,7 +300,7 @@
         "Name": "Martial Discipline"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> : <<01518>> is discarded and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=54>.\n<sprite index=8> : <<01518>> is discarded and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -334,7 +334,7 @@
         "Name": "Emergency Kit"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
         "Flavor": "Cuts through vines, underbrush, and tentacles equally well.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -453,7 +453,7 @@
         "Name": "Ammunition Reserve"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=57>.\n<sprite index=8> : An Investigator at {{the Investigator}}'s Place gains 2 <sprite index=9>",
+        "Description": "{{The Investigator}} gets +1 <sprite index=57>.\n<sprite index=8> : An Investigator at {{the Investigator}}'s Place gains 2 <sprite index=9>",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -470,7 +470,7 @@
         "Name": "Authority Emblem"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> <b>Exhaust</b>: <<01518>> takes 1 <sprite index=59> and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=54>.\n<sprite index=8> <b>Exhaust</b>: <<01518>> takes 1 <sprite index=59> and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -489,7 +489,7 @@
         "Name": "Patrol Officer"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3 <sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -506,7 +506,7 @@
         "Name": "Illegal Hunting Gun"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.",
         "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
@@ -539,7 +539,7 @@
         "Name": "Esoteric Compendium"
     },
     {
-        "Description": "<sprite index=10> after <<01532>> enters play: {{The Investigator}} shows the [[Tome]] Supplies of {{his}} deck and draws one",
+        "Description": "<sprite index=10> after <<01532>> enters play: {{The Investigator}} shows all [[Tome]] Supplies of {{his}} deck and draws one",
         "Flavor": "\"There have been problems at the Orne Library, as we both know, given poor Armitage's condition, and the other, unrelated... incident of a few years ago...\"",
         "PackCode": "rcore",
         "Faction": 16,
@@ -558,7 +558,7 @@
         "Name": "Arcane Archivist"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1 <sprite index=39>.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1 <sprite index=39>.",
         "Flavor": "\"While I truly believe that this nightmare is just a singular abomination, I must admit that I am exhilarated by the possibility that this is but one specimen of a new genus!\"",
         "PackCode": "rcore",
         "Faction": 16,
@@ -577,7 +577,7 @@
         "Name": "Bug Specialist"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -677,7 +677,7 @@
         "Name": "Logical Conclusion"
     },
     {
-        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
+        "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
         "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
@@ -694,7 +694,7 @@
         "Name": "Investigative Loupe"
     },
     {
-        "Description": "<sprite index=10> when a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: that Creature and <<01541>> are discarded.",
+        "Description": "<sprite index=10> when a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: That Creature and <<01541>> are discarded.",
         "Flavor": "Do they <sprite index=60> it because of what it will do to them? Or, do they <sprite index=60> it because of what it will do to you?",
         "PackCode": "rcore",
         "Faction": 16,
@@ -713,7 +713,7 @@
         "Name": "Charm of Banishing"
     },
     {
-        "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2<sprite index=54>, +2<sprite index=55>, +2<sprite index=56> or +2<sprite index=57> until the end of the Phase.",
+        "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2 <sprite index=54>, +2 <sprite index=55>, +2 <sprite index=56> or +2 <sprite index=57> until the end of the Phase.",
         "Flavor": "It's supposed to be comprehensive, but the more I search through its pages, the more I realize we know nothing about the real truths of the cosmos.",
         "PackCode": "rcore",
         "Faction": 16,
@@ -745,7 +745,7 @@
         "Name": "Esoteric Investigation"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: This attack deals +1 <sprite index=59> if the Challenge is succeeded by 2 or more.",
+        "Description": "<sprite index=9> <b>Attack</b>: If the Challenge is succeeded by 2 or more, this attack deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -777,16 +777,11 @@
         "Name": "Shadow Heist"
     },
     {
-        "Description": "[reaction] After you evade an enemy, exhaust Pickpocketing: Draw 1 card.",
+        "Description": "<sprite index=10> after {{the Investigator}} eludes a Creature <b>Exhaust</b> : {{He}} draws 1 card.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Supply",
-            "Talent",
-            "Illicit"
         ],
         "Cost": 2,
         "Quantity": 2,
@@ -795,10 +790,10 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01546",
-        "Name": "Pickpocketing"
+        "Name": "Light Fingers"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -814,17 +809,12 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "You may take an additional action during your turn.",
+        "Description": "{{The Investigator}} get +1 <sprite index=9> during {{his}} turn.",
         "Flavor": "\"I was born in Mississippi. Louisiana just sounded better.\"",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
             4
-        ],
-        "Tags": [
-            "Supply",
-            "Ally",
-            "Criminal"
         ],
         "Cost": 6,
         "Quantity": 2,
@@ -835,10 +825,10 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01548",
-        "Name": "Leo De Luca"
+        "Name": "Vito 'The Viper' Moretti"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1080,7 +1070,7 @@
         "Name": "Scrying"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1306,7 +1296,7 @@
         "Name": "Scavenging"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1368,7 +1358,7 @@
         "Name": "Stray Cat"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1419,7 +1409,7 @@
         "Name": "Fortuitous Find"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2 <sprite index=58> for that Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1489,7 +1479,7 @@
         "Name": "Narrow Escape"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge and draw 1 Card.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2 <sprite index=58> for that Challenge and draw 1 Card.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1521,7 +1511,7 @@
         "Name": "Unstoppable Spirit"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1940,7 +1930,7 @@
         "Name": "Lockpicks"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, {{the Investigator}} gains 1 <sprite index=9>, limit once per Turn",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, {{the Investigator}} gains 1 <sprite index=9>, limit once per Turn",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -3450,7 +3440,7 @@
         "Name": "Soulfreeze"
     },
     {
-        "Description": "Attached Place gets +2<sprite index=56>.\nAfter attached Place is successfully investigated, <<01168>> is discarded.",
+        "Description": "Attached Place gets +2 <sprite index=56>.\nAfter attached Place is successfully investigated, <<01168>> is discarded.",
         "PackCode": "core",
         "SceneCode": "chilling_cold",
         "Faction": 64,
