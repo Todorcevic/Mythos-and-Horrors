@@ -18,8 +18,8 @@ namespace MythosAndHorrors.GameRules
         public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
 
         /*******************************************************************/
-        public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
-        public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
+        public History InitialHistory => Info.Histories?.ElementAt(0) ?? new History(); //TODO: Remove control when all cards have history
+        public History RevealHistory => Info.Histories?.ElementAt(1) ?? new History(); //TODO: Remove control when all cards have history
         public CardPlot NextCardPlot => _chaptersProviders.CurrentScene.PlotCards.NextElementFor(this);
         public int AmountOfEldritch => Eldritch.Value - _cardsProvider.AllCards.OfType<IEldritchable>().Sum(eldrichable => eldrichable.Eldritch.Value);
         public int AmountDecrementedEldritch => (Info.Eldritch ?? 0) - AmountOfEldritch;

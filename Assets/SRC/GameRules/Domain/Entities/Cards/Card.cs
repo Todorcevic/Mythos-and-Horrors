@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     public abstract class Card
     {
         [Inject] private readonly CardInfo _info;
-        [InjectOptional] private readonly CardExtraInfo _extraInfo;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly ZonesProvider _zonesProvider;
         [Inject] private readonly ReactionablesProvider _reactionablesProvider;
@@ -34,12 +33,10 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         public virtual CardInfo Info => _info;
-        public CardExtraInfo ExtraInfo => _extraInfo;
         public abstract IEnumerable<Tag> Tags { get; }
         public IEnumerable<Activation<Investigator>> AllActivations => _activationsProvider.GetActivationsFor(this);
         public IEnumerable<Buff> AllBuffs => _buffsProvider.GetBuffsForThisCardMaster(this);
         public IEnumerable<Buff> AffectedByThisBuffs => _buffsProvider.GetBuffsAffectToThisCard(this);
-
         public Zone CurrentZone => _zonesProvider.GetZoneWithThisCard(this);
         public IEnumerable<CardEffect> PlayableEffects => _gameActionsProvider.CurrentInteractable?.GetEffectForThisCard(this);
         public Investigator Owner => _investigatorsProvider.GetInvestigatorOnlyZonesOwnerWithThisZone(CurrentZone) ??
@@ -48,6 +45,9 @@ namespace MythosAndHorrors.GameRules
         public bool IsVictory => Info.Victory != null;
         public bool HasEffects => PlayableEffects?.Any() ?? false;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
+        public string CurrentDescription => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Description2 ?? Info.Description : Info.Description;
+        public string ImageCode => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Code + "b" : Info.Code;
+
 
         /*******************************************************************/
         /*Zenject will execute this method in both the base class and derived classes with Init method,

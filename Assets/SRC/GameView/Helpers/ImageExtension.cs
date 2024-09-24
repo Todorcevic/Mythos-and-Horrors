@@ -20,6 +20,12 @@ namespace MythosAndHorrors.GameView
         private static Sprite FailImage => _failImage ??= Addressables.LoadAssetAsync<Sprite>(FAIL_IMAGE).WaitForCompletion();
 
         /*******************************************************************/
+        public static async Task LoadRevealedCardSprite(this SpriteRenderer imagen, string address)
+        {
+            Sprite cardSprite = await LoadSpriteAsync("Cards/" + address + "b.png");
+            if (imagen != null && cardSprite != null) imagen.sprite = cardSprite;
+        }
+
         public static async Task LoadCardSprite(this SpriteRenderer imagen, string address)
         {
             Sprite cardSprite = await LoadSpriteAsync("Cards/" + address + ".png") ?? FailImage;

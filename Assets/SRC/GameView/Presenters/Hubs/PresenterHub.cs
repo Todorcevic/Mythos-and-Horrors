@@ -25,7 +25,6 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         async Task IPresenterAnimation.PlayBeforeAnimationWith(GameAction gameAction)
         {
-            _ = _cardsDescriptionPresenter.RefreshDescriptions();
             switch (gameAction)
             {
                 case CreatureAttackGameAction creatureAttackGameAction:
@@ -34,7 +33,7 @@ namespace MythosAndHorrors.GameView
                 case ChallengePhaseGameAction challengePhaseGameAction:
                     await _challengePresenter.ShowChallenge(challengePhaseGameAction);
                     break;
-                case CommitCardsChallengeGameAction commitCardsChallengeGameAction:
+                case CommitCardsChallengeGameAction:
                     await _challengePresenter.UpdateInfo();
                     break;
                 case ResolveSingleChallengeTokenGameAction resolveSingleChallengeTokenGameAction:
@@ -60,6 +59,7 @@ namespace MythosAndHorrors.GameView
             switch (gameAction)
             {
                 case MoveCardsGameAction moveCardsGameAction:
+                    _ = _cardsDescriptionPresenter.RefreshDescriptions();
                     await _cardMoverPresenter.PlayAnimationWith(moveCardsGameAction);
                     break;
                 case ResultChallengeGameAction:

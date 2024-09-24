@@ -10,6 +10,8 @@ namespace MythosAndHorrors.GameView
     public class ChallengeTokensInfoController : MonoBehaviour
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
+        [Inject] private readonly TextsManager _textsManager;
         private readonly List<ChallengeToken2DView> allTokensTop = new();
         private readonly List<ChallengeToken2DView> allTokensBottom = new();
         [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
@@ -44,7 +46,8 @@ namespace MythosAndHorrors.GameView
             foreach (ChallengeToken token in _challengeTokensProvider.AllBasicChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
             {
                 ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, topTokensContainer);
-                sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _challengeMessageController);
+                string parseDescription = token.Description.Invoke(investigator).ParseDescription(_cardsProvider, _textsManager, investigator);
+                sceneToken.SetToken(token, token.Value.Invoke(investigator), parseDescription, _challengeMessageController);
                 allTokensTop.Add(sceneToken);
             }
         }
@@ -54,7 +57,8 @@ namespace MythosAndHorrors.GameView
             foreach (ChallengeToken token in _challengeTokensProvider.AllSpecialChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
             {
                 ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, bottomTokensContainer);
-                sceneToken.SetToken(token, token.Value.Invoke(investigator), token.Description.Invoke(investigator), _challengeMessageController);
+                string parseDescription = token.Description.Invoke(investigator).ParseDescription(_cardsProvider, _textsManager, investigator);
+                sceneToken.SetToken(token, token.Value.Invoke(investigator), parseDescription, _challengeMessageController);
                 allTokensTop.Add(sceneToken);
             }
         }

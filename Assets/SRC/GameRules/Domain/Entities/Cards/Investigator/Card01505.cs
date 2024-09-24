@@ -20,7 +20,6 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Zenject injects this method")]
         private void Init()
         {
-            StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(AmuletoDeWendy.Info.Name);
             AbilityUsed = CreateState(false);
             CreateOptativeReaction<RevealChallengeTokenGameAction>(RevealNewTokenCondition, RevealNewTokenLogic, GameActionTime.After, new Localization("OptativeReaction_Card01505"));
             CreateForceReaction<ChallengePhaseGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);

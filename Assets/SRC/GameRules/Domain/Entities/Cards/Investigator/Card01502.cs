@@ -23,7 +23,6 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            StarTokenDescription = () => ExtraInfo.StarTokenDescription.ParseViewWith(Info.Name);
             AbilityUsed = CreateState(false);
             CreateFastActivation(FreeTomeActivationActivate, FreeTomeActivationConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01502"));
             CreateForceReaction<RoundGameAction>(RestartAbilityCondition, RestartAbilityLogic, GameActionTime.Before);

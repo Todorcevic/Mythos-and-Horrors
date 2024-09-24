@@ -1,25 +1,13 @@
 {
-    "Code": "CORE2",
-    "Position": 2,
-    "Name": "Las máscaras de medianoche",
+    "Code": "CORE3",
+    "Position": 3,
+    "Name": "El Devorador de las Profundidades",
     "Descriptions": [
         {
-            "Code": "CORE2_INTRO1",
-            "Title": "Introducción 1",
+            "Code": "CORE3_INTRO1",
+            "Title": "Title",
             "Description": "Un equipo de geólogos de la Universidad Miskatonic, liderado por el eminente Dr. William Harrow, había partido hacia las colinas cercanas para investigar una recién descubierta y enigmática cueva. Su interés estaba en su punto máximo debido a los informes de extrañas formaciones rocosas y fósiles en la cueva, los cuales parecían desafiar toda explicación lógica.\n Sin embargo, tras ingresar en la caverna, el equipo no regresó. Una búsqueda inicial reveló solo sus herramientas abandonadas en la entrada de la cueva y marcas extrañas en las paredes del túnel, como si algo o alguien los hubiera arrastrado hacia las profundidades subterráneas.\n La policía local ha sido reticente a profundizar en la cueva, citando peligros geológicos y la falta de pruebas de un crimen. Pero los rumores entre los lugareños cuentan una historia diferente: hablan de antiguas leyendas, de criaturas olvidadas por el tiempo que moran en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
-            "Image": "CORE2_INTRO1"
-        },
-        {
-            "Code": "CORE2_INTRO2",
-            "Title": "Introducción 2",
-            "Description": "Un equipo deroria n en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
-            "Image": "CORE2_INTRO2"
-        },
-        {
-            "Code": "CORE2_INTRO3",
-            "Title": "Introducción 3",
-            "Description": "Un equipo depor aquellos que perturban su descanso eterno.",
-            "Image": "CORE2_INTRO3"
+            "Image": "CORE3_INTRO1"
         }
     ],
     "Resolutions": [
@@ -34,53 +22,81 @@
             "Title": "Resolución 1",
             "Description": " Asientes y permites que la mujer pelirroja prenda fuego a las paredes y suelos de tu casa. Las llamas se extienden rápidamente, y salís corriendo por la puerta delantera para evitar quedar atrapados en ese infierno. Desde la acera, observáis cómo el fuego consume todo lo que posees.\n–Venid conmigo –dice la mujer–. Debéis conocer la amenaza que acecha debajo. Si no colaboramos, estamos perdidos sin remedio... pero juntos podremos detenerla.",
             "Image": "core4"
+        },
+        {
+            "Code": "resolution2",
+            "Title": "Resolución 2",
+            "Description": " Te niegas a seguir la orden de la fanática y la echas de tu casa por miedo a que le prenda fuego sin tu permiso.\n–¡Necios! ¡Estáis cometiendo un funesto error! –os advierte–. No entendéis la amenaza que acecha debajo... ¡ni el grave peligro quecorremos todos!\nAún conmocionados por los acontecimientos de la noche, decidís escuchar a la mujer. Quizás pueda arrojar algo de luz sobre estos extraños sucesos... pero no parece confiar demasiado en vosotros.",
+            "Image": "core4"
+        },
+        {
+            "Code": "resolution3",
+            "Title": "Resolución 3",
+            "Description": "Corréis al pasillo para tratar de encontrar una forma de huir de la casa, pero la ardiente barrera sigue bloqueando vuestro camino. Estáis atrapados, y la horda de salvajes criaturas que han invadido tu casa se acerca, sin que tengáis posibilidad de huir.",
+            "Image": "core5"
         }
     ],
-    "NextScene": "CORE3",
     "Cards": [
-        "01123",
-        "01121a",
-        "01122",
-        "01135",
-        "01135",
-        "01135",
-        "01136",
-        "01136",
-        "01167",
-        "01167",
-        "01168",
-        "01168",
+        "01146",
+        "01147",
+        "01148",
+        "01143",
+        "01144",
+        "01145",
+        "01149",
+        "01150",
+        "01151",
+        "01152",
+        "01153",
+        "01154",
+        "01155",
+        "01156",
+        "01157",
+        "01158",
+        "01158",
+        "01166",
+        "01166",
+        "01166",
+        "01163",
+        "01163",
+        "01163",
+        "01164",
+        "01164",
+        "01165",
+        "01165",
         "01169",
         "01169",
         "01169",
         "01170",
         "01171",
         "01171",
-        "01172",
-        "01172",
-        "01173",
-        "01173",
-        "01174",
-        "01174",
+        "01175",
+        "01175",
+        "01176",
+        "01176",
+        "01177",
+        "01177",
+        "01178",
+        "01178",
+        "01179",
+        "01180",
+        "01180",
+        "01180",
+        "01181",
+        "01181",
+        "01182",
+        "01182",
         "01116",
-        "01124",
-        "01125",
-        "01126",
-        "01127",
-        "01128",
-        "01129",
-        "01130",
-        "01131",
-        "01132",
-        "01133",
-        "01134",
+        "01598",
+        "01598",
+        "01598",
+        "01598",
         "01137",
         "01138",
         "01139",
         "01140",
         "01141",
-        "01121b",
-        "01116"
+        "01121b"
     ],
     "ChallengeTokensNormal": [
         1,
@@ -98,7 +114,8 @@
         20,
         30,
         50,
-        60
+        60,
+        40
     ],
     "ChallengeTokensEasy": [
         1,
@@ -116,7 +133,8 @@
         20,
         30,
         50,
-        60
+        60,
+        40
     ],
     "ChallengeTokensHard": [
         0,
@@ -135,7 +153,8 @@
         20,
         30,
         50,
-        60
+        60,
+        40
     ],
     "ChallengeTokensExpert": [
         0,
@@ -156,6 +175,16 @@
         20,
         30,
         50,
-        60
-    ]
+        60,
+        40
+    ],
+    "AncientTokenDescriptionNormal": "",
+    "CreatureTokenDescriptionNormal": "",
+    "DangerTokenDescriptionNormal": "",
+    "CultistTokenDescriptionNormal": "",
+    "AncientTokenDescriptionHard": "",
+    "CreatureTokenDescriptionHard": "",
+    "DangerTokenDescriptionHard": "",
+    "CultistTokenDescriptionHard": "",
+    "FailTokenDescription": ""
 }

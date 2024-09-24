@@ -26,8 +26,8 @@ namespace MythosAndHorrors.GameRules
         public int MaxKeys => (Info.Keys ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public int AmountOfKeys => MaxKeys - Keys.Value;
         public bool IsComplete => Revealed.IsActive;
-        public History InitialHistory => ExtraInfo.Histories.ElementAtOrDefault(0);
-        public History RevealHistory => ExtraInfo.Histories.ElementAtOrDefault(1);
+        public History InitialHistory => Info.Histories?.ElementAt(0) ?? new History(); //TODO: Remove control when all cards have history
+        public History RevealHistory => Info.Histories?.ElementAt(1) ?? new History(); //TODO: Remove control when all cards have history
 
         /*******************************************************************/
         [Inject]

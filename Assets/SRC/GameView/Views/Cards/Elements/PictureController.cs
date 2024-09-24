@@ -14,12 +14,15 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
-            SetPicture(card.Info.Code);
+            if (card is IRevealable revelable && revelable.Revealed.IsActive) _ = _picture.LoadRevealedCardSprite(card.Info.Code);
+            else _ = _picture.LoadCardSprite(card.Info.Code);
         }
 
-        /*******************************************************************/
-        private async void SetPicture(string address) => await _picture.LoadCardSprite(address);
+        public Tween UpdateImageAnimation(Card card) => DOTween.Sequence().Join(_picture.DOColor(Color.black, ViewValues.VERYFAST_TIME_ANIMATION))
+                 .InsertCallback(ViewValues.VERYFAST_TIME_ANIMATION, () => Init(card))
+                 .Append(_picture.DOColor(Color.white, ViewValues.VERYFAST_TIME_ANIMATION));
 
+        /*******************************************************************/
         public Tween ExaustAnimation()
         {
             return _picture.material.DOColor(ViewValues.EXAUST_COLOR, ViewValues.DEFAULT_FADE);

@@ -10875,7 +10875,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: -3
-  m_lineSpacing: -32
+  m_lineSpacing: -16
   m_lineSpacingMax: 0
   m_paragraphSpacing: 32
   m_charWidthMaxAdj: 0

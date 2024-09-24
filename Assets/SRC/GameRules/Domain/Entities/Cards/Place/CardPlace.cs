@@ -22,13 +22,12 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public int MaxKeys => (Info.Keys ?? 0) * _investigatorsProvider.AllInvestigators.Count();
         public bool IsAlone => !OwnZone.Cards.Any(card => card is CardAvatar || card is CardCreature);
-        public History RevealHistory => ExtraInfo?.Histories.ElementAtOrDefault(0) ?? new History();
+        public History RevealHistory => Info.Histories?.ElementAt(0) ?? new History(); //TODO: Remove control when all cards have history
         public IEnumerable<CardCreature> CreaturesInThisPlace => _cardsProvider.GetCardsInPlay().OfType<CardCreature>()
             .Where(creature => creature.CurrentPlace == this);
         public IEnumerable<Investigator> InvestigatorsInThisPlace => _investigatorsProvider.AllInvestigatorsInPlay
             .Where(investigator => investigator.CurrentPlace == this);
-        public IEnumerable<CardPlace> ConnectedPlacesToMove => ExtraInfo?.ConnectedPlaces?
-            .Select(code => _cardsProvider.GetCardByCode(code)).Cast<CardPlace>()
+        public IEnumerable<CardPlace> ConnectedPlacesToMove => Info.ConnectedPlaces?.Select(code => _cardsProvider.GetCardByCode(code)).Cast<CardPlace>()
             .Where(cardPlace => cardPlace.CanMoveHere.IsTrue);
         public IEnumerable<CardPlace> ConnectedPlacesFromMove => _cardsProvider.GetCardsThatCanMoveTo(this);
 

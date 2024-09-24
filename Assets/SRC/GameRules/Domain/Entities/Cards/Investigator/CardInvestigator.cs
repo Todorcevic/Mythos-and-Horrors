@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameRules
             IsInPlay = new Conditional(() => CurrentZone.ZoneType == ZoneType.Investigator);
             StarTokenValue = StarValue;
             StarTokenEffect = StarEffect;
-            StarTokenDescription = () => ExtraInfo.StarTokenDescription;
+            StarTokenDescription = () => Info.StarTokenDescription;
 
             CreateBaseReaction<MoveCardsGameAction>(CheckSlotsCondition, CheckSlotsLogic, GameActionTime.After);
         }

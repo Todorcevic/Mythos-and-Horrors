@@ -8,6 +8,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardPlace01113Tests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator TakeFearOneInvestigatorWhenEnter()
         {

@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=10> Limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>> Place.",
+        "Description": "<sprite index=10> Limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>>'s Place.",
         "Flavor": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
         "PackCode": "rcore",
         "Genre": 0,
@@ -18,7 +18,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01501",
-        "Name": "Eliot Spencer"
+        "Name": "Eliot Spencer",
+        "StarTokenDescription": "+1 <sprite index=58> for each <sprite index=38> on {{the Investigator}}."
     },
     {
         "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge is successful, <<01502>> draws 1 Card for each [[Tome]] she controls.",
@@ -39,7 +40,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01502",
-        "Name": "Beatrice Ward"
+        "Name": "Beatrice Ward",
+        "StarTokenDescription": "If the Challenge succeed, {{the Investigator}} draws 1 Card for each [[Tome]] {{he}} controls."
     },
     {
         "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2 <sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
@@ -60,7 +62,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01503",
-        "Name": "Frank Harris"
+        "Name": "Frank Harris",
+        "StarTokenDescription": "If the Challenge succeed, {{the Investigator}} gains 2 <sprite index=39>."
     },
     {
         "Description": "<sprite index=10> Limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
@@ -81,7 +84,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01504",
-        "Name": "Lucille Hargrove"
+        "Name": "Lucille Hargrove",
+        "StarTokenDescription": "+1 <sprite index=58> for each <sprite index=37> {{the Investigator}} is missing."
     },
     {
         "Description": "<sprite index=10> Limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
@@ -102,7 +106,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1,
         "Code": "01505",
-        "Name": "Sadie Turner"
+        "Name": "Sadie Turner",
+        "StarTokenDescription": "If <<01514>> is in play, the Challenge automatically succeeds."
     },
     {
         "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1 <sprite index=59>.",
@@ -119,7 +124,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01506",
-        "Name": "Modified Service Weapon"
+        "Name": "Modified Service Weapon",
+        "IsRequired": true
     },
     {
         "Description": "When the Scene ends, {{the Investigator}} suffers 1 Shock if there is any <sprite index=50> on <<01507>>.\n<sprite index=10> After {{the Investigator}} discovers any <sprite index=38>: {{he}} may remove that amount of <sprite index=50> from <<01507>> instead.",
@@ -132,7 +138,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01507",
-        "Name": "Concealed Crime"
+        "Name": "Concealed Crime",
+        "IsRequired": true
     },
     {
         "Description": "{{The Investigator}} has 2 additional <sprite index=44>, which can only be used to hold [[Tome]] Supplies.",
@@ -149,7 +156,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01508",
-        "Name": "Scholar's Satchel"
+        "Name": "Scholar's Satchel",
+        "IsRequired": true
     },
     {
         "Description": "When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\nWhen {{the Investigator}} reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : {{The Investigator}} takes 1 <sprite index=60>.",
@@ -162,7 +170,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01509",
-        "Name": "The Book of Hali"
+        "Name": "The Book of Hali",
+        "IsRequired": true
     },
     {
         "Description": "{{The Investigator}} cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
@@ -179,7 +188,8 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01510",
-        "Name": "Slippery Escape"
+        "Name": "Slippery Escape",
+        "IsRequired": true
     },
     {
         "Description": "When the Scene ends, if <<01511>> has <sprite index=51>, {{the Investigator}} loses 2 experience points.\n<sprite index=8><sprite index=39><sprite index=51> : Limit twice per round.",
@@ -192,7 +202,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01511",
-        "Name": "Illegal Gambling Debts"
+        "Name": "Illegal Gambling Debts",
+        "IsRequired": true
     },
     {
         "Description": "<sprite index=10> After {{the Investigator}} plays a [[Spell]]: {{he}} draw 1 card.",
@@ -209,7 +220,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01512",
-        "Name": "Talisman of Forgotten Times"
+        "Name": "Talisman of Forgotten Times",
+        "IsRequired": true
     },
     {
         "Description": "The current Plot removes 1 <sprite index=40> and may finish.\nIf <<01513>> is in {{the Investigator}}'s hand at the end of {{his}} turn, {{he}} takes 2 <sprite index=60>.",
@@ -223,7 +235,8 @@
         "HealthPerInvestigator": false,
         "CardType": 8,
         "Code": "01513",
-        "Name": "Haunting Visions"
+        "Name": "Haunting Visions",
+        "IsRequired": true
     },
     {
         "Description": "The topmost Condition in {{the Investigator}} discard pile is playable.\nWhen a Condition would be discarded, it is placed at the bottom of the deck instead.",
@@ -238,7 +251,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01514",
-        "Name": "Talisman of Echoes"
+        "Name": "Talisman of Echoes",
+        "IsRequired": true
     },
     {
         "Description": "{{The Investigator}} takes 2 direct <sprite index=60>.\nAll cards in {{his}} discard pile are removed from the game.",
@@ -251,7 +265,8 @@
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01515",
-        "Name": "Tears in the Dark"
+        "Name": "Tears in the Dark",
+        "IsRequired": true
     },
     {
         "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack and deals +1 <sprite index=59>.",
@@ -1581,7 +1596,8 @@
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01596",
-        "Name": "Cognitive Dissonance"
+        "Name": "Cognitive Dissonance",
+        "IsRequired": true
     },
     {
         "Description": "{{The Investigator}} loses all {{his}} <sprite index=39>.",
@@ -1594,7 +1610,8 @@
         "HealthPerInvestigator": false,
         "CardType": 32,
         "Code": "01597",
-        "Name": "Anxiety Attack"
+        "Name": "Anxiety Attack",
+        "IsRequired": true
     },
     {
         "Description": "{{The Investigator}} gets -1<sprite index=54> -1<sprite index=55> -1<sprite index=56> -1<sprite index=57>.\n<sprite index=9><sprite index=9> : <<01598>> is discarded.",
@@ -1607,7 +1624,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01598",
-        "Name": "Spectral Vision"
+        "Name": "Spectral Vision",
+        "IsRequired": true
     },
     {
         "Description": "After {{the Investigator}} takes <sprite index=60>, {{he}} takes 1 direct <sprite index=59>.\n<sprite index=9><sprite index=9> : <<01599>> is discarded.",
@@ -1620,7 +1638,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01599",
-        "Name": "Hysteria"
+        "Name": "Hysteria",
+        "IsRequired": true
     },
     {
         "Description": "After {{the Investigator}} takes <sprite index=59>, {{he}} takes 1 direct <sprite index=60>.\n<sprite index=9><sprite index=9> : <<01600>> is discarded.",
@@ -1633,7 +1652,8 @@
         "HealthPerInvestigator": false,
         "CardType": 1024,
         "Code": "01600",
-        "Name": "Obsessive Infection"
+        "Name": "Obsessive Infection",
+        "IsRequired": true
     },
     {
         "Description": "<<01601>> chases {{the Investigator}}.\n<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01601>> is discarded.",
@@ -1651,7 +1671,8 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01601",
-        "Name": "Crime Syndicate"
+        "Name": "Crime Syndicate",
+        "IsRequired": true
     },
     {
         "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1 <sprite index=40> is removed from the current Plot.",
@@ -1669,7 +1690,8 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01602",
-        "Name": "Cult Enforcer"
+        "Name": "Cult Enforcer",
+        "IsRequired": true
     },
     {
         "Description": "<<01603>> chases {{the Investigator}}\nAll Investigators at <<01603>>'s Place lose all their effects.",
@@ -1687,7 +1709,8 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01603",
-        "Name": "Tenacious Inspector"
+        "Name": "Tenacious Inspector",
+        "IsRequired": true
     },
     {
         "Description": "When <<01683>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator or [[Ally]] at {{the Investigator}}'s Place heals 1 <sprite index=36> and recovers 1 <sprite index=37>.",
@@ -1900,9 +1923,8 @@
         "Name": "Treasure Finder"
     },
     {
-        "Flavor": "It is late at night. You are holed up in your study, researching the bloody disappearances that have been taking place in the region. A few hours into your research, you hear the sound of strange chanting coming from your parlor, down the hall. At the same time, you hear dirt churning, as if something were digging beneath the floor.",
+        "Description": "When the Scene Phase starts, 1 <sprite index=40> is removed from <<01105>>. Then, if <<01105>> does not have <sprite index=40>, it advances.",
         "PackCode": "core",
-        "Name2": "A Lapse in Time",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
@@ -1913,7 +1935,7 @@
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01105",
-        "Name": "What's Going On?!",
+        "Name": "Echoes",
         "Histories": [
             {
                 "Code": "01105",
@@ -1930,123 +1952,155 @@
         ]
     },
     {
-        "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until a [[Ghoul]] enemy is discarded. The lead investigator draws that enemy.",
-        "Flavor": "The floor beneath you is giving way, and you see a vast network of tunnels, twisting into the darkness below. Shapes and silhouettes of strange creatures move swiftly through the tunnels, trying to find a way up. You probably don't want to be here when they do...",
-        "Flavor2": "A feral beast, roughly humanoid with a canine cast and hooves for feet, tears through the ground in front of you. Below the floor, you can see vast tunnels beneath your house. Fiendish howling echoes from deep within the underground caverns.",
+        "Description": "When the Scene Phase starts, 1 <sprite index=40> is removed from <<01106>>. Then, if <<01106>> does not have <sprite index=40>, it advances.",
         "PackCode": "core",
-        "Name2": "The Tunnels Below",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 7,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01106",
-        "Name": "Rise of the Ghouls"
+        "Name": "Plunge into Darkness",
+        "Histories": [
+            {
+                "Code": "01106",
+                "Title": "In the Unknown Depths",
+                "Description": "In the deepest part of the cave, an unexpected and dangerous twist awaits the investigators. Suddenly, the ground beneath their feet gives way, revealing a vast network of dark tunnels extending into the depths of the underground. Before them, a subterranean world opens up, a realm of darkness and mystery that had remained hidden until now.\n In the shadows of these tunnels, they can make out the forms and silhouettes of unknown creatures moving with speed and agility. These beings, never documented in any text or geological study, seem to be part of an underground ecosystem entirely separate from the surface. Their movements are swift and calculated, as if they are accustomed to navigating this network of darkness.",
+                "Image": "01106"
+            },
+            {
+                "Code": "01106b",
+                "Title": "The Subterranean Threat",
+                "Description": "In the most unexpected moment, as the investigators cautiously examine the cave's terrain, the ground before them cracks open with surprising violence. From this fissure emerges a nightmare creature: a wild beast with grotesque humanoid features, a face vaguely reminiscent of a canine, and limbs ending in hooves. The appearance of this being, as monstrous as it is fascinating, leaves them momentarily paralyzed.\n Beneath the newly formed opening, a network of tunnels is revealed, extending in all directions, far more vast and complex than they had imagined. These tunnels, seemingly natural but altered by unknown presences, stretch beneath the structure of the house and beyond, into the unknown depths of the earth.\n An infernal howl, seeming to emanate from the very bowels of the earth, echoes through the subterranean caverns, filling the air with a blood-chilling resonance. This sound not only announces the presence of the beast before them but also suggests the existence of more creatures, possibly an entire species inhabiting these dark and forgotten tunnels.",
+                "Image": "01106b"
+            }
+        ]
     },
     {
-        "Description": "<b>Forced</b> - At the end of the enemy phase: Each unengaged [[Ghoul]] enemy moves 1 location towards the Parlor.\n<b>Forced</b> - At the end of the round: Place 1 doom on this agenda for each [[Ghoul]] enemy in the Hallway or Parlor.",
-        "Description2": "- If the investigators are at Act 1 or 2, they are trapped inside the house as the ghouls tear them apart. <b>(→R3)</b>\n- If the investigators are at Act 3, they barely escape with their lives, allowing the ghouls to run rampant. Each investigator that has not resigned is defeated and suffers 1 physical trauma.",
-        "Flavor": "You hear a crazed howl outside, and suddenly all the creatures turn their attention to that sound. They rush to escape the house, breaking down doors and clawing at everything in their way.",
-        "Flavor2": "The ground begins to shake and you can see claws rising up from the dirt as uncanny creatures desperately try to claw their way out of the ground all around you. Everywhere you turn, you see monsters rising from the earth. Terrified, you flee as fast as you can.",
+        "Description": "When the Creature Phase ends, each no-Confront [[Ghoul]] moves 1 Place towards <<01115>>.\nWhen the Round ends, 1 <sprite index=40> is removed from <<01107>> for each [[Ghoul]] in <<01112>> or <<01115>>.\nWhen the Scene Phase starts, 1 <sprite index=40> is removed from <<01107>>. Then, if <<01107>> does not have <sprite index=40>, it advances.",
         "PackCode": "core",
-        "Name2": "The Ghouls Break Free",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 10,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01107",
-        "Name": "They're Getting Out!"
+        "Name": "Chaotic Rush",
+        "Histories": [
+            {
+                "Code": "01107",
+                "Title": "The Chaotic Escape",
+                "Description": "The investigators, still trying to process the appearance of the monstrous creature and the unfathomable subterranean tunnels, are abruptly shaken by a dramatic change in the situation. A deranged howl, echoing from outside the cave, slices through the air like a blade. This sound, filled with madness and desperation, seems to have an immediate and powerful effect on the creatures dwelling in the depths.\n In an instant, all the creatures, including the beast with canine and humanoid features, turn their attention toward the source of the howl. A primal instinct awakens in them, an urgent call they cannot ignore. With frantic and uncontrolled movements, they begin to rush toward the cave's exit, smashing through doors, tearing down obstacles, and creating absolute chaos in their desperate escape.\n The investigators now find themselves in the midst of a wild stampede, where every creature seems determined to flee at any cost. The danger of being trampled or injured in this turmoil is imminent. They must act quickly to avoid being caught in the whirlwind of panic and find a safe way out of the cave while trying to understand what has triggered such an extreme reaction in the creatures.",
+                "Image": "01107"
+            },
+            {
+                "Code": "01107b",
+                "Title": "Subterranean Emergency",
+                "Description": "In an unexpected and terrifying twist, the investigators find themselves in the midst of a subterranean cataclysm. The cave floor begins to vibrate and tremble violently beneath their feet, a forewarning of an imminent threat. Before they can react, sharp and fearsome claws emerge from the earth, breaking through the ground with immense force.\n The creatures, belonging to a world that defies all logic and human understanding, claw their way through the earth with desperate fervor. Nightmare beings that had remained hidden in the depths now burst forth in a frenzy of activity, emerging from the ground surrounding the investigators on all sides.\n The scene is pure nightmare: everywhere they look, more of these abominations are revealed, breaking the barrier that once separated them from the surface world.\n Terrified and vastly outnumbered, the investigators have no choice but to flee as fast as their legs can carry them. Every second counts as they navigate the labyrinth of tunnels, dodging the emerging creatures and the falling debris around them.",
+                "Image": "01107b"
+            }
+        ]
     },
     {
-        "Description2": "Put into play the set-aside Hallway, Cellar, Attic, and Parlor.\nDiscard each enemy in the Study.\nPlace each investigator in the Hallway.\nRemove the Study from the game.",
-        "Flavor": "As you leap to investigate, the door to your study vanishes before your eyes, leaving behind only solid wall. You're trapped inside your study until you can find another way out.",
-        "Flavor2": "You notice that the edges of your newly purchased rug are tattered and mud-stained. Finding this odd, you shift the furniture aside and pull back the rug. To your surprise, you see the door leading out of your study. You slowly turn the knob, and the door swings open, revealing your hallway below.\nYou jump through the doorway, landing on your feet on soft dirt. The door to the study slams shut above you. The smell of burning wood fills the narrow hall, intermingled with the scent of rot and decay.",
+        "Description": "<sprite index=8>: The Investigators may put <sprite index=38> in <<01108>> to advance it.",
         "PackCode": "core",
-        "Name2": "The Door on the Floor",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "Hints": 2,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01108",
-        "Name": "Trapped"
+        "Name": "Trapped",
+        "Histories": [
+            {
+                "Code": "01108",
+                "Title": "Captives of the Collapse",
+                "Description": "The investigators, engulfed in the dim light of a subterranean tunnel, are suddenly caught off guard by a deafening roar. Rocks and earth fall like an unrelenting cascade, blocking the only route back to the surface. The cloud of dust and the rumbling of the convulsing earth mix with their alarmed cries. They are trapped.\n The air, dense and dusty, slowly settles, revealing the magnitude of the disaster. Before them, what was once a familiar path is now a chaotic mass of rocks and debris. Every attempt to move the stones seems to only worsen the blockage, as if the cave itself resists being reopened.",
+                "Image": "01108"
+            },
+            {
+                "Code": "01108b",
+                "Title": "The Hidden Door in the Cave",
+                "Description": "Deep within the cave, the investigators discover a worn and mud-stained door buried under a layer of earth. Intrigued, they clear it and open it, revealing a staircase descending into an unknown darkness. Cautiously, they begin to descend, but behind them, the door slams shut, trapping them in a narrow underground passage.\n The air is thick with the smell of burnt wood and decay. With their flashlights barely lighting the way, they venture down the passage, where the shadows seem to take on a life of their own. Now, their only option is to move forward, delving into the hidden secrets within this subterranean extension of the cave.",
+                "Image": "01108b"
+            }
+        ]
     },
     {
-        "Description": "<b>Objective</b> - When the round ends, investigators in the hallway may, as a group, spend the requisite number of clues to advance.",
-        "Description2": "The barrier blocking passage into the parlor has vanished. Reveal the Parlor.\nPut the set-aside Lita Chantler into play in the Parlor.\nSpawn the set-aside Ghoul Priest in the Hallway.",
-        "Flavor": "A glowing barrier blocks the path to your parlor. As you move toward it, intense heat forces you to back away. Picking up a handful of dirt, you toss it as the barrier and watch in horror as the dirt incinerates. Perhaps there's something in the cellar or attic that can help.",
-        "Flavor2": "Using the barrel from the attic, you carry ice and snow from the cellar and hurl it at the barrier. The barrier sparks and shudders as it consumes the ice, then hisses and fades out of existence.",
+        "Description": "When the Round ends, the Investigators in <<01112>> may put <sprite index=38> in <<01109>> to advance it.",
         "PackCode": "core",
-        "Name2": "Breaking the Barrier",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "Hints": 3,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01109",
-        "Name": "The Barrier"
+        "Name": "Obstruction",
+        "Histories": [
+            {
+                "Code": "01109",
+                "Title": "The Living Barrier",
+                "Description": "Before them stretches a barrier made of intertwined vines and plants, laced with bright, pulsating crystals. This barrier emits a faint light and seems to vibrate with an unknown energy.\n When the investigators attempt to touch the vines, they feel an energetic repulsion, as if an invisible force is preventing them from passing.",
+                "Image": "01109"
+            },
+            {
+                "Code": "01109b",
+                "Title": "Breaking the Barrier",
+                "Description": "Remembering the barrel they had discovered in a hidden chamber earlier, they devise a plan. They fill the barrel with fragments of crystals and sharp rocks found in the cave, hoping to create a tool capable of cutting through the vines.\n Cautiously, they begin striking the barrier with their improvised tool. The vines resist at first, but gradually, the crystals in the barrel start to slice through them. With each blow, the vines retreat, reluctant to release their grip, until finally, with a crunch and a whisper of leaves, the barrier gives way, opening a path that had once been jealously guarded.",
+                "Image": "01109b"
+            }
+        ]
     },
     {
-        "Description": "<b>Objective</b> - If the Ghoul Priest is Defeated, advance.",
-        "Description2": "The lead investigator must decide (choose one):\n- It was never much of a home. Burn it down! <b>(→R1)</b>\n- This hell-pit is my home! No way are we burning it! <b>(→R2)</b>",
-        "Flavor": "A woman with a torch stands in your parlor, a glimmer of hatred in her eyes. \"What have you done to my barrier?\" she screams, furious. Before you can enter, a ghastly wail sounds behind you, and a creature wearing robes and a deer skull mask tears through the wall, advancing towards you.",
-        "Flavor2": "When the robed creature falls, the fiendish swarm burrows back into the ground and the chaos of the house quiets. But the stranger in your parlor chamber doesn't seem relieved.\n\"You broke my seal that was set to trap the ghouls within.\" She raises her torch. \"Now, we must take more direct measures and burn this hell-pit to the ground!\"",
+        "Description": "If <<01116>> is Defeated, <<01110>> advances.",
         "PackCode": "core",
-        "Name2": "Defending the Home",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01110",
-        "Name": "What Have You Done?"
+        "Name": "The Guardian of the Cave",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
-        "Flavor": "The door to your study has vanished.",
-        "Flavor2": "You've been investigating the strange events occurring in Arkham for several days now. Your deck in covered in newspaper articles, police reports, and witness accounts.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2054,19 +2108,23 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01111",
-        "Name": "Study"
+        "Name": "Study",
+        "Histories": [
+            {
+                "Code": "01111",
+                "Title": "Rockfall Barricade",
+                "Description": "Massive rocks and debris have violently collapsed, blocking the entrance and eliminating any clear path back to the base camp. The only light comes from flashlights and lanterns, casting flickering shadows on the stone walls.",
+                "Image": "01111"
+            }
+        ],
+        "ConnectedPlaces": []
     },
     {
-        "Flavor": "The walls of your house are splattered with mud, and your hardwood floor is gone, replaced with a dirt path.",
-        "Flavor2": "A moment of panic and disorientation strikes as you land upon the floor of the hallway. The world spins, as if turned on its head.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place"
         ],
         "Quantity": 1,
         "Enigma": 1,
@@ -2074,20 +2132,28 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01112",
-        "Name": "Hallway"
+        "Name": "Hallway",
+        "Histories": [
+            {
+                "Code": "01112",
+                "Title": "Underground Passage",
+                "Description": "The rocky walls of the passage begin to show signs of transformation. The stony floor slowly morphs into a path of compacted earth, while the cavern walls reveal patches of mud and intertwined roots. This shift in the environment gives the impression of having entered a different realm, as if the cave is leading into a space or dimension beyond the familiar.",
+                "Image": "01112"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01113",
+            "01114",
+            "01115"
+        ]
     },
     {
-        "Description": "<b>Forced</b> - After you enter the Attic: Take 1 horror.",
-        "Flavor": "The bloody carcass of a malformed beast swings from a meat hook chained to the ceiling. Blood drains slowly from the carcass, dripping into a small barrel.",
-        "Flavor2": "The smell of rotten meat assaults your nostrils as you approach the attic stairs.",
+        "Description2": "After an Investigator enters <<01113>>, {{he}} takes 1 <sprite index=60>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2096,20 +2162,26 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01113",
-        "Name": "Attic"
+        "Name": "Attic",
+        "Histories": [
+            {
+                "Code": "01113",
+                "Title": "Elevated Chamber",
+                "Description": "As they approach this elevated area, a foul and penetrating stench fills the air, evoking the scent of decaying flesh and heightening a sense of unease and alertness. The elevated chamber, clearly formed by natural processes, shows signs of having been altered over time, possibly by ancient cave dwellers or enigmatic forces.\n Inside the chamber, a chilling and startling scene is revealed. Hanging from a rocky formation on the ceiling is the bloodied corpse of a deformed creature, suspended grotesquely as if it were meat in a slaughterhouse. The creature's blood drips slowly, accumulating in a small natural basin on the floor, formed by the cave's own rocks.\n The sight of this corpse and its macabre display stirs a mix of horror and questions. Curiosity arises about the nature of the creature, how it ended up in that place, and the possible significance behind its presence.",
+                "Image": "01113"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
     },
     {
-        "Description": "<b>Forced</b> - After you enter the Cellar: Take 1 damage.",
-        "Flavor": "Your cellar seems to have been replaced with an underground network of icy tunnels and caverns. The cold chills you to the bone.",
-        "Flavor2": "The stairs leading down to your cellar are slick, and they glisten with a thin layer of ice...",
+        "Description2": "After an Investigator enters <<01114>>, {{he}} takes 1 <sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2118,20 +2190,27 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01114",
-        "Name": "Cellar"
+        "Name": "Cellar",
+        "Histories": [
+            {
+                "Code": "01114",
+                "Title": "Frozen Descent",
+                "Description": "The rocks and natural formations used as steps in this descent are coated with a thin layer of ice, making them dangerously slippery. The air becomes noticeably colder as they approach this area, a surprising change given the usual temperature of the cave.\n Instead of a continuation of the rocky cave, an extensive network of tunnels and caverns completely covered in ice is revealed. The ice formations and stalactites glisten under the light of the lanterns, creating a captivating landscape.\n The cold in this area is intense, penetrating deeply. The air, nearly frozen, creates an environment that blends beauty with danger. ",
+                "Image": "01114"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
     },
     {
-        "Description": "<sprite index=9> <b>Resign.</b> \"This is too much for me!\" You run out the front door, fleeing in panic.\nWhile Lita Chantler is not controlled by a player, she gains: \"<sprite index=9>: <b>Parley.</b> Test [intellect] (4). If you succeed, take control of Lita Chantler.\"",
-        "Description2": "The entrance to the Parlor is blocked by a darkly glowing unfathomable barrier. You cannot move into the Parlor.",
-        "Flavor2": "You're unsure what would happen if you tried to cross the threshold of the strange barrier, but based on its extreme heat, you sure as hell don't want to try.",
+        "Description": "<<01115>> is blocked. The Investigators cannot move here.",
+        "Description2": "<sprite index=9> <b>Resign</b>: {{The Investigator}} leaves the Scene.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2139,7 +2218,18 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01115",
-        "Name": "Parlor"
+        "Name": "Parlor",
+        "Histories": [
+            {
+                "Code": "01115",
+                "Title": "The Silent Threshold",
+                "Description": "This place serves as a transition area between the already explored sections of the cave and the mystical barrier. The atmosphere in this zone is calmer, though infused with a latent energy. A light emanating from within the space provides partial illumination of the vestibule, casting a play of shadows on the walls.",
+                "Image": "01115"
+            }
+        ],
+        "ConnectedPlaces": [
+            "01112"
+        ]
     },
     {
         "Description": "<b>Prey</b> - Highest [combat].\nHunter. Retaliate.",
@@ -2188,7 +2278,8 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01117",
-        "Name": "Lita Chantler"
+        "Name": "Lita Chantler",
+        "IsRequired": true
     },
     {
         "Description": "<b>Spawn</b> - Attic.",
@@ -2344,7 +2435,10 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01124",
-        "Name": "Your House"
+        "Name": "Your House",
+        "ConnectedPlaces": [
+            "01125"
+        ]
     },
     {
         "Flavor": "There is something unsettling about the water of the Miskatonic River tonight. It ripples and bubbles as though something is moving beneath the surface.",
@@ -2366,7 +2460,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01125",
-        "Name": "Rivertown"
+        "Name": "Rivertown",
+        "ConnectedPlaces": [
+            "01124",
+            "01126",
+            "01127",
+            "01129",
+            "01132",
+            "01133"
+        ]
     },
     {
         "Description": "<sprite index=9>: Draw 3 cards. (Limit once per game.)",
@@ -2388,7 +2490,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01126",
-        "Name": "Southside"
+        "Name": "Southside",
+        "ConnectedPlaces": [
+            "01125",
+            "01128",
+            "01129"
+        ]
     },
     {
         "Description": "<sprite index=9>: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
@@ -2410,7 +2517,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01127",
-        "Name": "Southside"
+        "Name": "Southside",
+        "ConnectedPlaces": [
+            "01125",
+            "01128",
+            "01129"
+        ]
     },
     {
         "Description": "<sprite index=9>: Heal 3 damage. (Limit once per game.)",
@@ -2432,7 +2544,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01128",
-        "Name": "St. Mary's Hospital"
+        "Name": "St. Mary's Hospital",
+        "ConnectedPlaces": [
+            "01129",
+            "01126",
+            "01127"
+        ]
     },
     {
         "Description": "<sprite index=9>: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
@@ -2455,7 +2572,14 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01129",
-        "Name": "Miskatonic University"
+        "Name": "Miskatonic University",
+        "ConnectedPlaces": [
+            "01126",
+            "01127",
+            "01128",
+            "01125",
+            "01134"
+        ]
     },
     {
         "Description": "<sprite index=9>: Gain 3 resources. (Limit once per game.)",
@@ -2477,7 +2601,11 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01130",
-        "Name": "Downtown"
+        "Name": "Downtown",
+        "ConnectedPlaces": [
+            "01132",
+            "01134"
+        ]
     },
     {
         "Description": "<sprite index=9>: Heal 3 horror. (Limit once per game.)",
@@ -2500,7 +2628,11 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01131",
-        "Name": "Downtown"
+        "Name": "Downtown",
+        "ConnectedPlaces": [
+            "01132",
+            "01134"
+        ]
     },
     {
         "Description": "While you are in Easttown, reduce the cost of each [[Ally]] asset you play by 2.",
@@ -2521,7 +2653,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01132",
-        "Name": "Easttown"
+        "Name": "Easttown",
+        "ConnectedPlaces": [
+            "01130",
+            "01131",
+            "01125"
+        ]
     },
     {
         "Description": "<b>Forced</b> - After you enter the Graveyard: Test [willpower] (3). If you fail, you must either take 2 horror or move to Rivertown.",
@@ -2543,7 +2680,10 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01133",
-        "Name": "Graveyard"
+        "Name": "Graveyard",
+        "ConnectedPlaces": [
+            "01125"
+        ]
     },
     {
         "Description": "<sprite index=9> Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
@@ -2566,7 +2706,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01134",
-        "Name": "Northside"
+        "Name": "Northside",
+        "ConnectedPlaces": [
+            "01130",
+            "01131",
+            "01129"
+        ]
     },
     {
         "Description": "{{The Investigator}} is Isolated and must choose one: spend 1 <sprite index=38> or take 2 <sprite index=59>.",
@@ -2891,7 +3036,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01149",
-        "Name": "Main Path"
+        "Name": "Main Path",
+        "ConnectedPlaces": [
+            "01150",
+            "01151",
+            "01152",
+            "01153",
+            "01154",
+            "01155",
+            "01156"
+        ]
     },
     {
         "Description": "<b>Forced</b> - After you enter this location: Test [willpower] (4). If you fail, take 1 horror and 1 damage.",
@@ -2913,7 +3067,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01150",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01152",
+            "01153"
+        ]
     },
     {
         "Description": "<b>Forced</b> - When you move out of this location: Test [intellect] (3). If you fail, cancel the effects of the move.",
@@ -2935,7 +3094,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01151",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01152",
+            "01154"
+        ]
     },
     {
         "Description": "This location is investigated using [willpower] instead of the skill indicated by the investigation attempt.",
@@ -2957,7 +3121,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01152",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01150",
+            "01151"
+        ]
     },
     {
         "Description": "This location is investigated using [agility] instead of the skill indicated by the investigation attempt.",
@@ -2979,7 +3148,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01153",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01155",
+            "01150"
+        ]
     },
     {
         "Description": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
@@ -3001,7 +3175,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01154",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01155",
+            "01151"
+        ]
     },
     {
         "Description": "<sprite index=9>: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
@@ -3023,7 +3202,12 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01155",
-        "Name": "Arkham Woods"
+        "Name": "Arkham Woods",
+        "ConnectedPlaces": [
+            "01149",
+            "01154",
+            "01153"
+        ]
     },
     {
         "Description": "<b>Forced</b> - At the end of the round, if there are fewer than 2 clues per investigator on Ritual Site: Add clues to it until it has 2 clues per investigator on it.",
@@ -3045,7 +3229,10 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01156",
-        "Name": "Ritual Site"
+        "Name": "Ritual Site",
+        "ConnectedPlaces": [
+            "01149"
+        ]
     },
     {
         "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n<sprite index=9> If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
