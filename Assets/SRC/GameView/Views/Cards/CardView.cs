@@ -136,9 +136,10 @@ namespace MythosAndHorrors.GameView
         public Sequence RevealAnimation() => DOTween.Sequence()
                             .Append(DisableToCenterShow())
                             .Append(transform.DOLocalMoveY(8, ViewValues.DEFAULT_TIME_ANIMATION))
-                            .Join(_pictureController.UpdateImageAnimation(Card).OnStart(RefreshDescription))
+                            .Join(_pictureController.UpdateImageAnimation(Card))
                             .Join(_rotator.RotateFake(ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InCubic))
                             .Append(transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION))
+                             .InsertCallback(ViewValues.DEFAULT_TIME_ANIMATION * 1.5f, RefreshDescription)
                             .Append(EnableFromCenterShow());
 
         /*******************************************************************/

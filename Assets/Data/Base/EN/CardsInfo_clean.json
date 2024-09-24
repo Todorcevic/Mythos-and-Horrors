@@ -2108,7 +2108,7 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01111",
-        "Name": "Study",
+        "Name": "Collapsed Gateway",
         "Histories": [
             {
                 "Code": "01111",
@@ -2132,7 +2132,7 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01112",
-        "Name": "Hallway",
+        "Name": "Transmuted Tunnels",
         "Histories": [
             {
                 "Code": "01112",
@@ -2162,7 +2162,7 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01113",
-        "Name": "Attic",
+        "Name": "Elevated Chamber",
         "Histories": [
             {
                 "Code": "01113",
@@ -2190,7 +2190,7 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01114",
-        "Name": "Cellar",
+        "Name": "Frozen Chamber",
         "Histories": [
             {
                 "Code": "01114",
@@ -2218,11 +2218,11 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01115",
-        "Name": "Parlor",
+        "Name": "Luminous Threshold",
         "Histories": [
             {
                 "Code": "01115",
-                "Title": "The Silent Threshold",
+                "Title": "The Luminous Threshold",
                 "Description": "This place serves as a transition area between the already explored sections of the cave and the mystical barrier. The atmosphere in this zone is calmer, though infused with a latent energy. A light emanating from within the space provides partial illumination of the vestibule, casting a play of shadows on the walls.",
                 "Image": "01115"
             }

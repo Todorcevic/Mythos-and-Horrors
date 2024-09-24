@@ -34,9 +34,16 @@ namespace MythosAndHorrors.GameView
         public void SetDescription(Card card)
         {
             string finalDescription = card.CurrentDescription ?? string.Empty;
-            if (string.IsNullOrEmpty(finalDescription)) _description.gameObject.SetActive(false);
-            _description.text = finalDescription.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner);
+            _description.gameObject.SetActive(!string.IsNullOrEmpty(finalDescription));
+            _description.text = finalDescription?.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner);
         }
+
+        //public Tween UpdateDescriptionAnimation(Card card)
+        //{
+        //    return DOTween.Sequence().Join(_description.DOColor(Color.black, ViewValues.VERYFAST_TIME_ANIMATION))
+        //            .InsertCallback(ViewValues.VERYFAST_TIME_ANIMATION, () => SetDescription(card))
+        //            .Append(_description.DOColor(Color.white, ViewValues.VERYFAST_TIME_ANIMATION));
+        //}
 
         public Tween BlankAnimation()
         {
