@@ -1,9 +1,7 @@
 [
     {
         "Description": "<sprite index=10> Limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>> Place.",
-        "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Guardian cards ([guardian]) level 0-5, Seeker cards ([seeker]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Roland's .38 Special, Cover Up, 1 random basic weakness.",
-        "Flavor": "Everything by the book: every \"i\" dotted, every \"t\" crossed. It has worked, until now.",
-        "Flavor2": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
+        "Flavor": "Roland had always taken comfort in procedure and rules. As an agent in the Bureau, {{he}} was relieved to have guidelines to follow in any given situation. But lately, {{his}} Federal Agent's Handbook had been entirely unhelpful given the cases {{he}}'d been assigned. Try as {{he}} might, Roland could find no mention of what to do when confronted with strange creatures, gates through time and space, or magic spells. If {{he}} hadn't seen it with {{his}} own eyes, {{he}} would never have believed it... and there's no way {{his}} superiors would understand. Roland knew {{he}} would have to handle this one himself.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 4,
@@ -24,9 +22,7 @@
     },
     {
         "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge is successful, <<01502>> draws 1 Card for each [[Tome]] she controls.",
-        "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Mystic cards ([mystic]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Daisy’s Tote Bag, The Necronomicon (John Dee Translation), 1 random basic weakness.",
-        "Flavor": "\"I know of books so powerful, they can rewrite reality.\"",
-        "Flavor2": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, <sprite index=60>. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
+        "Flavor": "As a respected librarian at Miskatonic University, Daisy had always felt that books were the most important thing in her life. She explored in fiction what she abhorred in life: horror, violence, <sprite index=60>. Then, she stumbled across the John Dee translation of the Necronomicon. It was blasphemous, unholy, and too awful to be read. But given her studies in obscure and occult subjects, Daisy knew there was more truth than fiction within the book's pages. She began to wonder what other secrets the restricted collection of the Orne Library held...",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 16,
@@ -47,9 +43,7 @@
     },
     {
         "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2 <sprite index=58>. If the Challenge is successful, <<01503>> gains 2 <sprite index=39>.",
-        "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Rogue cards ([rogue]) level 0-5, Guardian cards ([guardian]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): On the Lam, Hospital Debts, 1 random basic weakness.",
-        "Flavor": "\"I didn't get out of the joint just to watch the world end.\"",
-        "Flavor2": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for {{his}} mother's operation. {{his}} mother died of her illness during the second year of {{his}} sentence. {{his}} cellmate, Brad Hollins, told him there were worse fates than death. {{He}} ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures {{he}}'d had while dreaming. Skids didn't give it much thought until the night {{he}} woke to the sight of {{his}} cellmate bursting into flames. When Skids was finally released, {{he}} returned to Arkham, looking for answers.",
+        "Flavor": "Skids hadn't planned on a life of crime. But sometimes doing the right thing means getting your hands dirty. The cops didn't care that Skids needed the money for {{his}} mother's operation. {{his}} mother died of her illness during the second year of {{his}} sentence. {{his}} cellmate, Brad Hollins, told him there were worse fates than death. {{He}} ranted and raved in a quiet voice every evening about the \"Old Ones\" and told Skids about bizarre adventures {{he}}'d had while dreaming. Skids didn't give it much thought until the night {{he}} woke to the sight of {{his}} cellmate bursting into flames. When Skids was finally released, {{he}} returned to Arkham, looking for answers.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 2,
@@ -70,9 +64,7 @@
     },
     {
         "Description": "<sprite index=10> Limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
-        "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Mystic cards ([mystic]) level 0-5, Survivor cards ([survivor]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Heirloom of Hyperborea, Dark Memory, 1 random basic weakness.",
-        "Flavor": "\"I remember another life, one of sorcery and conquest.\"",
-        "Flavor2": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
+        "Flavor": "Agnes Baker may be just an unassuming waitress in this life, but in a previous life, in a time and age undreamed of in the modern world, she had been a powerful witch. It began when she found a strange artifact - a key of some kind - in a dusty collection of family belongings in her attic. When she touched it, the memories came flooding back, along with one word: \"Hyperborea.\" The more she delved into the visions and memories of her former life, the stronger her powers grew... and the more frightened she became.",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 8,
@@ -93,8 +85,7 @@
     },
     {
         "Description": "<sprite index=10> Limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
-        "Description2": "<b>Deck Size</b>: 30.\n<b>Deckbuilding Options</b>: Survivor cards ([survivor]) level 0-5, Rogue cards ([rogue]) level 0-2, Neutral cards level 0-5.\n<b>Deckbuilding Requirements</b> (do not count toward deck size): Wendy's Amulet, Abandoned and Alone, 1 random basic weakness.",
-        "Flavor2": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
+        "Flavor": "Mama used to let Wendy play with her necklace when she was small. Mama would tell her stories, and Wendy would spin the necklace and watch as it glittered. Then, word came that her father had been lost at sea, and Mama started acting strange, drawing unusual symbols in chalk all over the house. They took Mama to the asylum, and Wendy went to the orphanage. Before they took her away, Mama gave her the necklace, to \"protect her.\" Wendy stayed in the orphanage for several years before running away, deciding that she could take better care of herself on her own.",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 1,
@@ -175,7 +166,6 @@
     },
     {
         "Description": "{{The Investigator}} cannot be attacked by non-[[Elite]] Creatures until the end of the Round.",
-        "Flavor": "I ain't going to the pen a second time.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -206,7 +196,6 @@
     },
     {
         "Description": "<sprite index=10> After {{the Investigator}} plays a [[Spell]]: {{he}} draw 1 card.",
-        "Flavor": "The etchings on its surface change from day to day, shifting and moving whenever I'm not looking.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -224,7 +213,6 @@
     },
     {
         "Description": "The current Plot removes 1 <sprite index=40> and may finish.\nIf <<01513>> is in {{the Investigator}}'s hand at the end of {{his}} turn, {{he}} takes 2 <sprite index=60>.",
-        "Flavor": "No... not again!",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -254,7 +242,6 @@
     },
     {
         "Description": "{{The Investigator}} takes 2 direct <sprite index=60>.\nAll cards in {{his}} discard pile are removed from the game.",
-        "Flavor": "I don't need them. I don't need anyone.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -335,7 +322,6 @@
     },
     {
         "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
-        "Flavor": "Cuts through vines, underbrush, and tentacles equally well.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -352,7 +338,6 @@
     },
     {
         "Description": "<sprite index=10> After a Creature deals <sprite index=59> to <<01521>>: it deals 1 <sprite index=59> to the Creature.",
-        "Flavor": "Fiercely loyal, these trained canines make for perfect companions.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -371,7 +356,6 @@
     },
     {
         "Description": "After {{the Investigator}} defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.",
-        "Flavor": "Just as I suspected!",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -437,7 +421,6 @@
     },
     {
         "Description": "A [[Firearm]] Supply controlled by any investigator at {{The Investigator}}'s Place gains 3 <sprite index=47>.",
-        "Flavor": "I've never met a beast that could outsmart a bullet.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -507,7 +490,6 @@
     },
     {
         "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.",
-        "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -540,7 +522,6 @@
     },
     {
         "Description": "<sprite index=10> After <<01532>> enters play: {{The Investigator}} shows all [[Tome]] of {{his}} deck and draws one",
-        "Flavor": "\"There have been problems at the Orne Library, as we both know, given poor Armitage's condition, and the other, unrelated... incident of a few years ago...\"",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -559,7 +540,6 @@
     },
     {
         "Description": "{{The Investigator}} gets +1 <sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1 <sprite index=39>.",
-        "Flavor": "\"While I truly believe that this nightmare is just a singular abomination, I must admit that I am exhilarated by the possibility that this is but one specimen of a new genus!\"",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -662,7 +642,6 @@
     },
     {
         "Description": "When <<01539>> is committed to an Investigate Challenge and succeeds, it discovers 1 additional <sprite index=38>.",
-        "Flavor": "I knew I had seen this symbol before. I must warn the others before it is too late!",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -678,7 +657,6 @@
     },
     {
         "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
-        "Flavor": "A lens into a world unseen can reveal things you wish it hadn't.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -695,7 +673,6 @@
     },
     {
         "Description": "<sprite index=10> After a non-[[Elite]] Creature spawns at {{the Investigator}}'s Place: That Creature and <<01541>> are discarded.",
-        "Flavor": "Do they <sprite index=60> it because of what it will do to them? Or, do they <sprite index=60> it because of what it will do to you?",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -714,7 +691,6 @@
     },
     {
         "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2 <sprite index=54>, +2 <sprite index=55>, +2 <sprite index=56> or +2 <sprite index=57> until the end of the Phase.",
-        "Flavor": "It's supposed to be comprehensive, but the more I search through its pages, the more I realize we know nothing about the real truths of the cosmos.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -810,7 +786,6 @@
     },
     {
         "Description": "{{The Investigator}} get +1 <sprite index=9>.",
-        "Flavor": "\"I was born in Mississippi. Louisiana just sounded better.\"",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -912,7 +887,6 @@
     },
     {
         "Description": "{{The Investigator}} get +1 <sprite index=9>.",
-        "Flavor": "\"I was born in Mississippi. Louisiana just sounded better.\"",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -965,7 +939,6 @@
     },
     {
         "Description": "{{The Investigator}} gains 10 <sprite index=39>.",
-        "Flavor": "\"I win again! Sorry sugar, it's just not your night.\"",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -998,7 +971,6 @@
     },
     {
         "Description": "{{The Investigator}} gets +1 <sprite index=57>.",
-        "Flavor": "Whether focused through a mundane trinket or a mystical artifact, there is real power in faith all the same.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1083,7 +1055,6 @@
     },
     {
         "Description": "{{The Investigator}} draws the top card of the Danger deck and {{he}} discovers 2 <sprite index=39> at {{his}} Place.",
-        "Flavor": "\"We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far.\" <cite>H. P. Lovecraft, \"The Call of Cthulhu\"</cite>",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1134,7 +1105,6 @@
     },
     {
         "Description": "When <<01539>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1 <sprite index=37>.",
-        "Flavor": "Only by standing firm against the darkness can we live to see the light of another day.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1216,7 +1186,6 @@
         "Name": "Sinister Statuette"
     },
     {
-        "Flavor": "The coat was not the most fashionable choice, but it did feel warm and reassuring in its bulk.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1267,7 +1236,6 @@
     },
     {
         "Description": "<sprite index=10> After {{the Investigator}} fails a Challenge, <b>Exhaust</b>: {{he}} draws 1 card.",
-        "Flavor": "They claimed it would bring me good luck. I wouldn't say that's true. But now I feel like it would be even worse luck to get rid of it.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1284,7 +1252,6 @@
     },
     {
         "Description": "<sprite index=8>: <01576> is discarded and {{the Investigator}} automatically eludes a non-[[Elite]] Creature at {{his}} Place.",
-        "Flavor": "{{He}} never came if you called for him. It always seemed like {{he}} had {{his}} own agenda.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1319,7 +1286,6 @@
     },
     {
         "Description": "<b>Elude:</b> {{The Investigator}} automatically eludes all Creatures at {{his}} Place.",
-        "Flavor": "That should buy us some time.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1383,7 +1349,6 @@
     },
     {
         "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01582>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to another Creature at {{the Investigator}}'s Place, instead.",
-        "Flavor": "\"Do not be frightened by what you see. Be frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1483,7 +1448,6 @@
     },
     {
         "Description": "{{The Investigator}} gains 3 <sprite index=39>.",
-        "Flavor": "You can never be too prepared.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1499,7 +1463,6 @@
     },
     {
         "Description": "Only one <<01589>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
-        "Flavor": "Stay back! I'll handle this.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1515,7 +1478,6 @@
     },
     {
         "Description": "Only one <<01590>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
-        "Flavor": "At last, I've found it!",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1531,7 +1493,6 @@
     },
     {
         "Description": "Only one <<01591>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
-        "Flavor": "Die, you beast!",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1547,7 +1508,6 @@
     },
     {
         "Description": "Only one <<01592>> can be committed to a Challenge.\nIf the Challenge succeeds, {{the investigator}} draws 1 card.",
-        "Flavor": "Too easy.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1563,7 +1523,6 @@
     },
     {
         "Description": "Only one <<01593>> can be committed to a Challenge.",
-        "Flavor": "Sometimes, the most selfless acts can come from the strangest places",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1578,7 +1537,6 @@
         "Name": "Spontaneous Courage"
     },
     {
-        "Flavor": "Bullets are one thing... twelve-inch fangs quite another.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1596,7 +1554,6 @@
         "Name": "Bodyguard"
     },
     {
-        "Flavor": "This has been in my family for generations. Take care of it, and it will take care of you.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1615,7 +1572,6 @@
     },
     {
         "Description": "{{The Investigator}} chooses 1 card from {{his}} hand. The rest is discarded.",
-        "Flavor": "Wait... where am I? What was I doing?",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1629,7 +1585,6 @@
     },
     {
         "Description": "{{The Investigator}} loses all {{his}} <sprite index=39>.",
-        "Flavor": "What was that noise?",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1682,7 +1637,6 @@
     },
     {
         "Description": "<<01601>> chases {{the Investigator}}.\n<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01601>> is discarded.",
-        "Flavor": "You knew you shouldn't have borrowed money from the O'Bannion gang. It seems like they're always looking to collect at the worst times.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1701,7 +1655,6 @@
     },
     {
         "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1 <sprite index=40> is removed from the current Plot.",
-        "Flavor": "You'll never forget the day you learned the true secret of the Silver Twilight Lodge's inner circle. The truth is too terrible for the Lodge to let you live.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1720,7 +1673,6 @@
     },
     {
         "Description": "<<01603>> chases {{the Investigator}}\nAll Investigators at <<01603>>'s Place lose all their effects.",
-        "Flavor": "Despite everything, {{he}} still won't believe you had nothing to do with those murders.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1772,7 +1724,6 @@
     },
     {
         "Description": "<b>Investigate</b>: If the Challenge succeeds, {{the Investigator}} discovers 2 <sprite index=38> from among {{his}} Place and connecting Places.",
-        "Flavor": "Some people need to know the truth at any cost. Some truths can cut like knives.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -1872,7 +1823,6 @@
     },
     {
         "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01691>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to any Creature at {{the Investigator}}'s Place, instead.",
-        "Flavor": "\"Do not be frightened by what you see.\nBe frightened by what you cannot see.\"",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1908,7 +1858,6 @@
     },
     {
         "Description": "{{The Investigator}} gains 3 <sprite index=39> and draws 1 Card.",
-        "Flavor": "You can never be too prepared.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1924,7 +1873,6 @@
     },
     {
         "Description": "<<01694>> is Fixed.\n{{The Investigator}} has 1 additional <sprite index=42>.",
-        "Flavor": "When you turn on the charm, it could light the entire town.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1939,7 +1887,6 @@
     },
     {
         "Description": "<<01695>> is Fixed.\n{{The Investigator}} has 1 additional <sprite index=46>.",
-        "Flavor": "No stone unturned, no ancient treasure left behind.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1953,27 +1900,7 @@
         "Name": "Treasure Finder"
     },
     {
-        "Description": "Easy / Standard\n[skull] -X. X is the number of [[Ghoul]] enemies at your location.\n[cultist] -1. If you fail, take 1 horror.\n[tablet] -2. If there is a [[Ghoul]] enemy at your location, take 1 damage.\n",
-        "Description2": "Hard / Expert\n[skull] -2. If you fail, after this skill test, search the encounter deck and discard pile for a [[Ghoul]] enemy, and draw it. Shuffle the encounter deck.\n[cultist] Reveal another token. If you fail, take 2 horror.\n[tablet] -4. If there is a [[Ghoul]] enemy at your location, take 1 damage and 1 horror.",
-        "PackCode": "core",
-        "SceneCode": "torch",
-        "Faction": 64,
-        "Slots": [
-            0
-        ],
-        "Tags": [
-            "Scene"
-        ],
-        "Quantity": 1,
-        "HealthPerInvestigator": false,
-        "CardType": 512,
-        "Code": "01104",
-        "Name": "The Gathering"
-    },
-    {
-        "Description2": "The lead investigator must decide (choose one): Either each investigator discards 1 card at random from {{his}} or her hand, or the lead investigator takes 2 horror.",
         "Flavor": "It is late at night. You are holed up in your study, researching the bloody disappearances that have been taking place in the region. A few hours into your research, you hear the sound of strange chanting coming from your parlor, down the hall. At the same time, you hear dirt churning, as if something were digging beneath the floor.",
-        "Flavor2": "Your house continues to change before your very eyes. The walls have decayed, and the ground in many rooms has turned to dirt. It is almost as if you have been transported somewhere else entirely, although every now and again you recognize elements of your former home.",
         "PackCode": "core",
         "Name2": "A Lapse in Time",
         "SceneCode": "torch",
@@ -1981,15 +1908,26 @@
         "Slots": [
             0
         ],
-        "Tags": [
-            "Plot"
-        ],
         "Quantity": 1,
         "Eldritch": 3,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01105",
-        "Name": "What's Going On?!"
+        "Name": "What's Going On?!",
+        "Histories": [
+            {
+                "Code": "01105",
+                "Title": "Echoes in the Cavern",
+                "Description": "In the depths of the enigmatic cave, a group of investigators cautiously advances, illuminating the ancient rock formations with their flashlights in search of clues about the missing team of geologists. The cave, a labyrinth of darkness and hidden secrets, echoes with the sound of their footsteps and the constant dripping of underground water.\n Suddenly, a strange and distant chant reaches their ears, emanating from some hidden corner of the cavern. The sound, hypnotic and disorienting, seems to evoke images of arcane rituals and ancient secrets. At the same time, a gentle but insistent tremor is felt beneath their feet, as if something, or someone, is digging or moving in the unexplored depths of the earth.",
+                "Image": "01105"
+            },
+            {
+                "Code": "01105b",
+                "Title": "Subterranean Alteration",
+                "Description": "As the investigators progress through the cave, an astonishing and unsettling transformation occurs before their eyes. The rocky walls of the cave begin to crumble, revealing layers of earth and roots intertwining in the space. The ground, once solid and secure beneath their feet, becomes unstable, transforming into an uneven and natural terrain. This metamorphosis defies all logical explanation and geological knowledge.\n Although they are clearly in an underground environment, the investigators strangely perceive fragments and relics of what appears to be a residential structure, scattered among the cave formations. Here and there, they recognize elements reminiscent of a house, such as pieces of furniture, fragments of wallpaper, or even parts of window frames, embedded in the cave walls as if they had been absorbed and fused with the geology of the place.",
+                "Image": "01105b"
+            }
+        ]
     },
     {
         "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until a [[Ghoul]] enemy is discarded. The lead investigator draws that enemy.",

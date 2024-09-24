@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -7,7 +6,6 @@ namespace MythosAndHorrors.GameRules
     public class CheckEldritchsPlotGameAction : GameAction
     {
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
 
         public bool IsComplete => _chaptersProvider.CurrentScene.CurrentPlot.AmountOfEldritch <= 0;
 

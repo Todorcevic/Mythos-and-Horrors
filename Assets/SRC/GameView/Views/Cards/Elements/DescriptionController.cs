@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameView
 
         public void SetDescription(Card card)
         {
-            string finalDescription = card.Info.Description ?? card.Info.Flavor;
+            string finalDescription = card.Info.Description ?? $"<i>{card.Info.Flavor}</i>";
             if (string.IsNullOrEmpty(finalDescription)) _description.gameObject.SetActive(false);
             _description.text = finalDescription.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner);
         }
