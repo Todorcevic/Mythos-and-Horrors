@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
             static string[] DescriptionParams()
             {
                 CardInvestigator investigatorCard = PlayInvestigatorGameAction.PlayActiveInvestigator.InvestigatorCard;
-                return new[] { investigatorCard.Info.Name, investigatorCard.CurrentActions.Value.ToString() };
+                return new[] { investigatorCard.CurrentName, investigatorCard.CurrentActions.Value.ToString() };
             }
         }
 

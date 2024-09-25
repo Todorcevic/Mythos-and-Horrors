@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
             return Regex.Replace(text, pattern, match =>
             {
                 string tagName = match.Groups[1].Value;
-                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return $"<i>{textsManager.GetTagText(tag)}</i>";
+                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return $"<i><b>{textsManager.GetTagText(tag)}</b></i>";
 
                 return match.Value;
             });

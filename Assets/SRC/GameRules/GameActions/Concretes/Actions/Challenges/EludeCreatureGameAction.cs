@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
 
         public EludeCreatureGameAction SetWith(Investigator investigator, CardCreature creature)
         {
-            base.SetWith(investigator.Agility, creature.Agility.Value, new Localization("Challenge_EludeCreature", creature.Info.Name), cardToChallenge: creature);
+            base.SetWith(investigator.Agility, creature.Agility.Value, new Localization("Challenge_EludeCreature", creature.CurrentName), cardToChallenge: creature);
             CardCreature = creature;
             SuccesEffects.Add(SuccesEffet);
             return this;

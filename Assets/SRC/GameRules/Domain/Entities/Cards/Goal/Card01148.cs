@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameRules
         private async Task PayKeysWithChallengeActivate(Investigator investigator)
         {
             await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                .SetWith(investigator.Power, difficultValue: 3, new Localization("Challenge_Card01148", Info.Name), cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
+                .SetWith(investigator.Power, difficultValue: 3, new Localization("Challenge_Card01148", CurrentName), cardToChallenge: this, succesEffect: SuccessEffect, failEffect: FailEffect)
                 .Execute();
 
             /*******************************************************************/

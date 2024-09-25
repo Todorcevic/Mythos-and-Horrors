@@ -75,9 +75,9 @@ namespace MythosAndHorrors.GameRules
         {
             if (Lita == null) return;
             Urmodoth.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
-                   PlayActionType.Activate, new Localization("Activation_Card01157", Lita.Info.Name, Urmodoth.Info.Name), cardAffected: Lita);
+                   PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Urmodoth.CurrentName), cardAffected: Lita);
 
-            Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01157", Lita.Info.Name, Urmodoth.Info.Name), cardAffected: Urmodoth);
+            Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Urmodoth.CurrentName), cardAffected: Urmodoth);
 
             bool ThrowLitaConditionToActivate(Investigator investigator)
             {

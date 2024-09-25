@@ -46,8 +46,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
         [UnityTest]
         public IEnumerator Show_Specific_Card()
         {
-            yield return BuildCard("01107", _investigatorsProvider.First);
-            Card specificCard = _cardsProvider.GetCard<Card01107>();
+            yield return BuildCard("01105", _investigatorsProvider.First);
+            Card specificCard = _cardsProvider.GetCard<Card01105>();
             CardView cardView = _cardViewsManager.GetCardView(specificCard);
 
             cardView.MoveToZone(_zoneViewsManager.CenterShowZone);

@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
             else
             {
                 ChallengePhaseGameAction challengeGameAction = _gameActionsProvider.Create<ChallengePhaseGameAction>();
-                await challengeGameAction.SetWith(investigator.Intelligence, 4, new Localization("Challenge_Card01136", Info.Name), this, failEffect: DropKeys).Execute();
+                await challengeGameAction.SetWith(investigator.Intelligence, 4, new Localization("Challenge_Card01136", CurrentName), this, failEffect: DropKeys).Execute();
 
                 /*******************************************************************/
                 async Task DropKeys()

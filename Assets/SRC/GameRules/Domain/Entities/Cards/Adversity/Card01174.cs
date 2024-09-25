@@ -63,9 +63,9 @@ namespace MythosAndHorrors.GameRules
 
             /*******************************************************************/
             async Task StrengthChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
-                SetWith(investigator.Strength, 4, new Localization("Challenge_Card01174", Info.Name), this, succesEffect: Discard).Execute();
+                SetWith(investigator.Strength, 4, new Localization("Challenge_Card01174", CurrentName), this, succesEffect: Discard).Execute();
             async Task AgilityChallenge() => await _gameActionsProvider.Create<ChallengePhaseGameAction>().
-                SetWith(investigator.Agility, 4, new Localization("Challenge_Card01174", Info.Name), this, succesEffect: Discard).Execute();
+                SetWith(investigator.Agility, 4, new Localization("Challenge_Card01174", CurrentName), this, succesEffect: Discard).Execute();
 
             /*******************************************************************/
             async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();

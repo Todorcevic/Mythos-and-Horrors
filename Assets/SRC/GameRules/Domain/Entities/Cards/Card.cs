@@ -46,6 +46,8 @@ namespace MythosAndHorrors.GameRules
         public bool HasEffects => PlayableEffects?.Any() ?? false;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
         public string CurrentDescription => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Description2 ?? Info.Description : Info.Description;
+        public string CurrentFlavor => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Flavor2 ?? Info.Flavor : Info.Flavor;
+        public string CurrentName => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Name2 ?? Info.Name : Info.Name;
 
         /*******************************************************************/
         /*Zenject will execute this method in both the base class and derived classes with Init method,

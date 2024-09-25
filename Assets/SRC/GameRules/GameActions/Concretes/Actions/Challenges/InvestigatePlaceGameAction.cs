@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public InvestigatePlaceGameAction SetWith(Investigator investigator, CardPlace cardPlace)
         {
-            base.SetWith(investigator.Intelligence, cardPlace.Enigma.Value, new Localization("Challenge_InvestigatePlace", cardPlace.Info.Name), cardToChallenge: cardPlace);
+            base.SetWith(investigator.Intelligence, cardPlace.Enigma.Value, new Localization("Challenge_InvestigatePlace", cardPlace.CurrentName), cardToChallenge: cardPlace);
             AmountKeys = 1;
             CardPlace = cardPlace;
             SuccesEffects.Add(SuccesEffet);

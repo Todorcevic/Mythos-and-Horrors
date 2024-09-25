@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameRules
             async Task ChallengePower(Investigator investigator)
             {
                 await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                    .SetWith(investigator.Power, 6, new Localization("Challenge_Card01144", Info.Name), failEffect: AddMadness, cardToChallenge: this)
+                    .SetWith(investigator.Power, 6, new Localization("Challenge_Card01144", CurrentName), failEffect: AddMadness, cardToChallenge: this)
                     .Execute();
 
                 /*******************************************************************/

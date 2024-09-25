@@ -44,7 +44,7 @@ namespace MythosAndHorrors.GameRules
 
                 /*******************************************************************/
                 async Task TakeLita() => await _gameActionsProvider.Create<ChallengePhaseGameAction>()
-                    .SetWith(activeInvestigator.Intelligence, 4, new Localization("Challenge_Card01117", Lita.Info.Name), cardToChallenge: Lita, ParleySucceed, null)
+                    .SetWith(activeInvestigator.Intelligence, 4, new Localization("Challenge_Card01117", Lita.CurrentName), cardToChallenge: Lita, ParleySucceed, null)
                     .Execute();
 
                 async Task ParleySucceed() => await _gameActionsProvider.Create<MoveCardsGameAction>()
@@ -90,7 +90,7 @@ namespace MythosAndHorrors.GameRules
         private string CreatureDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return CreatureTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+                return CreatureTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
             else
                 return CreatureTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString());
         }
@@ -141,9 +141,9 @@ namespace MythosAndHorrors.GameRules
         private string DangerDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
             else
-                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.Info.Name);
+                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
         }
 
         private async Task DangerEffect(Investigator investigator)

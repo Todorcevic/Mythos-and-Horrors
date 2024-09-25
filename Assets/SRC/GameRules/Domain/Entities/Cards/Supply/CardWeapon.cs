@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameRules
             foreach (CardCreature creature in investigator.CreaturesInSamePlace)
             {
                 chooseEnemy.CreateCardEffect(creature, new Stat(0, false), AttackCreature, PlayActionType.Choose,
-                    investigator, new Localization("CardEffect_CardWeapon", Info.Name));
+                    investigator, new Localization("CardEffect_CardWeapon", CurrentName));
 
                 /*******************************************************************/
                 async Task AttackCreature()

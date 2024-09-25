@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public AttackCreatureGameAction SetWith(Investigator investigator, CardCreature creature, int amountDamage)
         {
-            base.SetWith(investigator.Strength, creature.Strength.Value, new Localization("Challenge_AttackCreature", creature.Info.Name), cardToChallenge: creature);
+            base.SetWith(investigator.Strength, creature.Strength.Value, new Localization("Challenge_AttackCreature", creature.CurrentName), cardToChallenge: creature);
             CardCreature = creature;
             AmountDamage = new Stat(amountDamage, false);
             SuccesEffects.Add(SuccesEffet);

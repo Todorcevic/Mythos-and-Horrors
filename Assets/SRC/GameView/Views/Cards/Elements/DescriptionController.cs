@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _tags;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
+        [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _flavor;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly TextsManager _textsManager;
 
@@ -26,24 +27,18 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private void SetTags(IEnumerable<Tag> Tags)
         {
-            if (!Tags.Any()) _tags.gameObject.SetActive(false);
+            _tags.gameObject.SetActive(Tags.Any());
             _tags.text = string.Empty;
             Tags.ForEach(tag => _tags.text += $"{_textsManager.GetTagText(tag)} ");
         }
 
         public void SetDescription(Card card)
         {
-            string finalDescription = card.CurrentDescription ?? string.Empty;
-            _description.gameObject.SetActive(!string.IsNullOrEmpty(finalDescription));
-            _description.text = finalDescription?.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner);
+            _flavor.gameObject.SetActive(!string.IsNullOrEmpty(card.CurrentFlavor));
+            _flavor.text = $"“{card.CurrentFlavor}”" ?? string.Empty;
+            _description.gameObject.SetActive(!string.IsNullOrEmpty(card.CurrentDescription));
+            _description.text = card.CurrentDescription?.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner) ?? string.Empty;
         }
-
-        //public Tween UpdateDescriptionAnimation(Card card)
-        //{
-        //    return DOTween.Sequence().Join(_description.DOColor(Color.black, ViewValues.VERYFAST_TIME_ANIMATION))
-        //            .InsertCallback(ViewValues.VERYFAST_TIME_ANIMATION, () => SetDescription(card))
-        //            .Append(_description.DOColor(Color.white, ViewValues.VERYFAST_TIME_ANIMATION));
-        //}
 
         public Tween BlankAnimation()
         {

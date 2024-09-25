@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void Init(Card card)
         {
-            _name.text = card.Info.Name;
+            _name.text = card.CurrentName;
             _cardType.text = _textsManager.GetCardTypeText(card.Info.CardType);
         }
     }
