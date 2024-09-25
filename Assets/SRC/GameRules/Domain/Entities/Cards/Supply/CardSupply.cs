@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameRules
     public abstract class CardSupply : CommitableCard, IPlayableFromHandInTurn
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly CardsProvider _cardsProvider;
 
         public Stat ResourceCost { get; private set; }
         public GameConditionWith<Investigator> PlayFromHandCondition { get; private set; }
@@ -17,7 +18,7 @@ namespace MythosAndHorrors.GameRules
         public PlayActionType PlayFromHandActionType => PlayActionType.PlayFromHand;
 
         /*******************************************************************/
-        public CardPlace CurrentPlace => IsInPlay.IsTrue ? ControlOwner?.CurrentPlace : null;
+        public CardPlace CurrentPlace => IsInPlay.IsTrue ? ControlOwner?.CurrentPlace ?? _cardsProvider.GetCardWithThisZone(CurrentZone) as CardPlace : null;
         public virtual Func<Card> CardAffected => null;
 
         public virtual bool IsFast => false;

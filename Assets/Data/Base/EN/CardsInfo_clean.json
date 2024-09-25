@@ -2234,7 +2234,7 @@
         ]
     },
     {
-        "Description": "<<01116>> chases the Investigator with the highest <sprite index=54>\n<<01116>> counterattacks when an Investigator's attack Fails.",
+        "Description": "<<01116>> chases the Investigator with the highest <sprite index=54>\n<<01116>> counterattacks when an Investigator attack fails against him.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2254,7 +2254,7 @@
         "Name": "Necrotic Preacher"
     },
     {
-        "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n<sprite index=10> When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
+        "Description": "All Investigators at <<01117>>'s Place get +1 <sprite index=54>.\n<sprite index=10> : When a [[Monster]] is successfully attacked at <<01117>>'s Place, it may deal +1 <sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 32,

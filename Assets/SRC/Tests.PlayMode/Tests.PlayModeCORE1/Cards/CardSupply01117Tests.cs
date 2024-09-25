@@ -42,6 +42,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return StartingScene();
 
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
+            Assert.That(Lita.IsInPlay.IsTrue, Is.True);
+            Assert.That(investigator.Strength.Value, Is.EqualTo(investigator.InvestigatorCard.Info.Strength + 1));
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(Lita);
