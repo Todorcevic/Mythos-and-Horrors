@@ -2219,7 +2219,8 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01115",
-        "Name": "Luminous Threshold",
+        "Name": "Clogged Chamber",
+        "Name2": "Luminous Threshold",
         "Histories": [
             {
                 "Code": "01115",
