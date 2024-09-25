@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public Stat Health { get; protected set; }
         public Stat DamageRecived { get; private set; }
@@ -23,6 +22,7 @@ namespace MythosAndHorrors.GameRules
         public Reaction<UpdateStatesGameAction> ConfrontWhenReadyReaction { get; private set; }
 
         /*******************************************************************/
+        public int InitialHealth => (Info.Health ?? 0) * (Info.HealthPerInvestigator ?? false ? _investigatorsProvider.AllInvestigators.Count() : 1);
         public int TotalEnemyHits => (Info.CreatureDamage ?? 0) + (Info.CreatureFear ?? 0);
         public int HealthLeft => Health.Value - DamageRecived.Value;
         public virtual bool IsConfronted => ConfrontedInvestigator != null;
@@ -35,7 +35,8 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            Health = CreateStat(Info.Health ?? 0);
+
+            Health = CreateStat(InitialHealth);
             DamageRecived = CreateStat(0);
             Strength = CreateStat(Info.Strength ?? 0);
             Agility = CreateStat(Info.Agility ?? 0);

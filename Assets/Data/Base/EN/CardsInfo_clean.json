@@ -2234,20 +2234,12 @@
         ]
     },
     {
-        "Description": "<b>Prey</b> - Highest [combat].\nHunter. Retaliate.",
-        "Flavor": "A figure in red robes wearing a bone mask. It gibbers and snarls before leaping to attack.",
+        "Description": "<<01116>> chases the Investigator with the highest <sprite index=54>\n<<01116>> counterattacks when an Investigator's attack Fails.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Ghoul",
-            "Elite"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -2259,7 +2251,7 @@
         "HealthPerInvestigator": true,
         "CardType": 16,
         "Code": "01116",
-        "Name": "Ghoul Priest"
+        "Name": "Necrotic Preacher"
     },
     {
         "Description": "While you control Lita Chantler, she gains:\n\"Each investigator at your location gets +1 [combat].\n<sprite index=10> When an investigator at your location successfully attacks a [[Monster]] enemy: That investigator deals +1 damage.\"",
@@ -2269,10 +2261,6 @@
         "Slots": [
             4
         ],
-        "Tags": [
-            "Supply",
-            "Ally"
-        ],
         "Cost": 0,
         "Quantity": 1,
         "Health": 3,
@@ -2280,7 +2268,7 @@
         "HealthPerInvestigator": false,
         "CardType": 2,
         "Code": "01117",
-        "Name": "Lita Chantler",
+        "Name": "William Harrow",
         "IsRequired": true
     },
     {
