@@ -4,13 +4,13 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01121a : CardPlot
+    public class Card01120 : CardPlot
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
 
-        private Card01121b MaskedHunter => _cardsProvider.GetCard<Card01121b>();
+        private Card01121 MaskedHunter => _cardsProvider.GetCard<Card01121>();
 
         /*******************************************************************/
         [Inject]

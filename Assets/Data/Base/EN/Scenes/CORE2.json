@@ -5,41 +5,47 @@
     "Descriptions": [
         {
             "Code": "CORE2_INTRO1",
-            "Title": "Introducción 1",
-            "Description": "Un equipo de geólogos de la Universidad Miskatonic, liderado por el eminente Dr. William Harrow, había partido hacia las colinas cercanas para investigar una recién descubierta y enigmática cueva. Su interés estaba en su punto máximo debido a los informes de extrañas formaciones rocosas y fósiles en la cueva, los cuales parecían desafiar toda explicación lógica.\n Sin embargo, tras ingresar en la caverna, el equipo no regresó. Una búsqueda inicial reveló solo sus herramientas abandonadas en la entrada de la cueva y marcas extrañas en las paredes del túnel, como si algo o alguien los hubiera arrastrado hacia las profundidades subterráneas.\n La policía local ha sido reticente a profundizar en la cueva, citando peligros geológicos y la falta de pruebas de un crimen. Pero los rumores entre los lugareños cuentan una historia diferente: hablan de antiguas leyendas, de criaturas olvidadas por el tiempo que moran en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
+            "Title": "Echoes in the Shadows",
+            "Description": "The storm rages over Arkham. Suddenly, the door swings open, and a soaked man enters, his face distorted with fear. His breathing is labored, and his gaze, frantic. He introduces himself as Dr. William Harrow, an archaeologist from Miskatonic University.\n«Creatures have emerged from the depths… from the caves my team and I discovered last week», he says in a trembling voice. «We thought they were simple geological formations, but we awakened something. Something we couldn’t contain».\nThe investigators watch him with growing unease. Harrow, a man of science, seems consumed by a terror he cannot rationalize.\n«They’re not just beasts», he continues. «I’ve seen men... people who once seemed ordinary, but now bear marks, ritual scars on their skin... I’ve seen them gather in the shadows... They're preparing a ritual, something big. If we don’t stop them before midnight, something terrible will happen in Arkham».\nThe wind and rain roar outside, but the true threat lurks in the streets and tunnels of the city, growing in the darkness.",
             "Image": "CORE2_INTRO1"
         },
         {
             "Code": "CORE2_INTRO2",
-            "Title": "Introducción 2",
-            "Description": "Un equipo deroria n en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
+            "Title": "Echoes in the Shadows",
+            "Description": "After surviving the chaos in the depths, Dr. William Harrow collapses against the wall of the makeshift shelter, his face a mixture of exhaustion and terror. Still shaken by the horrors they have just witnessed, the investigators watch him in silence as the archaeologist tries to catch his breath.\n«Those beings...» he murmurs, his voice still trembling, «they're not mere creatures. They're ghouls, ancient scavengers that infest the tunnels and crypts beneath Arkham. We thought we were safe on the surface, but they were down there, always lurking.»\nHarrow wipes his sweat- and rain-soaked face, struggling to process what he has just experienced.\n«What we've seen... isn't everything. There's more. I've seen men, ordinary citizens, bearing ritualistic marks on their skin. They are cultists. They follow those monsters and are preparing a ritual. If we don’t stop them before midnight, they will unleash a horror far greater than what we’ve just faced.»\nThe atmosphere in the room becomes suffocating. Outside, the storm does not relent, but the true threat is no longer in the depths; it lurks in the shadows of Arkham, where the ghouls and their followers conspire.",
             "Image": "CORE2_INTRO2"
         },
         {
             "Code": "CORE2_INTRO3",
-            "Title": "Introducción 3",
-            "Description": "Un equipo depor aquellos que perturban su descanso eterno.",
+            "Title": "Echoes in the Shadows",
+            "Description": "«Those creatures, the ghouls, feed on the flesh of the dead» says Dr. William Harrow, his voice deep and restrained. «But they don't act alone. In the shadows, a dark cult guides them. I don't know where these worshipers came from, but at some point, they began to revere an ancient being... an entity the ghouls blindly serve. To please it, they have been sacrificing innocent people, throwing their bodies into the depths to feed those creatures.»\nHarrow takes a breath, his face marked by despair.\n«Until now, they maintained some sort of balance. A macabre cycle that allowed the ghouls to remain hidden. But recently, everything changed. One of their hideouts, where they kept the bodies, was destroyed. Since then, the ghouls have been more active, more violent. I've tried to track their movements and stop them, but the situation is out of control.»\nHe pauses, his tone growing darker.\n«The cult is preparing something bigger, something much more dangerous than I had imagined. All the signs point to their plan coming to fruition tonight, just after midnight. After that moment... I can't even begin to predict what will happen.»\nHarrow gives the investigators a piercing look.\n«The cultists blend in with ordinary people. Some might seem like regular citizens, but they bear symbols on their skin, scars engraved by dark rituals. Those marks give them away, but they are hard to identify. Time is running out, and we must act quickly. The more cultists we find before midnight, the better chance we have of stopping this horror.»\nThe silence in the room is suffocating. Outside, the storm rages, but everyone knows the real danger lurks in the shadows of Arkham, where dark forces are already at work.",
             "Image": "CORE2_INTRO3"
         }
     ],
     "Resolutions": [
         {
             "Code": "no_resolution",
-            "Title": "Ninguna resolución",
-            "Description": "Apenas lográis escapar con vida de tu casa. La mujer de la salita os sigue por la puerta delantera y la cierra de un portazo.\n–¡Necios! ¿Veis lo que habéis hecho? –dice mientras apoya una silla contra la puerta y la mete bajo el picaporte–. Debemos salir de aquí. Venid conmigo y os diré lo que sé. Somos los únicos que podemos evitar que desaten contra la ciudad la amenaza que acecha bajo ella.\nNo estáis en condiciones de replicar, así que asentís y seguís a la mujer mientras sale corriendo del porche delantero en dirección al Barrio Fluvial, bajo la lluvia.",
-            "Image": "core3"
+            "Title": "The Shadows Advance",
+            "Description": "Chaos erupts. Overwhelmed by horror and despair, the investigators are forced to flee. The dark alleys of Arkham seem to close in around them, while the echoes of the ritual and the screams of creatures pursue them with every step. The cult advances unhindered, and the ghouls emerge from the shadows, claiming the lives they couldn’t save.\nWith great difficulty, they manage to escape, wounded and with fear deeply rooted in their souls. Their failure weighs heavily like a stone, but not all is lost. Though they have been defeated, in their retreat they managed to hold onto fragments of the truth—scattered pieces that might be the key to stopping the disaster.",
+            "Image": "CORE2_RESOLUTION0"
         },
         {
             "Code": "resolution1",
-            "Title": "Resolución 1",
-            "Description": " Asientes y permites que la mujer pelirroja prenda fuego a las paredes y suelos de tu casa. Las llamas se extienden rápidamente, y salís corriendo por la puerta delantera para evitar quedar atrapados en ese infierno. Desde la acera, observáis cómo el fuego consume todo lo que posees.\n–Venid conmigo –dice la mujer–. Debéis conocer la amenaza que acecha debajo. Si no colaboramos, estamos perdidos sin remedio... pero juntos podremos detenerla.",
-            "Image": "core4"
+            "Title": "Fragile Hope",
+            "Description": "After arduous efforts, the investigators have gathered valuable information about the cult and its dark purposes. The symbols, the rituals, the hidden alliances... everything fits together in a disturbing way. They know more than the cult would want, but the danger has not yet passed.\nAs the shadows loom over Arkham and the clock ticks toward midnight, only one question remains: will it be enough? The threat is still present, but their intervention has disrupted part of the cult's plans. Now, they can only cling to the fragile hope that what they've uncovered might alter the looming fate.\nThe air grows thick, heavy with a suffocating anticipation. There is no turning back.",
+            "Image": "CORE2_RESOLUTION1"
+        },
+        {
+            "Code": "resolution2",
+            "Title": "Echo of Midnight",
+            "Description": "The bells of Arkham Church toll twelve times, echoing through the deserted streets. Midnight has come. Time has run out.\nThe investigators know that the cult’s ritual is about to begin. Throughout their investigation, they have gathered fragments of information, pieces that reveal the cultists’ horrifying plans. But as the sound of the bells fades away, one question lingers in their minds: will what they have discovered be enough?\nThe shadows seem to lengthen around them, as if the very city were holding its breath, awaiting the inevitable. Now, everything depends on what they have accomplished up to this moment. With midnight marking the beginning of the unknown, all that remains is to wait... and confront whatever the darkness may bring.",
+            "Image": "CORE2_RESOLUTION2"
         }
     ],
     "NextScene": "CORE3",
     "Cards": [
         "01123",
-        "01121a",
+        "01120",
         "01122",
         "01135",
         "01135",
@@ -79,7 +85,7 @@
         "01139",
         "01140",
         "01141",
-        "01121b",
+        "01121",
         "01116"
     ],
     "ChallengeTokensNormal": [

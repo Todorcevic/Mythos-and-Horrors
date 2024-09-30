@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         public CardCreature Peter => _cardsProvider.GetCard<Card01139>();
         public CardCreature Victoria => _cardsProvider.GetCard<Card01140>();
         public CardCreature Ruth => _cardsProvider.GetCard<Card01141>();
-        public CardCreature MaskedHunter => _cardsProvider.GetCard<Card01121b>();
+        public CardCreature MaskedHunter => _cardsProvider.GetCard<Card01121>();
         public CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
         public List<Card> Cultists => new() { Drew, Herman, Peter, Victoria, Ruth };
         public List<Card> AllCultists => new() { Drew, Herman, Peter, Victoria, Ruth, MaskedHunter };

@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
     [TestFixture]
     public class ShowHistoryests : PlayModeTestsBase
     {
-        //protected override bool DEBUG_MODE => true;
+        protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             {
                 Title = "Title",
                 Description = "Description",
-                Image = "01105",
+                Image = "CORE2_RESOLUTION2",
             };
 
             do

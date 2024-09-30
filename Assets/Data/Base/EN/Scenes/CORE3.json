@@ -5,35 +5,35 @@
     "Descriptions": [
         {
             "Code": "CORE3_INTRO1",
-            "Title": "Title",
-            "Description": "Un equipo de geólogos de la Universidad Miskatonic, liderado por el eminente Dr. William Harrow, había partido hacia las colinas cercanas para investigar una recién descubierta y enigmática cueva. Su interés estaba en su punto máximo debido a los informes de extrañas formaciones rocosas y fósiles en la cueva, los cuales parecían desafiar toda explicación lógica.\n Sin embargo, tras ingresar en la caverna, el equipo no regresó. Una búsqueda inicial reveló solo sus herramientas abandonadas en la entrada de la cueva y marcas extrañas en las paredes del túnel, como si algo o alguien los hubiera arrastrado hacia las profundidades subterráneas.\n La policía local ha sido reticente a profundizar en la cueva, citando peligros geológicos y la falta de pruebas de un crimen. Pero los rumores entre los lugareños cuentan una historia diferente: hablan de antiguas leyendas, de criaturas olvidadas por el tiempo que moran en las profundidades de la tierra, y de maldiciones lanzadas por aquellos que perturban su descanso eterno.",
+            "Title": "Chasing Shadows in Arkham",
+            "Description": "After an exhausting chase through the grim streets of Arkham, the investigators have captured and forced confessions from several members of the cult. What they discover is terrifying: they worship an ancient deity named Umôrdhoth, a nightmare being that lurks beyond this plane.\nThe final clue is found in the diary of one of the fallen cultists. In its pages, a dark ritual is described, planned for this very night, deep in the swamps to the south of the city. If completed, they will open a portal for Umôrdhoth to enter this world.\n'If we don’t stop them,' Lita warns urgently, 'its wrath will destroy everything in its path.'\nDespite the fear, the investigators steel themselves and set out for the swamp, determined to prevent the looming end.",
             "Image": "CORE3_INTRO1"
         }
     ],
     "Resolutions": [
         {
             "Code": "no_resolution",
-            "Title": "Ninguna resolución",
-            "Description": "Apenas lográis escapar con vida de tu casa. La mujer de la salita os sigue por la puerta delantera y la cierra de un portazo.\n–¡Necios! ¿Veis lo que habéis hecho? –dice mientras apoya una silla contra la puerta y la mete bajo el picaporte–. Debemos salir de aquí. Venid conmigo y os diré lo que sé. Somos los únicos que podemos evitar que desaten contra la ciudad la amenaza que acecha bajo ella.\nNo estáis en condiciones de replicar, así que asentís y seguís a la mujer mientras sale corriendo del porche delantero en dirección al Barrio Fluvial, bajo la lluvia.",
-            "Image": "core3"
+            "Title": "Umôrdhoth's Vengeance",
+            "Description": "Too terrified to face his fate, Dr. William Harrow flees in a panic, vanishing into the darkness of the swamp. In his desperate escape, he realizes that he has failed, and that Umôrdhoth's vengeance will pursue him relentlessly. The monstrous entity's tentacles are already spreading through Arkham, enveloping the city in shadows that lurk in every corner, seeking to tear reality itself apart.\nDr. Harrow disappears without a trace, but Umôrdhoth remains lurking, waiting in the darkness, hunting... Its hunger for destruction continues to grow, relentless and voracious.",
+            "Image": "CORE3_RESOLUTION0"
         },
         {
             "Code": "resolution1",
-            "Title": "Resolución 1",
-            "Description": " Asientes y permites que la mujer pelirroja prenda fuego a las paredes y suelos de tu casa. Las llamas se extienden rápidamente, y salís corriendo por la puerta delantera para evitar quedar atrapados en ese infierno. Desde la acera, observáis cómo el fuego consume todo lo que posees.\n–Venid conmigo –dice la mujer–. Debéis conocer la amenaza que acecha debajo. Si no colaboramos, estamos perdidos sin remedio... pero juntos podremos detenerla.",
-            "Image": "core4"
+            "Title": "Shadows Over Arkham",
+            "Description": "The investigators manage to prevent the cult from summoning their master. Though they are uncertain of what might have happened had they succeeded, they are comforted by the thought that Arkham is safe... at least for now. They capture as many cultists as they can find, but few in the city believe their story. Perhaps, in the end, it was all a product of their imagination.",
+            "Image": "CORE3_RESOLUTION1"
         },
         {
             "Code": "resolution2",
-            "Title": "Resolución 2",
-            "Description": " Te niegas a seguir la orden de la fanática y la echas de tu casa por miedo a que le prenda fuego sin tu permiso.\n–¡Necios! ¡Estáis cometiendo un funesto error! –os advierte–. No entendéis la amenaza que acecha debajo... ¡ni el grave peligro quecorremos todos!\nAún conmocionados por los acontecimientos de la noche, decidís escuchar a la mujer. Quizás pueda arrojar algo de luz sobre estos extraños sucesos... pero no parece confiar demasiado en vosotros.",
-            "Image": "core4"
+            "Title": "Retreat of the Void",
+            "Description": "The investigators, armed with determination and strength, managed to inflict considerable damage on Umôrdhoth, sending it back to the dimension from which it came. Heat and light return to the forest as the mass of void absorbs itself, vanishing in an instant. Though they are unsure if such a powerful being can be truly eradicated, it seems to have retreated for now. With the disappearance of their master, the nearby ghouls plunge into the open pit and flee amidst horrifying screams and howls. The investigators have thwarted a sinister plan, but the confrontation has left scars on their bodies and minds. Worse still, they cannot shake the feeling of insignificance in the face of the world’s mysteries. What other terrors lurk in the darkest and deepest corners of reality?",
+            "Image": "CORE3_RESOLUTION2"
         },
         {
             "Code": "resolution3",
-            "Title": "Resolución 3",
-            "Description": "Corréis al pasillo para tratar de encontrar una forma de huir de la casa, pero la ardiente barrera sigue bloqueando vuestro camino. Estáis atrapados, y la horda de salvajes criaturas que han invadido tu casa se acerca, sin que tengáis posibilidad de huir.",
-            "Image": "core5"
+            "Title": "Harrow's Sacrifice",
+            "Description": "After facing such a horror, the investigators believe they have no way to stop it. Only one hope remains if they wish to survive. They turn on Dr. William Harrow and hurl him toward the abominable creature, watching in fear as its tumultuous mass of void consumes him. The man cries out in agony as his life is drained by the creature's body.\n'Umôrdhoth... Umôrdhoth...' chant the cultists.\nDr. William Harrow vanishes without a trace. For a moment, the investigators fear the entity will attack them, but they hear one of the cultists say:\n'Umôrdhoth is a just god who punishes only the guilty and the dead. Go, and you will not die.'\nThe turbulent mass dissipates, and the heat and light return to the forest.\nThe cultists quickly flee, leaving the investigators alive. Dr. Harrow's final moments are etched forever in their memories.",
+            "Image": "CORE3_RESOLUTION3"
         }
     ],
     "Cards": [

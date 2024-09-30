@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         [UnityTest]
         public IEnumerator WhenRevealHunterSpawn()
         {
-            Card01121a plot = _cardsProvider.GetCard<Card01121a>();
+            Card01120 plot = _cardsProvider.GetCard<Card01120>();
 
             yield return StartingScene();
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(plot.Eldritch, 6).Execute().AsCoroutine();

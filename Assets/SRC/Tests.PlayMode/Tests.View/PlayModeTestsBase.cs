@@ -64,6 +64,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
             InstallerToScene();
             yield return LoadScene(SCENE_NAME);
             LoadSceneSettings();
+            if (DEBUG_MODE) yield break;
             AlwaysHistoryPanelClick().AsTask();
             AlwaysRegisterPanelClick().AsTask();
         }

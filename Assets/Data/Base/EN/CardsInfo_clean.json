@@ -2206,7 +2206,7 @@
     },
     {
         "Description": "<<01115>> is blocked. The Investigators cannot move here.",
-        "Description2": "<sprite index=9> <b>Resign</b>: {{The Investigator}} leaves the Scene.",
+        "Description2": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2326,25 +2326,7 @@
         "Name": "Icy Ghoul"
     },
     {
-        "Description": "Easy / Standard\n[skull]: -X. X is the highest number of doom on a [[Cultist]] enemy in play.\n[cultist]: -2. Place 1 doom on the nearest [[Cultist]] enemy.\n[tablet]: -3. If you fail, place 1 of your clues on your location.",
-        "Description2": "Hard / Expert\n[skull]: -X. X is the total number of doom in play.\n[cultist]: -2. Place 1 doom on each [[Cultist]] enemy in play. If there are no [[Cultist]] enemies in play, reveal another token.\n[tablet]: -4. If you fail, place all your clues on your location.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
-        "Faction": 64,
-        "Slots": [
-            0
-        ],
-        "Tags": [
-            "Scene"
-        ],
-        "Quantity": 1,
-        "HealthPerInvestigator": false,
-        "CardType": 512,
-        "Code": "01120",
-        "Name": "The Midnight Masks"
-    },
-    {
-        "Description": "<sprite index=9>: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Description": "<sprite index=9> <b>Escape</b>: You don't want to risk taking too long, so you head to safety with the information you've gathered.",
         "Flavor": "Lita seems convinced of a conspiracy within the city of Arkham. She believes that a secret cult serves the ghouls that live in the crypts beneath the city, and that several of the cult's prominent members are scattered throughout Arkham. As you begin searching for them, you can't shake the feeling that you, too, are being hunted.",
         "PackCode": "core",
         "SceneCode": "arkham",
@@ -2359,11 +2341,38 @@
         "Eldritch": 6,
         "HealthPerInvestigator": false,
         "CardType": 256,
-        "Code": "01121a",
+        "Code": "01120",
         "Name": "Predator or Prey?"
     },
     {
-        "Description": "<sprite index=9>: <b>Resign</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
+        "Description": "<p><b>Spawn</b> - Engaged with Prey.</p><p><b>Prey</b> - Most clues.</p><p>Hunter.</p><p>The Masked Hunter gets +2 health per investigator.</p><p>While you are engaged with The Masked Hunter, you cannot discover or spend clues.</p>",
+        "Flavor": "",
+        "PackCode": "core",
+        "SceneCode": "arkham",
+        "Faction": 64,
+        "Slots": [
+            0
+        ],
+        "Tags": [
+            "Creature",
+            "Humanoid",
+            "Cultist",
+            "Elite"
+        ],
+        "Quantity": 1,
+        "Strength": 4,
+        "Agility": 2,
+        "Health": 4,
+        "CreatureDamage": 2,
+        "CreatureFear": 1,
+        "Victory": 2,
+        "HealthPerInvestigator": false,
+        "CardType": 16,
+        "Code": "01121",
+        "Name": "The Masked Hunter"
+    },
+    {
+        "Description": "<sprite index=9>: <b>Escape</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
         "Description2": "<b>(→R2)</b>",
         "Flavor": "The minutes pass quickly as your investigation continues.",
         "Flavor2": "Twelve bells ring out across the town. It is midnight. There is no time left to investigate the city; you must act based on the information you've collected from the cultists you've found.",

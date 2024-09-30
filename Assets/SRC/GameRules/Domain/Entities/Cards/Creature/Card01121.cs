@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01121b : CardCreature, IStalker, ITarget, ISpawnable
+    public class Card01121 : CardCreature, IStalker, ITarget, ISpawnable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HunterBuff()
         {
             Investigator investigator = _investigatorsProvider.Second;
-            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121b>();
+            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121>();
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1).ContinueWith((_) => MustBeRevealedThisToken(ChallengeTokenType.Value1)); ;
             yield return StartingScene();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE2.North).Execute().AsCoroutine();
@@ -51,7 +51,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HunterBuffCantPay()
         {
             Investigator investigator = _investigatorsProvider.Second;
-            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121b>();
+            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121>();
             _ = MustBeRevealedThisToken(ChallengeTokenType.Value1);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
@@ -72,7 +72,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
         public IEnumerator HunterBuffCantPayShadow()
         {
             Investigator investigator = _investigatorsProvider.Second;
-            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121b>();
+            CardCreature maskedHunter = _cardsProvider.GetCard<Card01121>();
             Card01135 shadow = _cardsProvider.GetCard<Card01135>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);

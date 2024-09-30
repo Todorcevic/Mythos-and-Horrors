@@ -15,25 +15,25 @@
             "Code": "no_resolution",
             "Title": "Fleeing from the Abyss",
             "Description": "After a frantic flight through the cave tunnels, the investigators manage to escape from the creatures and the imminent danger. Exhausted and with their hearts pounding, they finally emerge to the surface. Dr. Thomas Walker follows them closely and secures the entrance behind him.\n “Fools! Do you see what you have done?” exclaims Dr. Thomas Walker, with a mix of anger and concern. “We must get away from here. Come with me, and I will explain everything. We are the only ones who can stop the threat looming beneath Arkham.”\n Though exhausted and overwhelmed by the events, the investigators nod and follow Dr. Walker. They hurriedly head towards a safer part of the city as a light rain begins to fall, symbolizing a possible change or purification.",
-            "Image": "core3"
+            "Image": "CORE2_RESOLUTION0"
         },
         {
             "Code": "resolution1",
             "Title": "Sealing the Threshold of Horror",
             "Description": "After emerging from the cave, the investigators and Dr. Thomas Walker devise a plan to seal the entrance. Dr. Walker leads the team in using manual tools and exploiting natural weak points in the cave's structure. They move large rocks and destabilize key supports to induce a collapse.\n With a deep rumble, the cave entrance collapses, sealing off the depths and preventing the creatures from emerging.\n The group watches the result of their work, feeling a mix of relief and concern for the unknowns that still remain.",
-            "Image": "core4"
+            "Image": "CORE2_RESOLUTION1"
         },
         {
             "Code": "resolution2",
             "Title": "The Deferred Decision",
             "Description": "The investigators decide not to follow Dr. Thomas Walker's suggestion of a collapse. They fear that a total collapse might have unforeseen consequences or lock away secrets that need to be understood.\n They express their concerns to him, and despite his reluctance, they persuade Dr. Walker to abandon the idea, at least for the moment.\n Before leaving, Dr. Walker warns, “Fools! You do not understand the magnitude of what lurks beneath our feet. It is a grave mistake not to act now!”\n Although shaken by the events and the intensity of Dr. Walker, the investigators decide they need to know more before taking such an irreversible action.\n They plan to seek out a geologist later, hoping to learn more about the subterranean threats and find a more balanced approach.",
-            "Image": "core4"
+            "Image": "CORE2_RESOLUTION2"
         },
         {
             "Code": "resolution3",
             "Title": "Trapped in the Darkness",
             "Description": "In a desperate attempt to find a way out, the investigators run through the cave tunnels.\n They discover that the path they had entered through, now transformed and altered, remains blocked by the recent collapse.\n With their escape route cut off and the creatures closing in, they realize they are trapped, with no visible way out.",
-            "Image": "core5"
+            "Image": "CORE2_RESOLUTION3"
         }
     ],
     "NextScene": "CORE2",
