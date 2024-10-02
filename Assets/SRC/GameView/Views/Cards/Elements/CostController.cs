@@ -13,6 +13,9 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot1;
         [SerializeField, Required, ChildGameObjectsOnly] private SlotView _slot2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _value;
+        [SerializeField, Required, AssetsOnly] private Sprite _keySprite;
+        [SerializeField, Required, AssetsOnly] private Sprite _resourceSprite;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _spriteRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private ActionTypeController _actionsCostController;
         [Inject] private readonly StatableManager _statableManager;
 
@@ -25,9 +28,14 @@ namespace MythosAndHorrors.GameView
             _statableManager.Add(this);
             SetSlots(card);
             _actionsCostController.Init(card);
+            _spriteRenderer.sprite = _resourceSprite;
             if (card is IPlayableFromHandInTurn playableFromHand) SetCostWith(playableFromHand.ResourceCost);
             else if (card is CardConditionReaction cardConditionFast) SetCostWith(cardConditionFast.ResourceCost);
-            else if (card is CardGoal cardGoal) SetCostWith(cardGoal.Keys);
+            else if (card is CardGoal cardGoal)
+            {
+                _spriteRenderer.sprite = _keySprite;
+                SetCostWith(cardGoal.Keys);
+            }
             else gameObject.SetActive(false);
         }
 

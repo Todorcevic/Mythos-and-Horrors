@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameRules
 
         public PayKeysToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
-            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayKeysToGoal", cardGoal.CurrentName));
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayKeysToGoal", cardGoal.Keys.Value.ToString(), cardGoal.CurrentName));
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
             ExecuteSpecificInitialization();

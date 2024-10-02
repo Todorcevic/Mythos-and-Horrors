@@ -2005,7 +2005,7 @@
         ]
     },
     {
-        "Description": "<sprite index=8>: The Investigators may put <sprite index=38> in <<01108>> to advance it.",
+        "Description": "<sprite index=8>: The Investigators may pay <sprite index=38> to <<01108>> to advance it.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2034,7 +2034,7 @@
         ]
     },
     {
-        "Description": "<sprite index=10>: When the Round ends, the Investigators in <<01112>> may put <sprite index=38> in <<01109>> to advance it.",
+        "Description": "<sprite index=10>: When the Round ends, the Investigators in <<01112>> may pay <sprite index=38> to <<01109>> to advance it.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2326,38 +2326,41 @@
         "Name": "Icy Ghoul"
     },
     {
-        "Description": "<sprite index=9> <b>Escape</b>: You don't want to risk taking too long, so you head to safety with the information you've gathered.",
-        "Flavor": "Lita seems convinced of a conspiracy within the city of Arkham. She believes that a secret cult serves the ghouls that live in the crypts beneath the city, and that several of the cult's prominent members are scattered throughout Arkham. As you begin searching for them, you can't shake the feeling that you, too, are being hunted.",
+        "Description": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene with the information {{he}} is gathered.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 6,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01120",
-        "Name": "Predator or Prey?"
+        "Name": "Whispers Beneath the City",
+        "Histories": [
+            {
+                "Code": "01120",
+                "Title": "Cultists in the Shadows",
+                "Description": "Dr. William Harrow is convinced that an unfathomable darkness envelops the city of Arkham, a conspiracy that defies all logic. According to him, a secret cult worships ghouls, grotesque beings that dwell in the crypts beneath the city, feasting on the remains of the dead. He firmly believes that several of the leaders of this cult are hiding among the citizens, camouflaged under an ordinary appearance. When the investigators begin their search, an unsettling feeling overtakes them: they are not the only ones stalking the night... they too are being watched, hunted by someone or something lurking in the shadows.",
+                "Image": "01120"
+            },
+            {
+                "Code": "01120b",
+                "Title": "The Shrouded Assassin",
+                "Description": "In a dark, rain-soaked street, the investigators watch as a figure emerges from the gloom, like a specter pulled from the darkest corners of their nightmares. Under the faint light of a streetlamp, its silhouette looms over them, wrapped in a long coat dripping water in sync with its calm breathing. Its face, hidden behind a mask that evokes death itself, seems to survey the surroundings with chilling indifference. In the distance, the shadows writhe, restless, as if something unnatural is taking shape. The air is heavy with a disturbing calm, broken only by the echo of raindrops crashing against the ground. In that moment, the whispers beneath the city grow louder, and the investigators feel they are not alone.",
+                "Image": "01120b"
+            }
+        ]
     },
     {
-        "Description": "<p><b>Spawn</b> - Engaged with Prey.</p><p><b>Prey</b> - Most clues.</p><p>Hunter.</p><p>The Masked Hunter gets +2 health per investigator.</p><p>While you are engaged with The Masked Hunter, you cannot discover or spend clues.</p>",
-        "Flavor": "",
+        "Description": "<<01121>> chases the Investigator with most <sprite index=38>.\nWhile a Investigator is confronted with <<01121>>, that Investigator cannot discover or spend <sprite index=38>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist",
-            "Elite"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -2369,13 +2372,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01121",
-        "Name": "The Masked Hunter"
+        "Name": "Shrouded Assassin"
     },
     {
-        "Description": "<sprite index=9>: <b>Escape</b>. You don't want to risk taking too long, so you head to safety with the information you've gathered.",
-        "Description2": "<b>(→R2)</b>",
-        "Flavor": "The minutes pass quickly as your investigation continues.",
-        "Flavor2": "Twelve bells ring out across the town. It is midnight. There is no time left to investigate the city; you must act based on the information you've collected from the cultists you've found.",
+        "Description": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene with the information {{he}} is gathered.",
         "PackCode": "core",
         "Name2": "The Clock Strikes Midnight",
         "SceneCode": "arkham",
@@ -2383,36 +2383,54 @@
         "Slots": [
             0
         ],
-        "Tags": [
-            "Plot"
-        ],
         "Quantity": 1,
         "Eldritch": 8,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01122",
-        "Name": "Time Is Running Short"
+        "Name": "Secrets Below the City",
+        "Histories": [
+            {
+                "Code": "01122",
+                "Title": "Echoes of Lost Time",
+                "Description": "The distant clock tower chimes the passing hours with an unsettling rhythm, yet for the investigators in Arkham’s narrow alleys, time behaves in strange ways. As they press on in their search for answers, moments slip through their fingers like sand, and with each new discovery, the sense of urgency deepens. It feels as though the city itself is toying with them, speeding up and slowing down time at its whim, dragging them inexorably toward an inevitable conclusion.",
+                "Image": "01122"
+            },
+            {
+                "Code": "01122b",
+                "Title": "Echoes of the Clock",
+                "Description": "Twelve chimes ring out across the city. It is midnight. The echo of each strike reverberates through the dark corners of Arkham, a stark reminder that time has run out. There is no more room for investigation, no more clues to follow. The investigators know this: now they must act, making hasty decisions based on the fragmented and terrifying information they have extracted from the cultists they encountered. The air grows heavier, thick with a macabre sense of anticipation. Whatever lurks in the depths of the city is about to be unleashed.",
+                "Image": "01122b"
+            }
+        ]
     },
     {
-        "Description": "<sprite index=9> The investigators spend 2 clues per investigator, as a group: Draw the top card of the Cultist deck.\n<b>Objective</b> - Find as many unique [[Cultist]] enemies as you can and add them to the victory display. If there are 6 unique [[Cultist]] enemies in the victory display, advance. (Note: Not all 6 of them are in the Cultist deck.)",
-        "Description2": "<b>(→R1)</b>",
-        "Flavor": "You have one night to find the members of this cult and unveil their plan. The more members of the cult you can find and interrogate before midnight, the better.",
-        "Flavor2": "You've successfully uncovered the identities of all of the cult's high-ranking members within Arkham. The man who had stalked you throughout the city was dedicated in {{his}} conviction, as was Herman, the undertaker of the graveyard. Others seemed to have been coerced to aid the cult. Ruth, the mortician, had been told that her family would be killed if she did not supply the ghouls with fresh corpses. Thankfully, you managed to help her escape the hospital safely. Peter, the professor, had to be convinced that {{his}} involvement with the cult would do more harm than good. Victoria's obsession with occult artifacts had landed her deep within the cult's web. When you confronted Drew in the asylum, {{he}} attacked you - but interestingly, {{he}} did so because {{he}} thought you were part of the cult. The deeper you delve into this conspiracy, the clearer it becomes that many lives have been ruined by it.",
+        "Description": "<sprite index=9> : The Investigators may pay <sprite index=38> to <<01123>> to reveal a [[Cultist]].\n When 6 revealed [[Cultist]] have been defeated, <<01123>> advances.",
         "PackCode": "core",
-        "Name2": "Secrets Unveiled",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
         ],
-        "Tags": [
-            "Goal"
-        ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01123",
-        "Name": "Uncovering the Conspiracy"
+        "Name": "Night of the Cult",
+        "Histories": [
+            {
+                "Code": "01123",
+                "Title": "Under the Shadow of Midnight",
+                "Description": "The investigators have only one night to locate the members of the cult and unravel their dark plans. Every second is crucial. The more cultists they manage to find and interrogate before the chimes signal midnight, the greater their chances of stopping what has been unleashed. Time moves mercilessly, and the shadow of the ritual looms ever closer, wrapping Arkham in an atmosphere of inevitable doom",
+                "Image": "01123"
+            },
+            {
+                "Code": "01123b",
+                "Title": "Truth in the Shadows",
+                "Description": "The investigators successfully uncovered the true identities of all the main leaders of the cult in Arkham. The man who had been stalking them for days was nothing more than a fanatic, fully devoted to the cult’s dark beliefs, just like Herman, the sinister cemetery caretaker, who was entirely committed to the cause. However, not all shared this blind devotion. Some, like Ruth, the mortuary technician, had been forced to participate under terrible threats. They had told her they would kill her family if she didn’t supply fresh corpses for the ghouls. The investigators acted quickly and managed to get her out of the hospital before it was too late.\nPeter, the professor, had also been caught in the web of the conspiracy, but he was easily convinced that his involvement would only bring more harm to the city. Victoria, on the other hand, had succumbed to the cult due to her obsession with hidden artifacts, unaware of the danger surrounding her. Finally, Drew, confined to the asylum, attacked them—not out of loyalty to the cult, but because he mistakenly believed the investigators were part of it.\nWith each new revelation, the investigators realized that this dark conspiracy had destroyed many lives. What began as a search for answers had turned into a grim discovery: the cult had not only sown terror in Arkham but had also forced many into submission or despair, leaving a city teetering on the brink of madness in its wake.",
+                "Image": "01123b"
+            }
+        ]
     },
     {
         "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n<sprite index=9>: Draw 1 card and gain 1 resource. (Limit once per turn.)",

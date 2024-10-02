@@ -804,6 +804,9 @@ MonoBehaviour:
   _slot1: {fileID: 956446773094662885}
   _slot2: {fileID: 6130382961637216238}
   _value: {fileID: 7918105857640650496}
+  _keySprite: {fileID: 21300000, guid: aa5edc80d6141194e95774f6eff810c0, type: 3}
+  _resourceSprite: {fileID: 21300000, guid: 5767e82602ffb1c438f8a42250cb7ae3, type: 3}
+  _spriteRenderer: {fileID: 5289246927271004501}
   _actionsCostController: {fileID: 403714040741462580}
 --- !u!114 &7507989193192747260
 MonoBehaviour:
@@ -1649,7 +1652,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.05}
-  m_SizeDelta: {x: 0.5, y: 1}
+  m_SizeDelta: {x: 0.5, y: 1.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2855951210174995697
 MeshRenderer:
@@ -1740,7 +1743,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.8
+  m_fontSize: 8.7
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1940,7 +1943,7 @@ GameObject:
   - component: {fileID: 1642464173184938630}
   - component: {fileID: 5289246927271004501}
   m_Layer: 3
-  m_Name: Image
+  m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2002,7 +2005,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3548e35d2da350f448726a9217d15948, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5767e82602ffb1c438f8a42250cb7ae3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
