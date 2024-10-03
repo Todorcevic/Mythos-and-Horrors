@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardGoal01123Tests : TestCORE2Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator RevealWhenCultistsDefeat()

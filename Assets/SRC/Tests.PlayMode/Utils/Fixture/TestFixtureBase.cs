@@ -198,7 +198,6 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return AssertThatIsClickable(card, false);
         }
 
-
         protected IEnumerator AssertThatIsClickable(Card card, bool isClickable = true)
         {
             const float ASSERT_CLICKABLE_TIMEOUT = 0.3f;

@@ -1,6 +1,6 @@
 [
     {
-        "Description": "<sprite index=10> Limit once per Round, after <<01501>> defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=38> on <<01501>>'s Place.",
+        "Description": "Once per Round <sprite index=10> after <<01501>> defeats a Creature: {{he}} may discover 1<sprite index=38> at {{his}} Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=38> on <<01501>>'s Place.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 4,
@@ -18,10 +18,10 @@
         "CardType": 1,
         "Code": "01501",
         "Name": "Eliot Spencer",
-        "StarTokenDescription": "+1 <sprite index=58> for each <sprite index=38> on {{the Investigator}}."
+        "StarTokenDescription": "+1<sprite index=58> for each <sprite index=38> on {{the Investigator}}."
     },
     {
-        "Description": "<sprite index=8> : Limit once per Turn, <<01502>> gain an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge succeeds, <<01502>> draws 1 Card for each [[Tome]] she controls.",
+        "Description": "Once per Turn <sprite index=8> : <<01502>> gains an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge succeeds, <<01502>> draws 1 Card for each [[Tome]] she controls.",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 16,
@@ -42,7 +42,7 @@
         "StarTokenDescription": "If the Challenge succeeds, {{the Investigator}} draws 1 Card for each [[Tome]] {{he}} controls."
     },
     {
-        "Description": "<sprite index=8><sprite index=39><sprite index=39> : Limit once per Turn, <<01503>> gain an additional <sprite index=9>.\n<sprite index=21> : +2 <sprite index=58>. If the Challenge succeeds, <<01503>> gains 2 <sprite index=39>.",
+        "Description": "Once per Turn <sprite index=8><sprite index=39><sprite index=39> : <<01503>> gains an additional <sprite index=9>.\n<sprite index=21> : +2<sprite index=58>. If the Challenge succeeds, <<01503>> gains 2<sprite index=39>.",
         "PackCode": "rcore",
         "Genre": 0,
         "Faction": 2,
@@ -60,10 +60,10 @@
         "CardType": 1,
         "Code": "01503",
         "Name": "Frank Harris",
-        "StarTokenDescription": "If the Challenge succeeds, {{the Investigator}} gains 2 <sprite index=39>."
+        "StarTokenDescription": "If the Challenge succeeds, {{the Investigator}} gains 2<sprite index=39>."
     },
     {
-        "Description": "<sprite index=10> Limit once per Phase, after <<01504>> loses <sprite index=37>: she may deal 1 <sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1 <sprite index=58> for each <sprite index=37> <<01504>> is missing.",
+        "Description": "Once per Phase <sprite index=10> after <<01504>> loses <sprite index=37>: she may deal 1<sprite index=59> to a Creature at her Place.\n<sprite index=21> : +1<sprite index=58> for each <sprite index=37> <<01504>> is missing.",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 8,
@@ -81,10 +81,10 @@
         "CardType": 1,
         "Code": "01504",
         "Name": "Lucille Hargrove",
-        "StarTokenDescription": "+1 <sprite index=58> for each <sprite index=37> {{the Investigator}} is missing."
+        "StarTokenDescription": "+1<sprite index=58> for each <sprite index=37> {{the Investigator}} is missing."
     },
     {
-        "Description": "<sprite index=10> Limit once per Challenge, after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
+        "Description": "Once per Challenge <sprite index=10> after <<01505>> reveals a Symbol: she may discard 1 Card from her hand, then that Symbol is returned and a new Symbol is revealed.\n<sprite index=21> : 0<sprite index=58>. If <<01514>> is in play, the Challenge automatically succeeds.",
         "PackCode": "rcore",
         "Genre": 1,
         "Faction": 1,
@@ -105,7 +105,7 @@
         "StarTokenDescription": "If <<01514>> is in play, the Challenge automatically succeeds."
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack or +3<sprite index=54> if there are any <sprite index=38> at {{his}} Place. This attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -155,7 +155,7 @@
         "IsRequired": true
     },
     {
-        "Description": "When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\nWhen {{the Investigator}} reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : {{The Investigator}} takes 1 <sprite index=60>.",
+        "Description": "When <<01509>> has no <sprite index=50>, it is discarded. Until then, it cannot leave play.\nWhen {{the Investigator}} reveals a <sprite index=21>, it is swapped for a <sprite index=26>.\n<sprite index=9><sprite index=50> : {{The Investigator}} takes 1<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -187,7 +187,7 @@
         "IsRequired": true
     },
     {
-        "Description": "When the Scene ends, if <<01511>> has <sprite index=51>, {{the Investigator}} loses 2 experience points.\n<sprite index=8><sprite index=39><sprite index=51> : Limit twice per round.",
+        "Description": "When the Scene ends, if <<01511>> has <sprite index=51>, {{the Investigator}} loses 2 experience points.\nTwice per round <sprite index=8><sprite index=39><sprite index=51> : <i>“Umm...”</i>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -219,7 +219,7 @@
         "IsRequired": true
     },
     {
-        "Description": "The current Plot removes 1 <sprite index=40> and may finish.\nIf <<01513>> is in {{the Investigator}}'s hand at the end of {{his}} turn, {{he}} takes 2 <sprite index=60>.",
+        "Description": "The current Plot removes 1<sprite index=40> and may finish.\nIf <<01513>> is in {{the Investigator}}'s hand at the end of {{his}} turn, {{he}} takes 2<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -264,7 +264,7 @@
         "IsRequired": true
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack and deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack and deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -280,7 +280,7 @@
         "Name": "Patrol Sidearm"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -297,7 +297,7 @@
         "Name": "Martial Discipline"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=54>.\n<sprite index=8> : <<01518>> is discarded and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
+        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> : <<01518>> is discarded and deals 1<sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -315,7 +315,7 @@
         "Name": "Patrol Officer"
     },
     {
-        "Description": "When <<01519>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator at {{the Investigator}}'s Place heals 1 <sprite index=36> or recovers 1 <sprite index=37>.",
+        "Description": "When <<01519>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator at {{the Investigator}}'s Place heals 1<sprite index=36> or recovers 1<sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -331,7 +331,7 @@
         "Name": "Emergency Kit"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack. If the attacked Creature is the only one confronting {{the Investigator}}, this attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -347,7 +347,7 @@
         "Name": "Cleaving Cutlass"
     },
     {
-        "Description": "<sprite index=10> After a Creature deals <sprite index=59> to <<01521>>: it deals 1 <sprite index=59> to the Creature.",
+        "Description": "<sprite index=10> After a Creature deals <sprite index=59> to <<01521>>: it deals 1<sprite index=59> to the Creature.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -365,7 +365,7 @@
         "Name": "Loyal Hound"
     },
     {
-        "Description": "After {{the Investigator}} defeats a Creature: {{he}} may discover 1 <sprite index=38> at {{his}} Place.",
+        "Description": "After {{the Investigator}} defeats a Creature: {{he}} may discover 1<sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -398,7 +398,7 @@
         "Name": "Evasive Maneuver"
     },
     {
-        "Description": "{{The Investigator}} chooses a connecting Place or {{his}} current Place. All Creatures and Investigators at the chosen Place take 3 <sprite index=59>.",
+        "Description": "{{The Investigator}} chooses a connecting Place or {{his}} current Place. All Creatures and Investigators at the chosen Place take 3<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -414,7 +414,7 @@
         "Name": "Explosive Devastation"
     },
     {
-        "Description": "When <<01525>> is committed to an Attack Challenge and succeeds, it deals +1 <sprite index=59>.",
+        "Description": "When <<01525>> is committed to an Attack Challenge and succeeds, it deals +1<sprite index=59>.",
         "Flavor": "With a sickening smack, {{he}} struck the abomination over and over... until at last, it stopped moving.",
         "PackCode": "rcore",
         "Faction": 4,
@@ -430,7 +430,7 @@
         "Name": "Ferocious Attack"
     },
     {
-        "Description": "A [[Firearm]] Supply controlled by any investigator at {{The Investigator}}'s Place gains 3 <sprite index=47>.",
+        "Description": "A [[Firearm]] Supply controlled by any investigator at {{The Investigator}}'s Place gains 3<sprite index=47>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -446,7 +446,7 @@
         "Name": "Ammunition Reserve"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=57>.\n<sprite index=8> : An Investigator at {{the Investigator}}'s Place gains 2 <sprite index=9>",
+        "Description": "{{The Investigator}} gets +1<sprite index=57>.\n<sprite index=8> : An Investigator at {{the Investigator}}'s Place gains 2<sprite index=9>",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -463,7 +463,7 @@
         "Name": "Authority Emblem"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=54>.\n<sprite index=8> <b>Exhaust</b>: <<01518>> takes 1 <sprite index=59> and deals 1 <sprite index=59> to a Creature at {{the Investigator}}'s Place.",
+        "Description": "{{The Investigator}} gets +1<sprite index=54>.\n<sprite index=8> <b>Exhaust</b>: <<01518>> takes 1<sprite index=59> and deals 1<sprite index=59> to a Creature at {{the Investigator}}'s Place.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -482,7 +482,7 @@
         "Name": "Patrol Officer"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3 <sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5 <sprite index=59>, including negative values as collateral <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +3<sprite index=54> for this attack. This attack deals <sprite index=59> equal to the difference between the Challenge value and the result, up to a maximum of 5<sprite index=59>, including negative values as collateral <sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -499,7 +499,7 @@
         "Name": "Illegal Hunting Gun"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -549,7 +549,7 @@
         "Name": "Arcane Archivist"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1 <sprite index=39>.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56>.\n<sprite index=10> After {{the Investigator}}'s investigation Challenge succeeds: {{He}} gains 1<sprite index=39>.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -567,7 +567,7 @@
         "Name": "Bug Specialist"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -584,7 +584,7 @@
         "Name": "Supernatural Perception"
     },
     {
-        "Description": "<sprite index=9> : {{The Investigator}} chooses an investigator at {{his}} Place then, {{the Investigator}} makes a Challenge <sprite index=56>2. If the Challenge succeeds, the chosen investigator heals 1 <sprite index=59>. If the Challenge fails, the chosen investigator takes 1 <sprite index=59>.",
+        "Description": "<sprite index=9> : {{The Investigator}} chooses an investigator at {{his}} Place then, {{the Investigator}} makes a Challenge <sprite index=56>2. If the Challenge succeeds, the chosen investigator heals 1<sprite index=36>. If the Challenge fails, the chosen investigator takes 1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -617,7 +617,7 @@
         "Name": "Brain Power"
     },
     {
-        "Description": "{{The Investigator}} discovers 1 <sprite index=38> at {{his}} Place.",
+        "Description": "{{The Investigator}} discovers 1<sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -666,7 +666,7 @@
         "Name": "Logical Conclusion"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
+        "Description": "{{The Investigator}} gets +1<sprite index=56> in investigation Challenges.\n<sprite index=8> : If there are no <sprite index=38> on {{the Investigator}}'s Place, <<01540>> is returned to {{the Investigator}}'s hand.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -700,7 +700,7 @@
         "Name": "Charm of Banishing"
     },
     {
-        "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2 <sprite index=54>, +2 <sprite index=55>, +2 <sprite index=56> or +2 <sprite index=57> until the end of the Phase.",
+        "Description": "<sprite index=9> <b>Exhaust</b>: An investigator at {{the Investigator}}'s Place gets +2<sprite index=54>, +2<sprite index=55>, +2<sprite index=56> or +2<sprite index=57> until the end of the Phase.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -731,7 +731,7 @@
         "Name": "Esoteric Investigation"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: If the Challenge succeeds by 2 or more, this attack deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9> <b>Attack</b>: If the Challenge succeeds by 2 or more, this attack deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -747,7 +747,7 @@
         "Name": "Shadow Dagger"
     },
     {
-        "Description": "<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: If the Investigation Challenge succeeds, {{the Investigator}} gains 3 <sprite index=39> instead of <sprite index=38>.",
+        "Description": "<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: If the Investigation Challenge succeeds, {{the Investigator}} gains 3<sprite index=39> instead of <sprite index=38>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -779,7 +779,7 @@
         "Name": "Light Fingers"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1 <sprite index=59>.",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack. If the Attack is succeeded by 2 or more, deals +1<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -795,7 +795,7 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "{{The Investigator}} get +1 <sprite index=9>.",
+        "Description": "{{The Investigator}} get +1<sprite index=9>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -813,7 +813,7 @@
         "Name": "Vito 'The Viper' Moretti"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=54> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -847,7 +847,7 @@
         "Name": "Quick Escape"
     },
     {
-        "Description": "<b>Attack:</b> {{The Investigator}} uses {{his}} <sprite index=55> in this Challenge and deals +2 <sprite index=59>.",
+        "Description": "<b>Attack:</b> {{The Investigator}} uses {{his}} <sprite index=55> in this Challenge and deals +2<sprite index=59>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -864,7 +864,7 @@
         "Name": "Silent Strike"
     },
     {
-        "Description": "{{The Investigator}} deals 2 <sprite index=59> to a exhausted Creature at <<his>> Place.",
+        "Description": "{{The Investigator}} deals 2<sprite index=59> to a exhausted Creature at <<his>> Place.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -896,7 +896,7 @@
         "Name": "Keeping Distance"
     },
     {
-        "Description": "{{The Investigator}} get +1 <sprite index=9>.",
+        "Description": "{{The Investigator}} get +1<sprite index=9>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -914,7 +914,7 @@
         "Name": "Vito 'The Viper' Moretti"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=55>.\n<sprite index=9> <b>Exhaust</b>: {{The Investigator}} remove confrontation with all Creatures and move to a connecting Place. This action does not provoke attacks of opportunity.",
+        "Description": "{{The Investigator}} gets +1<sprite index=55>.\n<sprite index=9> <b>Exhaust</b>: {{The Investigator}} remove confrontation with all Creatures and move to a connecting Place. This action does not provoke attacks of opportunity.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -964,7 +964,7 @@
         "Name": "Gambler's Glory"
     },
     {
-        "Description": "When <<01558>> has no <sprite index=50>, it is discarded.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} takes 1 <sprite index=60> and gains 1 <sprite index=39>.",
+        "Description": "When <<01558>> has no <sprite index=50>, it is discarded.\n<sprite index=8><sprite index=50> <b>Exhaust</b>: {{The Investigator}} takes 1<sprite index=60> and gains 1<sprite index=39>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -980,7 +980,7 @@
         "Name": "Blasphemous Epiphany"
     },
     {
-        "Description": "{{The Investigator}} gets +1 <sprite index=57>.",
+        "Description": "{{The Investigator}} gets +1<sprite index=57>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -997,7 +997,7 @@
         "Name": "Devout Amulet"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: {{The Investigator}} uses <sprite index=57> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, {{the Investigator}} takes 1 <sprite index=60>.",
+        "Description": "<sprite index=9><sprite index=49> <b>Attack</b>: {{The Investigator}} uses <sprite index=57> for this attack and deals +1<sprite index=59>. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25> is revealed, {{the Investigator}} takes 1<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1029,7 +1029,7 @@
         "Name": "Clairvoyance"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=56> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1046,7 +1046,7 @@
         "Name": "Mystical Training"
     },
     {
-        "Description": "When <01563> enters play, 1 <sprite index=40> is placed on it.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} can draw a [[Spell]] from the top 3 cards of {{his}} deck.",
+        "Description": "When <01563> enters play, 1<sprite index=40> is placed on it.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} can draw a [[Spell]] from the top 3 cards of {{his}} deck.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1064,7 +1064,7 @@
         "Name": "Novice of the Dark Arts"
     },
     {
-        "Description": "{{The Investigator}} draws the top card of the Danger deck and {{he}} discovers 2 <sprite index=39> at {{his}} Place.",
+        "Description": "{{The Investigator}} draws the top card of the Danger deck and {{he}} discovers 2<sprite index=39> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1081,7 +1081,7 @@
         "Name": "Call of the Unknown"
     },
     {
-        "Description": "When {{the Investigator}} draws a non-[[Weakness]] Adversity card: {{He}} may cancel and discard that card. Then, {{he}} takes 1 <sprite index=60>.",
+        "Description": "When {{the Investigator}} draws a non-[[Weakness]] Adversity card: {{He}} may cancel and discard that card. Then, {{he}} takes 1<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1097,7 +1097,7 @@
         "Name": "Spectral Shield"
     },
     {
-        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 1 <sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1 <sprite index=9>.",
+        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 1<sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1<sprite index=9>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1114,7 +1114,7 @@
         "Name": "Luminous Burst"
     },
     {
-        "Description": "When <<01539>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1 <sprite index=37>.",
+        "Description": "When <<01539>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1<sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1146,7 +1146,7 @@
         "Name": "Mental Null"
     },
     {
-        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 2 <sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1 <sprite index=9> and 1 <sprite index=60>.",
+        "Description": "<b>Elude:</b> {{The Investigator}} uses {{his}} <sprite index=57> in this Challenge and if it succeeds, deals 2<sprite index=59> to the Creature. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> is revealed, {{the Investigator}} loses 1<sprite index=9> and 1<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1163,7 +1163,7 @@
         "Name": "Luminous Burst"
     },
     {
-        "Description": "{{The Investigator}} has 1 additional <sprite index=45>.\n<sprite index=9> <b>Exhaust</b>: One of {{the investigator}}'s [[Spell]] gains 1 <sprite index=49>.",
+        "Description": "{{The Investigator}} has 1 additional <sprite index=45>.\n<sprite index=9> <b>Exhaust</b>: One of {{the investigator}}'s [[Spell]] gains 1<sprite index=49>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1228,7 +1228,7 @@
         "Name": "Recovering"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1<sprite index=59>. If a <sprite index=22><sprite index=26> is revealed, <<01574>> is discarded.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1278,7 +1278,7 @@
         "Name": "Night Prowler"
     },
     {
-        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1 <sprite index=57> during a Challenge.",
+        "Description": "<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=55> during a Challenge.\n<sprite index=8><sprite index=39> : {{The Investigator}} gets +1<sprite index=57> during a Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1312,7 +1312,7 @@
         "Name": "Artful Dodge"
     },
     {
-        "Description": "After {{the Investigator}} fails a Investigation Challenge by 2 or fewer: {{He}} may discover 2 <sprite index=38> at {{his}} Place.",
+        "Description": "After {{the Investigator}} fails a Investigation Challenge by 2 or fewer: {{He}} may discover 2<sprite index=38> at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1328,7 +1328,7 @@
         "Name": "Fortuitous Find"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2 <sprite index=58> for that Challenge.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1358,7 +1358,7 @@
         "Name": "Desperate Maneuver"
     },
     {
-        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01582>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to another Creature at {{the Investigator}}'s Place, instead.",
+        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01582>> takes 1<sprite index=60> and deals that Creature's <sprite index=59> to another Creature at {{the Investigator}}'s Place, instead.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1393,7 +1393,7 @@
         "Name": "Narrow Escape"
     },
     {
-        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2 <sprite index=58> for that Challenge and draw 1 Card.",
+        "Description": "When {{the Investigator}} would fail a Challenge: {{He}} may gets +2<sprite index=58> for that Challenge and draw 1 Card.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1425,7 +1425,7 @@
         "Name": "Unstoppable Spirit"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1 <sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1<sprite index=59>",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1441,7 +1441,7 @@
         "Name": "Notched Knife"
     },
     {
-        "Description": "<sprite index=9><sprite index=48><b>Investigate</b>: {{The Investigator}}'s Place gets -2 <sprite index=56> for this Investigation Challenge.",
+        "Description": "<sprite index=9><sprite index=48><b>Investigate</b>: {{The Investigator}}'s Place gets -2<sprite index=56> for this Investigation Challenge.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1457,7 +1457,7 @@
         "Name": "Pocket Light"
     },
     {
-        "Description": "{{The Investigator}} gains 3 <sprite index=39>.",
+        "Description": "{{The Investigator}} gains 3<sprite index=39>.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1670,7 +1670,7 @@
         "IsRequired": true
     },
     {
-        "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1 <sprite index=40> is removed from the current Plot.",
+        "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1<sprite index=40> is removed from the current Plot.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1708,7 +1708,7 @@
         "IsRequired": true
     },
     {
-        "Description": "When <<01683>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator or [[Ally]] at {{the Investigator}}'s Place heals 1 <sprite index=36> and recovers 1 <sprite index=37>.",
+        "Description": "When <<01683>> has no <sprite index=52>, it is discarded.\n<sprite index=9><sprite index=52> : An Investigator or [[Ally]] at {{the Investigator}}'s Place heals 1<sprite index=36> and recovers 1<sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -1724,7 +1724,7 @@
         "Name": "Emergency Kit"
     },
     {
-        "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>: {{He}} may cancel up to 5 <sprite index=59> and/or <sprite index=60>. Then, {{he}} gains that many resources.",
+        "Description": "When {{the Investigator}} is dealt <sprite index=59> and/or <sprite index=60>: {{He}} may cancel up to 5<sprite index=59> and/or <sprite index=60>. Then, {{he}} gains that many resources.",
         "PackCode": "rcore",
         "Faction": 4,
         "Slots": [
@@ -1741,7 +1741,7 @@
         "Name": "Defiance in Adversity"
     },
     {
-        "Description": "<b>Investigate</b>: If the Challenge succeeds, {{the Investigator}} discovers 2 <sprite index=38> from among {{his}} Place and connecting Places.",
+        "Description": "<b>Investigate</b>: If the Challenge succeeds, {{the Investigator}} discovers 2<sprite index=38> from among {{his}} Place and connecting Places.",
         "PackCode": "rcore",
         "Faction": 16,
         "Slots": [
@@ -1775,7 +1775,7 @@
         "Name": "Esoteric Compendium"
     },
     {
-        "Description": "When <<01687>> has no <sprite index=52>, it is discarded.\n<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: {{The Investigator}}'s <sprite index=55> is added to this Investigation Challenge. If the Investigation Challenge does not succeed by at least 2, 1 <sprite index=52> is removed.",
+        "Description": "When <<01687>> has no <sprite index=52>, it is discarded.\n<sprite index=9> <b>Exhaust</b> <b>Investigate</b>: {{The Investigator}}'s <sprite index=55> is added to this Investigation Challenge. If the Investigation Challenge does not succeed by at least 2, 1<sprite index=52> is removed.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1791,7 +1791,7 @@
         "Name": "Master Keys"
     },
     {
-        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2 <sprite index=54> for this attack and deals +1 <sprite index=59>. If the Attack is succeeded by 3 or more, {{the Investigator}} gains 1 <sprite index=9>, limit once per Turn",
+        "Description": "<sprite index=9><sprite index=47> <b>Attack</b>: {{The Investigator}} gets +2<sprite index=54> for this attack and deals +1<sprite index=59>. Once per Turn if the Attack is succeeded by 3 or more, {{the Investigator}} gains 1<sprite index=9>.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [
@@ -1808,7 +1808,7 @@
         "Name": "Pocket Cannon"
     },
     {
-        "Description": "<sprite index=9><sprite index=49> <b>Investigate</b>: {{The Investigator}} uses <sprite index=57> for this Investigation Challenge and gets +2 <sprite index=57>. If the Investigation Challenge succeed, {{the Investigator}} discover 1 additional <sprite index=38> at {{his}} Place. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> Symbol is revealed, {{the Investigator}} loses all {{his}} actions and end {{his}} turn.",
+        "Description": "<sprite index=9><sprite index=49> <b>Investigate</b>: {{The Investigator}} uses <sprite index=57> for this Investigation Challenge and gets +2<sprite index=57>. If the Investigation Challenge succeed, {{the Investigator}} discover 1 additional <sprite index=38> at {{his}} Place. If a <sprite index=22><sprite index=23><sprite index=24><sprite index=25><sprite index=26> Symbol is revealed, {{the Investigator}} loses all {{his}} actions and end {{his}} turn.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1824,7 +1824,7 @@
         "Name": "Magical Revelation"
     },
     {
-        "Description": "<sprite index=8><sprite index=49> <b>Exhaust</b>: {{The Investigator}} looks at the top 3 cards of any Investigator's deck or the Danger deck, them {{he}} returns to the top of that deck in any order. If a [[Terror]] or [[Omen]] is among the looked-at cards, {{The Investigator}} takes 1 <sprite index=60>.",
+        "Description": "<sprite index=8><sprite index=49> <b>Exhaust</b>: {{The Investigator}} looks at the top 3 cards of any Investigator's deck or the Danger deck, them {{he}} returns to the top of that deck in any order. If a [[Terror]] or [[Omen]] is among the looked-at cards, {{The Investigator}} takes 1<sprite index=60>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
@@ -1840,7 +1840,7 @@
         "Name": "Clairvoyance"
     },
     {
-        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01691>> takes 1 <sprite index=60> and deals that Creature's <sprite index=59> to any Creature at {{the Investigator}}'s Place, instead.",
+        "Description": "<sprite index=10> When {{the Investigator}} is attacked by a Creature, <b>Exhaust</b>: <<01691>> takes 1<sprite index=60> and deals that Creature's <sprite index=59> to any Creature at {{the Investigator}}'s Place, instead.",
         "PackCode": "rcore",
         "Faction": 1,
         "Slots": [
@@ -1875,7 +1875,7 @@
         "Name": "Irresistible Appeal"
     },
     {
-        "Description": "{{The Investigator}} gains 3 <sprite index=39> and draws 1 Card.",
+        "Description": "{{The Investigator}} gains 3<sprite index=39> and draws 1 Card.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1976,7 +1976,7 @@
         ]
     },
     {
-        "Description": "When the Creature Phase ends, each no-Confront [[Ghoul]] moves 1 Place towards <<01115>>.\nWhen the Round ends, 1 <sprite index=40> is removed from <<01107>> for each [[Ghoul]] in <<01112>> or <<01115>>.",
+        "Description": "When the Creature Phase ends, each no-Confront [[Ghoul]] moves 1 Place towards <<01115>>.\nWhen the Round ends, 1<sprite index=40> is removed from <<01107>> for each [[Ghoul]] in <<01112>> or <<01115>>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2147,7 +2147,7 @@
     {
         "Flavor": "The cavern ascends in a steep slope, with sharp rock walls rising high, covered in shadows and jagged lines.",
         "Flavor2": "",
-        "Description2": "After an Investigator enters <<01113>>, {{he}} takes 1 <sprite index=60>.",
+        "Description2": "After an Investigator enters <<01113>>, {{he}} takes 1<sprite index=60>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2177,7 +2177,7 @@
     {
         "Flavor": "A narrow rocky passage stretches into darkness, faintly lit by a distant glow. The cold, heavy air holds an unsettling silence.",
         "Flavor2": "",
-        "Description2": "After an Investigator enters <<01114>>, {{he}} takes 1 <sprite index=59>.",
+        "Description2": "After an Investigator enters <<01114>>, {{he}} takes 1<sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2254,7 +2254,7 @@
         "Name": "Necrotic Preacher"
     },
     {
-        "Description": "All Investigators at <<01117>>'s Place get +1 <sprite index=54>.\n<sprite index=10> : When a [[Monster]] is successfully attacked at <<01117>>'s Place, it may deal +1 <sprite index=59>.",
+        "Description": "All Investigators at <<01117>>'s Place get +1<sprite index=54>.\n<sprite index=10> : When a [[Monster]] is successfully attacked at <<01117>>'s Place, it may deal +1<sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 32,
@@ -2433,18 +2433,13 @@
         ]
     },
     {
-        "Description": "<b>Forced</b> - When the Ghoul Priest spawns: Spawn it here instead of at its normal location.\n<sprite index=9>: Draw 1 card and gain 1 resource. (Limit once per turn.)",
-        "Flavor": "You still feel uneasy about going back.",
-        "Flavor2": "Despite what happened, you just couldn't bring yourself to destroy your home.",
+        "Description2": "Once per Turn <sprite index=9> : {{The Investigator}} draws 1 card and gains 1<sprite index=39>.",
+        "Flavor": "The mouth of the cave, dark and silent, seems to watch the investigators with resentment.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2452,24 +2447,27 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01124",
-        "Name": "Your House",
+        "Name": "Cave Entry",
+        "Histories": [
+            {
+                "Code": "01124",
+                "Title": "Cave Entry",
+                "Description": "The mouth of the cave, dark and silent, seems to watch the investigators with resentment. The echoes from within whisper memories of horrors not so distant, as if the very rock were trying to warn them not to return. Although the entrance was meant to be sealed forever, a moment of doubt prevented its destruction. Now, the path no longer descends into the darkness, but instead leads back to the city of Arkham, where an air heavy with mystery awaits their steps… and something else lurks, beyond the stone and the silence.",
+                "Image": "01124"
+            }
+        ],
         "ConnectedPlaces": [
             "01125"
         ]
     },
     {
-        "Flavor": "There is something unsettling about the water of the Miskatonic River tonight. It ripples and bubbles as though something is moving beneath the surface.",
-        "Flavor2": "The banks of the Miskatonic River are lined with docks, warehouses and small shops in a district aptly named Rivertown.",
+        "Flavor": "The air is thick, laden with the stench of stagnant waters that wind between rotting docks.",
+        "Flavor2": "The streets warp beneath their feet, and the reflection of the dark river water hints at impossible, twisted shapes.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham",
-            "Central"
         ],
         "Quantity": 1,
         "Enigma": 1,
@@ -2477,7 +2475,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01125",
-        "Name": "Rivertown",
+        "Name": "Blackwater District",
+        "Histories": [
+            {
+                "Code": "01125",
+                "Title": "Blackwater District",
+                "Description": "As the investigators cross into the Blackwater District, a veil of unease envelops them. The streets warp beneath their feet, and the reflection of the dark river water hints at impossible, twisted shapes. The air is thick and suffocating, while the splash of something unknown breaks the silent atmosphere. Their steps become more cautious, for an intangible presence seems to watch them from the shadows and from the waters, waiting in the depths.",
+                "Image": "01125"
+            }
+        ],
         "ConnectedPlaces": [
             "01124",
             "01126",
@@ -2488,18 +2494,13 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Draw 3 cards. (Limit once per game.)",
-        "Flavor": "The Georgian manor housing the Historical Society is well known for its private library, where local records, maps, and artifacts from Arkham's past hint at secrets better left alone.",
-        "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} draws 3 cards.",
+        "Flavor": "Still holds vestiges of Arkham's ancient grandeur, with majestic mansions towering imposingly over the cobblestone streets.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 3,
@@ -2507,7 +2508,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01126",
-        "Name": "Southside",
+        "Name": "Founders' District",
+        "Histories": [
+            {
+                "Code": "01126",
+                "Title": "Founders' District",
+                "Description": "As the investigators venture into the Founders' District, they are enveloped by a thick atmosphere of abandonment. The once-majestic mansions now stand as empty shells, seeming to watch from their dust-covered windows. A distant echo resonates along the deserted streets, as if the footsteps of the past refuse to fade away. There is something in the air, a murmur of ancient times and forgotten secrets, waiting to be unearthed.",
+                "Image": "01126"
+            }
+        ],
         "ConnectedPlaces": [
             "01125",
             "01128",
@@ -2515,18 +2524,13 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Search your deck for an [[Ally]] asset and add it to your hand. Shuffle your deck. (Limit once per game.)",
-        "Flavor": "Ma's is famous for its cheap rooms and Mystery Meat Mondays. A motley variety of characters can be found coming and going at all times of day.",
-        "Flavor2": "Middle-class houses with gambrel roofs crowd together between the streets of Southside. The neighborhood is known for its cultural and social landmarks, such as South Church, Ma's Boarding House, and the Historical Society.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} chooses and draws an [[Ally]] from {{his}} deck.",
+        "Flavor": "Once a refuge for weary travelers, is now a place where tales from the road intertwine with darker whispers.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2534,7 +2538,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01127",
-        "Name": "Southside",
+        "Name": "Grayson's Inn",
+        "Histories": [
+            {
+                "Code": "01127",
+                "Title": "Grayson's Inn",
+                "Description": "As the investigators open the door to Grayson's Inn, a wave of stale air and dampness greets them. The creaking of the floorboards beneath their feet seems to echo throughout the building, as if awakening ancient spirits. The shadows in the corners are thick, almost tangible, and the few guests inside avert their gaze, maintaining an unsettling silence. The atmosphere is heavy with a sense of watchfulness, as if the building itself refuses to reveal its secrets so easily.",
+                "Image": "01127"
+            }
+        ],
         "ConnectedPlaces": [
             "01125",
             "01128",
@@ -2542,18 +2554,13 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Heal 3 damage. (Limit once per game.)",
-        "Flavor": "An extended stay at St. Mary's can do wonders for the body, but its effect on one's psyche is unclear.",
-        "Flavor2": "Arkham's only hospital, St. Mary's has a twenty-four-hour receiving room and is busy at all hours of the night. Doctor Mortimore and Nurse Sharon have been particularly stressed lately, thanks in part to recent events.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} heals 3<sprite index=36>.",
+        "Flavor": "The halls, filled with the scent of disinfectant and stale medicines, are cold and desolate.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2561,7 +2568,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01128",
-        "Name": "St. Mary's Hospital",
+        "Name": "Greywood Medical Center",
+        "Histories": [
+            {
+                "Code": "01128",
+                "Title": "Greywood Medical Center",
+                "Description": "As the investigators cross the doors of Greywood Medical Center, an unusual cold envelops them, as if the very building were rejecting their presence. The deserted hallways amplify every echo, and the flickering lights cast unsettling shadows on the walls. As they advance, a growing sense of oppression takes hold of them, as though something unseen watches from every corner. Here, relief feels as distant as the whispers echoing in the darkness.",
+                "Image": "01128"
+            }
+        ],
         "ConnectedPlaces": [
             "01129",
             "01126",
@@ -2569,18 +2584,13 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Search the top 6 cards of your deck for a [[Tome]] or [[Spell]] card and add it to your hand. Shuffle your deck.",
-        "Flavor": "The campus is quiet and lonely. Several of the buildings have been left unlocked for students and faculty working late into the night.",
-        "Flavor2": "Miskatonic University is one of the most prestigious colleges in the Northeast. The university library is famous for its collection of occult books maintained by the esteemed Dr. Henry Armitage.",
+        "Description2": "<sprite index=9>: {{The Investigator}} chooses and draws a [[Tome]] or [[Spell]] from the top 6 cards of {{his}} deck.",
+        "Flavor": "Those who venture too deep into the forgotten corners of this library risk more than just their sanity.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2589,7 +2599,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01129",
-        "Name": "Miskatonic University",
+        "Name": "Miskatonic Library",
+        "Histories": [
+            {
+                "Code": "01129",
+                "Title": "Miskatonic Library",
+                "Description": "As the investigators cross the threshold of the Miskatonic Library, a heavy silence descends upon them. The towering shelves seem to stretch into infinity, filled with dusty volumes whose titles whisper forbidden secrets. The dim, yellowish light barely illuminates the shadows, which seem to move on their own. Somewhere, beyond the reach of sight, the faint whisper of a page turning echoes, but there is no one in sight...",
+                "Image": "01129"
+            }
+        ],
         "ConnectedPlaces": [
             "01126",
             "01127",
@@ -2599,18 +2617,13 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Gain 3 resources. (Limit once per game.)",
-        "Flavor": "We'll call this a \"loan.\"",
-        "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} gains 3<sprite index=39>.",
+        "Flavor": "It radiates an imposing authority, with high ceilings and marble columns that seem to watch from above.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 3,
@@ -2618,25 +2631,28 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01130",
-        "Name": "Downtown",
+        "Name": "Whateley Financial House",
+        "Histories": [
+            {
+                "Code": "01130",
+                "Title": "Financial House",
+                "Description": "As the investigators cross the threshold of the Financial House, an unnatural stillness envelops them. The sound of their footsteps seems to be swallowed by the walls, and the shadows of the columns stretch unnaturally under the flickering light. The few employees present avoid eye contact, their faces tense, as if they know more than they are willing to admit. Here, transactions are not measured in gold alone, but also in favors and secrets that should never be uncovered.",
+                "Image": "01130"
+            }
+        ],
         "ConnectedPlaces": [
             "01132",
             "01134"
         ]
     },
     {
-        "Description": "<sprite index=9>: Heal 3 horror. (Limit once per game.)",
-        "Flavor": "A refuge for the mind, or a prison for the soul?",
-        "Flavor2": "The Downtown area of Arkham is filled with government buildings, including City Hall. The First Bank of Arkham, Independence Square, and Arkham Asylum can also be found in this area. It is the busiest district in the city.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} recovers 3<sprite index=37>.",
+        "Flavor": "Behind its thick stone walls, the echoes of whispers and stifled screams endlessly resound.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2645,24 +2661,28 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01131",
-        "Name": "Downtown",
+        "Name": "Greystone Sanatorium",
+        "Histories": [
+            {
+                "Code": "01131",
+                "Title": "Greystone Sanatorium",
+                "Description": "As the doors of the Greystone Sanatorium open, a cold draft escapes from within, carrying the distant echo of whispers. The long, dimly lit hallways seem to stretch on endlessly, as if the building itself is trying to confuse those who enter. The empty stares of the patients fix on the investigators, but none of them utter a word. In this place, time seems to have stopped, and hope fades as quickly as the echo in the empty hallways.",
+                "Image": "01131"
+            }
+        ],
         "ConnectedPlaces": [
             "01132",
             "01134"
         ]
     },
     {
-        "Description": "While you are in Easttown, reduce the cost of each [[Ally]] asset you play by 2.",
-        "Flavor2": "The Easttown neighborhood, situated on the northern banks of the Miskatonic River, contains lower-class housing, the Arkham Police Station, and popular eateries like Velma's Diner.",
+        "Description2": "While {{the Investigator}} is in <<01132>>, the play cost of each [[Ally]] is reduced by 2<sprite index=39>.",
+        "Flavor": "The cobblestone streets echo under the footsteps of those who still pass through this forgotten neighborhood.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -2670,7 +2690,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01132",
-        "Name": "Easttown",
+        "Name": "Ironwood District",
+        "Histories": [
+            {
+                "Code": "01132",
+                "Title": "Ironwood District",
+                "Description": "As the investigators venture into the Ironwood District, they are greeted by an unsettling silence. The old factories, with their crumbling smokestacks, stand like sleeping giants, watching over the deserted streets. A faint creak echoes in the distance, but no one is in sight. The shadows of the buildings seem to move on their own, and the air is thick with a sense of latent menace. Here, the past is not as dead as it seems.",
+                "Image": "01132"
+            }
+        ],
         "ConnectedPlaces": [
             "01130",
             "01131",
@@ -2678,8 +2706,8 @@
         ]
     },
     {
-        "Description": "<b>Forced</b> - After you enter the Graveyard: Test [willpower] (3). If you fail, you must either take 2 horror or move to Rivertown.",
-        "Flavor2": "The graveyard lies at the foot of French Hill. Some of the headstones date back to the seventeenth century, when the earliest colonists came to Arkham. Considering what happened in your house, you're not completely keen on heading there.",
+        "Description2": "After an Investigator enters <<01133>>, {{he}} makes a Challenge 3<sprite index=57>. If the Challenge fails, {{the Investigator}} must either take 2<sprite index=60> or move to <<01125>>.",
+        "Flavor": "...where ancient tombstones lie covered in moss, and the roots of trees desperately entwine around the bodies buried beneath the earth.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2697,24 +2725,27 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01133",
-        "Name": "Graveyard",
+        "Name": "Greyhill Cemetery",
+        "Histories": [
+            {
+                "Code": "01133",
+                "Title": "Greyhill Cemetery",
+                "Description": "As the investigators cross the threshold of Greyhill Cemetery, a chilling air envelops them. The crooked tombstones jut out from the ground like sharp teeth, and the crunch of dry leaves beneath their feet echoes too loudly in the silent setting. From the shadows among the trees, something seems to watch them, motionless yet vigilant. With each step, they feel heavier, as if the cemetery itself were trying to hold them back... or perhaps, as if the dead were seeking company.",
+                "Image": "01133"
+            }
+        ],
         "ConnectedPlaces": [
             "01125"
         ]
     },
     {
-        "Description": "<sprite index=9> Spend 5 resources: Gain 2 clues from the token pool. (Group limit once per game.)",
-        "Flavor": "In Northside, nothing gets people talking faster than a piece of dough.",
-        "Flavor2": "Northside is a commercial district that contains many offices and factories, as well as the train station.",
+        "Description2": "Once per Game <sprite index=9> Spend 5 resources: Gain 2 clues from the token pool.",
+        "Flavor": "Here, Arkham's powerful exchange whispers full of secrets over glasses of brandy, while the shadows of old betrayals slip furtively between the velvet curtains.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2723,7 +2754,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01134",
-        "Name": "Northside",
+        "Name": "Upper Ward",
+        "Histories": [
+            {
+                "Code": "01134",
+                "Title": "Upper Ward",
+                "Description": "As footsteps echo on the frozen sidewalks of the Upper Ward, the air grows thick, as if the very walls of the ancient mansions are watching. The streetlights cast elongated shadows, distorting shapes until they become unrecognizable. Here, where the men of power shape Arkham’s destiny, something older than any dynasty is about to emerge. The overwhelming silence is broken by a distant whisper, barely perceptible, like the echo of a conversation you were never meant to hear.",
+                "Image": "01134"
+            }
+        ],
         "ConnectedPlaces": [
             "01130",
             "01131",
@@ -2731,7 +2770,7 @@
         ]
     },
     {
-        "Description": "{{The Investigator}} is Isolated and must choose one: spend 1 <sprite index=38> or take 2 <sprite index=59>.",
+        "Description": "{{The Investigator}} is Isolated and must choose one: spend 1<sprite index=38> or take 2<sprite index=59>.",
         "Flavor": "A shadowy figure follows you in the rain. When you look back, your head pounds in agony and your vision blurs.",
         "PackCode": "core",
         "SceneCode": "arkham",
@@ -2746,7 +2785,7 @@
         "Name": "Creeping Shade"
     },
     {
-        "Description": "If {{the Investigator}} has no <sprite index=38>, draw another Danger Card. Otherwise, {{he}} makes a Challenge <sprite index=56>4. For each point {{the Investigator}} fails by, drop 1 <sprite index=38> on {{his}} Place.",
+        "Description": "If {{the Investigator}} has no <sprite index=38>, draw another Danger Card. Otherwise, {{he}} makes a Challenge <sprite index=56>4. For each point {{the Investigator}} fails by, drop 1<sprite index=38> on {{his}} Place.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -3200,7 +3239,7 @@
         ]
     },
     {
-        "Description": "<sprite index=9>: Heal 1 damage or heal 1 horror. (Limit once per turn.)",
+        "Description": "Once per Turn <sprite index=9>: Heal 1 damage or heal 1 horror.",
         "Flavor": "This would be a nice picnic spot, if it weren't for all the monsters.",
         "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
         "PackCode": "core",
@@ -3276,7 +3315,7 @@
         "Name": "Umôrdhoth"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>5. For each point {{the Investigator}} fail by, {{he}} must choose one: Discard a card from {{his}} hand, or take 1 <sprite index=59> and 1 <sprite index=60>.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>5. For each point {{the Investigator}} fail by, {{he}} must choose one: Discard a card from {{his}} hand, or take 1<sprite index=59> and 1<sprite index=60>.",
         "Flavor": "A deathly chill from below engulfs you, attempting to suck your life force away.",
         "PackCode": "core",
         "SceneCode": "tentacles",
@@ -3366,7 +3405,7 @@
         "Name": "Ravenous Ghoul"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=55>3. For each point {{the Investigator}} fails by, {{he}} take 1 <sprite index=59>.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=55>3. For each point {{the Investigator}} fails by, {{he}} take 1<sprite index=59>.",
         "Flavor": "Decaying hands rise up from below and grasp and claw at your ankles.",
         "PackCode": "core",
         "SceneCode": "ghouls",
@@ -3381,7 +3420,7 @@
         "Name": "Tunnel of Claws"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>3. For each point {{the Investigator}} fails by, {{he}} take 1 <sprite index=60>.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>3. For each point {{the Investigator}} fails by, {{he}} take 1<sprite index=60>.",
         "Flavor": "A sickening display of gore causes you to retch. You're glad this wasn't you.",
         "PackCode": "core",
         "SceneCode": "striking_fear",
@@ -3424,7 +3463,7 @@
         "Name": "Tormenting Echoes"
     },
     {
-        "Description": "Current Plot removes 2 <sprite index=40> and may finish",
+        "Description": "Current Plot removes 2<sprite index=40> and may finish",
         "Flavor": "Dark forces stir against you. If you do not act quickly, a sinister plot will be fulfilled.",
         "PackCode": "core",
         "SceneCode": "ancient_evils",
@@ -3439,7 +3478,7 @@
         "Name": "Dark songs"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} discard 1 asset in play. {{He}} takes 2 <sprite index=59> instead if {{he}} cannot discard.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} discard 1 asset in play. {{He}} takes 2<sprite index=59> instead if {{he}} cannot discard.",
         "Flavor": "The supernatural cold threatens to freeze your soul.",
         "PackCode": "core",
         "SceneCode": "chilling_cold",
@@ -3454,7 +3493,7 @@
         "Name": "Soulfreeze"
     },
     {
-        "Description": "Attached Place gets +2 <sprite index=56>.\nAfter attached Place is successfully investigated, <<01168>> is discarded.",
+        "Description": "Attached Place gets +2<sprite index=56>.\nAfter attached Place is successfully investigated, <<01168>> is discarded.",
         "PackCode": "core",
         "SceneCode": "chilling_cold",
         "Faction": 64,
@@ -3517,7 +3556,7 @@
         "Name": "Wizard of the Order"
     },
     {
-        "Description": "If there are no [[Cultist]] Creatues in play, a new [[Cultist]] Creature spawns.\nThe nearest [[Cultist]] Creature takes 2 <sprite index=40> from the current Plot.",
+        "Description": "If there are no [[Cultist]] Creatues in play, a new [[Cultist]] Creature spawns.\nThe nearest [[Cultist]] Creature takes 2<sprite index=40> from the current Plot.",
         "PackCode": "core",
         "SceneCode": "pentagram",
         "Faction": 64,
@@ -3556,7 +3595,7 @@
         "Name": "Hunting Nightgaunt"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=55>4. If the Challenge fails, {{the Investigator}} takes 1 <sprite index=59> and 1 <sprite index=60>. Then {{he}} moves to a [[Central]] Place.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=55>4. If the Challenge fails, {{the Investigator}} takes 1<sprite index=59> and 1<sprite index=60>. Then {{he}} moves to a [[Central]] Place.",
         "Flavor": "A nightgaunt swoops down from the sky and grabs you with its clawed hands, carrying you off into the night.",
         "PackCode": "core",
         "SceneCode": "nightgaunts",
@@ -3610,7 +3649,7 @@
         "Name": "Screeching Byakhee"
     },
     {
-        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} takes 2 <sprite index=60> and draw <<01598>>.",
+        "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} takes 2<sprite index=60> and draw <<01598>>.",
         "Flavor": "They came to me slowly as if I had forgotten them, and at last I could make some sense out of the sounds. It was this: \"Have you found the Yellow Sign?\" <cite>Robert W. Chambers, \"The Yellow Sign\"</cite>",
         "PackCode": "core",
         "SceneCode": "agents_of_hastur",
@@ -3650,7 +3689,7 @@
         "Name": "Yithian Observer"
     },
     {
-        "Description": "{{The Investigator}} choose one:\n <sprite index=8> : {{The Investigator}} draws 2 cards and the current Plot removes 2 <sprite index=40> and may finish.\n<sprite index=8> : {{The Investigator}} takes 2 <sprite index=60>.",
+        "Description": "{{The Investigator}} choose one:\n <sprite index=8> : {{The Investigator}} draws 2 cards and the current Plot removes 2<sprite index=40> and may finish.\n<sprite index=8> : {{The Investigator}} takes 2<sprite index=60>.",
         "Flavor": "A voice inside your head offers you power... For a price.",
         "PackCode": "core",
         "SceneCode": "agents_of_yog",
