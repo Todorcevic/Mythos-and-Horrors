@@ -45,8 +45,8 @@ namespace MythosAndHorrors.GameRules
         public bool IsVictory => Info.Victory != null;
         public bool HasEffects => PlayableEffects?.Any() ?? false;
         public bool HasThisTag(Tag tag) => Tags.Contains(tag);
-        public string CurrentDescription => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Description2 ?? Info.Description : Info.Description;
-        public string CurrentFlavor => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Flavor2 ?? Info.Flavor : Info.Flavor;
+        public string CurrentDescription => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Description2 : Info.Description;
+        public string CurrentFlavor => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Flavor2 : Info.Flavor;
         public string CurrentName => this is IRevealable revelable && revelable.Revealed.IsActive ? Info.Name2 ?? Info.Name : Info.Name;
 
         /*******************************************************************/

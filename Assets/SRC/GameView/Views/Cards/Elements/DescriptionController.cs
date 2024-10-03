@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameView
         public void SetDescription(Card card)
         {
             _flavor.gameObject.SetActive(!string.IsNullOrEmpty(card.CurrentFlavor));
-            _flavor.text = $"“{card.CurrentFlavor}”" ?? string.Empty;
+            _flavor.text = $"“{card.CurrentFlavor ?? string.Empty}”";
             _description.gameObject.SetActive(!string.IsNullOrEmpty(card.CurrentDescription));
             _description.text = card.CurrentDescription?.ParseDescription(_cardsProvider, _textsManager, card.ControlOwner) ?? string.Empty;
         }

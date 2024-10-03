@@ -2091,7 +2091,7 @@
         ]
     },
     {
-        "Flavor": "Rocks and debris block the path, sealing the only exit. The faint light of flashlights casts unsettling shadows that creep in the darkness. There is no way back.",
+        "Flavor2": "Rocks and debris block the path, sealing the only exit. The faint light of flashlights casts unsettling shadows that creep in the darkness. There is no way back.",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2116,7 +2116,7 @@
         "ConnectedPlaces": []
     },
     {
-        "Flavor": "The rocky walls of the tunnel fade away, revealing compacted earth and twisted roots intertwining like the veins of a living creature. It feels as if the passage itself is mutating...",
+        "Flavor2": "The rocky walls of the tunnel fade away, revealing compacted earth and twisted roots intertwining like the veins of a living creature. It feels as if the passage itself is mutating...",
         "PackCode": "core",
         "SceneCode": "torch",
         "Faction": 64,
@@ -2146,7 +2146,6 @@
     },
     {
         "Flavor": "The cavern ascends in a steep slope, with sharp rock walls rising high, covered in shadows and jagged lines.",
-        "Flavor2": "",
         "Description2": "After an Investigator enters <<01113>>, {{he}} takes 1<sprite index=60>.",
         "PackCode": "core",
         "SceneCode": "torch",
@@ -2176,7 +2175,6 @@
     },
     {
         "Flavor": "A narrow rocky passage stretches into darkness, faintly lit by a distant glow. The cold, heavy air holds an unsettling silence.",
-        "Flavor2": "",
         "Description2": "After an Investigator enters <<01114>>, {{he}} takes 1<sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "torch",
@@ -2225,7 +2223,7 @@
             {
                 "Code": "01115",
                 "Title": "The Luminous Threshold",
-                "Description": "This place serves as a transition area between the already explored sections of the cave and the mystical barrier. The atmosphere in this zone is calmer, though infused with a latent energy. A light emanating from within the space provides partial illumination of the vestibule, casting a play of shadows on the walls.",
+                "Description": "This place serves as a transition area between the already explored sections of the cave and the barrier. The atmosphere in this zone is calmer, though infused with a latent energy. A light emanating from within the space provides partial illumination of the vestibule, casting a play of shadows on the walls.",
                 "Image": "01115"
             }
         ],
@@ -2433,8 +2431,8 @@
         ]
     },
     {
-        "Description2": "Once per Turn <sprite index=9> : {{The Investigator}} draws 1 card and gains 1<sprite index=39>.",
         "Flavor": "The mouth of the cave, dark and silent, seems to watch the investigators with resentment.",
+        "Description2": "Once per Turn <sprite index=9> : {{The Investigator}} draws 1 card and gains 1<sprite index=39>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2494,8 +2492,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} draws 3 cards.",
         "Flavor": "Still holds vestiges of Arkham's ancient grandeur, with majestic mansions towering imposingly over the cobblestone streets.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} draws 3 cards.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2524,8 +2522,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} chooses and draws an [[Ally]] from {{his}} deck.",
         "Flavor": "Once a refuge for weary travelers, is now a place where tales from the road intertwine with darker whispers.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} chooses and draws an [[Ally]] from {{his}} deck.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2554,8 +2552,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} heals 3<sprite index=36>.",
         "Flavor": "The halls, filled with the scent of disinfectant and stale medicines, are cold and desolate.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} heals 3<sprite index=36>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2584,8 +2582,8 @@
         ]
     },
     {
-        "Description2": "<sprite index=9>: {{The Investigator}} chooses and draws a [[Tome]] or [[Spell]] from the top 6 cards of {{his}} deck.",
         "Flavor": "Those who venture too deep into the forgotten corners of this library risk more than just their sanity.",
+        "Description2": "<sprite index=9>: {{The Investigator}} chooses and draws a [[Tome]] or [[Spell]] from the top 6 cards of {{his}} deck.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2617,8 +2615,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} gains 3<sprite index=39>.",
         "Flavor": "It radiates an imposing authority, with high ceilings and marble columns that seem to watch from above.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} gains 3<sprite index=39>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2646,8 +2644,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} recovers 3<sprite index=37>.",
         "Flavor": "Behind its thick stone walls, the echoes of whispers and stifled screams endlessly resound.",
+        "Description2": "Once per Game <sprite index=9>: {{The Investigator}} recovers 3<sprite index=37>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2676,8 +2674,8 @@
         ]
     },
     {
-        "Description2": "While {{the Investigator}} is in <<01132>>, the play cost of each [[Ally]] is reduced by 2<sprite index=39>.",
         "Flavor": "The cobblestone streets echo under the footsteps of those who still pass through this forgotten neighborhood.",
+        "Description2": "While {{the Investigator}} is in <<01132>>, the play cost of each [[Ally]] is reduced by 2<sprite index=39>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2706,8 +2704,8 @@
         ]
     },
     {
-        "Description2": "After an Investigator enters <<01133>>, {{he}} makes a Challenge 3<sprite index=57>. If the Challenge fails, {{the Investigator}} must either take 2<sprite index=60> or move to <<01125>>.",
         "Flavor": "...where ancient tombstones lie covered in moss, and the roots of trees desperately entwine around the bodies buried beneath the earth.",
+        "Description2": "After an Investigator enters <<01133>>, {{he}} makes a Challenge 3<sprite index=57>. If the Challenge fails, {{the Investigator}} must either take 2<sprite index=60> or move to <<01125>>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2739,8 +2737,8 @@
         ]
     },
     {
-        "Description2": "Once per Game <sprite index=9> Spend 5 resources: Gain 2 clues from the token pool.",
         "Flavor": "Here, Arkham's powerful exchange whispers full of secrets over glasses of brandy, while the shadows of old betrayals slip furtively between the velvet curtains.",
+        "Description2": "Once per Game <sprite index=9> Spend 5 resources: Gain 2 clues from the token pool.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2770,8 +2768,8 @@
         ]
     },
     {
-        "Description": "{{The Investigator}} is Isolated and must choose one: spend 1<sprite index=38> or take 2<sprite index=59>.",
         "Flavor": "A shadowy figure follows you in the rain. When you look back, your head pounds in agony and your vision blurs.",
+        "Description": "{{The Investigator}} is Isolated and must choose one: spend 1<sprite index=38> or take 2<sprite index=59>.",
         "PackCode": "core",
         "SceneCode": "arkham",
         "Faction": 64,
@@ -2965,12 +2963,12 @@
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01143",
-        "Name": "The Arkham Woods"
+        "Name": "The Swamp"
     },
     {
         "Description": "Each enemy gets +1 fight and +1 evade.",
         "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search {{his}} or her collection for a random basic [[Madness]] weakness and add it to {{his}} or her hand.",
-        "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Arkham woods, blotting out the faint light of the stars.",
+        "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Swamp, blotting out the faint light of the stars.",
         "Flavor2": "A dark presence approaches, and you are assaulted by invisible pressures that bring you to your knees. A terrible force threatens to invade your mind and soul. Your throat clenches and your eyes water as the sensation burns through you.",
         "PackCode": "core",
         "Name2": "The Will of Umôrdhoth",
@@ -3074,17 +3072,13 @@
         "Name": "Disrupting the Ritual"
     },
     {
-        "Description": "The Main Path is connected to each other [[Woods]] location.\n<sprite index=9>: <b>Resign.</b> \"There's nothing we can do to stop them!\" You flee from the woods, leaving Arkham to its grisly fate.",
-        "Flavor2": "Hangman's Brook separates Uptown from the woods south of Arkham. Passing over the small bridge, you follow the main path deeper into the trees.",
+        "Flavor": "The swamp never releases its prey easily.",
+        "Description2": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene, abandoning Arkham to its grisly fate.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -3092,7 +3086,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01149",
-        "Name": "Main Path",
+        "Name": "Muddy Path",
+        "Histories": [
+            {
+                "Code": "01149",
+                "Title": "Muddy Path",
+                "Description": "The thick mist swirls slowly as the investigators struggle. The swamp seems to have a life of its own, and the muddy ground gives way beneath their feet with each step, emitting an unsettling sucking sound. The damp air seeps into their lungs, and the distant croaking of unseen creatures reverberates in the darkness. The shadows shifting in the mud seem to follow them, but each time they try to focus on them, they vanish like whispers in the mist. Something is lurking, something not of this world, and the investigators feel it in their bones: the swamp will not let them go easily.",
+                "Image": "01149"
+            }
+        ],
         "ConnectedPlaces": [
             "01150",
             "01151",
@@ -3104,18 +3106,13 @@
         ]
     },
     {
-        "Description": "<b>Forced</b> - After you enter this location: Test [willpower] (4). If you fail, take 1 horror and 1 damage.",
-        "Flavor": "This clearing has been the site of dark rites since colonists first came to the area over two centuries ago.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "After {{the Investigator}} enters <<01150>>, {{he}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} takes 1<sprite index=59> and 1 <sprite index=60>.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 4,
@@ -3123,7 +3120,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01150",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Desecrated Bog",
+        "Histories": [
+            {
+                "Code": "01150",
+                "Title": "Desecrated Bog",
+                "Description": "When the investigators arrive, a feeling of unease tightens around their chests. The mist, thick as a shroud, swirls silently over the dark waters, hiding what lies beneath the surface. A stench of death and decay fills the air, and the sound of something splashing in the distance echoes like a warning. As they step into the swamp, the muck clings to their legs, as if the ground itself were trying to drag them into its depths. The echo of ancient chants reverberates in their ears, though no one is in sight—only the bog... and what still dwells within.",
+                "Image": "01150"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01152",
@@ -3131,18 +3137,13 @@
         ]
     },
     {
-        "Description": "<b>Forced</b> - When you move out of this location: Test [intellect] (3). If you fail, cancel the effects of the move.",
-        "Flavor": "This path seems to twist and turn upon itself, almost as if it were alive.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Description2": "When {{the Investigator}} moves out of <<01151>>, {{he}} makes a Challenge <sprite index=56>3. If the Challenge fails, the move is canceled.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 3,
@@ -3150,7 +3151,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01151",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Deceitful Road",
+        "Histories": [
+            {
+                "Code": "01151",
+                "Title": "Deceitful Road",
+                "Description": "The path winds through the swamp like a lurking viper, each twist and turn more disorienting than the last. The gnarled trees loom ominously over the investigators, their branches intertwining as if trying to block their way. What initially seemed like a clear path soon dissolves into the mist, and the travelers find themselves circling, unable to discern where solid ground ends and the swamp begins. Treachery lurks in every shadow, in every step that sinks deeper into the muck.",
+                "Image": "01151"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01152",
@@ -3158,18 +3168,13 @@
         ]
     },
     {
-        "Description": "This location is investigated using [willpower] instead of the skill indicated by the investigation attempt.",
-        "Flavor": "A house at the edge of the trail, covered in vines. Inside, the walls and floors are bloodstained and littered with dirt, mud, and discarded bones.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "<<01152>> is investigated using <sprite index=57>.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -3177,7 +3182,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01152",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Desecrated Refuge",
+        "Histories": [
+            {
+                "Code": "01152",
+                "Title": "Desecrated Refuge",
+                "Description": "When the investigators arrive, a wave of revulsion washes over them. A old structure teeters at the edge of the swamp, its blackened, moss-covered walls as if they have witnessed centuries of horrors. The air is colder here, and the silence is deafening. Inside, the shadows stretch unnaturally, as if something ancient and cursed lurks within the cracks of the floor and the rotting walls. Remnants of profane rituals and indelible bloodstains adorn the interior, while a distant echo, perhaps a scream drowned by time, rings in their ears.",
+                "Image": "01152"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01150",
@@ -3185,18 +3199,13 @@
         ]
     },
     {
-        "Description": "This location is investigated using [agility] instead of the skill indicated by the investigation attempt.",
-        "Flavor": "Atop a nearby plateau, you can see signs of cultist activity. You will have to climb the cliff in order to reach the top.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "<<01153>> is investigated using <sprite index=55>.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -3204,7 +3213,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01153",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Shadowed Peak",
+        "Histories": [
+            {
+                "Code": "01153",
+                "Title": "Shadowed Peak",
+                "Description": "The investigators stop at the edge of a cliff, where the cold, damp wind from the swamp merges with the unsettling silence of the heights. The mist swirls at their feet, obscuring the abyss below, while above, twisted shadows seem to circle. Inscriptions of ancient profane rituals are carved into the nearby rocks, and scattered remnants of melted wax and bones suggest that something dark happened here not long ago. The ascent is treacherous, and each step seems to bring them not only closer to the physical edge but also to the brink of madness.",
+                "Image": "01153"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01155",
@@ -3212,18 +3230,13 @@
         ]
     },
     {
-        "Description": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
-        "Flavor": "An old horse trail in colonial days, this overgrown path hasn't been used in over a decade.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 2,
@@ -3231,7 +3244,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01154",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Overgrown Mire",
+        "Histories": [
+            {
+                "Code": "01154",
+                "Title": "Overgrown Mire",
+                "Description": "As they venture, the investigators become ensnared in a tangle of roots and branches that seem to have a life of their own, intertwining into a maze with no exit. The ground is muddy and treacherous, and each step emits a sucking sound, as if the swamp is trying to devour those who dare to cross its domain. The vegetation is so dense that it barely allows any light to pass through, shrouding the area in a constant gloom. Strange shadows slip between the trees, though it's hard to tell if they are real creatures or mere tricks of the mind, which begins to falter under the oppressive atmosphere.",
+                "Image": "01154"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01155",
@@ -3239,18 +3261,13 @@
         ]
     },
     {
-        "Description": "Once per Turn <sprite index=9>: Heal 1 damage or heal 1 horror.",
-        "Flavor": "This would be a nice picnic spot, if it weren't for all the monsters.",
-        "Flavor2": "Growing up, you were always warned to stay out of the woods at night. Now you know why.",
+        "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "Once per Turn <sprite index=9>: {{The Investigator}} heals 1<sprite index=59> or recovers 1<sprite index=60>.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Woods"
         ],
         "Quantity": 1,
         "Enigma": 1,
@@ -3258,7 +3275,16 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01155",
-        "Name": "Arkham Woods",
+        "Name": "Swamp",
+        "Name2": "Silent Clearing",
+        "Histories": [
+            {
+                "Code": "01155",
+                "Title": "Silent Clearing",
+                "Description": "Upon arrival, the investigators experience a strange relief at the sight of a small clearing in the midst of the dense swamp. The air, though heavy with humidity, feels lighter here, and the twisted trees part to allow a faint, soft light to pass through. There is no breeze, no sound of animals. Everything remains still, as if this corner of the swamp is frozen in time. At first glance, it seems like the perfect place to rest, but something about the absolute silence feels... wrong, as if the swamp is holding its breath, waiting for the right moment to act.",
+                "Image": "01155"
+            }
+        ],
         "ConnectedPlaces": [
             "01149",
             "01154",
@@ -3266,18 +3292,13 @@
         ]
     },
     {
-        "Description": "<b>Forced</b> - At the end of the round, if there are fewer than 2 clues per investigator on Ritual Site: Add clues to it until it has 2 clues per investigator on it.",
-        "Flavor": "The sigils on the wall begin to flicker in and out of focus, and the air grows heavy with the smell of death.",
-        "Flavor2": "The large central chamber of a cold, dark cavern, adorned with arcane markings and dimly lit by candlelight.",
+        "Flavor": "The echoes of ancient rituals have not faded... they are merely waiting to be heard once again.",
+        "Description2": "At the end of the round, <01156> restores all <sprite index=38>.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Cave"
         ],
         "Quantity": 1,
         "Enigma": 3,
@@ -3285,7 +3306,15 @@
         "HealthPerInvestigator": false,
         "CardType": 64,
         "Code": "01156",
-        "Name": "Ritual Site",
+        "Name": "Cultist Chamber",
+        "Histories": [
+            {
+                "Code": "01156",
+                "Title": "Cultist Chamber",
+                "Description": "The air grows thick, laden with a metallic, rancid stench, as if the blood spilled centuries ago still soaked into every stone. The walls are covered in hand-carved symbols, their edges blurred by time but no less unsettling. A distant whisper, impossible to pinpoint, seems to rise from the heart of the cavern. In the center, surrounded by skulls and remnants of ancient offerings, lies a worn altar, stained by countless dark rituals. The silence here is not natural; it feels as though the very place is waiting… for another sacrifice.",
+                "Image": "01156"
+            }
+        ],
         "ConnectedPlaces": [
             "01149"
         ]
