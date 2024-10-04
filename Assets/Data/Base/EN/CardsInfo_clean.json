@@ -3137,8 +3137,8 @@
         ]
     },
     {
-        "Description2": "When {{the Investigator}} moves out of <<01151>>, {{he}} makes a Challenge <sprite index=56>3. If the Challenge fails, the move is canceled.",
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
+        "Description2": "When {{the Investigator}} moves out of <<01151>>, {{he}} makes a Challenge <sprite index=56>3. If the Challenge fails, the move is canceled.",
         "PackCode": "core",
         "SceneCode": "tentacles",
         "Faction": 64,
