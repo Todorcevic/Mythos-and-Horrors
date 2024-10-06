@@ -35,7 +35,6 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-
             Health = CreateStat(InitialHealth);
             DamageRecived = CreateStat(0);
             Strength = CreateStat(Info.Strength ?? 0);

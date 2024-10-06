@@ -1651,7 +1651,7 @@
         "IsRequired": true
     },
     {
-        "Description": "<<01601>> chases {{the Investigator}}.\n<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01601>> is discarded.",
+        "Description": "<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01601>> is discarded.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1670,7 +1670,7 @@
         "IsRequired": true
     },
     {
-        "Description": "<<01602>> chases {{the Investigator}}\nAfter <<01602>> attacks, 1<sprite index=40> is removed from the current Plot.",
+        "Description": "After <<01602>> attacks, 1<sprite index=40> is removed from the current Plot.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1689,7 +1689,7 @@
         "IsRequired": true
     },
     {
-        "Description": "<<01603>> chases {{the Investigator}}\nAll Investigators at <<01603>>'s Place lose all their effects.",
+        "Description": "All Investigators at <<01603>>'s Place lose all their effects.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1919,8 +1919,6 @@
     },
     {
         "Flavor": "The ground trembles, as if the cave itself is waking from an ancient slumber.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -1948,8 +1946,6 @@
     },
     {
         "Flavor": "Unseen creatures dart through the shadows, swift and predatory. There’s no time to hesitate—an escape must be found before they close in.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -1977,8 +1973,6 @@
     },
     {
         "Description": "When the Creature Phase ends, each no-Confront [[Ghoul]] moves 1 Place towards <<01115>>.\nWhen the Round ends, 1<sprite index=40> is removed from <<01107>> for each [[Ghoul]] in <<01112>> or <<01115>>.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2006,8 +2000,6 @@
     },
     {
         "Description": "<sprite index=8>: The Investigators may pay <sprite index=38> to <<01108>> to advance it.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2035,8 +2027,6 @@
     },
     {
         "Description": "<sprite index=10>: When the Round ends, the Investigators in <<01112>> may pay <sprite index=38> to <<01109>> to advance it.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2064,8 +2054,6 @@
     },
     {
         "Description": "If <<01116>> is Defeated, <<01110>> advances.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2092,8 +2080,6 @@
     },
     {
         "Flavor2": "Rocks and debris block the path, sealing the only exit. The faint light of flashlights casts unsettling shadows that creep in the darkness. There is no way back.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2117,8 +2103,6 @@
     },
     {
         "Flavor2": "The rocky walls of the tunnel fade away, revealing compacted earth and twisted roots intertwining like the veins of a living creature. It feels as if the passage itself is mutating...",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2147,8 +2131,6 @@
     {
         "Flavor": "The cavern ascends in a steep slope, with sharp rock walls rising high, covered in shadows and jagged lines.",
         "Description2": "After an Investigator enters <<01113>>, {{he}} takes 1<sprite index=60>.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2176,8 +2158,6 @@
     {
         "Flavor": "A narrow rocky passage stretches into darkness, faintly lit by a distant glow. The cold, heavy air holds an unsettling silence.",
         "Description2": "After an Investigator enters <<01114>>, {{he}} takes 1<sprite index=59>.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2205,8 +2185,6 @@
     {
         "Description": "<<01115>> is blocked. The Investigators cannot move here.",
         "Description2": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 64,
         "Slots": [
             0
@@ -2232,9 +2210,7 @@
         ]
     },
     {
-        "Description": "<<01116>> chases the Investigator with the highest <sprite index=54>\n<<01116>> counterattacks when an Investigator attack fails against him.",
-        "PackCode": "core",
-        "SceneCode": "torch",
+        "Description": "<<01116>> counterattacks when an Investigator attack fails against him.",
         "Faction": 64,
         "Slots": [
             0
@@ -2253,8 +2229,6 @@
     },
     {
         "Description": "All Investigators at <<01117>>'s Place get +1<sprite index=54>.\n<sprite index=10> : When a [[Monster]] is successfully attacked at <<01117>>'s Place, it may deal +1<sprite index=59>.",
-        "PackCode": "core",
-        "SceneCode": "torch",
         "Faction": 32,
         "Slots": [
             4
@@ -2270,19 +2244,10 @@
         "IsRequired": true
     },
     {
-        "Description": "<b>Spawn</b> - Attic.",
-        "Flavor": "A monstrous creature feeds from the rotting carcass in the attic.",
-        "PackCode": "core",
-        "SceneCode": "torch",
+        "Flavor": "Their hunger is felt even before seeing their eyes.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Ghoul"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -2294,22 +2259,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01118",
-        "Name": "Flesh-Eater"
+        "Name": "Cave Rat Fiend"
     },
     {
-        "Description": "<b>Spawn</b> - Cellar.",
-        "Flavor": "Inside the tunnels beneath the house, a massive beast tears its way out of the ice. It is covered in a think layer of frost, its breath visible in the bitter cold.",
-        "PackCode": "core",
-        "SceneCode": "torch",
+        "Flavor": "In the icy void of the cave, where death itself seems to have left its mark on the scattered bones, the creature lurks.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Ghoul"
         ],
         "Quantity": 1,
         "Strength": 3,
@@ -2321,12 +2277,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01119",
-        "Name": "Icy Ghoul"
+        "Name": "Frozen Rat Fiend"
     },
     {
         "Description": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene with the information {{he}} is gathered.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2353,9 +2307,7 @@
         ]
     },
     {
-        "Description": "<<01121>> chases the Investigator with most <sprite index=38>.\nWhile a Investigator is confronted with <<01121>>, that Investigator cannot discover or spend <sprite index=38>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
+        "Description": "While a Investigator is confronted with <<01121>>, that Investigator cannot discover or spend <sprite index=38>.",
         "Faction": 64,
         "Slots": [
             0
@@ -2374,9 +2326,7 @@
     },
     {
         "Description": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene with the information {{he}} is gathered.",
-        "PackCode": "core",
         "Name2": "The Clock Strikes Midnight",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2404,8 +2354,6 @@
     },
     {
         "Description": "<sprite index=9> : The Investigators may pay <sprite index=38> to <<01123>> to reveal a [[Cultist]].\n When 6 revealed [[Cultist]] have been defeated, <<01123>> advances.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2433,8 +2381,6 @@
     {
         "Flavor": "The mouth of the cave, dark and silent, seems to watch the investigators with resentment.",
         "Description2": "Once per Turn <sprite index=9> : {{The Investigator}} draws 1 card and gains 1<sprite index=39>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2461,8 +2407,6 @@
     {
         "Flavor": "The air is thick, laden with the stench of stagnant waters that wind between rotting docks.",
         "Flavor2": "The streets warp beneath their feet, and the reflection of the dark river water hints at impossible, twisted shapes.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2494,8 +2438,6 @@
     {
         "Flavor": "Still holds vestiges of Arkham's ancient grandeur, with majestic mansions towering imposingly over the cobblestone streets.",
         "Description2": "Once per Game <sprite index=9>: {{The Investigator}} draws 3 cards.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2524,8 +2466,6 @@
     {
         "Flavor": "Once a refuge for weary travelers, is now a place where tales from the road intertwine with darker whispers.",
         "Description2": "Once per Game <sprite index=9>: {{The Investigator}} chooses and draws an [[Ally]] from {{his}} deck.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2554,8 +2494,6 @@
     {
         "Flavor": "The halls, filled with the scent of disinfectant and stale medicines, are cold and desolate.",
         "Description2": "Once per Game <sprite index=9>: {{The Investigator}} heals 3<sprite index=36>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2584,8 +2522,6 @@
     {
         "Flavor": "Those who venture too deep into the forgotten corners of this library risk more than just their sanity.",
         "Description2": "<sprite index=9>: {{The Investigator}} chooses and draws a [[Tome]] or [[Spell]] from the top 6 cards of {{his}} deck.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2617,8 +2553,6 @@
     {
         "Flavor": "It radiates an imposing authority, with high ceilings and marble columns that seem to watch from above.",
         "Description2": "Once per Game <sprite index=9>: {{The Investigator}} gains 3<sprite index=39>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2646,8 +2580,6 @@
     {
         "Flavor": "Behind its thick stone walls, the echoes of whispers and stifled screams endlessly resound.",
         "Description2": "Once per Game <sprite index=9>: {{The Investigator}} recovers 3<sprite index=37>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2676,8 +2608,6 @@
     {
         "Flavor": "The cobblestone streets echo under the footsteps of those who still pass through this forgotten neighborhood.",
         "Description2": "While {{the Investigator}} is in <<01132>>, the play cost of each [[Ally]] is reduced by 2<sprite index=39>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2706,15 +2636,9 @@
     {
         "Flavor": "...where ancient tombstones lie covered in moss, and the roots of trees desperately entwine around the bodies buried beneath the earth.",
         "Description2": "After an Investigator enters <<01133>>, {{he}} makes a Challenge 3<sprite index=57>. If the Challenge fails, {{the Investigator}} must either take 2<sprite index=60> or move to <<01125>>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Place",
-            "Arkham"
         ],
         "Quantity": 1,
         "Victory": 1,
@@ -2739,8 +2663,6 @@
     {
         "Flavor": "Here, Arkham's powerful exchange whispers full of secrets over glasses of brandy, while the shadows of old betrayals slip furtively between the velvet curtains.",
         "Description2": "Once per Game <sprite index=9> Spend 5 resources: Gain 2 clues from the token pool.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2768,10 +2690,7 @@
         ]
     },
     {
-        "Flavor": "A shadowy figure follows you in the rain. When you look back, your head pounds in agony and your vision blurs.",
         "Description": "{{The Investigator}} is Isolated and must choose one: spend 1<sprite index=38> or take 2<sprite index=59>.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2784,8 +2703,6 @@
     },
     {
         "Description": "If {{the Investigator}} has no <sprite index=38>, draw another Danger Card. Otherwise, {{he}} makes a Challenge <sprite index=56>4. For each point {{the Investigator}} fails by, drop 1<sprite index=38> on {{his}} Place.",
-        "PackCode": "core",
-        "SceneCode": "arkham",
         "Faction": 64,
         "Slots": [
             0
@@ -2797,18 +2714,11 @@
         "Name": "Erroneous Evidence"
     },
     {
-        "Description": "<b>Spawn</b> - Downtown.\n<b>Forced</b> - When \"Wolf-Man\" Drew attacks: Heal 1 damage from him.",
+        "Description": "When <<01137>> attacks, he heal 1 <sprite index=36> from him.",
         "Flavor": "Drew is a longtime patient at Arkham Asylum. Rumor has it {{he}} was locked up for committing cannibalism several years ago. {{He}} is considered extremely dangerous.",
-        "PackCode": "core",
-        "SceneCode": "cultists",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -2820,21 +2730,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01137",
-        "Name": "\"Wolf-Man\" Drew"
+        "Name": "Cannibal Madman"
     },
     {
-        "Description": "<b>Spawn</b> - Graveyard.\n<sprite index=9> Choose and discard 4 cards from your hand: <b>Parley.</b> Add Herman Collins to the victory display.",
-        "Flavor": "The undertaker in the local graveyard has been digging strange tunnels underneath the mausoleum... but for what purpose?",
-        "PackCode": "core",
-        "SceneCode": "cultists",
+        "Description": "<sprite index=9><b>Talk</b>: {{The Investigator}} discards 4 cards and <<01138>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 3,
@@ -2846,21 +2748,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01138",
-        "Name": "Herman Collins"
+        "Name": "Victor the Gravedigger"
     },
     {
-        "Description": "<b>Spawn</b> - Miskatonic University.\n<sprite index=9> Spend 2 clues: <b>Parley.</b> Add Peter Warren to the victory display.",
-        "Flavor": "A professor of the occult has been seen reading strange books that relate to cannibalism. Maybe {{he}} knows something we don't?",
-        "PackCode": "core",
-        "SceneCode": "cultists",
+        "Description": "<sprite index=9><sprite index=38><sprite index=38><b>Talk</b>: <<01139>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 2,
@@ -2872,21 +2766,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01139",
-        "Name": "Peter Warren"
+        "Name": "Dr. Cyrus Keane"
     },
     {
-        "Description": "<b>Spawn</b> - Northside.\n<sprite index=9> Spend 5 resources: <b>Parley.</b> Add Victoria Devereux to the victory display.",
-        "Flavor": "Oliver Thomas, the proprietor of the Curiositie Shoppe, has informed you that a new client has taken a keen interest in a mysterious mask...",
-        "PackCode": "core",
-        "SceneCode": "cultists",
+        "Description": "<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39><sprite index=39><b>Talk</b>: <<01140>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 3,
@@ -2898,21 +2784,14 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01140",
-        "Name": "Victoria Devereux"
+        "Name": "Eleanor Blackwood"
     },
     {
         "Description": "<b>Spawn</b> - St. Mary's Hospital.\n<b>Forced</b> - After Ruth Turner is evaded: Add her to the victory display.",
         "Flavor": "Bodies from the morgue have mysteriously gone missing. Perhaps the mortician in St. Mary's had something to do with these disappearances.",
-        "PackCode": "core",
-        "SceneCode": "cultists",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 2,
@@ -2924,55 +2803,39 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01141",
-        "Name": "Ruth Turner"
+        "Name": "Miriam the Morgue Custodian"
     },
     {
-        "Description": "Easy / Standard\n[skull]: -X. X is the number of [[Monster]] enemies in play.\n[cultist]: -2. Place 1 doom on the nearest enemy.\n[tablet]: -3. If there is a [[Monster]] enemy at your location, take 1 damage.\n[elder_thing]: -5. If there is an [[Ancient One]] enemy in play, reveal another token.",
-        "Description2": "Hard / Expert\n[skull]: -3. If you fail, after this skill test, search the encounter deck and discard pile for a [[Monster]] enemy, and draw it. Shuffle the encounter deck.\n[cultist]: -4. Place 2 doom on the nearest enemy.\n[tablet]: -5. If there is a [[Monster]] enemy at your location, take 1 damage and 1 horror.\n[elder_thing]: -7. If there is an [[Ancient One]] enemy in play, reveal another token.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
+        "Flavor": "The swamp unfolds before them like a twisted maze of stagnant waters and deformed trees",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Scene"
-        ],
-        "Quantity": 1,
-        "HealthPerInvestigator": false,
-        "CardType": 512,
-        "Code": "01142",
-        "Name": "The Devourer Below"
-    },
-    {
-        "Description2": "Shuffle the encounter discard pile into the encounter deck and discard cards from the top until a [[Monster]] enemy is discarded. Spawn that enemy in the Main Path. Then, place 1 doom on that enemy.",
-        "Flavor": "After interrogating members of the conspiracy within Arkham, you have learned that they are performing a rite of vengeance in response to the destruction of one of their master's lairs. You have entered the woods outside Arkham to try and stop them. The woods seem unnaturally cold, and filled with a deathly silence.",
-        "Flavor2": "Throughout the woods, a shrieking cry echoes. From somewhere deeper in the forest, a score of hideous voices answer the call, inhuman as the baying of hounds and yet articulate, repeating a singular name:\n\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"",
-        "PackCode": "core",
-        "Name2": "Death to the Intruders",
-        "SceneCode": "tentacles",
-        "Faction": 64,
-        "Slots": [
-            0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 4,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01143",
-        "Name": "The Swamp"
+        "Name": "The Swamp",
+        "Histories": [
+            {
+                "Code": "01143",
+                "Title": "The Swamp",
+                "Description": "The swamp unfolds before them like a twisted maze of stagnant waters and deformed trees. After interrogating members of a dark conspiracy in Arkham, the investigators discovered that a strange ritual will take place in this place forgotten by time. They venture into the damp and shadowy depths of the swamp, hoping to stop the ceremony before something even more sinister is unleashed.\nThe atmosphere is stifling and heavy, as if the very air is laden with the whispers of ancient slumbering forces. The thick mud clings to their feet, slowing their progress, while the stench of decay permeates every corner of the landscape. There is no breeze to relieve the sticky heat, and the shadows between the trees seem to move of their own accord. The only sound accompanying their advance is the echo of their own footsteps, occasionally interrupted by a steady dripping coming from deep within the swamp.\nIn the distance, the faint glow of a torch signals that they are not alone. The stagnant waters reflect the pale light, distorting shapes and creating specters that dance at the edges of their vision. Every fallen trunk, every exposed root, seems to harbor a dark secret, a remnant of what has transpired in this place over the centuries.\nThe swamp is eerily silent, as if it waits, in spectral muteness, for the arrival of its victims.",
+                "Image": "01143"
+            },
+            {
+                "Code": "01110b",
+                "Title": "The Call of Khar'gath",
+                "Description": "A piercing scream shatters the funereal calm of the swamp, reverberating among the twisted trees and the suffocating mist floating above the stagnant waters. The very earth seems to tremble upon hearing it. The investigators come to an abrupt halt, their hearts pounding frantically, sensing the imminent danger looming over them.\nFrom the depths of the swamp, a chorus of grotesque voices responds to the call, each more horrifying than the last. These are dissonant, broken voices, laden with an indescribable malevolence. They are not mere echoes of the original scream, but something far more terrifying. The sound they produce has an inhuman timbre: a growl that fuses with an ancient, primal language full of hatred. It is like the bark of a foul beast, yet at the same time it whispers with cursed clarity, repeating a single word:\n'Khar'gath... Khar'gath... Khar'gath...'\nThe name resonates in the heavy air like an ancient curse, charged with power and despair. The shadows between the trees seem to lengthen and twist, responding to that invocation, moving in a nightmare dance. The swamp, which before seemed merely hostile, now feels alive, aware, an entity breathing malice and darkness.\nThe name continues to echo, growing louder, closer, as if the swamp itself is calling to its master. The investigators feel an invisible pressure crushing them from all angles, the air becoming nearly unbreathable, as something immense and terrible begins to awaken'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
-        "Description": "Each enemy gets +1 fight and +1 evade.",
+        "Description": "Each enemy gets +1<sprite index=54> and +1<sprite index=55>.",
         "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search {{his}} or her collection for a random basic [[Madness]] weakness and add it to {{his}} or her hand.",
         "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Swamp, blotting out the faint light of the stars.",
-        "Flavor2": "A dark presence approaches, and you are assaulted by invisible pressures that bring you to your knees. A terrible force threatens to invade your mind and soul. Your throat clenches and your eyes water as the sensation burns through you.",
-        "PackCode": "core",
-        "Name2": "The Will of Umôrdhoth",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -2985,15 +2848,27 @@
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01144",
-        "Name": "The Ritual Begins"
+        "Name": "The Ritual Begins",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
         "Description": "<b>Forced</b> - When this agenda advances:\n- If the investigators are at Act 1, put the set-aside Ritual Site into play and spawn the set-aside Umôrdhoth there.\n- If the investigators are at Act 2 or 3, discard all enemies at the Ritual Site and spawn the set-aside Umôrdhoth there.",
         "Description2": "<b>Revelation</b> - Replace the current Act and Agenda with The Devourer Below. This card is both the current Act and the current Agenda.\n<b>Objective</b> - If Umôrdhoth is defeated, <b>(→R2)</b>",
         "Flavor": "The world begins to shift and change as the ritual nears its conclusion. The air grows chilly, and the entire forest is covered in a layer of rime. The trees bend unnaturally, and their shadows lengthen into weird shape.",
-        "PackCode": "core",
         "Name2": "The Devourer Below",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3006,15 +2881,27 @@
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01145",
-        "Name": "Vengeance Awaits"
+        "Name": "Vengeance Awaits",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
         "Description2": "Put the set-aside Ritual Site into play if it is not already in play.\nSearch the collection for each enemy recorded in your Campaign Log under \"Cultists Who Got Away,\" and spawn those enemies at the Main Path.",
         "Flavor": "The evidence you've gathered has led you to the woods south of Arkham, where you believe a ritual to summon a being called \"Umôrdhoth\" is about to take place. Steeling your resolve, you set forth deeper into the woods, hoping to find the site of this ritual.",
         "Flavor2": "Scattered throughout the forest you've seen glyphs and arcane sigils in various places - etched into the bark of trees, carved upon the faces of stones, and dripped in blood upon the ground. Though you cannot decipher these glyphs, you notice that most of them tend to face south. Following these signs leads you by twists and turns towards a cave in the darkest and coldest part of the forest.\nAs you advance, shadowy figures emerge from the trees, blocking the only path to the cave.",
-        "PackCode": "core",
         "Name2": "Unveiling the Plan",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3027,16 +2914,28 @@
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01146",
-        "Name": "Investigating the Trail"
+        "Name": "Investigating the Trail",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
         "Description": "<b>Objective</b> - If an investigator enters the Ritual Site, advance.",
         "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until 1 enemy is discarded (2 enemies instead if there are 3 or more players in the game). Spawn each discarded enemy at the Ritual Site.",
         "Flavor": "The remaining cultists have followed you into the woods to try to stop you, and now they block the path to your objective. They stand ominously beneath the overhanging trees, silent sentinels in the night. You must defeat them or sneak past if you are to gain access to the site of their ritual.",
         "Flavor2": "When you enter the cave, the air grows cold, and your nostrils are assaulted by the pungent smell of blood and rot.",
-        "PackCode": "core",
         "Name2": "Last Rites",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3048,16 +2947,28 @@
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01147",
-        "Name": "Into the Darkness"
+        "Name": "Into the Darkness",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
         "Description": "<sprite index=9> Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
         "Description2": "<b>(→R1)</b>",
         "Flavor": "The site of the cult's ritual is inside a large cavern in a dark corner of the woods. In the center of the chamber is a candlelit circle marked by rocks and arcane runes.",
         "Flavor2": "You brave the unnatural chill and weave through arcane symbols, crossing the threshold of the circle. You smother the markings on the ground, covering them with dirt, breaking apart the carefully constructed pattern of smooth rocks. A shrill noise pierces your ears as the air grows suddenly warmer, and the world distorts around you, settling into normality.",
-        "PackCode": "core",
         "Name2": "The Ritual Is Broken",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3069,13 +2980,25 @@
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01148",
-        "Name": "Disrupting the Ritual"
+        "Name": "Disrupting the Ritual",
+        "Histories": [
+            {
+                "Code": "01110",
+                "Title": "The Guardian of the Cave",
+                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
+                "Image": "01110"
+            },
+            {
+                "Code": "01110b",
+                "Title": "Defending the Cave",
+                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
+                "Image": "01110b"
+            }
+        ]
     },
     {
         "Flavor": "The swamp never releases its prey easily.",
         "Description2": "<sprite index=9> <b>Escape</b>: {{The Investigator}} leaves the Scene, abandoning Arkham to its grisly fate.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3108,8 +3031,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "After {{the Investigator}} enters <<01150>>, {{he}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} takes 1<sprite index=59> and 1 <sprite index=60>.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3139,8 +3060,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "When {{the Investigator}} moves out of <<01151>>, {{he}} makes a Challenge <sprite index=56>3. If the Challenge fails, the move is canceled.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3170,8 +3089,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "<<01152>> is investigated using <sprite index=57>.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3201,8 +3118,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "<<01153>> is investigated using <sprite index=55>.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3232,8 +3147,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "This location is investigated using [combat] instead of the skill indicated by the investigation attempt.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3263,8 +3176,6 @@
     {
         "Flavor": "The dense fog hovers over the water, and a stench of decay fills the air, making every breath an effort.",
         "Description2": "Once per Turn <sprite index=9>: {{The Investigator}} heals 1<sprite index=59> or recovers 1<sprite index=60>.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3294,8 +3205,6 @@
     {
         "Flavor": "The echoes of ancient rituals have not faded... they are merely waiting to be heard once again.",
         "Description2": "At the end of the round, <01156> restores all <sprite index=38>.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3320,17 +3229,10 @@
         ]
     },
     {
-        "Description": "Hunter. Massive.\nUmôrdhoth gets +4 health per investigator.\n<b>Forced</b> - At the end of each investigator's turn: Ready Umôrdhoth.\n<sprite index=9> If you control Lita Chantler: \"It's only after her!\" You throw Lita to Umôrdhoth in order to spare your lives. <b>(→R3)</b>",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
+        "Description": "At the end of each investigator's turn, <<01157>> ready",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Ancient One",
-            "Elite"
         ],
         "Quantity": 1,
         "Strength": 5,
@@ -3341,13 +3243,11 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01157",
-        "Name": "Umôrdhoth"
+        "Name": "Khar'gath the Bottomless"
     },
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=57>5. For each point {{the Investigator}} fail by, {{he}} must choose one: Discard a card from {{his}} hand, or take 1<sprite index=59> and 1<sprite index=60>.",
         "Flavor": "A deathly chill from below engulfs you, attempting to suck your life force away.",
-        "PackCode": "core",
-        "SceneCode": "tentacles",
         "Faction": 64,
         "Slots": [
             0
@@ -3359,17 +3259,10 @@
         "Name": "Touch of the Ancient One"
     },
     {
-        "Description": "Hunter.",
-        "Flavor": "A horde of cruel rats skitters forth in an undulating wave of claws, teeth, and mottled fur.",
-        "PackCode": "core",
-        "SceneCode": "rats",
+        "Flavor": "In this forgotten place, even the creatures of the night seem older, wiser... and hungrier.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Creature"
         ],
         "Quantity": 3,
         "Strength": 1,
@@ -3380,21 +3273,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01159",
-        "Name": "Swarm of Rats"
+        "Name": "Bats Horde"
     },
     {
-        "Flavor": "It was a colossal and nameless blasphemy with glaring red eyes, and it held in bony claws a thing that had been a man, gnawing at the head as a child nibbles at a stick of candy. <cite>H. P. Lovecraft, \"Pickman's Model\"</cite>",
-        "PackCode": "core",
-        "SceneCode": "ghouls",
+        "Flavor": "In the forgotten depths, where light never reaches, hunger reigns with fangs and claws.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Ghoul"
         ],
         "Quantity": 3,
         "Strength": 2,
@@ -3405,22 +3290,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01160",
-        "Name": "Ghoul Minion"
+        "Name": "Cave Dweller"
     },
     {
-        "Description": "<b>Prey</b> - Lowest remaining health.",
-        "Flavor": "The sight of the thing raised the question: Do we eat to live, or do we live to eat?",
-        "PackCode": "core",
-        "SceneCode": "ghouls",
+        "Flavor": "In the darkness, you are not the hunter... you are the prey.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Ghoul"
         ],
         "Quantity": 1,
         "Strength": 3,
@@ -3431,13 +3307,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01161",
-        "Name": "Ravenous Ghoul"
+        "Name": "Hungry Rat Fiend"
     },
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=55>3. For each point {{the Investigator}} fails by, {{he}} take 1<sprite index=59>.",
-        "Flavor": "Decaying hands rise up from below and grasp and claw at your ankles.",
-        "PackCode": "core",
-        "SceneCode": "ghouls",
         "Faction": 64,
         "Slots": [
             0
@@ -3450,9 +3323,6 @@
     },
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=57>3. For each point {{the Investigator}} fails by, {{he}} take 1<sprite index=60>.",
-        "Flavor": "A sickening display of gore causes you to retch. You're glad this wasn't you.",
-        "PackCode": "core",
-        "SceneCode": "striking_fear",
         "Faction": 64,
         "Slots": [
             0
@@ -3465,8 +3335,6 @@
     },
     {
         "Description": "Each round, the first time {{the Investigator}} uses a <sprite index=9><b>Move</b>, <sprite index=9><b>Attack</b>, or <sprite index=9><b>Elude</b>, it costs 1 additional <sprite index=9>.\nAt the end of {{the Investigator}}'s turn, {{he}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
-        "PackCode": "core",
-        "SceneCode": "striking_fear",
         "Faction": 64,
         "Slots": [
             0
@@ -3479,8 +3347,6 @@
     },
     {
         "Description": "{{The Investigator}} cannot play Supplies or Conditions.\nAt the end of the round, <<01165>> is discarded.",
-        "PackCode": "core",
-        "SceneCode": "striking_fear",
         "Faction": 64,
         "Slots": [
             0
@@ -3492,10 +3358,8 @@
         "Name": "Tormenting Echoes"
     },
     {
-        "Description": "Current Plot removes 2<sprite index=40> and may finish",
+        "Description": "Current Plot removes 1<sprite index=40> and may finish",
         "Flavor": "Dark forces stir against you. If you do not act quickly, a sinister plot will be fulfilled.",
-        "PackCode": "core",
-        "SceneCode": "ancient_evils",
         "Faction": 64,
         "Slots": [
             0
@@ -3509,8 +3373,6 @@
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} discard 1 asset in play. {{He}} takes 2<sprite index=59> instead if {{he}} cannot discard.",
         "Flavor": "The supernatural cold threatens to freeze your soul.",
-        "PackCode": "core",
-        "SceneCode": "chilling_cold",
         "Faction": 64,
         "Slots": [
             0
@@ -3523,8 +3385,6 @@
     },
     {
         "Description": "Attached Place gets +2<sprite index=56>.\nAfter attached Place is successfully investigated, <<01168>> is discarded.",
-        "PackCode": "core",
-        "SceneCode": "chilling_cold",
         "Faction": 64,
         "Slots": [
             0
@@ -3536,18 +3396,10 @@
         "Name": "Phantom Mist"
     },
     {
-        "Description": "<b>Spawn</b> - Any empty location.\n<b>Forced</b> - After Acolyte enters play: Place 1 doom on it.",
-        "Flavor": "It was only a small sacrifice.",
-        "PackCode": "core",
-        "SceneCode": "pentagram",
+        "Description": "After <<01169>> enters play, he takes 1<sprite index=40> from the Plot.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 3,
         "Strength": 3,
@@ -3558,20 +3410,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01169",
-        "Name": "Acolyte"
+        "Name": "Ritualist"
     },
     {
-        "Description": "<b>Spawn</b> - Any empty location.\nRetaliate.\n<b>Forced</b> - At the end of the mythos phase: Place 1 doom on Wizard of the Order.",
-        "PackCode": "core",
-        "SceneCode": "pentagram",
+        "Description": "<<01170>> counterattacks when an Investigator attack fails against him..\nAt the end of the mythos phase, <<01170>> takes 1<sprite index=40> from the Plot.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Cultist"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -3582,12 +3427,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01170",
-        "Name": "Wizard of the Order"
+        "Name": "Invoker of the End"
     },
     {
-        "Description": "If there are no [[Cultist]] Creatues in play, a new [[Cultist]] Creature spawns.\nThe nearest [[Cultist]] Creature takes 2<sprite index=40> from the current Plot.",
-        "PackCode": "core",
-        "SceneCode": "pentagram",
+        "Description": "If there are no [[Cultist]] Creatues in play, a new [[Cultist]] Creature spawns.\nThe nearest [[Cultist]] Creature takes 2<sprite index=40> from the Plot.",
         "Faction": 64,
         "Slots": [
             0
@@ -3599,18 +3442,10 @@
         "Name": "Chant of the Damned"
     },
     {
-        "Description": "Hunter.\nWhile attempting to evade Hunting Nightgaunt, double the negative modifier of each revealed chaos token.",
-        "Flavor": "... they had no faces at all to smile with, but only a suggestive blankness where a face ought to be. <cite>H. P. Lovecraft</cite>",
-        "PackCode": "core",
-        "SceneCode": "nightgaunts",
+        "Description": "While <<01172>> is in Elude Challenge, negative modifier of each revealed Symbol is double.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Monster",
-            "Nightgaunt"
         ],
         "Quantity": 2,
         "Strength": 3,
@@ -3621,13 +3456,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01172",
-        "Name": "Hunting Nightgaunt"
+        "Name": "Nightmare Seeker"
     },
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=55>4. If the Challenge fails, {{the Investigator}} takes 1<sprite index=59> and 1<sprite index=60>. Then {{he}} moves to a [[Central]] Place.",
-        "Flavor": "A nightgaunt swoops down from the sky and grabs you with its clawed hands, carrying you off into the night.",
-        "PackCode": "core",
-        "SceneCode": "nightgaunts",
         "Faction": 64,
         "Slots": [
             0
@@ -3640,8 +3472,6 @@
     },
     {
         "Description": "The attached Place cannot be Investigated.\n<sprite index=9> : {{The Investigator}} makes a Challenge <sprite index=54>4 or <sprite index=55>4. If the Challenge succeeds, <<01174>> is discarded.",
-        "PackCode": "core",
-        "SceneCode": "locked_doors",
         "Faction": 64,
         "Slots": [
             0
@@ -3653,17 +3483,10 @@
         "Name": "Chained Entrance"
     },
     {
-        "Description": "<b>Prey</b> - Lowest remaining sanity.\nHunter.\nWhile engaged with an investigator with remaining sanity 4 or fewer, Screeching Byakhee gets +1 fight and +1 evade.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_hastur",
+        "Description": "While engaged with an investigator with remaining 4<sprite index=37> or fewer, <<01175>> gets +1<sprite index=54> and +1<sprite index=55>.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Monster",
-            "Byakhee"
         ],
         "Quantity": 2,
         "Strength": 3,
@@ -3675,13 +3498,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01175",
-        "Name": "Screeching Byakhee"
+        "Name": "BatRat Fiend"
     },
     {
         "Description": "{{The Investigator}} makes a Challenge <sprite index=57>4. If the Challenge fails, {{the Investigator}} takes 2<sprite index=60> and draw <<01598>>.",
-        "Flavor": "They came to me slowly as if I had forgotten them, and at last I could make some sense out of the sounds. It was this: \"Have you found the Yellow Sign?\" <cite>Robert W. Chambers, \"The Yellow Sign\"</cite>",
-        "PackCode": "core",
-        "SceneCode": "agents_of_hastur",
         "Faction": 64,
         "Slots": [
             0
@@ -3693,17 +3513,10 @@
         "Name": "The King’s Mark"
     },
     {
-        "Description": "<b>Prey</b> - Fewest cards in hand.\n<b>Forced</b> - When Yithian Observer attacks you: Discard 1 card at random from your hand. If you cannot, Yithian Observer deals +1 damage and +1 horror for this attack.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_yog",
+        "Description": "When <<01177>> attacks, {{the Investigator}} Discards 1 random card. If he cannot, <<01177>> deals +1<sprite index=59> and +1 <sprite index=60> for this attack.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Monster",
-            "Yithian"
         ],
         "Quantity": 2,
         "Strength": 4,
@@ -3715,13 +3528,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01177",
-        "Name": "Yithian Observer"
+        "Name": "Cosmic Lurker"
     },
     {
         "Description": "{{The Investigator}} choose one:\n <sprite index=8> : {{The Investigator}} draws 2 cards and the current Plot removes 2<sprite index=40> and may finish.\n<sprite index=8> : {{The Investigator}} takes 2<sprite index=60>.",
-        "Flavor": "A voice inside your head offers you power... For a price.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_yog",
         "Faction": 64,
         "Slots": [
             0
@@ -3733,18 +3543,10 @@
         "Name": "Vow of Darkness"
     },
     {
-        "Description": "<b>Prey</b> - Lowest [agility].\n<b>Forced</b> - At the end of the round: Heal 2 damage from Relentless Dark Young.",
-        "Flavor": "The trees trembled, leaves fluttering around us. The earth shook as the thuds of giant hooved feet grew ever closer...",
-        "PackCode": "core",
-        "SceneCode": "agents_of_shub",
+        "Description": "At the end of the round, <<Twisted Woodwalker>> heals 2<sprite index=36>.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Monster",
-            "Dark Young"
         ],
         "Quantity": 1,
         "Strength": 4,
@@ -3756,21 +3558,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01179",
-        "Name": "Relentless Dark Young"
+        "Name": "Twisted Woodwalker"
     },
     {
-        "Description": "Hunter. Retaliate.\n<b>Forced</b> - After Goat Spawn is defeated: Each investigator at this location takes 1 horror.",
-        "Flavor": "The creature was at once terrible and graceful, the result of blasphemous trafficks with some otherworldly horror.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_shub",
+        "Description": "<<01180>> counterattacks when an Investigator attack fails against him.\nAfter <<01180>> is defeated, each investigator at this Place takes 1<sprite index=60>.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster"
         ],
         "Quantity": 3,
         "Strength": 3,
@@ -3781,21 +3575,13 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01180",
-        "Name": "Goat Spawn"
+        "Name": "Blasphemous Satyr"
     },
     {
-        "Description": "<b>Prey</b> - Lowest [combat].\nHunter.\n<b>Forced</b> - After Young Deep One engages you: Take 1 horror.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_cthulhu",
+        "Description": "After <<01181>> confront, {{the Investigator}} takes 1<sprite index=60>.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Creature",
-            "Humanoid",
-            "Monster",
-            "Deep One"
         ],
         "Quantity": 2,
         "Strength": 3,
@@ -3806,12 +3592,10 @@
         "HealthPerInvestigator": false,
         "CardType": 16,
         "Code": "01181",
-        "Name": "Young Deep One"
+        "Name": "Swamp Deep One"
     },
     {
         "Description": "{{The Investigator}} gets -1<sprite index=57> and -1<sprite index=37>.\n<sprite index=9>: {{The Investigator}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01182>> is discarded.",
-        "PackCode": "core",
-        "SceneCode": "agents_of_cthulhu",
         "Faction": 64,
         "Slots": [
             0

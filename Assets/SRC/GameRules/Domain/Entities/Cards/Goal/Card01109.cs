@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         private CardPlace Parlor => _cardsProvider.GetCard<Card01115>();
         private CardPlace Hallway => _cardsProvider.GetCard<Card01112>();
         private Card Lita => _cardsProvider.GetCard<Card01117>();
-        private Card GhoulPriest => _cardsProvider.GetCard<Card01116>();
+        private CardCreature GhoulPriest => _cardsProvider.GetCard<Card01116>();
 
         /*******************************************************************/
         [Inject]
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<RevealGameAction>().SetWith(Parlor).Execute();
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(Lita, Parlor.OwnZone).Execute();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(GhoulPriest, Hallway.OwnZone).Execute();
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(GhoulPriest, Hallway).Execute();
         }
 
         /*******************************************************************/

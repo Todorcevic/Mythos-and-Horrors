@@ -20,8 +20,6 @@ namespace MythosAndHorrors.GameRules
         [JsonProperty("Sanity")] public int? Sanity { get; init; }
         [JsonProperty("Cost")] public int? Cost { get; init; }
         [JsonProperty("Quantity")] public int? Quantity { get; init; }
-        [JsonProperty("PackCode")] public string PackCode { get; init; }
-        [JsonProperty("SceneCode")] public string SceneCode { get; init; }
         [JsonProperty("Strength")] public int? Strength { get; init; }
         [JsonProperty("Agility")] public int? Agility { get; init; }
         [JsonProperty("Intelligence")] public int? Intelligence { get; init; }
