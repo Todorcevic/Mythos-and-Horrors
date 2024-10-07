@@ -18,10 +18,9 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Card Execute(string cardCode)
         {
-            _allCardInfo ??= _jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDINFO_PATH)
-                .Concat(_jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_SPECIALCARDINFO_PATH)).ToList();
+            _allCardInfo ??= _jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_SPECIALCARDINFO_PATH);
 
-            _allCardInfo_Alternative ??= _jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDINFO_ALTERNATIVE_PATH); //TODO: Remove this line when allcardsinfo is clean
+            _allCardInfo_Alternative ??= _jsonService.CreateDataFromFile<List<CardInfo>>(_filesPath.JSON_CARDINFO_PATH); //TODO: Remove this line when allcardsinfo is clean
 
             CardInfo cardInfo = _allCardInfo_Alternative.FirstOrDefault(cardInfo => cardInfo.Code == cardCode) ?? _allCardInfo.First(cardInfo => cardInfo.Code == cardCode);
             Type type = Assembly.GetAssembly(typeof(Card)).GetType(typeof(Card) + cardInfo.Code)
