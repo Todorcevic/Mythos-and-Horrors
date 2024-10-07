@@ -12,7 +12,7 @@ namespace MythosAndHorrors.PlayModeView.Tests
     [TestFixture]
     public class MoveCardPresenterTests : PlayModeTestsBase
     {
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
@@ -43,20 +43,20 @@ namespace MythosAndHorrors.PlayModeView.Tests
             Assert.That(_cardViewsManager.GetAvatarCardView(investigator1).CurrentZoneView, Is.EqualTo(_zoneViewsManager.Get(cardPlace.OwnZone)));
         }
 
-        [UnityTest]
-        public IEnumerator Show_Specific_Card()
-        {
-            yield return BuildCard("01511", _investigatorsProvider.First);
-            Card specificCard = _cardsProvider.GetCard<Card01511>();
-            CardView cardView = _cardViewsManager.GetCardView(specificCard);
+        //[UnityTest]
+        //public IEnumerator Show_Specific_Card()
+        //{
+        //    yield return BuildCard("01511", _investigatorsProvider.First);
+        //    Card specificCard = _cardsProvider.GetCard<Card01511>();
+        //    CardView cardView = _cardViewsManager.GetCardView(specificCard);
 
-            cardView.MoveToZone(_zoneViewsManager.CenterShowZone);
+        //    cardView.MoveToZone(_zoneViewsManager.CenterShowZone);
 
-            if (DEBUG_MODE) yield return PressAnyKey();
-            if (DEBUG_MODE) yield return PressAnyKey();
-            if (DEBUG_MODE) yield return PressAnyKey();
-            if (DEBUG_MODE) yield return PressAnyKey();
-            Assert.That(true);
-        }
+        //    if (DEBUG_MODE) yield return PressAnyKey();
+        //    if (DEBUG_MODE) yield return PressAnyKey();
+        //    if (DEBUG_MODE) yield return PressAnyKey();
+        //    if (DEBUG_MODE) yield return PressAnyKey();
+        //    Assert.That(true);
+        //}
     }
 }

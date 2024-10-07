@@ -5917,7 +5917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _withoutAudio: 0
-  _withoutMulligan: 1
+  _withoutMulligan: 0
   _gameVelocity: 1
   _languaje: 0
 --- !u!1 &903284071
@@ -12277,7 +12277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1051, y: 1024}
+  m_AnchoredPosition: {x: 0, y: 1024}
   m_SizeDelta: {x: 1024, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680896920
