@@ -19,7 +19,7 @@ namespace MythosAndHorrors.EditMode.Tests
             _dataSaveLoaderUseCase.Load();
             _investigatorLoaderUseCase.Execute();
 
-            Assert.That(_sut.GetCard<Card01501>().Info.Name, Is.EqualTo("Roland Banks"));
+            Assert.That(_sut.GetCard<Card01501>().Info.Name, Is.EqualTo("Eliot Spencer"));
         }
     }
 }

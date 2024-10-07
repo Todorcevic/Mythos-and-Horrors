@@ -20,7 +20,7 @@ namespace MythosAndHorrors.EditMode.Tests
 
             _sut.Execute();
 
-            Assert.That(_chaptersProvider.CurrentScene.Name, Is.EqualTo("El encuentro"));
+            Assert.That(_chaptersProvider.CurrentScene.Name, Is.EqualTo("Echoes in the Darkness"));
             Assert.That(_chaptersProvider.CurrentScene.Cards.First().Info.Code, Is.EqualTo("01108"));
         }
     }
