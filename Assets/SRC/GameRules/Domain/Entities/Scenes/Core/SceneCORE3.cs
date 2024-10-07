@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
         public CardPlace Forest5 => _cardsProvider.GetCard<Card01154>();
         public CardPlace Forest6 => _cardsProvider.GetCard<Card01155>();
         public CardPlace Ritual => _cardsProvider.GetCard<Card01156>();
-        public Card01157 Urmodoth => _cardsProvider.GetCard<Card01157>();
+        public Card01157 Khargath => _cardsProvider.GetCard<Card01157>();
         public Card01117 Lita => _cardsProvider.TryGetCard<Card01117>();
         public IEnumerable<Card> Haunteds => _cardsProvider.GetCards<Card01598>();
         public IEnumerable<Card> Hastur => _cardsProvider.GetCards<Card01175>().Cast<Card>().Concat(_cardsProvider.GetCards<Card01176>());
@@ -74,17 +74,17 @@ namespace MythosAndHorrors.GameRules
         private void ThrowLita()
         {
             if (Lita == null) return;
-            Urmodoth.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
-                   PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Urmodoth.CurrentName), cardAffected: Lita);
+            Khargath.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate,
+                   PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Khargath.CurrentName), cardAffected: Lita);
 
-            Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Urmodoth.CurrentName), cardAffected: Urmodoth);
+            Lita.CreateActivation(1, ThrowLitaActivate, ThrowLitaConditionToActivate, PlayActionType.Activate, new Localization("Activation_Card01157", Lita.CurrentName, Khargath.CurrentName), cardAffected: Khargath);
 
             bool ThrowLitaConditionToActivate(Investigator investigator)
             {
-                if (Urmodoth.IsInPlay.IsFalse) return false;
+                if (Khargath.IsInPlay.IsFalse) return false;
                 if (Lita?.IsInPlay.IsFalse ?? true) return false;
-                if (Lita?.CurrentPlace != Urmodoth.CurrentPlace) return false;
-                if (Urmodoth.CurrentPlace != investigator.CurrentPlace) return false;
+                if (Lita?.CurrentPlace != Khargath.CurrentPlace) return false;
+                if (Khargath.CurrentPlace != investigator.CurrentPlace) return false;
                 return true;
             }
 

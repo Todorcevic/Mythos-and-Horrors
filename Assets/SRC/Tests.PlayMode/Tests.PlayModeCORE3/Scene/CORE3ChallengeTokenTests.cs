@@ -24,7 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return base.SetUp();
             investigator = _investigatorsProvider.First;
             monster = (CardCreature)SceneCORE3.Hastur.First();
-            ancient = SceneCORE3.Urmodoth;
+            ancient = SceneCORE3.Khargath;
             tokenValue = CaptureTokenValue(investigator);
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);

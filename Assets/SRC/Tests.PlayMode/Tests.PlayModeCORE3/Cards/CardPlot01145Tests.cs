@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine(); ;
 
             Assert.That(SceneCORE3.Ritual.IsInPlay.IsTrue, Is.True);
-            Assert.That(SceneCORE3.Urmodoth.IsInPlay.IsTrue, Is.True);
+            Assert.That(SceneCORE3.Khargath.IsInPlay.IsTrue, Is.True);
         }
 
         [UnityTest]
@@ -52,7 +52,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
 
             Assert.That(SceneCORE3.Ritual.IsInPlay.IsTrue, Is.True);
             Assert.That(creature.IsInPlay.IsTrue, Is.False);
-            Assert.That(SceneCORE3.Urmodoth.IsInPlay.IsTrue, Is.True);
+            Assert.That(SceneCORE3.Khargath.IsInPlay.IsTrue, Is.True);
         }
 
         [UnityTest]
@@ -69,7 +69,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(cardPlot.Eldritch, cardPlot.Eldritch.Value).Execute().AsCoroutine();
 
             yield return _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE3.Urmodoth, investigator2.InvestigatorCard).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<DefeatCardGameAction>().SetWith(SceneCORE3.Khargath, investigator2.InvestigatorCard).Execute().AsCoroutine();
 
             Assert.That(investigator.Injury.Value, Is.EqualTo(2));
             Assert.That(investigator2.Injury.Value, Is.EqualTo(2));

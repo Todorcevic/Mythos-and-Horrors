@@ -2787,8 +2787,7 @@
         "Name": "Eleanor Blackwood"
     },
     {
-        "Description": "<b>Spawn</b> - St. Mary's Hospital.\n<b>Forced</b> - After Ruth Turner is evaded: Add her to the victory display.",
-        "Flavor": "Bodies from the morgue have mysteriously gone missing. Perhaps the mortician in St. Mary's had something to do with these disappearances.",
+        "Description": "After <<01141>> is evaded, she is defeated.",
         "Faction": 64,
         "Slots": [
             0
@@ -2825,174 +2824,145 @@
                 "Image": "01143"
             },
             {
-                "Code": "01110b",
+                "Code": "01143b",
                 "Title": "The Call of Khar'gath",
                 "Description": "A piercing scream shatters the funereal calm of the swamp, reverberating among the twisted trees and the suffocating mist floating above the stagnant waters. The very earth seems to tremble upon hearing it. The investigators come to an abrupt halt, their hearts pounding frantically, sensing the imminent danger looming over them.\nFrom the depths of the swamp, a chorus of grotesque voices responds to the call, each more horrifying than the last. These are dissonant, broken voices, laden with an indescribable malevolence. They are not mere echoes of the original scream, but something far more terrifying. The sound they produce has an inhuman timbre: a growl that fuses with an ancient, primal language full of hatred. It is like the bark of a foul beast, yet at the same time it whispers with cursed clarity, repeating a single word:\n'Khar'gath... Khar'gath... Khar'gath...'\nThe name resonates in the heavy air like an ancient curse, charged with power and despair. The shadows between the trees seem to lengthen and twist, responding to that invocation, moving in a nightmare dance. The swamp, which before seemed merely hostile, now feels alive, aware, an entity breathing malice and darkness.\nThe name continues to echo, growing louder, closer, as if the swamp itself is calling to its master. The investigators feel an invisible pressure crushing them from all angles, the air becoming nearly unbreathable, as something immense and terrible begins to awaken'",
-                "Image": "01110b"
+                "Image": "01143b"
             }
         ]
     },
     {
         "Description": "Each enemy gets +1<sprite index=54> and +1<sprite index=55>.",
-        "Description2": "In player order, each investigator must test [willpower] (6). Each investigator who fails must search {{his}} or her collection for a random basic [[Madness]] weakness and add it to {{his}} or her hand.",
-        "Flavor": "\"Umôrdhoth... Umôrdhoth... Umôrdhoth...\"\nThe chanting builds in intensity, echoing into the cold air of the night. The sparse clouds in the sky coalesce above the Swamp, blotting out the faint light of the stars.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 5,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01144",
-        "Name": "The Ritual Begins",
+        "Name": "The Chanting Grows",
         "Histories": [
             {
-                "Code": "01110",
-                "Title": "The Guardian of the Cave",
-                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
-                "Image": "01110"
+                "Code": "01144",
+                "Title": "The Chanting Grows",
+                "Description": "The swamp, engulfed in a thick, cursed mist, seems to breathe with a life of its own. From its darkest corners, eerie chants rise: 'Khar'gath... Khar'gath...'. The stagnant waters, saturated with a pungent stench, stir faintly, as if an unseen presence were awakening in the depths. The twisted branches of the trees reach up toward the night sky, while a blanket of black clouds swallows the few stars that still illuminated the swamp.\nThe whispers turn into piercing screams that echo through the rotting reeds. The atmosphere becomes dense, suffocating; a sense of primordial terror looms over every living being. The enemies, swamp creatures transformed by the dark power emanating from the ritual, grow stronger. Their deformed bodies rise with renewed fury; their movements are more agile, more lethal. Even the shadows ally with them, granting them a wild and unknown power.\nIn this corner of Arkham, where decay consumes everything, the ritual has begun.",
+                "Image": "01144"
             },
             {
-                "Code": "01110b",
-                "Title": "Defending the Cave",
-                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
-                "Image": "01110b"
+                "Code": "01144b",
+                "Title": "Unseen Terror",
+                "Description": "An ominous presence approaches, and the investigators feel an invisible pressure forcing them down, compelling them to kneel. A terrifying force tries to invade their minds and souls, twisting their deepest thoughts. Their throats tighten, and their eyes fill with tears, as a supernatural burning sensation consumes them from within—an indescribable feeling that pierces through reality itself.",
+                "Image": "01144b"
             }
         ]
     },
     {
-        "Description": "<b>Forced</b> - When this agenda advances:\n- If the investigators are at Act 1, put the set-aside Ritual Site into play and spawn the set-aside Umôrdhoth there.\n- If the investigators are at Act 2 or 3, discard all enemies at the Ritual Site and spawn the set-aside Umôrdhoth there.",
-        "Description2": "<b>Revelation</b> - Replace the current Act and Agenda with The Devourer Below. This card is both the current Act and the current Agenda.\n<b>Objective</b> - If Umôrdhoth is defeated, <b>(→R2)</b>",
-        "Flavor": "The world begins to shift and change as the ritual nears its conclusion. The air grows chilly, and the entire forest is covered in a layer of rime. The trees bend unnaturally, and their shadows lengthen into weird shape.",
-        "Name2": "The Devourer Below",
+        "Description2": "If <<01157>> is Defeated, <<01145>> advances.",
+        "Flavor": "Vengeance is near.",
+        "Name2": "End of All Things",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Plot"
         ],
         "Quantity": 1,
         "Eldritch": 5,
         "HealthPerInvestigator": false,
         "CardType": 256,
         "Code": "01145",
-        "Name": "Vengeance Awaits",
+        "Name": "The Final Hour",
         "Histories": [
             {
-                "Code": "01110",
-                "Title": "The Guardian of the Cave",
-                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
-                "Image": "01110"
+                "Code": "01145",
+                "Title": "The Final Hour",
+                "Description": "The swamp twists beneath a sky covered in clouds that seem to weigh down on the world, crushing it with their dense and ominous shroud. The stagnant waters barely stir, but the air is charged with an energy that makes the skin of those who dare to breathe in this place, forgotten by time, tingle. The creatures of the mire watch from the shadows, their eyes faintly glowing, while the ancient trees creak under an invisible strain.\nAt the center of this cursed landscape, a group of hooded figures murmurs forbidden words in an ancient tongue, a litany that resonates with the cracking of bones and echoes from other worlds. Their voices rise in unison, like a profane choir calling to something beyond reason, something that waits in the darkest corners of the cosmos.\nThe branches part away from them, as if nature itself were trying to flee from the ritual being performed. But it is futile. The ritual must be completed. The air grows cold in an instant, and an overwhelming sense of impending terror looms over the swamp. Something awakens. Something waits.\nVengeance is near.",
+                "Image": "01145"
             },
             {
-                "Code": "01110b",
-                "Title": "Defending the Cave",
-                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
-                "Image": "01110b"
+                "Code": "01145b",
+                "Title": "End of All Things",
+                "Description": "The presence of Khar'gath manifests in all its power: an indescribable entity crawling from the depths of reality itself. Its twisted form, an amalgamation of tentacles and shadows, seems to devour the light around it, plunging the world into a darkness beyond human comprehension. The chants cease, and a deadly silence floods the air as the entity waits, motionless yet filled with a palpable malevolence. The investigators know that facing this abomination is their only chance to save Arkham, though their sanity may not survive the encounter.",
+                "Image": "01145b"
             }
         ]
     },
     {
-        "Description2": "Put the set-aside Ritual Site into play if it is not already in play.\nSearch the collection for each enemy recorded in your Campaign Log under \"Cultists Who Got Away,\" and spawn those enemies at the Main Path.",
-        "Flavor": "The evidence you've gathered has led you to the woods south of Arkham, where you believe a ritual to summon a being called \"Umôrdhoth\" is about to take place. Steeling your resolve, you set forth deeper into the woods, hoping to find the site of this ritual.",
-        "Flavor2": "Scattered throughout the forest you've seen glyphs and arcane sigils in various places - etched into the bark of trees, carved upon the faces of stones, and dripped in blood upon the ground. Though you cannot decipher these glyphs, you notice that most of them tend to face south. Following these signs leads you by twists and turns towards a cave in the darkest and coldest part of the forest.\nAs you advance, shadowy figures emerge from the trees, blocking the only path to the cave.",
-        "Name2": "Unveiling the Plan",
+        "Flavor": "The swamp seems to hold its breath...",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "Hints": 3,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01146",
-        "Name": "Investigating the Trail",
+        "Name": "On the Ritual's Path",
         "Histories": [
             {
-                "Code": "01110",
-                "Title": "The Guardian of the Cave",
-                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
-                "Image": "01110"
+                "Code": "01146",
+                "Title": "On the Ritual's Path",
+                "Description": "The shadows of the twisted trees stretch over the stagnant waters of the swamp as the investigators venture deeper into the thicket. The air is heavy, saturated with a foul stench; each step they take on the damp, muddy ground echoes like a muffled crack, almost a whispered warning. The branches, covered in moss and cobwebs, seem to reach out toward them, as if nature itself were trying to halt their progress. The mist hovering over the waters barely allows them to see more than a few meters ahead, concealing whatever lurks beyond. The swamp seems to hold its breath, waiting for the dark ritual’s inevitable outcome.",
+                "Image": "01146"
             },
             {
-                "Code": "01110b",
-                "Title": "Defending the Cave",
-                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
-                "Image": "01110b"
+                "Code": "01146b",
+                "Title": "Symbols of the Occult",
+                "Description": "The air grows heavier, and the threat emanating from the ritual is almost palpable. Something terrible is about to be unleashed from the depths of the swamp.",
+                "Image": "01146b"
             }
         ]
     },
     {
-        "Description": "<b>Objective</b> - If an investigator enters the Ritual Site, advance.",
-        "Description2": "Shuffle the encounter discard pile into the encounter deck. Discard cards from the top of the encounter deck until 1 enemy is discarded (2 enemies instead if there are 3 or more players in the game). Spawn each discarded enemy at the Ritual Site.",
-        "Flavor": "The remaining cultists have followed you into the woods to try to stop you, and now they block the path to your objective. They stand ominously beneath the overhanging trees, silent sentinels in the night. You must defeat them or sneak past if you are to gain access to the site of their ritual.",
-        "Flavor2": "When you enter the cave, the air grows cold, and your nostrils are assaulted by the pungent smell of blood and rot.",
-        "Name2": "Last Rites",
+        "Description": "If an investigator enters <<01156>>, ad<<01147>> advances.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01147",
-        "Name": "Into the Darkness",
+        "Name": "Sentinels of the Swamp",
         "Histories": [
             {
-                "Code": "01110",
-                "Title": "The Guardian of the Cave",
-                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
-                "Image": "01110"
+                "Code": "01147",
+                "Title": "Sentinels of the Swamp",
+                "Description": "Venturing into the heart of the swamp, the investigators move cautiously as the mist closes in around them, turning the landscape into a shadowy labyrinth. The twisted trees, covered in moss and vines, rise like ancient guardians, their branches forming grotesque silhouettes in the gloom. The muddy ground gives way beneath their steps, and a pungent stench lingers in the air, saturated with the corruption that hides within.\nIn the distance, between the shadows, hooded figures can be glimpsed. The cultists, aware of the investigators' presence, have taken positions, blocking the only path to the ritual. The air is thick with tension, and barely audible chants mix with the soft murmur of the stagnant waters. They know time is running out, and beyond these sinister sentinels, something far worse awaits their arrival.",
+                "Image": "01147"
             },
             {
-                "Code": "01110b",
-                "Title": "Defending the Cave",
-                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
-                "Image": "01110b"
+                "Code": "01147b",
+                "Title": "The Breath of the Abyss",
+                "Description": "As they cross the threshold of the cave, an unnatural cold envelops the investigators. The air, dense and heavy, seems to gnaw at their skin, and a nauseating stench fills the space: a repugnant mixture of spilled blood and decaying flesh. The silence is absolute, save for the distant echo of dripping water resonating in the darkness, like an irregular heartbeat coming from the depths.\nThe cavern seems to breathe, its atmosphere saturated with death and despair, as the footsteps of the intrepid adventurers crunch on the debris and forgotten remains that cover the ground. The feeling that something is watching them intensifies with each step, as if the very shadows harbored a malevolent presence, waiting for the precise moment to reveal itself in all its monstrous glory.",
+                "Image": "01147b"
             }
         ]
     },
     {
-        "Description": "<sprite index=9> Spend 1 clue: Test [willpower] (3) or [agility] (3). If you succeed, place 1 clue on this Act.\n<b>Objective</b> - If there are 2 clues per investigator on this Act, advance.",
-        "Description2": "<b>(→R1)</b>",
-        "Flavor": "The site of the cult's ritual is inside a large cavern in a dark corner of the woods. In the center of the chamber is a candlelit circle marked by rocks and arcane runes.",
-        "Flavor2": "You brave the unnatural chill and weave through arcane symbols, crossing the threshold of the circle. You smother the markings on the ground, covering them with dirt, breaking apart the carefully constructed pattern of smooth rocks. A shrill noise pierces your ears as the air grows suddenly warmer, and the world distorts around you, settling into normality.",
-        "Name2": "The Ritual Is Broken",
+        "Description": "<sprite index=9><sprite index=38>: {{The Investigattor}} makes a Challenge <sprite index=55>3 or <sprite index=57>3 . If the Challenge succeed, {{the Investigattor}} pays 1<sprite index=38> on <<01148>>.",
         "Faction": 64,
         "Slots": [
             0
-        ],
-        "Tags": [
-            "Goal"
         ],
         "Quantity": 1,
         "HealthPerInvestigator": false,
         "CardType": 128,
         "Code": "01148",
-        "Name": "Disrupting the Ritual",
+        "Name": "Interruption of Shadows",
         "Histories": [
             {
-                "Code": "01110",
-                "Title": "The Guardian of the Cave",
-                "Description": "Inside the cavernous chamber, beyond the now-destroyed barrier, the investigators are confronted by an imposing figure. A man with a severe expression and eyes burning with a fiery hatred stands before them, holding a torch that illuminates his face, etched with the hardships of life in the depths. 'What have you done to my barrier?' he demands, his voice trembling with fury.\n Before the investigators can formulate a response, a chilling scream echoes behind them. Turning around, they witness a spectacular apparition: a creature draped in a robe, with a mask crafted from a deer's skull, emerges from the cave wall as if it were a phantom, moving towards them with an unsettling grace.",
-                "Image": "01110"
+                "Code": "01148",
+                "Title": "Interruption of Shadows",
+                "Description": "The cavern rumbles with the murmur of dark chants. The candles flicker, casting shadows that seem to twist and dance with a life of their own as the ritual nears its climax. Undoing the magic woven into the air, heavy with power, is crucial, but with each passing second, the investigators draw closer to catastrophe.",
+                "Image": "01148"
             },
             {
-                "Code": "01110b",
-                "Title": "Defending the Cave",
-                "Description": "After defeating the masked creature, the shadows recede, and the chaos begins to dissipate, but an oppressive feeling lingers in the air. Dr. Thomas Walker, still holding the torch, reveals his identity, yet shows no sign of relief. His eyes reflect deep concern as he warns in a grave voice: 'What you have done has awakened forces you do not understand. This place must be destroyed entirely, or the threat lurking in the shadows will spread beyond our control.'",
-                "Image": "01110b"
+                "Code": "01148b",
+                "Title": "The Ritual Undone",
+                "Description": "Facing the icy, supernatural air that seems to cut to the bone, the investigators cautiously advance among the arcane symbols covering the swamp floor. With each step, the inscriptions glow with a sickly light; yet, they manage to cross the threshold of the ritual circle. Wasting no time, they begin erasing the markings traced in the mud, covering them with dirt and damp moss, disrupting the careful design of polished stones that channeled the dark power.\nA sharp scream, like the grinding of a thousand spectral voices, pierces the air and stabs their ears. The pressure in the atmosphere shifts abruptly; the air warms suddenly, and for a moment, the world around them seems to twist and collapse. Then, as quickly as it began, the distortion dissipates, and the surroundings return to normal, though the lingering feeling that they have altered something far greater than they can imagine hangs in the air.",
+                "Image": "01148b"
             }
         ]
     },

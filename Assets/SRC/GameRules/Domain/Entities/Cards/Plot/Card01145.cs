@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
 
         private bool DefeatUrmodotCondition(DefeatCardGameAction defeatGameAction)
         {
-            if (defeatGameAction.Card != SceneCORE3.Urmodoth) return false;
+            if (defeatGameAction.Card != SceneCORE3.Khargath) return false;
             if (!Revealed.IsActive) return false;
             return true;
         }
@@ -61,13 +61,12 @@ namespace MythosAndHorrors.GameRules
             }
 
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE3.CurrentGoal, SceneCORE3.OutZone).Execute();
-            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Urmodoth, SceneCORE3.Ritual).Execute();
+            await _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(SceneCORE3.Khargath, SceneCORE3.Ritual).Execute();
         }
 
         protected override async Task CompleteEffect()
         {
             await _gameActionsProvider.Create<FinalizeGameAction>().SetWith(_chaptersProvider.CurrentScene.FullResolutions[2]).Execute();
-
         }
     }
 }
