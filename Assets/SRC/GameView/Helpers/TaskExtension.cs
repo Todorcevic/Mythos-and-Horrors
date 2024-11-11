@@ -4,9 +4,9 @@ namespace MythosAndHorrors.GameView
 {
     public static class TaskExtension
     {
-        public static async Task Join(this Task thisTask, Task anotherTask)
+        public static Task Join(this Task thisTask, Task anotherTask)
         {
-            await Task.WhenAll(thisTask, anotherTask);
+            return Task.WhenAll(thisTask, anotherTask);
         }
     }
 }
