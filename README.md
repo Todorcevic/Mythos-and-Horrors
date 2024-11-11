@@ -46,9 +46,6 @@ Este proyecto busca recrear la emoción y profundidad de Arkham Horror: The Card
 ### Selección de Investigador
 ![Investigator Selection](ImagesReadme/investigators.jpg)
 
-### Escena de Juego
-![Gameplay Scene](ImagesReadme/play.jpg)
-
 ## Contributing
 
 1. **Haz un Fork del Repositorio** en GitHub.
@@ -66,7 +63,7 @@ Este proyecto busca recrear la emoción y profundidad de Arkham Horror: The Card
 
 ## Contact
 
-Para cualquier pregunta o sugerencia, no dudes en comunicarte a través de los issues en GitHub o por correo electrónico a [your-email@example.com].
+Para cualquier pregunta o sugerencia, no dudes en comunicarte a través de los issues en GitHub o por correo electrónico a [lucas@rosalesnavas.com].
 
 ---
 
