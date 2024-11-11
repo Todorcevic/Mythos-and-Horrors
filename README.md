@@ -1,7 +1,7 @@
 
 # Mythos And Horrors
 
-![Project Logo](path/to/logo.png)
+![Project Logo](ImagesReadme/logo.png)
 
 Mythos And Horrors es un proyecto en Unity que adapta el popular *Arkham Horror: The Card Game* a un formato digital, capturando la esencia del juego original y agregando elementos visuales creados con inteligencia artificial para mejorar la experiencia inmersiva.
 
@@ -38,16 +38,16 @@ Este proyecto busca recrear la emoción y profundidad de Arkham Horror: The Card
 ## Screenshots
 
 ### Configuración del Juego
-![Game Setup](path/to/challenge.jpg)
+![Game Setup](ImagesReadme/challenge.jpg)
 
 ### Panel de Historia
-![Story Panel](path/to/history.jpg)
+![Story Panel](ImagesReadme/history.jpg)
 
 ### Selección de Investigador
-![Investigator Selection](path/to/investigators.jpg)
+![Investigator Selection](ImagesReadme/investigators.jpg)
 
 ### Escena de Juego
-![Gameplay Scene](path/to/play.jpg)
+![Gameplay Scene](ImagesReadme/play.jpg)
 
 ## Contributing
 
@@ -58,10 +58,6 @@ Este proyecto busca recrear la emoción y profundidad de Arkham Horror: The Card
    ```
 3. **Realiza tus Cambios** y haz commit con mensajes descriptivos.
 4. **Sube tus Cambios a tu Fork** y envía un Pull Request.
-
-## License
-
-Este proyecto está bajo la licencia MIT - consulta el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
 ## Acknowledgments
 
