@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameView
         private Vector3 initialScale;
 
         private TaskCompletionSource<bool> waitForClicked;
+        [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, SceneObjectsOnly] Transform _outPosition;
         [SerializeField, Required, SceneObjectsOnly] Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] Image _blockBackground;
@@ -23,6 +24,9 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _screen;
         [SerializeField, Required, ChildGameObjectsOnly] private Button _button;
         [SerializeField, Required, ChildGameObjectsOnly] private ScrollRect _scrollRect;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hideAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _clickedAudio;
 
         /*******************************************************************/
         [Inject]
@@ -53,16 +57,19 @@ namespace MythosAndHorrors.GameView
 
         private void Clicked()
         {
+            _audioComponent.PlayAudio(_clickedAudio);
             waitForClicked.SetResult(true);
         }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
+                .OnStart(() => _audioComponent.PlayAudio(_showAudio))
                 .Join(_scrollRect.DOVerticalNormalizedPos(1f, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(_blockBackground.DOFade(ViewValues.DEFAULT_FADE, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOMove(_showPosition.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
                 .Join(transform.DOScale(initialScale, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
 
         private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
+                .OnStart(() => _audioComponent.PlayAudio(_hideAudio))
                 .Join(_blockBackground.DOFade(0f, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))

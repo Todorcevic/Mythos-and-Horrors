@@ -18,6 +18,7 @@ namespace MythosAndHorrors.GameView
 
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly TextsManager _textsProvider;
+        [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, SceneObjectsOnly] private Transform _showPosition;
         [SerializeField, Required, SceneObjectsOnly] private Transform _outPosition;
         [SerializeField, Required, ChildGameObjectsOnly] private CardChallengeView _investigatorCardController;
@@ -29,6 +30,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _totalChallengeStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeStatsController _difficultStatController;
         [SerializeField, Required, ChildGameObjectsOnly] private ResultInfoComponent _resultInfoComponent;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hideAudio;
 
         /*******************************************************************/
         [Inject]
@@ -76,10 +79,12 @@ namespace MythosAndHorrors.GameView
 
 
         private Sequence ShowAnimation() => DOTween.Sequence()
+                .OnStart(() => _audioComponent.PlayAudio(_showAudio))
                 .Join(transform.DOMove(_showPosition.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f))
                 .Join(transform.DOScale(initialScale, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack, 1.1f));
 
         private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
+                .OnStart(() => _audioComponent.PlayAudio(_hideAudio))
                 .Insert(ViewValues.SLOW_TIME_ANIMATION, transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
                 .SetEase(Ease.InOutCubic);

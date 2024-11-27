@@ -1425,7 +1425,7 @@
         "Name": "Unstoppable Spirit"
     },
     {
-        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9><b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1<sprite index=59>",
+        "Description": "<sprite index=9> <b>Attack</b>: {{The Investigator}} gets +1<sprite index=54> for this attack.\n<sprite index=9> <b>Attack</b>: <<01586>> is discarded and {{the Investigator}} gets +2<sprite index=54> for this attack and deals +1<sprite index=59>",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -1441,7 +1441,7 @@
         "Name": "Notched Knife"
     },
     {
-        "Description": "<sprite index=9><sprite index=48><b>Investigate</b>: {{The Investigator}}'s Place gets -2<sprite index=56> for this Investigation Challenge.",
+        "Description": "<sprite index=9><sprite index=48> <b>Investigate</b>: {{The Investigator}}'s Place gets -2<sprite index=56> for this Investigation Challenge.",
         "PackCode": "rcore",
         "Faction": 32,
         "Slots": [
@@ -2733,7 +2733,7 @@
         "Name": "Cannibal Madman"
     },
     {
-        "Description": "<sprite index=9><b>Talk</b>: {{The Investigator}} discards 4 cards and <<01138>> is defeated.",
+        "Description": "<sprite index=9> <b>Talk</b>: {{The Investigator}} discards 4 cards and <<01138>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
@@ -2751,7 +2751,7 @@
         "Name": "Victor the Gravedigger"
     },
     {
-        "Description": "<sprite index=9><sprite index=38><sprite index=38><b>Talk</b>: <<01139>> is defeated.",
+        "Description": "<sprite index=9><sprite index=38><sprite index=38> <b>Talk</b>: <<01139>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
@@ -2769,7 +2769,7 @@
         "Name": "Dr. Cyrus Keane"
     },
     {
-        "Description": "<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39><sprite index=39><b>Talk</b>: <<01140>> is defeated.",
+        "Description": "<sprite index=9><sprite index=39><sprite index=39><sprite index=39><sprite index=39><sprite index=39> <b>Talk</b>: <<01140>> is defeated.",
         "Faction": 64,
         "Slots": [
             0
@@ -3304,7 +3304,7 @@
         "Name": "Rotting Corpse"
     },
     {
-        "Description": "Each round, the first time {{the Investigator}} uses a <sprite index=9><b>Move</b>, <sprite index=9><b>Attack</b>, or <sprite index=9><b>Elude</b>, it costs 1 additional <sprite index=9>.\nAt the end of {{the Investigator}}'s turn, {{he}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
+        "Description": "Each round, the first time {{the Investigator}} uses a <sprite index=9> <b>Move</b>, <sprite index=9> <b>Attack</b>, or <sprite index=9> <b>Elude</b>, it costs 1 additional <sprite index=9>.\nAt the end of {{the Investigator}}'s turn, {{he}} makes a Challenge <sprite index=57>3. If the Challenge succeeds, <<01164>> is discarded.",
         "Faction": 64,
         "Slots": [
             0

@@ -15,12 +15,14 @@ namespace MythosAndHorrors.GameView
         private const float OFFSET = 1f;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly TextsManager _textsProvider;
+        [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _message;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
+        [SerializeField, Required, AssetsOnly] private AudioClip _clickedAudio;
 
         public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
@@ -28,9 +30,6 @@ namespace MythosAndHorrors.GameView
 
         /*******************************************************************/
         public void SetEffect(BaseEffect effect) => MainButtonEffect = effect;
-
-        //public void ActivateToClick() => ActivateToClick2().Play();
-        //public void DeactivateToClick() => DeactivateToClick2().Play();
 
         public void ActivateToClick()
         {
@@ -99,6 +98,7 @@ namespace MythosAndHorrors.GameView
         public void OnMouseUpAsButton()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
+            _audioComponent.PlayAudio(_clickedAudio);
             _clickHandler.Clicked(this);
         }
     }

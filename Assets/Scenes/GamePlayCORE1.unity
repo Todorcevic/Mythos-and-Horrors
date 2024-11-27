@@ -1755,6 +1755,8 @@ MonoBehaviour:
   _totalChallengeStatController: {fileID: 1954979588}
   _difficultStatController: {fileID: 1134153816}
   _resultInfoComponent: {fileID: 313407011}
+  _showAudio: {fileID: 8300000, guid: 19b1a8f217f1cf347b471d2a02d5c61c, type: 3}
+  _hideAudio: {fileID: 8300000, guid: d87a3881cf8aeb64280c51d8b132c5d9, type: 3}
 --- !u!114 &303007376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5917,7 +5919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _withoutAudio: 0
-  _withoutMulligan: 0
+  _withoutMulligan: 1
   _gameVelocity: 1
   _languaje: 0
 --- !u!1 &903284071
@@ -12338,6 +12340,9 @@ MonoBehaviour:
   _screen: {fileID: 942543336}
   _button: {fileID: 858062149}
   _scrollRect: {fileID: 648922560}
+  _showAudio: {fileID: 8300000, guid: 19b1a8f217f1cf347b471d2a02d5c61c, type: 3}
+  _hideAudio: {fileID: 8300000, guid: d87a3881cf8aeb64280c51d8b132c5d9, type: 3}
+  _clickedAudio: {fileID: 8300000, guid: a0865a706053c364ea8001a6cd581a9d, type: 3}
 --- !u!114 &1680896923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13968,6 +13973,9 @@ MonoBehaviour:
   _blockBackground: {fileID: 1248083928}
   _scrollRect: {fileID: 1938844927}
   _button: {fileID: 1637824964}
+  _showAudio: {fileID: 8300000, guid: 19b1a8f217f1cf347b471d2a02d5c61c, type: 3}
+  _hideAudio: {fileID: 8300000, guid: d87a3881cf8aeb64280c51d8b132c5d9, type: 3}
+  _clickedAudio: {fileID: 8300000, guid: a0865a706053c364ea8001a6cd581a9d, type: 3}
 --- !u!224 &1899858874 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2157557310573774785, guid: e14951c862d67454ca05c8eaa7ddd274, type: 3}

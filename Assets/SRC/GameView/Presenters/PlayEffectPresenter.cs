@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameView
                 if (clip == null) return;
                 await _moveCardHandler.MoveCardtoCenter(cardEffect.CardOwner).AsyncWaitForCompletion();
                 Tween showAnimation = cardView.ShowAnimation();
-                await _audioComponent.PlayAudio(clip);
+                await _audioComponent.PlayAudioAsync(clip);
                 showAnimation.Kill();
                 _moveCardHandler.ReturnCard(cardEffect.CardOwner);
             }
