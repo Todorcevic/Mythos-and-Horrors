@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameView
         {
             CardView cardView = _cardViewsManager.GetCardView(card);
             if (cardView.CurrentZoneView == _zonesViewManager.CenterShowZone)
-                return cardView.MoveToZone(_zonesViewManager.Get(card.CurrentZone));
+                return cardView.MoveToZone(_zonesViewManager.Get(card.CurrentZone), Ease.OutSine);
             return DOTween.Sequence();
         }
 
@@ -75,7 +75,7 @@ namespace MythosAndHorrors.GameView
         {
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence();
-            cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value)));
+            cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value, Ease.InCubic)));
 
             Investigator owner = cardViewsWithZones.Select(cardView => _investigatorsProvider.GetInvestigatorWithThisZone(cardView.Value.Zone)).UniqueOrDefault() ??
                 cardViewsWithZones.Select(cardView => cardView.Key.Card.Owner).UniqueOrDefault();
