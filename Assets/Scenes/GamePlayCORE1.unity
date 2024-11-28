@@ -14828,6 +14828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 2010415228}
+  _clickedAudio: {fileID: 8300000, guid: f37fea955a421f24a8890c7a3d2c9a95, type: 3}
 --- !u!4 &2015118311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5282329507917790847, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
@@ -15279,6 +15280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 2094570091}
+  _clickedAudio: {fileID: 8300000, guid: f37fea955a421f24a8890c7a3d2c9a95, type: 3}
 --- !u!114 &2094570091
 MonoBehaviour:
   m_ObjectHideFlags: 0
