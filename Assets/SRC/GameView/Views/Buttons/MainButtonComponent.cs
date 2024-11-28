@@ -23,6 +23,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private Color _activateColor;
         [SerializeField, Required] private Color _deactivateColor;
         [SerializeField, Required, AssetsOnly] private AudioClip _clickedAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOnAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOffAudio;
 
         public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
@@ -87,11 +89,13 @@ namespace MythosAndHorrors.GameView
         public void OnMouseEnter()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
+            _audioComponent.PlayAudio(_hoverOnAudio);
             _light.DOIntensity(2f, ViewValues.FAST_TIME_ANIMATION);
         }
 
         public void OnMouseExit()
         {
+            _audioComponent.PlayAudio(_hoverOffAudio);
             _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION);
         }
 

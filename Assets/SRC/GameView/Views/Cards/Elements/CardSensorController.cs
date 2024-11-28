@@ -11,7 +11,11 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly CardShowerComponent _cardShowerComponent;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
+        [Inject] protected readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private BoxCollider _collider;
+        [SerializeField, Required, AssetsOnly] private AudioClip _clickedAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOnAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOffAudio;
         private CardView _cardView;
         private Vector3 _colliderOriginalSize;
 
@@ -53,6 +57,7 @@ namespace MythosAndHorrors.GameView
 
         public void MouseEnter()
         {
+            _audioComponent.PlayAudio(_hoverOnAudio);
             CardView.CurrentZoneView.MouseEnter(CardView);
             _cardShowerComponent.ShowCard(CardView);
         }
@@ -71,6 +76,7 @@ namespace MythosAndHorrors.GameView
 
         public void MouseExit()
         {
+            _audioComponent.PlayAudio(_hoverOffAudio);
             CardView.CurrentZoneView.MouseExit(CardView);
             _cardShowerComponent.HideCard(CardView);
         }
@@ -84,6 +90,7 @@ namespace MythosAndHorrors.GameView
         public void MouseUpAsButton()
         {
             if (!IsClickable) return;
+            _audioComponent.PlayAudio(_clickedAudio);
             _clickHandler.Clicked(CardView);
         }
     }

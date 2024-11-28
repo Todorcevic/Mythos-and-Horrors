@@ -1168,6 +1168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 4541579130041722609}
+  _clickedAudio: {fileID: 8300000, guid: c95c4de36be1d4745967ea21171a4bc7, type: 3}
+  _hoverOnAudio: {fileID: 8300000, guid: 16a5fc7ee9a4fed4c84ad03ad32be6b1, type: 3}
+  _hoverOffAudio: {fileID: 8300000, guid: 4419e42e144152a47ae8fc11b9d6905f, type: 3}
 --- !u!65 &4541579130041722609
 BoxCollider:
   m_ObjectHideFlags: 0

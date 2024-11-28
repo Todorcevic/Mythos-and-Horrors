@@ -141,6 +141,8 @@ MonoBehaviour:
   _activateColor: {r: 0.16078432, g: 0.40392157, b: 0.050980393, a: 1}
   _deactivateColor: {r: 0.4528302, g: 0.07903168, b: 0.07903168, a: 1}
   _clickedAudio: {fileID: 8300000, guid: a0865a706053c364ea8001a6cd581a9d, type: 3}
+  _hoverOnAudio: {fileID: 8300000, guid: 79a3ec17aceac17478cbabea6035c363, type: 3}
+  _hoverOffAudio: {fileID: 8300000, guid: 1fb9409b5b58fad45baadb70ff93cd0a, type: 3}
 --- !u!65 &2282303881828202273
 BoxCollider:
   m_ObjectHideFlags: 0
