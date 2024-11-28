@@ -864,7 +864,7 @@
         "Name": "Silent Strike"
     },
     {
-        "Description": "{{The Investigator}} deals 2<sprite index=59> to a exhausted Creature at <<his>> Place.",
+        "Description": "{{The Investigator}} deals 2<sprite index=59> to a exhausted Creature at {{his}} Place.",
         "PackCode": "rcore",
         "Faction": 2,
         "Slots": [

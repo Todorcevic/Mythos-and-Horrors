@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameView
         public async Task ShowDown(Tween restoreCards, bool withActivation)
         {
             if (!IsShowing) return;
-            await _ioActivatorComponent.DeactivateCardSensors();
+            _ = _ioActivatorComponent.DeactivateCardSensors();
             Sequence returnSequence = DOTween.Sequence()
                 .Append(_mainButtonComponent.RestorePosition())
                 .Join(_tokensPileComponent.RestorePosition())
@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameView
         private async Task ShowUp(string title)
         {
             ActivateTitle(title);
-            await _ioActivatorComponent.DeactivateCardSensors();
+            _ = _ioActivatorComponent.DeactivateCardSensors();
             Sequence showCenterSequence = DOTween.Sequence()
                .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
                .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition))
