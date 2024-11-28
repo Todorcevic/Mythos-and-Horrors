@@ -27,7 +27,9 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneRowView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
+        [SerializeField, Required, AssetsOnly] private AudioClip _moveAudio;
         [Inject] private readonly DiContainer _diContainer;
+        [Inject] protected readonly AudioComponent _audioComponent;
 
         public Card Card { get; private set; }
         public ZoneView CurrentZoneView { get; private set; }
@@ -123,7 +125,9 @@ namespace MythosAndHorrors.GameView
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             if (newZoneView == CurrentZoneView) return DOTween.Sequence();
+            ;
             Sequence moveSequence = DOTween.Sequence().SetId(ViewValues.MOVE_ANIMATION)
+                 .OnPlay(() => _audioComponent.PlayAudio(_moveAudio))
                  .OnStart(() => transform.SetParent(newZoneView.transform))
                  .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
                  .Join(Rotate())

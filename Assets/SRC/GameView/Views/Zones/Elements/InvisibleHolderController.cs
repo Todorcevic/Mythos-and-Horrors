@@ -60,7 +60,7 @@ namespace MythosAndHorrors.GameView
             {
                 if (avoidSelected && i == selectedCardPosition) continue;
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;
-                float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.FAST_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
+                float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.DEFAULT_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
                 repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, animationTime));
             }
 

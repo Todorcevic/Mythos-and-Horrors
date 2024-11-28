@@ -92,7 +92,7 @@ namespace MythosAndHorrors.GameView
             if (_showSelectorComponent.IsShowing)
             {
                 List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card), ease: Ease.OutSine);
+                Tween returnSequence = _moveCardHandler.MoveCardsToCurrentZones(cardsToShow.Select(cardView => cardView.Card));
                 await _showSelectorComponent.ShowDown(returnSequence, withActivation: false);
             }
         }

@@ -64,7 +64,7 @@ namespace MythosAndHorrors.GameView
                .Join(_selectorBlockController.ActivateSelector());
 
             Dictionary<CardView, ZoneView> cardViewToTween = _cardViews.ToDictionary(cardView => cardView, cardView => (ZoneView)_zoneViewsManager.SelectorZone);
-            showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0, Ease.InSine));
+            showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0));
             await showCenterSequence.AsyncWaitForCompletion();
             _ioActivatorComponent.ActivateCardSensors();
 
