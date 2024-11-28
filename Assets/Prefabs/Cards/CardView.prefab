@@ -1935,7 +1935,7 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 3879809733392833656}
   _rotator: {fileID: 4411735425654588079}
   _cloneComponent: {fileID: 8873751080413955202}
-  _moveAudio: {fileID: 8300000, guid: 6f22a6b9bb83bfb45bedc2f5f6ace024, type: 3}
+  _moveAudio: {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
 --- !u!1 &6215022285239506354
 GameObject:
   m_ObjectHideFlags: 0
