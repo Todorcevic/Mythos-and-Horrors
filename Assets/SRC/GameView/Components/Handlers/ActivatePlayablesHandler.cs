@@ -41,7 +41,8 @@ namespace MythosAndHorrors.GameView
             HideCardsState();
             CheckDeactivateActivables();
             CheckDeactivateAvatars();
-            await _ioActivatorComponent.DeactivateCardSensors();
+            _ioActivatorComponent.DeactivateCardSensors();
+            await DotweenExtension.WaitForAnimationsComplete();
 
             /*******************************************************************/
             void CheckDeactivateActivables()

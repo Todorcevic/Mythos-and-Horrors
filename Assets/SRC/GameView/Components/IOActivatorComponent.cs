@@ -1,5 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +19,12 @@ namespace MythosAndHorrors.GameView
             if (withShowCenterButton) _showCardsInCenterButton.ActivateToClick();
         }
 
-        public async Task DeactivateCardSensors()
+        public void DeactivateCardSensors()
         {
             if (_fullBlock.enabled) return;
             _fullBlock.enabled = true;
             _uIBlock.raycastTarget = true;
             _showCardsInCenterButton.DeactivateToClick();
-            await DotweenExtension.WaitForAnimationsComplete();
         }
     }
 }

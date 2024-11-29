@@ -33,8 +33,7 @@ namespace MythosAndHorrors.GameView
         {
             _hoverAnimation?.Kill();
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y + YOffSet, 0);
-            _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
-            return _hoverAnimation;
+            return _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_hoverPosition).SetEase(Ease.OutCubic);
         }
 
         public override Tween MouseExit(CardView cardView)
@@ -42,8 +41,7 @@ namespace MythosAndHorrors.GameView
             _hoverAnimation?.Kill();
             _hoverPosition.localPosition = new Vector3(0, _hoverPosition.localPosition.y - YOffSet, 0);
             _movePosition.localPosition = new Vector3(0, YOffSet, 0);
-            _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_movePosition);
-            return _hoverAnimation;
+            return _hoverAnimation = _allCards.Last().transform.DOFullLocalMove(_movePosition);
         }
 
         public override Tween Shuffle()
