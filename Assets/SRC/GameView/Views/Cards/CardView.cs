@@ -37,6 +37,7 @@ namespace MythosAndHorrors.GameView
         public int DeckPosition => Card.CurrentZone.Cards.IndexOf(Card);
         public IEnumerable<BaseEffect> EffectsSelected => _cloneEffect != null ? new[] { _cloneEffect } : Card.PlayableEffects;
         public Sprite Picture => _pictureController.Picture;
+        public bool CanBePlayed => EffectsSelected.Any(effect => effect.CanBePlayed);
 
         /*******************************************************************/
         public void Init(Card card, ZoneView currentZoneView)
@@ -125,7 +126,7 @@ namespace MythosAndHorrors.GameView
         public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
         {
             if (newZoneView == CurrentZoneView) return DOTween.Sequence();
-            
+
             Sequence moveSequence = DOTween.Sequence().SetId(ViewValues.MOVE_ANIMATION)
                  .OnPlay(() => _audioComponent.PlayAudio(_moveAudio))
                  .OnStart(() => transform.SetParent(newZoneView.transform))

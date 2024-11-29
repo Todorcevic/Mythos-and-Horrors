@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameView
 
         private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<CardEffect>() : new[] { TakeResourceEffect };
+        public bool CanBePlayed => TakeResourceEffect?.CanBePlayed ?? false;
 
         /*******************************************************************/
         Transform IStatable.StatTransform => _showToken;
@@ -33,7 +34,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public void ActivateToClick()
         {
-            if (_isClickable || !((IPlayable)this).CanBePlayed) return;
+            if (_isClickable) return;
             _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _isClickable = true);
 
         }
@@ -71,7 +72,7 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Tween MoveToShowSelector(Transform scenePoint)
         {
-            if (!((IPlayable)this).CanBePlayed) return DOTween.Sequence();
+            if (!CanBePlayed) return DOTween.Sequence();
             return DOTween.Sequence()
                     .Join(transform.DOMove(ButtonPositionInUI(), ViewValues.DEFAULT_TIME_ANIMATION))
                     .Join(transform.DOScale(scenePoint.lossyScale, ViewValues.DEFAULT_TIME_ANIMATION))

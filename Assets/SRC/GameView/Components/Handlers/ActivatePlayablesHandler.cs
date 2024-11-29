@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.Utilities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
@@ -27,7 +28,7 @@ namespace MythosAndHorrors.GameView
             void CheckActivesActivables(List<IPlayable> specificsCardViews)
             {
                 _allPlayablesComponent.Concat(specificsCardViews ?? _cardViewsManager.GetAllIPlayable())
-                    .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.ActivateToClick());
+                    .Where(playable => playable.CanBePlayed).ForEach(playable => playable.ActivateToClick());
 
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.AddBuffs());
             }
@@ -48,7 +49,7 @@ namespace MythosAndHorrors.GameView
             void CheckDeactivateActivables()
             {
                 _allPlayablesComponent.Concat(clones ?? _cardViewsManager.GetAllIPlayable())
-                    .Where(playable => playable.CanBePlayed).ToList().ForEach(playable => playable.DeactivateToClick());
+                    .Where(playable => playable.CanBePlayed).ForEach(playable => playable.DeactivateToClick());
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
             }
 

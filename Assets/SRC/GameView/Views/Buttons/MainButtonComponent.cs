@@ -29,6 +29,7 @@ namespace MythosAndHorrors.GameView
         public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
         public bool IsActivated => _collider.enabled;
+        public bool CanBePlayed => MainButtonEffect != null;
 
         /*******************************************************************/
         public void SetEffect(BaseEffect effect) => MainButtonEffect = effect;

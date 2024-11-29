@@ -13,6 +13,8 @@ namespace MythosAndHorrors.GameView
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => new[] { showCardEffect };
         public bool HasThisEffect(BaseEffect baseEffect) => baseEffect == showCardEffect;
 
+        public bool CanBePlayed => true;
+
         /*******************************************************************/
         public void ActivateToClick()
         {

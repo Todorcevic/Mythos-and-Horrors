@@ -63,7 +63,7 @@ namespace MythosAndHorrors.GameView
         {
             _showCardHandler.ActiavatePlayables();
             IPlayable playableChoose = await _clickHandler.WaitingClick();
-   
+
             if (playableChoose is ShowCardsInCenterButton)
             {
                 _mustShowInCenter = !_mustShowInCenter;
@@ -73,7 +73,10 @@ namespace MythosAndHorrors.GameView
             await _showCardHandler.DeactivatePlayables();
             await CenterShowDown();
 
-            return playableChoose.IsMultiEffect ? await InteractWithMultiEfefct((CardView)playableChoose) : playableChoose.EffectsSelected.FirstOrDefault();
+            return IsMultiEffect() ? await InteractWithMultiEfefct((CardView)playableChoose) : playableChoose.EffectsSelected.FirstOrDefault();
+
+            /*******************************************************************/
+            bool IsMultiEffect() => playableChoose.EffectsSelected.Count() > 1;
         }
 
         private async Task<BaseEffect> InteractWithMultiEfefct(CardView multiEffectCardView)
