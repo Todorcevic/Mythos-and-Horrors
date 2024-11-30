@@ -113,9 +113,14 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Tween Rotate()
         {
-            _effectController.Rotate(Card.FaceDown.IsActive);
-            _buffController.Rotate(Card.FaceDown.IsActive);
-            return _rotator.Rotate(Card.FaceDown.IsActive);
+            return _rotator.Rotate(Card.FaceDown.IsActive).OnStart(RotateAll);
+
+            /*******************************************************************/
+            void RotateAll()
+            {
+                _effectController.Rotate(Card.FaceDown.IsActive);
+                _buffController.Rotate(Card.FaceDown.IsActive);
+            }
         }
 
         public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION * 4, Vector3.forward, speed: 0.1f, frequency: 1f, depth: 0f, mode: SpiralMode.ExpandThenContract)
@@ -130,7 +135,7 @@ namespace MythosAndHorrors.GameView
             Sequence moveSequence = DOTween.Sequence().SetId(ViewValues.MOVE_ANIMATION)
                  .OnPlay(() => _audioComponent.PlayAudio(_moveAudio))
                  .OnStart(() => transform.SetParent(newZoneView.transform))
-                 .Append(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
+                 .Join(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
                  .Join(Rotate())
                  .Join(newZoneView.EnterZone(this).SetEase(ease));
 
