@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -12,6 +13,8 @@ namespace MythosAndHorrors.GameView
         private Tween _hoverAnimation;
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _movePosition;
         [SerializeField, Required, ChildGameObjectsOnly] protected Transform _hoverPosition;
+        [SerializeField, Required, AssetsOnly] private AudioClip _shuffleAudio;
+        [Inject] protected readonly AudioComponent _audioComponent;
         private List<CardView> _allCards = new();
         private float YOffSet => _allCards.Count * ViewValues.CARD_THICKNESS;
 
@@ -48,7 +51,9 @@ namespace MythosAndHorrors.GameView
         {
             _allCards = _allCards.OrderBy(card => Zone.Cards.IndexOf(card.Card)).ToList();
 
-            Sequence ShuffleSequence = DOTween.Sequence();
+            Sequence ShuffleSequence = DOTween.Sequence()
+                .OnPlay(() => _audioComponent.PlayAudio(_shuffleAudio))
+                .OnComplete(() => _audioComponent.StopAudio());
             for (int i = 0; i < _allCards.Count; i++)
             {
                 _allCards[i].transform.SetSiblingIndex(i);

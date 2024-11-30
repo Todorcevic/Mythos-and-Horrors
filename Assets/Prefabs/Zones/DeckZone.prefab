@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9042d37ecb4194c4b81211299f09e953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _avoidCardShower: 0
   _movePosition: {fileID: 4437237500306303652}
   _hoverPosition: {fileID: 8509374662161355463}
+  _shuffleAudio: {fileID: 8300000, guid: 5b4e35d2e5985d048983be40a7c6bfd9, type: 3}
 --- !u!114 &8811774599659767288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,8 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: -2864699116272290008}
-  _identifier: 
-  _identifierWithName: 0
+  _bindId: 0
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0

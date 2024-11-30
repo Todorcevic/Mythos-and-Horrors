@@ -22,5 +22,10 @@ namespace MythosAndHorrors.GameView
             if (audioClip == null) return;
             _audioSource.PlayOneShot(audioClip);
         }
+
+        public void StopAudio()
+        {
+            _audioSource.Stop();
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] protected readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
         public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
