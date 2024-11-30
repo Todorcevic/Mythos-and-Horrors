@@ -7,6 +7,9 @@ namespace MythosAndHorrors.GameView
     public class AudioComponent : MonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSource;
+        [SerializeField, Required, AssetsOnly] private AudioClip _moveCardAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _moveCardCenterAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _moveDeckAudio;
 
         /*******************************************************************/
         public async Task PlayAudioAsync(AudioClip audioClip)
@@ -27,5 +30,9 @@ namespace MythosAndHorrors.GameView
         {
             _audioSource.Stop();
         }
+
+        public void PlayMoveCardAudio() => PlayAudio(_moveCardAudio);
+        public void PlayMoveCardCenterAudio() => PlayAudio(_moveCardCenterAudio);
+        public void PlayMoveDeckAudio() => PlayAudio(_moveDeckAudio);
     }
 }

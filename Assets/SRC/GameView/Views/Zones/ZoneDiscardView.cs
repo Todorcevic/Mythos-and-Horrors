@@ -58,8 +58,7 @@ namespace MythosAndHorrors.GameView
 
             cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION);
             cardView.transform.DOLocalMoveZ(0, ViewValues.FAST_TIME_ANIMATION);
-
-      
+ 
             _movePosition.position = transform.parent.position;
             hoverAnimation = transform.DOFullLocalMove(_movePosition).PrependCallback(() => isStandUp = false);
 

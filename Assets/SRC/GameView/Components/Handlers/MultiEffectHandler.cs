@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
         {
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
-            await originalCardView.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
+            await _moveCardHandler.MoveCardViewToCenter(originalCardView).AsyncWaitForCompletion();
             cardViewClones = CreateCardViewClones();
             originalCardView.gameObject.SetActive(false);
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
@@ -39,7 +39,7 @@ namespace MythosAndHorrors.GameView
             await _showCardHandler.DeactivatePlayables(cardViewClones);
             Sequence destroyClonesSequence = DOTween.Sequence();
             cardViewClones.Cast<CardView>()
-                .ForEach(clone => destroyClonesSequence.Join(clone.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine)
+                .ForEach(clone => destroyClonesSequence.Join(_moveCardHandler.MoveCardViewToCenter(clone)
                 .OnComplete(() => GameObject.Destroy(clone.gameObject))));
             destroyClonesSequence.Append(_moveCardHandler.MoveCardsToCurrentZones(new[] { originalCardView.Card })
                 .OnStart(() => originalCardView.gameObject.SetActive(true)));

@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence()
              .Append(MoveCardViewToCenter(cardView))
              .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
-             .Append(cardView.MoveToZone(zoneView, Ease.InSine));
+             .Append(cardView.MoveToZone(zoneView, Ease.InSine).OnPlay(() => _audioComponent.PlayMoveCardAudio()));
         }
 
         public Tween MoveCardWithPreviewWithoutWait(Card card, Zone zone)
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence()
                 .Append(MoveCardViewToCenter(cardView))
                 .Append(_swapInvestigatorHandler.Select(zoneView.Zone))
-                .OnComplete(() => cardView.MoveToZone(zoneView, Ease.InSine));
+                .OnComplete(() => cardView.MoveToZone(zoneView, Ease.InSine).OnPlay(() => _audioComponent.PlayMoveCardAudio()));
         }
 
         public Tween MoveCardtoCenter(Card card)
@@ -53,7 +53,7 @@ namespace MythosAndHorrors.GameView
 
             return DOTween.Sequence()
                 .Append(_swapInvestigatorHandler.Select(cardView.CurrentZoneView.Zone))
-                .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine));
+                .Append(cardView.MoveToZone(_zonesViewManager.CenterShowZone, Ease.OutSine).OnPlay(() => _audioComponent.PlayMoveCardCenterAudio()));
         }
 
         public Tween ReturnCard(Card card) => MoveCardWithPreviewToZone(card, card.CurrentZone);
@@ -67,7 +67,9 @@ namespace MythosAndHorrors.GameView
         public Tween MoveCardViewsToZones(Dictionary<CardView, ZoneView> cardViewsWithZones, float delay)
         {
             float delayBetweenMoves = 0f;
-            Sequence sequence = DOTween.Sequence();
+            Sequence sequence = DOTween.Sequence()
+            .OnPlay(() => _audioComponent.PlayMoveDeckAudio())
+            .OnComplete(() => _audioComponent.StopAudio());
             cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value, Ease.InSine)));
 
             Investigator owner = cardViewsWithZones.Select(cardView => _investigatorsProvider.GetInvestigatorWithThisZone(cardView.Value.Zone)).UniqueOrDefault() ??

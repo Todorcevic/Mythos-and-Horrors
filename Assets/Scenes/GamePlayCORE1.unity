@@ -9243,7 +9243,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13850,6 +13850,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 1898129552}
+  _moveCardAudio: {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
+  _moveCardCenterAudio: {fileID: 8300000, guid: 1064ec181d350fd42a8418880c4be915, type: 3}
+  _moveDeckAudio: {fileID: 8300000, guid: 94732acea1543f8448187b3023edded9, type: 3}
 --- !u!1 &1898621144
 GameObject:
   m_ObjectHideFlags: 0

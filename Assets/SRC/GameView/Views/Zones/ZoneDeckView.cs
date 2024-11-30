@@ -52,8 +52,7 @@ namespace MythosAndHorrors.GameView
             _allCards = _allCards.OrderBy(card => Zone.Cards.IndexOf(card.Card)).ToList();
 
             Sequence ShuffleSequence = DOTween.Sequence()
-                .OnPlay(() => _audioComponent.PlayAudio(_shuffleAudio))
-                .OnComplete(() => _audioComponent.StopAudio());
+                .OnPlay(() => _audioComponent.PlayAudio(_shuffleAudio));
             for (int i = 0; i < _allCards.Count; i++)
             {
                 _allCards[i].transform.SetSiblingIndex(i);
@@ -63,7 +62,7 @@ namespace MythosAndHorrors.GameView
                 .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX(Random.value - 0.25f, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
                 .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))));
             }
-            ShuffleSequence.Join(Repositionate());
+            ShuffleSequence.Join(Repositionate().OnPlay(() => _audioComponent.StopAudio()));
             return ShuffleSequence;
         }
 
