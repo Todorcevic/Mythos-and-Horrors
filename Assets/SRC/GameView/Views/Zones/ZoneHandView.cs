@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
             cardView.ColliderForBuffs(yOFFSET);
 
             return _hoverAnimation = ((Sequence)base.MouseEnter(cardView))
-                .Join(cardView.transform.DOLocalMove(_hoverPosition.localPosition + (yOFFSET * Vector3.forward), ViewValues.DEFAULT_TIME_ANIMATION));
+                .Join(cardView.transform.DOLocalMove(_hoverPosition.localPosition + (yOFFSET * Vector3.forward), ViewValues.FAST_TIME_ANIMATION));
         }
 
         public override Tween MouseExit(CardView cardView)

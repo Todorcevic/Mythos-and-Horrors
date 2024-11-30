@@ -123,7 +123,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween ShowAnimation() => transform.DOLocalMoveY(4, ViewValues.SLOW_TIME_ANIMATION);
 
-        public Tween MoveToZone(ZoneView newZoneView, Ease ease = Ease.InOutCubic)
+        public Tween MoveToZone(ZoneView newZoneView, Ease ease)
         {
             if (newZoneView == CurrentZoneView) return DOTween.Sequence();
 

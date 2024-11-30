@@ -54,10 +54,12 @@ namespace MythosAndHorrors.GameView
 
         public override Tween MouseExit(CardView cardView)
         {
+            hoverAnimation?.Kill();
+
             cardView.transform.DOScale(1, ViewValues.FAST_TIME_ANIMATION);
             cardView.transform.DOLocalMoveZ(0, ViewValues.FAST_TIME_ANIMATION);
 
-            hoverAnimation?.Kill();
+      
             _movePosition.position = transform.parent.position;
             hoverAnimation = transform.DOFullLocalMove(_movePosition).PrependCallback(() => isStandUp = false);
 

@@ -24,7 +24,7 @@ namespace MythosAndHorrors.GameView
         {
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
-            await originalCardView.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.InSine).AsyncWaitForCompletion();
+            await originalCardView.MoveToZone(_zoneViewsManager.CenterShowZone, Ease.OutSine).AsyncWaitForCompletion();
             cardViewClones = CreateCardViewClones();
             originalCardView.gameObject.SetActive(false);
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
