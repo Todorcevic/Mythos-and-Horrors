@@ -13,6 +13,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
         public async Task PlayAnimationWith(ShowCardsGameAction ShowCardsGameAction)
@@ -27,7 +28,9 @@ namespace MythosAndHorrors.GameView
                  .Join(_moveCardHandler.MoveCardtoCenter(cardDrawed))
                  .Join(_showSelectorComponent.MainButtonWaitingToContinueShowUp()).AsyncWaitForCompletion();
 
-            Tween idle = _cardViewsManager.GetCardView(cardDrawed).Idle();
+            Tween idle = _cardViewsManager.GetCardView(cardDrawed).Idle()
+                .OnPlay(() => _audioComponent.PlayIdleCard())
+                .OnKill(() => _audioComponent.HideAudio());
             await _clickHandler.WaitingClick();
             idle.Kill();
 
