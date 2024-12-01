@@ -8,6 +8,8 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardPlot01121aTests : TestCORE2Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator WhenRevealHunterSpawn()
         {

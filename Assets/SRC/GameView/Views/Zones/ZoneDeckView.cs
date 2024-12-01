@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameView
             {
                 _allCards[i].transform.SetSiblingIndex(i);
                 ShuffleSequence.Insert(ViewValues.FAST_TIME_ANIMATION * 0.1f * i,
-                DOTween.Sequence().Join(_allCards[i].Rotate())
+                DOTween.Sequence().Join(_allCards[i].Rotate(true))
                 .Join(_allCards[i].transform.DOShakeRotation(ViewValues.DEFAULT_TIME_ANIMATION + 0.001f))
                 .Join(DOTween.Sequence().Join(_allCards[i].transform.DOLocalMoveX(Random.value - 0.25f, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))
                 .Append(_allCards[i].transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION * 0.5f))));

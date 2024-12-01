@@ -109,9 +109,9 @@ namespace MythosAndHorrors.GameView
         public Tween CheckBlancked() => Card.Blancked.IsActive ? _descriptionController.BlankAnimation() : _descriptionController.UnblankAnimation();
 
         /*******************************************************************/
-        public Tween Rotate()
+        public Tween Rotate(bool isInDeck)
         {
-            return _rotator.Rotate(Card.FaceDown.IsActive).OnStart(RotateAll);
+            return _rotator.Rotate(Card.FaceDown.IsActive, isInDeck).OnStart(RotateAll);
 
             /*******************************************************************/
             void RotateAll()
@@ -133,7 +133,7 @@ namespace MythosAndHorrors.GameView
             Sequence moveSequence = DOTween.Sequence().SetId(ViewValues.MOVE_ANIMATION)
                  .OnStart(() => transform.SetParent(newZoneView.transform))
                  .Join(CurrentZoneView?.ExitZone(this) ?? DOTween.Sequence())
-                 .Join(Rotate())
+                 .Join(Rotate(CurrentZoneView is ZoneDeckView))
                  .Join(newZoneView.EnterZone(this).SetEase(ease));
 
             CurrentZoneView = newZoneView;

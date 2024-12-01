@@ -291,6 +291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotator: {fileID: 6109948813706808873}
+  _drawAudio: {fileID: 8300000, guid: 9cb9f11ea6d680d42a102c966efd05cd, type: 3}
+  _360Audio: {fileID: 8300000, guid: c0e68a279b6b4614fb93fe22510ba520, type: 3}
 --- !u!1 &1473098037809483339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,7 +1937,6 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 3879809733392833656}
   _rotator: {fileID: 4411735425654588079}
   _cloneComponent: {fileID: 8873751080413955202}
-  _moveAudio: {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
 --- !u!1 &6215022285239506354
 GameObject:
   m_ObjectHideFlags: 0

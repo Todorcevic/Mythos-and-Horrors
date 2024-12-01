@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameView
             return MoveCardViewWithPreviewToZone(cardView, zoneView);
         }
 
-        public Tween MoveCardViewWithPreviewToZone(CardView cardView, ZoneView zoneView)
+        private Tween MoveCardViewWithPreviewToZone(CardView cardView, ZoneView zoneView)
         {
             return DOTween.Sequence()
              .Append(MoveCardViewToCenter(cardView))
@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameView
         {
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence()
-            .OnPlay(() => _audioComponent.PlayMoveDeckAudio())
+            .OnPlay(() => _audioComponent.PlayMoveDeckAudio(delay > 0))
             .OnComplete(() => _audioComponent.StopAudio());
             cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value, Ease.InSine)));
 

@@ -33,6 +33,6 @@ namespace MythosAndHorrors.GameView
 
         public void PlayMoveCardAudio() => PlayAudio(_moveCardAudio);
         public void PlayMoveCardCenterAudio() => PlayAudio(_moveCardCenterAudio);
-        public void PlayMoveDeckAudio() => PlayAudio(_moveDeckAudio);
+        public void PlayMoveDeckAudio(bool withDelay) => PlayAudio(withDelay ? _moveDeckAudio : _moveCardAudio);
     }
 }

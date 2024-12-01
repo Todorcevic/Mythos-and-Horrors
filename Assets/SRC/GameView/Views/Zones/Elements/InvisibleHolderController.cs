@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameView
 
         public Tween ResetLayout(CardView cardView)
         {
-            repositionSequence?.Kill();
+            //repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
             return Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);

@@ -1114,7 +1114,7 @@
         "Name": "Luminous Burst"
     },
     {
-        "Description": "When <<01539>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1<sprite index=37>.",
+        "Description": "When <<01567>> is committed to a Challenge and succeeds, {{the investigator}} recovers 1<sprite index=37>.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [
