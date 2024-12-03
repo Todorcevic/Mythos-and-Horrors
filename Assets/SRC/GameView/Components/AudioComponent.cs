@@ -23,14 +23,19 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-        public async Task PlayCardEffect(CardEffect cardEffect)
+        public AudioClip GetAudioEffect(CardEffect cardEffect)
         {
             _dictionaryCardAudios.TryGetValue(cardEffect.CardOwner.Info.Code, out PlayAnimationSO animation);
-            AudioClip audioClip = animation?.GetAudioByCode(cardEffect.Localization.Code);
-            await PlayAudioAsync(audioClip);
+            return animation?.GetAudioByCode(cardEffect.Localization.Code);
         }
 
-        private async Task PlayAudioAsync(AudioClip audioClip)
+        //public async Task PlayCardEffect(CardEffect cardEffect)
+        //{
+        //    AudioClip audioClip = GetAudioEffect(cardEffect);
+        //    await PlayAudioAsync(audioClip);
+        //}
+
+        public async Task PlayAudioAsync(AudioClip audioClip)
         {
             if (audioClip == null) return;
             _audioSourceBackground.PlayOneShot(audioClip);

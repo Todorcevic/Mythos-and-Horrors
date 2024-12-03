@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -16,10 +17,11 @@ namespace MythosAndHorrors.GameView
         {
             if (playEffectGameAction.Effect is CardEffect cardEffect && cardEffect.CardOwner != null)
             {
-                CardView cardView = _cardViewsManager.GetCardView(cardEffect.CardOwner);
-                await _moveCardHandler.MoveCardtoCenter(cardEffect.CardOwner).AsyncWaitForCompletion();
-                Tween showAnimation = cardView.ShowAnimation();
-                await _audioComponent.PlayCardEffect(cardEffect);
+                AudioClip audio = _audioComponent.GetAudioEffect(cardEffect);
+                if (audio == null) return;
+                Tween showAnimation = DOTween.Sequence().Join(_moveCardHandler.MoveCardtoCenter(cardEffect.CardOwner))
+                     .Append(_cardViewsManager.GetCardView(cardEffect.CardOwner).ShowAnimation());
+                await _audioComponent.PlayAudioAsync(audio);
                 showAnimation.Kill();
                 _moveCardHandler.ReturnCard(cardEffect.CardOwner);
             }
