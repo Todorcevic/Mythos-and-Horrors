@@ -19,8 +19,11 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOnAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOffAudio;
 
         private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<CardEffect>() : new[] { TakeResourceEffect };
@@ -35,14 +38,17 @@ namespace MythosAndHorrors.GameView
         public void ActivateToClick()
         {
             if (_isClickable) return;
-            _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _isClickable = true);
-
+            _light.DOIntensity(LIGHT_INTENSITY, ViewValues.FAST_TIME_ANIMATION)
+                .OnPlay(() => _audioComponent.PlayAudio(_glowOnAudio))
+                .OnComplete(() => _isClickable = true);
         }
 
         public void DeactivateToClick()
         {
             if (!_isClickable) return;
-            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION).OnComplete(() => _isClickable = false);
+            _light.DOIntensity(0f, ViewValues.FAST_TIME_ANIMATION)
+                .OnPlay(() => _audioComponent.PlayAudio(_glowOffAudio))
+                .OnComplete(() => _isClickable = false);
         }
 
         /*******************************************************************/

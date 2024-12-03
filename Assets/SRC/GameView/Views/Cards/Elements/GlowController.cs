@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -9,18 +10,21 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _spriteRenderer;
         [SerializeField, Required, AssetsOnly] private Material _active;
         [SerializeField, Required, AssetsOnly] private Material _off;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOnAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOffAudio;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
-        public Tween Off()
-        {
-            _spriteRenderer.material = _off;
-            return Animation();
-        }
-
         public Tween SetGreenGlow()
         {
             _spriteRenderer.material = _active;
-            return Animation();
+            return Animation().OnPlay(() => _audioComponent.PlayAudio(_glowOnAudio));
+        }
+
+        public Tween Off()
+        {
+            _spriteRenderer.material = _off;
+            return Animation().OnPlay(() => _audioComponent.PlayAudio(_glowOffAudio));
         }
 
         private Tween Animation()

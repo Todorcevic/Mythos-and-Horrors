@@ -25,6 +25,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private AudioClip _clickedAudio;
         [SerializeField, Required, AssetsOnly] private AudioClip _hoverOnAudio;
         [SerializeField, Required, AssetsOnly] private AudioClip _hoverOffAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOnAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _glowOffAudio;
 
         public BaseEffect MainButtonEffect { get; private set; }
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => MainButtonEffect == null ? Enumerable.Empty<CardEffect>() : new[] { MainButtonEffect };
@@ -37,7 +39,7 @@ namespace MythosAndHorrors.GameView
         public void ActivateToClick()
         {
             _message.text = _textsProvider.GetLocalizableText(MainButtonEffect.Localization);
-            DOTween.Sequence()
+            DOTween.Sequence().OnPlay(() => _audioComponent.PlayAudio(_glowOnAudio))
                 .Join(_buttonRenderer.transform.DOScaleZ(1f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
                 .Join(_buttonRenderer.material.DOColor(_activateColor, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_message.transform.DOScale(Vector3.one * 0.005f, ViewValues.FAST_TIME_ANIMATION).SetEase(Ease.InOutBack, 3f))
@@ -47,7 +49,7 @@ namespace MythosAndHorrors.GameView
         public void DeactivateToClick()
         {
             _collider.enabled = false;
-            DOTween.Sequence()
+            DOTween.Sequence().OnPlay(() => _audioComponent.PlayAudio(_glowOffAudio))
                  .Join(_buttonRenderer.transform.DOScaleZ(0.75f, ViewValues.FAST_TIME_ANIMATION * 0.5f).SetEase(Ease.Linear))
                 .Join(_buttonRenderer.material.DOColor(_deactivateColor, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_message.transform.DOScale(Vector3.zero, ViewValues.FAST_TIME_ANIMATION))

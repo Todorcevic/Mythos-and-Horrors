@@ -578,6 +578,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 7503034030098550728}
   _active: {fileID: 2100000, guid: ce4e34d00617df8479ee6b1752edfe08, type: 2}
   _off: {fileID: 2100000, guid: 40b35ea79783a4d4fb9faf43235cb09e, type: 2}
+  _glowOnAudio: {fileID: 8300000, guid: 89bf65f5173aefc459a99db441a98f55, type: 3}
+  _glowOffAudio: {fileID: 8300000, guid: 07ac20d65d8f19b41aa6e2ec80c0644a, type: 3}
 --- !u!1 &1919542425928923852
 GameObject:
   m_ObjectHideFlags: 0

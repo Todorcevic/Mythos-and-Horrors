@@ -143,6 +143,8 @@ MonoBehaviour:
   _clickedAudio: {fileID: 8300000, guid: a0865a706053c364ea8001a6cd581a9d, type: 3}
   _hoverOnAudio: {fileID: 8300000, guid: 79a3ec17aceac17478cbabea6035c363, type: 3}
   _hoverOffAudio: {fileID: 8300000, guid: 1fb9409b5b58fad45baadb70ff93cd0a, type: 3}
+  _glowOnAudio: {fileID: 8300000, guid: 89bf65f5173aefc459a99db441a98f55, type: 3}
+  _glowOffAudio: {fileID: 8300000, guid: 07ac20d65d8f19b41aa6e2ec80c0644a, type: 3}
 --- !u!65 &2282303881828202273
 BoxCollider:
   m_ObjectHideFlags: 0

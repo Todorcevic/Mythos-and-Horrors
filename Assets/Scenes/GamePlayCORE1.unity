@@ -6843,9 +6843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d2e0548a434f44aa57e571ed15e5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allAnimations:
-  - {fileID: 11400000, guid: c6b92947ea907ae44b46f451a0f61082, type: 2}
-  - {fileID: 11400000, guid: fac2d972c17c54241b9f567f9c792628, type: 2}
 --- !u!4 &962170785
 Transform:
   m_ObjectHideFlags: 0
@@ -9243,7 +9240,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13933,6 +13930,8 @@ MonoBehaviour:
       Data: 
   _audioSourceFX: {fileID: 1898129552}
   _audioSourceBackground: {fileID: 1898129554}
+  _allCardAudios:
+  - {fileID: 11400000, guid: c6b92947ea907ae44b46f451a0f61082, type: 2}
 --- !u!82 &1898129554
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13942,7 +13941,7 @@ AudioSource:
   m_GameObject: {fileID: 1898129549}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 5976350488223091821, guid: 099b2834f14b56947b63c1e01a54663a, type: 2}
+  OutputAudioMixerGroup: {fileID: 8624359655130843926, guid: 099b2834f14b56947b63c1e01a54663a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -23421,6 +23420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showToken: {fileID: 251947355}
   _light: {fileID: 54954801}
+  _glowOnAudio: {fileID: 8300000, guid: 89bf65f5173aefc459a99db441a98f55, type: 3}
+  _glowOffAudio: {fileID: 8300000, guid: 07ac20d65d8f19b41aa6e2ec80c0644a, type: 3}
 --- !u!1 &8733851120325899603
 GameObject:
   m_ObjectHideFlags: 0

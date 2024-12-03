@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
+using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,9 +13,24 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSourceFX;
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSourceBackground;
         [SerializeField, Required] private Dictionary<string, AudioClip> _audios;
+        [SerializeField, Required, AssetsOnly] private List<PlayAnimationSO> _allCardAudios;
+        private Dictionary<string, PlayAnimationSO> _dictionaryCardAudios;
 
         /*******************************************************************/
-        public async Task PlayAudioAsync(AudioClip audioClip)
+        private void Awake()
+        {
+            _dictionaryCardAudios = _allCardAudios.ToDictionary(playAnimation => playAnimation.name);
+        }
+
+        /*******************************************************************/
+        public async Task PlayCardEffect(CardEffect cardEffect)
+        {
+            _dictionaryCardAudios.TryGetValue(cardEffect.CardOwner.Info.Code, out PlayAnimationSO animation);
+            AudioClip audioClip = animation?.GetAudioByCode(cardEffect.Localization.Code);
+            await PlayAudioAsync(audioClip);
+        }
+
+        private async Task PlayAudioAsync(AudioClip audioClip)
         {
             if (audioClip == null) return;
             _audioSourceBackground.PlayOneShot(audioClip);
