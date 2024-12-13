@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
 
         /*******************************************************************/
         private IEnumerable<CommitableCard> AllCommitableCards() => _chaptersProvider.CurrentScene.LimboZone.Cards
-            .OfType<CommitableCard>().Where(comiitable => comiitable.Commited.IsActive);
+            .OfType<CommitableCard>().Where(comitable => comitable.Commited.IsActive);
 
         private async Task Discard(CommitableCard card)
         {

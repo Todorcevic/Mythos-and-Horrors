@@ -31,6 +31,7 @@ namespace MythosAndHorrors.GameRules
             Investigator currentInvestigator = ControlOwner; // Bcz when card go to Limbo ControlOwner == null
             await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(this, _chaptersProvider.CurrentScene.LimboZone).Execute();
             await ExecuteConditionEffect(gameAction, currentInvestigator);
+            if (this is IAttachable) return;
             await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
     }

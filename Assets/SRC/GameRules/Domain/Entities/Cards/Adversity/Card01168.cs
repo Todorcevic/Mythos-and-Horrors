@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01168 : CardAdversity
+    public class Card01168 : CardAdversity, IAttachable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly CardsProvider _cardsProvider;
@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Injected by Zenject")]
         private void Init()
         {
-            CreateForceReaction<InvestigatePlaceGameAction>(FinishCondition, FinishLogic, GameActionTime.After);
+            CreateForceReaction<InvestigatePlaceGameAction>(DiscardCondition, DiscardLogic, GameActionTime.After);
             CreateBuff(CardsToBuff, ActivationBuff, DeactivationBuff, new Localization("Buff_Card01168"));
         }
 
@@ -51,12 +51,12 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private async Task FinishLogic(InvestigatePlaceGameAction investigateGameAction)
+        private async Task DiscardLogic(InvestigatePlaceGameAction investigateGameAction)
         {
             await _gameActionsProvider.Create<DiscardGameAction>().SetWith(this).Execute();
         }
 
-        private bool FinishCondition(InvestigatePlaceGameAction investigateGameAction)
+        private bool DiscardCondition(InvestigatePlaceGameAction investigateGameAction)
         {
             if (CurrentZone != investigateGameAction.CardPlace.OwnZone) return false;
             if (!investigateGameAction.IsSucceed) return false;
