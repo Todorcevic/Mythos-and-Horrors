@@ -29,12 +29,6 @@ namespace MythosAndHorrors.GameView
             return animation?.GetAudioByCode(cardEffect.Localization.Code);
         }
 
-        //public async Task PlayCardEffect(CardEffect cardEffect)
-        //{
-        //    AudioClip audioClip = GetAudioEffect(cardEffect);
-        //    await PlayAudioAsync(audioClip);
-        //}
-
         public async Task PlayAudioAsync(AudioClip audioClip)
         {
             if (audioClip == null) return;

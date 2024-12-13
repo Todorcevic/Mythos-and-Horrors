@@ -2,6 +2,8 @@
 using MythosAndHorrors.GameRules;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameView
@@ -12,7 +14,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ZoneViewsManager _zonesViewManager;
         [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
-        [Inject] protected readonly AudioComponent _audioComponent;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
         public Tween MoveCardWithPreviewToZone(Card card, Zone zone)
@@ -68,7 +70,7 @@ namespace MythosAndHorrors.GameView
         {
             float delayBetweenMoves = 0f;
             Sequence sequence = DOTween.Sequence()
-            .OnPlay(() => _audioComponent.PlayMoveDeckAudio(delay > 0))
+            .OnPlay(() => PlayAudio(delay > 0))
             .OnComplete(() => _audioComponent.StopAudio());
             cardViewsWithZones.ForEach(cardView => sequence.Insert(delayBetweenMoves += delay, cardView.Key.MoveToZone(cardView.Value, Ease.InSine)));
 
@@ -76,6 +78,13 @@ namespace MythosAndHorrors.GameView
                 cardViewsWithZones.Select(cardView => cardView.Key.Card.Owner).UniqueOrDefault();
 
             return DOTween.Sequence().Append(_swapInvestigatorHandler.Select(owner)).Append(sequence);
+
+            /*******************************************************************/
+            async void PlayAudio(bool withDelay)
+            {
+                if (withDelay) await Task.Delay(250);
+                _audioComponent.PlayMoveDeckAudio(withDelay);
+            }
         }
     }
 }

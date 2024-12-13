@@ -2,6 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -9,6 +10,9 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _amount;
         [SerializeField, Required, ChildGameObjectsOnly] private GameObject _model;
+        [SerializeField, Required, AssetsOnly] private AudioClip _enterAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _exitAudio;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         public bool IsActive { get; private set; }
 
@@ -41,6 +45,7 @@ namespace MythosAndHorrors.GameView
 
             void ReturnToken()
             {
+                _audioComponent.PlayAudio(_enterAudio);
                 Deactivate();
                 _model.transform.SetParent(transform);
             }
@@ -51,7 +56,8 @@ namespace MythosAndHorrors.GameView
             return DOTween.Sequence()
                 .OnStart(PositionateToken)
                 .Append(MoveCenter(centerShow))
-                .Append(_model.transform.DORecolocate(ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)));
+                .Append(_model.transform.DORecolocate(ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)))
+                .OnComplete(() => _audioComponent.PlayAudio(_enterAudio));
 
             void PositionateToken()
             {
@@ -82,6 +88,7 @@ namespace MythosAndHorrors.GameView
         {
             Vector3 randomPosition = (Random.insideUnitSphere * 5f) + Vector3.up * Random.Range(-0.2f, 0.2f);
             return DOTween.Sequence()
+                 .OnPlay(() => _audioComponent.PlayAudio(_exitAudio))
                  .Append(_model.transform.DOMove(centerShow.position + randomPosition, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.OutCubic))
                  .Join(_model.transform.DOScale(2f, ViewValues.FAST_TIME_ANIMATION))
                  .Join(_model.transform.DORotate(centerShow.rotation.eulerAngles, ViewValues.FAST_TIME_ANIMATION * Random.Range(1.5f, 2.5f)).SetEase(Ease.Linear))

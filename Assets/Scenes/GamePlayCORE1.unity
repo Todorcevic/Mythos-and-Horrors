@@ -9240,7 +9240,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 354717833}
   m_HandleRect: {fileID: 354717832}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13853,8 +13853,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 8300000, guid: 94732acea1543f8448187b3023edded9, type: 3}
     - {fileID: 8300000, guid: 1064ec181d350fd42a8418880c4be915, type: 3}
-    - {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
     - {fileID: 8300000, guid: aef3ca9a4518b964bb4493fabcbd295b, type: 3}
+    - {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -13903,7 +13903,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: CenterMove
+      Data: Idle
     - Name: $v
       Entry: 10
       Data: 2
@@ -13915,7 +13915,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Idle
+      Data: CenterMove
     - Name: $v
       Entry: 10
       Data: 3
