@@ -21,37 +21,37 @@ namespace MythosAndHorrors.GameView
         private float Y_OFF_SET => ViewValues.CARD_THICKNESS * THICK_FACTOR;
 
         /*******************************************************************/
-        public Tween AddCardView(CardView cardView)
+        public Tween AddCardView(CardView cardView, bool isInHand)
         {
             GetFreeHolder().SetCardView(cardView);
             int selectedCardPosition = GetInvisibleHolderIndex(cardView);
-            return Repositionate(selectedCardPosition, withFast: false);
+            return Repositionate(selectedCardPosition, withFast: false, isInHand: isInHand);
         }
 
-        public Tween RemoveCardView(CardView cardView)
+        public Tween RemoveCardView(CardView cardView, bool isInHand)
         {
             int selectedCardPosition = GetInvisibleHolderIndex(cardView);
             GetInvisibleHolder(cardView).Clear();
-            return Repositionate(selectedCardPosition, withFast: false);
+            return Repositionate(selectedCardPosition, withFast: false, isInHand: isInHand);
         }
 
-        public (Transform, Tween) SetLayout(CardView cardView, float layoutAmount)
+        public (Transform, Tween) SetLayout(CardView cardView, float layoutAmount, bool isInHand)
         {
             repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             if (AmountOfCards > 3) invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH * layoutAmount);
-            return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true, avoidSelected: true));
+            return (invisibleHolder.transform, Repositionate(GetInvisibleHolderIndex(cardView), withFast: true, avoidSelected: true, isInHand: isInHand));
         }
 
-        public Tween ResetLayout(CardView cardView)
+        public Tween ResetLayout(CardView cardView, bool isInHand)
         {
-            //repositionSequence?.Kill();
+            repositionSequence?.Kill();
             InvisibleHolder invisibleHolder = GetInvisibleHolder(cardView);
             invisibleHolder.SetLayoutWidth(ViewValues.INITIAL_LAYOUT_WIDTH);
-            return Repositionate(GetInvisibleHolderIndex(cardView), withFast: true);
+            return Repositionate(GetInvisibleHolderIndex(cardView), withFast: true, isInHand: isInHand);
         }
 
-        private Tween Repositionate(int selectedCardPosition, bool withFast, bool avoidSelected = false)
+        private Tween Repositionate(int selectedCardPosition, bool withFast, bool isInHand, bool avoidSelected = false)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(_invisibleHolderRect);
             repositionSequence = DOTween.Sequence();
@@ -61,7 +61,7 @@ namespace MythosAndHorrors.GameView
                 if (avoidSelected && i == selectedCardPosition) continue;
                 float realYOffSet = (AmountOfCards + (i <= selectedCardPosition ? i : -i)) * Y_OFF_SET;
                 float animationTime = (i == selectedCardPosition && withFast) ? ViewValues.FAST_TIME_ANIMATION : ViewValues.DEFAULT_TIME_ANIMATION;
-                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, animationTime));
+                repositionSequence.Join(AllActivesInvisibleHolders[i].Repositionate(realYOffSet, animationTime, isInHand));
             }
 
             return repositionSequence;
