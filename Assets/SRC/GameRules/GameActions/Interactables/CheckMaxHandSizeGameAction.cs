@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             string[] DescriptionParams()
             {
                 int cardsLeft = investigator.HandSize - investigator.MaxHandSize.Value;
-                return new[] { investigator.MaxHandSize.Value.ToString(), cardsLeft.ToString() };
+                return new[] { investigator.InvestigatorCard.Info.Name, investigator.MaxHandSize.Value.ToString(), cardsLeft.ToString() };
             }
         }
 

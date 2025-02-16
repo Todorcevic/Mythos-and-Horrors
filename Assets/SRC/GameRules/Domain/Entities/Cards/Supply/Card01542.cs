@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -19,9 +21,19 @@ namespace MythosAndHorrors.GameRules
         public void Init()
         {
             CreateActivation(1, ChooseInvestigatorLogic, ChooseInvestigatorCondition, PlayActionType.Activate, new Localization("Activation_Card01542"));
-            CreateBuff(CardToSelect, BuffOn, BuffOff, new Localization("Buff_Card01542"));
+            CreateBuff(CardToSelect, BuffOn, BuffOff, new Localization(() => BuffLocalizationCode()));
             CreateForceReaction<InvestigatorsPhaseGameAction>(ResetStatCondition, ResetStatLogic, GameActionTime.After);
             ActivationUsed = CreateState(false);
+        }
+
+        private string BuffLocalizationCode()
+        {
+            CardInvestigator cardInvestigator = _investigatorsProvider.GetInvestigatorWithThisStat(StatBuffed).InvestigatorCard;
+
+            if (StatBuffed == cardInvestigator.Strength) return "Buff_Card01542-1";
+            else if (StatBuffed == cardInvestigator.Agility) return "Buff_Card01542-2";
+            else if (StatBuffed == cardInvestigator.Intelligence) return "Buff_Card01542-3";
+            else return "Buff_Card01542-4";
         }
 
         /*******************************************************************/
