@@ -329,6 +329,8 @@ MonoBehaviour:
   - {fileID: 474148073}
   _avatarImage: {fileID: 1112631175}
   _actionController: {fileID: 1642305609}
+  _showAvatar: {fileID: 8300000, guid: 74c27111c0c59aa429195f122ab2862e, type: 3}
+  _hideAvatar: {fileID: 8300000, guid: db199a88842f98c42aaa42255379543c, type: 3}
 --- !u!114 &33126647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16975,7 +16977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 687382625686284995, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 72
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 687382625686284995, guid: 35b69274c717c5348b8de93d5c2f4016, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -19,6 +19,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ActionController _actionController;
         [Inject] private readonly AvatarViewsManager _avatarViewsManager;
         [Inject] private readonly TextsManager _textsProvider;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showAvatar;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
         public Tween ShowThisPhase(PhaseGameAction phaseGameAction)
@@ -57,10 +59,10 @@ namespace MythosAndHorrors.GameView
             }
         }
 
-        private Tween ShowAvatar() => _avatarImage.transform.DOLocalMoveY(OFFSET, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => _avatarImage.gameObject.SetActive(true)).SetEase(Ease.OutBounce, 1.1f);
+        private Tween ShowAvatar() => _avatarImage.transform.DOLocalMoveY(OFFSET, ViewValues.FAST_TIME_ANIMATION)
+            .OnStart(() => { _avatarImage.gameObject.SetActive(true); _audioComponent.PlayAudio(_showAvatar); });
 
-        private Tween HideAvatar() => _avatarImage.transform.DOLocalMoveY(0, ViewValues.DEFAULT_TIME_ANIMATION)
+        private Tween HideAvatar() => _avatarImage.transform.DOLocalMoveY(0, ViewValues.FAST_TIME_ANIMATION)
             .OnComplete(() => { currentInvestigator = null; _avatarImage.gameObject.SetActive(false); });
     }
 }

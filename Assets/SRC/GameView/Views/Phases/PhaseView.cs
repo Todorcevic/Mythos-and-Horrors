@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -14,12 +15,16 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _name;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _description;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _descriptionBackground;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showDescription;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hideDescription;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showPhase;
+        [Inject] private readonly AudioComponent _audioComponent;
         private Sequence _showText;
 
         public Phase Phase => _phase;
 
         /*******************************************************************/
-        public Tween Show() => DOTween.Sequence().OnStart(() => gameObject.SetActive(true))
+        public Tween Show() => DOTween.Sequence().OnStart(() => { gameObject.SetActive(true); _audioComponent.PlayAudio(_showPhase); })
                 .Append(transform.DOScale(Vector3.one, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBounce, 1.1f));
 
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)
@@ -66,8 +71,11 @@ namespace MythosAndHorrors.GameView
             HideDescription();
         }
 
-        private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBounce);
+        private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION)
+            .OnStart(() => _audioComponent.PlayAudio(_showDescription))
+            .SetEase(Ease.OutBounce);
 
-        private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION);
+        private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION)
+            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription); });
     }
 }

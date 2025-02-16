@@ -4,7 +4,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using MythosAndHorrors.PlayModeCORE1.Tests;
 
 namespace MythosAndHorrors.PlayModeView.Tests
 {

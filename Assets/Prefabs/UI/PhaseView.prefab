@@ -55,6 +55,9 @@ MonoBehaviour:
   _name: {fileID: 2061035263671649892}
   _description: {fileID: 500501195065837775}
   _descriptionBackground: {fileID: 3537237984921974575}
+  _showDescription: {fileID: 8300000, guid: d50b4534933b23b408ed98345ce1af54, type: 3}
+  _hideDescription: {fileID: 8300000, guid: db199a88842f98c42aaa42255379543c, type: 3}
+  _showPhase: {fileID: 8300000, guid: a8a6d7a0208c4da41b4dac5902ce9ec5, type: 3}
 --- !u!1 &2280009836414941378
 GameObject:
   m_ObjectHideFlags: 0
