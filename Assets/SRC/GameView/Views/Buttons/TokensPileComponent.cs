@@ -24,6 +24,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Light _light;
         [SerializeField, Required, AssetsOnly] private AudioClip _glowOnAudio;
         [SerializeField, Required, AssetsOnly] private AudioClip _glowOffAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOnToken;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOffToken;
 
         private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<CardEffect>() : new[] { TakeResourceEffect };
@@ -56,7 +58,7 @@ namespace MythosAndHorrors.GameView
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
-            DOTween.Sequence()
+            DOTween.Sequence().OnStart(() => _audioComponent.PlayAudio(_hoverOnToken))
                 .Join(_showToken.DOLocalMoveY(Y_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_showToken.DOLocalMoveZ(Z_OFF_SET, ViewValues.FAST_TIME_ANIMATION))
                 .Join(_showToken.DORotate(Camera.main.transform.rotation.eulerAngles * -1f, ViewValues.FAST_TIME_ANIMATION))
@@ -65,7 +67,7 @@ namespace MythosAndHorrors.GameView
 
         public void OnMouseExit()
         {
-            _showToken.DORecolocate(ease: Ease.OutQuad);
+            _showToken.DORecolocate(ease: Ease.OutQuad).OnStart(() => _audioComponent.PlayAudio(_hoverOffToken));
         }
 
         public void OnMouseUpAsButton()

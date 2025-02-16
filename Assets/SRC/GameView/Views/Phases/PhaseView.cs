@@ -76,6 +76,6 @@ namespace MythosAndHorrors.GameView
             .SetEase(Ease.OutBounce);
 
         private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription); });
+            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription); }).SetEase(Ease.OutExpo);
     }
 }

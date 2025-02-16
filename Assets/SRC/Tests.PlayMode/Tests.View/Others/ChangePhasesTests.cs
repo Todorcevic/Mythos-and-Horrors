@@ -15,14 +15,12 @@ namespace MythosAndHorrors.PlayModeView.Tests
     public class ChangePhasesTests : PlayModeTestsBase
     {
         [Inject] protected readonly PhaseComponent _phaseComponent;
-        protected override bool DEBUG_MODE => true;
+        //protected override bool DEBUG_MODE => true;
 
         /*******************************************************************/
         [UnityTest]
         public IEnumerator ChangePhases()
         {
-            //if (DEBUG_MODE) yield return new WaitForSeconds(230);
-
             PlayInvestigatorGameAction investigatorPhaseGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Third);
             PlayInvestigatorGameAction investigatorPhaseGameAction2 = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.First);
             CreaturePhaseGameAction creaturePhaseGameAction = _gameActionsProvider.Create<CreaturePhaseGameAction>();
@@ -38,8 +36,8 @@ namespace MythosAndHorrors.PlayModeView.Tests
                 yield return _phaseComponent.ShowThisPhase(investigatorPhaseGameAction2).WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(230);
-            Assert.That(_phaseComponent.GetPrivateMember<PhaseView>("_currentPhaseView").Phase, Is.EqualTo(Phase.Creature));
+            yield return _phaseComponent.ShowThisPhase(investigatorPhaseGameAction).WaitForCompletion();
+            Assert.That(_phaseComponent.GetPrivateMember<PhaseView>("_currentPhaseView").Phase, Is.EqualTo(Phase.Investigator));
         }
     }
 }

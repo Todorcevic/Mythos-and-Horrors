@@ -1046,7 +1046,7 @@
         "Name": "Mystical Training"
     },
     {
-        "Description": "When <01563> enters play, 1<sprite index=40> is placed on it.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} can draw a [[Spell]] from the top 3 cards of {{his}} deck.",
+        "Description": "When <<01563>> enters play, 1<sprite index=40> is placed on it.\n<sprite index=8> <b>Exhaust</b>: {{The Investigator}} can draw a [[Spell]] from the top 3 cards of {{his}} deck.",
         "PackCode": "rcore",
         "Faction": 8,
         "Slots": [

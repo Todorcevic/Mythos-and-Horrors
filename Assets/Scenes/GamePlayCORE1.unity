@@ -330,7 +330,6 @@ MonoBehaviour:
   _avatarImage: {fileID: 1112631175}
   _actionController: {fileID: 1642305609}
   _showAvatar: {fileID: 8300000, guid: 74c27111c0c59aa429195f122ab2862e, type: 3}
-  _hideAvatar: {fileID: 8300000, guid: db199a88842f98c42aaa42255379543c, type: 3}
 --- !u!114 &33126647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23423,6 +23422,8 @@ MonoBehaviour:
   _light: {fileID: 54954801}
   _glowOnAudio: {fileID: 8300000, guid: 89bf65f5173aefc459a99db441a98f55, type: 3}
   _glowOffAudio: {fileID: 8300000, guid: 07ac20d65d8f19b41aa6e2ec80c0644a, type: 3}
+  _hoverOnToken: {fileID: 8300000, guid: 84cc4a8ffff2bc74fab4f4bb100ace22, type: 3}
+  _hoverOffToken: {fileID: 8300000, guid: 6e291a8bec00cb248849a5414bad307e, type: 3}
 --- !u!1 &8733851120325899603
 GameObject:
   m_ObjectHideFlags: 0
