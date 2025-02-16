@@ -1,5 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Zenject;
 
@@ -13,7 +14,6 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly DataSaveUseCase _saveDataLoaderUseCase;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly OwnersProvider _ownersProvider;
 
         /*******************************************************************/
@@ -31,7 +31,7 @@ namespace MythosAndHorrors.GameView
 
         private void CreateTokens(Scene scene)
         {
-            var challengeTokens = _chaptersProvider.CurrentDificulty switch
+            List<ChallengeTokenType> challengeTokens = _chaptersProvider.CurrentDificulty switch
             {
                 Dificulty.Easy => scene.ChallengeTokensEasy,
                 Dificulty.Normal => scene.ChallengeTokensNormal,

@@ -1939,8 +1939,6 @@ MonoBehaviour:
   _ownZoneCardView: {fileID: 3879809733392833656}
   _rotator: {fileID: 4411735425654588079}
   _cloneComponent: {fileID: 8873751080413955202}
-  _basicMoveAudio: {fileID: 8300000, guid: 1064ec181d350fd42a8418880c4be915, type: 3}
-  _centerMoveAudio: {fileID: 8300000, guid: b17577495ebae5b45b8de2777d5ef67e, type: 3}
 --- !u!1 &6215022285239506354
 GameObject:
   m_ObjectHideFlags: 0
@@ -4339,7 +4337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8738040664191349818, guid: dbb50385f878cca4b82765558fcb3155, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.0750003
+      value: -0.725
       objectReference: {fileID: 0}
     - target: {fileID: 8738040664191349818, guid: dbb50385f878cca4b82765558fcb3155, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5397,7 +5395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8738040664191349818, guid: dbb50385f878cca4b82765558fcb3155, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.625
+      value: -0.725
       objectReference: {fileID: 0}
     - target: {fileID: 8738040664191349818, guid: dbb50385f878cca4b82765558fcb3155, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

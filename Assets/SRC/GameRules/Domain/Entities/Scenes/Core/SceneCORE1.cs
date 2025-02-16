@@ -92,7 +92,7 @@ namespace MythosAndHorrors.GameRules
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
                 return CreatureTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
             else
-                return CreatureTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString());
+                return CreatureTokenDescriptionHard.ParseViewWith(investigator.InvestigatorCard.Info.Name, Tag.Ghoul.ToString());
         }
 
         private async Task CreatureEffect(Investigator investigator)
@@ -141,9 +141,9 @@ namespace MythosAndHorrors.GameRules
         private string DangerDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
+                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
             else
-                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
+                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
         }
 
         private async Task DangerEffect(Investigator investigator)
@@ -182,9 +182,9 @@ namespace MythosAndHorrors.GameRules
         private string CultistDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return CultistTokenDescriptionNormal;
+                return CultistTokenDescriptionNormal.ParseViewWith(investigator.InvestigatorCard.Info.Name);
             else
-                return CultistTokenDescriptionHard;
+                return CultistTokenDescriptionHard.ParseViewWith(investigator.InvestigatorCard.Info.Name);
         }
 
         private async Task CultistEffect(Investigator investigator)
