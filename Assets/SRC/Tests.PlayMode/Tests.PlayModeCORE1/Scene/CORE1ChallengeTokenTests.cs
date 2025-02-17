@@ -16,6 +16,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         private Task revealToken;
         private Task taskGameAction;
 
+        protected override TestsType TestsType => TestsType.Debug;
+
         /*******************************************************************/
         [UnitySetUp]
         public override IEnumerator SetUp()
@@ -45,8 +47,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         }
 
         /*******************************************************************/
-        //protected override TestsType TestsType => TestsType.Debug;
-
         [UnityTest]
         public IEnumerator NormalCreatureTokenTest()
         {

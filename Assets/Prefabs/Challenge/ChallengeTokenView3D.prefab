@@ -66,10 +66,9 @@ GameObject:
   - component: {fileID: 5347234987143482371}
   - component: {fileID: 2340749446080962695}
   - component: {fileID: 135538550984899879}
-  - component: {fileID: 7114115276974974475}
   m_Layer: 3
   m_Name: ChallengeTokenView3D
-  m_TagString: Untagged
+  m_TagString: Token
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +107,22 @@ MonoBehaviour:
   _type: 0
   _rigidBody: {fileID: 135538550984899879}
   _renderer: {fileID: 2340749446080962695}
-  _hit: {fileID: 8300000, guid: 3d88c9945d069da44a7fea2608d52fc3, type: 3}
+  _tableHits:
+  - {fileID: 8300000, guid: 3d88c9945d069da44a7fea2608d52fc3, type: 3}
+  - {fileID: 8300000, guid: 6674ce074d048da48962ead1e20177c4, type: 3}
+  - {fileID: 8300000, guid: 486c815b375810d459e50fccba55e096, type: 3}
+  - {fileID: 8300000, guid: 720549e594b38ac4b886c2957361e049, type: 3}
+  - {fileID: 8300000, guid: 3d1d7ea823b5e3b4d9c9e4d1d224c45a, type: 3}
+  _tokenHits:
+  - {fileID: 8300000, guid: 7df99f8696e39df43ab01080ac86df51, type: 3}
+  - {fileID: 8300000, guid: fa5af293f1f666448bf4bd604b208671, type: 3}
+  - {fileID: 8300000, guid: 2bc46a319a493eb41a628e3a6b282263, type: 3}
+  - {fileID: 8300000, guid: 28a81fa51e0991f479378f13f08a971d, type: 3}
+  - {fileID: 8300000, guid: 9c269b55744de9c4890b4b76dcf13415, type: 3}
+  - {fileID: 8300000, guid: 3565263dbde11754b9f9b04cc07bad81, type: 3}
+  - {fileID: 8300000, guid: f873811d4f4e00145945ed495d7825b1, type: 3}
+  _moveCenter: {fileID: 8300000, guid: 1fb9409b5b58fad45baadb70ff93cd0a, type: 3}
+  _return: {fileID: 8300000, guid: ede36cd7e2d4c6346aa36b66872701c1, type: 3}
 --- !u!33 &5347234987143482371
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -186,27 +200,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!65 &7114115276974974475
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2555081931009267597}
-  m_Material: {fileID: 13400000, guid: 3d19f4cca552676498de7d437d159d76, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 0.2, z: 2}
-  m_Center: {x: 0, y: 0, z: -0.00929451}
 --- !u!1 &6645103181050525647
 GameObject:
   m_ObjectHideFlags: 0

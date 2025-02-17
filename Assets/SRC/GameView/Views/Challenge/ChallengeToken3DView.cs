@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +13,10 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private ChallengeTokenType _type;
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _renderer;
-        [SerializeField, Required, AssetsOnly] private AudioClip _hit;
+        [SerializeField, Required, AssetsOnly] private List<AudioClip> _tableHits;
+        [SerializeField, Required, AssetsOnly] private List<AudioClip> _tokenHits;
+        [SerializeField, Required, AssetsOnly] private AudioClip _moveCenter;
+        [SerializeField, Required, AssetsOnly] private AudioClip _return;
         [Inject] private readonly AudioComponent _audioComponent;
 
         public ChallengeToken ChallengeToken { get; private set; }
@@ -37,11 +42,12 @@ namespace MythosAndHorrors.GameView
         public Tween RestoreAndDestroy(Transform centerShow, Transform ChallengeBag)
         {
             Sleep();
-            return DOTween.Sequence().Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+            return DOTween.Sequence().OnStart(() => _audioComponent.PlayAudio(_moveCenter))
+                     .Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
-                     .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.DEFAULT_TIME_ANIMATION))
+                     .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.DEFAULT_TIME_ANIMATION).OnStart(() => _audioComponent.PlayAudio(_return)))
                      .OnComplete(() => Destroy(gameObject));
         }
 
@@ -71,11 +77,8 @@ namespace MythosAndHorrors.GameView
 
         void OnCollisionEnter(Collision collision)
         {
-            _audioComponent.PlayAudio(_hit);
-            //if (collision.gameObject.CompareTag("Table"))
-            //    audioSource.PlayOneShot(soundsTable[Random.Range(0, 5)], Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0.2f, 0.8f));
-            //if (collision.gameObject.CompareTag("ChaosToken"))
-            //    audioSource.PlayOneShot(soundsTokens[Random.Range(0, 7)], Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0, 1));
+            if (collision.gameObject.CompareTag("Table")) _audioComponent.PlayAudio(_tableHits[Random.Range(0, _tableHits.Count)]);
+            if (collision.gameObject.CompareTag("Token")) _audioComponent.PlayAudio(_tokenHits[Random.Range(0, _tokenHits.Count)]);
         }
     }
 }
