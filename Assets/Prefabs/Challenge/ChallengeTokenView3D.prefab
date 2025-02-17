@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 5347234987143482371}
   - component: {fileID: 2340749446080962695}
   - component: {fileID: 135538550984899879}
+  - component: {fileID: 7114115276974974475}
   m_Layer: 3
   m_Name: ChallengeTokenView3D
   m_TagString: Untagged
@@ -107,6 +108,7 @@ MonoBehaviour:
   _type: 0
   _rigidBody: {fileID: 135538550984899879}
   _renderer: {fileID: 2340749446080962695}
+  _hit: {fileID: 8300000, guid: 3d88c9945d069da44a7fea2608d52fc3, type: 3}
 --- !u!33 &5347234987143482371
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -184,6 +186,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!65 &7114115276974974475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2555081931009267597}
+  m_Material: {fileID: 13400000, guid: 3d19f4cca552676498de7d437d159d76, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.2, z: 2}
+  m_Center: {x: 0, y: 0, z: -0.00929451}
 --- !u!1 &6645103181050525647
 GameObject:
   m_ObjectHideFlags: 0

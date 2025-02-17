@@ -2,6 +2,7 @@
 using MythosAndHorrors.GameRules;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -10,6 +11,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required] private ChallengeTokenType _type;
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _renderer;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hit;
+        [Inject] private readonly AudioComponent _audioComponent;
 
         public ChallengeToken ChallengeToken { get; private set; }
         public ChallengeTokenType Type => _type;
@@ -62,6 +65,17 @@ namespace MythosAndHorrors.GameView
             _rigidBody.angularVelocity = Vector3.zero;
             _rigidBody.Sleep();
             _rigidBody.isKinematic = true;
+        }
+
+        /*******************************************************************/
+
+        void OnCollisionEnter(Collision collision)
+        {
+            _audioComponent.PlayAudio(_hit);
+            //if (collision.gameObject.CompareTag("Table"))
+            //    audioSource.PlayOneShot(soundsTable[Random.Range(0, 5)], Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0.2f, 0.8f));
+            //if (collision.gameObject.CompareTag("ChaosToken"))
+            //    audioSource.PlayOneShot(soundsTokens[Random.Range(0, 7)], Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0, 1));
         }
     }
 }
