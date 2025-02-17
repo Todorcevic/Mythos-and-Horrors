@@ -16,12 +16,10 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
         [Inject] private readonly CardViewsManager _cardViewManager;
-        [Inject] private readonly SwapInvestigatorHandler _swapInvestigatorHandler;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         [Inject] private readonly MainButtonComponent _mainButtonComponent;
         [Inject] private readonly PhaseComponent _phaseComponent;
-        [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly TextsManager _textsProvider;
         [Inject] private readonly ShowCardsInCenterButton _showCardsInCenterButton;
 

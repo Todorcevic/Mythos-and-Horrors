@@ -17,14 +17,13 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _descriptionBackground;
         [SerializeField, Required, AssetsOnly] private AudioClip _showDescription;
         [SerializeField, Required, AssetsOnly] private AudioClip _hideDescription;
-        [SerializeField, Required, AssetsOnly] private AudioClip _showPhase;
         [Inject] private readonly AudioComponent _audioComponent;
         private Sequence _showText;
 
         public Phase Phase => _phase;
 
         /*******************************************************************/
-        public Tween Show() => DOTween.Sequence().OnStart(() => { gameObject.SetActive(true); _audioComponent.PlayAudio(_showPhase); })
+        public Tween Show() => DOTween.Sequence().OnStart(() => gameObject.SetActive(true))
                 .Append(transform.DOScale(Vector3.one, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutBounce, 1.1f));
 
         public Tween Hide() => transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo)

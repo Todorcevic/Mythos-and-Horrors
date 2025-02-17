@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameRules
 
         public override async Task Undo()
         {
-            PlayActiveInvestigator = lastInvestigator;
+            PlayActiveInvestigator = ActiveInvestigator = lastInvestigator;
             await base.Undo();
         }
     }
