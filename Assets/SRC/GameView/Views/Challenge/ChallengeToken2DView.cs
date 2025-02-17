@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 namespace MythosAndHorrors.GameView
 {
@@ -13,6 +14,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _image;
         [SerializeField, Required, ChildGameObjectsOnly] private Image _frame;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _value;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hoverOn;
+        [Inject] private readonly AudioComponent _audioComponent;
         private string _description;
         private ChallengeMessageController _challengeMessage;
 
@@ -34,7 +37,7 @@ namespace MythosAndHorrors.GameView
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            _image.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION).SetNotWaitable();
+            _image.DOColor(new Color(0.8f, 0.8f, 0.8f), ViewValues.FAST_TIME_ANIMATION).OnStart(() => _audioComponent.PlayAudio(_hoverOn)).SetNotWaitable();
             ShowText();
         }
 

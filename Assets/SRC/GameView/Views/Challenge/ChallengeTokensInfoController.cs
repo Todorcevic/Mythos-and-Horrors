@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly TextsManager _textsManager;
         private readonly List<ChallengeToken2DView> allTokensTop = new();
         private readonly List<ChallengeToken2DView> allTokensBottom = new();
-        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _tokensManager;
+        [SerializeField, Required, ChildGameObjectsOnly] private ChallengeTokensManager _challengeTokensManager;
         [SerializeField, Required, ChildGameObjectsOnly] private ChallengeMessageController _challengeMessageController;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform topTokensContainer;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform bottomTokensContainer;
@@ -37,15 +37,15 @@ namespace MythosAndHorrors.GameView
             List<(string, string, Sprite)> allDropTokensInfo = _challengeTokensProvider.ChallengeTokensRevealed.Select(token => (
                 token.Value.Invoke(investigator).ToString(),
                 token.Description.Invoke(investigator),
-                _tokensManager.GetSprite(token.TokenType))).ToList();
+                _challengeTokensManager.GetSprite(token.TokenType))).ToList();
             _challengeMessageController.ShowDropTokens(allDropTokensInfo);
         }
 
         private void SetTopTokens(Investigator investigator)
         {
-            foreach (ChallengeToken token in _challengeTokensProvider.AllBasicChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
+            foreach (ChallengeToken token in _challengeTokensProvider.AllBasicChallengeTokens.OrderByDescending(challengeToken => (int)challengeToken.TokenType))
             {
-                ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, topTokensContainer);
+                ChallengeToken2DView sceneToken = _challengeTokensManager.GetSceneTokenView(token, topTokensContainer);
                 string parseDescription = token.Description.Invoke(investigator).ParseDescription(_cardsProvider, _textsManager, investigator);
                 sceneToken.SetToken(token, token.Value.Invoke(investigator), parseDescription, _challengeMessageController);
                 allTokensTop.Add(sceneToken);
@@ -54,9 +54,9 @@ namespace MythosAndHorrors.GameView
 
         private void SetBottomTokens(Investigator investigator)
         {
-            foreach (ChallengeToken token in _challengeTokensProvider.AllSpecialChallengeTokens.OrderBy(challengeToken => (int)challengeToken.TokenType))
+            foreach (ChallengeToken token in _challengeTokensProvider.AllSpecialChallengeTokens.OrderByDescending(challengeToken => (int)challengeToken.TokenType))
             {
-                ChallengeToken2DView sceneToken = _tokensManager.GetSceneTokenView(token, bottomTokensContainer);
+                ChallengeToken2DView sceneToken = _challengeTokensManager.GetSceneTokenView(token, bottomTokensContainer);
                 string parseDescription = token.Description.Invoke(investigator).ParseDescription(_cardsProvider, _textsManager, investigator);
                 sceneToken.SetToken(token, token.Value.Invoke(investigator), parseDescription, _challengeMessageController);
                 allTokensTop.Add(sceneToken);

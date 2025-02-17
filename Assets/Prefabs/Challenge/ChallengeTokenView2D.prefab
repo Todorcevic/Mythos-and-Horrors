@@ -55,6 +55,7 @@ MonoBehaviour:
   _image: {fileID: 4017297536911905395}
   _frame: {fileID: 7867602186766491337}
   _value: {fileID: 3457191873569858771}
+  _hoverOn: {fileID: 8300000, guid: c7f1c3de1e2da314fb6e198b01f932e3, type: 3}
 --- !u!114 &9033690308817504637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2157557310573774785, guid: e14951c862d67454ca05c8eaa7ddd274, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2157557310573774785, guid: e14951c862d67454ca05c8eaa7ddd274, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

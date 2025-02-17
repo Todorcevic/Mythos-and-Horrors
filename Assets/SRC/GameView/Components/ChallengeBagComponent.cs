@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameView
     {
         private readonly List<ChallengeToken3DView> _allTokensDrop = new();
         [Inject] private readonly ZoneViewsManager _zoneViewsManager;
-        [SerializeField, Required, AssetsOnly] private ChallengeTokensManager _challengeTokensManager;
+        [SerializeField, Required, SceneObjectsOnly] private ChallengeTokensManager _challengeTokensManager;
 
         /*******************************************************************/
         public Tween DropToken(ChallengeToken challengeToken)
