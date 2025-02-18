@@ -28,7 +28,7 @@ namespace MythosAndHorrors.GameView
         {
             await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
             await PauseToContinue();
-            await _challengeComponent.Hide();
+            await HideChallenge();
 
             /*******************************************************************/
             async Task PauseToContinue()
@@ -58,6 +58,6 @@ namespace MythosAndHorrors.GameView
             await _challengeBagComponent.RestoreToken(challengeTokenToRestore).AsyncWaitForCompletion();
         }
 
-        public async Task HideChallenge() => await _challengeComponent.Hide();
+        public async Task HideChallenge() => await _challengeComponent.Hide().AsyncWaitForCompletion();
     }
 }

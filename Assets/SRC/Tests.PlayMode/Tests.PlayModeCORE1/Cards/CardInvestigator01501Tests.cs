@@ -9,14 +9,14 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardInvestigator01501Tests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator StarChallengeTokenRevealed()
         {
             CardPlace place = _cardsProvider.GetCard<Card01114>();
             Investigator investigatorToTest = _investigatorsProvider.First;
-            _ = MustBeRevealedThisToken(ChallengeTokenType.Fail);
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Star);
             Task<int> tokenValue = CaptureTokenValue(investigatorToTest);
             yield return PlayThisInvestigator(investigatorToTest, withAvatar: false);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(place, _chaptersProvider.CurrentScene.GetPlaceZone(0, 3)).Execute().AsCoroutine();

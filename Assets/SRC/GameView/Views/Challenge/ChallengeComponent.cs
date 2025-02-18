@@ -68,15 +68,19 @@ namespace MythosAndHorrors.GameView
             return ShowAnimation();
         }
 
-        public async Task Hide()
+        public Sequence Hide()
         {
             IsShowed = false;
-            await HideAnimation(returnPosition).AsyncWaitForCompletion();
-            _investigatorCardController.Disable();
-            _challengeCardController.Disable();
-            _commitCardController.ClearAll();
-        }
+            return HideAnimation(returnPosition).OnComplete(Finishing);
 
+            /*******************************************************************/
+            void Finishing()
+            {
+                _investigatorCardController.Disable();
+                _challengeCardController.Disable();
+                _commitCardController.ClearAll();
+            }
+        }
 
         private Sequence ShowAnimation() => DOTween.Sequence()
                 .OnStart(() => _audioComponent.PlayAudio(_showAudio))
@@ -85,7 +89,7 @@ namespace MythosAndHorrors.GameView
 
         private Sequence HideAnimation(Vector3 returnPosition) => DOTween.Sequence()
                 .OnStart(() => _audioComponent.PlayAudio(_hideAudio))
-                .Insert(ViewValues.SLOW_TIME_ANIMATION, transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(transform.DOMove(returnPosition, ViewValues.DEFAULT_TIME_ANIMATION))
                 .Join(transform.DOScale(Vector3.zero, ViewValues.DEFAULT_TIME_ANIMATION))
                 .SetEase(Ease.InOutCubic);
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 using Zenject;
 using System.Linq;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace MythosAndHorrors.GameView
 {
@@ -13,6 +14,7 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
         [Inject] private readonly TextsManager _textsProvider;
+        [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _minos2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _minos1;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _zero;
@@ -20,6 +22,9 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _plus2;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshProUGUI _resultMessage;
         [SerializeField, Required, ChildGameObjectsOnly] private GameObject _meter;
+        [SerializeField, Required, ChildGameObjectsOnly] private Image _background;
+        [SerializeField, Required, AssetsOnly] private AudioClip _success;
+        [SerializeField, Required, AssetsOnly] private AudioClip _fail;
 
         /*******************************************************************/
         public Tween Show(ChallengePhaseGameAction ChallengePhaseGameAction)
@@ -45,18 +50,22 @@ namespace MythosAndHorrors.GameView
         {
             _resultMessage.transform.DOScale(0, 0).SetEase(Ease.InBack);
             _resultMessage.gameObject.SetActive(true);
-            _resultMessage.fontMaterial.EnableKeyword(ShaderUtilities.Keyword_Glow);
-            _resultMessage.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, isSuccessful ? ViewValues.GREEN_FONT_COLOR : ViewValues.RED_FONT_COLOR);
+            //_resultMessage.fontMaterial.EnableKeyword(ShaderUtilities.Keyword_Glow);
+            //_resultMessage.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, isSuccessful ? ViewValues.GREEN_FONT_COLOR : ViewValues.RED_FONT_COLOR);
             _resultMessage.text = isSuccessful ?
                 _textsProvider.GetLocalizableText(new Localization("Challenge_Component_Succeed")) :
                 _textsProvider.GetLocalizableText(new Localization("Challenge_Component_Fail"));
-            return _resultMessage.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBack);
+            return DOTween.Sequence().Join(_resultMessage.transform.DOScale(1, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(_background.DOColor(isSuccessful ? ViewValues.GREEN_FONT_COLOR2 : ViewValues.RED_FONT_COLOR2, ViewValues.DEFAULT_TIME_ANIMATION))
+                .Join(_audioComponent.DOPlayAudio(isSuccessful ? _success : _fail))
+                .SetEase(Ease.OutBack);
         }
 
         private void HideAll()
         {
             _resultMessage.gameObject.SetActive(false);
             _meter.SetActive(false);
+            _background.color = new(1f, 1f, 1f);
         }
 
         private double Calculate(ChallengePhaseGameAction challenge, int mod)

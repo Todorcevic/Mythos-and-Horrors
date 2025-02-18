@@ -48,7 +48,6 @@ namespace MythosAndHorrors.GameView
                      .Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
-                     //.AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
                      .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InSine).OnStart(() => _audioComponent.PlayAudio(_return)))
                      .OnComplete(() => Destroy(gameObject));
         }

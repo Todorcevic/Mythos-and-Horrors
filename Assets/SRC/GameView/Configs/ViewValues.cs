@@ -26,6 +26,8 @@ namespace MythosAndHorrors.GameView
         public static Color YELLOW_FONT_COLOR = new(1f, 0.9686275f, 0.7686275f);
         public static Color GREEN_FONT_COLOR = new(0f, 0.5f, 0f);
         public static Color RED_FONT_COLOR = new(0.5f, 0f, 0f);
+        public static Color GREEN_FONT_COLOR2= new(0.5f, 1f, 0.5f);
+        public static Color RED_FONT_COLOR2 = new(1f, 0.5f, 0.5f);
 
         public const string NOT_WAITABLE_ANIMATION = "NOT_WAITABLE";
         public const string MOVE_ANIMATION = "MOVE_ANIMATION";
