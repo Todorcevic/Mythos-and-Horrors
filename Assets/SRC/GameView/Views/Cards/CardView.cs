@@ -104,7 +104,9 @@ namespace MythosAndHorrors.GameView
             _glowComponent.Off();
         }
 
-        public Tween CheckExhaust() => Card.Exausted.IsActive ? _pictureController.ExaustAnimation() : _pictureController.UnexaustAnimation();
+        public Tween CheckExhaust() => Card.Exausted.IsActive ?
+            DOTween.Sequence().Join(_pictureController.ExaustAnimation()).Join(_descriptionController.ExaustAnimation()) :
+            DOTween.Sequence().Join(_pictureController.UnexaustAnimation()).Join(_descriptionController.UnexaustAnimation());
 
         public Tween CheckBlancked() => Card.Blancked.IsActive ? _descriptionController.BlankAnimation() : _descriptionController.UnblankAnimation();
 

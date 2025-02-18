@@ -49,6 +49,7 @@ MonoBehaviour:
   _tags: {fileID: 3329388245658972525}
   _description: {fileID: 2541272115549055856}
   _flavor: {fileID: 1085905855012631816}
+  _background: {fileID: 8712861416172511381}
 --- !u!1 &305338549647839674
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +970,7 @@ GameObject:
   - component: {fileID: 1155674615340400023}
   - component: {fileID: 8712861416172511381}
   m_Layer: 3
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

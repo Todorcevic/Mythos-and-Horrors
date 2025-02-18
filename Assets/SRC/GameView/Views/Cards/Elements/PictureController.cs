@@ -25,12 +25,12 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         public Tween ExaustAnimation()
         {
-            return _picture.material.DOColor(ViewValues.EXAUST_COLOR, ViewValues.DEFAULT_FADE);
+            return _picture.material.DOColor(ViewValues.EXAUST_COLOR, ViewValues.MID_TIME_ANIMATION);
         }
 
         public Tween UnexaustAnimation()
         {
-            return _picture.material.DOColor(Color.white, ViewValues.DEFAULT_FADE);
+            return _picture.material.DOColor(Color.white, ViewValues.MID_TIME_ANIMATION);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         private Task revealToken;
         private Task taskGameAction;
 
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         /*******************************************************************/
         [UnitySetUp]

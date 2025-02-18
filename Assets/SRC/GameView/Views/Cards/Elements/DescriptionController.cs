@@ -14,6 +14,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _tags;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _description;
         [SerializeField, Required, ChildGameObjectsOnly] private TextMeshPro _flavor;
+        [SerializeField, Required, ChildGameObjectsOnly] private SpriteRenderer _background;
         [Inject] private readonly CardsProvider _cardsProvider;
         [Inject] private readonly TextsManager _textsManager;
 
@@ -42,12 +43,22 @@ namespace MythosAndHorrors.GameView
 
         public Tween BlankAnimation()
         {
-            return _description.DOFade(0, ViewValues.DEFAULT_FADE);
+            return _description.DOFade(0, ViewValues.MID_TIME_ANIMATION);
         }
 
         public Tween UnblankAnimation()
         {
-            return _description.DOFade(1, ViewValues.DEFAULT_FADE);
+            return _description.DOFade(1, ViewValues.MID_TIME_ANIMATION);
+        }
+
+        public Tween ExaustAnimation()
+        {
+            return _background.material.DOColor(ViewValues.EXAUST_COLOR, ViewValues.MID_TIME_ANIMATION);
+        }
+
+        public Tween UnexaustAnimation()
+        {
+            return _background.material.DOColor(Color.white, ViewValues.MID_TIME_ANIMATION);
         }
     }
 }

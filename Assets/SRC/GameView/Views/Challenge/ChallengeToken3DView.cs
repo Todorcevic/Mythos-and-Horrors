@@ -74,8 +74,7 @@ namespace MythosAndHorrors.GameView
         }
 
         /*******************************************************************/
-
-        void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Table")) _audioComponent.PlayAudio(_tableHits[Random.Range(0, _tableHits.Count)]);
             if (collision.gameObject.CompareTag("Token")) _audioComponent.PlayAudio(_tokenHits[Random.Range(0, _tokenHits.Count)]);

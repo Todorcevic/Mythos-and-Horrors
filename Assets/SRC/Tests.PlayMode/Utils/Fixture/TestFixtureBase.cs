@@ -300,5 +300,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             yield return
                 _gameActionsProvider.Create<AddRequerimentCardGameAction>().SetWith(investigator, cardCreated).Execute().AsCoroutine();
         }
+
+        protected IEnumerator PressAnyKey() => new WaitUntil(() => Input.anyKeyDown);
     }
 }
