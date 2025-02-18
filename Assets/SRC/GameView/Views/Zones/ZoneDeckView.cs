@@ -52,7 +52,7 @@ namespace MythosAndHorrors.GameView
             _allCards = _allCards.OrderBy(card => Zone.Cards.IndexOf(card.Card)).ToList();
 
             Sequence ShuffleSequence = DOTween.Sequence()
-                .OnPlay(() => _audioComponent.PlayAudio(_shuffleAudio));
+                .OnPlay(() => _audioComponent.PlayAudio(_shuffleAudio, withStop: true));
             for (int i = 0; i < _allCards.Count; i++)
             {
                 _allCards[i].transform.SetSiblingIndex(i);

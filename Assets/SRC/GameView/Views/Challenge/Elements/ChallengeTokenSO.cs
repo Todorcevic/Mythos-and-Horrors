@@ -9,10 +9,12 @@ namespace MythosAndHorrors.GameView
     {
         [SerializeField, Required] private Sprite _image;
         [SerializeField, Required] private Texture _texture;
+        [SerializeField, Required] private AudioClip _audioClip;
         [SerializeField, Required] private ChallengeTokenType _type;
 
         public Sprite Image => _image;
         public Texture Texture => _texture;
+        public AudioClip AudioClip => _audioClip;
         public ChallengeTokenType TokenType => _type;
     }
 }

@@ -71,10 +71,10 @@ namespace MythosAndHorrors.GameView
         }
 
         private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => _audioComponent.PlayAudio(_showDescription))
+            .OnStart(() => _audioComponent.PlayAudio(_showDescription, withStop: true))
             .SetEase(Ease.OutBounce);
 
         private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription); }).SetEase(Ease.OutExpo);
+            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription, withStop: true); }).SetEase(Ease.OutExpo);
     }
 }

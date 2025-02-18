@@ -7,9 +7,9 @@ namespace MythosAndHorrors.GameView
 {
     public static class DotweenExtension
     {
-        public static Tween Wait(float delay)
+        public static Tween Wait(float delaySeconds)
         {
-            return DOVirtual.DelayedCall(delay, () => { }, ignoreTimeScale: false);
+            return DOVirtual.DelayedCall(delaySeconds, () => { }, ignoreTimeScale: false);
         }
 
         public static Sequence DOFullMove(this Transform transform, Transform toMove, float timeAnimation = ViewValues.FAST_TIME_ANIMATION)

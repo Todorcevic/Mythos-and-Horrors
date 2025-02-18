@@ -11,6 +11,7 @@ namespace MythosAndHorrors.GameView
     public class AudioComponent : SerializedMonoBehaviour
     {
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSourceFX;
+        [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSourceFXWithStop;
         [SerializeField, Required, ChildGameObjectsOnly] private AudioSource _audioSourceBackground;
         [SerializeField, Required] private Dictionary<string, AudioClip> _audios;
         [SerializeField, Required, AssetsOnly] private List<PlayAnimationSO> _allCardAudios;
@@ -37,15 +38,22 @@ namespace MythosAndHorrors.GameView
             await Task.Delay(duration);
         }
 
-        public void PlayAudio(AudioClip audioClip)
+        public Tween DOPlayAudio(AudioClip audioclip)
+        {
+            if (audioclip == null) return null;
+            return DOTween.Sequence().OnStart(() => _audioSourceFX.PlayOneShot(audioclip)).AppendInterval(audioclip.length);
+        }
+
+        public void PlayAudio(AudioClip audioClip, bool withStop = false, float volume = 1)
         {
             if (audioClip == null) return;
-            _audioSourceFX.PlayOneShot(audioClip);
+            if (withStop) _audioSourceFXWithStop.PlayOneShot(audioClip, volume);
+            else _audioSourceFX.PlayOneShot(audioClip, volume);
         }
 
         public void StopAudio()
         {
-            _audioSourceFX.Stop();
+            _audioSourceFXWithStop.Stop();
         }
 
         public void HideAudio()
@@ -71,6 +79,6 @@ namespace MythosAndHorrors.GameView
 
         public void PlayMoveCardAudio() => PlayAudio(_audios["BasicMove"]);
         public void PlayMoveCardCenterAudio() => PlayAudio(_audios["CenterMove"]);
-        public void PlayMoveDeckAudio(bool withDelay) => PlayAudio(withDelay ? _audios["DeckMove"] : _audios["BasicMove"]);
+        public void PlayMoveDeckAudio(bool withDelay) => PlayAudio(withDelay ? _audios["DeckMove"] : _audios["BasicMove"], withStop: true);
     }
 }

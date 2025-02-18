@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
         {
             ChallengeTokenSO tokenSO = _tokens.Find(token => token.TokenType == challengeToken.TokenType);
             ChallengeToken3DView newTokenView = _diContainer.InstantiatePrefabForComponent<ChallengeToken3DView>(_viewTokenPrefab, transform);
-            newTokenView.SetValue(challengeToken, tokenSO.Texture);
+            newTokenView.SetValue(challengeToken, tokenSO.Texture, tokenSO.AudioClip);
             return newTokenView;
         }
 

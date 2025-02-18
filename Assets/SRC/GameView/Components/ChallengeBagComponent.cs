@@ -33,7 +33,7 @@ namespace MythosAndHorrors.GameView
         public Tween ShakeToken(ChallengeToken realToken)
         {
             ChallengeToken3DView tokenView = _allTokensDrop.First(token => token.ChallengeToken == realToken);
-            return tokenView.ShakeToken();
+            return tokenView.ShakeToken(_zoneViewsManager.CenterShowZone.transform);
         }
     }
 }

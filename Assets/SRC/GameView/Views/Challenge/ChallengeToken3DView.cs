@@ -10,6 +10,7 @@ namespace MythosAndHorrors.GameView
 {
     public class ChallengeToken3DView : MonoBehaviour
     {
+        private AudioClip _tokenSound;
         [SerializeField, Required] private ChallengeTokenType _type;
         [SerializeField, Required, ChildGameObjectsOnly] private Rigidbody _rigidBody;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _renderer;
@@ -24,10 +25,11 @@ namespace MythosAndHorrors.GameView
         public bool IsValueToken => (int)_type < 10;
 
         /*******************************************************************/
-        public void SetValue(ChallengeToken challengeToken, Texture texture)
+        public void SetValue(ChallengeToken challengeToken, Texture texture, AudioClip audio)
         {
             ChallengeToken = challengeToken;
             _renderer.material.mainTexture = texture;
+            _tokenSound = audio;
         }
 
         /*******************************************************************/
@@ -46,8 +48,8 @@ namespace MythosAndHorrors.GameView
                      .Join(transform.DOMove(centerShow.position, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                      .Join(transform.DOScale(Vector3.one * 4, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
-                     .AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
-                     .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.DEFAULT_TIME_ANIMATION).OnStart(() => _audioComponent.PlayAudio(_return)))
+                     //.AppendInterval(ViewValues.DEFAULT_TIME_ANIMATION)
+                     .Append(transform.DOFullLocalMove(ChallengeBag, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.InSine).OnStart(() => _audioComponent.PlayAudio(_return)))
                      .OnComplete(() => Destroy(gameObject));
         }
 
@@ -60,9 +62,25 @@ namespace MythosAndHorrors.GameView
                      .Append(transform.DOFullMove(realTransfromt));
         }
 
-        public Tween ShakeToken()
+        public Tween ShakeToken(Transform centerShow)
         {
-            return transform.DOShakePosition(ViewValues.SLOW_TIME_ANIMATION, 1f, 10, 90, false, true);
+            return DOTween.Sequence().OnStart(() => Starting())
+                .Join(transform.DOMoveY(10, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutSine))
+                .Append(transform.DOShakePosition(ViewValues.SLOW_TIME_ANIMATION * 2, 1f, 10, 90, false, true))
+                .Join(_audioComponent.DOPlayAudio(_tokenSound))
+                .OnComplete(() => Finishing());
+
+            /*******************************************************************/
+            void Starting()
+            {
+                _rigidBody.isKinematic = true;
+            }
+
+            void Finishing()
+            {
+                _rigidBody.isKinematic = false;
+            }
         }
 
         private void Sleep()
@@ -76,8 +94,10 @@ namespace MythosAndHorrors.GameView
         /*******************************************************************/
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Table")) _audioComponent.PlayAudio(_tableHits[Random.Range(0, _tableHits.Count)]);
-            if (collision.gameObject.CompareTag("Token")) _audioComponent.PlayAudio(_tokenHits[Random.Range(0, _tokenHits.Count)]);
+            if (collision.gameObject.CompareTag("Table"))
+                _audioComponent.PlayAudio(_tableHits[Random.Range(0, _tableHits.Count)], volume: Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0.2f, 0.8f));
+            if (collision.gameObject.CompareTag("Token"))
+                _audioComponent.PlayAudio(_tokenHits[Random.Range(0, _tokenHits.Count)], volume: Mathf.Clamp(collision.relativeVelocity.magnitude / 2.5f, 0, 1));
         }
     }
 }

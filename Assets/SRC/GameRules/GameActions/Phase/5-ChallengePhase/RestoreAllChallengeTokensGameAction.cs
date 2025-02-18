@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -15,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        private IEnumerable<ChallengeToken> TokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed;
+        private IEnumerable<ChallengeToken> TokensRevealed() => _challengeTokensProvider.ChallengeTokensRevealed.AsEnumerable().Reverse();
 
         private async Task Restore(ChallengeToken challengeToken) =>
             await _gameActionsProvider.Create<RestoreChallengeTokenGameAction>().SetWith(challengeToken).Execute();
