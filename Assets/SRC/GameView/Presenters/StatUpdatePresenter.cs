@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using MythosAndHorrors.GameRules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,6 +64,7 @@ namespace MythosAndHorrors.GameView
 
         private Tween CheckResources(UpdateStatGameAction updateStatGameAction)
         {
+
             Sequence payResourceSequence = DOTween.Sequence();
 
             foreach (Investigator investigator in _investigatorsProvider.AllInvestigatorsInPlay
@@ -80,7 +82,6 @@ namespace MythosAndHorrors.GameView
                     payResourceSequence.Append(_tokenMoverHandler.PayResourceAnimation(investigator, -1 * amount, cardResoursable));
                 }
             }
-
             return payResourceSequence;
         }
 

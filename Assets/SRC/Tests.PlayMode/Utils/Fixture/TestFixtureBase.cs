@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected override IEnumerator PrepareIntegrationTests()
         {
             yield return base.PrepareIntegrationTests();
-            Time.timeScale = TestsType == TestsType.Debug ? 1 : 1;
+            Time.timeScale = TestsType == TestsType.Debug ? 1 : 64; // Be carefull with TIMEOUT
             DOTween.SetTweensCapacity(1250, 312);
             if (TestsType == TestsType.Debug) yield break;
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
@@ -168,7 +168,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         }
 
         /*******************************************************************/
-        private const float TIMEOUT = 3f;
+        private const float TIMEOUT = 1280;
         protected IEnumerator ClickedIn(Card card)
         {
             if (_interactablePresenter is InteractableFake fakeInteractable)
@@ -176,10 +176,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             else if (TestsType == TestsType.Integration)
             {
                 CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
-                float startTime = Time.realtimeSinceStartup;
+                float startTime = Time.time;
                 CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+                while (Time.time - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
 
                 if (cardSensor.IsClickable) cardSensor.MouseUpAsButton();
                 else throw new TimeoutException($"Card: {card.Info.Code} Not become clickable");
@@ -208,10 +208,10 @@ namespace MythosAndHorrors.PlayMode.Tests
             else if (TestsType == TestsType.Integration)
             {
                 CardViewsManager _cardViewsManager = SceneContainer.Resolve<CardViewsManager>();
-                float startTime = Time.realtimeSinceStartup;
+                float startTime = Time.time;
                 CardSensorController cardSensor = _cardViewsManager.GetCardView(card).GetPrivateMember<CardSensorController>("_cardSensor");
 
-                while (Time.realtimeSinceStartup - startTime < ASSERT_CLICKABLE_TIMEOUT && !cardSensor.IsClickable) yield return null;
+                while (Time.time - startTime < ASSERT_CLICKABLE_TIMEOUT && !cardSensor.IsClickable) yield return null;
                 Assert.That(cardSensor.IsClickable == isClickable, message);
                 yield return DotweenExtension.WaitForAnimationsComplete().AsCoroutine();
             }
@@ -225,15 +225,15 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 if (!isReaction) yield return ClickedIn(card);
                 MultiEffectHandler _multiEffectHandler = SceneContainer.Resolve<MultiEffectHandler>();
-                float startTime = Time.realtimeSinceStartup;
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && _gameActionsProvider.CurrentInteractable == null) yield return null;
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
+                float startTime = Time.time;
+                while (Time.time - startTime < TIMEOUT && _gameActionsProvider.CurrentInteractable == null) yield return null;
+                while (Time.time - startTime < TIMEOUT && _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null) yield return null;
                 if (_gameActionsProvider.CurrentInteractable == null || _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones") == null)
                     throw new TimeoutException($"Clone position: {position} Not become clickable");
                 CardView cardView = _multiEffectHandler.GetPrivateMember<List<IPlayable>>("cardViewClones")[position] as CardView;
                 CardSensorController cardSensor = cardView.GetPrivateMember<CardSensorController>("_cardSensor");
 
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
+                while (Time.time - startTime < TIMEOUT && !cardSensor.IsClickable) yield return null;
 
                 if (cardSensor.IsClickable) cardSensor.MouseUpAsButton();
                 else throw new TimeoutException($"Clone position: {position} Not become clickable");
@@ -248,8 +248,8 @@ namespace MythosAndHorrors.PlayMode.Tests
             else if (TestsType == TestsType.Integration)
             {
                 MainButtonComponent _mainButtonComponent = SceneContainer.Resolve<MainButtonComponent>();
-                float startTime = Time.realtimeSinceStartup;
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.IsActivated && BasicShowSelectorComponent.IsWaitingToContinue) yield return null;
+                float startTime = Time.time;
+                while (Time.time - startTime < TIMEOUT && !_mainButtonComponent.IsActivated) yield return null;
 
                 if (_mainButtonComponent.IsActivated) _mainButtonComponent.OnMouseUpAsButton();
                 else throw new TimeoutException("Main Button Not become clickable");
@@ -265,9 +265,9 @@ namespace MythosAndHorrors.PlayMode.Tests
             else if (TestsType == TestsType.Integration)
             {
                 TokensPileComponent tokensPileComponent = SceneContainer.Resolve<TokensPileComponent>();
-                float startTime = Time.realtimeSinceStartup;
+                float startTime = Time.time;
 
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !tokensPileComponent.GetPrivateMember<bool>("_isClickable")) yield return null;
+                while (Time.time - startTime < TIMEOUT && !tokensPileComponent.GetPrivateMember<bool>("_isClickable")) yield return null;
 
                 if (tokensPileComponent.GetPrivateMember<bool>("_isClickable")) tokensPileComponent.OnMouseUpAsButton();
                 else throw new TimeoutException($"Tokenpile Not become clickable");
