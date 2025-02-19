@@ -37,7 +37,7 @@ namespace MythosAndHorrors.GameView
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(transform.up * Random.Range(100f, 200f), ForceMode.Impulse);
-            _rigidBody.AddTorque(new Vector3(10, 20, 50), ForceMode.Impulse);
+            _rigidBody.AddTorque(new Vector3(Random.Range(5, 15), Random.Range(15, 25), Random.Range(40, 50)), ForceMode.Impulse);
             return DotweenExtension.Wait(ViewValues.DEFAULT_TIME_ANIMATION * 2);
         }
 
@@ -65,6 +65,7 @@ namespace MythosAndHorrors.GameView
         {
             return DOTween.Sequence().OnStart(() => Starting())
                 .Join(transform.DOMoveY(10, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
+                .Join(transform.DOMoveX(centerShow.position.x, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutSine))
                 .Join(transform.DORotate(centerShow.eulerAngles, ViewValues.SLOW_TIME_ANIMATION).SetEase(Ease.OutSine))
                 .Append(transform.DOShakePosition(ViewValues.SLOW_TIME_ANIMATION * 2, 1f, 10, 90, false, true))
                 .Join(_audioComponent.DOPlayAudio(_tokenSound))

@@ -17,6 +17,8 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private Image _descriptionBackground;
         [SerializeField, Required, AssetsOnly] private AudioClip _showDescription;
         [SerializeField, Required, AssetsOnly] private AudioClip _hideDescription;
+        [SerializeField, Required, AssetsOnly] private AudioClip _showTextAudio;
+        [SerializeField, Required, AssetsOnly] private AudioClip _hideTextAudio;
         [Inject] private readonly AudioComponent _audioComponent;
         private Sequence _showText;
 
@@ -34,9 +36,9 @@ namespace MythosAndHorrors.GameView
             if (description == _description.text) return DOTween.Sequence();
             _showText?.Kill();
             _showText = ChangeText(_name.text, description)
-                .Join(ShowDescription())
+                .Join(ShowDescription().OnStart(() => _audioComponent.PlayAudio(_showTextAudio, withStop: true)))
                 .AppendInterval(ViewValues.SLOW_TIME_ANIMATION * 4)
-                .Append(HideDescription());
+                .Append(HideDescription().OnStart(() => _audioComponent.PlayAudio(_hideTextAudio, withStop: true)));
 
             return _showText;
         }
@@ -61,20 +63,17 @@ namespace MythosAndHorrors.GameView
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             transform.DOScale(Vector3.one * 1.1f, ViewValues.FAST_TIME_ANIMATION);
-            ShowDescription();
+            ShowDescription().OnStart(() => _audioComponent.PlayAudio(_showDescription, withStop: true));
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             transform.DOScale(Vector3.one, ViewValues.FAST_TIME_ANIMATION);
-            HideDescription();
+            HideDescription().OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription, withStop: true); });
         }
 
-        private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => _audioComponent.PlayAudio(_showDescription, withStop: true))
-            .SetEase(Ease.OutBounce);
+        private Tween ShowDescription() => _descriptionBackground.transform.DOLocalMoveX(0, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutBounce);
 
-        private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION)
-            .OnStart(() => { _audioComponent.StopAudio(); _audioComponent.PlayAudio(_hideDescription, withStop: true); }).SetEase(Ease.OutExpo);
+        private Tween HideDescription() => _descriptionBackground.transform.DOLocalMoveX(-200, ViewValues.DEFAULT_TIME_ANIMATION).SetEase(Ease.OutExpo);
     }
 }

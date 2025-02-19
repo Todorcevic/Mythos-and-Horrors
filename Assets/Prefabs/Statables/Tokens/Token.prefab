@@ -48,7 +48,7 @@ MonoBehaviour:
   _amount: {fileID: 8989724999452792756}
   _model: {fileID: 4312578328426427267}
   _enterAudio: {fileID: 8300000, guid: 6d3327de9d2f9ae4d96729018134d19f, type: 3}
-  _exitAudio: {fileID: 8300000, guid: 46c652375f0316341936df0c27bf1b55, type: 3}
+  _exitAudio: {fileID: 8300000, guid: 11d7375059989f342aadd1475672c7bb, type: 3}
 --- !u!1 &4312578328426427267
 GameObject:
   m_ObjectHideFlags: 0
