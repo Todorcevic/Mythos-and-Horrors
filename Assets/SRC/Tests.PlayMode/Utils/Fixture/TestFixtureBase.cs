@@ -26,7 +26,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         [Inject] protected readonly BuffsProvider _buffsProvider;
         [Inject] private readonly IPresenterInteractable _interactablePresenter;
 
-        protected override TestsType TestsType => TestsType.Unit;
+        protected override TestsType TestsType => TestsType.Integration;
 
         /*******************************************************************/
         protected override void PrepareUnitTests()
@@ -38,7 +38,7 @@ namespace MythosAndHorrors.PlayMode.Tests
         protected override IEnumerator PrepareIntegrationTests()
         {
             yield return base.PrepareIntegrationTests();
-            Time.timeScale = TestsType == TestsType.Debug ? 1 : 64;
+            Time.timeScale = TestsType == TestsType.Debug ? 1 : 1;
             DOTween.SetTweensCapacity(1250, 312);
             if (TestsType == TestsType.Debug) yield break;
             AlwaysHistoryPanelClick(SceneContainer.Resolve<ShowHistoryComponent>()).AsTask();
@@ -249,7 +249,7 @@ namespace MythosAndHorrors.PlayMode.Tests
             {
                 MainButtonComponent _mainButtonComponent = SceneContainer.Resolve<MainButtonComponent>();
                 float startTime = Time.realtimeSinceStartup;
-                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.IsActivated) yield return null;
+                while (Time.realtimeSinceStartup - startTime < TIMEOUT && !_mainButtonComponent.IsActivated && BasicShowSelectorComponent.IsWaitingToContinue) yield return null;
 
                 if (_mainButtonComponent.IsActivated) _mainButtonComponent.OnMouseUpAsButton();
                 else throw new TimeoutException("Main Button Not become clickable");

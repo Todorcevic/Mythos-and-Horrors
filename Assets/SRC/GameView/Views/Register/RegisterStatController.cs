@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
         {
             for (int i = 0; i < amount; i++)
             {
-                Instantiate(_image, transform).gameObject.SetActive(true);
+                ZenjectHelper.Instantiate(_image, transform).gameObject.SetActive(true);
             }
         }
     }

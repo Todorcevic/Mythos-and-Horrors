@@ -17,4 +17,5 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<AllInvestigatorsCheckHandSizeGameAction>().Execute();
         }
     }
+
 }

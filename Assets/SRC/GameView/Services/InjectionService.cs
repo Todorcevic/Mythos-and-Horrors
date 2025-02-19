@@ -61,8 +61,8 @@ namespace MythosAndHorrors.GameView
 
         private void InstallSingle()
         {
+            ZenjectHelper.Initialize(Container);
             Container.Bind<FilesPath>().AsSingle().IfNotBound();
-            Container.Bind(typeof(ClickHandler<>)).AsSingle();
             Container.Bind<IPresenterInteractable>().To<InteractableHub>().AsSingle();
             Container.Bind<IPresenterAnimation>().To<PresenterHub>().AsSingle();
         }

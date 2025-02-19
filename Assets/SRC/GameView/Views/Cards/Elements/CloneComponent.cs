@@ -10,12 +10,11 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _effectController;
         [SerializeField, Required, ChildGameObjectsOnly] private EffectController _buffsController;
         [SerializeField, Required, ChildGameObjectsOnly] private GlowController _glowComponent;
-        [Inject] private readonly DiContainer _diContainer;
 
         /*******************************************************************/
         public CloneComponent Clone(Transform parent)
         {
-            CloneComponent clone = _diContainer.InstantiatePrefabForComponent<CloneComponent>(gameObject, parent);
+            CloneComponent clone = ZenjectHelper.Instantiate(this, parent);
             clone.transform.ResetToZero();
             clone._effectController.gameObject.SetActive(true);
             clone._buffsController.gameObject.SetActive(true);

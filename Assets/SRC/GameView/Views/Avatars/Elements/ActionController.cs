@@ -68,7 +68,7 @@ namespace MythosAndHorrors.GameView
             {
                 for (int i = 0; i < amount; i++)
                 {
-                    ActionView newTurn = Instantiate(GetFreeTurn() ?? GetActiveTurn(), transform);
+                    ActionView newTurn = ZenjectHelper.Instantiate(GetFreeTurn() ?? GetActiveTurn(), transform);
                     _actionViews.Add(newTurn);
                 }
             }

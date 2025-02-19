@@ -13,8 +13,7 @@ namespace MythosAndHorrors.GameView
     {
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
-        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
-        [Inject] private readonly ZoneViewsManager _zoneViewsManager;
+        [Inject] private readonly ClickHandler _clickHandler;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
         private CardView originalCardView;
         private List<IPlayable> cardViewClones;
@@ -28,8 +27,11 @@ namespace MythosAndHorrors.GameView
             cardViewClones = CreateCardViewClones();
             originalCardView.gameObject.SetActive(false);
             await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
-            _showCardHandler.ActiavatePlayables(cardViewClones);
-            IPlayable playableSelected = await _clickHandler.WaitingClick();
+
+            Task<IPlayable> waitClick = _clickHandler.WaitingClick();
+            _showCardHandler.ActivatePlayables(cardViewClones);
+            IPlayable playableSelected = await waitClick;
+
             await FinishMultiEffect();
             return playableSelected.EffectsSelected.Single();
         }

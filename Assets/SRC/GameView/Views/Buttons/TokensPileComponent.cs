@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         private const float Z_OFF_SET = 2f;
         private const float LIGHT_INTENSITY = 8f;
         [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly ClickHandler _clickHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private Transform _showToken;

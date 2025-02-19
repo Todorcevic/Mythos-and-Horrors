@@ -34,7 +34,7 @@ namespace MythosAndHorrors.GameView
 
         private CommitChallengeView CreateCardChallenge()
         {
-            CommitChallengeView cardChallenge = Instantiate(_commitChallenges.First(), transform);
+            CommitChallengeView cardChallenge = ZenjectHelper.Instantiate(_commitChallenges.First(), transform);
             cardChallenge.Disable();
             _commitChallenges.Add(cardChallenge);
             return cardChallenge;

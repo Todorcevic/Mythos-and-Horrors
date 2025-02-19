@@ -42,7 +42,7 @@ namespace MythosAndHorrors.GameView
             IEnumerable<Card> all = victoryCards.Union(investigatorVictoryCards.Cast<Card>());
             foreach (Card victoriable in all)
             {
-                RegisterCardView newRegisterCard = Instantiate(_registerCardPrefab, _registerCardContainer);
+                RegisterCardView newRegisterCard = ZenjectHelper.Instantiate(_registerCardPrefab, _registerCardContainer);
                 newRegisterCard.Set((victoriable).Info.Code, (victoriable.Info.Victory ?? 0) + (victoriable as IVictoriable)?.Victory ?? 0);
                 newRegisterCard.gameObject.SetActive(true);
             }

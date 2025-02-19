@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameView
         private void ShowCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Show());
         private void HideCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Hide());
 
-        public void ActiavatePlayables(List<IPlayable> specificsCardViews = null)
+        public void ActivatePlayables(List<IPlayable> specificsCardViews = null)
         {
             ShowCardsState();
             CheckActivesActivables(specificsCardViews);

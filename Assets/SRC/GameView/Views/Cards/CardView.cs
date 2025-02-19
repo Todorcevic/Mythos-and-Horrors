@@ -27,7 +27,6 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, ChildGameObjectsOnly] private ZoneRowView _ownZoneCardView;
         [SerializeField, Required, ChildGameObjectsOnly] private RotatorController _rotator;
         [SerializeField, Required, ChildGameObjectsOnly] private CloneComponent _cloneComponent;
-        [Inject] private readonly DiContainer _diContainer;
 
         public Card Card { get; private set; }
         public ZoneView CurrentZoneView { get; private set; }
@@ -192,7 +191,7 @@ namespace MythosAndHorrors.GameView
         {
             Transform realParent = _ownZoneCardView.transform.parent;
             _ownZoneCardView.transform.SetParent(transform.parent);
-            CardView clone = _diContainer.InstantiatePrefabForComponent<CardView>(this, parent);
+            CardView clone = ZenjectHelper.Instantiate(this, parent);
             _ownZoneCardView.transform.SetParent(realParent);
             clone._ownZoneCardView = null;
             clone.Card = Card;

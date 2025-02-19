@@ -3513,7 +3513,7 @@
         "Name": "Vow of Darkness"
     },
     {
-        "Description": "At the end of the round, <<Twisted Woodwalker>> heals 2<sprite index=36>.",
+        "Description": "At the end of the round, <<01179>> heals 2<sprite index=36>.",
         "Faction": 64,
         "Slots": [
             0

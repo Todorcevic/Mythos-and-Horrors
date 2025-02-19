@@ -13,7 +13,7 @@ namespace MythosAndHorrors.GameView
     public class MainButtonComponent : MonoBehaviour, IPlayable
     {
         private const float OFFSET = 1f;
-        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly ClickHandler _clickHandler;
         [Inject] private readonly TextsManager _textsProvider;
         [Inject] private readonly AudioComponent _audioComponent;
         [SerializeField, Required, ChildGameObjectsOnly] private MeshRenderer _buttonRenderer;

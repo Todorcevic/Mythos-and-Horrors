@@ -2,14 +2,17 @@
 
 namespace MythosAndHorrors.GameView
 {
-    public class ClickHandler<T>
+    public class ClickHandler
     {
-        private TaskCompletionSource<T> waitForSelection = new();
+        private TaskCompletionSource<IPlayable> waitForSelection = new();
 
         /*******************************************************************/
-        public Task<T> WaitingClick() => waitForSelection.Task;
+        public Task<IPlayable> WaitingClick()
+        {
+            return waitForSelection.Task;
+        }
 
-        public void Clicked(T element)
+        public void Clicked(IPlayable element)
         {
             waitForSelection.SetResult(element);
             waitForSelection = new();

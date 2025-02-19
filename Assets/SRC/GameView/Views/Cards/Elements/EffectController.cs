@@ -45,7 +45,7 @@ namespace MythosAndHorrors.GameView
 
         private EffectView CreateNew()
         {
-            EffectView newEffectView = Instantiate(_effectViews.First(), _effectViews.First().transform.parent);
+            EffectView newEffectView = ZenjectHelper.Instantiate(_effectViews.First(), _effectViews.First().transform.parent);
             _effectViews.Add(newEffectView);
             return newEffectView;
         }

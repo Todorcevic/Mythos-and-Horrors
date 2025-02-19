@@ -18,7 +18,7 @@ namespace MythosAndHorrors.GameView
 
             for (int i = 0; i < amountXP; i++)
             {
-                Instantiate(_element, _container).gameObject.SetActive(true);
+                ZenjectHelper.Instantiate(_element, _container).gameObject.SetActive(true);
             }
         }
     }

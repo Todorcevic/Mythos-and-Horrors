@@ -19,31 +19,31 @@ namespace MythosAndHorrors.GameView
         {
             if (card is IDamageable damageable)
             {
-                HealthCounterController newHealController = Instantiate(_healthControllerPrefab, transform);
+                HealthCounterController newHealController = ZenjectHelper.Instantiate(_healthControllerPrefab, transform);
                 newHealController.Init(damageable);
                 _statableManager.Add(newHealController);
             }
             if (card is IFearable fearable)
             {
-                SanityCounterController newFearController = Instantiate(_sanityControllerPrefab, transform);
+                SanityCounterController newFearController = ZenjectHelper.Instantiate(_sanityControllerPrefab, transform);
                 newFearController.Init(fearable);
                 _statableManager.Add(newFearController);
             }
             if (card is CardPlace cardPlace)
             {
-                BasicCounterController newHintController = Instantiate(_hintControllerPrefab, transform);
+                BasicCounterController newHintController = ZenjectHelper.Instantiate(_hintControllerPrefab, transform);
                 newHintController.Init(cardPlace.Keys);
                 _statableManager.Add(newHintController);
             }
             if (card is IEldritchable eldritchable)
             {
-                BasicCounterController newEldritchController = Instantiate(_eldritchControllerPrefab, transform);
+                BasicCounterController newEldritchController = ZenjectHelper.Instantiate(_eldritchControllerPrefab, transform);
                 newEldritchController.Init(eldritchable.Eldritch);
                 _statableManager.Add(newEldritchController);
             }
             if (card is CardPlot cardPlot)
             {
-                PlotCounterController newPlotController = Instantiate(_plotControllerPrefab, transform);
+                PlotCounterController newPlotController = ZenjectHelper.Instantiate(_plotControllerPrefab, transform);
                 newPlotController.Init(cardPlot);
                 _statableManager.Add(newPlotController);
             }

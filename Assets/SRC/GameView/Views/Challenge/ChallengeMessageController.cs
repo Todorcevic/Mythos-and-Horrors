@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameView
 
         private void CreateMessage(string value, string description, Sprite sprite)
         {
-            ChallengeMessageView newMessage = Instantiate(_messageViewPrefab, transform);
+            ChallengeMessageView newMessage = ZenjectHelper.Instantiate(_messageViewPrefab, transform);
             newMessage.SetMessage(value, description, sprite);
             _allMessage.Add(newMessage);
         }

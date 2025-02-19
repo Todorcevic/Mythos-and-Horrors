@@ -77,7 +77,7 @@ namespace MythosAndHorrors.GameView
 
         public TokenView Clone()
         {
-            TokenView newToken = Instantiate(this, transform.parent);
+            TokenView newToken = ZenjectHelper.Instantiate(this, transform.parent);
             newToken._amount.text = string.Empty;
             newToken.name = name;
             newToken.transform.position += Vector3.up * 0.2f;

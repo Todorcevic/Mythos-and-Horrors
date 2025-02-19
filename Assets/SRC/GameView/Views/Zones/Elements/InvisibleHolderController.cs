@@ -72,7 +72,7 @@ namespace MythosAndHorrors.GameView
 
         private InvisibleHolder CreateNewHolder()
         {
-            InvisibleHolder invisibleHolder = Instantiate(_allInvisibleHolders.First(), transform);
+            InvisibleHolder invisibleHolder = ZenjectHelper.Instantiate(_allInvisibleHolders.First(), transform);
             _allInvisibleHolders.Add(invisibleHolder);
             invisibleHolder.name = $"Holder{_allInvisibleHolders.Count}";
             return invisibleHolder;

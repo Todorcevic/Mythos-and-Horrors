@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly BasicShowSelectorComponent _showSelectorComponent;
         [Inject] private readonly MultiEffectHandler _multiEffectHandler;
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
-        [Inject] private readonly ClickHandler<IPlayable> _clickHandler;
+        [Inject] private readonly ClickHandler _clickHandler;
         [Inject] private readonly CardViewsManager _cardViewManager;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
@@ -59,8 +59,9 @@ namespace MythosAndHorrors.GameView
 
         private async Task<BaseEffect> Interact()
         {
-            _showCardHandler.ActiavatePlayables();
-            IPlayable playableChoose = await _clickHandler.WaitingClick();
+            Task<IPlayable> waitClick = _clickHandler.WaitingClick();
+            _showCardHandler.ActivatePlayables();
+            IPlayable playableChoose = await waitClick;
 
             if (playableChoose is ShowCardsInCenterButton)
             {

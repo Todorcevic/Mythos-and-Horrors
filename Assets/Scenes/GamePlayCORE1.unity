@@ -5962,8 +5962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd51fb8526aa884795613bac955d3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _withoutAudio: 0
-  _withoutMulligan: 1
+  _withoutAudio: 1
+  _withoutMulligan: 0
   _gameVelocity: 1
   _languaje: 0
 --- !u!1 &903284071
@@ -21287,6 +21287,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bc7f6c62d29d13945972ab46c63da3f0, type: 2}
+    - target: {fileID: 4603801278691618348, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4920428217158423533, guid: 0ce38f6bbd58b6b40b11690494ed3d9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

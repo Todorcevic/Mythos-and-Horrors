@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameView
     public class ShowCardsInCenterButton : UIButton, IPlayable
     {
         private readonly BaseEffect showCardEffect = new(null, null, PlayActionType.None, null, new Localization(string.Empty));
-        [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
+        [Inject] private readonly ClickHandler _interactionHandler;
 
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => new[] { showCardEffect };
         public bool HasThisEffect(BaseEffect baseEffect) => baseEffect == showCardEffect;

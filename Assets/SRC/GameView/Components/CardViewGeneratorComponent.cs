@@ -7,7 +7,6 @@ namespace MythosAndHorrors.GameView
 {
     public class CardViewGeneratorComponent : MonoBehaviour
     {
-        [Inject] private readonly DiContainer _diContainer;
         [Inject] private readonly CardViewsManager _cardViewsManager;
         [Inject] private readonly ZoneViewsManager _zoneViewManager;
         [Inject] private readonly CardsProvider _cardProvider;
@@ -19,7 +18,7 @@ namespace MythosAndHorrors.GameView
 
         public CardView BuildCardView(Card card)
         {
-            CardView newCardview = _diContainer.InstantiatePrefabForComponent<CardView>(card is CardAvatar ? _cardAvatarPrefab : _cardPrefab, transform);
+            CardView newCardview = ZenjectHelper.Instantiate(card is CardAvatar ? _cardAvatarPrefab : _cardPrefab, transform);
             newCardview.Init(card, _zoneViewManager.OutZone);
             _cardViewsManager.AddCardView(newCardview);
             return newCardview;

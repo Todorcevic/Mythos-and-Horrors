@@ -8,7 +8,7 @@ namespace MythosAndHorrors.GameView
 {
     public class UndoGameActionButton : UIButton, IPlayable
     {
-        [Inject] private readonly ClickHandler<IPlayable> _interactionHandler;
+        [Inject] private readonly ClickHandler _interactionHandler;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
 
         private BaseEffect UndoEffect => _gameActionsProvider.CurrentInteractable?.UndoEffect;
