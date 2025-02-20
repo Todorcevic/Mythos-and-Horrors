@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameView
             _showText = ChangeText(_name.text, description)
                 .Join(ShowDescription().OnStart(() => _audioComponent.PlayAudio(_showTextAudio, withStop: true)))
                 .AppendInterval(ViewValues.SLOW_TIME_ANIMATION * 4)
-                .Append(HideDescription().OnStart(() => _audioComponent.PlayAudio(_hideTextAudio, withStop: true)));
+                .Append(HideDescription().OnStart(() => _audioComponent.PlayAudio(_hideTextAudio)));
 
             return _showText;
         }

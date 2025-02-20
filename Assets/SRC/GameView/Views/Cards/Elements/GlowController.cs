@@ -18,13 +18,13 @@ namespace MythosAndHorrors.GameView
         public Tween SetGreenGlow()
         {
             _spriteRenderer.material = _active;
-            return Animation().OnPlay(() => _audioComponent.PlayAudio(_glowOnAudio));
+            return Animation();
         }
 
         public Tween Off()
         {
             _spriteRenderer.material = _off;
-            return Animation().OnPlay(() => _audioComponent.PlayAudio(_glowOffAudio));
+            return Animation();
         }
 
         private Tween Animation()
