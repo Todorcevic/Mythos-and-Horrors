@@ -11,6 +11,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionSafeForeachTest : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator SafeForeachBasic()
         {

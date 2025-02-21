@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEditor;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -92,6 +93,8 @@ namespace MythosAndHorrors.GameRules
             async Task UndoLogic()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
+
+
                 await lastInteractable.Execute();
             }
         }

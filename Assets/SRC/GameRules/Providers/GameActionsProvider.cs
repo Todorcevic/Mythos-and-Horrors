@@ -40,9 +40,9 @@ namespace MythosAndHorrors.GameRules
             return lastInteractableToUndo;
         }
 
-        public bool CanUndo(bool realLast = false)
+        public bool CanUndo()
         {
-            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo(realLast);
+            InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
             if (lastInteractableToUndo == null) return false;
             if (lastInteractableToUndo.GetUniqueEffect() != null) return false;
 
@@ -55,8 +55,8 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        private InteractableGameAction GetInteractableToUndo(bool realLast = false) =>
-             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(realLast ? 0 : 1)
+        private InteractableGameAction GetInteractableToUndo() =>
+             _allGameActionsExecuted.OfType<InteractableGameAction>().Skip(1)
             .Where(interactableGameAction => interactableGameAction.CanBackToThisInteractable)
             .FirstOrDefault();
 
