@@ -2,6 +2,13 @@
 
 namespace MythosAndHorrors.GameRules
 {
+    public class EffectLocalization
+    {
+        public string Code { get; }
+        public string Description { get; }
+    }
+
+
     public class Localization
     {
         private readonly string _code;

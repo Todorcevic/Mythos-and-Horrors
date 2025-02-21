@@ -69,5 +69,12 @@
         "Weapon",
         "Woods",
         "Cosmic"
+    ],
+    "SlotType": [
+        "Trinket",
+        "Equipment",
+        "Supporter",
+        "Item",
+        "Magical"
     ]
 }

@@ -2,30 +2,52 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 
 namespace MythosAndHorrors.GameView
 {
     public class EnumsTexts
     {
-        [JsonProperty("CardType")] private List<string> _cardTypesTexts;
-        [JsonProperty("Tag")] private List<string> _tagsTexts;
-        private Dictionary<CardType, string> _dictionaryCardTypes;
-        private Dictionary<Tag, string> _dictionaryTags;
+        [JsonProperty("CardType")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Deserialized")]
+        private readonly List<string> _cardTypesTexts;
+        [JsonProperty("Tag")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Deserialized")]
+        private readonly List<string> _tagsTexts;
+        [JsonProperty("SlotType")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Deserialized")]
+        private readonly List<string> _slotsTexts;
 
-        public Dictionary<CardType, string> DictionaryCardTypes => _dictionaryCardTypes ??= ConvertEnumToDictionary<CardType>(_cardTypesTexts);
-        public Dictionary<Tag, string> DictionaryTags => _dictionaryTags ??= ConvertEnumToDictionary<Tag>(_tagsTexts);
+        private Dictionary<Enum, string> _enumsTexts;
 
         /*******************************************************************/
-        private Dictionary<T, string> ConvertEnumToDictionary<T>(List<string> texts) where T : Enum
+        public string GetEnumToText<T>(T position) where T : Enum
         {
-            bool enumHasFlag = typeof(T).GetCustomAttribute<FlagsAttribute>() != null;
-            Dictionary<T, string> _dictionaryCardTypes = new();
-            for (int i = 0; i < texts.Count; i++)
+            if (!_enumsTexts.TryGetValue(position, out string text)) throw new ArgumentException("Enum text not found for code: " + position);
+            return text;
+        }
+
+        public void ConvertAllListInDictionary()
+        {
+            _enumsTexts = new();
+            IEnumerable<FieldInfo> fields = GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(fieldInfo => fieldInfo.FieldType.IsGenericType && fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(List<>));
+
+            foreach (FieldInfo field in fields)
             {
-                _dictionaryCardTypes.Add((T)Enum.ToObject(typeof(T), enumHasFlag ? 1 << i : i), texts[i]);
+                JsonPropertyAttribute jsonPropertyAttribute = field.GetCustomAttribute<JsonPropertyAttribute>();
+                if (jsonPropertyAttribute == null) continue;
+                Type enumType = typeof(CardType).Assembly.GetType($"{typeof(CardType).Namespace}.{jsonPropertyAttribute.PropertyName}");
+                if (enumType == null) continue;
+                bool enumHasFlag = enumType.GetCustomAttribute<FlagsAttribute>() != null;
+                List<string> texts = (List<string>)field.GetValue(this);
+                for (int i = 0; i < texts.Count; i++)
+                {
+                    _enumsTexts.Add((Enum)Enum.ToObject(enumType, enumHasFlag ? 1 << i : i), texts[i]);
+                }
             }
-            return _dictionaryCardTypes;
         }
     }
 }

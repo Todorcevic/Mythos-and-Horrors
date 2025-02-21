@@ -18,7 +18,7 @@
         "CardType": 1,
         "Code": "01501",
         "Name": "Eliot Spencer",
-        "StarTokenDescription": "+1<sprite index=58> for each <sprite index=38> on {{the Investigator}}."
+        "StarTokenDescription": "+1<sprite index=58> for each <sprite index=38> on {{the Investigator}}'s Place."
     },
     {
         "Description": "Once per Turn <sprite index=8> : <<01502>> gains an additional <sprite index=9>, which can only be used on [[Tome]] <sprite index=9> abilities.\n<sprite index=21> : 0<sprite index=58>. If the Challenge succeeds, <<01502>> draws 1 Card for each [[Tome]] she controls.",

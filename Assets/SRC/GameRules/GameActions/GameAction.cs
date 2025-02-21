@@ -14,7 +14,7 @@ namespace MythosAndHorrors.GameRules
 
         public GameAction Parent { get; } = _current;
         public bool IsActive { get; private set; }
-        public bool IsCancel { get; private set; }
+        public bool IsCancel { get; protected set; }
         public virtual bool CanBeExecuted => true;
         public virtual bool CanUndo => true;
 

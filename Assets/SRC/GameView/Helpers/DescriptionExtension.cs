@@ -19,7 +19,7 @@ namespace MythosAndHorrors.GameView
             return Regex.Replace(text, pattern, match =>
             {
                 string tagName = match.Groups[1].Value;
-                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return $"<i><b>{textsManager.GetTagText(tag)}</b></i>";
+                if (Enum.TryParse<Tag>(tagName, true, out var tag)) return textsManager.GetEnumToText(tag);
 
                 return match.Value;
             });
@@ -35,7 +35,7 @@ namespace MythosAndHorrors.GameView
             });
         }
 
-        private static string ParseInvestigatorNames(this string text, Investigator investigator)
+        private static string ParseInvestigatorNames(this string text, Investigator investigator) //TODO: cambiar "he" por localizables
         {
             string pattern = @"{{(.+?)}}";
             return Regex.Replace(text, pattern, match =>

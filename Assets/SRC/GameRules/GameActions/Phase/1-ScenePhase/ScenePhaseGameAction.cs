@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(_chaptersProvider.CurrentScene.CurrentPlot?.Eldritch, 1).Execute();
             await _gameActionsProvider.Create<CheckEldritchsPlotGameAction>().Execute();
-            await _gameActionsProvider.Create<InvestigatorsDrawDangerCardGameAction>().Execute();
+            await _gameActionsProvider.Create<AllInvestigatorsDrawDangerCardGameAction>().Execute();
         }
     }
 }

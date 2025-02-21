@@ -16,7 +16,7 @@ namespace MythosAndHorrors.GameView
         public void Init(Card card)
         {
             _name.text = card.CurrentName;
-            _cardType.text = _textsManager.GetCardTypeText(card.Info.CardType);
+            _cardType.text = _textsManager.GetEnumToText(card.Info.CardType);
         }
     }
 }

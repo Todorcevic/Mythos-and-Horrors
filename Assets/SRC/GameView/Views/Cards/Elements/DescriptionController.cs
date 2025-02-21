@@ -30,7 +30,7 @@ namespace MythosAndHorrors.GameView
         {
             _tags.gameObject.SetActive(Tags.Any());
             _tags.text = string.Empty;
-            Tags.ForEach(tag => _tags.text += $"{_textsManager.GetTagText(tag)} ");
+            Tags.ForEach(tag => _tags.text += $"{_textsManager.GetEnumToText(tag)} ");
         }
 
         public void SetDescription(Card card)

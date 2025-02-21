@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class InvestigatorsDrawDangerCardGameAction : PhaseGameAction
+    public class AllInvestigatorsDrawDangerCardGameAction : PhaseGameAction
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
             /*******************************************************************/
             IEnumerable<Investigator> AllInvestigatorsInPlay() => _investigatorsProvider.AllInvestigatorsInPlay;
             async Task DrawDangerCard(Investigator investigator) =>
-                     await _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
+                     await _gameActionsProvider.Create<InvestigatorScenePhaseDrawDangerGameAction>().SetWith(investigator).Execute();
         }
     }
 }

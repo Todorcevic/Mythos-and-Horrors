@@ -156,11 +156,11 @@
     ],
     "AncientTokenDescriptionNormal": "",
     "CreatureTokenDescriptionNormal": "-1<sprite index=58> for each {arg0} in {arg1}.",
-    "DangerTokenDescriptionNormal": "If there is a {arg0} in {arg1}, {arg2} takes 1 damage.",
-    "CultistTokenDescriptionNormal": "If this Challenge fails, {arg0} takes 1 Fear.",
+    "DangerTokenDescriptionNormal": "If there is a {arg0} in {arg1}, {arg2} takes 1<sprite index=59>.",
+    "CultistTokenDescriptionNormal": "If this Challenge fails, {arg0} takes 1<sprite index=60>.",
     "AncientTokenDescriptionHard": "",
     "CreatureTokenDescriptionHard": "If this Challenge fails, {arg0} searches the Danger deck and discard pile for a {arg1} and draws it.",
-    "DangerTokenDescriptionHard": "If there is a {arg0} in {arg1}, {arg2} takes 1 Damage and 1 Fear.",
-    "CultistTokenDescriptionHard": "Another Token is revealed. If this Challenge fails, {arg0} takes 2 Fear.",
+    "DangerTokenDescriptionHard": "If there is a {arg0} in {arg1}, {arg2} takes 1<sprite index=59> and 1<sprite index=60>.",
+    "CultistTokenDescriptionHard": "Another Token is revealed. If this Challenge fails, {arg0} takes 2<sprite index=60>.",
     "FailTokenDescription": "Auto fail."
 }

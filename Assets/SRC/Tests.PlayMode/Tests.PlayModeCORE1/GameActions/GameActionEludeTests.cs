@@ -7,9 +7,10 @@ using MythosAndHorrors.PlayMode.Tests;
 
 namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
-
     public class GameActionEludeTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator EludeTest()
         {
