@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Unity.VisualScripting.YamlDotNet.Core;
 using Zenject;
 
 namespace MythosAndHorrors.GameRules
@@ -44,7 +43,6 @@ namespace MythosAndHorrors.GameRules
             SetUndoButton();
             if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
-
             await _gameActionsProvider.Create<PayRequerimentsEffectGameAction>().SetWith(EffectSelected).Execute();
             await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();
         }
