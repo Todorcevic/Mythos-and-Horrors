@@ -10,6 +10,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionUndoTests : TestCORE1Preparation
     {
+        //protected override TestsType TestsType => TestsType.Debug;
+
         [UnityTest]
         public IEnumerator UndoAllInvestigatorDrawTest()
         {
@@ -77,7 +79,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
         }
 
-        //protected override TestsType TestsType => TestsType.Debug;
         [UnityTest]
         public IEnumerator UndoBackToLastInvestigator()
         {
@@ -109,6 +110,24 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(_investigatorsProvider.GetInvestigatorsCanStartTurn.Count(), Is.EqualTo(0));
+        }
+
+        [UnityTest]
+        public IEnumerator UndoChallenge()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            yield return StartingScene();
+
+            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedUndoButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedResourceButton();
+            yield return ClickedMainButton();
+            yield return gameActionTask.AsCoroutine();
+
+            Assert.That(investigator.Resources.Value, Is.EqualTo(3));
         }
     }
 }
