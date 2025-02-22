@@ -1946,8 +1946,8 @@ MonoBehaviour:
   _resultMessage: {fileID: 132074806}
   _meter: {fileID: 139855874}
   _background: {fileID: 313407009}
-  _success: {fileID: 8300000, guid: df4f89299109ac241b5cce37948c9275, type: 3}
-  _fail: {fileID: 8300000, guid: bbcba98a026cb3b48acff6d261056d6d, type: 3}
+  _success: {fileID: 8300000, guid: 40fca790846b56345b54f50ac987acda, type: 3}
+  _fail: {fileID: 8300000, guid: aa2ed416fff3072459ec5bb4fb7ca74f, type: 3}
 --- !u!1 &320928119
 GameObject:
   m_ObjectHideFlags: 0
