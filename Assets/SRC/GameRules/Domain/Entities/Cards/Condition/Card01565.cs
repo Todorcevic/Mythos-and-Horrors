@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
             if (moveCardsGameAction.Parent is not PlayDrawRevelationGameAction playRevelationAdversity) return false;
             if (playRevelationAdversity.Investigator != ControlOwner) return false;
             if (((Card)playRevelationAdversity.DrawActivable).HasThisTag(Tag.Weakness)) return false;
+            if (((Card)playRevelationAdversity.DrawActivable).IsInPlay.IsFalse) return false;
             return true;
         }
 

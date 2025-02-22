@@ -15,6 +15,7 @@ namespace MythosAndHorrors.GameRules
         protected override bool CanPlayFromHandSpecific(GameAction gameAction)
         {
             if (gameAction is not CreatureAttackGameAction creatureAttackGameAction) return false;
+            if (creatureAttackGameAction.Creature.IsInPlay.IsFalse) return false;
             if (!ControlOwner.CurrentPlace.InvestigatorsInThisPlace.Contains(creatureAttackGameAction.Investigator)) return false;
             return true;
         }

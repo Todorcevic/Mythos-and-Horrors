@@ -10,7 +10,6 @@ namespace MythosAndHorrors.GameRules
     public class Card01514 : CardSupply
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ReactionablesProvider _reactionablesProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Item, Tag.Relic };
 
