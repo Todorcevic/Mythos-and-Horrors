@@ -93,8 +93,6 @@ namespace MythosAndHorrors.GameRules
             async Task UndoLogic()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-
-
                 await lastInteractable.Execute();
             }
         }
