@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardCondition01580Tests : TestCORE2Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator UpdateStatModifierChallenge()
@@ -43,14 +43,14 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             IEnumerable<Card01580> conditionCards = _cardsProvider.GetCards<Card01580>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(conditionCards, investigator.HandZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 4).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(investigator.CurrentPlace.Enigma, 3).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();
             yield return ClickedIn(conditionCards.First());
-            yield return ClickedIn(conditionCards.First());
+            yield return ClickedIn(conditionCards.Last());
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

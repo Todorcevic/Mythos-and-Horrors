@@ -9,8 +9,8 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly ChallengeTokensProvider _challengeTokensProvider;
 
-        public bool? IsSuccessful { get; set; }
-        public int TotalDifferenceValue { get; set; }
+        public bool? IsSuccessful { get; private set; }
+        public int TotalDifferenceValue { get; private set; }
         public ChallengePhaseGameAction ChallengePhaseGameAction { get; private set; }
         public List<ChallengeToken> TokensRevealed { get; private set; }
 

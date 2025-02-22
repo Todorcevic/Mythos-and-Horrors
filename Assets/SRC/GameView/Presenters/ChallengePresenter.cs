@@ -26,7 +26,6 @@ namespace MythosAndHorrors.GameView
 
         public async Task FinalizeChallenge()
         {
-            await _challengeComponent.UpdateInfo().AsyncWaitForCompletion();
             await PauseToContinue();
             await HideChallenge();
 

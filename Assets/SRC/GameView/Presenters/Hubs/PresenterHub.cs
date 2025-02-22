@@ -63,6 +63,9 @@ namespace MythosAndHorrors.GameView
                     await _cardMoverPresenter.PlayAnimationWith(moveCardsGameAction);
                     break;
                 case ResultChallengeGameAction:
+                    await _challengePresenter.UpdateInfo();
+                    break;
+                case FinishChallengeControlGameAction:
                     await _challengePresenter.FinalizeChallenge();
                     break;
                 case ChallengePhaseGameAction challengePhaseGameAction:

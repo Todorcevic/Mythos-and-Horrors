@@ -64,9 +64,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Execute();
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);
             await ResultChallenge.Execute();
-
-            await _gameActionsProvider.Create<CheckChallengeResultGameAction>().Execute();
-
+            await _gameActionsProvider.Create<FinishChallengeControlGameAction>().SetWith(this).Execute();
             await _gameActionsProvider.Create<RestoreAllChallengeTokensGameAction>().Execute();
             await _gameActionsProvider.Create<ResolveChallengeGameAction>().SetWith(this).Execute();
             await _gameActionsProvider.Create<DiscardCommitsCardsGameAction>().Execute();
@@ -80,20 +78,6 @@ namespace MythosAndHorrors.GameRules
         {
             IsUndo = true;
             await base.Undo();
-        }
-    }
-
-    public class CheckChallengeResultGameAction : GameAction
-    {
-        public CheckChallengeResultGameAction SetWith(CheckChallengeResultGameAction challengeResult)
-        {
-
-            return this;
-        }
-
-        protected override async Task ExecuteThisLogic()
-        {
-            await Task.CompletedTask;
         }
     }
 }

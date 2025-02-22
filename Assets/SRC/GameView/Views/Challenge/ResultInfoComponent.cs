@@ -50,8 +50,6 @@ namespace MythosAndHorrors.GameView
         {
             _resultMessage.transform.DOScale(0, 0).SetEase(Ease.InBack);
             _resultMessage.gameObject.SetActive(true);
-            //_resultMessage.fontMaterial.EnableKeyword(ShaderUtilities.Keyword_Glow);
-            //_resultMessage.fontMaterial.SetColor(ShaderUtilities.ID_GlowColor, isSuccessful ? ViewValues.GREEN_FONT_COLOR : ViewValues.RED_FONT_COLOR);
             _resultMessage.text = isSuccessful ?
                 _textsProvider.GetLocalizableText(new Localization("Challenge_Component_Succeed")) :
                 _textsProvider.GetLocalizableText(new Localization("Challenge_Component_Fail"));
