@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
         public State Isolated { get; private set; }
+        public State IsPlayingHisTurn { get; private set; }
         public Conditional CanPayKeys { get; private set; }
         public Conditional CanBeHealed { get; private set; }
         public Conditional CanBeRestoreSanity { get; private set; }
@@ -54,6 +55,7 @@ namespace MythosAndHorrors.GameRules
             Resign = CreateState(false, isReseteable: false);
             Defeated = CreateState(false, isReseteable: false);
             Isolated = CreateState(false);
+            IsPlayingHisTurn = CreateState(false);
             CanPayKeys = new Conditional(() => Keys.Value > 0);
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);
             CanBeRestoreSanity = new Conditional(() => FearRecived.Value > 0);

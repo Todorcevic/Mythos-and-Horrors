@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
 
@@ -22,7 +23,13 @@ namespace MythosAndHorrors.GameRules
             ExecuteSpecificInitialization();
             return this;
         }
-
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await base.ExecuteThisLogic();
+            if (EffectSelected == UndoEffect)
+                InvestigatorSelected = _investigatorsProvider.AllInvestigatorsInPlay.FirstOrDefault(i => i.IsPlayingHisTurn.IsActive);
+        }
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {

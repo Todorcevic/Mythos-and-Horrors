@@ -19,17 +19,17 @@ namespace MythosAndHorrors.GameRules
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
             => throw new NotImplementedException();
 
-        public InvestigatorTurnGameAction SetWith()
+        public InvestigatorTurnGameAction SetWith(Investigator investigator)
         {
+            ActiveInvestigator = investigator;
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_OneInvestigatorTurn", DescriptionParams()));
-            ActiveInvestigator = PlayInvestigatorGameAction.PlayActiveInvestigator;
             ExecuteSpecificInitialization();
             return this;
 
             /*******************************************************************/
-            static string[] DescriptionParams()
+            string[] DescriptionParams()
             {
-                CardInvestigator investigatorCard = PlayInvestigatorGameAction.PlayActiveInvestigator.InvestigatorCard;
+                CardInvestigator investigatorCard = ActiveInvestigator.InvestigatorCard;
                 return new[] { investigatorCard.CurrentName, investigatorCard.CurrentActions.Value.ToString() };
             }
         }
@@ -38,11 +38,10 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await base.ExecuteThisLogic();
-            if (IsCancel) return;
-            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect)
-                || PlayInvestigatorGameAction.PlayActiveInvestigator.HasTurnsAvailable.IsTrue)
+            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect) ||
+                (ActiveInvestigator.HasTurnsAvailable.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive))
 
-                await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith().Execute();
+                await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
         }
 
         /*******************************************************************/

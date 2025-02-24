@@ -35,8 +35,8 @@ namespace MythosAndHorrors.GameRules
 
             await _presenterAnimation.PlayBeforeAnimationWith(this);
             await ExecuteThisLogic();
-            await _presenterAnimation.PlayAfterAnimationWith(this);
 
+            await _presenterAnimation.PlayAfterAnimationWith(this);
             await _buffsProvider.ExecuteAllBuffs();
             await _reactionablesProvider.WhenFinish(this);
             await _optativeReactionsProvider.WhenFinish(this);
@@ -47,7 +47,6 @@ namespace MythosAndHorrors.GameRules
         {
             _buffsProvider.UndoAllBuffs();
             await _presenterAnimation.PlayUndoAnimationWith(this);
-            Cancel();
         }
 
         public void Cancel() => IsCancel = true;
