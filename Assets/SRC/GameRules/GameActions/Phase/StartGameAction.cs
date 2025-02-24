@@ -15,8 +15,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<StartChapterGameAction>().SetWith(_chaptersProvider.CurrentChapter).Execute();
             await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigators, Prepare).Execute();
             await _gameActionsProvider.Create<PrepareSceneGameAction>().SetWith(_chaptersProvider.CurrentScene).Execute();
-
-            while (true) await _gameActionsProvider.Create<RoundGameAction>().Execute();
+            await _gameActionsProvider.Create<SafeWhile>().SetWith(() => true, ExecuteRound).Execute();
         }
 
         /*******************************************************************/
@@ -24,5 +23,7 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Prepare(Investigator investigator) =>
             await _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Execute();
+
+        private async Task ExecuteRound() => await _gameActionsProvider.Create<RoundGameAction>().Execute();
     }
 }

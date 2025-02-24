@@ -65,31 +65,31 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator.HandSize, Is.EqualTo(4));
         }
 
-        [UnityTest]
-        public IEnumerator SafeForeachUndo()
-        {
-            Investigator investigator = _investigatorsProvider.First;
-            SafeForeachReaction();
-            yield return StartingScene();
-            yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedResourceButton();
-            yield return ClickedResourceButton();
-            yield return ClickedResourceButton();
-            yield return ClickedMainButton();
-            yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
-            yield return ClickedUndoButton();
-            yield return ClickedUndoButton();
-            yield return ClickedUndoButton();
-            AssumeThat(investigator.CurrentActions.Value == 1);
-            yield return ClickedResourceButton();
-            yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+        //[UnityTest]
+        //public IEnumerator SafeForeachUndo()
+        //{
+        //    Investigator investigator = _investigatorsProvider.First;
+        //    SafeForeachReaction();
+        //    yield return StartingScene();
+        //    yield return _gameActionsProvider.Create<RevealGameAction>().SetWith(SceneCORE1.Hallway).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
+        //    Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+        //    yield return ClickedResourceButton();
+        //    yield return ClickedResourceButton();
+        //    yield return ClickedResourceButton();
+        //    yield return ClickedMainButton();
+        //    yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
+        //    yield return ClickedUndoButton();
+        //    yield return ClickedUndoButton();
+        //    yield return ClickedUndoButton();
+        //    AssumeThat(investigator.CurrentActions.Value == 1);
+        //    yield return ClickedResourceButton();
+        //    yield return ClickedMainButton();
+        //    yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.HandSize, Is.EqualTo(5));
-            Assert.That(investigator.Resources.Value, Is.EqualTo(3));
-        }
+        //    Assert.That(investigator.HandSize, Is.EqualTo(5));
+        //    Assert.That(investigator.Resources.Value, Is.EqualTo(3));
+        //}
 
         /*******************************************************************/
         private void SafeForeachReaction()

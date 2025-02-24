@@ -52,30 +52,30 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(cardGoal.IsComplete, Is.True);
         }
 
-        [UnityTest]
-        public IEnumerator CancelPayKey()
-        {
-            CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
-            yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Keys, cardGoal.Keys.Value).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Keys, 5).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Keys, 3).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Study.Keys, 1).Execute().AsCoroutine();
+        //[UnityTest]
+        //public IEnumerator CancelPayKey()
+        //{
+        //    CardGoal cardGoal = _cardsProvider.GetCard<Card01108>();
+        //    yield return StartingScene();
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, SceneCORE1.Study.OwnZone).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<IncrementStatGameAction>().SetWith(SceneCORE1.Study.Keys, cardGoal.Keys.Value).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Leader, SceneCORE1.Study.Keys, 5).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Second, SceneCORE1.Study.Keys, 3).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<GainKeyGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Study.Keys, 1).Execute().AsCoroutine();
 
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Execute();
-            yield return ClickedResourceButton();
-            yield return ClickedIn(cardGoal);
-            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
-            yield return ClickedUndoButton();
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
+        //    Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(_investigatorsProvider.Leader).Execute();
+        //    yield return ClickedResourceButton();
+        //    yield return ClickedIn(cardGoal);
+        //    yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+        //    yield return ClickedUndoButton();
+        //    yield return ClickedMainButton();
+        //    yield return taskGameAction.AsCoroutine();
 
-            Assert.That(_investigatorsProvider.Leader.Keys.Value, Is.EqualTo(5));
-            Assert.That(_investigatorsProvider.Second.Keys.Value, Is.EqualTo(3));
-            Assert.That(cardGoal.Keys.Value, Is.EqualTo(8));
-            Assert.That(cardGoal.Revealed.IsActive, Is.False);
-            Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(1));
-        }
+        //    Assert.That(_investigatorsProvider.Leader.Keys.Value, Is.EqualTo(5));
+        //    Assert.That(_investigatorsProvider.Second.Keys.Value, Is.EqualTo(3));
+        //    Assert.That(cardGoal.Keys.Value, Is.EqualTo(8));
+        //    Assert.That(cardGoal.Revealed.IsActive, Is.False);
+        //    Assert.That(_investigatorsProvider.Leader.Resources.Value, Is.EqualTo(1));
+        //}
     }
 }

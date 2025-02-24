@@ -11,7 +11,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
     public class CardCondition01580Tests : TestCORE2Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator UpdateStatModifierChallenge()

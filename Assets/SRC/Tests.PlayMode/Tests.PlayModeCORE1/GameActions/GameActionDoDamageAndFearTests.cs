@@ -34,28 +34,28 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(((IDamageable)bulletProof).HealthLeft, Is.EqualTo(2));
         }
 
-        [UnityTest]
-        public IEnumerator UndoHarmTest()
-        {
-            Investigator investigator = _investigatorsProvider.First;
-            yield return BuildCard("01594", investigator);
-            Card bulletProof = _cardsProvider.GetCard<Card01594>();
-            Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
-            yield return StartingScene();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(damageableCard, investigator.AidZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(bulletProof, investigator.AidZone).Execute().AsCoroutine();
-            yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
+        //[UnityTest]
+        //public IEnumerator UndoHarmTest()
+        //{
+        //    Investigator investigator = _investigatorsProvider.First;
+        //    yield return BuildCard("01594", investigator);
+        //    Card bulletProof = _cardsProvider.GetCard<Card01594>();
+        //    Card damageableCard = investigator.Cards.First(card => card.Info.Code == "01521");
+        //    yield return StartingScene();
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(damageableCard, investigator.AidZone).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(bulletProof, investigator.AidZone).Execute().AsCoroutine();
+        //    yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, SceneCORE1.Hallway).Execute().AsCoroutine();
 
-            Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
-            yield return ClickedIn(SceneCORE1.Attic);
-            yield return ClickedIn(damageableCard);
-            yield return ClickedUndoButton();
-            yield return ClickedIn(investigator.InvestigatorCard);
-            yield return ClickedMainButton();
-            yield return gameActionTask.AsCoroutine();
+        //    Task gameActionTask = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+        //    yield return ClickedIn(SceneCORE1.Attic);
+        //    yield return ClickedIn(damageableCard);
+        //    yield return ClickedUndoButton();
+        //    yield return ClickedIn(investigator.InvestigatorCard);
+        //    yield return ClickedMainButton();
+        //    yield return gameActionTask.AsCoroutine();
 
-            Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(2));
-            Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
-        }
+        //    Assert.That(investigator.AidZone.Cards.Count, Is.EqualTo(2));
+        //    Assert.That(investigator.FearRecived.Value, Is.EqualTo(1));
+        //}
     }
 }

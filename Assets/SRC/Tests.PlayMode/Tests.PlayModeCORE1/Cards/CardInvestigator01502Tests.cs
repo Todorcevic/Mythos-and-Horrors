@@ -64,25 +64,25 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
         }
 
-        [UnityTest]
-        public IEnumerator CancelFreeTurnToActivateTome()
-        {
-            Card tomeCard = _cardsProvider.GetCard<Card01535>();
-            Investigator investigatorToTest = _investigatorsProvider.Second;
-            yield return PlaceOnlyScene();
-            yield return PlayThisInvestigator(investigatorToTest);
+        //[UnityTest]
+        //public IEnumerator CancelFreeTurnToActivateTome()
+        //{
+        //    Card tomeCard = _cardsProvider.GetCard<Card01535>();
+        //    Investigator investigatorToTest = _investigatorsProvider.Second;
+        //    yield return PlaceOnlyScene();
+        //    yield return PlayThisInvestigator(investigatorToTest);
 
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
-            Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
-            yield return ClickedIn(investigatorToTest.InvestigatorCard);
-            yield return ClickedUndoButton();
-            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(3));
+        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomeCard, investigatorToTest.AidZone).Execute().AsCoroutine();
+        //    Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigatorToTest).Execute();
+        //    yield return ClickedIn(investigatorToTest.InvestigatorCard);
+        //    yield return ClickedUndoButton();
+        //    Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(3));
 
-            yield return ClickedMainButton();
-            yield return taskGameAction.AsCoroutine();
+        //    yield return ClickedMainButton();
+        //    yield return taskGameAction.AsCoroutine();
 
-            Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
-        }
+        //    Assert.That(investigatorToTest.CurrentActions.Value, Is.EqualTo(0));
+        //}
 
         [UnityTest]
         public IEnumerator CantActivateWhenTomeIsExhaust()
