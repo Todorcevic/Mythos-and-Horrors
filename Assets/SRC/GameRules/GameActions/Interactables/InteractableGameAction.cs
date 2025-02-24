@@ -18,6 +18,8 @@ namespace MythosAndHorrors.GameRules
         public BaseEffect EffectSelected { get; private set; }
         public BaseEffect MainButtonEffect { get; private set; }
         public BaseEffect UndoEffect { get; private set; }
+        public bool IsUndoPressed => EffectSelected == UndoEffect;
+        public bool IsMainButtonPressed => EffectSelected == MainButtonEffect;
 
         public bool IsUniqueEffect => AllPlayableEffects.Count() == 1;
         public bool IsUniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;

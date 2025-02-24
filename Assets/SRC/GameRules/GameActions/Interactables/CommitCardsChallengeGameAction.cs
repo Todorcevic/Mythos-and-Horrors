@@ -25,16 +25,23 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
 
-        public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge, Func<Task> ContinueMainButton)
+        public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
             base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_CommitCardsChallenge"));
             CurrentChallenge = challenge;
             ExecuteSpecificInitialization();
-            CreateMainButton(ContinueMainButton, new Localization("MainButton_CommitCardsChallenge"));
-
+            CreateMainButton(() => Task.CompletedTask, new Localization("MainButton_CommitCardsChallenge"));
             return this;
         }
 
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await base.ExecuteThisLogic();
+            if (IsMainButtonPressed || IsUndoPressed) return;
+
+            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
+        }
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
@@ -47,7 +54,6 @@ namespace MythosAndHorrors.GameRules
                 async Task Commit()
                 {
                     await _gameActionsProvider.Create<CommitGameAction>().SetWith(commitableCard).Execute();
-                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge, MainButtonEffect.Logic).Execute();
                 }
             }
 
@@ -60,7 +66,6 @@ namespace MythosAndHorrors.GameRules
                 async Task Uncommit()
                 {
                     await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(commitableCard, commitableCard.InvestigatorCommiter.HandZone).Execute();
-                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge, MainButtonEffect.Logic).Execute();
                 }
             }
 
@@ -79,7 +84,6 @@ namespace MythosAndHorrors.GameRules
                 async Task Activate()
                 {
                     await activation.PlayFor(CurrentChallenge);
-                    await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge, MainButtonEffect.Logic).Execute();
                 }
             }
         }

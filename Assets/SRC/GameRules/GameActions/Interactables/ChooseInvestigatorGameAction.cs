@@ -27,8 +27,8 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await base.ExecuteThisLogic();
-            if (EffectSelected == UndoEffect)
-                InvestigatorSelected = _investigatorsProvider.AllInvestigatorsInPlay.FirstOrDefault(i => i.IsPlayingHisTurn.IsActive);
+            if (IsUndoPressed)
+                InvestigatorSelected = _investigatorsProvider.AllInvestigatorsInPlay.FirstOrDefault(investigator => investigator.IsPlayingHisTurn.IsActive);
         }
         /*******************************************************************/
         private void ExecuteSpecificInitialization()

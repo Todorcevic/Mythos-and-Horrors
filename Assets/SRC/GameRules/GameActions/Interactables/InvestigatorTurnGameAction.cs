@@ -38,7 +38,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await base.ExecuteThisLogic();
-            if ((EffectSelected != MainButtonEffect && EffectSelected != UndoEffect) ||
+            if ((!IsMainButtonPressed && !IsUndoPressed) ||
                 (ActiveInvestigator.HasTurnsAvailable.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive))
 
                 await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();

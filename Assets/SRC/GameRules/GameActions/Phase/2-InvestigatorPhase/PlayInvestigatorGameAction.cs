@@ -22,11 +22,6 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActiveInvestigator.IsPlayingHisTurn, true).Execute();
             await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActiveInvestigator.IsPlayingHisTurn, false).Execute();
-
-            //await _gameActionsProvider.Create<SafeWhile>().SetWith(() => ActiveInvestigator.HasTurnsAvailable.IsTrue, PlayTurn).Execute();
-
-            /*******************************************************************/
-            //async Task PlayTurn() => await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
         }
     }
 }
