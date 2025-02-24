@@ -25,7 +25,6 @@ namespace MythosAndHorrors.GameRules
         public Stat BasicDamegeToAttack { get; private set; }
         public State Resign { get; private set; }
         public State Defeated { get; private set; }
-        public State IsPlaying { get; private set; }
         public State Isolated { get; private set; }
         public Conditional CanPayKeys { get; private set; }
         public Conditional CanBeHealed { get; private set; }
@@ -54,7 +53,6 @@ namespace MythosAndHorrors.GameRules
             BasicDamegeToAttack = CreateStat(GameValues.DEFAULT_BASIC_DAMAGE_TO_ATTACK);
             Resign = CreateState(false, isReseteable: false);
             Defeated = CreateState(false, isReseteable: false);
-            IsPlaying = CreateState(false);
             Isolated = CreateState(false);
             CanPayKeys = new Conditional(() => Keys.Value > 0);
             CanBeHealed = new Conditional(() => DamageRecived.Value > 0);

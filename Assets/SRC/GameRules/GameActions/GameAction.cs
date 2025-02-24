@@ -47,6 +47,7 @@ namespace MythosAndHorrors.GameRules
         {
             _buffsProvider.UndoAllBuffs();
             await _presenterAnimation.PlayUndoAnimationWith(this);
+            Cancel();
         }
 
         public void Cancel() => IsCancel = true;

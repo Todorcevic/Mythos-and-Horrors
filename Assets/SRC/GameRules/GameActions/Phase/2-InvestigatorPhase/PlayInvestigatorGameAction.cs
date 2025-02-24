@@ -23,9 +23,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActiveInvestigator.IsPlayingTurns, true).Execute();
             await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith().Execute();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActiveInvestigator.IsPlayingTurns, false).Execute();
         }
 
         public override async Task Undo()

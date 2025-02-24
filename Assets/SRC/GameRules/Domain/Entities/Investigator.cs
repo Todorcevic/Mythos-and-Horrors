@@ -83,7 +83,6 @@ namespace MythosAndHorrors.GameRules
         public Stat BasicDamegeToAttack => InvestigatorCard.BasicDamegeToAttack;
         public State Resign => InvestigatorCard.Resign;
         public State Defeated => InvestigatorCard.Defeated;
-        public State IsPlayingTurns => InvestigatorCard.IsPlaying;
         public State Isolated => InvestigatorCard.Isolated; //Peril as Tag.Deprivation
         public Conditional CanPayKeys => InvestigatorCard.CanPayKeys;
         public Conditional CanBeHealed => InvestigatorCard.CanBeHealed;

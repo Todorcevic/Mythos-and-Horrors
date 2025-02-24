@@ -10,8 +10,6 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
-        [Inject] private readonly ChaptersProvider _chaptersProvider;
-        [Inject] private readonly CardsProvider _cardsProvider;
 
         public IEnumerable<Investigator> InvestigatorsVictoryAffected => _investigatorsProvider.AllInvestigators;
         int IVictoriable.Victory => 10;

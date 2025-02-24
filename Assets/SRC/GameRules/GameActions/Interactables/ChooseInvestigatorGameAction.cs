@@ -9,6 +9,8 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
 
+        public Investigator InvestigatorSelected { get; private set; }
+
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization)
@@ -29,7 +31,11 @@ namespace MythosAndHorrors.GameRules
                 CreateCardEffect(investigator.AvatarCard, new Stat(0, false), PlayInvestigator, PlayActionType.Choose, investigator, new Localization("CardEffect_ChooseInvestigator"));
 
                 /*******************************************************************/
-                async Task PlayInvestigator() => await _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
+                async Task PlayInvestigator()
+                {
+                    InvestigatorSelected = investigator;
+                    await Task.CompletedTask;
+                }
             }
         }
     }

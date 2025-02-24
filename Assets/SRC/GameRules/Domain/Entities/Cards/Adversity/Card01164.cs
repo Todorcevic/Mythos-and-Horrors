@@ -62,11 +62,9 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-
         private bool ActivateCondition()
         {
             if (CurrentZone.ZoneType != ZoneType.Danger) return false;
-            if (!InvestigatorAffected.IsPlayingTurns.IsActive) return false;
             if (CurrentZone != InvestigatorAffected.DangerZone) return false;
             if (Wasted.IsActive) return false;
             return true;
