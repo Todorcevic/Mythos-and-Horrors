@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public record CardEffect : BaseEffect, IViewEffect
+    public class CardEffect : BaseEffect, IViewEffect
     {
         public Stat ResourceCost { get; }
         public Card CardOwner { get; }

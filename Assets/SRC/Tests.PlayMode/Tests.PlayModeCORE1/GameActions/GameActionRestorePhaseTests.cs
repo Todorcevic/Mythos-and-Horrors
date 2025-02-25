@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionRestorePhaseTests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator RestorePhaseTest()
@@ -32,10 +32,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(investigator2.FullDeck.TakeLast(3).Select(card => card.Exausted), true).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
+            yield return ClickedIn(investigator.HandZone.Cards[0]);
             yield return ClickedIn(investigator.HandZone.Cards[1]);
-            yield return ClickedIn(investigator.DiscardZone.Cards.FirstOrDefault());
-            yield return ClickedIn(investigator.HandZone.Cards[1]);
-            yield return ClickedIn(investigator.HandZone.Cards[2]);
             yield return ClickedMainButton();
             yield return ClickedIn(investigator2.HandZone.Cards[1]);
             yield return ClickedIn(investigator2.HandZone.Cards[2]);
@@ -52,34 +50,30 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Assert.That(investigator2.FullDeck.ElementAt(10).Exausted.IsActive, Is.False);
         }
 
-        //[UnityTest]
-        //public IEnumerator CheckMaxHandSizeUndo()
-        //{
-        //    Investigator investigator = _investigatorsProvider.First;
-        //    Investigator investigator2 = _investigatorsProvider.Second;
-        //    yield return PlayAllInvestigators(withResources: true, withAvatar: false);
+        [UnityTest]
+        public IEnumerator CheckMaxHandSizeUndo()
+        {
+            Investigator investigator = _investigatorsProvider.First;
+            Investigator investigator2 = _investigatorsProvider.Second;
+            yield return PlayAllInvestigators(withResources: true, withAvatar: false);
 
-        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.HandZone).Execute().AsCoroutine();
-        //    yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator.DeckZone.Cards.Take(5), investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(investigator2.DeckZone.Cards.Take(5), investigator2.HandZone).Execute().AsCoroutine();
 
-        //    Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
-        //    yield return ClickedIn(investigator.HandZone.Cards.First());
-        //    yield return ClickedIn(investigator.HandZone.Cards.First());
-        //    yield return ClickedMainButton();
-        //    yield return ClickedIn(investigator2.HandZone.Cards.First());
-        //    yield return ClickedUndoButton();
-        //    yield return ClickedUndoButton();
-        //    yield return ClickedUndoButton();
-        //    AssumeThat(investigator.HandZone.Cards.Count == 9);
-        //    yield return ClickedIn(investigator.HandZone.Cards.First());
-        //    yield return ClickedMainButton();
-        //    yield return ClickedIn(investigator2.HandZone.Cards.First());
-        //    yield return ClickedIn(investigator2.HandZone.Cards.First());
-        //    yield return ClickedMainButton();
+            Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
+            yield return ClickedMainButton();
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedUndoButton();
+            AssumeThat(investigator2.HandZone.Cards.Count == 10);
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedIn(investigator2.HandZone.Cards.First());
+            yield return ClickedMainButton();
 
-        //    yield return gameActionTask.AsCoroutine();
-        //    Assert.That(investigator.HandZone.Cards.Count, Is.EqualTo(8));
-        //    Assert.That(investigator2.HandZone.Cards.Count, Is.EqualTo(8));
-        //}
+            yield return gameActionTask.AsCoroutine();
+            Assert.That(investigator.HandZone.Cards.Count, Is.EqualTo(8));
+            Assert.That(investigator2.HandZone.Cards.Count, Is.EqualTo(8));
+        }
     }
 }

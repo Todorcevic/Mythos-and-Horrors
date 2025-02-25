@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
-    public record BaseEffect : IViewEffectDescription
+    public class BaseEffect : IViewEffectDescription
     {
         public Stat ActivateTurnsCost { get; }
         public PlayActionType PlayActionType { get; }
