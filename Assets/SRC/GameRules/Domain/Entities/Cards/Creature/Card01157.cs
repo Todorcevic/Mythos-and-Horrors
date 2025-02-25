@@ -6,7 +6,7 @@ using Zenject;
 
 namespace MythosAndHorrors.GameRules
 {
-    public class Card01157 : CardColosus, IStalker, IVictoriable, IResetable
+    public class Card01157 : CardColosus, IStalker, IVictoriable
     {
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
@@ -26,6 +26,7 @@ namespace MythosAndHorrors.GameRules
             Health = CreateStat((Info.Health ?? 0) + _investigatorsProvider.AllInvestigators.Count() * 4);
             Defeated = CreateState(false);
             CreateForceReaction<InvestigatorsPhaseGameAction>(ReadyCondition, ReadyLogic, GameActionTime.After);
+            CreateForceReaction<DefeatCardGameAction>(DefeatCondition, Defeat, GameActionTime.Before);
         }
 
         /*******************************************************************/
@@ -41,7 +42,13 @@ namespace MythosAndHorrors.GameRules
             return true;
         }
 
-        public async Task Reset()
+        private bool DefeatCondition(DefeatCardGameAction defeatCardGameAction)
+        {
+            if (defeatCardGameAction.Card != this) return false;
+            return true;
+        }
+
+        private async Task Defeat(DefeatCardGameAction defeatCardGameAction)
         {
             if (HealthLeft < 1) await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Defeated, true).Execute();
         }

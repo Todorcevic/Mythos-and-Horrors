@@ -89,7 +89,6 @@ namespace MythosAndHorrors.GameRules
         private void SetUndoButton()
         {
             UndoEffect = _gameActionsProvider.CanUndo() ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, new Localization("MainButton_Back")) : null;
-            if (MainButtonEffect == null) MainButtonEffect = UndoEffect;
 
             /*******************************************************************/
             async Task UndoLogic()

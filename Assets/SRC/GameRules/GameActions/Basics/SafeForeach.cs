@@ -29,6 +29,7 @@ namespace MythosAndHorrors.GameRules
             await ResolveLogic();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, false).Execute();
 
+            /*******************************************************************/
             async Task ResolveLogic()
             {
                 if (element == null || !Initilized.IsActive) return;

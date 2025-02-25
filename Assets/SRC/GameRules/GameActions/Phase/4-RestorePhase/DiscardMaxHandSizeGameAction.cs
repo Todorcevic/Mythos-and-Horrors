@@ -7,6 +7,7 @@ namespace MythosAndHorrors.GameRules
         public override Localization PhaseNameLocalization => new("PhaseName_RestorePhase");
         public override Localization PhaseDescriptionLocalization => new("PhaseDescription_RestorePhase");
         public override Phase MainPhase => Phase.Restore;
+        public override bool CanUndo => false;
 
         /*******************************************************************/
         public DiscardMaxHandSizeGameAction SetWith(Investigator investigator)
@@ -18,7 +19,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            await _gameActionsProvider.Create<CheckMaxHandSizeGameAction>().SetWith(ActiveInvestigator, ActiveInvestigator.DiscardableCardsInHand).Execute();
+            await _gameActionsProvider.Create<CheckMaxHandSizeGameAction>().SetWith(ActiveInvestigator).Execute();
         }
     }
 
