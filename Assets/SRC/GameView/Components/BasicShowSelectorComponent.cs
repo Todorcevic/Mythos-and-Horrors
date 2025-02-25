@@ -26,10 +26,10 @@ namespace MythosAndHorrors.GameView
           .ThenBy(cardView => cardView.DeckPosition).ToList();
 
         /*******************************************************************/
-        public async Task ShowCards(List<CardView> cardViews, string title)
+        public async Task ShowCards(List<CardView> cardViews, string title, bool withButtons)
         {
             _cardViews = cardViews;
-            await ShowUp(title);
+            await ShowUp(title, withButtons);
         }
 
         public async Task ShowDown(Tween restoreCards, bool withActivation)
@@ -54,14 +54,15 @@ namespace MythosAndHorrors.GameView
             }
         }
 
-        private async Task ShowUp(string title)
+        private async Task ShowUp(string title, bool withButtons)
         {
             ActivateTitle(title);
             _ioActivatorComponent.DeactivateCardSensors();
-            Sequence showCenterSequence = DOTween.Sequence()
-               .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
-               .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition))
-               .Join(_selectorBlockController.ActivateSelector());
+            Sequence showCenterSequence = DOTween.Sequence();
+            if (withButtons) showCenterSequence
+                    .Append(_mainButtonComponent.MoveToShowSelector(_buttonPosition))
+                    .Join(_tokensPileComponent.MoveToShowSelector(_buttonPosition));
+            showCenterSequence.Join(_selectorBlockController.ActivateSelector());
 
             Dictionary<CardView, ZoneView> cardViewToTween = _cardViews.ToDictionary(cardView => cardView, cardView => (ZoneView)_zoneViewsManager.SelectorZone);
             showCenterSequence.Join(_moveCardHandler.MoveCardViewsToZones(cardViewToTween, 0));

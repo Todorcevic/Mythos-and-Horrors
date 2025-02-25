@@ -46,7 +46,7 @@ namespace MythosAndHorrors.GameView
             else if (_mustShowInCenter)
             {
                 List<CardView> cardsToShow = _cardViewsManager.GetAllCanPlay();
-                await _showSelectorComponent.ShowCards(cardsToShow, InteractableTitle);
+                await _showSelectorComponent.ShowCards(cardsToShow, InteractableTitle, withButtons: true);
                 return await Interact();
             }
             else

@@ -15,6 +15,8 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ActivatePlayablesHandler _showCardHandler;
         [Inject] private readonly ClickHandler _clickHandler;
         [Inject] private readonly MoveCardHandler _moveCardHandler;
+        [Inject] private readonly MainButtonComponent _mainButtonComponent;
+        [Inject] private readonly TokensPileComponent _tokensPileComponent;
         private CardView originalCardView;
         private List<IPlayable> cardViewClones;
 
@@ -23,13 +25,14 @@ namespace MythosAndHorrors.GameView
         {
             if (cardViewWithMultiEffecs == null) throw new ArgumentNullException(nameof(cardViewWithMultiEffecs));
             originalCardView = cardViewWithMultiEffecs;
+
             await _moveCardHandler.MoveCardViewToCenter(originalCardView).AsyncWaitForCompletion();
             cardViewClones = CreateCardViewClones();
             originalCardView.gameObject.SetActive(false);
-            await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title);
+            await _showSelectorComponent.ShowCards(cardViewClones.Cast<CardView>().ToList(), title, withButtons: false);
 
             Task<IPlayable> waitClick = _clickHandler.WaitingClick();
-            _showCardHandler.ActivatePlayables(cardViewClones);
+            _showCardHandler.ActivateClones(cardViewClones);
             IPlayable playableSelected = await waitClick;
 
             await FinishMultiEffect();
@@ -38,7 +41,7 @@ namespace MythosAndHorrors.GameView
 
         private async Task FinishMultiEffect()
         {
-            await _showCardHandler.DeactivatePlayables(cardViewClones);
+            await _showCardHandler.DeactivateClones(cardViewClones);
             Sequence destroyClonesSequence = DOTween.Sequence();
             cardViewClones.Cast<CardView>()
                 .ForEach(clone => destroyClonesSequence.Join(_moveCardHandler.MoveCardViewToCenter(clone)

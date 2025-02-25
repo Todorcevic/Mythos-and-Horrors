@@ -17,27 +17,46 @@ namespace MythosAndHorrors.GameView
         private void ShowCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Show());
         private void HideCardsState() => _cardViewsManager.GetAllUpdatable().ForEach(deckCardView => deckCardView.Hide());
 
-        public void ActivatePlayables(List<IPlayable> specificsCardViews = null)
+        public void ActivatePlayables()
         {
             ShowCardsState();
-            CheckActivesActivables(specificsCardViews);
-            CheckActivesAvatars(specificsCardViews);
+            CheckActivesActivables();
+            CheckActivesAvatars();
             _ioActivatorComponent.ActivateCardSensors();
 
             /*******************************************************************/
-            void CheckActivesActivables(List<IPlayable> specificsCardViews)
+            void CheckActivesActivables()
             {
-                _allPlayablesComponent.Concat(specificsCardViews ?? _cardViewsManager.GetAllIPlayable())
-                    .Where(playable => playable.CanBePlayed).ForEach(playable => playable.ActivateToClick());
-
+                _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable())
+                    .Where(playable => playable.CanBePlayed)
+                    .ForEach(playable => playable.ActivateToClick());
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.AddBuffs());
             }
 
-            void CheckActivesAvatars(List<IPlayable> specificsCardViews) => _avatarViewsManager
-                .AvatarsPlayabled(specificsCardViews ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.ActivateGlow());
+            void CheckActivesAvatars() => _avatarViewsManager.AvatarsPlayabled(_cardViewsManager.GetAllIPlayable())
+                .ForEach(avatar => avatar.ActivateGlow());
         }
 
-        public async Task DeactivatePlayables(List<IPlayable> clones = null)
+        public void ActivateClones(List<IPlayable> clones)
+        {
+            ShowCardsState();
+            CheckActivesActivables();
+            CheckActivesAvatars();
+            _ioActivatorComponent.ActivateCardSensors();
+
+            /*******************************************************************/
+            void CheckActivesActivables()
+            {
+                clones.Where(playable => playable.CanBePlayed)
+                    .ForEach(playable => playable.ActivateToClick());
+                _cardViewsManager.AllCardsView.ForEach(cardView => cardView.AddBuffs());
+            }
+
+            void CheckActivesAvatars() => _avatarViewsManager.AvatarsPlayabled(clones)
+                .ForEach(avatar => avatar.ActivateGlow());
+        }
+
+        public async Task DeactivatePlayables()
         {
             HideCardsState();
             CheckDeactivateActivables();
@@ -48,13 +67,33 @@ namespace MythosAndHorrors.GameView
             /*******************************************************************/
             void CheckDeactivateActivables()
             {
-                _allPlayablesComponent.Concat(clones ?? _cardViewsManager.GetAllIPlayable())
-                    .Where(playable => playable.CanBePlayed).ForEach(playable => playable.DeactivateToClick());
+                _allPlayablesComponent.Concat(_cardViewsManager.GetAllIPlayable()).Where(playable => playable.CanBePlayed)
+                    .ForEach(playable => playable.DeactivateToClick());
+
                 _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
             }
 
             void CheckDeactivateAvatars() =>
-                _avatarViewsManager.AvatarsPlayabled(clones ?? _cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
+                _avatarViewsManager.AvatarsPlayabled(_cardViewsManager.GetAllIPlayable()).ForEach(avatar => avatar.DeactivateGlow());
+        }
+
+        public async Task DeactivateClones(List<IPlayable> clones)
+        {
+            HideCardsState();
+            CheckDeactivateActivables();
+            CheckDeactivateAvatars();
+            _ioActivatorComponent.DeactivateCardSensors();
+            await DotweenExtension.WaitForAnimationsComplete();
+
+            /*******************************************************************/
+            void CheckDeactivateActivables()
+            {
+                clones.Where(playable => playable.CanBePlayed).ForEach(playable => playable.DeactivateToClick());
+                _cardViewsManager.AllCardsView.ForEach(cardView => cardView.RemoveBuffs());
+            }
+
+            void CheckDeactivateAvatars() => _avatarViewsManager.AvatarsPlayabled(clones)
+                .ForEach(avatar => avatar.DeactivateGlow());
         }
     }
 }

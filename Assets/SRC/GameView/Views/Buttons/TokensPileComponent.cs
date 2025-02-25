@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameView
         [SerializeField, Required, AssetsOnly] private AudioClip _hoverOnToken;
         [SerializeField, Required, AssetsOnly] private AudioClip _hoverOffToken;
 
-        private CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
+        public CardEffect TakeResourceEffect => (_gameActionsProvider.CurrentInteractable as InvestigatorTurnGameAction)?.TakeResourceEffect;
         IEnumerable<BaseEffect> IPlayable.EffectsSelected => TakeResourceEffect == null ? Enumerable.Empty<CardEffect>() : new[] { TakeResourceEffect };
         public bool CanBePlayed => TakeResourceEffect?.CanBePlayed ?? false;
 
