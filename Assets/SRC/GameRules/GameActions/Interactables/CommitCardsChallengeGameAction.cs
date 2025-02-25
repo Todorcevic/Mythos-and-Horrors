@@ -42,6 +42,7 @@ namespace MythosAndHorrors.GameRules
 
             await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(CurrentChallenge).Execute();
         }
+
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {

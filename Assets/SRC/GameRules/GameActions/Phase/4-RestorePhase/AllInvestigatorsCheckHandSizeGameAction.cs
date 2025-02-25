@@ -17,15 +17,19 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            while (GetInvestigatorsMustDiscard().Any())
-            {
-                Investigator investigator = GetInvestigatorsMustDiscard().First();
-                await _gameActionsProvider.Create<DiscardMaxHandSizeGameAction>().SetWith(investigator).Execute();
-            }
+            await _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(GetInvestigatorsMustDiscard, Discard).Execute();
+
+            //while (GetInvestigatorsMustDiscard().Any())
+            //{
+            //    Investigator investigator = GetInvestigatorsMustDiscard().First();
+            //    await _gameActionsProvider.Create<DiscardMaxHandSizeGameAction>().SetWith(investigator).Execute();
+            //}
         }
 
         /*******************************************************************/
         IEnumerable<Investigator> GetInvestigatorsMustDiscard() => _investigatorsProvider.AllInvestigatorsInPlay
             .Where(investigator => investigator.HandSize > investigator.MaxHandSize.Value);
+
+        async Task Discard(Investigator investigator) => await _gameActionsProvider.Create<DiscardMaxHandSizeGameAction>().SetWith(investigator).Execute();
     }
 }
