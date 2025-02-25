@@ -45,6 +45,7 @@ namespace MythosAndHorrors.GameRules
 
         public virtual async Task Undo()
         {
+            IsCancel = true;
             _buffsProvider.UndoAllBuffs();
             await _presenterAnimation.PlayUndoAnimationWith(this);
         }

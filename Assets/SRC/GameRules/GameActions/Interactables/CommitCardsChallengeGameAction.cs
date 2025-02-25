@@ -27,7 +27,7 @@ namespace MythosAndHorrors.GameRules
 
         public CommitCardsChallengeGameAction SetWith(ChallengePhaseGameAction challenge)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: false, new Localization("Interactable_CommitCardsChallenge"));
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: false, new Localization("Interactable_CommitCardsChallenge"));
             CurrentChallenge = challenge;
             ExecuteSpecificInitialization();
             CreateMainButton(() => Task.CompletedTask, new Localization("MainButton_CommitCardsChallenge"));

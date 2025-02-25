@@ -30,6 +30,7 @@ namespace MythosAndHorrors.GameRules
             if (IsUndoPressed)
                 InvestigatorSelected = _investigatorsProvider.AllInvestigatorsInPlay.FirstOrDefault(investigator => investigator.IsPlayingHisTurn.IsActive);
         }
+
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {

@@ -17,7 +17,7 @@ namespace MythosAndHorrors.GameRules
 
         public CheckSlotsGameAction SetWith(Investigator investigator)
         {
-            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_CheckSlots", DescriptionParams()));
+            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_CheckSlots", DescriptionParams()));
             ActiveInvestigator = investigator;
             ExecuteSpecificInitialization();
             return this;
@@ -27,6 +27,13 @@ namespace MythosAndHorrors.GameRules
             {
                 return string.Join("-", investigator.GetAllSlotsExeded().Distinct());
             }
+        }
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await base.ExecuteThisLogic();
+            if (IsUndoPressed) return;
+            await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(ActiveInvestigator).Execute(); ;
         }
 
         /*******************************************************************/
@@ -38,11 +45,8 @@ namespace MythosAndHorrors.GameRules
             {
                 CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_CheckSlots"));
 
-                async Task Discard()
-                {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
-                    await _gameActionsProvider.Create<CheckSlotsGameAction>().SetWith(ActiveInvestigator).Execute();
-                }
+                /*******************************************************************/
+                async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
             }
         }
     }

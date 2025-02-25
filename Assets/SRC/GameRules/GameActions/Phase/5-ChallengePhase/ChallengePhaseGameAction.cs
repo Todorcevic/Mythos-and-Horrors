@@ -57,7 +57,7 @@ namespace MythosAndHorrors.GameRules
         {
             CommitCardsChallengeGameAction commitableChallengeGameAction = _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this);
             await commitableChallengeGameAction.Execute();
-            if (commitableChallengeGameAction.IsUndoPressed) return;
+            if (commitableChallengeGameAction.IsCancel) return;
 
             await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Execute();
             await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Execute();
