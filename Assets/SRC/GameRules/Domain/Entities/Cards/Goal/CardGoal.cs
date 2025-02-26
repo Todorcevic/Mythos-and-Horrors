@@ -15,7 +15,7 @@ namespace MythosAndHorrors.GameRules
 
         public Stat Keys { get; protected set; }
         public State Revealed { get; private set; }
-        public Activation<Investigator> PayKeys { get; private set; }
+        public Activation<Investigator> PayKeys { get; protected set; }
         public GameCommand<RevealGameAction> RevealCommand { get; private set; }
         public Reaction<UpdateStatGameAction> Reveal { get; private set; }
         public override IEnumerable<Tag> Tags => Enumerable.Empty<Tag>();
@@ -34,9 +34,9 @@ namespace MythosAndHorrors.GameRules
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by Injection")]
         private void Init()
         {
-            PayKeys = CreateFastActivation(PayKeysActivate, PayKeysConditionToActivate, PlayActionType.Activate, new Localization("Activation_CardGoal"));
-            RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Keys = CreateStat(MaxKeys);
+            PayKeys = CreateFastActivation(PayKeysActivate, PayKeysConditionToActivate, PlayActionType.Activate, new Localization("Activation_CardGoal", () => new[] { Keys.Value.ToString() }));
+            RevealCommand = new GameCommand<RevealGameAction>(RevealEffect);
             Revealed = CreateState(false);
             Reveal = CreateBaseReaction<UpdateStatGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }

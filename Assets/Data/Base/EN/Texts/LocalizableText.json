@@ -199,7 +199,7 @@
     "Activation_Card01157": "Throw {arg0} to {arg1}",
     "Activation_Card01601": "Parley",
     "Activation_Card01148": "Pay 1 <sprite index=38>",
-    "Activation_CardGoal": "Pay <sprite index=38>",
+    "Activation_CardGoal": "Pay {arg0} <sprite index=38>",
     "Activation_Card01502": "Play Tome effect",
     "Activation_Card01503": "Gain 1<sprite index=9>",
     "Activation_Card01115": "Run away",

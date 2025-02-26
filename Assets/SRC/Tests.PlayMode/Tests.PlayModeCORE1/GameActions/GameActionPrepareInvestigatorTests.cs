@@ -37,8 +37,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task taskGameAction = _gameActionsProvider.Create<PrepareInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(investigator.HandZone.Cards.First());
-            yield return ClickedIn(investigator.DiscardZone.Cards.Last());
-            yield return ClickedIn(investigator.DiscardZone.Cards.Last());
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
