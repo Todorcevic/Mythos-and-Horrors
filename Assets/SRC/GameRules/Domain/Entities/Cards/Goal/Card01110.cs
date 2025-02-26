@@ -24,6 +24,7 @@ namespace MythosAndHorrors.GameRules
         private void Init()
         {
             Reveal.Disable();
+            PayKeys.Disable();
             CreateForceReaction<DefeatCardGameAction>(RevealCondition, RevealLogic, GameActionTime.After);
         }
 

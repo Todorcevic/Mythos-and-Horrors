@@ -62,7 +62,7 @@ namespace MythosAndHorrors.GameRules
 
         private void PreparePassEffect()
         {
-            CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.CurrentActions.Value.ToString()));
+            CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.InvestigatorCard.Info.Name));
 
             async Task PassTurn() =>
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentActions, ActiveInvestigator.CurrentActions.Value).Execute();

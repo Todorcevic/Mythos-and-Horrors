@@ -10,7 +10,7 @@ namespace MythosAndHorrors.GameRules
     {
         public CardGoal CardGoal { get; private set; }
         public IEnumerable<Investigator> InvestigatorsToPay { get; private set; }
-        public override bool CanBeExecuted => CardGoal.IsInPlay.IsTrue && !CardGoal.Revealed.IsActive && CardGoal.Keys.Value > 0;
+        public override bool CanBeExecuted => CardGoal.IsInPlay.IsTrue && !CardGoal.Revealed.IsActive;
         public List<CardEffect> EffectsToPay { get; } = new();
 
         /*******************************************************************/
@@ -30,12 +30,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await base.ExecuteThisLogic();
-            if (IsMainButtonPressed) return;
+            if (IsMainButtonPressed || IsUndoPressed) return;
 
             await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
         }
         /*******************************************************************/
-
         private void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayKeys.IsTrue))
