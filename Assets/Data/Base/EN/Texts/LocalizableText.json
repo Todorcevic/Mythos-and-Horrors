@@ -88,6 +88,7 @@
     "Buff_Card01530": "+1<sprite index=56>",
     "Buff_Card01533": "+1<sprite index=56>",
     "Buff_Card01540": "+1<sprite index=56>",
+    "Buff_Card01542": "+2{arg0}",
     "Buff_Card01542-1": "+2<sprite index=54>",
     "Buff_Card01542-2": "+2<sprite index=55>",
     "Buff_Card01542-3": "+2<sprite index=56>",

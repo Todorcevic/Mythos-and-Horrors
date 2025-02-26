@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameView
 
             List<(string, string, Sprite)> allDropTokensInfo = _challengeTokensProvider.ChallengeTokensRevealed.Select(token => (
                 token.Value.Invoke(investigator).ToString(),
-                token.Description.Invoke(investigator),
+                token.Description.Invoke(investigator).ParseDescription(_cardsProvider, _textsManager, investigator),
                 _challengeTokensManager.GetSprite(token.TokenType))).ToList();
             _challengeMessageController.ShowDropTokens(allDropTokensInfo);
         }

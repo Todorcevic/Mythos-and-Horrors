@@ -90,9 +90,9 @@ namespace MythosAndHorrors.GameRules
         private string CreatureDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return CreatureTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName);
+                return CreatureTokenDescriptionNormal.ParseViewWith(investigator.CurrentPlace.CurrentName);
             else
-                return CreatureTokenDescriptionHard.ParseViewWith(investigator.InvestigatorCard.Info.Name, Tag.Ghoul.ToString());
+                return CreatureTokenDescriptionHard.ParseViewWith(investigator.InvestigatorCard.Info.Name);
         }
 
         private async Task CreatureEffect(Investigator investigator)
@@ -141,9 +141,9 @@ namespace MythosAndHorrors.GameRules
         private string DangerDescription(Investigator investigator)
         {
             if (_chaptersProvider.CurrentDificulty == Dificulty.Easy || _chaptersProvider.CurrentDificulty == Dificulty.Normal)
-                return DangerTokenDescriptionNormal.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
+                return DangerTokenDescriptionNormal.ParseViewWith(investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
             else
-                return DangerTokenDescriptionHard.ParseViewWith(Tag.Ghoul.ToString(), investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
+                return DangerTokenDescriptionHard.ParseViewWith(investigator.CurrentPlace.CurrentName, investigator.InvestigatorCard.Info.Name);
         }
 
         private async Task DangerEffect(Investigator investigator)

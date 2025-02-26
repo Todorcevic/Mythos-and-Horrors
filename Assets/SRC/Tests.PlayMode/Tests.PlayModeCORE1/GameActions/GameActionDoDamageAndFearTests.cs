@@ -1,7 +1,6 @@
 ﻿using MythosAndHorrors.GameRules;
 using NUnit.Framework;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
@@ -10,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class GameActionDoDamageAndFearTests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator HarmTest()
