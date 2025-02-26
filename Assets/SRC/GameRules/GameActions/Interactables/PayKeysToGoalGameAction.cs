@@ -26,8 +26,16 @@ namespace MythosAndHorrors.GameRules
             ExecuteSpecificInitialization();
             return this;
         }
-
         /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await base.ExecuteThisLogic();
+            if (IsMainButtonPressed) return;
+
+            await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
+        }
+        /*******************************************************************/
+
         private void ExecuteSpecificInitialization()
         {
             foreach (Investigator investigator in InvestigatorsToPay.Where(investigator => investigator.CanPayKeys.IsTrue))
@@ -40,7 +48,6 @@ namespace MythosAndHorrors.GameRules
                 {
                     int amoutToPay = investigator.Keys.Value > CardGoal.Keys.Value ? CardGoal.Keys.Value : investigator.Keys.Value;
                     await _gameActionsProvider.Create<PayKeyGameAction>().SetWith(investigator, CardGoal.Keys, amoutToPay).Execute();
-                    await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
                 }
             }
         }

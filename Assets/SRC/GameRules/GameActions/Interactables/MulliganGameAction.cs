@@ -20,43 +20,44 @@ namespace MythosAndHorrors.GameRules
             ExecuteSpecificInitialization();
             return this;
         }
+        /*******************************************************************/
+        protected override async Task ExecuteThisLogic()
+        {
+            await base.ExecuteThisLogic();
+            if (IsMainButtonPressed) return;
+
+            await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
+        }
 
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
             CreateContinueMainButton();
 
-            foreach (Card card in ActiveInvestigator.HandZone.Cards)
+            foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {
                 CreateCardEffect(card, new Stat(0, false), Discard, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_Mulligan"));
 
                 /*******************************************************************/
-                async Task Discard()
-                {
-                    await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
-                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
-                }
+                async Task Discard() => await _gameActionsProvider.Create<DiscardGameAction>().SetWith(card).Execute();
             }
 
-            foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
-            {
-                if (!CanRestore()) continue;
+            //foreach (Card card in ActiveInvestigator.DiscardZone.Cards)
+            //{
+            //    if (!CanRestore()) continue;
 
-                CreateCardEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_Mulligan-1"));
+            //    CreateCardEffect(card, new Stat(0, false), Restore, PlayActionType.Choose, ActiveInvestigator, new Localization("CardEffect_Mulligan-1"));
 
-                /*******************************************************************/
-                async Task Restore()
-                {
-                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, ActiveInvestigator.HandZone).Execute();
-                    await _gameActionsProvider.Create<MulliganGameAction>().SetWith(ActiveInvestigator).Execute();
-                }
+            //    /*******************************************************************/
+            //    async Task Restore() => await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, ActiveInvestigator.HandZone).Execute();
 
-                bool CanRestore()
-                {
-                    if (card.HasThisTag(Tag.Weakness)) return false;
-                    return true;
-                }
-            }
+
+            //    bool CanRestore()
+            //    {
+            //        if (card.HasThisTag(Tag.Weakness)) return false;
+            //        return true;
+            //    }
+            //}
         }
     }
 }
