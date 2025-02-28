@@ -28,15 +28,7 @@ namespace MythosAndHorrors.GameRules
         private async Task ResolveLogic(ResolveChallengeGameAction resolveChallengeGameAction)
         {
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.CurrentActions, 0).Execute();
-            CreateOneTimeReaction<InvestigatorTurnGameAction>(PassTurnCondition, PassTurnLogic, GameActionTime.Before);
-
-            async Task PassTurnLogic(InvestigatorTurnGameAction oneInvestigatorTurnGameAction)
-            {
-                oneInvestigatorTurnGameAction.Cancel();
-                await Task.CompletedTask;
-            }
-
-            bool PassTurnCondition(InvestigatorTurnGameAction oneInvestigatorTurnGameAction) => true;
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(resolveChallengeGameAction.ChallengePhaseGameAction.ActiveInvestigator.IsPlayingHisTurn, false).Execute();
         }
 
         private bool ResolveCondition(ResolveChallengeGameAction resolveChallengeGameAction)

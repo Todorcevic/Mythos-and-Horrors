@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisPhaseLogic()
         {
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Discarding, true).Execute();
-            await _gameActionsProvider.Create<SafeWhile>().SetWith(() => Discarding.IsActive && ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value, Discard).Execute();
+            await _gameActionsProvider.Create<SafeWhile>().SetWith(() => ActiveInvestigator.IsInPlay.IsTrue && Discarding.IsActive && ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value, Discard).Execute();
 
             /*******************************************************************/
             async Task Discard()

@@ -9,7 +9,7 @@ namespace MythosAndHorrors.GameRules
     public class CheckSlotsGameAction : InteractableGameAction, IPersonalInteractable
     {
         public Investigator ActiveInvestigator { get; private set; }
-        public override bool CanBeExecuted => ActiveInvestigator.HasSlotsExeded;
+        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay.IsTrue && ActiveInvestigator.HasSlotsExeded;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]

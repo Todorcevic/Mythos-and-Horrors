@@ -20,6 +20,7 @@ namespace MythosAndHorrors.GameRules
               .OfType<CommitableCard>().Where(commitableCard => commitableCard.GetChallengeFullValueWithWild(CurrentChallenge.ChallengeType) > 0);
 
         public Investigator ActiveInvestigator => CurrentChallenge.ActiveInvestigator;
+        public override bool CanBeExecuted => ActiveInvestigator.IsInPlay.IsTrue;
 
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]

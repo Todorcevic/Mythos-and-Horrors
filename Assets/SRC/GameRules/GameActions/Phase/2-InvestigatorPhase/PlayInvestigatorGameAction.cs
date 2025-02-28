@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
             await _gameActionsProvider.Create<SafeWhile>().SetWith(MainOrUndoButtonIsNotPressed, ExecuteInvestigatorTurn).Execute();
 
             /*******************************************************************/
-            bool MainOrUndoButtonIsNotPressed() => ActiveInvestigator.IsPlayingHisTurn.IsActive;
+            bool MainOrUndoButtonIsNotPressed() => ActiveInvestigator.IsInPlay.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive;
             async Task ExecuteInvestigatorTurn() => await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
         }
     }
