@@ -8,6 +8,8 @@ namespace MythosAndHorrors.GameRules
     {
         public Investigator ActiveInvestigator { get; private set; }
 
+        public override bool CanBeExecuted => ActiveInvestigator.HandSize > ActiveInvestigator.MaxHandSize.Value;
+
         /*******************************************************************/
         [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Parent method must be hide")]
         private new InteractableGameAction SetWith(bool canBackToThisInteractable, bool mustShowInCenter, Localization localization) => throw new NotImplementedException();
@@ -26,24 +28,9 @@ namespace MythosAndHorrors.GameRules
                 return new[] { investigator.InvestigatorCard.Info.Name, investigator.MaxHandSize.Value.ToString(), cardsLeft.ToString() };
             }
         }
-        /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
-        {
-            await base.ExecuteThisLogic();
-            if (IsMainButtonPressed) return;
-
-            await _gameActionsProvider.Create<CheckMaxHandSizeGameAction>().SetWith(ActiveInvestigator).Execute();
-        }
 
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
-        {
-            if (ActiveInvestigator.HandSize <= ActiveInvestigator.MaxHandSize.Value) CreateContinueMainButton();
-            else CreateDiscardCards();
-        }
-
-        /*******************************************************************/
-        private void CreateDiscardCards()
         {
             foreach (Card card in ActiveInvestigator.DiscardableCardsInHand)
             {

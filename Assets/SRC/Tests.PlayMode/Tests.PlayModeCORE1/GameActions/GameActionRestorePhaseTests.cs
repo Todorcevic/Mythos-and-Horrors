@@ -34,10 +34,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
             yield return ClickedIn(investigator.HandZone.Cards[0]);
             yield return ClickedIn(investigator.HandZone.Cards[1]);
-            yield return ClickedMainButton();
             yield return ClickedIn(investigator2.HandZone.Cards[1]);
             yield return ClickedIn(investigator2.HandZone.Cards[2]);
-            yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandZone.Cards.Count, Is.EqualTo(8));
@@ -63,13 +61,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create<RestorePhaseGameAction>().Execute();
             yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(investigator.HandZone.Cards.First());
-            yield return ClickedMainButton();
             yield return ClickedIn(investigator2.HandZone.Cards.First());
             yield return ClickedUndoButton();
             AssumeThat(investigator2.HandZone.Cards.Count == 10);
+            yield return ClickedUndoButton();
+            yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(investigator2.HandZone.Cards.First());
             yield return ClickedIn(investigator2.HandZone.Cards.First());
-            yield return ClickedMainButton();
 
             yield return gameActionTask.AsCoroutine();
             Assert.That(investigator.HandZone.Cards.Count, Is.EqualTo(8));
