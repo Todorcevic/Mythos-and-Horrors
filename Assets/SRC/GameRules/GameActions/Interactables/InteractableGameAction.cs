@@ -23,7 +23,7 @@ namespace MythosAndHorrors.GameRules
 
         public bool IsUniqueEffect => AllPlayableEffects.Count() == 1;
         public bool IsUniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).UniqueOrDefault() != null;
-        private bool NoEffect => (MainButtonEffect == null) && !AllPlayableEffects.Any();
+        public bool NoEffect => (MainButtonEffect == null) && !AllPlayableEffects.Any();
         public bool IsMultiEffect => IsUniqueCard && !IsUniqueEffect;
         public Card UniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).Unique();
         private CardEffect UniqueCardEffect => AllPlayableEffects.Unique();
@@ -44,7 +44,11 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             SetUndoButton();
-            if (NoEffect) return;
+            if (NoEffect)
+            {
+                int eqw = 0;
+                return;
+            }
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create<PayRequerimentsEffectGameAction>().SetWith(EffectSelected).Execute();
             await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();
@@ -90,13 +94,11 @@ namespace MythosAndHorrors.GameRules
         {
             bool canUndo = _gameActionsProvider.CanUndo();
             UndoEffect = canUndo ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, new Localization("MainButton_Back")) : null;
-            //MainButtonEffect ??= canUndo ? new BaseEffect(new Stat(0, false), UndoLogic, PlayActionType.None, null, new Localization("MainButton_Back")) : null;
 
             /*******************************************************************/
             async Task UndoLogic()
             {
                 InteractableGameAction lastInteractable = await _gameActionsProvider.UndoLastInteractable();
-                //await lastInteractable.Execute();
             }
         }
     }

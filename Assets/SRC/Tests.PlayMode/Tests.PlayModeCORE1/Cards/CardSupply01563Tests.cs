@@ -18,19 +18,22 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         {
             Investigator investigator = _investigatorsProvider.Fourth;
             Card01563 supply = _cardsProvider.GetCard<Card01563>();
+            Card01561 spell = _cardsProvider.GetCard<Card01561>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(spell, investigator.DeckZone, isFaceDown: true).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();
             yield return ClickedIn(supply);
             yield return ClickedIn(supply);
-            yield return ClickedIn(investigator.DeckZone.Cards.First(card => card.HasThisTag(Tag.Spell)));
+            yield return ClickedIn(spell);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(supply.Eldritch.Value, Is.EqualTo(1));
             Assert.That(supply.Exausted.IsActive, Is.True);
+            Assert.That(spell.CurrentZone, Is.EqualTo(investigator.HandZone));
         }
 
         [UnityTest]
