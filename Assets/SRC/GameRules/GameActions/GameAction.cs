@@ -21,6 +21,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         public async Task Execute()
         {
+            if (Parent?.IsCancel ?? false) Cancel();
             await _reactionablesProvider.WhenInitial(this);
             if (!CanBeExecuted || IsCancel) return;
             InitialSet();
@@ -45,7 +46,6 @@ namespace MythosAndHorrors.GameRules
 
         public virtual async Task Undo()
         {
-            IsCancel = true;
             _buffsProvider.UndoAllBuffs();
             await _presenterAnimation.PlayUndoAnimationWith(this);
         }

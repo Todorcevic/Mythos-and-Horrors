@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace MythosAndHorrors.GameRules
         public T Create<T>() where T : GameAction => _container.Instantiate<T>();
 
         public void AddUndo(GameAction gameAction) => _allGameActionsExecuted.Push(gameAction);
+
 
         public async Task Rewind()
         {
@@ -60,12 +62,13 @@ namespace MythosAndHorrors.GameRules
             .Where(interactableGameAction => interactableGameAction.CanBackToThisInteractable)
             .FirstOrDefault();
 
-        private async Task UndoUntil(GameAction gameAction)
+        private async Task UndoUntil(InteractableGameAction gameAction)
         {
             while (_allGameActionsExecuted.Any())
             {
                 GameAction lastGameAction = _allGameActionsExecuted.Pop();
                 await lastGameAction.Undo();
+                lastGameAction.Cancel();
                 if (lastGameAction == gameAction) break;
             }
         }

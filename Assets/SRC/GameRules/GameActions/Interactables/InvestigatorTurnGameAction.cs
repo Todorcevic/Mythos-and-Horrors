@@ -35,14 +35,15 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
-        {
-            await base.ExecuteThisLogic();
-            if ((!IsMainButtonPressed && !IsUndoPressed) ||
-                (ActiveInvestigator.HasTurnsAvailable.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive))
+        //protected override async Task ExecuteThisLogic()
+        //{
+        //    //await base.ExecuteThisLogic();
+        //    //if ((!IsMainButtonPressed && !IsUndoPressed) ||
+        //    //    (ActiveInvestigator.HasTurnsAvailable.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive))
+        //    //if ((IsMainButtonPressed || IsUndoPressed) && !ActiveInvestigator.HasTurnsAvailable.IsTrue) return;
 
-                await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
-        }
+        //    //await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
+        //}
 
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
@@ -64,8 +65,11 @@ namespace MythosAndHorrors.GameRules
         {
             CreateMainButton(PassTurn, new Localization("MainButton_OneInvestigatorTurn", ActiveInvestigator.InvestigatorCard.Info.Name));
 
-            async Task PassTurn() =>
+            async Task PassTurn()
+            {
                 await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(ActiveInvestigator.CurrentActions, ActiveInvestigator.CurrentActions.Value).Execute();
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ActiveInvestigator.IsPlayingHisTurn, false).Execute();
+            }
         }
 
         private void PreparePlayFromHandEffect()
