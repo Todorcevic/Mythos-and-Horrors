@@ -10,7 +10,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class UndoInvestigatorPhaseWithTests : TestCORE1Preparation
     {
-        protected override TestsType TestsType => TestsType.Debug;
+        //protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator SecondPlayerUndoToFirstPlayer()
@@ -75,6 +75,40 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return taskGameAction.AsCoroutine();
 
             Assert.That(_investigatorsProvider.AllInvestigatorsInPlay.All(investigator => investigator.HasTurnsAvailable.IsFalse), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator UndoChallenge()
+        {
+            yield return StartingScene(withResources: true, withAvatar: true);
+            Investigator investigator = _investigatorsProvider.First;
+
+            _ = MustBeRevealedThisToken(ChallengeTokenType.Value_1);
+            Card toPlay = _cardsProvider.GetCard<Card01538>();
+            Card toPlay2 = _cardsProvider.GetCard<Card01522>();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(toPlay, investigator.HandZone).Execute().AsCoroutine();
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(toPlay2, investigator.HandZone).Execute().AsCoroutine();
+
+            Task taskGameAction = _gameActionsProvider.Create<InvestigatorsPhaseGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
+            yield return ClickedResourceButton();
+            yield return ClickedIn(investigator.CurrentPlace);
+            yield return ClickedIn(toPlay);
+            yield return ClickedIn(toPlay2);
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            yield return ClickedUndoButton();
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
+            yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Third.AvatarCard);
+            yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Fourth.AvatarCard);
+            yield return ClickedMainButton();
+            yield return ClickedIn(investigator.AvatarCard);
+            yield return ClickedMainButton();
+            yield return taskGameAction.AsCoroutine();
+
+            Assert.That(investigator.Keys.Value, Is.EqualTo(0));
         }
     }
 }

@@ -55,10 +55,7 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisPhaseLogic()
         {
-            CommitCardsChallengeGameAction commitableChallengeGameAction = _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this);
-            await commitableChallengeGameAction.Execute();
-            if (commitableChallengeGameAction.IsCancel) return;
-
+            await _gameActionsProvider.Create<CommitCardsChallengeGameAction>().SetWith(this).Execute();
             await _gameActionsProvider.Create<RevealRandomChallengeTokenGameAction>().SetWith(ActiveInvestigator).Execute();
             await _gameActionsProvider.Create<ResolveAllTokensGameAction>().SetWith(ActiveInvestigator).Execute();
             ResultChallenge = _gameActionsProvider.Create<ResultChallengeGameAction>().SetWith(this);

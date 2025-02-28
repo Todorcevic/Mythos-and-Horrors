@@ -35,17 +35,6 @@ namespace MythosAndHorrors.GameRules
         }
 
         /*******************************************************************/
-        //protected override async Task ExecuteThisLogic()
-        //{
-        //    //await base.ExecuteThisLogic();
-        //    //if ((!IsMainButtonPressed && !IsUndoPressed) ||
-        //    //    (ActiveInvestigator.HasTurnsAvailable.IsTrue && ActiveInvestigator.IsPlayingHisTurn.IsActive))
-        //    //if ((IsMainButtonPressed || IsUndoPressed) && !ActiveInvestigator.HasTurnsAvailable.IsTrue) return;
-
-        //    //await _gameActionsProvider.Create<InvestigatorTurnGameAction>().SetWith(ActiveInvestigator).Execute();
-        //}
-
-        /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {
             if (!CanBeExecuted) return;
