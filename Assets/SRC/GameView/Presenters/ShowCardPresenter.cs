@@ -16,9 +16,9 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly AudioComponent _audioComponent;
 
         /*******************************************************************/
-        public async Task PlayAnimationWith(ShowCardsGameAction ShowCardsGameAction)
+        public async Task PlayAnimationWith(ShowCardGameAction showCardsGameAction)
         {
-            if (ShowCardsGameAction.Parent is DrawGameAction) await ShowDrawedCard(ShowCardsGameAction.Cards.Unique());
+            await ShowDrawedCard(showCardsGameAction.Card);
         }
 
         private async Task ShowDrawedCard(Card cardDrawed)

@@ -5964,7 +5964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _withoutAudio: 0
   _withoutMulligan: 1
-  _gameVelocity: 2
+  _gameVelocity: 1
   _languaje: 0
 --- !u!1 &903284071
 GameObject:

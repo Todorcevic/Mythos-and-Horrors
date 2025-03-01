@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ModestTree;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,23 +43,29 @@ namespace MythosAndHorrors.GameRules
         private async Task SearchLogic(Investigator investigator)
         {
             IEnumerable<Card> cards = investigator.DeckZone.Cards.TakeLast(3);
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
-
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01563"));
+
+            Card cardSelected = null;
+
             foreach (Card card in cards.Where(card => card.HasThisTag(Tag.Spell)))
             {
                 interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectSpell, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01563"));
 
                 /*******************************************************************/
-                async Task SelectSpell() => await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, card).Execute();
+                async Task SelectSpell()
+                {
+                    cardSelected = card;
+                    await Task.CompletedTask;
+                }
             }
 
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
             await interactableGameAction.Execute();
-            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards.Where(card => card.CurrentZone == _chaptersProvider.CurrentScene.LimboZone), investigator.DeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards.Except(cardSelected), investigator.DeckZone, isFaceDown: true).Execute();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Execute();
-
+            if (cardSelected != null) await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSelected).Execute();
         }
 
         /*******************************************************************/

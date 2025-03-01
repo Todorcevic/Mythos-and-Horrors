@@ -36,11 +36,8 @@ namespace MythosAndHorrors.GameRules
 
         private async Task Logic(Investigator investigator)
         {
-            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
-            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
-
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01561"));
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01561"));
             interactableGameAction.CreateCardEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false),
                 SelectDangerDeck, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01561"));
 
@@ -51,18 +48,19 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectDeck()
                 {
                     IEnumerable<Card> cards = inv.DeckZone.Cards.TakeLast(3);
-                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
                     await SortCards(cards, inv);
                 }
             }
-
+            await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
             await interactableGameAction.Execute();
 
             /*******************************************************************/
             async Task SelectDangerDeck()
             {
                 IEnumerable<Card> cards = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.TakeLast(3);
-                await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Execute();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
                 await SortCards(cards, null);
             }
         }
@@ -73,15 +71,14 @@ namespace MythosAndHorrors.GameRules
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01561-1"));
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01561-1"));
             foreach (Card card in cards)
             {
                 interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, new Localization("CardEffect_Card01561-2"), cardAffected: cardAffected);
 
                 async Task SelectCard()
                 {
-                    await _gameActionsProvider.Create<MoveCardsGameAction>()
-                        .SetWith(card, zoneToReturn, isFaceDown: true).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, zoneToReturn, isFaceDown: true).Execute();
                     IEnumerable<Card> newCards = cards.Except(new[] { card });
                     if (newCards.Any()) await SortCards(newCards, owner);
                 }

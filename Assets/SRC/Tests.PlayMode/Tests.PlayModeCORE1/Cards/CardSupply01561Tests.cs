@@ -9,7 +9,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 {
     public class CardSupply01561Tests : TestCORE1Preparation
     {
-        //protected override TestsType TestsType => TestsType.Debug;
+        protected override TestsType TestsType => TestsType.Debug;
 
         [UnityTest]
         public IEnumerator SortCards()
@@ -34,7 +34,6 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(investigator2.InvestigatorCard);
             yield return ClickedIn(card3);
             yield return ClickedIn(card1);
-            yield return ClickedIn(card2);
             yield return AssertThatIsNotClickable(supply);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

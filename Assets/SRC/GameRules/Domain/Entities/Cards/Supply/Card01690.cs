@@ -47,19 +47,19 @@ namespace MythosAndHorrors.GameRules
                 async Task SelectDeck()
                 {
                     IEnumerable<Card> cards = inv.DeckZone.Cards.TakeLast(3);
-                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
                     await SortCards(cards, inv);
                 }
             }
-
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
+            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
             await interactableGameAction.Execute();
 
             /*******************************************************************/
             async Task SelectDangerDeck()
             {
                 IEnumerable<Card> cards = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.TakeLast(3);
-                await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cards).Execute();
+                await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
                 await SortCards(cards, null);
                 await TakeHorror(cards);
             }
@@ -78,8 +78,7 @@ namespace MythosAndHorrors.GameRules
 
                 async Task SelectCard()
                 {
-                    await _gameActionsProvider.Create<MoveCardsGameAction>()
-                        .SetWith(card, zoneToReturn, isFaceDown: true).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, zoneToReturn, isFaceDown: true).Execute();
                     IEnumerable<Card> newCards = cards.Except(new[] { card });
                     if (newCards.Any()) await SortCards(newCards, owner);
                 }

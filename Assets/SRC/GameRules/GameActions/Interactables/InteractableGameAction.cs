@@ -44,11 +44,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             SetUndoButton();
-            if (NoEffect)
-            {
-                int eqw = 0;
-                return;
-            }
+            if (NoEffect) return;
             EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create<PayRequerimentsEffectGameAction>().SetWith(EffectSelected).Execute();
             await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();

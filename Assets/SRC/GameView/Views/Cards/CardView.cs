@@ -125,7 +125,7 @@ namespace MythosAndHorrors.GameView
         public Tween Idle() => transform.DOSpiral(ViewValues.SLOW_TIME_ANIMATION * 4, Vector3.forward, speed: 0.1f, frequency: 1f, depth: 0f, mode: SpiralMode.ExpandThenContract)
                  .SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
 
-        public Tween ShowAnimation() => transform.DOLocalMoveY(4, ViewValues.SLOW_TIME_ANIMATION);
+        public Tween ShowEffect() => transform.DOLocalMoveY(4, ViewValues.SLOW_TIME_ANIMATION);
 
         public Tween MoveToZone(ZoneView newZoneView, Ease ease)
         {

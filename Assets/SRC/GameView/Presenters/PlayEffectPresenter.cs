@@ -20,7 +20,7 @@ namespace MythosAndHorrors.GameView
                 AudioClip audio = _audioComponent.GetAudioEffect(cardEffect);
                 if (audio == null) return;
                 Tween showAnimation = DOTween.Sequence().Join(_moveCardHandler.MoveCardtoCenter(cardEffect.CardOwner))
-                     .Append(_cardViewsManager.GetCardView(cardEffect.CardOwner).ShowAnimation());
+                     .Append(_cardViewsManager.GetCardView(cardEffect.CardOwner).ShowEffect());
                 await _audioComponent.PlayAudioAsync(audio);
                 showAnimation.Kill();
                 _moveCardHandler.ReturnCard(cardEffect.CardOwner);

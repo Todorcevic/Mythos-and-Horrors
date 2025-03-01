@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using ModestTree;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -10,6 +11,7 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Dictionary<Investigator, State> InvestigatorsUsed { get; } = new();
         public override IEnumerable<Tag> Tags => new[] { Tag.Arkham };
@@ -29,21 +31,25 @@ namespace MythosAndHorrors.GameRules
             IEnumerable<CardSupply> supportsInDeck = investigator.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Ally));
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01127"));
+
+            CardSupply cardSelected = null;
             foreach (CardSupply cardSupply in supportsInDeck)
             {
                 interactableGameAction.CreateCardEffect(cardSupply, CreateStat(0), Take, PlayActionType.Choose, investigator, new Localization("CardEffect_Card01127"));
 
                 async Task Take()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSupply).Execute();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(supportsInDeck.Except(new[] { cardSupply })).Execute();
+                    cardSelected = cardSupply;
+                    await Task.CompletedTask;
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(supportsInDeck).Execute();
-            await interactableGameAction.Execute();
-            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(InvestigatorsUsed[investigator], true).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supportsInDeck, _chaptersProvider.CurrentScene.LimboZone).Execute();
+            await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supportsInDeck.Except(cardSelected), investigator.DeckZone, isFaceDown: true).Execute();
+            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(investigator.DeckZone).Execute();
+            if (cardSelected != null) await _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardSelected).Execute();
         }
 
         private bool TakeSupportCondition(Investigator investigator)

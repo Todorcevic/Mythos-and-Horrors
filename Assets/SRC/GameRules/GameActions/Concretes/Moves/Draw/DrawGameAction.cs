@@ -21,7 +21,7 @@ namespace MythosAndHorrors.GameRules
         protected override async Task ExecuteThisLogic()
         {
             await CheckRestore();
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(CardDrawed).Execute();
+            await _gameActionsProvider.Create<ShowCardGameAction>().SetWith(CardDrawed).Execute(); // Wait Show card drawed in PresenterHub
 
             switch (CardDrawed)
             {

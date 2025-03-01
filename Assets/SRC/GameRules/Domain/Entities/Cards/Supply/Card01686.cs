@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using ModestTree;
 
 namespace MythosAndHorrors.GameRules
 {
@@ -10,9 +11,9 @@ namespace MythosAndHorrors.GameRules
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
         [Inject] private readonly InvestigatorsProvider _investigatorsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public override IEnumerable<Tag> Tags => new[] { Tag.Tome, Tag.Item };
-
         public Charge Charge { get; private set; }
 
         /*******************************************************************/
@@ -46,10 +47,11 @@ namespace MythosAndHorrors.GameRules
                 async Task SelecteInvestigator()
                 {
                     List<Card> cardsToShow = inv.DeckZone.Cards.TakeLast(3).ToList();
-                    await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(cardsToShow).Execute();
+
                     InteractableGameAction interactableGameAction2 = _gameActionsProvider.Create<InteractableGameAction>()
                         .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01686-1"));
 
+                    Card cardSelected = null;
                     foreach (Card card in cardsToShow)
                     {
                         interactableGameAction2.CreateCardEffect(card, new Stat(0, false), Draw, PlayActionType.Choose, inv, new Localization("CardEffect_Card01686-1"));
@@ -57,18 +59,23 @@ namespace MythosAndHorrors.GameRules
                         /*******************************************************************/
                         async Task Draw()
                         {
-                            await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(cardsToShow.Except(new[] { card })).Execute();
-                            await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, card).Execute();
-                            await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Execute();
-                            await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
-                            await DecrementCost(card, inv);
+                            cardSelected = card;
+                            await Task.CompletedTask;
                         }
                     }
 
+                    await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsToShow, _chaptersProvider.CurrentScene.LimboZone).Execute();
                     await interactableGameAction2.Execute();
+                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardsToShow.Except(cardSelected), investigator.DeckZone, isFaceDown: true).Execute();
+                    await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(inv.DeckZone).Execute();
+                    if (cardSelected != null)
+                    {
+                        await _gameActionsProvider.Create<DrawGameAction>().SetWith(inv, cardSelected).Execute();
+                        await DecrementCost(cardSelected, inv);
+                    }
                 }
             }
-
             await interactableGameAction.Execute();
         }
 
@@ -83,7 +90,7 @@ namespace MythosAndHorrors.GameRules
             if (playableFromHand.PlayFromHandCondition.IsTrueWith(investigator))
             {
                 InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                    .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01686-2"));
+                    .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01686-2"));
                 interactableGameAction.CreateContinueMainButton();
                 interactableGameAction.CreateCardEffect(card, new Stat(0, false), DecrementLogic, PlayActionType.PlayFromHand,
                     card.ControlOwner, new Localization("CardEffect_Card01686-2"), resourceCost: playableFromHand.ResourceCost);

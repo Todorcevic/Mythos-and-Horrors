@@ -4,12 +4,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Zenject;
+using ModestTree;
+using UnityEngine;
 
 namespace MythosAndHorrors.GameRules
 {
     public class Card01532 : CardSupply, IDamageable, IFearable
     {
         [Inject] private readonly GameActionsProvider _gameActionsProvider;
+        [Inject] private readonly ChaptersProvider _chaptersProvider;
 
         public Stat Health { get; private set; }
         public Stat DamageRecived { get; private set; }
@@ -37,7 +40,7 @@ namespace MythosAndHorrors.GameRules
                 .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01532"));
 
             IEnumerable<CardSupply> tomes = ControlOwner.DeckZone.Cards.OfType<CardSupply>().Where(card => card.HasThisTag(Tag.Tome));
-
+            CardSupply cardSelected = null;
             foreach (CardSupply tome in tomes)
             {
                 interactableGameAction.CreateCardEffect(tome, new Stat(0, false), TakeTome, PlayActionType.Choose, ControlOwner, new Localization("CardEffect_Card01532"));
@@ -45,14 +48,16 @@ namespace MythosAndHorrors.GameRules
                 /*******************************************************************/
                 async Task TakeTome()
                 {
-                    await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, tome).Execute();
-                    await _gameActionsProvider.Create<HideCardsGameAction>().SetWith(tomes.Except(new[] { tome })).Execute();
+                    cardSelected = tome;
+                    await Task.CompletedTask;
                 }
             }
 
-            await _gameActionsProvider.Create<ShowCardsGameAction>().SetWith(tomes).Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomes, _chaptersProvider.CurrentScene.LimboZone).Execute();
             await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(tomes.Except(cardSelected), ControlOwner.DeckZone, isFaceDown: true).Execute();
             await _gameActionsProvider.Create<ShuffleGameAction>().SetWith(ControlOwner.DeckZone).Execute();
+            if (cardSelected != null) await _gameActionsProvider.Create<DrawGameAction>().SetWith(ControlOwner, cardSelected).Execute();
         }
 
         private bool Condition(MoveCardsGameAction moveCardsGameAction)

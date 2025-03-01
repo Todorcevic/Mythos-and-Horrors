@@ -12,7 +12,7 @@ namespace MythosAndHorrors.GameView
         [Inject] private readonly ChallengePresenter _challengePresenter;
         [Inject] private readonly PhaseChangePresenter _changePhasePresenter;
         [Inject] private readonly ChangePositionPresenter _chagePositionPresenter;
-        [Inject] private readonly ShowCardPresenter _drawPresenter;
+        [Inject] private readonly ShowCardPresenter _showCardPresenter;
         [Inject] private readonly EliminateInvestigatorPresenter eliminateInvestigatorPresenter;
         [Inject] private readonly FinalizePresenter _finalizePresenter;
         [Inject] private readonly PlayEffectPresenter _playEffectPresenter;
@@ -80,8 +80,8 @@ namespace MythosAndHorrors.GameView
                 case ChangeCardPositionGameAction changeCardPositionGameAction:
                     await _chagePositionPresenter.PlayAnimationWith(changeCardPositionGameAction);
                     break;
-                case ShowCardsGameAction showCardsGameAction:
-                    await _drawPresenter.PlayAnimationWith(showCardsGameAction);
+                case ShowCardGameAction showCardsGameAction:
+                    await _showCardPresenter.PlayAnimationWith(showCardsGameAction);
                     break;
                 case EliminateInvestigatorGameAction eliminateInvestigatorGameAction:
                     await eliminateInvestigatorPresenter.PlayAnimationWith(eliminateInvestigatorGameAction);
