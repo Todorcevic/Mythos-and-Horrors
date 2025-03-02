@@ -23,6 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             yield return AssertThatIsNotClickable(supply);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();

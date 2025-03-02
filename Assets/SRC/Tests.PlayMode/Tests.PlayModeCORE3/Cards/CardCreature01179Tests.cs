@@ -23,6 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<HarmToCardGameAction>().SetWith(creature, investigator.InvestigatorCard, amountDamage: 3).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return gameActionTask.AsCoroutine();
 

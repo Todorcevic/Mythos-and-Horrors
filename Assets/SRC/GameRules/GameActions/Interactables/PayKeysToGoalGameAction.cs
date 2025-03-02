@@ -20,20 +20,13 @@ namespace MythosAndHorrors.GameRules
 
         public PayKeysToGoalGameAction SetWith(CardGoal cardGoal, IEnumerable<Investigator> investigatorsToPay)
         {
-            base.SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_PayKeysToGoal", cardGoal.Keys.Value.ToString(), cardGoal.CurrentName));
+            base.SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_PayKeysToGoal", cardGoal.Keys.Value.ToString(), cardGoal.CurrentName));
             CardGoal = cardGoal;
             InvestigatorsToPay = investigatorsToPay;
             ExecuteSpecificInitialization();
             return this;
         }
-        /*******************************************************************/
-        protected override async Task ExecuteThisLogic()
-        {
-            await base.ExecuteThisLogic();
-            if (IsMainButtonPressed || IsUndoPressed) return;
 
-            await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(CardGoal, InvestigatorsToPay).Execute();
-        }
         /*******************************************************************/
         private void ExecuteSpecificInitialization()
         {

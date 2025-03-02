@@ -23,6 +23,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(SceneCORE1.GhoulSecuaz, investigator.DangerZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedIn(conditionCard);
             yield return ClickedResourceButton();
             yield return ClickedMainButton();

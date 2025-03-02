@@ -84,6 +84,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardPlot, _chaptersProvider.CurrentScene.PlotZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 

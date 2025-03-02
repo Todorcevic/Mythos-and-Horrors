@@ -36,7 +36,7 @@ namespace MythosAndHorrors.GameRules
         private async Task Logic(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01690"));
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01690"));
             interactableGameAction.CreateCardEffect(_chaptersProvider.CurrentScene.CardDangerToDraw, new Stat(0, false), SelectDangerDeck,
                 PlayActionType.Choose, investigator, new Localization("CardEffect_Card01690"));
 
@@ -48,43 +48,47 @@ namespace MythosAndHorrors.GameRules
                 {
                     IEnumerable<Card> cards = inv.DeckZone.Cards.TakeLast(3);
                     await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
-                    await SortCards(cards, inv);
+                    await SortCards(inv);
                 }
             }
             await _gameActionsProvider.Create<DecrementStatGameAction>().SetWith(Charge.Amount, 1).Execute();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Exausted, true).Execute();
             await interactableGameAction.Execute();
+            await _gameActionsProvider.Create<StopUndoGameAction>().Execute();
 
             /*******************************************************************/
             async Task SelectDangerDeck()
             {
                 IEnumerable<Card> cards = _chaptersProvider.CurrentScene.DangerDeckZone.Cards.TakeLast(3);
                 await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cards, _chaptersProvider.CurrentScene.LimboZone).Execute();
-                await SortCards(cards, null);
+                await SortCards(null);
                 await TakeHorror(cards);
             }
         }
 
-        private async Task SortCards(IEnumerable<Card> cards, Owner owner)
+        private async Task SortCards(Owner owner)
         {
             Zone zoneToReturn = owner is Investigator investigator ? investigator.DeckZone : _chaptersProvider.CurrentScene.DangerDeckZone;
             Card cardAffected = owner is Investigator investigator2 ? investigator2.InvestigatorCard : null;
 
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
                 .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01690-1"));
-            foreach (Card card in cards)
+
+            Card cardSelected = null;
+            foreach (Card card in _chaptersProvider.CurrentScene.LimboZone.Cards)
             {
                 interactableGameAction.CreateCardEffect(card, new Stat(0, false), SelectCard, PlayActionType.Choose, ControlOwner, new Localization("CardEffect_Card01690-2"), cardAffected: cardAffected);
 
                 async Task SelectCard()
                 {
-                    await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card, zoneToReturn, isFaceDown: true).Execute();
-                    IEnumerable<Card> newCards = cards.Except(new[] { card });
-                    if (newCards.Any()) await SortCards(newCards, owner);
+                    cardSelected = card;
+                    await Task.CompletedTask;
                 }
             }
 
             await interactableGameAction.Execute();
+            if (cardSelected != null) await _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(cardSelected, zoneToReturn, isFaceDown: true).Execute();
+            if (_chaptersProvider.CurrentScene.LimboZone.Cards.Any()) await SortCards(owner);
         }
 
         private async Task TakeHorror(IEnumerable<Card> cards)

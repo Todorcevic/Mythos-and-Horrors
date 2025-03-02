@@ -25,7 +25,7 @@ namespace MythosAndHorrors.GameRules
         {
             await _gameActionsProvider.Create<UpdateStatGameAction>().SetWith(Charge.Amount, 1).Execute();
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_Card01135"));
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_Card01135"));
 
             if (investigator.CanPayKeys.IsTrue)
                 interactableGameAction.CreateCardEffect(this, new Stat(0, false), SpendClue, PlayActionType.Choose, playedBy: investigator, new Localization("CardEffect_Card01135"));

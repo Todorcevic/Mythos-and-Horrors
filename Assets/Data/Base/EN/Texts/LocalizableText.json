@@ -258,7 +258,7 @@
     "OptativeReaction_Card01510": "Creatures cannot Attack you",
     "OptativeReaction_Card01522": "Gain 1<sprite index=38>",
     "OptativeReaction_Card01523": "Avoid attack",
-    "OptativeReaction_Card01556": "Change Token value",
+    "OptativeReaction_Card01556": "Swap Token value",
     "OptativeReaction_Card01580": "Gain +2<sprite index=58> to this Challenge",
     "OptativeReaction_Card01565": "Avoid revelation Card",
     "OptativeReaction_Card01568": "Ignore Creature effects",

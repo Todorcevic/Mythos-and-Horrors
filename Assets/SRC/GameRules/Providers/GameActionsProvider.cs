@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +45,6 @@ namespace MythosAndHorrors.GameRules
         {
             InteractableGameAction lastInteractableToUndo = GetInteractableToUndo();
             if (lastInteractableToUndo == null) return false;
-            if (lastInteractableToUndo.GetUniqueEffect() != null) return false;
 
             foreach (GameAction gameAction in _allGameActionsExecuted)
             {

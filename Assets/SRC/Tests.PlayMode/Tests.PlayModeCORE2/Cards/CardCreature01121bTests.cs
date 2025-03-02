@@ -4,7 +4,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 using MythosAndHorrors.PlayMode.Tests;
-using UnityEngine;
 
 namespace MythosAndHorrors.PlayModeCORE2.Tests
 {
@@ -80,6 +79,7 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(maskedHunter, investigator.DangerZone).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, shadow).Execute();
+            yield return ClickedIn(shadow);
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));

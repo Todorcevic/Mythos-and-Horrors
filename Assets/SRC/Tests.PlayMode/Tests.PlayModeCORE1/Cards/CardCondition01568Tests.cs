@@ -24,6 +24,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<SpawnCreatureGameAction>().SetWith(creature, investigator.CurrentPlace).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             AssumeThat(investigator.InvestigatorCard.Blancked.IsActive == true);
             yield return ClickedIn(conditionCard);
             yield return ClickedIn(creature);

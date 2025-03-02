@@ -46,10 +46,16 @@ namespace MythosAndHorrors.GameRules
 
         private async Task PayKeysLogic(RoundGameAction roundGameAction)
         {
-            IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
-                  .Where(investigator => investigator.CurrentPlace == Hallway && investigator.Keys.Value > 0);
+            await _gameActionsProvider.Create<SafeWhile>().SetWith(Condition, PayKey).Execute();
 
-            await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(this, specificInvestigators).Execute();
+            /*******************************************************************/
+            bool Condition() => _investigatorsProvider.AllInvestigatorsInPlay.Any(investigator => investigator.CanPayKeys.IsTrue) && IsInPlay.IsTrue && !Revealed.IsActive && Keys.Value > 0;
+            async Task PayKey()
+            {
+                IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
+                        .Where(investigator => investigator.CurrentPlace == Hallway && investigator.CanPayKeys.IsTrue);
+                await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(this, specificInvestigators).Execute();
+            }
         }
 
         protected override bool PayKeysConditionToActivate(Investigator investigator) => false;

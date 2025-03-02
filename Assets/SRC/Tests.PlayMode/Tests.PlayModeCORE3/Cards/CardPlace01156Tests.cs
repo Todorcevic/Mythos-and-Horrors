@@ -26,6 +26,7 @@ namespace MythosAndHorrors.PlayModeCORE3.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(investigator, cardPlace).Execute().AsCoroutine();
 
             Task gameActionTask = _gameActionsProvider.Create<RoundGameAction>().Execute();
+            yield return ClickedIn(investigator.AvatarCard);
             yield return ClickedIn(cardPlace);
             yield return ClickedMainButton();
             yield return ClickedMainButton();

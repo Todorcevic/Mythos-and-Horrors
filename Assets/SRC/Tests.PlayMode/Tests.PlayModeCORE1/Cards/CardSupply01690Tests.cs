@@ -3,6 +3,7 @@ using MythosAndHorrors.GameRules;
 using MythosAndHorrors.PlayMode.Tests;
 using NUnit.Framework;
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine.TestTools;
 
@@ -18,12 +19,13 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Investigator investigator = _investigatorsProvider.First;
             yield return BuildCard("01690", investigator);
             Card01690 supply = _cardsProvider.GetCard<Card01690>();
-            Card card1 = _cardsProvider.GetCard<Card01530>();
-            Card card2 = _cardsProvider.GetCard<Card01166>();
-            Card card3 = _cardsProvider.GetCard<Card01525>();
             yield return PlaceOnlyScene();
             yield return PlayThisInvestigator(investigator);
-            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(new[] { card1, card2, card3 }, SceneCORE1.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
+            Card card1 = _chaptersProvider.CurrentScene.DangerCards.SkipLast(1).Last();
+            Card card2 = _chaptersProvider.CurrentScene.DangerCards.SkipLast(2).Last();
+            Card card3 = _cardsProvider.GetCard<Card01166>();
+
+            yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(card3, SceneCORE1.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(supply, investigator.AidZone).Execute().AsCoroutine();
 
             Task taskGameAction = _gameActionsProvider.Create<PlayInvestigatorGameAction>().SetWith(investigator).Execute();

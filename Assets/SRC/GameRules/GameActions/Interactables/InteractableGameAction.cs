@@ -28,7 +28,6 @@ namespace MythosAndHorrors.GameRules
         public Card UniqueCard => AllPlayableEffects.Select(effect => effect.CardOwner).Unique();
         private CardEffect UniqueCardEffect => AllPlayableEffects.Unique();
         public IEnumerable<CardEffect> AllPlayableEffects => _allCardEffects.FindAll(effect => effect.CanBePlayed);
-        public CardEffect GetUniqueEffect() => (MainButtonEffect == null && UndoEffect == null && IsUniqueEffect) ? UniqueCardEffect : null;
         public BaseEffect GetUniqueMainButton() => MainButtonEffect != null && !AllPlayableEffects.Any() && MustShowInCenter ? MainButtonEffect : null;
 
         /*******************************************************************/
@@ -45,7 +44,7 @@ namespace MythosAndHorrors.GameRules
         {
             SetUndoButton();
             if (NoEffect) return;
-            EffectSelected = GetUniqueEffect() ?? GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
+            EffectSelected = GetUniqueMainButton() ?? await _interactablePresenter.SelectWith(this);
             await _gameActionsProvider.Create<PayRequerimentsEffectGameAction>().SetWith(EffectSelected).Execute();
             await _gameActionsProvider.Create<PlayEffectGameAction>().SetWith(EffectSelected).Execute();
         }

@@ -38,6 +38,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
 
             Task drawTask = _gameActionsProvider.Create<DrawGameAction>().SetWith(investigator, cardAdversity).Execute();
             yield return ClickedMainButton();
+            yield return ClickedIn(supply);
             yield return drawTask.AsCoroutine();
             Assert.That(supply.CurrentZone, Is.EqualTo(investigator.DiscardZone));
         }

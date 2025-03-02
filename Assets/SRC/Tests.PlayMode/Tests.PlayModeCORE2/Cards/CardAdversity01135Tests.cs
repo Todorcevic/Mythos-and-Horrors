@@ -39,9 +39,9 @@ namespace MythosAndHorrors.PlayModeCORE2.Tests
             yield return PlayThisInvestigator(investigator);
             Card01135 adversityCard = _cardsProvider.GetCard<Card01135>();
             yield return _gameActionsProvider.Create<MoveCardsGameAction>().SetWith(adversityCard, SceneCORE2.DangerDeckZone, isFaceDown: true).Execute().AsCoroutine();
-
-            yield return _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute().AsCoroutine();
-
+            Task task = _gameActionsProvider.Create<DrawDangerGameAction>().SetWith(investigator).Execute();
+            yield return ClickedIn(adversityCard);
+            yield return task.AsCoroutine();
             Assert.That(investigator.DamageRecived.Value, Is.EqualTo(2));
             Assert.That(adversityCard.CurrentZone, Is.EqualTo(SceneCORE2.DangerDiscardZone));
         }

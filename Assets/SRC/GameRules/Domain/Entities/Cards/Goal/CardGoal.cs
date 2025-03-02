@@ -66,11 +66,19 @@ namespace MythosAndHorrors.GameRules
         protected abstract Task CompleteEffect();
 
         /*******************************************************************/
-        protected virtual async Task PayKeysActivate(Investigator activeInvestigator) =>
+        protected virtual async Task PayKeysActivate(Investigator activeInvestigator)
+        {
+            await _gameActionsProvider.Create<SafeWhile>().SetWith(Condition, PayKey).Execute();
 
-            await _gameActionsProvider.Create<PayKeysToGoalGameAction>()
-            .SetWith(this, _investigatorsProvider.AllInvestigatorsInPlay.Where(investigator => investigator.CanPayKeys.IsTrue))
-            .Execute();
+            /*******************************************************************/
+            bool Condition() => _investigatorsProvider.AllInvestigatorsInPlay.Any(investigator => investigator.CanPayKeys.IsTrue) && IsInPlay.IsTrue && !Revealed.IsActive && Keys.Value > 0;
+            async Task PayKey()
+            {
+                IEnumerable<Investigator> specificInvestigators = _investigatorsProvider.AllInvestigatorsInPlay
+                        .Where(investigator => investigator.CanPayKeys.IsTrue);
+                await _gameActionsProvider.Create<PayKeysToGoalGameAction>().SetWith(this, specificInvestigators).Execute();
+            }
+        }
 
         protected virtual bool PayKeysConditionToActivate(Investigator activeInvestigator)
         {

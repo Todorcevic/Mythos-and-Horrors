@@ -50,6 +50,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return ClickedIn(assetCard);
             yield return ClickedIn(investigator.CurrentPlace);
             yield return ClickedMainButton();
+            yield return ClickedIn(_investigatorsProvider.Second.AvatarCard);
             yield return ClickedMainButton();
             yield return taskGameAction.AsCoroutine();
 
