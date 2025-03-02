@@ -39,8 +39,8 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Execute();
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.Third, SceneCORE1.Hallway).Execute().AsCoroutine();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
-            yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(_investigatorsProvider.Fourth.HandZone.Cards.First());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(4));
@@ -57,9 +57,9 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
             yield return _gameActionsProvider.Create<MoveInvestigatorToPlaceGameAction>().SetWith(_investigatorsProvider.First, SceneCORE1.Hallway).Execute().AsCoroutine();
             Task gameActionTask = _gameActionsProvider.Create<SafeForeach<Investigator>>().SetWith(AllInvestigatorsInStudy, DiscardSelectionAndMoveInvestigatorToStudy).Execute();
             yield return ClickedIn(_investigatorsProvider.Second.HandZone.Cards.First());
-            yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return ClickedIn(_investigatorsProvider.Third.HandZone.Cards.First());
             yield return ClickedIn(_investigatorsProvider.Fourth.HandZone.Cards.First());
+            yield return ClickedIn(investigator.HandZone.Cards.First());
             yield return gameActionTask.AsCoroutine();
 
             Assert.That(investigator.HandSize, Is.EqualTo(4));
@@ -119,7 +119,7 @@ namespace MythosAndHorrors.PlayModeCORE1.Tests
         private async Task DiscardSelectionAndMoveInvestigatorToStudy(Investigator investigator)
         {
             InteractableGameAction interactableGameAction = _gameActionsProvider.Create<InteractableGameAction>()
-                .SetWith(canBackToThisInteractable: true, mustShowInCenter: true, new Localization("Interactable_TestsPurpose"));
+                .SetWith(canBackToThisInteractable: false, mustShowInCenter: true, new Localization("Interactable_TestsPurpose"));
 
             foreach (Card card in investigator.HandZone.Cards)
             {

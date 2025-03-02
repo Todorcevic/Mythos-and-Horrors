@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
 {
     public class SafeForeach<T> : GameAction
     {
+        public Dictionary<T, State> ElementsExecuted { get; private set; } = new();
         public Func<IEnumerable<T>> Collection { get; private set; }
         public Func<T, Task> Logic { get; private set; }
         public State Initilized { get; private set; }
@@ -23,19 +25,21 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
+            //T element = elementsExecuted.Keys.FirstOrDefault(element => !elementsExecuted[element].IsActive);
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, true).Execute();
-            List<T> elementsExecuted = new();
-            T element = Collection().FirstOrDefault();
             await ResolveLogic();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, false).Execute();
 
             /*******************************************************************/
             async Task ResolveLogic()
             {
+                Collection().Except(ElementsExecuted.Keys).ForEach(element => ElementsExecuted.Add(element, new State(false)));
+                T element = ElementsExecuted.Keys.FirstOrDefault(element => !ElementsExecuted[element].IsActive);
                 if (element == null || !Initilized.IsActive) return;
-                await Logic.Invoke(element);
-                elementsExecuted.Add(element);
-                element = Collection().Except(elementsExecuted).FirstOrDefault();
+                if (Collection().Contains(element)) await Logic.Invoke(element);
+                await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ElementsExecuted[element], true).Execute();
+                //elementsExecuted.Add(element);
+                //element = elementsExecuted.Keys.FirstOrDefault(element => !elementsExecuted[element].IsActive);
                 await ResolveLogic();
             }
         }
