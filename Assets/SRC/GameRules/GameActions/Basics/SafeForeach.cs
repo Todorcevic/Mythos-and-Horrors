@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace MythosAndHorrors.GameRules
@@ -25,7 +24,6 @@ namespace MythosAndHorrors.GameRules
         /*******************************************************************/
         protected override async Task ExecuteThisLogic()
         {
-            //T element = elementsExecuted.Keys.FirstOrDefault(element => !elementsExecuted[element].IsActive);
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, true).Execute();
             await ResolveLogic();
             await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(Initilized, false).Execute();
@@ -38,8 +36,6 @@ namespace MythosAndHorrors.GameRules
                 if (element == null || !Initilized.IsActive) return;
                 if (Collection().Contains(element)) await Logic.Invoke(element);
                 await _gameActionsProvider.Create<UpdateStatesGameAction>().SetWith(ElementsExecuted[element], true).Execute();
-                //elementsExecuted.Add(element);
-                //element = elementsExecuted.Keys.FirstOrDefault(element => !elementsExecuted[element].IsActive);
                 await ResolveLogic();
             }
         }
